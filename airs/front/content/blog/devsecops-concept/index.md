@@ -28,7 +28,7 @@ but also that security is everybody's business.
 You have probably noticed
 that seemingly everyone is jumping on the [DevSecOps](../../solutions/devsecops/)
 bandwagon.
-Just last year,
+Just in 2021,
 about 36% of respondents
 in GitLab's worldwide
 [DevSecOps survey study](https://learn.gitlab.com/c/2021-devsecops-report?x=u5RjB_)
@@ -79,8 +79,8 @@ Great as DevOps may sound,
 there's no point in releasing fast
 if the product might be riddled with bugs.
 Teams attempt to prevent this
-by implementing DevSecOps, meaning
-they assess their code with security testing automated tools
+by [implementing DevSecOps](../how-to-implement-devsecops),
+meaning they assess their code with security testing automated tools
 or manual techniques.
 They do this during the entire development lifecycle (SDLC).
 That's right: from its beginning to its end.
@@ -241,7 +241,7 @@ as they are usually responsible for closing the gaps.
 
 ## Benefits of DevSecOps
 
-Forrester's report last year
+Forrester's 2021 report
 on the state of application security
 [showed](https://securityboulevard.com/2021/04/forresters-state-of-application-security-report-2021-key-takeaways/)
 that 30% of security decision-makers surveyed in 2020
@@ -278,8 +278,12 @@ DevSecOps may also enable your team to save on remediation costs.
 "Well, sign me up! How can I start?"
 It's good that you ask!
 Fortunately,
-[there is some advice](https://www.infoq.com/articles/evolve-devops-devsecops/)
-on evolving DevOps to DevSecOps.
+we offer a complete guide on [how to implement DevSecOps](../how-to-implement-devsecops)
+in a dedicated post.
+Here,
+we'll give you a simple advice on
+how to evolve DevOps to DevSecOps.
+
 You may start
 by deciding to **expand shared responsibility and ownership**
 of the software
@@ -321,12 +325,21 @@ Be sure to [check it out](../what-does-a-devsecops-engineer-do/).
 
 It's vital to show a commitment to security
 and enhance DevSecOps capabilities.
-We believe that best practices can be extracted
-from items used in GitLab's
-[DevSecOps Methodology Assessment](https://learn.gitlab.com/c/devsecops-assessment?x=u5RjB_).
-Thus, we offer the following:
+We have identified a set of best practices,
+which we talk about more extensively
+in a [dedicated blog post](../devsecops-best-practices).
+Here,
+we make a brief summary:
 
-- **Culture:**
+- **Collaboration:**
+  Encouraging prompt communication
+  and making it possible for the entire project team
+  to find out where the vulnerabilities are in the code,
+  who introduced them,
+  what's been done about them
+  and their remediation status.
+
+- **Cybersecurity awareness:**
   Regularly informing employees about company-wide security policies
   (vital for maintaining cybersecurity awareness);
   educating them to incorporate security practices
@@ -345,14 +358,6 @@ Thus, we offer the following:
   this way they can fix them
   before the security team reviews the scan results.
 
-- **Collaboration:**
-  Encouraging prompt communication
-  and making it possible for the entire project team
-  to find out where the vulnerabilities are in the code,
-  who introduced them,
-  what's been done about them
-  and their remediation status.
-
 - **Automation:**
   Successfully integrating security into the CI/CD pipelines,
   so that every change in the code is automatically scanned,
@@ -361,10 +366,30 @@ Thus, we offer the following:
   (whichever is the organization policy)
   in case a vulnerability is found.
 
+- **Break the build:**
+  Preventing vulnerable code from reaching production
+  and fixing it promptly,
+  thus cutting remediation time by [up to about 30%](https://try.fluidattacks.com/state-of-attacks-2022/).
+
+- **Code dependencies audits:**
+  Inventoring code dependencies regularly
+  and keeping them up to date.
+
 - **Security standards:**
   Automating the use of security standards,
   evaluated and set by the security team,
-  and regularly evaluating compliance.
+  and regularly evaluating compliance
+  and the integrity of the systems' physical components,
+  network security
+  and employee behavior.
+
+- **Threat modeling and risk assessments:**
+  Identifying the entire attack surface
+  and possible attack vectors for information systems.
+
+- **Regular penetration tests:**
+  Having ethical hackers assess the security of your systems
+  throughout the SDLC.
 
 And what are the phases of DevSecOps adoption?
 It's ideal
@@ -374,6 +399,8 @@ Some, like automation,
 may become more sophisticated
 as you become more mature
 in DevSecOps.
+For a detailed DevSecOps roadmap,
+go to [our dedicated blog post](../how-to-implement-devsecops).
 
 ## Shift-left security
 
@@ -537,7 +564,7 @@ concludes Oscar.
 
 <div class="title">
 
-To 'break the build' means to stop the software deployment process
+To 'break the build' means to stop the software deployment process.
 Image taken from [citymetric.com](https://www.citymetric.com/sites/default/files/article_2015/01/149818154.jpg).
 
 </div>
@@ -611,4 +638,4 @@ and get all your DevSecOps questions answered,
 [contact us](../../contact-us/)\!
 
 > **Note:**
-> This document was last updated on June 13, 2022.
+> This document was last updated on August 16, 2022.

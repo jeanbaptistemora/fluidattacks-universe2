@@ -16,7 +16,7 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/bwr9XpsYK98
 ---
 
-[DevSecOps](../what-is-devsecops/) is a methodology
+[DevSecOps](../what-is-devsecops/) is a culture
 that results from expanding responsibility for security
 to organizational functions,
 especially development and operations.
@@ -27,7 +27,8 @@ processes
 and technologies.
 In this blog post,
 we will talk
-about the individuals that lead the enactment of this methodology:
+about the individuals that lead the implementation
+of the DevSecOps culture and mindset:
 DevSecOps engineers.
 
 ## What is a DevSecOps engineer?
@@ -45,10 +46,64 @@ and information technology (IT) infrastructure.
 [Much like](https://devops.com/how-to-become-a-devsecops-engineer/)
 individuals in other IT security roles,
 DevSecOps engineers are familiar with cybersecurity software
-and best practices
+and DevSecOps best practices
 such as conducting risk assessments and threat modeling.
 
+DevSecOps engineers promote cybersecurity awareness
+and are there to empower the rest of the team
+to generate the greatest value in the shortest possible time.
+In the process,
+they ask themselves the following questions:
+
+- How can I ensure
+  that developers deploy the system into production
+  without them having to wait for anyone?
+
+- How can I ensure
+  that each release to production does not have bugs
+  that we have already found in the past (i.e., continuous improvement)?
+
+- Which architecture in a solution is the simplest,
+  so that developers can easily understand and extend it?
+
+The idea of having DevSecOps engineers is to help train every developer
+to be a **security developer**.
+That is,
+instead of having hyper-specialized roles
+(e.g., back-end dev,
+front-end dev,
+infrastructure dev),
+developers have a single,
+fully capable one.
+So they learn to program a bit of everything
+(front-end,
+back-end,
+infrastructure,
+CI/CD,
+etc.)
+and work throughout the whole project,
+from design to test and deployment into production.
+
 ## What are the skills of a DevSecOps engineer?
+
+**Teamwork and communication skills**
+are no doubt something that DevSecOps engineers can't do without.
+Indeed,
+in order to integrate security into DevOps
+(i.e., promoting a secure development process),
+they have to work with others efficiently.
+Also,
+they must be able to communicate their knowledge of threats clearly
+to both their peers and employers.
+This means they often need to express ideas in a more simple way
+and still manage to get the point across.
+
+These experts are familiar with the architecture of applications.
+They are thus qualified to communicate with the team
+if they find vulnerabilities in the design
+and instruct the team on how to fix them.
+This way,
+they empower all developers to be security developers.
 
 It should come as no surprise
 that DevSecOps engineers often prove
@@ -59,7 +114,8 @@ to work out the solution
 to a vulnerability reported in the organization's system.
 [Some of the languages](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer)
 DevSecOps engineers know
-are Java,
+are Bash,
+Java,
 JavaScript,
 Perl,
 PHP,
@@ -79,40 +135,52 @@ Kubernetes,
 Docker
 and Amazon Web Services (AWS).
 
-As we said [in a blog post](../what-is-devsecops/),
-automated security checks are a part of the DevSecOps methodology.
+As we said [here](../what-is-devsecops/)
+and,
+more extensively,
+[here](../devsecops-best-practices/),
+automated security checks,
+within the general process automation logic,
+are a part of the DevSecOps best practices.
 Then,
 DevSecOps engineers often [have](https://devops.com/how-to-become-a-devsecops-engineer/)
 **a good understanding of automated application security testing tools**.
-For example [SAST](../../categories/sast/)
-and [DAST](../../categories/dast/) tools.
+For example,
+static application security testing ([SAST](../../categories/sast/))
+and dynamic application security testing ([DAST](../../categories/dast/))
+tools.
 These professionals must know
 how to [choose and deploy](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer)
 these tools appropriately.
 
-Another useful skill for a DevSecOps engineer is
-**knowing how to conduct risk assessments**.
+When using these tools
+throughout the entire software development lifecycle (SDLC),
+these become part of your DevSecOps tools,
+so to speak.
+At `Fluid Attacks`,
+however,
+we know
+that automated tools generate reports with high rates of false positives
+and false negatives.
+Therefore,
+although we encourage teams to automate tools and processes,
+we see the highest value in manual security testing
+and see performing regular [penetration tests](../../solutions/penetration-testing/)
+as one of the DevSecOps best practices.
+
+Lastly,
+a DevSecOps engineer should
+**know how to conduct risk assessments**.
 They must have rigorous processes to test the security
 of the organization's system
-and analyze its risk exposure.
+and analyze its risk exposure
+in regular security audits.
 To do this effectively,
 they must be [up to date](https://devops.com/how-to-become-a-devsecops-engineer/)
 with DevOps culture and principles,
 cybersecurity threats,
 software
 and best practices.
-
-Lastly,
-**teamwork and communication skills**
-are no doubt something that they can't do without.
-Indeed,
-in order to integrate security into DevOps,
-they have to work with others efficiently.
-Also,
-they must be able to communicate their knowledge of threats clearly
-to both their peers and employers.
-This means they often need to express ideas in a more simple way
-and still manage to get the point across.
 
 ## DevSecOps engineer's responsibilities in organizations
 
@@ -125,7 +193,7 @@ When they find a vulnerability during development,
 they work along with others to fix it asap.
 In this regard,
 they need to be able to present these security issues
-and the solutions they came up with to a varied audience.
+and the solutions they come up with to a varied audience.
 But they are also expected to anticipate threats
 and [add countermeasures](https://www.devopsdigest.com/how-to-become-a-devsecops-engineer)
 to prevent them.
@@ -141,23 +209,31 @@ Teams may feel put out
 with the idea of security maybe being an obstacle
 to fast integration and deployment.
 DevSecOps engineers are then needed to educate
-how best practices like code review improve the overall results
+how [best practices](../devsecops-best-practices/),
+like code review,
+auditing code dependencies
+and breaking the build,
+improve the overall results
 and help comply with security standards.
 
 ## DevSecOps roles and DevSecOps engineers
 
 Within organizations,
 it is possible to have different DevSecOps roles.
-As a piece of opinion ([read it here](https://www.slideshare.net/MichaelMan11/extract-oct-2019-dsolg-rolling-slides))
-says,
-there seem to be three types.
 One is designed for people
 with experience automating infrastructure deployments (e.g., cloud engineers).
-Another role for people with experience
-"designing and implementing security testing tools
-and integrating those into pipelines."
-And yet another
-for people who work along with the development team
+They make it possible for the developers
+to concentrate on building the product
+with a pretty basic knowledge of the infrastructure that supports it.
+
+There is another role for people with experience
+designing and implementing security testing tools
+and integrating them into pipelines (e.g., CI/CD engineers).
+They hand over the CI/CD framework to the developers
+so that they can program all the tests that they find necessary.
+
+And yet another role is for people
+who work along with the development team
 to review,
 triage
 and close vulnerabilities (e.g., [security champions](../secdevops-security-champions/)).
@@ -167,7 +243,7 @@ that a DevSecOps engineer's role covers all three.
 
 ## How to become a DevSecOps engineer
 
-Whether you wish to become one
+If you wish to become one
 or just want to know
 what credentials you should look for in someone's resumé,
 some sites report the degrees that DevSecOps engineers often hold.
@@ -183,11 +259,12 @@ or through an internship.
 In fact,
 it has been advised
 that prospective DevSecOps engineers work first in a non-DevOps IT position
-before getting into DevSecOps.
+before getting into DevOps
+and then into DevSecOps.
 It's also advised to enroll in courses
 that teach DevOps principles and how to build applications securely.
 For example,
-prospective DevSecOps engineers would profit a lot
+prospective DevSecOps engineers would benefit a lot
 from [taking secure coding courses](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer).
 
 Yet another step is to become certified.
@@ -229,6 +306,36 @@ GIAC (Global Information Assurance Certification)
 [Mobile Device Security Analyst](https://www.giac.org/certifications/mobile-device-security-analyst-gmob/)
 and [ISO 27001](https://www.certifiedinfosec.com/iso-27001-lead-auditor/introduction).
 
+## How DevSecOps engineers leverage Continuous Hacking
+
+As mentioned above,
+security has been considered a stopper for development.
+Traditionally,
+security teams audited applications
+and decided on their going into production.
+Continuous Hacking,
+our solution that performs security testing throughout the entire SDLC,
+was designed having two principles in mind:
+
+- Going into production should not be halted by any ongoing manual process:
+  Developers should not have to wait for anybody
+  to deploy the system into production.
+
+- Developers should go first,
+  building functionality into applications,
+  and the security team (i.e., [hackers](../what-is-ethical-hacking/))
+  should follow,
+  testing and reporting.
+
+This way,
+DevSecOps engineers
+and security developers are able to manage application security
+in a continuous manner
+(in DevOps everything must be continuous,
+anything in large phases is very slow
+when you go into production about 70 times a day)
+without stopping the generation of value.
+
 ## Do you want to know more about DevSecOps?
 
 At `Fluid Attacks`,
@@ -251,4 +358,7 @@ As a result,
 enterprises can achieve high remediation rates
 and enhance the security of every commit.
 Do you want to know more about our DevSecOps solution?
-[Contact us](../../contact-us/).
+Contact us by filling out the form below.
+We are happy to answer all your DevSecOps questions.
+Also,
+be sure to check out our [DevSecOps workshop](https://www.credly.com/org/fluidattacks/badge/devsecops-workshop).
