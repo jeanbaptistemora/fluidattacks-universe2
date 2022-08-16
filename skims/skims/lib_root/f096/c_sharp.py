@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
-    get_syntax_object_identifiers,
     yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
@@ -18,6 +17,7 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
+    get_object_identifiers,
 )
 from utils import (
     graph as g,
@@ -140,7 +140,7 @@ def type_name_handling(
                 continue
 
             graph = shard.syntax_graph
-            serial_objs = get_syntax_object_identifiers(graph, serializer)
+            serial_objs = get_object_identifiers(graph, serializer)
             for member in g.filter_nodes(
                 graph,
                 nodes=graph.nodes,
