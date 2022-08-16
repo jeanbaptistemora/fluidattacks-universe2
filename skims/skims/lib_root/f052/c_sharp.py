@@ -2,8 +2,6 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
-    yield_shard_member_access,
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
 )
@@ -152,7 +150,7 @@ def c_sharp_rsa_secure_mode(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
     )
@@ -201,7 +199,7 @@ def c_sharp_aesmanaged_secure_mode(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.CS_AES_SECURE_MODE,
     )
@@ -239,7 +237,7 @@ def c_sharp_insecure_cipher(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.CS_INSECURE_CIPHER,
     )
@@ -281,7 +279,7 @@ def c_sharp_insecure_hash(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_hash.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.CS_INSECURE_HASH,
     )
@@ -301,14 +299,14 @@ def c_sharp_disabled_strong_crypto(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
-            for member in yield_shard_member_access(shard, {"AppContext"}):
-                if not check_member_acces_expression(
-                    shard, member, "SetSwitch"
-                ):
+            for member in yield_syntax_graph_member_access(
+                graph, {"AppContext"}
+            ):
+                if not graph.nodes[member]["member"] == "SetSwitch":
                     continue
-                graph = shard.syntax_graph
-                pred = g.pred_ast(shard.graph, member)[0]
+                pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     evaluation = evaluate(method, graph, path, pred)
                     if (
