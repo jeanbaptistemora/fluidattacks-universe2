@@ -109,6 +109,7 @@ TEST_GROUPS: set[str] = {
     "report",
     "request_vulnerabilities_hold",
     "request_vulnerabilities_verification",
+    "report_machine",
     "request_vulnerabilities_zero_risk",
     "requeue_actions",
     "reset_expired_accepted_findings",
