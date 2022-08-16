@@ -406,52 +406,6 @@ const IconContainerSmall: StyledComponent<
   width: 0.7rem;
 `;
 
-const MainCoverHome: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    flex
-    items-center
-    cover-m
-    cover-s
-    bg-banner-sz
-  `,
-})`
-  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1643995540/airs/home/dark-cover-main.webp");
-  min-height: 100vh;
-`;
-
-const MainContentHome: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    mt-body
-    ph-body
-    mw-1366
-    center
-    w-100
-  `,
-})``;
-
-const HomeImageContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    fr-l
-    w-100
-    w-home-image
-    mt3
-    center
-    pt0-ns
-    pt4
-    pl3
-    tc
-  `,
-})``;
-
 const InnerMainContentHome: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1338,7 +1292,6 @@ export {
   FullWidthContainer,
   GrayDash,
   HeaderContainer,
-  HomeImageContainer,
   IframeContainer,
   InnerContentList,
   InnerListContainer,
@@ -1349,8 +1302,6 @@ export {
   LogoContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,
-  MainContentHome,
-  MainCoverHome,
   MainFooterInfoContainer,
   MarkedPhrase,
   MarkedTitleContainer,

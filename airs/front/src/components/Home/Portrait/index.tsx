@@ -1,14 +1,24 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint react/jsx-no-bind:0 */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0*/
+/* eslint @typescript-eslint/no-unsafe-call: 0*/
+/* eslint @typescript-eslint/no-explicit-any: 0*/
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
-import React from "react";
+import React, { useRef, useState } from "react";
+import YouTube from "react-youtube";
 
 import {
   HomeImageContainer,
-  InnerMainContentHome,
+  HomeVideoContainer,
   MainContentHome,
   MainCoverHome,
+  PlayButtonContainer,
+  PlayImageContainer,
+  TextContainer,
+} from "./styledComponents";
+
+import {
   NewRegularRedButton,
   PhantomRegularRedButton,
 } from "../../../styles/styledComponents";
@@ -22,25 +32,73 @@ const Portrait: React.FC = (): JSX.Element => {
     trackEvent({ action: "product-overview-click", category: "home" });
   };
 
+  const [play, setPlay] = useState(false);
+
+  const [overButton, setOverButton] = useState(false);
+
+  const playerRef = useRef<any>();
+
+  const onPlayOver = (): void => {
+    setOverButton(true);
+  };
+
+  const onPlayLeave = (): void => {
+    setOverButton(false);
+  };
+
+  const opts = {
+    playerVars: {
+      controls: 0,
+    },
+  };
+
+  const activateVideo = (): void => {
+    setPlay(!play);
+    playerRef.current.internalPlayer.playVideo();
+  };
+
+  const hideVideo = (): void => {
+    setPlay(!play);
+  };
+
   return (
     <MainCoverHome>
       <MainContentHome>
-        <HomeImageContainer>
-          <CloudImage
-            alt={"Attacks Surface Management"}
-            src={"/home/portrait-home.png"}
+        <HomeVideoContainer isVisible={play}>
+          <YouTube
+            onEnd={hideVideo}
+            opts={opts}
+            ref={playerRef}
+            videoId={"uxrMcbZWucc"}
           />
+        </HomeVideoContainer>
+        <HomeImageContainer isVisible={play}>
+          <PlayImageContainer>
+            <PlayButtonContainer
+              onClick={activateVideo}
+              onMouseLeave={onPlayLeave}
+              onMouseOver={onPlayOver}
+            >
+              <CloudImage
+                alt={"play button"}
+                src={`/home/${overButton ? "red-play" : "white-play"}`}
+              />
+            </PlayButtonContainer>
+            <CloudImage alt={"intro image"} src={"/home/video-image"} />
+          </PlayImageContainer>
         </HomeImageContainer>
-        <InnerMainContentHome>
+        <TextContainer>
           <Title fColor={"#fff"} fSize={"72"} fSizeM={"48"} fSizeS={"48"}>
             {"Secure your applications with our Continuous Hacking Solution"}
           </Title>
           <Title fColor={"#b0b0bf"} fSize={"32"} marginTop={"1"}>
             {"Accurate automation + AI prioritization + Expert intelligence"}
           </Title>
-          <div className={"cf mt4 mb5"}>
+          <div className={"cf mt4"}>
             <Link className={"no-underline"} to={"/free-trial/"}>
-              <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
+              <NewRegularRedButton
+                className={"mb0-ns mb3 fl mh1 w-auto-ns w-100"}
+              >
                 {"Start free trial"}
               </NewRegularRedButton>
             </Link>
@@ -49,12 +107,12 @@ const Portrait: React.FC = (): JSX.Element => {
               onClick={matomoEvent}
               to={"/product-overview/"}
             >
-              <PhantomRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
+              <PhantomRegularRedButton className={"fl mh1 w-auto-ns w-100"}>
                 {"Product overview"}
               </PhantomRegularRedButton>
             </Link>
           </div>
-        </InnerMainContentHome>
+        </TextContainer>
       </MainContentHome>
     </MainCoverHome>
   );
