@@ -10,10 +10,8 @@ function job_timedoctor_backup {
   local wl_file
 
   local db_creds
-  local timedoctor_creds
 
   db_creds=$(mktemp) \
-    && timedoctor_creds=$(mktemp) \
     && start_date=$(date -d "$(date +%m)/1 -1 month" "+%Y-%m-%d") \
     && end_date=$(date -d "$(date +%m)/1 +0 month - 1 day" "+%Y-%m-%d") \
     && ca_file="timedoctor.computer_activity.${start_date}.${end_date}.singer" \
@@ -22,26 +20,19 @@ function job_timedoctor_backup {
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \
-    && analytics_auth_timedoctor=$(
-      get_project_variable \
-        "${UNIVERSE_API_TOKEN}" \
-        "${CI_PROJECT_ID}" \
-        "analytics_auth_timedoctor"
-    ) \
+      ANALYTICS_TIMEDOCTOR_USER \
+      ANALYTICS_TIMEDOCTOR_PASSWD \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
-    && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap for worklogs' \
     && tap-timedoctor \
-      --auth "${timedoctor_creds}" \
       --start-date "${start_date}" \
       --end-date "${end_date}" \
       --work-logs \
       > wl.singer \
     && echo '[INFO] Running tap for computer_activity' \
     && tap-timedoctor \
-      --auth "${timedoctor_creds}" \
       --start-date "${start_date}" \
       --end-date "${end_date}" \
       --computer-activity \
