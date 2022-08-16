@@ -1,7 +1,6 @@
 from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
     get_object_identifiers,
-    yield_shard_member_access,
+    yield_syntax_graph_member_access,
 )
 from lib_sast.types import (
     ShardDb,
@@ -97,13 +96,13 @@ def service_point_manager_disabled(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
-            for member in yield_shard_member_access(shard, {"AppContext"}):
-                if not check_member_acces_expression(
-                    shard, member, "SetSwitch"
-                ):
+            graph = shard.syntax_graph
+            for member in yield_syntax_graph_member_access(
+                graph, {"AppContext"}
+            ):
+                if not graph.nodes[member]["member"] == "SetSwitch":
                     continue
-                graph = shard.syntax_graph
+
                 pred = g.pred_ast(shard.graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     evaluation = evaluate(method, graph, path, pred)
