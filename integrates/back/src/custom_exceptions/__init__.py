@@ -1600,3 +1600,9 @@ class RequiredFieldToBeUpdate(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A field is required to be updated"
         super(RequiredFieldToBeUpdate, self).__init__(msg)
+
+
+class EventSolutionAlreadySubmitted(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The event solution has been submitted"
+        super(EventSolutionAlreadySubmitted, self).__init__(msg)

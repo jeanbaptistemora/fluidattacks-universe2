@@ -27,6 +27,7 @@ class EventStateStatus(str, Enum):
     CREATED: str = "CREATED"
     OPEN: str = "OPEN"
     SOLVED: str = "SOLVED"
+    SUBMITTED_SOLUTION: str = "SUBMITTED_SOLUTION"
 
 
 class EventSolutionReason(str, Enum):

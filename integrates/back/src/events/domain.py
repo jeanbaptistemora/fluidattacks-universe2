@@ -16,6 +16,7 @@ from context import (
 from custom_exceptions import (
     EventAlreadyClosed,
     EventHasNotBeenSolved,
+    EventSolutionAlreadySubmitted,
     InvalidCommentParent,
     InvalidDate,
     InvalidFileSize,
@@ -455,6 +456,33 @@ async def solve_event(  # pylint: disable=too-many-locals
     if has_reattacks:
         return (reattacks_dict, verifications_dict)
     return ({}, {})
+
+
+async def submit_solution(  # pylint: disable=too-many-arguments
+    loaders: Any,
+    event_id: str,
+    comment: str,
+    other_reason: Optional[str],
+    reason: EventSolutionReason,
+    stakeholder_email: str,
+) -> None:
+    event: Event = await loaders.event.load(event_id)
+    if event.state.status is EventStateStatus.SOLVED:
+        raise EventAlreadyClosed()
+    if event.state.status is EventStateStatus.SUBMITTED_SOLUTION:
+        raise EventSolutionAlreadySubmitted()
+    await events_model.update_state(
+        current_value=event,
+        group_name=event.group_name,
+        state=EventState(
+            modified_by=stakeholder_email,
+            modified_date=datetime_utils.get_iso_date(),
+            other=other_reason,
+            reason=reason,
+            comment=comment,
+            status=EventStateStatus.SUBMITTED_SOLUTION,
+        ),
+    )
 
 
 async def update_event(
