@@ -122,7 +122,7 @@ def _generate_fields() -> Dict[str, Any]:
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
         "max_cvss": 0.0,
-        "oldest_draft": 0,
+        "oldest_draft": {"age": 0, "max_cvss": 0.0},
         "groups": {},
     }
     return fields
@@ -195,6 +195,7 @@ async def _draft_content(
     group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
 
     for draft in group_drafts:
+        cvss: Decimal = findings_domain.get_severity_score(draft.severity)
         vulns: Tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(draft.id)
@@ -212,6 +213,7 @@ async def _draft_content(
                     group=group,
                     user_email=vuln.hacker_email,
                     users_email=users_email,
+                    cvss=cvss,
                 )
 
             elif (
@@ -234,13 +236,15 @@ async def _draft_content(
     LOGGER.info("- draft report generated in group %s", group)
 
 
-def _draft_created_content(  # pylint: disable=too-many-arguments
+def _draft_created_content(
+    *,
     content: Dict[str, Any],
     date_range: int,
     date_report: datetime,
     group: str,
     user_email: str,
     users_email: List[str],
+    cvss: Decimal = Decimal("0.0"),
 ) -> None:
     if user_email in users_email:
         _generate_count_report(
@@ -252,11 +256,12 @@ def _draft_created_content(  # pylint: disable=too-many-arguments
             user_email=user_email,
             allowed_users=users_email,
         )
-        _oldest_draft(content, date_report, user_email)
+        _oldest_draft(content, cvss, date_report, user_email)
 
 
 def _oldest_draft(
     content: Dict[str, Any],
+    cvss: Decimal,
     date_report: datetime,
     user_email: str,
 ) -> None:
@@ -265,8 +270,10 @@ def _oldest_draft(
 
     draft_days = (datetime_utils.get_now().date() - date_report.date()).days
 
-    if content[user_email]["oldest_draft"] < draft_days:
-        content[user_email]["oldest_draft"] = draft_days
+    if content[user_email]["oldest_draft"]["age"] <= draft_days:
+        if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
+            content[user_email]["oldest_draft"]["max_cvss"] = cvss
+        content[user_email]["oldest_draft"]["age"] = draft_days
 
 
 async def _finding_reattacked(  # pylint: disable=too-many-arguments

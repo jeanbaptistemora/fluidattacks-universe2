@@ -22,7 +22,8 @@
 
       <span style="white-space: nowrap;">
         Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities
-        (oldest: {{ oldest_draft }} day(s) ago)
+        (oldest: {{ oldest_draft["age"] }} day(s) ago,
+        max cvss: {{ oldest_draft["max_cvss"] }})
         ({{ count_var_report["draft_created"]["variation"] }}),
         {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities rejected.<br />
 
