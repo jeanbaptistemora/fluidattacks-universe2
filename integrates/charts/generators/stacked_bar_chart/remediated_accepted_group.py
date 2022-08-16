@@ -5,17 +5,23 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.colors import (
     RISK,
     TREATMENT,
+)
+from charts.generators.stacked_bar_chart import (
+    format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_stacked_percentages,
     limit_data,
     RemediatedAccepted,
+)
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_organizations_and_groups,
+    json_dump,
+    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -152,7 +158,7 @@ def format_data(
             x=dict(
                 categories=[group.group_name for group in limited_data],
                 type="category",
-                tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
+                tick=dict(rotate=TICK_ROTATION, multiline=False),
             ),
         ),
         tooltip=dict(
@@ -201,30 +207,29 @@ def format_data(
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    async for org_id, _, org_group_names in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(
-                    loaders, list(org_group_names)
-                ),
-                limit=18,
-            ),
+    header: str = "Group name"
+    async for org_id, _, org_group_names in iterate_organizations_and_groups():
+        document = format_data(
+            data=await get_data_many_groups(loaders, list(org_group_names)),
+            limit=18,
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, group_names in await utils.get_portfolios_groups(
-            org_name
-        ):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(loaders, group_names),
-                ),
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, group_names in await get_portfolios_groups(org_name):
+            document = format_data(
+                data=await get_data_many_groups(loaders, group_names),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 

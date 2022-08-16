@@ -8,6 +8,9 @@ from async_lru import (
 from charts import (
     utils,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data_over_time,
+)
 from charts.generators.stacked_bar_chart.utils import (
     format_document,
     get_current_time_range,
@@ -77,31 +80,40 @@ async def get_many_groups_document(
 
 async def generate_all() -> None:
     y_label: str = "Vulnerabilities"
+    header: str = "Dates"
     list_days: List[int] = [0, 30, 90]
     for days in list_days:
         async for group in utils.iterate_groups():
             group_document: RiskOverTime = await get_group_document(
                 group, days
             )
+            document = format_document(
+                document=get_current_time_range([group_document])[0],
+                y_label=y_label,
+            )
             utils.json_dump(
-                document=format_document(
-                    document=get_current_time_range([group_document])[0],
-                    y_label=y_label,
-                ),
+                document=document,
                 entity="group",
                 subject=group + utils.get_subject_days(days),
+                csv_document=format_csv_data_over_time(
+                    document=document, header=header
+                ),
             )
 
         async for org_id, _, org_groups in (
             utils.iterate_organizations_and_groups()
         ):
+            document = format_document(
+                document=await get_many_groups_document(org_groups, days),
+                y_label=y_label,
+            )
             utils.json_dump(
-                document=format_document(
-                    document=await get_many_groups_document(org_groups, days),
-                    y_label=y_label,
-                ),
+                document=document,
                 entity="organization",
                 subject=org_id + utils.get_subject_days(days),
+                csv_document=format_csv_data_over_time(
+                    document=document, header=header
+                ),
             )
 
         async for org_id, org_name, _ in (
@@ -110,14 +122,18 @@ async def generate_all() -> None:
             for portfolio, groups in await utils.get_portfolios_groups(
                 org_name
             ):
+                document = format_document(
+                    document=await get_many_groups_document(groups, days),
+                    y_label=y_label,
+                )
                 utils.json_dump(
-                    document=format_document(
-                        document=await get_many_groups_document(groups, days),
-                        y_label=y_label,
-                    ),
+                    document=document,
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
                     + utils.get_subject_days(days),
+                    csv_document=format_csv_data_over_time(
+                        document=document, header=header
+                    ),
                 )
 
 
