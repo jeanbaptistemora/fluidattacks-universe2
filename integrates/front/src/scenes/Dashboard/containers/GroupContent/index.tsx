@@ -182,7 +182,7 @@ const GroupContent: React.FC = (): JSX.Element => {
               </div>
             ) : undefined}
           </Card>
-          <HelpModal loadGroups={false} onClose={close} open={show} />
+          <HelpModal onClose={close} open={show} />
         </div>
       ) : (
         <Fragment>

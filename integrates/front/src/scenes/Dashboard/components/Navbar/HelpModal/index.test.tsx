@@ -6,6 +6,8 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_GROUP_SERVICES } from "./queries";
+
 import { HelpModal } from ".";
 import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import { authContext } from "utils/auth";
@@ -41,6 +43,7 @@ describe("helpModal", (): void => {
                   name: "okada",
                 },
               ],
+              userEmail: "",
             },
           },
         },
@@ -82,6 +85,22 @@ describe("helpModal", (): void => {
     const mockedQueries: MockedResponse[] = [
       {
         request: {
+          query: GET_GROUP_SERVICES,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "unittesting",
+              serviceAttributes: [],
+            },
+          },
+        },
+      },
+      {
+        request: {
           query: GET_USER_ORGANIZATIONS_GROUPS,
         },
         result: {
@@ -99,6 +118,7 @@ describe("helpModal", (): void => {
                   name: "okada",
                 },
               ],
+              userEmail: "",
             },
           },
         },
@@ -148,6 +168,22 @@ describe("helpModal", (): void => {
     const mockedQueries: MockedResponse[] = [
       {
         request: {
+          query: GET_GROUP_SERVICES,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "unittesting",
+              serviceAttributes: [],
+            },
+          },
+        },
+      },
+      {
+        request: {
           query: GET_USER_ORGANIZATIONS_GROUPS,
         },
         result: {
@@ -165,6 +201,7 @@ describe("helpModal", (): void => {
                   name: "okada",
                 },
               ],
+              userEmail: "",
             },
           },
         },

@@ -1,5 +1,5 @@
 import type { ApolloError } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -11,22 +11,46 @@ import { REQUEST_GROUPS_UPGRADE_MUTATION } from "./queries";
 
 import { ExternalLink } from "components/ExternalLink";
 import { Modal, ModalConfirm } from "components/Modal";
-import type { IOrganizationGroups } from "scenes/Dashboard/types";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
+import type {
+  IGetUserOrganizationsGroups,
+  IOrganizationGroups,
+} from "scenes/Dashboard/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
 
 interface IUpgradeGroupsModalProps {
-  groups: IOrganizationGroups["groups"];
   onClose: () => void;
 }
 
 const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
-  groups,
   onClose,
 }: IUpgradeGroupsModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const { data } = useQuery<IGetUserOrganizationsGroups>(
+    GET_USER_ORGANIZATIONS_GROUPS,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          Logger.warning("An error occurred fetching user groups", error);
+        });
+      },
+    }
+  );
+  const groups =
+    data === undefined
+      ? []
+      : data.me.organizations.reduce<IOrganizationGroups["groups"]>(
+          (previousValue, currentValue): IOrganizationGroups["groups"] => [
+            ...previousValue,
+            ...currentValue.groups,
+          ],
+          []
+        );
   const upgradableGroups = groups
     .filter(
       (group): boolean =>
