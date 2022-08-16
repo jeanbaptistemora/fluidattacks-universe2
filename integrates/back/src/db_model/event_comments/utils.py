@@ -1,14 +1,14 @@
-from db_model.group_comments.types import (
-    GroupComment,
+from db_model.event_comments.types import (
+    EventComment,
 )
 from dynamodb.types import (
     Item,
 )
 
 
-def format_group_comments(item: Item) -> GroupComment:
-    return GroupComment(
-        group_name=item["group_name"],
+def format_event_comments(item: Item) -> EventComment:
+    return EventComment(
+        event_id=item["event_id"],
         id=item["id"],
         parent_id=item["parent_id"],
         creation_date=item["creation_date"],
