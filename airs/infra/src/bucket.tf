@@ -131,7 +131,7 @@ resource "aws_s3_bucket_cors_configuration" "dev" {
   cors_rule {
     allowed_methods = ["GET", "HEAD"]
     allowed_origins = [
-      "https://fluidattacks.com/",
+      "https://web.eph.fluidattacks.com/",
       "https://salesiq.zoho.com/widget",
       "https://cdnjs.cloudflare.com/"
     ]

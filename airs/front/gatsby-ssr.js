@@ -36,7 +36,7 @@ export const onRenderBody = (
     <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/powershell.min.js"} />,
     <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/xml.min.js"} />,
     <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/shell.min.js"} />,
-    <script src={"highlightjs.js"}/>,
+    <script src={"/highlightjs.js"} crossOrigin="anonymous"/>,
     // End Highlight.js
   ]);
   setHtmlAttributes(HtmlAttributes);
@@ -44,8 +44,9 @@ export const onRenderBody = (
     // Zoho CRM Live Chat
     <script
       id={"zsiqchat"}
-      src={"zohoLiveChat.js"}
+      src={"/zohoLiveChat.js"}
       type={"text/javascript"}
+      crossOrigin="anonymous"
     />,
   ]);
 };
