@@ -74,6 +74,7 @@
     ["request_vulnerabilities_verification"]
     ["request_vulnerabilities_zero_risk"]
     ["requeue_actions"]
+    ["report_machine"]
     ["reset_expired_accepted_findings"]
     ["resources"]
     ["sign_in"]

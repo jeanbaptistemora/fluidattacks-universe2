@@ -1794,6 +1794,33 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__report_machine:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'report_machine'
+  stage: test-code
+  tags:
+    - dev_small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_hold:
   artifacts:
     expire_in: 1 day
@@ -3453,6 +3480,7 @@
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
     - /integrates/back/test/functional__requeue_actions
+    - /integrates/back/test/functional__report_machine
     - /integrates/back/test/functional__reset_expired_accepted_findings
     - /integrates/back/test/functional__resources
     - /integrates/back/test/functional__sign_in
@@ -3470,7 +3498,6 @@
     - /integrates/back/test/functional__update_event
     - /integrates/back/test/functional__update_event_evidence
     - /integrates/back/test/functional__update_event_solving_reason
-    - /integrates/back/test/functional__update_evidence_description
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
@@ -3498,6 +3525,7 @@
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_evidence_description
     - /integrates/back/test/functional__update_evidence
     - /integrates/back/test/functional__update_finding_description
     - /integrates/back/test/functional__update_forces_access_token

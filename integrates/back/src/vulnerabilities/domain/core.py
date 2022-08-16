@@ -874,20 +874,25 @@ async def update_metadata_and_state(
 
 async def verify(
     *,
-    context: Any,
+    loaders: Any,
     modified_date: str,
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
+    context: Optional[Any] = None,
 ) -> bool:
     for vuln_id in closed_vulns_ids:
-        context.loaders.vulnerability.clear(vuln_id)
+        loaders.vulnerability.clear(vuln_id)
 
     list_closed_vulns: List[
         Vulnerability
-    ] = await context.loaders.vulnerability.load_many(sorted(closed_vulns_ids))
-    source: Source = requests_utils.get_source_new(context)
-    user_data = await token_utils.get_jwt_content(context)
-    modified_by = str(user_data["user_email"])
+    ] = await loaders.vulnerability.load_many(sorted(closed_vulns_ids))
+    if context:
+        source: Source = requests_utils.get_source_new(context)
+        user_data = await token_utils.get_jwt_content(context)
+        modified_by = str(user_data["user_email"])
+    else:
+        source = Source.MACHINE
+        modified_by = "machine@fluidattacks.com"
     return all(
         await collect(
             update_metadata_and_state(
