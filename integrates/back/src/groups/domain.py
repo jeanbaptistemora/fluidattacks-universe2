@@ -197,7 +197,6 @@ async def complete_register_for_group_invitation(
     loaders: Any,
     group_access: GroupAccess,
 ) -> bool:
-    coroutines: list[Awaitable[bool]] = []
     invitation = group_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -209,8 +208,9 @@ async def complete_register_for_group_invitation(
         role = invitation.role
         url_token = invitation.url_token
 
+    coroutines: list[Awaitable[None]] = []
     coroutines.append(
-        authz.grant_group_level_role(loaders, email, group_name, role),
+        authz.grant_group_level_role(loaders, email, group_name, role)
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
@@ -220,52 +220,56 @@ async def complete_register_for_group_invitation(
                 loaders, organization_id, email, "user"
             )
         )
-
-    await group_access_domain.update(
-        email=email,
-        group_name=group_name,
-        metadata=GroupAccessMetadataToUpdate(
-            expiration_time=0,
-            has_access=True,
-            invitation=GroupInvitation(
-                is_used=True,
-                role=role,
-                url_token=url_token,
+    coroutines.append(
+        group_access_domain.update(
+            email=email,
+            group_name=group_name,
+            metadata=GroupAccessMetadataToUpdate(
+                expiration_time=0,
+                has_access=True,
+                invitation=GroupInvitation(
+                    is_used=True,
+                    role=role,
+                    url_token=url_token,
+                    responsibility=responsibility,
+                ),
                 responsibility=responsibility,
             ),
-            responsibility=responsibility,
-        ),
+        )
     )
-    if not all(await collect(coroutines)):
-        return False
     if await stakeholders_domain.exists(loaders, email):
         stakeholder: Stakeholder = await loaders.stakeholder.load(email)
         if not stakeholder.is_registered:
-            await collect(
+            coroutines.extend(
                 [
                     stakeholders_domain.register(email),
                     authz.grant_user_level_role(email, "user"),
                 ]
             )
     else:
-        await stakeholders_domain.update(
-            email=email, metadata=StakeholderMetadataToUpdate()
-        )
-
-    enrollment: Enrollment = await loaders.enrollment.load(email)
-    if not enrollment.enrolled:
-        await enrollment_model.add(
-            enrollment=Enrollment(
-                email=email,
-                enrolled=True,
-                trial=Trial(
-                    completed=True,
-                    extension_date=datetime_utils.get_iso_date(),
-                    extension_days=0,
-                    start_date=datetime_utils.get_iso_date(),
-                ),
+        coroutines.append(
+            stakeholders_domain.update(
+                email=email, metadata=StakeholderMetadataToUpdate()
             )
         )
+    enrollment: Enrollment = await loaders.enrollment.load(email)
+    if not enrollment.enrolled:
+        coroutines.append(
+            enrollment_model.add(
+                enrollment=Enrollment(
+                    email=email,
+                    enrolled=True,
+                    trial=Trial(
+                        completed=True,
+                        extension_date=datetime_utils.get_iso_date(),
+                        extension_days=0,
+                        start_date=datetime_utils.get_iso_date(),
+                    ),
+                )
+            )
+        )
+
+    await collect(coroutines)
 
     redis_del_by_deps_soon(
         "confirm_access",
@@ -293,7 +297,7 @@ async def reject_register_for_group_invitation(
     return success
 
 
-async def add_group(  # pylint: disable=too-many-locals
+async def add_group(
     *,
     loaders: Any,
     description: str,
@@ -356,7 +360,6 @@ async def add_group(  # pylint: disable=too-many-locals
     )
     await orgs_domain.add_group_access(loaders, organization_id, group_name)
 
-    success: bool = False
     # Admins are not granted access to the group
     # they are omnipresent
     if user_role != "admin":
@@ -374,22 +377,21 @@ async def add_group(  # pylint: disable=too-many-locals
             if stakeholders_domain.is_fluid_staff(user_email)
             else "user_manager"
         )
-        success = await authz.grant_group_level_role(
+        await authz.grant_group_level_role(
             loaders, user_email, group_name, role
         )
 
     # Notify us in case the user wants any Fluid Service
-    if success:
-        await notifications_domain.new_group(
-            description=description,
-            group_name=group_name,
-            has_machine=has_machine,
-            has_squad=has_squad,
-            organization=organization_name,
-            requester_email=user_email,
-            service=service,
-            subscription=subscription,
-        )
+    await notifications_domain.new_group(
+        description=description,
+        group_name=group_name,
+        has_machine=has_machine,
+        has_squad=has_squad,
+        organization=organization_name,
+        requester_email=user_email,
+        service=service,
+        subscription=subscription,
+    )
 
 
 async def deactivate_all_roots(

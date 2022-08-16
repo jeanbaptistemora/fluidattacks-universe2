@@ -80,17 +80,12 @@ async def _update_stakeholder(
             updated_data, invitation, group
         )
     else:
-        if await authz.grant_group_level_role(
+        await authz.grant_group_level_role(
             loaders, modified_email, group.name, modified_role
-        ):
-            await stakeholders_domain.update_information(
-                info.context, updated_data, group.name
-            )
-        else:
-            LOGGER.error(
-                "Couldn't update stakeholder role",
-                extra={"extra": info.context},
-            )
+        )
+        await stakeholders_domain.update_information(
+            info.context, updated_data, group.name
+        )
 
 
 @convert_kwargs_to_snake_case

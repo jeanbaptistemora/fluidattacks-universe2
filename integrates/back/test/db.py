@@ -469,38 +469,33 @@ async def populate_policies(data: list[Any]) -> bool:
             if policy["level"] == "organization"
         ]
     )
-
-    success = all(
-        await collect(
-            [
-                authz.grant_group_level_role(
-                    loaders=loaders,
-                    email=policy["subject"],
-                    group_name=policy["object"],
-                    role=policy["role"],
-                )
-                for policy in data
-                if policy["level"] == "group"
-            ]
-        )
+    await collect(
+        [
+            authz.grant_group_level_role(
+                loaders=loaders,
+                email=policy["subject"],
+                group_name=policy["object"],
+                role=policy["role"],
+            )
+            for policy in data
+            if policy["level"] == "group"
+        ]
+    )
+    await collect(
+        [
+            group_access_model.update_metadata(
+                email=policy["subject"],
+                group_name=policy["object"],
+                metadata=GroupAccessMetadataToUpdate(
+                    has_access=True,
+                ),
+            )
+            for policy in data
+            if policy["level"] == "group"
+        ]
     )
 
-    if success:
-        await collect(
-            [
-                group_access_model.update_metadata(
-                    email=policy["subject"],
-                    group_name=policy["object"],
-                    metadata=GroupAccessMetadataToUpdate(
-                        has_access=True,
-                    ),
-                )
-                for policy in data
-                if policy["level"] == "group"
-            ]
-        )
-
-    return success
+    return True
 
 
 async def populate_organization_finding_policies(

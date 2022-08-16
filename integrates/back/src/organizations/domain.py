@@ -172,28 +172,26 @@ async def add_credentials(
 
 async def add_group_access(
     loaders: Any, organization_id: str, group_name: str
-) -> bool:
+) -> None:
     stakeholders = await get_stakeholders_emails(loaders, organization_id)
     stakeholders_roles = await collect(
         authz.get_organization_level_role(loaders, email, organization_id)
         for email in stakeholders
     )
-    return all(
-        await collect(
-            group_access_domain.add_access(
-                loaders, stakeholder, group_name, "customer_manager"
-            )
-            for stakeholder, stakeholder_role in zip(
-                stakeholders, stakeholders_roles
-            )
-            if stakeholder_role == "customer_manager"
+    await collect(
+        group_access_domain.add_access(
+            loaders, stakeholder, group_name, "customer_manager"
         )
+        for stakeholder, stakeholder_role in zip(
+            stakeholders, stakeholders_roles
+        )
+        if stakeholder_role == "customer_manager"
     )
 
 
 async def add_stakeholder(
     loaders: Any, organization_id: str, email: str, role: str
-) -> bool:
+) -> None:
     # Check for customer manager granting requirements
     validate_role_fluid_reqs(email, role)
     await org_access_model.update_metadata(
@@ -206,17 +204,12 @@ async def add_stakeholder(
     await authz.grant_organization_level_role(
         loaders, email, organization_id, role
     )
-    success = True
     if role == "customer_manager":
         org_groups = await get_group_names(loaders, organization_id)
-        success = all(
-            await collect(
-                group_access_domain.add_access(loaders, email, group, role)
-                for group in org_groups
-            )
+        await collect(
+            group_access_domain.add_access(loaders, email, group, role)
+            for group in org_groups
         )
-
-    return success
 
 
 async def add_without_group(
@@ -249,7 +242,6 @@ async def update_state(
 async def complete_register_for_organization_invitation(
     loaders: Any, organization_access: OrganizationAccess
 ) -> bool:
-    success: bool = False
     invitation = organization_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -260,8 +252,7 @@ async def complete_register_for_organization_invitation(
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
-    success = await add_stakeholder(loaders, organization_id, email, role)
-
+    await add_stakeholder(loaders, organization_id, email, role)
     await update_organization_access(
         organization_id,
         email,
@@ -277,27 +268,26 @@ async def complete_register_for_organization_invitation(
             "user",
             is_register_after_complete=True,
         )
-
-    if success:
-        enrollment: Enrollment = await loaders.enrollment.load(email)
-        if not enrollment.enrolled:
-            await enrollment_model.add(
-                enrollment=Enrollment(
-                    email=email,
-                    enrolled=True,
-                    trial=Trial(
-                        completed=True,
-                        extension_date=datetime_utils.get_iso_date(),
-                        extension_days=0,
-                        start_date=datetime_utils.get_iso_date(),
-                    ),
-                )
+    enrollment: Enrollment = await loaders.enrollment.load(email)
+    if not enrollment.enrolled:
+        await enrollment_model.add(
+            enrollment=Enrollment(
+                email=email,
+                enrolled=True,
+                trial=Trial(
+                    completed=True,
+                    extension_date=datetime_utils.get_iso_date(),
+                    extension_days=0,
+                    start_date=datetime_utils.get_iso_date(),
+                ),
             )
-        redis_del_by_deps_soon(
-            "confirm_access_organization",
-            organization_id=organization_id,
         )
-    return success
+    redis_del_by_deps_soon(
+        "confirm_access_organization",
+        organization_id=organization_id,
+    )
+
+    return True
 
 
 async def get_access_by_url_token(

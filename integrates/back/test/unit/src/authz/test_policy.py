@@ -131,7 +131,7 @@ async def test_grant_user_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_grant_group_level_role() -> None:
-    assert await grant_group_level_role(
+    await grant_group_level_role(
         get_new_context(), "..TEST2@gmail.com", "group", "user"
     )
     assert (
@@ -160,11 +160,10 @@ async def test_grant_group_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_revoke_group_level_role() -> None:
-
-    assert await grant_group_level_role(
+    await grant_group_level_role(
         get_new_context(), "revoke_group_LEVEL_role@gmail.com", "group", "user"
     )
-    assert await grant_group_level_role(
+    await grant_group_level_role(
         get_new_context(),
         "REVOKE_group_level_role@gmail.com",
         "other-group",

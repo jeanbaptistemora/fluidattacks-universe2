@@ -262,7 +262,7 @@ async def grant_group_level_role(
     email: str,
     group_name: str,
     role: str,
-) -> bool:
+) -> None:
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
@@ -271,22 +271,12 @@ async def grant_group_level_role(
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(role=role),
     )
-    policy = SubjectPolicy(
-        level="group",
-        subject=email,
-        object=group_name,
-        role=role,
-    )
-    success = await put_subject_policy(policy)
-
     # If there is no user-level role for this user add one
     if not await get_user_level_role(loaders, email):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )
         await grant_user_level_role(email, user_level_role)
-
-    return success and await revoke_cached_subject_policies(email)
 
 
 async def grant_organization_level_role(

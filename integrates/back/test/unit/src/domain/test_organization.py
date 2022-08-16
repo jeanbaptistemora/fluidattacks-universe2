@@ -118,7 +118,7 @@ async def test_add_customer_manager_good() -> None:
     user = "org_testgroupmanager2@fluidattacks.com"
     assert not await orgs_domain.has_access(loaders, org_id, user)
 
-    assert await orgs_domain.add_stakeholder(
+    await orgs_domain.add_stakeholder(
         loaders, org_id, user, "customer_manager"
     )
     assert (
