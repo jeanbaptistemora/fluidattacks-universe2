@@ -5,8 +5,8 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
+from charts.generators.stacked_bar_chart import (
+    format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_document,
@@ -15,6 +15,13 @@ from charts.generators.stacked_bar_chart.utils import (
     RISK_OVER_TIME,
     RiskOverTime,
     sum_over_time_many_groups,
+)
+from charts.utils import (
+    get_portfolios_groups,
+    get_subject_days,
+    iterate_groups,
+    iterate_organizations_and_groups,
+    json_dump,
 )
 from dataloaders import (
     Dataloaders,
@@ -25,12 +32,6 @@ from datetime import (
 )
 from db_model.groups.types import (
     GroupUnreliableIndicators,
-)
-from typing import (
-    Dict,
-    Iterable,
-    List,
-    Tuple,
 )
 
 
@@ -66,10 +67,10 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
 
 
 async def get_many_groups_document(
-    groups: Iterable[str],
+    groups: tuple[str, ...],
     days: int,
-) -> Dict[str, Dict[datetime, float]]:
-    group_documents: Tuple[RiskOverTime, ...] = await collect(
+) -> dict[str, dict[datetime, float]]:
+    group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, days) for group in groups), workers=32
     )
 
@@ -81,50 +82,57 @@ async def get_many_groups_document(
 
 async def generate_all() -> None:
     y_label: str = "CVSSF"
-    list_days: List[int] = [0, 30, 90]
+    header: str = "Dates"
+    list_days: list[int] = [0, 30, 90]
     for days in list_days:
-        async for group in utils.iterate_groups():
+        async for group in iterate_groups():
             group_document: RiskOverTime = await get_group_document(
                 group, days
             )
-            utils.json_dump(
-                document=format_document(
-                    document=get_current_time_range([group_document])[0],
-                    y_label=y_label,
-                    tick_format=False,
-                ),
+            document = format_document(
+                document=get_current_time_range([group_document])[0],
+                y_label=y_label,
+                tick_format=False,
+            )
+            json_dump(
+                document=document,
                 entity="group",
-                subject=group + utils.get_subject_days(days),
+                subject=group + get_subject_days(days),
+                csv_document=format_csv_data_over_time(
+                    document=document, header=header
+                ),
             )
 
-        async for org_id, _, org_groups in (
-            utils.iterate_organizations_and_groups()
-        ):
-            utils.json_dump(
-                document=format_document(
-                    document=await get_many_groups_document(org_groups, days),
+        async for org_id, _, org_groups in iterate_organizations_and_groups():
+            document = format_document(
+                document=await get_many_groups_document(org_groups, days),
+                y_label=y_label,
+                tick_format=False,
+            )
+            json_dump(
+                document=document,
+                entity="organization",
+                subject=org_id + get_subject_days(days),
+                csv_document=format_csv_data_over_time(
+                    document=document, header=header
+                ),
+            )
+
+        async for org_id, org_name, _ in iterate_organizations_and_groups():
+            for portfolio, groups in await get_portfolios_groups(org_name):
+                document = format_document(
+                    document=await get_many_groups_document(groups, days),
                     y_label=y_label,
                     tick_format=False,
-                ),
-                entity="organization",
-                subject=org_id + utils.get_subject_days(days),
-            )
-
-        async for org_id, org_name, _ in (
-            utils.iterate_organizations_and_groups()
-        ):
-            for portfolio, groups in await utils.get_portfolios_groups(
-                org_name
-            ):
-                utils.json_dump(
-                    document=format_document(
-                        document=await get_many_groups_document(groups, days),
-                        y_label=y_label,
-                        tick_format=False,
-                    ),
+                )
+                json_dump(
+                    document=document,
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
-                    + utils.get_subject_days(days),
+                    + get_subject_days(days),
+                    csv_document=format_csv_data_over_time(
+                        document=document, header=header
+                    ),
                 )
 
 
