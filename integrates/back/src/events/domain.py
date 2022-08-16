@@ -117,6 +117,9 @@ from settings import (
 from starlette.datastructures import (
     UploadFile,
 )
+from subscriptions.domain import (
+    get_users_subscribed_to_consult,
+)
 from time import (
     time,
 )
@@ -177,6 +180,21 @@ async def add_comment(
         if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
     await event_comments_domain.add(comment_data)
+    if _is_scope_comment(comment_data):
+        schedule(
+            events_mail.send_mail_comment(
+                loaders=loaders,
+                comment_data=comment_data,
+                event_id=event_id,
+                recipients=await get_users_subscribed_to_consult(
+                    loaders=info.context.loaders,
+                    group_name=event.group_name,
+                    comment_type="event",
+                ),
+                user_mail=user_email,
+                group_name=event.group_name,
+            )
+        )
 
 
 async def add_event(
@@ -466,7 +484,9 @@ async def submit_solution(  # pylint: disable=too-many-arguments
     other_reason: Optional[str],
     reason: EventSolutionReason,
     stakeholder_email: str,
+    stakeholder_full_name: str,
 ) -> None:
+    validations.validate_fields([comment])
     event: Event = await loaders.event.load(event_id)
     if event.state.status is EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
@@ -484,6 +504,7 @@ async def submit_solution(  # pylint: disable=too-many-arguments
             content=comment,
             creation_date=datetime_utils.get_iso_date(),
             email=stakeholder_email,
+            full_name=stakeholder_full_name,
         ),
         event_id=event.id,
         parent_comment="0",
@@ -711,3 +732,7 @@ async def get_unsolved_events_by_root(
         for root_id, events in unsolved_events_by_root.items()
         if root_id
     }
+
+
+def _is_scope_comment(comment: EventComment) -> bool:
+    return comment.content.strip() not in {"#external", "#internal"}
