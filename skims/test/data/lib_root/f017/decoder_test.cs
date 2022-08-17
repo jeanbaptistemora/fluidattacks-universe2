@@ -12,5 +12,9 @@ class jwtbuild {
         var insecure_decode2 = decoder.Decode(token, secret, false);
 
         var secure_decode2 = decoder.Decode(token, secret, true);
+
+        bool verified = false;
+        var insecure_decode3 = decoder.Decode(token, secret, verified);
+        var insecure_decode3 = decoder.Decode(token, secret, verify: verified);
     }
 }

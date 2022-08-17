@@ -1,5 +1,4 @@
 from lib_root.utilities.c_sharp import (
-    get_object_identifiers,
     yield_shard_member_access,
     yield_shard_object_creation,
 )
@@ -13,18 +12,15 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Any,
-    Tuple,
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+    get_object_identifiers,
 )
 from utils import (
     graph as g,
-)
-from utils.graph.text_nodes import (
-    node_to_str,
-)
-from utils.string import (
-    split_on_last_dot as split_l,
 )
 
 
@@ -32,56 +28,44 @@ def verify_decoder(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_VERIFY_DECODER
+
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
-            jwt_dec = get_object_identifiers(shard, {"JwtDecoder"})
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            objects_jwt = get_object_identifiers(graph, {"JwtDecoder"})
 
             for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="member_access_expression"
-                ),
-            ):
-                split_node = split_l(node_to_str(shard.graph, member))
-                if split_node[0] in jwt_dec and split_node[1] == "Decode":
-                    pred = g.pred(shard.graph, member)[0]
-                    props = g.get_ast_childs(
-                        shard.graph, pred, depth=4, label_type="argument"
-                    )
-                    if len(props) > 2 and verify_prop(shard.graph, props):
-                        yield shard, member
-
-    def verify_prop(graph: graph_model.Graph, props: Tuple[Any, ...]) -> bool:
-        insecure = False
-        prop_value = g.match_ast(graph, props[2])["__0__"]
-        if graph.nodes[prop_value].get("label_text") == "false":
-            insecure = True
-        elif (
-            g.match_ast(graph, str(prop_value))
-            and graph.nodes[g.match_ast(graph, str(prop_value))["__0__"]].get(
-                "label_text"
-            )
-            == "verify"
-        ):
-            arg = g.pred(
                 graph,
-                str(prop_value),
-            )[0]
-            arg_value = g.get_ast_childs(
-                graph, arg, label_type="boolean_literal"
-            )
-            if graph.nodes[arg_value[0]].get("label_text") == "false":
-                insecure = True
-        return insecure
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                exp = graph.nodes[member]["expression"]
+                memb = graph.nodes[member]["member"]
+                if (
+                    exp in objects_jwt
+                    and memb == "Decode"
+                    and (
+                        al_id := graph.nodes[g.pred(graph, member)[0]].get(
+                            "arguments_id"
+                        )
+                    )
+                    and (test_nid := g.match_ast(graph, al_id).get("__2__"))
+                ):
+                    for path in get_backward_paths(graph, test_nid):
+                        evaluation = evaluate(method, graph, path, test_nid)
+                        if evaluation and evaluation.danger:
+                            yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.017.description",
-        desc_params=dict(lang="C#"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_VERIFY_DECODER,
+        method=method,
     )
 
 
