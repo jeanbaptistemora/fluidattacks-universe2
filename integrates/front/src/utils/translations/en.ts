@@ -1507,6 +1507,8 @@ export const enTranslations: ResourceKey = {
                 "Subscription could not be downgraded, payment intent for Squad failed",
               couldNotBeUpdated:
                 "Subscription could not be updated. Please review your invoices",
+              invalidPaymentBusinessName:
+                "Payment method business name must be match with group business name",
             },
             subscription: "Subscription",
             success: {

@@ -492,6 +492,13 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
               )
             );
             break;
+          case "Exception - Payment method business name must be match with group business name":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.invalidPaymentBusinessName"
+              )
+            );
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.warning("Couldn't update group subscription", updateError);

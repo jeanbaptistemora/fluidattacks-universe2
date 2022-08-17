@@ -8,6 +8,9 @@ from billing import (
 from billing.types import (
     PaymentMethod,
 )
+from custom_exceptions import (
+    InvalidPaymentBusinessName,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -72,6 +75,11 @@ async def mutate(
             payment_methods,
         )
     )[0]
+    if (
+        payment_method.business_name.lower()
+        != str(group.business_name).lower()
+    ):
+        raise InvalidPaymentBusinessName()
     managed: GroupManaged = (
         GroupManaged("UNDER_REVIEW")
         if payment_method.last_four_digits == ""

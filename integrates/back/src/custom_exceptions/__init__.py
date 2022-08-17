@@ -1356,6 +1356,16 @@ class InvalidBillingPaymentMethod(CustomBaseException):
         super(InvalidBillingPaymentMethod, self).__init__(msg)
 
 
+class InvalidPaymentBusinessName(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Payment method business name must be match with "
+            "group business name"
+        )
+
+        super(InvalidPaymentBusinessName, self).__init__(msg)
+
+
 class CouldNotUpdateSubscription(CustomBaseException):
     def __init__(self) -> None:
         msg = (
