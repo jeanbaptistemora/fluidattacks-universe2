@@ -312,6 +312,15 @@ to their assigned treatment:
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
 
+## Status of assigned vulnerabilities
+
+Of all the vulnerabilities
+already assigned,
+it is shown what percentage
+are Open or Close.
+
+![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1660756441/docs/web/analytics/common/status_assigned_vuln.png)
+
 ## Sprint exposure change overall
 
 ![Sprint Exposure Overall](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_exposure_overall.png)
@@ -363,10 +372,14 @@ remediated in the period.
 
 ![Report Technique](https://res.cloudinary.com/fluid-attacks/image/upload/v1657895822/docs/web/analytics/common/report_technique.png)
 
-This pie chart shows you the
-percentage of each technique
-used to report security
-vulnerabilities
+Of all the vulnerabilities
+reported (Open and Closed),
+what is the percentage of
+these according to the
+different types of security
+tests (Sast,
+Dast,
+and Sca).
 
 ## Mean time to reattack
 
