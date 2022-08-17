@@ -29,6 +29,9 @@ from typing import (
     Any,
     Optional,
 )
+from urllib.parse import (
+    urlencode,
+)
 
 
 class AsyncAWSConnection(AIOHttpConnection):
@@ -62,11 +65,12 @@ class AsyncAWSConnection(AIOHttpConnection):
         headers: Optional[dict[str, str]] = None,
     ) -> tuple[int, dict[str, str], str]:
         headers_ = headers if headers else {}
+        query_string = "?" + urlencode(params) if params else ""
         aws_request = AWSRequest(
             data=body,
             headers=headers_,
             method=method.upper(),
-            url="".join([self.url_prefix, self.host, url]),
+            url="".join([self.url_prefix, self.host, url, query_string]),
         )
 
         self.signer.add_auth(aws_request)

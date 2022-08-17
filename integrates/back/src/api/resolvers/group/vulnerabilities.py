@@ -8,9 +8,6 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.utils import (
     format_vulnerability,
 )
-from dynamodb.types import (
-    PageInfo,
-)
 from graphql import (
     GraphQLResolveInfo,
 )
@@ -30,27 +27,32 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
+    after = kwargs.get("after")
+    first = kwargs.get("first", 10)
     query = kwargs.get("search")
     results = await search(
+        after=after,
         exact_filters={"group_name": parent.name},
         index="vulnerabilities",
+        limit=first,
         query=query,
     )
     loaders = info.context.loaders
     draft_ids = tuple(
         draft.id for draft in await loaders.group_drafts.load(parent.name)
     )
-    vulnerabilities = tuple(format_vulnerability(result) for result in results)
-    edges = tuple(
-        VulnerabilityEdge(
-            cursor="",
-            node=vulnerability,
-        )
-        for vulnerability in vulnerabilities
-        if vulnerability.finding_id not in draft_ids
+    vulnerabilities = tuple(
+        format_vulnerability(result) for result in results.items
     )
 
     return VulnerabilitiesConnection(
-        edges=edges,
-        page_info=PageInfo(has_next_page=False, end_cursor=""),
+        edges=tuple(
+            VulnerabilityEdge(
+                cursor=results.page_info.end_cursor,
+                node=vulnerability,
+            )
+            for vulnerability in vulnerabilities
+            if vulnerability.finding_id not in draft_ids
+        ),
+        page_info=results.page_info,
     )

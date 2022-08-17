@@ -1,18 +1,28 @@
+from dynamodb.types import (
+    PageInfo,
+)
 from search.client import (
     get_client,
+)
+from search.types import (
+    SearchResponse,
 )
 from typing import (
     Any,
     Optional,
 )
 
+SCROLL_TIME = "10m"
+
 
 async def search(
     *,
     exact_filters: dict[str, Any],
     index: str,
-    query: Optional[str],
-) -> tuple[dict[str, Any], ...]:
+    limit: int,
+    after: Optional[str] = None,
+    query: Optional[str] = None,
+) -> SearchResponse:
     """
     Searches for items matching both the user input (full-text)
     and the provided filters (exact matches)
@@ -35,6 +45,22 @@ async def search(
             }
         }
     }
-    response: dict[str, Any] = await client.search(body=body, index=index)
+    response: dict[str, Any] = (
+        await client.scroll(scroll_id=after, scroll=SCROLL_TIME)
+        if after
+        else await client.search(
+            body=body,
+            index=index,
+            scroll=SCROLL_TIME,
+            size=limit,
+        )
+    )
+    hits: list[dict[str, Any]] = response["hits"]["hits"]
 
-    return tuple(hit["_source"] for hit in response["hits"]["hits"])
+    return SearchResponse(
+        items=tuple(hit["_source"] for hit in hits),
+        page_info=PageInfo(
+            end_cursor=response["_scroll_id"],
+            has_next_page=len(hits) > 0,
+        ),
+    )
