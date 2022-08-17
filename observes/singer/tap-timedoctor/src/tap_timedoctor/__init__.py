@@ -161,7 +161,9 @@ def sync_worklogs(
                     "project_name": worklog.get("projectName", ""),
                     "start_time": start_time,
                     "end_time": end_time.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                    "edited": 1 if worklog.get("mode", "") == "manual" else 0,
+                    "edited": "1"
+                    if worklog.get("mode", "") == "manual"
+                    else "0",
                     "work_mode": translate_work_mode(worklog.get("mode", "")),
                 },
             }
