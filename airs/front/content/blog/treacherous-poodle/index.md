@@ -21,7 +21,7 @@ discretely refills them with water. Each day sells this gas to his
 clients, unbeknown to an "auditor" in black robes - aka Poodle - paying
 attention to this situation. One day the "auditor" undercover, tells the
 vendor he will only offer gas with less octanage, thus his pipes should
-met certain old requeriments, ignorant of the situation he downgrades
+met certain old requirements, ignorant of the situation he downgrades
 it’s pipes standards until the "auditor" agrees on it.\
 Next day, the "auditor" goes to the station, disguised as a client and
 ask the vendor to refill his car, next he reveals himself telling the
@@ -333,7 +333,7 @@ it’s accepted, each fail means the last byte has to be shifted.
 Plus it has to be done byte by byte on the cipher stream or at least, in
 each byte of the block the attacker wants to know.
 
-## Requeriments
+## Requirements
 
 Although the attack seems quite similar with the `BEAST` attack, it
 relies enterely on a flaw on `SSL/TLS` protocol.

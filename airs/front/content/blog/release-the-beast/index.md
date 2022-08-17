@@ -381,10 +381,10 @@ When the attacker has predicted it, it can act in two ways:
     Of course fewer, if special characters are removed and other
     advanced mechanisms are used, which are out of the scope here.
 
-## Attack requeriments
+## Attack requirements
 
 Although this attack seems dangerous, it only works when the following
-requeriments are met:
+requirements are met:
 
 1. `JavaScript` enabled in browser.
 
