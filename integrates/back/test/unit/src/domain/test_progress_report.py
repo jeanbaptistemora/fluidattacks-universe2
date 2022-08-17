@@ -12,7 +12,7 @@ from schedulers.missing_environment_alert import (
     _send_mail_report as send_mail_missing_environment,
 )
 from schedulers.numerator_report_digest import (
-    _generate_count_report,
+    _common_generate_count_report,
     _send_mail_report,
     _validate_date,
     get_percent,
@@ -139,7 +139,7 @@ def test_validate_date_fail() -> None:
         ],
     ],
 )
-def test_generate_count_report(
+def test_common_generate_count_report(
     *,
     content: Dict[str, Any],
     user_email: str,
@@ -162,7 +162,7 @@ def test_generate_count_report(
     ]
 
     for group, field in zip(groups, fields):
-        _generate_count_report(
+        _common_generate_count_report(
             content=content,
             date_range=date_days,
             date_report=datetime_utils.get_now_minus_delta(days=date_days),
@@ -180,7 +180,7 @@ def test_generate_count_report(
     assert content[user_email]["groups"]["test_group"]["verified"] == 1
     assert content[user_email]["groups"]["test_group"]["released"] == 1
     past_days = 4 if datetime_utils.get_now().weekday() == 1 else date_days + 1
-    _generate_count_report(
+    _common_generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),
@@ -189,7 +189,7 @@ def test_generate_count_report(
         user_email=user_email,
         allowed_users=["test@test.com"],
     )
-    _generate_count_report(
+    _common_generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),

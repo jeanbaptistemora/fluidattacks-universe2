@@ -138,7 +138,39 @@ def _generate_group_fields() -> Dict[str, Any]:
     return fields
 
 
-def _generate_count_report(
+def _common_write_to_dict_today(
+    *,
+    content: Dict[str, Any],
+    user_email: str,
+    field: str,
+    group: str,
+    to_add: int = 1,
+) -> None:
+    if not dict(content[user_email]["groups"]).get(group):
+        content[user_email]["groups"][group] = _generate_group_fields()
+
+    content[user_email]["groups"][group][field] = (
+        int(content[user_email]["groups"][group][field]) + to_add
+    )
+
+    content[user_email][field]["count"]["today"] = (
+        int(content[user_email][field]["count"]["today"]) + to_add
+    )
+
+
+def _common_write_to_dict_yesterday(
+    *,
+    content: Dict[str, Any],
+    user_email: str,
+    field: str,
+    to_add: int = 1,
+) -> None:
+    content[user_email][field]["count"]["past_day"] = (
+        int(content[user_email][field]["count"]["past_day"]) + to_add
+    )
+
+
+def _common_generate_count_report(
     *,
     content: Dict[str, Any],
     date_range: int,
@@ -158,15 +190,12 @@ def _generate_count_report(
             content[user_email] = _generate_fields()
 
         if is_valid_date:
-            if not dict(content[user_email]["groups"]).get(group):
-                content[user_email]["groups"][group] = _generate_group_fields()
-
-            content[user_email]["groups"][group][field] = (
-                int(content[user_email]["groups"][group][field]) + to_add
-            )
-
-            content[user_email][field]["count"]["today"] = (
-                int(content[user_email][field]["count"]["today"]) + to_add
+            _common_write_to_dict_today(
+                content=content,
+                user_email=user_email,
+                field=field,
+                group=group,
+                to_add=to_add,
             )
 
             if field in ["released"]:
@@ -176,9 +205,11 @@ def _generate_count_report(
             if datetime_utils.get_now().weekday() == 1:
                 date_range = 3
             if _validate_date(date_format, date_range + 1, date_range):
-                content[user_email][field]["count"]["past_day"] = (
-                    int(content[user_email][field]["count"]["past_day"])
-                    + to_add
+                _common_write_to_dict_yesterday(
+                    content=content,
+                    user_email=user_email,
+                    field=field,
+                    to_add=to_add,
                 )
 
 
@@ -203,7 +234,6 @@ async def _draft_content(
             ]:
                 _draft_created_content(
                     content=content,
-                    date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
                         vuln.state.modified_date
                     ),
@@ -218,7 +248,7 @@ async def _draft_content(
                 and vuln.state.justification
                 != StateRemovalJustification.EXCLUSION
             ):
-                _generate_count_report(
+                _common_generate_count_report(
                     content=content,
                     date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
@@ -236,7 +266,6 @@ async def _draft_content(
 def _draft_created_content(
     *,
     content: Dict[str, Any],
-    date_range: int,
     date_report: datetime,
     group: str,
     user_email: str,
@@ -244,14 +273,14 @@ def _draft_created_content(
     cvss: Decimal = Decimal("0.0"),
 ) -> None:
     if user_email in users_email:
-        _generate_count_report(
+        if not content.get(user_email):
+            content[user_email] = _generate_fields()
+
+        _common_write_to_dict_today(
             content=content,
-            date_range=date_range,
-            date_report=date_report,
+            user_email=user_email,
             field="draft_created",
             group=group,
-            user_email=user_email,
-            allowed_users=users_email,
         )
         _oldest_draft(content, cvss, date_report, user_email)
 
@@ -290,7 +319,7 @@ async def _finding_reattacked(  # pylint: disable=too-many-arguments
             verification.vulnerability_ids
             and verification.status == FindingVerificationStatus.VERIFIED
         ):
-            _generate_count_report(
+            _common_generate_count_report(
                 content=content,
                 date_range=date_range,
                 date_report=datetime_utils.get_datetime_from_iso_str(
@@ -321,7 +350,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
     ] = await loaders.finding_vulnerabilities.load(finding.id)
 
     for vuln in vulnerabilities:
-        _generate_count_report(
+        _common_generate_count_report(
             content=content,
             date_range=date_range,
             date_report=datetime_utils.get_datetime_from_iso_str(
@@ -386,7 +415,7 @@ async def _toe_input_content(
         )
     )
     for toe_inputs in group_toe_inputs.edges:
-        _generate_count_report(
+        _common_generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.seen_at,
@@ -396,7 +425,7 @@ async def _toe_input_content(
             allowed_users=users_email,
         )
 
-        _generate_count_report(
+        _common_generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.attacked_at,
@@ -420,7 +449,7 @@ async def _toe_line_content(
         GroupToeLinesRequest(group_name=group)
     )
     for toe_lines in group_toe_lines.edges:
-        _generate_count_report(
+        _common_generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_lines.node.attacked_at,
