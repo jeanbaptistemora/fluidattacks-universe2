@@ -389,3 +389,16 @@ This chart shows how long
 reattacks take in number
 of hours. From when a reattack
 is requested until it is executed.
+
+## Files with open vulnerabilities in the last 20 weeks
+
+![In Last Weeks](https://res.cloudinary.com/fluid-attacks/image/upload/v1660771972/docs/web/analytics/common/open_last_20_weeks.png)
+
+From the last 20 weeks,
+you can see the files are
+reported with open vulnerabilities
+and the total number of these.
+The X-axis represents
+the registered files,
+and the total number of
+vulnerabilities on the Y-axis.
