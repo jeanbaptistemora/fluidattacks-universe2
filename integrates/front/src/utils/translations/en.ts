@@ -863,8 +863,7 @@ export const enTranslations: ResourceKey = {
         editTooltip: "Edit the selected git root",
         errors: {
           duplicateNickname:
-            "An active root with the same Nickname already exists " +
-            "please type a new nickname",
+            "A root with the same Nickname already exists please type a new nickname",
           duplicateUrl:
             "An active root with the same URL/branch already exists in this organization.",
           hasVulns:
