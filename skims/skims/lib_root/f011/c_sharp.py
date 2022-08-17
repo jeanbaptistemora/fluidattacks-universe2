@@ -1,6 +1,3 @@
-from lib_root.utilities.c_sharp import (
-    get_object_identifiers,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -15,6 +12,9 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from symbolic_eval.utils import (
+    get_object_identifiers,
 )
 from utils import (
     graph as g,
@@ -68,11 +68,11 @@ def schema_by_url(
 
             if shard.syntax_graph is None:
                 continue
+            s_graph = shard.syntax_graph
 
             obj_identifiers = get_object_identifiers(
-                shard, {"XmlSchemaCollection"}
+                s_graph, {"XmlSchemaCollection"}
             )
-            s_graph = shard.syntax_graph
 
             for m_id in g.filter_nodes(
                 s_graph,

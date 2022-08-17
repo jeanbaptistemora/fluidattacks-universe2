@@ -1,5 +1,4 @@
 from lib_root.utilities.c_sharp import (
-    get_object_identifiers,
     yield_syntax_graph_member_access,
 )
 from lib_sast.types import (
@@ -23,6 +22,7 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
+    get_object_identifiers,
 )
 from utils import (
     graph as g,
@@ -132,9 +132,9 @@ def insecure_shared_access_protocol(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
-            obj_identifiers = get_object_identifiers(shard, {"CloudFile"})
             s_graph = shard.syntax_graph
+
+            obj_identifiers = get_object_identifiers(s_graph, {"CloudFile"})
 
             for nid in g.filter_nodes(
                 s_graph,
