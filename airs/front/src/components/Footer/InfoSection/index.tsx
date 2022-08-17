@@ -14,8 +14,11 @@ const InfoSection: React.FC = (): JSX.Element => (
   <React.Fragment>
     <CopyrightContainer>
       <CopyrightParagraph>
-        {`Copyright © ${new Date().getFullYear()} Fluid Attacks. We hack
-              your software. All rights reserved.`}
+        {[
+          `Copyright © ${new Date().getFullYear()} Fluid Attacks.`,
+          "We hack your software.",
+          "All rights reserved.",
+        ].join(" ")}
       </CopyrightParagraph>
     </CopyrightContainer>
     <FooterInfoLinksContainer>
