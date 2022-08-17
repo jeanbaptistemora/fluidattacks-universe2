@@ -21,8 +21,9 @@ import type {
   Row,
   SortingState,
 } from "@tanstack/react-table";
+import _ from "lodash";
 import type { ChangeEvent, ChangeEventHandler, ReactElement } from "react";
-import React, { useEffect, useState } from "react";
+import React, { isValidElement, useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
@@ -47,6 +48,7 @@ const Table = <TData extends object>({
   initState = undefined,
   onRowClick = undefined,
   rowSelectionSetter = undefined,
+  rowSelectionState = undefined,
   selectionMode = "checkbox",
 }: Readonly<ITableProps<TData>>): JSX.Element => {
   const [columnVisibility, setColumnVisibility] = useState(
@@ -110,6 +112,53 @@ const Table = <TData extends object>({
       sorting,
     },
   });
+
+  /*
+   * Function translateStates() takes the information of rowSelectionState
+   * (row originals) and selects the equivalent rows in the rowSelection so
+   * both are in sync, this is to support unselecting rows outside table
+   */
+
+  useEffect((): void => {
+    if (rowSelectionState === undefined) {
+      return undefined;
+    }
+    table.getRowModel().rows.forEach((row: Row<TData>): void => {
+      if (
+        _.some(rowSelectionState, (selected): boolean =>
+          _.isEqualWith(
+            row.original,
+            selected,
+            (val1, val2): boolean | undefined => {
+              if (
+                (_.isFunction(val1) && _.isFunction(val2)) ||
+                (_.isObject(val1) && isValidElement(val1))
+              ) {
+                return true;
+              }
+
+              return undefined;
+            }
+          )
+        )
+      ) {
+        if (row.getIsSelected()) {
+          return undefined;
+        }
+        row.toggleSelected();
+      } else {
+        if (row.getIsSelected()) {
+          row.toggleSelected();
+        }
+
+        return undefined;
+      }
+
+      return undefined;
+    });
+
+    return undefined;
+  }, [rowSelectionState, table]);
 
   useEffect((): void => {
     rowSelectionSetter?.(
@@ -251,7 +300,6 @@ const Table = <TData extends object>({
                                 (selectionMode === "radio" ? (
                                   <input
                                     checked={row.getIsSelected()}
-                                    name={row.getAllCells()[0].getValue()}
                                     onChange={radioSelectionhandler(row)}
                                     type={selectionMode}
                                   />
