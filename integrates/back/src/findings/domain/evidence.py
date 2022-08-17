@@ -120,7 +120,11 @@ async def remove_evidence(
 
 
 async def update_evidence(
-    loaders: Any, finding_id: str, evidence_id: str, file: UploadFile
+    loaders: Any,
+    finding_id: str,
+    evidence_id: str,
+    file: UploadFile,
+    description: Optional[str] = None,
 ) -> None:
     await validate_evidence(evidence_id, file)
     finding_loader = loaders.finding
@@ -160,7 +164,9 @@ async def update_evidence(
     )
     if evidence:
         evidence_to_update = FindingEvidenceToUpdate(
-            url=filename, modified_date=datetime_utils.get_iso_date()
+            url=filename,
+            modified_date=datetime_utils.get_iso_date(),
+            description=description,
         )
         await findings_model.update_evidence(
             current_value=evidence,

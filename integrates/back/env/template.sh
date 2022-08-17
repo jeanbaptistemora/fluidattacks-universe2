@@ -29,6 +29,8 @@ function main {
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
     && export INTEGRATES_CRITERIA_REQUIREMENTS='__argCriteriaRequirements__' \
     && export INTEGRATES_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__' \
+    && export SKIMS_FLUID_WATERMARK='__argSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png' \
+    && export SKIMS_ROBOTO_FONT='__argSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf' \
     && export STARTDIR="${PWD}" \
     && export TZ=UTC \
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then

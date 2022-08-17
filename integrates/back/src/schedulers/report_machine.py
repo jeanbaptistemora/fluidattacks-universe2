@@ -69,6 +69,9 @@ from finding_comments import (
 from findings import (
     domain as findings_domain,
 )
+from findings.domain.evidence import (
+    update_evidence,
+)
 from findings.types import (
     FindingDraftToAdd,
 )
@@ -95,6 +98,7 @@ from organizations_finding_policies import (
 )
 import os
 import pytz  # type: ignore
+import random
 from settings.various import (
     TIME_ZONE,
 )
@@ -103,7 +107,13 @@ from signal import (
     signal,
     SIGTERM,
 )
+from starlette.datastructures import (
+    UploadFile,
+)
 import tempfile
+from tempfile import (
+    SpooledTemporaryFile,
+)
 from time import (
     time,
 )
@@ -218,7 +228,7 @@ def clarify_blocking(image: Image, ratio: float) -> Image:
     return image
 
 
-def to_png(*, string: str, margin: int = 25) -> BytesIO:
+async def to_png(*, string: str, margin: int = 25) -> UploadFile:
     font = ImageFont.truetype(
         font=os.environ["SKIMS_ROBOTO_FONT"],
         size=18,
@@ -266,7 +276,16 @@ def to_png(*, string: str, margin: int = 25) -> BytesIO:
 
     stream.seek(0)
 
-    return stream
+    file = UploadFile(
+        filename="evidence",
+        content_type="image/png",
+        file=SpooledTemporaryFile(  # pylint: disable=consider-using-with
+            mode="wb"
+        ),
+    )
+    await file.write(stream.read())
+    await file.seek(0)
+    return file
 
 
 async def _create_draft(
@@ -693,29 +712,72 @@ async def add_reattack_justification(
         )
 
 
-async def process_criteria_vuln(
+async def upload_evidences(
+    loaders: Dataloaders,
+    finding: Finding,
+    machine_vulnerabilities: list[dict[str, Any]],
+) -> None:
+    evidence_ids = [("evidence_route_5", "evidence_route_5")]
+    number_of_samples: int = min(
+        len(machine_vulnerabilities), len(evidence_ids)
+    )
+    result_samples: Tuple[dict[str, Any], ...] = tuple(
+        random.sample(machine_vulnerabilities, k=number_of_samples),
+    )
+    evidence_descriptions = [
+        result["message"]["text"] for result in result_samples
+    ]
+    evidence_streams: Tuple[UploadFile, ...] = tuple()
+    for result in result_samples:
+        evidence_streams = (
+            *evidence_streams,
+            await to_png(
+                string=result["locations"][0]["physicalLocation"]["region"][
+                    "snippet"
+                ]["text"]
+            ),
+        )
+    await collect(
+        tuple(
+            update_evidence(
+                loaders,
+                finding.id,
+                evidence_id,
+                evidence_stream,
+                description=evidence_description,
+            )
+            for (evidence_id, _), evidence_stream, evidence_description in zip(
+                evidence_ids, evidence_streams, evidence_descriptions
+            )
+        )
+    )
+
+
+async def process_criteria_vuln(  # pylint: disable=too-many-locals
+    *,
     loaders: Dataloaders,
     group_name: str,
     vulnerability_id: str,
-    criteria_vulnerability: Dict[str, Any],
-    criteria_requirements: Dict[str, Any],
-    **kwargs: Any,
+    criteria_vulnerability: dict[str, Any],
+    criteria_requirements: dict[str, Any],
+    language: str,
+    git_root: GitRoot,
+    sarif_log: dict[str, Any],
+    execution_config: dict[str, Any],
+    organization: str,
+    finding: Optional[Finding] = None,
 ) -> None:
-    finding: Optional[Finding] = kwargs.get("finding", None)
-    git_root: GitRoot = kwargs["git_root"]
-    sarif_log: Dict[str, Any] = kwargs["sarif_log"]
     machine_vulnerabilities = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-    execution_config: Dict[str, Any] = kwargs["execution_config"]
     if finding is None:
         LOGGER.info("Cloud not find a finding for %s", vulnerability_id)
         finding = await _create_draft(
             group_name,
             vulnerability_id,
-            kwargs["language"],
+            language,
             criteria_vulnerability,
             criteria_requirements,
         )
@@ -764,9 +826,10 @@ async def process_criteria_vuln(
             "inputs": [*vulns_to_open["inputs"], *vulns_to_close["inputs"]],
             "lines": [*vulns_to_open["lines"], *vulns_to_close["lines"]],
         },
-        kwargs["organization"],
+        organization,
     ):
         await reattack_future
+    await upload_evidences(loaders, finding, machine_vulnerabilities)
 
 
 async def process_execution(
@@ -807,19 +870,14 @@ async def process_execution(
     group_findings: Tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
-    group_findings = tuple(
-        finding
-        for finding in group_findings
-        if any(rule in finding.title for rule in rules_id)
-    )
     rules_finding: Tuple[Tuple[str, Optional[Finding]], ...] = ()
-    for vuln_id in rules_id:
+    for criteria_vuln_id in rules_id:
         for finding in group_findings:
-            if vuln_id in finding.title:
-                rules_finding = (*rules_finding, (vuln_id, finding))
+            if criteria_vuln_id in finding.title:
+                rules_finding = (*rules_finding, (criteria_vuln_id, finding))
                 break
         else:
-            rules_finding = (*rules_finding, (vuln_id, None))
+            rules_finding = (*rules_finding, (criteria_vuln_id, None))
 
     organization_name = (
         await loaders.organization.load(
@@ -834,11 +892,11 @@ async def process_execution(
     await collect(
         [
             process_criteria_vuln(
-                loaders,
-                group_name,
-                vuln_id,
-                criteria_vulns[vuln_id],
-                criteria_reqs,
+                loaders=loaders,
+                group_name=group_name,
+                vulnerability_id=vuln_id,
+                criteria_vulnerability=criteria_vulns[vuln_id],
+                criteria_requirements=criteria_reqs,
                 finding=finding,
                 language=execution_config["language"],
                 git_root=git_root,

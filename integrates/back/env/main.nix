@@ -15,6 +15,8 @@ makeTemplate {
     __argManifestQueues__ = projectPath "/skims/manifests/queues.json";
     __argCriteriaRequirements__ = projectPath "/common/criteria/src/requirements/data.yaml";
     __argCriteriaVulnerabilities__ = projectPath "/common/criteria/src/vulnerabilities/data.yaml";
+    __argSrcSkimsVendor__ = projectPath "/skims/vendor";
+    __argSrcSkimsStatic__ = projectPath "/skims/static";
   };
   name = "integrates-back-env";
   searchPaths = {
