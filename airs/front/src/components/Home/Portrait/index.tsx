@@ -48,7 +48,7 @@ const Portrait: React.FC = (): JSX.Element => {
 
   const opts = {
     playerVars: {
-      controls: 0,
+      controls: 1,
     },
   };
 
