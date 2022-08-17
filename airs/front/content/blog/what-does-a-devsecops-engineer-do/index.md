@@ -16,7 +16,7 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/bwr9XpsYK98
 ---
 
-[DevSecOps](../what-is-devsecops/) is a culture
+[DevSecOps](../devsecops-concept/) is a culture
 that results from expanding responsibility for security
 to organizational functions,
 especially development and operations.
@@ -27,8 +27,8 @@ processes
 and technologies.
 In this blog post,
 we will talk
-about the individuals that lead the implementation
-of the DevSecOps culture and mindset:
+about the individuals that lead the
+[implementation of the DevSecOps culture and mindset](../how-to-implement-devsecops/):
 DevSecOps engineers.
 
 ## What is a DevSecOps engineer?
@@ -46,7 +46,7 @@ and information technology (IT) infrastructure.
 [Much like](https://devops.com/how-to-become-a-devsecops-engineer/)
 individuals in other IT security roles,
 DevSecOps engineers are familiar with cybersecurity software
-and DevSecOps best practices
+and [DevSecOps best practices](../devsecops-best-practices/)
 such as conducting risk assessments and threat modeling.
 
 DevSecOps engineers promote cybersecurity awareness
@@ -313,7 +313,7 @@ security has been considered a stopper for development.
 Traditionally,
 security teams audited applications
 and decided on their going into production.
-Continuous Hacking,
+[Continuous Hacking](../../services/continuous-hacking/),
 our solution that performs security testing throughout the entire SDLC,
 was designed having two principles in mind:
 

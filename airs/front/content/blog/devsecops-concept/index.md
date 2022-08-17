@@ -50,7 +50,7 @@ what is the difference between DevOps and DevSecOps.
 
 Perhaps as famous a concept as DevSecOps,
 [DevOps](../devops-concept/) is defined as a development methodology
-whose aim is to bridge the gap between development and operations.
+that aims to bridge the gap between development and operations.
 It accomplishes this
 by stressing communication between developers and operators
 and shared responsibility in quality assurance.
@@ -77,10 +77,13 @@ they released code twice as fast thanks to DevOps.
 
 Great as DevOps may sound,
 there's no point in releasing fast
-if the product might be riddled with bugs.
+if the product is riddled with bugs.
 Teams attempt to prevent this
 by [implementing DevSecOps](../how-to-implement-devsecops),
-meaning they assess their code with security testing automated tools
+meaning they adopt a culture
+in which everyone is responsible for security
+and every developer assesses their own code
+with security testing automated tools
 or manual techniques.
 They do this during the entire development lifecycle (SDLC).
 That's right: from its beginning to its end.
@@ -394,7 +397,7 @@ we make a brief summary:
 And what are the phases of DevSecOps adoption?
 It's ideal
 that you start the above practices
-as soon as possible.
+gradually.
 Some, like automation,
 may become more sophisticated
 as you become more mature
@@ -432,9 +435,7 @@ than at the production deployment stage.
 As we mentioned earlier,
 it's ideal to have automated security checks.
 This includes essential things
-like implementing multi-factor authentication
-(i.e., use two-factor authentication (2FA) at the very least)
-and having automated security testing tools
+like having automated security testing tools
 (e.g., [SAST](../../categories/sast/),
 [DAST](../../categories/dast/))
 running in your CI pipelines.
@@ -638,4 +639,4 @@ and get all your DevSecOps questions answered,
 [contact us](../../contact-us/)\!
 
 > **Note:**
-> This document was last updated on August 16, 2022.
+> This document was last updated on August 17, 2022.

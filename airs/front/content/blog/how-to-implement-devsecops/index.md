@@ -209,11 +209,11 @@ It is common to find that developers lack security-related skills.
 Ridiculous ideas can even arise [from misunderstanding](https://www.checkpoint.com/cyber-hub/cloud-security/devsecops/why-have-companies-been-so-slow-to-adopt-devsecops/)
 the DevSecOps practice,
 such as that this method leads to a greater number of security issues.
-What fails to be adequately seen is that
+What people is failing to see clearly is that
 existing issues are identified and reported in organizations
 *thanks* to this method,
 something that doesn't normally happen
-with a simple DevOps.
+with a simple DevOps methodology.
 Many want to ignore that they are at risk.
 They simply close their eyes until the impact wakes them up.
 
@@ -286,8 +286,8 @@ for correctly implementing the DevSecOps culture in your organization.
   you can get security assessment services
   before starting development cycles.
   Together with your team,
-  they can help you define threat models
-  as well as security controls and requirements to implement.
+  they can help you with threat modeling
+  and defining which security controls and requirements to implement.
   But,
   with the help of the former,
   you should immediately start to face the challenge of lack of knowledge.
@@ -298,8 +298,8 @@ for correctly implementing the DevSecOps culture in your organization.
   to increase security awareness within each team.
   Through them and even online courses,
   your teams should receive training in best practices
-  for writing secure code
-  and for handling and remediating security issues.
+  for secure coding
+  and security issues handling and remediation.
   Naturally,
   they should witness and participate in the use of technologies
   to identify vulnerabilities in your organization's products
@@ -332,14 +332,21 @@ for correctly implementing the DevSecOps culture in your organization.
   and [software composition analysis](../../categories/sca/)
   (SCA)
   tools can come into play.
+  The former scan code for vulnerabilities
+  whereas the latter scan code dependencies.
   In the testing phase,
   having a product ready to run and be tested,
   [dynamic application security testing](../../categories/dast/)
   (DAST)
   tools can be used.
+  These do not access code
+  but send attack vectors to the endpoints of running applications.
   [Penetration testing](../../solutions/penetration-testing/)
   can be performed later,
   in the releasing phase.
+  This method relies on hackers
+  who try to bypass controls,
+  create custom exploits, etc.
 
 <div class="imgblock">
 
@@ -354,7 +361,7 @@ for correctly implementing the DevSecOps culture in your organization.
 </div>
 
 - **Automation of security activities:**
-  The automation of security activities
+  To automate tools and processes related to security
   within the DevSecOps methodology
   is crucial to avoid undermining the purpose of the DevOps approach
   of injecting speed.
@@ -435,6 +442,8 @@ for correctly implementing the DevSecOps culture in your organization.
   The recommendation is that
   your organization define the regular application
   of manual security activities.
+  For example,
+  it could be agreed upon to conduct regular penetration tests.
 
 - **Measuring performance and progress:**
   Measurement is part of the proper implementation of DevSecOps.
@@ -464,7 +473,7 @@ for correctly implementing the DevSecOps culture in your organization.
 
 - **New governance:**
   Classic governance can mean delays in software delivery
-  that in no way fit within the DevSecOps culture.
+  that in no way fit within the DevSecOps culture and mindset.
   The suggestion then is to turn again to automation.
   You can automate verification activities
   such as controls before the software is released to production.
@@ -474,6 +483,11 @@ for correctly implementing the DevSecOps culture in your organization.
   To adopt new governance like this,
   within DevSecOps,
   you must have the collaboration and approval of your teams.
+
+If you want to learn about DevSecOps best practices,
+i.e.,
+the actions that keep your implementation alive,
+go to [this post](../devsecops-best-practices/).
 
 ## DevSecOps tools and resources
 
@@ -584,6 +598,6 @@ follow [this link](../../solutions/devsecops/)
 or [contact](../../contact-us/) one of our experts.
 Additionally,
 here are two of our posts
-that answer the following questions:
+that answer the following DevSecOps questions:
 [What is DevSecOps](../devsecops-concept/)
 and [what does a DevSecOps engineer do?](../what-does-a-devsecops-engineer-do/)
