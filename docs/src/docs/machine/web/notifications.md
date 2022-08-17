@@ -357,6 +357,19 @@ in the Scope tab are modified.
 
 ![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1658957064/docs/web/notifications/notif_services_updated.png)
 
+### Environment report
+
+If you are a User Manager,
+you will receive the
+Environment Report notification,
+which will be generated when
+a new environment
+has been created,
+edited,
+or deleted.
+
+![Environment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660743038/docs/web/notifications/notif_environment.png)
+
 ### Portfolio report
 
 This notification will be
