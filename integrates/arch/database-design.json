@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 16, 2022, 12:45 PM",
+    "DateLastModified": "Aug 17, 2022, 14:35 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -936,6 +936,10 @@
         },
         {
           "AttributeName": "event_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "comment_type",
           "AttributeType": "S"
         }
       ],
@@ -11579,6 +11583,27 @@
           "NonKeyAttributes": [
             "event_id",
             "id",
+            "parent_id",
+            "creation_date",
+            "content",
+            "email",
+            "full_name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_comment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CMNT#id",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "finding_id",
+            "id",
+            "comment_type",
             "parent_id",
             "creation_date",
             "content",
