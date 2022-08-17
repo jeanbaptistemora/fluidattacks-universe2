@@ -325,6 +325,7 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
         fields: {
           toeInputs: relayStylePagination(),
           toeLines: relayStylePagination(),
+          vulnerabilities: relayStylePagination(),
         },
         keyFields: ["name"],
       },
