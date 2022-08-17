@@ -708,6 +708,49 @@ async def default_seggroup_allows_all_traffic(
     return vulns
 
 
+async def instances_without_profile(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_instances"
+    )
+    instances: List[Dict[str, Any]] = response.get("Reservations", [])
+    vulns: core_model.Vulnerabilities = ()
+
+    for i in instances:
+        locations: List[Location] = []
+        for config in i["Instances"]:
+            if (
+                "IamInstanceProfile" not in config.keys()
+                and config["State"]["Name"] != "terminated"
+            ):
+                locations = [
+                    *[
+                        Location(
+                            arn=(
+                                f"arn:aws:ec2::{i['OwnerId']}:"
+                                f"instance-id/{config['InstanceId']}"
+                            ),
+                            description=t(
+                                "src.lib_path.f024_aws."
+                                "instances_without_profile"
+                            ),
+                            values=(),
+                            access_patterns=(),
+                        )
+                    ],
+                ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_INSTANCES_WITHOUT_PROFILE),
+                aws_response=i,
+            ),
+        )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
