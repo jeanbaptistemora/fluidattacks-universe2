@@ -1,13 +1,13 @@
 ---
-slug: devsecops-under-construction/
+slug: devsecops-best-practices/
 title: DevSecOps Best Practices
-date: 2015-08-11
+date: 2022-08-11
 subtitle: Our top advice for secure development across the SDLC
 category: philosophy
 tags: cybersecurity, devsecops, security-testing, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1660241560/blog/devsecops-best-practices/cover_practices.webp
 alt: Photo by Leonard von Bibra on Unsplash
-description: Fluid Attacks presents more than 10 DevSecOps best practices that will help your organization weave security into the entire software development process.
+description: Fluid Attacks presents 10 DevSecOps best practices that will help your organization weave security into the entire software development process.
 keywords: Devsecops Best Practices, Devsecops Automation, Sast, Dast, Break The Build, Security Testing, Secure Software, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -39,10 +39,10 @@ thus encouraging ownership and accountability.
 
 [Implementing DevSecOps](../how-to-implement-devsecops/) should mean
 that every developer is as responsible as anyone on the security team
-for running security tools to test their work.
+for  the security of the software.
 Further,
 they can increase their secure coding knowledge
-by fixing the issues found by the scans.
+by fixing the issues found by continuous security tests.
 The role of the security team is to provide training,
 as well as additional help and guidance.
 They no longer carry the whole load of security on their shoulders.
@@ -51,7 +51,7 @@ They no longer carry the whole load of security on their shoulders.
 
 As mentioned before in our [DevSecOps series](../tags/devsecops),
 cybersecurity involves not only technology but also people.
-People are responsible for implementing
+Security experts are responsible for implementing
 and monitoring security tests to profile cyber risk,
 deliver solutions
 and assess their effectiveness.
@@ -59,9 +59,8 @@ They are also responsible for defining
 and complying with the organization's policies.
 A DevSecOps mindset is one in which everyone is responsible for security.
 
-If anybody's role in security is not clear,
-this increases the risk of human error.
-As the continuous task of risk management must contemplate the human factor,
+As the continuous task of risk management must contemplate
+that everyone agrees on their shared responsibility,
 organizations need to integrate cybersecurity awareness efforts
 to lower the risk of cyberattacks and other incidents.
 
@@ -108,8 +107,9 @@ in your organization:
 - Teach developers to fix code vulnerabilities shortly after they're written,
   which is known as the just-in-time approach.
   This involves taking a look at somebody's code
-  through [static application security testing](../../categories/sast/) (SAST)
-  or [software composition analysis](../../categories/sca/) (SCA)
+  through [static application security testing](../../categories/sast/) (SAST),
+  [software composition analysis](../../categories/sca/) (SCA)
+  or [dynamic application security testing](../../categories/dast/) (DAST)
   and then giving education
   relevant to what it is that they're doing wrong.
 
@@ -129,6 +129,7 @@ only in the traditional software testing and production stages.
 To achieve the shift-left security approach,
 organizations should have security scans built
 into the developers' workflow
+performed along with continuous manual penetration testing
 to search for known vulnerabilities in the code they've just written.
 Having a timely report of security issues,
 developers can remediate them soon after they arise.
@@ -137,7 +138,8 @@ developers can remediate them soon after they arise.
 
 Having security ingrained in all stages of development does not slow it down.
 On the contrary,
-DevSecOps enables developers to run automated tests on their code
+DevSecOps enables developers to run
+a combination of automated and manual tests on their code
 and fix any issues promptly,
 which minimizes security bottlenecks
 (i.e., there are less issues for the security team to solve)
@@ -155,15 +157,18 @@ To learn more about the challenges
 and drivers in implementing DevSecOps,
 [click here](../how-to-implement-devsecops/).
 
-## Use automation to test security continually
+## Combine manual testing along with automated tools
 
 Process automation is key in the DevSecOps culture.
-By automating security tests,
-you get the advantages of reducing delivery time
-and human error,
-as well as improving security.
-Automated tools (sometimes called DevSecOps tools)
-should be able to do the following:
+By automating security testing,
+you get the advantage of speeding it up for fast software delivery,
+but relying on automation alone
+and not combining it
+with the expertise of ethical hackers
+means low accuracy,
+i.e., high rates of false positives and false negatives.
+Automated tools
+should help experts do the following:
 
 - Categorize and monitor risk across the SDLC.
 
@@ -171,40 +176,54 @@ should be able to do the following:
 
 - Track vulnerability history.
 
-Below are the two most popular automated assessment methods
+Below are the three most popular assessment methods
 that can be executed repeatedly during development
 to increase efficiency and security.
 
 ### Static application security testing (SAST)
 
-SAST tools analyze the application source code.
+SAST analyzes the application source code.
 Early in the SDLC,
-these tools can pinpoint the exact location of vulnerabilities.
+these tests can pinpoint the exact location of vulnerabilities.
 They are especially useful to detect issues
 such as those concerning lack of data validation,
 which open the possibility for an injection attack.
 
-While SAST tools can do their job faster than humans,
-they produce reports with high numbers of false positives and false negatives.
-Read on to learn how this issue can be overcome.
-
 ### Dynamic application security testing (DAST)
 
 [DAST](../../categories/dast/)
-tools do not require access to the application source code.
-They assess running applications
+doed not require access to the application source code.
+It involves assessing running applications
 by sending attack vectors to their endpoints.
 These tests can detect vulnerabilities
 in the application deployment configuration
-as well as authentication and session issues.
+as well as authentication and session issues,
+but they cannot show you the exact location of these security issues in code.
 
-As you have probably guessed by now,
-DAST tools cannot show the exact location of these security issues in code.
+SAST and DAST tools are not advisable on their own,
+as they produce reports
+with high numbers of false positives and false negatives.
 Further,
 neither SAST nor DAST tools can find access control issues
 (the number one risk to web applications in the [latest OWASP Top 10](../owasp-top-10-2021/)),
-whereas [penetration testing](../../solutions/penetration-testing/)
-(or pentesting) can.
+whereas [manual security testing](../../solutions/penetration-testing/) can.
+Read on to learn more about its benefits.
+
+### Software composition analysis (SCA)
+
+[SCA](../../categories/sca/)
+requires access to your source code.
+It reveals external software dependencies.
+These are worth looking at,
+as your software can inherit their vulnerabilities.
+So,
+this analysis can tell you the component licenses,
+versions
+and security vulnerabilities,
+if there are any.
+When performing SCA combining automatic and manual work,
+there are no limitations due to coding language,
+nor is the analysis limited to commonly known vulnerabilities.
 
 ## Break the build
 
@@ -223,7 +242,7 @@ etc.
 With this example,
 you can see it's worth it to automate tools and processes.
 
-## Perform code dependencies auditing regularly
+## Perform code dependencies auditing continuously
 
 Developing with speed means
 you are not spending your time reinventing the wheel.
@@ -245,15 +264,13 @@ and updated inventory of the dependencies
 that make up your software
 and keep these up-to-date with the latest patches.
 In the DevSecOps culture,
-it's a good idea to embed [SCA](../../categories/sca/) tools
-into your continuous integration
-and continuous delivery (CI/CD) pipelines
-in your SDLC
-to get useful information promptly
-and continuously
+it’s a good idea to perform [SCA](../../categories/sca/)
+on your source code early
+and across the entire SDLC
+to get useful information promptly and continuously
 about vulnerable open-source or third-party components.
 
-## Conduct regular security audits
+## Conduct security audits continuously
 
 As threats are evolving continuously,
 organizations need to assess their systems thoroughly
@@ -273,23 +290,9 @@ compliance can be constantly monitored.
 By remediating those issues,
 it's possible to give your systems more adequate protection from cyberattacks.
 
-## Conduct threat modeling and risk assessments
+## Conduct manual assessments continuously
 
-Threat models are resources
-that describe the entire attack surface
-and the possible attack vectors for information systems
-in an organization.
-To have this information,
-it is important that experts,
-often a team of security analysts,
-are up to date in regards to cybercrime trends,
-such as threats to cloud security and remote working.
-Knowing the most likely risks and technical vulnerabilities,
-the security team can establish the necessary security measures.
-
-## Conduct regular manual assessments (e.g., pentesting)
-
-We encourage you to have experts assess your systems
+We encourage you to have experts assess your systems continuously
 with techniques such as [manual penetration testing](../../solutions/penetration-testing/).
 These involve the work of [ethical hackers](../what-is-ethical-hacking/)
 who probe the system to exploit vulnerabilities
@@ -306,7 +309,7 @@ that are tailored for it especially.
 Since security reports based on scans made with automated tools
 have high rates of false positives
 and false negatives,
-we value the manual work performed by experts immensely.
+we immensely value the manual work performed by experts.
 To give you an idea,
 [our analyses](https://try.fluidattacks.com/state-of-attacks-2022/)
 of security tests performed last year in our clients' systems
@@ -317,7 +320,7 @@ that penetration testing is a valuable component
 in favor of accuracy and depth.
 
 In short,
-we advise regular penetration tests
+we advise continuous penetration tests
 to validate the security of your technology
 and test against new techniques used by threat actors.
 
@@ -326,7 +329,7 @@ and test against new techniques used by threat actors.
 At `Fluid Attacks`,
 we specialize in security testing
 [throughout the entire SDLC](../../solutions/devsecops/),
-combining automated tools and ethical hacking.
+combining automated tools and manual security testing.
 Our [Continuous Hacking](../../services/continuous-hacking/)
 Machine Plan allows you to find software vulnerabilities through SAST,
 DAST
