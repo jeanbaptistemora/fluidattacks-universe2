@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
-    get_first_member,
-    get_object_identifiers,
+    get_first_member_syntax_graph,
 )
 from lib_sast.types import (
     ShardDb,
@@ -9,9 +8,11 @@ from model import (
     core_model,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage,
     GraphShardNodes,
+    NId,
     SyntaxStep,
     SyntaxStepLambdaExpression,
     SyntaxStepMemberAccessExpression,
@@ -35,13 +36,11 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Iterator,
     Optional,
 )
 from utils import (
     graph as g,
-)
-from utils.graph.text_nodes import (
-    node_to_str,
 )
 from utils.string import (
     split_on_last_dot,
@@ -122,6 +121,17 @@ def allow_all(step: SyntaxStep, dependencies: SyntaxSteps) -> bool:
     return False
 
 
+def get_cors_vars(graph: Graph) -> Iterator[NId]:
+    for obj_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="ObjectCreation"),
+    ):
+        if "CorsPolicy" in graph.nodes[obj_id].get("name").split("."):
+            invocation = g.pred_ast(graph, obj_id)[0]
+            yield graph.nodes[invocation].get("variable")
+
+
 def insecure_cors_origin(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
@@ -134,25 +144,28 @@ def insecure_cors_origin(
         ):
             if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
-            cors_objects = get_object_identifiers(shard, {"CorsPolicy"})
+            cors_objects = list(get_cors_vars(graph))
             for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="member_access_expression"
-                ),
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
             ):
+                expr = graph.nodes[member].get("expression")
+                memb = graph.nodes[member].get("member")
                 if (
-                    "Origins.Add" in node_to_str(shard.graph, member)
-                    and (fr_member := get_first_member(shard, member))
-                    and shard.graph.nodes[fr_member]["label_type"]
-                    == "identifier"
-                    and shard.graph.nodes[fr_member]["label_text"]
-                    in cors_objects
+                    "Origins.Add" in f"{expr}.{memb}"
+                    and (
+                        fr_member := get_first_member_syntax_graph(
+                            graph, member
+                        )
+                    )
+                    and graph.nodes[fr_member].get("label_type")
+                    == "SymbolLookup"
+                    and graph.nodes[fr_member].get("symbol") in cors_objects
                 ):
-                    pred_nid = g.pred_ast(shard.graph, member)[0]
-                    graph = shard.syntax_graph
+                    pred_nid = g.pred_ast(graph, member)[0]
                     for path in get_backward_paths(graph, pred_nid):
                         if (
                             evaluation := evaluate(
