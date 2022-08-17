@@ -7,12 +7,14 @@ from ariadne import (
 import authz
 import base64
 import botocore.exceptions
+import csv
 from custom_exceptions import (
     DocumentNotFound,
     InvalidAuthorization,
 )
 from custom_types import (
     GraphicParameters,
+    GraphicsCsvParameters,
     GraphicsForEntityParameters,
     ReportParameters,
 )
@@ -65,8 +67,25 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + "#-"
+ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + "#-_"
 ENTITIES = {"group", "organization", "portfolio"}
+
+
+async def get_csv_document(
+    *,
+    document_name: str,
+    document_type: str,
+    entity: str,
+    subject: str,
+) -> str:
+
+    return await analytics_dal.get_document(
+        os.path.join(
+            convert_camel_case_to_snake(document_type),
+            convert_camel_case_to_snake(document_name),
+            f"{entity}:{safe_encode(subject.lower())}.csv",
+        )
+    )
 
 
 async def get_document(
@@ -149,6 +168,7 @@ async def handle_authz_claims(
         GraphicParameters,
         GraphicsForEntityParameters,
         ReportParameters,
+        GraphicsCsvParameters,
     ],
     request: Request,
 ) -> None:
@@ -212,6 +232,38 @@ async def handle_graphic_request(request: Request) -> Response:
         response = templates_utils.graphic_view(request, document, params)
 
     return response
+
+
+async def handle_graphic_csv_request(request: Request) -> Response:
+    try:
+        params: GraphicsCsvParameters = handle_graphics_csv_request_parameters(
+            request=request,
+        )
+
+        await handle_authz_claims(params=params, request=request)
+
+        document: str = await get_csv_document(
+            document_name=params.document_name,
+            document_type=params.document_type,
+            entity=params.entity,
+            subject=params.subject,
+        )
+    except (
+        DocumentNotFound,
+        InvalidAuthorization,
+        KeyError,
+        PermissionError,
+        ValueError,
+    ) as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        return templates_utils.graphic_error(request)
+    else:
+        reader = csv.reader(document.split("\n"), delimiter=",")
+        for row in reader:
+            validations.validate_sanitized_csv_input(
+                *[str(field) for field in row]
+            )
+        return Response(document, media_type="text/csv")
 
 
 def handle_graphic_request_parameters(
@@ -382,4 +434,39 @@ def handle_graphics_report_request_parameters(
     return ReportParameters(
         entity=entity,
         subject=subject,
+    )
+
+
+def handle_graphics_csv_request_parameters(
+    *,
+    request: Request,
+) -> GraphicsCsvParameters:
+    entity: str = request.query_params["entity"]
+
+    if entity not in ENTITIES:
+        raise ValueError(
+            'Invalid entity, only "group", "organization"'
+            ' and "portfolio" are valid',
+        )
+
+    subject: str = request.query_params["subject"]
+    document_name: str = request.query_params["documentName"]
+    document_type: str = request.query_params["documentType"]
+
+    for param_name, param_value in [
+        ("documentName", document_name),
+        ("documentType", document_type),
+        ("subject", subject),
+    ]:
+        if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
+            raise ValueError(
+                f"Expected [{ALLOWED_CHARS_IN_PARAMS}] "
+                f"in parameter: {param_name}",
+            )
+
+    return GraphicsCsvParameters(
+        entity=entity,
+        subject=subject,
+        document_name=document_name,
+        document_type=document_type,
     )

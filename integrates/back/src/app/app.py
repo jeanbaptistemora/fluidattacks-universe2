@@ -425,6 +425,7 @@ STARLETTE_APP = Starlette(
         Route("/error401", templates.error401),
         Route("/error500", templates.error500),
         Route("/graphic", charts.graphic),
+        Route("/graphic-csv", charts.graphic_csv),
         Route("/graphics-for-group", charts.graphics_for_group),
         Route("/graphics-for-organization", charts.graphics_for_organization),
         Route("/graphics-for-portfolio", charts.graphics_for_portfolio),

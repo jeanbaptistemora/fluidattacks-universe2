@@ -69,6 +69,15 @@ GraphicsForEntityParameters = NamedTuple(
         ("subject", str),
     ],
 )
+GraphicsCsvParameters = NamedTuple(
+    "GraphicsCsvParameters",
+    [
+        ("document_name", str),
+        ("document_type", str),
+        ("entity", str),
+        ("subject", str),
+    ],
+)
 ReportParameters = NamedTuple(
     "ReportParameters",
     [

@@ -20,6 +20,10 @@ async def graphic(request: Request) -> Response:
     return await analytics_domain.handle_graphic_request(request)
 
 
+async def graphic_csv(request: Request) -> Response:
+    return await analytics_domain.handle_graphic_csv_request(request)
+
+
 async def graphics_for_entity(entity: str, request: Request) -> Response:
     request_data = await token_utils.get_jwt_content(request)
     response = await analytics_domain.handle_graphics_for_entity_request(
