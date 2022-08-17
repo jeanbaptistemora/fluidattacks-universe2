@@ -54,7 +54,6 @@ from time import (
 )
 from typing import (
     Any,
-    Tuple,
 )
 
 
@@ -87,7 +86,7 @@ async def send_finding_consult_mail(
 
 async def _add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, str]:
+) -> str:
     validations_utils.validate_fields([parameters["content"]])
     param_type = parameters.get("type", "").lower()
     user_data = await token_utils.get_jwt_content(info.context)
@@ -142,24 +141,7 @@ async def _add_finding_consult(
         info.context,
         f"Security: Added comment in finding {finding_id} successfully",
     )
-
-    logs_utils.cloudwatch_log(
-        info.context,
-        f"Security: Attempted to add comment in finding {finding_id}",
-    )
-    return True, comment_id
-
-
-async def add_finding_consult(
-    info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, str]:
-    return await _add_finding_consult(info, **parameters)
-
-
-async def add_finding_observation(
-    info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, str]:
-    return await _add_finding_consult(info, **parameters)
+    return comment_id
 
 
 @convert_kwargs_to_snake_case
@@ -171,10 +153,5 @@ async def add_finding_observation(
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayloadType:
-    success = False
-    if parameters.get("type", "").lower() == "observation":
-        success, comment_id = await add_finding_observation(info, **parameters)
-    else:
-        success, comment_id = await add_finding_consult(info, **parameters)
-
-    return AddConsultPayloadType(success=success, comment_id=comment_id)
+    comment_id = await _add_finding_consult(info, **parameters)
+    return AddConsultPayloadType(success=True, comment_id=comment_id)
