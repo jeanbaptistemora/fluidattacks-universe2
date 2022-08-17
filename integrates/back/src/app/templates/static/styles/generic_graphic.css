@@ -42,7 +42,11 @@ p, ol, ul {
   opacity: 1 !important;
 }
 
-.c3-texts text {
+.c3-text {
   transform: translate(0, 15px);
   fill: white !important;
+}
+
+.exposureTrendsByCategories {
+  fill: black !important;
 }
