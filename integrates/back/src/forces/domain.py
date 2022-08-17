@@ -17,7 +17,6 @@ from groups import (
     domain as groups_domain,
 )
 import json
-import logging
 from newutils import (
     token as token_utils,
 )
@@ -26,9 +25,6 @@ from organizations import (
 )
 import os
 import re
-from settings import (
-    LOGGING,
-)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -39,11 +35,6 @@ from typing import (
     Dict,
     Union,
 )
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
 
 
 async def add_forces_execution(
@@ -89,7 +80,7 @@ async def add_forces_execution(
     return success
 
 
-async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
+async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
     user_email = format_forces_user_email(group_name)
     user_data = await token_utils.get_jwt_content(info.context)
     modified_by = user_data["user_email"]
@@ -107,17 +98,10 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     group_access: GroupAccess = await loaders.group_access.load(
         (group_name, user_email)
     )
-    success = await groups_domain.complete_register_for_group_invitation(
+    await groups_domain.complete_register_for_group_invitation(
         loaders=info.context.loaders,
         group_access=group_access,
     )
-
-    if not success:
-        LOGGER.error(
-            "Couldn't grant access to group",
-            extra={"extra": info.context, "username": group_name},
-        )
-    return success
 
 
 def format_execution(execution: Any) -> Dict[str, Any]:

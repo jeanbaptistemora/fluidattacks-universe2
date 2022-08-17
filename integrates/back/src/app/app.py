@@ -178,21 +178,12 @@ async def confirm_access(request: Request) -> HTMLResponse:
             group_access = await group_access_domain.get_access_by_url_token(
                 loaders, url_token
             )
-            success = (
-                await groups_domain.complete_register_for_group_invitation(
-                    loaders, group_access
-                )
+            await groups_domain.complete_register_for_group_invitation(
+                loaders, group_access
             )
-            if success:
-                response = await templates.valid_invitation(
-                    request, group_access.group_name
-                )
-            else:
-                response = templates.invalid_invitation(
-                    request,
-                    "Invalid or Expired",
-                    group_access.group_name,
-                )
+            response = await templates.valid_invitation(
+                request, group_access.group_name
+            )
         except (StakeholderNotInGroup, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"

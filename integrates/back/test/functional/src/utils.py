@@ -42,16 +42,14 @@ from typing import (
 async def complete_register(
     email: str,
     group_name: str,
-) -> bool:
+) -> None:
     loaders: Dataloaders = get_new_context()
     group_access: GroupAccess = await loaders.group_access.load(
         (group_name, email)
     )
-    success = await groups_domain.complete_register_for_group_invitation(
+    await groups_domain.complete_register_for_group_invitation(
         loaders, group_access
     )
-
-    return success
 
 
 async def confirm_deletion(

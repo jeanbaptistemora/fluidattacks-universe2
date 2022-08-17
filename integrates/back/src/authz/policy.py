@@ -3,10 +3,6 @@ from authz.model import (
     get_organization_level_roles_model,
     get_user_level_roles_model,
 )
-from botocore.exceptions import (
-    ClientError,
-)
-import contextlib
 from contextlib import (
     suppress,
 )
@@ -40,51 +36,22 @@ from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
 )
-from dynamodb import (
-    operations_legacy as dynamodb_ops,
-)
 from functools import (
     partial,
 )
-import logging
-import logging.config
 from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
-)
-from settings import (
-    LOGGING,
 )
 from typing import (
     Any,
     NamedTuple,
 )
 
-logging.config.dictConfig(LOGGING)
-
-# Constants
-AUTHZ_TABLE: str = "fi_authz"
-LOGGER = logging.getLogger(__name__)
-
 
 class ServicePolicy(NamedTuple):
     group_name: str
     service: str
-
-
-class SubjectPolicy(NamedTuple):
-    level: str
-    subject: str
-    object: str
-    role: str
-
-
-def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict[str, str]:
-    """Cast a subject policy into a dict, valid to be put in dynamo."""
-    return {
-        key: (value.lower() if isinstance(value, str) else value)
-        for key, value in policy._asdict().items()
-    }
 
 
 async def _get_group_service_policies(group: Group) -> tuple[str, ...]:
@@ -300,33 +267,12 @@ async def has_access_to_group(
     return bool(await get_group_level_role(loaders, email, group_name))
 
 
-async def put_subject_policy(policy: SubjectPolicy) -> bool:
-    item = _cast_subject_policy_into_dict(policy)
-    with contextlib.suppress(ClientError):
-        response = await dynamodb_ops.put_item(AUTHZ_TABLE, item)
-        return response
-    LOGGER.error(
-        "Error in stakeholders_dal.put_subject_policy",
-        extra={"extra": locals()},
-    )
-    return False
-
-
 async def revoke_cached_group_service_policies(group_name: str) -> bool:
     """Revoke the cached policies for the provided group."""
     # Delete the cache key from the cache
     await redis_del_by_deps(
         "revoke_authz_group",
         authz_group_name=group_name.lower(),
-    )
-    return True
-
-
-async def revoke_cached_subject_policies(subject: str) -> bool:
-    """Revoke the cached policies for the provided subject."""
-    await redis_del_by_deps(
-        "revoke_authz_subject",
-        authz_subject_id=subject.lower(),
     )
     return True
 

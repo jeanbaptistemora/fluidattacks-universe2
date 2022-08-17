@@ -19,7 +19,7 @@ from dataloaders import (
     get_new_context,
 )
 from forces.domain import (
-    add_forces_user,
+    add_forces_user_legacy,
 )
 from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
@@ -42,7 +42,7 @@ async def main() -> None:
         success = False
         try:
             context = get_new_context()
-            success = await add_forces_user(
+            success = await add_forces_user_legacy(
                 info=context, group_name=group_name
             )
         except ClientError:

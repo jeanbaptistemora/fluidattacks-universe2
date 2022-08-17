@@ -129,8 +129,6 @@ from group_access import (
 from group_comments.domain import (
     mask_comments,
 )
-import logging
-import logging.config
 from mailer import (
     groups as groups_mail,
 )
@@ -157,14 +155,8 @@ from organizations import (
     domain as orgs_domain,
 )
 import re
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from roots import (
     domain as roots_domain,
-)
-from settings import (
-    LOGGING,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -174,11 +166,6 @@ from typing import (
     Awaitable,
     Optional,
 )
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
 
 
 async def _has_repeated_tags(
@@ -196,7 +183,7 @@ async def _has_repeated_tags(
 async def complete_register_for_group_invitation(
     loaders: Any,
     group_access: GroupAccess,
-) -> bool:
+) -> None:
     invitation = group_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -270,13 +257,6 @@ async def complete_register_for_group_invitation(
         )
 
     await collect(coroutines)
-
-    redis_del_by_deps_soon(
-        "confirm_access",
-        group_name=group_name,
-        organization_id=organization_id,
-    )
-    return True
 
 
 async def reject_register_for_group_invitation(

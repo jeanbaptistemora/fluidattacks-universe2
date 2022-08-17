@@ -55,7 +55,7 @@ async def test_get_group_level_role(dynamodb: ServiceResource) -> None:
             KeyConditionExpression=query_attrs["KeyConditionExpression"],
         )["Items"]
 
-    with mock.patch("authz.policy.dynamodb_ops.query") as mock_query:
+    with mock.patch("dynamodb.operations_legacy.query") as mock_query:
         mock_query.side_effect = side_effect
         assert (
             await get_group_level_role(
