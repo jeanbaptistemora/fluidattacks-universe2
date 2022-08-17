@@ -11,11 +11,11 @@ from custom_exceptions import (
     PermissionDenied,
     UnexpectedUserRole,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
-)
-from typing import (
-    Any,
 )
 
 # Constants
@@ -50,7 +50,7 @@ async def validate_fluidattacks_staff_on_group(
 
 
 async def validate_handle_comment_scope(
-    loaders: Any,
+    loaders: Dataloaders,
     content: str,
     user_email: str,
     group_name: str,

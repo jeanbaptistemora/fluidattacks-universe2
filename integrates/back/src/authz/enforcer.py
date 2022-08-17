@@ -8,6 +8,9 @@ from .policy import (
     get_cached_group_service_policies,
     get_user_level_role,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.group_access.types import (
     GroupAccess,
 )
@@ -18,13 +21,12 @@ from db_model.organization_access.types import (
     OrganizationAccess,
 )
 from typing import (
-    Any,
     Callable,
 )
 
 
 async def get_group_level_enforcer(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided email."""
@@ -67,7 +69,7 @@ async def get_group_service_attributes_enforcer(
 
 
 async def get_organization_level_enforcer(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> Callable[[str, str], bool]:
     """
@@ -97,7 +99,7 @@ async def get_organization_level_enforcer(
 
 
 async def get_user_level_enforcer(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> Callable[[str], bool]:
     """Return a filtered group-level authorization for the provided email."""

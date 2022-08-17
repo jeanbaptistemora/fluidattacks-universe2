@@ -13,6 +13,9 @@ from .model import (
     get_user_level_roles_model,
     SERVICE_ATTRIBUTES_SET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -20,9 +23,6 @@ import logging
 import logging.config
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -32,7 +32,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def get_group_level_actions(
-    loaders: Any, email: str, group: str
+    loaders: Dataloaders, email: str, group: str
 ) -> set[str]:
     enforcer = await get_group_level_enforcer(loaders, email)
     group_actions = {
@@ -50,7 +50,7 @@ async def get_group_level_actions(
 
 async def get_group_level_roles_a_user_can_grant(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group: str,
     requester_email: str,
 ) -> tuple[str, ...]:
@@ -80,7 +80,7 @@ async def get_group_service_attributes(group: Group) -> set[str]:
 
 
 async def get_organization_level_actions(
-    loaders: Any, email: str, organization_id: str
+    loaders: Dataloaders, email: str, organization_id: str
 ) -> set[str]:
     enforcer = await get_organization_level_enforcer(loaders, email)
     organization_actions = {
@@ -98,7 +98,7 @@ async def get_organization_level_actions(
 
 async def get_organization_level_roles_a_user_can_grant(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     organization_id: str,
     requester_email: str,
 ) -> tuple[str, ...]:
@@ -112,7 +112,9 @@ async def get_organization_level_roles_a_user_can_grant(
     return roles_the_user_can_grant
 
 
-async def get_user_level_actions(loaders: Any, subject: str) -> set[str]:
+async def get_user_level_actions(
+    loaders: Dataloaders, subject: str
+) -> set[str]:
     enforcer = await get_user_level_enforcer(loaders, subject)
     user_actions = {
         action
@@ -129,7 +131,7 @@ async def get_user_level_actions(loaders: Any, subject: str) -> set[str]:
 
 async def get_user_level_roles_a_user_can_grant(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     requester_email: str,
 ) -> tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""

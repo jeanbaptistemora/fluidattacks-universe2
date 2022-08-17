@@ -11,6 +11,9 @@ from custom_exceptions import (
     StakeholderNotInGroup,
     StakeholderNotInOrganization,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     group_access as group_access_model,
     organization_access as organization_access_model,
@@ -44,7 +47,6 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
-    Any,
     NamedTuple,
 )
 
@@ -124,7 +126,7 @@ async def get_cached_group_service_policies(
 
 
 async def get_group_level_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     group_name: str,
 ) -> str:
@@ -145,7 +147,7 @@ async def get_group_level_role(
 
 
 async def get_group_level_roles(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     groups: list[str],
 ) -> dict[str, str]:
@@ -168,7 +170,7 @@ async def get_group_level_roles(
 
 
 async def get_organization_level_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     organization_id: str,
 ) -> str:
@@ -192,7 +194,7 @@ async def get_organization_level_role(
 
 
 async def get_user_level_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> str:
     user_role: str = ""
@@ -205,7 +207,7 @@ async def get_user_level_role(
 
 
 async def grant_group_level_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     group_name: str,
     role: str,
@@ -227,7 +229,7 @@ async def grant_group_level_role(
 
 
 async def grant_organization_level_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     organization_id: str,
     role: str,
@@ -259,7 +261,7 @@ async def grant_user_level_role(email: str, role: str) -> None:
 
 
 async def has_access_to_group(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     group_name: str,
 ) -> bool:
@@ -278,7 +280,7 @@ async def revoke_cached_group_service_policies(group_name: str) -> bool:
 
 
 async def revoke_group_level_role(
-    loaders: Any, email: str, group_name: str
+    loaders: Dataloaders, email: str, group_name: str
 ) -> None:
     with suppress(StakeholderNotInGroup):
         group_access: GroupAccess = await loaders.group_access.load(
@@ -293,7 +295,7 @@ async def revoke_group_level_role(
 
 
 async def revoke_organization_level_role(
-    loaders: Any, email: str, organization_id: str
+    loaders: Dataloaders, email: str, organization_id: str
 ) -> None:
     with suppress(StakeholderNotInOrganization):
         org_access: OrganizationAccess = (
@@ -307,7 +309,7 @@ async def revoke_organization_level_role(
             )
 
 
-async def revoke_user_level_role(loaders: Any, email: str) -> None:
+async def revoke_user_level_role(loaders: Dataloaders, email: str) -> None:
     stakeholder: Stakeholder = await loaders.stakeholder_with_fallback.load(
         email
     )
