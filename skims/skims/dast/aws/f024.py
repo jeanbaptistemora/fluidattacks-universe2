@@ -751,6 +751,58 @@ async def instances_without_profile(
     return vulns
 
 
+async def insecure_port_range_in_security_group(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    vulns: core_model.Vulnerabilities = ()
+
+    if security_groups:
+        for group in security_groups:
+            locations: List[Location] = []
+            for index, rule in enumerate(group["IpPermissions"]):
+                with suppress(KeyError):
+                    if rule["FromPort"] != rule["ToPort"]:
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        (
+                                            f"/IpPermissions/{index}"
+                                            "/FromPort"
+                                        ),
+                                        f"/IpPermissions/{index}/ToPort",
+                                    ),
+                                    arn=(
+                                        f"arn:aws:ec2::{group['OwnerId']}:"
+                                        f"security-group/{group['GroupId']}"
+                                    ),
+                                    values=(
+                                        rule["FromPort"],
+                                        rule["ToPort"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path.f024."
+                                        "ec2_has_unrestricted_ports"
+                                    ),
+                                )
+                            ],
+                        ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_INSECURE_PORT_RANGE),
+                    aws_response=group,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
