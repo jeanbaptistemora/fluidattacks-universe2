@@ -13,6 +13,7 @@ RoleModel = Dict[str, Dict[str, Set[str]]]
 GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            "api_mutations_request_event_verification",
             "api_mutations_activate_root_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_draft_mutate",

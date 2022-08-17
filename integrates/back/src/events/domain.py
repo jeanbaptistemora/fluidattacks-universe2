@@ -476,21 +476,19 @@ async def solve_event(  # pylint: disable=too-many-locals
     return ({}, {})
 
 
-async def submit_solution(  # pylint: disable=too-many-arguments
+async def request_verification(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     loaders: Any,
     event_id: str,
-    comment: str,
-    other_reason: Optional[str],
-    reason: EventSolutionReason,
+    comments: str,
     stakeholder_email: str,
     stakeholder_full_name: str,
 ) -> None:
-    validations.validate_fields([comment])
+    validations.validate_fields([comments])
     event: Event = await loaders.event.load(event_id)
     if event.state.status is EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
-    if event.state.status is EventStateStatus.SUBMITTED_SOLUTION:
+    if event.state.status is EventStateStatus.VERIFICATION_REQUESTED:
         raise EventSolutionAlreadySubmitted()
 
     comment_id: str = str(round(time() * 1000))
@@ -501,7 +499,7 @@ async def submit_solution(  # pylint: disable=too-many-arguments
             event_id=event.id,
             parent_id="0",
             id=comment_id,
-            content=comment,
+            content=comments,
             creation_date=datetime_utils.get_iso_date(),
             email=stakeholder_email,
             full_name=stakeholder_full_name,
@@ -515,10 +513,8 @@ async def submit_solution(  # pylint: disable=too-many-arguments
         state=EventState(
             modified_by=stakeholder_email,
             modified_date=datetime_utils.get_iso_date(),
-            other=other_reason,
-            reason=reason,
             comment_id=comment_id,
-            status=EventStateStatus.SUBMITTED_SOLUTION,
+            status=EventStateStatus.VERIFICATION_REQUESTED,
         ),
     )
 

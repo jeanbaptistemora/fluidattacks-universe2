@@ -735,6 +735,16 @@ type Mutation {
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 
+  """
+  Request the verification of an event when It has been solved
+  """
+  requestEventVerification(
+    "Comments about the event solution"
+    comments: String!
+    "Identifier of the blocking Event"
+    eventId: String!
+  ): SimplePayload!
+
   "Request an upgrade of your subscriptions"
   requestGroupsUpgrade(
     "Groups intended to upgrade"
