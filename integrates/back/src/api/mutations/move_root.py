@@ -38,6 +38,7 @@ from roots import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -59,6 +60,9 @@ async def mutate(
     group_name: str = kwargs["group_name"].lower()
     root_id: str = kwargs["id"]
     target_group_name: str = kwargs["target_group_name"].lower()
+    nickname_in_target_group: Optional[str] = kwargs.get(
+        "nickname_in_target_group"
+    )
 
     new_root_id = await roots_domain.move_root(
         info.context.loaders,
@@ -66,6 +70,7 @@ async def mutate(
         group_name,
         root_id,
         target_group_name,
+        nickname_in_target_group,
     )
     await batch_dal.put_action(
         action=Action.MOVE_ROOT,

@@ -1428,17 +1428,21 @@ async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
     return first_root.modified_date
 
 
-async def move_root(
+async def move_root(  # pylint: disable=too-many-arguments
     loaders: Any,
     user_email: str,
     group_name: str,
     root_id: str,
     target_group_name: str,
+    nickname_in_target_group: Optional[str],
 ) -> str:
     root: Root = await loaders.root.load((group_name, root_id))
     source_group: Group = await loaders.group.load(group_name)
     source_org_id = source_group.organization_id
     target_group: Group = await loaders.group.load(target_group_name)
+
+    if not nickname_in_target_group:
+        nickname_in_target_group = root.state.nickname
 
     if (
         root.state.status != RootStatus.ACTIVE
@@ -1471,7 +1475,7 @@ async def move_root(
             gitignore=root.state.gitignore,
             group_name=target_group_name,
             includes_health_check=root.state.includes_health_check,
-            nickname=root.state.nickname,
+            nickname=nickname_in_target_group,
             url=root.state.url,
         )
         new_root_id = new_root.id
@@ -1487,7 +1491,7 @@ async def move_root(
             ensure_org_uniqueness=False,
             address=root.state.address,
             group_name=target_group_name,
-            nickname=root.state.nickname,
+            nickname=nickname_in_target_group,
             port=root.state.port,
         )
     else:
@@ -1508,7 +1512,7 @@ async def move_root(
             user_email,
             ensure_org_uniqueness=False,
             group_name=target_group_name,
-            nickname=root.state.nickname,
+            nickname=nickname_in_target_group,
             url=(
                 f"{root.state.protocol}://{root.state.host}:{root.state.port}"
                 f"{path}{query}"
