@@ -22,6 +22,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from decimal import (
+    Decimal,
+    InvalidOperation,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -234,6 +238,14 @@ async def handle_graphic_request(request: Request) -> Response:
     return response
 
 
+def is_decimal(num: str) -> bool:
+    try:
+        Decimal(num)
+        return True
+    except InvalidOperation:
+        return False
+
+
 async def handle_graphic_csv_request(request: Request) -> Response:
     try:
         params: GraphicsCsvParameters = handle_graphics_csv_request_parameters(
@@ -261,7 +273,7 @@ async def handle_graphic_csv_request(request: Request) -> Response:
         reader = csv.reader(document.split("\n"), delimiter=",")
         for row in reader:
             validations.validate_sanitized_csv_input(
-                *[str(field) for field in row]
+                *["" if is_decimal(field) else str(field) for field in row]
             )
         return Response(document, media_type="text/csv")
 
