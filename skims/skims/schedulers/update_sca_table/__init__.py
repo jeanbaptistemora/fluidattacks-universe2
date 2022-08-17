@@ -1,3 +1,7 @@
+from .repositories.advisories_community import (
+    get_advisories_community,
+    URL_ADVISORIES_COMMUNITY,
+)
 from .repositories.advisory_database import (
     get_advisory_database,
     URL_ADVISORY_DATABASE,
@@ -32,12 +36,16 @@ REPOSITORIES: List[
     Tuple[Callable[[Advisories, str, Iterable[str]], None], str, Iterable[str]]
 ] = [
     (
+        get_advisories_community,
+        URL_ADVISORIES_COMMUNITY,
+        ("maven", "npm", "nuget", "pip"),
+    ),
+    (
         get_advisory_database,
         URL_ADVISORY_DATABASE,
         ("maven", "npm", "nuget", "pip"),
     ),
 ]
-SUPPORTED_PLATFORMS = ("maven", "npm", "nuget", "pip")
 
 
 def clone_repo(url: str) -> Optional[str]:
