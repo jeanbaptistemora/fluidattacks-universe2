@@ -1,7 +1,7 @@
 ---
-slug: devsecops-best-practices/
+slug: devsecops-under-construction/
 title: DevSecOps Best Practices
-date: 2022-08-11
+date: 2015-08-11
 subtitle: Our top advice for secure development across the SDLC
 category: philosophy
 tags: cybersecurity, devsecops, security-testing, company
