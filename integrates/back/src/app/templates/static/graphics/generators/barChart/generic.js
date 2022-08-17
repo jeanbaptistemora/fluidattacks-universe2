@@ -42,9 +42,10 @@ function formatYTickAdjusted(value) {
   return yTick;
 }
 
-function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns) {
+// eslint-disable-next-line max-params
+function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns, alwaysVisible) {
   const minValue = 0.10;
-  if (Math.abs(datum / maxValueLog) > minValue) {
+  if (Math.abs(datum / maxValueLog) > minValue || alwaysVisible) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
@@ -123,7 +124,7 @@ function render(dataDocument, height, width) {
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
-        datum, index, maxValueLogAdjusted, originalValues, columns[0],
+        datum, index, maxValueLogAdjusted, originalValues, columns[0], dataDocument.exposureTrendsByCategories,
       ),
     };
   }
@@ -169,12 +170,18 @@ function load() {
     d3.select(chart.element)
       .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
         const text = d3.select(textList[index]).text();
+        const itemClass = d3.select(textList[index]).attr('class');
         const moveTextPostive = 15;
         const moveTextNegative = -25;
         const pixels = parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
 
-        d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`)
-          .style('fill', 'black !important');
+        if (parseFloat(text) === 0) {
+          d3.select(textList[index])
+            .style('transform', 'translate(0, 7px)')
+            .attr('class', `${ itemClass } exposureTrendsByCategories`);
+        } else {
+          d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`);
+        }
       });
   }
 }
