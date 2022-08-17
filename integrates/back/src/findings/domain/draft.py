@@ -36,6 +36,7 @@ from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
+    validations as validation_utils,
 )
 from newutils.findings import (
     get_formatted_evidence,
@@ -152,6 +153,14 @@ async def reject_draft(
     other: Optional[str],
     reviewer_email: str,
 ) -> None:
+    if other:
+        validation_utils.validate_fields([other])
+        validation_utils.validate_field_length(
+            other,
+            limit=5000,
+            is_greater_than_limit=False,
+        )
+
     finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:

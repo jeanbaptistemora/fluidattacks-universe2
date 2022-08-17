@@ -139,6 +139,7 @@ def format_state(state_item: Item) -> FindingState:
         justification=StateRemovalJustification[state_item["justification"]],
         modified_by=state_item["modified_by"],
         modified_date=state_item["modified_date"],
+        rejection=format_rejection(state_item.get("rejection", None)),
         source=Source[state_item["source"]],
         status=FindingStateStatus[state_item["status"]],
     )
@@ -149,6 +150,7 @@ def format_state_item(state: FindingState) -> Item:
         "justification": state.justification.value,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
+        "rejection": format_rejection_item(state.rejection),
         "source": state.source.value,
         "status": state.status.value,
     }
@@ -298,21 +300,33 @@ def format_optional_verification(
     return verification
 
 
-def format_rejection(rejection_item: Item) -> DraftRejection:
-    return DraftRejection(
-        other=rejection_item["other"],
-        reason=DraftRejectionReason[rejection_item["reason"]],
-        rejected_by=rejection_item["rejected_by"],
-        rejection_date=rejection_item["rejection_date"],
-        submitted_by=rejection_item["submitted_by"],
+def format_rejection(
+    rejection_item: Optional[Item],
+) -> Optional[DraftRejection]:
+    return (
+        DraftRejection(
+            other=rejection_item["other"],
+            reason=DraftRejectionReason[rejection_item["reason"]],
+            rejected_by=rejection_item["rejected_by"],
+            rejection_date=rejection_item["rejection_date"],
+            submitted_by=rejection_item["submitted_by"],
+        )
+        if rejection_item is not None
+        else None
     )
 
 
-def format_rejection_item(rejection: DraftRejection) -> Item:
-    return {
-        "other": rejection.other,
-        "reason": rejection.reason.value,
-        "rejected_by": rejection.rejected_by,
-        "rejection_date": rejection.rejection_date,
-        "submitted_by": rejection.submitted_by,
-    }
+def format_rejection_item(
+    rejection: Optional[DraftRejection],
+) -> Optional[Item]:
+    return (
+        {
+            "other": rejection.other,
+            "reason": rejection.reason.value,
+            "rejected_by": rejection.rejected_by,
+            "rejection_date": rejection.rejection_date,
+            "submitted_by": rejection.submitted_by,
+        }
+        if rejection is not None
+        else None
+    )
