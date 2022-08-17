@@ -49,6 +49,7 @@ const Portrait: React.FC = (): JSX.Element => {
   const opts = {
     playerVars: {
       controls: 1,
+      origin: "https://fluidattacks.com",
     },
   };
 
