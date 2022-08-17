@@ -34,6 +34,10 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "nosniff",
             ],
             [
+                "X-Frame-Options",
+                "SAMEORIGIN",
+            ],
+            [
                 "X-XSS-Protection",
                 "0",
             ],
