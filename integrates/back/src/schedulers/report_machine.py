@@ -63,6 +63,9 @@ from decimal import (
 from decorators import (
     retry_on_exceptions,
 )
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
 from finding_comments import (
     domain as comments_domain,
 )
@@ -138,6 +141,10 @@ import yaml  # type: ignore
 from yaml.reader import (  # type: ignore
     ReaderError,
 )
+
+logging.getLogger("boto").setLevel(logging.ERROR)
+logging.getLogger("botocore").setLevel(logging.ERROR)
+logging.getLogger("boto3").setLevel(logging.ERROR)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -737,20 +744,21 @@ async def upload_evidences(
                 ]["text"]
             ),
         )
-    await collect(
-        tuple(
-            update_evidence(
+    for (evidence_id, _), evidence_stream, evidence_description in zip(
+        evidence_ids, evidence_streams, evidence_descriptions
+    ):
+        try:
+            await update_evidence(
                 loaders,
                 finding.id,
                 evidence_id,
                 evidence_stream,
                 description=evidence_description,
             )
-            for (evidence_id, _), evidence_stream, evidence_description in zip(
-                evidence_ids, evidence_streams, evidence_descriptions
+        except ConditionalCheckFailedException:
+            LOGGER.error(
+                "Cloud not upload evidence for finding %s", finding.id
             )
-        )
-    )
 
 
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
@@ -829,16 +837,16 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         organization,
     ):
         await reattack_future
-    await upload_evidences(loaders, finding, machine_vulnerabilities)
+        await upload_evidences(loaders, finding, machine_vulnerabilities)
 
 
 async def process_execution(
     loaders: Dataloaders,
-    boto3_session: aioboto3.Session,
     execution_id: str,
     criteria_vulns: dict[str, Any],
     criteria_reqs: dict[str, Any],
 ) -> bool:
+    boto3_session = aioboto3.Session()
     LOGGER.info("Processing the execution %s", execution_id)
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(boto3_session, execution_id)
@@ -922,7 +930,6 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
     criteria_vulns = await get_vulns_file()
     criteria_reqs = get_requirements_file()
-    session = aioboto3.Session()
     sqs = boto3.resource("sqs", region_name=FI_AWS_REGION_NAME)
     queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
     signal_handler = SignalHandler()
@@ -930,12 +937,11 @@ async def main() -> None:
         messages = queue.receive_messages(
             MessageAttributeNames=["All"],
             MaxNumberOfMessages=10,
-            WaitTimeSeconds=3,
+            WaitTimeSeconds=1,
         )
         futures = [
             process_execution(
                 loaders,
-                session,
                 _decode_sqs_message(message),
                 criteria_vulns,
                 criteria_reqs,

@@ -140,7 +140,6 @@ async def test_persist_result(populate: bool) -> None:
 
             await process_execution(
                 get_new_context(),
-                None,
                 "group1_1234345",
                 criteria_vulns,
                 criteria_reqs,
@@ -172,3 +171,5 @@ async def test_persist_result(populate: bool) -> None:
                     "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"
                 )
             ).state.status == VulnerabilityStateStatus.CLOSED
+            assert finding.evidences.evidence5 is not None
+            assert finding.evidences.evidence1 is None

@@ -177,7 +177,7 @@ async def update_evidence(
         )
     else:
         evidence = FindingEvidence(
-            description="",
+            description=description or "",
             modified_date=datetime_utils.get_iso_date(),
             url=filename,
         )
