@@ -30,9 +30,6 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
@@ -551,12 +548,7 @@ async def _send_mail_report(
 
 async def send_numerator_report() -> None:
     loaders: Dataloaders = get_new_context()
-    groups: Tuple[Group, ...] = await orgs_domain.get_all_active_groups(
-        loaders
-    )
-    group_names = tuple(
-        group.name for group in groups if group.state.has_squad
-    )
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
     report_date = datetime_utils.get_now_minus_delta(days=date_range).date()
 
