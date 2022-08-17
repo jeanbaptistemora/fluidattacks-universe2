@@ -357,6 +357,17 @@ in the Scope tab are modified.
 
 ![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1658957064/docs/web/notifications/notif_services_updated.png)
 
+### File report
+
+If you are a User Manager,
+you will receive this
+notification via email,
+which will be generated when
+a file is added or deleted
+in the Files section in the Scope tab.
+
+![File Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660747635/docs/web/notifications/notif_file_report.png)
+
 ### Environment report
 
 If you are a User Manager,
