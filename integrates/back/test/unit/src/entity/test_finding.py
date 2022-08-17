@@ -567,7 +567,7 @@ async def test_remove_finding() -> None:
     finding_id = "560175507"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.state.status == FindingStateStatus.CREATED
+    assert finding.state.status == FindingStateStatus.REJECTED
 
     query = f"""
       mutation {{

@@ -16543,10 +16543,29 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-02-04T17:46:10+00:00"
+                    "S": "2019-02-07T17:46:10+00:00"
                   },
                   "status": {
-                    "S": "CREATED"
+                    "S": "REJECTED"
+                  },
+                  "rejection": {
+                    "M": {
+                      "other": {
+                        "S": ""
+                      },
+                      "reason": {
+                        "S": "OMISSION"
+                      },
+                      "rejected_by": {
+                        "S": "customer_manager@fluidattacks.com"
+                      },
+                      "rejection_date": {
+                        "S": "2019-02-07T17:46:10+00:00"
+                      },
+                      "submitted_by": {
+                        "S": "unittest@fluidattacks.com"
+                      }
+                    }
                   }
                 }
               },
