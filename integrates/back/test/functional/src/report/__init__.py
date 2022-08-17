@@ -142,6 +142,8 @@ async def get_result_closing_date(
     verifications: list[str],
     closing_date: Optional[str],
     finding_title: str,
+    min_severity: Optional[float],
+    max_severity: Optional[float],
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(
@@ -153,6 +155,8 @@ async def get_result_closing_date(
             $verifications: [VulnerabilityVerification!]
             $closingDate: DateTime
             $findingTitle: String
+            $minSeverity: Float
+            $maxSeverity: Float
         ) {
             report(
                 reportType: $reportType
@@ -164,6 +168,8 @@ async def get_result_closing_date(
                 closingDate: $closingDate
                 verifications: $verifications
                 findingTitle: $findingTitle
+                minSeverity: $minSeverity
+                maxSeverity: $maxSeverity
             ) {
                 success
             }
@@ -179,6 +185,8 @@ async def get_result_closing_date(
             "verifications": verifications,
             "closingDate": closing_date,
             "findingTitle": finding_title,
+            "minSeverity": min_severity,
+            "maxSeverity": max_severity,
         },
     }
 

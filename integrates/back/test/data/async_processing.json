@@ -4,13 +4,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "6a79cec345bd87d33139977216a5b26eb18bf9b3a63ec22603cdcff139463798"
+            "S": "a1079bc26d2828021f7cd8b9179634a6913517832da3ea4ed012b6d6fdb0d0c0"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100, \"min_severity\": \"2.7\", \"max_severity\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -31,13 +31,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "29a60d4cf09a4983b7f297edc12e40ca71d177b3e470048103a13f2544f61cad"
+            "S": "d069c7e7ec55d0f0034d95232ba0de34bb3b3e6d8ef8e862c1614eac187a66a8"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T05:00:00+00:00\", \"finding_title\": \"\", \"age\": 1200}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T05:00:00+00:00\", \"finding_title\": \"\", \"age\": 1400, \"min_severity\": null, \"max_severity\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -58,13 +58,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "15ccfb45be7fe139e5d6391cf22933cba55dfb21c7e17f10d73f86c8c30f9169"
+            "S": "e754fcfac4342e65eb5074b51966da1e7dac565e6a39e2768f9539e56daf7c30"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -85,13 +85,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "a93439f450e35ef44cee4990f8c3b5b7c449e98209cd0b8b610876a05a0d731b"
+            "S": "c050fa5809cfa2fe7b6896748e47249e36b4c853e8c376fc3402e4f547d9f96f"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -112,13 +112,40 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "36cc4bc510251cf3c6b759ee641fc8bb4363850c7e5fa4088267ac770d958d5b"
+            "S": "04239bdf3fd6ae9e0441a5ca2b3a6f8ab895bbbc0bd4e2bdf9ddb569d3980c11"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
+          },
+          "entity": {
+            "S": "unittesting"
+          },
+          "queue": {
+            "S": "small"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "time": {
+            "S": "1615834776"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "5e94cc6a86992afa652a748c0a684b49f89ba94db8102f9bace4222e4adaea05"
+          },
+          "action_name": {
+            "S": "report"
+          },
+          "additional_info": {
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": 1300, \"min_severity\": \"2.9\", \"max_severity\": \"4.3\"}"
           },
           "entity": {
             "S": "unittesting"

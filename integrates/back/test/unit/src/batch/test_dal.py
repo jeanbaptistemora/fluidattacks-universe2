@@ -59,6 +59,8 @@ data = [
                 "closing_date": None,
                 "finding_title": "",
                 "age": None,
+                "min_severity": None,
+                "max_severity": None,
             }
         ),
     ),
@@ -81,6 +83,8 @@ data = [
                 "closing_date": None,
                 "finding_title": "",
                 "age": None,
+                "min_severity": None,
+                "max_severity": None,
             }
         ),
     ),
@@ -103,6 +107,8 @@ data = [
                 "closing_date": None,
                 "finding_title": "",
                 "age": None,
+                "min_severity": None,
+                "max_severity": None,
             }
         ),
     ),
@@ -123,6 +129,8 @@ data = [
                 "closing_date": None,
                 "finding_title": "038",
                 "age": 1100,
+                "min_severity": "2.4",
+                "max_severity": "6.4",
             }
         ),
     ),
@@ -145,6 +153,8 @@ data = [
                 "closing_date": "2020-06-01T05:00:00+00:00",
                 "age": 1200,
                 "finding_title": "",
+                "min_severity": "2.7",
+                "max_severity": None,
             }
         ),
     ),
@@ -198,6 +208,8 @@ async def test_get_action(dynamodb: ServiceResource) -> None:
                     "closing_date": None,
                     "finding_title": "038",
                     "age": 1100,
+                    "min_severity": "2.4",
+                    "max_severity": "6.4",
                 }
             ),
         )
@@ -267,7 +279,7 @@ async def test_requeue_actions(dynamodb: ServiceResource) -> None:
 
 
 async def test_delete_action(dynamodb: ServiceResource) -> None:
-    key = "809e31ae98d679a68bc436d495ab05efa46d13e5a7ad99560193af7a08dfe66f"
+    key = "44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f652110"
     with mock.patch("batch.dal.dynamodb_ops.delete_item") as mock_delete_item:
         mock_delete_item.return_value = dynamodb.Table(TABLE_NAME).delete_item(
             Key={"pk": key}

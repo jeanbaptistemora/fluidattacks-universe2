@@ -5,6 +5,7 @@ from . import (
     get_result_treatments,
 )
 from custom_exceptions import (
+    InvalidAcceptanceSeverity,
     InvalidFindingTitle,
     ReportAlreadyRequested,
 )
@@ -237,6 +238,8 @@ async def test_get_report_closing_date(
         verifications=verifications,
         closing_date=closing_date,
         finding_title=finding_title,
+        min_severity=float("2.1"),
+        max_severity=float("4.9"),
     )
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
@@ -501,6 +504,8 @@ async def test_get_report_closing_date_second_time_fail(
         verifications=verifications,
         closing_date=closing_date,
         finding_title="007. Cross-site request forgery",
+        min_severity=None,
+        max_severity=None,
     )
     if should_fail:
         assert "errors" in result_xls
@@ -520,6 +525,8 @@ async def test_get_report_closing_date_second_time_fail(
         verifications=verifications,
         closing_date=closing_date,
         finding_title="007. Cross-site request forgery",
+        max_severity=None,
+        min_severity=None,
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
@@ -594,6 +601,8 @@ async def test_get_report_invalid_title(
         verifications=verifications,
         closing_date=None,
         finding_title="0078. Cross-site request forgery -- host",
+        min_severity=None,
+        max_severity=None,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(InvalidFindingTitle())
@@ -634,4 +643,39 @@ async def test_get_report_invalid_verification(
     assert (
         "Variable '$verifications' got invalid value"
         in result_data["errors"][0]["message"]
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "max_severity", "min_severity"],
+    [
+        ["admin@gmail.com", "-1.0", "4.0"],
+        ["admin@gmail.com", "1.1", "14.0"],
+    ],
+)
+async def test_get_report_invalid_severity(
+    populate: bool,
+    email: str,
+    min_severity: str,
+    max_severity: str,
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_data: dict[str, Any] = await get_result_closing_date(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=["IN_PROGRESS"],
+        states=["OPEN"],
+        verifications=["REQUESTED"],
+        closing_date=None,
+        finding_title="007. Cross-site request forgery",
+        min_severity=float(min_severity),
+        max_severity=float(max_severity),
+    )
+    assert "errors" in result_data
+    assert result_data["errors"][0]["message"] == str(
+        InvalidAcceptanceSeverity()
     )
