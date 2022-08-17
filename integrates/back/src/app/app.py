@@ -240,25 +240,15 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
             organization_access: OrganizationAccess = (
                 await orgs_domain.get_access_by_url_token(loaders, url_token)
             )
-
-            success = await (
-                orgs_domain.complete_register_for_organization_invitation(
-                    loaders, organization_access
-                )
+            await orgs_domain.complete_register_for_organization_invitation(
+                loaders, organization_access
             )
             organization: Organization = await loaders.organization.load(
                 organization_access.organization_id
             )
-            if success:
-                response = await templates.valid_invitation(
-                    request, organization.name
-                )
-            else:
-                response = templates.invalid_invitation(
-                    request,
-                    "Invalid or Expired",
-                    organization.name,
-                )
+            response = await templates.valid_invitation(
+                request, organization.name
+            )
         except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"

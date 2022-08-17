@@ -255,7 +255,7 @@ async def exists(loaders: Any, group_name: str, email: str) -> bool:
         return False
 
 
-async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
+async def remove_access(loaders: Any, email: str, group_name: str) -> None:
     await group_access_model.remove(email=email, group_name=group_name)
 
     if email and group_name:
@@ -305,8 +305,6 @@ async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
                 for draft in group_drafts
             )
         )
-
-    return True
 
 
 async def update(

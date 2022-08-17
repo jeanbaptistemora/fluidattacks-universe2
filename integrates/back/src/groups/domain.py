@@ -263,18 +263,15 @@ async def reject_register_for_group_invitation(
     loaders: Any,
     group_access: GroupAccess,
 ) -> bool:
-    success: bool = False
     invitation = group_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     group_name = group_access.group_name
     user_email = group_access.email
-    success = await group_access_domain.remove_access(
-        loaders, user_email, group_name
-    )
+    await group_access_domain.remove_access(loaders, user_email, group_name)
 
-    return success
+    return True
 
 
 async def add_group(
@@ -1273,18 +1270,14 @@ async def remove_resources(
     )
 
 
-async def remove_user(  # pylint: disable=too-many-locals
+async def remove_user(
     loaders: Any,
     group_name: str,
     email: str,
     modified_by: str,
 ) -> bool:
     """Remove user access to group."""
-    success: bool = await group_access_domain.remove_access(
-        loaders, email, group_name
-    )
-    if not success:
-        return False
+    await group_access_domain.remove_access(loaders, email, group_name)
 
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
@@ -1308,12 +1301,9 @@ async def remove_user(  # pylint: disable=too-many-locals
         groups_utils.filter_active_groups(user_org_groups)
     )
     if has_org_access and not has_groups_in_org:
-        success = await orgs_domain.remove_access(
+        await orgs_domain.remove_access(
             loaders, organization_id, email, modified_by
         )
-
-    if not success:
-        return False
 
     all_groups_by_user = await loaders.group.load_many(user_groups_names)
     all_active_groups_by_user = groups_utils.filter_active_groups(
@@ -1322,6 +1312,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
         await stakeholders_domain.remove(loaders, email)
+
     return True
 
 

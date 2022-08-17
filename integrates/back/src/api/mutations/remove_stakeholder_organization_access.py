@@ -23,9 +23,6 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -43,27 +40,16 @@ async def mutate(
         organization_id
     )
 
-    success: bool = await orgs_domain.remove_access(
+    await orgs_domain.remove_access(
         info.context.loaders,
         organization_id,
         user_email.lower(),
         requester_email,
     )
-    if success:
-        redis_del_by_deps_soon(
-            "remove_stakeholder_organization_access",
-            organization_id=organization_id,
-        )
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} removed stakeholder"
-            f" {user_email} from organization {organization.name}",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} attempted to remove "
-            f"stakeholder {user_email} from organization {organization.name}",
-        )
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Stakeholder {requester_email} removed stakeholder"
+        f" {user_email} from organization {organization.name}",
+    )
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)

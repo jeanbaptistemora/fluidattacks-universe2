@@ -64,31 +64,29 @@ async def _remove_organization(
     modified_by: str,
 ) -> None:
     users = await orgs_domain.get_stakeholders_emails(loaders, organization_id)
-    users_removed = await collect(
+    await collect(
         orgs_domain.remove_access(loaders, organization_id, user, modified_by)
         for user in users
     )
-    success = all(users_removed) if users else True
 
     group_names = await orgs_domain.get_group_names(loaders, organization_id)
     await collect(
         _remove_group(loaders, group, modified_by) for group in group_names
     )
-    if success:
-        await orgs_domain.update_state(
-            organization_id,
-            organization_name,
-            state=OrganizationState(
-                modified_by=modified_by,
-                modified_date=datetime_utils.get_iso_date(),
-                status=OrganizationStateStatus.DELETED,
-                pending_deletion_date="",
-            ),
-        )
-        info(
-            f"Organization removed {organization_name}, "
-            f"groups removed: {group_names}"
-        )
+    await orgs_domain.update_state(
+        organization_id,
+        organization_name,
+        state=OrganizationState(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+            status=OrganizationStateStatus.DELETED,
+            pending_deletion_date="",
+        ),
+    )
+    info(
+        f"Organization removed {organization_name}, "
+        f"groups removed: {group_names}"
+    )
 
 
 async def delete_obsolete_orgs() -> None:

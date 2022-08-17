@@ -125,7 +125,7 @@ async def test_remove_access() -> None:
     email = "unittest@fluidattacks.com"
     group_name = "unittesting"
     assert await exists(loaders, group_name, email)
-    assert await remove_access(loaders, email, group_name)
+    await remove_access(loaders, email, group_name)
 
     loaders = get_new_context()
     assert not await exists(loaders, group_name, email)

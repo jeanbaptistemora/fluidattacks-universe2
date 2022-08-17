@@ -348,7 +348,7 @@ async def test_remove_user() -> None:
         == "user"
     )
 
-    assert await orgs_domain.remove_access(loaders, org_id, user, modified_by)
+    await orgs_domain.remove_access(loaders, org_id, user, modified_by)
     loaders = get_new_context()
     updated_group_users = (
         await group_access_domain.get_group_stakeholders_emails(loaders, group)

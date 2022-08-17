@@ -115,9 +115,6 @@ from organizations.types import (
     CredentialAttributesToUpdate,
 )
 import re
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -241,7 +238,7 @@ async def update_state(
 
 async def complete_register_for_organization_invitation(
     loaders: Any, organization_access: OrganizationAccess
-) -> bool:
+) -> None:
     invitation = organization_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -282,12 +279,6 @@ async def complete_register_for_organization_invitation(
                 ),
             )
         )
-    redis_del_by_deps_soon(
-        "confirm_access_organization",
-        organization_id=organization_id,
-    )
-
-    return True
 
 
 async def get_access_by_url_token(
@@ -570,18 +561,16 @@ async def remove_credentials(
 
 async def remove_access(
     loaders: Any, organization_id: str, email: str, modified_by: str
-) -> bool:
+) -> None:
     if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
     await org_access_model.remove(email=email, organization_id=organization_id)
     org_group_names = await get_group_names(loaders, organization_id)
-    are_groups_removed = all(
-        await collect(
-            tuple(
-                group_access_domain.remove_access(loaders, email, group)
-                for group in org_group_names
-            )
+    await collect(
+        tuple(
+            group_access_domain.remove_access(loaders, email, group)
+            for group in org_group_names
         )
     )
 
@@ -603,24 +592,20 @@ async def remove_access(
         )
     )
 
-    return are_groups_removed
-
 
 async def reject_register_for_organization_invitation(
     loaders: Any,
     organization_access: OrganizationAccess,
 ) -> bool:
-    success: bool = False
     invitation = organization_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     organization_id = organization_access.organization_id
     user_email = organization_access.email
-    success = await remove_access(
-        loaders, organization_id, user_email, user_email
-    )
-    return success
+    await remove_access(loaders, organization_id, user_email, user_email)
+
+    return True
 
 
 async def update_credentials(
