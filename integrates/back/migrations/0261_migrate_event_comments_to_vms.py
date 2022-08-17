@@ -68,7 +68,7 @@ async def process_comment(
 ) -> None:
     comment_type = item["comment_type"]
     event_id = item["finding_id"]
-    if comment_type == "event" and exists(loaders, event_id):
+    if comment_type == "event" and await exists(loaders, event_id):
         event: Event = await loaders.event.load(event_id)
         group_name = event.group_name
         if (
