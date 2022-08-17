@@ -83,11 +83,11 @@ async def reject_register(
         "reject_access",
         group_name=group_name,
     )
-    success = await groups_domain.reject_register_for_group_invitation(
+    await groups_domain.reject_register_for_group_invitation(
         get_new_context(), group_access
     )
 
-    return success
+    return True
 
 
 async def get_batch_job(*, action_name: str, entity: str) -> BatchProcessing:

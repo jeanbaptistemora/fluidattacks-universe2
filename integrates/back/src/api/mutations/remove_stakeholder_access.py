@@ -23,9 +23,6 @@ from newutils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -35,34 +32,26 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     user_email: str,
     group_name: str,
 ) -> RemoveStakeholderAccessPayloadType:
     user_data = await token_utils.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
-    success = await groups_domain.remove_user(
+    await groups_domain.remove_user(
         info.context.loaders, group_name, user_email, requester_email
     )
-    removed_email = user_email if success else ""
-    if success:
-        redis_del_by_deps_soon(
-            "remove_stakeholder_access",
-            group_name=group_name,
-        )
-        msg = (
-            f"Security: Removed stakeholder: {user_email} from {group_name} "
-            "group successfully"
-        )
-        logs_utils.cloudwatch_log(info.context, msg)
-    else:
-        msg = (
-            f"Security: Attempted to remove stakeholder: {user_email} "
-            f"from {group_name} group"
-        )
-        logs_utils.cloudwatch_log(info.context, msg)
+    redis_del_by_deps_soon(
+        "remove_stakeholder_access",
+        group_name=group_name,
+    )
+    msg = (
+        f"Security: Removed stakeholder: {user_email} from {group_name} "
+        "group successfully"
+    )
+    logs_utils.cloudwatch_log(info.context, msg)
 
     return RemoveStakeholderAccessPayloadType(
-        success=success, removed_email=removed_email
+        success=True, removed_email=user_email
     )

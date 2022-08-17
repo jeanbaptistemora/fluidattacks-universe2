@@ -262,16 +262,16 @@ async def complete_register_for_group_invitation(
 async def reject_register_for_group_invitation(
     loaders: Any,
     group_access: GroupAccess,
-) -> bool:
+) -> None:
     invitation = group_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = group_access.group_name
-    user_email = group_access.email
-    await group_access_domain.remove_access(loaders, user_email, group_name)
-
-    return True
+    await group_access_domain.remove_access(
+        loaders=loaders,
+        email=group_access.email,
+        group_name=group_access.group_name,
+    )
 
 
 async def add_group(
@@ -418,7 +418,7 @@ async def remove_group(
             group_name=group_name,
             user_email=user_email,
         )
-    are_users_removed = await remove_all_users(
+    await remove_all_users(
         loaders=loaders,
         group_name=group_name,
         modified_by=user_email,
@@ -428,7 +428,6 @@ async def remove_group(
     )
     if not all(
         [
-            are_users_removed,
             all_resources_removed,
             are_policies_revoked,
         ]
@@ -1205,7 +1204,7 @@ async def remove_all_users(
     loaders: Any,
     group_name: str,
     modified_by: str,
-) -> bool:
+) -> None:
     """Remove user access to group."""
     user_active, user_suspended = await collect(
         [
@@ -1218,13 +1217,11 @@ async def remove_all_users(
         ]
     )
     all_users = user_active + user_suspended
-    return all(
-        await collect(
-            [
-                remove_user(loaders, group_name, user, modified_by)
-                for user in all_users
-            ]
-        )
+    await collect(
+        [
+            remove_user(loaders, group_name, user, modified_by)
+            for user in all_users
+        ]
     )
 
 
@@ -1275,7 +1272,7 @@ async def remove_user(
     group_name: str,
     email: str,
     modified_by: str,
-) -> bool:
+) -> None:
     """Remove user access to group."""
     await group_access_domain.remove_access(loaders, email, group_name)
 
@@ -1313,28 +1310,24 @@ async def remove_user(
     if not has_groups_in_asm:
         await stakeholders_domain.remove(loaders, email)
 
-    return True
-
 
 async def unsubscribe_from_group(
     *,
     loaders: Any,
     group_name: str,
     email: str,
-) -> bool:
-    success: bool = await remove_user(
+) -> None:
+    await remove_user(
         loaders=loaders,
         group_name=group_name,
         email=email,
         modified_by=email,
     )
-    if success:
-        await send_mail_unsubscribed(
-            loaders=loaders,
-            group_name=group_name,
-            user_email=email,
-        )
-    return success
+    await send_mail_unsubscribed(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=email,
+    )
 
 
 async def send_mail_unsubscribed(

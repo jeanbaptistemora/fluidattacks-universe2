@@ -596,7 +596,7 @@ async def remove_access(
 async def reject_register_for_organization_invitation(
     loaders: Any,
     organization_access: OrganizationAccess,
-) -> bool:
+) -> None:
     invitation = organization_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -604,8 +604,6 @@ async def reject_register_for_organization_invitation(
     organization_id = organization_access.organization_id
     user_email = organization_access.email
     await remove_access(loaders, organization_id, user_email, user_email)
-
-    return True
 
 
 async def update_credentials(

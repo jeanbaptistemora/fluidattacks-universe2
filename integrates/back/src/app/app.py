@@ -276,24 +276,16 @@ async def reject_access(request: Request) -> HTMLResponse:
                     "Invalid or Expired",
                     group_access.group_name,
                 )
-            success = await groups_domain.reject_register_for_group_invitation(
+            await groups_domain.reject_register_for_group_invitation(
                 loaders, group_access
             )
-            if success:
-                group_name = group_access.group_name
-                redis_del_by_deps_soon(
-                    "reject_access",
-                    group_name=group_name,
-                )
-                response = await templates.reject_invitation(
-                    request, group_access.group_name
-                )
-            else:
-                response = templates.invalid_invitation(
-                    request,
-                    "Invalid or Expired",
-                    group_access.group_name,
-                )
+            redis_del_by_deps_soon(
+                "reject_access",
+                group_name=group_access.group_name,
+            )
+            response = await templates.reject_invitation(
+                request, group_access.group_name
+            )
         except (StakeholderNotInGroup, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
@@ -314,8 +306,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
             organization_access: OrganizationAccess = (
                 await orgs_domain.get_access_by_url_token(loaders, url_token)
             )
-
-            success = await (
+            await (
                 orgs_domain.reject_register_for_organization_invitation(
                     loaders, organization_access
                 )
@@ -323,19 +314,14 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
             organization: Organization = await loaders.organization.load(
                 organization_access.organization_id
             )
-            if success:
-                organization_id: str = organization_access.organization_id
-                redis_del_by_deps_soon(
-                    "reject_access_organization",
-                    organization_id=organization_id,
-                )
-                response = await templates.reject_invitation(
-                    request, organization.name
-                )
-            else:
-                response = templates.invalid_invitation(
-                    request, "Invalid or Expired", organization.name
-                )
+            organization_id: str = organization_access.organization_id
+            redis_del_by_deps_soon(
+                "reject_access_organization",
+                organization_id=organization_id,
+            )
+            response = await templates.reject_invitation(
+                request, organization.name
+            )
         except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"

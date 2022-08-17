@@ -4,6 +4,9 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -26,9 +29,6 @@ from newutils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -38,35 +38,27 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str
+    _: None, info: GraphQLResolveInfo, group_name: str
 ) -> SimplePayloadType:
     stakeholder_info = await token_utils.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
-    loaders: Any = info.context.loaders
-    success = await groups_domain.unsubscribe_from_group(
+    loaders: Dataloaders = info.context.loaders
+    await groups_domain.unsubscribe_from_group(
         loaders=loaders,
         group_name=group_name,
         email=stakeholder_email,
     )
+    group: Group = await loaders.group.load(group_name)
+    group_org_id = group.organization_id
+    redis_del_by_deps_soon(
+        "unsubscribe_from_group",
+        group_name=group_name,
+        organization_id=group_org_id,
+    )
+    msg = (
+        f"Security: Unsubscribed stakeholder: {stakeholder_email} "
+        f"from {group_name} group successfully"
+    )
+    logs_utils.cloudwatch_log(info.context, msg)
 
-    if success:
-        group: Group = await loaders.group.load(group_name)
-        group_org_id = group.organization_id
-        redis_del_by_deps_soon(
-            "unsubscribe_from_group",
-            group_name=group_name,
-            organization_id=group_org_id,
-        )
-        msg = (
-            f"Security: Unsubscribed stakeholder: {stakeholder_email} "
-            f"from {group_name} group successfully"
-        )
-        logs_utils.cloudwatch_log(info.context, msg)
-    else:
-        msg = (
-            "Security: Attempted to unsubscribe stakeholder: "
-            f"{stakeholder_email} from {group_name} group"
-        )
-        logs_utils.cloudwatch_log(info.context, msg)
-
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)
