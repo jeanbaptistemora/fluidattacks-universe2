@@ -7,6 +7,7 @@ import React from "react";
 import { object, string } from "yup";
 
 import type {
+  ICheckboxProps,
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
@@ -14,6 +15,7 @@ import type {
   ITextAreaProps,
 } from ".";
 import {
+  Checkbox as CheckboxComp,
   Input,
   InputDate as InputDateComp,
   InputNumber as InputNumberComp,
@@ -59,7 +61,20 @@ const StoryDefault: Story<IInputProps> = (props): JSX.Element => (
     validationSchema={validations}
   >
     <Form id={"exampleForm"}>
-      <Input {...props} id={"ExampleId"} name={"exampleName"} />
+      <Input {...props} id={"ExInput"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
+const StoryCheckbox: Story<ICheckboxProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+    validationSchema={validations}
+  >
+    <Form id={"exampleForm"}>
+      <CheckboxComp {...props} id={"ExCheckbox"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -71,7 +86,7 @@ const StoryInputDate: Story<IInputDateProps> = (props): JSX.Element => (
     onSubmit={handleSubmit}
   >
     <Form id={"exampleForm"}>
-      <InputDateComp {...props} id={"ExampleId"} name={"exampleName"} />
+      <InputDateComp {...props} id={"ExInputDate"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -84,7 +99,7 @@ const StoryInputNumber: Story<IInputNumberProps> = (props): JSX.Element => (
     validationSchema={validationsInputNumber}
   >
     <Form id={"exampleForm"}>
-      <InputNumberComp {...props} id={"ExampleId"} name={"exampleName"} />
+      <InputNumberComp {...props} id={"ExInputNumber"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -97,7 +112,7 @@ const StorySelect: Story<ISelectProps> = (props): JSX.Element => (
     validationSchema={selectValidations}
   >
     <Form id={"exampleForm"}>
-      <SelectComp {...props} id={"ExampleId"} name={"exampleName"} />
+      <SelectComp {...props} id={"ExSelect"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -110,7 +125,7 @@ const StoryTextArea: Story<ITextAreaProps> = (props): JSX.Element => (
     validationSchema={validations}
   >
     <Form id={"exampleForm"}>
-      <TextAreaComp {...props} id={"ExampleId"} name={"exampleName"} />
+      <TextAreaComp {...props} id={"ExTextarea"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -123,6 +138,14 @@ Default.args = {
   required: false,
   tooltip: "Example tooltip",
   variant: "solid",
+};
+
+const Checkbox = StoryCheckbox.bind({});
+Checkbox.args = {
+  checked: true,
+  label: "Example label",
+  required: true,
+  tooltip: "Example tooltip",
 };
 
 const InputDate = StoryInputDate.bind({});
@@ -179,5 +202,5 @@ TextArea.args = {
   variant: "solid",
 };
 
-export { Default, InputDate, InputNumber, Search, Select, TextArea };
+export { Default, Checkbox, InputDate, InputNumber, Search, Select, TextArea };
 export default config;

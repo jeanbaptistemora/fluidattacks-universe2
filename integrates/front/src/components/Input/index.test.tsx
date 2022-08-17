@@ -3,7 +3,15 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
 
-import { Input, InputDate, InputNumber, Label, Select, TextArea } from ".";
+import {
+  Checkbox,
+  Input,
+  InputDate,
+  InputNumber,
+  Label,
+  Select,
+  TextArea,
+} from ".";
 
 const schema = object().shape({
   input: string().required(),
@@ -12,6 +20,7 @@ const schema = object().shape({
 describe("Input", (): void => {
   it("should return functions", (): void => {
     expect.hasAssertions();
+    expect(typeof Checkbox).toBe("function");
     expect(typeof Input).toBe("function");
     expect(typeof InputDate).toBe("function");
     expect(typeof InputNumber).toBe("function");
@@ -30,6 +39,7 @@ describe("Input", (): void => {
       >
         <Form name={"testForm"}>
           <Label htmlFor={"label"}>{"label"}</Label>
+          <Checkbox label={"checkbox"} name={"checkbox"} value={"checkbox"} />
           <Input label={"input"} name={"input"} />
           <InputDate label={"date"} name={"date"} />
           <InputNumber label={"number"} name={"number"} />
@@ -47,7 +57,7 @@ describe("Input", (): void => {
     ).toBeInTheDocument();
     expect(screen.queryByText("label")).toBeInTheDocument();
 
-    ["input", "date", "number", "select", "textArea"].forEach(
+    ["checkbox", "input", "date", "number", "select", "textArea"].forEach(
       (label: string): void => {
         expect(screen.queryByLabelText(label)).toBeInTheDocument();
       }
