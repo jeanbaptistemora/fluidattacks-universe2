@@ -14,7 +14,7 @@ const ExternalLink = styled.a.attrs<ExternalLinkProps>({
 })`
   border-radius: 4px;
   color: #5c5c70;
-  padding: 9px 6px;
+  padding: 6px;
   text-decoration: underline;
   :hover {
     background-color: #dddde3;

@@ -65,7 +65,7 @@ const FormikCheckbox: FC<TCheckboxProps> = ({
   disabled,
   field: { checked, name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
-  id,
+  id = name,
   label,
   onBlur,
   required,

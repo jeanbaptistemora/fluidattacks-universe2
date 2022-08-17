@@ -24,6 +24,7 @@ const Checkbox: FC<ICheckboxProps> = ({
     name={name}
     required={required}
     tooltip={tooltip}
+    type={"checkbox"}
     value={value}
   />
 );
