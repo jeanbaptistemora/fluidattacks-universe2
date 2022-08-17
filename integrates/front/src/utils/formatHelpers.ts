@@ -28,7 +28,7 @@ const castEventStatus: (field: string) => string = (field: string): string => {
   const eventStatus: Record<string, string> = {
     CREATED: "searchFindings.tabEvents.statusValues.unsolve",
     SOLVED: "searchFindings.tabEvents.statusValues.solve",
-    SUBMITTED_SOLUTION:
+    VERIFICATION_REQUESTED:
       "searchFindings.tabEvents.statusValues.pendingValidation",
   };
 

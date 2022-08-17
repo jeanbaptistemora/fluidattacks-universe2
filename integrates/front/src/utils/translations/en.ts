@@ -586,6 +586,14 @@ export const enTranslations: ResourceKey = {
           "/exploitation and .png for evidences",
       },
       new: "New Event",
+      remediationModal: {
+        btn: {
+          text: "Request verification",
+          tooltip: "Request the verification for an event that has been solved",
+        },
+        justification: "Which was the applied solution?",
+        titleRequest: "Justification",
+      },
       successCreate: "Event created successfully",
       titleSuccess: "Success",
       type: {

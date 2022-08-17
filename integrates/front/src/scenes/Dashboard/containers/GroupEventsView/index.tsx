@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -39,6 +39,7 @@ import {
   filterSelect,
 } from "components/Table/utils";
 import { Tooltip } from "components/Tooltip";
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_EVENT_MUTATION,
@@ -225,6 +226,15 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   }, []);
   const closeUpdateAffectedModal: () => void = useCallback((): void => {
     setIsUpdateAffectedModalOpen(false);
+  }, []);
+
+  const [isRequestVerificationModalOpen, setIsRequestVerificationModalOpen] =
+    useState(false);
+  const openRequestVerificationModal: () => void = useCallback((): void => {
+    setIsRequestVerificationModalOpen(true);
+  }, []);
+  const closeRequestVerificationModal: () => void = useCallback((): void => {
+    setIsRequestVerificationModalOpen(false);
   }, []);
 
   const { data, refetch } = useQuery<IEventsDataset>(GET_EVENTS, {
@@ -563,6 +573,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           onSubmit={handleUpdateAffectedSubmit}
         />
       ) : undefined}
+      {isRequestVerificationModalOpen ? (
+        <RemediationModal
+          isLoading={false}
+          isOpen={true}
+          message={t("group.events.remediationModal.justification")}
+          onClose={closeRequestVerificationModal}
+          onSubmit={closeRequestVerificationModal}
+          title={t("group.events.remediationModal.titleRequest")}
+        />
+      ) : undefined}
       <Tooltip
         id={"group.events.help"}
         tip={t("searchFindings.tabEvents.tableAdvice")}
@@ -616,6 +636,22 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                     <FontAwesomeIcon icon={faPlus} />
                     &nbsp;
                     {t("group.events.form.affectedReattacks.btn.text")}
+                  </Button>
+                </Tooltip>
+              </Can>
+              <Can do={"api_mutations_request_event_verification_mutate"}>
+                <Tooltip
+                  id={"group.events.remediationModal.btn.id"}
+                  tip={t("group.events.remediationModal.btn.tooltip")}
+                >
+                  <Button
+                    disabled={!hasOpenEvents}
+                    onClick={openRequestVerificationModal}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faCheck} />
+                    &nbsp;
+                    {t("group.events.remediationModal.btn.text")}
                   </Button>
                 </Tooltip>
               </Can>
