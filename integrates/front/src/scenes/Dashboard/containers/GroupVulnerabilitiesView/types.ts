@@ -11,8 +11,9 @@ interface IGroupFindings {
   };
 }
 
-interface IVulnerabilityNode {
+interface IVulnerability {
   currentState: string;
+  finding: IFinding;
   id: string;
   reportDate: string;
   specific: string;
@@ -20,15 +21,11 @@ interface IVulnerabilityNode {
   where: string;
 }
 
-interface IVulnerability extends IVulnerabilityNode {
-  finding: IFinding;
-}
-
 interface IFindingVulnerabilities {
   finding: {
     id: string;
     vulnerabilitiesConnection: {
-      edges: { node: IVulnerabilityNode }[];
+      edges: { node: IVulnerability }[];
       pageInfo: {
         hasNextPage: boolean;
         endCursor: string;
@@ -37,10 +34,19 @@ interface IFindingVulnerabilities {
   };
 }
 
+interface IGroupVulnerabilities {
+  group: {
+    name: string;
+    vulnerabilities: {
+      edges: { node: IVulnerability }[];
+    };
+  };
+}
+
 export type {
   IFinding,
   IFindingVulnerabilities,
   IGroupFindings,
+  IGroupVulnerabilities,
   IVulnerability,
-  IVulnerabilityNode,
 };

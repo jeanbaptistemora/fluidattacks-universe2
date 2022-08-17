@@ -43,4 +43,33 @@ const GET_FINDING_VULNERABILITIES: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_VULNERABILITIES, GET_GROUP_FINDINGS };
+const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
+  query GetFindingVulnerabilities($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      vulnerabilities {
+        edges {
+          node {
+            currentState
+            finding {
+              id
+              severityScore
+              title
+            }
+            id
+            reportDate
+            specific
+            treatment
+            where
+          }
+        }
+      }
+    }
+  }
+`;
+
+export {
+  GET_FINDING_VULNERABILITIES,
+  GET_GROUP_FINDINGS,
+  GET_GROUP_VULNERABILITIES,
+};

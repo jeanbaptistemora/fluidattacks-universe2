@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import {
@@ -8,8 +9,8 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import { useGroupVulnerabilities } from "./hooks";
-import type { IVulnerability } from "./types";
+import { GET_GROUP_VULNERABILITIES } from "./queries";
+import type { IGroupVulnerabilities, IVulnerability } from "./types";
 import { filterByState, filterByTreatment } from "./utils";
 
 import { Table } from "components/TableNew";
@@ -74,7 +75,15 @@ const views = [
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { path, url } = useRouteMatch();
-  const vulnerabilities = useGroupVulnerabilities(groupName, "");
+  const { data } = useQuery<IGroupVulnerabilities>(GET_GROUP_VULNERABILITIES, {
+    variables: { first: 100, groupName },
+  });
+  const vulnerabilities =
+    data === undefined
+      ? []
+      : data.group.vulnerabilities.edges.map(
+          (edge): IVulnerability => edge.node
+        );
 
   return (
     <div>
