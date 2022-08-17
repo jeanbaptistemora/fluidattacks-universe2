@@ -24,9 +24,10 @@ automating only the detection
 of deterministic vulnerabilities
 to minimize the false positive rate.
 
-## Types of tests
+Below,
+you could review the types of tests.
 
-### SAST
+## SAST
 
 Security tests are based on
 analyzing the source code
@@ -35,103 +36,34 @@ The currently supported
 languages and the rules
 checked in each one are:
 
-#### .net
-
-The rules that apply are:
-
-- Avoid disclosing technical information
-- Disable debugging events
-- Disable insecure functionalities
-- Restrict system objects
-
-#### Android configuration files
+### Java
 
 The rules that apply are:
 
 - Avoid client-side control enforcement
 - Avoid disclosing technical information
-- Define users with privileges
-- Disable debugging events
-- Disable insecure functionalities
-- Encrypt sensitive information
-- Request authentication
-- Restrict system objects
-- Set user's required privileges
-- Use the principle of least privilege
-
-#### CloudFormation (Cloud)
-
-The rules that apply are:
-
-- Allow access only
-  to the necessary ports
-- Avoid client-side
-  control enforcement
+- Cookies with security attributes
 - Define users with privileges
 - Disable insecure TLS versions
-- Disable insecure
-  functionalities
-- Display access notification
-- Encrypt sensitive
-  information
-- Limit password lifespan
-- Mask sensitive data
-- Passphrases with
-  at least 4 words
-- Passwords with at
-  least 20 characters
-- Passwords with random salt
+- Disable insecure functionalities
+- Discard unsafe inputs
 - Prevent log modification
-- Prevent the use
-  of breached passwords
-- Record exact occurrence
-  time of events
-- Record exceptional
-  events in logs
-- Register severity level
-- Request access credentials
-- Request authentication
-- Restrict access to
-  critical processes
+- Protect system cryptographic keys
+- Restrict access to critical processes
 - Restrict system objects
-- Separate keys for
-  encryption and signatures
-- Set minimum OTP length
-- Set minimum size
-  for hash functions
-- Set minimum size
-  of asymmetric encryption
-- Set minimum size of
-  symmetric encryption
+- Set minimum size for hash functions
+- Set minimum size of asymmetric encryption
+- Set minimum size of symmetric encryption
 - Set user's required privileges
-- Store logs based
-  on valid regulation
-- Store passwords with salt
-- Transmit data using
-  secure protocols
-- Use of log management system
-- Use pre-existent mechanisms
+- Source code without sensitive information
+- Transmit data using secure protocols
+- Uniform distribution in random numbers
+- Use parameterized queries
 - Use secure cryptographic mechanisms
 - Use the principle of least privilege
+- Validate request parameters
 
-#### Configuration files (config, json, properties, settings)
-
-The rules that apply are:
-
-- Change system
-  default credentials
-- Disable insecure
-  functionalities
-- Make authentication
-  options equally secure
-- Protect system cryptographic keys
-- Request authentication
-- Restrict access
-  to critical processes
-- Source code without
-  sensitive information
-
-#### CSharp
+### CSharp
 
 The rules that apply are:
 
@@ -187,66 +119,7 @@ The rules that apply are:
 - Validate request parameters
 - Verify third-party components
 
-#### Docker
-
-The rules that apply are:
-
-- Define users with privileges
-- Disable insecure functionalities
-- Protect system cryptographic keys
-- Set user's required privileges
-- Source code without sensitive information
-- Use the principle of least privilege
-
-#### Go
-
-The rules that apply are:
-
-- Disable insecure TLS versions
-- Set minimum size for hash functions
-- Set minimum size of asymmetric encryption
-- Set minimum size of symmetric encryption
-- Transmit data using secure protocols
-
-#### Html
-
-The rules that apply are:
-
-- Avoid caching and temporary files
-- Control redirects
-- Discard unsafe inputs
-- Use digital signatures
-- Verify Subresource Integrity
-- Verify third-party components
-
-#### Java
-
-The rules that apply are:
-
-- Avoid client-side control enforcement
-- Avoid disclosing technical information
-- Cookies with security attributes
-- Define users with privileges
-- Disable insecure TLS versions
-- Disable insecure functionalities
-- Discard unsafe inputs
-- Prevent log modification
-- Protect system cryptographic keys
-- Restrict access to critical processes
-- Restrict system objects
-- Set minimum size for hash functions
-- Set minimum size of asymmetric encryption
-- Set minimum size of symmetric encryption
-- Set user's required privileges
-- Source code without sensitive information
-- Transmit data using secure protocols
-- Uniform distribution in random numbers
-- Use parameterized queries
-- Use secure cryptographic mechanisms
-- Use the principle of least privilege
-- Validate request parameters
-
-#### Javascript
+### Javascript
 
 The rules that apply are:
 
@@ -265,7 +138,16 @@ The rules that apply are:
 - Uniform distribution in random numbers
 - Use secure cryptographic mechanisms
 
-#### Kotlin
+### .net
+
+The rules that apply are:
+
+- Avoid disclosing technical information
+- Disable debugging events
+- Disable insecure functionalities
+- Restrict system objects
+
+### Kotlin
 
 The rules that apply are:
 
@@ -275,21 +157,89 @@ The rules that apply are:
 - Set minimum size of symmetric encryption
 - Transmit data using secure protocols
 
-#### Kubernetes
+### Go
 
 The rules that apply are:
 
-- Define users with privileges
-- Set user's required privileges
-- Use the principle of least privilege
+- Disable insecure TLS versions
+- Set minimum size for hash functions
+- Set minimum size of asymmetric encryption
+- Set minimum size of symmetric encryption
+- Transmit data using secure protocols
 
-#### Python
+### Python
 
 The rule that applies is:
 
 - Declare dependencies explicitly
 
-#### Terraform (Cloud)
+### HTML
+
+The rules that apply are:
+
+- Avoid caching and temporary files
+- Control redirects
+- Discard unsafe inputs
+- Use digital signatures
+- Verify Subresource Integrity
+- Verify third-party components
+
+### CloudFormation (Cloud)
+
+The rules that apply are:
+
+- Allow access only
+  to the necessary ports
+- Avoid client-side
+  control enforcement
+- Define users with privileges
+- Disable insecure TLS versions
+- Disable insecure
+  functionalities
+- Display access notification
+- Encrypt sensitive
+  information
+- Limit password lifespan
+- Mask sensitive data
+- Passphrases with
+  at least 4 words
+- Passwords with at
+  least 20 characters
+- Passwords with random salt
+- Prevent log modification
+- Prevent the use
+  of breached passwords
+- Record exact occurrence
+  time of events
+- Record exceptional
+  events in logs
+- Register severity level
+- Request access credentials
+- Request authentication
+- Restrict access to
+  critical processes
+- Restrict system objects
+- Separate keys for
+  encryption and signatures
+- Set minimum OTP length
+- Set minimum size
+  for hash functions
+- Set minimum size
+  of asymmetric encryption
+- Set minimum size of
+  symmetric encryption
+- Set user's required privileges
+- Store logs based
+  on valid regulation
+- Store passwords with salt
+- Transmit data using
+  secure protocols
+- Use of log management system
+- Use pre-existent mechanisms
+- Use secure cryptographic mechanisms
+- Use the principle of least privilege
+
+### Terraform (Cloud)
 
 The rules that apply are:
 
@@ -329,14 +279,65 @@ The rules that apply are:
 - Use of log management system
 - Use the principle of least privilege
 
-### DAST
+### Docker
+
+The rules that apply are:
+
+- Define users with privileges
+- Disable insecure functionalities
+- Protect system cryptographic keys
+- Set user's required privileges
+- Source code without sensitive information
+- Use the principle of least privilege
+
+### Kubernetes
+
+The rules that apply are:
+
+- Define users with privileges
+- Set user's required privileges
+- Use the principle of least privilege
+
+### Configuration files (config, json, properties, settings)
+
+The rules that apply are:
+
+- Change system
+  default credentials
+- Disable insecure
+  functionalities
+- Make authentication
+  options equally secure
+- Protect system cryptographic keys
+- Request authentication
+- Restrict access
+  to critical processes
+- Source code without
+  sensitive information
+
+### Android configuration files
+
+The rules that apply are:
+
+- Avoid client-side control enforcement
+- Avoid disclosing technical information
+- Define users with privileges
+- Disable debugging events
+- Disable insecure functionalities
+- Encrypt sensitive information
+- Request authentication
+- Restrict system objects
+- Set user's required privileges
+- Use the principle of least privilege
+
+## DAST
 
 Security testing based on
 deployed functional environments.
 The contexts currently
 supported in DAST are:
 
-#### HTTP
+### HTTP
 
 Checks on the responses that
 a server gives to a request.
@@ -359,7 +360,7 @@ The rules that apply are:
 - Verify Subresource Integrity
 - Cookies with security attributes
 
-#### SSL
+### SSL
 
 Checks on the encryption schemes
 used in the communication.
@@ -371,7 +372,7 @@ The rules that apply are:
 - Transmit data using secure protocols
 - Disable insecure TLS versions
 
-### SCA
+## SCA
 
 It is based on
 analyzing packages,
@@ -380,19 +381,19 @@ or third-party libraries used
 by the application and
 evaluating their security.
 
-#### CSharp, Java, Javascript, Python
+### CSharp, Java, Javascript, Python
 
 The rules that apply are:
 
 - Components with minimal dependencies
 - Verify third-party components
 
-### Cloud Infrastructure
+## Cloud Infrastructure
 
 Security audit of resources
 deployed in the cloud.
 
-#### AWS
+### AWS
 
 Verifications on the infrastructure
 deployed in the Amazon cloud
