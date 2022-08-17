@@ -44,7 +44,7 @@ class TimingPhases:
 
 
 @dataclass(frozen=True)
-class CheckResultApi:
+class CheckResponse:
     status: int
     status_text: str
     timings: Maybe[Timings]
@@ -52,8 +52,14 @@ class CheckResultApi:
 
 
 @dataclass(frozen=True)
+class ApiCheckResult:
+    request_error: Maybe[str]
+    response: Maybe[CheckResponse]
+
+
+@dataclass(frozen=True)
 class CheckResult:
-    api_result: Maybe[CheckResultApi]
+    api_result: Maybe[ApiCheckResult]
     browser_result: Maybe[JsonObj]
     attempts: int
     run_id: CheckRunId

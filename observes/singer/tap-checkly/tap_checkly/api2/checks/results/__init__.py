@@ -2,8 +2,9 @@ from ._client import (
     CheckResultClient,
 )
 from ._core import (
+    ApiCheckResult,
+    CheckResponse,
     CheckResult,
-    CheckResultApi,
     CheckResultId,
     CheckResultObj,
     CheckRunId,
@@ -13,9 +14,10 @@ from ._core import (
 )
 
 __all__ = [
+    "ApiCheckResult",
     "CheckResultClient",
     "CheckResult",
-    "CheckResultApi",
+    "CheckResponse",
     "CheckResultId",
     "CheckResultObj",
     "CheckRunId",

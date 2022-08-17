@@ -21,7 +21,8 @@ from fa_singer_io.singer import (
     SingerRecord,
 )
 from tap_checkly.api2.checks.results import (
-    CheckResultApi,
+    ApiCheckResult,
+    CheckResponse,
     CheckResultObj,
     RolledCheckResult,
     TimingPhases,
@@ -65,7 +66,7 @@ def encode_timing_phases(data: TimingPhases) -> JsonObj:
     )
 
 
-def encode_result_api(result: CheckResultApi) -> JsonObj:
+def encode_check_response(result: CheckResponse) -> JsonObj:
     return from_unfolded_dict(
         freeze(
             {
@@ -74,6 +75,19 @@ def encode_result_api(result: CheckResultApi) -> JsonObj:
                 "timings": result.timings.map(encode_timings).value_or(None),
                 "timing_phases": result.timing_phases.map(
                     encode_timing_phases
+                ).value_or(None),
+            }
+        )
+    )
+
+
+def encode_result_api(result: ApiCheckResult) -> JsonObj:
+    return from_unfolded_dict(
+        freeze(
+            {
+                "request_error": result.request_error.value_or(None),
+                "response": result.response.map(
+                    encode_check_response
                 ).value_or(None),
             }
         )
