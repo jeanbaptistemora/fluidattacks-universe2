@@ -76,7 +76,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           case "Exception - Error empty value is not valid":
             msgError(t("group.scope.url.errors.invalid"));
             break;
-          case "Exception - Active root with the same URL/branch already exists":
+          case "Exception - Root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
           case "Exception - Active root with the same Nickname already exists":
@@ -146,7 +146,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       graphQLErrors.forEach((error): void => {
         if (
           error.message ===
-          "Exception - Active root with the same URL/branch already exists"
+          "Exception - Root with the same URL/branch already exists"
         ) {
           msgError(t("group.scope.url.errors.invalid"));
         } else {

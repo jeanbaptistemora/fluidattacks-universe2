@@ -141,7 +141,11 @@ def validate_nickname_is_unique(
 
 
 def is_git_unique(
-    url: str, branch: str, group_name: str, roots: Tuple[Root, ...]
+    url: str,
+    branch: str,
+    group_name: str,
+    roots: Tuple[Root, ...],
+    include_inactive: bool = False,
 ) -> bool:
     """
     Validation util to check whether a git root is unique
@@ -150,9 +154,8 @@ def is_git_unique(
     https://docs.fluidattacks.com/machine/web/groups/scope/roots#single-root-assessment
     """
     for root in roots:
-        if (
-            isinstance(root, GitRoot)
-            and root.state.status == RootStatus.ACTIVE
+        if isinstance(root, GitRoot) and (
+            root.state.status == RootStatus.ACTIVE or include_inactive
         ):
             if (url.lower(), group_name) == (
                 root.state.url.lower(),
@@ -177,11 +180,17 @@ def is_valid_ip(address: str) -> bool:
         return False
 
 
-def is_ip_unique(address: str, port: str, roots: Tuple[Root, ...]) -> bool:
+def is_ip_unique(
+    address: str,
+    port: str,
+    roots: Tuple[Root, ...],
+    include_inactive: bool = False,
+) -> bool:
     return (address, port) not in tuple(
         (root.state.address, root.state.port)
         for root in roots
-        if isinstance(root, IPRoot) and root.state.status == RootStatus.ACTIVE
+        if isinstance(root, IPRoot)
+        and (root.state.status == RootStatus.ACTIVE or include_inactive)
     )
 
 
@@ -192,6 +201,7 @@ def is_url_unique(  # pylint: disable=too-many-arguments
     protocol: str,
     query: Optional[str],
     roots: Tuple[Root, ...],
+    include_inactive: bool = False,
 ) -> bool:
     return (host, path, port, protocol, query) not in tuple(
         (
@@ -202,7 +212,8 @@ def is_url_unique(  # pylint: disable=too-many-arguments
             root.state.query,
         )
         for root in roots
-        if isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE
+        if isinstance(root, URLRoot)
+        and (root.state.status == RootStatus.ACTIVE or include_inactive)
     )
 
 

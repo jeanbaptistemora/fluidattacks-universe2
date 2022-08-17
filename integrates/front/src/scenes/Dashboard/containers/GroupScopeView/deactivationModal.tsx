@@ -98,7 +98,7 @@ export const DeactivationModal: FC<IDeactivationModalProps> = ({
           case "Exception - Active root with the same Nickname already exists":
             msgError(t("group.scope.common.errors.duplicateNickname"));
             break;
-          case "Exception - Active root with the same URL/branch already exists":
+          case "Exception - Root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
           default:

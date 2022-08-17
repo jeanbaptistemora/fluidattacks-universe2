@@ -260,7 +260,7 @@ const handleCreationError = (
           type: "error",
         });
         break;
-      case "Exception - Active root with the same URL/branch already exists":
+      case "Exception - Root with the same URL/branch already exists":
         setModalMessages({
           message: translate.t("group.scope.common.errors.duplicateUrl"),
           type: "error",
@@ -335,7 +335,7 @@ const handleUpdateError = (
       case "Exception - A root with reported vulns can't be updated":
         showMessage("group.scope.common.errors.hasVulns");
         break;
-      case "Exception - Active root with the same URL/branch already exists":
+      case "Exception - Root with the same URL/branch already exists":
         showMessage("group.scope.common.errors.duplicateUrl");
         break;
       case "Exception - Invalid characters":
@@ -366,7 +366,7 @@ const handleActivationError = (
   graphQLErrors.forEach((error: GraphQLError): void => {
     if (
       error.message ===
-      "Exception - Active root with the same URL/branch already exists"
+      "Exception - Root with the same URL/branch already exists"
     ) {
       msgError(translate.t("group.scope.common.errors.duplicateUrl"));
     } else {

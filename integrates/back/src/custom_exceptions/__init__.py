@@ -967,7 +967,7 @@ class RepeatedRoot(CustomBaseException):
 
     def __init__(self) -> None:
         """Constructor"""
-        msg = "Exception - Active root with the same URL/branch already exists"
+        msg = "Exception - Root with the same URL/branch already exists"
         super(RepeatedRoot, self).__init__(msg)
 
 

@@ -59,7 +59,7 @@ const handleRootCreateError = (
           type: "error",
         });
         break;
-      case "Exception - Active root with the same URL/branch already exists":
+      case "Exception - Root with the same URL/branch already exists":
         setMessages({
           message: t("group.scope.common.errors.duplicateUrl"),
           type: "error",
