@@ -15,7 +15,6 @@ from db_model.groups.enums import (
     GroupTier,
 )
 from db_model.roots.types import (
-    GitRoot,
     Root,
 )
 from db_model.stakeholders.types import (
@@ -57,13 +56,8 @@ async def has_environment(
     group: str,
 ) -> bool:
     roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
-    git_roots = filter(
-        lambda root: isinstance(root, GitRoot)
-        and (
-            root.state.git_environment_urls != []
-            or root.state.environment_urls != []
-        ),
-        roots,
+    git_roots = await loaders.git_environment_urls.load_many_chained(
+        [root.id for root in roots]
     )
     return any(git_roots)
 
@@ -127,8 +121,9 @@ async def missing_environment_alert() -> None:
             group_date_delta: int = (
                 datetime_utils.get_now().date() - creation_date
             ).days
+            has_env: bool = await has_environment(loaders, group)
             if (
-                not await has_environment(loaders, group)
+                not has_env
                 and group_date_delta > 0
                 and (group_date_delta % 30 == 0 or group_date_delta == 7)
             ):

@@ -44,6 +44,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from itertools import (
+    chain,
+)
 from s3.operations import (
     list_files,
 )
@@ -561,6 +564,12 @@ class GitEnvironmentSecretsLoader(DataLoader):
 
 
 class GitEnvironmentUrlsLoader(DataLoader):
+    async def load_many_chained(
+        self, root_ids: List[str]
+    ) -> Tuple[GitEnvironmentUrl, ...]:
+        unchained_data = await self.load_many(root_ids)
+        return tuple(chain.from_iterable(unchained_data))
+
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
