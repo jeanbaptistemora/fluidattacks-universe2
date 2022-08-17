@@ -386,9 +386,7 @@ async def populate_roots(data: list[dict[str, Any]]) -> bool:
 
 async def populate_consultings(data: list[Any]) -> bool:
     await collect(
-        dal_group_comments.add_comment_typed(
-            comment_data=item["group_comment"]
-        )
+        dal_group_comments.add(group_comment=item["group_comment"])
         for item in data
     )
     return True

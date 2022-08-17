@@ -420,7 +420,10 @@ async def test_add_comment() -> None:
         group_name=group_name,
     )
     await add_comment(
-        info, group_name, "unittest@fluidattacks.com", comment_data
+        info.context.loaders,
+        group_name,
+        "unittest@fluidattacks.com",
+        comment_data,
     )
     loaders = get_new_context()
     group_comments: list[GroupComment] = await loaders.group_comments.load(

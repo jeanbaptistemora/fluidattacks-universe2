@@ -7,6 +7,9 @@ from ariadne import (
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.group_comments.types import (
     GroupComment,
 )
@@ -46,17 +49,17 @@ from typing import (
 
 async def send_group_consult_mail(
     *,
-    info: GraphQLResolveInfo,
+    loaders: Dataloaders,
     comment_data: GroupComment,
     user_email: str,
     group_name: str,
 ) -> None:
     await groups_mail.send_mail_comment(
-        loaders=info.context.loaders,
+        loaders=loaders,
         comment_data=comment_data,
         user_mail=user_email,
         recipients=await get_users_subscribed_to_consult(
-            loaders=info.context.loaders,
+            loaders=loaders,
             group_name=group_name,
             comment_type="group",
         ),
@@ -74,6 +77,7 @@ async def send_group_consult_mail(
 async def mutate(
     _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> AddConsultPayloadType:
+    loaders: Dataloaders = info.context.loaders
     validations_utils.validate_fields([parameters["content"]])
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
@@ -95,13 +99,13 @@ async def mutate(
         email=user_email,
     )
     await group_comments_domain.add_comment(
-        info, group_name, user_email, comment_data
+        loaders, group_name, user_email, comment_data
     )
     redis_del_by_deps_soon("add_group_consult", group_name=group_name)
     if content.strip() not in {"#external", "#internal"}:
         schedule(
             send_group_consult_mail(
-                info=info,
+                loaders=loaders,
                 comment_data=comment_data,
                 user_email=user_email,
                 group_name=group_name,
@@ -112,4 +116,5 @@ async def mutate(
         info.context,
         f"Security: Added comment to {group_name} group successfully",
     )
+
     return AddConsultPayloadType(success=True, comment_id=str(comment_id))

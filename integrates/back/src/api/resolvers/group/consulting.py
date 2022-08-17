@@ -30,7 +30,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -41,8 +40,8 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: None,
-) -> list[Dict[str, Any]]:
-    response: list[Dict[str, Any]] = await redis_get_or_set_entity_attr(
+) -> list[dict[str, Any]]:
+    response: list[dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="consulting",
@@ -55,16 +54,17 @@ async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     group_name: str = parent.name
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     loaders = info.context.loaders
-    group_comments: list[
-        GroupComment
+    group_comments: tuple[
+        GroupComment, ...
     ] = await group_comments_domain.list_comments(
         loaders, group_name, user_email
     )
+
     return [
         format_group_consulting_resolve(comment) for comment in group_comments
     ]

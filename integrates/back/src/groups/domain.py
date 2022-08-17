@@ -1249,7 +1249,7 @@ async def remove_resources(
             events_domain.mask(loaders, event.id) for event in events_group
         )
     )
-    are_comments_masked = await mask_comments(loaders, group_name)
+    await mask_comments(loaders, group_name)
     await mask_files(loaders, group_name)
     await deactivate_all_roots(
         loaders=loaders,
@@ -1262,7 +1262,6 @@ async def remove_resources(
         [
             are_findings_masked,
             are_events_masked,
-            are_comments_masked,
         ]
     )
 
