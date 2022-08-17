@@ -106,9 +106,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       ),
     })
   );
-  const nicknames: string[] = roots
-    .filter((root): boolean => root.state === "ACTIVE")
-    .map((root): string => root.nickname);
+  const nicknames: string[] = roots.map((root): string => root.nickname);
 
   // State management
   const [isManagingRoot, setIsManagingRoot] = useState<
