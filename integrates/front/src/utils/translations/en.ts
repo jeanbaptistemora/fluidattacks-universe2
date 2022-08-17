@@ -866,6 +866,8 @@ export const enTranslations: ResourceKey = {
             "An active root with the same Nickname already exists please type a new nickname",
           duplicateUrl:
             "A root with the same URL/branch already exists in this organization. Please activate the exiting root.",
+          duplicateUrlInTargetGroup:
+            "A root with the same URL/branch already exists in the target group. Please activate the exiting root.",
           hasVulns:
             "Can't update as there are already vulnerabilities reported for this root",
         },
