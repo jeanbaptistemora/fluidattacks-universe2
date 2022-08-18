@@ -447,6 +447,18 @@ this notification is User Manager.
 
 ![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1660854661/docs/web/notifications/notif_root_added.png)
 
+### Updated root
+
+This notification is created
+when updating an existing root
+in the Scope section.
+Any field that is updated or information
+is changed will be notified.
+The role that receives this
+email is the User Manager.
+
+![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1660859135/docs/web/notifications/notif_updated_root.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
