@@ -33404,7 +33404,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,11,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33428,7 +33428,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,10,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33452,7 +33452,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,9,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33476,7 +33476,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,8,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33500,7 +33500,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,7,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33524,7 +33524,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,6,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33548,7 +33548,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,5,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33572,7 +33572,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,2,829,skims,
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
      ^ Col 0
@@ -33595,7 +33595,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,12,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33618,7 +33618,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,13,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33641,7 +33641,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,14,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33664,7 +33664,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,15,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33687,7 +33687,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,16,829,skims
 > 16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33710,7 +33710,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,17,829,skims
   16 | kiwisolver==1.4.4
 > 17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33733,7 +33733,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,18,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
 > 18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33756,7 +33756,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,19,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-> 19 | matplotlib-inline==0.1.5
+> 19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33779,7 +33779,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,20,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
 > 20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33802,7 +33802,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,21,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
 > 21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33825,7 +33825,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,22,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
 > 22 | packaging==21.3
@@ -33848,7 +33848,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,23,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33871,7 +33871,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,24,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33894,7 +33894,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,25,829,skims
   16 | kiwisolver==1.4.4
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33916,7 +33916,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,25,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,37,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33940,7 +33940,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,37,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,36,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33964,7 +33964,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,36,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,35,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -33988,7 +33988,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,35,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,34,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34012,7 +34012,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,34,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,33,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34036,7 +34036,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,33,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,32,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34060,7 +34060,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,32,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,31,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34084,7 +34084,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,31,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,30,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34108,7 +34108,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,30,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,29,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34132,7 +34132,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,29,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,28,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
@@ -34156,7 +34156,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,28,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,27,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
-  19 | matplotlib-inline==0.1.5
+  19 | matplotlib-inline==0.1.6
   20 | networkx==2.8.5
   21 | numpy==1.23.2
   22 | packaging==21.3
