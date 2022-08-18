@@ -31,10 +31,10 @@ from vulnerabilities import (
 
 def _build_where(location: Location) -> str:
     if len(location.access_patterns) == 1:
-        return f"{location.access_patterns[0]} = {location.values[0]}"
+        return f"{location.access_patterns[0]}: {location.values[0]}"
     return "; ".join(
         [
-            f'{path.split("/")[-1]} = {location.values[index_path]}'
+            f'{path.split("/")[-1]}: {location.values[index_path]}'
             for index_path, path in enumerate(location.access_patterns)
         ]
     )
