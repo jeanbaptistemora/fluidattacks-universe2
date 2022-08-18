@@ -397,12 +397,20 @@ to the User Manager role.
 This notification will be
 generated when any situation
 affects registered root and
-Fluid Attacks team can't
+`Fluid Attacks` team can't
 clone or access the root.
 The User Manager role will
 be notified by email with this.
 
 ![Root Cloning](https://res.cloudinary.com/fluid-attacks/image/upload/v1660832966/docs/web/notifications/notif_root_cloning.png)
+
+### Confirm deletion
+
+This notification will arrive
+when a user decides to delete
+the ASM account.
+
+![Confirm Deletion](https://res.cloudinary.com/fluid-attacks/image/upload/v1660837177/docs/web/notifications/notif_deletion.png)
 
 ## Notifications exclusive to Fluid Attacks staff
 
