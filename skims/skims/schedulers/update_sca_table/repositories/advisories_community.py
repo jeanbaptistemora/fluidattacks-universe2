@@ -23,7 +23,7 @@ def format_range(unformatted_range: str) -> str:
     suffix = unformatted_range[-1]
     values = unformatted_range[1:-1].split(",")
     if len(values) < 2:
-        return values[0]
+        return f"={values[0]}"
     min_r, max_r = values
     min_operator = ""
     max_operator = ""
@@ -43,7 +43,7 @@ def fix_npm_range(unformatted_range: str) -> str:
 
 
 def fix_pip_range(pip_range: str) -> str:
-    vals_to_change: Dict[str, str] = {"||": " || ", ",": " ", "==": ""}
+    vals_to_change: Dict[str, str] = {"||": " || ", ",": " ", "==": "="}
 
     for target, replacement in vals_to_change.items():
         pip_range = pip_range.replace(target, replacement)
