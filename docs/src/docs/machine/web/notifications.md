@@ -422,6 +422,18 @@ in the following month.
 
 ![Deprecation Notice](https://res.cloudinary.com/fluid-attacks/image/upload/v1660848761/docs/web/notifications/notif_deprecation_notice.png)
 
+### Free trial start
+
+This notification will be
+sent to new users who have
+completed the enrollment,
+i.e.,
+when the user completes the
+process of creating the repository,
+the organization and the group.
+
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1660849148/docs/web/notifications/notif_free_trial.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
