@@ -5,6 +5,7 @@ from concurrent.futures import (
     ThreadPoolExecutor,
 )
 import dast.aws.f024
+import dast.aws.f031
 from model import (
     core_model,
 )
@@ -26,7 +27,10 @@ from typing import (
     List,
 )
 
-CHECKS = (*dast.aws.f024.CHECKS,)
+CHECKS = (
+    *dast.aws.f024.CHECKS,
+    *dast.aws.f031.CHECKS,
+)
 
 
 async def analyze(
