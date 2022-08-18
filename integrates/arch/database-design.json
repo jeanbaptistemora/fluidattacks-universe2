@@ -11599,7 +11599,168 @@
             "PartitionKeyAlias": "CMNT#id",
             "SortKeyAlias": "FIN#finding_id"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "finding_id": {
+                "S": "463558592"
+              },
+              "full_name": {
+                "S": "user Integrates"
+              },
+              "comment_type": {
+                "S": "VERIFICATION"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "pk": {
+                "S": "CMNT#1558048727999"
+              },
+              "id": {
+                "S": "1558048727999"
+              },
+              "creation_date": {
+                "S": "2020-01-19T15:41:04+00:00"
+              },
+              "content": {
+                "S": "This is a commenting test of a request verification."
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              }
+            },
+            {
+              "finding_id": {
+                "S": "422286126"
+              },
+              "full_name": {
+                "S": "unit test"
+              },
+              "comment_type": {
+                "S": "COMMENT"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "pk": {
+                "S": "CMNT#1566336916294"
+              },
+              "id": {
+                "S": "1566336916294"
+              },
+              "creation_date": {
+                "S": "2019-08-20T21:35:16+00:00"
+              },
+              "content": {
+                "S": "This is a comenting test"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "finding_id": {
+                "S": "436992569"
+              },
+              "full_name": {
+                "S": "hacker Integrates"
+              },
+              "comment_type": {
+                "S": "VERIFICATION"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "pk": {
+                "S": "CMNT#1558048727111"
+              },
+              "id": {
+                "S": "1558048727111"
+              },
+              "creation_date": {
+                "S": "2020-02-21T15:41:04+00:00"
+              },
+              "content": {
+                "S": "this is a commenting test of a verifying request verification in vulns"
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              }
+            },
+            {
+              "finding_id": {
+                "S": "500592001"
+              },
+              "full_name": {
+                "S": "unit test"
+              },
+              "comment_type": {
+                "S": "COMMENT"
+              },
+              "parent_id": {
+                "S": "1558036062503"
+              },
+              "sk": {
+                "S": "FIN#500592001"
+              },
+              "pk": {
+                "S": "CMNT#1558048727932"
+              },
+              "id": {
+                "S": "1558048727932"
+              },
+              "creation_date": {
+                "S": "2019-05-16T23:18:47+00:00"
+              },
+              "content": {
+                "S": "Se cierra la vulnerabilidad."
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "finding_id": {
+                "S": "436992569"
+              },
+              "full_name": {
+                "S": "user Integrates"
+              },
+              "comment_type": {
+                "S": "VERIFICATION"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "pk": {
+                "S": "CMNT#1558048727000"
+              },
+              "id": {
+                "S": "1558048727000"
+              },
+              "creation_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              },
+              "content": {
+                "S": "This is a commenting test of a request verification in vulns"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "email",
             "parent_id",
