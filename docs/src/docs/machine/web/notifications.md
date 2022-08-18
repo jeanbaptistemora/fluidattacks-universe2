@@ -459,6 +459,19 @@ email is the User Manager.
 
 ![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1660859135/docs/web/notifications/notif_updated_root.png)
 
+### Missing registered environments
+
+If you are a User Manager
+or Vulnerability Manager,
+you will receive this
+notification via email called
+Missing Registered Environments,
+which will be generated when
+no environments have been
+registered in a group.
+
+![Missing Environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1660860459/docs/web/notifications/notif_missing_env.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
