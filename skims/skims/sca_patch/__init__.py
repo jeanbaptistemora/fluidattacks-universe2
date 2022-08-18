@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidActionParameter,
     InvalidPatchItem,
     InvalidPathParameter,
+    InvalidScaPatchFormat,
 )
 from db_model import (
     advisories as advisories_model,
@@ -63,9 +64,10 @@ async def patch_sca(filename: str, action: str) -> None:
     with open(filename, "r", encoding="utf-8") as stream:
         try:
             from_json: list = json.load(stream)
+            if not isinstance(from_json, list):
+                raise InvalidScaPatchFormat()
             items: Advisories = [
-                check_item(item, action)
-                for item in (from_json if isinstance(from_json, list) else [])
+                check_item(item, action) for item in from_json
             ]
             for adv in items:
                 if action == ADD:
@@ -79,7 +81,11 @@ async def patch_sca(filename: str, action: str) -> None:
                         platform=adv.package_manager,
                         source=adv.source,
                     )
-        except (json.JSONDecodeError, InvalidPatchItem) as exc:
+        except (
+            json.JSONDecodeError,
+            InvalidPatchItem,
+            InvalidScaPatchFormat,
+        ) as exc:
             log_blocking("error", "%s", exc.msg)
 
 

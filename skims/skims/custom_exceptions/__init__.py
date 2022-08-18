@@ -31,6 +31,10 @@ class InvalidActionParameter(_SingleMessageException):
     )
 
 
+class InvalidScaPatchFormat(_SingleMessageException):
+    msg: str = "Json file must contain an array with all involved advisories"
+
+
 class InvalidPathParameter(_SingleMessageException):
     msg: str = "Invalid/Missing parameter. Insert a valid file path"
 
