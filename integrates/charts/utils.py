@@ -265,7 +265,7 @@ def get_subject_days(days: Optional[int]) -> str:
 
 
 def format_cvssf(cvssf: Decimal) -> Decimal:
-    if cvssf >= MAX_WITH_DECIMALS:
+    if abs(cvssf) >= MAX_WITH_DECIMALS:
         return cvssf.to_integral_exact(rounding=ROUND_FLOOR)
     return cvssf.quantize(Decimal("0.1"))
 

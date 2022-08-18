@@ -186,11 +186,11 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def sorter(item: MaxSeverity) -> tuple[Decimal, Decimal]:
-    if item.value == Decimal("0.0"):
-        return (Decimal("-Infinity"), Decimal("-Infinity"))
-
-    return (format_cvssf(item.value), format_cvssf(abs(item.value)))
+def sorter(item: MaxSeverity) -> tuple[Decimal, int]:
+    return (
+        format_cvssf(item.value),
+        -ord(item.name[0]) if item.name else 0,
+    )
 
 
 def format_data(data: Counter[str], categories: list[str]) -> dict:
