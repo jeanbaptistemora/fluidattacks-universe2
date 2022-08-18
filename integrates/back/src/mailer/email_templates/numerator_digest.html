@@ -20,13 +20,13 @@
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
       ({{ count_var_report["reattacked"]["variation"] }})<br />
 
-      Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities
+      Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
       (oldest: {{ oldest_draft["age"] }} days,
-      max CVSS: {{ oldest_draft["max_cvss"] }}).<br />
+      max: {{ oldest_draft["max_cvss"] }} severity)<br />
 
-      Released: {{ count_var_report["released"]["count"] }} vulnerabilities
-      ({{ count_var_report["released"]["variation"] }}),
-      {{ max_cvss }} max CVSS.
+      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.
+      ({{ count_var_report["released"]["variation"] }},
+      max: {{ max_cvss }} severity)
     </p>
     <p>
       Group details:<br />
