@@ -196,6 +196,14 @@ locals {
             "arn:aws:eks:${var.region}:${data.aws_caller_identity.main.account_id}:cluster/integrates-*"
           ]
         },
+        {
+          Sid    = "cloudWatchAll"
+          Effect = "Allow"
+          Action = [
+            "cloudwatch:GetMetricData",
+          ]
+          Resource = ["*"]
+        },
       ]
     }
 
