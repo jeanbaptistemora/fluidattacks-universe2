@@ -76,7 +76,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     );
   };
 
-  const tableHeaderszz: ColumnDef<IStakeholderDataSet>[] = [
+  const tableHeaders: ColumnDef<IStakeholderDataSet>[] = [
     {
       accessorKey: "email",
       header: t("searchFindings.usersTable.usermail"),
@@ -291,7 +291,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
         <Table
-          columns={tableHeaderszz}
+          columns={tableHeaders}
           data={stakeholdersList}
           enableRowSelection={true}
           exportCsv={true}

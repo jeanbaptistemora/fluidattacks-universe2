@@ -1,6 +1,7 @@
 import {
   faAngleDown,
   faAngleUp,
+  faDownload,
   faSort,
   faSortDown,
   faSortUp,
@@ -32,6 +33,7 @@ import { Pagination } from "./Pagination";
 import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
+import { Button } from "components/Button";
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
@@ -182,7 +184,11 @@ const Table = <TData extends object>({
             {columnToggle ? <ToggleFunction table={table} /> : undefined}
             {exportCsv ? (
               <CSVLink data={data as object[]} filename={csvName}>
-                {t("group.findings.exportCsv.text")}
+                <Button variant={"ghost"}>
+                  <FontAwesomeIcon icon={faDownload} />
+                  &nbsp;
+                  {t("group.findings.exportCsv.text")}
+                </Button>
               </CSVLink>
             ) : undefined}
           </Gap>
