@@ -25,7 +25,7 @@ from typing import (
 )
 
 
-async def get_comments(*, event_id: str) -> tuple[EventComment, ...]:
+async def _get_comments(*, event_id: str) -> tuple[EventComment, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_comment"],
         values={"event_id": event_id},
@@ -53,5 +53,5 @@ class EventCommentsLoader(DataLoader):
         self, events_ids: Iterable[str]
     ) -> tuple[tuple[EventComment, ...], ...]:
         return await collect(
-            tuple((get_comments(event_id=event_id) for event_id in events_ids))
+            tuple(_get_comments(event_id=event_id) for event_id in events_ids)
         )

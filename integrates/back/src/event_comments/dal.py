@@ -1,6 +1,9 @@
 from botocore.exceptions import (
     ClientError,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
@@ -29,7 +32,7 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "fi_finding_comments"
 
 
-async def create(
+async def _create(
     comment_id: str, comment_attributes: dict[str, Any], event_id: str
 ) -> bool:
     success = False
@@ -49,19 +52,23 @@ async def create(
 
 
 async def add(
+    *,
     event_comment: EventComment,
 ) -> None:
     event_comment_item = format_event_comment_item(event_comment)
-    await create(event_comment.id, event_comment_item, event_comment.event_id)
+    if not await _create(
+        event_comment.id, event_comment_item, event_comment.event_id
+    ):
+        raise UnavailabilityError()
 
 
-async def remove(comment_id: str, event_id: str) -> bool:
-    success = False
-    try:
-        delete_attrs = DynamoDeleteType(
-            Key={"finding_id": event_id, "comment_id": comment_id}
-        )
-        success = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-    return success
+async def remove(
+    *,
+    comment_id: str,
+    event_id: str,
+) -> None:
+    delete_attrs = DynamoDeleteType(
+        Key={"finding_id": event_id, "comment_id": comment_id}
+    )
+    if not await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs):
+        raise UnavailabilityError()

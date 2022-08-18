@@ -53,9 +53,9 @@ async def remove_comment(group_name: str, comment_id: str) -> None:
 
 
 async def list_comments(
-    loaders: Dataloaders, group_name: str, user_email: str
+    loaders: Dataloaders, group_name: str, email: str
 ) -> tuple[GroupComment, ...]:
-    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, email)
     comments: tuple[GroupComment, ...] = await loaders.group_comments.load(
         group_name
     )

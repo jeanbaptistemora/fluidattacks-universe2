@@ -290,7 +290,7 @@ async def test_validate_evidence_invalid_file_size() -> None:
 
 
 @pytest.mark.changes_db
-async def test_mask_event() -> None:  # pylint: disable=too-many-locals
+async def test_mask_event() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900971"
     parent_comment = "0"
@@ -334,11 +334,8 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     assert len(await loaders.event_comments.load(event_id)) >= 1
     assert len(await events_domain.search_evidence(evidence_prefix)) >= 1
 
-    test_data = await events_domain.mask(loaders, event_id)
-    expected_output = True
+    await events_domain.mask(loaders, event_id)
 
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
     new_loaders = get_new_context()
     assert len(await new_loaders.event_comments.load(event_id)) == 0
     assert len(await events_domain.search_evidence(evidence_prefix)) == 0

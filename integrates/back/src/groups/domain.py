@@ -1241,13 +1241,11 @@ async def remove_resources(
             workers=4,
         )
     )
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
+    group_events: tuple[Event, ...] = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
-    are_events_masked = all(
-        await collect(
-            events_domain.mask(loaders, event.id) for event in events_group
-        )
+    await collect(
+        events_domain.mask(loaders, event.id) for event in group_events
     )
     await mask_comments(loaders, group_name)
     await mask_files(loaders, group_name)
@@ -1258,12 +1256,8 @@ async def remove_resources(
         other="",
         reason="GROUP_DELETED",
     )
-    return all(
-        [
-            are_findings_masked,
-            are_events_masked,
-        ]
-    )
+
+    return are_findings_masked
 
 
 async def remove_user(
