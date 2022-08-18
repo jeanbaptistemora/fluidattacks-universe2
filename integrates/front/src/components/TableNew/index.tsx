@@ -2,9 +2,6 @@ import {
   faAngleDown,
   faAngleUp,
   faDownload,
-  faSort,
-  faSortDown,
-  faSortUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
@@ -29,6 +26,7 @@ import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
 import { ToggleFunction } from "./columnToggle";
+import { Head } from "./Head";
 import { Pagination } from "./Pagination";
 import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
@@ -206,76 +204,12 @@ const Table = <TData extends object>({
       </div>
       <TableContainer clickable={onRowClick !== undefined}>
         <table>
-          <thead>
-            {table.getHeaderGroups().map(
-              (headerGroup): ReactElement => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map(
-                    (header): ReactElement => (
-                      <React.Fragment key={header.id}>
-                        <th>
-                          {header === headerGroup.headers[0] &&
-                            expandedRow !== undefined && (
-                              <div
-                                onClick={table.getToggleAllRowsExpandedHandler()}
-                                onKeyPress={table.getToggleAllRowsExpandedHandler()}
-                                role={"button"}
-                                tabIndex={0}
-                              >
-                                <FontAwesomeIcon
-                                  icon={
-                                    table.getIsAllRowsExpanded()
-                                      ? faAngleUp
-                                      : faAngleDown
-                                  }
-                                />
-                              </div>
-                            )}
-                          {header === headerGroup.headers[0] &&
-                            rowSelectionSetter !== undefined &&
-                            selectionMode === "checkbox" && (
-                              <input
-                                checked={table.getIsAllRowsSelected()}
-                                onChange={table.getToggleAllRowsSelectedHandler()}
-                                type={"checkbox"}
-                              />
-                            )}
-                          {header.isPlaceholder ? null : (
-                            <div
-                              className={
-                                header.column.getCanSort()
-                                  ? "cursor-pointer select-none"
-                                  : ""
-                              }
-                              onClick={header.column.getToggleSortingHandler()}
-                              onKeyPress={header.column.getToggleSortingHandler()}
-                              role={"button"}
-                              tabIndex={0}
-                            >
-                              {flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                              &nbsp;
-                              <FontAwesomeIcon
-                                icon={
-                                  {
-                                    asc: faSortUp,
-                                    desc: faSortDown,
-                                  }[header.column.getIsSorted() as string] ??
-                                  faSort
-                                }
-                              />
-                            </div>
-                          )}
-                        </th>
-                      </React.Fragment>
-                    )
-                  )}
-                </tr>
-              )
-            )}
-          </thead>
+          <Head
+            expandedRow={expandedRow}
+            rowSelectionSetter={rowSelectionSetter}
+            selectionMode={selectionMode}
+            table={table}
+          />
           <tbody>
             {_.isEmpty(data) && <tr>{t("table.noDataIndication")}</tr>}
             {table.getRowModel().rows.map((row): ReactElement => {
@@ -363,14 +297,7 @@ const Table = <TData extends object>({
         </table>
       </TableContainer>
       {data.length > 10 ? (
-        <Pagination
-          getPageCount={table.getPageCount}
-          getState={table.getState}
-          onNextPage={onNextPage}
-          setPageIndex={table.setPageIndex}
-          setPageSize={table.setPageSize}
-          size={data.length}
-        />
+        <Pagination onNextPage={onNextPage} size={data.length} table={table} />
       ) : undefined}
     </div>
   );
