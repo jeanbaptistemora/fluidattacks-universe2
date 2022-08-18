@@ -24,11 +24,6 @@ describe("FindingActions", (): void => {
         onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
-        rejectStateProps={{
-          closeRejectModal: jest.fn(),
-          isRejectDraftModalOpen: false,
-          openRejectModal: jest.fn(),
-        }}
       />
     );
 
@@ -52,11 +47,6 @@ describe("FindingActions", (): void => {
           onDelete={jest.fn()}
           onReject={jest.fn()}
           onSubmit={jest.fn()}
-          rejectStateProps={{
-            closeRejectModal: jest.fn(),
-            isRejectDraftModalOpen: false,
-            openRejectModal: jest.fn(),
-          }}
         />
       </authzPermissionsContext.Provider>
     );
@@ -82,11 +72,6 @@ describe("FindingActions", (): void => {
           onDelete={jest.fn()}
           onReject={jest.fn()}
           onSubmit={jest.fn()}
-          rejectStateProps={{
-            closeRejectModal: jest.fn(),
-            isRejectDraftModalOpen: false,
-            openRejectModal: jest.fn(),
-          }}
         />
       </authzPermissionsContext.Provider>
     );
@@ -118,11 +103,6 @@ describe("FindingActions", (): void => {
           onDelete={jest.fn()}
           onReject={jest.fn()}
           onSubmit={jest.fn()}
-          rejectStateProps={{
-            closeRejectModal: jest.fn(),
-            isRejectDraftModalOpen: false,
-            openRejectModal: jest.fn(),
-          }}
         />
       </authzPermissionsContext.Provider>
     );
@@ -153,11 +133,6 @@ describe("FindingActions", (): void => {
           onDelete={jest.fn()}
           onReject={jest.fn()}
           onSubmit={jest.fn()}
-          rejectStateProps={{
-            closeRejectModal: jest.fn(),
-            isRejectDraftModalOpen: false,
-            openRejectModal: jest.fn(),
-          }}
         />
       </authzPermissionsContext.Provider>
     );

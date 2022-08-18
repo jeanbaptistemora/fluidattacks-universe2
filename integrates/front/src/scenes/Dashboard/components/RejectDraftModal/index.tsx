@@ -4,23 +4,17 @@ import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import type { IRejectDraftModalProps } from "./types";
-
 import { Label, Select } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { FormikTextArea } from "utils/forms/fields";
 import { validTextField } from "utils/validations";
 
-const draftRejectionReason: string[] = [
-  "CONSISTENCY",
-  "EVIDENCE",
-  "NAMING",
-  "OMISSION",
-  "OTHER",
-  "SCORING",
-  "WRITING",
-];
+interface IRejectDraftModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (values: { reason: string; other: string }) => void;
+}
 
 const RejectDraftModal: FC<IRejectDraftModalProps> = ({
   isOpen,
@@ -28,6 +22,16 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
   onSubmit,
 }: IRejectDraftModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const draftRejectionReason: string[] = [
+    "CONSISTENCY",
+    "EVIDENCE",
+    "NAMING",
+    "OMISSION",
+    "OTHER",
+    "SCORING",
+    "WRITING",
+  ];
 
   const validations = object().shape({
     other: string().when("reason", {

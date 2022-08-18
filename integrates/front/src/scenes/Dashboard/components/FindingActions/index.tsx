@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { RejectDraftModal } from "../RejectDraftModal";
-import type { IRejectDraftStateProps } from "../RejectDraftModal/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
@@ -17,9 +15,8 @@ interface IFindingActionsProps {
   loading: boolean;
   onApprove: () => void;
   onDelete: () => void;
-  onReject: (values: { reason: string; other: string | null }) => void;
+  onReject: () => void;
   onSubmit: () => void;
-  rejectStateProps: IRejectDraftStateProps;
 }
 
 const FindingActions: React.FC<IFindingActionsProps> = ({
@@ -31,10 +28,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
   onDelete,
   onReject,
   onSubmit,
-  rejectStateProps,
 }: IFindingActionsProps): JSX.Element => {
-  const { isRejectDraftModalOpen, openRejectModal, closeRejectModal } =
-    rejectStateProps;
   const { t } = useTranslation();
   const canApprove: boolean = hasVulns && hasSubmission;
 
@@ -94,18 +88,11 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
             >
               <Button
                 disabled={!hasSubmission || loading}
-                onClick={openRejectModal}
+                onClick={onReject}
                 variant={"secondary"}
               >
                 {t("group.drafts.reject.text")}
               </Button>
-              {isRejectDraftModalOpen ? (
-                <RejectDraftModal
-                  isOpen={isRejectDraftModalOpen}
-                  onClose={closeRejectModal}
-                  onSubmit={onReject}
-                />
-              ) : undefined}
             </Tooltip>
           </Can>
           <Can do={"api_mutations_remove_finding_mutate"}>

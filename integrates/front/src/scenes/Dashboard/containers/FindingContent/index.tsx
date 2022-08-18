@@ -30,6 +30,7 @@ import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
+import { RejectDraftModal } from "scenes/Dashboard/components/RejectDraftModal";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
@@ -296,13 +297,8 @@ const FindingContent: React.FC = (): JSX.Element => {
                       loading={approving || deleting || rejecting || submitting}
                       onApprove={approveDraft}
                       onDelete={openDeleteModal}
-                      onReject={handleReject}
+                      onReject={openRejectModal}
                       onSubmit={submitDraft}
-                      rejectStateProps={{
-                        closeRejectModal,
-                        isRejectDraftModalOpen,
-                        openRejectModal,
-                      }}
                     />
                   </Have>
                 </ButtonCol>
@@ -477,6 +473,11 @@ const FindingContent: React.FC = (): JSX.Element => {
           </Form>
         </Formik>
       </Modal>
+      <RejectDraftModal
+        isOpen={isRejectDraftModalOpen}
+        onClose={closeRejectModal}
+        onSubmit={handleReject}
+      />
     </React.StrictMode>
   );
 };
