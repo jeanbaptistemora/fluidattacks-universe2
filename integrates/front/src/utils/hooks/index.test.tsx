@@ -1,3 +1,4 @@
+/* eslint-disable react/no-multi-comp */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -9,7 +10,11 @@ import { MemoryRouter, useHistory } from "react-router-dom";
 
 import { useWindowSize } from "./useWindowSize";
 
-import { useStoredState, useTabTracking } from "utils/hooks";
+import {
+  useDebouncedCallback,
+  useStoredState,
+  useTabTracking,
+} from "utils/hooks";
 
 describe("Custom utility hooks", (): void => {
   describe("useStoredState", (): void => {
@@ -105,7 +110,6 @@ describe("Custom utility hooks", (): void => {
   });
 
   describe("useTabTracking", (): void => {
-    // eslint-disable-next-line react/no-multi-comp
     const TestComponent: React.FC = (): JSX.Element => {
       const { push } = useHistory();
       useTabTracking("Group");
@@ -149,7 +153,6 @@ describe("Custom utility hooks", (): void => {
   });
 
   describe("useWindowSize", (): void => {
-    // eslint-disable-next-line react/no-multi-comp
     const TestComponent: React.FC = (): JSX.Element => {
       const { height, width } = useWindowSize();
 
@@ -187,6 +190,38 @@ describe("Custom utility hooks", (): void => {
       });
 
       expect(screen.queryByText("1600")).toBeInTheDocument();
+    });
+  });
+
+  describe("useDebouncedCallback", (): void => {
+    interface ITestComponentProps {
+      onChange: () => void;
+    }
+
+    const TestComponent: React.FC<ITestComponentProps> = ({
+      onChange,
+    }): JSX.Element => {
+      const handleClick = useDebouncedCallback(onChange, 500);
+
+      return <button onClick={handleClick} />;
+    };
+
+    it("should return a function", (): void => {
+      expect.hasAssertions();
+      expect(typeof useDebouncedCallback).toBe("function");
+    });
+
+    it("should debounce calls", async (): Promise<void> => {
+      expect.hasAssertions();
+
+      const handleChange = jest.fn();
+      render(<TestComponent onChange={handleChange} />);
+
+      userEvent.click(screen.getByRole("button"));
+      userEvent.click(screen.getByRole("button"));
+      await waitFor((): void => {
+        expect(handleChange).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
