@@ -58,7 +58,9 @@ async def add(
 
 
 async def delete(comment_id: str, finding_id: str) -> bool:
-    return await comments_dal.delete(comment_id, finding_id)
+    return await comments_dal.remove(
+        comment_id=comment_id, finding_id=finding_id
+    )
 
 
 async def get_comments(

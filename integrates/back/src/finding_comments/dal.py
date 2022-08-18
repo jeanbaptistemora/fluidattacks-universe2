@@ -63,7 +63,7 @@ async def create_typed(comment_attributes: FindingComment) -> None:
     )
 
 
-async def delete(comment_id: str, finding_id: str) -> bool:
+async def remove(comment_id: str, finding_id: str) -> bool:
     success = False
     try:
         delete_attrs = DynamoDeleteType(
