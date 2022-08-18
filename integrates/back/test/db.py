@@ -72,7 +72,7 @@ from dynamodb.types import (
     OrgFindingPolicyItem,
 )
 from event_comments.dal import (
-    create_typed,
+    add,
 )
 from finding_comments import (
     dal as dal_comment,
@@ -425,8 +425,8 @@ async def populate_enrollments(data: tuple[Enrollment, ...]) -> bool:
 
 async def populate_event_comments(data: list[Any]) -> bool:
     await collect(
-        create_typed(
-            comment_attributes=item["event_comment"],
+        add(
+            event_comment=item["event_comment"],
         )
         for item in data
     )
@@ -435,8 +435,8 @@ async def populate_event_comments(data: list[Any]) -> bool:
 
 async def populate_finding_comments(data: list[Any]) -> bool:
     await collect(
-        dal_comment.create_typed(
-            comment_attributes=item["finding_comment"],
+        dal_comment.add(
+            finding_comment=item["finding_comment"],
         )
         for item in data
     )

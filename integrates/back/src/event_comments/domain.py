@@ -17,11 +17,11 @@ def _is_scope_comment(comment: EventComment) -> bool:
 async def add(
     comment_data: EventComment,
 ) -> None:
-    await comments_dal.create_typed(comment_data)
+    await comments_dal.add(event_comment=comment_data)
 
 
 async def delete(comment_id: str, event_id: str) -> bool:
-    return await comments_dal.delete(comment_id, event_id)
+    return await comments_dal.remove(comment_id=comment_id, event_id=event_id)
 
 
 async def get_event_comments(

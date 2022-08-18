@@ -54,7 +54,7 @@ def _is_scope_comment(comment: FindingComment) -> bool:
 async def add(
     comment_data: FindingComment,
 ) -> None:
-    await comments_dal.create_typed(comment_data)
+    await comments_dal.add(finding_comment=comment_data)
 
 
 async def delete(comment_id: str, finding_id: str) -> bool:

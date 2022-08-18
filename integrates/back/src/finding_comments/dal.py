@@ -1,7 +1,3 @@
-from boto3.dynamodb.conditions import (
-    Attr,
-    Key,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -25,7 +21,6 @@ from settings import (
 from typing import (
     Any,
     Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -54,12 +49,12 @@ async def create(
     return success
 
 
-async def create_typed(comment_attributes: FindingComment) -> None:
-    finding_comment_item = format_finding_comment_item(comment_attributes)
+async def add(finding_comment: FindingComment) -> None:
+    finding_comment_item = format_finding_comment_item(finding_comment)
     await create(
-        comment_attributes.id,
+        finding_comment.id,
         finding_comment_item,
-        comment_attributes.finding_id,
+        finding_comment.finding_id,
     )
 
 
@@ -73,26 +68,3 @@ async def remove(comment_id: str, finding_id: str) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
-
-
-async def get_comments(
-    comment_type: str, finding_id: str
-) -> List[Dict[str, Any]]:
-    """Get comments of the given finding"""
-    key_exp = Key("finding_id").eq(finding_id)
-    comment_type = comment_type.lower()
-    if comment_type == "comment":
-        filter_exp: object = Attr("comment_type").eq("comment") | Attr(
-            "comment_type"
-        ).eq("verification")
-    elif comment_type == "observation":
-        filter_exp = Attr("comment_type").eq("observation")
-    elif comment_type == "event":
-        filter_exp = Attr("comment_type").eq("event")
-    elif comment_type == "zero_risk":
-        filter_exp = Attr("comment_type").eq("zero_risk")
-    query_attrs = {
-        "KeyConditionExpression": key_exp,
-        "FilterExpression": filter_exp,
-    }
-    return await dynamodb_ops.query(TABLE_NAME, query_attrs)

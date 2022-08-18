@@ -48,20 +48,18 @@ async def create(
     return success
 
 
-async def create_typed(
-    comment_attributes: EventComment,
+async def add(
+    event_comment: EventComment,
 ) -> None:
-    event_comment = format_event_comment_item(comment_attributes)
-    await create(
-        comment_attributes.id, event_comment, comment_attributes.event_id
-    )
+    event_comment_item = format_event_comment_item(event_comment)
+    await create(event_comment.id, event_comment_item, event_comment.event_id)
 
 
-async def delete(comment_id: str, finding_id: str) -> bool:
+async def remove(comment_id: str, event_id: str) -> bool:
     success = False
     try:
         delete_attrs = DynamoDeleteType(
-            Key={"finding_id": finding_id, "comment_id": comment_id}
+            Key={"finding_id": event_id, "comment_id": comment_id}
         )
         success = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
