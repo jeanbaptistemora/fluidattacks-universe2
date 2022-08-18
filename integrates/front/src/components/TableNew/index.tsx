@@ -114,7 +114,7 @@ const Table = <TData extends object>({
   });
 
   /*
-   * Function translateStates() takes the information of rowSelectionState
+   * Next useEffect() takes the information of rowSelectionState
    * (row originals) and selects the equivalent rows in the rowSelection so
    * both are in sync, this is to support unselecting rows outside table
    */

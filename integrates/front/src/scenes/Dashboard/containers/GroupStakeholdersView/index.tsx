@@ -1,13 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import {
   faPlus,
   faTrashAlt,
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -16,19 +15,14 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import {
-  getStakeHolderIndex,
-  handleEditError,
-  handleGrantError,
-} from "./helpers";
+import { handleEditError, handleGrantError } from "./helpers";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
-import { Table } from "components/Table";
-import { timeFromNow } from "components/Table/formatters";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import { filterSearchText, filterSelect } from "components/Table/utils";
+import { Table } from "components/TableNew";
+import { timeFromNow } from "components/TableNew/formatters/timeFromNow";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -46,26 +40,18 @@ import type {
   IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
-import type { IStakeholderAttrs as IGenericStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-interface IFilterSet {
-  invitation: string;
-  role: string;
-}
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const baseRolesUrl =
     "https://docs.fluidattacks.com/machine/web/groups/roles/";
 
   // State management
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
+  const [currentRow, setCurrentRow] = useState<IStakeholderDataSet[]>([]);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [userModalAction, setUserModalAction] = useState<"add" | "edit">("add");
   const openAddUserModal: () => void = useCallback((): void => {
@@ -80,24 +66,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     setIsUserModalOpen(false);
   }, []);
 
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("groupStakeholdersFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterGroupStakeholdersTable, setFilterGroupStakeholdersTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupStakeholderSet",
-      {
-        invitation: "",
-        role: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
   const roleToUrl = (role: string, anchor: string): JSX.Element => {
     return (
       <ExternalLink href={`${baseRolesUrl}${anchor}`}>
@@ -108,63 +76,60 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     );
   };
 
-  const tableHeaders: IHeaderConfig[] = [
+  const tableHeaderszz: ColumnDef<IStakeholderDataSet>[] = [
     {
-      dataField: "email",
+      accessorKey: "email",
       header: t("searchFindings.usersTable.usermail"),
-      width: "33%",
     },
     {
-      dataField: "role",
-      formatter: (value: string): JSX.Element | string => {
+      accessorKey: "role",
+      cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element | string => {
         const mappedRole = {
-          user: roleToUrl(value, "#user-role"),
+          user: roleToUrl(cell.getValue(), "#user-role"),
           // eslint-disable-next-line camelcase
-          user_manager: roleToUrl(value, "#user-manager-role"),
+          user_manager: roleToUrl(cell.getValue(), "#user-manager-role"),
           // eslint-disable-next-line camelcase
           vulnerability_manager: roleToUrl(
-            value,
+            cell.getValue(),
             "#vulnerability-manager-role"
           ),
-        }[value];
+        }[String(cell.getValue())];
 
         if (!_.isUndefined(mappedRole)) {
           return mappedRole;
         }
 
-        return t(`userModal.roles.${_.camelCase(value)}`, {
+        return t(`userModal.roles.${_.camelCase(cell.getValue())}`, {
           defaultValue: "-",
         });
       },
       header: t("searchFindings.usersTable.userRole"),
-      width: "15%",
     },
     {
-      dataField: "responsibility",
+      accessorKey: "responsibility",
       header: t("searchFindings.usersTable.userResponsibility"),
-      width: "15%",
     },
     {
-      dataField: "firstLogin",
+      accessorKey: "firstLogin",
       header: t("searchFindings.usersTable.firstlogin"),
-      width: "15%",
     },
     {
-      dataField: "lastLogin",
-      formatter: timeFromNow,
+      accessorKey: "lastLogin",
+      cell: (cell: ICellHelper<IStakeholderDataSet>): string =>
+        timeFromNow(cell.getValue()),
       header: t("searchFindings.usersTable.lastlogin"),
-      width: "15%",
     },
     {
-      dataField: "invitationState",
-      formatter: statusFormatter,
+      accessorKey: "invitationState",
+      cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: t("searchFindings.usersTable.invitationState"),
-      width: "80px",
     },
     {
-      dataField: "invitationResend",
+      accessorKey: "invitationResend",
+      cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
+        cell.getValue(),
       header: t("searchFindings.usersTable.invitation"),
-      width: "80px",
     },
   ];
 
@@ -212,7 +177,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             t("searchFindings.tabUsers.successAdmin"),
             t("searchFindings.tabUsers.titleSuccess")
           );
-          setCurrentRow({});
+          setCurrentRow([]);
         }
       },
       onError: (editError: ApolloError): void => {
@@ -234,7 +199,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             `${removedEmail} ${t("searchFindings.tabUsers.successDelete")}`,
             t("searchFindings.tabUsers.titleSuccess")
           );
-          setCurrentRow({});
+          setCurrentRow([]);
         }
       },
       onError: (removeError: ApolloError): void => {
@@ -278,10 +243,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   const handleRemoveUser = useCallback(async (): Promise<void> => {
     await removeStakeholderAccess({
-      variables: { groupName, userEmail: currentRow.email },
+      variables: { groupName, userEmail: currentRow[0]?.email },
     });
     setUserModalAction("add");
-  }, [currentRow.email, groupName, removeStakeholderAccess]);
+  }, [currentRow, groupName, removeStakeholderAccess]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -322,125 +287,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
-  // Filters
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-
-  const filterSearchtextStakeHolders: IStakeholderDataSet[] = filterSearchText(
-    stakeholdersList,
-    searchTextFilter
-  );
-
-  function onRoleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupStakeholdersTable(
-      (value): IFilterSet => ({
-        ...value,
-        role: event.target.value,
-      })
-    );
-  }
-  const filterRoleStakeHolders: IStakeholderDataSet[] = filterSelect(
-    stakeholdersList,
-    filterGroupStakeholdersTable.role,
-    "role"
-  );
-
-  function onInvitationChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupStakeholdersTable(
-      (value): IFilterSet => ({
-        ...value,
-        invitation: event.target.value,
-      })
-    );
-  }
-  const filterInvitationStakeHolders: IStakeholderDataSet[] = filterSelect(
-    stakeholdersList,
-    filterGroupStakeholdersTable.invitation,
-    "invitationState"
-  );
-
-  function clearFilters(): void {
-    setFilterGroupStakeholdersTable(
-      (): IFilterSet => ({
-        invitation: "",
-        role: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultStakeHolders: IStakeholderDataSet[] = _.intersection(
-    filterSearchtextStakeHolders,
-    filterRoleStakeHolders,
-    filterInvitationStakeHolders
-  );
-
-  const customFilters: IFilterProps[] = [
-    {
-      defaultValue: filterGroupStakeholdersTable.role,
-      onChangeSelect: onRoleChange,
-      placeholder: "Role",
-      selectOptions: {
-        admin: "Admin",
-        // eslint-disable-next-line camelcase
-        customer_manager: "Customer Manager",
-        hacker: "Hacker",
-        reattacker: "Reattacker",
-        resourcer: "Resourcer",
-        reviewer: "Reviewer",
-        user: "User",
-        // eslint-disable-next-line camelcase
-        user_manager: "User Manager",
-        // eslint-disable-next-line camelcase
-        vulnerability_manager: "Vulnerability Manager",
-      },
-      tooltipId: "group.stakeHolders.filtersTooltips.role.id",
-      tooltipMessage: "group.stakeHolders.filtersTooltips.role",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupStakeholdersTable.invitation,
-      onChangeSelect: onInvitationChange,
-      placeholder: "Registration status",
-      selectOptions: {
-        PENDING: "Pending",
-        REGISTERED: "Registered",
-        UNREGISTERED: "Unregistered",
-      },
-      tooltipId: "group.stakeHolders.filtersTooltips.invitation.id",
-      tooltipMessage: "group.stakeHolders.filtersTooltips.invitation",
-      type: "select",
-    },
-  ];
-
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
         <Table
-          clearFiltersButton={clearFilters}
-          customFilters={{
-            customFiltersProps: customFilters,
-            isCustomFilterEnabled,
-            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-            resultSize: {
-              current: resultStakeHolders.length,
-              total: stakeholdersList.length,
-            },
-          }}
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={resultStakeHolders}
+          columns={tableHeaderszz}
+          data={stakeholdersList}
+          enableRowSelection={true}
           exportCsv={true}
           extraButtons={
             <React.Fragment>
@@ -483,7 +336,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               </Can>
               <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
                 <ConfirmDialog
-                  message={`${currentRow.email} ${t(
+                  message={`${currentRow[0]?.email} ${t(
                     "searchFindings.tabUsers.removeUserButton.confirmMessage"
                   )}`}
                   title={t(
@@ -526,34 +379,20 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               </Can>
             </React.Fragment>
           }
-          headers={tableHeaders}
           id={"tblUsers"}
-          pageSize={10}
-          search={false}
-          selectionMode={{
-            clickToSelect: true,
-            hideSelectColumn:
-              permissions.cannot(
-                "api_mutations_update_group_stakeholder_mutate"
-              ) ||
-              permissions.cannot(
-                "api_mutations_remove_stakeholder_access_mutate"
-              ),
-            mode: "radio",
-            onSelect: setCurrentRow,
-            selected: getStakeHolderIndex(
-              _.isEmpty(currentRow)
-                ? []
-                : [currentRow as unknown as IGenericStakeholderAttrs],
-              resultStakeHolders as unknown as IGenericStakeholderAttrs[]
-            ),
-          }}
+          rowSelectionSetter={setCurrentRow}
+          rowSelectionState={currentRow}
+          selectionMode={"radio"}
         />
         <AddUserModal
           action={userModalAction}
           editTitle={t("searchFindings.tabUsers.editStakeholderTitle")}
           groupName={groupName}
-          initialValues={userModalAction === "edit" ? currentRow : {}}
+          initialValues={
+            userModalAction === "edit"
+              ? (currentRow[0] as unknown as Record<string, string>)
+              : {}
+          }
           onClose={closeUserModal}
           onSubmit={handleSubmit}
           open={isUserModalOpen}

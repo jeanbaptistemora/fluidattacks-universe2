@@ -289,7 +289,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
@@ -476,7 +476,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
@@ -559,7 +559,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
@@ -733,7 +733,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
@@ -814,7 +814,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
