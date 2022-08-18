@@ -29,8 +29,10 @@ resource "cloudflare_zone_settings_override" "fluidattacks_co" {
     }
 
     security_header {
-      enabled = true
-      max_age = 31536000
+      enabled            = true
+      include_subdomains = true
+      max_age            = 31536000
+      preload            = true
     }
   }
 }
