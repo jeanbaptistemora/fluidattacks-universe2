@@ -6,7 +6,6 @@ from custom_exceptions import (
     AlreadySubmitted,
     DraftWithoutVulns,
     IncompleteDraft,
-    MachineCanNotOperate,
     NotSubmitted,
 )
 from db_model import (
@@ -33,9 +32,6 @@ from findings import (
 from findings.types import (
     FindingDraftToAdd,
 )
-from machine.availability import (
-    operation_can_be_executed,
-)
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
@@ -60,15 +56,12 @@ from vulnerabilities import (
 
 
 async def approve_draft(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     user_email: str,
+    source: Source,
 ) -> str:
-    loaders = context.loaders
     finding: Finding = await loaders.finding.load(finding_id)
-
-    if not operation_can_be_executed(context, finding.title):
-        raise MachineCanNotOperate()
 
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -84,7 +77,7 @@ async def approve_draft(
     new_state = FindingState(
         modified_by=user_email,
         modified_date=approval_date,
-        source=requests_utils.get_source_new(context),
+        source=source,
         status=FindingStateStatus.APPROVED,
     )
     await collect(
@@ -193,15 +186,14 @@ async def reject_draft(
 
 
 async def submit_draft(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     user_email: str,
+    source: Source,
 ) -> None:
-    finding_vulns_loader = context.loaders.finding_vulnerabilities_nzr
-    finding_loader = context.loaders.finding
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
-    if not operation_can_be_executed(context, finding.title):
-        raise MachineCanNotOperate()
 
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -230,7 +222,7 @@ async def submit_draft(
     new_state = FindingState(
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
-        source=requests_utils.get_source_new(context),
+        source=source,
         status=FindingStateStatus.SUBMITTED,
     )
     await findings_model.update_state(

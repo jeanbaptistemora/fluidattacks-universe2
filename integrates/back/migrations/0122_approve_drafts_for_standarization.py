@@ -46,6 +46,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enums import (
+    Source,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -113,7 +116,10 @@ async def process_draft(
         analyst_email = old_finding["analyst"]
         try:
             success = await findings_domain.submit_draft(
-                info_context, target_draft["id"], analyst_email
+                info_context.loaders,
+                target_draft["id"],
+                analyst_email,
+                Source.ANALYST,
             )
         except (
             AlreadyApproved,
@@ -134,7 +140,10 @@ async def process_draft(
         approver_email = _get_approver(old_finding)
         try:
             success = await findings_domain.approve_draft(
-                info_context, target_draft["id"], approver_email
+                info_context.loaders,
+                target_draft["id"],
+                approver_email,
+                Source.ANALYST,
             )
         except (
             AlreadyApproved,

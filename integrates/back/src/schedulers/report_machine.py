@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from PIL import (
     Image,
     ImageDraw,
@@ -38,6 +39,9 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -761,6 +765,24 @@ async def upload_evidences(
             )
 
 
+async def release_finding(
+    loaders: Dataloaders, finding_id: str, auto_approve: bool = False
+) -> None:
+    finding: Finding = await loaders.finding.load(finding_id)
+    if finding.approval and (
+        finding.approval.status
+        in (FindingStateStatus.APPROVED, FindingStateStatus.SUBMITTED)
+    ):
+        return
+    await findings_domain.submit_draft(
+        loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
+    )
+    if auto_approve:
+        await findings_domain.approve_draft(
+            loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
+        )
+
+
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
@@ -774,6 +796,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     execution_config: dict[str, Any],
     organization: str,
     finding: Optional[Finding] = None,
+    auto_approve: bool = False,
 ) -> None:
     machine_vulnerabilities = [
         vuln
@@ -840,11 +863,12 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     ):
         await reattack_future
         await upload_evidences(loaders, finding, machine_vulnerabilities)
+        await release_finding(loaders, finding.id, auto_approve)
     else:
         reattack_future.close()
 
 
-async def process_execution(
+async def process_execution(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     execution_id: str,
     criteria_vulns: dict[str, Any],
@@ -878,6 +902,10 @@ async def process_execution(
     }
     if not rules_id:
         return True
+    auto_approve_rules: dict[str, bool] = {
+        item["id"]: item.get("properties", {}).get("auto_approve", False)
+        for item in results["runs"][0]["tool"]["driver"]["rules"]
+    }
 
     group_findings: Tuple[
         Finding, ...
@@ -910,6 +938,7 @@ async def process_execution(
                 sarif_log=results,
                 execution_config=execution_config,
                 organization=organization_name,
+                auto_approve=auto_approve_rules[vuln_id],
             )
             for vuln_id, finding in rules_finding
         ]

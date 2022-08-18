@@ -14,6 +14,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from finding_comments import (
+    domain as comments_domain,
+)
 from newutils.findings import (
     get_requirements_file,
     get_vulns_file,
@@ -77,7 +80,7 @@ async def test_persist_result(populate: bool) -> None:
                             "results": [
                                 {
                                     "message": {
-                                        "text": "",
+                                        "text": "sql injection in back/src/index.js line 24",  # noqa
                                         "properties": {},
                                     },
                                     "kind": "open",
@@ -91,6 +94,34 @@ async def test_persist_result(populate: bool) -> None:
                                                 "region": {
                                                     "snippet": {"text": " "},
                                                     "startLine": 24,
+                                                },
+                                            }
+                                        }
+                                    ],
+                                    "properties": {
+                                        "kind": "lines",
+                                        "source_method": "conf_files.sensitive_key_in_json",  # noqa
+                                        "stream": "skims",
+                                        "technique": "BSAST",
+                                    },
+                                    "ruleId": "001",
+                                },
+                                {
+                                    "message": {
+                                        "text": "sql injection in back/src/index.js line 35",  # noqa
+                                        "properties": {},
+                                    },
+                                    "kind": "open",
+                                    "level": "error",
+                                    "locations": [
+                                        {
+                                            "physicalLocation": {
+                                                "artifactLocation": {
+                                                    "uri": "back/src/index.js"
+                                                },
+                                                "region": {
+                                                    "snippet": {"text": " "},
+                                                    "startLine": 35,
                                                 },
                                             }
                                         }
@@ -164,7 +195,7 @@ async def test_persist_result(populate: bool) -> None:
                 and vuln.root_id == "88637616-41d4-4242-854a-db8ff7fe1ab6"
             )
             # te execution must close a vulnerability but are in the scope
-            assert len(integrates_vulnerabilities) == 2
+            assert len(integrates_vulnerabilities) == 3
             loaders = get_new_context()
             assert (
                 await loaders.vulnerability.load(
@@ -173,3 +204,15 @@ async def test_persist_result(populate: bool) -> None:
             ).state.status == VulnerabilityStateStatus.CLOSED
             assert finding.evidences.evidence5 is not None
             assert finding.evidences.evidence1 is None
+            assert (
+                "sql injection in" in finding.evidences.evidence5.description
+            )
+            # assert False
+            comments = await comments_domain.get_comments(
+                loaders=loaders,
+                group_name="group1",
+                finding_id=finding.id,
+                user_email="machine@fludidattacks.com",
+            )
+            assert len(comments) == 1
+            assert "back/src/index.js" in comments[0].content

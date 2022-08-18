@@ -248,7 +248,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2020-01-01T00:45:12+00:00",
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
-                            "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                            "6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",
                         },
                     )
                 ],
@@ -354,6 +354,37 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     where="nickname/front/index.html",
+                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                ),
+            },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
+                    hacker_email="test1@gmail.com",
+                    id="6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",
+                    specific="35",
+                    state=VulnerabilityState(
+                        modified_by="machine@fluidattacks.com",
+                        modified_date="2018-04-08T00:45:15+00:00",
+                        source=Source.MACHINE,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.LINES,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:15+00:00",
+                        unreliable_source=Source.MACHINE,
+                        unreliable_treatment_changes=0,
+                    ),
+                    verification=VulnerabilityVerification(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="nickname/back/src/index.js",
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 ),
             },

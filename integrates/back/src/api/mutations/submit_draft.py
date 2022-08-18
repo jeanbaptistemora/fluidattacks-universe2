@@ -32,6 +32,7 @@ from mailer import (
 )
 from newutils import (
     logs as logs_utils,
+    requests as requests_utils,
     token as token_utils,
 )
 from redis_cluster.operations import (
@@ -55,7 +56,10 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         await findings_domain.submit_draft(
-            info.context, finding_id, user_email
+            info.context.loaders,
+            finding_id,
+            user_email,
+            requests_utils.get_source_new(info.context),
         )
         redis_del_by_deps_soon(
             "submit_draft",

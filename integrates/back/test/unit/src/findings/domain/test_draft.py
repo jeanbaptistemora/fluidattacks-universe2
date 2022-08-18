@@ -1,4 +1,7 @@
 # pylint: disable=import-error
+from back.src.newutils import (
+    requests as requests_utils,
+)
 from back.test.unit.src.utils import (
     create_dummy_session,
 )
@@ -31,7 +34,12 @@ async def test_approve_draft() -> None:
     historic_state_loader = loaders.vulnerability_historic_state
     historic_treatment_loader = loaders.vulnerability_historic_treatment
 
-    approval_date = await approve_draft(context, finding_id, user_email)
+    approval_date = await approve_draft(
+        context.loaders,
+        finding_id,
+        user_email,
+        requests_utils.get_source_new(context),
+    )
     expected_date = "2019-12-01T00:00:00+00:00"
     assert isinstance(approval_date, str)
     assert approval_date == expected_date
