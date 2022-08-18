@@ -10,6 +10,7 @@ from aioextensions import (
 from aiohttp.client_exceptions import (
     ClientPayloadError,
 )
+import asyncio
 import base64
 import boto3
 from context import (
@@ -19,8 +20,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
-    InvalidUrl,
-    ToeInputNotFound,
+    FindingNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -591,7 +591,7 @@ async def ensure_toe_inputs(
     for vuln in stream["inputs"]:
         if vuln["state"] != "open":
             continue
-        with suppress(InvalidUrl, ToeInputNotFound):
+        with suppress(Exception):
             await toe_inputs_domain.add(
                 loaders=loaders,
                 group_name=group_name,
@@ -789,14 +789,17 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             criteria_vulnerability,
             criteria_requirements,
         )
+    try:
+        integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+            vuln
+            for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+            if vuln.state.status == VulnerabilityStateStatus.OPEN
+            and vuln.state.source == Source.MACHINE
+            and vuln.root_id == git_root.id
+        )
+    except FindingNotFound:
+        return
 
-    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
-        vuln
-        for vuln in await loaders.finding_vulnerabilities.load(finding.id)
-        if vuln.state.status == VulnerabilityStateStatus.OPEN
-        and vuln.state.source == Source.MACHINE
-        and vuln.root_id == git_root.id
-    )
     vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
             machine_vulnerabilities,
@@ -870,9 +873,9 @@ async def process_execution(
         LOGGER.warning("Cloud not find execution result %s", execution_id)
         return False
 
-    rules_id: List[str] = [
+    rules_id: Set[str] = {
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
-    ]
+    }
     if not rules_id:
         LOGGER.info("Execution %s has no results", execution_id)
     group_findings: Tuple[
@@ -881,7 +884,7 @@ async def process_execution(
     rules_finding: Tuple[Tuple[str, Optional[Finding]], ...] = ()
     for criteria_vuln_id in rules_id:
         for finding in group_findings:
-            if criteria_vuln_id in finding.title:
+            if finding.title.startswith(f"{criteria_vuln_id}."):
                 rules_finding = (*rules_finding, (criteria_vuln_id, finding))
                 break
         else:
@@ -926,6 +929,18 @@ def _decode_sqs_message(message: Any) -> str:
     )["id"]
 
 
+def _delete_message(queue: Any, message: Any) -> None:
+    LOGGER.info("Removing message %s", message.message_id)
+    queue.delete_messages(
+        Entries=[
+            {
+                "Id": message.message_id,
+                "ReceiptHandle": message.receipt_handle,
+            },
+        ]
+    )
+
+
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     criteria_vulns = await get_vulns_file()
@@ -934,18 +949,27 @@ async def main() -> None:
     queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
     signal_handler = SignalHandler()
     while not signal_handler.received_signal:
+        while len(asyncio.all_tasks()) < 60:
+            await asyncio.sleep(0.3)
+
         messages = queue.receive_messages(
-            MessageAttributeNames=["All"],
+            MessageAttributeNames=[],
             MaxNumberOfMessages=10,
-            WaitTimeSeconds=1,
+            VisibilityTimeout=30,
         )
-        futures = [
-            process_execution(
-                loaders,
-                _decode_sqs_message(message),
-                criteria_vulns,
-                criteria_reqs,
+        for message in messages:
+            task = asyncio.create_task(
+                process_execution(
+                    loaders,
+                    _decode_sqs_message(message),
+                    criteria_vulns,
+                    criteria_reqs,
+                )
             )
-            for message in messages
-        ]
-        await collect(futures)
+            task.add_done_callback(
+                lambda x, msg=message: _delete_message(  # type: ignore
+                    queue, msg
+                )
+                if x.done() and x.exception() is None
+                else None
+            )
