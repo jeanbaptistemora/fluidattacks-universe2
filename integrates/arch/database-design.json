@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 17, 2022, 14:35 PM",
+    "DateLastModified": "Aug 18, 2022, 03:38 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -3003,20 +3003,20 @@
           ],
           "NonKeyAttributes": [
             "access_token",
-            "email",
-            "first_name",
-            "is_concurrent_session",
-            "is_registered",
-            "last_login_date",
-            "last_name",
-            "legal_remember",
-            "notifications_preferences",
-            "phone",
-            "pk_2",
             "push_tokens",
             "registration_date",
-            "sk_2",
+            "last_login_date",
+            "legal_remember",
+            "email",
             "role",
+            "pk_2",
+            "sk_2",
+            "notifications_preferences",
+            "first_name",
+            "last_name",
+            "is_concurrent_session",
+            "phone",
+            "is_registered",
             "tours"
           ],
           "DataAccess": {
@@ -3748,11 +3748,11 @@
           ],
           "NonKeyAttributes": [
             "email",
-            "expiration_time",
+            "role",
+            "organization_id",
             "has_access",
             "invitation",
-            "organization_id",
-            "role"
+            "expiration_time"
           ],
           "DataAccess": {
             "MySql": {}
@@ -5016,14 +5016,14 @@
             }
           ],
           "NonKeyAttributes": [
-            "confirm_deletion",
             "email",
-            "expiration_time",
+            "role",
+            "responsibility",
             "group_name",
             "has_access",
             "invitation",
-            "responsibility",
-            "role"
+            "expiration_time",
+            "confirm_deletion"
           ],
           "DataAccess": {
             "MySql": {}
@@ -10563,12 +10563,12 @@
             }
           ],
           "NonKeyAttributes": [
-            "group_name",
-            "id",
-            "parent_id",
-            "creation_date",
-            "content",
             "email",
+            "parent_id",
+            "content",
+            "id",
+            "group_name",
+            "creation_date",
             "full_name"
           ],
           "DataAccess": {
@@ -11234,6 +11234,8 @@
             "id",
             "group_name",
             "root_id",
+            "pk_2",
+            "sk_2",
             "state",
             "unreliable_indicators",
             "context",
@@ -11241,9 +11243,7 @@
             "hacker",
             "event_date",
             "action_after_blocking",
-            "action_before_blocking",
-            "pk_2",
-            "sk_2"
+            "action_before_blocking"
           ],
           "DataAccess": {
             "MySql": {}
@@ -11566,7 +11566,8 @@
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "comment_id"
           ],
           "DataAccess": {
             "MySql": {}
@@ -11578,16 +11579,15 @@
             "PartitionKeyAlias": "CMNT#id",
             "SortKeyAlias": "EVENT#event_id"
           },
-          "TableData": [
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "event_id",
-            "id",
-            "parent_id",
-            "creation_date",
-            "content",
             "email",
-            "full_name"
+            "parent_id",
+            "content",
+            "id",
+            "creation_date",
+            "full_name",
+            "event_id"
           ],
           "DataAccess": {
             "MySql": {}
@@ -11601,14 +11601,13 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "finding_id",
-            "id",
-            "comment_type",
-            "parent_id",
-            "creation_date",
-            "content",
             "email",
-            "full_name"
+            "parent_id",
+            "content",
+            "id",
+            "creation_date",
+            "full_name",
+            "comment_type"
           ],
           "DataAccess": {
             "MySql": {}
@@ -18802,8 +18801,8 @@
             "status",
             "modified_date",
             "modified_by",
-            "rejection",
             "source",
+            "rejection",
             "justification"
           ],
           "DataAccess": {

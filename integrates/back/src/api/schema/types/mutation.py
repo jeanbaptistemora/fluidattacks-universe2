@@ -48,6 +48,7 @@ from api.mutations import (
     move_root,
     refresh_toe_lines,
     reject_draft,
+    reject_event_solution,
     reject_vulnerabilities_zero_risk,
     remove_credentials,
     remove_environment_url,
@@ -197,6 +198,7 @@ MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
 MUTATION.set_field("moveRoot", move_root.mutate)
 MUTATION.set_field("refreshToeLines", refresh_toe_lines.mutate)
 MUTATION.set_field("rejectDraft", reject_draft.mutate)
+MUTATION.set_field("rejectEventSolution", reject_event_solution.mutate)
 MUTATION.set_field(
     "rejectVulnerabilitiesZeroRisk",
     reject_vulnerabilities_zero_risk.mutate,

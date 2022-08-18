@@ -58,6 +58,7 @@ def format_event(item: Item) -> Event:
         id=item["id"],
         root_id=item.get("root_id"),
         state=EventState(
+            comment_id=item["state"].get("comment_id"),
             modified_by=item["state"]["modified_by"],
             modified_date=item["state"]["modified_date"],
             status=EventStateStatus[item["state"]["status"]],

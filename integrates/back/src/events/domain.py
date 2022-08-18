@@ -16,7 +16,8 @@ from context import (
 from custom_exceptions import (
     EventAlreadyClosed,
     EventHasNotBeenSolved,
-    EventSolutionAlreadySubmitted,
+    EventVerificationAlreadyRequested,
+    EventVerificationNotRequested,
     InvalidCommentParent,
     InvalidDate,
     InvalidFileSize,
@@ -28,6 +29,9 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddEventPayload,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from datetime import (
     date as date_type,
@@ -476,9 +480,53 @@ async def solve_event(  # pylint: disable=too-many-locals
     return ({}, {})
 
 
+async def reject_solution(  # pylint: disable=too-many-arguments
+    info: GraphQLResolveInfo,
+    loaders: Dataloaders,
+    event_id: str,
+    comments: str,
+    stakeholder_email: str,
+    stakeholder_full_name: str,
+) -> None:
+    validations.validate_fields([comments])
+    event: Event = await loaders.event.load(event_id)
+    if event.state.status is not EventStateStatus.VERIFICATION_REQUESTED:
+        raise EventVerificationNotRequested()
+
+    comment_id: str = str(round(time() * 1000))
+    parent_comment_id = (
+        event.state.comment_id if event.state.comment_id else "0"
+    )
+    await add_comment(
+        info=info,
+        user_email=stakeholder_email,
+        comment_data=EventComment(
+            event_id=event.id,
+            parent_id=parent_comment_id,
+            id=comment_id,
+            content=comments,
+            creation_date=datetime_utils.get_iso_date(),
+            email=stakeholder_email,
+            full_name=stakeholder_full_name,
+        ),
+        event_id=event.id,
+        parent_comment=parent_comment_id,
+    )
+    await events_model.update_state(
+        current_value=event,
+        group_name=event.group_name,
+        state=EventState(
+            modified_by=stakeholder_email,
+            modified_date=datetime_utils.get_iso_date(),
+            comment_id=comment_id,
+            status=EventStateStatus.CREATED,
+        ),
+    )
+
+
 async def request_verification(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
-    loaders: Any,
+    loaders: Dataloaders,
     event_id: str,
     comments: str,
     stakeholder_email: str,
@@ -489,7 +537,7 @@ async def request_verification(  # pylint: disable=too-many-arguments
     if event.state.status is EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
     if event.state.status is EventStateStatus.VERIFICATION_REQUESTED:
-        raise EventSolutionAlreadySubmitted()
+        raise EventVerificationAlreadyRequested()
 
     comment_id: str = str(round(time() * 1000))
     await add_comment(

@@ -1612,7 +1612,13 @@ class RequiredFieldToBeUpdate(CustomBaseException):
         super(RequiredFieldToBeUpdate, self).__init__(msg)
 
 
-class EventSolutionAlreadySubmitted(CustomBaseException):
+class EventVerificationAlreadyRequested(CustomBaseException):
     def __init__(self) -> None:
-        msg = "Exception - The event solution has been submitted"
-        super(EventSolutionAlreadySubmitted, self).__init__(msg)
+        msg = "Exception - The event verification has been requested"
+        super(EventVerificationAlreadyRequested, self).__init__(msg)
+
+
+class EventVerificationNotRequested(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The event verification has not been requested"
+        super(EventVerificationNotRequested, self).__init__(msg)

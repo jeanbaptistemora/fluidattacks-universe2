@@ -583,6 +583,16 @@ type Mutation {
     reason: DraftRejectionReason!
   ): SimplePayload!
 
+  """
+  Reject the event solution
+  """
+  rejectEventSolution(
+    "Comments about the event solution rejection"
+    comments: String!
+    "Identifier of the blocking Event"
+    eventId: String!
+  ): SimplePayload!
+
   "Rejects the provided vulnerabilities from being considered as zero risk"
   rejectVulnerabilitiesZeroRisk(
     "Identifier of Finding containing the vulnerabilities"
