@@ -200,7 +200,7 @@ describe("AuthorsView", (): void => {
         "group.authors.groupsContributed",
         "group.authors.commit",
         "group.authors.repository",
-        "group.authors.invitationState.confirmed",
+        "searchFindings.usersTable.invitationState",
       ].join("")
     );
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test");

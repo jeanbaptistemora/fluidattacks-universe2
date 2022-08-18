@@ -215,7 +215,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       csvExport: false,
       dataField: "invitation",
-      header: t("group.authors.invitationState.confirmed"),
+      header: t("searchFindings.usersTable.invitationState"),
       sortFunc: (
         _a,
         _b,
