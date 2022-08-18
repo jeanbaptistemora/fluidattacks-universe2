@@ -26542,7 +26542,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   28 |
      ^ Col 7
 ",cloudformation.cfn_insecure_generate_secret_string
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,10,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | namespace Controllers
    2 | {
    3 |     public class DBaccess
@@ -26550,33 +26550,45 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. W
    5 |         public void dbauth()
    6 |         {
    7 |             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
->  8 |             con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
-   9 |             optionsBuilder.UseSqlServer(con_str);
-  10 |
-  11 |             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
-  12 |             optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
-  13 |         }
-  14 |     }
-  15 | }
+   8 |             //insecure
+   9 |             var con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
+> 10 |             optionsBuilder.UseSqlServer(con_str);
+  11 |
+  12 |
+  13 |             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
+  14 |             //insecure
+  15 |             optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
+  16 |
+  17 |             DbContextOptionsBuilder optionsBuilder3 = new DbContextOptionsBuilder();
+  18 |             //secure
+  19 |             var con_str2 = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=5674_H5lloW0rld"";
+  20 |             optionsBuilder3.UseSqlServer(con_str2);
+  21 |         }
      ^ Col 0
 ",c_sharp.csharp_no_password
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
-   1 | ntrollers
-   2 |
-   3 | lass DBaccess
-   4 |
-   5 | ic void dbauth()
-   6 |
-   7 | DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
-   8 | con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
-   9 | optionsBuilder.UseSqlServer(con_str);
-  10 |
-  11 | DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
-> 12 | optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
-  13 |
-  14 |
-  15 |
-     ^ Col 12
+F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,15,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
+   3 |     public class DBaccess
+   4 |     {
+   5 |         public void dbauth()
+   6 |         {
+   7 |             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+   8 |             //insecure
+   9 |             var con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
+  10 |             optionsBuilder.UseSqlServer(con_str);
+  11 |
+  12 |
+  13 |             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
+  14 |             //insecure
+> 15 |             optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
+  16 |
+  17 |             DbContextOptionsBuilder optionsBuilder3 = new DbContextOptionsBuilder();
+  18 |             //secure
+  19 |             var con_str2 = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=5674_H5lloW0rld"";
+  20 |             optionsBuilder3.UseSqlServer(con_str2);
+  21 |         }
+  22 |     }
+  23 | }
+     ^ Col 0
 ",c_sharp.csharp_no_password
 F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The systems credential policy is not compliant with security regulations.
  in namespace/skims/test/data/lib_root/f035/Test.cs","

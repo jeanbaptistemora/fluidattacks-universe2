@@ -8,6 +8,9 @@ from model import (
     core_model,
     graph_model,
 )
+from model.graph_model import (
+    GraphShardMetadataLanguage as GraphLanguage,
+)
 from sast.query import (
     get_vulnerabilities_from_n_ids,
     shard_n_id_query,
@@ -16,9 +19,18 @@ from sast_transformations.danger_nodes.utils import (
     append_label,
     mark_assignments_sink,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+    get_object_identifiers,
+)
 from typing import (
     Iterator,
-    Optional,
+)
+from utils import (
+    graph as g,
 )
 
 
@@ -81,90 +93,48 @@ def weak_credential_policy(
     return tuple(chain.from_iterable(find_vulns()))
 
 
-def _get_var_decl(
-    var_step: graph_model.SyntaxStepSymbolLookup,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> Optional[graph_model.SyntaxStep]:
-    for step in reversed(syntax_steps):
-        if (
-            isinstance(step, graph_model.SyntaxStepDeclaration)
-            and step.var == var_step.symbol
-        ):
-            return step
-    return None
-
-
-def _get_var_val(
-    var_step: graph_model.SyntaxStepSymbolLookup,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> Optional[graph_model.SyntaxStep]:
-    return_next = False
-    for syntax_step in reversed(syntax_steps):
-        if isinstance(syntax_step, graph_model.SyntaxStepAssignment):
-            if syntax_step.var == var_step.symbol:
-                return_next = True
-        elif return_next:
-            return syntax_step
-    return None
-
-
-def _check_no_password_argument(arg: graph_model.SyntaxStepLiteral) -> bool:
-    if arg.value_type == "string":
-        for arg_part in str(arg.value).split(";"):
-            if "=" in arg_part:
-                var, value = arg_part.split("=", maxsplit=1)
-                if var == "Password" and not value:
-                    return True
-    return False
-
-
 def no_password(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_NO_PASSWORD
+    c_sharp = GraphLanguage.CSHARP
+
+    bad_types = {"Microsoft", "EntityFrameworkCore", "DbContextOptionsBuilder"}
+
     def n_ids() -> graph_model.GraphShardNodes:
-        bad_types = [
-            "Microsoft",
-            "EntityFrameworkCore",
-            "DbContextOptionsBuilder",
-        ]
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
 
-        for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
-        ):
-            all_syntax_steps = []
-            for syntax_steps in shard.syntax.values():
-                if len(syntax_steps) == 0:  # handle missing syntax case
-                    continue
+            flagged_vars = get_object_identifiers(graph, bad_types)
 
-                all_syntax_steps.extend(syntax_steps)
-
-                *dependencies, step = syntax_steps
-
+            for n_id in g.filter_nodes(
+                graph,
+                graph.nodes,
+                g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                expr = graph.nodes[n_id].get("expression")
+                member = graph.nodes[n_id].get("member")
                 if (
-                    step.type != "SyntaxStepMethodInvocationChain"
-                    or step.method != "UseSqlServer"
+                    expr in flagged_vars
+                    and member == "UseSqlServer"
+                    and (
+                        al_id := graph.nodes[g.pred(graph, n_id)[0]].get(
+                            "arguments_id"
+                        )
+                    )
+                    and (test_nid := g.match_ast(graph, al_id).get("__0__"))
                 ):
-                    continue
-
-                var_step, *arguments = dependencies
-                var_decl = _get_var_decl(var_step, all_syntax_steps)
-
-                if not var_decl or var_decl.var_type not in bad_types:
-                    continue
-
-                for arg in arguments:
-                    if isinstance(
-                        arg, graph_model.SyntaxStepSymbolLookup
-                    ) and not (arg := _get_var_val(arg, all_syntax_steps)):
-                        continue
-
-                    if _check_no_password_argument(arg):
-                        yield shard, arg.meta.n_id
+                    for path in get_backward_paths(graph, test_nid):
+                        evaluation = evaluate(method, graph, path, test_nid)
+                        if evaluation and evaluation.danger:
+                            yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_root.f035.csharp_no_password.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=core_model.MethodsEnum.CS_NO_PASSWORD,
     )
