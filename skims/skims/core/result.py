@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from ctx import (
     CRITERIA_REQUIREMENTS,
     CRITERIA_VULNERABILITIES,
@@ -63,6 +66,10 @@ CRITERIA_REQS = _get_criteria_requirements()
 
 def _get_rule(vuln_id: str) -> sarif_om.ReportingDescriptor:
     content = CRITERIA_VULNS[vuln_id]
+    auto_approve = False
+    with suppress(KeyError):
+        auto_approve = core_model.FindingEnum[f"F{vuln_id}"].value.auto_approve
+
     return sarif_om.ReportingDescriptor(
         id=vuln_id,
         name=content["en"]["title"],
@@ -79,6 +86,7 @@ def _get_rule(vuln_id: str) -> sarif_om.ReportingDescriptor:
         default_configuration=sarif_om.ReportingConfiguration(
             enabled=True, level="error"
         ),
+        properties={"auto_approve": auto_approve},
     )
 
 
