@@ -1,6 +1,9 @@
 from batch import (
     config,
 )
+from integrates.dal import (
+    get_group_roots,
+)
 from model.core_model import (
     FindingEnum,
     LocalesEnum,
@@ -104,9 +107,16 @@ async def test_generate_config(test_group: str) -> None:
         working_dir=os.path.abspath("."),
         execution_id=None,
     )
+    git_root = next(
+        (
+            root
+            for root in (await get_group_roots(group=test_group))
+            if root.nickname == "static_namespace"
+        )
+    )
     result = await config.generate_config(
         group_name=test_group,
-        namespace="static_namespace",
+        git_root=git_root,
         language=LocalesEnum.EN,
         working_dir=".",
         checks=("F001", "F008"),

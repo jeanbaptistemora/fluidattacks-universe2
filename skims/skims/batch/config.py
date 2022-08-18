@@ -10,6 +10,7 @@ from contextlib import (
 )
 from integrates.dal import (
     get_group_roots,
+    ResultGetGroupRoots,
 )
 from integrates.graphql import (
     create_session,
@@ -280,12 +281,22 @@ async def generate_configs(
             continue
         if is_additional_path(dirs, files):
             additional_paths.append(current_dir.replace(f"{working_dir}/", ""))
+    git_root = next(
+        (
+            root
+            for root in (await get_group_roots(group=group_name))
+            if root.nickname == namespace
+        ),
+        None,
+    )
+    if not git_root:
+        return all_configs
 
     all_configs = await collect(
         (
             generate_config(
                 group_name=group_name,
-                namespace=namespace,
+                git_root=git_root,
                 checks=checks,
                 language=language,
                 working_dir=working_dir,
@@ -295,7 +306,7 @@ async def generate_configs(
             *(
                 generate_config(
                     group_name=group_name,
-                    namespace=namespace,
+                    git_root=git_root,
                     checks=checks,
                     language=language,
                     working_dir=working_dir,
@@ -323,7 +334,7 @@ async def generate_configs(
 async def generate_config(
     *,
     group_name: str,
-    namespace: str,
+    git_root: ResultGetGroupRoots,
     checks: Tuple[str, ...],
     language: LocalesEnum = LocalesEnum.EN,
     include: Tuple[str, ...] = (),
@@ -335,21 +346,14 @@ async def generate_config(
     urls: List[str] = []
     ssl_targets: List[Tuple[str, str]] = []
     dast_config: Optional[SkimsDastConfig] = None
+    namespace = git_root.nickname
     if is_main:
         create_session(os.environ["INTEGRATES_API_TOKEN"])
-        roots = await get_group_roots(group=group_name)
-        scopes = {
-            environment_url
-            for root in roots
-            for environment_url in root.environment_urls
-            if root.nickname == namespace
-        }
+        scopes = set(git_root.environment_urls)
         secrets = {
             secret["key"]: secret["value"]
-            for root in roots
-            for environment_url in root.git_environment_urls
-            if root.nickname == namespace
-            and environment_url["urlType"] == "CLOUD"  # type: ignore
+            for environment_url in git_root.git_environment_urls
+            if environment_url["urlType"] == "CLOUD"  # type: ignore
             for secret in environment_url["secrets"]
         }
 
@@ -402,7 +406,15 @@ async def generate_config(
         output=os.path.abspath("result.csv"),
         path=SkimsPathConfig(
             include=include if include else (".",),
-            exclude=tuple(sorted(("glob(**/.git)", *exclude))),
+            exclude=tuple(
+                sorted(
+                    (
+                        "glob(**/.git)",
+                        *exclude,
+                        *(git_root.gitignore if git_root else []),
+                    )
+                )
+            ),
             lib_path=True,
             lib_root=True,
         ),

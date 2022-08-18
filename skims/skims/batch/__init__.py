@@ -1,5 +1,4 @@
 from .config import (
-    generate_config,
     generate_configs,
     upload_config,
 )
@@ -151,41 +150,6 @@ async def _should_run(
         namespace,
         check,
         await should_run(group, namespace, check, token),
-    )
-
-
-async def _gererate_configs(
-    *,
-    group_name: str,
-    roots: List[str],
-    checks: List[str],
-    token: str,
-    group_language: str,
-) -> Tuple[SkimsConfig, ...]:
-    should_run_dict = {
-        root: {check: False for check in checks} for root in roots
-    }
-
-    for _, root, check, should in await collect(
-        _should_run(group_name, root, check, token)
-        for root in roots
-        for check in checks
-    ):
-        should_run_dict[root][check] = should
-
-    return tuple(
-        await collect(
-            generate_config(
-                group_name=group_name,
-                namespace=root,
-                checks=tuple(
-                    check for check, should in checks_dict.items() if should
-                ),
-                language=cast(LocalesEnum, group_language),
-                working_dir=f"groups/{group_name}/fusion/{root}",
-            )
-            for root, checks_dict in should_run_dict.items()
-        )
     )
 
 
