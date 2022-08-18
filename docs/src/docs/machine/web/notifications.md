@@ -392,6 +392,18 @@ to the User Manager role.
 
 ![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660685611/docs/web/notifications/notif_portfolio_report.png)
 
+### Root cloning status
+
+This notification will be
+generated when any situation
+affects registered root and
+Fluid Attacks team can't
+clone or access the root.
+The User Manager role will
+be notified by email with this.
+
+![Root Cloning](https://res.cloudinary.com/fluid-attacks/image/upload/v1660832966/docs/web/notifications/notif_root_cloning.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
