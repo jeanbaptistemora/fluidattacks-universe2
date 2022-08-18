@@ -75,20 +75,20 @@ const FindingContent: React.FC = (): JSX.Element => {
   useTabTracking("Finding");
 
   // State management
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  const openRejectModal: () => void = useCallback((): void => {
+    setIsRejectModalOpen(true);
+  }, []);
+  const closeRejectModal: () => void = useCallback((): void => {
+    setIsRejectModalOpen(false);
+  }, []);
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
     setIsDeleteModalOpen(true);
   }, []);
   const closeDeleteModal: () => void = useCallback((): void => {
     setIsDeleteModalOpen(false);
-  }, []);
-
-  const [isRejectDraftModalOpen, setIsRejectDraftModalOpen] = useState(false);
-  const openRejectModal: () => void = useCallback((): void => {
-    setIsRejectDraftModalOpen(true);
-  }, []);
-  const closeRejectModal: () => void = useCallback((): void => {
-    setIsRejectDraftModalOpen(false);
   }, []);
 
   // GraphQL operations
@@ -474,7 +474,7 @@ const FindingContent: React.FC = (): JSX.Element => {
         </Formik>
       </Modal>
       <RejectDraftModal
-        isOpen={isRejectDraftModalOpen}
+        isOpen={isRejectModalOpen}
         onClose={closeRejectModal}
         onSubmit={handleReject}
       />

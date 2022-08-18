@@ -79,7 +79,7 @@ async def mutate(
             context=info.context,
             finding_id=finding_id,
             reason=DraftRejectionReason[reason],
-            other=other_reason,
+            other=other_reason.strip() if other_reason else None,
             reviewer_email=reviewer_email,
         )
         redis_del_by_deps_soon(
