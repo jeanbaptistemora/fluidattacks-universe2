@@ -7,6 +7,9 @@ from ariadne import (
 import authz
 import base64
 import botocore.exceptions
+from contextlib import (
+    suppress,
+)
 import csv
 from custom_exceptions import (
     DocumentNotFound,
@@ -243,6 +246,11 @@ def is_decimal(num: str) -> bool:
         Decimal(num)
         return True
     except InvalidOperation:
+
+        with suppress(InvalidOperation):
+            Decimal(num[:-1])
+            return True
+
         return False
 
 

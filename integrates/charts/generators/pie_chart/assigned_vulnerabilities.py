@@ -119,5 +119,6 @@ if __name__ == "__main__":
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
             format_document=format_data,
+            header=["Assignment", "Occurrences"],
         )
     )

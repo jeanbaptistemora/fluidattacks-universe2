@@ -1,7 +1,7 @@
 from charts.colors import (
     RISK,
 )
-from charts.generators.gauge.forces_builds_risk import (
+from charts.generators.pie_chart import (
     format_csv_data,
 )
 from charts.utils import (
@@ -78,6 +78,7 @@ async def generate_all(
     get_data_one_group: Callable[[str], Awaitable[Any]],
     get_data_many_groups: Callable[[tuple[str, ...]], Awaitable[Any]],
     format_document: Callable[[Any], dict[str, Any]],
+    header: list[str],
 ) -> None:
     async for group in iterate_groups():
         document = format_document(
@@ -87,7 +88,7 @@ async def generate_all(
             document=document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
@@ -98,7 +99,7 @@ async def generate_all(
             document=document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
@@ -110,5 +111,5 @@ async def generate_all(
                 document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document),
+                csv_document=format_csv_data(document=document, header=header),
             )
