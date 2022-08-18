@@ -20,9 +20,6 @@ from context import (
 from contextlib import (
     suppress,
 )
-from custom_exceptions import (
-    FindingNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -631,7 +628,12 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
         LOGGER.info(
             "%s vulns to modify for the finding %s", length, finding.id
         )
+        loaders.toe_input.clear_all()
+        loaders.toe_lines.clear_all()
         await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
+        await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
+        loaders.toe_input.clear_all()
+        loaders.toe_lines.clear_all()
         result = await map_vulnerabilities_to_dynamo(
             loaders=loaders,
             vulns_data_from_file=stream,
@@ -761,7 +763,13 @@ async def upload_evidences(
             )
         except ConditionalCheckFailedException:
             LOGGER.error(
-                "Cloud not upload evidence for finding %s", finding.id
+                "Cloud not upload evidence for a finding",
+                extra={
+                    "extra": {
+                        "finding_id": finding.id,
+                        "group_name": finding.group_name,
+                    }
+                },
             )
 
 
@@ -811,16 +819,16 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             criteria_vulnerability,
             criteria_requirements,
         )
-    try:
-        integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
-            vuln
-            for vuln in await loaders.finding_vulnerabilities.load(finding.id)
-            if vuln.state.status == VulnerabilityStateStatus.OPEN
-            and vuln.state.source == Source.MACHINE
-            and vuln.root_id == git_root.id
-        )
-    except FindingNotFound:
-        return
+        loaders.finding.clear(finding.id)
+        loaders.group_findings.clear(group_name)
+
+    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        vuln
+        for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.source == Source.MACHINE
+        and vuln.root_id == git_root.id
+    )
 
     vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
@@ -887,14 +895,21 @@ async def process_execution(  # pylint: disable=too-many-locals
         )
     except StopIteration:
         LOGGER.warning(
-            "Cloud not find root %s for the execution %s",
-            execution_config["namespace"],
-            execution_id,
+            "Cloud not find root for the execution",
+            extra={
+                "extra": {
+                    "execution_id": execution_id,
+                    "nickname": execution_config["namespace"],
+                }
+            },
         )
         return False
     results = await get_sarif_log(boto3_session, execution_id)
     if not results:
-        LOGGER.warning("Cloud not find execution result %s", execution_id)
+        LOGGER.warning(
+            "Cloud not find execution result",
+            extra={"extra": {"execution_id": execution_id}},
+        )
         return False
 
     rules_id: Set[str] = {
@@ -971,8 +986,15 @@ def _callback_done(
     if future.done():
         if exception := future.exception():
             message_id = _decode_sqs_message(message)
-            LOGGER.error("An error ocurred in %s", message_id)
-            LOGGER.error(str(exception))
+            LOGGER.error(
+                "An error has occurred consuming a report",
+                extra={
+                    "extra": {
+                        "execution_id": message_id,
+                        "exception": str(exception),
+                    }
+                },
+            )
         else:
             _delete_message(queue, message)
 
@@ -993,6 +1015,16 @@ async def main() -> None:
             MaxNumberOfMessages=10,
             VisibilityTimeout=30,
         )
+        if not messages:
+            messages = queue.receive_messages(
+                MessageAttributeNames=[],
+                MaxNumberOfMessages=10,
+                VisibilityTimeout=30,
+                WaitTimeSeconds=20,
+            )
+            if not messages:
+                break
+
         for message in messages:
             task = asyncio.create_task(
                 process_execution(
