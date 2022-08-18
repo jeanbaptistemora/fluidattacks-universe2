@@ -17,6 +17,9 @@ from charts.generators.bar_chart import (
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from charts.generators.gauge.severity import (
+    MaxSeverity,
+)
 from charts.generators.text_box.utils_vulnerabilities_remediation import (
     had_state_by_then,
 )
@@ -183,17 +186,31 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
+def sorter(item: MaxSeverity) -> tuple[Decimal, Decimal]:
+    if item.value == Decimal("0.0"):
+        return (Decimal("-Infinity"), Decimal("-Infinity"))
+
+    return (format_cvssf(item.value), format_cvssf(abs(item.value)))
+
+
 def format_data(data: Counter[str], categories: list[str]) -> dict:
-    categories_trend: list[Decimal] = [
-        Decimal(data[f"{category}/open"] - data[f"{category}/closed"])
+    categories_trend: list[MaxSeverity] = [
+        MaxSeverity(
+            name=category,
+            value=Decimal(
+                data[f"{category}/open"] - data[f"{category}/closed"]
+            ),
+        )
         for category in categories
     ]
+    categories_trend = sorted(categories_trend, key=sorter, reverse=True)
+
     return dict(
         data=dict(
             columns=[
                 ["Exposure"]
                 + [
-                    format_cvssf_log_adjusted(category)
+                    format_cvssf_log_adjusted(category.value)
                     for category in categories_trend
                 ],
             ],
@@ -225,12 +242,12 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         ),
         maxValueLogAdjusted=format_max_value(
             [
-                (category, format_cvssf_log_adjusted(abs(value)))
-                for category, value in zip(categories, categories_trend)
+                (category.name, format_cvssf_log_adjusted(abs(category.value)))
+                for category in categories_trend
             ]
         ),
         originalValues=[
-            format_cvssf(category) for category in categories_trend
+            format_cvssf(category.value) for category in categories_trend
         ],
         exposureTrendsByCategories=True,
     )
