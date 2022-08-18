@@ -1,12 +1,7 @@
-import {
-  faAngleDown,
-  faAngleUp,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -20,11 +15,12 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import _ from "lodash";
-import type { ChangeEvent, ChangeEventHandler, ReactElement } from "react";
-import React, { isValidElement, useEffect, useState } from "react";
+import type { ChangeEvent, ChangeEventHandler } from "react";
+import React, { isValidElement, useCallback, useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
+import { Body } from "./Body";
 import { ToggleFunction } from "./columnToggle";
 import { Head } from "./Head";
 import { Pagination } from "./Pagination";
@@ -76,13 +72,15 @@ const Table = <TData extends object>({
     }
   }
 
-  const radioSelectionhandler =
+  const radioSelectionhandler = useCallback(
     (row: Row<TData>): ChangeEventHandler =>
-    (event: ChangeEvent<HTMLInputElement>): void => {
-      event.stopPropagation();
-      setRowSelection({});
-      row.toggleSelected();
-    };
+      (event: ChangeEvent<HTMLInputElement>): void => {
+        event.stopPropagation();
+        setRowSelection({});
+        row.toggleSelected();
+      },
+    []
+  );
 
   const filterFun: FilterFn<TData> = (
     row: Row<TData>,
@@ -210,90 +208,15 @@ const Table = <TData extends object>({
             selectionMode={selectionMode}
             table={table}
           />
-          <tbody>
-            {_.isEmpty(data) && <tr>{t("table.noDataIndication")}</tr>}
-            {table.getRowModel().rows.map((row): ReactElement => {
-              return (
-                <React.Fragment key={row.id}>
-                  <tr>
-                    {row.getVisibleCells().map(
-                      (cell): ReactElement => (
-                        <React.Fragment key={cell.id}>
-                          <td>
-                            {expandedRow !== undefined &&
-                              cell === row.getVisibleCells()[0] &&
-                              (row.getIsExpanded() ? (
-                                <div
-                                  onClick={row.getToggleExpandedHandler()}
-                                  onKeyPress={row.getToggleExpandedHandler()}
-                                  role={"button"}
-                                  tabIndex={0}
-                                >
-                                  <FontAwesomeIcon icon={faAngleUp} />
-                                </div>
-                              ) : (
-                                <div
-                                  onClick={row.getToggleExpandedHandler()}
-                                  onKeyPress={row.getToggleExpandedHandler()}
-                                  role={"button"}
-                                  tabIndex={0}
-                                >
-                                  <FontAwesomeIcon icon={faAngleDown} />
-                                </div>
-                              ))}
-                            <label>
-                              {cell === row.getVisibleCells()[0] &&
-                                rowSelectionSetter !== undefined &&
-                                (selectionMode === "radio" ? (
-                                  <input
-                                    checked={row.getIsSelected()}
-                                    onChange={radioSelectionhandler(row)}
-                                    type={selectionMode}
-                                  />
-                                ) : (
-                                  <input
-                                    checked={row.getIsSelected()}
-                                    onChange={row.getToggleSelectedHandler()}
-                                    type={selectionMode}
-                                  />
-                                ))}
-                              {onRowClick === undefined ? (
-                                <div>
-                                  {flexRender(
-                                    cell.column.columnDef.cell,
-                                    cell.getContext()
-                                  )}
-                                </div>
-                              ) : (
-                                <div
-                                  onClick={onRowClick(row)}
-                                  onKeyPress={onRowClick(row)}
-                                  role={"button"}
-                                  tabIndex={0}
-                                >
-                                  {flexRender(
-                                    cell.column.columnDef.cell,
-                                    cell.getContext()
-                                  )}
-                                </div>
-                              )}
-                            </label>
-                          </td>
-                        </React.Fragment>
-                      )
-                    )}
-                  </tr>
-                  {row.getIsExpanded() && (
-                    <tr>
-                      <td colSpan={row.getVisibleCells().length}>
-                        {expandedRow?.(row)}
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
+          <Body
+            data={data}
+            expandedRow={expandedRow}
+            onRowClick={onRowClick}
+            radioSelectionhandler={radioSelectionhandler}
+            rowSelectionSetter={rowSelectionSetter}
+            selectionMode={selectionMode}
+            table={table}
+          />
         </table>
       </TableContainer>
       {data.length > 10 ? (
