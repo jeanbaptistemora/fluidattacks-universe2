@@ -19,7 +19,8 @@ resource "cloudflare_zone_settings_override" "fluidattacks_co" {
     opportunistic_encryption = "on"
     min_tls_version          = "1.2"
     ssl                      = "flexible"
-    tls_1_3                  = "on"
+    tls_1_3                  = "zrt"
+    universal_ssl            = "on"
     challenge_ttl            = 1800
 
     minify {
@@ -31,6 +32,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_co" {
     security_header {
       enabled            = true
       include_subdomains = true
+      nosniff            = false
       max_age            = 31536000
       preload            = true
     }
@@ -43,6 +45,15 @@ resource "cloudflare_zone_dnssec" "fluidattacks_co" {
 
 # CNAME Records
 
+resource "cloudflare_record" "www_fluidattacks_co" {
+  zone_id = cloudflare_zone.fluidattacks_co.id
+  name    = "www.${cloudflare_zone.fluidattacks_co.zone}"
+  type    = "CNAME"
+  value   = cloudflare_zone.fluidattacks_co.zone
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "fluidattacks_co_main" {
   zone_id = cloudflare_zone.fluidattacks_co.id
   name    = cloudflare_zone.fluidattacks_co.zone
@@ -52,6 +63,17 @@ resource "cloudflare_record" "fluidattacks_co_main" {
 }
 
 # Page Rules
+
+resource "cloudflare_page_rule" "fluidattacks_co_http_to_https" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  target   = "${cloudflare_zone.fluidattacks_co.zone}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    always_use_https = true
+  }
+}
 
 resource "cloudflare_page_rule" "fluidattacks_co_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluidattacks_co.id
@@ -66,6 +88,21 @@ resource "cloudflare_page_rule" "fluidattacks_co_to_fluidattacks_com" {
     }
   }
 }
+
+resource "cloudflare_page_rule" "redirect_www_http_to_www_https" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  target   = "www.${cloudflare_zone.fluidattacks_co.zone}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_co.zone}/$1"
+      status_code = 301
+    }
+  }
+}
+
 
 resource "cloudflare_page_rule" "www_fluidattacks_co_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluidattacks_co.id
