@@ -1821,6 +1821,33 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__request_event_verification:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'request_event_verification'
+  stage: test-code
+  tags:
+    - dev_small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_hold:
   artifacts:
     expire_in: 1 day
@@ -3476,6 +3503,7 @@
     - /integrates/back/test/functional__remove_tags
     - /integrates/back/test/functional__remove_vulnerability
     - /integrates/back/test/functional__report
+    - /integrates/back/test/functional__request_event_verification
     - /integrates/back/test/functional__request_vulnerabilities_hold
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
@@ -3497,7 +3525,6 @@
     - /integrates/back/test/functional__update_credentials
     - /integrates/back/test/functional__update_event
     - /integrates/back/test/functional__update_event_evidence
-    - /integrates/back/test/functional__update_event_solving_reason
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
@@ -3525,6 +3552,7 @@
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_event_solving_reason
     - /integrates/back/test/functional__update_evidence_description
     - /integrates/back/test/functional__update_evidence
     - /integrates/back/test/functional__update_finding_description

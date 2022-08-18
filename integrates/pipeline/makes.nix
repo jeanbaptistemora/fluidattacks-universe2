@@ -70,6 +70,7 @@
     ["remove_tags"]
     ["remove_vulnerability"]
     ["report"]
+    ["request_event_verification"]
     ["request_vulnerabilities_hold"]
     ["request_vulnerabilities_verification"]
     ["request_vulnerabilities_zero_risk"]
