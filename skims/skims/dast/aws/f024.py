@@ -806,4 +806,15 @@ async def insecure_port_range_in_security_group(
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = ()
+] = (
+    allows_anyone_to_admin_ports,
+    unrestricted_cidrs,
+    unrestricted_ip_protocols,
+    security_groups_ip_ranges_in_rfc1918,
+    unrestricted_dns_access,
+    unrestricted_ftp_access,
+    open_all_ports_to_the_public,
+    default_seggroup_allows_all_traffic,
+    instances_without_profile,
+    insecure_port_range_in_security_group,
+)
