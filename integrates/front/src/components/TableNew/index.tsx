@@ -47,6 +47,7 @@ const Table = <TData extends object>({
   id,
   initState = undefined,
   onRowClick = undefined,
+  onSearch = undefined,
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
@@ -68,6 +69,10 @@ const Table = <TData extends object>({
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
     setGlobalFilter(event.target.value);
+
+    if (onSearch) {
+      onSearch(event.target.value);
+    }
   }
 
   const radioSelectionhandler =

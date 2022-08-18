@@ -1,22 +1,14 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type { IGroupVulnerabilities, IVulnerability } from "./types";
-import { filterByState, filterByTreatment } from "./utils";
 
 import { Table } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
-import { Tab, Tabs } from "components/Tabs";
-import { TabContent } from "styles/styledComponents";
+import { useDebouncedCallback } from "utils/hooks";
 
 const tableColumns: ColumnDef<IVulnerability>[] = [
   {
@@ -59,25 +51,15 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
   },
 ];
 
-const views = [
-  { filter: filterByState("open"), title: "Open" },
-  { filter: filterByState("closed"), title: "Closed" },
-  {
-    filter: filterByTreatment("ACCEPTED"),
-    title: "Temporarily accepted",
-  },
-  {
-    filter: filterByTreatment("ACCEPTED_UNDEFINED"),
-    title: "Permanently accepted",
-  },
-];
-
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
-  const { path, url } = useRouteMatch();
-  const { data } = useQuery<IGroupVulnerabilities>(GET_GROUP_VULNERABILITIES, {
-    variables: { first: 100, groupName },
-  });
+  const { data, refetch } = useQuery<IGroupVulnerabilities>(
+    GET_GROUP_VULNERABILITIES,
+    {
+      fetchPolicy: "cache-first",
+      variables: { first: 100, groupName, search: "" },
+    }
+  );
   const vulnerabilities =
     data === undefined
       ? []
@@ -85,39 +67,19 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           (edge): IVulnerability => edge.node
         );
 
+  const handleSearch = useDebouncedCallback((search: string): void => {
+    void refetch({ search });
+  }, 500);
+
   return (
     <div>
-      <Tabs>
-        {views.map(({ title }): JSX.Element => {
-          return (
-            <Tab
-              id={`${title}VulnerabilitiesTab`}
-              key={title}
-              link={`${url}/${title}`}
-              tooltip={""}
-            >
-              {title}
-            </Tab>
-          );
-        })}
-      </Tabs>
-      <TabContent>
-        <Switch>
-          {views.map(({ title, filter }): JSX.Element => {
-            return (
-              <Route exact={true} key={title} path={`${path}/${title}`}>
-                <Table
-                  columns={tableColumns}
-                  data={vulnerabilities.filter(filter)}
-                  exportCsv={false}
-                  id={`tblVulnerabilities${title}`}
-                />
-              </Route>
-            );
-          })}
-          <Redirect to={`${path}/Open`} />
-        </Switch>
-      </TabContent>
+      <Table
+        columns={tableColumns}
+        data={vulnerabilities}
+        exportCsv={false}
+        id={"tblGroupVulnerabilities"}
+        onSearch={handleSearch}
+      />
     </div>
   );
 };

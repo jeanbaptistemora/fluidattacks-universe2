@@ -35,6 +35,7 @@ interface ITableProps<TData extends RowData> {
   id: string;
   initState?: InitialTableState;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
+  onSearch?: (search: string) => void;
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
   rowSelectionState?: TData[];
   selectionMode?: "checkbox" | "radio";
