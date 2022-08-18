@@ -82,6 +82,14 @@ const FindingContent: React.FC = (): JSX.Element => {
     setIsDeleteModalOpen(false);
   }, []);
 
+  const [isRejectDraftModalOpen, setIsRejectDraftModalOpen] = useState(false);
+  const openRejectModal: () => void = useCallback((): void => {
+    setIsRejectDraftModalOpen(true);
+  }, []);
+  const closeRejectModal: () => void = useCallback((): void => {
+    setIsRejectDraftModalOpen(false);
+  }, []);
+
   // GraphQL operations
   const {
     data: headerData,
@@ -160,14 +168,18 @@ const FindingContent: React.FC = (): JSX.Element => {
               // eslint-disable-next-line
               void headerRefetch(); //NOSONAR
               break;
+            case "Exception - Invalid characters":
+              msgError(t("validations.invalidChar"));
+              // Exception: FP(void operator is necessary)
+              // eslint-disable-next-line
+              void headerRefetch(); //NOSONAR
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred rejecting draft", rejectError);
           }
         });
       },
-      // Temporary dummy value for reason while the proper selection is added
-      variables: { findingId, reason: "WRITING" },
     }
   );
 
@@ -190,6 +202,16 @@ const FindingContent: React.FC = (): JSX.Element => {
         });
       },
     }
+  );
+
+  const handleReject = useCallback(
+    async (values: { reason: string; other: string | null }): Promise<void> => {
+      await rejectDraft({
+        variables: { findingId, other: values.other, reason: values.reason },
+      });
+      closeRejectModal();
+    },
+    [closeRejectModal, rejectDraft, findingId]
   );
 
   const handleDelete = useCallback(
@@ -274,8 +296,13 @@ const FindingContent: React.FC = (): JSX.Element => {
                       loading={approving || deleting || rejecting || submitting}
                       onApprove={approveDraft}
                       onDelete={openDeleteModal}
-                      onReject={rejectDraft}
+                      onReject={handleReject}
                       onSubmit={submitDraft}
+                      rejectStateProps={{
+                        closeRejectModal,
+                        isRejectDraftModalOpen,
+                        openRejectModal,
+                      }}
                     />
                   </Have>
                 </ButtonCol>

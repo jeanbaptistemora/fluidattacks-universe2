@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { RejectDraftModal } from "../RejectDraftModal";
+import type { IRejectDraftStateProps } from "../RejectDraftModal/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
@@ -15,8 +17,9 @@ interface IFindingActionsProps {
   loading: boolean;
   onApprove: () => void;
   onDelete: () => void;
-  onReject: () => void;
+  onReject: (values: { reason: string; other: string | null }) => void;
   onSubmit: () => void;
+  rejectStateProps: IRejectDraftStateProps;
 }
 
 const FindingActions: React.FC<IFindingActionsProps> = ({
@@ -28,7 +31,10 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
   onDelete,
   onReject,
   onSubmit,
+  rejectStateProps,
 }: IFindingActionsProps): JSX.Element => {
+  const { isRejectDraftModalOpen, openRejectModal, closeRejectModal } =
+    rejectStateProps;
   const { t } = useTranslation();
   const canApprove: boolean = hasVulns && hasSubmission;
 
@@ -82,30 +88,25 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
             </ConfirmDialog>
           </Can>
           <Can do={"api_mutations_reject_draft_mutate"}>
-            <ConfirmDialog title={t("group.drafts.reject.title")}>
-              {(confirm): React.ReactNode => {
-                function handleClick(): void {
-                  confirm((): void => {
-                    onReject();
-                  });
-                }
-
-                return (
-                  <Tooltip
-                    id={"group.drafts.reject.tooltip"}
-                    tip={t("group.drafts.reject.tooltip")}
-                  >
-                    <Button
-                      disabled={!hasSubmission || loading}
-                      onClick={handleClick}
-                      variant={"secondary"}
-                    >
-                      {t("group.drafts.reject.text")}
-                    </Button>
-                  </Tooltip>
-                );
-              }}
-            </ConfirmDialog>
+            <Tooltip
+              id={"group.drafts.reject.tooltip"}
+              tip={t("group.drafts.reject.tooltip")}
+            >
+              <Button
+                disabled={!hasSubmission || loading}
+                onClick={openRejectModal}
+                variant={"secondary"}
+              >
+                {t("group.drafts.reject.text")}
+              </Button>
+              {isRejectDraftModalOpen ? (
+                <RejectDraftModal
+                  isOpen={isRejectDraftModalOpen}
+                  onClose={closeRejectModal}
+                  onSubmit={onReject}
+                />
+              ) : undefined}
+            </Tooltip>
           </Can>
           <Can do={"api_mutations_remove_finding_mutate"}>
             <Tooltip

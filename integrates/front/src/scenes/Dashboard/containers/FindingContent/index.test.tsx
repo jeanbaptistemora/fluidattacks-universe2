@@ -634,7 +634,7 @@ describe("FindingContent", (): void => {
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/drafts/438679960/description"]}>
         <MockedProvider
           addTypename={false}
           mocks={[submittedDraftMock, rejectMutationMock, findingMock]}
@@ -647,7 +647,7 @@ describe("FindingContent", (): void => {
             >
               <Route
                 component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
+                path={"/:groupName/drafts/:findingId/description"}
               />
             </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
@@ -665,6 +665,7 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.reject.title")
       ).toBeInTheDocument();
     });
+    userEvent.selectOptions(screen.getByLabelText("reason"), "SCORING");
     userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(
@@ -683,13 +684,14 @@ describe("FindingContent", (): void => {
         query: REJECT_DRAFT_MUTATION,
         variables: {
           findingId: "438679960",
-          reason: "WRITING",
+          reason: "OMISSION",
         },
       },
       result: {
         errors: [
           new GraphQLError("Exception - This draft has already been approved"),
           new GraphQLError("Exception - The draft has not been submitted yet"),
+          new GraphQLError("Exception - Invalid characters"),
           new GraphQLError("Unexpected error"),
         ],
       },
@@ -700,7 +702,7 @@ describe("FindingContent", (): void => {
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/drafts/438679960/description"]}>
         <MockedProvider
           addTypename={false}
           mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]}
@@ -713,7 +715,7 @@ describe("FindingContent", (): void => {
             >
               <Route
                 component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
+                path={"/:groupName/drafts/:findingId/description"}
               />
             </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
@@ -732,11 +734,10 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.reject.title")
       ).toBeInTheDocument();
     });
+    userEvent.selectOptions(screen.getByLabelText("reason"), "OMISSION");
     userEvent.click(screen.getByText(btnConfirm));
-    const numberOfErrors: number = 3;
-    await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledTimes(numberOfErrors);
-    });
+
+    expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
   });
 
   it("should delete finding", async (): Promise<void> => {
