@@ -1,6 +1,6 @@
 from lib_root.utilities.c_sharp import (
-    yield_shard_member_access,
-    yield_shard_object_creation,
+    yield_syntax_graph_member_access,
+    yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -74,26 +74,33 @@ def jwt_signed(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+    method = core_model.MethodsEnum.CS_JWT_SIGNED
     object_name = {"JwtBuilder"}
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            graph = shard.syntax_graph
+
             for member in [
-                *yield_shard_member_access(shard, object_name),
-                *yield_shard_object_creation(shard, object_name),
+                *yield_syntax_graph_member_access(graph, object_name),
+                *yield_syntax_graph_object_creation(graph, object_name),
             ]:
-                if not check_pred(shard.graph, elem_jwt=member):
+                if not check_pred(graph, elem_jwt=member):
                     yield shard, member
 
     def check_pred(
         graph: graph_model.Graph, depth: int = 1, elem_jwt: str = "0"
     ) -> bool:
         pred = g.pred(graph, elem_jwt, depth)[0]
-        if graph.nodes[pred].get("label_type") == "member_access_expression":
-            prop = g.get_ast_childs(graph, pred, "identifier")[0]
-            if graph.nodes[prop].get("label_text") == "MustVerifySignature":
-                return True
-        if graph.nodes[pred].get("label_type") != "variable_declarator":
+        if (
+            graph.nodes[pred].get("label_type") == "MemberAccess"
+            and graph.nodes[pred].get("member") == "MustVerifySignature"
+        ):
+            return True
+        if graph.nodes[pred].get("label_type") != "VariableDeclaration":
             signed = check_pred(graph, depth + 1, pred)
         else:
             return False
@@ -101,7 +108,7 @@ def jwt_signed(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.017.description",
-        desc_params=dict(lang="C#"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_JWT_SIGNED,
+        method=method,
     )
