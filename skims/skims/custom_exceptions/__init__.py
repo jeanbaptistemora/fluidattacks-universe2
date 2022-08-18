@@ -24,6 +24,25 @@ class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
 
+class InvalidActionParameter(_SingleMessageException):
+    msg: str = (
+        "Invalid/Missing parameter. "
+        "Insert a valid action (add | update | delete)"
+    )
+
+
+class InvalidPathParameter(_SingleMessageException):
+    msg: str = "Invalid/Missing parameter. Insert a valid file path"
+
+
+class InvalidPatchItem(_SingleMessageException):
+    msg: str = (
+        "Invalid item, "
+        "if 'add/update' then all attributes except 'source' are required, "
+        "if 'delete' then 'vulnerable_version', 'severity' are not required"
+    )
+
+
 class InvalidFilterCursor(CustomBaseException):
     """Exception to control the cursor with filters"""
 

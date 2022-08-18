@@ -32,3 +32,4 @@ async def update(
         key=advisory_key,
         table=TABLE,
     )
+    print(f"Updated ( {advisory_key.sort_key} )")

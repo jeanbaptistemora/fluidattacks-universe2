@@ -1,1 +1,1 @@
-PATCH_SRC: str = "PATCH"
+PATCH_SRC: str = "MANUAL"

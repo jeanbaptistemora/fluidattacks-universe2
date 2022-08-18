@@ -46,7 +46,6 @@ async def add(*, advisory: Advisory) -> None:
             or current_ad.get("severity") != advisory.severity
         ):
             await update(advisory=advisory)
-            print(f"Updated ( {advisory_key.sort_key} )")
     else:
         advisory_item = {
             key_structure.partition_key: advisory_key.partition_key,
