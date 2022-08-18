@@ -19,7 +19,8 @@ resource "cloudflare_zone_settings_override" "fluidsignal" {
     opportunistic_encryption = "on"
     min_tls_version          = "1.2"
     ssl                      = "flexible"
-    tls_1_3                  = "on"
+    tls_1_3                  = "zrt"
+    universal_ssl            = "on"
     challenge_ttl            = 1800
 
     minify {
@@ -29,8 +30,11 @@ resource "cloudflare_zone_settings_override" "fluidsignal" {
     }
 
     security_header {
-      enabled = true
-      max_age = 31536000
+      enabled            = true
+      include_subdomains = true
+      nosniff            = false
+      max_age            = 31536000
+      preload            = true
     }
   }
 }
@@ -109,7 +113,7 @@ resource "cloudflare_record" "fluidsignal_com_email_5" {
 
 resource "cloudflare_page_rule" "fluidsignal_com_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluidsignal_com.id
-  target   = "${cloudflare_zone.fluidsignal_com.zone}/*"
+  target   = "https://${cloudflare_zone.fluidsignal_com.zone}/*"
   status   = "active"
   priority = 1
 
@@ -123,7 +127,7 @@ resource "cloudflare_page_rule" "fluidsignal_com_to_fluidattacks_com" {
 
 resource "cloudflare_page_rule" "www_fluidsignal_com_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluidsignal_com.id
-  target   = "www.${cloudflare_zone.fluidsignal_com.zone}/*"
+  target   = "https://www.${cloudflare_zone.fluidsignal_com.zone}/*"
   status   = "active"
   priority = 2
 
