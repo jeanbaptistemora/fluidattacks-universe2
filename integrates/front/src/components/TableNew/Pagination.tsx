@@ -18,6 +18,7 @@ interface IPaginationProps<TData>
     Table<TData>,
     "getPageCount" | "getState" | "setPageIndex" | "setPageSize"
   > {
+  onNextPage?: () => Promise<void>;
   size: number;
 }
 
@@ -35,12 +36,15 @@ const PaginationBox = styled.div.attrs({
 const Pagination = <TData extends object>({
   getPageCount,
   getState,
+  onNextPage = undefined,
   setPageIndex,
   setPageSize,
   size,
 }: Readonly<IPaginationProps<TData>>): JSX.Element => {
   const pageCount = getPageCount();
   const { pageIndex, pageSize } = getState().pagination;
+  const isInFirst = pageIndex === 0;
+  const isInLast = pageIndex === pageCount - 1;
 
   const goToFirst = useCallback((): void => {
     setPageIndex(0);
@@ -49,8 +53,14 @@ const Pagination = <TData extends object>({
     setPageIndex(pageCount - 1);
   }, [pageCount, setPageIndex]);
   const goToNext = useCallback((): void => {
-    setPageIndex(pageIndex + 1);
-  }, [pageIndex, setPageIndex]);
+    if (isInLast && onNextPage) {
+      void onNextPage().then((): void => {
+        setPageIndex(pageIndex + 1);
+      });
+    } else {
+      setPageIndex(pageIndex + 1);
+    }
+  }, [isInLast, onNextPage, pageIndex, setPageIndex]);
   const goToPrev = useCallback((): void => {
     setPageIndex(pageIndex - 1);
   }, [pageIndex, setPageIndex]);
@@ -59,8 +69,6 @@ const Pagination = <TData extends object>({
     Math.max(pageIndex - 2, 0),
     Math.min(pageIndex + 2, pageCount - 1) + 1
   );
-  const isInFirst = pageIndex === 0;
-  const isInLast = pageIndex === pageCount - 1;
 
   return (
     <PaginationBox>
@@ -117,7 +125,7 @@ const Pagination = <TData extends object>({
         )
       )}
       <Button
-        disabled={isInLast}
+        disabled={isInLast && onNextPage === undefined}
         onClick={goToNext}
         size={"sm"}
         variant={"secondary"}

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
-import React from "react";
+import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
@@ -53,7 +53,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
 
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
-  const { data, refetch } = useQuery<IGroupVulnerabilities>(
+  const { data, fetchMore, refetch } = useQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
       fetchPolicy: "cache-first",
@@ -67,6 +67,17 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           (edge): IVulnerability => edge.node
         );
 
+  const handleNextPage = useCallback(async (): Promise<void> => {
+    const pageInfo =
+      data === undefined
+        ? { endCursor: "", hasNextPage: false }
+        : data.group.vulnerabilities.pageInfo;
+
+    if (pageInfo.hasNextPage) {
+      await fetchMore({ variables: { after: pageInfo.endCursor } });
+    }
+  }, [data, fetchMore]);
+
   const handleSearch = useDebouncedCallback((search: string): void => {
     void refetch({ search });
   }, 500);
@@ -78,6 +89,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
         data={vulnerabilities}
         exportCsv={false}
         id={"tblGroupVulnerabilities"}
+        onNextPage={handleNextPage}
         onSearch={handleSearch}
       />
     </div>

@@ -19,6 +19,10 @@ interface IGroupVulnerabilities {
     name: string;
     vulnerabilities: {
       edges: { node: IVulnerability }[];
+      pageInfo: {
+        endCursor: string;
+        hasNextPage: boolean;
+      };
     };
   };
 }

@@ -50,6 +50,7 @@ const Table = <TData extends object>({
   initState = undefined,
   onRowClick = undefined,
   onSearch = undefined,
+  onNextPage = undefined,
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
@@ -364,6 +365,7 @@ const Table = <TData extends object>({
         <Pagination
           getPageCount={table.getPageCount}
           getState={table.getState}
+          onNextPage={onNextPage}
           setPageIndex={table.setPageIndex}
           setPageSize={table.setPageSize}
           size={data.length}

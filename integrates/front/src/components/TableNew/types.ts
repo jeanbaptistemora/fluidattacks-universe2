@@ -34,6 +34,7 @@ interface ITableProps<TData extends RowData> {
   extraButtons?: JSX.Element;
   id: string;
   initState?: InitialTableState;
+  onNextPage?: () => Promise<void>;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
   onSearch?: (search: string) => void;
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
