@@ -45,7 +45,7 @@ function formatYTickAdjusted(value) {
 // eslint-disable-next-line max-params
 function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns, alwaysVisible) {
   const minValue = 0.10;
-  if (Math.abs(datum / maxValueLog) > minValue || alwaysVisible) {
+  if ((Math.abs(datum / maxValueLog) > minValue) || (datum === 0 && alwaysVisible)) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
