@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -59,12 +59,12 @@ import {
   formatEvents,
   formatReattacks,
   getEventIndex,
-  getNonSelectableEventIndex,
+  getNonSelectableEventIndexToRequestVerification,
   onSelectSeveralEventsHelper,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { castEventType } from "utils/formatHelpers";
+import { castEventStatus, castEventType } from "utils/formatHelpers";
 import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -83,7 +83,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   );
 
   const [optionType, setOptionType] = useState(selectOptionType);
-  const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupEventsFilters", false);
@@ -224,6 +223,12 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   };
 
   // State Management
+  const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
+  const unsolved = t(castEventStatus("CREATED"));
+  const selectedUnsolvedEvents = selectedEvents.filter(
+    (event: IEventData): boolean => event.eventStatus === unsolved
+  );
+
   const [affectsReattacks, setAffectsReattacks] = useState(false);
   const [selectedReattacks, setSelectedReattacks] = useState({});
 
@@ -252,6 +257,29 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const closeRequestVerificationModal: () => void = useCallback((): void => {
     setIsRequestVerificationModalOpen(false);
   }, []);
+  const [isOpenRequestVerificationMode, setIsOpenRequestVerificationMode] =
+    useState(false);
+  const openRequestVerificationMode: () => void = useCallback((): void => {
+    if (
+      selectedUnsolvedEvents.length === selectedEvents.length &&
+      selectedEvents.length > 0
+    ) {
+      openRequestVerificationModal();
+    } else {
+      msgError(t("group.events.selectedError"));
+      setSelectedEvents(selectedUnsolvedEvents);
+    }
+
+    setIsOpenRequestVerificationMode(true);
+  }, [t, selectedUnsolvedEvents, selectedEvents, openRequestVerificationModal]);
+  const closeRequestVerificationMode: () => void = useCallback((): void => {
+    setIsOpenRequestVerificationMode(false);
+    closeRequestVerificationModal();
+  }, [closeRequestVerificationModal]);
+
+  const closeOpenMode: () => void = useCallback((): void => {
+    closeRequestVerificationMode();
+  }, [closeRequestVerificationMode]);
 
   const { data, refetch } = useQuery<IEventsDataset>(GET_EVENTS, {
     onError: handleQryErrors,
@@ -389,6 +417,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             })
         )
       );
+      void refetch();
       setSelectedEvents([]);
       setIsRequestVerificationModalOpen(false);
       const errors = getErrors<IRequestEventVerificationResultAttr>(results);
@@ -402,14 +431,12 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             t("group.events.successRequestVerification"),
             t("groupAlerts.updatedTitle")
           );
-          void refetch();
-          setSelectedEvents([]);
-          setIsRequestVerificationModalOpen(false);
+          closeOpenMode();
         }
       }
     },
 
-    [t, refetch, requestVerification, selectedEvents]
+    [t, closeOpenMode, refetch, requestVerification, selectedEvents]
   );
 
   useEffect((): void => {
@@ -617,6 +644,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
     return true;
   }
+  const isOpenMode = isOpenRequestVerificationMode;
 
   return (
     <React.Fragment>
@@ -640,7 +668,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           isLoading={false}
           isOpen={true}
           message={t("group.events.remediationModal.justification")}
-          onClose={closeRequestVerificationModal}
+          onClose={closeRequestVerificationMode}
           onSubmit={handleRequestVerification}
           title={t("group.events.remediationModal.titleRequest")}
         />
@@ -674,7 +702,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           exportCsv={true}
           extraButtons={
             <React.Fragment>
-              <Can do={"api_mutations_add_event_mutate"}>
+              <Can do={"api_mutations_add_event_mutate"} not={isOpenMode}>
                 <Tooltip
                   id={"group.events.btn.tooltip.id"}
                   tip={t("group.events.btn.tooltip")}
@@ -685,7 +713,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                   </Button>
                 </Tooltip>
               </Can>
-              <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
+              <Can
+                do={"api_mutations_request_vulnerabilities_hold_mutate"}
+                not={isOpenMode}
+              >
                 <Tooltip
                   id={"group.events.form.affectedReattacks.btn.id"}
                   tip={t("group.events.form.affectedReattacks.btn.tooltip")}
@@ -701,14 +732,21 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                   </Button>
                 </Tooltip>
               </Can>
-              <Can do={"api_mutations_request_event_verification_mutate"}>
+              <Can
+                do={"api_mutations_request_event_verification_mutate"}
+                not={isOpenMode && !isOpenRequestVerificationMode}
+              >
                 <Tooltip
                   id={"group.events.remediationModal.btn.id"}
                   tip={t("group.events.remediationModal.btn.tooltip")}
                 >
                   <Button
-                    disabled={_.isEmpty(selectedEvents)}
-                    onClick={openRequestVerificationModal}
+                    disabled={_.isEmpty(selectedUnsolvedEvents)}
+                    onClick={
+                      isOpenRequestVerificationMode
+                        ? openRequestVerificationModal
+                        : openRequestVerificationMode
+                    }
                     variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faCheck} />
@@ -717,6 +755,20 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                   </Button>
                 </Tooltip>
               </Can>
+              {isOpenMode ? (
+                <Tooltip
+                  id={"searchFindings.tabVuln.buttonsTooltip.cancelVerify.id"}
+                  place={"top"}
+                  tip={t("searchFindings.tabVuln.buttonsTooltip.cancel")}
+                >
+                  <Button onClick={closeOpenMode} variant={"secondary"}>
+                    <React.Fragment>
+                      <FontAwesomeIcon icon={faTimes} />
+                      &nbsp;{t("searchFindings.tabDescription.cancelVerified")}
+                    </React.Fragment>
+                  </Button>
+                </Tooltip>
+              ) : undefined}
             </React.Fragment>
           }
           headers={tableHeaders}
@@ -729,7 +781,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             clickToSelect: false,
             hideSelectColumn: !canRequestVerification,
             mode: "checkbox",
-            nonSelectable: getNonSelectableEventIndex(resultDataset),
+            nonSelectable: isOpenRequestVerificationMode
+              ? getNonSelectableEventIndexToRequestVerification(resultDataset)
+              : undefined,
             onSelect: onSelectOneEvent,
             onSelectAll: onSelectSeveralEvents,
             selected: getEventIndex(selectedEvents, resultDataset),

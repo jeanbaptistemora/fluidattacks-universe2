@@ -26,9 +26,9 @@ const getEventIndex = (
   );
 };
 
-const getNonSelectableEventIndex: (allEvents: IEventData[]) => number[] = (
+const getNonSelectableEventIndexToRequestVerification: (
   allEvents: IEventData[]
-): number[] => {
+) => number[] = (allEvents: IEventData[]): number[] => {
   const unsolved = translate.t(castEventStatus("CREATED"));
 
   return allEvents.reduce(
@@ -114,7 +114,7 @@ function formatReattacks(reattacks: string[]): Record<string, string[]> {
 
 export {
   getEventIndex,
-  getNonSelectableEventIndex,
+  getNonSelectableEventIndexToRequestVerification,
   formatEvents,
   formatReattacks,
   onSelectSeveralEventsHelper,

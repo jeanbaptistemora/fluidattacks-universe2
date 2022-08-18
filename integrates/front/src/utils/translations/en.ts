@@ -594,6 +594,7 @@ export const enTranslations: ResourceKey = {
         justification: "Which was the applied solution?",
         titleRequest: "Justification",
       },
+      selectedError: "There were selected events that do not apply",
       successCreate: "Event created successfully",
       successRequestVerification:
         "Verification has been requested successfully",
