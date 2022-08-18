@@ -106,33 +106,3 @@ resource "cloudflare_record" "mail_dkim_1" {
   ttl     = 1
   proxied = false
 }
-
-# Page Rules
-
-resource "cloudflare_page_rule" "fluidla_to_fluidattacks_com" {
-  zone_id  = cloudflare_zone.fluid_la.id
-  target   = "${cloudflare_zone.fluid_la.zone}/*"
-  status   = "active"
-  priority = 1
-
-  actions {
-    forwarding_url {
-      url         = "https://fluidattacks.com/$1"
-      status_code = 301
-    }
-  }
-}
-
-resource "cloudflare_page_rule" "www_fluidla_to_fluidattacks_com" {
-  zone_id  = cloudflare_zone.fluid_la.id
-  target   = "www.${cloudflare_zone.fluid_la.zone}/*"
-  status   = "active"
-  priority = 2
-
-  actions {
-    forwarding_url {
-      url         = "https://${cloudflare_zone.fluid_la.zone}/$1"
-      status_code = 301
-    }
-  }
-}
