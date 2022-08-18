@@ -17,3 +17,16 @@ def format_finding_comment_item(finding_comment: FindingComment) -> Item:
         "email": finding_comment.email,
         "full_name": finding_comment.full_name,
     }
+
+
+def format_finding_comments(item: Item) -> FindingComment:
+    return FindingComment(
+        finding_id=item["finding_id"],
+        id=item["id"],
+        comment_type=item["comment_type"],
+        parent_id=item["parent_id"],
+        creation_date=item["creation_date"],
+        full_name=item.get("full_name"),
+        content=item["content"],
+        email=item["email"],
+    )
