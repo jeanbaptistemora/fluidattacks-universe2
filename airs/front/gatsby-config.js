@@ -1,5 +1,6 @@
 module.exports = {
   pathPrefix: '/front',
+  trailingSlash: 'always',
   siteMetadata: {
     author: "Fluid Attacks",
     description:
@@ -57,12 +58,6 @@ module.exports = {
             }
           }
         ],
-        tableOfContents: {
-          absolute: false,
-          heading: null,
-          maxDepth: 6,
-          pathToSlugField: "frontmatter.path",
-        },
       },
     },
     {
