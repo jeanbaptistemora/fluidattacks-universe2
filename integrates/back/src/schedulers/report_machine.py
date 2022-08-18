@@ -78,6 +78,9 @@ from findings.domain.evidence import (
 from findings.types import (
     FindingDraftToAdd,
 )
+from functools import (
+    partial,
+)
 from io import (
     BytesIO,
 )
@@ -639,9 +642,6 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
             raise_validation=False,
         )
         return result
-    LOGGER.warning(
-        "No vulnerabilities found to modify for finding %s", finding.id
-    )
     return None
 
 
@@ -781,7 +781,6 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         if vuln["ruleId"] == vulnerability_id
     ]
     if finding is None:
-        LOGGER.info("Cloud not find a finding for %s", vulnerability_id)
         finding = await _create_draft(
             group_name,
             vulnerability_id,
@@ -841,6 +840,8 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     ):
         await reattack_future
         await upload_evidences(loaders, finding, machine_vulnerabilities)
+    else:
+        reattack_future.close()
 
 
 async def process_execution(
@@ -850,7 +851,6 @@ async def process_execution(
     criteria_reqs: dict[str, Any],
 ) -> bool:
     boto3_session = aioboto3.Session()
-    LOGGER.info("Processing the execution %s", execution_id)
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(boto3_session, execution_id)
     try:
@@ -877,7 +877,8 @@ async def process_execution(
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     }
     if not rules_id:
-        LOGGER.info("Execution %s has no results", execution_id)
+        return True
+
     group_findings: Tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
@@ -895,11 +896,6 @@ async def process_execution(
             (await loaders.group.load(group_name)).organization_id
         )
     ).name
-    LOGGER.info(
-        "Processing %s findings in the execution %s",
-        len(rules_finding),
-        execution_id,
-    )
     await collect(
         [
             process_criteria_vuln(
@@ -930,7 +926,6 @@ def _decode_sqs_message(message: Any) -> str:
 
 
 def _delete_message(queue: Any, message: Any) -> None:
-    LOGGER.info("Removing message %s", message.message_id)
     queue.delete_messages(
         Entries=[
             {
@@ -941,6 +936,18 @@ def _delete_message(queue: Any, message: Any) -> None:
     )
 
 
+def _callback_done(
+    future: asyncio.Future, *, message: Any, queue: Any
+) -> None:
+    if future.done():
+        if exception := future.exception():
+            message_id = _decode_sqs_message(message)
+            LOGGER.error("An error ocurred in %s", message_id)
+            LOGGER.error(str(exception))
+        else:
+            _delete_message(queue, message)
+
+
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     criteria_vulns = await get_vulns_file()
@@ -949,7 +956,7 @@ async def main() -> None:
     queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
     signal_handler = SignalHandler()
     while not signal_handler.received_signal:
-        while len(asyncio.all_tasks()) < 60:
+        while len(asyncio.all_tasks()) > 60:
             await asyncio.sleep(0.3)
 
         messages = queue.receive_messages(
@@ -967,9 +974,5 @@ async def main() -> None:
                 )
             )
             task.add_done_callback(
-                lambda x, msg=message: _delete_message(  # type: ignore
-                    queue, msg
-                )
-                if x.done() and x.exception() is None
-                else None
+                partial(_callback_done, message=message, queue=queue)
             )

@@ -17,6 +17,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
+    FindingNotFound,
     InvalidCommentParent,
     MachineCanNotOperate,
     NotVerificationRequested,
@@ -735,7 +736,10 @@ async def send_vulnerability_report(
     vulnerabilities_properties: Dict[str, Any],
     is_closed: bool = False,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    try:
+        finding: Finding = await loaders.finding.load(finding_id)
+    except FindingNotFound:
+        return
     severity_score: Decimal = get_severity_score(finding.severity)
     severity_level: str = get_severity_level(severity_score)
     if (
