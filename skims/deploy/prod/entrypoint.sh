@@ -73,7 +73,7 @@ function deploy {
     && B64_PROD_SKIMS_AWS_ACCESS_KEY_ID="$(b64 "${PROD_SKIMS_AWS_ACCESS_KEY_ID}")" \
     && B64_PROD_SKIMS_AWS_SECRET_ACCESS_KEY="$(b64 "${PROD_SKIMS_AWS_SECRET_ACCESS_KEY}")" \
     && B64_UNIVERSE_API_TOKEN="$(b64 "${UNIVERSE_API_TOKEN}")" \
-    && REPLICAS=1 \
+    && REPLICAS=0 \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
       echo "[INFO] Applying: ${manifest}" \
