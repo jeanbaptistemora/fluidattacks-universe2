@@ -773,6 +773,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"barChart"}
+                infoLink={`${graphInfoLink}common#files-with-open-vulnerabilities-in-the-last-20-weeks`}
                 reportMode={reportMode}
                 subject={subject}
                 title={t("analytics.barChart.touchedFiles.title")}
