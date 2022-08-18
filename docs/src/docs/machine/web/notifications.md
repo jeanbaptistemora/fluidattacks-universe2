@@ -412,6 +412,16 @@ the ASM account.
 
 ![Confirm Deletion](https://res.cloudinary.com/fluid-attacks/image/upload/v1660837177/docs/web/notifications/notif_deletion.png)
 
+### API Deprecation Notice
+
+This notification will be sent
+to all ASM users with an API token,
+reminding them which fields of
+the API token will be deleted
+in the following month.
+
+![Deprecation Notice](https://res.cloudinary.com/fluid-attacks/image/upload/v1660848761/docs/web/notifications/notif_deprecation_notice.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
