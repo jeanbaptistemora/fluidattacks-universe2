@@ -5,7 +5,6 @@
   src,
 }: let
   runtime_deps = with python_pkgs; [
-    arch-lint
     boto3
     click
     fa-purity
@@ -19,7 +18,7 @@
   ];
   build_deps = with python_pkgs; [flit-core];
   test_deps = with python_pkgs; [
-    grimp
+    arch-lint
     mypy
     pytest
     pytest-timeout

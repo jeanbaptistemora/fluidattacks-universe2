@@ -34,13 +34,7 @@
   override_3 = python_pkgs:
     python_pkgs
     // {
-      grimp = import ./grimp {
-        inherit lib python_pkgs;
-      };
       mypy-boto3-s3 = import ./boto3/s3-stubs.nix lib python_pkgs;
-      returns = import ./returns {
-        inherit lib python_pkgs;
-      };
       types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
       types-click = import ./click/stubs.nix lib;
       types-psycopg2 = import ./psycopg2/stubs.nix lib;

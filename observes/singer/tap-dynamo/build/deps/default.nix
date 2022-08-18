@@ -14,9 +14,6 @@
   override_1 = python_pkgs:
     python_pkgs
     // {
-      grimp = import ./grimp {
-        inherit lib python_pkgs;
-      };
       mypy-boto3-dynamodb = import ./boto3/dynamodb-stubs.nix {inherit lib python_pkgs;};
       pytz = import ./pytz {
         inherit lib python_pkgs;
@@ -26,7 +23,6 @@
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
   # Layer 2
-  grimp_override = python_pkgs: pkg_override ["grimp"] python_pkgs.grimp;
   pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
   pycheck_override = python_pkgs: (import ./pkg_override.nix) (x: (x ? name && x.name == "pytest-check-hook")) python_pkgs.pytestCheckHook;
   override_2 = let
@@ -44,9 +40,6 @@
     python_pkgs:
       python_pkgs
       // {
-        import-linter = import ./import-linter {
-          inherit lib python_pkgs;
-        };
         arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
         fa-purity = _fa_purity."${python_version}".pkg;
         fa-singer-io = _fa_singer_io."${python_version}".pkg;
@@ -57,7 +50,6 @@
   # Integrate all
   pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
   overrides = map pkgs_overrides [
-    grimp_override
     pytz_override
     pycheck_override
   ];

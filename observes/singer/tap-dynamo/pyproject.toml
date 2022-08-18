@@ -8,7 +8,6 @@ classifiers = [
 ]
 requires-python = ">=3.8"
 dependencies = [
-    "arch-lint >=1.0.0, <2.0.0",
     "boto3 >=1.20.16, <2.0.0",
     "click >=^8.0.3, <9.0.0",
     "pathos >=0.2.8, <0.3.0",
