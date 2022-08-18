@@ -434,6 +434,19 @@ the organization and the group.
 
 ![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1660849148/docs/web/notifications/notif_free_trial.png)
 
+### Root added
+
+This notification is generated
+when a new root is to be
+created in the Scope section.
+The information displayed in
+this notification refers to the
+fields validated to make a root.
+The role that will receive
+this notification is User Manager.
+
+![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1660854661/docs/web/notifications/notif_root_added.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
