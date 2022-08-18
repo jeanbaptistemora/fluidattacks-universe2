@@ -483,6 +483,7 @@ export const enTranslations: ResourceKey = {
         cancel: "Cancel",
         edit: { text: "Edit", tooltip: "Modify the fields of the event" },
         markAsSolved: "Mark as solved",
+        rejectSolution: "Reject solution",
         save: { text: "Save", tooltip: "Save changes" },
         solved: {
           date: "Resolution date",

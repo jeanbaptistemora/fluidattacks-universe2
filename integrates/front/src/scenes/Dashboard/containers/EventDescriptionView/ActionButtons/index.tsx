@@ -5,9 +5,10 @@ import {
   faPen,
   faRotateRight,
   faTimes,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -21,6 +22,7 @@ interface IActionButtonsProps {
   isEditing: boolean;
   eventStatus: string;
   onEdit: () => void;
+  openRejectSolutionModal: () => void;
   openSolvingModal: () => void;
 }
 
@@ -29,6 +31,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isEditing,
   eventStatus,
   onEdit: onToggleEdit,
+  openRejectSolutionModal,
   openSolvingModal,
 }: IActionButtonsProps): JSX.Element => {
   const { t } = useTranslation();
@@ -44,13 +47,25 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <Row>
       <ButtonToolbarStartRow>
         {isEditing ? undefined : eventStatus === "SOLVED" ? undefined : (
-          <Can do={"api_mutations_solve_event_mutate"}>
-            <Button onClick={openSolvingModal} variant={"primary"}>
-              <FontAwesomeIcon icon={faCheck} />
-              &nbsp;
-              {t("group.events.description.markAsSolved")}
-            </Button>
-          </Can>
+          <Fragment>
+            <Can do={"api_mutations_solve_event_mutate"}>
+              <Button onClick={openSolvingModal} variant={"primary"}>
+                <FontAwesomeIcon icon={faCheck} />
+                &nbsp;
+                {t("group.events.description.markAsSolved")}
+              </Button>
+            </Can>
+            <Can
+              do={"api_mutations_reject_event_solution_mutate"}
+              not={eventStatus !== "VERIFICATION_REQUESTED"}
+            >
+              <Button onClick={openRejectSolutionModal} variant={"secondary"}>
+                <FontAwesomeIcon icon={faXmark} />
+                &nbsp;
+                {t("group.events.description.rejectSolution")}
+              </Button>
+            </Can>
+          </Fragment>
         )}
         {(canUpdateEvent || canUpdateEventSolvingReason) && isEditing ? (
           <React.Fragment>

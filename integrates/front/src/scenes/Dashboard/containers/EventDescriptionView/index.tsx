@@ -371,6 +371,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     isDirtyForm={dirty}
                     isEditing={isEditing}
                     onEdit={toggleEdit}
+                    openRejectSolutionModal={openSolvingModal}
                     openSolvingModal={openSolvingModal}
                   />
                   <br />
