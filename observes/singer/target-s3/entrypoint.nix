@@ -27,11 +27,15 @@ fetchNixpkgs: projectPath: observesIndex: let
       legacyPkgs = nixpkgs;
     };
   utils-logger."${python_version}" = let
-    src = projectPath observesIndex.common.utils_logger.root;
+    src = projectPath observesIndex.common.utils_logger_2.root;
   in
     import src {
       inherit python_version src;
-      legacy_pkgs = nixpkgs;
+      nixpkgs =
+        nixpkgs
+        // {
+          inherit fa-purity;
+        };
     };
 
   out = import ./. {
