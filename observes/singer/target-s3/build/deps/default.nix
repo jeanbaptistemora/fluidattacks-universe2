@@ -28,6 +28,7 @@
   override_3 = python_pkgs:
     python_pkgs
     // {
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       grimp = import ./grimp {
         inherit lib python_pkgs;
       };

@@ -5,6 +5,7 @@
   src,
 }: let
   runtime_deps = with python_pkgs; [
+    arch-lint
     boto3
     click
     fa-purity

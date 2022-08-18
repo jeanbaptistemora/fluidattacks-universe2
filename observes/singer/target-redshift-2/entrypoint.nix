@@ -6,6 +6,16 @@ fetchNixpkgs: projectPath: observesIndex: let
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
 
+  arch-lint = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/arch_lint";
+      ref = "refs/tags/v1.0.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
+
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
@@ -42,6 +52,7 @@ fetchNixpkgs: projectPath: observesIndex: let
         inherit fa-purity;
       };
     };
+
   utils-logger."${python_version}" = let
     src = projectPath observesIndex.common.utils_logger_2.root;
   in
@@ -59,7 +70,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     nixpkgs =
       nixpkgs
       // {
-        inherit fa-purity fa-singer-io redshift-client utils-logger;
+        inherit arch-lint fa-purity fa-singer-io redshift-client utils-logger;
       };
     src = ./.;
   };

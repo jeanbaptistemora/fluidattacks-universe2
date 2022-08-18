@@ -48,6 +48,7 @@
   override_4 = python_pkgs:
     python_pkgs
     // {
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;

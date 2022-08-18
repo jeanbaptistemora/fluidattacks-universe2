@@ -5,6 +5,17 @@ fetchNixpkgs: projectPath: observesIndex: let
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
+
+  arch-lint = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/arch_lint";
+      ref = "refs/tags/v1.0.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
+
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
@@ -43,7 +54,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     nixpkgs =
       nixpkgs
       // {
-        inherit fa-purity fa-singer-io utils-logger;
+        inherit arch-lint fa-purity fa-singer-io utils-logger;
       };
     src = ./.;
   };
