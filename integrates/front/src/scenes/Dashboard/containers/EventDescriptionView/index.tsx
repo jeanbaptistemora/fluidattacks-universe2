@@ -159,7 +159,29 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         setIsRejectSolutionModalOpen(false);
       }
     },
-    onError: handleUpdateError,
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Event not found":
+            msgError(
+              t(
+                `group.events.description.alerts.editSolvingReason.eventNotFound`
+              )
+            );
+            break;
+          case "Exception - The event verification has not been requested":
+            msgError(
+              t(
+                `group.events.description.alerts.rejectSolution.nonRequestedVerification`
+              )
+            );
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred updating the event", error);
+        }
+      });
+    },
     refetchQueries: [GET_EVENT_HEADER, GET_EVENT_DESCRIPTION],
   });
 

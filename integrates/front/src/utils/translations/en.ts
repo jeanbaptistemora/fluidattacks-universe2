@@ -483,6 +483,8 @@ export const enTranslations: ResourceKey = {
             success: "Solving reason has been updated",
           },
           rejectSolution: {
+            nonRequestedVerification:
+              "The event verification has not been requested",
             success: "Event solution has been rejected",
           },
         },
