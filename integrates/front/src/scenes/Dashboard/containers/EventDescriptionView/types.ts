@@ -25,6 +25,12 @@ interface IDescriptionFormValues {
   solvingReason: string | null;
 }
 
+interface IRejectEventSolutionResultAttr {
+  rejectEventSolution: {
+    success: boolean;
+  };
+}
+
 interface IUpdateEventAttr {
   updateEvent: {
     success: boolean;
@@ -41,6 +47,7 @@ export type {
   IAffectedReattacks,
   IEventDescriptionData,
   IDescriptionFormValues,
+  IRejectEventSolutionResultAttr,
   IUpdateEventAttr,
   IUpdateEventSolvingReasonAttr,
 };

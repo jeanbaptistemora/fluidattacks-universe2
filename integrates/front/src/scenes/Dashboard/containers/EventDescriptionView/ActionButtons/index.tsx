@@ -59,11 +59,20 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               do={"api_mutations_reject_event_solution_mutate"}
               not={eventStatus !== "VERIFICATION_REQUESTED"}
             >
-              <Button onClick={openRejectSolutionModal} variant={"secondary"}>
-                <FontAwesomeIcon icon={faXmark} />
-                &nbsp;
-                {t("group.events.description.rejectSolution")}
-              </Button>
+              <Tooltip
+                id={
+                  "group.events.description.rejectSolution.button.tooltip.btn"
+                }
+                tip={t(
+                  "group.events.description.rejectSolution.button.tooltip"
+                )}
+              >
+                <Button onClick={openRejectSolutionModal} variant={"secondary"}>
+                  <FontAwesomeIcon icon={faXmark} />
+                  &nbsp;
+                  {t("group.events.description.rejectSolution.button.text")}
+                </Button>
+              </Tooltip>
             </Can>
           </Fragment>
         )}

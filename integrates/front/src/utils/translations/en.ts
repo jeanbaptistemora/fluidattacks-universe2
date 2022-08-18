@@ -479,11 +479,23 @@ export const enTranslations: ResourceKey = {
             nonSolvedEvent: "The event has not been solved",
             success: "Solving reason has been updated",
           },
+          rejectSolution: {
+            success: "Event solution has been rejected",
+          },
         },
         cancel: "Cancel",
         edit: { text: "Edit", tooltip: "Modify the fields of the event" },
         markAsSolved: "Mark as solved",
-        rejectSolution: "Reject solution",
+        rejectSolution: {
+          button: {
+            text: "Reject solution",
+            tooltip: "Reject the event solution",
+          },
+          modal: {
+            observations: "What observations do you have?",
+            title: "Observations",
+          },
+        },
         save: { text: "Save", tooltip: "Save changes" },
         solved: {
           date: "Resolution date",

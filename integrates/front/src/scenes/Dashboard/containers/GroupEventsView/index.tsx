@@ -667,6 +667,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         <RemediationModal
           isLoading={false}
           isOpen={true}
+          maxJustificationLength={20000}
           message={t("group.events.remediationModal.justification")}
           onClose={closeRequestVerificationMode}
           onSubmit={handleRequestVerification}

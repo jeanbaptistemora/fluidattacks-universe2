@@ -14,14 +14,17 @@ import { ActionButtons } from "./ActionButtons";
 import type {
   IDescriptionFormValues,
   IEventDescriptionData,
+  IRejectEventSolutionResultAttr,
   IUpdateEventAttr,
   IUpdateEventSolvingReasonAttr,
 } from "./types";
 
 import { Modal, ModalConfirm } from "components/Modal";
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
   GET_EVENT_DESCRIPTION,
+  REJECT_EVENT_MUTATION,
   SOLVE_EVENT_MUTATION,
   UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
@@ -90,6 +93,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     setIsEditing(!isEditing);
   }, [isEditing]);
 
+  const [isRejectSolutionModalOpen, setIsRejectSolutionModalOpen] =
+    useState(false);
+  const openRejectSolutionModal: () => void = useCallback((): void => {
+    setIsRejectSolutionModalOpen(true);
+  }, []);
+  const closeRejectSolutionModal: () => void = useCallback((): void => {
+    setIsRejectSolutionModalOpen(false);
+  }, []);
+
   const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -136,6 +148,20 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       ],
     }
   );
+
+  const [rejectSolution] = useMutation(REJECT_EVENT_MUTATION, {
+    onCompleted: (mtResult: IRejectEventSolutionResultAttr): void => {
+      if (mtResult.rejectEventSolution.success) {
+        msgSuccess(
+          t("group.events.description.alerts.rejectSolution.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        setIsRejectSolutionModalOpen(false);
+      }
+    },
+    onError: handleUpdateError,
+    refetchQueries: [GET_EVENT_HEADER, GET_EVENT_DESCRIPTION],
+  });
 
   const [updateEvent] = useMutation(UPDATE_EVENT_MUTATION, {
     onCompleted: (mtResult: IUpdateEventAttr): void => {
@@ -200,6 +226,20 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       refetchQueries: [GET_EVENT_DESCRIPTION],
     }
   );
+
+  const handleRejectSolution: (values: Record<string, unknown>) => void =
+    useCallback(
+      (values: Record<string, unknown>): void => {
+        void rejectSolution({
+          variables: {
+            comments: values.treatmentJustification,
+            eventId,
+          },
+        });
+        closeRejectSolutionModal();
+      },
+      [eventId, closeRejectSolutionModal, rejectSolution]
+    );
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
@@ -271,6 +311,19 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <React.Fragment>
+        {isRejectSolutionModalOpen ? (
+          <RemediationModal
+            isLoading={false}
+            isOpen={true}
+            maxJustificationLength={20000}
+            message={t(
+              "group.events.description.rejectSolution.modal.observations"
+            )}
+            onClose={closeRejectSolutionModal}
+            onSubmit={handleRejectSolution}
+            title={t("group.events.description.rejectSolution.modal.title")}
+          />
+        ) : undefined}
         <Modal
           onClose={closeSolvingModal}
           open={isSolvingModalOpen}
@@ -371,7 +424,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     isDirtyForm={dirty}
                     isEditing={isEditing}
                     onEdit={toggleEdit}
-                    openRejectSolutionModal={openSolvingModal}
+                    openRejectSolutionModal={openRejectSolutionModal}
                     openSolvingModal={openSolvingModal}
                   />
                   <br />
