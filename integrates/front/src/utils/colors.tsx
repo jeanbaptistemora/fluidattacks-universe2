@@ -20,7 +20,7 @@ const statusOrangeColor: string[] = [
   "Created",
   "On_hold",
   "Pending",
-  "Pending validation",
+  "Pending verification",
   "Partially closed",
 ];
 const statusRedColor: string[] = [

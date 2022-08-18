@@ -71,6 +71,25 @@ const handleRequestHoldError = (holdError: ApolloError): void => {
   });
 };
 
+const handleRequestVerificationError = (error: ApolloError): void => {
+  error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    switch (message) {
+      case "Exception - The event has already been closed":
+        msgError(translate.t("group.events.alreadyClosed"));
+        break;
+      case "Exception - The event verification has been requested":
+        msgError(translate.t("group.events.verificationAlreadyRequested"));
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred requesting event verification",
+          error
+        );
+    }
+  });
+};
+
 const handleRequestHoldsHelper = async (
   requestHold: (
     variables: Record<string, unknown>
@@ -108,4 +127,5 @@ export {
   handleFileListUpload,
   handleRequestHoldError,
   handleRequestHoldsHelper,
+  handleRequestVerificationError,
 };

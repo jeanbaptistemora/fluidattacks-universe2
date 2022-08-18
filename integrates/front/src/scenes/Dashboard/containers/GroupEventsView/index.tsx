@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
@@ -26,7 +28,12 @@ import {
   handleRequestHoldsHelper,
 } from "./helpers";
 import { selectOptionType } from "./selectOptions";
-import type { IEventData, IEventsDataset, IFilterSet } from "./types";
+import type {
+  IEventData,
+  IEventsDataset,
+  IFilterSet,
+  IRequestEventVerificationResultAttr,
+} from "./types";
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
 import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
 
@@ -40,10 +47,12 @@ import {
 } from "components/Table/utils";
 import { Tooltip } from "components/Tooltip";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
+import { handleRequestVerificationError } from "scenes/Dashboard/components/UpdateVerificationModal/helpers";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_EVENT_MUTATION,
   GET_EVENTS,
+  REQUEST_EVENT_VERIFICATION_MUTATION,
   REQUEST_VULNS_HOLD_MUTATION,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
 import {
@@ -54,7 +63,9 @@ import {
   onSelectSeveralEventsHelper,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
+import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -65,6 +76,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const { url } = useRouteMatch();
   const { t } = useTranslation();
+
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canRequestVerification: boolean = permissions.can(
+    "api_mutations_request_event_verification_mutate"
+  );
 
   const [optionType, setOptionType] = useState(selectOptionType);
   const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
@@ -261,6 +277,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     onError: handleRequestHoldError,
   });
 
+  const [requestVerification] =
+    useMutation<IRequestEventVerificationResultAttr>(
+      REQUEST_EVENT_VERIFICATION_MUTATION,
+      {
+        onError: handleRequestVerificationError,
+      }
+    );
+
   const handleCreationResult = async (result: {
     addEvent: { eventId: string; success: boolean };
   }): Promise<void> => {
@@ -348,6 +372,44 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       selectedReattacks,
       t,
     ]
+  );
+
+  const handleRequestVerification = useCallback(
+    async (values: { treatmentJustification: string }): Promise<void> => {
+      const results = await Promise.all(
+        selectedEvents.map(
+          async (
+            event: IEventData
+          ): Promise<FetchResult<IRequestEventVerificationResultAttr>> =>
+            requestVerification({
+              variables: {
+                comments: values.treatmentJustification,
+                eventId: event.id,
+              },
+            })
+        )
+      );
+      setSelectedEvents([]);
+      setIsRequestVerificationModalOpen(false);
+      const errors = getErrors<IRequestEventVerificationResultAttr>(results);
+
+      if (!_.isEmpty(results) && _.isEmpty(errors)) {
+        if (
+          !_.isNil(results[0].data) &&
+          results[0].data.requestEventVerification.success
+        ) {
+          msgSuccess(
+            t("group.events.successRequestVerification"),
+            t("groupAlerts.updatedTitle")
+          );
+          void refetch();
+          setSelectedEvents([]);
+          setIsRequestVerificationModalOpen(false);
+        }
+      }
+    },
+
+    [t, refetch, requestVerification, selectedEvents]
   );
 
   useEffect((): void => {
@@ -579,7 +641,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           isOpen={true}
           message={t("group.events.remediationModal.justification")}
           onClose={closeRequestVerificationModal}
-          onSubmit={closeRequestVerificationModal}
+          onSubmit={handleRequestVerification}
           title={t("group.events.remediationModal.titleRequest")}
         />
       ) : undefined}
@@ -645,7 +707,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                   tip={t("group.events.remediationModal.btn.tooltip")}
                 >
                   <Button
-                    disabled={!hasOpenEvents}
+                    disabled={_.isEmpty(selectedEvents)}
                     onClick={openRequestVerificationModal}
                     variant={"secondary"}
                   >
@@ -665,7 +727,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           search={false}
           selectionMode={{
             clickToSelect: false,
-            hideSelectColumn: true,
+            hideSelectColumn: !canRequestVerification,
             mode: "checkbox",
             nonSelectable: getNonSelectableEventIndex(resultDataset),
             onSelect: onSelectOneEvent,

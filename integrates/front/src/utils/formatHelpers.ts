@@ -29,7 +29,7 @@ const castEventStatus: (field: string) => string = (field: string): string => {
     CREATED: "searchFindings.tabEvents.statusValues.unsolve",
     SOLVED: "searchFindings.tabEvents.statusValues.solve",
     VERIFICATION_REQUESTED:
-      "searchFindings.tabEvents.statusValues.pendingValidation",
+      "searchFindings.tabEvents.statusValues.pendingVerification",
   };
 
   return eventStatus[field];

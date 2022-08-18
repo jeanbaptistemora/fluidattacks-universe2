@@ -58,6 +58,14 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
+const REQUEST_EVENT_VERIFICATION_MUTATION: DocumentNode = gql`
+  mutation RequestEventVerification($eventId: String!, $comments: String!) {
+    requestEventVerification(eventId: $eventId, comments: $comments) {
+      success
+    }
+  }
+`;
+
 const REQUEST_VULNS_HOLD_MUTATION: DocumentNode = gql`
   mutation RequestVulnerabilitiesHold(
     $eventId: String!
@@ -76,4 +84,9 @@ const REQUEST_VULNS_HOLD_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { ADD_EVENT_MUTATION, GET_EVENTS, REQUEST_VULNS_HOLD_MUTATION };
+export {
+  ADD_EVENT_MUTATION,
+  GET_EVENTS,
+  REQUEST_EVENT_VERIFICATION_MUTATION,
+  REQUEST_VULNS_HOLD_MUTATION,
+};

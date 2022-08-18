@@ -38,4 +38,16 @@ interface IFilterSet {
   type: string;
 }
 
-export type { IEventAttr, IEventData, IEventsDataset, IFilterSet };
+interface IRequestEventVerificationResultAttr {
+  requestEventVerification: {
+    success: boolean;
+  };
+}
+
+export type {
+  IEventAttr,
+  IEventData,
+  IEventsDataset,
+  IFilterSet,
+  IRequestEventVerificationResultAttr,
+};

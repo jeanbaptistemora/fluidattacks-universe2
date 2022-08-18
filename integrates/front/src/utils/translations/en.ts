@@ -595,6 +595,8 @@ export const enTranslations: ResourceKey = {
         titleRequest: "Justification",
       },
       successCreate: "Event created successfully",
+      successRequestVerification:
+        "Verification has been requested successfully",
       titleSuccess: "Success",
       type: {
         authorizationSpecialAttack: "Authorization for a special attack",
@@ -719,6 +721,7 @@ export const enTranslations: ResourceKey = {
         },
         state: "Status",
         treatment: "Treatment",
+        verificationAlreadyRequested: "The verification has been requested",
         xls: "  Technical",
       },
       tableSet: {
@@ -2545,7 +2548,7 @@ export const enTranslations: ResourceKey = {
       solvingReason: "Solving reason",
       status: "Status",
       statusValues: {
-        pendingValidation: "Pending validation",
+        pendingVerification: "Pending verification",
         solve: "Solved",
         unsolve: "Unsolved",
       },
