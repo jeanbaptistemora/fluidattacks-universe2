@@ -277,6 +277,7 @@ const Table = <TData extends object>({
             )}
           </thead>
           <tbody>
+            {_.isEmpty(data) && <tr>{t("table.noDataIndication")}</tr>}
             {table.getRowModel().rows.map((row): ReactElement => {
               return (
                 <React.Fragment key={row.id}>
