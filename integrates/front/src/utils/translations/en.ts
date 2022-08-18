@@ -51,6 +51,9 @@ export const enTranslations: ResourceKey = {
         id: "expand_button_tooltip",
         tooltip: "View the chart in a pop-up window",
       },
+      fileCsv: {
+        tooltip: "Download the chart as a .csv file",
+      },
       filter: {
         id: "filter_button_tooltip",
         tooltip: "Limit information to the selected variable",

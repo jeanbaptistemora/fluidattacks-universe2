@@ -5,6 +5,7 @@
 import {
   faDownload,
   faExpandArrowsAlt,
+  faFileCsv,
   faHourglassHalf,
   faInfoCircle,
   faSyncAlt,
@@ -99,6 +100,22 @@ function buildUrl(
   return roundedWidth.toString() === "0" && roundedHeight.toString() === "0"
     ? ""
     : url.toString();
+}
+
+function buildCsvUrl(
+  props: IReadonlyGraphicProps,
+  subjectName: string,
+  documentName: string
+): string {
+  const url: URL = new URL("/graphic-csv", window.location.origin);
+  url.searchParams.set("documentName", documentName);
+  url.searchParams.set("documentType", props.documentType);
+  url.searchParams.set("entity", props.entity);
+  url.searchParams.set("generatorName", props.generatorName);
+  url.searchParams.set("generatorType", props.generatorType);
+  url.searchParams.set("subject", subjectName);
+
+  return url.toString();
 }
 
 // eslint-disable-next-line complexity
@@ -223,6 +240,10 @@ export const Graphic: React.FC<IGraphicProps> = (
   function buildFileName(size: IComponentSizeProps): string {
     return `${subjectName}-${currentTitle}-${size.width}x${size.height}.html`;
   }
+  const csvFileName: string = useMemo(
+    (): string => `${subjectName}-${currentTitle}.csv`,
+    [currentTitle, subjectName]
+  );
   function changeTothirtyDays(): void {
     setSubjectName(`${subject}_30`);
     frameOnRefresh();
@@ -349,6 +370,10 @@ export const Graphic: React.FC<IGraphicProps> = (
     mixpanel.track("DownloadGraphic", { currentDocumentName, entity });
   }, [currentDocumentName, entity]);
 
+  const trackCsv: () => void = useCallback((): void => {
+    mixpanel.track("DownloadCsvGraphic", { currentDocumentName, entity });
+  }, [currentDocumentName, entity]);
+
   useEffect((): void => {
     if (iframeState === "error" && retries < MAX_RETRIES) {
       setTimeout((): void => {
@@ -446,6 +471,30 @@ export const Graphic: React.FC<IGraphicProps> = (
                     </Tooltip>
                   </ExternalLink>
                 ) : undefined}
+                <ExternalLink
+                  className={"g-a"}
+                  download={csvFileName}
+                  href={buildCsvUrl(
+                    {
+                      ...props,
+                      documentName: currentDocumentName,
+                      subject: subjectName,
+                    },
+                    subjectName,
+                    currentDocumentName
+                  )}
+                  onClick={trackCsv}
+                >
+                  <Tooltip
+                    disp={"inline-block"}
+                    id={"csv_file_button_tooltip"}
+                    tip={translate.t("analytics.buttonToolbar.fileCsv.tooltip")}
+                  >
+                    <GraphicButton>
+                      <FontAwesomeIcon icon={faFileCsv} />
+                    </GraphicButton>
+                  </Tooltip>
+                </ExternalLink>
                 <ExternalLink
                   className={"g-a"}
                   download={buildFileName(modalSize)}
@@ -587,6 +636,32 @@ export const Graphic: React.FC<IGraphicProps> = (
                           </Tooltip>
                         </ExternalLink>
                       ) : undefined}
+                      <ExternalLink
+                        className={"g-a"}
+                        download={csvFileName}
+                        href={buildCsvUrl(
+                          {
+                            ...props,
+                            documentName: currentDocumentName,
+                            subject: subjectName,
+                          },
+                          subjectName,
+                          currentDocumentName
+                        )}
+                        onClick={trackCsv}
+                      >
+                        <Tooltip
+                          disp={"inline-block"}
+                          id={"csv_file_button_tooltip"}
+                          tip={translate.t(
+                            "analytics.buttonToolbar.fileCsv.tooltip"
+                          )}
+                        >
+                          <GraphicButton>
+                            <FontAwesomeIcon icon={faFileCsv} />
+                          </GraphicButton>
+                        </Tooltip>
+                      </ExternalLink>
                       <ExternalLink
                         className={"g-a"}
                         download={buildFileName(bigGraphicSize)}
