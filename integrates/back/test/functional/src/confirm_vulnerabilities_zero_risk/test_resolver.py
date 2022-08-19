@@ -61,7 +61,7 @@ async def test_confirm_vulnerabilities_zero_risk(
     )
     assert zero_risk_comments[-1].finding_id == finding_id
     assert zero_risk_comments[-1].content == "confirm zero risk vuln"
-    assert zero_risk_comments[-1].comment_type == "zero_risk"
+    assert zero_risk_comments[-1].comment_type == CommentType.ZERO_RISK
     assert zero_risk_comments[-1].email == email
 
 

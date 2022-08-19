@@ -35,7 +35,7 @@ async def test_list_comments() -> None:
             finding_id="422286126",
             id="1566336916294",
             parent_id="0",
-            comment_type=CommentType.COMMENT.value.lower(),
+            comment_type=CommentType.COMMENT,
             creation_date="2019-08-20T21:35:16+00:00",
             content="This is a comenting test",
             email="unittest@fluidattacks.com",

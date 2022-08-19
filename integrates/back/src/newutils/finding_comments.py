@@ -1,3 +1,6 @@
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -28,7 +31,7 @@ def format_finding_comments(item: Item) -> FindingComment:
     return FindingComment(
         finding_id=item["finding_id"],
         id=str(item["comment_id"]),
-        comment_type=item["comment_type"],
+        comment_type=CommentType[str(item["comment_type"]).upper()],
         parent_id=str(item["parent"]),
         creation_date=convert_to_iso_str(item["created"]),
         full_name=item.get("fullname", None),

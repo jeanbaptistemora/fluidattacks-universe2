@@ -87,7 +87,7 @@ async def test_request_hold_vuln(
         FindingComment
     ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
     assert finding_comments[-1].finding_id == finding_id
-    assert finding_comments[-1].comment_type == "verification"
+    assert finding_comments[-1].comment_type == CommentType.VERIFICATION
     assert finding_comments[-1].email == email
     assert finding_comments[-1].content == (
         f"These reattacks have been put on hold because of Event #{event_id}"

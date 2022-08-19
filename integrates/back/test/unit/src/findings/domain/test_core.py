@@ -281,7 +281,9 @@ async def test_add_comment() -> None:
 
     current_time = get_as_utc_iso_format(get_now())
     new_comment_data = comment_data._replace(
-        creation_date=current_time, parent_id=str(comment_id)
+        id=str(round(time.time() * 1000)),
+        creation_date=current_time,
+        parent_id=str(comment_id),
     )
     await add_comment(
         info,
