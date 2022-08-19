@@ -23,7 +23,6 @@ from api.resolvers.group import (
     max_number_acceptances,
     max_open_severity,
     max_open_severity_finding,
-    max_severity,
     max_severity_finding,
     mean_remediate,
     mean_remediate_critical_severity,
@@ -121,6 +120,5 @@ GROUP.set_field("vulnerabilities", vulnerabilities.resolve)
 GROUP.set_field("vulnerabilityGracePeriod", vulnerability_grace_period.resolve)
 
 # --------------------------- Deprecated fields -------------------------------
-GROUP.set_field("maxSeverity", max_severity.resolve)
 GROUP.set_field("maxSeverityFinding", max_severity_finding.resolve)
 GROUP.set_field("totalFindings", total_findings.resolve)

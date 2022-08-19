@@ -27,7 +27,6 @@ async def test_get_tag_query() -> None:
                 meanRemediateCriticalSeverity
                 meanRemediateHighSeverity
                 maxOpenSeverity
-                maxSeverity
                 meanRemediateLowSeverity
                 meanRemediateMediumSeverity
                 meanRemediate
@@ -55,7 +54,6 @@ async def test_get_tag_query() -> None:
     assert result["data"]["tag"]["meanRemediateMediumSeverity"] == 135.9
     assert result["data"]["tag"]["meanRemediate"] == 123
     assert result["data"]["tag"]["maxOpenSeverity"] == 3.3
-    assert result["data"]["tag"]["maxSeverity"] == 4.3
     assert result["data"]["tag"]["organization"] == "makimachi"
     assert result["data"]["tag"]["name"] == "test-nogroups"
 

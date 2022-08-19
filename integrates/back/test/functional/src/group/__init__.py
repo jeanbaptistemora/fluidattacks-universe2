@@ -32,7 +32,6 @@ async def get_result(
                 maxAcceptanceDays
                 maxAcceptanceSeverity
                 maxNumberAcceptances
-                maxSeverity
                 meanRemediate
                 meanRemediateCriticalSeverity
                 meanRemediateHighSeverity

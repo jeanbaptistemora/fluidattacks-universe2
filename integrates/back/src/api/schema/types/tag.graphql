@@ -8,9 +8,6 @@ type Tag {
   """Maximum severity of a currently open vulnerability in the groups where
   the tag is present"""
   maxOpenSeverity: Float
-  """Maximum severity ever found of a vulnerability in the groups where
-  the tag is present"""
-  maxSeverity: Float
   """Mean time in days to remediate a vulnerability in the groups where the tag
   is present"""
   meanRemediate: Float

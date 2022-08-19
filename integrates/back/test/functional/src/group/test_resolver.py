@@ -32,7 +32,7 @@ from typing import (
         ["reviewer@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
-)  # pylint: disable=too-many-statements
+)
 async def test_get_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
@@ -58,7 +58,6 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["maxOpenSeverityFinding"] == {
         "id": "475041521"
     }
-    assert result["data"]["group"]["maxSeverity"] == 4.1
     assert result["data"]["group"]["maxSeverityFinding"] == {"id": "475041521"}
     assert result["data"]["group"]["meanRemediate"] == 2
     assert result["data"]["group"]["meanRemediateCriticalSeverity"] is None
