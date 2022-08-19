@@ -18,6 +18,7 @@ function main {
     event_metadata
     finding_approval
     finding_creation
+    finding_comment
     finding_historic_state
     finding_historic_verification
     finding_id

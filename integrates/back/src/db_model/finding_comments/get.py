@@ -39,10 +39,11 @@ async def get_comments(
 
     key_structure = TABLE.primary_key
     if comment_type == CommentType.COMMENT:
-        filter_express = Attr("comment_type").eq(comment_type.COMMENT) | Attr(
+        filter_express = Attr("comment_type").eq("COMMENT") | Attr(
             "comment_type"
-        ).eq(comment_type.VERIFICATION)
-    filter_express = Attr("comment_type").eq(comment_type.value)
+        ).eq("VERIFICATION")
+    else:
+        filter_express = Attr("comment_type").eq(comment_type.value)
     response = await operations.query(
         filter_expression=filter_express,
         condition_expression=(
@@ -55,7 +56,6 @@ async def get_comments(
         index=TABLE.indexes["inverted_index"],
         table=TABLE,
     )
-
     return tuple(format_finding_comments(item) for item in response.items)
 
 

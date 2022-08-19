@@ -11768,7 +11768,8 @@
             "id",
             "creation_date",
             "full_name",
-            "comment_type"
+            "comment_type",
+            "finding_id"
           ],
           "DataAccess": {
             "MySql": {}
