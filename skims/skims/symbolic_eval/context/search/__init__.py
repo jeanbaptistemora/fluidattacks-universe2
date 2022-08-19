@@ -3,6 +3,7 @@ from model.graph_model import (
     NId,
 )
 from symbolic_eval.context.search import (
+    assignment,
     declaration_block,
     if_statement,
     method_declaration,
@@ -29,6 +30,7 @@ SEARCHERS: Dict[str, Searcher] = {
     "MethodDeclaration": method_declaration.search,
     "MethodInvocation": method_invocation.search,
     "VariableDeclaration": variable_declaration.search,
+    "Assignment": assignment.search,
 }
 
 

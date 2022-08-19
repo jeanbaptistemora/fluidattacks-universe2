@@ -7,6 +7,7 @@ from model.graph_model import (
 )
 from symbolic_eval.cases import (
     argument_list,
+    assignment,
     binary_operation,
     element_access,
     execution_block,
@@ -44,6 +45,7 @@ from utils import (
 
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
+    "Assignment": assignment.evaluate,
     "BinaryOperation": binary_operation.evaluate,
     "ElementAccess": element_access.evaluate,
     "ExecutionBlock": execution_block.evaluate,
