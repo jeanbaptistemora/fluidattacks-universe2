@@ -1,11 +1,17 @@
 # pylint: disable=invalid-name
 """
 Migrate event comments to "integrates_vms" table.
+
+Execution Time:    2022-08-19 at 06:00:40 UTC
+Finalization Time: 2022-08-19 at 06:02:03 UTC
 """
 
 from aioextensions import (
     collect,
     run,
+)
+from boto3.dynamodb.conditions import (
+    Attr,
 )
 from custom_exceptions import (
     EventNotFound,
@@ -83,8 +89,9 @@ async def process_comment(
 
 async def main() -> None:
     loaders = get_new_context()
+    scan_attrs = {"FilterExpression": Attr("comment_type").eq("event")}
     comments_scanned: list[Item] = await ops_legacy.scan(
-        table=COMMENTS_TABLE, scan_attrs={}
+        table=COMMENTS_TABLE, scan_attrs=scan_attrs
     )
     all_active_group_names = await orgs_domain.get_all_active_group_names(
         loaders
@@ -98,6 +105,7 @@ async def main() -> None:
             process_comment(loaders, all_active_group_names, item)
             for item in comments_scanned
         ),
+        workers=128,
     )
 
 
