@@ -292,12 +292,6 @@ const Badge = styled.span.attrs({
   color: ${({ color }): string => color};
 `;
 
-const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs({
-  className: `
-    flex
-  `,
-})``;
-
 const PageArticle = styled.article<{ bgColor: string }>`
   background-color: ${({ bgColor }): string => `${bgColor}`};
 `;
@@ -405,23 +399,6 @@ const IconContainerSmall: StyledComponent<
 })`
   width: 0.7rem;
 `;
-
-const InnerMainContentHome: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    fl-l
-    w-100
-    w-main-content
-    mt3-l
-    center
-    pt0-ns
-    pt4
-    cf
-    tl
-  `,
-})``;
 
 const BannerContainer: StyledComponent<
   "div",
@@ -653,21 +630,6 @@ const RedMark: StyledComponent<
 > = styled.div.attrs({
   className: `
     bl-red
-  `,
-})``;
-
-const MarkedPhrase: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f3
-    c-black-gray
-    lh-title
-    normal
-    roboto
-    tl
-    w-60-ns
   `,
 })``;
 
@@ -1284,7 +1246,6 @@ export {
   ErrorSection,
   ErrorTitle,
   FaqContainer,
-  Flex,
   FlexCenterItemsContainer,
   IconContainerSmall,
   FooterInfoLinksContainer,
@@ -1301,9 +1262,7 @@ export {
   ListItemLabel,
   LogoContainer,
   CenteredMaxWidthContainer,
-  InnerMainContentHome,
   MainFooterInfoContainer,
-  MarkedPhrase,
   MarkedTitleContainer,
   MarkedTitle,
   MenuButton,
