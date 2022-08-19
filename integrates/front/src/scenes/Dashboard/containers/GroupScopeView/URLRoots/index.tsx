@@ -64,8 +64,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           case "Exception - Error empty value is not valid":
             msgError(t("group.scope.url.errors.invalid"));
             break;
+          case "Exception - Error value is not valid":
+            msgError(t("group.scope.url.errors.invalid"));
+            break;
           case "Exception - Root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
+            break;
+          case "Exception - Invalid characters":
+            msgError(t("group.scope.url.errors.invalidCharacters"));
             break;
           case "Exception - Active root with the same Nickname already exists":
             msgError(t("group.scope.common.errors.duplicateNickname"));

@@ -1049,6 +1049,7 @@ export const enTranslations: ResourceKey = {
       url: {
         errors: {
           invalid: "Invalid URL",
+          invalidCharacters: "Invalid URL characters",
         },
         host: "Host",
         modal: {

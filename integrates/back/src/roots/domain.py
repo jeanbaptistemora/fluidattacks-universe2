@@ -400,6 +400,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     url: str = str(kwargs["url"])
     validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(url, nickname)
+    validation_utils.validate_url(url)
 
     try:
         url_attributes = parse_url(url)
