@@ -6,7 +6,6 @@ from dynamodb.types import (
 )
 from newutils.datetime import (
     convert_from_iso_str,
-    convert_to_iso_str,
     format_comment_date,
 )
 
@@ -24,18 +23,6 @@ def _get_fullname(objective_data: GroupComment) -> str:
     return real_name
 
 
-def format_group_comments(item: Item) -> GroupComment:
-    return GroupComment(
-        group_name=item["project_name"],
-        id=str(item["user_id"]),
-        parent_id=str(item["parent"]),
-        creation_date=convert_to_iso_str(item["created"]),
-        full_name=item.get("fullname", None),
-        content=item["content"],
-        email=item["email"],
-    )
-
-
 def format_group_consulting_resolve(group_comment: GroupComment) -> Item:
     fullname = _get_fullname(objective_data=group_comment)
     return {
@@ -50,22 +37,4 @@ def format_group_consulting_resolve(group_comment: GroupComment) -> Item:
             convert_from_iso_str(group_comment.creation_date)
         ),
         "parent": group_comment.parent_id,
-    }
-
-
-def format_group_comment_item(group_comment: GroupComment) -> Item:
-    item = {
-        "project_name": group_comment.group_name,
-        "user_id": int(group_comment.id),
-        "parent": group_comment.parent_id,
-        "created": convert_from_iso_str(group_comment.creation_date),
-        "fullname": group_comment.full_name,
-        "content": group_comment.content,
-        "email": group_comment.email,
-        "modified": convert_from_iso_str(group_comment.creation_date),
-    }
-    return {
-        key: None if not value else value
-        for key, value in item.items()
-        if value is not None
     }
