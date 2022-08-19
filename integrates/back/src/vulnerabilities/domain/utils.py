@@ -46,7 +46,10 @@ def get_hash(
     specific: str, type_: str, where: str, root_id: Optional[str] = None
 ) -> int:
     # Return a unique identifier according to the business rules
-    return hash((specific, type_, where, *((root_id,) if root_id else ())))
+    items: Tuple[str, ...] = (specific, type_, where)
+    if root_id:
+        items = (*items, root_id)
+    return hash(items)
 
 
 def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
@@ -89,12 +92,8 @@ def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
-    where = get_path_from_integrates_vulnerability(vuln, from_yaml=from_yaml)[
-        1
-    ]
-    return get_hash(
-        specific=specific, type_=type_, where=where, root_id=vuln.root_id
-    )
+        where = html.escape(where, quote=False)
+    return get_hash(specific=specific, type_=type_, where=where)
 
 
 def compare_historic_treatments(
