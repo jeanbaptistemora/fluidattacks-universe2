@@ -8,11 +8,11 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model import (
+    group_comments as group_comments_model,
+)
 from db_model.group_comments.types import (
     GroupComment,
-)
-from group_comments import (
-    dal as group_comments_dal,
 )
 from newutils.validations import (
     validate_field_length,
@@ -43,11 +43,11 @@ async def add_comment(
         group_comments = [comment.id for comment in comments]
         if parent_comment not in group_comments:
             raise InvalidCommentParent()
-    await group_comments_dal.add(group_comment=comment_data)
+    await group_comments_model.add(group_comment=comment_data)
 
 
 async def remove_comment(group_name: str, comment_id: str) -> None:
-    await group_comments_dal.remove(
+    await group_comments_model.remove(
         group_name=group_name, comment_id=comment_id
     )
 

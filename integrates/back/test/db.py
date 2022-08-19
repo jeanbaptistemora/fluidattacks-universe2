@@ -15,6 +15,7 @@ from db_model import (
     events as events_model,
     findings as findings_model,
     group_access as group_access_model,
+    group_comments as group_comments_model,
     groups as groups_model,
     organization_access as org_access_model,
     organizations as orgs_model,
@@ -79,9 +80,6 @@ from finding_comments import (
 )
 from forces import (
     dal as dal_forces,
-)
-from group_comments import (
-    dal as dal_group_comments,
 )
 from newutils.datetime import (
     get_from_str,
@@ -386,7 +384,7 @@ async def populate_roots(data: list[dict[str, Any]]) -> bool:
 
 async def populate_consultings(data: list[Any]) -> bool:
     await collect(
-        dal_group_comments.add(group_comment=item["group_comment"])
+        group_comments_model.add(group_comment=item["group_comment"])
         for item in data
     )
     return True

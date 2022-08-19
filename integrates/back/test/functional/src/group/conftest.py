@@ -674,7 +674,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     full_name="test one",
                     parent_id="0",
                     group_name="group1",
-                    id=123456789,
+                    id="123456789",
                 )
             },
         ],
