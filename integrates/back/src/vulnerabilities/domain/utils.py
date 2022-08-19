@@ -16,6 +16,7 @@ from db_model.stakeholders.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -32,16 +33,20 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Set,
+    Tuple,
 )
 from uuid import (
     uuid4 as uuid,
 )
 
 
-def get_hash(specific: str, type_: str, where: str) -> int:
+def get_hash(
+    specific: str, type_: str, where: str, root_id: Optional[str] = None
+) -> int:
     # Return a unique identifier according to the business rules
-    return hash((specific, type_, where))
+    return hash((specific, type_, where, *((root_id,) if root_id else ())))
 
 
 def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
@@ -52,6 +57,31 @@ def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
     return get_hash(specific=specific, type_=type_, where=where)
 
 
+def get_path_from_integrates_vulnerability(
+    vulnerability: Vulnerability, from_yaml: bool = False
+) -> Tuple[str, str]:
+    if vulnerability.type in {
+        VulnerabilityType.INPUTS,
+        VulnerabilityType.PORTS,
+    }:
+        if len(chunks := vulnerability.where.rsplit(" (", maxsplit=1)) == 2:
+            were, namespace = chunks
+            namespace = namespace[:-1]
+        else:
+            were, namespace = chunks[0], ""
+    elif vulnerability.type == VulnerabilityType.LINES:
+        if len(chunks := vulnerability.where.split("/", maxsplit=1)) == 2:
+            namespace, were = chunks
+        else:
+            namespace, were = "", chunks[0]
+    else:
+        raise NotImplementedError()
+    if from_yaml:
+        # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
+        were = html.escape(were, quote=False)
+    return namespace, were
+
+
 def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
     specific = vuln.specific
     type_ = vuln.type.value
@@ -59,8 +89,12 @@ def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
-        where = html.escape(where, quote=False)
-    return get_hash(specific=specific, type_=type_, where=where)
+    where = get_path_from_integrates_vulnerability(vuln, from_yaml=from_yaml)[
+        1
+    ]
+    return get_hash(
+        specific=specific, type_=type_, where=where, root_id=vuln.root_id
+    )
 
 
 def compare_historic_treatments(

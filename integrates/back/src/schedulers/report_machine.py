@@ -138,6 +138,9 @@ from typing import (
     Set,
     Tuple,
 )
+from vulnerabilities.domain.utils import (
+    get_path_from_integrates_vulnerability,
+)
 from vulnerability_files.domain import (
     map_vulnerabilities_to_dynamo,
 )
@@ -347,29 +350,6 @@ async def _create_draft(
     )
 
 
-def _get_path_from_integrates_vulnerability(
-    vulnerability: Vulnerability,
-) -> Tuple[str, str]:
-    if vulnerability.type in {
-        VulnerabilityType.INPUTS,
-        VulnerabilityType.PORTS,
-    }:
-        if len(chunks := vulnerability.where.rsplit(" (", maxsplit=1)) == 2:
-            what, namespace = chunks
-            namespace = namespace[:-1]
-        else:
-            what, namespace = chunks[0], ""
-    elif vulnerability.type == VulnerabilityType.LINES:
-        if len(chunks := vulnerability.where.split("/", maxsplit=1)) == 2:
-            namespace, what = chunks
-        else:
-            namespace, what = "", chunks[0]
-    else:
-        raise NotImplementedError()
-
-    return namespace, what
-
-
 def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
     what = vulnerability["locations"][0]["physicalLocation"][
         "artifactLocation"
@@ -496,16 +476,16 @@ def _build_vulnerabilities_stream_from_sarif(
 
 
 def _build_vulnerabilities_stream_from_integrates(
-    vulnerabilities: Tuple[Vulnerability, ...], state: Optional[str] = None
+    vulnerabilities: Tuple[Vulnerability, ...],
+    git_root: GitRoot,
+    state: Optional[str] = None,
 ) -> Dict[str, Any]:
     state = state or "closed"
     return {
         "inputs": [
             {
                 "field": vuln.specific,  # noqa
-                "repo_nickname": _get_path_from_integrates_vulnerability(vuln)[
-                    0
-                ],
+                "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "stream": vuln.stream,
                 "url": vuln.where,
@@ -521,10 +501,11 @@ def _build_vulnerabilities_stream_from_integrates(
             {
                 "commit_hash": vuln.commit,
                 "line": vuln.specific,
-                "path": vuln.where,
-                "repo_nickname": _get_path_from_integrates_vulnerability(vuln)[
-                    0
-                ],
+                "path": os.path.join(
+                    git_root.state.nickname,
+                    get_path_from_integrates_vulnerability(vuln)[1],
+                ),
+                "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "skims_method": vuln.skims_method,
                 "skims_technique": vuln.skims_technique,
@@ -561,13 +542,13 @@ def _machine_vulns_to_close(
         for vuln in integrates_vulns
         # his result was not found by Skims
         if hash(
-            (_get_path_from_integrates_vulnerability(vuln)[1], vuln.specific)
+            (get_path_from_integrates_vulnerability(vuln)[1], vuln.specific)
         )
         not in machine_hashes
         and (
             # the result path is included in the current analysis
             path_is_include(
-                _get_path_from_integrates_vulnerability(vuln)[1].split(
+                get_path_from_integrates_vulnerability(vuln)[1].split(
                     " ", maxsplit=1
                 )[0],
                 [
@@ -836,6 +817,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             integrates_vulnerabilities,
             execution_config,
         ),
+        git_root,
         state="closed",
     )
     vulns_to_open = _build_vulnerabilities_stream_from_sarif(
