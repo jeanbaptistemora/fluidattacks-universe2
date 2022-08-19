@@ -20,6 +20,12 @@ from db_model.finding_comments.enums import (
 from db_model.finding_comments.types import (
     FindingComment,
 )
+from db_model.findings.enums import (
+    DraftRejectionReason,
+)
+from db_model.findings.types import (
+    DraftRejection,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -195,7 +201,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     finding_name: str,
     group_name: str,
     discoverer_email: str,
-    reviewer_email: str,
+    rejection: DraftRejection,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
@@ -203,17 +209,37 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     user_role = await authz.get_group_level_role(
         loaders, discoverer_email, group_name
     )
+    explanation: dict[DraftRejectionReason, str] = {
+        DraftRejectionReason.CONSISTENCY: (
+            "There are consistency issues with the vulnerabilities, the"
+            " severity or the evidence"
+        ),
+        DraftRejectionReason.EVIDENCE: "The evidence is insufficient",
+        DraftRejectionReason.NAMING: (
+            "The vulnerabilities should be submitted under another Finding "
+            "type"
+        ),
+        DraftRejectionReason.OMISSION: (
+            "More data should be gathered before submission"
+        ),
+        DraftRejectionReason.OTHER: rejection.other,
+        DraftRejectionReason.SCORING: "Faulty severity scoring",
+        DraftRejectionReason.WRITING: "The writing could be improved",
+    }
+
     email_context: dict[str, Any] = {
-        "admin_mail": reviewer_email,
         "analyst_mail": discoverer_email,
         "draft_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/drafts/{draft_id}/description"
         ),
+        "explanation": explanation[rejection.reason],
         "finding_id": draft_id,
         "finding_name": finding_name,
         "group": group_name,
         "organization": org_name,
+        "reason": str(rejection.reason.value).capitalize(),
+        "reviewer_mail": rejection.rejected_by,
         "user_role": user_role.replace("_", " "),
     }
     await send_mails_async(

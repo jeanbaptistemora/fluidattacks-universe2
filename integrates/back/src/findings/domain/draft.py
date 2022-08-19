@@ -152,7 +152,7 @@ async def reject_draft(
     reason: DraftRejectionReason,
     other: Optional[str],
     reviewer_email: str,
-) -> None:
+) -> DraftRejection:
     if other:
         validation_utils.validate_fields([other])
         validation_utils.validate_field_length(
@@ -192,6 +192,7 @@ async def reject_draft(
         group_name=finding.group_name,
         state=new_state,
     )
+    return rejection
 
 
 async def submit_draft(

@@ -173,7 +173,7 @@ enum CloningStatus {
 
 "Reasons to reject a draft Finding"
 enum DraftRejectionReason {
-  "There are consistency issues with the vulns, the severity and the evidence"
+  "There are consistency issues with the vulns, the severity or the evidence"
   CONSISTENCY
   "The evidence is insufficient"
   EVIDENCE

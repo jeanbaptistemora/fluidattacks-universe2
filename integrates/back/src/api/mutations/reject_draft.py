@@ -18,6 +18,7 @@ from db_model.findings.enums import (
     DraftRejectionReason,
 )
 from db_model.findings.types import (
+    DraftRejection,
     Finding,
 )
 from db_model.stakeholders.types import (
@@ -74,20 +75,19 @@ async def mutate(
 
         finding_loader = info.context.loaders.finding
         user_info = await token_utils.get_jwt_content(info.context)
-        reviewer_email = user_info["user_email"]
-        await findings_domain.reject_draft(
+        rejection: DraftRejection = await findings_domain.reject_draft(
             context=info.context,
             finding_id=finding_id,
             reason=DraftRejectionReason[reason],
             other=other_reason.strip() if other_reason else None,
-            reviewer_email=reviewer_email,
+            reviewer_email=user_info["user_email"],
         )
         redis_del_by_deps_soon(
             "reject_draft",
             finding_id=finding_id,
         )
         stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
-            reviewer_email
+            rejection.rejected_by
         )
         if (
             requests_utils.get_source_new(info.context) != Source.MACHINE
@@ -97,12 +97,12 @@ async def mutate(
             finding: Finding = await finding_loader.load(finding_id)
             schedule(
                 findings_mail.send_mail_reject_draft(
-                    info.context.loaders,
-                    finding.id,
-                    finding.title,
-                    finding.group_name,
-                    finding.hacker_email,
-                    reviewer_email,
+                    loaders=info.context.loaders,
+                    draft_id=finding.id,
+                    finding_name=finding.title,
+                    group_name=finding.group_name,
+                    discoverer_email=finding.hacker_email,
+                    rejection=rejection,
                 )
             )
         logs_utils.cloudwatch_log(

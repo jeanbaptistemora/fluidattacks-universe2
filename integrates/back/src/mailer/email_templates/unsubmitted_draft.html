@@ -9,14 +9,23 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      <a href="mailto:{{ admin_mail }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        {{ admin_mail }}
+      <a
+        href="mailto:{{ reviewer_mail }}"
+        target="_blank" rel="noopener noreferrer"
+        style="color: #ff3435;">
+        {{ reviewer_mail }}
       </a>
       has rejected the draft <strong>{{ finding_name }}</strong>
       of group <strong>{{ group }}</strong>, reported by
-      <a href="mailto:{{ analyst_mail }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+      <a
+        href="mailto:{{ analyst_mail }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #ff3435;">
         {{ analyst_mail }}
-      </a> as {{ user_role }}.
+      </a> as {{ user_role }}. The given reason was:
+      {% if reason == 'Other' %} <p>{{ explanation }}</p>
+      {% else %} <p><strong>{{ reason }}</strong> ({{ explanation }})</p> {% endif %}
       Therefore, the draft's status has changed to not-submitted.
     </p>
     <p>Regards,<br>
