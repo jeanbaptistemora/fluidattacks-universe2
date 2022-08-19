@@ -1141,7 +1141,6 @@
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/skims/sca/scheduler"
-      "prod"
       "schedulers.update_sca_table.main"
     ];
 
