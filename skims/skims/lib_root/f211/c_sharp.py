@@ -1,6 +1,4 @@
 from lib_root.utilities.c_sharp import (
-    get_variable_attribute,
-    yield_shard_object_creation,
     yield_syntax_graph_member_access,
 )
 from lib_sast.types import (
@@ -19,14 +17,8 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Tuple,
-)
 from utils import (
     graph as g,
-)
-from utils.graph.text_nodes import (
-    node_to_str,
 )
 
 
@@ -34,67 +26,39 @@ def vuln_regular_expression(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_VULN_REGEX
     c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+    regex_methods = {"IsMatch", "Match", "Matches"}
+    rules = {"DangerousRegex"}
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
 
-            regex_methods = {"IsMatch", "Match", "Matches"}
-
-            for node in yield_shard_object_creation(shard, {"Regex"}):
-                _object = g.match_ast(
-                    shard.graph, g.pred_ast(shard.graph, node, depth=2)[1]
-                )["__0__"]
-                name_object = shard.graph.nodes[_object].get("label_text")
-                for member in g.filter_nodes(
-                    shard.graph,
-                    nodes=shard.graph.nodes,
-                    predicate=g.pred_has_labels(
-                        label_type="member_access_expression"
-                    ),
-                ):
-                    expression = node_to_str(shard.graph, member).split(".")
-                    if (
-                        expression[0] == name_object
-                        and expression[1] in regex_methods
-                    ):
-                        invocation = g.pred_ast(shard.graph, member)[0]
-                        regex_param = g.get_ast_childs(
-                            shard.graph,
-                            invocation,
-                            "verbatim_string_literal",
-                            depth=3,
-                        )
-                        var_param = g.get_ast_childs(
-                            shard.graph, invocation, "identifier", depth=3
-                        )
-                        if regex_param or (
-                            var_param and vuln_attributes(shard, var_param)
-                        ):
-                            yield shard, invocation
-
-    def vuln_attributes(
-        shard: graph_model.GraphShard,
-        list_vars: Tuple[str, ...],
-    ) -> bool:
-        for node_var in list_vars:
-            var_name = shard.graph.nodes[node_var].get("label_text")
-            if (
-                get_variable_attribute(
-                    shard,
-                    var_name,
-                    "type",
-                )
-                == "verbatim_string_literal"
+            for nid in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
             ):
-                return True
-        return False
+                if not graph.nodes[nid].get("member") in regex_methods:
+                    continue
+                method_id = g.pred_ast(graph, nid)[0]
+                for path in get_backward_paths(graph, method_id):
+                    evaluation = evaluate(method, graph, path, method_id)
+                    if (
+                        evaluation
+                        and evaluation.danger
+                        and evaluation.triggers == rules
+                    ):
+                        yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f211.regex_vulnerable",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_VULN_REGEX,
+        method=method,
     )
 
 

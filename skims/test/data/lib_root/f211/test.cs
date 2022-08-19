@@ -5,13 +5,26 @@ namespace Controllers
     {
         public IActionResult Validate(string regex, string input)
         {
+            Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
+            bool unsafe = myreg.IsMatch("testing");
+
+            bool unsafe2 = myreg.Matches("testing", regex);
+
             var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+            bool unsafe3 = myreg.Match("testing", expreg);
 
-            Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+            Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
+            bool unsafe4 = anotherDangerous.Match("testing");
 
-            bool match = reg.IsMatch("testing", @"\b(?<word>\w+)\s+(\k<word>)\b");
-            bool match2 = reg.IsMatch(input, expreg);
-            bool match3 = reg.IsMatch(input, reg.Escape(regex));
+            bool safe = myreg.IsMatch("testing", reg.Escape(expreg));
+
+            string safeInput = reg.Escape(expreg);
+            bool safe2 = myreg.IsMatch(input, safeInput);
+
+            bool safe3 = myreg.IsMatch("testing", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+
+            Regex myreg2 = new Regex(regex, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+            bool safe4 = myreg2.IsMatch(input, regex);
         }
     }
 }
