@@ -36,6 +36,9 @@
           },
           "email": {
             "S": "forces.herrin@fluidattacks.com"
+          },
+          "role": {
+            "S": "service_forces"
           }
         }
       }
