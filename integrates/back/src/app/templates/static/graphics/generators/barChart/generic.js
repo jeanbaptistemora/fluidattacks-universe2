@@ -1,7 +1,7 @@
 /* global c3 */
 /* global d3 */
 
-const defaultPaddingRatio = 0.05;
+const defaultPaddingRatio = 0.055;
 
 function getColor(d, originalValues) {
   if (originalValues[d[0].x] > 0) {
@@ -122,6 +122,7 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { format: formatYTickAdjusted };
     dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#db3a34' : '#009044');
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
+    dataDocument.paddingRatioLeft = 0.065;
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
         datum, index, maxValueLogAdjusted, originalValues, columns[0], dataDocument.exposureTrendsByCategories,

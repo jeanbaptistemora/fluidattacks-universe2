@@ -1,6 +1,6 @@
 /* global c3 */
 
-const defaultPaddingRatio = 0.05;
+const defaultPaddingRatio = 0.055;
 
 function render(dataDocument, height, width) {
   function getTooltipPercentage(id, index, maxPercentageValues) {
