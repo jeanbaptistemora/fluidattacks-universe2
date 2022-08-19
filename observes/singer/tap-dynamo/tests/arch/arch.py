@@ -13,7 +13,7 @@ from typing import (
 )
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
-    "tap_dynamo": ("cli", "extractor", ("client", "dynamo")),
+    "tap_dynamo": ("cli", "extractor", ("client", "dynamo"), "_logger"),
     "tap_dynamo.dynamo": ("item_factory", "core"),
 }
 

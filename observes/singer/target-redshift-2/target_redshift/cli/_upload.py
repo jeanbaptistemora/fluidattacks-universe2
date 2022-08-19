@@ -34,6 +34,9 @@ from target_redshift.loader import (
 from typing import (
     NoReturn,
 )
+from utils_logger_2 import (
+    start_session,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -103,4 +106,5 @@ def destroy_and_upload(
         return strategy.bind(lambda ls: ls.main(_upload))
 
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
-    connection.bind(_main).compute()
+    cmd: Cmd[None] = start_session() + connection.bind(_main)
+    cmd.compute()

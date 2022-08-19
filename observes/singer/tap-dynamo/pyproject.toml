@@ -17,6 +17,7 @@ dependencies = [
     "mypy-boto3-dynamodb >=1.20.49, <2.0.0",
     "types-boto3 >=1.0.2, <2.0.0",
     "types-click >=7.1.8, <8.0.0",
+    "utils-logger-2 >=1.0.0, <2.0.0",
 ]
 description = "DynamoDB Singer Tap"
 dynamic = ["version"]

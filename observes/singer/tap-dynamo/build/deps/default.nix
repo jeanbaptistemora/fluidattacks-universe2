@@ -25,28 +25,16 @@
   # Layer 2
   pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
   pycheck_override = python_pkgs: (import ./pkg_override.nix) (x: (x ? name && x.name == "pytest-check-hook")) python_pkgs.pytestCheckHook;
-  override_2 = let
-    _fa_purity = import ./fa-purity {
-      inherit nixpkgs;
-    };
-    _fa_singer_io = import ./fa-singer-io {
-      nixpkgs =
-        nixpkgs
-        // {
-          purity = _fa_purity;
-        };
-    };
-  in
-    python_pkgs:
-      python_pkgs
-      // {
-        arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
-        fa-purity = _fa_purity."${python_version}".pkg;
-        fa-singer-io = _fa_singer_io."${python_version}".pkg;
-        pytestCheckHook = python_pkgs.pytestCheckHook.override {
-          pytest = pytz_override python_pkgs python_pkgs.pytest;
-        };
+  override_2 = python_pkgs:
+    python_pkgs
+    // {
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
+      pytestCheckHook = python_pkgs.pytestCheckHook.override {
+        pytest = pytz_override python_pkgs python_pkgs.pytest;
       };
+    };
   # Integrate all
   pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
   overrides = map pkgs_overrides [

@@ -11,6 +11,9 @@ from tap_dynamo.client import (
 from typing import (
     NoReturn,
 )
+from utils_logger_2 import (
+    start_session,
+)
 
 
 @click.command()
@@ -27,7 +30,7 @@ from typing import (
     help="tables segmentation for fast extraction",
 )
 def stream(tables: str, segments: int) -> NoReturn:
-    cmd: Cmd[None] = new_client().bind(
+    cmd: Cmd[None] = start_session() + new_client().bind(
         lambda client: extractor.stream_tables(
             client, tuple(tables.split()), segments
         )
@@ -55,7 +58,7 @@ def stream(tables: str, segments: int) -> NoReturn:
     help="total table segments",
 )
 def stream_segment(table: str, current: int, total: int) -> NoReturn:
-    cmd: Cmd[None] = new_client().bind(
+    cmd: Cmd[None] = start_session() + new_client().bind(
         lambda client: extractor.stream_segment(
             client, extractor.TableSegment(table, current, total)
         )

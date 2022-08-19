@@ -1,5 +1,4 @@
 fetchNixpkgs: projectPath: observesIndex: let
-  system = "x86_64-linux";
   python_version = "python310";
   nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
@@ -29,14 +28,16 @@ fetchNixpkgs: projectPath: observesIndex: let
   fa-singer-io = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/singer_io";
-      ref = "main";
-      rev = "5a9421e3323e4e8b701fa702b8157139298cf43f";
+      ref = "refs/tags/v1.4.0";
     };
   in
     import src {
-      inherit src system;
-      purity = fa-purity;
-      legacyPkgs = nixpkgs;
+      inherit src;
+      nixpkgs =
+        nixpkgs
+        // {
+          purity = fa-purity;
+        };
     };
 
   redshift-client = let

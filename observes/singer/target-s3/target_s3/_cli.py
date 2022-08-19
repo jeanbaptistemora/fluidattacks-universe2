@@ -14,6 +14,9 @@ from target_s3.in_buffer import (
 from typing import (
     NoReturn,
 )
+from utils_logger_2 import (
+    start_session,
+)
 
 
 @click.command()  # type: ignore[misc]
@@ -24,5 +27,7 @@ from typing import (
     "--prefix", required=True, type=str, help="Prefix for uploaded s3 files"
 )
 def main(bucket: str, prefix: str) -> NoReturn:
-    cmd: Cmd[None] = loader.main(bucket, prefix, stdin_buffer())
+    cmd: Cmd[None] = start_session() + loader.main(
+        bucket, prefix, stdin_buffer()
+    )
     cmd.compute()

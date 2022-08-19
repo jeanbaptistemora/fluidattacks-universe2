@@ -3,7 +3,7 @@
   projectPath,
   observesIndex,
 }: let
-  python_version = "python38";
+  python_version = "python310";
   nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
@@ -19,19 +19,49 @@
       inherit src nixpkgs;
     };
 
+  fa-purity = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/purity";
+      ref = "refs/tags/v1.23.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
+
+  fa-singer-io = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/singer_io";
+      ref = "refs/tags/v1.4.0";
+    };
+  in
+    import src {
+      inherit src;
+      nixpkgs =
+        nixpkgs
+        // {
+          purity = fa-purity;
+        };
+    };
+
   utils-logger."${python_version}" = let
-    src = projectPath observesIndex.common.utils_logger.root;
+    src = projectPath observesIndex.common.utils_logger_2.root;
   in
     import src {
       inherit python_version src;
-      legacy_pkgs = nixpkgs;
+      nixpkgs =
+        nixpkgs
+        // {
+          inherit fa-purity;
+        };
     };
+
   out = import ./. {
     inherit python_version;
     nixpkgs =
       nixpkgs
       // {
-        inherit arch-lint utils-logger;
+        inherit arch-lint fa-purity fa-singer-io utils-logger;
       };
     src = ./.;
   };

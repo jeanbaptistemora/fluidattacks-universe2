@@ -39,6 +39,9 @@ from target_redshift.loader import (
 from typing import (
     NoReturn,
 )
+from utils_logger_2 import (
+    start_session,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -111,5 +114,5 @@ def from_s3(
         return strategy.bind(lambda ls: ls.main(_upload))
 
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
-    cmd: Cmd[None] = connection.bind(_main)
+    cmd: Cmd[None] = start_session() + connection.bind(_main)
     cmd.compute()
