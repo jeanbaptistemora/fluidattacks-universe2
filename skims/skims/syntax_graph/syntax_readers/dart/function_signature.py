@@ -9,6 +9,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    get_brother_node,
     match_ast_d,
 )
 from utils.graph.text_nodes import (
@@ -18,12 +19,16 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     name_id = args.ast_graph.nodes[args.n_id]["label_field_name"]
-    function_name = node_to_str(args.ast_graph, name_id)
-    if parameters_id := match_ast_d(
-        args.ast_graph, args.n_id, "formal_parameter_list"
+    if (
+        body_id := get_brother_node(args.ast_graph, args.n_id, "function_body")
+    ) and (
+        parameters_id := match_ast_d(
+            args.ast_graph, args.n_id, "formal_parameter_list"
+        )
     ):
+        function_name = node_to_str(args.ast_graph, name_id)
         return build_function_signature_node(
-            args, function_name, parameters_id
+            args, function_name, parameters_id, body_id
         )
 
     raise MissingCaseHandling(

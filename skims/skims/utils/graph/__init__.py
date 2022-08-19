@@ -825,3 +825,19 @@ def remove_cfg(graph: Graph, out_edge: str, in_edge: str) -> None:
     )
     if only_cfg:
         graph.remove_edge(out_edge, in_edge)
+
+
+def get_brother_node(
+    graph: Graph,
+    n_id: NId,
+    label_type: str,
+) -> Optional[Any]:
+    parent = pred_ast(graph, n_id)[0]
+    childs = adj_ast(graph, parent)
+    if filtered_types := [
+        id
+        for id in filter(lambda item: item > n_id, childs)
+        if graph.nodes[id]["label_type"] == label_type
+    ]:
+        return filtered_types.pop(0)
+    return None
