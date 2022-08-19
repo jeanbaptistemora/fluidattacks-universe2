@@ -172,13 +172,19 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           case "Exception - The event verification has not been requested":
             msgError(
               t(
-                `group.events.description.alerts.rejectSolution.nonRequestedVerification`
+                "group.events.description.alerts.rejectSolution.nonRequestedVerification"
               )
             );
             break;
+          case "Exception - The event has already been closed":
+            msgError(t("group.events.alreadyClosed"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred updating the event", error);
+            Logger.warning(
+              "An error occurred rejecting the event solution",
+              error
+            );
         }
       });
     },
