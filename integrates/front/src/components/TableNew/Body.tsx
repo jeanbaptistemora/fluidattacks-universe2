@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 
 import type { ITableProps } from "./types";
 
+import { Gap } from "components/Layout";
+
 interface IBodyProps<TData extends RowData>
   extends Pick<
     ITableProps<TData>,
@@ -44,64 +46,68 @@ const Body = <TData extends RowData>({
                 (cell): JSX.Element => (
                   <React.Fragment key={cell.id}>
                     <td>
-                      {expandedRow !== undefined &&
-                        cell === row.getVisibleCells()[0] &&
-                        (row.getIsExpanded() ? (
-                          <div
-                            onClick={row.getToggleExpandedHandler()}
-                            onKeyPress={row.getToggleExpandedHandler()}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            <FontAwesomeIcon icon={faAngleUp} />
-                          </div>
-                        ) : (
-                          <div
-                            onClick={row.getToggleExpandedHandler()}
-                            onKeyPress={row.getToggleExpandedHandler()}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            <FontAwesomeIcon icon={faAngleDown} />
-                          </div>
-                        ))}
-                      <label>
-                        {cell === row.getVisibleCells()[0] &&
-                          rowSelectionSetter !== undefined &&
-                          (selectionMode === "radio" ? (
-                            <input
-                              checked={row.getIsSelected()}
-                              onChange={radioSelectionhandler(row)}
-                              type={selectionMode}
-                            />
+                      <Gap>
+                        {expandedRow !== undefined &&
+                          cell === row.getVisibleCells()[0] &&
+                          (row.getIsExpanded() ? (
+                            <div
+                              onClick={row.getToggleExpandedHandler()}
+                              onKeyPress={row.getToggleExpandedHandler()}
+                              role={"button"}
+                              tabIndex={0}
+                            >
+                              <FontAwesomeIcon icon={faAngleUp} />
+                            </div>
                           ) : (
-                            <input
-                              checked={row.getIsSelected()}
-                              onChange={row.getToggleSelectedHandler()}
-                              type={selectionMode}
-                            />
+                            <div
+                              onClick={row.getToggleExpandedHandler()}
+                              onKeyPress={row.getToggleExpandedHandler()}
+                              role={"button"}
+                              tabIndex={0}
+                            >
+                              <FontAwesomeIcon icon={faAngleDown} />
+                            </div>
                           ))}
-                        {onRowClick === undefined ? (
-                          <div>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
+                        <label>
+                          <Gap>
+                            {cell === row.getVisibleCells()[0] &&
+                              rowSelectionSetter !== undefined &&
+                              (selectionMode === "radio" ? (
+                                <input
+                                  checked={row.getIsSelected()}
+                                  onChange={radioSelectionhandler(row)}
+                                  type={selectionMode}
+                                />
+                              ) : (
+                                <input
+                                  checked={row.getIsSelected()}
+                                  onChange={row.getToggleSelectedHandler()}
+                                  type={selectionMode}
+                                />
+                              ))}
+                            {onRowClick === undefined ? (
+                              <div>
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                onClick={onRowClick(row)}
+                                onKeyPress={onRowClick(row)}
+                                role={"button"}
+                                tabIndex={0}
+                              >
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
+                              </div>
                             )}
-                          </div>
-                        ) : (
-                          <div
-                            onClick={onRowClick(row)}
-                            onKeyPress={onRowClick(row)}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </div>
-                        )}
-                      </label>
+                          </Gap>
+                        </label>
+                      </Gap>
                     </td>
                   </React.Fragment>
                 )
