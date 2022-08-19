@@ -238,11 +238,11 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
   function buildFileName(size: IComponentSizeProps): string {
-    return `${subjectName}-${currentTitle}-${size.width}x${size.height}.html`;
+    return `${subject}-${currentTitle}-${size.width}x${size.height}.html`;
   }
   const csvFileName: string = useMemo(
-    (): string => `${subjectName}-${currentTitle}.csv`,
-    [currentTitle, subjectName]
+    (): string => `${subject}-${currentTitle}.csv`,
+    [currentTitle, subject]
   );
   function changeTothirtyDays(): void {
     setSubjectName(`${subject}_30`);
