@@ -127,7 +127,10 @@ resource "aws_s3_bucket_cors_configuration" "prod" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET", "HEAD"]
-    allowed_origins = ["*"]
+    allowed_origins = [
+      "https://app.fluidattacks.com",
+      "https://integrates.front.production.fluidattacks.com"
+    ]
     expose_headers  = ["GET", "HEAD"]
     max_age_seconds = 3000
   }
