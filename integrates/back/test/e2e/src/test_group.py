@@ -107,6 +107,7 @@ def test_group_analytics(
             "Open Exposure by type",
             "Exposure over time",
             "Distribution over time",
+            "Exposure Trends by Categories",
             "Vulnerabilities treatment",
             "Vulnerabilities by source",
             "Total types",

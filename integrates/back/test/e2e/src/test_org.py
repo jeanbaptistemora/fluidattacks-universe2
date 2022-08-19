@@ -18,6 +18,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Open Exposure by groups",
     "Exposure over time",
     "Distribution over time",
+    "Exposure Trends by Categories",
     "Vulnerabilities treatment",
     "Vulnerabilities by source",
     "Total types",
