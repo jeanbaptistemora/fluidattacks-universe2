@@ -1,6 +1,3 @@
-from custom_exceptions import (
-    FindingNamePolicyNotFound,
-)
 from dynamodb.types import (
     OrgFindingPolicyItem,
     OrgFindingPolicyMetadata,
@@ -36,11 +33,6 @@ async def test_get_by_group() -> None:
             status="APPROVED",
         ),
     )
-    with pytest.raises(FindingNamePolicyNotFound):
-        assert await policies_domain.get_finding_policy(
-            org_name=org_name,
-            finding_policy_id="5d92c7eb-816f-43d5-9361-c0672837e7ab",
-        )
 
 
 async def test_get_finding_policies() -> None:

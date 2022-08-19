@@ -1,5 +1,6 @@
 from custom_exceptions import (
     EventNotFound,
+    FindingNamePolicyNotFound,
     GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -41,6 +42,9 @@ from groups.domain import (
     validate_group_services_config,
     validate_group_tags,
 )
+from organizations_finding_policies import (
+    domain as policies_domain,
+)
 import os
 import pytest
 from starlette.datastructures import (
@@ -60,6 +64,15 @@ async def test_exception_event_not_found() -> None:
     loaders: Dataloaders = get_new_context()
     with pytest.raises(EventNotFound):
         await loaders.event.load("000001111")
+
+
+async def test_exception_finding_name_policy_not_found() -> None:
+    org_name = "okada"
+    with pytest.raises(FindingNamePolicyNotFound):
+        assert await policies_domain.get_finding_policy(
+            org_name=org_name,
+            finding_policy_id="5d92c7eb-816f-43d5-9361-c0672837e7ab",
+        )
 
 
 @pytest.mark.changes_db

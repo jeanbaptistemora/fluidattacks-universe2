@@ -9,9 +9,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from group_access.domain import (
     get_group_stakeholders_emails,
 )
@@ -21,9 +18,6 @@ from groups.domain import (
 from mailer.common import (
     get_recipient_first_name,
     get_recipients,
-)
-from mailer.events import (
-    send_mail_event_report,
 )
 import pytest
 
@@ -121,72 +115,3 @@ async def test_get_recipients() -> None:
             "type": "to",
         }
     ]
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "event_id",
-        "event_type",
-        "description",
-        "root_id",
-        "reason",
-        "other",
-        "is_closed",
-    ],
-    [
-        [
-            "unittesting",
-            "538745942",
-            "AUTHORIZATION_SPECIAL_ATTACK",
-            "Test",
-            "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-            None,
-            None,
-            False,
-        ],
-        [
-            "unittesting",
-            "538745942",
-            "AUTHORIZATION_SPECIAL_ATTACK",
-            "Test",
-            "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-            "PROBLEM_SOLVED",
-            None,
-            True,
-        ],
-        [
-            "unittesting",
-            "538745942",
-            "AUTHORIZATION_SPECIAL_ATTACK",
-            "Test",
-            "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-            "OTHER",
-            "Test",
-            True,
-        ],
-    ],
-)
-async def test_send_event_report(
-    group_name: str,
-    event_id: str,
-    event_type: str,
-    description: str,
-    reason: str,
-    root_id: str,
-    other: str,
-    is_closed: bool,
-) -> None:
-    await send_mail_event_report(
-        loaders=get_new_context(),
-        group_name=group_name,
-        event_id=event_id,
-        event_type=event_type,
-        description=description,
-        root_id=root_id,
-        reason=reason,
-        other=other,
-        is_closed=is_closed,
-        report_date=datetime(2022, 6, 16).date(),
-    )
