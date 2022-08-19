@@ -13,7 +13,7 @@ function main {
   export INTEGRATES_API_ENDPOINT
   export INTEGRATES_API_TOKEN
 
-  sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" "DYNAMODB_HOST" "DYNAMODB_PORT" "ENVIRONMENT" \
+  sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" \
     && if test -n "${CI:-}"; then
       aws_login_dev \
         && aws_eks_update_kubeconfig 'common' 'us-east-1' \

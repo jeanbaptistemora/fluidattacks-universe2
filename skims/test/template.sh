@@ -4,7 +4,7 @@ function main {
   export CI_COMMIT_REF_NAME
   export INTEGRATES_API_ENDPOINT
 
-  sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" "DYNAMODB_HOST" "DYNAMODB_PORT" "ENVIRONMENT" \
+  sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" \
     && if test '__argIsFunctionalTest__' = "1" && test -n "${CI:-}"; then
       aws_login_dev \
         && aws_eks_update_kubeconfig 'common' 'us-east-1' \
