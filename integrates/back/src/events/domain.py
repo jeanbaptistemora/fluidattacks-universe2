@@ -177,9 +177,9 @@ async def add_comment(
         loaders, content, user_email, group_name, parent_comment
     )
     if parent_comment != "0":
-        event_comments: list[EventComment] = await loaders.event_comments.load(
-            event_id
-        )
+        event_comments: tuple[
+            EventComment, ...
+        ] = await loaders.event_comments.load(event_id)
         event_comments_ids = [comment.id for comment in event_comments]
         if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
@@ -334,9 +334,9 @@ async def mask(loaders: Any, event_id: str) -> None:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
-    event_comments: list[EventComment] = await loaders.event_comments.load(
-        event_id
-    )
+    event_comments: tuple[
+        EventComment, ...
+    ] = await loaders.event_comments.load(event_id)
     mask_events_coroutines = [
         event_comments_domain.remove(comment.id, event_id)
         for comment in event_comments

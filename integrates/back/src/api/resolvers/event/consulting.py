@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.types import (
     Event,
 )
@@ -31,12 +34,12 @@ async def resolve_no_cache(
 ) -> list[dict[str, Any]]:
     event_id = parent.id
     group_name = parent.group_name
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
 
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
-    event_coments = await event_comments_domain.get_event_comments(
+    event_coments = await event_comments_domain.get_comments(
         loaders, group_name, event_id, user_email
     )
     return [

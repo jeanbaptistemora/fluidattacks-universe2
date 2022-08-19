@@ -305,7 +305,7 @@ async def test_mask_finding() -> None:
     finding_id = "475041524"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    assert await mask_finding(loaders, finding)
+    await mask_finding(loaders, finding)
     loaders.finding.clear(finding_id)
     with pytest.raises(FindingNotFound):
         await loaders.finding.load(finding_id)

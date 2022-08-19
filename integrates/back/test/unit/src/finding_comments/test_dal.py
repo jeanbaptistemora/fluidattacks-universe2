@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from finding_comments.dal import (
     remove,
 )
@@ -55,7 +58,6 @@ async def test_delete() -> None:
         "finding_comments.dal.dynamodb_ops.delete_item"
     ) as mock_delete:
         mock_delete.side_effect = side_effect
-        assert await remove(comment_id=comment_id_1, finding_id=finding_id_1)
-        assert not await remove(
-            comment_id=comment_id_2, finding_id=finding_id_2
-        )
+        await remove(comment_id=comment_id_1, finding_id=finding_id_1)
+        with pytest.raises(UnavailabilityError):
+            await remove(comment_id=comment_id_2, finding_id=finding_id_2)

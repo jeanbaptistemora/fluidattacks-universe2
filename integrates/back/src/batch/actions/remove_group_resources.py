@@ -45,8 +45,8 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     # Get root info
     group_roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
 
-    success: bool
-    removed_resources = await groups_domain.remove_resources(
+    success: bool = True
+    await groups_domain.remove_resources(
         loaders=loaders,
         group_name=group_name,
         user_email=user_email,
@@ -63,9 +63,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
             queue="small",
             product_name=Product.INTEGRATES,
         )
-        success = removed_resources and root_removal.success
-    else:
-        success = removed_resources
+        success = root_removal.success
     message = f"Removal result: {success}"
     LOGGER.info(
         ":".join([item.subject, message]),

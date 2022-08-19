@@ -24,7 +24,7 @@ async def remove(comment_id: str, event_id: str) -> None:
     await comments_dal.remove(comment_id=comment_id, event_id=event_id)
 
 
-async def get_event_comments(
+async def get_comments(
     loaders: Dataloaders, group_name: str, event_id: str, email: str
 ) -> tuple[EventComment, ...]:
     comments: tuple[EventComment, ...] = await loaders.event_comments.load(

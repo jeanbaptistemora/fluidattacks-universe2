@@ -1,4 +1,7 @@
 import authz
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -17,16 +20,12 @@ from finding_comments import (
 from itertools import (
     filterfalse,
 )
-from typing import (
-    Any,
-    Tuple,
-)
 
 
 def _fill_vuln_info(
     comment: FindingComment,
     vulns_ids: set[str],
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
 ) -> FindingComment:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack"""
@@ -51,28 +50,24 @@ def _is_scope_comment(comment: FindingComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
-async def add(
-    comment_data: FindingComment,
-) -> None:
+async def add(comment_data: FindingComment) -> None:
     await comments_dal.add(finding_comment=comment_data)
 
 
-async def delete(comment_id: str, finding_id: str) -> bool:
-    return await comments_dal.remove(
-        comment_id=comment_id, finding_id=finding_id
-    )
+async def remove(comment_id: str, finding_id: str) -> None:
+    await comments_dal.remove(comment_id=comment_id, finding_id=finding_id)
 
 
 async def get_comments(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     finding_id: str,
     user_email: str,
-) -> Tuple[FindingComment, ...]:
+) -> tuple[FindingComment, ...]:
     comments = await loaders.finding_comments.load(
         (CommentType.COMMENT, finding_id)
     )
-    historic_verification: Tuple[
+    historic_verification: tuple[
         FindingVerification, ...
     ] = await loaders.finding_historic_verification.load(finding_id)
     verified = tuple(
@@ -84,7 +79,7 @@ async def get_comments(
         verification_comment_ids: set[str] = {
             verification.comment_id for verification in verified
         }
-        vulns: Tuple[
+        vulns: tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(finding_id)
 
@@ -125,7 +120,7 @@ async def get_comments(
 
 
 async def get_observations(
-    loaders: Any, group_name: str, finding_id: str, user_email: str
+    loaders: Dataloaders, group_name: str, finding_id: str, user_email: str
 ) -> list[FindingComment]:
     observations = await loaders.finding_comments.load(
         (CommentType.OBSERVATION, finding_id)
@@ -140,7 +135,7 @@ async def get_observations(
 def filter_reattack_comments(
     comments: list[FindingComment],
     verification_comment_ids: set[str],
-) -> Tuple[list[FindingComment], list[FindingComment]]:
+) -> tuple[list[FindingComment], list[FindingComment]]:
     """Returns the comment list of a finding filtered on whether the comment
     answers a solicited reattack or not. Comments that do this will be within
     the first element of the tuple while the others will be in the second"""

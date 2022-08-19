@@ -63,7 +63,7 @@ from group_access.domain import (
 )
 from group_comments.domain import (
     add_comment,
-    list_comments,
+    get_comments,
 )
 from groups.domain import (
     add_group,
@@ -376,7 +376,7 @@ async def test_get_treatment_summary() -> None:
 
 async def test_list_comments() -> None:
     group_name = "unittesting"
-    test_data = await list_comments(get_new_context(), group_name, "admin")
+    test_data = await get_comments(get_new_context(), group_name, "admin")
     expected_output = GroupComment(
         group_name="unittesting",
         content="Now we can post comments on groups",

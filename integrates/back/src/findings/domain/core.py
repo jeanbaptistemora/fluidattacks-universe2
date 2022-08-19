@@ -526,7 +526,7 @@ def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
 
 
-async def mask_finding(loaders: Any, finding: Finding) -> bool:
+async def mask_finding(loaders: Any, finding: Finding) -> None:
     comments_and_observations: list[
         FindingComment
     ] = await loaders.finding_comments.load(
@@ -534,15 +534,10 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     ) + await loaders.finding_comments.load(
         (CommentType.OBSERVATION, finding.id)
     )
-    success = all(
-        await collect(
-            comments_domain.delete(comment.id, finding.id)
-            for comment in comments_and_observations
-        )
+    await collect(
+        comments_domain.remove(comment.id, finding.id)
+        for comment in comments_and_observations
     )
-    if not success:
-        return False
-
     list_evidences_files = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
     )
@@ -585,7 +580,6 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
             }
         },
     )
-    return True
 
 
 async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many-arguments, too-many-locals

@@ -411,9 +411,8 @@ async def remove_group(
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
-    all_resources_removed = True
     if FI_ENVIRONMENT == "development":
-        all_resources_removed = await remove_resources(
+        await remove_resources(
             loaders=loaders,
             group_name=group_name,
             user_email=user_email,
@@ -423,15 +422,7 @@ async def remove_group(
         group_name=group_name,
         modified_by=user_email,
     )
-    are_policies_revoked = await authz.revoke_cached_group_service_policies(
-        group_name
-    )
-    if not all(
-        [
-            all_resources_removed,
-            are_policies_revoked,
-        ]
-    ):
+    if not await authz.revoke_cached_group_service_policies(group_name):
         raise ErrorRemovingGroup.new()
 
     await groups_model.update_state(
@@ -1230,16 +1221,14 @@ async def remove_resources(
     loaders: Any,
     group_name: str,
     user_email: str,
-) -> bool:
+) -> None:
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
-    are_findings_masked = all(
-        await collect(
-            tuple(
-                findings_domain.mask_finding(loaders, finding)
-                for finding in all_findings
-            ),
-            workers=4,
-        )
+    await collect(
+        tuple(
+            findings_domain.mask_finding(loaders, finding)
+            for finding in all_findings
+        ),
+        workers=4,
     )
     group_events: tuple[Event, ...] = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
@@ -1256,8 +1245,6 @@ async def remove_resources(
         other="",
         reason="GROUP_DELETED",
     )
-
-    return are_findings_masked
 
 
 async def remove_user(

@@ -61,7 +61,7 @@ async def resolve_no_cache(
     loaders = info.context.loaders
     group_comments: tuple[
         GroupComment, ...
-    ] = await group_comments_domain.list_comments(
+    ] = await group_comments_domain.get_comments(
         loaders, group_name, user_email
     )
 

@@ -152,9 +152,9 @@ async def test_add_comment() -> None:
         info, user_email, comment_data, event_id, parent_comment
     )
     loaders = get_new_context()
-    event_comments: list[EventComment] = await loaders.event_comments.load(
-        event_id
-    )
+    event_comments: tuple[
+        EventComment, ...
+    ] = await loaders.event_comments.load(event_id)
     assert event_comments[-1].id == comment_id
     assert event_comments[-1].event_id == event_id
     assert event_comments[-1].content == "comment test"

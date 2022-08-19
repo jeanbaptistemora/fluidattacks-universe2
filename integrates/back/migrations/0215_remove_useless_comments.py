@@ -60,7 +60,7 @@ async def main() -> None:  # noqa: MC0001
             for comment in comments:
                 if comment.email == "machine@fluidattacks.com":
                     if re.search(useless_comments, comment.content):
-                        await comments_domain.delete(comment.id, finding_id)
+                        await comments_domain.remove(comment.id, finding_id)
 
 
 if __name__ == "__main__":
