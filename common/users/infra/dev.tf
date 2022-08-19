@@ -119,6 +119,7 @@ locals {
             "dynamodb:Get*",
             "dynamodb:ListTagsOfResource",
             "dynamodb:Scan",
+            "dynamodb:Query",
           ]
           Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/skims*"]
         },
