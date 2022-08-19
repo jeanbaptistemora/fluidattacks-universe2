@@ -22,7 +22,7 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
   }
 `;
 
-const REJECT_EVENT_MUTATION: DocumentNode = gql`
+const REJECT_EVENT_SOLUTION_MUTATION: DocumentNode = gql`
   mutation RejectEventSolutionMutation($eventId: String!, $comments: String!) {
     rejectEventSolution(eventId: $eventId, comments: $comments) {
       success
@@ -68,7 +68,7 @@ const UPDATE_EVENT_SOLVING_REASON_MUTATION: DocumentNode = gql`
 
 export {
   GET_EVENT_DESCRIPTION,
-  REJECT_EVENT_MUTATION,
+  REJECT_EVENT_SOLUTION_MUTATION,
   SOLVE_EVENT_MUTATION,
   UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,

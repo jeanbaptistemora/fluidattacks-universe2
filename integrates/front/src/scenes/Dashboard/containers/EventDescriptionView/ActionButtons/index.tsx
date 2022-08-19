@@ -100,7 +100,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               </Button>
             </Tooltip>
           </React.Fragment>
-        ) : (
+        ) : canUpdateEvent || canUpdateEventSolvingReason ? (
           <Tooltip
             id={"group.events.description.edit.tooltip.btn"}
             tip={t("group.events.description.edit.tooltip")}
@@ -111,7 +111,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               {t("group.events.description.edit.text")}
             </Button>
           </Tooltip>
-        )}
+        ) : undefined}
       </ButtonToolbarStartRow>
     </Row>
   );

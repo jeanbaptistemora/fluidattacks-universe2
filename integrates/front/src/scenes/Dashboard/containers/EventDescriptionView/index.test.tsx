@@ -9,6 +9,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
 import {
   GET_EVENT_DESCRIPTION,
+  REJECT_EVENT_SOLUTION_MUTATION,
   UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
@@ -25,7 +26,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("EventDescriptionView", (): void => {
+describe("eventDescriptionView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -305,6 +306,93 @@ describe("EventDescriptionView", (): void => {
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "group.events.description.alerts.editSolvingReason.success",
+        "groupAlerts.updatedTitle"
+      );
+    });
+  });
+
+  it("should reject event solution", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENT_DESCRIPTION,
+          variables: { eventId: "413372600" },
+        },
+        result: {
+          data: {
+            event: {
+              affectedReattacks: [],
+              client: "Test",
+              closingDate: "2022-08-09 13:37:00",
+              detail: "Something happened",
+              eventStatus: "VERIFICATION_REQUESTED",
+              eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+              hacker: "unittest@fluidattacks.com",
+              id: "413372600",
+              otherSolvingReason: null,
+              solvingReason: null,
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: REJECT_EVENT_SOLUTION_MUTATION,
+          variables: {
+            comments: "Rejection reason test",
+            eventId: "413372600",
+          },
+        },
+        result: {
+          data: {
+            rejectEventSolution: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_reject_event_solution_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventDescriptionView}
+              path={"/:groupName/events/:eventId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("Something happened")).toBeInTheDocument();
+    });
+    userEvent.click(
+      screen.getByRole("button", {
+        name: /group\.events\.description\.rejectsolution\.button\.text/iu,
+      })
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: /treatmentjustification/iu }),
+      "Rejection reason test"
+    );
+    userEvent.click(
+      screen.getByRole("button", { name: /components\.modal\.confirm/iu })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.events.description.alerts.rejectSolution.success",
         "groupAlerts.updatedTitle"
       );
     });

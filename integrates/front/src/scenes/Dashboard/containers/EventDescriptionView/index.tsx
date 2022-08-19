@@ -24,7 +24,7 @@ import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
   GET_EVENT_DESCRIPTION,
-  REJECT_EVENT_MUTATION,
+  REJECT_EVENT_SOLUTION_MUTATION,
   SOLVE_EVENT_MUTATION,
   UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
@@ -149,7 +149,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     }
   );
 
-  const [rejectSolution] = useMutation(REJECT_EVENT_MUTATION, {
+  const [rejectSolution] = useMutation(REJECT_EVENT_SOLUTION_MUTATION, {
     onCompleted: (mtResult: IRejectEventSolutionResultAttr): void => {
       if (mtResult.rejectEventSolution.success) {
         msgSuccess(
