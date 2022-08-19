@@ -6,6 +6,7 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_COS,
     FI_MAIL_CTO,
+    FI_TEST_ORGS,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -576,18 +577,25 @@ async def _send_mail_report(
 
 
 async def send_numerator_report() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders: Any = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
+    test_group_names = tuple(FI_TEST_PROJECTS.split(","))
+    print(f"testGroupNamesInitial:{test_group_names}")
+    async for _, org_name, org_groups_names in (
+        orgs_domain.iterate_organizations_and_groups(loaders)
+    ):
+        for group_name in org_groups_names:
+            if (
+                org_name in FI_TEST_ORGS.lower().split(",")
+            ) and group_name not in test_group_names:
+                test_group_names += tuple(org_groups_names)
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
     report_date = datetime_utils.get_now_minus_delta(days=date_range).date()
 
     if FI_ENVIRONMENT == "production":
         group_names = tuple(
-            group
-            for group in group_names
-            if group not in FI_TEST_PROJECTS.split(",")
+            group for group in group_names if group not in test_group_names
         )
-
     content: Dict[str, Any] = await _generate_numerator_report(
         loaders, group_names, date_range
     )
