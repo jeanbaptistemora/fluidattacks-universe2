@@ -6,7 +6,6 @@ from dynamodb.types import (
 )
 from newutils.datetime import (
     convert_from_iso_str,
-    convert_to_iso_str,
     format_comment_date,
 )
 
@@ -24,18 +23,6 @@ def _get_fullname(objective_data: EventComment) -> str:
     return real_name
 
 
-def format_event_comments(item: Item) -> EventComment:
-    return EventComment(
-        event_id=item["finding_id"],
-        id=str(item["comment_id"]),
-        parent_id=str(item["parent"]),
-        creation_date=convert_to_iso_str(item["created"]),
-        full_name=item.get("fullname", None),
-        content=item["content"],
-        email=item["email"],
-    )
-
-
 def format_event_consulting_resolve(event_comment: EventComment) -> Item:
     fullname = _get_fullname(objective_data=event_comment)
     return {
@@ -50,23 +37,4 @@ def format_event_consulting_resolve(event_comment: EventComment) -> Item:
             convert_from_iso_str(event_comment.creation_date)
         ),
         "parent": event_comment.parent_id,
-    }
-
-
-def format_event_comment_item(event_comment: EventComment) -> Item:
-    item = {
-        "finding_id": event_comment.event_id,
-        "comment_id": int(event_comment.id),
-        "parent": event_comment.parent_id,
-        "comment_type": "event",
-        "created": convert_from_iso_str(event_comment.creation_date),
-        "fullname": event_comment.full_name,
-        "content": event_comment.content,
-        "email": event_comment.email,
-        "modified": convert_from_iso_str(event_comment.creation_date),
-    }
-    return {
-        key: None if not value else value
-        for key, value in item.items()
-        if value is not None
     }
