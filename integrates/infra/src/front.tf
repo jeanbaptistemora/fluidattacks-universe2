@@ -32,10 +32,11 @@ resource "aws_s3_bucket_cors_configuration" "dev" {
   bucket = aws_s3_bucket.dev.id
 
   cors_rule {
-    allowed_headers = ["*"]
     allowed_methods = ["GET", "HEAD"]
-    allowed_origins = ["*"]
-    expose_headers  = ["GET", "HEAD"]
+    allowed_origins = [
+      "https://app.fluidattacks.com",
+      "https://integrates.front.development.fluidattacks.com"
+    ]
     max_age_seconds = 3000
   }
 }
