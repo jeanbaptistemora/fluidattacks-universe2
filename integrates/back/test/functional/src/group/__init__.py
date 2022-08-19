@@ -40,7 +40,6 @@ async def get_result(
                 minAcceptanceSeverity
                 minBreakingSeverity
                 openFindings
-                totalFindings
                 totalTreatment
                 subscription
                 deletionDate
@@ -83,9 +82,6 @@ async def get_result(
                     title
                 }}
                 lastClosedVulnerabilityFinding {{
-                    id
-                }}
-                maxSeverityFinding {{
                     id
                 }}
                 language
