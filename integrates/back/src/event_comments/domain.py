@@ -2,11 +2,11 @@ import authz
 from dataloaders import (
     Dataloaders,
 )
+from db_model import (
+    event_comments as event_comments_model,
+)
 from db_model.event_comments.types import (
     EventComment,
-)
-from event_comments import (
-    dal as comments_dal,
 )
 
 
@@ -17,11 +17,11 @@ def _is_scope_comment(comment: EventComment) -> bool:
 async def add(
     comment_data: EventComment,
 ) -> None:
-    await comments_dal.add(event_comment=comment_data)
+    await event_comments_model.add(event_comment=comment_data)
 
 
 async def remove(comment_id: str, event_id: str) -> None:
-    await comments_dal.remove(comment_id=comment_id, event_id=event_id)
+    await event_comments_model.remove(comment_id=comment_id, event_id=event_id)
 
 
 async def get_comments(

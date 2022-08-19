@@ -1,9 +1,6 @@
 from collections import (
     defaultdict,
 )
-from dataloaders.event_comments.event_comments import (
-    EventCommentsLoader,
-)
 from dataloaders.finding_comments.finding_comments import (
     FindingCommentsLoader,
 )
@@ -14,6 +11,9 @@ from db_model.credentials.get import (
 )
 from db_model.enrollment.get import (
     EnrollmentLoader,
+)
+from db_model.event_comments.get import (
+    EventCommentsLoader,
 )
 from db_model.events.get import (
     EventLoader,

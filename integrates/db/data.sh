@@ -13,6 +13,7 @@ function main {
     credentials_metadata
     credentials_state
     enrollment_metadata
+    event_comment
     event_historic_state
     event_metadata
     finding_approval

@@ -12,6 +12,7 @@ from dataloaders import (
 from db_model import (
     credentials as creds_model,
     enrollment as enrollment_model,
+    event_comments as event_comments_model,
     events as events_model,
     findings as findings_model,
     group_access as group_access_model,
@@ -71,9 +72,6 @@ from db_model.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
-)
-from event_comments.dal import (
-    add,
 )
 from finding_comments import (
     dal as dal_comment,
@@ -423,7 +421,7 @@ async def populate_enrollments(data: tuple[Enrollment, ...]) -> bool:
 
 async def populate_event_comments(data: list[Any]) -> bool:
     await collect(
-        add(
+        event_comments_model.add(
             event_comment=item["event_comment"],
         )
         for item in data
