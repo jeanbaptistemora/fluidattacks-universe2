@@ -28,6 +28,7 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterator,
+    Set,
 )
 from utils import (
     graph as g,
@@ -93,6 +94,16 @@ def weak_credential_policy(
     return tuple(chain.from_iterable(find_vulns()))
 
 
+def check_no_password_argument(triggers: Set[str]) -> bool:
+    eval_str = "".join(reversed(list(triggers)))
+    for arg_part in eval_str.split(";"):
+        if "=" in arg_part:
+            var, value = arg_part.split("=", maxsplit=1)
+            if var == "Password" and not value:
+                return True
+    return False
+
+
 def no_password(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
@@ -129,7 +140,9 @@ def no_password(
                 ):
                     for path in get_backward_paths(graph, test_nid):
                         evaluation = evaluate(method, graph, path, test_nid)
-                        if evaluation and evaluation.danger:
+                        if evaluation and check_no_password_argument(
+                            evaluation.triggers
+                        ):
                             yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

@@ -18,6 +18,18 @@ namespace Controllers
             //secure
             var con_str2 = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=5674_H5lloW0rld";
             optionsBuilder3.UseSqlServer(con_str2);
+
+            DbContextOptionsBuilder optionsBuilder4 = new DbContextOptionsBuilder();
+            //secure
+            var password = "5674_H5lloW0rld";
+            var con_str3 = con_str + password;
+            optionsBuilder4.UseSqlServer(con_str3);
+
+            DbContextOptionsBuilder optionsBuilder5 = new DbContextOptionsBuilder();
+            //secure
+            var password = "5674_H5lloW0rld";
+            con_str += password;
+            optionsBuilder5.UseSqlServer(con_str);
         }
     }
 }
