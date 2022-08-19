@@ -84,6 +84,8 @@ who know that there,
 as in any other IT system,
 they can find vulnerabilities to exploit.
 
+## Mobile application risks
+
 Mobile apps and devices often do not achieve the same security level
 as desktop apps and PCs.
 The most common operating systems for mobile apps today are Android and iOS.
@@ -190,10 +192,11 @@ and that are part of the DevSecOps culture
 choose to keep the security of their products under continuous assessment
 to prevent cyberattacks and consequential losses.
 
-This is where **mobile application security testing** (MAST) comes in.
-MAST is a type of application security testing focused on mobile apps.
-It analyzes these apps,
-during or after their development,
+## This is where MAST comes in
+
+Mobile application security testing
+(MAST) analyzes these apps
+during or after their development
 to identify security issues in them
 according to the mobile platform on which they run
 and the frameworks in which they are developed.
@@ -248,6 +251,8 @@ know that these providers do not fully review their apps.
 (Neither Google nor Apple will conduct dynamic assessments, for example.)
 They know that it is their own duty
 to get comprehensive analyses of their software.
+
+## MAST with Fluid Attacks
 
 It doesn't matter if your company is small or large.
 While the latter tend to be more sought after by cybercriminals,
