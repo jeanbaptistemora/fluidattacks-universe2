@@ -174,7 +174,12 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = get_client_hello_package(
+            v_id=v_id,
+            cipher_suites=suites,
+            host=ctx.host,
+            extensions=extensions,
+        )
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
@@ -327,7 +332,11 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if sock is None:
         return tuple()
 
-    package = get_client_hello_package(SSLVersionId.sslv3_0, suites)
+    package = get_client_hello_package(
+        v_id=SSLVersionId.sslv3_0,
+        cipher_suites=suites,
+        host=ctx.host,
+    )
     sock.send(bytes(package))
     response: Optional[SSLServerResponse] = parse_server_response(sock)
 
@@ -477,7 +486,12 @@ def _get_weak_enabled_suites_as_vuln(
         if sock is None:
             continue
 
-        package = get_client_hello_package(v_id, [suite], extensions)
+        package = get_client_hello_package(
+            v_id=v_id,
+            cipher_suites=[suite],
+            host=ctx.host,
+            extensions=extensions,
+        )
 
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
@@ -695,7 +709,12 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
-    package = get_client_hello_package(min_v_id, suites, extensions)
+    package = get_client_hello_package(
+        v_id=min_v_id,
+        cipher_suites=suites,
+        host=ctx.host,
+        extensions=extensions,
+    )
     sock.send(bytes(package))
     response: Optional[SSLServerResponse] = parse_server_response(sock)
 
@@ -856,7 +875,12 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = get_client_hello_package(
+            v_id=v_id,
+            cipher_suites=suites,
+            host=ctx.host,
+            extensions=extensions,
+        )
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
@@ -936,7 +960,12 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = get_client_hello_package(
+            v_id=v_id,
+            cipher_suites=suites,
+            host=ctx.host,
+            extensions=extensions,
+        )
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
@@ -1008,7 +1037,12 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = get_client_hello_package(
+            v_id=v_id,
+            cipher_suites=suites,
+            host=ctx.host,
+            extensions=extensions,
+        )
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 

@@ -65,7 +65,9 @@ def ssl_connect(
             ssl_ctx.minimum_version = ssl_id2tls_id(ssl_settings.tls_version)
             ssl_ctx.maximum_version = ssl_id2tls_id(ssl_settings.tls_version)
 
-            ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
+            ssl_sock = ssl_ctx.wrap_socket(
+                sock, do_handshake_on_connect=False, server_hostname=host
+            )
             try:
                 ssl_sock.do_handshake()
             except ConnectionResetError as error:
@@ -132,6 +134,17 @@ def get_ec_point_formats_ext() -> List[int]:
 
     package: List[int] = num_to_bytes(len(point_formats), 1) + point_formats
     return extension_id + num_to_bytes(len(package), 2) + package
+
+
+def get_server_name_ext(host: str) -> List[int]:
+    # https://tls12.xargs.org/
+    extension_id: List[int] = [0, 0]
+    host_type: List[int] = [0]
+    hostname: List[int] = list(host.encode())
+
+    host_entry = host_type + num_to_bytes(len(hostname), 2) + hostname
+    host_list = num_to_bytes(len(host_entry), 2) + host_entry
+    return extension_id + num_to_bytes(len(host_list), 2) + host_list
 
 
 def get_elliptic_curves_ext() -> List[int]:
@@ -219,6 +232,7 @@ def get_client_hello_head(v_id: SSLVersionId, package: List[int]) -> List[int]:
 def get_client_hello_package(
     v_id: SSLVersionId,
     cipher_suites: List[SSLSuiteInfo],
+    host: str,
     extensions: Optional[List[int]] = None,
 ) -> List[int]:
     session_id: List[int] = [0]
@@ -226,8 +240,10 @@ def get_client_hello_package(
 
     package: List[int] = []
 
+    packet_ext = get_server_name_ext(host)
     if extensions is not None:
-        package = num_to_bytes(len(extensions), 2) + extensions
+        packet_ext += extensions
+    package = num_to_bytes(len(packet_ext), 2) + packet_ext
 
     suites = get_suites_package(cipher_suites, n_bytes=2)
     package = rand_bytes(32) + session_id + suites + no_compression + package
