@@ -14,6 +14,9 @@
           },
           "organization_id": {
             "S": "59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "role": {
+            "S": "user_manager"
           }
         }
       }
@@ -32,6 +35,9 @@
           },
           "organization_id": {
             "S": "59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "role": {
+            "S": "user"
           }
         }
       }

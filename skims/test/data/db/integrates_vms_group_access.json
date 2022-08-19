@@ -17,6 +17,9 @@
           },
           "email": {
             "S": "customer@domain.com"
+          },
+          "role": {
+            "S": "user_manager"
           }
         }
       }
@@ -57,6 +60,9 @@
           },
           "email": {
             "S": "forces.jessup@fluidattacks.com"
+          },
+          "role": {
+            "S": "service_forces"
           }
         }
       }

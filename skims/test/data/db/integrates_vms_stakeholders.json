@@ -100,6 +100,9 @@
           },
           "sk_2": {
             "S": "USER#customer@domain.com"
+          },
+          "role": {
+            "S": "user"
           }
         }
       }
@@ -149,6 +152,9 @@
           },
           "sk_2": {
             "S": "USER#machine@fluidattacks.com"
+          },
+          "role": {
+            "S": "admin"
           }
         }
       }
@@ -173,6 +179,9 @@
           },
           "sk_2": {
             "S": "USER#forces.jessup@fluidattacks.com"
+          },
+          "role": {
+            "S": "admin"
           }
         }
       }
