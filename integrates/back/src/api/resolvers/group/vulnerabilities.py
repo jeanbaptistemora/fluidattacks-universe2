@@ -6,6 +6,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityEdge,
 )
 from db_model.vulnerabilities.utils import (
+    filter_non_zero_risk,
     format_vulnerability,
 )
 from graphql import (
@@ -41,8 +42,8 @@ async def resolve(
     draft_ids = tuple(
         draft.id for draft in await loaders.group_drafts.load(parent.name)
     )
-    vulnerabilities = tuple(
-        format_vulnerability(result) for result in results.items
+    vulnerabilities = filter_non_zero_risk(
+        tuple(format_vulnerability(result) for result in results.items)
     )
 
     return VulnerabilitiesConnection(
