@@ -56,6 +56,7 @@
     ["refresh_toe_inputs"]
     ["refresh_toe_lines"]
     ["reject_draft"]
+    ["reject_event_solution"]
     ["reject_vulnerabilities_zero_risk"]
     ["remove_credentials"]
     ["remove_event_evidence"]
