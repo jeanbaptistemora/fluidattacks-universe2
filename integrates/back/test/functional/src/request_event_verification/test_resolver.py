@@ -57,8 +57,6 @@ async def test_request_event_verification(
 @pytest.mark.parametrize(
     ["email", "event_id", "comments"],
     [
-        ["user@gmail.com", "418900971", "comment test"],
-        ["user_manager@gmail.com", "418900972", "comment test"],
         ["vulnerability_manager@gmail.com", "418900973", "comment test"],
         ["reviewer@gmail.com", "418900974", "comment test"],
     ],

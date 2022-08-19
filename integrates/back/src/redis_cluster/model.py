@@ -48,6 +48,8 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies={
             "add_event_consult",
+            "reject_event_solution",
+            "request_event_verification",
             "request_vulnerabilities_hold",
         },
     ),
