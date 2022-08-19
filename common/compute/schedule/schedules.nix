@@ -440,7 +440,7 @@
       "schedulers.report_machine.main"
     ];
 
-    schedule_expression = "cron(0/10 7-21 ? * 2-6 *)";
+    schedule_expression = "cron(0 7-21 ? * 2-6 *)";
     size = "nano";
     awsRole = "prod_integrates";
     attempts = 3;
