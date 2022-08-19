@@ -69,6 +69,7 @@ import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
@@ -224,7 +225,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   // State Management
   const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
-  const unsolved = t(castEventStatus("CREATED"));
+  const unsolved = translate.t(castEventStatus("CREATED"));
   const selectedUnsolvedEvents = selectedEvents.filter(
     (event: IEventData): boolean => event.eventStatus === unsolved
   );
@@ -449,14 +450,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         )
       );
       const transEventOptions = eventOptions.map((option: string): string =>
-        t(castEventType(option))
+        translate.t(castEventType(option))
       );
       const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
         _.includes(transEventOptions, value)
       );
       setOptionType(filterOptions);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const allEvents = data === undefined ? [] : data.group.events;
