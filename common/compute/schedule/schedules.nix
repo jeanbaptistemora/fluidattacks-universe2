@@ -430,6 +430,35 @@
       "management:type" = "product";
     };
   };
+  integrates_machine_report = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.report_machine.main"
+    ];
+
+    schedule_expression = "cron(0 7-21 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_machine_report";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_refresh_toe_lines = {
     enabled = true;
     command = [
