@@ -440,10 +440,14 @@ for correctly implementing the DevSecOps culture in your organization.
   and evaluate potential impacts on the organization
   ([ethical hacking](../../solutions/ethical-hacking/)).
   The recommendation is that
-  your organization define the regular application
-  of manual security activities.
-  For example,
-  it could be agreed upon to conduct regular penetration tests.
+  your organization have its systems assessed
+  in *continuous* penetration tests
+  that maintain a strong remediation culture.
+  Just *regular* penetration tests are not recommended,
+  since the period of time between one test
+  and the other
+  could give threat actors the chance
+  to take advantage of your system's risk exposure.
 
 - **Measuring performance and progress:**
   Measurement is part of the proper implementation of DevSecOps.

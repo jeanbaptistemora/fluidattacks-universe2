@@ -361,38 +361,43 @@ we make a brief summary:
   this way they can fix them
   before the security team reviews the scan results.
 
-- **Automation:**
+- **Automation in combination with manual pentesting:**
   Successfully integrating security into the CI/CD pipelines,
   so that every change in the code is automatically scanned,
+  inventoring code dependencies continuously
+  and keeping them up to date,
   and automatically creating issues/tickets
   or breaking the build
   (whichever is the organization policy)
   in case a vulnerability is found.
+  And doing this continually
+  along with manual security testing.
+
+- **Security standards:**
+  Automating the use of security standards,
+  evaluated and set by the security team,
+  and continuously evaluating compliance
+  and the integrity of the systems' physical components,
+  network security
+  and employee behavior.
+
+- ***Continuous* instead of *regular* security audits:**
+  Identifying the entire attack surface,
+  and possible attack vectors for information systems,
+  which is commonly a part of risk assessments
+  and threat modeling.
+
+- **Continuous penetration tests:**
+  Having ethical hackers assess the security of your systems
+  throughout the entire SDLC,
+  as opposed to conducting *just regular* penetration tests
+  that could allow a time window
+  during which threat actors can get a way in.
 
 - **Break the build:**
   Preventing vulnerable code from reaching production
   and fixing it promptly,
   thus cutting remediation time by [up to about 30%](https://try.fluidattacks.com/state-of-attacks-2022/).
-
-- **Code dependencies audits:**
-  Inventoring code dependencies regularly
-  and keeping them up to date.
-
-- **Security standards:**
-  Automating the use of security standards,
-  evaluated and set by the security team,
-  and regularly evaluating compliance
-  and the integrity of the systems' physical components,
-  network security
-  and employee behavior.
-
-- **Threat modeling and risk assessments:**
-  Identifying the entire attack surface
-  and possible attack vectors for information systems.
-
-- **Regular penetration tests:**
-  Having ethical hackers assess the security of your systems
-  throughout the SDLC.
 
 And what are the phases of DevSecOps adoption?
 It's ideal
@@ -430,7 +435,7 @@ that remediation at the early stages of development
 [is less costly](https://landing.fluidattacks.com/us/ebook/)
 than at the production deployment stage.
 
-## DevSecOps automation
+## DevSecOps automation along with manual techniques
 
 As we mentioned earlier,
 it's ideal to have automated security checks.
@@ -483,7 +488,7 @@ So,
 we help organizations implement DevSecOps
 by offering our ethical hackers' skills (in addition to automated tools)
 to find vulnerabilities across the SDLC.
-By performing regular [penetration tests](../../solutions/penetration-testing/),
+By performing continuous [penetration tests](../../solutions/penetration-testing/),
 organizations can validate the security of their technology
 and test it against new techniques used by threat actors
 and therefore out of the scope of automated tools.
@@ -637,6 +642,3 @@ assessing the security of your technology.
 To learn more
 and get all your DevSecOps questions answered,
 [contact us](../../contact-us/)\!
-
-> **Note:**
-> This document was last updated on August 17, 2022.

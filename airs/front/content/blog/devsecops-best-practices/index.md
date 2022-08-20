@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, devsecops, security-testing, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1660241560/blog/devsecops-best-practices/cover_practices.webp
 alt: Photo by Leonard von Bibra on Unsplash
-description: Fluid Attacks presents 10 DevSecOps best practices that will help your organization weave security into the entire software development process.
+description: Fluid Attacks presents nine DevSecOps best practices that will help your organization weave security into the entire software development process.
 keywords: Devsecops Best Practices, Devsecops Automation, Sast, Dast, Break The Build, Security Testing, Secure Software, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -211,39 +211,6 @@ Read on to learn more about its benefits.
 
 ### Software composition analysis (SCA)
 
-[SCA](../../categories/sca/)
-requires access to your source code.
-It reveals external software dependencies.
-These are worth looking at,
-as your software can inherit their vulnerabilities.
-So,
-this analysis can tell you the component licenses,
-versions
-and security vulnerabilities,
-if there are any.
-When performing SCA combining automatic and manual work,
-there are no limitations due to coding language,
-nor is the analysis limited to commonly known vulnerabilities.
-
-## Break the build
-
-It is advisable to prevent the deployment of a system
-if a vulnerability is found in it.
-In our [State of Attacks 2022](https://try.fluidattacks.com/state-of-attacks-2022/),
-we reported
-that clients who enabled our feature to break the build
-**took almost 30% less time**
-to remediate their systems' vulnerabilities
-than those who didn't enable it.
-This is automatic and responds to organization policies
-that state how severe a vulnerability should be for it to break the build,
-the grace period before a newly reported vulnerability will break the build,
-etc.
-With this example,
-you can see it's worth it to automate tools and processes.
-
-## Perform code dependencies auditing continuously
-
 Developing with speed means
 you are not spending your time reinventing the wheel.
 Therefore,
@@ -263,9 +230,23 @@ a best practice is to have a complete
 and updated inventory of the dependencies
 that make up your software
 and keep these up-to-date with the latest patches.
+The answer to this need is [SCA](../../categories/sca/).
+
+SCA requires access to your source code.
+It reveals external software dependencies.
+So,
+this analysis can tell you the component licenses,
+versions
+and security vulnerabilities,
+if there are any.
+When performing SCA combining automatic and manual work,
+there are no limitations due to coding language,
+nor is the analysis limited to commonly known vulnerabilities.
+
 In the DevSecOps culture,
-it’s a good idea to perform [SCA](../../categories/sca/)
-on your source code early
+it's a good idea
+to perform code dependencies auditing continuously,
+early
 and across the entire SDLC
 to get useful information promptly and continuously
 about vulnerable open-source or third-party components.
@@ -285,6 +266,9 @@ of the systems' physical components,
 network security
 and employee behavior.
 
+We recommend *continuous* instead of *regular* security audits,
+since the latter could allow a time window
+during which risk exposure could be taken advantage of.
 By updating your knowledge of the security weaknesses in your systems,
 compliance can be constantly monitored.
 By remediating those issues,
@@ -320,9 +304,32 @@ that penetration testing is a valuable component
 in favor of accuracy and depth.
 
 In short,
-we advise continuous penetration tests
+we advise *continuous* penetration tests
 to validate the security of your technology
 and test against new techniques used by threat actors.
+This is in contrast to the common advice
+to conduct just *regular* penetration tests
+for the sake of complying with regulations,
+among other drives.
+Continuous assessments support a strong remediation culture,
+pushing beyond periodic obligations.
+
+## Break the build
+
+It is advisable to prevent the deployment of a system
+if a vulnerability is found in it.
+In our [State of Attacks 2022](https://try.fluidattacks.com/state-of-attacks-2022/),
+we reported
+that clients who enabled our feature to break the build
+**took almost 30% less time**
+to remediate their systems' vulnerabilities
+than those who didn't enable it.
+This is automatic and responds to organization policies
+that state how severe a vulnerability should be for it to break the build,
+the grace period before a newly reported vulnerability will break the build,
+etc.
+With this example,
+you can see it's worth it to automate tools and processes.
 
 ## Try DevSecOps with Fluid Attacks
 

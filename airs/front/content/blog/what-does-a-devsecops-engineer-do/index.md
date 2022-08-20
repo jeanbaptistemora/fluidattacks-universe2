@@ -144,29 +144,36 @@ within the general process automation logic,
 are a part of the DevSecOps best practices.
 Then,
 DevSecOps engineers often [have](https://devops.com/how-to-become-a-devsecops-engineer/)
-**a good understanding of automated application security testing tools**.
+**a good understanding of automated application security testing tools
+used along with manual security testing**.
 For example,
 static application security testing ([SAST](../../categories/sast/))
 and dynamic application security testing ([DAST](../../categories/dast/))
-tools.
-These professionals must know
+can be done both with automatic tools and manually.
+The expert must know
 how to [choose and deploy](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer)
-these tools appropriately.
+these tests appropriately.
 
-When using these tools
+When using these tests
 throughout the entire software development lifecycle (SDLC),
-these become part of your DevSecOps tools,
+they become part of your DevSecOps tools,
 so to speak.
-At `Fluid Attacks`,
-however,
+Keep in mind,
+though,
+that at `Fluid Attacks`
 we know
-that automated tools generate reports with high rates of false positives
+automated tools generate reports with high rates of false positives
 and false negatives.
 Therefore,
 although we encourage teams to automate tools and processes,
 we see the highest value in manual security testing
-and see performing regular [penetration tests](../../solutions/penetration-testing/)
+and see performing *continuous* [penetration tests](../../solutions/penetration-testing/)
 as one of the DevSecOps best practices.
+It follows that it does not do
+to have just *regular* penetration tests,
+applied only eventually.
+When tests are done continually,
+a remediation culture is effectively maintained.
 
 Lastly,
 a DevSecOps engineer should
@@ -174,7 +181,8 @@ a DevSecOps engineer should
 They must have rigorous processes to test the security
 of the organization's system
 and analyze its risk exposure
-in regular security audits.
+in continuous,
+not just regular security audits.
 To do this effectively,
 they must be [up to date](https://devops.com/how-to-become-a-devsecops-engineer/)
 with DevOps culture and principles,
