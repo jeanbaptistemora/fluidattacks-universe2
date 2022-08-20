@@ -9,30 +9,31 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Enumerated: {{ count_var_report["enumerated"]["count"] }} inputs.
+      Hackers details:<br />
+      <strong>Enumerated:</strong> {{ count_var_report["enumerated"]["count"] }} inputs.
       ({{ count_var_report["enumerated"]["variation"] }})<br />
 
-      Verified: {{ count_var_report["verified"]["count"] }} inputs,
+      <strong>Verified:</strong> {{ count_var_report["verified"]["count"] }} inputs,
 
       {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
       ({{ count_var_report["verified"]["variation"] }})<br />
 
-      Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
+      <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
       ({{ count_var_report["reattacked"]["variation"] }})<br />
 
-      Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
+      <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
       (oldest: {{ oldest_draft["age"] }} days,
       max: {{ oldest_draft["max_cvss"] }} severity)<br />
 
-      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.
+      <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
       ({{ count_var_report["released"]["variation"] }},
       max: {{ max_cvss }} severity)
     </p>
     <p>
-      Group details:<br />
       {% if groups %}
+        Groups details:<br />
         {% for group, fields in groups.items() %}
-          <strong>{{ group }}</strong>:
+          <strong>{{ group }}:</strong>
           {{ fields["enumerated"] }} inputs enumerated,
           {{ fields["verified"] }} inputs verified,
           {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,

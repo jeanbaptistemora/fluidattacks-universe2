@@ -580,7 +580,7 @@ async def send_numerator_report() -> None:
     loaders: Any = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
     test_group_names = tuple(FI_TEST_PROJECTS.split(","))
-    print(f"testGroupNamesInitial:{test_group_names}")
+
     async for _, org_name, org_groups_names in (
         orgs_domain.iterate_organizations_and_groups(loaders)
     ):
@@ -596,6 +596,7 @@ async def send_numerator_report() -> None:
         group_names = tuple(
             group for group in group_names if group not in test_group_names
         )
+
     content: Dict[str, Any] = await _generate_numerator_report(
         loaders, group_names, date_range
     )
