@@ -306,7 +306,10 @@ def format_rejection(
     return (
         DraftRejection(
             other=rejection_item["other"],
-            reason=DraftRejectionReason[rejection_item["reason"]],
+            reasons={
+                DraftRejectionReason[reason]
+                for reason in rejection_item["reasons"]
+            },
             rejected_by=rejection_item["rejected_by"],
             rejection_date=rejection_item["rejection_date"],
             submitted_by=rejection_item["submitted_by"],
@@ -322,7 +325,7 @@ def format_rejection_item(
     return (
         {
             "other": rejection.other,
-            "reason": rejection.reason.value,
+            "reasons": {str(reason.value) for reason in rejection.reasons},
             "rejected_by": rejection.rejected_by,
             "rejection_date": rejection.rejection_date,
             "submitted_by": rejection.submitted_by,

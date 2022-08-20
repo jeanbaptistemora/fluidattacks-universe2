@@ -338,7 +338,7 @@ async def test_get_me_has_drafts_rejected(populate: bool, email: str) -> None:
     reject_draft_result: dict[str, Any] = await reject_draft(
         user=email,
         finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
-        reason="WRITING",
+        reasons="WRITING, CONSISTENCY",
     )
     assert "errors" not in reject_draft_result
     assert reject_draft_result["data"]["rejectDraft"]["success"]
@@ -364,7 +364,7 @@ async def test_get_me_has_drafts_rejected(populate: bool, email: str) -> None:
     reject_draft_result_1: dict[str, Any] = await reject_draft(
         user=email,
         finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
-        reason="CONSISTENCY",
+        reasons="CONSISTENCY",
     )
     assert "errors" not in reject_draft_result_1
     assert reject_draft_result_1["data"]["rejectDraft"]["success"]

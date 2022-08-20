@@ -149,7 +149,7 @@ async def add_draft(
 async def reject_draft(
     context: Any,
     finding_id: str,
-    reason: DraftRejectionReason,
+    reasons: set[DraftRejectionReason],
     other: Optional[str],
     reviewer_email: str,
 ) -> DraftRejection:
@@ -168,12 +168,12 @@ async def reject_draft(
 
     if finding.state.status != FindingStateStatus.SUBMITTED:
         raise NotSubmitted()
-    if reason == DraftRejectionReason.OTHER and not other:
-        raise IncompleteDraft(fields=["reason"])
+    if DraftRejectionReason.OTHER in reasons and not other:
+        raise IncompleteDraft(fields=["other"])
 
     rejection = DraftRejection(
         other=other if other else "",
-        reason=reason,
+        reasons=reasons,
         rejected_by=reviewer_email,
         rejection_date=datetime_utils.get_iso_date(),
         submitted_by=finding.state.modified_by,

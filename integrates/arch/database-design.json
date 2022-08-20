@@ -16739,8 +16739,8 @@
                       "other": {
                         "S": ""
                       },
-                      "reason": {
-                        "S": "OMISSION"
+                      "reasons": {
+                        "SS": ["OMISSION"]
                       },
                       "rejected_by": {
                         "S": "customer_manager@fluidattacks.com"
@@ -18566,8 +18566,8 @@
                   "other": {
                     "S": ""
                   },
-                  "reason": {
-                    "S": "OMISSION"
+                  "reasons": {
+                    "SS": ["OMISSION"]
                   },
                   "rejected_by": {
                     "S": "customer_manager@fluidattacks.com"

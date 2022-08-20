@@ -549,7 +549,7 @@ async def test_reject_draft() -> None:
     """Check for rejectDraft mutation."""
     query = """
         mutation {
-            rejectDraft(findingId: "836530833", reason: SCORING) {
+            rejectDraft(findingId: "836530833", reasons: [SCORING]) {
                 success
             }
         }

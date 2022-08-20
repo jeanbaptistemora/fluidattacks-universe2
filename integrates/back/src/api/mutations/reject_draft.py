@@ -66,7 +66,7 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    reason: str,
+    reasons: list[str],
     other: Optional[str] = None,
 ) -> SimplePayload:
     try:
@@ -78,7 +78,7 @@ async def mutate(
         rejection: DraftRejection = await findings_domain.reject_draft(
             context=info.context,
             finding_id=finding_id,
-            reason=DraftRejectionReason[reason],
+            reasons={DraftRejectionReason[reason] for reason in reasons},
             other=other_reason.strip() if other_reason else None,
             reviewer_email=user_info["user_email"],
         )

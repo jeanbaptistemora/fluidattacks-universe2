@@ -226,6 +226,8 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         DraftRejectionReason.SCORING: "Faulty severity scoring",
         DraftRejectionReason.WRITING: "The writing could be improved",
     }
+    # Temporary workaround until the email template is refactored
+    reason: DraftRejectionReason = rejection.reasons.pop()
 
     email_context: dict[str, Any] = {
         "analyst_mail": discoverer_email,
@@ -233,12 +235,12 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/drafts/{draft_id}/description"
         ),
-        "explanation": explanation[rejection.reason],
+        "explanation": explanation[reason],
         "finding_id": draft_id,
         "finding_name": finding_name,
         "group": group_name,
         "organization": org_name,
-        "reason": str(rejection.reason.value).capitalize(),
+        "reason": str(reason.value).capitalize(),
         "reviewer_mail": rejection.rejected_by,
         "user_role": user_role.replace("_", " "),
     }

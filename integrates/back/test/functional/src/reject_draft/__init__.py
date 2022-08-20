@@ -16,7 +16,7 @@ async def get_result(
     *,
     user: str,
     finding_id: str,
-    reason: str,
+    reasons: str,
     other: Optional[str] = None,
 ) -> Dict[str, Any]:
     query: str = f"""
@@ -24,7 +24,7 @@ async def get_result(
             rejectDraft(
                 findingId: "{finding_id}"
                 other: "{other}"
-                reason: {reason}
+                reasons: [{reasons}]
             ) {{
                 success
             }}

@@ -21,7 +21,7 @@ from typing import (
 
 class DraftRejection(NamedTuple):
     other: str
-    reason: DraftRejectionReason
+    reasons: set[DraftRejectionReason]
     rejected_by: str
     rejection_date: str
     submitted_by: str

@@ -579,8 +579,8 @@ type Mutation {
     findingId: String!
     "Custom reason provided"
     other: String
-    "Rejection reason"
-    reason: DraftRejectionReason!
+    "Rejection reasons"
+    reasons: [DraftRejectionReason!]!
   ): SimplePayload!
 
   """

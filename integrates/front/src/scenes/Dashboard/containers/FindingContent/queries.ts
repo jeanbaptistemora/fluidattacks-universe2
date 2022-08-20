@@ -36,10 +36,10 @@ const APPROVE_DRAFT_MUTATION: DocumentNode = gql`
 const REJECT_DRAFT_MUTATION: DocumentNode = gql`
   mutation RejectDraftMutation(
     $findingId: String!
-    $reason: DraftRejectionReason!
+    $reasons: [DraftRejectionReason!]!
     $other: String
   ) {
-    rejectDraft(findingId: $findingId, reason: $reason, other: $other) {
+    rejectDraft(findingId: $findingId, reasons: $reasons, other: $other) {
       success
     }
   }
