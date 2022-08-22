@@ -209,8 +209,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,117,skims,091. Log
   19 |
   20 |         //secure
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
-  22 |         id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
-  23 |         sec_log.Info(id);
+  22 |         id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id_safe);
   24 |     }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_logging
@@ -233,8 +233,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,117,skims,091. Log
   19 |
   20 |         //secure
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
-  22 |         id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
-  23 |         sec_log.Info(id);
+  22 |         id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id_safe);
   24 |     }
   25 | }
      ^ Col 0

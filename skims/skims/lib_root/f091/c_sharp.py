@@ -1,5 +1,5 @@
-from lib_root.utilities.common import (
-    get_method_param_by_obj,
+from itertools import (
+    chain,
 )
 from lib_sast.types import (
     ShardDb,
@@ -8,71 +8,29 @@ from model import (
     core_model,
     graph_model,
 )
+from model.graph_model import (
+    Graph,
+    GraphShardMetadataLanguage as GraphLanguage,
+)
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
+from typing import (
+    List,
+)
+from utils import (
+    graph as g,
 )
 
 
-def insecure_attribute(
-    shard: graph_model.GraphShard, object_name: str, n_id: str
-) -> str:
-    logging_methods = {
-        "Info",
-        "Log",
-        "WriteLine",
-        "WriteEntry",
-        "TraceEvent",
-        "Debug",
-    }
-
-    danger_param = get_method_param_by_obj(shard, n_id, "HttpRequest")
-
-    for syntax_steps in shard.syntax.values():
-        for index, syntax_step in enumerate(syntax_steps):
-            if (
-                isinstance(syntax_step, graph_model.SyntaxStepAssignment)
-                and syntax_step.var == danger_param
-            ):
-                danger_param = ""
-            if (
-                isinstance(
-                    syntax_step, graph_model.SyntaxStepMethodInvocationChain
-                )
-                and syntax_step.method in logging_methods
-                and object_name
-                in list(
-                    dependencie.symbol
-                    for dependencie in get_dependencies(index, syntax_steps)
-                    if isinstance(
-                        dependencie, graph_model.SyntaxStepSymbolLookup
-                    )
-                )
-                and danger_param
-                in list(
-                    dependencie.symbol
-                    for dependencie in get_dependencies(index, syntax_steps)
-                    if isinstance(
-                        dependencie, graph_model.SyntaxStepSymbolLookup
-                    )
-                )
-            ):
-                return syntax_step.meta.n_id
-    return ""
-
-
-def insecure_logging(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-
-    object_methods = {
-        "GetLogger",
-        "GetCurrentClassLogger",
-    }
-
+def get_insecure_vars(graph: Graph) -> List[str]:
+    object_methods = {"GetLogger", "GetCurrentClassLogger"}
     object_names = {
         "FileLogger",
         "DBLogger",
@@ -81,46 +39,83 @@ def insecure_logging(
         "StreamWriter",
         "TraceSource",
     }
+    insecure_vars = []
+    for nid in chain(
+        g.filter_nodes(
+            graph,
+            graph.nodes,
+            g.pred_has_labels(label_type="MethodInvocation"),
+        ),
+        g.filter_nodes(
+            graph,
+            graph.nodes,
+            g.pred_has_labels(label_type="ObjectCreation"),
+        ),
+    ):
+        if (
+            graph.nodes[nid].get("label_type") == "MethodInvocation"
+            and graph.nodes[nid].get("expression").split(".")[-1]
+            in object_methods
+        ) or (
+            graph.nodes[nid].get("label_type") == "ObjectCreation"
+            and graph.nodes[nid].get("name") in object_names
+        ):
+            var_nid = g.pred_ast(graph, nid)[0]
+            if graph.nodes[var_nid].get("label_type") == "VariableDeclaration":
+                insecure_vars.append(graph.nodes[var_nid].get("variable"))
+    return insecure_vars
+
+
+def insecure_logging(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_INSECURE_LOGGING
+    c_sharp = GraphLanguage.CSHARP
+    logging_methods = {
+        "Info",
+        "Log",
+        "WriteLine",
+        "WriteEntry",
+        "TraceEvent",
+        "Debug",
+    }
+    sanitize = {"\\n", "\\t", "\\n"}
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
-        ):
-            for syntax_steps in shard.syntax.values():
-                for index, syntax_step in enumerate(syntax_steps):
-                    member = ""
-                    cond = isinstance(
-                        syntax_step, graph_model.SyntaxStepDeclaration
-                    ) and get_dependencies(index, syntax_steps)
-                    if cond and (
-                        (
-                            isinstance(
-                                get_dependencies(index, syntax_steps)[0],
-                                graph_model.SyntaxStepMethodInvocationChain,
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            insecure_vars = get_insecure_vars(graph)
+
+            for nid in g.filter_nodes(
+                graph,
+                graph.nodes,
+                g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                if not (
+                    graph.nodes[nid].get("member") in logging_methods
+                    and graph.nodes[nid].get("expression") in insecure_vars
+                ):
+                    continue
+                al_id = graph.nodes[g.pred(graph, nid)[0]].get("arguments_id")
+                if test_node := g.match_ast(graph, al_id).get("__0__"):
+                    for path in get_backward_paths(graph, test_node):
+                        evaluation = evaluate(method, graph, path, test_node)
+                        if (
+                            evaluation
+                            and evaluation.danger
+                            and not all(
+                                char in evaluation.triggers
+                                for char in sanitize
                             )
-                            and get_dependencies(index, syntax_steps)[0].method
-                            in object_methods
-                        )
-                        or (
-                            isinstance(
-                                get_dependencies(index, syntax_steps)[0],
-                                graph_model.SyntaxStepObjectInstantiation,
-                            )
-                            and get_dependencies(index, syntax_steps)[
-                                0
-                            ].object_type
-                            in object_names
-                        )
-                    ):
-                        member = insecure_attribute(
-                            shard, syntax_step.var, syntax_step.meta.n_id
-                        )
-                    if len(member) > 0:
-                        yield shard, member
+                        ):
+                            yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.091.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_INSECURE_LOGGING,
+        method=method,
     )

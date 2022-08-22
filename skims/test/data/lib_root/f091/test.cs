@@ -19,7 +19,7 @@ public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
 
         //secure
         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
-        id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
-        sec_log.Info(id);
+        id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+        sec_log.Info(id_safe);
     }
 }
