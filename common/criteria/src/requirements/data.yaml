@@ -1789,6 +1789,7 @@
     - bsafss.EE_1-3
     - asvs.13_4_1
     - asvs.14_3_3
+    - pci.1_4_5
   metadata: {}
 '078':
   en:
@@ -2547,6 +2548,8 @@
     - asvs.1_2_1
     - c2m2.4_1_g
     - c2m2.8_3_c
+    - pci.1_4_3
+    - pci.1_4_4
   metadata: {}
 '114':
   en:
@@ -5308,6 +5311,7 @@
     - asvs.8_1_3
     - asvs.12_3_1
     - c2m2.9_4_d
+    - pci.1_4_3
   metadata: {}
 '174':
   en:
@@ -5543,6 +5547,8 @@
     - asvs.13_4_1
     - c2m2.9_5_a
     - c2m2.9_5_b
+    - pci.1_4_3
+    - pci.1_4_4
   metadata: {}
 '177':
   en:
@@ -7739,6 +7745,8 @@
     - nist800115.3_5
     - c2m2.9_2_c
     - c2m2.9_3_d
+    - pci.1_2_5
+    - pci.1_4_2
   metadata: {}
 '257':
   en:
@@ -7858,6 +7866,8 @@
     - iec62443.RDF-5_1
     - nistssdf.PO_5_1
     - c2m2.9_2_b
+    - pci.1_3_1
+    - pci.1_3_2
   metadata: {}
 '260':
   en:
@@ -7956,6 +7966,7 @@
     - owasprisks.P1
     - owasprisks.P2
     - asvs.13_1_3
+    - pci.1_4_5
   metadata: {}
 '262':
   en:
@@ -8248,6 +8259,7 @@
     - asvs.1_4_1
     - asvs.5_2_5
     - asvs.5_3_8
+    - pci.1_4_3
   metadata: {}
 '266':
   en:
@@ -8407,6 +8419,8 @@
     - asvs.14_4_1
     - c2m2.9_4_a
     - c2m2.9_4_c
+    - pci.1_2_2
+    - pci.1_2_6
   metadata: {}
 '273':
   en:
@@ -8474,6 +8488,7 @@
     - swiftcsc.3_1
     - c2m2.9_2_f
     - c2m2.9_3_f
+    - pci.1_5_1
   metadata: {}
 '280':
   en:
