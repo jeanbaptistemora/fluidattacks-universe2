@@ -34,6 +34,7 @@
         Groups details:<br />
         {% for group, fields in groups.items() %}
           <strong>{{ group }}:</strong>
+          ({{ fields["subscription"] }})
           {{ fields["enumerated"] }} inputs enumerated,
           {{ fields["verified"] }} inputs verified,
           {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,

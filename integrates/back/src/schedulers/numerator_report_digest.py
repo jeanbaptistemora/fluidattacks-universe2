@@ -31,6 +31,9 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
@@ -135,6 +138,7 @@ def _generate_group_fields() -> Dict[str, Any]:
         "released": 0,
         "draft_created": 0,
         "draft_rejected": 0,
+        "subscription": "-",
     }
     return fields
 
@@ -500,6 +504,13 @@ async def _generate_numerator_report(
                 ),
             ]
         )
+
+    for data in content.values():
+        for group_name in data["groups"]:
+            group_data: Group = await loaders.group.load(group_name)
+            data["groups"][group_name]["subscription"] = (
+                "os" if group_data.state.type == "ONESHOT" else "co"
+            )
 
     LOGGER.info("- general report successfully generated")
 
