@@ -1953,6 +1953,27 @@ pci:
     '1_5_1':
       title: Implement security controls on any computing devices
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_2_2':
+      title: System components are configured and managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_2_4':
+      title: Remove or disable all unnecessary functionality
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_2_5':
+      title: System components are configured and managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_2_6':
+      title: Configure secure system parameters to prevent misuse
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_2_7':
+      title: System components are configured and managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_3_1':
+      title: Wireless environments are configured and managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '2_3_2':
+      title: Wireless environments are configured and managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 soc2:
   title: SOC2®
