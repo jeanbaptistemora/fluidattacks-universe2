@@ -26,7 +26,7 @@ interface IVulnerabilitiesConnection {
 }
 
 interface IVulnerabilitiesResume {
-  treatmentAssignmentEmails: string;
+  treatmentAssignmentEmails: Set<string>;
   wheres: string;
 }
 

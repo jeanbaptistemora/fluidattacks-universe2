@@ -664,6 +664,8 @@ export const enTranslations: ResourceKey = {
       },
       filtersTooltips: {
         age: "Filter by age",
+        assigned:
+          "Filter vulnerabilities based on who is the assigned based on who is the assigned",
         lastReport: "Filter by last report",
         reattack: "Filter by reattack",
         releaseDate: "Filter by Release Date",
@@ -3234,7 +3236,7 @@ export const enTranslations: ResourceKey = {
           value: "Value is invalid, pattern '{{pattern}}'. ",
         },
       },
-      assignedTooltip: "Filter vulnerabilities based on who is the assigned",
+      assignedTooltip: "Filter locations based on who is the assigned",
       buttons: {
         edit: "Edit",
         handleAcceptance: "Treatment Acceptance",

@@ -20,8 +20,9 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
   setFindingVulnerabilities,
 }): JSX.Element => {
   const [wheres, setWheres] = useState<string>("");
-  const [treatmentAssignmentEmails, setTreatmentAssignmentEmails] =
-    useState<string>("");
+  const [treatmentAssignmentEmails, setTreatmentAssignmentEmails] = useState<
+    Set<string>
+  >(new Set([]));
   const { data, fetchMore } = useQuery<{
     finding: {
       vulnerabilitiesConnection: IVulnerabilitiesConnection | undefined;
@@ -95,21 +96,18 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
     setWheres(newWheres);
   }
 
-  const newTreatmentAssignmentEmails = [
-    ...new Set(
-      vulnerabilities.map(
+  const newTreatmentAssignmentEmails = new Set(
+    vulnerabilities
+      .map(
         (value: IVulnerabilityAttr): string | null => value.treatmentAssigned
       )
-    ),
-  ]
-    .filter(
-      (treatmentAssigned: string | null): boolean =>
-        !_.isNull(treatmentAssigned)
-    )
-    .join(", ");
-  if (
-    newTreatmentAssignmentEmails.length !== treatmentAssignmentEmails.length
-  ) {
+      .filter(
+        (treatmentAssigned: string | null): boolean =>
+          !_.isNull(treatmentAssigned)
+      ) as string[]
+  );
+
+  if (newTreatmentAssignmentEmails.size !== treatmentAssignmentEmails.size) {
     setTreatmentAssignmentEmails(newTreatmentAssignmentEmails);
   }
 

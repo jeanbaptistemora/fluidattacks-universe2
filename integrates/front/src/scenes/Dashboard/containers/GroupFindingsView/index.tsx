@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -17,6 +17,7 @@ import { locationsFormatter } from "./formatters/locationsFormatter";
 import { VulnerabilitiesLoader } from "./loaders/VulnerabilitiesLoader";
 import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
 import {
+  filterAssigned,
   formatFindings,
   formatState,
   getAreAllMutationValid,
@@ -121,6 +122,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [findingVulnerabilities, setFindingVulnerabilities] = useState<
     Record<string, IVulnerabilitiesResume>
   >({});
+  const [assignedFilter, setAssignedFilter] = useState("");
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupFindingsTable, setFilterGroupFindingsTable] =
     useStoredState<IFilterSet>(
@@ -312,10 +314,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     !_.isEmpty(data?.group.businessId) &&
     !_.isEmpty(data?.group.businessName);
 
-  const findings: IFindingAttr[] =
-    data === undefined
-      ? []
-      : formatFindings(data.group.findings, findingVulnerabilities);
+  const findings: IFindingAttr[] = useMemo(
+    (): IFindingAttr[] =>
+      data === undefined
+        ? []
+        : formatFindings(data.group.findings, findingVulnerabilities),
+    [data, findingVulnerabilities]
+  );
 
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,
@@ -395,6 +400,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     findings,
     filterGroupFindingsTable.type,
     "title"
+  );
+
+  function onAssignedChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setAssignedFilter(event.target.value);
+  }
+
+  const filterAssignedVulnerabilityFindings: IFindingAttr[] = filterAssigned(
+    findings,
+    assignedFilter
   );
 
   function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -519,6 +534,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   }
 
   const resultFindings: IFindingAttr[] = _.intersection(
+    filterAssignedVulnerabilityFindings,
     filterSearchtextFindings,
     filterCurrentStatusFindings,
     filterCurrentTreatmentFindings,
@@ -608,6 +624,21 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     return true;
   }
 
+  const treatmentAssignedOptions = useMemo(
+    (): Record<string, string> =>
+      Object.fromEntries(
+        Array.from(
+          new Set(
+            findings.flatMap((finding: IFindingAttr): string[] =>
+              _.isUndefined(finding.locationsInfo.treatmentAssignmentEmails)
+                ? []
+                : [...finding.locationsInfo.treatmentAssignmentEmails]
+            )
+          )
+        ).map((email: string): string[] => [email, email])
+      ) as Record<string, string>,
+    [findings]
+  );
   const customFilters: IFilterProps[] = [
     {
       defaultValue: filterGroupFindingsTable.lastReport,
@@ -680,6 +711,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       tooltipId: "group.findings.filtersTooltips.where.id",
       tooltipMessage: "group.findings.filtersTooltips.where",
       type: "text",
+    },
+    {
+      defaultValue: assignedFilter,
+      onChangeSelect: onAssignedChange,
+      placeholder: "Assigned",
+      selectOptions: treatmentAssignedOptions,
+      tooltipId: "group.findings.filtersTooltips.assigned.id",
+      tooltipMessage: "group.findings.filtersTooltips.assigned",
+      type: "select",
     },
     {
       defaultValue: filterGroupFindingsTable.reattack,

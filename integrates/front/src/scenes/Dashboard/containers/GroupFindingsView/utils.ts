@@ -16,6 +16,17 @@ import { translate } from "utils/translations/translate";
 
 type RemoveFindingResult = ExecutionResult<IRemoveFindingResultAttr>;
 
+function filterAssigned(
+  rows: IFindingAttr[],
+  searchOption: string
+): IFindingAttr[] {
+  return _.isEmpty(searchOption)
+    ? rows
+    : rows.filter((row): boolean =>
+        row.locationsInfo.treatmentAssignmentEmails.has(searchOption)
+      );
+}
+
 const formatReattack: (
   verificationSummary: IVerificationSummaryAttr
 ) => string = (verificationSummary: IVerificationSummaryAttr): string =>
@@ -83,11 +94,9 @@ const formatFindings = (
         findingId: finding.id,
         locations: _.get(findingLocations, finding.id, undefined)?.wheres,
         openVulnerabilities: finding.openVulnerabilities,
-        treatmentAssignmentEmails: _.get(
-          findingLocations,
-          finding.id,
-          undefined
-        )?.treatmentAssignmentEmails,
+        treatmentAssignmentEmails:
+          _.get(findingLocations, finding.id, undefined)
+            ?.treatmentAssignmentEmails ?? new Set([]),
       },
       reattack: formatReattack(finding.verificationSummary),
       treatment: formatTreatmentSummary(
@@ -223,6 +232,7 @@ const onSelectVariousFindingsHelper = (
 };
 
 export {
+  filterAssigned,
   formatFindings,
   formatState,
   formatTreatmentSummary,
