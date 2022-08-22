@@ -1,3 +1,8 @@
+# pylint: disable=import-error
+from back.test.unit.src.utils import (
+    create_dummy_info,
+    create_dummy_session,
+)
 from custom_exceptions import (
     EventNotFound,
     FindingNamePolicyNotFound,
@@ -7,6 +12,8 @@ from custom_exceptions import (
     InvalidFileType,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
+    InvalidRange,
+    InvalidSchema,
     RepeatedValues,
     VulnNotFound,
 )
@@ -42,6 +49,9 @@ from groups.domain import (
     validate_group_services_config,
     validate_group_tags,
 )
+from newutils.vulnerabilities import (
+    range_to_list,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
@@ -50,10 +60,15 @@ import pytest
 from starlette.datastructures import (
     UploadFile,
 )
+import uuid
 from vulnerabilities.domain import (
     send_treatment_report_mail,
     validate_treatment_change,
 )
+from vulnerability_files.domain import (
+    validate_file_schema,
+)
+import yaml  # type: ignore
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -277,6 +292,26 @@ async def test_validate_number_acceptances() -> None:
             loaders=get_new_context(),
             values=values_accepted,
         )
+
+
+def test_invalid_range_to_list() -> None:
+    bad_range_value = "13-12"
+    with pytest.raises(InvalidRange):
+        assert range_to_list(bad_range_value)
+
+
+async def test_validate_file_schema_invalid() -> None:
+    finding_id = "463461507"
+    request = await create_dummy_session("unittest@fluidattacks.com")
+    info = create_dummy_info(request)
+    # FP: the generated filename is unpredictable
+    file_url = (  # NOSONAR
+        f"/tmp/vulnerabilities-{uuid.uuid4()}-{finding_id}.yaml"
+    )
+    with open(file_url, "w", encoding="utf-8") as stream:
+        yaml.safe_dump("", stream)
+    with pytest.raises(InvalidSchema):  # NOQA
+        await validate_file_schema(file_url, info)
 
 
 async def test_validate_tags() -> None:

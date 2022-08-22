@@ -26,6 +26,7 @@ from findings.domain import (
     get_treatment_summary,
     has_access_to_finding,
     mask_finding,
+    verify_vulnerabilities,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -37,6 +38,7 @@ from newutils.datetime import (
 import pytest
 import time
 from typing import (
+    List,
     Tuple,
 )
 from vulnerabilities.types import (
@@ -340,3 +342,39 @@ async def test_get_treatment_summary() -> None:
         new=1,
     )
     assert expected_output == oldest_findings
+
+
+@pytest.mark.changes_db
+async def test_verify_vulnerabilities() -> None:
+    finding_id = "436992569"
+    request = await create_dummy_session("unittest@fluidattacks.com")
+    info = create_dummy_info(request)
+    user_info = {
+        "first_name": "Miguel",
+        "last_name": "de Orellana",
+        "user_email": "unittest@fluidattacks.com",
+    }
+    justification = "Vuln verified"
+    open_vulns_ids = ["587c40de-09a0-4d85-a9f9-eaa46aa895d7"]
+    closed_vulns_ids: List[str] = []
+    test_data = await verify_vulnerabilities(
+        context=info.context,
+        finding_id=finding_id,
+        user_info=user_info,
+        justification=justification,
+        open_vulns_ids=open_vulns_ids,
+        closed_vulns_ids=closed_vulns_ids,
+        vulns_to_close_from_file=[],
+        loaders=info.context.loaders,
+    )
+    expected_output = True
+    assert isinstance(test_data, bool)
+    assert test_data == expected_output
+    loaders = get_new_context()
+    finding_commets: list[
+        FindingComment
+    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
+    assert finding_commets[-1].finding_id == finding_id
+    assert finding_commets[-1].full_name == "Miguel de Orellana"
+    assert finding_commets[-1].comment_type == CommentType.VERIFICATION
+    assert finding_commets[-1].content == "Vuln verified"
