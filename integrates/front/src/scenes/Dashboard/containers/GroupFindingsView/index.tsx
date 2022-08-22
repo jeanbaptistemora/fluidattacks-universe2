@@ -14,7 +14,8 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
 import { locationsFormatter } from "./formatters/locationsFormatter";
-import { Locations } from "./loaders/Locations";
+import { VulnerabilitiesLoader } from "./loaders/VulnerabilitiesLoader";
+import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
 import {
   formatFindings,
   formatState,
@@ -117,8 +118,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
 
-  const [findingLocations, setFindingLocations] = useState<
-    Record<string, string>
+  const [findingVulnerabilities, setFindingVulnerabilities] = useState<
+    Record<string, IVulnerabilitiesResume>
   >({});
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupFindingsTable, setFilterGroupFindingsTable] =
@@ -314,7 +315,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const findings: IFindingAttr[] =
     data === undefined
       ? []
-      : formatFindings(data.group.findings, findingLocations);
+      : formatFindings(data.group.findings, findingVulnerabilities);
 
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,
@@ -834,17 +835,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           </Form>
         </Formik>
       </Modal>
-      {checkedItems.locationsInfo
-        ? findings.map(
-            (finding: IFindingAttr): JSX.Element => (
-              <Locations
-                findingId={finding.id}
-                key={finding.id}
-                setFindingLocations={setFindingLocations}
-              />
-            )
-          )
-        : undefined}
+      {findings.map(
+        (finding: IFindingAttr): JSX.Element => (
+          <VulnerabilitiesLoader
+            findingId={finding.id}
+            key={finding.id}
+            setFindingVulnerabilities={setFindingVulnerabilities}
+          />
+        )
+      )}
     </React.StrictMode>
   );
 };

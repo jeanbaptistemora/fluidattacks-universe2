@@ -6,19 +6,20 @@ import React, { useEffect, useState } from "react";
 
 import { GET_FINDING_LOCATIONS } from "./queries";
 import type {
-  ILocationsProps,
   IVulnerabilitiesConnection,
+  IVulnerabilitiesLoaderProps,
+  IVulnerabilitiesResume,
   IVulnerabilityAttr,
   IVulnerabilityEdge,
 } from "./types";
 
 import { Logger } from "utils/logger";
 
-const Locations: React.FC<ILocationsProps> = ({
+const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
   findingId,
-  setFindingLocations,
+  setFindingVulnerabilities,
 }): JSX.Element => {
-  const [locations, setLocations] = useState<string>("");
+  const [wheres, setWheres] = useState<string>("");
   const { data, fetchMore } = useQuery<{
     finding: {
       vulnerabilitiesConnection: IVulnerabilitiesConnection | undefined;
@@ -61,15 +62,20 @@ const Locations: React.FC<ILocationsProps> = ({
   }, [pageInfo, fetchMore]);
 
   useEffect((): void => {
-    if (!_.isEmpty(locations)) {
-      setFindingLocations(
-        (prevState: Record<string, string>): Record<string, string> => ({
+    if (!_.isEmpty(wheres)) {
+      setFindingVulnerabilities(
+        (
+          prevState: Record<string, IVulnerabilitiesResume>
+        ): Record<string, IVulnerabilitiesResume> => ({
           ...prevState,
-          [findingId]: locations,
+          [findingId]: {
+            assignments: wheres,
+            wheres,
+          },
         })
       );
     }
-  }, [findingId, setFindingLocations, locations]);
+  }, [findingId, setFindingVulnerabilities, wheres]);
 
   if (
     _.isUndefined(pageInfo) ||
@@ -78,17 +84,17 @@ const Locations: React.FC<ILocationsProps> = ({
     return <div />;
   }
 
-  const newLocations = [
+  const newWheres = [
     ...new Set(
       vulnerabilities.map((value: { where: string }): string => value.where)
     ),
   ].join(", ");
 
-  if (newLocations.length !== locations.length) {
-    setLocations(newLocations);
+  if (newWheres.length !== wheres.length) {
+    setWheres(newWheres);
   }
 
   return <div />;
 };
 
-export { Locations };
+export { VulnerabilitiesLoader };

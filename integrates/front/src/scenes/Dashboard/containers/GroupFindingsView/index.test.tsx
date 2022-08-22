@@ -6,7 +6,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_FINDING_LOCATIONS } from "./loaders/Locations/queries";
+import { GET_FINDING_LOCATIONS } from "./loaders/VulnerabilitiesLoader/queries";
 
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";

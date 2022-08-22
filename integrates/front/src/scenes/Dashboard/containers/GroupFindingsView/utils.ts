@@ -1,6 +1,8 @@
 import type { ExecutionResult } from "graphql";
 import _ from "lodash";
 
+import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
+
 import type { IRemoveFindingResultAttr } from "../FindingContent/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
@@ -70,7 +72,7 @@ const formatClosingPercentage = (finding: IFindingAttr): number => {
 
 const formatFindings = (
   findings: IFindingAttr[],
-  findingLocations: Record<string, string>
+  findingLocations: Record<string, IVulnerabilitiesResume>
 ): IFindingAttr[] =>
   findings.map(
     (finding): IFindingAttr => ({
@@ -79,7 +81,7 @@ const formatFindings = (
       locationsInfo: {
         closedVulnerabilities: finding.closedVulnerabilities,
         findingId: finding.id,
-        locations: _.get(findingLocations, finding.id, undefined),
+        locations: _.get(findingLocations, finding.id, undefined)?.wheres,
         openVulnerabilities: finding.openVulnerabilities,
       },
       reattack: formatReattack(finding.verificationSummary),

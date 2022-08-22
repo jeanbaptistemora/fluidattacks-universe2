@@ -24,7 +24,7 @@ import type {
   IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/Locations/queries";
+import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";

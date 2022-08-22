@@ -1,12 +1,15 @@
-interface ILocationsProps {
+interface IVulnerabilitiesLoaderProps {
   findingId: string;
-  setFindingLocations: (
-    setStateFn: (prevState: Record<string, string>) => Record<string, string>
+  setFindingVulnerabilities: (
+    setStateFn: (
+      prevState: Record<string, IVulnerabilitiesResume>
+    ) => Record<string, IVulnerabilitiesResume>
   ) => void;
 }
 
 interface IVulnerabilityAttr {
   id: string;
+  treatmentAssigned: string | null;
   where: string;
 }
 
@@ -22,6 +25,11 @@ interface IVulnerabilitiesConnection {
   };
 }
 
+interface IVulnerabilitiesResume {
+  assignments: string;
+  wheres: string;
+}
+
 interface IFindingAttr {
   id: string;
   vulnerabilitiesToReattackConnection: IVulnerabilitiesConnection;
@@ -31,6 +39,7 @@ export type {
   IFindingAttr,
   IVulnerabilityEdge,
   IVulnerabilitiesConnection,
+  IVulnerabilitiesResume,
   IVulnerabilityAttr,
-  ILocationsProps,
+  IVulnerabilitiesLoaderProps,
 };
