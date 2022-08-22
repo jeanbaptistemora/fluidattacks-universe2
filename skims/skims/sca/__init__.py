@@ -20,6 +20,7 @@ from typing import (
     Dict,
     Iterable,
     List,
+    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -77,7 +78,7 @@ def semver_match(left: str, right: str) -> bool:
 
 async def get_remote_advisories(
     pkg_name: str, platform: str
-) -> Dict[str, str]:
+) -> List[Tuple[str, str]]:
     remote_ads: Iterable[Advisory] = await AdvisoriesLoader().load(
         (platform.lower(), pkg_name)
     )
@@ -94,7 +95,7 @@ async def get_remote_advisories(
             advisories.update(
                 {advisory.associated_advisory: advisory.vulnerable_version}
             )
-    return dict(sorted(advisories.items()))
+    return sorted(advisories.items())
 
 
 async def get_vulnerabilities(
@@ -105,14 +106,12 @@ async def get_vulnerabilities(
     product = product.lower()
     version = version.lower()
 
-    advisories: Dict[str, str] = await get_remote_advisories(
-        product, platform.value
-    )
+    advisories = await get_remote_advisories(product, platform.value)
 
     if advisories:
         vulnerabilities: List[str] = [
             ref
-            for ref, constraints in advisories.items()
+            for ref, constraints in advisories
             if semver_match(version, constraints)
         ]
 
