@@ -489,13 +489,13 @@ describe("Organization users view", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(TEST_LENGTH);
     });
 
-    expect(screen.queryAllByRole("radio")[0]).not.toBeChecked();
-    expect(screen.queryAllByRole("radio")[1]).not.toBeChecked();
+    expect(screen.queryAllByRole("checkbox")[1]).not.toBeChecked();
+    expect(screen.queryAllByRole("checkbox")[2]).not.toBeChecked();
     expect(
       screen.getByText("organization.tabs.users.removeButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.queryAllByRole("radio")[1]);
+    userEvent.click(screen.queryAllByRole("checkbox")[2]);
 
     await waitFor((): void => {
       expect(
@@ -503,7 +503,7 @@ describe("Organization users view", (): void => {
       ).not.toBeDisabled();
     });
 
-    expect(screen.queryAllByRole("radio")[1]).toBeChecked();
+    expect(screen.queryAllByRole("checkbox")[2]).toBeChecked();
 
     userEvent.click(
       screen.getByText("organization.tabs.users.removeButton.text")
@@ -523,7 +523,7 @@ describe("Organization users view", (): void => {
     });
 
     expect(screen.queryAllByRole("row")).toHaveLength(2);
-    expect(screen.queryAllByRole("radio")[0]).not.toBeChecked();
+    expect(screen.queryAllByRole("checkbox")[0]).not.toBeChecked();
   });
 
   it("should handle query errors", async (): Promise<void> => {

@@ -1929,6 +1929,7 @@ export const enTranslations: ResourceKey = {
           tooltip: "Add new user to the organization",
         },
         editButton: {
+          disabled: "Please choose only one user to edit",
           success: "was successfully edited",
           text: "Edit",
           tooltip: "Edit user information",
@@ -1938,7 +1939,11 @@ export const enTranslations: ResourceKey = {
         removeButton: {
           confirmMessage: "will be removed from the organization",
           confirmTitle: "Remove stakeholder?",
+          // eslint-disable-next-line camelcase -- It is required for react-i18next
+          confirmTitle_plural: "Remove stakeholders?",
           success: "was successfully removed from the organization",
+          successPlural:
+            "Many users were successfully removed from the organization",
           text: "Remove",
           tooltip: "Remove stakeholder from the organization",
         },

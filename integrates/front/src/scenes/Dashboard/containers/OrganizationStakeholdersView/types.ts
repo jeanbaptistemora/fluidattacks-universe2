@@ -32,6 +32,11 @@ interface IOrganizationStakeholders {
 }
 
 interface IRemoveStakeholderAttrs {
+  organizationId: string;
+  userEmail: string;
+}
+
+interface IRemoveStakeholderResult {
   removeStakeholderOrganizationAccess: {
     success: boolean;
   };
@@ -65,6 +70,7 @@ export type {
   IUpdateStakeholderAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
+  IRemoveStakeholderResult,
   IStakeholderAttrs,
   IStakeholderDataSet,
 };

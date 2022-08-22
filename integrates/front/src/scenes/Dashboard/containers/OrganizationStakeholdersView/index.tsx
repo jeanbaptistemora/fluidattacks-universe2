@@ -36,10 +36,15 @@ import type {
   IGetOrganizationStakeholders,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
+  IRemoveStakeholderResult,
   IStakeholderAttrs,
   IStakeholderDataSet,
   IUpdateStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import {
+  getAreAllMutationValid,
+  removeMultipleAccess,
+} from "scenes/Dashboard/containers/OrganizationStakeholdersView/utils";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -196,31 +201,10 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
     onError: handleMtError,
   });
 
-  const [removeStakeholderAccess, { loading: removing }] = useMutation(
-    REMOVE_STAKEHOLDER_MUTATION,
-    {
-      onCompleted: async (mtResult: IRemoveStakeholderAttrs): Promise<void> => {
-        if (mtResult.removeStakeholderOrganizationAccess.success) {
-          await refetchStakeholders();
-
-          mixpanel.track("RemoveUserOrganizationAccess", {
-            Organization: organizationName,
-          });
-          msgSuccess(
-            `${currentRow[0]?.email} ${t(
-              "organization.tabs.users.removeButton.success"
-            )}`,
-            t("organization.tabs.users.successTitle")
-          );
-          setCurrentRow([]);
-        }
-      },
-      onError: (removeError: ApolloError): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred removing stakeholder", removeError);
-      },
-    }
-  );
+  const [removeStakeholderAccess, { loading: removing }] = useMutation<
+    IRemoveStakeholderResult,
+    IRemoveStakeholderAttrs
+  >(REMOVE_STAKEHOLDER_MUTATION);
 
   // Auxiliary elements
   const handleSubmit: (values: IStakeholderAttrs) => void = useCallback(
@@ -253,15 +237,54 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
     ]
   );
 
+  const validMutationsHelper = useCallback(
+    async (areAllMutationValid: boolean[]): Promise<void> => {
+      if (areAllMutationValid.every(Boolean)) {
+        await refetchStakeholders();
+
+        mixpanel.track("RemoveUserOrganizationAccess", {
+          Organization: organizationName,
+        });
+        if (areAllMutationValid.length === 1) {
+          msgSuccess(
+            `${currentRow[0]?.email} ${t(
+              "organization.tabs.users.removeButton.success"
+            )}`,
+            t("organization.tabs.users.successTitle")
+          );
+        } else {
+          msgSuccess(
+            t("organization.tabs.users.removeButton.successPlural"),
+            t("organization.tabs.users.successTitle")
+          );
+        }
+        setCurrentRow([]);
+      }
+    },
+    [currentRow, organizationName, refetchStakeholders, t]
+  );
+
   const handleRemoveStakeholder = useCallback(async (): Promise<void> => {
-    await removeStakeholderAccess({
-      variables: {
-        organizationId,
-        userEmail: currentRow[0]?.email,
-      },
-    });
-    setStakeholderModalAction("add");
-  }, [currentRow, organizationId, removeStakeholderAccess]);
+    try {
+      const results = await removeMultipleAccess(
+        removeStakeholderAccess,
+        currentRow,
+        organizationId
+      );
+      await validMutationsHelper(getAreAllMutationValid(results));
+    } catch (removeError: unknown) {
+      msgError(t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred removing stakeholder", removeError);
+    } finally {
+      setStakeholderModalAction("add");
+    }
+  }, [
+    currentRow,
+    organizationId,
+    removeStakeholderAccess,
+    t,
+    validMutationsHelper,
+  ]);
 
   const stakeholdersList: IStakeholderDataSet[] =
     _.isUndefined(data) || _.isEmpty(data)
@@ -324,11 +347,18 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
               <Tooltip
                 disp={"inline-block"}
                 id={"organization.tabs.users.editButton.tooltip.btn"}
-                tip={t("organization.tabs.users.editButton.tooltip")}
+                tip={
+                  currentRow.length > 1
+                    ? t("organization.tabs.users.editButton.disabled")
+                    : t("organization.tabs.users.editButton.tooltip")
+                }
               >
                 <Button
                   disabled={
-                    _.isEmpty(currentRow) || removing || loadingStakeholders
+                    _.isEmpty(currentRow) ||
+                    removing ||
+                    loadingStakeholders ||
+                    currentRow.length > 1
                   }
                   id={"editUser"}
                   onClick={openEditStakeholderModal}
@@ -341,10 +371,14 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
               </Tooltip>
 
               <ConfirmDialog
-                message={`${currentRow[0]?.email} ${t(
+                message={`${currentRow
+                  .map((user: IStakeholderDataSet): string => user.email)
+                  .join(", ")} ${t(
                   "organization.tabs.users.removeButton.confirmMessage"
                 )}`}
-                title={t("organization.tabs.users.removeButton.confirmTitle")}
+                title={t("organization.tabs.users.removeButton.confirmTitle", {
+                  count: currentRow.length,
+                })}
               >
                 {(confirm): React.ReactNode => {
                   function handleClick(): void {
@@ -380,7 +414,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           id={"tblUsers"}
           rowSelectionSetter={setCurrentRow}
           rowSelectionState={currentRow}
-          selectionMode={"radio"}
+          selectionMode={"checkbox"}
         />
         <AddUserModal
           action={stakeholderModalAction}
