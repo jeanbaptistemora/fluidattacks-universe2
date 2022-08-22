@@ -8,6 +8,7 @@ makeTemplate {
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli
+      inputs.nixpkgs.jq
     ];
     source = [
       outputs."/common/utils/env"
