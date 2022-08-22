@@ -243,6 +243,10 @@ def sync_computer_activity(
             paging = response_obj.get("paging", "")
 
             for record in computer_activity:
+                project_id = record["numbers"][0]["meta"].get(
+                    ["projectId"], ""
+                )
+
                 stdout_json_obj: JSON = {
                     "type": "RECORD",
                     "stream": "computer_activity",
@@ -255,10 +259,7 @@ def sync_computer_activity(
                         "mousemovements": record["numbers"][0]["meta"][
                             "movements"
                         ],
-                        "project_id": project_dict.get(
-                            record["numbers"][0]["meta"]["projectId"],
-                            "Deleted",
-                        ),
+                        "project_id": project_dict.get(project_id, "Deleted"),
                     },
                 }
 
