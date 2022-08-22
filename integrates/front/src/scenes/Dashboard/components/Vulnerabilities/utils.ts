@@ -177,6 +177,7 @@ function filterAssigned(
 
   return vulnerabilities.filter(
     (vulnerability: IVulnRowAttr): boolean =>
+      vulnerability.currentState === "open" &&
       vulnerability.treatmentAssigned === assigned
   );
 }

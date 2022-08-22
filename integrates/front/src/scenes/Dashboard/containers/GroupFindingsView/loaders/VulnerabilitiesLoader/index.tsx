@@ -98,13 +98,15 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
 
   const newTreatmentAssignmentEmails = new Set(
     vulnerabilities
-      .map(
-        (value: IVulnerabilityAttr): string | null => value.treatmentAssigned
-      )
       .filter(
-        (treatmentAssigned: string | null): boolean =>
-          !_.isNull(treatmentAssigned)
-      ) as string[]
+        (vulnerability: IVulnerabilityAttr): boolean =>
+          vulnerability.currentState === "open" &&
+          !_.isNull(vulnerability.treatmentAssigned)
+      )
+      .map(
+        (vulnerability: IVulnerabilityAttr): string =>
+          vulnerability.treatmentAssigned as string
+      )
   );
 
   if (newTreatmentAssignmentEmails.size !== treatmentAssignmentEmails.size) {

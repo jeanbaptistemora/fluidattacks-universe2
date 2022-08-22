@@ -715,7 +715,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       defaultValue: assignedFilter,
       onChangeSelect: onAssignedChange,
-      placeholder: "Assigned",
+      placeholder: "Assignee",
       selectOptions: treatmentAssignedOptions,
       tooltipId: "group.findings.filtersTooltips.assigned.id",
       tooltipMessage: "group.findings.filtersTooltips.assigned",

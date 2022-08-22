@@ -195,10 +195,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
     vulnerabilitiesConnection === undefined
       ? undefined
       : vulnerabilitiesConnection.pageInfo;
-  const nzrVulnsEdges: IVulnerabilityEdge[] =
-    vulnerabilitiesConnection === undefined
-      ? []
-      : vulnerabilitiesConnection.edges;
+  const nzrVulnsEdges: IVulnerabilityEdge[] = useMemo(
+    (): IVulnerabilityEdge[] =>
+      vulnerabilitiesConnection === undefined
+        ? []
+        : vulnerabilitiesConnection.edges,
+    [vulnerabilitiesConnection]
+  );
   const {
     data: zrVulnsData,
     fetchMore: zrFetchMore,
@@ -241,17 +244,21 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const treatmentAssignedOptions = useMemo(
     (): Record<string, string> =>
       Object.fromEntries(
-        unformattedVulns
-          .map((vulnerability: IVulnRowAttr): (string | null)[] => [
-            vulnerability.treatmentAssigned,
-            vulnerability.treatmentAssigned,
-          ])
+        nzrVulnsEdges
           .filter(
-            (assignedOption: (string | null)[]): boolean =>
-              !_.isNull(assignedOption[0])
+            (vulnerabilityEdge: IVulnerabilityEdge): boolean =>
+              vulnerabilityEdge.node.currentState === "open" &&
+              !_.isNull(vulnerabilityEdge.node.treatmentAssigned)
+          )
+          .map(
+            (vulnerabilityEdge: IVulnerabilityEdge): string[] =>
+              [
+                vulnerabilityEdge.node.treatmentAssigned,
+                vulnerabilityEdge.node.treatmentAssigned,
+              ] as string[]
           )
       ) as Record<string, string>,
-    [unformattedVulns]
+    [nzrVulnsEdges]
   );
 
   useEffect((): void => {
@@ -572,7 +579,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     {
       defaultValue: assignedFilter,
       onChangeSelect: onAssignedChange,
-      placeholder: "Assigned",
+      placeholder: "Assignee",
       selectOptions: treatmentAssignedOptions,
       tooltipId: "searchFindings.tabVuln.assignedTooltip.id",
       tooltipMessage: "searchFindings.tabVuln.assignedTooltip",

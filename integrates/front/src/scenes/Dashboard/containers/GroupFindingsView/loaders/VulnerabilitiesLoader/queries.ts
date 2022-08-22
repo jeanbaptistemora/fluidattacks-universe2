@@ -9,6 +9,7 @@ const GET_FINDING_LOCATIONS: DocumentNode = gql`
       vulnerabilitiesConnection(after: $after, first: $first) {
         edges {
           node {
+            currentState
             id
             treatmentAssigned
             where

@@ -8,6 +8,7 @@ interface IVulnerabilitiesLoaderProps {
 }
 
 interface IVulnerabilityAttr {
+  currentState: "closed" | "open";
   id: string;
   treatmentAssigned: string | null;
   where: string;
