@@ -21,7 +21,6 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/env"
-      outputs."/common/utils/sops"
       outputs."/skims/config/runtime"
     ];
   };

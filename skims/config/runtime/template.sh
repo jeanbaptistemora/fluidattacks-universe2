@@ -6,6 +6,5 @@ fi
 export PYTHONHASHSEED=0
 
 function skims {
-  aws_login_dev \
-    && python '__argSrcSkimsSkims__/cli/__init__.py' "$@"
+  python '__argSrcSkimsSkims__/cli/__init__.py' "$@"
 }

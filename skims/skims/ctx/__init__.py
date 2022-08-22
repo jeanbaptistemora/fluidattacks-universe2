@@ -43,8 +43,8 @@ TOOLS_SEMVER_MATCH = _get_artifact("SKIMS_TOOLS_SEMVER_MATCH")
 TREE_SITTER_PARSERS = _get_artifact("SKIMS_TREE_SITTER_PARSERS")
 VENDOR = _get_artifact("SKIMS_VENDOR")
 
-AWS_ACCESS_KEY_ID = _get_artifact("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = _get_artifact("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = environ.get("AWS_SESSION_TOKEN")
 DB_MODEL_PATH = _get_artifact("SKIMS_DB_MODEL_PATH")
 # not secrets but must be environment vars
