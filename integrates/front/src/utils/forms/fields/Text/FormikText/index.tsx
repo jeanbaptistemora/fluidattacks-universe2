@@ -10,6 +10,7 @@ interface ITextProps extends FieldProps<string, Record<string, string>> {
   max: number | string;
   min: number | string;
   placeholder: string;
+  step: number | string | undefined;
   type: string;
   className: string;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -28,6 +29,7 @@ export const FormikText: React.FC<ITextProps> = ({
   max,
   min,
   placeholder,
+  step,
   type,
 }: Readonly<ITextProps>): JSX.Element => {
   const { name, onBlur, onChange, value } = field;
@@ -57,6 +59,7 @@ export const FormikText: React.FC<ITextProps> = ({
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
+        step={step}
         type={type}
         value={value}
       />
