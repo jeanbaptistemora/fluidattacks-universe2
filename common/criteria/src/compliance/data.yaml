@@ -1923,6 +1923,36 @@ pci:
     A2_1:
       title: Where POS POI terminals use SSL or early TLS
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_2_2':
+      title: Network security controls are configured and maintained
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_2_5':
+      title: Network security controls are configured and maintained
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_2_6':
+      title: Network security controls are configured and maintained
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_3_1':
+      title: Inbound traffic to the cardholder data environment is restricted
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_3_2':
+      title: Outbound traffic to the cardholder data environment is restricted
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_4_2':
+      title: Restrict inbound traffic from untrusted networks
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_4_3':
+      title: Implement anti-spoofing measures
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_4_4':
+      title: Network connections between trusted and untrusted networks are controlled
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_4_5':
+      title: Do not disclosure of internal IP addresses and routing information
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '1_5_1':
+      title: Implement security controls on any computing devices
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 soc2:
   title: SOC2®
