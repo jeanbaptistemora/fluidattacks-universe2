@@ -37,13 +37,12 @@ async def _get_execution(group_name: str, execution_id: str) -> Any:
         if "closed" not in result["vulnerabilities"]:
             result["vulnerabilities"]["closed"] = []
         # Compatibility with old API
-        result["project_name"] = result.get("subscription")
         result["group_name"] = result.get("subscription")
         return result
     return {}
 
 
-class OrganizationLoader(DataLoader):
+class ForcesExecutionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, forces_keys: Iterable[tuple[str, str]]

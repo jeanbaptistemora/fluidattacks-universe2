@@ -4,6 +4,9 @@ from collections import (
 from dataloaders.finding_comments.finding_comments import (
     FindingCommentsLoader,
 )
+from dataloaders.forces import (
+    ForcesExecutionLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -131,6 +134,7 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities_zr_c: (
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
+    forces_execution: ForcesExecutionLoader
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
@@ -261,6 +265,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         finding_vulnerabilities_zr_c=(
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
+        forces_execution=ForcesExecutionLoader(),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=group_loader,
         group_access=group_access_loader,
