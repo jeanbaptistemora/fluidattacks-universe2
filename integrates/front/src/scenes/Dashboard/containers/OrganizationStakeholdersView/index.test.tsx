@@ -117,7 +117,7 @@ describe("Organization users view", (): void => {
       within(screen.queryAllByRole("row")[2]).getByRole("cell", { name: "-" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.queryAllByRole("row")[1]);
+    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
 
     await waitFor((): void => {
       expect(
@@ -358,7 +358,7 @@ describe("Organization users view", (): void => {
         screen.getByText("organization.tabs.users.editButton.text")
       ).toBeDisabled();
     });
-    userEvent.click(screen.queryAllByRole("row")[1]);
+    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.getByText("organization.tabs.users.editButton.text")
@@ -681,7 +681,7 @@ describe("Organization users view", (): void => {
       screen.getByText("organization.tabs.users.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.queryAllByRole("row")[1]);
+    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.getByText("organization.tabs.users.editButton.text")

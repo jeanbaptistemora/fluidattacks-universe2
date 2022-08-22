@@ -6,6 +6,7 @@ import {
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -15,16 +16,12 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import {
-  getStakeHolderIndex,
-  handleGrantError,
-} from "../GroupStakeholdersView/helpers";
+import { handleGrantError } from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table } from "components/Table";
-import { timeFromNow } from "components/Table/formatters";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table as Tablezz } from "components/TableNew";
+import { timeFromNow } from "components/TableNew/formatters/timeFromNow";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -47,42 +44,40 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const tableHeaders: IHeaderConfig[] = [
+const tableheaderszz: ColumnDef<IStakeholderDataSet>[] = [
   {
-    dataField: "email",
+    accessorKey: "email",
     header: translate.t("searchFindings.usersTable.usermail"),
-    width: "33%",
   },
   {
-    dataField: "role",
-    formatter: (value: string): string =>
-      translate.t(`userModal.roles.${_.camelCase(value)}`, {
+    accessorKey: "role",
+    cell: (cell: ICellHelper<IStakeholderDataSet>): string =>
+      translate.t(`userModal.roles.${_.camelCase(cell.getValue())}`, {
         defaultValue: "-",
       }),
     header: translate.t("searchFindings.usersTable.userRole"),
-    width: "20%",
   },
   {
-    dataField: "firstLogin",
+    accessorKey: "firstLogin",
     header: translate.t("searchFindings.usersTable.firstlogin"),
-    width: "20%",
   },
   {
-    dataField: "lastLogin",
-    formatter: timeFromNow,
+    accessorKey: "lastLogin",
+    cell: (cell: ICellHelper<IStakeholderDataSet>): string =>
+      timeFromNow(cell.getValue()),
     header: translate.t("searchFindings.usersTable.lastlogin"),
-    width: "20%",
   },
   {
-    dataField: "invitationState",
-    formatter: statusFormatter,
+    accessorKey: "invitationState",
+    cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
+      statusFormatter(cell.getValue()),
     header: translate.t("searchFindings.usersTable.invitationState"),
-    width: "80px",
   },
   {
-    dataField: "invitationResend",
+    accessorKey: "invitationResend",
+    cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
+      cell.getValue(),
     header: translate.t("searchFindings.usersTable.invitation"),
-    width: "80px",
   },
 ];
 
@@ -123,12 +118,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
   const { organizationName } = useParams<{ organizationName: string }>();
 
   // State management
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
+  const [currentRow, setCurrentRow] = useState<IStakeholderDataSet[]>([]);
   const [isStakeholderModalOpen, setIsStakeholderModalOpen] = useState(false);
   const [stakeholderModalAction, setStakeholderModalAction] = useState<
     "add" | "edit"
   >("add");
-  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openAddStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("add");
@@ -196,7 +190,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           `${email} ${t("organization.tabs.users.editButton.success")}`,
           t("organization.tabs.users.successTitle")
         );
-        setCurrentRow({});
+        setCurrentRow([]);
       }
     },
     onError: handleMtError,
@@ -213,12 +207,12 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
             Organization: organizationName,
           });
           msgSuccess(
-            `${currentRow.email} ${t(
+            `${currentRow[0]?.email} ${t(
               "organization.tabs.users.removeButton.success"
             )}`,
             t("organization.tabs.users.successTitle")
           );
-          setCurrentRow({});
+          setCurrentRow([]);
         }
       },
       onError: (removeError: ApolloError): void => {
@@ -263,19 +257,13 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
     await removeStakeholderAccess({
       variables: {
         organizationId,
-        userEmail: currentRow.email,
+        userEmail: currentRow[0]?.email,
       },
     });
     setStakeholderModalAction("add");
-  }, [currentRow.email, organizationId, removeStakeholderAccess]);
+  }, [currentRow, organizationId, removeStakeholderAccess]);
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-
-  const stakeholdersList: IStakeholderAttrs[] =
+  const stakeholdersList: IStakeholderDataSet[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? []
       : data.organization.stakeholders.map(
@@ -309,22 +297,13 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           }
         );
 
-  const filterSearchtextResult: IStakeholderAttrs[] = filterSearchText(
-    stakeholdersList,
-    searchTextFilter
-  );
-
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <Table
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={filterSearchtextResult}
+        <Tablezz
+          columns={tableheaderszz}
+          data={stakeholdersList}
+          enableRowSelection={true}
           exportCsv={true}
           extraButtons={
             <React.Fragment>
@@ -363,7 +342,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
               </Tooltip>
 
               <ConfirmDialog
-                message={`${currentRow.email} ${t(
+                message={`${currentRow[0]?.email} ${t(
                   "organization.tabs.users.removeButton.confirmMessage"
                 )}`}
                 title={t("organization.tabs.users.removeButton.confirmTitle")}
@@ -399,26 +378,19 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
               </ConfirmDialog>
             </React.Fragment>
           }
-          headers={tableHeaders}
           id={"tblUsers"}
-          pageSize={10}
-          search={false}
-          selectionMode={{
-            clickToSelect: true,
-            mode: "radio",
-            onSelect: setCurrentRow,
-            selected: getStakeHolderIndex(
-              _.isEmpty(currentRow)
-                ? []
-                : [currentRow as unknown as IStakeholderAttrs],
-              filterSearchtextResult
-            ),
-          }}
+          rowSelectionSetter={setCurrentRow}
+          rowSelectionState={currentRow}
+          selectionMode={"radio"}
         />
         <AddUserModal
           action={stakeholderModalAction}
           editTitle={t("organization.tabs.users.modalEditTitle")}
-          initialValues={stakeholderModalAction === "edit" ? currentRow : {}}
+          initialValues={
+            stakeholderModalAction === "edit"
+              ? (currentRow[0] as unknown as Record<string, string>)
+              : {}
+          }
           onClose={closeStakeholderModal}
           onSubmit={handleSubmit}
           open={isStakeholderModalOpen}
