@@ -133,8 +133,9 @@ async def main(
     repo = get_repo(repository, search_parent_directories=False)
 
     vulnerabilities = [
-        vulnerability
-        async for vulnerability in iterate_vulnerabilities_to_rebase(
+        vuln
+        # Exception: WF(AsyncGenerator is subtype of iterator)
+        async for vuln in iterate_vulnerabilities_to_rebase(  # NOSONAR
             group=group,
             namespace=namespace,
         )
