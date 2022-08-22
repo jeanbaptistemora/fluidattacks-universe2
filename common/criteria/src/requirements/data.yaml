@@ -72,8 +72,6 @@
     - nist80053.AC-2_2
     - nist80053.AC-12
     - owasp10.A7
-    - pci.6_5_10
-    - pci.8_1_8
     - padss.3_1_11
     - cmmc.AC_L2-3_1_11
     - cmmc.IA_L2-3_5_6
@@ -183,7 +181,6 @@
     - cwe.384
     - nist80063.7_1
     - owasp10.A7
-    - pci.6_5_10
     - nist.PR_AC-1
     - nydfs.500_10
     - mitre.M1018
@@ -231,7 +228,6 @@
     - capec.39
     - capec.74
     - cwe.642
-    - pci.6_5_10
     - certj.LCK11-J
     - certj.MSC11-J
     - mitre.M1041
@@ -268,7 +264,6 @@
   references:
     - nist80053.AC-2_2
     - nist80053.AC-2_13
-    - pci.6_5_10
     - mitre.M1036
     - cmmc.AC_L2-3_1_10
     - owasprisks.P8
@@ -329,7 +324,6 @@
     - cwe.613
     - nist80063.7_1
     - owasp10.A7
-    - pci.6_5_10
     - fedramp.AC-2_5
     - wassec.3_1
     - owasprisks.P8
@@ -403,9 +397,6 @@
     - owasp10.A2
     - owasp10.A3
     - owasp10.A7
-    - pci.6_5_7
-    - pci.6_5_9
-    - pci.6_5_10
     - mitre.M1021
     - padss.5_2_7
     - padss.5_2_9
@@ -500,7 +491,6 @@
     - nist80063.7_1
     - owasp10.A7
     - owasp10.A8
-    - pci.6_5_10
     - owaspm10.M2
     - owaspm10.M3
     - certj.IDS14-J
@@ -593,7 +583,6 @@
     - cwe.613
     - nist80063.7_1
     - owasp10.A7
-    - pci.6_5_10
     - owaspm10.M6
     - cmmc.AC_L2-3_1_11
     - cmmc.SC_L2-3_13_9
@@ -686,7 +675,6 @@
     - cwe.598
     - owasp10.A2
     - owasp10.A3
-    - pci.6_5_10
     - owaspm10.M2
     - nist.PR_DS-5
     - certj.IDS14-J
@@ -763,11 +751,6 @@
   references:
     - cwe.419
     - owasp10.A1
-    - pci.1_2_1
-    - pci.1_2_2
-    - pci.1_3_6
-    - pci.6_5_8
-    - pci.8_7
     - nist.PR_AC-6
     - bizec.APP-04
     - nyshield.5575_B_6
@@ -821,7 +804,6 @@
     - iso27001.9_2_1
     - iso27001.9_2_2
     - nerccip.004-6_R5
-    - pci.8_1_2
     - soc2.CC6_2
     - mitre.M1018
     - mitre.M1026
@@ -888,8 +870,6 @@
     - cwe.639
     - iso27001.9_2_3
     - owasp10.A1
-    - pci.6_5_8
-    - pci.8_1_2
     - owaspm10.M6
     - nist.PR_AC-1
     - nist.DE_DP-1
@@ -1004,7 +984,6 @@
     - cwe.641
     - owasp10.A2
     - owasp10.A3
-    - pci.6_5_10
     - owaspm10.M8
     - sans25.22
     - wasc.A_34
@@ -1134,7 +1113,6 @@
     - cwe.509
     - cwe.749
     - nerccip.003-8_5_1
-    - pci.5_1_1
     - mitre.M1016
     - mitre.M1049
     - sans25.434
@@ -1299,10 +1277,6 @@
     - capec.176
     - cwe.778
     - owasp10.A9
-    - pci.10_2_2
-    - pci.10_2_6
-    - pci.10_4_2
-    - pci.10_5_5
     - owaspm10.M2
     - nist.PR_DS-6
     - certj.FIO00-J
@@ -1387,8 +1361,6 @@
     - owasp10.A3
     - owasp10.A5
     - owasp10.A8
-    - pci.6_5_1
-    - pci.6_5_7
     - owaspm10.M9
     - padss.5_2_1
     - sans25.94
@@ -1482,13 +1454,6 @@
     - gdpr.32_1b
     - owasp10.A4
     - owasp10.A5
-    - pci.1_2_2
-    - pci.1_3_4
-    - pci.1_3_5
-    - pci.2_2_3
-    - pci.2_2_4
-    - pci.6_2
-    - pci.6_3
     - soc2.CC5_1
     - soc2.CC5_2
     - nist.PR_DS-4
@@ -1707,13 +1672,6 @@
     - nerccip.007-6_R4_1
     - owasp10.A9
     - pci.A1_3
-    - pci.10_2_1
-    - pci.10_2_2
-    - pci.10_2_3
-    - pci.10_2_4
-    - pci.10_2_5
-    - pci.10_2_6
-    - pci.10_2_7
     - nist.DE_AE-5
     - nydfs.500_14
     - mitre.M1029
@@ -1811,8 +1769,6 @@
     - capec.224
     - cwe.209
     - cwe.210
-    - pci.1_3_7
-    - pci.6_5_5
     - agile.9
     - padss.5_2_5
     - cmmc.AT_L2-3_2_1
@@ -1860,7 +1816,6 @@
     - cwe.497
     - cwe.1269
     - owasp10.A5
-    - pci.6_5_5
     - nist.PR_DS-7
     - certj.ENV06-J
     - padss.5_2_5
@@ -1906,7 +1861,6 @@
     - cis.8_5
     - cwe.778
     - owasp10.A9
-    - pci.10_3
     - soc2.P6_2
     - soc2.P6_3
     - nist.DE_AE-2
@@ -1981,9 +1935,6 @@
     - cwe.285
     - iso27001.12_4_2
     - owasp10.A1
-    - pci.6_5_8
-    - pci.10_5_2
-    - pci.10_5_3
     - nist.PR_PT-1
     - nist.DE_AE-2
     - certj.IDS03-J
@@ -2215,8 +2166,6 @@
     - iso27001.14_1_3
     - nist80063.5_2_5
     - owasp10.A7
-    - pci.4_1
-    - pci.6_5_10
     - sans25.732
     - pdpo.6_31
     - iec62443.IAC-1_9
@@ -2449,9 +2398,6 @@
     - nist80053.AC-2_7b
     - nist80053.AC-2_7c
     - owasp10.A1
-    - pci.7_1_1
-    - pci.7_1_3
-    - pci.7_2_2
     - soc2.CC6_2
     - nist.ID_AM-5
     - bizec.APP-04
@@ -2546,11 +2492,6 @@
     - owasp10.A1
     - owasp10.A7
     - pci.A1_1
-    - pci.6_5_8
-    - pci.7_1_1
-    - pci.7_1_3
-    - pci.7_2_2
-    - pci.10_5_1
     - nist.ID_AM-5
     - bizec.APP-04
     - certc.FIO32-C
@@ -2636,8 +2577,6 @@
     - hipaa.164_310_a_2_iii
     - nerccip.004-6_R5
     - owasp10.A7
-    - pci.6_5_10
-    - pci.8_1_3
     - soc2.CC6_2
     - mitre.M1043
     - cmmc.AC_L2-3_1_10
@@ -2737,7 +2676,6 @@
     - capec.242
     - cwe.80
     - owasp10.A3
-    - pci.6_5_1
   metadata: {}
 '118':
   en:
@@ -2776,7 +2714,6 @@
   references:
     - cis.9_6
     - cwe.509
-    - pci.5_1_1
     - mitre.M1021
     - mitre.M1049
     - fedramp.RA-5
@@ -2873,8 +2810,6 @@
     - capec.654
     - cwe.287
     - owasp10.A7
-    - pci.8_1_2
-    - pci.8_2_2
     - soc2.CC6_2
     - nist.PR_AC-1
     - mitre.M1043
@@ -2993,7 +2928,6 @@
     - cwe.521
     - cwe.640
     - owasp10.A7
-    - pci.8_2_5
     - mitre.M1027
     - cmmc.IA_L2-3_5_9
     - hitrust.01_d
@@ -3047,7 +2981,6 @@
   references:
     - cwe.916
     - nist80063.5_1_1_2
-    - pci.8_2_1
     - mitre.M1027
     - padss.2_3
     - sans25.798
@@ -3116,7 +3049,6 @@
     squad: true
     oneshot: true
   references:
-    - pci.8_2_5
     - mitre.M1027
     - cmmc.IA_L2-3_5_7
     - hitrust.01_d
@@ -3148,7 +3080,6 @@
     - cis.5_3
     - cwe.263
     - nerccip.007-6_R5_6
-    - pci.8_2_4
     - mitre.M1027
     - mitre.M1036
     - padss.3_1_7
@@ -3192,7 +3123,6 @@
     - cwe.620
     - cwe.640
     - owasp10.A7
-    - pci.6_5_10
     - mitre.M1027
     - mitre.M1036
     - cmmc.AC_L2-3_1_8
@@ -3253,7 +3183,6 @@
     - nerccip.007-6_R5_5
     - nist80063.5_1_1_2
     - owasp10.A7
-    - pci.8_2_3
     - owaspm10.M4
     - padss.3_1_6
     - cmmc.IA_L2-3_5_7
@@ -3292,7 +3221,6 @@
     - cwe.521
     - nerccip.007-6_R5_5
     - owasp10.A7
-    - pci.8_2_3
     - mitre.M1027
     - padss.3_1_6
     - cmmc.IA_L2-3_5_7
@@ -3423,7 +3351,6 @@
   references:
     - cwe.263
     - nist80063.6_1_1
-    - pci.8_2_6
     - mitre.M1027
     - cmmc.IA_L2-3_5_9
     - hitrust.01_d
@@ -3476,7 +3403,6 @@
   references:
     - cwe.263
     - nist80063.6_1_1
-    - pci.8_2_6
     - mitre.M1027
     - cmmc.IA_L2-3_5_9
     - hitrust.01_d
@@ -3575,7 +3501,6 @@
   references:
     - cwe.330
     - nist80063.5_1_1_2
-    - pci.6_5_10
     - cmmc.IA_L2-3_5_7
     - fedramp.IA-5_1
     - iec62443.CR-1_7
@@ -3636,7 +3561,6 @@
     - cwe.613
     - nist80063.5_1_4_2
     - owasp10.A7
-    - pci.6_5_10
     - sans25.287
     - cmmc.IA_L2-3_5_5
     - iec62443.CR-1_7-RE_2
@@ -3676,7 +3600,6 @@
   references:
     - cwe.613
     - owasp10.A7
-    - pci.6_5_10
     - mitre.M1036
     - padss.3_1_11
     - cmmc.AC_L2-3_1_11
@@ -3746,8 +3669,6 @@
     - capec.560
     - cis.4_7
     - nerccip.007-6_R5_4
-    - pci.2_1_1
-    - pci.6_5_10
     - nist.PR_AC-1
     - bizec.APP-07
     - nydfs.500_10
@@ -3789,9 +3710,6 @@
   references:
     - cis.5_2
     - hipaa.164_312_a_2_i
-    - pci.6_5_10
-    - pci.8_1_1
-    - pci.8_5
     - nist.PR_AC-1
     - padss.3_1_5
     - padss.10_2_2
@@ -3828,7 +3746,6 @@
     - nist80053.AC-2_3
     - nist80053.AC-2_10
     - nist80053.AC-2_13
-    - pci.8_1_4
     - soc2.CC6_5
     - cmmc.AC_L2-3_1_10
     - cmmc.IA_L2-3_5_6
@@ -3902,14 +3819,6 @@
     - cwe.522
     - owasp10.A2
     - owasp10.A3
-    - pci.3_4_1
-    - pci.3_5_2
-    - pci.3_5_3
-    - pci.3_5_4
-    - pci.3_6_2
-    - pci.3_6_3
-    - pci.3_6_7
-    - pci.6_5_3
     - padss.2_5
     - padss.2_5_1
     - padss.2_5_3
@@ -3960,8 +3869,6 @@
     - cwe.226
     - cwe.459
     - owasp10.A7
-    - pci.3_5_4
-    - pci.3_6_3
     - padss.2_5_3
     - sans25.798
     - cmmc.SC_L2-3_13_16
@@ -4022,7 +3929,6 @@
     - hipaa.164_312_a_2_iv
     - nist80053.IA-7
     - owasp10.A4
-    - pci.4_1_1
     - nydfs.500_15
     - cmmc.AC_L1-3_1_2
     - cmmc.AC_L2-3_1_13
@@ -4198,7 +4104,6 @@
     oneshot: true
   references:
     - cis.16_10
-    - pci.6_3
     - bizec.APP-07
     - issaf.H_15_9
     - issaf.T_6_6
@@ -4266,7 +4171,6 @@
     - cwe.319
     - cwe.523
     - owasp10.A7
-    - pci.6_5_10
     - owaspm10.M4
     - nist.PR_PT-2
     - sans25.287
@@ -4358,8 +4262,6 @@
     - cwe.510
     - cwe.1269
     - owasp10.A6
-    - pci.6_3_1
-    - pci.6_4_4
     - owaspm10.M10
     - nist.PR_DS-7
     - agile.9
@@ -4578,7 +4480,6 @@
     - cwe.120
     - cwe.611
     - owasp10.A5
-    - pci.6_5_2
     - owaspm10.M7
     - agile.9
     - misrac.1_4
@@ -4628,7 +4529,6 @@
     - cis.16_1
     - cwe.120
     - owasp10.A6
-    - pci.6_2
     - agile.9
     - certj.MET03-J
     - mitre.M1013
@@ -4761,8 +4661,6 @@
     - cwe.176
     - owasp10.A3
     - owasp10.A9
-    - pci.6_5_1
-    - pci.6_5_7
     - certc.FIO30-C
     - mitre.M1013
     - padss.1_1_1
@@ -5061,7 +4959,6 @@
     - capec.248
     - cwe.89
     - owasp10.A3
-    - pci.6_5_1
     - agile.9
     - bizec.APP-02
     - bizec.APP-06
@@ -5310,10 +5207,6 @@
     - cwe.643
     - cwe.943
     - owasp10.A3
-    - pci.1_3_3
-    - pci.6_5_1
-    - pci.6_5_2
-    - pci.6_5_7
     - owaspm10.M2
     - agile.9
     - bizec.APP-01
@@ -5441,7 +5334,6 @@
     - capec.21
     - capec.31
     - cwe.352
-    - pci.6_5_9
     - padss.5_2_9
     - sans25.352
     - cmmc.AC_L1-3_1_2
@@ -5589,11 +5481,6 @@
     - owasp10.A1
     - owasp10.A2
     - owasp10.A7
-    - pci.1_2_2
-    - pci.3_6_7
-    - pci.6_5_8
-    - pci.7_1_1
-    - pci.10_5_1
     - nist.PR_DS-1
     - cpra.1798_104
     - glba.501_A
@@ -5859,8 +5746,6 @@
     - iso27001.18_1_3
     - owasp10.A2
     - owasp10.A3
-    - pci.6_4_1
-    - pci.6_4_3
     - mitre.M1048
     - padss.5_1_1
     - sans25.200
@@ -5938,11 +5823,6 @@
     - iso27001.18_1_3
     - nerccip.005-5_R2_2
     - nerccip.011-2_R1_2
-    - pci.4_1
-    - pci.4_1_1
-    - pci.4_2
-    - pci.6_5_4
-    - pci.8_2_1
     - soc2.CC6_7
     - nist.PR_AC-3
     - nist.PR_DS-2
@@ -6051,8 +5931,6 @@
     - iso27001.18_1_3
     - nerccip.011-2_R2_1
     - owasp10.A2
-    - pci.3_1
-    - pci.9_8_2
     - soc2.C1_2
     - soc2.P4_3
     - nist.PR_IP-6
@@ -6174,11 +6052,6 @@
     - iso27001.18_1_3
     - nerccip.011-2_R1_2
     - owasp10.A2
-    - pci.2_3
-    - pci.3_4
-    - pci.3_5_3
-    - pci.6_5_3
-    - pci.8_2_1
     - soc2.C1_1
     - owaspm10.M2
     - owaspm10.M5
@@ -6288,11 +6161,6 @@
     - owasp10.A1
     - pci.A1_1
     - pci.A1_2
-    - pci.3_4_1
-    - pci.3_5_2
-    - pci.5_3
-    - pci.6_5_8
-    - pci.7_1_2
     - soc2.CC6_3
     - soc2.P1_1
     - nist.PR_AC-4
@@ -6516,7 +6384,6 @@
     squad: true
     oneshot: true
   references:
-    - pci.6_5_10
     - cmmc.IA_L2-3_5_10
     - hitrust.01_d
     - iso27002.8_1
@@ -6840,10 +6707,6 @@
     - cwe.340
     - nist80053.IA-7
     - owasp10.A4
-    - pci.2_3
-    - pci.3_6_1
-    - pci.4_1
-    - pci.6_5_3
     - owaspm10.M3
     - owaspm10.M5
     - nist.PR_PT-4
@@ -6952,7 +6815,6 @@
   references:
     - cwe.203
     - cwe.204
-    - pci.6_5_10
     - nist.PR_AC-7
     - nist.RS_RP-1
     - pdpo.S1_5
@@ -6994,7 +6856,6 @@
     - capec.212
     - cwe.307
     - cwe.645
-    - pci.6_5_10
     - mitre.M1036
     - cmmc.AC_L2-3_1_8
   metadata: {}
@@ -7095,7 +6956,6 @@
     oneshot: true
   references:
     - capec.115
-    - pci.6_5_10
     - soc2.CC6_1
     - nyshield.5575_B_2
     - padss.3_1_4
@@ -7166,9 +7026,6 @@
     - nist80053.IA-1
     - nist80053.IA-2
     - owasp10.A7
-    - pci.6_5_10
-    - pci.8_1_1
-    - pci.8_2
     - soc2.P4_2
     - owaspm10.M2
     - nist.PR_AC-7
@@ -7279,7 +7136,6 @@
     - hipaa.164_310_a_2_iii
     - hipaa.164_312_d
     - nist80063.5_2_3
-    - pci.6_5_10
     - soc2.CC6_1
     - soc2.CC6_4
     - facta.157-A
@@ -7321,7 +7177,6 @@
     - capec.114
     - cwe.287
     - owasp10.A7
-    - pci.12_3_2
     - mitre.M1025
     - sans25.287
     - sans25.732
@@ -7358,7 +7213,6 @@
   references:
     - nist80053.SC-3
     - owasp10.A5
-    - pci.2_2_4
     - hitrust.08_b
     - iso27002.7_3
     - wasc.W_01
@@ -7387,7 +7241,6 @@
     squad: true
     oneshot: true
   references:
-    - pci.6_5_10
     - hitrust.01_u
     - bsafss.IA_1-1
   metadata: {}
@@ -7456,7 +7309,6 @@
     - cwe.804
     - nerccip.007-6_R5_7
     - owasp10.A7
-    - pci.6_5_10
     - sans25.287
     - hitrust.08_b
     - iec62443.IAC-1_1
@@ -7533,8 +7385,6 @@
     - cwe.640
     - owasp10.A7
     - owasp10.A8
-    - pci.6_5_10
-    - pci.8_2_2
     - nist.RC_RP-1
     - pdpo.S1_4
     - hitrust.01_d
@@ -7672,7 +7522,6 @@
     oneshot: true
   references:
     - nerccip.007-6_R1_1
-    - pci.9_1_3
     - padss.6_1
     - cmmc.AC_L2-3_1_14
     - cmmc.AC_L2-3_1_17
@@ -7713,7 +7562,6 @@
     squad: true
     oneshot: true
   references:
-    - pci.2_1_1
     - mitre.M1031
     - padss.6_1
     - hitrust.09_m
@@ -7746,8 +7594,6 @@
     oneshot: true
   references:
     - owasp10.A5
-    - pci.4_1
-    - pci.4_1_1
     - nyshield.5575_B_6
     - nydfs.500_15
     - padss.2_5
@@ -7789,7 +7635,6 @@
   references:
     - cis.13_9
     - iso27001.9_1_2
-    - pci.1_3_4
     - soc2.CC6_6
     - nist.PR_AC-5
     - nyshield.5575_B_6
@@ -7869,10 +7714,6 @@
     - hipaa.164_312_e_1
     - nerccip.007-6_R1_1
     - owasp10.A10
-    - pci.1_3_1
-    - pci.1_3_2
-    - pci.1_3_5
-    - pci.2_2_2
     - nist.PR_AC-5
     - nyshield.5575_B_6
     - mitre.M1031
@@ -8008,13 +7849,6 @@
     - iso27001.13_1_3
     - owasp10.A5
     - owasp10.A10
-    - pci.1_2_1
-    - pci.1_2_3
-    - pci.1_3_1
-    - pci.1_3_2
-    - pci.1_3_3
-    - pci.1_3_4
-    - pci.1_3_6
     - mitre.M1030
     - cmmc.SC_L1-3_13_5
     - hitrust.01_m
@@ -8104,7 +7938,6 @@
     - gdpr.5_1f
     - iso27001.18_1_3
     - owasp10.A2
-    - pci.1_3_7
     - padss.9_1
     - sans25.200
     - pdpa.6_24
@@ -8187,8 +8020,6 @@
     - cwe.507
     - iso27001.12_6_1
     - owasp10.A6
-    - pci.5_2
-    - pci.6_2
     - owaspm10.M8
     - nist.ID_AM-5
     - nist.DE_CM-6
@@ -8289,8 +8120,6 @@
     - nerccip.007-6_R5_1
     - owasp10.A2
     - owasp10.A7
-    - pci.6_5_10
-    - pci.8_1_1
     - soc2.CC6_1
     - nist.PR_AC-7
     - nydfs.500_12
@@ -8391,8 +8220,6 @@
     - nist80053.IA-2
     - owasp10.A1
     - owasp10.A7
-    - pci.6_5_8
-    - pci.8_7
     - mitre.M1025
     - padss.5_2_8
     - sans25.269
@@ -8499,9 +8326,6 @@
     - owasp10.A1
     - owasp10.A4
     - owasp10.A5
-    - pci.2_2_2
-    - pci.2_2_5
-    - pci.6_5_8
     - owaspm10.M1
     - nist.PR_AC-2
     - agile.9
@@ -8619,7 +8443,6 @@
     - cwe.923
     - nerccip.003-8_5_1
     - nerccip.005-5_R1_5
-    - pci.5_1
     - nist.PR_AC-2
     - nist.PR_IP-5
     - agile.11
@@ -8767,7 +8590,6 @@
     - gdpr.R51
     - iso27001.18_1_3
     - owasp10.A2
-    - pci.3_3
     - soc2.C1_1
     - soc2.P4_2
     - cpra.1798_104
@@ -8929,7 +8751,6 @@
   references:
     - cwe.829
     - owasp10.A8
-    - pci.2_3
     - nist.ID_BE-4
     - agile.1
     - agile.9
@@ -8973,7 +8794,6 @@
     squad: true
     oneshot: true
   references:
-    - pci.12_3_2
     - mitre.M1036
     - padss.2_3
     - padss.3_1_4
@@ -9725,7 +9545,6 @@
     - cwe.287
     - cwe.306
     - owasp10.A7
-    - pci.6_5_10
     - owaspm10.M4
     - nydfs.500_12
     - padss.8_3
@@ -9800,8 +9619,6 @@
     - eprivacy.4_1a
     - owasp10.A1
     - owasp10.A2
-    - pci.6_5_8
-    - pci.6_5_10
     - owaspm10.M1
     - agile.11
     - certj.LCK11-J
@@ -9889,7 +9706,6 @@
     - cwe.502
     - owasp10.A3
     - owasp10.A8
-    - pci.6_5_1
     - nist.PR_DS-6
     - certj.SER12-J
     - padss.5_2_1
@@ -10351,7 +10167,6 @@
     - capec.39
     - capec.74
     - cwe.642
-    - pci.6_5_10
     - owaspm10.M4
     - mitre.M1025
     - mitre.M1032
@@ -10614,7 +10429,6 @@
     - cwe.521
     - nist80063.5_1_1_2
     - owasp10.A7
-    - pci.6_5_10
     - mitre.M1027
     - cmmc.IA_L2-3_5_8
     - hitrust.01_d
@@ -10677,7 +10491,6 @@
   references:
     - cwe.916
     - nist80063.5_1_1_2
-    - pci.3_5_3
     - iec62443.CR-1_7
     - issaf.V_6_3
     - owaspscp.3
@@ -10738,7 +10551,6 @@
   references:
     - cwe.640
     - nist80063.5_1_1_2
-    - pci.6_5_10
     - cmmc.IA_L2-3_5_7
     - iec62443.IAC-1_7
     - iec62443.CR-1_7
@@ -10808,7 +10620,6 @@
     - cwe.613
     - nist80063.5_1_3_2
     - owasp10.A7
-    - pci.3_2_1
     - owaspm10.M4
     - padss.1_1_1
     - padss.1_1_2
@@ -10886,8 +10697,6 @@
     - cwe.326
     - cwe.757
     - owasp10.A2
-    - pci.4_1
-    - pci.6_5_4
     - pci.A2_1
     - owaspm10.M3
     - nist.PR_PT-4
@@ -11066,7 +10875,6 @@
     - capec.117
     - cwe.326
     - owasp10.A2
-    - pci.3_6_4
     - owaspm10.M3
     - nist.PR_PT-4
     - nydfs.500_15
@@ -11215,7 +11023,6 @@
     - cwe.646
     - cwe.1021
     - owasp10.A3
-    - pci.6_5_7
     - padss.5_2_7
     - cmmc.CA_L2-3_12_2
     - cmmc.SI_L1-3_14_5
@@ -11286,9 +11093,6 @@
     - cwe.732
     - nerccip.005-5_R1_3
     - owasp10.A1
-    - pci.6_5_8
-    - pci.7_1_2
-    - pci.7_2_2
     - soc2.CC6_3
     - certj.FIO01-J
     - padss.5_2_8
@@ -11494,8 +11298,6 @@
     - cwe.94
     - cwe.95
     - owasp10.A3
-    - pci.6_5_1
-    - pci.6_5_7
     - agile.9
     - mitre.M1013
     - mitre.M1038
@@ -11580,7 +11382,6 @@
     - cwe.120
     - cwe.134
     - cwe.190
-    - pci.6_5_2
     - owaspm10.M7
     - agile.9
     - certc.INT32-C
@@ -11717,7 +11518,6 @@
     - cwe.287
     - cwe.307
     - owasp10.A7
-    - pci.6_5_10
     - sans25.287
     - asvs.2_2_6
     - asvs.2_8_4
@@ -11866,8 +11666,6 @@
     - owasp10.A3
     - owasp10.A4
     - owasp10.A5
-    - pci.6_5_7
-    - pci.6_5_9
     - mitre.M1021
     - padss.5_2_7
     - padss.5_2_9
@@ -12187,7 +11985,6 @@
     - cwe.798
     - owasp10.A7
     - owasp10.A8
-    - pci.6_5_10
     - owaspm10.M4
     - padss.3_1_4
     - iec62443.SI-3_8
@@ -12325,10 +12122,6 @@
     - gdpr.5_1e
     - iso27001.18_1_3
     - iso27001.18_1_4
-    - pci.3_1
-    - pci.3_2_1
-    - pci.3_2_2
-    - pci.3_2_3
     - soc2.P3_1
     - soc2.P4_3
     - padss.1_1
@@ -12415,8 +12208,6 @@
   references:
     - cwe.324
     - cwe.326
-    - pci.3_6_4
-    - pci.3_6_5
     - owaspm10.M5
     - padss.2_5_4
     - padss.2_5_5
@@ -12477,9 +12268,6 @@
   references:
     - cwe.287
     - owasp10.A7
-    - pci.6_5_10
-    - pci.8_5
-    - pci.8_6
     - nist.PR_AC-7
     - nydfs.500_12
     - mitre.M1032
@@ -12558,9 +12346,6 @@
   references:
     - cis.8_4
     - iso27001.12_4_4
-    - pci.10_4_1
-    - pci.10_4_2
-    - pci.10_4_3
     - nist.RS_CO-2
     - agile.11
     - nydfs.500_16
@@ -12677,7 +12462,6 @@
     - cwe.263
     - cwe.640
     - nist80063.6_1_1
-    - pci.8_2_6
     - mitre.M1027
     - cmmc.IA_L2-3_5_9
     - hitrust.01_d
@@ -12736,7 +12520,6 @@
     - cwe.613
     - nist80053.AC-12
     - owasp10.A7
-    - pci.12_3_8
     - padss.5_2_10
     - cmmc.IA_L2-3_5_6
     - hitrust.01_u
