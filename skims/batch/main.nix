@@ -6,9 +6,6 @@
   ...
 }:
 makeScript {
-  replace = {
-    __argSecretsProd__ = projectPath "/skims/secrets/dev.yaml";
-  };
   name = "skims-batch";
   searchPaths = {
     pythonPackage = [
