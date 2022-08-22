@@ -1,10 +1,25 @@
 from db_model.forces.types import (
+    ExploitResult,
     ForcesExecution,
     ForcesVulnerabilities,
 )
 from dynamodb.types import (
     Item,
 )
+
+
+def format_exploit_result(result: list[Item]) -> list[ExploitResult]:
+    exploit = [
+        ExploitResult(
+            exploitability=item["exploitability"],
+            kind=item["kind"],
+            state=item["state"],
+            where=item["where"],
+            who=item["who"],
+        )
+        for item in result
+    ]
+    return exploit
 
 
 def format_forces_vulnerabilities(
@@ -20,6 +35,15 @@ def format_forces_vulnerabilities(
         num_of_closed_vulnerabilities=int(
             vulenrabilities["num_of_closed_vulnerabilities"]
         ),
+        open=format_exploit_result(vulenrabilities["open"])
+        if vulenrabilities.get("open")
+        else [],
+        closed=format_exploit_result(vulenrabilities["closed"])
+        if vulenrabilities.get("closed")
+        else [],
+        accepted=format_exploit_result(vulenrabilities["accepted"])
+        if vulenrabilities.get("accepted")
+        else [],
     )
 
 
