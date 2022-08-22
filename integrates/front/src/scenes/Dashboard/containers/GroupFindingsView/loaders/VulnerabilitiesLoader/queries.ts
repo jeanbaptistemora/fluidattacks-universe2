@@ -10,6 +10,7 @@ const GET_FINDING_LOCATIONS: DocumentNode = gql`
         edges {
           node {
             id
+            treatmentAssigned
             where
           }
         }

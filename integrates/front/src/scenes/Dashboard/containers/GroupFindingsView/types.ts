@@ -27,6 +27,7 @@ interface ILocationsInfoAttr {
   openVulnerabilities: number;
   closedVulnerabilities: number;
   locations: string | undefined;
+  treatmentAssignmentEmails: string | undefined;
 }
 
 interface IFindingAttr {

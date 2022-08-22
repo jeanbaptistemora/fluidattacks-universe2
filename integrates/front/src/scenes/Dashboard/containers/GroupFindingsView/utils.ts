@@ -83,6 +83,11 @@ const formatFindings = (
         findingId: finding.id,
         locations: _.get(findingLocations, finding.id, undefined)?.wheres,
         openVulnerabilities: finding.openVulnerabilities,
+        treatmentAssignmentEmails: _.get(
+          findingLocations,
+          finding.id,
+          undefined
+        )?.treatmentAssignmentEmails,
       },
       reattack: formatReattack(finding.verificationSummary),
       treatment: formatTreatmentSummary(

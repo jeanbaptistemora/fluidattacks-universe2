@@ -20,6 +20,8 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
   setFindingVulnerabilities,
 }): JSX.Element => {
   const [wheres, setWheres] = useState<string>("");
+  const [treatmentAssignmentEmails, setTreatmentAssignmentEmails] =
+    useState<string>("");
   const { data, fetchMore } = useQuery<{
     finding: {
       vulnerabilitiesConnection: IVulnerabilitiesConnection | undefined;
@@ -69,13 +71,13 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
         ): Record<string, IVulnerabilitiesResume> => ({
           ...prevState,
           [findingId]: {
-            assignments: wheres,
+            treatmentAssignmentEmails,
             wheres,
           },
         })
       );
     }
-  }, [findingId, setFindingVulnerabilities, wheres]);
+  }, [findingId, setFindingVulnerabilities, treatmentAssignmentEmails, wheres]);
 
   if (
     _.isUndefined(pageInfo) ||
@@ -86,12 +88,29 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
 
   const newWheres = [
     ...new Set(
-      vulnerabilities.map((value: { where: string }): string => value.where)
+      vulnerabilities.map((value: IVulnerabilityAttr): string => value.where)
     ),
   ].join(", ");
-
   if (newWheres.length !== wheres.length) {
     setWheres(newWheres);
+  }
+
+  const newTreatmentAssignmentEmails = [
+    ...new Set(
+      vulnerabilities.map(
+        (value: IVulnerabilityAttr): string | null => value.treatmentAssigned
+      )
+    ),
+  ]
+    .filter(
+      (treatmentAssigned: string | null): boolean =>
+        !_.isNull(treatmentAssigned)
+    )
+    .join(", ");
+  if (
+    newTreatmentAssignmentEmails.length !== treatmentAssignmentEmails.length
+  ) {
+    setTreatmentAssignmentEmails(newTreatmentAssignmentEmails);
   }
 
   return <div />;
