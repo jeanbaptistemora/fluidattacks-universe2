@@ -664,8 +664,7 @@ export const enTranslations: ResourceKey = {
       },
       filtersTooltips: {
         age: "Filter by age",
-        assigned:
-          "Filter vulnerabilities based on who is the assigned based on who is the assigned",
+        assigned: "Filter vulnerabilities based on who is the assigned",
         lastReport: "Filter by last report",
         reattack: "Filter by reattack",
         releaseDate: "Filter by Release Date",
