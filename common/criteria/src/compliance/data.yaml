@@ -1905,7 +1905,9 @@ pci:
       and/or sensitive authentication data.
       It consists of several steps
       that mirror security best practices.
-      The version used in this section is PCI DSS v3.2.1.
+      The version used in this section
+      is PCI DSS v4.0,
+      March 2022.
   es:
     summary: __empty__
   definitions:
