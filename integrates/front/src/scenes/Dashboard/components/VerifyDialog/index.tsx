@@ -131,23 +131,30 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
           name={"verify"}
           onSubmit={handleProceed}
         >
-          <Form id={"verify"}>
-            <Row>
-              <Col100>
-                <ControlLabel>
-                  <b>{t("verifyDialog.fields.verificationCode")}</b>
-                </ControlLabel>
-                <Field
-                  component={FormikText}
-                  name={"verificationCode"}
-                  type={"text"}
-                  validate={required}
+          {({ isSubmitting }): JSX.Element => {
+            return (
+              <Form id={"verify"}>
+                <Row>
+                  <Col100>
+                    <ControlLabel>
+                      <b>{t("verifyDialog.fields.verificationCode")}</b>
+                    </ControlLabel>
+                    <Field
+                      component={FormikText}
+                      name={"verificationCode"}
+                      type={"text"}
+                      validate={required}
+                    />
+                  </Col100>
+                </Row>
+                <br />
+                <ModalConfirm
+                  disabled={isSubmitting}
+                  txtConfirm={t("verifyDialog.verify")}
                 />
-              </Col100>
-            </Row>
-            <br />
-            <ModalConfirm txtConfirm={t("verifyDialog.verify")} />
-          </Form>
+              </Form>
+            );
+          }}
         </Formik>
       </Modal>
       {children(setVerifyCallbacks)}
