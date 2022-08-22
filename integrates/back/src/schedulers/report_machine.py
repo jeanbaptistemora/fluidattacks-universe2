@@ -1001,7 +1001,7 @@ async def main() -> None:
             messages = queue.receive_messages(
                 MessageAttributeNames=[],
                 MaxNumberOfMessages=10,
-                VisibilityTimeout=30,
+                VisibilityTimeout=600,
                 WaitTimeSeconds=20,
             )
             if not messages:
