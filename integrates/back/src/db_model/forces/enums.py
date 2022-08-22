@@ -4,7 +4,7 @@ from enum import (
 
 
 class VulnerabilityExploitState(str, Enum):
-    ACCEPTED = "ACCEPTED"
-    CLOSED = "CLOSED"
-    OPEN = "OPEN"
-    UNKNOWN = "UNKNOWN"
+    ACCEPTED: str = "ACCEPTED"
+    CLOSED: str = "CLOSED"
+    OPEN: str = "OPEN"
+    UNKNOWN: str = "UNKNOWN"

@@ -1,15 +1,22 @@
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
     Any,
-    Dict,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[dict[str, Any], ForcesExecution],
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> float:
-    if "severity_threshold" in parent:
-        return float(str(parent["severity_threshold"]))
-    return 0.0
+    if isinstance(parent, dict):
+        if "severity_threshold" in parent:
+            return float(str(parent["severity_threshold"]))
+        return 0.0
+    return parent.severity_threshold if parent.severity_threshold else 0.0

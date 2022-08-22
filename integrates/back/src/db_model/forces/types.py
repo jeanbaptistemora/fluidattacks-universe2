@@ -15,7 +15,7 @@ class ExploitResult(NamedTuple):
     who: str
 
 
-class ForcesVulnerabilities(NamedTuple):
+class ExecutionVulnerabilities(NamedTuple):
     num_of_accepted_vulnerabilities: int
     num_of_open_vulnerabilities: int
     num_of_closed_vulnerabilities: int
@@ -35,6 +35,6 @@ class ForcesExecution(NamedTuple):
     exit_code: str
     strictness: str
     origin: str
-    grace_period: int
     severity_threshold: int
-    vulnerabilities: ForcesVulnerabilities
+    vulnerabilities: ExecutionVulnerabilities
+    grace_period: Optional[int] = None

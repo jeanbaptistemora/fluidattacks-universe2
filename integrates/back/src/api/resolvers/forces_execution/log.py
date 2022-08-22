@@ -1,3 +1,6 @@
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from forces import (
     domain as forces_domain,
 )
@@ -9,14 +12,20 @@ from newutils.utils import (
 )
 from typing import (
     Any,
-    Dict,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[dict[str, Any], ForcesExecution],
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> str:
-    group_name: str = get_key_or_fallback(parent)
-    execution_id = str(parent["execution_id"])
+    if isinstance(parent, dict):
+        group_name: str = get_key_or_fallback(parent)
+        execution_id = str(parent["execution_id"])
+    else:
+        group_name = parent.group_name
+        execution_id = parent.id
 
     return await forces_domain.get_log_execution(group_name, execution_id)

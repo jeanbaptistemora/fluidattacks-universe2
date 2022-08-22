@@ -1,7 +1,7 @@
 from db_model.forces.types import (
+    ExecutionVulnerabilities,
     ExploitResult,
     ForcesExecution,
-    ForcesVulnerabilities,
 )
 from dynamodb.types import (
     Item,
@@ -24,8 +24,8 @@ def format_exploit_result(result: list[Item]) -> list[ExploitResult]:
 
 def format_forces_vulnerabilities(
     vulenrabilities: Item,
-) -> ForcesVulnerabilities:
-    return ForcesVulnerabilities(
+) -> ExecutionVulnerabilities:
+    return ExecutionVulnerabilities(
         num_of_accepted_vulnerabilities=int(
             vulenrabilities["num_of_accepted_vulnerabilities"]
         ),

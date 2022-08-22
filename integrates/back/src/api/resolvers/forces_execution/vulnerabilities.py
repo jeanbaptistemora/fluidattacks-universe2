@@ -1,3 +1,6 @@
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from forces import (
     domain as forces_domain,
 )
@@ -9,17 +12,30 @@ from newutils.utils import (
 )
 from typing import (
     Any,
-    Dict,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
-) -> Dict[str, Any]:
-    group_name: str = get_key_or_fallback(parent)
-    execution_id = str(parent["execution_id"])
-    vulnerabilities: Dict[str, Any] = parent.get("vulnerabilities", {})
+    parent: Union[dict[str, Any], ForcesExecution],
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> dict[str, Any]:
+    if isinstance(parent, dict):
+        group_name: str = get_key_or_fallback(parent)
+        execution_id = str(parent["execution_id"])
+        vulnerabilities = parent.get("vulnerabilities", {})
+        return {
+            **vulnerabilities,
+            **await forces_domain.get_vulns_execution(
+                group_name, execution_id
+            ),
+        }
+
+    group_name = parent.group_name
+    execution_id = parent.id
+    vulnerabilities = parent.vulnerabilities
     return {
-        **vulnerabilities,
+        **vulnerabilities._asdict,
         **await forces_domain.get_vulns_execution(group_name, execution_id),
     }
