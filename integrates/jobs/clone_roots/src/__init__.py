@@ -469,7 +469,6 @@ async def clone_root(
                 message="Credentials not found",
             )
             return
-            yield
 
         if folder_to_clone_root is None:
             logging.error("Failed to clone %s: %s", root_nickname, stderr)
@@ -482,7 +481,6 @@ async def clone_root(
             )
             shutil.rmtree(temp_dir, ignore_errors=True)
             return
-            yield
         try:
             yield folder_to_clone_root
         finally:
