@@ -3,19 +3,15 @@ import React from "react";
 
 import { LinkRow } from "./lintRow";
 
-import type { IHeaderConfig } from "components/Table/types";
 import { translate } from "utils/translations/translate";
 
 export const linkFormatter = (
   value: boolean | string | undefined,
   row: Readonly<Record<string, string>>,
-  _rowIndex: number,
-  key: Readonly<IHeaderConfig>
+  changeFunction?: (arg: Dictionary<string>) => void
 ): JSX.Element => {
   function onClick(): void {
-    if (key.changeFunction !== undefined) {
-      key.changeFunction(row);
-    }
+    changeFunction?.(row);
   }
 
   const valueDefined: boolean | string = value ?? "";

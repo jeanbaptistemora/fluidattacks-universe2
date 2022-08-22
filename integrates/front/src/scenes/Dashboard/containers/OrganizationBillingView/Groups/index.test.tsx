@@ -82,7 +82,6 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.getAllByRole("button")).toHaveLength(2);
     expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(
@@ -140,7 +139,6 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.getAllByRole("button")).toHaveLength(2);
     expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(
@@ -231,7 +229,6 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.getAllByRole("button")).toHaveLength(2);
     expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(

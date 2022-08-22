@@ -4,16 +4,15 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faMoneyBill } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
-import { Table } from "components/Table/index";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import { filterSearchText, filterText } from "components/Table/utils";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Text } from "components/Text";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { areMutationsValid } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/helpers";
@@ -29,18 +28,8 @@ import type {
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-
-interface IFilterSet {
-  forces: string;
-  groupName: string;
-  machine: string;
-  service: string;
-  squad: string;
-  tier: string;
-}
 
 interface IOrganizationGroupsProps {
   billingPortal: string;
@@ -116,28 +105,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       };
     });
 
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("organizationGroupsCustomFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterOrganizationGroupsTable, setFilterOrganizationGroupsTable] =
-    useStoredState(
-      "filterOrganizationGroupset",
-      {
-        forces: "",
-        groupName: "",
-        machine: "",
-        service: "",
-        squad: "",
-        tier: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isUpdatingSubscription, setIsUpdatingSubscription] = useState<
     false | { mode: "UPDATE" }
@@ -155,262 +122,80 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const canSeeServiceType: boolean = permissions.can(
     "see_billing_service_type"
   );
-  // Render Elements
-  const tableHeaders: IHeaderConfig[] = [
+
+  const tier = { accessorKey: "tier", header: "Tier" };
+  const service = { accessorKey: "service", header: "Service" };
+
+  const tableHeadersTemp: ColumnDef<IGroupAttr>[] = [
     {
-      dataField: "name",
+      accessorKey: "name",
       header: "Group Name",
-      width: "20%",
     },
     {
-      changeFunction: openUpdateModal,
-      dataField: "managed",
-      formatter: linkFormatter,
+      accessorKey: "managed",
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        linkFormatter(
+          cell.getValue(),
+          cell.row.original as unknown as Record<string, string>,
+          openUpdateModal
+        ),
       header: "Managed",
-      headerFormatter: tooltipFormatter,
-      tooltipDataField: t("organization.tabs.billing.groups.managed.tooltip"),
-      width: "10%",
     },
+    tier,
+    service,
     {
-      dataField: "tier",
-      header: "Tier",
-      omit: !canSeeSubscriptionType,
-      width: "8%",
-    },
-    {
-      dataField: "service",
-      header: "Service",
-      omit: !canSeeServiceType,
-      width: "9%",
-    },
-    {
-      dataField: "machine",
-      formatter: statusFormatter,
+      accessorKey: "machine",
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "Machine",
-      width: "9%",
     },
     {
-      dataField: "squad",
-      formatter: statusFormatter,
+      accessorKey: "squad",
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "Squad",
-      width: "8%",
     },
     {
-      dataField: "forces",
-      formatter: statusFormatter,
+      accessorKey: "forces",
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "Forces",
-      width: "8%",
     },
     {
-      dataField: "authors.total",
-      formatter: statusFormatter,
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.authors?.total;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "Authors",
-      width: "9%",
     },
     {
-      dataField: "authors.currentSpend",
-      formatter: statusFormatter,
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.authors?.currentSpend;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "Month-to-date spend ($)",
-      width: "19%",
     },
   ];
+
+  const tableHeaders = tableHeadersTemp.filter(
+    (header: ColumnDef<IGroupAttr>): boolean => {
+      switch (header) {
+        case tier: {
+          return canSeeSubscriptionType;
+        }
+        case service: {
+          return canSeeServiceType;
+        }
+        default: {
+          return true;
+        }
+      }
+    }
+  );
 
   const dataset: IGroupAttr[] = formatGroupsData(accesibleGroupsData(groups));
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchTextDataset: IGroupAttr[] = filterSearchText(
-    dataset,
-    searchTextFilter
-  );
-
-  function onGroupNameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        groupName: event.target.value,
-      })
-    );
-  }
-  const filterGroupNameDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.groupName,
-    "name"
-  );
-
-  function onTierChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        tier: event.target.value,
-      })
-    );
-  }
-  const filterTierDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.tier,
-    "tier"
-  );
-
-  function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        service: event.target.value,
-      })
-    );
-  }
-  const filterServiceDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.service,
-    "service"
-  );
-
-  function onMachineChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        machine: event.target.value,
-      })
-    );
-  }
-  const filterMachineDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.machine,
-    "machine"
-  );
-
-  function onSquadChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        squad: event.target.value,
-      })
-    );
-  }
-  const filterSquadDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.squad,
-    "squad"
-  );
-
-  function onForcesChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        forces: event.target.value,
-      })
-    );
-  }
-  const filterForcesDataset: IGroupAttr[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.forces,
-    "forces"
-  );
-
-  function clearFilters(): void {
-    setFilterOrganizationGroupsTable(
-      (): IFilterSet => ({
-        forces: "",
-        groupName: "",
-        machine: "",
-        service: "",
-        squad: "",
-        tier: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultDataset: IGroupAttr[] = _.intersection(
-    filterSearchTextDataset,
-    filterGroupNameDataset,
-    filterTierDataset,
-    filterServiceDataset,
-    filterMachineDataset,
-    filterSquadDataset,
-    filterForcesDataset
-  );
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterOrganizationGroupsTable.groupName,
-      onChangeInput: onGroupNameChange,
-      placeholder: "Group Name",
-      tooltipId: "organization.tabs.groups.filtersTooltips.groupName.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.groupName",
-      type: "text",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.tier,
-      onChangeSelect: onTierChange,
-      placeholder: "Tier",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.tier.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.tier",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.service,
-      onChangeSelect: onServiceChange,
-      placeholder: "Service",
-      selectOptions: {
-        Black: "Black",
-        White: "White",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.service.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.service",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.machine,
-      onChangeSelect: onMachineChange,
-      placeholder: "Machine",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.machine.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.machine",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.squad,
-      onChangeSelect: onSquadChange,
-      placeholder: "Squad",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.squad.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.squad",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.forces,
-      onChangeSelect: onForcesChange,
-      placeholder: "Forces",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.forces.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.forces",
-      type: "select",
-    },
-  ];
 
   // Edit group subscription
   const closeModal = useCallback((): void => {
@@ -514,25 +299,8 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         {t("organization.tabs.billing.groups.title")}
       </Text>
       <Table
-        clearFiltersButton={clearFilters}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          resultSize: {
-            current: resultDataset.length,
-            total: dataset.length,
-          },
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={resultDataset}
-        defaultSorted={{ dataField: "name", order: "asc" }}
-        exportCsv={false}
+        columns={tableHeaders}
+        data={dataset}
         extraButtons={
           <Can do={"api_resolvers_organization_billing_portal_resolve"}>
             <ExternalLink href={billingPortal}>
@@ -544,10 +312,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
             </ExternalLink>
           </Can>
         }
-        headers={tableHeaders}
         id={"tblGroups"}
-        pageSize={10}
-        search={false}
       />
       {isUpdatingSubscription === false ? undefined : (
         <UpdateSubscriptionModal
