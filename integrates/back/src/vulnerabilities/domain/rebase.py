@@ -42,6 +42,7 @@ async def rebase(
         vulnerability_where=vulnerability_where,
         vulnerability_specific=vulnerability_specific,
         vulnerability_type=vulnerability_type,
+        vulnerability_id=vulnerability_id,
     )
     validate_where(vulnerability_where)
 

@@ -61,39 +61,44 @@ def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
 
 
 def get_path_from_integrates_vulnerability(
-    vulnerability: Vulnerability, from_yaml: bool = False
+    vulnerability_where: str,
+    vulnerability_type: VulnerabilityType,
 ) -> Tuple[str, str]:
-    if vulnerability.type in {
+    if vulnerability_type in {
         VulnerabilityType.INPUTS,
         VulnerabilityType.PORTS,
     }:
-        if len(chunks := vulnerability.where.rsplit(" (", maxsplit=1)) == 2:
-            were, namespace = chunks
+        if len(chunks := vulnerability_where.rsplit(" (", maxsplit=1)) == 2:
+            where, namespace = chunks
             namespace = namespace[:-1]
         else:
-            were, namespace = chunks[0], ""
-    elif vulnerability.type == VulnerabilityType.LINES:
-        if len(chunks := vulnerability.where.split("/", maxsplit=1)) == 2:
-            namespace, were = chunks
+            where, namespace = chunks[0], ""
+    elif vulnerability_type == VulnerabilityType.LINES:
+        if len(chunks := vulnerability_where.split("/", maxsplit=1)) == 2:
+            namespace, where = chunks
         else:
-            namespace, were = "", chunks[0]
+            namespace, where = "", chunks[0]
     else:
         raise NotImplementedError()
-    if from_yaml:
-        # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
-        were = html.escape(were, quote=False)
-    return namespace, were
+    return namespace, where
 
 
-def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
+def get_hash_from_typed(
+    vuln: Vulnerability, from_yaml: bool = False, validate_root: bool = True
+) -> int:
     specific = vuln.specific
     type_ = vuln.type.value
-    where = vuln.where
+    where = get_path_from_integrates_vulnerability(vuln.where, vuln.type)[1]
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
         where = html.escape(where, quote=False)
-    return get_hash(specific=specific, type_=type_, where=where)
+    return get_hash(
+        specific=specific,
+        type_=type_,
+        where=where,
+        root_id=(vuln.root_id if validate_root else None),
+    )
 
 
 def compare_historic_treatments(

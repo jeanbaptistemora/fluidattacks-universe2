@@ -503,7 +503,9 @@ def _build_vulnerabilities_stream_from_integrates(
                 "line": vuln.specific,
                 "path": os.path.join(
                     git_root.state.nickname,
-                    get_path_from_integrates_vulnerability(vuln)[1],
+                    get_path_from_integrates_vulnerability(
+                        vuln.where, vuln.type
+                    )[1],
                 ),
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
@@ -542,15 +544,20 @@ def _machine_vulns_to_close(
         for vuln in integrates_vulns
         # his result was not found by Skims
         if hash(
-            (get_path_from_integrates_vulnerability(vuln)[1], vuln.specific)
+            (
+                get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
+                    1
+                ],
+                vuln.specific,
+            )
         )
         not in machine_hashes
         and (
             # the result path is included in the current analysis
             path_is_include(
-                get_path_from_integrates_vulnerability(vuln)[1].split(
-                    " ", maxsplit=1
-                )[0],
+                get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
+                    1
+                ].split(" ", maxsplit=1)[0],
                 [
                     *(execution_config["path"]["include"]),
                     *(execution_config["apk"]["include"]),

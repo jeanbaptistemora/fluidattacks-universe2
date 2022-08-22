@@ -25,6 +25,7 @@ from urllib.parse import (
 from vulnerabilities.domain.utils import (
     get_hash,
     get_hash_from_typed,
+    get_path_from_integrates_vulnerability,
 )
 
 
@@ -39,14 +40,24 @@ def validate_uniqueness(
     vulnerability_where: str,
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
+    vulnerability_id: str,
 ) -> None:
     finding_vulns_hashes: Set[int] = set(
         map(get_hash_from_typed, finding_vulns_data)
     )
+    vuln = next(
+        (item for item in finding_vulns_data if item.id == vulnerability_id),
+        None,
+    )
+    if not vuln:
+        return
     vuln_hash: int = get_hash(
         specific=vulnerability_specific,
         type_=vulnerability_type.value,
-        where=vulnerability_where,
+        where=get_path_from_integrates_vulnerability(
+            vulnerability_where, vulnerability_type
+        )[1],
+        root_id=vuln.root_id,
     )
 
     if vuln_hash in finding_vulns_hashes:
