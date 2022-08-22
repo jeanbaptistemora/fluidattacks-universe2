@@ -12,7 +12,12 @@ from typing import (
     Union,
 )
 
-_dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {}
+_dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
+    "tap_mandrill": (
+        "api",
+        "_logger",
+    )
+}
 
 
 def project_dag() -> DAG:
