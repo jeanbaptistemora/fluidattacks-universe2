@@ -209,7 +209,7 @@ module "dev_aws" {
       Action = "sts:AssumeRoleWithWebIdentity",
       Condition = {
         StringLike = {
-          "gitlab.example.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:*"
+          "gitlab.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:*"
         },
       },
     },

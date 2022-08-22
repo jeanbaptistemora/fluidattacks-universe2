@@ -13,7 +13,7 @@ locals {
           Action = "sts:AssumeRoleWithWebIdentity",
           Condition = {
             StringEquals = {
-              "gitlab.example.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:trunk"
+              "gitlab.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:trunk"
             },
           },
         },
