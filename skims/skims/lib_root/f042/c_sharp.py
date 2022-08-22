@@ -1,3 +1,7 @@
+from lib_root.utilities.c_sharp import (
+    yield_syntax_graph_member_access,
+    yield_syntax_graph_object_creation,
+)
 from lib_sast.types import (
     ShardDb,
 )
@@ -8,69 +12,61 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
+from symbolic_eval.evaluate import (
+    evaluate,
 )
-
-
-def insecure_props(shard: graph_model.GraphShard, name_var: str) -> bool:
-    security_props = {
-        "HttpOnly",
-        "Secure",
-    }
-
-    count_checks = 0
-    for syntax_steps in shard.syntax.values():
-        for index, syntax_step in enumerate(syntax_steps):
-            if (
-                isinstance(syntax_step, graph_model.SyntaxStepAssignment)
-                and syntax_step.var.split(".")[0] == name_var
-                and syntax_step.var.split(".")[1] in security_props
-                and len(get_dependencies(index, syntax_steps)) > 0
-                and isinstance(
-                    get_dependencies(index, syntax_steps)[0],
-                    graph_model.SyntaxStepLiteral,
-                )
-            ):
-                if get_dependencies(index, syntax_steps)[0].value == "true":
-                    count_checks += 1
-                elif get_dependencies(index, syntax_steps)[0].value == "false":
-                    return True
-    if count_checks > 1:
-        return False
-    return True
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
+from utils import (
+    graph as g,
+)
 
 
 def insecurely_generated_cookies(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_INSEC_COOKIES
+    object_name = {"HttpCookie"}
+    security_props = {
+        "HttpOnly",
+        "Secure",
+    }
+
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
-            for syntax_steps in shard.syntax.values():
-                for index, syntax_step in enumerate(syntax_steps):
-                    if (
-                        isinstance(
-                            syntax_step, graph_model.SyntaxStepDeclaration
-                        )
-                        and len(get_dependencies(index, syntax_steps)) > 0
-                        and isinstance(
-                            get_dependencies(index, syntax_steps)[0],
-                            graph_model.SyntaxStepObjectInstantiation,
-                        )
-                        and get_dependencies(index, syntax_steps)[
-                            0
-                        ].object_type
-                        == "HttpCookie"
-                        and insecure_props(shard, syntax_step.var)
-                    ):
-                        yield shard, syntax_step.meta.n_id
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for object_nid in yield_syntax_graph_object_creation(
+                graph, object_name
+            ):
+                insecure = False
+                sec_access = []
+                pred = g.pred(graph, object_nid)[0]
+                var = {graph.nodes[pred].get("variable")}
+
+                for nid in yield_syntax_graph_member_access(graph, var):
+                    if graph.nodes[nid].get("member") not in security_props:
+                        continue
+                    test_nid = graph.nodes[g.pred(graph, nid)[0]].get(
+                        "value_id"
+                    )
+                    sec_access.append(nid)
+                    for path in get_backward_paths(graph, test_nid):
+                        evaluation = evaluate(method, graph, path, test_nid)
+                        if evaluation and evaluation.danger:
+                            insecure = True
+                if insecure or len(sec_access) < 2:
+                    yield shard, pred
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.042.description",
-        desc_params=dict(lang="C#"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_INSEC_COOKIES,
+        method=method,
     )

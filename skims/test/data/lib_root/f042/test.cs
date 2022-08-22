@@ -7,6 +7,7 @@ namespace cookies
     {
         public static void Main(string[] args)
         {
+            var test = true;
             var secure_cookie = new HttpCookie(key , value);
             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
             secure_cookie.HttpOnly = true;
@@ -17,6 +18,18 @@ namespace cookies
             insecure_cookie.HttpOnly = true;
 
             var insecure = new HttpCookie(key , value);
+
+            var secure_cookie2 = new HttpCookie(key , value);
+            secure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+            secure_cookie2.HttpOnly = test;
+            secure_cookie2.Secure = test;
+
+            var insecure_cookie2 = new HttpCookie(key , value);
+            insecure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+            insecure_cookie2.HttpOnly = test;
+
+            var insecure2 = new HttpCookie(key , value);
+            insecure2.Expires = DateTime.Now.AddDays(expireDay);
         }
     }
 }

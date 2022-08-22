@@ -26751,54 +26751,104 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   14 | </manifest>
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,16,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
-   2 | using System;
-   3 | namespace cookies
-   4 | {
-   5 |
    6 |     public class CookieExample
    7 |     {
    8 |         public static void Main(string[] args)
    9 |         {
-  10 |             var secure_cookie = new HttpCookie(key , value);
-  11 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  12 |             secure_cookie.HttpOnly = true;
-  13 |             secure_cookie.Secure = true;
-  14 |
-  15 |             var insecure_cookie = new HttpCookie(key , value);
-  16 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  17 |             insecure_cookie.HttpOnly = true;
-  18 |
-> 19 |             var insecure = new HttpCookie(key , value);
-  20 |         }
-  21 |     }
-  22 | }
+  10 |             var test = true;
+  11 |             var secure_cookie = new HttpCookie(key , value);
+  12 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  13 |             secure_cookie.HttpOnly = true;
+  14 |             secure_cookie.Secure = true;
+  15 |
+> 16 |             var insecure_cookie = new HttpCookie(key , value);
+  17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  18 |             insecure_cookie.HttpOnly = true;
+  19 |
+  20 |             var insecure = new HttpCookie(key , value);
+  21 |
+  22 |             var secure_cookie2 = new HttpCookie(key , value);
+  23 |             secure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  24 |             secure_cookie2.HttpOnly = test;
+  25 |             secure_cookie2.Secure = test;
+  26 |
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,20,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
-   2 | using System;
-   3 | namespace cookies
-   4 | {
-   5 |
-   6 |     public class CookieExample
-   7 |     {
-   8 |         public static void Main(string[] args)
-   9 |         {
-  10 |             var secure_cookie = new HttpCookie(key , value);
-  11 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  12 |             secure_cookie.HttpOnly = true;
-  13 |             secure_cookie.Secure = true;
-  14 |
-> 15 |             var insecure_cookie = new HttpCookie(key , value);
-  16 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
-  17 |             insecure_cookie.HttpOnly = true;
-  18 |
-  19 |             var insecure = new HttpCookie(key , value);
-  20 |         }
-  21 |     }
-  22 | }
+  10 |             var test = true;
+  11 |             var secure_cookie = new HttpCookie(key , value);
+  12 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  13 |             secure_cookie.HttpOnly = true;
+  14 |             secure_cookie.Secure = true;
+  15 |
+  16 |             var insecure_cookie = new HttpCookie(key , value);
+  17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  18 |             insecure_cookie.HttpOnly = true;
+  19 |
+> 20 |             var insecure = new HttpCookie(key , value);
+  21 |
+  22 |             var secure_cookie2 = new HttpCookie(key , value);
+  23 |             secure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  24 |             secure_cookie2.HttpOnly = test;
+  25 |             secure_cookie2.Secure = test;
+  26 |
+  27 |             var insecure_cookie2 = new HttpCookie(key , value);
+  28 |             insecure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  29 |             insecure_cookie2.HttpOnly = test;
+  30 |
+     ^ Col 0
+",c_sharp.csharp_insecurely_generated_cookies
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,31,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/test.cs","
+  15 |
+  16 |             var insecure_cookie = new HttpCookie(key , value);
+  17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  18 |             insecure_cookie.HttpOnly = true;
+  19 |
+  20 |             var insecure = new HttpCookie(key , value);
+  21 |
+  22 |             var secure_cookie2 = new HttpCookie(key , value);
+  23 |             secure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  24 |             secure_cookie2.HttpOnly = test;
+  25 |             secure_cookie2.Secure = test;
+  26 |
+  27 |             var insecure_cookie2 = new HttpCookie(key , value);
+  28 |             insecure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  29 |             insecure_cookie2.HttpOnly = test;
+  30 |
+> 31 |             var insecure2 = new HttpCookie(key , value);
+  32 |             insecure2.Expires = DateTime.Now.AddDays(expireDay);
+  33 |         }
+  34 |     }
+  35 | }
+     ^ Col 0
+",c_sharp.csharp_insecurely_generated_cookies
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,27,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/test.cs","
+  15 |
+  16 |             var insecure_cookie = new HttpCookie(key , value);
+  17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  18 |             insecure_cookie.HttpOnly = true;
+  19 |
+  20 |             var insecure = new HttpCookie(key , value);
+  21 |
+  22 |             var secure_cookie2 = new HttpCookie(key , value);
+  23 |             secure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  24 |             secure_cookie2.HttpOnly = test;
+  25 |             secure_cookie2.Secure = test;
+  26 |
+> 27 |             var insecure_cookie2 = new HttpCookie(key , value);
+  28 |             insecure_cookie2.Expires = DateTime.Now.AddDays(expireDay);
+  29 |             insecure_cookie2.HttpOnly = test;
+  30 |
+  31 |             var insecure2 = new HttpCookie(key , value);
+  32 |             insecure2.Expires = DateTime.Now.AddDays(expireDay);
+  33 |         }
+  34 |     }
+  35 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
 F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12,643,skims,021. XPath injection,Potentially untrusted HTTP request input reaches an XPath query in namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,"
