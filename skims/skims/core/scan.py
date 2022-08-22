@@ -298,8 +298,10 @@ async def main(
     try:
         # FP: The function referred to is from another product (reviews)
         CTX.config = (
-            load(group, config) if isinstance(config, str) else config
-        )  # NOSONAR
+            load(group, config)  # NOSONAR
+            if isinstance(config, str)
+            else config
+        )
 
         configure_logs()
         add_bugsnag_data(namespace=CTX.config.namespace)
