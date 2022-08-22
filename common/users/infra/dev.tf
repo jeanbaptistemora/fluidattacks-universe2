@@ -201,7 +201,20 @@ module "dev_aws" {
 
   assume_role_policy = [
     {
-      Sid    = "commonClusterAssumePolicy",
+      Sid    = "commonCi",
+      Effect = "Allow",
+      Principal = {
+        Federated = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:oidc-provider/gitlab.com",
+      },
+      Action = "sts:AssumeRoleWithWebIdentity",
+      Condition = {
+        StringLike = {
+          "gitlab.example.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:*"
+        },
+      },
+    },
+    {
+      Sid    = "commonCluster",
       Effect = "Allow",
       Principal = {
         Federated = join(

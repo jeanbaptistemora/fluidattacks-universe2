@@ -5,6 +5,19 @@ locals {
     Statement = concat(
       [
         {
+          Sid    = "ciAccessProd",
+          Effect = "Allow",
+          Principal = {
+            Federated = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:oidc-provider/gitlab.com",
+          },
+          Action = "sts:AssumeRoleWithWebIdentity",
+          Condition = {
+            StringEquals = {
+              "gitlab.example.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:trunk"
+            },
+          },
+        },
+        {
           Sid    = "ecsTaskAccess",
           Effect = "Allow",
           Principal = {
