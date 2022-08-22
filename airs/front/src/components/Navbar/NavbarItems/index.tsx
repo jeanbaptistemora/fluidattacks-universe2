@@ -2,16 +2,16 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
 import React from "react";
-import { RiArrowDownSFill } from "react-icons/ri";
+import { IoIosArrowDown } from "react-icons/io";
 
 import {
   IconContainerSmall,
-  NavbarContactButton,
   NavbarItem,
   NavbarList,
-  NavbarLoginButton,
   NavbarRegularButton,
   NavbarSubcategory,
+  NewRegularRedButton,
+  PhantomRegularRedButton,
 } from "../../../styles/styledComponents";
 import { AirsLink } from "../../AirsLink";
 import { CloudImage } from "../../CloudImage";
@@ -37,7 +37,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
           <NavbarRegularButton>
             {"Solutions"}
             <IconContainerSmall>
-              <RiArrowDownSFill />
+              <IoIosArrowDown />
             </IconContainerSmall>
           </NavbarRegularButton>
         </Link>
@@ -99,15 +99,23 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </NavbarItem>
     </div>
     <div className={"w-auto flex-l flex-nowrap dn"}>
-      <li className={"mr3 pr2 pv4 db-l dn"}>
+      <li className={"mr3 pv4 db-l dn"}>
         <AirsLink href={"https://app.fluidattacks.com/"}>
-          <NavbarLoginButton>{"Log in"}</NavbarLoginButton>
+          <NavbarRegularButton className={"b fw7"}>
+            {"Log in"}
+          </NavbarRegularButton>
+        </AirsLink>
+      </li>
+
+      <li className={"mr3 pv4 db-l dn"}>
+        <AirsLink href={"/contact-us/"}>
+          <PhantomRegularRedButton>{"Contact now"}</PhantomRegularRedButton>
         </AirsLink>
       </li>
 
       <li className={"pv4"}>
-        <Link className={"no-underline"} to={"/contact-us/"}>
-          <NavbarContactButton>{"Contact now"}</NavbarContactButton>
+        <Link className={"no-underline"} to={"/free-trial/"}>
+          <NewRegularRedButton>{"Start free trial"}</NewRegularRedButton>
         </Link>
       </li>
     </div>

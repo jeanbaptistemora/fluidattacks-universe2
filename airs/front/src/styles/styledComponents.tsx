@@ -2,10 +2,7 @@
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-const NavbarContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const NavbarContainer = styled.div.attrs({
   className: `
     cssmenu
     lh-solid
@@ -17,7 +14,12 @@ const NavbarContainer: StyledComponent<
     t-all-5
     bg-gray-244
   `,
-})``;
+})<{ isScrolled: boolean }>`
+  position: sticky;
+  border-radius: ${({ isScrolled }): string => (isScrolled ? "2px" : "none")};
+  box-shadow: ${({ isScrolled }): string =>
+    isScrolled ? "0px 1px 10px #999" : "none"};
+`;
 
 const NavbarInnerContainer: StyledComponent<
   "div",
