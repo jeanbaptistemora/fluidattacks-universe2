@@ -31,6 +31,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 interface IDeactivationModalProps {
   enableCerts: boolean;
   isOpen: boolean;
+  typesOptions: string[];
   onClose: () => void;
   userRole: string;
 }
@@ -38,6 +39,7 @@ interface IDeactivationModalProps {
 const ReportsModal: React.FC<IDeactivationModalProps> = ({
   enableCerts,
   isOpen,
+  typesOptions,
   onClose,
   userRole,
 }: IDeactivationModalProps): JSX.Element => {
@@ -195,6 +197,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                   closeReportsModal={onClose}
                   isOpen={isFilterReportModalOpen}
                   onClose={closeFilterReportsModal}
+                  typesOptions={typesOptions}
                 />
               </Gap>
             );

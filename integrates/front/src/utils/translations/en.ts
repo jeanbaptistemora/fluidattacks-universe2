@@ -724,6 +724,10 @@ export const enTranslations: ResourceKey = {
         filterReportDescription:
           "Here you can customize the length of the report " +
           "by selecting these fields",
+        findingTitle: {
+          text: "Type",
+          tooltip: "Filter by type",
+        },
         generateXls: "Generate XLS",
         modalClose: "Close",
         modalTitle: "Reports",

@@ -50,10 +50,12 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $states: [VulnerabilityState!]
     $verifications: [VulnerabilityVerification!]
     $closingDate: DateTime
+    $findingTitle: String
     $verificationCode: String!
   ) {
     report(
       reportType: $reportType
+      findingTitle: $findingTitle
       groupName: $groupName
       lang: $lang
       states: $states

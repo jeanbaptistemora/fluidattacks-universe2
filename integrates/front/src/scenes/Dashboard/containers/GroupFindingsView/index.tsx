@@ -794,6 +794,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         enableCerts={hasMachine && filledGroupInfo}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
+        typesOptions={Object.keys(typesOptions)}
         userRole={data?.group.userRole ?? "user"}
       />
       <Modal

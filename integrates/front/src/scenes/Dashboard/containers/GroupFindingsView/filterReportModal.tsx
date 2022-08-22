@@ -21,7 +21,7 @@ import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import { FormikCheckbox, FormikDate } from "utils/forms/fields";
+import { FormikCheckbox, FormikDate, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, isGreaterDate } from "utils/validations";
@@ -29,11 +29,13 @@ import { composeValidators, isGreaterDate } from "utils/validations";
 interface IDeactivationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  typesOptions: string[];
   closeReportsModal: () => void;
 }
 
 interface IFormValues {
   closingDate: string;
+  findingTitle: string;
   states: string[];
   treatments: string[];
   verifications: string[];
@@ -42,6 +44,7 @@ interface IFormValues {
 const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   isOpen,
   onClose,
+  typesOptions,
   closeReportsModal,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -83,6 +86,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   const handleRequestGroupReport = useCallback(
     (
       closingDate: string | undefined,
+      findingTitle: string | undefined,
       states: string[],
       treatments: string[] | undefined,
       verifications: string[],
@@ -94,6 +98,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       requestGroupReport({
         variables: {
           closingDate,
+          findingTitle,
           groupName,
           reportType,
           states,
@@ -118,6 +123,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   return (
     <React.StrictMode>
       <Modal
+        minWidth={600}
         onClose={onClose}
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
@@ -127,6 +133,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
             {(setVerifyCallbacks): JSX.Element => {
               function onRequestReport(values: {
                 closingDate: string;
+                findingTitle: string;
                 states: string[];
                 treatments: string[];
                 verifications: string[];
@@ -137,6 +144,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                       _.isEmpty(values.closingDate)
                         ? undefined
                         : values.closingDate,
+                      _.isEmpty(values.findingTitle)
+                        ? undefined
+                        : values.findingTitle,
                       values.states,
                       _.isEmpty(values.closingDate)
                         ? values.treatments
@@ -156,6 +166,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 <Formik
                   initialValues={{
                     closingDate: "",
+                    findingTitle: "",
                     states: [],
                     treatments: [],
                     verifications: [],
@@ -185,9 +196,37 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           {t("group.findings.report.filterReportDescription")}
                         </p>
                         <Row align={"start"} justify={"start"}>
+                          <Col lg={50} md={90} sm={90}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.findingTitle.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.findingTitle.id"}
+                              place={"top"}
+                              tip={t(
+                                "group.findings.report.findingTitle.tooltip"
+                              )}
+                            >
+                              <Field
+                                component={FormikDropdown}
+                                name={"findingTitle"}
+                              >
+                                <option value={""} />
+                                {typesOptions.map(
+                                  (typeCode: string): JSX.Element => (
+                                    <option key={typeCode} value={typeCode}>
+                                      {typeCode}
+                                    </option>
+                                  )
+                                )}
+                              </Field>
+                            </Tooltip>
+                          </Col>
                           <Col lg={90} md={90} sm={90}>
                             <Col lg={50} md={50} sm={50}>
-                              <p className={"mb2"}>
+                              <p className={"mb1 mt1"}>
                                 <span className={"fw8"}>
                                   {t("group.findings.report.closingDate.text")}
                                 </span>
@@ -210,7 +249,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           </Col>
                           {_.isEmpty(values.closingDate) ? (
                             <Col lg={50} md={50} sm={50}>
-                              <p className={"mb2"}>
+                              <p className={"mb1 mt1"}>
                                 <span className={"fw8"}>
                                   {t("group.findings.report.treatment")}
                                 </span>
@@ -240,7 +279,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             </Col>
                           ) : undefined}
                           <Col lg={30} md={30} sm={30}>
-                            <p className={"mb2"}>
+                            <p className={"mb1 mt1"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.reattack.title")}
                               </span>
@@ -282,7 +321,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             )}
                           </Col>
                           <Col lg={20} md={20} sm={20}>
-                            <p className={"mb2"}>
+                            <p className={"mb1 mt1"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.state")}
                               </span>

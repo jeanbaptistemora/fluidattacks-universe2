@@ -248,6 +248,7 @@ describe("groupFindingsView", (): void => {
               enableCerts={true}
               isOpen={true}
               onClose={handleClose}
+              typesOptions={[]}
               userRole={"user_manager"}
             />
           </Route>
