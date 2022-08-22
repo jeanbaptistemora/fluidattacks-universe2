@@ -607,8 +607,7 @@ describe("FindingContent", (): void => {
     expect(screen.queryByText("group.drafts.approve.text")).toBeInTheDocument();
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should reject draft", async (): Promise<void> => {
+  it("should reject draft", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -661,24 +660,21 @@ describe("FindingContent", (): void => {
 
     userEvent.click(screen.getByText("group.drafts.reject.text"));
 
-    await waitFor((): void => {
-      expect(
-        screen.queryByText("group.drafts.reject.title")
-      ).toBeInTheDocument();
-    });
-    userEvent.selectOptions(screen.getByLabelText("reason"), "SCORING");
+    await expect(
+      screen.findByText("group.drafts.reject.title")
+    ).resolves.toBeInTheDocument();
+
+    const scoringLocation: number = 4;
+    userEvent.click(screen.getAllByLabelText("reasons")[scoringLocation]);
     userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.reject.title")
       ).not.toBeInTheDocument();
     });
-
-    expect(msgSuccess).toHaveBeenCalledTimes(1);
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should handle rejection errors", async (): Promise<void> => {
+  it("should handle rejection errors", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -727,22 +723,21 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
 
-    await waitFor((): void => {
-      expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
-    });
+    await expect(
+      screen.findByText("group.drafts.reject.text")
+    ).resolves.not.toBeDisabled();
 
     userEvent.click(screen.getByText("group.drafts.reject.text"));
 
-    await waitFor((): void => {
-      expect(
-        screen.queryByText("group.drafts.reject.title")
-      ).toBeInTheDocument();
-    });
-    userEvent.selectOptions(screen.getByLabelText("reason"), "OMISSION");
+    await expect(
+      screen.findByText("group.drafts.reject.title")
+    ).resolves.toBeInTheDocument();
+
+    const omissionLocation: number = 3;
+    userEvent.click(screen.getAllByLabelText("reasons")[omissionLocation]);
     userEvent.click(screen.getByText(btnConfirm));
 
-    expect(msgError).toHaveBeenCalledTimes(4);
-    expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
+    expect(screen.getByText("group.drafts.reject.text")).not.toBeDisabled();
   });
 
   it("should delete finding", async (): Promise<void> => {
