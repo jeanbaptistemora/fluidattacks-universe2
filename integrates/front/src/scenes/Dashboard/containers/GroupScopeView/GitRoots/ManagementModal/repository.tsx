@@ -379,6 +379,7 @@ const Repository: FC<IRepositoryProps> = ({
                             <Input
                               label={t("group.scope.git.repo.credentials.user")}
                               name={"credentials.user"}
+                              required={true}
                             />
                           </Col>
                           <Col>
@@ -387,6 +388,7 @@ const Repository: FC<IRepositoryProps> = ({
                                 "group.scope.git.repo.credentials.password"
                               )}
                               name={"credentials.password"}
+                              required={true}
                             />
                           </Col>
                         </Fragment>
@@ -395,6 +397,7 @@ const Repository: FC<IRepositoryProps> = ({
                         <Input
                           label={t("group.scope.git.repo.credentials.token")}
                           name={"credentials.token"}
+                          required={true}
                         />
                       )}
                     </Fragment>

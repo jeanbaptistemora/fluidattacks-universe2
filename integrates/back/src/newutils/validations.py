@@ -12,6 +12,7 @@ from custom_exceptions import (
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
     InvalidSeverityUpdateValues,
+    InvalidSpacesField,
     NumberOutOfRange,
     UnsanitizedInputFound,
 )
@@ -237,6 +238,11 @@ def validate_update_severity_values(dictionary: dict) -> None:
         > 0
     ):
         raise InvalidSeverityUpdateValues()
+
+
+def validate_space_field(field: str) -> None:
+    if not re.search(r"\S", field):
+        raise InvalidSpacesField
 
 
 def validate_string_length_between(

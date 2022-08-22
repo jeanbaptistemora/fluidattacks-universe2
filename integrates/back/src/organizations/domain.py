@@ -105,6 +105,7 @@ from newutils.organization_access import (
 )
 from newutils.validations import (
     validate_email_address,
+    validate_space_field,
 )
 from organizations import (
     utils as orgs_utils,
@@ -137,18 +138,24 @@ async def add_credentials(
     organization_id: str,
     modified_by: str,
 ) -> None:
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
-        SshSecret(
+    if attributes.type is CredentialType.SSH:
+        secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(attributes.key or "")
         )
-        if attributes.type is CredentialType.SSH
-        else HttpsPatSecret(token=attributes.token)
-        if attributes.token is not None
-        else HttpsSecret(
-            user=attributes.user or "",
-            password=attributes.password or "",
+    elif attributes.token is not None:
+        token: str = attributes.token
+        validate_space_field(token)
+        secret = HttpsPatSecret(token=token)
+    else:
+        user: str = attributes.user or ""
+        password: str = attributes.password or ""
+        validate_space_field(user)
+        validate_space_field(password)
+        secret = HttpsSecret(
+            user=user,
+            password=password,
         )
-    )
+
     credential = Credentials(
         id=(str(uuid.uuid4())),
         organization_id=organization_id,

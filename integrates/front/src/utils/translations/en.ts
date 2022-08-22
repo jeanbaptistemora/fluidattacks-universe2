@@ -3609,6 +3609,7 @@ export const enTranslations: ResourceKey = {
     invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidMarkdown: "Invalid or malformed markdown",
     invalidPhoneNumber: "The phone number is invalid",
+    invalidSpaceField: "This field cannot contain only blankspaces",
     invalidSshFormat: "Invalid or malformed SSH private key",
     invalidTextBeginning:
       "Field cannot begin with the following character: {{ chars }}",

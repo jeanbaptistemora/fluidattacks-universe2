@@ -512,6 +512,15 @@ class InvalidCommentParent(CustomBaseException):
         super(InvalidCommentParent, self).__init__(msg)
 
 
+class InvalidSpacesField(CustomBaseException):
+    """Exception to avoid fields from being filled with spaces."""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Field cannot fill with blank characters"
+        super(InvalidSpacesField, self).__init__(msg)
+
+
 class RepeatedComment(CustomBaseException):
     """Exception to prevent repeated values"""
 

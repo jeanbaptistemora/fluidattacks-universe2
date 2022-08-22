@@ -117,6 +117,39 @@ async def test_add_credentials_fail(
         == "Exception - The ssh key must be in base64"
     )
 
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(name=" ", type="SSH", key="YWJ"),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Field cannot fill with blank characters"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(name="cred5", type="HTTPS", token=" "),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Field cannot fill with blank characters"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(name="cred5", type="HTTPS", user=" ", password="124"),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Field cannot fill with blank characters"
+    )
+
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_credentials")

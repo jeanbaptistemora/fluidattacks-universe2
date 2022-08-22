@@ -102,7 +102,20 @@ const gitModalSchema = (
                 ),
                 then: string(),
               })
-            : string().required(translate.t("validations.required")),
+            : string()
+                .required(translate.t("validations.required"))
+                .test(
+                  "hasValidValue",
+                  translate.t("validations.invalidSpaceField"),
+                  (value): boolean => {
+                    const regex = /\S/u;
+                    if (value === undefined) {
+                      return true;
+                    }
+
+                    return regex.test(value);
+                  }
+                ),
           password: string()
             .when("type", {
               is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
@@ -116,6 +129,18 @@ const gitModalSchema = (
               ),
               (): boolean => {
                 return isGitAccessible;
+              }
+            )
+            .test(
+              "hasValidValue",
+              translate.t("validations.invalidSpaceField"),
+              (value): boolean => {
+                const regex = /\S/u;
+                if (value === undefined) {
+                  return true;
+                }
+
+                return regex.test(value);
               }
             ),
           token: string()
@@ -131,6 +156,18 @@ const gitModalSchema = (
               ),
               (): boolean => {
                 return isGitAccessible;
+              }
+            )
+            .test(
+              "hasValidValue",
+              translate.t("validations.invalidSpaceField"),
+              (value): boolean => {
+                const regex = /\S/u;
+                if (value === undefined) {
+                  return true;
+                }
+
+                return regex.test(value);
               }
             ),
           type: isEditing
@@ -149,6 +186,18 @@ const gitModalSchema = (
               ),
               (): boolean => {
                 return isGitAccessible;
+              }
+            )
+            .test(
+              "hasValidValue",
+              translate.t("validations.invalidSpaceField"),
+              (value): boolean => {
+                const regex = /\S/u;
+                if (value === undefined) {
+                  return true;
+                }
+
+                return regex.test(value);
               }
             ),
         }),
@@ -299,6 +348,12 @@ const handleCreationError = (
       case "Exception - Branch not found":
         setModalMessages({
           message: translate.t("group.scope.git.errors.invalidBranch"),
+          type: "error",
+        });
+        break;
+      case "Exception - Field cannot fill with blank characters":
+        setModalMessages({
+          message: translate.t("validations.invalidSpaceField"),
           type: "error",
         });
         break;

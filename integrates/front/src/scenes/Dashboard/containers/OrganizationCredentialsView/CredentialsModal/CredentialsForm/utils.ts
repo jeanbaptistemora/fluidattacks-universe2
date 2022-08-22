@@ -32,30 +32,82 @@ const validateSchema = (): InferType<TypedSchema> =>
               return regex.test(value);
             }
           ),
-        name: string().when("type", {
-          is: undefined,
-          otherwise: string().required(translate.t("validations.required")),
-          then: string(),
-        }),
-        password: string().when(["newSecrets", "type"], {
-          is: (newSecrets: boolean, type: string): boolean =>
-            newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
-          otherwise: string(),
-          then: string().required(translate.t("validations.required")),
-        }),
-        token: string().when(["newSecrets", "type"], {
-          is: (newSecrets: boolean, type: string): boolean =>
-            newSecrets && type === (values.auth === "TOKEN" ? "HTTPS" : ""),
-          otherwise: string(),
-          then: string().required(translate.t("validations.required")),
-        }),
+        name: string()
+          .when("type", {
+            is: undefined,
+            otherwise: string().required(translate.t("validations.required")),
+            then: string(),
+          })
+          .test(
+            "hasValidValue",
+            translate.t("validations.invalidSpaceField"),
+            (value): boolean => {
+              const regex = /\S/u;
+              if (value === undefined) {
+                return true;
+              }
+
+              return regex.test(value);
+            }
+          ),
+        password: string()
+          .when(["newSecrets", "type"], {
+            is: (newSecrets: boolean, type: string): boolean =>
+              newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
+            otherwise: string(),
+            then: string().required(translate.t("validations.required")),
+          })
+          .test(
+            "hasValidValue",
+            translate.t("validations.invalidSpaceField"),
+            (value): boolean => {
+              const regex = /\S/u;
+              if (value === undefined) {
+                return true;
+              }
+
+              return regex.test(value);
+            }
+          ),
+        token: string()
+          .when(["newSecrets", "type"], {
+            is: (newSecrets: boolean, type: string): boolean =>
+              newSecrets && type === (values.auth === "TOKEN" ? "HTTPS" : ""),
+            otherwise: string(),
+            then: string().required(translate.t("validations.required")),
+          })
+          .test(
+            "hasValidValue",
+            translate.t("validations.invalidSpaceField"),
+            (value): boolean => {
+              const regex = /\S/u;
+              if (value === undefined) {
+                return true;
+              }
+
+              return regex.test(value);
+            }
+          ),
         type: string().required(translate.t("validations.required")),
-        user: string().when(["newSecrets", "type"], {
-          is: (newSecrets: boolean, type: string): boolean =>
-            newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
-          otherwise: string(),
-          then: string().required(translate.t("validations.required")),
-        }),
+        user: string()
+          .when(["newSecrets", "type"], {
+            is: (newSecrets: boolean, type: string): boolean =>
+              newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
+            otherwise: string(),
+            then: string().required(translate.t("validations.required")),
+          })
+          .test(
+            "hasValidValue",
+            translate.t("validations.invalidSpaceField"),
+            (value): boolean => {
+              const regex = /\S/u;
+              if (value === undefined) {
+                return true;
+              }
+
+              return regex.test(value);
+            }
+          ),
       })
   );
 

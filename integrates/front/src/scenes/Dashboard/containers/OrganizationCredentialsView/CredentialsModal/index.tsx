@@ -57,6 +57,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             case "Exception - A credential exists with the same name":
               msgError(t("validations.invalidCredentialName"));
               break;
+            case "Exception - Field cannot fill with blank characters":
+              msgError(t("validations.invalidSpaceField"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);
@@ -84,6 +87,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           switch (error.message) {
             case "Exception - A credential exists with the same name":
               msgError(t("validations.invalidCredentialName"));
+              break;
+            case "Exception - Field cannot fill with blank characters":
+              msgError(t("validations.invalidSpaceField"));
               break;
             default:
               msgError(t("groupAlerts.errorTextsad"));

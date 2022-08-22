@@ -24,6 +24,7 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
+    validations as validation_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -54,10 +55,14 @@ async def mutate(
         raise InvalidParameter("name")
     if "type" not in credentials:
         raise InvalidParameter("type")
+
+    name: str = credentials["name"]
+    validation_utils.validate_space_field(name)
+
     await orgs_domain.add_credentials(
         loaders,
         CredentialAttributesToAdd(
-            name=credentials["name"],
+            name=name,
             key=credentials.get("key"),
             token=credentials.get("token"),
             type=CredentialType[credentials["type"]],
