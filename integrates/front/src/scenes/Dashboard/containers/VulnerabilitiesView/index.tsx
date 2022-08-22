@@ -4,7 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -23,6 +23,7 @@ import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/t
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
 import {
+  filterAssigned,
   filterCurrentStatus,
   filterOutVulnerabilities,
   filterTreatment,
@@ -84,6 +85,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("locationsCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [assignedFilter, setAssignedFilter] = useState("");
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
     useStoredState(
       "filterVulnerabilitiesSet",
@@ -236,6 +238,21 @@ export const VulnsView: React.FC = (): JSX.Element => {
       (vulnerabilityEdge: IVulnerabilityEdge): IVulnRowAttr =>
         vulnerabilityEdge.node
     );
+  const treatmentAssignedOptions = useMemo(
+    (): Record<string, string> =>
+      Object.fromEntries(
+        unformattedVulns
+          .map((vulnerability: IVulnRowAttr): (string | null)[] => [
+            vulnerability.treatmentAssigned,
+            vulnerability.treatmentAssigned,
+          ])
+          .filter(
+            (assignedOption: (string | null)[]): boolean =>
+              !_.isNull(assignedOption[0])
+          )
+      ) as Record<string, string>,
+    [unformattedVulns]
+  );
 
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
@@ -347,6 +364,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
     );
   }
 
+  function onAssignedChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setAssignedFilter(event.target.value);
+  }
+
+  const filterAssignedVulnerabilities: IVulnRowAttr[] = filterAssigned(
+    vulnerabilities,
+    assignedFilter
+  );
+
   function onTreatmentStatusChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
@@ -400,9 +427,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
       })
     );
     setSearchTextFilter("");
+    setAssignedFilter("");
   }
 
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterAssignedVulnerabilities,
     filterSearchTextVulnerabilities,
     filterTreatmentCurrentStatusVulnerabilities,
     filterTreatmentVulnerabilities,
@@ -539,6 +568,15 @@ export const VulnsView: React.FC = (): JSX.Element => {
       tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
       tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
       type: "dateRange",
+    },
+    {
+      defaultValue: assignedFilter,
+      onChangeSelect: onAssignedChange,
+      placeholder: "Assigned",
+      selectOptions: treatmentAssignedOptions,
+      tooltipId: "searchFindings.tabVuln.assignedTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.assignedTooltip",
+      type: "select",
     },
   ];
 

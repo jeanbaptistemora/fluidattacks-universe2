@@ -3230,6 +3230,7 @@ export const enTranslations: ResourceKey = {
           value: "Value is invalid, pattern '{{pattern}}'. ",
         },
       },
+      assignedTooltip: "Filter vulnerabilities based on who is the assigned",
       buttons: {
         edit: "Edit",
         handleAcceptance: "Treatment Acceptance",

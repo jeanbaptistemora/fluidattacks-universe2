@@ -167,6 +167,20 @@ const formatVulnerabilitiesTreatment: (
     };
   });
 
+function filterAssigned(
+  vulnerabilities: IVulnRowAttr[],
+  assigned: string
+): IVulnRowAttr[] {
+  if (_.isEmpty(assigned)) {
+    return vulnerabilities;
+  }
+
+  return vulnerabilities.filter(
+    (vulnerability: IVulnRowAttr): boolean =>
+      vulnerability.treatmentAssigned === assigned
+  );
+}
+
 function filterZeroRisk(vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] {
   return vulnerabilities.filter(
     (vuln: IVulnRowAttr): boolean =>
@@ -273,6 +287,7 @@ const getVulnerabilityById: (
 };
 
 export {
+  filterAssigned,
   filterTreatment,
   filterCurrentStatus,
   filterOutVulnerabilities,
