@@ -80,6 +80,7 @@ def get_estimator(
         hyperparameters={"model": model.split(":")[0]},
         metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         debugger_hook_config=False,
+        image_uri_region="us-east-1",
         tags=[
             {"Key": "management:area", "Value": "cost"},
             {"Key": "management:product", "Value": "sorts"},
