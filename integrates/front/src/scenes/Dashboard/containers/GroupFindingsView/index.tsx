@@ -83,7 +83,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const { push, replace } = useHistory();
+  const { push } = useHistory();
   const { url } = useRouteMatch();
   const { t } = useTranslation();
 
@@ -302,7 +302,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
+  const { data, refetch } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     fetchPolicy: "cache-first",
     onError: handleQryErrors,
     variables: { groupName },
@@ -574,7 +574,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         t("searchFindings.findingsDeleted"),
         t("group.drafts.titleSuccess")
       );
-      replace(`groups/${groupName}/vulns`);
+      void refetch();
       handleCloseModal();
     }
   };
