@@ -27,7 +27,7 @@ interface ITableProps<TData extends RowData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;
-  enableRowSelection?: boolean;
+  enableColumnFilters?: boolean;
   enableSearchBar?: boolean;
   expandedRow?: (row: Row<TData>) => JSX.Element;
   exportCsv?: boolean;

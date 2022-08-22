@@ -22,7 +22,7 @@ const SidePanel = ({
     ? createPortal(
         <Container>
           {onClose ? (
-            <div className={"self-end"}>
+            <div className={"tr"}>
               <Button onClick={onClose} size={"sm"}>
                 <FontAwesomeIcon icon={faClose} />
               </Button>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.aside.attrs({
-  className: "absolute flex flex-column overflow-x-hidden z-999",
+  className: "absolute overflow-x-hidden z-999",
 })`
   background-color: #f4f4f6;
   border-radius: 4px;

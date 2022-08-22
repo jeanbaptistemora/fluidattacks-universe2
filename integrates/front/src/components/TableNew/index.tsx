@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 
 import { Body } from "./Body";
 import { ToggleFunction } from "./columnToggle";
+import { Filters } from "./Filters";
 import { Head } from "./Head";
 import { Pagination } from "./Pagination";
 import { TableContainer } from "./styles";
@@ -36,15 +37,16 @@ const Table = <TData extends object>({
   columnToggle = false,
   csvName = "Report",
   data,
+  enableColumnFilters = false,
   enableSearchBar = true,
   expandedRow = undefined,
   exportCsv = false,
   extraButtons = undefined,
   id,
   initState = undefined,
+  onNextPage = undefined,
   onRowClick = undefined,
   onSearch = undefined,
-  onNextPage = undefined,
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
@@ -97,6 +99,7 @@ const Table = <TData extends object>({
   const table = useReactTable<TData>({
     columns,
     data,
+    enableColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -190,15 +193,16 @@ const Table = <TData extends object>({
             ) : undefined}
           </Gap>
         </div>
-        {enableSearchBar ? (
-          <div>
+        <div className={"flex justify-between"}>
+          {enableSearchBar ? (
             <SearchText
               onChange={globalFilterHandler}
               placeholder={t("table.search")}
               value={globalFilter}
             />
-          </div>
-        ) : undefined}
+          ) : undefined}
+          {enableColumnFilters ? <Filters table={table} /> : undefined}
+        </div>
       </div>
       <TableContainer clickable={onRowClick !== undefined}>
         <table>

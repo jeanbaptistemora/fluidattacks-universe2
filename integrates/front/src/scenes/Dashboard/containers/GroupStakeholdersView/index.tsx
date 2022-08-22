@@ -293,7 +293,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         <Table
           columns={tableHeaders}
           data={stakeholdersList}
-          enableRowSelection={true}
           exportCsv={true}
           extraButtons={
             <React.Fragment>

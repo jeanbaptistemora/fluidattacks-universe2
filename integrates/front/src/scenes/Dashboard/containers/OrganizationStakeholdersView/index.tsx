@@ -303,7 +303,6 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
         <Tablezz
           columns={tableheaderszz}
           data={stakeholdersList}
-          enableRowSelection={true}
           exportCsv={true}
           extraButtons={
             <React.Fragment>
