@@ -20,26 +20,10 @@ Every morning when I wake up,
 the first thing I do is grab my phone
 to check what new messages I have received.
 It's a deep-rooted habit.
-Today,
-the use of mobile devices connected to the Internet is,
-without mincing one's words,
-extravagant.
-They are glued to us.
-It is as if,
-instead of external objects,
-they were already an extension of our upper limbs
-and even,
-or perhaps especially,
-of our brains.
-Just recently,
-I learned that the concept of NOMOPHOBIA
-(["NO MObile PHone PhoBIA"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6510111/))
-has existed within psychiatry for a few years now.
-You can guess what it is about.
-
+For many of us,
+the use of the capabilities of these devices is part of our daily routine.
 As you no doubt have witnessed,
 we are crowded with [mobile applications](../../systems/mobile-apps/).
-It's thanks to them that we keep our attention on those devices.
 We use them to manage our money,
 order transportation services and food,
 play games, set goals and track our physical activity,
