@@ -245,7 +245,7 @@ def _ssh_ls_remote(group_name: str, root: GitRoot) -> Optional[str]:
             f"ssh-add {shq(keyfile)}; git ls-remote {shq(baseurl)} {branch}",
         ]
         cmd = cmd_execute(command_ls)
-        if len(cmd[0]) >= 0:
+        if len(cmd[0]) > 0:
             return cmd[0].split("\t")[0]
     return None
 
@@ -326,7 +326,7 @@ def _http_ls_remote(
     if "fatal" not in baseurl:
         command_ls = ["git", "ls-remote", shq(baseurl), root.branch]
         cmd = cmd_execute(command_ls)
-        if len(cmd[0]) >= 0:
+        if len(cmd[0]) > 0:
             return Result.success(cmd[0].split("\t")[0])
         return Result.success(None)
     problem = FormatRepoProblem(root.nickname, root.branch, baseurl)
