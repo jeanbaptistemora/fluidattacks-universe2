@@ -171,6 +171,10 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "finding_id",
+          "AttributeType": "S"
+        },
+        {
           "AttributeName": "content",
           "AttributeType": "S"
         },
