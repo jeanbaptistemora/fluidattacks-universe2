@@ -41,16 +41,13 @@ def insecure_deserialization(
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
-            for syntax_steps in shard.syntax.values():
-                for syntax_step in syntax_steps:
-                    if (
-                        isinstance(
-                            syntax_step,
-                            graph_model.SyntaxStepObjectInstantiation,
-                        )
-                        and syntax_step.object_type in danger_objects
-                    ):
-                        yield shard, syntax_step.meta.n_id
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for nid in yield_syntax_graph_object_creation(
+                graph, danger_objects
+            ):
+                yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.096.description",
