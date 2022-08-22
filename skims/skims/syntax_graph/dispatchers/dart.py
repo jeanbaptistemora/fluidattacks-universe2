@@ -6,10 +6,14 @@ from syntax_graph.syntax_readers.common import (
     program as common_program,
 )
 from syntax_graph.syntax_readers.dart import (
+    argument as dart_argument,
+    argument_part as dart_argument_part,
+    arguments as dart_arguments,
     expression_statement as dart_expression_statement,
     function_body as dart_function_body,
     function_signature as dart_function_signature,
     import_or_export as dart_import_or_export,
+    selector as dart_selector,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -17,6 +21,24 @@ from syntax_graph.types import (
 )
 
 DART_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "argument",
+        },
+        syntax_reader=dart_argument.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "argument_part",
+        },
+        syntax_reader=dart_argument_part.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "arguments",
+        },
+        syntax_reader=dart_arguments.reader,
+    ),
     Dispatcher(
         applicable_types={
             "block",
@@ -70,5 +92,11 @@ DART_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=common_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "selector",
+        },
+        syntax_reader=dart_selector.reader,
     ),
 )

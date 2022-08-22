@@ -9,12 +9,10 @@ from typing import (
 )
 
 
-def build_function_body_node(
-    args: SyntaxGraphArgs, c_ids: Iterator[NId]
-) -> NId:
+def build_argument_node(args: SyntaxGraphArgs, c_ids: Iterator[NId]) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        label_type="FunctionBody",
+        label_type="Argument",
     )
 
     for c_id in c_ids:
