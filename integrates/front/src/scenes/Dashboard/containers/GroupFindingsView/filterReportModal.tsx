@@ -40,6 +40,7 @@ interface IDeactivationModalProps {
 }
 
 interface IFormValues {
+  age: number | undefined;
   closingDate: string;
   findingTitle: string;
   maxSeverity: number | undefined;
@@ -93,6 +94,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
   const handleRequestGroupReport = useCallback(
     (
+      age: number | undefined,
       closingDate: string | undefined,
       findingTitle: string | undefined,
       maxSeverity: number | undefined,
@@ -107,6 +109,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
       requestGroupReport({
         variables: {
+          age,
           closingDate,
           findingTitle,
           groupName,
@@ -180,6 +183,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           <VerifyDialog isOpen={isVerifyDialogOpen}>
             {(setVerifyCallbacks): JSX.Element => {
               function onRequestReport(values: {
+                age: number | undefined;
                 closingDate: string;
                 findingTitle: string;
                 maxSeverity: number | undefined;
@@ -191,6 +195,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 setVerifyCallbacks(
                   (verificationCode: string): void => {
                     handleRequestGroupReport(
+                      _.isEmpty(String(values.age)) ? undefined : values.age,
                       _.isEmpty(values.closingDate)
                         ? undefined
                         : values.closingDate,
@@ -221,6 +226,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               return (
                 <Formik
                   initialValues={{
+                    age: undefined,
                     closingDate: "",
                     findingTitle: "",
                     maxSeverity: undefined,
@@ -254,7 +260,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           {t("group.findings.report.filterReportDescription")}
                         </p>
                         <Row align={"start"} justify={"start"}>
-                          <Col lg={50} md={90} sm={90}>
+                          <Col lg={50} md={50} sm={50}>
                             <p className={"mb1 mt1"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.findingTitle.text")}
@@ -282,7 +288,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               </Field>
                             </Tooltip>
                           </Col>
-                          <Col lg={30} md={90} sm={90}>
+                          <Col lg={30} md={30} sm={90}>
                             <Row align={"start"} justify={"between"}>
                               <Col lg={40} md={40} sm={40}>
                                 <p className={"mb1 mt1"}>
@@ -309,7 +315,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                   />
                                 </Tooltip>
                               </Col>
-                              <Col lg={10} md={50} sm={50}>
+                              <Col lg={10} md={10} sm={50}>
                                 <Row align={"center"} justify={"center"}>
                                   <Col lg={100} md={100} sm={50}>
                                     <FontAwesomeIcon
@@ -347,6 +353,27 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 </Tooltip>
                               </Col>
                             </Row>
+                          </Col>
+                          <Col lg={5} md={5} sm={5} />
+                          <Col lg={15} md={15} sm={50}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.age.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.age.id"}
+                              place={"top"}
+                              tip={t("group.findings.report.age.tooltip")}
+                            >
+                              <Field
+                                component={FormikText}
+                                max={10000}
+                                min={0}
+                                name={"age"}
+                                type={"number"}
+                              />
+                            </Tooltip>
                           </Col>
                           <Col lg={90} md={90} sm={90}>
                             <Col lg={50} md={50} sm={50}>

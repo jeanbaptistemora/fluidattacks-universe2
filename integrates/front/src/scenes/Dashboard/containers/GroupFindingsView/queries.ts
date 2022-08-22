@@ -43,6 +43,7 @@ const GET_FINDINGS: DocumentNode = gql`
 
 const REQUEST_GROUP_REPORT: DocumentNode = gql`
   query RequestGroupReport(
+    $age: Int
     $reportType: ReportType!
     $groupName: String!
     $lang: ReportLang
@@ -56,6 +57,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $verificationCode: String!
   ) {
     report(
+      age: $age
       reportType: $reportType
       findingTitle: $findingTitle
       groupName: $groupName

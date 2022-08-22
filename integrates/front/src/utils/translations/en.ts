@@ -697,6 +697,10 @@ export const enTranslations: ResourceKey = {
         noData: "There are no records",
       },
       report: {
+        age: {
+          text: "Age",
+          tooltip: "Filter type with age less than value",
+        },
         alerts: {
           invalidVerificationCode: "The verification code is invalid",
           nonVerifiedStakeholder: "Try again in a few minutes",
