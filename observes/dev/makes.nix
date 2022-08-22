@@ -13,6 +13,7 @@
     observesTapCheckly = tap.checkly;
     observesTapDynamo = tap.dynamo;
     observesTapGitlab = tap.gitlab;
+    observesTapMandrill = tap.mandrill;
     observesTargetRedshift = target.redshift_2;
     observesTargetS3 = target.s3;
     observesEtlDynamoConf = etl.dynamo;

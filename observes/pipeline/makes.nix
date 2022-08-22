@@ -60,6 +60,7 @@
     tap.checkly
     tap.dynamo
     tap.gitlab
+    tap.mandrill
     target.s3
   ];
   _if_exists = attrs: key: gitlabExtra:

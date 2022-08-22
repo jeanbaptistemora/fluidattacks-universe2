@@ -88,6 +88,7 @@ in {
     gitlab = new_std "${singerPath}/tap-gitlab";
     json = std_data "${singerPath}/tap-json";
     mailchimp = std_data "${singerPath}/tap-mailchimp";
+    mandrill = no_arch_job (new_std "${singerPath}/tap-mandrill");
     mixpanel = std_data "${singerPath}/tap-mixpanel";
     timedoctor = std_data "${singerPath}/tap-timedoctor";
     zoho_analytics = std_data "${singerPath}/tap-zoho-analytics";
