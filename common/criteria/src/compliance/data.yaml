@@ -1974,6 +1974,60 @@ pci:
     '2_3_2':
       title: Wireless environments are configured and managed securely
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_2_1':
+      title: Retain account data only where neccesary and deleted when no longer needed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_3_1':
+      title: Sensitive authentication data (SAD) is not stored after authorization
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_3_2':
+      title: Sensitive authentication data (SAD) is encrypted using strong cryptography
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_3_3':
+      title: Sensitive authentication data (SAD) is not stored after authorization
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_4_1':
+      title: Data is masked when displayed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_4_2':
+      title: Use secure remote-access technologies
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_5_1':
+      title: Primary account number (PAN) is secured wherever it is stored
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_6_1':
+      title: Protect cryptographic keys used to protect stored account data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_7_1':
+      title: Generation of strong cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_7_2':
+      title: Secure cryptographic key distribution
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_7_3':
+      title: Secure cryptographic key storage
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_7_7':
+      title: Prevention of unauthorized substitution of cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '3_7_9':
+      title: Secure transmission and storage of cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '4_2_1':
+      title: Strong cryptography during transmission
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '4_2_2':
+      title: Strong cryptography to protect data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '5_2_1':
+      title: Deploy an anti-malware solution on system components
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '5_3_2':
+      title: Anti-malware mechanisms and processes are active and monitored
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '5_3_4':
+      title: Enable audit logs for the anti-malware solution
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 soc2:
   title: SOC2®
