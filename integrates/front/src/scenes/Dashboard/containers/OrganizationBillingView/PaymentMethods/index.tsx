@@ -8,6 +8,7 @@ import {
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
 import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -29,6 +30,7 @@ import { Button } from "components/Button";
 import { Table } from "components/Table/index";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
+import { Table as Tablez } from "components/TableNew/";
 import { Text } from "components/Text";
 import { GraphicButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -54,8 +56,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       authzPermissionsContext
     );
     const [currentCreditCardRow, setCurrentCreditCardRow] = useState<
-      Record<string, string>
-    >({});
+      IPaymentMethodAttr[]
+    >([]);
     const [currentOtherMethodRow, setCurrentOtherMethodRow] = useState<
       Record<string, string>
     >({});
@@ -84,18 +86,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       (paymentMethod: IPaymentMethodAttr): boolean => {
         return paymentMethod.lastFourDigits === "";
       }
-    );
-
-    // Search credit card bar
-    const [searchFilterCreditCard, setSearchFilterCreditCard] = useState("");
-    function onSearchCreditCardChange(
-      event: React.ChangeEvent<HTMLInputElement>
-    ): void {
-      setSearchFilterCreditCard(event.target.value);
-    }
-    const filterSearchTextCreditCard: IPaymentMethodAttr[] = filterSearchText(
-      creditCardData,
-      searchFilterCreditCard
     );
 
     // Search other method bar
@@ -261,7 +251,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       {
         onCompleted: (): void => {
           onUpdate();
-          setCurrentCreditCardRow({});
+          setCurrentCreditCardRow([]);
           setCurrentOtherMethodRow({});
           msgSuccess(
             t("organization.tabs.billing.paymentMethods.remove.success.body"),
@@ -304,8 +294,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       void removePaymentMethod({
         variables: {
           organizationId,
-          paymentMethodId: currentCreditCardRow.id
-            ? currentCreditCardRow.id
+          paymentMethodId: currentCreditCardRow[0].id
+            ? currentCreditCardRow[0].id
             : currentOtherMethodRow.id,
         },
       });
@@ -394,8 +384,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             email,
             makeDefault,
             organizationId,
-            paymentMethodId: currentCreditCardRow.id
-              ? currentCreditCardRow.id
+            paymentMethodId: currentCreditCardRow[0].id
+              ? currentCreditCardRow[0].id
               : currentOtherMethodRow.id,
             rut,
             state,
@@ -448,22 +438,21 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       [downloadFile, organizationId, paymentMethods]
     );
 
-    // Table header
-    const creditCardTableHeaders: IHeaderConfig[] = [
+    const creditCardTableHeadersz: ColumnDef<IPaymentMethodAttr>[] = [
       {
-        dataField: "brand",
+        accessorKey: "brand",
         header: "Brand",
       },
       {
-        dataField: "lastFourDigits",
+        accessorKey: "lastFourDigits",
         header: "Last four digits",
       },
       {
-        dataField: "expirationMonth",
+        accessorKey: "expirationMonth",
         header: "Expiration Month",
       },
       {
-        dataField: "expirationYear",
+        accessorKey: "expirationYear",
         header: "Expiration Year",
       },
     ];
@@ -513,17 +502,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         <Text fw={7} mb={2} mt={3} size={4}>
           {t("organization.tabs.billing.paymentMethods.add.creditCard.label")}
         </Text>
-        <Table
-          columnToggle={false}
-          customSearch={{
-            customSearchDefault: searchFilterCreditCard,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchCreditCardChange,
-            position: "right",
-          }}
-          dataset={filterSearchTextCreditCard}
-          defaultSorted={{ dataField: "brand", order: "asc" }}
-          exportCsv={false}
+        <Tablez
+          columns={creditCardTableHeadersz}
+          data={creditCardData}
           extraButtons={
             <Fragment>
               <Can do={"api_mutations_add_payment_method_mutate"}>
@@ -567,16 +548,10 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               </Can>
             </Fragment>
           }
-          headers={creditCardTableHeaders}
           id={"tblCreditCard"}
-          pageSize={10}
-          search={false}
-          selectionMode={{
-            clickToSelect: canRemove || canUpdate,
-            hideSelectColumn: !canRemove && !canUpdate,
-            mode: "radio",
-            onSelect: setCurrentCreditCardRow,
-          }}
+          rowSelectionSetter={setCurrentCreditCardRow}
+          rowSelectionState={currentCreditCardRow}
+          selectionMode={"radio"}
         />
         <Text fw={7} mb={2} mt={3} size={4}>
           {t("organization.tabs.billing.paymentMethods.add.otherMethods.label")}
