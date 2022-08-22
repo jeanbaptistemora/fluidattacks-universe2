@@ -26,7 +26,7 @@ interface IInputBase<T = HTMLElement>
 
 interface IInputBaseProps extends IInputBase {
   children?: ReactNode;
-  form: TFieldProps["form"];
+  form: Pick<TFieldProps["form"], "errors" | "touched">;
 }
 
 const InputBase: FC<IInputBaseProps> = ({

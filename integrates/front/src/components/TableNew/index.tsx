@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -22,7 +24,7 @@ import { useTranslation } from "react-i18next";
 
 import { Body } from "./Body";
 import { ToggleFunction } from "./columnToggle";
-import { Filters } from "./Filters";
+import { Filters } from "./filters";
 import { Head } from "./Head";
 import { Pagination } from "./Pagination";
 import { TableContainer } from "./styles";
@@ -101,6 +103,8 @@ const Table = <TData extends object>({
     data,
     enableColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getRowCanExpand: (): boolean => expandedRow !== undefined,

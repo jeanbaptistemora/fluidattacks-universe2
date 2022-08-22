@@ -8,11 +8,15 @@ import { StyledInput } from "../styles";
 interface IInputProps extends IInputBase<HTMLInputElement> {
   childLeft?: ReactNode;
   childRight?: ReactNode;
+  list?: string;
   placeholder?: string;
   type?: "email" | "password" | "text";
 }
 
-type TInputProps = IInputProps & TFieldProps;
+type TInputProps = IInputProps & {
+  field: TFieldProps["field"];
+  form: Pick<TFieldProps["form"], "errors" | "touched">;
+};
 
 const FormikInput: FC<TInputProps> = ({
   childLeft,
@@ -22,6 +26,7 @@ const FormikInput: FC<TInputProps> = ({
   form,
   id,
   label,
+  list,
   onBlur,
   onFocus,
   onKeyDown,
@@ -55,6 +60,7 @@ const FormikInput: FC<TInputProps> = ({
         autoComplete={"off"}
         disabled={disabled}
         id={id}
+        list={list}
         name={name}
         onBlur={handleBlur}
         onChange={onChange}

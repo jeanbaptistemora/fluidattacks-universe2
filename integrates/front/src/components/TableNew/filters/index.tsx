@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Column, Header, RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
+import { TextFilter } from "./TextFilter";
+
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { SidePanel } from "components/SidePanel";
@@ -53,7 +55,9 @@ const Filters = <TData extends RowData>({
 
             return (
               <Row key={column.id}>
-                <Col>{column.columnDef.header}</Col>
+                <Col>
+                  <TextFilter column={column} />
+                </Col>
               </Row>
             );
           })}
