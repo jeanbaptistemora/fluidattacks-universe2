@@ -206,9 +206,13 @@ const FindingContent: React.FC = (): JSX.Element => {
   );
 
   const handleReject = useCallback(
-    async (values: { reason: string; other: string | null }): Promise<void> => {
+    async (values: {
+      reasons: string[];
+      other: string | null;
+    }): Promise<void> => {
+      const otherReasons = values.reasons.includes("OTHER") ? values.other : "";
       await rejectDraft({
-        variables: { findingId, other: values.other, reasons: [values.reason] },
+        variables: { findingId, other: otherReasons, reasons: values.reasons },
       });
       closeRejectModal();
     },
