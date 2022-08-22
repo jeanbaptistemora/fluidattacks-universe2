@@ -729,6 +729,14 @@ export const enTranslations: ResourceKey = {
           tooltip: "Filter by type",
         },
         generateXls: "Generate XLS",
+        maxSeverity: {
+          text: "Max severity",
+          tooltip: "Filter out vulnerabilities with severity more than value",
+        },
+        minSeverity: {
+          text: "Min severity",
+          tooltip: "Filter out vulnerabilities with severity less than value",
+        },
         modalClose: "Close",
         modalTitle: "Reports",
         pdf: "Executive",

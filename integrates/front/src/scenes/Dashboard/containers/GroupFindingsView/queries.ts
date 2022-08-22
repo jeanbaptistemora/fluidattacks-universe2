@@ -50,6 +50,8 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $states: [VulnerabilityState!]
     $verifications: [VulnerabilityVerification!]
     $closingDate: DateTime
+    $maxSeverity: Float
+    $minSeverity: Float
     $findingTitle: String
     $verificationCode: String!
   ) {
@@ -58,6 +60,8 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
       findingTitle: $findingTitle
       groupName: $groupName
       lang: $lang
+      maxSeverity: $maxSeverity
+      minSeverity: $minSeverity
       states: $states
       treatments: $treatments
       verifications: $verifications

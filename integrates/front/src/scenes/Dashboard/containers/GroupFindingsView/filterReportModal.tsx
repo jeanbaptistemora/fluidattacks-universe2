@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import { faFileExcel, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
@@ -12,7 +12,8 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { array, object } from "yup";
+import type { TestContext } from "yup";
+import { array, number, object } from "yup";
 
 import { Button } from "components/Button";
 import { Col, Hr, Row } from "components/Layout";
@@ -21,7 +22,12 @@ import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import { FormikCheckbox, FormikDate, FormikDropdown } from "utils/forms/fields";
+import {
+  FormikCheckbox,
+  FormikDate,
+  FormikDropdown,
+  FormikText,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, isGreaterDate } from "utils/validations";
@@ -36,6 +42,8 @@ interface IDeactivationModalProps {
 interface IFormValues {
   closingDate: string;
   findingTitle: string;
+  maxSeverity: number | undefined;
+  minSeverity: number | undefined;
   states: string[];
   treatments: string[];
   verifications: string[];
@@ -87,6 +95,8 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     (
       closingDate: string | undefined,
       findingTitle: string | undefined,
+      maxSeverity: number | undefined,
+      minSeverity: number | undefined,
       states: string[],
       treatments: string[] | undefined,
       verifications: string[],
@@ -100,6 +110,8 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           closingDate,
           findingTitle,
           groupName,
+          maxSeverity,
+          minSeverity,
           reportType,
           states,
           treatments,
@@ -112,6 +124,42 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   );
 
   const validations = object().shape({
+    maxSeverity: number()
+      .max(10)
+      .test({
+        exclusive: false,
+        message: "Must be greater than or equal to Min severity",
+        name: "min",
+        params: {},
+        test: (
+          value: number | undefined,
+          thisContext: TestContext
+        ): boolean => {
+          const { minSeverity } = thisContext.parent;
+
+          return value === undefined || minSeverity === undefined
+            ? true
+            : value >= (minSeverity ?? 0);
+        },
+      }),
+    minSeverity: number()
+      .min(0)
+      .test({
+        exclusive: false,
+        message: "Must be less than or equal to Max severity",
+        name: "max",
+        params: {},
+        test: (
+          value: number | undefined,
+          thisContext: TestContext
+        ): boolean => {
+          const { maxSeverity } = thisContext.parent;
+
+          return value === undefined || maxSeverity === undefined
+            ? true
+            : value <= (maxSeverity ?? 10);
+        },
+      }),
     states: array().min(1, t("validations.someRequired")),
     treatments: array().when("closingDate", {
       is: (closingDate: string): boolean => _.isEmpty(closingDate),
@@ -134,6 +182,8 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               function onRequestReport(values: {
                 closingDate: string;
                 findingTitle: string;
+                maxSeverity: number | undefined;
+                minSeverity: number | undefined;
                 states: string[];
                 treatments: string[];
                 verifications: string[];
@@ -147,6 +197,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                       _.isEmpty(values.findingTitle)
                         ? undefined
                         : values.findingTitle,
+                      _.isEmpty(String(values.maxSeverity))
+                        ? undefined
+                        : values.maxSeverity,
+                      _.isEmpty(String(values.minSeverity))
+                        ? undefined
+                        : values.minSeverity,
                       values.states,
                       _.isEmpty(values.closingDate)
                         ? values.treatments
@@ -167,6 +223,8 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                   initialValues={{
                     closingDate: "",
                     findingTitle: "",
+                    maxSeverity: undefined,
+                    minSeverity: undefined,
                     states: [],
                     treatments: [],
                     verifications: [],
@@ -223,6 +281,72 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 )}
                               </Field>
                             </Tooltip>
+                          </Col>
+                          <Col lg={30} md={90} sm={90}>
+                            <Row align={"start"} justify={"between"}>
+                              <Col lg={40} md={40} sm={40}>
+                                <p className={"mb1 mt1"}>
+                                  <span className={"fw8"}>
+                                    {t(
+                                      "group.findings.report.minSeverity.text"
+                                    )}
+                                  </span>
+                                </p>
+                                <Tooltip
+                                  id={"group.findings.report.minSeverity.id"}
+                                  place={"top"}
+                                  tip={t(
+                                    "group.findings.report.minSeverity.tooltip"
+                                  )}
+                                >
+                                  <Field
+                                    component={FormikText}
+                                    max={10}
+                                    min={0}
+                                    name={"minSeverity"}
+                                    step={0.1}
+                                    type={"number"}
+                                  />
+                                </Tooltip>
+                              </Col>
+                              <Col lg={10} md={50} sm={50}>
+                                <Row align={"center"} justify={"center"}>
+                                  <Col lg={100} md={100} sm={50}>
+                                    <FontAwesomeIcon
+                                      // eslint-disable-next-line react/forbid-component-props
+                                      className={"pt4"}
+                                      color={"gray"}
+                                      icon={faMinus}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Col>
+                              <Col lg={40} md={50} sm={50}>
+                                <p className={"mb1 mt1"}>
+                                  <span className={"fw8"}>
+                                    {t(
+                                      "group.findings.report.maxSeverity.text"
+                                    )}
+                                  </span>
+                                </p>
+                                <Tooltip
+                                  id={"group.findings.report.maxSeverity.id"}
+                                  place={"top"}
+                                  tip={t(
+                                    "group.findings.report.maxSeverity.tooltip"
+                                  )}
+                                >
+                                  <Field
+                                    component={FormikText}
+                                    max={10}
+                                    min={0}
+                                    name={"maxSeverity"}
+                                    step={0.1}
+                                    type={"number"}
+                                  />
+                                </Tooltip>
+                              </Col>
+                            </Row>
                           </Col>
                           <Col lg={90} md={90} sm={90}>
                             <Col lg={50} md={50} sm={50}>
