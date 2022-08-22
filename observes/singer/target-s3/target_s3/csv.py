@@ -50,9 +50,21 @@ def _save(data: PureIter[FrozenList[Primitive]]) -> Cmd[TempReadOnlyFile]:
     def write_cmd(file: IO[str]) -> Cmd[None]:
         def _action() -> None:
             writer = csv.writer(
-                file, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL
+                file,
+                delimiter=",",
+                quotechar='"',
+                doublequote=True,
+                escapechar="\\",
+                quoting=csv.QUOTE_MINIMAL,
             )
-            writer.writerows(data)
+            for row in data:
+                try:
+                    writer.writerow(row)
+                except Exception as err:
+                    LOG.error(
+                        "writerow error: %s\n at data: %s", str(err), str(row)
+                    )
+                    raise err
 
         return Cmd.from_cmd(_action)
 
