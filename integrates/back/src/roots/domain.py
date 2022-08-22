@@ -234,7 +234,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     )
 
     includes_health_check = kwargs["includes_health_check"]
-    service_enforcer = await authz.get_group_service_attributes_enforcer(group)
+    service_enforcer = authz.get_group_service_attributes_enforcer(group)
     if includes_health_check and not service_enforcer("has_squad"):
         raise PermissionDenied()
 
@@ -698,9 +698,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         kwargs["includes_health_check"] != root.state.includes_health_check
     )
     if health_check_changed:
-        service_enforcer = await authz.get_group_service_attributes_enforcer(
-            group
-        )
+        service_enforcer = authz.get_group_service_attributes_enforcer(group)
         if kwargs["includes_health_check"] and not service_enforcer(
             "has_squad"
         ):

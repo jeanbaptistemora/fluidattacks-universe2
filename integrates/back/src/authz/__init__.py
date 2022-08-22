@@ -27,9 +27,9 @@ from .model import (
     USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
 )
 from .policy import (
-    get_cached_group_service_policies,
     get_group_level_role,
     get_group_level_roles,
+    get_group_service_policies,
     get_organization_level_role,
     get_user_level_role,
     grant_group_level_role,
@@ -74,7 +74,7 @@ __all__ = [
     "get_organization_level_roles_model",
     "get_user_level_roles_model",
     # Policy
-    "get_cached_group_service_policies",
+    "get_group_service_policies",
     "get_group_level_role",
     "get_group_level_roles",
     "get_organization_level_role",

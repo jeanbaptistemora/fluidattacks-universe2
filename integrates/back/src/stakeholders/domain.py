@@ -181,7 +181,7 @@ async def has_valid_access_token(
     loaders: Any, email: str, context: dict[str, str], jti: str
 ) -> bool:
     """Verify if has active access token and match."""
-    if not exists(loaders, email):
+    if not await exists(loaders, email):
         return False
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     if context and stakeholder.access_token:
@@ -283,9 +283,7 @@ async def update_invited_stakeholder(
         and validate_alphanumeric_field(responsibility)
         and validate_email_address(email)
         and validate_role_fluid_reqs(email, role)
-        and await authz.validate_fluidattacks_staff_on_group(
-            group, email, role
-        )
+        and authz.validate_fluidattacks_staff_on_group(group, email, role)
     ):
         new_invitation = invitation._replace(
             responsibility=responsibility, role=role

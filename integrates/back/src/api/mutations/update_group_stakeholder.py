@@ -116,7 +116,7 @@ async def mutate(
     )
 
     group: Group = await loaders.group.load(group_name)
-    await authz.validate_fluidattacks_staff_on_group(
+    authz.validate_fluidattacks_staff_on_group(
         group, modified_email, modified_role
     )
 

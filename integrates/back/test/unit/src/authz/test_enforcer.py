@@ -163,7 +163,7 @@ async def test_group_service_attributes_enforcer() -> None:
         ("oneshottest", "must_only_have_fluidattacks_hackers", True),
         ("oneshottest", "non_existing_attribute", False),
     ]:
-        enforcer = await authz.get_group_service_attributes_enforcer(
+        enforcer = authz.get_group_service_attributes_enforcer(
             await loaders.group.load(group_name)
         )
 

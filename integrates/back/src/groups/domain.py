@@ -954,9 +954,7 @@ async def invite_to_group(
         or not validate_alphanumeric_field(responsibility)
         or not validate_email_address(email)
         or not validate_role_fluid_reqs(email, role)
-        or not await authz.validate_fluidattacks_staff_on_group(
-            group, email, role
-        )
+        or not authz.validate_fluidattacks_staff_on_group(group, email, role)
     ):
         return
 

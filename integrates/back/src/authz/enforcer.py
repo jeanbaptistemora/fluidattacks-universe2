@@ -5,7 +5,7 @@ from .model import (
     SERVICE_ATTRIBUTES,
 )
 from .policy import (
-    get_cached_group_service_policies,
+    get_group_service_policies,
     get_user_level_role,
 )
 from dataloaders import (
@@ -52,11 +52,11 @@ async def get_group_level_enforcer(
     return enforcer
 
 
-async def get_group_service_attributes_enforcer(
+def get_group_service_attributes_enforcer(
     group: Group,
 ) -> Callable[[str], bool]:
     """Return a filtered group authorization for the provided group."""
-    policies = await get_cached_group_service_policies(group)
+    policies = get_group_service_policies(group)
 
     def enforcer(r_attribute: str) -> bool:
         should_grant_access: bool = any(

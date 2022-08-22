@@ -11,9 +11,9 @@ from graphql.type.definition import (
 
 
 @enforce_group_level_auth_async
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> list[str]:
-    return sorted(await authz.get_group_service_attributes(parent))
+    return sorted(authz.get_group_service_attributes(parent))

@@ -22,11 +22,11 @@ from db_model.groups.types import (
 FLUIDATTACKS_EMAIL_SUFFIX = "@fluidattacks.com"
 
 
-async def validate_fluidattacks_staff_on_group(
+def validate_fluidattacks_staff_on_group(
     group: Group, email: str, role: str
 ) -> bool:
     """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
-    enforcer = await get_group_service_attributes_enforcer(group)
+    enforcer = get_group_service_attributes_enforcer(group)
 
     is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     user_has_hacker_role: bool = role in get_group_level_roles_with_tag(

@@ -1,6 +1,6 @@
 from authz import (
-    get_cached_group_service_policies,
     get_group_level_role,
+    get_group_service_policies,
     get_user_level_role,
     grant_group_level_role,
     grant_user_level_role,
@@ -28,15 +28,15 @@ pytestmark = [
 ]
 
 
-async def test_get_cached_group_service_attributes_policies() -> None:
+async def test_get_group_service_attributes_policies() -> None:
     loaders: Dataloaders = get_new_context()
-    function = get_cached_group_service_policies
-    assert sorted(await function(await loaders.group.load("oneshottest"))) == [
+    function = get_group_service_policies
+    assert sorted(function(await loaders.group.load("oneshottest"))) == [
         "asm",
         "report_vulnerabilities",
         "service_black",
     ]
-    assert sorted(await function(await loaders.group.load("unittesting"))) == [
+    assert sorted(function(await loaders.group.load("unittesting"))) == [
         "asm",
         "continuous",
         "forces",

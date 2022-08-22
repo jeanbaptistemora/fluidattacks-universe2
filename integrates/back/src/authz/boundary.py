@@ -74,8 +74,8 @@ def get_group_level_roles_with_tag(tag: str, email: str) -> set[str]:
     }
 
 
-async def get_group_service_attributes(group: Group) -> set[str]:
-    enforcer = await get_group_service_attributes_enforcer(group)
+def get_group_service_attributes(group: Group) -> set[str]:
+    enforcer = get_group_service_attributes_enforcer(group)
     return set(filter(enforcer, SERVICE_ATTRIBUTES_SET))
 
 

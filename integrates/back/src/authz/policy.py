@@ -39,12 +39,8 @@ from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
 )
-from functools import (
-    partial,
-)
 from redis_cluster.operations import (
     redis_del_by_deps,
-    redis_get_or_set_entity_attr,
 )
 from typing import (
     NamedTuple,
@@ -56,17 +52,17 @@ class ServicePolicy(NamedTuple):
     service: str
 
 
-async def _get_group_service_policies(group: Group) -> tuple[str, ...]:
-    """Cached function to get 1 group features authorization policies."""
+def get_group_service_policies(group: Group) -> tuple[str, ...]:
+    """Gets a group's authorization policies."""
     policies: tuple[str, ...] = tuple(
         policy.service
-        for policy in await _get_service_policies(group)
+        for policy in _get_service_policies(group)
         if policy.group_name == group.name
     )
     return policies
 
 
-async def _get_service_policies(group: Group) -> list[ServicePolicy]:
+def _get_service_policies(group: Group) -> list[ServicePolicy]:
     """Return a list of policies for the given group."""
     has_squad = group.state.has_squad
     has_asm = group.state.status == GroupStateStatus.ACTIVE
@@ -110,19 +106,6 @@ async def _get_service_policies(group: Group) -> list[ServicePolicy]:
         for condition, policy_name in business_rules
         if condition
     ]
-
-
-async def get_cached_group_service_policies(
-    group: Group,
-) -> tuple[str, ...]:
-    response: tuple[str, ...] = await redis_get_or_set_entity_attr(
-        partial(_get_group_service_policies, group),
-        entity="authz_group",
-        attr="policies",
-        name=group.name,
-        ttl=86400,
-    )
-    return response
 
 
 async def get_group_level_role(
