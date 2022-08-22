@@ -38,6 +38,7 @@ in
         (projectPath "/common/utils/bugsnag/client")
       ];
       source = [
+        outputs."/common/utils/aws"
         outputs."/common/utils/safe-pickle"
         outputs."/skims/config/runtime/pypi"
         (makeTemplate {

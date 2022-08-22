@@ -3,15 +3,22 @@ from ctx import (
     STATIC,
     TOOLS_SEMVER_MATCH,
 )
+from db_model.advisories.constants import (
+    PATCH_SRC,
+)
+from db_model.advisories.get import (
+    AdvisoriesLoader,
+)
+from db_model.advisories.types import (
+    Advisory,
+)
 import json
 from model import (
     core_model,
 )
-from sys import (
-    modules,
-)
 from typing import (
     Dict,
+    Iterable,
     List,
 )
 from utils.logs import (
@@ -68,19 +75,44 @@ def semver_match(left: str, right: str) -> bool:
     return False
 
 
-def get_vulnerabilities(
+async def get_remote_advisories(
+    pkg_name: str, platform: str
+) -> Dict[str, str]:
+    remote_ads: Iterable[Advisory] = await AdvisoriesLoader().load(
+        (platform.lower(), pkg_name)
+    )
+    advisories: Dict[str, str] = {}
+    for advisory in remote_ads:
+        if advisory.associated_advisory.startswith("GMS"):
+            continue
+        if advisory.associated_advisory in advisories:
+            if advisory.source == PATCH_SRC:
+                advisories.update(
+                    {advisory.associated_advisory: advisory.vulnerable_version}
+                )
+        else:
+            advisories.update(
+                {advisory.associated_advisory: advisory.vulnerable_version}
+            )
+    return dict(sorted(advisories.items()))
+
+
+async def get_vulnerabilities(
     platform: core_model.Platform,
     product: str,
     version: str,
 ) -> List[str]:
-    database = getattr(modules[__name__], f"DATABASE_{platform.value}")
     product = product.lower()
     version = version.lower()
 
-    if product in database:
+    advisories: Dict[str, str] = await get_remote_advisories(
+        product, platform.value
+    )
+
+    if advisories:
         vulnerabilities: List[str] = [
             ref
-            for ref, constraints in database[product].items()
+            for ref, constraints in advisories.items()
             if semver_match(version, constraints)
         ]
 

@@ -33475,7 +33475,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,11,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33499,7 +33499,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,10,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33523,7 +33523,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,9,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33547,7 +33547,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,8,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33571,7 +33571,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,7,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33595,7 +33595,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,6,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33619,7 +33619,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,5,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33643,7 +33643,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,2,829,skims,
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
@@ -33666,7 +33666,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,12,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
      ^ Col 0
@@ -33689,7 +33689,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,13,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33712,7 +33712,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,14,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33735,7 +33735,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,15,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33758,7 +33758,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,16,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33781,7 +33781,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,17,829,skims
 > 17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33804,7 +33804,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,18,829,skims
   17 | lxml==4.9.1
 > 18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33827,7 +33827,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,19,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
 > 19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33850,7 +33850,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,20,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-> 20 | networkx==2.8.5
+> 20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33873,7 +33873,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,21,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
 > 21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33896,7 +33896,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,22,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
 > 22 | packaging==21.3
   23 | parso==0.8.3
@@ -33919,7 +33919,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,23,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
 > 23 | parso==0.8.3
@@ -33942,7 +33942,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,24,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33965,7 +33965,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,25,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -33987,7 +33987,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,37,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34011,7 +34011,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,36,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34035,7 +34035,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,35,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34059,7 +34059,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,34,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34083,7 +34083,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,33,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34107,7 +34107,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,32,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34131,7 +34131,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,31,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34155,7 +34155,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,30,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34179,7 +34179,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,29,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34203,7 +34203,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,28,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -34227,7 +34227,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,27,829,skims
   17 | lxml==4.9.1
   18 | matplotlib==3.5.3
   19 | matplotlib-inline==0.1.6
-  20 | networkx==2.8.5
+  20 | networkx==2.8.6
   21 | numpy==1.23.2
   22 | packaging==21.3
   23 | parso==0.8.3
@@ -35640,6 +35640,30 @@ F011,lines,namespace/skims/test/data/lib_root/f011/xsl_transform_object.cs,12,93
   19 |
      ^ Col 3
 ",c_sharp.c_sharp_xsl_transform_object
+F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Microsoft.Data.OData v5.8.4) [CVE-2018-8269],28,937,skims,011. Use of software with known vulnerabilities,Use of Microsoft.Data.OData at version 5.8.4 with ['CVE-2018-8269'] in namespace/skims/test/data/lib_path/f011/project.csproj,"
+  18 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging"" Version=""3.0.14"" />
+  19 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Logging.ApplicationInsights"" Version=""3.0.14"" />
+  20 |     <PackageReference Include=""Microsoft.CrmSdk.CoreAssemblies"" Version=""9.0.2.21"" />
+  21 |     <PackageReference Include=""Microsoft.Extensions.Configuration"" Version=""3.1.0"" />
+  22 |     <PackageReference Include=""Microsoft.Extensions.Logging"" Version=""3.1.0"" />
+  23 |     <PackageReference Include=""Microsoft.Extensions.Logging.Console"" Version=""3.1.0"" />
+  24 |     <PackageReference Include=""Newtonsoft.Json"" Version=""12.0.3"" />
+  25 |     <PackageReference Include=""System.ComponentModel.Annotations"" Version=""4.7.0"" />
+  26 |     <PackageReference Include=""System.Spatial"" Version=""5.8.4"" />
+  27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
+> 28 |     <PackageReference Include=""Microsoft.Data.OData"" Version=""5.8.4"" />
+  29 |     <PackageReference Include=""Microsoft.Data.Services.Client"" Version=""5.8.4"" />
+  30 |     <PackageReference Include=""Microsoft.WindowsAzure.ConfigurationManager"" Version=""3.2.3"" />
+  31 |     <PackageReference Include=""WindowsAzure.Storage"" Version=""9.3.3"" />
+  32 |     <PackageReference Include=""Microsoft.Azure.WebJobs.Core"" Version=""3.0.14"" />
+  33 |     <PackageReference Include=""Microsoft.Azure.WebJobs"" Version=""3.0.14"" />
+  34 |     <PackageReference Include=""Microsoft.Azure.KeyVault.Core"" Version=""3.0.4"" />
+  35 |   </ItemGroup>
+  36 |   <ItemGroup>
+  37 |     <Reference Include=""System.Net"" />
+  38 |     <Reference Include=""System.Net.Http"" />
+     ^ Col 0
+",nuget.nuget_csproj
 F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Newtonsoft.Json v12.0.3) [GHSA-5crp-9r3c-p9vr],20,937,skims,011. Use of software with known vulnerabilities,Use of Newtonsoft.Json at version 12.0.3 with ['GHSA-5crp-9r3c-p9vr'] in namespace/skims/test/data/lib_path/f011/packages.config,"
   10 |   <package id=""Logs.Management"" version=""1.0.3"" targetFramework=""net472"" />
   11 |   <package id=""Microsoft.Azure.Amqp"" version=""2.4.9"" targetFramework=""net472"" />
@@ -35696,7 +35720,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/requirements.txt (Pillow v6.0
 > 5 | Pillow==6.0.0
     ^ Col 0
 ",pip.pip_requirements_txt
-F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (System.Security.Cryptography.X509Certificates v4.1.0) [GHSA-7mfr-774f-w5r9],31,937,skims,011. Use of software with known vulnerabilities,Use of System.Security.Cryptography.X509Certificates at version 4.1.0 with ['GHSA-7mfr-774f-w5r9'] in namespace/skims/test/data/lib_path/f011/packages.config,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/packages.config (System.Security.Cryptography.X509Certificates v4.1.0) [CVE-2017-11770, GHSA-7mfr-774f-w5r9]",31,937,skims,011. Use of software with known vulnerabilities,"Use of System.Security.Cryptography.X509Certificates at version 4.1.0 with ['CVE-2017-11770', 'GHSA-7mfr-774f-w5r9'] in namespace/skims/test/data/lib_path/f011/packages.config","
   13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
   14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
   15 |   <package id=""Microsoft.IdentityModel.JsonWebTokens"" version=""5.4.0"" targetFramework=""net472"" />
@@ -35720,7 +35744,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (System.Secur
   33 | </packages>
      ^ Col 0
 ",nuget.nuget_packages_config
-F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0) [CVE-2021-29508],32,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with ['CVE-2021-29508'] in namespace/skims/test/data/lib_path/f011/packages.config,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0) [CVE-2021-29508, GHSA-hpw7-3vq3-mmv6]",32,937,skims,011. Use of software with known vulnerabilities,"Use of Wire at version 1.0.0 with ['CVE-2021-29508', 'GHSA-hpw7-3vq3-mmv6'] in namespace/skims/test/data/lib_path/f011/packages.config","
   13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
   14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
   15 |   <package id=""Microsoft.IdentityModel.JsonWebTokens"" version=""5.4.0"" targetFramework=""net472"" />
@@ -35744,7 +35768,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0)
   33 | </packages>
      ^ Col 0
 ",nuget.nuget_packages_config
-F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with ['CVE-2021-29508'] in namespace/skims/test/data/lib_path/f011/project.csproj,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508, GHSA-hpw7-3vq3-mmv6]",17,937,skims,011. Use of software with known vulnerabilities,"Use of Wire at version 1.0.0 with ['CVE-2021-29508', 'GHSA-hpw7-3vq3-mmv6'] in namespace/skims/test/data/lib_path/f011/project.csproj","
    7 |   <ItemGroup>
    8 |     <Compile Remove=""test\**"" />
    9 |     <EmbeddedResource Remove=""test\**"" />
@@ -35768,7 +35792,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) 
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-23463, CVE-2021-42392, CVE-2022-23221]",18,937,skims,011. Use of software with known vulnerabilities,"Use of com.h2database:h2 at version 1.4.200 with ['CVE-2021-23463', 'CVE-2021-42392', 'CVE-2022-23221'] in namespace/skims/test/data/lib_path/f011/build.sbt","
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-23463, CVE-2021-42392, CVE-2022-23221, GHSA-45hx-wfhj-473x, GHSA-7rpj-hg47-cx62, GHSA-h376-j262-vhq6]",18,937,skims,011. Use of software with known vulnerabilities,"Use of com.h2database:h2 at version 1.4.200 with ['CVE-2021-23463', 'CVE-2021-42392', 'CVE-2022-23221', 'GHSA-45hx-wfhj-473x', 'GHSA-7rpj-hg47-cx62', 'GHSA-h376-j262-vhq6'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
    6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
    7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
@@ -35840,7 +35864,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    65 |       <groupId>org.springframework</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F393,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.3) [CVE-2018-3728, npm:hoek:20180212]",5,937,skims,393. Use of software with known vulnerabilities in development,"Use of hoek at version 5.0.0.3 with ['CVE-2018-3728', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
+F393,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.3) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",5,937,skims,393. Use of software with known vulnerabilities in development,"Use of hoek at version 5.0.0.3 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
    1 | {
    2 |   ""dependencies"": {
    3 |     ""@babel/dev"": {
@@ -35864,7 +35888,7 @@ F393,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0
   21 |       ""dev"": true,
      ^ Col 0
 ",npm.npm_pkg_lock_json
-F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.6) [CVE-2018-3728, npm:hoek:20180212]",28,937,skims,011. Use of software with known vulnerabilities,"Use of hoek at version 5.0.0.6 with ['CVE-2018-3728', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
+F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.6) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",28,937,skims,011. Use of software with known vulnerabilities,"Use of hoek at version 5.0.0.6 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
   18 |           ""version"": ""5.0.0.3""
   19 |         }
   20 |       },
@@ -35888,7 +35912,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0
   38 |           },
      ^ Col 0
 ",npm.npm_package_lock_json
-F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.7) [CVE-2018-3728, npm:hoek:20180212]",26,937,skims,011. Use of software with known vulnerabilities,"Use of hoek at version 5.0.0.7 with ['CVE-2018-3728', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
+F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.7) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",26,937,skims,011. Use of software with known vulnerabilities,"Use of hoek at version 5.0.0.7 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
   16 |             }
   17 |           },
   18 |           ""version"": ""5.0.0.3""
@@ -35912,7 +35936,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0
   36 |               ""version"": ""5.0.0.6""
      ^ Col 0
 ",npm.npm_package_lock_json
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (io.netty:netty-codec v4.1.55.Final) [GHSA-9vjp-v76f-g363, GHSA-grg4-wf29-r9vv]",25,937,skims,011. Use of software with known vulnerabilities,"Use of io.netty:netty-codec at version 4.1.55.Final with ['GHSA-9vjp-v76f-g363', 'GHSA-grg4-wf29-r9vv'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (io.netty:netty-codec v4.1.55.Final) [CVE-2021-21290, CVE-2021-21409, CVE-2021-37136, CVE-2021-37137, CVE-2022-24823, GHSA-9vjp-v76f-g363, GHSA-grg4-wf29-r9vv]",25,937,skims,011. Use of software with known vulnerabilities,"Use of io.netty:netty-codec at version 4.1.55.Final with ['CVE-2021-21290', 'CVE-2021-21409', 'CVE-2021-37136', 'CVE-2021-37137', 'CVE-2022-24823', 'GHSA-9vjp-v76f-g363', 'GHSA-grg4-wf29-r9vv'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    15 |     </dependency>
    16 |     <dependency>
    17 |       <groupId>net.minidev</groupId>
@@ -35936,7 +35960,31 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    35 |       <groupId>org.springframework.security</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/build.gradle (io.springfox:springfox-swagger-ui v2.6.1) [SNYK-JAVA-IOSPRINGFOX-1075064],2,937,skims,011. Use of software with known vulnerabilities,Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['SNYK-JAVA-IOSPRINGFOX-1075064'] in namespace/skims/test/data/lib_path/f011/build.gradle,"
+F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (io.netty:netty-codec v4.1.69.Final) [CVE-2022-24823],31,937,skims,011. Use of software with known vulnerabilities,Use of io.netty:netty-codec at version 4.1.69.Final with ['CVE-2022-24823'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+   21 |     </dependency>
+   22 |     <dependency>
+   23 |       <groupId>io.netty</groupId>
+   24 |       <artifactId>netty-codec</artifactId>
+   25 |       <version>4.1.55.Final</version>
+   26 |       <scope>test</scope>
+   27 |     </dependency>
+   28 |     <dependency>
+   29 |       <groupId>io.netty</groupId>
+   30 |       <artifactId>netty-codec</artifactId>
+>  31 |       <version>4.1.69.Final</version>
+   32 |       <scope>test</scope>
+   33 |     </dependency>
+   34 |     <dependency>
+   35 |       <groupId>org.springframework.security</groupId>
+   36 |       <artifactId>spring-security-web</artifactId>
+   37 |       <version>3.0.3.RELEASE</version>
+   38 |       <scope>test</scope>
+   39 |     </dependency>
+   40 |     <dependency>
+   41 |       <groupId>org.springframework.security</groupId>
+      ^ Col 0
+",maven.maven_pom_xml
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.gradle (io.springfox:springfox-swagger-ui v2.6.1) [CVE-2019-17495, SNYK-JAVA-IOSPRINGFOX-1075064]",2,937,skims,011. Use of software with known vulnerabilities,"Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['CVE-2019-17495', 'SNYK-JAVA-IOSPRINGFOX-1075064'] in namespace/skims/test/data/lib_path/f011/build.gradle","
   1 | dependencies {
 > 2 |     compile ""io.springfox:springfox-swagger-ui:2.6.1""
   3 |     compile(""io.springfox:springfox-swagger-ui"")
@@ -36019,7 +36067,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    89 |       <groupId>org.springframework.security</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (net.minidev:json-smart v1.3.1) [CVE-2021-27568, CVE-2021-31684]",19,937,skims,011. Use of software with known vulnerabilities,"Use of net.minidev:json-smart at version 1.3.1 with ['CVE-2021-27568', 'CVE-2021-31684'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (net.minidev:json-smart v1.3.1) [CVE-2021-27568, CVE-2021-31684, GHSA-fg2v-w576-w4v3, GHSA-v528-7hrm-frqp]",19,937,skims,011. Use of software with known vulnerabilities,"Use of net.minidev:json-smart at version 1.3.1 with ['CVE-2021-27568', 'CVE-2021-31684', 'GHSA-fg2v-w576-w4v3', 'GHSA-v528-7hrm-frqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
     9 |   <dependencies>
    10 |     <dependency>
    11 |       <groupId>junit</groupId>
@@ -36043,7 +36091,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    29 |       <groupId>io.netty</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-servlet v2.6.0) [CVE-2015-5348],112,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.camel:camel-servlet at version 2.6.0 with ['CVE-2015-5348'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-servlet v2.6.0) [CVE-2015-5348, GHSA-26v6-w6fw-rh94]",112,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.camel:camel-servlet at version 2.6.0 with ['CVE-2015-5348', 'GHSA-26v6-w6fw-rh94'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
   100 |       <groupId>org.slf4j</groupId>
   101 |       <artifactId>slf4j-simple</artifactId>
   102 |       <version>${slf4j.version}</version>
@@ -36067,7 +36115,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
   120 | </project>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-xstream v2.6.0) [CVE-2015-5344],117,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.camel:camel-xstream at version 2.6.0 with ['CVE-2015-5344'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-xstream v2.6.0) [CVE-2015-5344, GHSA-gv5f-cjw9-5vxg]",117,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.camel:camel-xstream at version 2.6.0 with ['CVE-2015-5344', 'GHSA-gv5f-cjw9-5vxg'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
   100 |       <groupId>org.slf4j</groupId>
   101 |       <artifactId>slf4j-simple</artifactId>
   102 |       <version>${slf4j.version}</version>
@@ -36091,7 +36139,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
   120 | </project>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-13925, CVE-2020-13926, CVE-2020-13937, CVE-2020-1937, CVE-2020-1956]",11,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.kylin:kylin at version 2.5.0 with ['CVE-2020-13925', 'CVE-2020-13926', 'CVE-2020-13937', 'CVE-2020-1937', 'CVE-2020-1956'] in namespace/skims/test/data/lib_path/f011/build.sbt","
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-13925, CVE-2020-13926, CVE-2020-13937, CVE-2020-1937, CVE-2020-1956, CVE-2021-31522, CVE-2021-36774, CVE-2021-45457, CVE-2021-45458, GHSA-2hpg-vwqj-6h6w, GHSA-5429-pjww-7675, GHSA-9fj5-jg6f-qg5r, GHSA-hw3m-8h25-8frw, GHSA-mgpf-hhgf-cxg4, GHSA-q656-g2x3-8cgh, GHSA-wrx7-qgmj-mf2q]",11,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.kylin:kylin at version 2.5.0 with ['CVE-2020-13925', 'CVE-2020-13926', 'CVE-2020-13937', 'CVE-2020-1937', 'CVE-2020-1956', 'CVE-2021-31522', 'CVE-2021-36774', 'CVE-2021-45457', 'CVE-2021-45458', 'GHSA-2hpg-vwqj-6h6w', 'GHSA-5429-pjww-7675', 'GHSA-9fj5-jg6f-qg5r', 'GHSA-hw3m-8h25-8frw', 'GHSA-mgpf-hhgf-cxg4', 'GHSA-q656-g2x3-8cgh', 'GHSA-wrx7-qgmj-mf2q'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    1 | def libraries = Seq(
    2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
    3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
@@ -36115,7 +36163,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:
   21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
      ^ Col 0
 ",maven.maven_sbt
-F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-api v2.2) [GHSA-p6xc-xr62-6r2g],4,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.logging.log4j:log4j-api at version 2.2 with ['GHSA-p6xc-xr62-6r2g'] in namespace/skims/test/data/lib_path/f011/build.sbt,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-api v2.2) [CVE-2021-44832, CVE-2021-45105, GHSA-p6xc-xr62-6r2g]",4,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-api at version 2.2 with ['CVE-2021-44832', 'CVE-2021-45105', 'GHSA-p6xc-xr62-6r2g'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    1 | def libraries = Seq(
    2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
    3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
@@ -36139,7 +36187,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging
   21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
      ^ Col 0
 ",maven.maven_sbt
-F011,lines,"namespace/skims/test/data/lib_path/f011/build.gradle (org.apache.logging.log4j:log4j-core v2.13.2) [CVE-2021-44228, CVE-2021-44832, CVE-2021-45046, CVE-2021-45105]",5,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-core at version 2.13.2 with ['CVE-2021-44228', 'CVE-2021-44832', 'CVE-2021-45046', 'CVE-2021-45105'] in namespace/skims/test/data/lib_path/f011/build.gradle","
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.gradle (org.apache.logging.log4j:log4j-core v2.13.2) [CVE-2021-44228, CVE-2021-44832, CVE-2021-45046, CVE-2021-45105, GHSA-7rjr-3q55-vv33, GHSA-jfh8-c2jp-5v3q, GHSA-p6xc-xr62-6r2g]",5,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-core at version 2.13.2 with ['CVE-2021-44228', 'CVE-2021-44832', 'CVE-2021-45046', 'CVE-2021-45105', 'GHSA-7rjr-3q55-vv33', 'GHSA-jfh8-c2jp-5v3q', 'GHSA-p6xc-xr62-6r2g'] in namespace/skims/test/data/lib_path/f011/build.gradle","
   1 | dependencies {
   2 |     compile ""io.springfox:springfox-swagger-ui:2.6.1""
   3 |     compile(""io.springfox:springfox-swagger-ui"")
@@ -36150,7 +36198,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/build.gradle (org.apache.log
   8 | }
     ^ Col 0
 ",maven.maven_gradle
-F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-core v2.2) [CVE-2021-44228, CVE-2021-44832, CVE-2021-45046, CVE-2021-45105]",5,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-core at version 2.2 with ['CVE-2021-44228', 'CVE-2021-44832', 'CVE-2021-45046', 'CVE-2021-45105'] in namespace/skims/test/data/lib_path/f011/build.sbt","
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-core v2.2) [CVE-2017-5645, CVE-2020-9488, CVE-2021-44228, CVE-2021-44832, CVE-2021-45046, CVE-2021-45105, GHSA-7rjr-3q55-vv33, GHSA-fxph-q3j8-mv87, GHSA-jfh8-c2jp-5v3q, GHSA-p6xc-xr62-6r2g, GHSA-vwqq-5vrc-xw9h]",5,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-core at version 2.2 with ['CVE-2017-5645', 'CVE-2020-9488', 'CVE-2021-44228', 'CVE-2021-44832', 'CVE-2021-45046', 'CVE-2021-45105', 'GHSA-7rjr-3q55-vv33', 'GHSA-fxph-q3j8-mv87', 'GHSA-jfh8-c2jp-5v3q', 'GHSA-p6xc-xr62-6r2g', 'GHSA-vwqq-5vrc-xw9h'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    1 | def libraries = Seq(
    2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
    3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
@@ -36198,7 +36246,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.nifi.re
   25 | )
      ^ Col 0
 ",maven.maven_sbt
-F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.openjpa:openjpa v2.2.0) [CVE-2013-1768],24,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.openjpa:openjpa at version 2.2.0 with ['CVE-2013-1768'] in namespace/skims/test/data/lib_path/f011/build.sbt,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.openjpa:openjpa v2.2.0) [CVE-2013-1768, GHSA-j65f-mvgw-prp2]",24,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.openjpa:openjpa at version 2.2.0 with ['CVE-2013-1768', 'GHSA-j65f-mvgw-prp2'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
    6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
    7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
@@ -36246,7 +36294,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    59 |       <groupId>com.newrelic.agent.java</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731, CVE-2011-2732, CVE-2011-2894, CVE-2012-5055, CVE-2014-0097, CVE-2016-5007, CVE-2016-9879, CVE-2017-4995, CVE-2018-1199, CVE-2018-1258, CVE-2019-11272, CVE-2019-3795, CVE-2020-3700, CVE-2020-5408, CVE-2021-22112, CVE-2021-22119, CVE-2022-22978]",90,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version  with ['CVE-2011-2731', 'CVE-2011-2732', 'CVE-2011-2894', 'CVE-2012-5055', 'CVE-2014-0097', 'CVE-2016-5007', 'CVE-2016-9879', 'CVE-2017-4995', 'CVE-2018-1199', 'CVE-2018-1258', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-3700', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2021-22119', 'CVE-2022-22978'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2010-3700, CVE-2011-2731, CVE-2011-2732, CVE-2011-2894, CVE-2012-5055, CVE-2014-0097, CVE-2014-3527, CVE-2016-5007, CVE-2016-9879, CVE-2017-4995, CVE-2018-1199, CVE-2018-1258, CVE-2018-15801, CVE-2019-11272, CVE-2019-3795, CVE-2020-3700, CVE-2020-5407, CVE-2020-5408, CVE-2021-22112, CVE-2021-22119, CVE-2022-22976, CVE-2022-22978, GHSA-27xw-p8v6-9jjr, GHSA-2ppp-9496-p23q, GHSA-3295-h9qx-r82x, GHSA-3533-rvpc-6x56, GHSA-4644-hg35-55m9, GHSA-48rw-j489-928m, GHSA-5xm9-rf63-wj7h, GHSA-8crv-49fr-2h6j, GHSA-f866-m9mv-2xr3, GHSA-gv9v-c375-hvmg, GHSA-hh32-7344-cg2f, GHSA-v2r2-7qm7-jj6v, GHSA-v33x-prhc-gph5, GHSA-v35c-49j6-q8hq, GHSA-v596-fwhq-8x48, GHSA-vhrg-v3cv-p247, GHSA-w9jg-gvgr-354m, GHSA-wmv4-5w76-vp9g, GHSA-wx54-3278-m5g4]",90,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version  with ['CVE-2010-3700', 'CVE-2011-2731', 'CVE-2011-2732', 'CVE-2011-2894', 'CVE-2012-5055', 'CVE-2014-0097', 'CVE-2014-3527', 'CVE-2016-5007', 'CVE-2016-9879', 'CVE-2017-4995', 'CVE-2018-1199', 'CVE-2018-1258', 'CVE-2018-15801', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-3700', 'CVE-2020-5407', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2021-22119', 'CVE-2022-22976', 'CVE-2022-22978', 'GHSA-27xw-p8v6-9jjr', 'GHSA-2ppp-9496-p23q', 'GHSA-3295-h9qx-r82x', 'GHSA-3533-rvpc-6x56', 'GHSA-4644-hg35-55m9', 'GHSA-48rw-j489-928m', 'GHSA-5xm9-rf63-wj7h', 'GHSA-8crv-49fr-2h6j', 'GHSA-f866-m9mv-2xr3', 'GHSA-gv9v-c375-hvmg', 'GHSA-hh32-7344-cg2f', 'GHSA-v2r2-7qm7-jj6v', 'GHSA-v33x-prhc-gph5', 'GHSA-v35c-49j6-q8hq', 'GHSA-v596-fwhq-8x48', 'GHSA-vhrg-v3cv-p247', 'GHSA-w9jg-gvgr-354m', 'GHSA-wmv4-5w76-vp9g', 'GHSA-wx54-3278-m5g4'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    80 |       <scope>test</scope>
    81 |     </dependency>
    82 |     <dependency>
@@ -36270,7 +36318,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
   100 |       <groupId>org.slf4j</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995, CVE-2018-1199, CVE-2019-11272, CVE-2019-3795, CVE-2020-5408, CVE-2021-22112, CVE-2022-22978]",85,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with ['CVE-2017-4995', 'CVE-2018-1199', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2022-22978'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995, CVE-2018-1199, CVE-2019-11272, CVE-2019-3795, CVE-2020-5408, CVE-2021-22112, CVE-2022-22976, CVE-2022-22978, GHSA-2ppp-9496-p23q, GHSA-hh32-7344-cg2f, GHSA-v2r2-7qm7-jj6v, GHSA-v33x-prhc-gph5, GHSA-v596-fwhq-8x48, GHSA-vhrg-v3cv-p247, GHSA-wx54-3278-m5g4]",85,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with ['CVE-2017-4995', 'CVE-2018-1199', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2022-22976', 'CVE-2022-22978', 'GHSA-2ppp-9496-p23q', 'GHSA-hh32-7344-cg2f', 'GHSA-v2r2-7qm7-jj6v', 'GHSA-v33x-prhc-gph5', 'GHSA-v596-fwhq-8x48', 'GHSA-vhrg-v3cv-p247', 'GHSA-wx54-3278-m5g4'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    75 |     </dependency>
    76 |     <dependency>
    77 |       <groupId>junit</groupId>
@@ -36294,7 +36342,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    95 |       <artifactId>mockito-core</artifactId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-web v3.0.3.RELEASE) [CVE-2010-3700, CVE-2011-2732, SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497]",37,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-web at version 3.0.3.RELEASE with ['CVE-2010-3700', 'CVE-2011-2732', 'SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-web v3.0.3.RELEASE) [CVE-2010-3700, CVE-2011-2732, CVE-2021-22112, GHSA-gq28-h5vg-8prx, SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497]",37,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-web at version 3.0.3.RELEASE with ['CVE-2010-3700', 'CVE-2011-2732', 'CVE-2021-22112', 'GHSA-gq28-h5vg-8prx', 'SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    27 |     </dependency>
    28 |     <dependency>
    29 |       <groupId>io.netty</groupId>
@@ -36342,7 +36390,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    77 |       <groupId>junit</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1) [CVE-2020-7737],375,937,skims,011. Use of software with known vulnerabilities,Use of safetydance at version 0.7.1 with ['CVE-2020-7737'] in namespace/skims/test/data/lib_path/f011/yarn.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1) [CVE-2020-7737, GHSA-6m85-wvcr-pgw3]",375,937,skims,011. Use of software with known vulnerabilities,"Use of safetydance at version 0.7.1 with ['CVE-2020-7737', 'GHSA-6m85-wvcr-pgw3'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   365 | safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   366 |   version ""5.2.1""
   367 |   resolved ""https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6""
@@ -36366,7 +36414,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1
   385 |     net-cluster ""0.0.2""
       ^ Col 0
 ",npm.npm_yarn_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (script-manager v0.8.6) [CVE-2020-8129],12,937,skims,011. Use of software with known vulnerabilities,Use of script-manager at version 0.8.6 with ['CVE-2020-8129'] in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/package.json (script-manager v0.8.6) [CVE-2020-8129, GHSA-rhwf-hqpr-q8g2]",12,937,skims,011. Use of software with known vulnerabilities,"Use of script-manager at version 0.8.6 with ['CVE-2020-8129', 'GHSA-rhwf-hqpr-q8g2'] in namespace/skims/test/data/lib_path/f011/package.json","
    1 | {
    2 |   ""name"": ""test"",
    3 |   ""version"": ""1.0.0"",
@@ -36387,7 +36435,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (script-manager 
   18 | }
      ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (script-manager v0.8.6) [CVE-2020-8129],380,937,skims,011. Use of software with known vulnerabilities,Use of script-manager at version 0.8.6 with ['CVE-2020-8129'] in namespace/skims/test/data/lib_path/f011/yarn.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (script-manager v0.8.6) [CVE-2020-8129, GHSA-rhwf-hqpr-q8g2]",380,937,skims,011. Use of software with known vulnerabilities,"Use of script-manager at version 0.8.6 with ['CVE-2020-8129', 'GHSA-rhwf-hqpr-q8g2'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   370 | safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   371 |   version ""2.1.2""
   372 |   resolved ""https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a""
@@ -36411,7 +36459,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (script-manager v0.
   390 |
       ^ Col 0
 ",npm.npm_yarn_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [CVE-2017-16117],13,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with ['CVE-2017-16117'] in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [CVE-2017-16117, GHSA-jxqq-cqm6-pfq9]",13,937,skims,011. Use of software with known vulnerabilities,"Use of slug at version 0.9.0 with ['CVE-2017-16117', 'GHSA-jxqq-cqm6-pfq9'] in namespace/skims/test/data/lib_path/f011/package.json","
    1 | {
    2 |   ""name"": ""test"",
    3 |   ""version"": ""1.0.0"",
@@ -36432,7 +36480,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [C
   18 | }
      ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE-2017-16117],396,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with ['CVE-2017-16117'] in namespace/skims/test/data/lib_path/f011/yarn.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE-2017-16117, GHSA-jxqq-cqm6-pfq9]",396,937,skims,011. Use of software with known vulnerabilities,"Use of slug at version 0.9.0 with ['CVE-2017-16117', 'GHSA-jxqq-cqm6-pfq9'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   386 |     portscanner ""2.2.0""
   387 |     request ""2.88.0""
   388 |     serializator ""1.0.1""

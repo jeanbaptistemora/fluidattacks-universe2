@@ -12,7 +12,7 @@ def format_advisory(item: Item) -> Advisory:
         package_name=item["package_name"],
         package_manager=item["package_manager"],
         vulnerable_version=item["vulnerable_version"],
-        severity=item["severity"],
+        severity=item["severity"] if "severity" in item else None,
         source=item["source"],
     )
 

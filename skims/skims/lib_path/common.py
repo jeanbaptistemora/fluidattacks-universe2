@@ -1,9 +1,16 @@
+from aioextensions import (
+    run,
+)
 import ast
 from contextlib import (
     suppress,
 )
 from ctx import (
     CTX,
+)
+from dynamodb.resource import (
+    dynamo_shutdown,
+    dynamo_startup,
 )
 from frozendict import (  # type: ignore
     frozendict,
@@ -265,44 +272,74 @@ def translate_dependencies_to_vulnerabilities(
     platform: core_model.Platform,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    results: core_model.Vulnerabilities = tuple(
-        build_lines_vuln(
+    return run(
+        _translate_dependencies_to_vulnerabilities(
+            content=content,
+            dependencies=dependencies,
+            path=path,
+            platform=platform,
             method=method,
-            what=" ".join(
-                (
-                    path,
-                    f'({product["item"]} v{version["item"]})',
-                    f"[{', '.join(cve)}]",
-                )
-            ),
-            where=str(product["line"]),
-            metadata=build_metadata(
-                method=method,
-                description=(
-                    t(
-                        key="src.lib_path.f011.npm_package_json.description",
-                        product=product["item"],
-                        version=version["item"],
-                        cve=cve,
-                    )
-                    + f" {t(key='words.in')} {CTX.config.namespace}/{path}"
-                ),
-                snippet=make_snippet(
-                    content=content,
-                    viewport=SnippetViewport(
-                        column=product["column"],
-                        line=product["line"],
-                    ),
-                ),
-            ),
-        )
-        for product, version in dependencies
-        if (
-            cve := get_vulnerabilities(
-                platform, product["item"], version["item"]
-            )
         )
     )
+
+
+async def _translate_dependencies_to_vulnerabilities(
+    *,
+    content: str,
+    dependencies: Iterator[DependencyType],
+    path: str,
+    platform: core_model.Platform,
+    method: core_model.MethodsEnum,
+) -> core_model.Vulnerabilities:
+    try:
+        await dynamo_startup()
+        # pylint: disable=consider-using-generator
+        results: core_model.Vulnerabilities = tuple(
+            [
+                build_lines_vuln(
+                    method=method,
+                    what=" ".join(
+                        (
+                            path,
+                            f'({product["item"]} v{version["item"]})',
+                            f"[{', '.join(cve)}]",
+                        )
+                    ),
+                    where=str(product["line"]),
+                    metadata=build_metadata(
+                        method=method,
+                        description=(
+                            t(
+                                key=(
+                                    "src.lib_path.f011."
+                                    "npm_package_json.description"
+                                ),
+                                product=product["item"],
+                                version=version["item"],
+                                cve=cve,
+                            )
+                            + f" {t(key='words.in')} "
+                            f"{CTX.config.namespace}/{path}"
+                        ),
+                        snippet=make_snippet(
+                            content=content,
+                            viewport=SnippetViewport(
+                                column=product["column"],
+                                line=product["line"],
+                            ),
+                        ),
+                    ),
+                )
+                for product, version in dependencies
+                if (
+                    cve := await get_vulnerabilities(
+                        platform, product["item"], version["item"]
+                    )
+                )
+            ]
+        )
+    finally:
+        await dynamo_shutdown()
 
     return results
 
