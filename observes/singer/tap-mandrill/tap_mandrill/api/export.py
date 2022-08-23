@@ -2,8 +2,14 @@ from __future__ import (
     annotations,
 )
 
+from . import (
+    _utils,
+)
 from dataclasses import (
     dataclass,
+)
+from datetime import (
+    datetime,
 )
 from enum import (
     Enum,
@@ -39,12 +45,16 @@ from typing import (
 _T = TypeVar("_T")
 
 
-class ExportJobStatus(Enum):
+class JobState(Enum):
     waiting = "waiting"
     working = "working"
     complete = "complete"
     error = "error"
     expired = "expired"
+
+
+def _to_status(raw: str) -> ResultE[JobState]:
+    return _utils.handle_value_error(lambda: JobState(raw))
 
 
 def _get(raw: FrozenDict[str, _T], key: str) -> ResultE[_T]:
@@ -58,21 +68,22 @@ def _get(raw: FrozenDict[str, _T], key: str) -> ResultE[_T]:
 @dataclass(frozen=True)
 class ExportJob:
     job_id: str
-    created_at: str
+    created_at: datetime
     type: str
-    finished_at: str
-    state: str
+    finished_at: datetime
+    state: JobState
     result_url: str
 
     @classmethod
     def _decode(cls, raw: FrozenDict[str, str]) -> ResultE[ExportJob]:
-        created_at_res = _get(raw, "created_at")
-        finished_at_res = _get(raw, "finished_at")
+        created_at_res = _get(raw, "created_at").bind(_utils.to_datetime)
+        finished_at_res = _get(raw, "finished_at").bind(_utils.to_datetime)
+        state_res = _get(raw, "state").bind(_to_status)
         return _get(raw, "id").bind(
             lambda _id: created_at_res.bind(
                 lambda created_at: _get(raw, "type").bind(
                     lambda _type: finished_at_res.bind(
-                        lambda finished_at: _get(raw, "state").bind(
+                        lambda finished_at: state_res.bind(
                             lambda state: _get(raw, "result_url").map(
                                 lambda result_url: ExportJob(
                                     _id,
