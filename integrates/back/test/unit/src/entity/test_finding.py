@@ -564,10 +564,10 @@ async def test_reject_draft() -> None:
 @pytest.mark.changes_db
 async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
-    finding_id = "560175507"
+    finding_id = "563827909"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.state.status == FindingStateStatus.REJECTED
+    assert finding.state.status == FindingStateStatus.CREATED
 
     query = f"""
       mutation {{
