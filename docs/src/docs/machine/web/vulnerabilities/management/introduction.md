@@ -5,7 +5,7 @@ sidebar_label: Introduction
 slug: /machine/web/vulnerabilities/management
 ---
 
-With Fluid Attacks ASM you will
+With `Fluid Attacks` ARM you will
 be able to visualize all the
 details you need about your
 reported vulnerabilities and
@@ -106,7 +106,7 @@ The last item in the header is
 the **MMTR (Mean Time to Repair)**
 this represents the average time
 needed to fix a vulnerability.
-In our ASM is known as
+In our ARM is known as
 **estimated remediation time**.
 This indicator shows the number
 of hours that, through our

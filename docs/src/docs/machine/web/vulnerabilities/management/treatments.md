@@ -206,7 +206,7 @@ was effective.
 Thus, the **permanently accepted**
 treatment represents an open
 location for which you can request
-a reattack on the ASM with no problem.
+a reattack on the ARM with no problem.
 
 To request a reattack on a
 permanently accepted vulnerability,

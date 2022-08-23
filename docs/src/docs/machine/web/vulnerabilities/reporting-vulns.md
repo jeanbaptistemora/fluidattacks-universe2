@@ -7,7 +7,7 @@ slug: /machine/web/vulnerabilities/reporting-vulns
 
 ## Where can I report them?
 
-The Fluid Attacks ASM
+The `Fluid Attacks` ARM
 has the necessary tools
 to be able to report all the vulnerabilities
 encountered in the group's scope.
@@ -123,7 +123,7 @@ You can go to this
 in order to learn more
 about using the GraphQL API
 to access all of the information
-in the ASM.
+in the ARM.
 
 ### The lines yaml format
 

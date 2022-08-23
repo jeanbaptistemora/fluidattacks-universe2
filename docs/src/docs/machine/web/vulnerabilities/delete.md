@@ -16,7 +16,7 @@ is not a good idea
 in the security world,
 and it is always important
 to keep track of these events.
-This is why in Fluid Attacks
+This is why in `Fluid Attacks`
 we don’t delete the vulnerabilities.
 Instead,
 analysts can set any of them

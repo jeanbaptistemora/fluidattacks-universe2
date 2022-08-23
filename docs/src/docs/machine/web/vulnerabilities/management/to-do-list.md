@@ -6,7 +6,7 @@ slug: /machine/web/vulnerabilities/management/to-do-list
 ---
 
 If you want to organize your daily
-work on ASM, you can use our To-Do
+work on ARM, you can use our To-Do
 List feature.
 Through this function, you can be
 aware of all the vulnerabilities
@@ -59,7 +59,7 @@ the type of vulnerability, the group
 and the location.
 Clicking the **Go to finding** button
 will redirect them to the **Location**
-section on the ASM.
+section on the ARM.
 
 ![Vulnerability Assigment](https://res.cloudinary.com/fluid-attacks/image/upload/v1645195953/docs/web/vulnerabilities/management/to_do_list_go_find.png)
 
@@ -67,7 +67,7 @@ The person who was assigned the
 task will be able to find the
 aforementioned **To-Do List**
 function on the top-right menu
-of the ASM, next to the
+of the ARM, next to the
 megaphone icon.
 The number over the icon will
 tell them how many vulnerabilities
