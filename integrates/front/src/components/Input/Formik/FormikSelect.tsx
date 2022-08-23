@@ -9,7 +9,10 @@ interface ISelectProps extends IInputBase<HTMLSelectElement> {
   children?: ReactNode;
 }
 
-type TSelectProps = ISelectProps & TFieldProps;
+type TSelectProps = ISelectProps & {
+  field: TFieldProps["field"];
+  form: Pick<TFieldProps["form"], "errors" | "touched">;
+};
 
 const FormikSelect: FC<TSelectProps> = ({
   children,

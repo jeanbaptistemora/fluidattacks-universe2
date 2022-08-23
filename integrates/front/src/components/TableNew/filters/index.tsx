@@ -4,6 +4,7 @@ import type { Column, Header, RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
 import { NumberFilter } from "./NumberFilter";
+import { SelectFilter } from "./SelectFilter";
 import { TextFilter } from "./TextFilter";
 
 import { Button } from "components/Button";
@@ -46,15 +47,24 @@ const Filters = <TData extends RowData>({
       <SidePanel onClose={closePanel} open={open}>
         <React.Fragment>
           {columnsToFilter.map((column): JSX.Element => {
-            const firstValue = table
-              .getPreFilteredRowModel()
-              .flatRows[0]?.getValue(column.id);
+            const { meta } = column.columnDef;
+            const filterType = meta?.filterType;
 
-            if (typeof firstValue === "number") {
+            if (filterType === "number") {
               return (
                 <Row key={column.id}>
                   <Col>
                     <NumberFilter column={column} />
+                  </Col>
+                </Row>
+              );
+            }
+
+            if (filterType === "select") {
+              return (
+                <Row key={column.id}>
+                  <Col>
+                    <SelectFilter column={column} />
                   </Col>
                 </Row>
               );
