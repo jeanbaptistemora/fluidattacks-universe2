@@ -1136,7 +1136,7 @@ const MobileFooterContainer: StyledComponent<
     tc-m
     db
     mh3
-    mt4
+    mt3
     min-h-25
   `,
 })``;

@@ -40,18 +40,23 @@ const MenuMobile: React.FC<IProps> = ({ close }: IProps): JSX.Element => (
         <ServicesList />
         <SolutionsList />
         <SystemsList />
-        <div className={"mv4"}>
-          <Link className={"no-underline"} to={"/contact-us/"}>
-            <MobileContactButton onClick={close}>
-              {"Contact Now"}
-            </MobileContactButton>
-          </Link>
-        </div>
         <AboutUsList />
         <CategoriesList />
         <ResourcesList />
       </ContentList>
       <LinksSection />
+      <div className={"mv3"}>
+        <Link className={"no-underline"} to={"/contact-us/"}>
+          <MobileContactButton onClick={close}>
+            {"Contact Now"}
+          </MobileContactButton>
+        </Link>
+        <Link className={"no-underline"} to={"/free-trial/"}>
+          <MobileContactButton onClick={close}>
+            {"Start free trial"}
+          </MobileContactButton>
+        </Link>
+      </div>
     </ContentContainer>
     <MobileFooterContainer>
       <p className={"c-fluid-gray"}>{"FOLLOW US"}</p>
