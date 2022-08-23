@@ -172,8 +172,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   }, [vulnerabilitiesList]);
 
   const renderVulnsToVerify: () => JSX.Element = (): JSX.Element => {
-    const handleUpdateRepo: (vulnInfo: Dictionary<string>) => void = (
-      vulnInfo: Dictionary<string>
+    const handleUpdateRepo: (vulnInfo: Record<string, string>) => void = (
+      vulnInfo: Record<string, string>
     ): void => {
       const newVulnList: IVulnData[] = vulnerabilitiesList.map(
         (vuln: IVulnData): IVulnData =>

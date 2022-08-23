@@ -13,8 +13,8 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   const { acceptanceVulns, isAcceptedUndefinedSelected, setAcceptanceVulns } =
     props;
 
-  const handleUpdateAcceptance: (vulnInfo: Dictionary<string>) => void = (
-    vulnInfo: Dictionary<string>
+  const handleUpdateAcceptance: (vulnInfo: Record<string, string>) => void = (
+    vulnInfo: Record<string, string>
   ): void => {
     const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>

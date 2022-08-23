@@ -16,15 +16,17 @@ import type {
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../../utils/notifications"
-  );
-  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock(
+  "../../../../../../utils/notifications",
+  (): Record<string, unknown> => {
+    const mockedNotifications: Record<string, () => Record<string, unknown>> =
+      jest.requireActual("../../../../../../utils/notifications");
+    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-  return mockedNotifications;
-});
+    return mockedNotifications;
+  }
+);
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();

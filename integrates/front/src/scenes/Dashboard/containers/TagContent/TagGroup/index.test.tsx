@@ -11,22 +11,21 @@ import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/Ta
 import { msgError } from "utils/notifications";
 
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock("react-router", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> =
+jest.mock("react-router", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
     jest.requireActual("react-router");
 
   return {
     ...mockedRouter,
-    useHistory: (): Dictionary => ({
+    useHistory: (): Record<string, unknown> => ({
       ...mockedRouter.useHistory(),
       push: mockHistoryPush,
     }),
   };
 });
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../utils/notifications"
-  );
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
 
   return mockedNotifications;

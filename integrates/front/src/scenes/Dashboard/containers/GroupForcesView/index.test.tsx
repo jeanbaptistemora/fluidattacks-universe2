@@ -13,10 +13,9 @@ import {
 } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import { msgError } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
-  );
+jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
 
   return mockedNotifications;

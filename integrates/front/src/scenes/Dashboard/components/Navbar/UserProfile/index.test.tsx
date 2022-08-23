@@ -10,18 +10,17 @@ import { UserProfile } from "scenes/Dashboard/components/Navbar/UserProfile/inde
 import { REMOVE_STAKEHOLDER_MUTATION } from "scenes/Dashboard/components/Navbar/UserProfile/queries";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../utils/notifications"
-  );
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
 
-jest.mock("mixpanel-browser", (): Dictionary => {
-  const mockedMixPanel: Dictionary<() => Dictionary> =
+jest.mock("mixpanel-browser", (): Record<string, unknown> => {
+  const mockedMixPanel: Record<string, () => Record<string, unknown>> =
     jest.requireActual("mixpanel-browser");
   jest.spyOn(mockedMixPanel, "reset").mockImplementation();
 

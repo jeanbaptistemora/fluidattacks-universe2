@@ -10,10 +10,9 @@ import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 import { Unsubscribe } from ".";
 import { msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../utils/notifications"
-  );
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;

@@ -7,10 +7,9 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { TasksReattacks } from "scenes/Dashboard/containers/Tasks/Reattacks";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 
-jest.mock("utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "utils/notifications"
-  );
+jest.mock("utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 

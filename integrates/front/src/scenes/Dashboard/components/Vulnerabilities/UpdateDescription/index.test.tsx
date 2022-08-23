@@ -30,10 +30,9 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../utils/notifications"
-  );
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
@@ -448,7 +447,7 @@ describe("Update Description component", (): void => {
       updateVulnerabilitiesTreatment: { success: true },
       updateVulnerabilityTreatment: { success: true },
     };
-    const mutationVariables: Dictionary<boolean | number | string> = {
+    const mutationVariables: Record<string, boolean | number | string> = {
       acceptanceDate: "",
       assigned: "manager_test@test.test",
       externalBugTrackingSystem: "http://test.t",

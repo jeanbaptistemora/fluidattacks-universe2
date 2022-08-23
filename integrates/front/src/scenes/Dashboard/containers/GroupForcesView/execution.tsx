@@ -124,9 +124,9 @@ const Execution: React.FC<IExecution> = (
 
   const getDatasetFromVulnerabilities: (
     vulnerabilities: IVulnerabilities | null
-  ) => Dictionary[] = (
+  ) => Record<string, unknown>[] = (
     vulnerabilities: IVulnerabilities | null
-  ): Dictionary[] => {
+  ): Record<string, unknown>[] => {
     const vulns: IExploitResult[] = _.isNull(vulnerabilities)
       ? []
       : vulnerabilities.open.concat(
@@ -134,7 +134,7 @@ const Execution: React.FC<IExecution> = (
         );
 
     return vulns.map(
-      (elem: IExploitResult): Dictionary => ({
+      (elem: IExploitResult): Record<string, unknown> => ({
         ...elem,
         state: stateResolve(elem.state),
       })
@@ -192,7 +192,7 @@ const Execution: React.FC<IExecution> = (
     },
   ];
 
-  const filterSearchtextResult: Dictionary[] = filterSearchText(
+  const filterSearchtextResult: Record<string, unknown>[] = filterSearchText(
     getDatasetFromVulnerabilities(execution.vulnerabilities),
     searchTextFilter
   );

@@ -8,7 +8,7 @@ import { translate } from "utils/translations/translate";
 export const linkFormatter = (
   value: boolean | string | undefined,
   row: Readonly<Record<string, string>>,
-  changeFunction?: (arg: Dictionary<string>) => void
+  changeFunction?: (arg: Record<string, string>) => void
 ): JSX.Element => {
   function onClick(): void {
     changeFunction?.(row);

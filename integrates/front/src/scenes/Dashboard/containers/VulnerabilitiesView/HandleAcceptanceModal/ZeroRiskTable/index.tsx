@@ -16,8 +16,8 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     setAcceptanceVulns,
   } = props;
 
-  const handleRejectZeroRisk: (vulnInfo?: Dictionary<string>) => void = (
-    vulnInfo?: Dictionary<string>
+  const handleRejectZeroRisk: (vulnInfo?: Record<string, string>) => void = (
+    vulnInfo?: Record<string, string>
   ): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
@@ -33,8 +33,8 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     }
   };
 
-  const handleConfirmZeroRisk: (vulnInfo?: Dictionary<string>) => void = (
-    vulnInfo?: Dictionary<string>
+  const handleConfirmZeroRisk: (vulnInfo?: Record<string, string>) => void = (
+    vulnInfo?: Record<string, string>
   ): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(

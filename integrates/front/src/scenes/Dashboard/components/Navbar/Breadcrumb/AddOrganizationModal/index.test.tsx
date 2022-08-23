@@ -9,13 +9,13 @@ import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcr
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock("react-router-dom", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> =
+jest.mock("react-router-dom", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
     jest.requireActual("react-router-dom");
 
   return {
     ...mockedRouter,
-    useHistory: (): Dictionary => ({
+    useHistory: (): Record<string, unknown> => ({
       ...mockedRouter.useHistory(),
       push: mockHistoryPush,
     }),

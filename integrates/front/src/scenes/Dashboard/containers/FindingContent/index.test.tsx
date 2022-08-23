@@ -18,10 +18,9 @@ import {
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
-  );
+jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
@@ -32,8 +31,8 @@ const mockHistoryReplace: jest.Mock = jest.fn();
 
 jest.mock(
   "react-router-dom",
-  (): Dictionary => ({
-    ...jest.requireActual<Dictionary>("react-router-dom"),
+  (): Record<string, unknown> => ({
+    ...jest.requireActual<Record<string, unknown>>("react-router-dom"),
     useHistory: (): { replace: (path: string) => void } => ({
       replace: mockHistoryReplace,
     }),
@@ -172,7 +171,10 @@ describe("FindingContent", (): void => {
     },
   };
 
-  type resultType = Dictionary<{ finding: { historicState: Dictionary[] } }>;
+  type resultType = Record<
+    string,
+    { finding: { historicState: Record<string, unknown>[] } }
+  >;
   const result: resultType = draftMock.result as resultType;
   const submittedDraftMock: Readonly<MockedResponse> = {
     ...draftMock,

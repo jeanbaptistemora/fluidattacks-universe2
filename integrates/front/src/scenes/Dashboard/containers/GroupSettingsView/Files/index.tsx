@@ -59,12 +59,14 @@ const Files: React.FC<IFilesProps> = ({
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
 
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
-  const handleRowClick: (_0: React.FormEvent, row: Dictionary<string>) => void =
-    (_0: React.FormEvent, row: Dictionary<string>): void => {
-      setCurrentRow(row);
-      setIsOptionsModalOpen(true);
-    };
+  const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
+  const handleRowClick: (
+    _0: React.FormEvent,
+    row: Record<string, string>
+  ) => void = (_0: React.FormEvent, row: Record<string, string>): void => {
+    setCurrentRow(row);
+    setIsOptionsModalOpen(true);
+  };
 
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {

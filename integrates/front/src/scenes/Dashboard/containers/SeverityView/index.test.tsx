@@ -14,10 +14,9 @@ import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
-  );
+jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
 
   return mockedNotifications;
@@ -111,7 +110,7 @@ describe("SeverityView", (): void => {
       ).toBeInTheDocument();
     });
     const numberOfTilesAndButtonTooltip: number = 12;
-    type resultType = Dictionary<{ finding: ISeverityAttr["finding"] }>;
+    type resultType = Record<string, { finding: ISeverityAttr["finding"] }>;
 
     expect(
       container.querySelectorAll(".__react_component_tooltip")

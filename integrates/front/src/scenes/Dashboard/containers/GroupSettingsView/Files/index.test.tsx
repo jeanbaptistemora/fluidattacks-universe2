@@ -26,10 +26,9 @@ mockedFetch.mock("https://mocked.test", {
   status: 200,
 });
 
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../../utils/notifications"
-  );
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
@@ -85,9 +84,12 @@ describe("Files", (): void => {
     expect.hasAssertions();
 
     const mockedFiles: IGetFilesQuery = (
-      mocksFiles[0].result as Dictionary<{
-        resources: IGetFilesQuery["resources"];
-      }>
+      mocksFiles[0].result as Record<
+        string,
+        {
+          resources: IGetFilesQuery["resources"];
+        }
+      >
     ).data;
     const file: File = new File([""], "image.png", { type: "image/png" });
     const mocksMutation: readonly MockedResponse[] = [

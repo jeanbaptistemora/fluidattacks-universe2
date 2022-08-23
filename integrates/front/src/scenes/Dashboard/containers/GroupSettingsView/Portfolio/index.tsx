@@ -45,7 +45,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     setIsAddModalOpen(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
+  const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
 
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery<IGetTagsQuery>(GET_TAGS, {

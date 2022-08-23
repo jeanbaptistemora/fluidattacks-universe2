@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const FRAGMENTS: Dictionary<DocumentNode> = {
+const FRAGMENTS: Record<string, DocumentNode> = {
   commentFields: gql`
     fragment commentFields on Consult {
       id

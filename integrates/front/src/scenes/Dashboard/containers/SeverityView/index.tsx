@@ -47,12 +47,14 @@ const SeverityView: React.FC = (): JSX.Element => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const formValues = (values: Dictionary<string>): Dictionary<string> => {
+  const formValues = (
+    values: Record<string, string>
+  ): Record<string, string> => {
     return (({
       cvssVersion,
       modifiedSeverityScope,
       severityScope,
-    }): Dictionary<string> => ({
+    }): Record<string, string> => ({
       cvssVersion,
       modifiedSeverityScope,
       severityScope,

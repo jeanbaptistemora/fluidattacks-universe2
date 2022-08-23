@@ -109,12 +109,15 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const [isUpdatingSubscription, setIsUpdatingSubscription] = useState<
     false | { mode: "UPDATE" }
   >(false);
-  const openUpdateModal = useCallback((groupRow?: Dictionary<string>): void => {
-    if (groupRow) {
-      setCurrentRow(groupRow as unknown as IGroupAttr);
-      setIsUpdatingSubscription({ mode: "UPDATE" });
-    }
-  }, []);
+  const openUpdateModal = useCallback(
+    (groupRow?: Record<string, string>): void => {
+      if (groupRow) {
+        setCurrentRow(groupRow as unknown as IGroupAttr);
+        setIsUpdatingSubscription({ mode: "UPDATE" });
+      }
+    },
+    []
+  );
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canSeeSubscriptionType: boolean = permissions.can(
     "see_billing_subscription_type"

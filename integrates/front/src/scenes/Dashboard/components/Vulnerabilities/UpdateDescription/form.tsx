@@ -121,8 +121,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
 
   function getDiff(
-    initValues: Dictionary<unknown>,
-    values: Dictionary<unknown>
+    initValues: Record<string, unknown>,
+    values: Record<string, unknown>
   ): string[] {
     return _.reduce(
       initValues,
@@ -134,8 +134,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   }
 
   const diffs: string[] = getDiff(
-    initialValues as unknown as Dictionary<unknown>,
-    formValues as unknown as Dictionary<unknown>
+    initialValues as unknown as Record<string, unknown>,
+    formValues as unknown as Record<string, unknown>
   );
   const isEditPristine: boolean =
     diffs.filter((diff: string): boolean =>
@@ -373,8 +373,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       isTreatmentPristine
     );
     const valuesDifferences: string[] = getDiff(
-      treatment as unknown as Dictionary<unknown>,
-      formValues as unknown as Dictionary<unknown>
+      treatment as unknown as Record<string, unknown>,
+      formValues as unknown as Record<string, unknown>
     );
     const isTouched: boolean = valuesDifferences.some(
       (field: string): boolean => Boolean(_.keys(touched).includes(field))

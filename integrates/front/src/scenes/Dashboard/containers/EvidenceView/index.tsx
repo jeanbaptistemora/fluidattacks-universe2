@@ -117,7 +117,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
     };
   };
 
-  const evidenceImages: Dictionary<IEvidenceItem> = {
+  const evidenceImages: Record<string, IEvidenceItem> = {
     animation: handleIncomingEvidence(data.finding.evidence.animation),
     evidence1: handleIncomingEvidence(data.finding.evidence.evidence1),
     evidence2: handleIncomingEvidence(data.finding.evidence.evidence2),
@@ -134,8 +134,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
     _.isEmpty(evidenceImages[name].url) ? isEditing : true
   );
 
-  const handleUpdate: (values: Dictionary<IEvidenceItem>) => void = async (
-    values: Dictionary<IEvidenceItem>
+  const handleUpdate: (values: Record<string, IEvidenceItem>) => void = async (
+    values: Record<string, IEvidenceItem>
   ): Promise<void> => {
     setIsEditing(false);
 
