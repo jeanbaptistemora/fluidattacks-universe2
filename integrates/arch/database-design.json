@@ -12809,6 +12809,95 @@
             },
             {
               "loc": {
+                "N": "350"
+              },
+              "comments": {
+                "S": "comment 1"
+              },
+              "sorts_risk_level": {
+                "N": "80"
+              },
+              "last_commit": {
+                "S": "e17059d1e17059d1e17059d1e17059d1e17059d1"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "last_author": {
+                "S": "user@gmail.com"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "attacked_at": {
+                "S": "2021-02-20T05:00:00+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2020-11-15T15:41:04+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "be_present_until": {
+                "S": ""
+              },
+              "attacked_lines": {
+                "N": "4"
+              },
+              "filename": {
+                "S": "path/to/file3.ext"
+              },
+              "sk": {
+                "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#path/to/file3.ext"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "first_attack_at": {
+                "S": "2020-02-19T15:41:04+00:00"
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "LINES#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#path/to/file3.ext"
+              },
+              "seen_at": {
+                "S": "2020-02-01T15:41:04+00:00"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "083. XML injection (XXE)"
+                      },
+                      "probability": {
+                        "N": "90"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "033. Password change without identity check"
+                      },
+                      "probability": {
+                        "N": "50"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "loc": {
                 "N": "172"
               },
               "comments": {
@@ -16752,7 +16841,9 @@
                         "S": ""
                       },
                       "reasons": {
-                        "SS": ["OMISSION"]
+                        "SS": [
+                          "OMISSION"
+                        ]
                       },
                       "rejected_by": {
                         "S": "customer_manager@fluidattacks.com"
@@ -18794,7 +18885,9 @@
                     "S": ""
                   },
                   "reasons": {
-                    "SS": ["OMISSION"]
+                    "SS": [
+                      "OMISSION"
+                    ]
                   },
                   "rejected_by": {
                     "S": "customer_manager@fluidattacks.com"
@@ -22717,6 +22810,9 @@
               "sk_2": {
                 "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
               },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
               "state": {
                 "M": {
                   "modified_by": {
@@ -22944,6 +23040,9 @@
               "where": {
                 "S": "universe/test/test#.config"
               },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
               "specific": {
                 "S": "123345"
               },
@@ -23063,6 +23162,9 @@
               },
               "specific": {
                 "S": "123"
+              },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "group_name": {
                 "S": "unittesting"

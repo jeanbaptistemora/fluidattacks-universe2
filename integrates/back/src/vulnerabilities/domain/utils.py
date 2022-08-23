@@ -88,7 +88,11 @@ def get_hash_from_typed(
 ) -> int:
     specific = vuln.specific
     type_ = vuln.type.value
-    where = get_path_from_integrates_vulnerability(vuln.where, vuln.type)[1]
+    where = vuln.where
+    if validate_root:
+        where = get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
+            1
+        ]
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)

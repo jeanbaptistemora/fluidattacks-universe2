@@ -114,6 +114,53 @@ async def test_get_by_group() -> None:
                     be_present=True,
                     be_present_until=None,
                     comments="comment 1",
+                    filename="path/to/file3.ext",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    group_name="unittesting",
+                    last_author="user@gmail.com",
+                    last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                    loc=350,
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
+                    root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=80,
+                    seen_first_time_by=None,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="083. XML injection (XXE)",
+                            probability=90,
+                        ),
+                        SortsSuggestion(
+                            finding_title=(
+                                "033. Password change without identity check"
+                            ),
+                            probability=50,
+                        ),
+                    ],
+                ),
+                cursor=(
+                    "eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU"
+                    "5FUyNST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdi"
+                    "Y2E5OGUxOSNGSUxFTkFNRSNwYXRoL3RvL2ZpbGUzLmV4dCJ9"
+                ),
+            ),
+            ToeLinesEdge(
+                node=ToeLines(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    attacked_lines=4,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 1",
                     filename="test/test#.config",
                     first_attack_at=datetime.fromisoformat(
                         "2020-02-19T15:41:04+00:00"
@@ -201,6 +248,53 @@ async def test_get_by_root() -> None:
     )
     assert root_toe_lines == ToeLinesConnection(
         edges=(
+            ToeLinesEdge(
+                node=ToeLines(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    attacked_lines=4,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 1",
+                    filename="path/to/file3.ext",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    group_name="unittesting",
+                    last_author="user@gmail.com",
+                    last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                    loc=350,
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
+                    root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=80,
+                    seen_first_time_by=None,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="083. XML injection (XXE)",
+                            probability=90,
+                        ),
+                        SortsSuggestion(
+                            finding_title=(
+                                "033. Password change without identity check"
+                            ),
+                            probability=50,
+                        ),
+                    ],
+                ),
+                cursor=(
+                    "eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU"
+                    "5FUyNST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdi"
+                    "Y2E5OGUxOSNGSUxFTkFNRSNwYXRoL3RvL2ZpbGUzLmV4dCJ9"
+                ),
+            ),
             ToeLinesEdge(
                 node=ToeLines(
                     attacked_at=datetime.fromisoformat(
