@@ -15,7 +15,6 @@
     // {
       pytz = import ./pytz lib python_pkgs;
     };
-  pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
 
   override_2 = python_pkgs:
     python_pkgs
@@ -28,6 +27,8 @@
   override_3 = python_pkgs:
     python_pkgs
     // {
+      requests = import ./requests {inherit lib python_pkgs;};
+      types-requests = import ./requests/stubs.nix {inherit lib python_pkgs;};
       pytz = import ./pytz lib python_pkgs;
       arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
@@ -38,10 +39,13 @@
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
 
+  pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  requests_override = python_pkgs: pkg_override ["requests"] python_pkgs.requests;
   pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
   overrides = map pkgs_overrides [
     pycheck_override
     pytz_override
+    requests_override
   ];
   compose = let
     apply = x: f: f x;

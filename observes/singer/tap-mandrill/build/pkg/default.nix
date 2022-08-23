@@ -10,6 +10,8 @@
     fa-singer-io
     mailchimp-transactional
     python-dateutil
+    requests
+    types-requests
     types-dateutil
     utils-logger
   ];
