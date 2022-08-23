@@ -27,11 +27,16 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     parameters_id = method["label_field_parameters"]
     block_id = method.get("label_field_body")
-
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None
+
+    match_childs = match_ast(args.ast_graph, args.n_id, "attribute_list")
+    attributes_id = match_childs.get("attribute_list")
     if not block_id:
         return build_blockless_method_declaration_node(
-            args, name, parameters_id
+            args, name, parameters_id, attributes_id
         )
-    return build_method_declaration_node(args, name, block_id, parameters_id)
+
+    return build_method_declaration_node(
+        args, name, block_id, parameters_id, attributes_id
+    )

@@ -4,6 +4,8 @@ from syntax_graph.syntax_readers.c_sharp import (
     argument_list as c_sharp_argument_list,
     arrow_expression_clause as c_sharp_arrow_expression_clause,
     assignment_expression as c_sharp_assignment_expression,
+    attribute as c_sharp_attribute,
+    attribute_list as c_sharp_attribute_list,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
     compilation_unit as c_sharp_compilation_unit,
     conditional_access_expression as c_sharp_conditional_access_expression,
@@ -100,6 +102,18 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "assignment_expression",
         },
         syntax_reader=c_sharp_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "attribute",
+        },
+        syntax_reader=c_sharp_attribute.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "attribute_list",
+        },
+        syntax_reader=c_sharp_attribute_list.reader,
     ),
     Dispatcher(
         applicable_types={

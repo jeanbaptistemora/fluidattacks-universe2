@@ -33517,7 +33517,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,11,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
 > 11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33541,7 +33541,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,10,829,skims
    9 | cycler==0.11.0
 > 10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33565,7 +33565,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,9,829,skims,
 >  9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33589,7 +33589,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,8,829,skims,
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33613,7 +33613,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,7,829,skims,
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33637,7 +33637,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,6,829,skims,
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33661,7 +33661,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,5,829,skims,
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33685,7 +33685,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,2,829,skims,
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33708,7 +33708,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,12,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-> 12 | fonttools==4.36.0
+> 12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33731,7 +33731,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,13,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
 > 13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33754,7 +33754,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,14,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
 > 14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33777,7 +33777,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,15,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
 > 15 | jedi==0.18.1
@@ -33800,7 +33800,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,16,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33823,7 +33823,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,17,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33846,7 +33846,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,18,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33869,7 +33869,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,19,829,skims
    9 | cycler==0.11.0
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33892,7 +33892,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,19,829,skims
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,20,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   10 | decorator==5.1.1
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33915,7 +33915,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,20,829,skims
 ",python.pip_incomplete_dependencies_list
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,21,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
   11 | executing==0.10.0
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
@@ -33938,7 +33938,7 @@ F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,21,829,skims
      ^ Col 0
 ",python.pip_incomplete_dependencies_list
 F079,lines,namespace/skims/test/data/lib_path/f011/requirements.txt,22,829,skims,079. Non-upgradable dependencies,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f011/requirements.txt,"
-  12 | fonttools==4.36.0
+  12 | fonttools==4.37.0
   13 | future==0.18.2
   14 | ipython==8.4.0
   15 | jedi==0.18.1
