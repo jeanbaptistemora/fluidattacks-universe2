@@ -27,10 +27,8 @@ import {
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
-import { Table } from "components/Table/index";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
-import { Table as Tablez } from "components/TableNew/";
+import { Table } from "components/TableNew/";
+import type { ICellHelper } from "components/TableNew/types";
 import { Text } from "components/Text";
 import { GraphicButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -59,8 +57,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       IPaymentMethodAttr[]
     >([]);
     const [currentOtherMethodRow, setCurrentOtherMethodRow] = useState<
-      Record<string, string>
-    >({});
+      IPaymentMethodAttr[]
+    >([]);
 
     // Data
     const creditCardData: IPaymentMethodAttr[] = paymentMethods
@@ -88,26 +86,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       }
     );
 
-    // Search other method bar
-    const [searchFilterOtherMethod, setSearchFilterOtherMethod] = useState("");
-    function onSearchOtherMethodChange(
-      event: React.ChangeEvent<HTMLInputElement>
-    ): void {
-      setSearchFilterOtherMethod(event.target.value);
-    }
-    const filterSearchTextOtherMethod: IPaymentMethodAttr[] = filterSearchText(
-      otherMethodData,
-      searchFilterOtherMethod
-    );
-
-    const otherMetodData = filterSearchTextOtherMethod.map(
-      (method): IPaymentMethodAttr => {
-        return {
-          ...method,
-          download: method.id,
-        };
-      }
-    );
+    const otherMetodData = otherMethodData.map((method): IPaymentMethodAttr => {
+      return {
+        ...method,
+        download: method.id,
+      };
+    });
 
     // Add payment method
     const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState<
@@ -252,7 +236,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         onCompleted: (): void => {
           onUpdate();
           setCurrentCreditCardRow([]);
-          setCurrentOtherMethodRow({});
+          setCurrentOtherMethodRow([]);
           msgSuccess(
             t("organization.tabs.billing.paymentMethods.remove.success.body"),
             t("organization.tabs.billing.paymentMethods.remove.success.title")
@@ -296,7 +280,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           organizationId,
           paymentMethodId: currentCreditCardRow[0].id
             ? currentCreditCardRow[0].id
-            : currentOtherMethodRow.id,
+            : currentOtherMethodRow[0].id,
         },
       });
     }, [
@@ -386,7 +370,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             organizationId,
             paymentMethodId: currentCreditCardRow[0].id
               ? currentCreditCardRow[0].id
-              : currentOtherMethodRow.id,
+              : currentOtherMethodRow[0].id,
             rut,
             state,
             taxId,
@@ -457,12 +441,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
     ];
 
-    const downloadFormatter = (
-      value: string,
-      _row: Readonly<Record<string, string>>,
-      _rowIndex: number,
-      _key: Readonly<IHeaderConfig>
-    ): JSX.Element => {
+    const downloadFormatter = (value: string): JSX.Element => {
       async function onClick(): Promise<void> {
         await handleDownload(value);
       }
@@ -474,22 +453,23 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       );
     };
 
-    const otherMethodsTableHeaders: IHeaderConfig[] = [
+    const otherMethodsTableHeaders: ColumnDef<IPaymentMethodAttr>[] = [
       {
-        dataField: "businessName",
+        accessorKey: "businessName",
         header: "Business Name",
       },
       {
-        dataField: "email",
+        accessorKey: "email",
         header: "e-factura email",
       },
       {
-        dataField: "country",
+        accessorKey: "country",
         header: "Country",
       },
       {
-        dataField: "download",
-        formatter: downloadFormatter,
+        accessorKey: "download",
+        cell: (cell: ICellHelper<IPaymentMethodAttr>): JSX.Element =>
+          downloadFormatter(cell.getValue()),
         header: "Document",
       },
     ];
@@ -502,7 +482,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         <Text fw={7} mb={2} mt={3} size={4}>
           {t("organization.tabs.billing.paymentMethods.add.creditCard.label")}
         </Text>
-        <Tablez
+        <Table
           columns={creditCardTableHeadersz}
           data={creditCardData}
           extraButtons={
@@ -549,7 +529,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             </Fragment>
           }
           id={"tblCreditCard"}
-          rowSelectionSetter={setCurrentCreditCardRow}
+          rowSelectionSetter={
+            canRemove || canUpdate ? setCurrentCreditCardRow : undefined
+          }
           rowSelectionState={currentCreditCardRow}
           selectionMode={"radio"}
         />
@@ -557,16 +539,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           {t("organization.tabs.billing.paymentMethods.add.otherMethods.label")}
         </Text>
         <Table
-          columnToggle={false}
-          customSearch={{
-            customSearchDefault: searchFilterOtherMethod,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchOtherMethodChange,
-            position: "right",
-          }}
-          dataset={otherMetodData}
-          defaultSorted={{ dataField: "businessName", order: "asc" }}
-          exportCsv={false}
+          columns={otherMethodsTableHeaders}
+          data={otherMetodData}
           extraButtons={
             <Fragment>
               <Can do={"api_mutations_add_payment_method_mutate"}>
@@ -610,16 +584,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               </Can>
             </Fragment>
           }
-          headers={otherMethodsTableHeaders}
           id={"tblOtherMethods"}
-          pageSize={10}
-          search={false}
-          selectionMode={{
-            clickToSelect: canRemove || canUpdate,
-            hideSelectColumn: !canRemove && !canUpdate,
-            mode: "radio",
-            onSelect: setCurrentOtherMethodRow,
-          }}
+          rowSelectionSetter={
+            canRemove || canUpdate ? setCurrentOtherMethodRow : undefined
+          }
+          rowSelectionState={currentOtherMethodRow}
+          selectionMode={"radio"}
         />
         {isAddingPaymentMethod === "CREDIT_CARD" && (
           <AddCreditCardModal
@@ -644,15 +614,15 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         {isUpdatingOhterMethod === false ? undefined : (
           <UpdateOtherMethodModal
             initialValues={{
-              businessName: currentOtherMethodRow.businessName,
+              businessName: currentOtherMethodRow[0].businessName,
               cardExpirationMonth: "",
               cardExpirationYear: "",
-              city: currentOtherMethodRow.city,
-              country: currentOtherMethodRow.country,
-              email: currentOtherMethodRow.email,
+              city: currentOtherMethodRow[0].city,
+              country: currentOtherMethodRow[0].country,
+              email: currentOtherMethodRow[0].email,
               makeDefault: false,
               rutList: undefined,
-              state: currentOtherMethodRow.state,
+              state: currentOtherMethodRow[0].state,
               taxIdList: undefined,
             }}
             onClose={closeUpdateOhterMethodModal}
