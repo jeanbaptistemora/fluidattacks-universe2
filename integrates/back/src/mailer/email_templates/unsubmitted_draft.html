@@ -15,7 +15,7 @@
         style="color: #ff3435;">
         {{ reviewer_mail }}
       </a>
-      has rejected the draft <strong>{{ finding_name }}</strong>
+      has rejected the draft <strong>{{ draft_title }}</strong>
       of group <strong>{{ group }}</strong>, reported by
       <a
         href="mailto:{{ analyst_mail }}"
@@ -23,9 +23,19 @@
         rel="noopener noreferrer"
         style="color: #ff3435;">
         {{ analyst_mail }}
-      </a> as {{ user_role }}. The given reason was:
-      {% if reason == 'Other' %} <p>{{ explanation }}</p>
-      {% else %} <p><strong>{{ reason }}</strong> ({{ explanation }})</p> {% endif %}
+      </a> as {{ user_role }}. The given {% if multiple_reasons %} reasons were:
+        {% else %} reason was: {% endif %}
+      {% for reason, explanation in reasons.items() %}
+      <div class="row">
+        <div class="column left" style="width: 20%; text-align: center;">
+          <strong>{{ reason }}</strong>:
+        </div>
+        <div class="column right" style="width: 80%; text-align: center;">
+          {{ explanation }}
+        </div>
+      </div>
+      {% endfor %}
+      <br>
       Therefore, the draft's status has changed to not-submitted.
     </p>
     <p>Regards,<br>

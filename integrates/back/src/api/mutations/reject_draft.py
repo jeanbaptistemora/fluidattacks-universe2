@@ -99,7 +99,7 @@ async def mutate(
                 findings_mail.send_mail_reject_draft(
                     loaders=info.context.loaders,
                     draft_id=finding.id,
-                    finding_name=finding.title,
+                    draft_title=finding.title,
                     group_name=finding.group_name,
                     discoverer_email=finding.hacker_email,
                     rejection=rejection,

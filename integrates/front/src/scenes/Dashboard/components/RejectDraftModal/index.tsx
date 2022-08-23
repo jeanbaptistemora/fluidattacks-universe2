@@ -34,7 +34,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
     SCORING: "Faulty severity scoring",
     WRITING: "The writing could be improved",
     // eslint-disable-next-line sort-keys
-    OTHER: "Custom reason",
+    OTHER: "Another reason",
   };
 
   const rejectDraftValidations = object().shape({

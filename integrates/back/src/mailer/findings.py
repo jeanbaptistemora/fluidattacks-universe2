@@ -198,7 +198,7 @@ async def send_mail_new_remediated(
 async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     loaders: Any,
     draft_id: str,
-    finding_name: str,
+    draft_title: str,
     group_name: str,
     discoverer_email: str,
     rejection: DraftRejection,
@@ -226,8 +226,13 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         DraftRejectionReason.SCORING: "Faulty severity scoring",
         DraftRejectionReason.WRITING: "The writing could be improved",
     }
-    # Temporary workaround until the email template is refactored
-    reason: DraftRejectionReason = rejection.reasons.pop()
+    reasons: dict[str, str] = {
+        str(reason.value).capitalize(): explanation[reason]
+        for reason in rejection.reasons
+    }
+    # To have the custom reason as the last element
+    if "Other" in reasons:
+        reasons["Other"] = reasons.pop("Other")
 
     email_context: dict[str, Any] = {
         "analyst_mail": discoverer_email,
@@ -235,12 +240,11 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/drafts/{draft_id}/description"
         ),
-        "explanation": explanation[reason],
-        "finding_id": draft_id,
-        "finding_name": finding_name,
+        "reasons": reasons,
+        "draft_title": draft_title,
         "group": group_name,
+        "multiple_reasons": len(rejection.reasons) > 1,
         "organization": org_name,
-        "reason": str(reason.value).capitalize(),
         "reviewer_mail": rejection.rejected_by,
         "user_role": user_role.replace("_", " "),
     }
@@ -249,7 +253,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         recipients,
         email_context,
         GENERAL_TAG,
-        f"[ARM] Draft unsubmitted [{finding_name}] in [{group_name}]",
+        f"[ARM] Draft unsubmitted [{draft_title}] in [{group_name}]",
         "unsubmitted_draft",
     )
 
