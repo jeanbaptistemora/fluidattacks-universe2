@@ -8,7 +8,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.events.enums import (
-    EventEvidenceType,
+    EventEvidenceId,
 )
 from decorators import (
     concurrent_decorators,
@@ -37,8 +37,8 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, event_id: str, evidence_type: str
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    evidence_type_enum = EventEvidenceType[evidence_type]
-    await events_domain.remove_evidence(loaders, evidence_type_enum, event_id)
+    evidence_id = EventEvidenceId[evidence_type]
+    await events_domain.remove_evidence(loaders, evidence_id, event_id)
     info.context.loaders.event.clear(event_id)
     logs_utils.cloudwatch_log(
         info.context, f"Security: Removed evidence in event {event_id}"

@@ -45,7 +45,7 @@ from db_model.event_comments.types import (
     EventComment,
 )
 from db_model.events.enums import (
-    EventEvidenceType,
+    EventEvidenceId,
     EventSolutionReason,
     EventStateStatus,
     EventType,
@@ -85,6 +85,10 @@ from db_model.vulnerabilities.types import (
 )
 from event_comments import (
     domain as event_comments_domain,
+)
+from events.constants import (
+    FILE_EVIDENCE_IDS,
+    IMAGE_EVIDENCE_IDS,
 )
 from events.types import (
     EventAttributesToUpdate,
@@ -216,9 +220,11 @@ async def add_event(
     if root.state.status != "ACTIVE":
         raise InvalidParameter(field="rootId")
     if file:
-        await validate_evidence(EventEvidenceType.FILE, file)
+        await validate_evidence(EventEvidenceId.FILE, file)
+        await validate_evidence(EventEvidenceId.FILE_1, file)
     if image:
-        await validate_evidence(EventEvidenceType.IMAGE, image)
+        await validate_evidence(EventEvidenceId.IMAGE, image)
+        await validate_evidence(EventEvidenceId.IMAGE_1, image)
 
     tzn = pytz.timezone(TIME_ZONE)
     event_date: datetime = kwargs["event_date"].astimezone(tzn)
@@ -255,11 +261,11 @@ async def add_event(
 
     if file:
         await update_evidence(
-            loaders, event.id, EventEvidenceType.FILE, file, event_date
+            loaders, event.id, EventEvidenceId.FILE_1, file, event_date
         )
     if image:
         await update_evidence(
-            loaders, event.id, EventEvidenceType.IMAGE, image, event_date
+            loaders, event.id, EventEvidenceId.IMAGE_1, image, event_date
         )
 
     report_date: date_type = datetime_utils.get_date_from_iso_str(
@@ -363,24 +369,51 @@ async def mask(loaders: Any, event_id: str) -> None:
 
 
 async def remove_evidence(
-    loaders: Any, evidence_type: EventEvidenceType, event_id: str
+    loaders: Any, evidence_id: EventEvidenceId, event_id: str
 ) -> None:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
-    if evidence_type == EventEvidenceType.IMAGE and event.evidences.image:
-        full_name = (
-            f"{group_name}/{event_id}/{event.evidences.image.file_name}"
+    if (
+        evidence := getattr(
+            event.evidences, str(evidence_id.value).lower(), None
         )
-    elif event.evidences.file:
-        full_name = f"{group_name}/{event_id}/{event.evidences.file.file_name}"
-    await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
-    await events_model.update_evidence(
-        event_id=event_id,
-        group_name=group_name,
-        evidence_info=None,
-        evidence_type=evidence_type,
-    )
+    ) and isinstance(evidence, EventEvidence):
+        full_name = f"{group_name}/{event_id}/{evidence.file_name}"
+        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
+        await events_model.update_evidence(
+            event_id=event_id,
+            group_name=group_name,
+            evidence_info=None,
+            evidence_id=evidence_id,
+        )
+
+    evidence_id_to_remove = None
+    if evidence_id is EventEvidenceId.IMAGE:
+        evidence_id_to_remove = EventEvidenceId.IMAGE_1
+    elif evidence_id is EventEvidenceId.IMAGE_1:
+        evidence_id_to_remove = EventEvidenceId.IMAGE
+    elif evidence_id is EventEvidenceId.FILE_1:
+        evidence_id_to_remove = EventEvidenceId.FILE
+    elif evidence_id is EventEvidenceId.FILE:
+        evidence_id_to_remove = EventEvidenceId.FILE_1
+    if (
+        evidence_id_to_remove
+        and (
+            evidence := getattr(
+                event.evidences, str(evidence_id_to_remove.value).lower(), None
+            )
+        )
+        and isinstance(evidence, EventEvidence)
+    ):
+        full_name = f"{group_name}/{event_id}/{evidence.file_name}"
+        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
+        await events_model.update_evidence(
+            event_id=event_id,
+            group_name=group_name,
+            evidence_info=None,
+            evidence_id=evidence_id_to_remove,
+        )
 
 
 async def solve_event(  # pylint: disable=too-many-locals
@@ -589,10 +622,14 @@ async def update_event(
 async def update_evidence(
     loaders: Any,
     event_id: str,
-    evidence_type: EventEvidenceType,
+    evidence_id: EventEvidenceId,
     file: UploadFile,
     update_date: datetime,
 ) -> None:
+    if evidence_id is EventEvidenceId.IMAGE:
+        evidence_id = EventEvidenceId.IMAGE_1
+    elif evidence_id is EventEvidenceId.FILE:
+        evidence_id = EventEvidenceId.FILE_1
     validations.validate_sanitized_csv_input(event_id)
     event: Event = await loaders.event.load(event_id)
     if event.state.status == EventStateStatus.SOLVED:
@@ -607,14 +644,12 @@ async def update_evidence(
         "text/csv": ".csv",
         "text/plain": ".txt",
     }.get(file.content_type, "")
-    evidence_type_str = (
-        "evidence"
-        if evidence_type == EventEvidenceType.IMAGE
-        else "evidence_file"
-    )
     group_name = event.group_name
-    evidence_id = f"{group_name}-{event_id}-{evidence_type_str}{extension}"
-    full_name = f"{group_name}/{event_id}/{evidence_id}"
+    file_name = (
+        f"{group_name}_{event_id}_evidence_"
+        f"{str(evidence_id.value).lower()}{extension}"
+    )
+    full_name = f"{group_name}/{event_id}/{file_name}"
     validations.validate_sanitized_csv_input(
         file.filename, file.content_type, full_name
     )
@@ -624,11 +659,35 @@ async def update_evidence(
         event_id=event_id,
         group_name=group_name,
         evidence_info=EventEvidence(
-            file_name=evidence_id,
+            file_name=file_name,
             modified_date=datetime_utils.get_as_utc_iso_format(update_date),
         ),
-        evidence_type=evidence_type,
+        evidence_id=evidence_id,
     )
+
+    evidence_id_to_remove = None
+    if evidence_id is EventEvidenceId.IMAGE_1:
+        evidence_id_to_remove = EventEvidenceId.IMAGE
+    elif evidence_id is EventEvidenceId.FILE_1:
+        evidence_id_to_remove = EventEvidenceId.FILE
+
+    if (
+        evidence_id_to_remove
+        and (
+            evidence_to_remove := getattr(
+                event.evidences, str(evidence_id_to_remove.value).lower(), None
+            )
+        )
+        and isinstance(evidence_to_remove, EventEvidence)
+    ):
+        full_name = f"{group_name}/{event_id}/{evidence_to_remove.file_name}"
+        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
+        await events_model.update_evidence(
+            event_id=event_id,
+            group_name=group_name,
+            evidence_info=None,
+            evidence_id=evidence_id_to_remove,
+        )
 
 
 async def update_solving_reason(
@@ -664,19 +723,19 @@ async def update_solving_reason(
 
 
 async def validate_evidence(
-    evidence_type: EventEvidenceType, file: UploadFile
+    evidence_id: EventEvidenceId, file: UploadFile
 ) -> None:
     mib = 1048576
     validations.validate_file_name(file.filename)
     validations.validate_fields([file.content_type])
 
-    if evidence_type == EventEvidenceType.IMAGE:
+    if evidence_id in IMAGE_EVIDENCE_IDS:
         allowed_mimes = ["image/gif", "image/jpeg", "image/png"]
         if not await files_utils.assert_uploaded_file_mime(
             file, allowed_mimes
         ):
             raise InvalidFileType("EVENT_IMAGE")
-    elif evidence_type == EventEvidenceType.FILE:
+    elif evidence_id in FILE_EVIDENCE_IDS:
         allowed_mimes = [
             "application/csv",
             "application/pdf",

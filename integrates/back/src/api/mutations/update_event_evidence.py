@@ -8,7 +8,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.events.enums import (
-    EventEvidenceType,
+    EventEvidenceId,
 )
 from decorators import (
     concurrent_decorators,
@@ -44,13 +44,13 @@ async def mutate(
     file: UploadFile,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    evidence_type_enum = EventEvidenceType[evidence_type]
-    await events_domain.validate_evidence(evidence_type_enum, file)
+    evidence_id = EventEvidenceId[evidence_type]
+    await events_domain.validate_evidence(evidence_id, file)
 
     await events_domain.update_evidence(
         loaders,
         event_id,
-        evidence_type_enum,
+        evidence_id,
         file,
         get_now(),
     )

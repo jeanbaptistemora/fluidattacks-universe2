@@ -17,6 +17,8 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[str]:
-    if not parent.evidences.image:
+    image = parent.evidences.image or parent.evidences.image_1
+
+    if not image:
         return None
-    return convert_from_iso_str(parent.evidences.image.modified_date)
+    return convert_from_iso_str(image.modified_date)

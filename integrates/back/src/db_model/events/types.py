@@ -18,7 +18,14 @@ class EventEvidence(NamedTuple):
 
 class EventEvidences(NamedTuple):
     file: Optional[EventEvidence] = None
+    file_1: Optional[EventEvidence] = None
     image: Optional[EventEvidence] = None
+    image_1: Optional[EventEvidence] = None
+    image_2: Optional[EventEvidence] = None
+    image_3: Optional[EventEvidence] = None
+    image_4: Optional[EventEvidence] = None
+    image_5: Optional[EventEvidence] = None
+    image_6: Optional[EventEvidence] = None
 
 
 class EventState(NamedTuple):

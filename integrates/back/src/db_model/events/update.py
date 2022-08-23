@@ -19,7 +19,7 @@ from db_model.events.constants import (
     GSI_2_FACET,
 )
 from db_model.events.enums import (
-    EventEvidenceType,
+    EventEvidenceId,
     EventStateStatus,
 )
 from db_model.events.utils import (
@@ -46,13 +46,13 @@ async def update_evidence(
     event_id: str,
     group_name: str,
     evidence_info: Optional[EventEvidence],
-    evidence_type: EventEvidenceType,
+    evidence_id: EventEvidenceId,
 ) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_metadata"],
         values={"id": event_id, "name": group_name},
     )
-    attribute = f"evidences.{str(evidence_type.value).lower()}"
+    attribute = f"evidences.{str(evidence_id.value).lower()}"
     await operations.update_item(
         item={
             attribute: json.loads(json.dumps(evidence_info))

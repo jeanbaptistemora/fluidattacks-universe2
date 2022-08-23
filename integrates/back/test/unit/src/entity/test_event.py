@@ -224,7 +224,7 @@ async def test_update_event_evidence() -> None:
     assert "errors" not in result
     assert (
         result["data"]["event"]["evidence"]
-        == "unittesting-540462628-evidence.gif"
+        == "unittesting_540462628_evidence_image_1.gif"
     )
     assert result["data"]["event"]["evidenceDate"].split(" ")[0] == (
         date_str.split(" ")[0]

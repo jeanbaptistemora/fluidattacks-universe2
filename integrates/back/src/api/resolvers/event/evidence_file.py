@@ -16,5 +16,7 @@ async def resolve(
 ) -> Optional[str]:
     evidence_file: Optional[str] = (
         parent.evidences.file.file_name if parent.evidences.file else None
+    ) or (
+        parent.evidences.file_1.file_name if parent.evidences.file_1 else None
     )
     return evidence_file

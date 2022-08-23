@@ -31,7 +31,10 @@ async def test_admin(populate: bool, email: str) -> None:
 
     loaders: Dataloaders = get_new_context()
     event: Event = await loaders.event.load(event_id)
-    assert event.evidences.image.file_name == "group1-418900971-evidence.gif"
+    assert (
+        event.evidences.image_1.file_name
+        == "group1_418900971_evidence_image_1.gif"
+    )
     assert event.evidences.file is None
 
 

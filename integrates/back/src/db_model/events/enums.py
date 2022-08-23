@@ -18,9 +18,16 @@ class EventActionsBeforeBlocking(str, Enum):
     TEST_OTHER_PART_TOE: str = "TEST_OTHER_PART_TOE"
 
 
-class EventEvidenceType(str, Enum):
+class EventEvidenceId(str, Enum):
     FILE: str = "FILE"
+    FILE_1: str = "FILE_1"
     IMAGE: str = "IMAGE"
+    IMAGE_1: str = "IMAGE_1"
+    IMAGE_2: str = "IMAGE_2"
+    IMAGE_3: str = "IMAGE_3"
+    IMAGE_4: str = "IMAGE_4"
+    IMAGE_5: str = "IMAGE_5"
+    IMAGE_6: str = "IMAGE_6"
 
 
 class EventStateStatus(str, Enum):

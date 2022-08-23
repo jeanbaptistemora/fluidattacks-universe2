@@ -24,7 +24,7 @@ from db_model.event_comments.types import (
     EventComment,
 )
 from db_model.events.enums import (
-    EventEvidenceType,
+    EventEvidenceId,
     EventSolutionReason,
     EventStateStatus,
 )
@@ -202,7 +202,7 @@ async def test_add_comment() -> None:
 async def test_update_evidence() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900978"
-    evidence_type = EventEvidenceType.FILE
+    evidence_type = EventEvidenceId.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -220,15 +220,15 @@ async def test_update_evidence() -> None:
     loaders.event.clear(event_id)
     event_updated: Event = await loaders.event.load(event_id)
     assert (
-        event_updated.evidences.file.file_name
-        == "oneshottest-418900978-evidence_file.csv"
+        event_updated.evidences.file_1.file_name
+        == "oneshottest_418900978_evidence_file_1.csv"
     )
 
 
 async def test_update_evidence_invalid_id() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "=malicious-code-here"
-    evidence_type = EventEvidenceType.FILE
+    evidence_type = EventEvidenceId.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -248,7 +248,7 @@ async def test_update_evidence_invalid_id() -> None:
 async def test_update_evidence_invalid_filename() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900978"
-    evidence_type = EventEvidenceType.FILE
+    evidence_type = EventEvidenceId.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -266,7 +266,7 @@ async def test_update_evidence_invalid_filename() -> None:
 
 
 async def test_validate_evidence_invalid_image_type() -> None:
-    evidence_type = EventEvidenceType.IMAGE
+    evidence_type = EventEvidenceId.IMAGE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -278,7 +278,7 @@ async def test_validate_evidence_invalid_image_type() -> None:
 
 
 async def test_validate_evidence_invalid_file_size() -> None:
-    evidence_type = EventEvidenceType.IMAGE
+    evidence_type = EventEvidenceId.IMAGE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-big-image.jpg")
     with open(filename, "rb") as test_file:
@@ -314,7 +314,7 @@ async def test_mask_event() -> None:
         event_id,
         parent_comment,
     )
-    evidence_type = EventEvidenceType.FILE
+    evidence_type = EventEvidenceId.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
