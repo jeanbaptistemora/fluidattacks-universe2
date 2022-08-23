@@ -18,7 +18,7 @@
         {% if key in key_format %}
           <strong>{{ key_format[key] }}</strong>:
         {% else %}
-          <strong>{{ key.replace('_', ' ').capitalize() }}</strong>:
+          <strong>{{ key.replace('_', ' ').capitalize().replace('vpn', 'VPN') }}</strong>:
         {% endif %}
         {% if key in ["url", "gitignore"]%}
           <div class="row">

@@ -24,7 +24,7 @@ async def send_mail_analytics(
         mail_content,
         GENERAL_TAG,
         (
-            f'[ASM] Analytics for [{mail_content["report_subject_title"]}] '
+            f'[ARM] Analytics for [{mail_content["report_subject_title"]}] '
             f'({mail_content["frequency_title"]}: {mail_content["date"]})'
         ),
         "charts_report",

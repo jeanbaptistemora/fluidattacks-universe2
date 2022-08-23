@@ -66,10 +66,10 @@ async def cancel_health_check(
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f"[ASM] Health Check canceled: {group_name}",
+        subject=f"[ARM] Health Check canceled: {group_name}",
         description=f"""
             You are receiving this email because you have canceled a health
-            check for a repository through ASM by Fluid Attacks.
+            check for a repository through ARM by Fluid Attacks.
 
             Here are the details of the repository:
             - URL: {repo_url}
@@ -98,10 +98,10 @@ async def delete_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[ASM] Group deleted: {group_name}",
+            subject=f"[ARM] Group deleted: {group_name}",
             description=f"""
                 You are receiving this email because you have deleted a group
-                through ASM by Fluid Attacks.
+                through ARM by Fluid Attacks.
 
                 Here are the details of the group:
                 - Name: {group_name}
@@ -178,7 +178,7 @@ async def update_group(  # pylint: disable=too-many-locals
 
     description: str = (
         "You are receiving this email because you have edited a group through "
-        "ASM by Fluid Attacks. \n\nHere are the details of the group:"
+        "ARM by Fluid Attacks. \n\nHere are the details of the group:"
         f"\n{description_body}\n\nIf you require any further information, "
         "do not hesitate to contact us."
     )
@@ -194,7 +194,7 @@ async def update_group(  # pylint: disable=too-many-locals
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[ASM] Group edited: {group_name}",
+            subject=f"[ARM] Group edited: {group_name}",
             description=description,
             requester_email=requester_email,
         ),
@@ -250,10 +250,10 @@ async def new_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[ASM] Group created: {group_name}",
+            subject=f"[ARM] Group created: {group_name}",
             description=f"""
                 You are receiving this email because you have created a group
-                through ASM by Fluid Attacks.
+                through ARM by Fluid Attacks.
 
                 Here are the details of the group:
                 - Name: {group_name}
@@ -291,12 +291,12 @@ async def request_managed(
         await in_thread(
             notifications_dal.create_ticket,
             subject=(
-                f"[ASM] {translations[managed]} managed requested:"
+                f"[ARM] {translations[managed]} managed requested:"
                 f" {group_name}"
             ),
             description=f"""
                 You are receiving this email because you have requested
-                to {translations[managed]} managed a group, through ASM
+                to {translations[managed]} managed a group, through ARM
                 by Fluid Attacks.
 
                 Here are the details of the group:
@@ -342,11 +342,11 @@ async def request_health_check(
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f"[ASM] Health Check requested: {group_name}",
+        subject=f"[ARM] Health Check requested: {group_name}",
         description=f"""
             You are receiving this email because you have requested a health
             check for a repository in {group_name.capitalize()} group
-            through ASM by Fluid Attacks.
+            through ARM by Fluid Attacks.
 
             Here are the details of the repository:
             - URL: {repo_url}
@@ -382,7 +382,7 @@ async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
     new_line = "\n\t"
     description = f"""
         You are receiving this case because a zero risk vulnerability has been
-        requested through ASM by Fluid Attacks.
+        requested through ARM by Fluid Attacks.
 
         Here are the details of the zero risk vulnerability:
         Group: {group_name}
@@ -408,7 +408,7 @@ async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject="[ASM] Requested zero risk vulnerabilities",
+            subject="[ARM] Requested zero risk vulnerabilities",
             description=description,
             requester_email=requester_email,
         ),
@@ -439,7 +439,7 @@ async def request_groups_upgrade(
 
     await in_thread(
         notifications_dal.create_ticket,
-        subject="[ASM] Subscription upgrade requested",
+        subject="[ARM] Subscription upgrade requested",
         description=f"""
             You are receiving this email because you have requested an upgrade
             to the Squad plan for the following groups:

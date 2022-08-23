@@ -88,7 +88,7 @@ async def send_mail_comment(
         [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
-        f"[ASM] New comment in event #{event_id} for [{group_name}]",
+        f"[ARM] New comment in event #{event_id} for [{group_name}]",
         "new_comment",
     )
 
@@ -175,9 +175,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     }
 
     subject: str = (
-        f"[ASM] Event solved #[{event_id}] for [{group_name}]"
+        f"[ARM] Event solved #[{event_id}] for [{group_name}]"
         if is_closed
-        else f"[ASM] ACTION NEEDED: Your group [{group_name}] is at risk"
+        else f"[ARM] ACTION NEEDED: Your group [{group_name}] is at risk"
     )
 
     await send_mails_async(

@@ -26,6 +26,6 @@ async def send_mail_deprecation_notice(
         list(email_to),
         email_context,
         GENERAL_TAG,
-        f"[ASM] {month} Deprecation Notice",
+        f"[ARM] {month} Deprecation Notice",
         "deprecation_notice",
     )

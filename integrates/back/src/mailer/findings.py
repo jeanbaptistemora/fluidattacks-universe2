@@ -100,7 +100,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         email_context,
         COMMENTS_TAG,
         (
-            "[ASM] New "
+            "[ARM] New "
             f"{type_frt}"
             f" in [{finding_title}] for [{group_name}]"
         ),
@@ -141,7 +141,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         mail_context,
         GENERAL_TAG,
         (
-            "[ASM] Type of vulnerability removed "
+            "[ARM] Type of vulnerability removed "
             f"[{finding_name}] in [{group_name}]"
         ),
         "delete_finding",
@@ -177,7 +177,7 @@ async def send_mail_new_draft(
         recipients,
         email_context,
         GENERAL_TAG,
-        f"[ASM] Draft submitted [{finding_title}] in [{group_name}]",
+        f"[ARM] Draft submitted [{finding_title}] in [{group_name}]",
         "new_draft",
     )
 
@@ -190,7 +190,7 @@ async def send_mail_new_remediated(
         email_to,
         context,
         GENERAL_TAG,
-        f'[ASM] Types of vulnerabilities to verify ({context["total"]})',
+        f'[ARM] Types of vulnerabilities to verify ({context["total"]})',
         "new_remediated",
     )
 
@@ -249,7 +249,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         recipients,
         email_context,
         GENERAL_TAG,
-        f"[ASM] Draft unsubmitted [{finding_name}] in [{group_name}]",
+        f"[ARM] Draft unsubmitted [{finding_name}] in [{group_name}]",
         "unsubmitted_draft",
     )
 
@@ -290,7 +290,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         stakeholders_email,
         mail_context,
         VERIFY_TAG,
-        f"[ASM] New remediation for [{finding_name}] in [{group_name}]",
+        f"[ARM] New remediation for [{finding_name}] in [{group_name}]",
         "remediate_finding",
     )
 
@@ -339,6 +339,6 @@ async def send_mail_vulnerability_report(
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"[ASM] {finding_title} {state} in [{group_name}].",
+        subject=f"[ARM] {finding_title} {state} in [{group_name}].",
         template_name="vulnerability_report",
     )

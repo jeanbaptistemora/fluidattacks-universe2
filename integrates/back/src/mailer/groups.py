@@ -52,7 +52,7 @@ async def send_mail_free_trial_start(
         email_to=email_to,
         context=context,
         tags=[],
-        subject="[ASM] Congratulations! You started your 21-days free-trial",
+        subject="[ARM] Congratulations! You started your 21-days free-trial",
         template_name="free_trial",
     )
 
@@ -66,8 +66,8 @@ async def send_mail_access_granted(
         context,
         GENERAL_TAG,
         (
-            f'[ASM] Access granted to [{context["group"]}] '
-            "in ASM by Fluid Attacks"
+            f'[ARM] Access granted to [{context["group"]}] '
+            "in ARM by Fluid Attacks"
         ),
         "access_granted",
         is_access_granted=True,
@@ -82,7 +82,7 @@ async def send_mail_group_report(
         email_to,
         context,
         GENERAL_TAG,
-        f'[ASM] {context["filetype"]} report for [{context["groupname"]}]',
+        f'[ARM] {context["filetype"]} report for [{context["groupname"]}]',
         "group_report",
     )
 
@@ -128,7 +128,7 @@ async def send_mail_comment(
         [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
-        f"[ASM] New comment in [{group_name}]",
+        f"[ARM] New comment in [{group_name}]",
         "new_comment",
     )
 
@@ -175,7 +175,7 @@ async def send_mail_added_root(
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
         tags=GENERAL_TAG,
-        subject=f"[ASM] Root added in [{group_name}]",
+        subject=f"[ARM] Root added in [{group_name}]",
         template_name="root_added",
     )
 
@@ -215,7 +215,7 @@ async def send_mail_updated_root(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=f"[ASM] Root has been changed in [{group_name}]",
+        subject=f"[ARM] Root has been changed in [{group_name}]",
         template_name="updated_root",
     )
 
@@ -245,7 +245,7 @@ async def send_mail_updated_root_credential(
             ),
         },
         tags=GENERAL_TAG,
-        subject=f"[ASM] Root credential alert in [{group_name}]",
+        subject=f"[ARM] Root credential alert in [{group_name}]",
         template_name="root_credential_report",
     )
 
@@ -293,7 +293,7 @@ async def send_mail_deactivated_root(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=(f"[ASM] Root deactivated in [{group_name}]"),
+        subject=(f"[ARM] Root deactivated in [{group_name}]"),
         template_name="root_deactivated",
     )
 
@@ -334,7 +334,7 @@ async def send_mail_file_report(
             "uploaded_days_to_date": uploaded_days_to_date,
         },
         tags=GENERAL_TAG,
-        subject=(f"[ASM] Root file {state_format} in [{group_name}]"),
+        subject=(f"[ARM] Root file {state_format} in [{group_name}]"),
         template_name="file_report",
     )
 
@@ -387,7 +387,7 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
         context=email_context,
         tags=GENERAL_TAG,
         subject=(
-            f"[ASM] Root [{root_nickname}] {cloning_state} status cloning in "
+            f"[ARM] Root [{root_nickname}] {cloning_state} status cloning in "
             f"[{group_name}]"
         ),
         template_name="root_cloning_status",
@@ -419,7 +419,7 @@ async def send_mail_portfolio_report(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=(f"[ASM] The portfolio has been modified in [{group_name}]"),
+        subject=(f"[ARM] The portfolio has been modified in [{group_name}]"),
         template_name="portfolio_report",
     )
 
@@ -449,7 +449,7 @@ async def send_mail_updated_services(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=(f"[ASM] Group edited: {group_name}"),
+        subject=(f"[ARM] Group edited: {group_name}"),
         template_name="updated_services",
     )
 
@@ -482,7 +482,7 @@ async def send_mail_devsecops_agent_token(
         email_to,
         email_context,
         COMMENTS_TAG,
-        f"[ASM] DevSecOps Agent token {token_status} in [{group_name}]",
+        f"[ARM] DevSecOps Agent token {token_status} in [{group_name}]",
         "devsecops_agent_token",
     )
 
@@ -505,7 +505,7 @@ async def send_mail_user_unsubscribed(
         email_to,
         email_context,
         COMMENTS_TAG,
-        f"[ASM] Unsubscription alert in [{group_name}]",
+        f"[ARM] Unsubscription alert in [{group_name}]",
         "user_unsubscribed",
     )
 
@@ -548,7 +548,7 @@ async def send_mail_environment_report(
             else "",
         },
         tags=GENERAL_TAG,
-        subject=f"[ASM] Environment has been modified in [{group_name}]",
+        subject=f"[ARM] Environment has been modified in [{group_name}]",
         template_name="environment_report",
     )
 
@@ -620,7 +620,7 @@ async def send_mail_updated_group_information(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=f"[ASM] Group information has been modified in [{group_name}]",
+        subject=f"[ARM] Group information has been modified in [{group_name}]",
         template_name="updated_group_information",
     )
 
@@ -637,7 +637,7 @@ async def send_mail_updated_policies(
         email_to,
         context,
         GENERAL_TAG,
-        f'[ASM] Policies have been changed in [{context["entity_name"]}]',
+        f'[ARM] Policies have been changed in [{context["entity_name"]}]',
         "updated_policies",
     )
 
@@ -650,7 +650,7 @@ async def send_mail_users_weekly_report(
         email_to=email_to,
         context=context,
         tags=GENERAL_TAG,
-        subject="[ASM] [Week #] Users Report",
+        subject="[ARM] [Week #] Users Report",
         template_name="users_weekly_report",
     )
 
@@ -665,7 +665,7 @@ async def send_mail_reminder(
         loaders=loaders,
         email_to=email_to,
         tags=GENERAL_TAG,
-        subject="[ASM] Reminder",
+        subject="[ARM] Reminder",
         context=context,
         template_name="reminder_notification",
     )
@@ -685,7 +685,7 @@ async def send_mail_numerator_report(
         email_to=email_to,
         email_cc=email_cc,
         tags=GENERAL_TAG,
-        subject=f"[ASM] Progress Report {user_login} [{report_date}]",
+        subject=f"[ARM] Progress Report {user_login} [{report_date}]",
         context=context,
         template_name="numerator_digest",
     )
@@ -703,7 +703,7 @@ async def send_mail_missing_environment_alert(
         email_to=email_to,
         tags=GENERAL_TAG,
         subject=(
-            f"[ASM] ACTION NEEDED: Your group [{group_name}] is incomplete"
+            f"[ARM] ACTION NEEDED: Your group [{group_name}] is incomplete"
         ),
         context=context,
         template_name="missing_environment_alert",
