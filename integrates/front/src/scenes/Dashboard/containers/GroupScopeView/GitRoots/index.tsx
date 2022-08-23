@@ -326,7 +326,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         ...previousValue,
         ...Object.fromEntries(
           currentValue.gitEnvironmentUrls.map((envUrl): [string, string[]] => [
-            envUrl.id,
+            envUrl.url,
             [
               ...(envUrl.url in previousValue ? previousValue[envUrl.url] : []),
               currentValue.url,
@@ -546,6 +546,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     )
     .map((root): IEnvironmentUrl[] => root.gitEnvironmentUrls)
     .flatMap((envUrls): IEnvironmentUrl[] => envUrls)
+    .filter(
+      (envUrl, index, envUrls): boolean =>
+        envUrls.findIndex((env): boolean => env.url === envUrl.url) === index
+    )
     .map(
       (
         envUrl
@@ -556,7 +560,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       } => {
         return {
           ...envUrl,
-          repositoryUrls: rootsGroupedByEnvs[envUrl.id],
+          repositoryUrls: rootsGroupedByEnvs[envUrl.url],
         };
       }
     );
