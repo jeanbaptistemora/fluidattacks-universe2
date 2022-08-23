@@ -23,8 +23,8 @@ from fa_purity import (
     Maybe,
     ResultE,
 )
-from fa_purity.json.factory import (
-    json_list,
+from fa_purity.json import (
+    factory as JsonFactory,
 )
 from fa_purity.json.value.transform import (
     Unfolder,
@@ -121,9 +121,9 @@ class ExportJob:
 class ExportApi:  # type: ignore[no-any-unimported]
     _client: Client  # type: ignore[no-any-unimported]
 
-    def export_jobs(self) -> Cmd[FrozenList[ExportJob]]:
+    def get_jobs(self) -> Cmd[FrozenList[ExportJob]]:
         def _action() -> FrozenList[ExportJob]:
-            jobs: ResultE[FrozenList[JsonObj]] = json_list(self._client.exports.list()).alt(Exception)  # type: ignore[misc]
+            jobs: ResultE[FrozenList[JsonObj]] = JsonFactory.json_list(self._client.exports.list()).alt(Exception)  # type: ignore[misc]
             return (
                 jobs.bind(
                     lambda l: all_ok(tuple(ExportJob.decode(i) for i in l))
@@ -131,5 +131,12 @@ class ExportApi:  # type: ignore[no-any-unimported]
                 .alt(raise_exception)
                 .unwrap()
             )
+
+        return Cmd.from_cmd(_action)
+
+    def export_activity(self) -> Cmd[ExportJob]:
+        def _action() -> ExportJob:
+            job: ResultE[JsonObj] = JsonFactory.from_any(self._client.exports.activity()).alt(Exception)  # type: ignore[misc]
+            return job.bind(ExportJob.decode).alt(raise_exception).unwrap()
 
         return Cmd.from_cmd(_action)
