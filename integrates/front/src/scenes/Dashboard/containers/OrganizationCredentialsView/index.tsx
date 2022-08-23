@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -18,12 +19,9 @@ import type {
   IOrganizationCredentialsProps,
   IRemoveCredentialsResultAttr,
 } from "./types";
-import { getCredentialsIndex } from "./utils";
 
 import { GET_ROOTS } from "../GroupScopeView/queries";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table } from "components/TableNew";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -43,10 +41,9 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   );
 
   // States
-  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedCredentials, setSelectedCredentials] = useState<
-    ICredentialsAttr | undefined
-  >();
+    ICredentialsAttr[]
+  >([]);
   const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -60,7 +57,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
             t("organization.tabs.credentials.alerts.removeSuccess"),
             t("groupAlerts.titleSuccess")
           );
-          setSelectedCredentials(undefined);
+          setSelectedCredentials([]);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -113,58 +110,39 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     setIsAdding(false);
     setIsEditing(false);
   }, []);
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
+
   const removeCredentials = useCallback((): void => {
     if (!_.isUndefined(selectedCredentials)) {
       void handleRemoveCredentials({
         variables: {
-          credentialsId: selectedCredentials.id,
+          credentialsId: selectedCredentials[0].id,
           organizationId,
         },
       });
     }
   }, [handleRemoveCredentials, selectedCredentials, organizationId]);
 
-  // Filter data
-  const filteredCredentials: ICredentialsData[] = filterSearchText(
-    credentials,
-    searchTextFilter
-  );
-
   // Table config
-  const tableHeaders: IHeaderConfig[] = [
+  const tableHeadersz: ColumnDef<ICredentialsData>[] = [
     {
-      dataField: "name",
+      accessorKey: "name",
       header: t("organization.tabs.credentials.table.columns.name"),
-      wrapped: true,
     },
     {
-      dataField: "type",
+      accessorKey: "type",
       header: t("organization.tabs.credentials.table.columns.type"),
-      wrapped: true,
     },
     {
-      dataField: "owner",
+      accessorKey: "owner",
       header: t("organization.tabs.credentials.table.columns.owner"),
-      wrapped: true,
     },
   ];
 
   return (
     <React.StrictMode>
       <Table
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filteredCredentials}
-        exportCsv={false}
+        columns={tableHeadersz}
+        data={credentials}
         extraButtons={
           <ActionButtons
             isAdding={isAdding}
@@ -173,23 +151,15 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
             onAdd={openCredentialsModalToAdd}
             onEdit={openCredentialsModalToEdit}
             onRemove={removeCredentials}
-            selectedCredentials={selectedCredentials}
+            selectedCredentials={selectedCredentials[0]}
           />
         }
-        headers={tableHeaders}
         id={"tblOrganizationCredentials"}
-        pageSize={10}
-        search={false}
-        selectionMode={{
-          clickToSelect: true,
-          hideSelectColumn: !(canRemove || canUpadate),
-          mode: "radio",
-          onSelect: setSelectedCredentials,
-          selected: getCredentialsIndex(
-            _.isUndefined(selectedCredentials) ? [] : [selectedCredentials],
-            filteredCredentials
-          ),
-        }}
+        rowSelectionSetter={
+          canRemove || canUpadate ? setSelectedCredentials : undefined
+        }
+        rowSelectionState={selectedCredentials}
+        selectionMode={"radio"}
       />
       {isCredentialsModalOpen ? (
         <CredentialsModal

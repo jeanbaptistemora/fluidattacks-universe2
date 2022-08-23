@@ -48,7 +48,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             t("groupAlerts.titleSuccess")
           );
           onClose();
-          setSelectedCredentials(undefined);
+          setSelectedCredentials([]);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -79,7 +79,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             t("groupAlerts.titleSuccess")
           );
           onClose();
-          setSelectedCredentials(undefined);
+          setSelectedCredentials([]);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -142,7 +142,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             : {
                 name: values.name,
               },
-          credentialsId: selectedCredentials.id,
+          credentialsId: selectedCredentials[0].id,
           organizationId,
         },
       });
@@ -162,11 +162,11 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             ? {
                 auth: "TOKEN",
                 key: undefined,
-                name: selectedCredentials.name,
+                name: selectedCredentials[0].name,
                 newSecrets: false,
                 password: undefined,
                 token: undefined,
-                type: selectedCredentials.type,
+                type: selectedCredentials[0].type,
                 user: undefined,
               }
             : undefined

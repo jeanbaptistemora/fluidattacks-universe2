@@ -5,10 +5,8 @@ interface ICredentialsModalProps {
   isEditing: boolean;
   organizationId: string;
   onClose: () => void;
-  selectedCredentials: ICredentialsData | undefined;
-  setSelectedCredentials: (
-    selectedCredentials: ICredentialsData | undefined
-  ) => void;
+  selectedCredentials: ICredentialsData[];
+  setSelectedCredentials: (selectedCredentials: ICredentialsData[]) => void;
 }
 
 export type { ICredentialsModalProps };
