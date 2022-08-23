@@ -9,6 +9,8 @@
     fa-purity
     fa-singer-io
     mailchimp-transactional
+    python-dateutil
+    types-dateutil
     utils-logger
   ];
   build_deps = with python_pkgs; [flit-core];
