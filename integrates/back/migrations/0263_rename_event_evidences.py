@@ -11,6 +11,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_BUCKET,
+    FI_TEST_PROJECTS,
 )
 from dataloaders import (
     Dataloaders,
@@ -137,8 +138,12 @@ async def update_evidence(
         )
 
 
-async def process_event(event: Event) -> None:
+async def process_event(event: Event) -> None:  # noqa: MC0001
     if event.evidences.file:
+        update_file = True
+        if "Masked" in event.evidences.file.file_name:
+            return
+
         with tempfile.TemporaryDirectory() as temp_dir:
             os.makedirs(
                 f"{temp_dir}/{event.group_name}/{event.id}", exist_ok=True
@@ -147,21 +152,48 @@ async def process_event(event: Event) -> None:
                 f"{event.group_name}/{event.id}/"
                 f"{event.evidences.file.file_name}"
             )
+
             target_name = f"{temp_dir}/{file_name}"
-            await s3_ops.download_file(
-                FI_AWS_S3_BUCKET,
-                file_name=file_name,
-                file_path=target_name,
-            )
-            with open(target_name, mode="rb", encoding=None) as file:
-                await update_evidence(
-                    event=event,
-                    evidence_id=EventEvidenceId.FILE_1,
-                    file=file,
-                    target_name=target_name,
-                    modified_date=event.evidences.image.modified_date,
+            try:
+                await s3_ops.download_file(
+                    FI_AWS_S3_BUCKET,
+                    file_name=file_name,
+                    file_path=target_name,
                 )
+            except ClientError as exc:
+                if exc.response["Error"]["Code"] == "404":
+                    try:
+                        list_files = await s3_ops.list_files(
+                            FI_AWS_S3_BUCKET, file_name
+                        )
+                        file_name = list_files[0]
+                        await s3_ops.download_file(
+                            FI_AWS_S3_BUCKET,
+                            file_name=file_name,
+                            file_path=target_name,
+                        )
+                    except (ClientError, IndexError):
+                        update_file = False
+                        await events_model.update_evidence(
+                            event_id=event.id,
+                            group_name=event.group_name,
+                            evidence_info=None,
+                            evidence_id=EventEvidenceId.FILE,
+                        )
+            if update_file:
+                with open(target_name, mode="rb", encoding=None) as file:
+                    await update_evidence(
+                        event=event,
+                        evidence_id=EventEvidenceId.FILE_1,
+                        file=file,
+                        target_name=target_name,
+                        modified_date=event.evidences.file.modified_date,
+                    )
+
     if event.evidences.image:
+        update_image = True
+        if "Masked" in event.evidences.image.file_name:
+            return
         with tempfile.TemporaryDirectory() as temp_dir:
             os.makedirs(
                 f"{temp_dir}/{event.group_name}/{event.id}", exist_ok=True
@@ -171,19 +203,41 @@ async def process_event(event: Event) -> None:
                 f"{event.evidences.image.file_name}"
             )
             target_name = f"{temp_dir}/{file_name}"
-            await s3_ops.download_file(
-                FI_AWS_S3_BUCKET,
-                file_name=file_name,
-                file_path=target_name,
-            )
-            with open(target_name, mode="rb", encoding=None) as file:
-                await update_evidence(
-                    event=event,
-                    evidence_id=EventEvidenceId.IMAGE_1,
-                    file=file,
-                    target_name=target_name,
-                    modified_date=event.evidences.image.modified_date,
+            try:
+                await s3_ops.download_file(
+                    FI_AWS_S3_BUCKET,
+                    file_name=file_name,
+                    file_path=target_name,
                 )
+            except ClientError as exc:
+                if exc.response["Error"]["Code"] == "404":
+                    try:
+                        list_files = await s3_ops.list_files(
+                            FI_AWS_S3_BUCKET, file_name
+                        )
+                        file_name = list_files[0]
+                        await s3_ops.download_file(
+                            FI_AWS_S3_BUCKET,
+                            file_name=file_name,
+                            file_path=target_name,
+                        )
+                    except (ClientError, IndexError):
+                        update_image = False
+                        await events_model.update_evidence(
+                            event_id=event.id,
+                            group_name=event.group_name,
+                            evidence_info=None,
+                            evidence_id=EventEvidenceId.IMAGE,
+                        )
+            if update_image:
+                with open(target_name, mode="rb", encoding=None) as file:
+                    await update_evidence(
+                        event=event,
+                        evidence_id=EventEvidenceId.IMAGE_1,
+                        file=file,
+                        target_name=target_name,
+                        modified_date=event.evidences.image.modified_date,
+                    )
 
 
 async def get_group_events(
@@ -198,6 +252,8 @@ async def get_group_events(
 async def main() -> None:  # noqa: MC0001
     loaders = get_new_context()
     all_organization_ids = {"ORG#unknown"}
+    test_groups = set(FI_TEST_PROJECTS.split(","))
+
     async for organization in orgs_domain.iterate_organizations():
         all_organization_ids.add(organization.id)
 
@@ -218,8 +274,9 @@ async def main() -> None:  # noqa: MC0001
                 tuple(
                     get_group_events(loaders, group_name)
                     for group_name in all_group_names
+                    if group_name not in test_groups
                 ),
-                workers=100,
+                workers=50,
             )
         )
     )
