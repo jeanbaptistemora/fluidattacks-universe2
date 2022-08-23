@@ -16,6 +16,7 @@ import type {
 } from ".";
 import {
   Checkbox as CheckboxComp,
+  DataList,
   Input,
   InputDate as InputDateComp,
   InputNumber as InputNumberComp,
@@ -27,6 +28,7 @@ import { Logger } from "utils/logger";
 
 const config: Meta = {
   component: Input,
+  subcomponents: { DataList },
   title: "components/Input",
 };
 
@@ -61,7 +63,8 @@ const StoryDefault: Story<IInputProps> = (props): JSX.Element => (
     validationSchema={validations}
   >
     <Form id={"exampleForm"}>
-      <Input {...props} id={"ExInput"} name={"exampleName"} />
+      <Input {...props} id={"ExInput"} list={"ExList"} name={"exampleName"} />
+      <DataList data={["abc", "bcd", "cde", "ab", "bc", "cd"]} id={"ExList"} />
     </Form>
   </Formik>
 );

@@ -12,19 +12,23 @@ import { Alert } from "components/Alert";
 
 type TFieldProps = FieldProps<string, Record<string, string>>;
 
-interface IInputBase<T = HTMLElement>
+interface IInput
   extends IStyledInputProps,
     Omit<ILabelProps, "children" | "htmlFor"> {
-  disabled?: boolean;
   id?: string;
   label?: ILabelProps["children"];
   name: string;
+}
+
+interface IInputBase<T = HTMLElement> extends IInput {
+  disabled?: boolean;
   onBlur?: (event: FocusEvent<T>) => void;
   onFocus?: (event: FocusEvent<T>) => void;
   onKeyDown?: (event: KeyboardEvent<T>) => void;
+  validate?: (value: unknown) => string | undefined;
 }
 
-interface IInputBaseProps extends IInputBase {
+interface IInputBaseProps extends IInput {
   children?: ReactNode;
   form: Pick<TFieldProps["form"], "errors" | "touched">;
 }

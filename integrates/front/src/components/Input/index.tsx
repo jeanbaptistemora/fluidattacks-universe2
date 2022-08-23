@@ -1,3 +1,4 @@
+import { DataList } from "./DataList";
 import {
   Checkbox,
   Input,
@@ -24,4 +25,13 @@ export type {
   ISelectProps,
   ITextAreaProps,
 };
-export { Checkbox, Input, InputDate, InputNumber, Label, Select, TextArea };
+export {
+  Checkbox,
+  DataList,
+  Input,
+  InputDate,
+  InputNumber,
+  Label,
+  Select,
+  TextArea,
+};
