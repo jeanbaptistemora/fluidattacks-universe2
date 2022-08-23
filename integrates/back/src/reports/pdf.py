@@ -20,6 +20,16 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
 )
+from db_model.roots.types import (
+    GitEnvironmentUrl,
+    GitRoot,
+    GitRootState,
+    IPRoot,
+    IPRootState,
+    Root,
+    URLRoot,
+    URLRootState,
+)
 from decimal import (
     Decimal,
 )
@@ -27,6 +37,9 @@ from findings import (
     domain as findings_domain,
 )
 import importlib
+from itertools import (
+    chain,
+)
 import jinja2
 from jinja2 import (
     select_autoescape,
@@ -99,6 +112,21 @@ Context = TypedDict(
         "main_pie_filename": str,
         "main_tables": VulnTable,
         "findings": Tuple[PdfFindingInfo, ...],
+        "git_root": Tuple[GitRootState, ...],
+        "environment_urls": Tuple[str, ...],
+        "ip_root": Tuple[IPRootState, ...],
+        "url_root": Tuple[URLRootState],
+        "root_address": str,
+        "root_branch": str,
+        "root_environment_title": str,
+        "root_git_title": str,
+        "root_host": str,
+        "root_ip_title": str,
+        "root_nickname": str,
+        "root_scope_title": str,
+        "root_state": str,
+        "root_url_title": str,
+        "root_url": str,
         "accessVector": Optional[str],
         "finding_summary_background": str,
         "finding_summary_pdf": str,
@@ -148,6 +176,37 @@ Context = TypedDict(
     },
     total=False,
 )
+
+
+async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
+    urls: tuple[
+        GitEnvironmentUrl, ...
+    ] = await loaders.git_environment_urls.load((root_id))
+
+    return tuple(url.url for url in urls)
+
+
+async def format_scope(loaders: Dataloaders, group_name: str) -> dict:
+    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    git_roots: tuple[GitRoot, ...] = tuple(
+        root for root in roots if isinstance(root, GitRoot)
+    )
+    url_roots: tuple[URLRoot, ...] = tuple(
+        root for root in roots if isinstance(root, URLRoot)
+    )
+    ip_roots: tuple[IPRoot, ...] = tuple(
+        root for root in roots if isinstance(root, IPRoot)
+    )
+    urls: tuple[tuple[str, ...], ...] = await collect(
+        tuple(_get_urls(loaders, root.id) for root in git_roots), workers=2
+    )
+
+    return dict(
+        git_root=tuple(root.state for root in git_roots),
+        environment_urls=tuple(set(chain.from_iterable(urls))),
+        ip_root=tuple(root.state for root in ip_roots),
+        url_root=tuple(root.state for root in url_roots),
+    )
 
 
 async def format_finding(
@@ -466,6 +525,7 @@ class CreatorPdf:
                 for finding in findings
             ]
         )
+        context_root = await format_scope(loaders, group)
         main_tables = make_vuln_table(context_findings, words)
         main_pie_filename = self.make_pie_finding(
             context_findings, group, words
@@ -500,6 +560,21 @@ class CreatorPdf:
             "finding_summary_background": (
                 "image::../resources/themes/background-finding-summary.png[]"
             ),
+            "git_root": context_root["git_root"],
+            "environment_urls": context_root["environment_urls"],
+            "ip_root": context_root["ip_root"],
+            "url_root": context_root["url_root"],
+            "root_address": words["root_address"],
+            "root_branch": words["root_branch"],
+            "root_environment_title": words["root_environment_title"],
+            "root_git_title": words["root_git_title"],
+            "root_host": words["root_host"],
+            "root_ip_title": words["root_ip_title"],
+            "root_nickname": words["root_nickname"],
+            "root_scope_title": words["root_scope_title"],
+            "root_state": words["root_state"],
+            "root_url_title": words["root_url_title"],
+            "root_url": words["root_url"],
             "where_title": words["where_title"],
             "description_title": words["description_title"],
             "resume_vuln_title": words["resume_vuln_title"],

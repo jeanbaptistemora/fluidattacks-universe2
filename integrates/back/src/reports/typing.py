@@ -266,6 +266,19 @@ class PDFWordlistEn(Wordlist):
     RESUME_VULN_TITLE: WordlistItem = WordlistItem(
         "resume_vuln_title", "Vulnerabilities"
     )
+    ROOT_ADDRESS: WordlistItem = WordlistItem("root_address", "Address")
+    ROOT_BRANCH: WordlistItem = WordlistItem("root_branch", "Branch")
+    ROOT_ENVIRONMENT_TITLE: WordlistItem = WordlistItem(
+        "root_environment_title", "Environment URLs"
+    )
+    ROOT_GIT_TITLE: WordlistItem = WordlistItem("root_git_title", "Git Roots")
+    ROOT_HOST: WordlistItem = WordlistItem("root_host", "Host")
+    ROOT_IP_TITLE: WordlistItem = WordlistItem("root_ip_title", "IP Roots")
+    ROOT_NICKNAME: WordlistItem = WordlistItem("root_nickname", "Nickname")
+    ROOT_SCOPE_TITLE: WordlistItem = WordlistItem("root_scope_title", "Scope")
+    ROOT_STATE_TITLE: WordlistItem = WordlistItem("root_state", "State")
+    ROOT_URL_TITLE: WordlistItem = WordlistItem("root_url_title", "URL Roots")
+    ROOT_URL: WordlistItem = WordlistItem("root_url", "URL")
     SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
     SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solution")
     STATE_TITLE: WordlistItem = WordlistItem("state_title", "Status")
