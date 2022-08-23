@@ -53,6 +53,71 @@ information:
   otherwise,
   only a hyphen is shown
 
+## Status in the event
+
+The statuses help us to have more
+clarity about the status of our events.
+We handle three types:
+Unsolved,
+Pending,
+and Solved.
+Here we will explain
+the flow of these.
+
+First,
+when an event is opened,
+it will have the status **Unsolved**.
+
+![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/status_unsolved.png)
+
+Here you have to give the
+solution to this created event.
+When you have it,
+go to the checkbox on the
+left and click on it.
+When you do this,
+the **Request Verification** option
+will be activated immediately.
+
+![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/status_request_verification.png)
+
+When you click on it,
+you will get a pop-up window
+where you will have to explain
+the justification of how
+you solved this event;
+remember to enter at least ten characters,
+followed by clicking on the **Confirm button**.
+
+![Confirm Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276494/docs/web/groups/events/status_confirmb.png)
+
+At this moment,
+our event will enter
+the **Pending state**,
+where we will be waiting
+for the verification that
+the supplied solution is effective.
+
+![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/state_pending.png)
+
+When validated and the
+solution successful,
+it will move to our third **Solved state**.
+
+![Solved State](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/state_solved.png)
+
+If this solution does not work,
+the event will be set to
+**Unsolved status**,
+and you will receive a
+notification where you will see
+a comment from the analyst.
+These comments will be sent
+to you as a
+[notification](/machine/web/notifications#consulting),
+but you can also see them in the
+[Comments](/machine/web/groups/events#event-details) tab.
+
 ## Functionalities
 
 ### Export events
