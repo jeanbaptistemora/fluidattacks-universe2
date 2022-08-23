@@ -192,7 +192,7 @@ which open the possibility for an injection attack.
 ### Dynamic application security testing (DAST)
 
 [DAST](../../categories/dast/)
-doed not require access to the application source code.
+does not require access to the application source code.
 It involves assessing running applications
 by sending attack vectors to their endpoints.
 These tests can detect vulnerabilities
