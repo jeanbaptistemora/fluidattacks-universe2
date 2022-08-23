@@ -243,9 +243,7 @@ def sync_computer_activity(
             paging = response_obj.get("paging", "")
 
             for record in computer_activity:
-                project_id = record["numbers"][0]["meta"].get(
-                    ["projectId"], ""
-                )
+                project_id = record["numbers"][0]["meta"].get("projectId", "")
 
                 stdout_json_obj: JSON = {
                     "type": "RECORD",
