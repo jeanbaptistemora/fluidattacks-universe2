@@ -1815,10 +1815,12 @@ export const enTranslations: ResourceKey = {
             "Maximum acceptance days should be a positive integer",
         },
         findings: {
+          action: "Action",
           addPolicies: {
             success:
               "Remember that the application of the policy requires the approval of a user with manager role",
           },
+          date: "Date",
           deactivatePolicies: {
             modalTitle: "Disable organization vulnerability policy",
             success:
@@ -1840,9 +1842,11 @@ export const enTranslations: ResourceKey = {
               rejected: "The policy was successfully rejected",
             },
           },
+          status: "Status",
           submitPolicies: {
             modalTitle: "Re-submit organization vulnerability policy",
           },
+          tags: "Tags",
           title: "Permanent acceptance",
           tooltip: {
             addButton: "Add organization policy pending to approve",
@@ -1855,6 +1859,7 @@ export const enTranslations: ResourceKey = {
             resubmitButton: "Re-submit organization vulnerability policy",
             tagsInput: "Tags associated to the policy",
           },
+          type: "Vulnerability type",
         },
         group: {
           success: "Group policies updated successfully",
