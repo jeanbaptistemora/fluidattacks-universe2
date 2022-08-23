@@ -75,6 +75,9 @@
           "group_name": {
             "S": "jessup"
           },
+          "hacker_email": {
+            "S": "machine@fluidattacks.com"
+          },
           "id": {
             "S": "70ef071b-9d49-4b87-b15a-7cc0e0529bf3"
           },

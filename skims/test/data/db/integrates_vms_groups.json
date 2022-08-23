@@ -30,7 +30,7 @@
                 "S": "SQUAD"
               },
               "managed": {
-                "BOOL": true
+                "S": "MANAGED"
               },
               "service": {
                 "S": "WHITE"

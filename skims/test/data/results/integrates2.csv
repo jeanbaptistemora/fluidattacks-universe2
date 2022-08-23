@@ -43,11 +43,11 @@ F133,inputs,https://localhost:4446 (dynamic_namespace_2),server refuses connecti
   19 | server refuses connections with PFS support in TLSv1.1
      ^ Col 0
 ",analyze_protocol.pfs_disabled
-F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/.project,"
+F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/.project,0,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/.project,"
 
 ",generic.unverifiable_files
-F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.class,"
-> 1 | ����9
+F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.class,0,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.class,"
+  1 | ����9
   2 | 
   3 | 
   4 | <init>()VCodeLineNumberTablemain([Ljava/lang/String;)V
@@ -58,8 +58,8 @@ F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.class,1,377,s
   9 | 
     ^ Col 0
 ",generic.unverifiable_files
-F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.jar,"
->  1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
+F117,lines,dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Unverifiable files,Unverifiable file in dynamic_namespace_2/skims/test/data/lib_path/f117/MyJar.jar,"
+   1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
    2 | K-*��ϳR0�3��r.JM,IM�u�
    3 | +h�&�敔j�r�rPK�Kx32PK�[%O
    4 | MyJar.class;�o�>K~.f

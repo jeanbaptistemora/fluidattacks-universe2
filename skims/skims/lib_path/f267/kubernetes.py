@@ -45,8 +45,10 @@ def _k8s_allow_privilege_escalation_enabled(
 def _k8s_root_container(
     template: Any,
 ) -> Iterator[Any]:
-    if template.raw.get("apiVersion") and (
-        ctx := template.inner.get("securityContext")
+    if (
+        getattr(template, "raw")
+        and template.raw.get("apiVersion")
+        and (ctx := template.inner.get("securityContext"))
     ):
         as_root = ctx.inner.get("runAsNonRoot")
         if as_root and not as_root.data:
@@ -81,8 +83,10 @@ def _k8s_check_run_as_user(
 def _k8s_check_seccomp_profile(
     template: Any,
 ) -> Iterator[Any]:
-    if template.raw.get("apiVersion") and (
-        ctx := template.inner.get("securityContext")
+    if (
+        getattr(template, "raw")
+        and template.raw.get("apiVersion")
+        and (ctx := template.inner.get("securityContext"))
     ):
         if sec_prof := ctx.inner.get("seccompProfile"):
             if (

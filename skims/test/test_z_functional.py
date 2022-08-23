@@ -763,17 +763,17 @@ async def test_should_report_vulns_to_namespace_verify(
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/.project",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/MyJar.class",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/MyJar.jar",
-                    "1",
+                    "0",
                 ),
             ),
         ),
@@ -829,32 +829,32 @@ async def test_should_report_vulns_to_namespace2_verify(
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/.project",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/MyJar.class",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_1/skims/test/"
                     "data/lib_path/f117/MyJar.jar",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/.project",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/MyJar.class",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/MyJar.jar",
-                    "1",
+                    "0",
                 ),
             ),
         ),
@@ -909,17 +909,17 @@ async def test_should_close_vulns_to_namespace_verify(
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/.project",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/MyJar.class",
-                    "1",
+                    "0",
                 ),
                 (
                     "dynamic_namespace_2/skims/test/"
                     "data/lib_path/f117/MyJar.jar",
-                    "1",
+                    "0",
                 ),
             ),
         ),

@@ -15,3 +15,7 @@ spec:
         readOnlyRootFilesystem: false
         runAsNonRoot: true
         allowPrivilegeEscalation: false
+    - name: back-end
+      image: django
+      ports:
+        - containerPort: 8080

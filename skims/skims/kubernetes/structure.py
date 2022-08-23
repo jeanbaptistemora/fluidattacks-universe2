@@ -19,7 +19,7 @@ def iter_containers_type(
     containers_type = {
         "containers",
         "ephemeralContainers",
-        "containers",
+        "initContainers",
     }
     if template and template.data:
         k8s_spec = template.inner.get("spec", None)
@@ -30,7 +30,7 @@ def iter_containers_type(
 
 
 def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
-    cap = sec_ctx.inner.get("capabilities", None)
+    cap = sec_ctx.inner.get("capabilities")
     if cap and cap.data:
         add = cap.inner.get(type_cap, None)
         if add and add.data:
@@ -38,14 +38,19 @@ def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
     return []
 
 
-def iter_security_context(template: Node, upper_level: bool) -> Iterator[Node]:
-    if template.raw.get("apiVersion"):
-        if upper_level:
-            ctx = template.inner.get("securityContext", None)
-            if ctx and ctx.data:
-                yield ctx
+def iter_security_context(
+    template: Node, container_only: bool
+) -> Iterator[Node]:
+    if getattr(template, "raw") and template.raw.get("apiVersion"):
+        if (
+            not container_only
+            and (kind := template.inner.get("kind"))
+            and kind.data == "Pod"
+        ):
+            spec = template.inner.get("spec")
+            if spec and (sec_ctx := spec.inner.get("securityContext")):
+                yield sec_ctx if sec_ctx and sec_ctx.data else spec
         for container in iter_containers_type(template):
             for elem in container:
-                ctx = elem.inner.get("securityContext", None)
-                if ctx and ctx.data:
-                    yield ctx
+                ctx = elem.inner.get("securityContext")
+                yield ctx if ctx and ctx.data else elem

@@ -7,9 +7,11 @@ lib_path.f267.k8s_check_add_capability:
     en nil o NET_BIND_SERVICE
 lib_path.f267.k8s_allow_privilege_escalation_enabled:
   en: >
-    Ensure containers do not run with AllowPrivilegeEscalation
+    Ensure securityContext.allowPrivilegeEscalation container property
+    is present and set to false
   es: >
-    Asegúrese de que los contenedores no se ejecuten con AllowPrivilegeEscalation
+    Asegúrese de que la propiedad securityContext.allowPrivilegeEscalation
+    de los contenedores esté presente y establecida en false
 lib_path.f267.k8s_root_container:
   en: >
     Ensure securityContext.runAsNonRoot property is set to true
@@ -18,10 +20,11 @@ lib_path.f267.k8s_root_container:
     true
 lib_path.f267.k8s_root_filesystem_read_only:
   en: >
-    Ensure securityContext.readOnlyRootFilesystem property is set to true
+    Ensure securityContext.readOnlyRootFilesystem container property
+    is present and set to true
   es: >
-    Asegúrese de que la propiedad securityContext.readOnlyRootFilesystem esté establecida
-    en true
+    Asegúrese de que la propiedad securityContext.readOnlyRootFilesystem
+    de los contenedores esté presente y establecida en true
 lib_path.f267.k8s_check_run_as_user:
   en: >
     Containers must not set securityContext.runAsUser property to 0
