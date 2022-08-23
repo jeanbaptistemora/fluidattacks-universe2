@@ -6,7 +6,7 @@ slug: /machine/web/support/live-chat
 ---
 
 If you have a question about any
-feature of the ASM or need help
+feature of the ARM or need help
 on how to use it, we recommend
 you to get in touch using the
 **Instant Live Chat** option.
@@ -20,7 +20,7 @@ option would apply).
 
 To find the **Live Chat** option,
 go to the top-right corner of the
-ASM and click on the question
+ARM and click on the question
 mark icon.
 
 ![Icon Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1657123646/docs/web/support/section_livechat_option.png)

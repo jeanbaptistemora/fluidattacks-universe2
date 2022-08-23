@@ -5,7 +5,7 @@ sidebar_label: Policies
 slug: /machine/web/organization/policies
 ---
 
-On the [Attack Surface Manager (ASM)](https://app.fluidattacks.com),
+On the [Attacks Resistance Management (ARM)](https://app.fluidattacks.com),
 you can set various policies for
 acceptance of vulnerabilities in
 your organization to help you control
@@ -13,7 +13,7 @@ the risks you are willing to take
 in your groups.
 You can access the **Policies** section
 by clicking on the **Policies** tab on
-your organization's home page on ASM.
+your organization's home page on ARM.
 
 ![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1657120528/docs/web/organizations/policies_list.png)
 

@@ -42,15 +42,15 @@ The first way is through our URL.
 
 ![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_verify-note.png)
 
-### Through ASM
+### Through ARM
 
-The second way to subscribe is through are ASM.
+The second way to subscribe is through are ARM.
 
 - Click on the “megaphone icon”
   on the top right.
   Hovering your courser
   over the  “megaphone icon” will say:
-  “Latest updates about ASM”.
+  “Latest updates about ARM”.
 
 ![Subscription Icons](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_megaphone.png)
 
@@ -77,4 +77,4 @@ be subscribed to our channel.
 Don’t miss the latest amazing features
 we are developing for you.
 We want you to have a good experience
-with our ASM for your daily work.
+with our ARM for your daily work.
