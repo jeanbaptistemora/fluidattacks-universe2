@@ -22,6 +22,16 @@ def format_exploit_result(result: list[Item]) -> list[ExploitResult]:
     return exploit
 
 
+def format_forces_vulnerabilities_to_add(
+    vulns: Item,
+) -> ExecutionVulnerabilities:
+    return ExecutionVulnerabilities(
+        num_of_accepted_vulnerabilities=int(len(vulns["accepted"])),
+        num_of_open_vulnerabilities=int(len(vulns["open"])),
+        num_of_closed_vulnerabilities=int(len(vulns["closed"])),
+    )
+
+
 def format_forces_vulnerabilities(
     vulenrabilities: Item,
 ) -> ExecutionVulnerabilities:
@@ -118,3 +128,31 @@ def format_forces_to_resolve(execution: ForcesExecution) -> Item:
         },
     }
     return format_explotability(item)
+
+
+def format_forces_item(execution: ForcesExecution) -> Item:
+    return {
+        "execution_id": execution.id,
+        "subscription": execution.group_name,
+        "date": execution.date,
+        "git_commit": execution.commit,
+        "git_repo": execution.repo,
+        "git_branch": execution.branch,
+        "kind": execution.kind,
+        "exit_code": execution.exit_code,
+        "strictness": execution.strictness,
+        "git_origin": execution.origin,
+        "grace_period": execution.grace_period,
+        "severity_threshold": execution.severity_threshold,
+        "vulnerabilities": {
+            "num_of_accepted_vulnerabilities": (
+                execution.vulnerabilities.num_of_accepted_vulnerabilities
+            ),
+            "num_of_open_vulnerabilities": (
+                execution.vulnerabilities.num_of_open_vulnerabilities
+            ),
+            "num_of_closed_vulnerabilities": (
+                execution.vulnerabilities.num_of_closed_vulnerabilities
+            ),
+        },
+    }

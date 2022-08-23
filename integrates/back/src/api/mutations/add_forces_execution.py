@@ -34,15 +34,14 @@ async def mutate(
     log: Optional[UploadFile] = None,
     **parameters: Any,
 ) -> SimplePayload:
-    success = await forces_domain.add_forces_execution(
+    await forces_domain.add_forces_execution(
         group_name=group_name, log=log, **parameters
     )
-    if success:
-        logs_utils.cloudwatch_log(
-            info.context,
-            (
-                f"Security: Created forces execution in {group_name} "
-                "group successfully"
-            ),
-        )
-    return SimplePayload(success=success)
+    logs_utils.cloudwatch_log(
+        info.context,
+        (
+            f"Security: Created forces execution in {group_name} "
+            "group successfully"
+        ),
+    )
+    return SimplePayload(success=True)

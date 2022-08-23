@@ -1,6 +1,9 @@
 from context import (
     FI_AWS_S3_FORCES_BUCKET,
 )
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from db_model.group_access.types import (
     GroupAccess,
 )
@@ -22,6 +25,9 @@ from groups import (
 import json
 from newutils import (
     token as token_utils,
+)
+from newutils.forces import (
+    format_forces_vulnerabilities_to_add,
 )
 from organizations import (
     domain as orgs_domain,
@@ -56,8 +62,7 @@ async def add_forces_execution(
     group_name: str,
     log: Union[UploadFile, None] = None,
     **execution_attributes: Any,
-) -> bool:
-    success = False
+) -> None:
     if "severity_threshold" in execution_attributes:
         orgs_domain.validate_min_breaking_severity(
             execution_attributes["severity_threshold"]
@@ -67,31 +72,35 @@ async def add_forces_execution(
             execution_attributes["grace_period"]
         )
 
+    force_execution = ForcesExecution(
+        id=execution_attributes["execution_id"],
+        group_name=group_name,
+        date=execution_attributes["date"],
+        commit=execution_attributes["git_commit"],
+        repo=execution_attributes["git_repo"],
+        branch=execution_attributes["git_branch"],
+        kind=execution_attributes["kind"],
+        exit_code=execution_attributes["exit_code"],
+        strictness=execution_attributes["strictness"],
+        origin=execution_attributes["git_origin"],
+        grace_period=int(execution_attributes["grace_period"]),
+        severity_threshold=int(execution_attributes["severity_threshold"]),
+        vulnerabilities=format_forces_vulnerabilities_to_add(
+            execution_attributes["vulnerabilities"]
+        ),
+    )
+
     vulnerabilities = execution_attributes.pop("vulnerabilities")
-
-    execution_attributes["vulnerabilities"] = {}
-    execution_attributes["vulnerabilities"][
-        "num_of_open_vulnerabilities"
-    ] = len(vulnerabilities["open"])
-    execution_attributes["vulnerabilities"][
-        "num_of_closed_vulnerabilities"
-    ] = len(vulnerabilities["closed"])
-    execution_attributes["vulnerabilities"][
-        "num_of_accepted_vulnerabilities"
-    ] = len(vulnerabilities["accepted"])
-
     log_name = f'{group_name}/{execution_attributes["execution_id"]}.log'
     vulns_name = f'{group_name}/{execution_attributes["execution_id"]}.json'
+
     # Create a file for vulnerabilities
     with tempfile.NamedTemporaryFile() as vulns_file:
         vulns_file.write(json.dumps(vulnerabilities).encode("utf-8"))
         vulns_file.seek(os.SEEK_SET)
         await save_log_execution(log, log_name)
         await save_log_execution(vulns_file, vulns_name)
-        success = await forces_dal.add_execution(
-            group_name=group_name, **execution_attributes
-        )
-    return success
+        await forces_dal.add_execution_typed(force_execution=force_execution)
 
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
