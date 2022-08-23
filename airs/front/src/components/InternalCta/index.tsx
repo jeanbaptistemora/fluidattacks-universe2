@@ -41,12 +41,14 @@ const InternalCta: React.FC<IInternalCta> = ({
           {description}
         </Paragraph>
         <Link className={"no-underline"} to={"/free-trial/"}>
-          <NewRegularRedButton className={"mb0-ns mb3 fl mr1 w-auto-ns w-100"}>
+          <NewRegularRedButton
+            className={"mb0-ns mb3 fl mr2-ns w-auto-ns w-100"}
+          >
             {"Start free trial"}
           </NewRegularRedButton>
         </Link>
         <Link className={"no-underline"} to={"/contact-us-demo/"}>
-          <PhantomRegularRedButton className={"fl mh1 w-auto-ns w-100"}>
+          <PhantomRegularRedButton className={"fl w-auto-ns w-100"}>
             {"Contact now"}
           </PhantomRegularRedButton>
         </Link>
