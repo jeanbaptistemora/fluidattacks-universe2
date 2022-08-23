@@ -175,16 +175,6 @@ and DAST.
 
 ![Root Deactivated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_root_deactivated.png)
 
-### Daily digest
-
-If you enable these notifications,
-you will receive daily emails
-with updates on noteworthy
-activity and vulnerabilities
-in your subscribed groups.
-
-![Daily Digest](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_daily_digest.png)
-
 ### Analytics report
 
 If you enable these notifications,
