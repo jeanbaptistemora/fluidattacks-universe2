@@ -22,5 +22,5 @@ def test_threads() -> None:
     jobs = PureIterFactory.from_range(range(10)).map(lambda _: mock_job())
     try:
         in_threads(jobs, 10).compute()
-    except SystemExit as exit:
+    except SystemExit as exit:  # NOSONAR
         assert exit.code == 0

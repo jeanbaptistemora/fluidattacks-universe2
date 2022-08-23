@@ -1,4 +1,3 @@
-import re
 from typing import (
     Any,
     Iterable,
@@ -16,7 +15,7 @@ def escape(text: str) -> str:
     Which are known to make a Redshift statement fail.
     """
     str_obj = str(text)
-    str_obj = re.sub("\x00", "", str_obj)
+    str_obj = str_obj.replace("\x00", "")
     str_obj = str_obj.replace("\\", "\\\\")
     str_obj = str_obj.replace('"', '""')
     str_obj = str_obj.replace("'", "\\'")
