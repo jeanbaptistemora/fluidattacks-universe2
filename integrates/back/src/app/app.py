@@ -368,7 +368,7 @@ API_EXTENSIONS = (OpenTelemetryExtension,)
 
 
 def get_validation_rules(
-    context_value: Any, _document: DocumentNode, _data: dict[str, Any]
+    context_value: Any, _document: DocumentNode, _data: Any
 ) -> tuple[ValidationRule, ...]:
     return (
         QueryBreadthValidation,
