@@ -1,6 +1,5 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FieldProps } from "formik";
 import type {
   ChangeEvent,
   FC,
@@ -10,7 +9,7 @@ import type {
 } from "react";
 import React, { useCallback, useRef, useState } from "react";
 
-import type { IInputBase } from "../InputBase";
+import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledInput } from "../styles";
 import { Button } from "components/Button";
@@ -22,8 +21,10 @@ interface IInputNumberProps extends IInputBase<HTMLInputElement> {
   placeholder?: string;
 }
 
-type TInputNumberProps = FieldProps<string, Record<string, string>> &
-  IInputNumberProps;
+type TInputNumberProps = IInputNumberProps & {
+  field: TFieldProps["field"];
+  form: Pick<TFieldProps["form"], "errors" | "touched">;
+};
 
 const FormikNumber: FC<TInputNumberProps> = ({
   disabled,

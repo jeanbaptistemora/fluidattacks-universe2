@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   getCoreRowModel,
+  getFacetedMinMaxValues,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
@@ -103,6 +104,7 @@ const Table = <TData extends object>({
     data,
     enableColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Column, Header, RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
+import { NumberFilter } from "./NumberFilter";
 import { TextFilter } from "./TextFilter";
 
 import { Button } from "components/Button";
@@ -50,7 +51,13 @@ const Filters = <TData extends RowData>({
               .flatRows[0]?.getValue(column.id);
 
             if (typeof firstValue === "number") {
-              return <div />;
+              return (
+                <Row key={column.id}>
+                  <Col>
+                    <NumberFilter column={column} />
+                  </Col>
+                </Row>
+              );
             }
 
             return (

@@ -39,9 +39,7 @@ const TextFilter = <TData extends RowData>({
         label={column.columnDef.header}
         list={`${column.id}-list`}
         name={column.id}
-      >
-        {column.id}
-      </FormikInput>
+      />
     </React.Fragment>
   );
 };
