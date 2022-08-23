@@ -21,13 +21,21 @@ from fa_purity import (
     JsonObj,
     JsonValue,
     Maybe,
+    Result,
     ResultE,
+)
+from fa_purity.cmd.core import (
+    CmdUnwrapper,
+    new_cmd,
 )
 from fa_purity.json import (
     factory as JsonFactory,
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from fa_purity.pure_iter import (
+    factory as PIterFactory,
 )
 from fa_purity.result.transform import (
     all_ok,
@@ -38,11 +46,19 @@ from fa_purity.utils import (
 from mailchimp_transactional import (
     Client,
 )
+from time import (
+    sleep,
+)
 from typing import (
     TypeVar,
+    Union,
 )
 
 _T = TypeVar("_T")
+
+
+class MaxRetriesReached(Exception):
+    pass
 
 
 class ExportType(Enum):
@@ -133,6 +149,32 @@ class ExportApi:  # type: ignore[no-any-unimported]
             )
 
         return Cmd.from_cmd(_action)
+
+    def until_finish(
+        self, job: ExportJob, check_interval: int, max_retries: int
+    ) -> Cmd[Result[ExportJob, Union[MaxRetriesReached, KeyError]]]:
+        def _action(
+            act: CmdUnwrapper,
+        ) -> Result[ExportJob, Union[MaxRetriesReached, KeyError]]:
+            retry_num = max_retries + 1
+            while retry_num > 0:
+                jobs = PIterFactory.from_flist(act.unwrap(self.get_jobs()))
+                updated_job = jobs.find_first(lambda j: j.job_id == job.job_id)
+                state = updated_job.map(lambda j: j.state)
+                in_progress = state.map(
+                    lambda s: s in (JobState.waiting, JobState.working)
+                ).value_or(False)
+                if in_progress:
+                    retry_num = retry_num - 1
+                    sleep(check_interval)
+                else:
+                    return updated_job.to_result().alt(
+                        lambda _: KeyError(f"Missing job {job.job_id}")
+                    )
+            err = MaxRetriesReached(f"Waiting for job {job.job_id}")
+            return Result.failure(err)
+
+        return new_cmd(_action)
 
     def export_activity(self) -> Cmd[ExportJob]:
         def _action() -> ExportJob:
