@@ -1,7 +1,8 @@
 import type { Column, RowData } from "@tanstack/react-table";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { FormikNumber } from "components/Input/Formik";
+import { Col, Row } from "components/Layout";
 
 interface INumberFilterProps<TData extends RowData> {
   column: Column<TData, unknown>;
@@ -11,53 +12,74 @@ const NumberFilter = <TData extends RowData>({
   column,
 }: INumberFilterProps<TData>): JSX.Element => {
   const minMaxValues = column.getFacetedMinMaxValues();
-  const filterValue = column.getFilterValue() as [number, number] | null;
-  const currentValue: [number, number] =
-    filterValue === null ? [0, 0] : filterValue;
+  const maxValue = minMaxValues === undefined ? undefined : minMaxValues[1];
+  const filterValue = column.getFilterValue() as [number, number] | undefined;
+  const currentValue =
+    filterValue === undefined ? [undefined, undefined] : filterValue;
+
+  const handleMinChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      column.setFilterValue(
+        (
+          old: [number, number] | undefined
+        ): [number | undefined, number | undefined] => [
+          event.target.value === "" ? undefined : Number(event.target.value),
+          old === undefined ? undefined : old[1],
+        ]
+      );
+    },
+    [column]
+  );
+
+  const handleMaxChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      column.setFilterValue(
+        (
+          old: [number, number] | undefined
+        ): [number | undefined, number | undefined] => [
+          old === undefined ? undefined : old[0],
+          event.target.value === "" ? undefined : Number(event.target.value),
+        ]
+      );
+    },
+    [column]
+  );
 
   return (
-    <React.Fragment>
-      <FormikNumber
-        field={{
-          name: column.id,
-          onBlur: (): void => undefined,
-          onChange: (event: React.ChangeEvent<HTMLInputElement>): void => {
-            column.setFilterValue(
-              (old: [number, number] | null): [number, number] => [
-                Number(event.target.value),
-                old === null ? 0 : old[1],
-              ]
-            );
-          },
-          value: String(currentValue[0]),
-        }}
-        form={{ errors: {}, touched: {} }}
-        label={column.columnDef.header}
-        max={minMaxValues === undefined ? undefined : minMaxValues[1]}
-        min={minMaxValues === undefined ? undefined : minMaxValues[0]}
-        name={column.id}
-      />
-      <FormikNumber
-        field={{
-          name: column.id,
-          onBlur: (): void => undefined,
-          onChange: (event: React.ChangeEvent<HTMLInputElement>): void => {
-            column.setFilterValue(
-              (old: [number, number] | null): [number, number] => [
-                old === null ? 0 : old[0],
-                Number(event.target.value),
-              ]
-            );
-          },
-          value: String(currentValue[1]),
-        }}
-        form={{ errors: {}, touched: {} }}
-        label={column.columnDef.header}
-        max={minMaxValues === undefined ? undefined : minMaxValues[1]}
-        min={minMaxValues === undefined ? undefined : minMaxValues[0]}
-        name={column.id}
-      />
-    </React.Fragment>
+    <Row>
+      <Col lg={50} md={50}>
+        <FormikNumber
+          field={{
+            name: column.id,
+            onBlur: (): void => undefined,
+            onChange: handleMinChange,
+            value: currentValue[0] === undefined ? "" : String(currentValue[0]),
+          }}
+          form={{ errors: {}, touched: {} }}
+          label={column.columnDef.header}
+          max={maxValue}
+          min={0}
+          name={column.id}
+          placeholder={"Min"}
+        />
+      </Col>
+      <Col lg={50} md={50}>
+        <FormikNumber
+          field={{
+            name: column.id,
+            onBlur: (): void => undefined,
+            onChange: handleMaxChange,
+            value: currentValue[1] === undefined ? "" : String(currentValue[1]),
+          }}
+          form={{ errors: {}, touched: {} }}
+          label={""}
+          max={maxValue}
+          min={0}
+          name={column.id}
+          placeholder={"Max"}
+        />
+      </Col>
+    </Row>
   );
 };
 

@@ -18,14 +18,12 @@ const InputNumber: FC<IInputNumberProps> = ({
   placeholder,
   required,
   tooltip,
-  initValue,
   variant = "solid",
 }: Readonly<IInputNumberProps>): JSX.Element => (
   <Field
     component={FormikNumber}
     disabled={disabled}
     id={id}
-    initValue={initValue}
     label={label}
     max={max}
     min={min}

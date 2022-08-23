@@ -32,6 +32,7 @@ const SelectFilter = <TData extends RowData>({
         label={column.columnDef.header}
         name={column.id}
       >
+        <option value={""}>{"All"}</option>
         {sortedUniqueValues.map(
           (value): JSX.Element => (
             <option key={value} value={value}>
