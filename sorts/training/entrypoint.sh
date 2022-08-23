@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
 function main {
+  export AWS_DEFAULT_REGION="us-east-1"
+
   : \
     && sops_export_vars 'sorts/secrets.yaml' \
       'REDSHIFT_DATABASE' \
