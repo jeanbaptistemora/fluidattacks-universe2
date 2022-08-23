@@ -1383,9 +1383,6 @@ body {
   @include menu-font;
 }
 
-.technology:checked~.tag-technology {
-  @include menu-font;
-}
 
 // Solutions Desktop Grid
 .button-white {
