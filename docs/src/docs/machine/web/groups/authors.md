@@ -6,7 +6,7 @@ slug: /machine/web/groups/authors
 ---
 
 When we talk about
-authors on the ASM,
+authors on the ARM,
 we refer to all developers
 or professionals who have
 contributed to the
@@ -28,10 +28,10 @@ their latest commit,
 the name of the repository
 where they made that commit,
 and whether or not they are
-registered to the ASM.
+registered to the ARM.
 See below how to invite them
 to open an account in our
-attack surface management
+attacks resistance management
 platform.
 
 When you need to see the list
@@ -71,17 +71,17 @@ The notion of shared responsibility
 for secure development makes it
 especially important that all
 of the contributors to any given
-repository be part of our attack
-surface management platform.
+repository be part of our attacks
+resistance management platform.
 If you are a user manager,
 you can send registration
 invitations to contributors
-who do not have an ASM account yet
+who do not have an ARM account yet
 by clicking the **Invite** button.
 
 ![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1648072503/docs/web/groups/authors/authors_tab.png)
 
-The ASM will email the author
+The ARM will email the author
 showing them two possible options:
 Confirm access and Reject access.
 During the time it takes the

@@ -5,21 +5,21 @@ sidebar_label: Roles
 slug: /machine/web/groups/roles
 ---
 
-Users on the ASM have different
+Users on the ARM have different
 roles with associated permissions
 relevant to work on the platform.
 Depending on your role,
 you are granted access to certain
 functions for your daily use
-of the ASM.
-You can see your role on the ASM in the
+of the ARM.
+You can see your role on the ARM in the
 [drop-down menu](/machine/web/user-information)
 that appears when you click the
 user icon on the upper-right
 part of your screen.
 
 The following are the different
-roles that are available on the ASM,
+roles that are available on the ARM,
 along with their descriptions.
 
 ## User manager role
@@ -29,7 +29,7 @@ that gives the user
 the most privileges,
 this user can do everything
 that a client is allowed to do
-in the ASM.
+in the ARM.
 This role is made for
 the leaders of the product
 and, besides the basic privileges,
@@ -60,7 +60,7 @@ people with a position as
 technical leaders in their
 company.
 This role has access to the
-basic privileges on the ASM
+basic privileges on the ARM
 and is also enabled to
 generate reports;
 get notifications;
@@ -146,7 +146,7 @@ edit or remove users.
 - **Receive notifications:**
   This is the ability to
   receive notifications
-  that the ASM can send
+  that the ARM can send
   related to your group.
 - **Request reattacks:**
   When a vulnerability is solved,
@@ -188,7 +188,7 @@ for each role.
 
 ## Internal roles
 
-`Fluid Attacks’` internal roles on the ASM.
+`Fluid Attacks’` internal roles on the ARM.
 
 ### Hacker
 
@@ -213,7 +213,7 @@ The customer manager mainly provides
 support and streamlines processes
 of the organizations.
 For example,
-on the ASM,
+on the ARM,
 they can make changes
 in group information,
 request reattacks,
@@ -256,7 +256,7 @@ organizations over the support channels.
 ### Admin
 
 The admin is the one who has all
-the privileges on the ASM,
+the privileges on the ARM,
 except for the possibility
 to change treatments.
 

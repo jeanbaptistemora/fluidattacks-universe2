@@ -20,7 +20,7 @@ exclude some dummy files
 that you haven't deleted,
 etc.,
 the circumstances are varied.
-The ASM gives you a way to do this,
+The ARM gives you a way to do this,
 however,
 remember that any files or folders
 excluded by the gitignore

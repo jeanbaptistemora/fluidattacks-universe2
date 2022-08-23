@@ -62,7 +62,7 @@ When you select the
 desired report option,
 if you have not yet registered
 your mobile phone
-number in the ASM,
+number in the ARM,
 you will see a message
 asking you to do so.
 You just have to go to the
@@ -83,7 +83,7 @@ as you can see below:
 ![Verification Code](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_verification.png)
 
 As immediately announced
-by a message in the ASM,
+by a message in the ARM,
 it will send you an email
 with a link to the report
 in a couple of minutes.

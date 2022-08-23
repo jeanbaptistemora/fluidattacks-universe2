@@ -6,7 +6,7 @@ slug: /machine/web/groups
 ---
 
 Each organization on the
-ASM has different groups.
+ARM has different groups.
 These correspond to single
 projects that our clients
 create to manage their
@@ -21,7 +21,7 @@ You decide what strategy is
 best for the needs and
 goals of your organization.
 
-Each group on the ASM is
+Each group on the ARM is
 composed of several sections.
 Access to these can vary
 depending on your

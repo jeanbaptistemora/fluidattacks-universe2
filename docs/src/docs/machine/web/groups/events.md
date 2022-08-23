@@ -13,7 +13,7 @@ scope or maybe all of it.
 Your team needs to keep track
 of these situations and solve them,
 so we can resume our assessments.
-The place on the ASM where you
+The place on the ARM where you
 can see a cumulative record of
 solved and unsolved events in
 your group is the Events section.
@@ -260,7 +260,7 @@ select the requested information:
 After entering the
 information and clicking
 the **Proceed** button,
-the ASM will create the new
+the ARM will create the new
 event and send an email to
 all project managers.
 You can also click on

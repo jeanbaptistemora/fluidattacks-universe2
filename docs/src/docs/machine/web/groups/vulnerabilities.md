@@ -198,7 +198,7 @@ obtain information such as dates, users
 and justifications for each change in
 the history of your security vulnerabilities.
 For this purpose, there’s the
-**Tracking tab** in the ASM.
+**Tracking tab** in the ARM.
 This tab gives you detailed information
 about each vulnerability in your
 software and the treatment each has

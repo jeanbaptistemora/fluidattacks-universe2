@@ -380,7 +380,7 @@ Scope changes may involve closing or reporting new vulnerabilities
 :::
 
 Deleting a root isn't possible
-in the ASM because in the
+in the ARM because in the
 security world it is
 always better to keep
 records of everything.
@@ -565,7 +565,7 @@ you can include a short description.
 
 When you click Proceed,
 the secret is made accessible
-to our hackers on the ASM.
+to our hackers on the ARM.
 You can also delete or edit
 all the secrets you add by
 clicking on the
