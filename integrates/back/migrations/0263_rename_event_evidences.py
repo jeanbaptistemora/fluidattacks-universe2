@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Rename the event evidences to keep the consistence with the new ones
+
+Execution Time:    2022-08-23 at 22:15:47 UTC
+Finalization Time: 2022-08-23 at 22:18:48 UTC
 """
 from aioextensions import (
     collect,
@@ -180,6 +183,8 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
                             evidence_info=None,
                             evidence_id=EventEvidenceId.FILE,
                         )
+                        print("remove", file_name)
+
             if update_file:
                 with open(target_name, mode="rb", encoding=None) as file:
                     await update_evidence(
@@ -229,6 +234,8 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
                             evidence_info=None,
                             evidence_id=EventEvidenceId.IMAGE,
                         )
+                        print("remove", file_name)
+
             if update_image:
                 with open(target_name, mode="rb", encoding=None) as file:
                     await update_evidence(
