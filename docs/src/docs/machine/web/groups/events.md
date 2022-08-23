@@ -18,7 +18,7 @@ can see a cumulative record of
 solved and unsolved events in
 your group is the Events section.
 
-![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1652798987/docs/web/groups/events/event_tab_view.png)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/event_tab.png)
 
 This section shows a table
 providing the following
@@ -35,14 +35,6 @@ information:
   impeded,
   or still impedes,
   their security assessments
-- **Accessibility:**
-  Which out of Environment,
-  Repository or both are
-  affected by the event
-- **Affected components:**
-  The components that are
-  showing problems within
-  the repository or environment
 - **Type:**
   The category in which
   the problem falls,
@@ -53,8 +45,8 @@ information:
   was agreed upon or Other
 - **Status:**
   The condition of the event,
-  which can be either Solved
-  or Unsolved
+  which can be Solved,
+  Pending, or Unsolved.
 - **Date closed:**
   When the event was solved,
   if it was;
@@ -77,7 +69,7 @@ the Columns button and toggling
 the on/off button in front
 of each column name.
 
-![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1652799131/docs/web/groups/events/functionalities_columns_filter.png)
+![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/funct_filter_columns.png)
 
 ### Filters
 
@@ -87,7 +79,7 @@ options corresponding to the
 variables that give columns
 their names.
 
-![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1652799132/docs/web/groups/events/functionalities_filters.png)
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/funct_filters.png)
 
 ## Event details
 
