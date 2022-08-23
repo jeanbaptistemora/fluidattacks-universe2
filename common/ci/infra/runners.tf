@@ -1,5 +1,17 @@
 locals {
   runners = {
+    small = {
+      awsRole      = ""
+      access_level = "not_protected"
+      root_size    = 10
+      replicas     = 1
+      instance     = "c5ad.large"
+      tags         = ["small"]
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
     dev_small = {
       awsRole      = "dev"
       access_level = "not_protected"
@@ -269,9 +281,9 @@ module "runners" {
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
   userdata_pre_install              = data.local_file.init_runner.content
-  runner_iam_policy_arns = [
+  runner_iam_policy_arns = each.value.awsRole != "" ? [
     "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/${each.value.awsRole}"
-  ]
+  ] : []
   runner_ami_filter = {
     "name"     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210907"]
     "image-id" = ["ami-03a80f322a6053f85"]

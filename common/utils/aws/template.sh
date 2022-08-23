@@ -30,7 +30,7 @@ function aws_login {
   local session="${1}"
   local duration="${2}"
 
-  if test -n "${CI_JOB_JWT_V2}"; then
+  if test -n "${CI_JOB_JWT_V2:-}"; then
     info "Logging in as '${session}' using GitLab OIDC." \
       && _aws_login_ci "${session}" "${duration}"
   else
