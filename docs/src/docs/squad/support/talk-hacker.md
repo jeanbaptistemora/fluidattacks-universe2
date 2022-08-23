@@ -30,7 +30,7 @@ and can respond to you as quickly as possible.
   **Talk to Hacker** next to
   our other support options.
 
-  ![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691472/docs/squad/support/support_options.png)
+  ![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1661263455/docs/squad/support/support_options.png)
 
 1. By clicking there, you can see
   calendar availability and schedule a
