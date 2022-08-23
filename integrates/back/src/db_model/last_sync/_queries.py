@@ -14,7 +14,7 @@ class RepoId:
 
 @dataclass(frozen=True)
 class Query:
-    query: str
+    query_info: str
     values: Dict[str, str]
 
 
