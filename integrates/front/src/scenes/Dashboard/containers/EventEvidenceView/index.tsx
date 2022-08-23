@@ -88,18 +88,19 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     },
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
-    onCompleted: refetch,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing event evidence", error);
       });
     },
+    refetchQueries: [GET_EVENT_EVIDENCES],
   });
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       handleUpdateEvidenceError(updateError);
     },
+    refetchQueries: [GET_EVENT_EVIDENCES],
   });
 
   const handleUpdate: (values: Record<string, unknown>) => void = useCallback(
