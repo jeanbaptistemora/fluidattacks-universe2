@@ -19,7 +19,7 @@ const variants: Record<TVariant, IVariant> = {
     color: "#2e2e38",
   },
   green: {
-    bgColor: "#dbffdb",
+    bgColor: "#c2ffd4",
     borderColor: "#afd8b5",
     color: "#009245",
   },
@@ -31,7 +31,7 @@ const variants: Record<TVariant, IVariant> = {
   red: {
     bgColor: "#fdd8da",
     borderColor: "#fbb1b5",
-    color: "#cc8080",
+    color: "#bf0b1a",
   },
 };
 
