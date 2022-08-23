@@ -10,24 +10,12 @@ from model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNodes,
     NId,
-    SyntaxStep,
-    SyntaxStepLambdaExpression,
-    SyntaxStepMemberAccessExpression,
-    SyntaxStepMethodInvocationChain,
-    SyntaxStepObjectInstantiation,
-    SyntaxSteps,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from sast_symbolic_evaluation.utils_generic import (
-    get_dependencies_from_nid,
-)
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
 )
 from symbolic_eval.evaluate import (
     evaluate,
@@ -37,88 +25,31 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterator,
-    Optional,
+    List,
 )
 from utils import (
     graph as g,
 )
-from utils.string import (
-    split_on_last_dot,
-)
 
 
-def insecure_cors(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: GraphDB,
-) -> core_model.Vulnerabilities:
-    def n_ids() -> GraphShardNodes:
-        cors_objects = []
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.CSHARP,
+def get_insecure_vars(graph: Graph) -> List[str]:
+    object_names = {
+        "CorsPolicyBuilder",
+    }
+    insecure_vars = []
+    for nid in g.filter_nodes(
+        graph,
+        graph.nodes,
+        g.pred_has_labels(label_type="ObjectCreation"),
+    ):
+        if (
+            graph.nodes[nid].get("label_type") == "ObjectCreation"
+            and graph.nodes[nid].get("name") in object_names
         ):
-            for steps in shard.syntax.values():
-                for index, step in enumerate(steps):
-                    dependencies = get_dependencies(index, steps)
-                    if (
-                        dependencies
-                        and isinstance(
-                            dependencies[0], SyntaxStepObjectInstantiation
-                        )
-                        and dependencies[0].object_type == "CorsPolicyBuilder"
-                    ):
-                        cors_objects.append(step.var)
-                    if (
-                        isinstance(step, SyntaxStepMethodInvocationChain)
-                        and step.method == "UseCors"
-                        and dependencies
-                        and isinstance(
-                            dependencies[0], SyntaxStepLambdaExpression
-                        )
-                    ):
-                        nid_dependencies = get_dependencies_from_nid(
-                            steps, dependencies[0].meta.n_id
-                        )
-                        if nid_dependencies:
-                            cors_objects.append(nid_dependencies[0].var)
-                    if allow_all(step, dependencies):
-                        yield shard, step.meta.n_id
-                    if vuln_nid := allow_any_origin(step, cors_objects):
-                        yield shard, vuln_nid
-
-    return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f134.cors_policy_allows_any_origin",
-        desc_params={},
-        graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_INSECURE_CORS,
-    )
-
-
-def allow_any_origin(step: SyntaxStep, cors_objects: list) -> Optional[str]:
-    if (
-        isinstance(step, SyntaxStepMethodInvocationChain)
-        and step.method == "AllowAnyOrigin"
-        and list(
-            elem
-            for elem in str(step.expression).split(".")
-            if elem in cors_objects
-        )
-    ):
-        return step.meta.n_id
-    return None
-
-
-def allow_all(step: SyntaxStep, dependencies: SyntaxSteps) -> bool:
-    if not dependencies:
-        return False
-    if (
-        isinstance(step, SyntaxStepMethodInvocationChain)
-        and step.method == "UseCors"
-        and isinstance(dependencies[0], SyntaxStepMemberAccessExpression)
-        and dependencies[0].member == "AllowAll"
-        and split_on_last_dot(dependencies[0].expression)[1] == "CorsOptions"
-    ):
-        return True
-    return False
+            var_nid = g.pred_ast(graph, nid)[0]
+            if graph.nodes[var_nid].get("label_type") == "VariableDeclaration":
+                insecure_vars.append(graph.nodes[var_nid].get("variable"))
+    return insecure_vars
 
 
 def get_cors_vars(graph: Graph) -> Iterator[NId]:
@@ -132,6 +63,62 @@ def get_cors_vars(graph: Graph) -> Iterator[NId]:
             yield graph.nodes[invocation].get("variable")
 
 
+def insecure_cors(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> core_model.Vulnerabilities:
+    c_sharp = GraphLanguage.CSHARP
+    danger_methods = {"AllowAnyOrigin"}
+    object_methods = {
+        "UseCors",
+    }
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            insecure_vars = get_insecure_vars(graph)
+            for nid in g.filter_nodes(
+                graph,
+                graph.nodes,
+                g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                if (
+                    graph.nodes[nid].get("member") in danger_methods
+                    and graph.nodes[nid].get("expression").split(".")[0]
+                    in insecure_vars
+                ):
+                    yield shard, nid
+                elif graph.nodes[nid].get("member") in object_methods:
+                    al_id = graph.nodes[g.pred(graph, nid)[0]].get(
+                        "arguments_id"
+                    )
+                    arg_nid = g.match_ast(graph, al_id).get("__0__")
+                    label_t = graph.nodes[arg_nid].get("label_type")
+                    if (
+                        arg_nid
+                        and label_t == "MemberAccess"
+                        and graph.nodes[arg_nid].get("member") == "AllowAll"
+                    ):
+                        yield shard, nid
+                    elif (
+                        arg_nid
+                        and label_t == "LambdaExpression"
+                        and (method_id := g.adj_ast(graph, arg_nid)[1])
+                        and "AllowAnyOrigin"
+                        in graph.nodes[method_id].get("expression").split(".")
+                    ):
+                        yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f134.cors_policy_allows_any_origin",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=core_model.MethodsEnum.CS_INSECURE_CORS,
+    )
+
+
 def insecure_cors_origin(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
@@ -140,7 +127,7 @@ def insecure_cors_origin(
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.CSHARP,
+            GraphLanguage.CSHARP,
         ):
             if shard.syntax_graph is None:
                 continue
