@@ -11,6 +11,7 @@ const Input: FC<IInputProps> = ({
   disabled = false,
   id,
   label,
+  list,
   name,
   onBlur,
   onFocus,
@@ -28,6 +29,7 @@ const Input: FC<IInputProps> = ({
     disabled={disabled}
     id={id}
     label={label}
+    list={list}
     name={name}
     onBlur={onBlur}
     onFocus={onFocus}
