@@ -33,10 +33,7 @@ resource "aws_s3_bucket_cors_configuration" "dev" {
 
   cors_rule {
     allowed_methods = ["GET", "HEAD"]
-    allowed_origins = [
-      "https://app.fluidattacks.com",
-      "https://integrates.front.development.fluidattacks.com"
-    ]
+    allowed_origins = ["https://*.app.fluidattacks.com"]
     max_age_seconds = 3000
   }
 }
@@ -127,10 +124,7 @@ resource "aws_s3_bucket_cors_configuration" "prod" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET", "HEAD"]
-    allowed_origins = [
-      "https://app.fluidattacks.com",
-      "https://integrates.front.production.fluidattacks.com"
-    ]
+    allowed_origins = ["https://app.fluidattacks.com"]
     expose_headers  = ["GET", "HEAD"]
     max_age_seconds = 3000
   }
