@@ -1,7 +1,11 @@
 import type { ApolloError, ObservableQuery } from "@apollo/client";
-import type { GraphQLError } from "graphql";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import _ from "lodash";
 
-import type { IStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import type {
+  IRemoveStakeholderAttr,
+  IStakeholderAttrs,
+} from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -94,25 +98,62 @@ const handleEditError = (
   });
 };
 
-const getStakeHolderIndex = (
-  selectedStakeholders: IStakeholderAttrs[],
-  allStakeholders: IStakeholderAttrs[]
-): number[] => {
-  const selectedIds: string[] = selectedStakeholders.map(
-    (selected: IStakeholderAttrs): string => selected.email.toLowerCase()
+type IRemoveResult = ExecutionResult<IRemoveStakeholderAttr>;
+
+const removeMultipleAccess = async (
+  removeStakeholderAccess: (
+    variables: Record<string, unknown>
+  ) => Promise<IRemoveResult>,
+  stakeholders: IStakeholderAttrs[],
+  groupName: string
+): Promise<IRemoveResult[]> => {
+  const chunkSize = 5;
+  const stakeholderChunks = _.chunk(stakeholders, chunkSize);
+  const removeChunks = stakeholderChunks.map(
+    (chunk): (() => Promise<IRemoveResult[]>) =>
+      async (): Promise<IRemoveResult[]> => {
+        const updates = chunk.map(
+          async (stakeholder): Promise<IRemoveResult> =>
+            removeStakeholderAccess({
+              variables: {
+                groupName,
+                userEmail: stakeholder.email,
+              },
+            })
+        );
+
+        return Promise.all(updates);
+      }
   );
 
-  return allStakeholders.reduce(
-    (
-      selectedIndex: number[],
-      currentStakeholders: IStakeholderAttrs,
-      currentStakeholdersIndex: number
-    ): number[] =>
-      selectedIds.includes(currentStakeholders.email.toLowerCase())
-        ? [...selectedIndex, currentStakeholdersIndex]
-        : selectedIndex,
-    []
+  return removeChunks.reduce(
+    async (previousValue, currentValue): Promise<IRemoveResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<IRemoveResult[]>([])
   );
 };
 
-export { getStakeHolderIndex, handleGrantError, handleEditError };
+const getAreAllMutationValid = (results: IRemoveResult[]): boolean[] => {
+  return results.map((result: IRemoveResult): boolean => {
+    if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
+      const removeInfoSuccess: boolean = _.isUndefined(
+        result.data.removeStakeholderAccess
+      )
+        ? true
+        : result.data.removeStakeholderAccess.success;
+
+      return removeInfoSuccess;
+    }
+
+    return false;
+  });
+};
+
+export {
+  getAreAllMutationValid,
+  handleGrantError,
+  handleEditError,
+  removeMultipleAccess,
+};

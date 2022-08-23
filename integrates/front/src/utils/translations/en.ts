@@ -3194,6 +3194,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Add a user to this group",
       },
       editButton: {
+        disabled: "Please choose only one user to edit",
         text: "Edit",
         tooltip: "Select a user and edit their information",
       },
@@ -3202,12 +3203,16 @@ export const enTranslations: ResourceKey = {
       removeUserButton: {
         confirmMessage: "will be removed from this group",
         confirmTitle: "Remove stakeholder?",
+        // eslint-disable-next-line camelcase -- It is required for react-i18next
+        confirmTitle_plural: "Remove stakeholder?",
         text: "Remove",
         tooltip: "Remove a user from the group, first select one",
       },
       success: "An invitation email will be sent to",
       successAdmin: "Stakeholder information updated.",
       successDelete: " was removed from this group.",
+      successDeletePlural:
+        "Many users were successfully removed from this group.",
       textbox: "Email address (Azure, Google or Bitbucket)",
       title: "Add stakeholder to this group",
       titleSuccess: "Success",

@@ -471,7 +471,7 @@ describe("Group stakeholders view", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(2);
+    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(3);
     expect(
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
@@ -483,8 +483,8 @@ describe("Group stakeholders view", (): void => {
       ).not.toBeDisabled();
     });
 
-    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
-    expect(screen.getAllByRole("radio", { checked: true })).toHaveLength(1);
+    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(2);
+    expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(1);
 
     userEvent.click(
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")
@@ -506,8 +506,10 @@ describe("Group stakeholders view", (): void => {
       );
     });
 
-    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
-    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
+    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(2);
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+      0
+    );
 
     jest.clearAllMocks();
   });
@@ -728,7 +730,7 @@ describe("Group stakeholders view", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
+    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(2);
     expect(
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
@@ -740,8 +742,10 @@ describe("Group stakeholders view", (): void => {
       ).not.toBeDisabled();
     });
 
-    expect(screen.queryAllByRole("radio", { checked: false })).toHaveLength(0);
-    expect(screen.getAllByRole("radio", { checked: true })).toHaveLength(1);
+    expect(screen.queryAllByRole("checkbox", { checked: false })).toHaveLength(
+      0
+    );
+    expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(2);
 
     userEvent.click(
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")

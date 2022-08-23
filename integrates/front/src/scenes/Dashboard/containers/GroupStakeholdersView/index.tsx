@@ -15,8 +15,6 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { handleEditError, handleGrantError } from "./helpers";
-
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
@@ -27,6 +25,12 @@ import { Tooltip } from "components/Tooltip";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
+  getAreAllMutationValid,
+  handleEditError,
+  handleGrantError,
+  removeMultipleAccess,
+} from "scenes/Dashboard/containers/GroupStakeholdersView/helpers";
+import {
   ADD_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
@@ -35,7 +39,6 @@ import {
 import type {
   IAddStakeholderAttr,
   IGetStakeholdersAttrs,
-  IRemoveStakeholderAttr,
   IStakeholderAttrs,
   IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
@@ -187,26 +190,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   );
 
   const [removeStakeholderAccess, { loading: removing }] = useMutation(
-    REMOVE_STAKEHOLDER_MUTATION,
-    {
-      onCompleted: async (mtResult: IRemoveStakeholderAttr): Promise<void> => {
-        if (mtResult.removeStakeholderAccess.success) {
-          await refetch();
-
-          mixpanel.track("RemoveUserAccess");
-          const { removedEmail } = mtResult.removeStakeholderAccess;
-          msgSuccess(
-            `${removedEmail} ${t("searchFindings.tabUsers.successDelete")}`,
-            t("searchFindings.tabUsers.titleSuccess")
-          );
-          setCurrentRow([]);
-        }
-      },
-      onError: (removeError: ApolloError): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred removing user", removeError);
-      },
-    }
+    REMOVE_STAKEHOLDER_MUTATION
   );
 
   const handleSubmit = useCallback(
@@ -241,12 +225,53 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     ]
   );
 
+  const validMutationsHelper = useCallback(
+    async (areAllMutationValid: boolean[]): Promise<void> => {
+      if (areAllMutationValid.every(Boolean)) {
+        await refetch();
+        mixpanel.track("RemoveUserAccess");
+
+        if (areAllMutationValid.length === 1) {
+          msgSuccess(
+            `${currentRow[0]?.email} ${t(
+              "searchFindings.tabUsers.successDelete"
+            )}`,
+            t("searchFindings.tabUsers.titleSuccess")
+          );
+        } else {
+          msgSuccess(
+            t("searchFindings.tabUsers.successDeletePlural"),
+            t("searchFindings.tabUsers.titleSuccess")
+          );
+        }
+        setCurrentRow([]);
+      }
+    },
+    [currentRow, refetch, t]
+  );
+
   const handleRemoveUser = useCallback(async (): Promise<void> => {
-    await removeStakeholderAccess({
-      variables: { groupName, userEmail: currentRow[0]?.email },
-    });
-    setUserModalAction("add");
-  }, [currentRow, groupName, removeStakeholderAccess]);
+    try {
+      const results = await removeMultipleAccess(
+        removeStakeholderAccess,
+        currentRow,
+        groupName
+      );
+      await validMutationsHelper(getAreAllMutationValid(results));
+    } catch (removeError: unknown) {
+      msgError(t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred removing user", removeError);
+    } finally {
+      setUserModalAction("add");
+    }
+  }, [
+    currentRow,
+    groupName,
+    removeStakeholderAccess,
+    setUserModalAction,
+    t,
+    validMutationsHelper,
+  ]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -317,11 +342,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                 <Tooltip
                   disp={"inline-block"}
                   id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                  tip={t("searchFindings.tabUsers.editButton.tooltip")}
+                  tip={
+                    currentRow.length > 1
+                      ? t("searchFindings.tabUsers.editButton.disabled")
+                      : t("searchFindings.tabUsers.editButton.tooltip")
+                  }
                 >
                   <Button
                     disabled={
-                      _.isEmpty(currentRow) || removing || loadingStakeholders
+                      _.isEmpty(currentRow) ||
+                      removing ||
+                      loadingStakeholders ||
+                      currentRow.length > 1
                     }
                     id={"editUser"}
                     onClick={openEditUserModal}
@@ -335,11 +367,14 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               </Can>
               <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
                 <ConfirmDialog
-                  message={`${currentRow[0]?.email} ${t(
+                  message={`${currentRow
+                    .map((user: IStakeholderDataSet): string => user.email)
+                    .join(", ")} ${t(
                     "searchFindings.tabUsers.removeUserButton.confirmMessage"
                   )}`}
                   title={t(
-                    "searchFindings.tabUsers.removeUserButton.confirmTitle"
+                    "searchFindings.tabUsers.removeUserButton.confirmTitle",
+                    { count: currentRow.length }
                   )}
                 >
                   {(confirm): React.ReactNode => {
@@ -381,7 +416,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           id={"tblUsers"}
           rowSelectionSetter={setCurrentRow}
           rowSelectionState={currentRow}
-          selectionMode={"radio"}
+          selectionMode={"checkbox"}
         />
         <AddUserModal
           action={userModalAction}
