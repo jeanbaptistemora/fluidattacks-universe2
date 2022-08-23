@@ -1468,7 +1468,7 @@ type Mutation {
     "Credentials used to access the repository"
     credentials: RootCredentialsInput!
     "Name of the group"
-    groupName: String!
+    groupName: String
     "Url of the Git repository to check access"
     url: String!
   ): SimplePayload!

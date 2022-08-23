@@ -18,7 +18,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
   {
     accessorFn: (row): string => row.finding.title,
     cell: (cell): JSX.Element => {
-      const link = `${cell.row.original.finding.id}/description`;
+      const link = `vulns/${cell.row.original.finding.id}/description`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);

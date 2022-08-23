@@ -144,7 +144,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                   return (
                     <Repository
                       finishTour={finishTour}
-                      groupName={groupName}
                       initialValues={initialValues}
                       isEditing={isEditing}
                       modalMessages={modalMessages}

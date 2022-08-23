@@ -55,7 +55,6 @@ import {
 } from "utils/validations";
 
 interface IRepositoryProps {
-  groupName: string;
   initialValues: IFormValues;
   isEditing: boolean;
   modalMessages: { message: string; type: string };
@@ -67,7 +66,6 @@ interface IRepositoryProps {
 }
 
 const Repository: FC<IRepositoryProps> = ({
-  groupName,
   initialValues,
   isEditing,
   nicknames,
@@ -197,7 +195,6 @@ const Repository: FC<IRepositoryProps> = ({
             type: formRef.current.values.credentials.type,
             user: formRef.current.values.credentials.user,
           },
-          groupName,
           url: formRef.current.values.url,
         },
       });

@@ -53,8 +53,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const group = "UNITTESTING";
-
   const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
@@ -107,7 +105,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
               type: values.credentials.type,
               user: values.credentials.user,
             },
-            groupName: group,
             url: values.url,
           },
         });
