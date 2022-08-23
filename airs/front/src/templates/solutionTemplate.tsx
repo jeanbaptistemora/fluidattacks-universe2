@@ -15,6 +15,7 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { FloatingButton } from "../components/FloatingButton";
 import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -90,6 +91,13 @@ const SolutionIndex: React.FC<IQueryData> = ({
               </FullWidthContainer>
             </ComplianceContainer>
             <InternalForm />
+            <FloatingButton
+              bgColor={"#2e2e38"}
+              color={"#fff"}
+              text={"Start free trial"}
+              to={"/free-trial/"}
+              yPosition={"50%"}
+            />
           </PageArticle>
         </div>
       </Layout>

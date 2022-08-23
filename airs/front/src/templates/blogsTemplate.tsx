@@ -23,6 +23,7 @@ import rehypeReact from "rehype-react";
 import { AirsLink } from "../components/AirsLink";
 import { BlogFooter } from "../components/BlogFooter";
 import { BlogSeo } from "../components/BlogSeo";
+import { FloatingButton } from "../components/FloatingButton";
 import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -159,6 +160,13 @@ const BlogsIndex: React.FC<IQueryData> = ({
               </BlogArticleContainer>
             </InternalContainer>
             <InternalForm />
+            <FloatingButton
+              bgColor={"#2e2e38"}
+              color={"#fff"}
+              text={"Start free trial"}
+              to={"/free-trial/"}
+              yPosition={"50%"}
+            />
           </PageArticle>
         </div>
       </Layout>
