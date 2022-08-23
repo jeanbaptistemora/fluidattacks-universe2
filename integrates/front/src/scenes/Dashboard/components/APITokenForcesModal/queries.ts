@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FORCES_TOKEN: DocumentNode = gql`
-  query ASMGetForcesToken($groupName: String!) {
+  query GetForcesToken($groupName: String!) {
     group(groupName: $groupName) {
       forcesToken
       name
@@ -11,7 +11,7 @@ const GET_FORCES_TOKEN: DocumentNode = gql`
 `;
 
 const UPDATE_FORCES_TOKEN_MUTATION: DocumentNode = gql`
-  mutation ASMUpdateForcesAccessTokenMutation($groupName: String!) {
+  mutation UpdateForcesAccessTokenMutation($groupName: String!) {
     updateForcesAccessToken(groupName: $groupName) {
       success
       sessionJwt

@@ -38,15 +38,6 @@ import {
   validTextField,
 } from "utils/validations";
 
-/*
- * Business rules to create a group:
- *   - ASM must enabled, because we are using ASM right now, right?
- *   - Squad <--needs-- ASM
- *
- * Business rules after creating the group:
- *   - If ASM is turned off, the group will be immediately deleted
- */
-
 const MAX_DESCRIPTION_LENGTH: number = 200;
 const MAX_GROUP_NAME_LENGTH: number = 20;
 const MAX_ORGANIZATION_LENGTH: number = 50;

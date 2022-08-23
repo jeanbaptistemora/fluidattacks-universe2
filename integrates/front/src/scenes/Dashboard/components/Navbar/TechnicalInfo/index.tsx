@@ -8,9 +8,9 @@ import { Dropdown } from "components/Dropdown";
 import { ExternalLink } from "components/ExternalLink";
 import { Text } from "components/Text";
 import {
-  ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
 } from "utils/ctx";
 
 export const TechnicalInfo: React.FC = (): JSX.Element => {
@@ -40,7 +40,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
         <p className={"f6 ma0"}>
           {t("info.deploymentDate")}
           &nbsp;
-          {ASM_DEPLOYMENT_DATE}
+          {INTEGRATES_DEPLOYMENT_DATE}
         </p>
       </Button>
     </Dropdown>

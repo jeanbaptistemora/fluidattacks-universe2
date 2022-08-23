@@ -253,7 +253,7 @@ export const enTranslations: ResourceKey = {
     },
   },
   app: {
-    minimumWidth: "ASM is only available on desktops",
+    minimumWidth: "ARM is only available on desktops",
   },
   autoenrollment: {
     acceptTerms: "I read the",
@@ -348,7 +348,7 @@ export const enTranslations: ResourceKey = {
         "https://example.com/user/repo.git or a SSH URL like " +
         "git@github.com:user/repo.git",
     },
-    welcome: "Welcome to the Attack Surface Manager (ASM)",
+    welcome: "Welcome to the Attacks Resistance Management (ARM)",
   },
   comments: {
     editorPlaceholder: "Add your comment here",
@@ -1451,7 +1451,7 @@ export const enTranslations: ResourceKey = {
     accept: "Accept and continue",
     description: {
       legal:
-        "ASM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
+        "ARM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
         "information property of Fluid Attacks. The client is only allowed " +
         "to use such information for documentation purposes and without disclosing " +
         "its content to third parties because it may contain ideas, concepts, prices " +
@@ -1465,7 +1465,7 @@ export const enTranslations: ResourceKey = {
         "of Title VIII of the Colombian Penal Code, and article 16 " +
         "and subsequent articles of Law 256 of 1996.",
       privacy:
-        "By using the Fluid Attacks' Attack Surface Manager, you agree to our ",
+        "By using the Fluid Attacks' Attacks Resistance Management, you agree to our ",
       privacyLinkText: "Privacy Policy",
     },
     rememberCbo: {
@@ -1514,7 +1514,7 @@ export const enTranslations: ResourceKey = {
     },
     logout: "Log out",
     mobile: "Mobile",
-    newsTooltip: "Latest updates about ASM",
+    newsTooltip: "Latest updates about ARM",
     notification: "Notifications",
     role: "Role:",
     searchPlaceholder: "Search group",
@@ -2137,7 +2137,7 @@ export const enTranslations: ResourceKey = {
       NEW_COMMENT: {
         name: "Consulting",
         tooltip:
-          "Get notifications when an ASM user submits a comment concerning " +
+          "Get notifications when an ARM user submits a comment concerning " +
           "a group, a specific vulnerability or an event.",
       },
       NEW_DRAFT: {
@@ -2311,7 +2311,7 @@ export const enTranslations: ResourceKey = {
     },
     servicesTable: {
       active: "Active",
-      asm: "ASM",
+      asm: "ARM",
       black: "Black",
       continuous: "Continuous Hacking",
       deleteGroup: {
@@ -2374,8 +2374,8 @@ export const enTranslations: ResourceKey = {
         title: "Change contracted services",
         typeGroupName: "Please type the group name to proceed",
         warning: "Warning",
-        warningDowngradeASM:
-          "Disabling ASM will immediately delete the group. " +
+        warningDowngrade:
+          "Disabling ARM will immediately delete the group. " +
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
       },
@@ -2397,7 +2397,7 @@ export const enTranslations: ResourceKey = {
         warning: "Revoke access permissions to this group.",
         warningBody:
           "This action will unsubscribe you from the group. " +
-          "If you do not have more groups, you will be removed from ASM. ",
+          "If you do not have more groups, you will be removed from ARM. ",
         warningTitle: "Warning!",
       },
       white: "White",
@@ -2425,7 +2425,7 @@ export const enTranslations: ResourceKey = {
           "Malicious actions that can be performed by exploiting the vulnerability",
       },
       bts: "External BTS",
-      btsPlaceholder: "https://gitlab.com/fluidattacks/asm/-/issues/2084",
+      btsPlaceholder: "https://gitlab.com/fluidattacks/universe/-/issues/2084",
       businessCriticality: "Level",
       cancelVerified: "Cancel",
       cancelVerify: "Cancel",
@@ -3490,7 +3490,7 @@ export const enTranslations: ResourceKey = {
       groupDescription:
         "Add a name and description to help you recognize which one of your projects this group is associated with.",
       intro:
-        "Each organization on the ASM has different groups, " +
+        "Each organization on ARM has different groups, " +
         "representing unique projects created by our clients to manage their vulnerabilities separately. ",
       proceedButton: "Click “Proceed” to create your new group. ",
       reportLanguage: "Select your preferred language for reports. ",

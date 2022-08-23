@@ -14,13 +14,13 @@ import { useTranslation } from "react-i18next";
 import { LoginButton, LoginContainer, LoginGrid } from "./components";
 
 import { ExternalLink } from "components/ExternalLink";
-import logo from "resources/asm.svg";
 import google from "resources/google.svg";
+import logo from "resources/logo.svg";
 import style from "scenes/Login/index.css";
 import {
-  ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
 } from "utils/ctx";
 
 export const Login: React.FC = (): JSX.Element => {
@@ -83,7 +83,7 @@ export const Login: React.FC = (): JSX.Element => {
         <div className={`mt3 mb0 tc ${style["text-color"]}`}>
           <p className={"mb0"}>
             {t("info.deploymentDate")}&nbsp;
-            {ASM_DEPLOYMENT_DATE}
+            {INTEGRATES_DEPLOYMENT_DATE}
           </p>
           <ExternalLink
             className={style["link-default"]}

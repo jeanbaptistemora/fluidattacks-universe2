@@ -5,7 +5,7 @@ function _replace {
   local from="${2}"
   local to="${3}"
 
-  find "${src}" -type f -exec sed -i "s|${from}|${to}|g" {} +
+  find "${src}" -type f -exec sed -i "s|${from}|${to}|gI" {} +
 }
 
 function deploy {

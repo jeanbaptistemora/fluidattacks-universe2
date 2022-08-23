@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import logo from "resources/asm_sidebar.svg";
+import logo from "resources/sidebarLogo.svg";
 
 const Logo = styled.img.attrs({
   alt: "App logo",

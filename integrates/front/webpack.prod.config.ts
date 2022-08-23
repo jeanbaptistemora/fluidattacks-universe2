@@ -2,7 +2,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import type { Configuration } from "webpack";
 
-import { ASM_BUCKET_NAME, CI_COMMIT_REF_NAME } from "./src/utils/ctx";
+import { CI_COMMIT_REF_NAME, INTEGRATES_BUCKET_NAME } from "./src/utils/ctx";
 import { commonConfig } from "./webpack.common.config";
 
 const prodConfig: Configuration = {
@@ -31,7 +31,7 @@ const prodConfig: Configuration = {
   },
   output: {
     ...commonConfig.output,
-    publicPath: `https://${ASM_BUCKET_NAME}/${CI_COMMIT_REF_NAME}/static/dashboard/`,
+    publicPath: `https://${INTEGRATES_BUCKET_NAME}/${CI_COMMIT_REF_NAME}/static/dashboard/`,
   },
 };
 

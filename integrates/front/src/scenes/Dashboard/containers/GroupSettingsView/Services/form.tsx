@@ -212,7 +212,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
               {t("searchFindings.servicesTable.modal.warning")}
             </Text>
             <Alert>
-              {t("searchFindings.servicesTable.modal.warningDowngradeASM")}
+              {t("searchFindings.servicesTable.modal.warningDowngrade")}
             </Alert>
           </FormGroup>
         ) : undefined}
