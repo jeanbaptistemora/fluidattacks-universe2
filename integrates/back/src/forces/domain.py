@@ -1,3 +1,6 @@
+from context import (
+    FI_AWS_S3_FORCES_BUCKET,
+)
 from db_model.group_access.types import (
     GroupAccess,
 )
@@ -25,6 +28,9 @@ from organizations import (
 )
 import os
 import re
+from s3 import (
+    operations as s3_ops,
+)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -35,6 +41,14 @@ from typing import (
     Dict,
     Union,
 )
+
+
+async def save_log_execution(file_object: object, file_name: str) -> None:
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_FORCES_BUCKET,
+        file_object,
+        file_name,
+    )
 
 
 async def add_forces_execution(
@@ -72,8 +86,8 @@ async def add_forces_execution(
     with tempfile.NamedTemporaryFile() as vulns_file:
         vulns_file.write(json.dumps(vulnerabilities).encode("utf-8"))
         vulns_file.seek(os.SEEK_SET)
-        await forces_dal.save_log_execution(log, log_name)
-        await forces_dal.save_log_execution(vulns_file, vulns_name)
+        await save_log_execution(log, log_name)
+        await save_log_execution(vulns_file, vulns_name)
         success = await forces_dal.add_execution(
             group_name=group_name, **execution_attributes
         )
@@ -147,13 +161,27 @@ async def get_executions(
 
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
-    return await forces_dal.get_log_execution(group_name, execution_id)
+    with tempfile.NamedTemporaryFile(mode="w+") as file:
+        await s3_ops.download_file(
+            FI_AWS_S3_FORCES_BUCKET,
+            f"{group_name}/{execution_id}.log",
+            file.name,
+        )
+        with open(file.name, encoding="utf-8") as reader:
+            return reader.read()
 
 
 async def get_vulns_execution(
     group_name: str, execution_id: str
 ) -> Dict[str, Any]:
-    return await forces_dal.get_vulns_execution(group_name, execution_id)
+    with tempfile.NamedTemporaryFile(mode="w+") as file:
+        await s3_ops.download_file(
+            FI_AWS_S3_FORCES_BUCKET,
+            f"{group_name}/{execution_id}.json",
+            file.name,
+        )
+        with open(file.name, encoding="utf-8") as reader:
+            return json.load(reader)
 
 
 def is_forces_user(email: str) -> bool:

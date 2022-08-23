@@ -7,25 +7,17 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
-from context import (
-    FI_AWS_S3_FORCES_BUCKET,
-)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
-import json
 import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
 )
-from s3 import (
-    operations as s3_ops,
-)
 from settings import (
     LOGGING,
 )
-import tempfile
 from typing import (
     Any,
     AsyncIterator,
@@ -75,44 +67,6 @@ async def get_execution(group_name: str, execution_id: str) -> Any:
         result["group_name"] = result.get("subscription")
         return result
     return {}
-
-
-async def get_log_execution(group_name: str, execution_id: str) -> str:
-    with tempfile.NamedTemporaryFile(mode="w+") as file:
-        await s3_ops.download_file(
-            FI_AWS_S3_FORCES_BUCKET,
-            f"{group_name}/{execution_id}.log",
-            file.name,
-        )
-        with open(file.name, encoding="utf-8") as reader:
-            return reader.read()
-
-
-async def get_vulns_execution(group_name: str, execution_id: str) -> Any:
-    with tempfile.NamedTemporaryFile(mode="w+") as file:
-        await s3_ops.download_file(
-            FI_AWS_S3_FORCES_BUCKET,
-            f"{group_name}/{execution_id}.json",
-            file.name,
-        )
-        with open(file.name, encoding="utf-8") as reader:
-            return json.load(reader)
-
-
-async def save_log_execution(file_object: object, file_name: str) -> None:
-    await s3_ops.upload_memory_file(
-        FI_AWS_S3_FORCES_BUCKET,
-        file_object,
-        file_name,
-    )
-
-
-async def save_vulns_execution(file_object: object, file_name: str) -> None:
-    await s3_ops.upload_memory_file(
-        FI_AWS_S3_FORCES_BUCKET,
-        file_object,
-        file_name,
-    )
 
 
 async def yield_executions(
