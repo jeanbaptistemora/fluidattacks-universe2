@@ -4,6 +4,9 @@ from collections import (
 from dataloaders.finding_comments.finding_comments import (
     FindingCommentsLoader,
 )
+from dataloaders.force_executions import (
+    ForcesExecutionsLoader,
+)
 from dataloaders.forces import (
     ForcesExecutionLoader,
 )
@@ -135,6 +138,7 @@ class Dataloaders(NamedTuple):
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
     forces_execution: ForcesExecutionLoader
+    forces_executions: ForcesExecutionsLoader
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
@@ -266,6 +270,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         forces_execution=ForcesExecutionLoader(),
+        forces_executions=ForcesExecutionsLoader(),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=group_loader,
         group_access=group_access_loader,
