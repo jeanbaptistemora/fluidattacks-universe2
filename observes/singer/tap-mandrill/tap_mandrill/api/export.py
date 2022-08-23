@@ -45,6 +45,16 @@ from typing import (
 _T = TypeVar("_T")
 
 
+class ExportType(Enum):
+    activity = "activity"
+    reject = "reject"
+    allowlist = "allowlist"
+
+    @staticmethod
+    def decode(raw: str) -> ResultE[ExportType]:
+        return _utils.handle_value_error(lambda: ExportType(raw))
+
+
 class JobState(Enum):
     waiting = "waiting"
     working = "working"
@@ -52,9 +62,9 @@ class JobState(Enum):
     error = "error"
     expired = "expired"
 
-
-def _to_status(raw: str) -> ResultE[JobState]:
-    return _utils.handle_value_error(lambda: JobState(raw))
+    @staticmethod
+    def decode(raw: str) -> ResultE[JobState]:
+        return _utils.handle_value_error(lambda: JobState(raw))
 
 
 def _get(raw: FrozenDict[str, _T], key: str) -> ResultE[_T]:
@@ -69,7 +79,7 @@ def _get(raw: FrozenDict[str, _T], key: str) -> ResultE[_T]:
 class ExportJob:
     job_id: str
     created_at: datetime
-    type: str
+    export_type: ExportType
     finished_at: datetime
     state: JobState
     result_url: str
@@ -78,10 +88,11 @@ class ExportJob:
     def _decode(cls, raw: FrozenDict[str, str]) -> ResultE[ExportJob]:
         created_at_res = _get(raw, "created_at").bind(_utils.to_datetime)
         finished_at_res = _get(raw, "finished_at").bind(_utils.to_datetime)
-        state_res = _get(raw, "state").bind(_to_status)
+        state_res = _get(raw, "state").bind(JobState.decode)
+        type_res = _get(raw, "type").bind(ExportType.decode)
         return _get(raw, "id").bind(
             lambda _id: created_at_res.bind(
-                lambda created_at: _get(raw, "type").bind(
+                lambda created_at: type_res.bind(
                     lambda _type: finished_at_res.bind(
                         lambda finished_at: state_res.bind(
                             lambda state: _get(raw, "result_url").map(
