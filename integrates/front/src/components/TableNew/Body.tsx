@@ -4,12 +4,13 @@ import type { Row, RowData, Table } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
 import _ from "lodash";
 import type { ChangeEventHandler } from "react";
-import React from "react";
+import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ITableProps } from "./types";
 
 import { Gap } from "components/Layout";
+import { Text } from "components/Text";
 
 interface IBodyProps<TData extends RowData>
   extends Pick<
@@ -35,16 +36,19 @@ const Body = <TData extends RowData>({
 }: IBodyProps<TData>): JSX.Element => {
   const { t } = useTranslation();
 
-  return (
+  return _.isEmpty(data) ? (
+    <td colSpan={table.getVisibleLeafColumns().length}>
+      <Text ta={"center"}>{t("table.noDataIndication")}</Text>
+    </td>
+  ) : (
     <tbody>
-      {_.isEmpty(data) && <tr>{t("table.noDataIndication")}</tr>}
       {table.getRowModel().rows.map((row): JSX.Element => {
         return (
-          <React.Fragment key={row.id}>
+          <Fragment key={row.id}>
             <tr>
               {row.getVisibleCells().map(
                 (cell): JSX.Element => (
-                  <React.Fragment key={cell.id}>
+                  <Fragment key={cell.id}>
                     <td>
                       <Gap>
                         {expandedRow !== undefined &&
@@ -109,7 +113,7 @@ const Body = <TData extends RowData>({
                         </label>
                       </Gap>
                     </td>
-                  </React.Fragment>
+                  </Fragment>
                 )
               )}
             </tr>
@@ -120,7 +124,7 @@ const Body = <TData extends RowData>({
                 </td>
               </tr>
             )}
-          </React.Fragment>
+          </Fragment>
         );
       })}
     </tbody>
