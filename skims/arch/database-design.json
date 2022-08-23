@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 27, 2022, 04:21 PM",
+    "DateLastModified": "Aug 23, 2022, 09:10 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -45,6 +45,14 @@
         {
           "AttributeName": "source",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "created_at",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "modified_at",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -61,7 +69,9 @@
             "package_manager",
             "vulnerable_version",
             "severity",
-            "source"
+            "source",
+            "created_at",
+            "modified_at"
           ],
           "DataAccess": {
             "MySql": {}
@@ -82,15 +92,7 @@
             }
           },
           "Projection": {
-            "ProjectionType": "INCLUDE",
-            "NonKeyAttributes": [
-              "associated_advisory",
-              "package_name",
-              "package_manager",
-              "vulnerable_version",
-              "severity",
-              "source"
-            ]
+            "ProjectionType": "ALL"
           }
         }
       ],
@@ -100,7 +102,7 @@
             "S": "PLATFORM#maven#PACKAGE#axis:axis"
           },
           "sk": {
-            "S": "SOURCE#test#ADVISORY#CVE-2012-5784"
+            "S": "SOURCE#MANUAL#ADVISORY#CVE-2012-5784"
           },
           "associated_advisory": {
             "S": "CVE-2012-5784"
@@ -118,7 +120,10 @@
             "S": "test"
           },
           "source": {
-            "S": "test"
+            "S": "MANUAL"
+          },
+          "created_at": {
+            "S": "2022-08-23 09:08:27.502715"
           }
         },
         {
@@ -126,7 +131,7 @@
             "S": "PLATFORM#maven#PACKAGE#axis:axis"
           },
           "sk": {
-            "S": "SOURCE#patch#ADVISORY#CVE-2014-3596"
+            "S": "SOURCE#MANUAL#ADVISORY#CVE-2014-3596"
           },
           "associated_advisory": {
             "S": "CVE-2014-3596"
@@ -144,7 +149,10 @@
             "S": "test"
           },
           "source": {
-            "S": "patch"
+            "S": "MANUAL"
+          },
+          "created_at": {
+            "S": "2022-08-23 09:08:27.502715"
           }
         }
       ],

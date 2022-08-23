@@ -47,6 +47,19 @@ class InvalidPatchItem(_SingleMessageException):
     )
 
 
+class InvalidSeverity(_SingleMessageException):
+    msg: str = (
+        "Invalid 'severity' format, please check metrics for incorrect values"
+    )
+
+
+class InvalidVulnerableVersion(_SingleMessageException):
+    msg: str = (
+        "Invalid 'vulnerable_version' format, each range must start with "
+        "('=' | '<' | '>' | '>=' | '<=')"
+    )
+
+
 class InvalidFilterCursor(CustomBaseException):
     """Exception to control the cursor with filters"""
 

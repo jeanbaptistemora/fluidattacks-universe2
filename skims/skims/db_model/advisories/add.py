@@ -7,17 +7,44 @@ from .update import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from custom_exceptions import (
+    InvalidSeverity,
+    InvalidVulnerableVersion,
+)
 from db_model import (
     TABLE,
+)
+from db_model.advisories.utils import (
+    format_advisory,
 )
 from dynamodb import (
     keys,
     operations,
 )
 import simplejson as json  # type: ignore
+from utils.logs import (
+    log_blocking,
+)
 
 
 async def add(*, advisory: Advisory) -> None:
+    try:
+        await _add(advisory=advisory)
+    except (
+        InvalidSeverity,
+        InvalidVulnerableVersion,
+    ) as exc:
+        log_blocking(
+            "warning",
+            "Advisory SOURCE#%s#ADVISORY#%s wasn't added. %s",
+            advisory.source,
+            advisory.associated_advisory,
+            exc.new(),
+        )
+
+
+async def _add(*, advisory: Advisory) -> None:
+    advisory = format_advisory(advisory)
     items = []
     key_structure = TABLE.primary_key
     advisory_key = keys.build_key(
@@ -45,7 +72,10 @@ async def add(*, advisory: Advisory) -> None:
             current_ad.get("vulnerable_version") != advisory.vulnerable_version
             or current_ad.get("severity") != advisory.severity
         ):
-            await update(advisory=advisory)
+            advisory = advisory._replace(
+                created_at=current_ad.get("created_at")
+            )
+            await update(advisory=advisory, checked=True)
     else:
         advisory_item = {
             key_structure.partition_key: advisory_key.partition_key,

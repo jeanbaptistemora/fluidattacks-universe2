@@ -10,4 +10,6 @@ class Advisory(NamedTuple):
     package_manager: str
     vulnerable_version: str
     source: str
+    created_at: Optional[str] = None
+    modified_at: Optional[str] = None
     severity: Optional[str] = None

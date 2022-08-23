@@ -2,7 +2,7 @@ from .types import (
     Advisory,
 )
 from .utils import (
-    format_advisory,
+    format_item_to_advisory,
 )
 from aiodataloader import (
     DataLoader,
@@ -43,7 +43,7 @@ async def _get_advisories(
         table=TABLE,
     )
 
-    return tuple(format_advisory(item) for item in response.items)
+    return tuple(format_item_to_advisory(item) for item in response.items)
 
 
 class AdvisoriesLoader(DataLoader):
