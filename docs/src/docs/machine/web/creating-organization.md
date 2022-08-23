@@ -6,7 +6,7 @@ slug: /machine/web/creating-organization
 ---
 
 Creating an organization on
-our ASM helps you to consolidate
+our ARM helps you to consolidate
 the data in a specific place and
 keep all your information in order.
 On the top left, you can make a
@@ -15,7 +15,7 @@ by clicking on the **drop-down menu**
 icon next to your organization’s name.
 Using the option **New org…**, you can
 create as many organizations as you
-want on your ASM account.
+want on your ARM account.
 
 ![New Option In Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1645711057/docs/web/web_asm_new_ddmenu.png)
 

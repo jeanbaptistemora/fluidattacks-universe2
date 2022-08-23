@@ -10,13 +10,13 @@ way for you to have an up-to-date
 understanding of the activity
 concerning your system’s
 vulnerabilities and your
-groups on the ASM.
+groups on the ARM.
 These notifications are sent
 directly to your email address
 or mobile phone (via SMS).
 You are free to customize the
 notifications you wish to receive
-in the Notifications section on the ASM.
+in the Notifications section on the ARM.
 
 To access this section,
 you need to click on the
@@ -31,7 +31,7 @@ your registered email or mobile phone.
 
 The following are the kinds
 of notifications we send
-from the ASM.
+from the ARM.
 
 ## Types of notifications
 
@@ -47,7 +47,7 @@ you will see a button that says
 **Go to type of vulnerability**.
 When you click on it,
 you will be directed to that
-type of vulnerability on the ASM.
+type of vulnerability on the ARM.
 
 ![Vulnerability Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vuln_assignment.png)
 
@@ -68,7 +68,7 @@ you will see a button that says
 **Go to type of vulnerability**.
 When you click on it,
 you will be directed to that
-type of vulnerability on the ASM.
+type of vulnerability on the ARM.
 
 ![Treatment Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_treatment_updated.png)
 
@@ -78,21 +78,21 @@ If you are a user manager and
 enable these notifications,
 you will receive an email when
 three weeks have elapsed since
-you last logged in to the ASM.
+you last logged in to the ARM.
 
 ![Inactivity Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_inactivity_alert.png)
 
 ### Access granted
 
 To be a part of a specific
-organization or group on the ASM,
+organization or group on the ARM,
 a user manager must send you an
 invitation and you must confirm it.
 When you are invited,
 you will get a notification
 email with the subject "Access
 granted to [group’s name] on
-ASM by `Fluid Attacks`."
+ARM by `Fluid Attacks`."
 The message informs
 you who invited you,
 the group’s name and
@@ -102,7 +102,7 @@ link to our [Privacy Policy](https://fluidattacks.com/privacy/),
 to which you agree if you
 confirm the invitation and,
 by so doing,
-your access to the ASM.
+your access to the ARM.
 At the end of the message,
 you will find two buttons,
 one to **Confirm access** and
@@ -128,13 +128,13 @@ At the end of the message,
 you will be presented with
 a button that says **Go to comment**,
 which will lead you to the
-comment on the ASM upon clicking it.
+comment on the ARM upon clicking it.
 
 ![Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_consulting.png)
 
 ### Root updates (root moved)
 
-Our attack surface management
+Our attacks resistance management
 platform makes it possible to
 correct errors such as having
 created a root in the wrong group.
@@ -153,7 +153,7 @@ where from and where to.
 
 ### Root updates (root deactivated)
 
-Our attack surface management
+Our attacks resistance management
 platform allows you to deactivate
 a root when it does
 not exist anymore,
@@ -168,7 +168,7 @@ you will receive a **Root Deactivated**
 email along with the
 reason for deactivation,
 how long the root was
-registered on the ASM and
+registered on the ARM and
 the closed vulnerabilities
 that were found with SAST
 and DAST.
@@ -187,7 +187,7 @@ You just need to
 [subscribe](/machine/web/analytics/reports#subscription-to-reports)
 by clicking on the button at the
 end of any of the Analytics sections
-on the ASM and selecting one of
+on the ARM and selecting one of
 the periodicity options.
 The message will include charts
 and data on the status and
@@ -230,7 +230,7 @@ says **Go to type of vulnerability**.
 When you click on it,
 it will send you to the
 reported type of
-vulnerability on the ASM.
+vulnerability on the ARM.
 
 ![Vulnerability Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vulnerability_alert.png)
 
@@ -260,7 +260,7 @@ you will see a button that
 says **Go to event**.
 When you click on it,
 it will send you to the
-report of the event on the ASM.
+report of the event on the ARM.
 
 ![Event Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_event_alert.png)
 
@@ -310,7 +310,7 @@ treatment request and acceptance.
 
 This notification will be
 triggered when any user
-unsubscribes from any ASM group.
+unsubscribes from any ARM group.
 It is enabled for the User Manager role.
 
 ![User Unsubscription](https://res.cloudinary.com/fluid-attacks/image/upload/v1658762773/docs/web/notifications/notif_user_unsubscription.png)
@@ -398,14 +398,14 @@ be notified by email with this.
 
 This notification will arrive
 when a user decides to delete
-the ASM account.
+the ARM account.
 
 ![Confirm Deletion](https://res.cloudinary.com/fluid-attacks/image/upload/v1660837177/docs/web/notifications/notif_deletion.png)
 
 ### API Deprecation Notice
 
 This notification will be sent
-to all ASM users with an API token,
+to all ARM users with an API token,
 reminding them which fields of
 the API token will be deleted
 in the following month.

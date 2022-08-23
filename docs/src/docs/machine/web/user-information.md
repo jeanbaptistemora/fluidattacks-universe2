@@ -5,7 +5,7 @@ sidebar_label: User information
 slug: /machine/web/user-information
 ---
 
-On the ASM, it is quite easy to
+On the ARM, it is quite easy to
 find the options to enable early
 access to changes to the platform,
 register your mobile phone number,
@@ -29,13 +29,13 @@ this menu is your username,
 followed by the email address
 with which you signed in and
 your mobile phone number which
-one you subscribe to the ASM.
+one you subscribe to the ARM.
 Remember your privileges are
 attached to this email address.
 
 Differences in access
 privileges are managed depending
-on your role on the ASM,
+on your role on the ARM,
 which is also shown on this menu.
 You can find out
 more about roles
@@ -54,7 +54,7 @@ Further down,
 there’s an option that says **API token**.
 Clicking on it will allow you to
 generate an access token to
-consume the ASM’s API.
+consume the ARM’s API.
 You will be asked to set its
 expiration date before generating it.
 You can find out more about
@@ -71,7 +71,7 @@ you will see the
 **Notifications matrix**
 that shows you all the
 reports and alerts that
-our ASM generates.
+our ARM generates.
 Learn more about how you
 can manage notifications
 [here](/machine/web/notifications).
@@ -81,10 +81,10 @@ can manage notifications
 Next is **Mobile**,
 which allows you to
 register your mobile
-phone number to the ASM.
+phone number to the ARM.
 This registration is
 required to access
-the ASM reports.
+the ARM reports.
 
 ![Mobile Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073721/docs/web/web_asm-user_mobile_menu.png)
 
@@ -113,7 +113,7 @@ Next on the menu is the
 **Delete account** option.
 This will allow you to delete
 your account if you are no
-longer using the ASM.
+longer using the ARM.
 Your access privileges will
 be deleted along with the account.
 Before proceeding, a warning
@@ -125,4 +125,4 @@ to restore your account afterward.
 
 Lastly, the **Log out**
 option will allow you to end
-your session on the ASM.
+your session on the ARM.

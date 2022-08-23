@@ -14,7 +14,7 @@ of our Continuous Hacking Machine
 Plan (automated testing service),
 in which they will have the
 opportunity to explore our
-[Attack Surface Manager (ASM)](/machine/web/asm)
+[Attacks Resistance Management (ARM)](/machine/web/asm)
 platform.
 Here is a short step-by-step guide
 to enroll in this free trial.
@@ -42,12 +42,12 @@ click on Start your Machine Plan.
 
 You will be taken to the
 official website of our
-[ASM](https://app.fluidattacks.com/).
+[ARM](https://app.fluidattacks.com/).
 There you need to log in with a Gmail,
 Microsoft or Bitbucket business
 email account.
 You must not have
-registered at ASM before,
+registered at ARM before,
 and only one user per organization
 is allowed to complete the free
 trial registration.
@@ -95,7 +95,7 @@ the Machine Plan free trial.
 
 You can also access your
 organization and group on
-the ASM and start exploring
+the ARM and start exploring
 the platform.
 
 ![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_acess.png)
@@ -121,7 +121,7 @@ We invite you to follow
 [this link](/machine/web/vulnerabilities/management)
 for more information about
 managing your vulnerabilities
-from the ASM.
+from the ARM.
 
 ![Management](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_manage_vulns.png)
 
@@ -143,7 +143,7 @@ testing service).
 
 If you click on the link to
 start paying for Machine Plan,
-you will be taken to the ASM
+you will be taken to the ARM
 and see a window to enter
 your payment details.
 If the transaction is successful,

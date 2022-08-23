@@ -1,11 +1,11 @@
 ---
 id: asm
-title: Attack Surface Manager
-sidebar_label: Attack Surface Manager
+title: Attacks Resistance Management
+sidebar_label: Attacks Resistance Management
 slug: /machine/web/asm
 ---
 
-`Fluid Attacks'` Attack Surface Manager (ASM)
+`Fluid Attacks'` Attacks Resistance Management (ARM)
 comes with all functions you need
 to manage all your applications
 and vulnerabilities effectively.
@@ -27,7 +27,7 @@ ECMAScript 2019 compilation.
 
 ## Login
 
-To authenticate in the ASM,
+To authenticate in the ARM,
 you need a valid user
 in at least one of these providers:
 
@@ -44,7 +44,7 @@ We adopt our customers' policies.
 ## Organizations
 
 All customer data is consolidated
-in this ASM's section.
+in this ARM's section.
 Each organization has a data bucket
 that only users of that organization
 can access.
@@ -130,7 +130,7 @@ all the information about your group.
 
 #### DevSecOps
 
-`Fluid Attacks'` ASM
+`Fluid Attacks'` ARM
 includes an agent that
 present in the CI pipelines
 can break the build for open vulnerabilities.
@@ -189,7 +189,7 @@ to checked repositories.
 
 #### Scope
 
-For an ASM,
+For an ARM,
 you need to define the surface
 that the `Fluid Attacks` team will check.
 The following information
@@ -318,14 +318,14 @@ we share the disclosed information in this section.
 
 ## Update
 
-When the ASM was last deployed,
+When the ARM was last deployed,
 be it because of new features or
 improvements to old features, is
 not top secret information we
 are keeping from our clients.
 You can see this information by
 clicking on the icon with the
-letter **i** on the ASM’s
+letter **i** on the ARM’s
 top-right menu.
 
 ![Top Right Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646329458/docs/web/web_asm_update_menu.png)
