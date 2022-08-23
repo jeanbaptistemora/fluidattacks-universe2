@@ -133,10 +133,62 @@ async def public_buckets(
     return vulns
 
 
+async def group_with_inline_policies(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="list_groups"
+    )
+    groups: List[Dict[str, Any]] = response.get("Groups", [])
+
+    vulns: core_model.Vulnerabilities = ()
+    if groups:
+        for group in groups:
+            group_policies: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_group_policies",
+                parameters={"GroupName": str(group["GroupName"])},
+            )
+            policy_names: List[Dict[str, Any]] = group_policies.get(
+                "PolicyNames", []
+            )
+
+            locations: List[Location] = []
+            if policy_names:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=("/PolicyNames",),
+                            arn=(f"{group['Arn']}"),
+                            values=(policy_names[0],),
+                            description=t(
+                                "src.lib_path.f031."
+                                "iam_group_missing_role_based_security"
+                            ),
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_GROUP_WITH_INLINE_POLICY
+                    ),
+                    aws_response=group_policies,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    group_with_inline_policies,
     admin_policy_attached,
     public_buckets,
 )
