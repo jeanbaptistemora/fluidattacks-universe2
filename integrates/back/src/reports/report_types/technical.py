@@ -181,6 +181,7 @@ async def generate_xls_file(
     age: Optional[int],
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
+    last_report: Optional[int],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -194,6 +195,7 @@ async def generate_xls_file(
         age=age,
         min_severity=min_severity,
         max_severity=max_severity,
+        last_report=last_report,
     )
     await it_report.create()
     filepath = it_report.result_filename

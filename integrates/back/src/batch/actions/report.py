@@ -76,6 +76,7 @@ async def get_report(
     age: Optional[int],
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
+    last_report: Optional[int],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -91,6 +92,7 @@ async def get_report(
             age=age,
             min_severity=min_severity,
             max_severity=max_severity,
+            last_report=last_report,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -112,7 +114,7 @@ async def get_report(
             os.unlink(report_file_name)
 
 
-async def send_report(
+async def send_report(  # pylint: disable=too-many-locals
     *,
     item: BatchProcessing,
     report_type: str,
@@ -125,6 +127,7 @@ async def send_report(
     age: Optional[int],
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
+    last_report: Optional[int],
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -148,6 +151,7 @@ async def send_report(
                 age=age,
                 min_severity=min_severity,
                 max_severity=max_severity,
+                last_report=last_report,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -178,6 +182,7 @@ def get_filter_message(  # noqa: MC0001
     age: Optional[int],
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
+    last_report: Optional[int],
 ) -> str:
     if closing_date:
         states = set(
@@ -221,6 +226,8 @@ def get_filter_message(  # noqa: MC0001
         message += f" Minimum CVSS 3.1 score: {min_severity}."
     if max_severity is not None:
         message += f" Maximum CVSS 3.1 score: {max_severity}."
+    if last_report is not None:
+        message += f" Last Report in days: {last_report}."
 
     return (
         f". With the following filters:{message}"
@@ -262,6 +269,7 @@ async def report(*, item: BatchProcessing) -> None:
         if additional_info.get("max_severity", None) is not None
         else None
     )
+    last_report: Optional[int] = additional_info.get("last_report", None)
     message = (
         f"Processing {report_type} report requested by "
         + f"{item.subject} for group {item.entity}"
@@ -275,6 +283,7 @@ async def report(*, item: BatchProcessing) -> None:
             age=age,
             min_severity=min_severity,
             max_severity=max_severity,
+            last_report=last_report,
         )
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -289,6 +298,7 @@ async def report(*, item: BatchProcessing) -> None:
         age=age,
         min_severity=min_severity,
         max_severity=max_severity,
+        last_report=last_report,
     )
     if report_url:
         await send_report(
@@ -303,4 +313,5 @@ async def report(*, item: BatchProcessing) -> None:
             age=age,
             min_severity=min_severity,
             max_severity=max_severity,
+            last_report=last_report,
         )

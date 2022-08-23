@@ -112,6 +112,8 @@ type Query {
     reportType: ReportType!
     "Language of the requested report"
     lang: ReportLang
+    "Days since the last reported vulnerability in Types (last N days) to include"
+    lastReport: Int
     "Maximum CVSS 3.1 score of findings to include"
     maxSeverity: Float
     "Minimum CVSS 3.1 score of findings to include"

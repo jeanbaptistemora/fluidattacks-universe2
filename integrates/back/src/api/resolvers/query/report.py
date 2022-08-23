@@ -77,6 +77,9 @@ from verify import (
     operations as verify_operations,
 )
 
+MIN_VALUE = int(0)
+MAX_VALUE = int(10000)
+
 
 class EncodeDecimal(json.JSONEncoder):
     def default(self, o: Any) -> Any:
@@ -128,6 +131,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     age: Optional[int],
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
+    last_report: Optional[int],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -172,6 +176,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "age": age,
             "min_severity": min_severity,
             "max_severity": max_severity,
+            "last_report": last_report,
         },
         cls=EncodeDecimal,
     )
@@ -201,14 +206,11 @@ def _validate_closing_date(*, closing_date: datetime) -> None:
         raise InvalidDate()
 
 
-def _validate_age(**kwargs: Any) -> None:
-    age: Optional[int] = kwargs.get("age", None)
-    if age is not None:
-        min_value = int(0)
-        max_value = int(10000)
-        if int(0) > age or age > max_value:
+def _validate_days(field: Optional[int]) -> None:
+    if field is not None:
+        if MIN_VALUE > field or field > MAX_VALUE:
             raise InvalidReportFilter(
-                f"Age value must be between {min_value} and {max_value}"
+                f"Age value must be between {MIN_VALUE} and {MAX_VALUE}"
             )
 
 
@@ -307,9 +309,10 @@ async def resolve(
             ]
         ):
             verifications = set()
-    _validate_age(**kwargs)
+    _validate_days(kwargs.get("age", None))
     _validate_min_severity(**kwargs)
     _validate_max_severity(**kwargs)
+    _validate_days(kwargs.get("last_report", None))
 
     return {
         "success": await _get_url_group_report(
@@ -333,6 +336,7 @@ async def resolve(
             )
             if kwargs.get("max_severity", None) is not None
             else None,
+            last_report=kwargs.get("last_report", None),
             verification_code=verification_code,
         )
     }

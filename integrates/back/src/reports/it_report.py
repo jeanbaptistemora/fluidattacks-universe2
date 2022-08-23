@@ -113,6 +113,7 @@ class ITReport:
         age: Optional[int],
         min_severity: Optional[Decimal],
         max_severity: Optional[Decimal],
+        last_report: Optional[int],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -127,6 +128,7 @@ class ITReport:
         self.age = age
         self.min_severity = min_severity
         self.max_severity = max_severity
+        self.last_report = last_report
         if self.closing_date:
             self.states = set(
                 [
@@ -172,38 +174,71 @@ class ITReport:
         )
 
     @staticmethod
-    def _get_report_days(finding: Finding) -> int:
+    def _get_first_report_days(finding: Finding) -> int:
         unreliable_indicators = finding.unreliable_indicators
         return get_report_days(
             unreliable_indicators.unreliable_oldest_vulnerability_report_date
         )
 
-    async def generate(self, data: tuple[Finding, ...]) -> None:
+    @staticmethod
+    def _get_last_report_days(finding: Finding) -> int:
+        unreliable_indicators = finding.unreliable_indicators
+        return get_report_days(
+            unreliable_indicators.unreliable_newest_vulnerability_report_date
+        )
+
+    async def generate(  # pylint: disable=too-many-locals
+        self, data: tuple[Finding, ...]
+    ) -> None:
+        filter_finding_title = data
+        filter_age = data
+        filter_min_severity = data
+        filter_max_severity = data
+        filter_last_report = data
         if self.finding_title:
-            data = tuple(
+            filter_finding_title = tuple(
                 finding
                 for finding in data
                 if finding.title.startswith(self.finding_title)
             )
         if self.age is not None:
-            data = tuple(
+            filter_age = tuple(
                 finding
                 for finding in data
-                if self._get_report_days(finding) <= self.age
+                if self._get_first_report_days(finding) <= self.age
             )
         if self.min_severity is not None:
-            data = tuple(
+            filter_min_severity = tuple(
                 finding
                 for finding in data
                 if self.min_severity <= get_severity_score(finding.severity)
             )
         if self.max_severity is not None:
-            data = tuple(
+            filter_max_severity = tuple(
                 finding
                 for finding in data
                 if get_severity_score(finding.severity) <= self.max_severity
             )
+        if self.last_report is not None:
+            filter_last_report = tuple(
+                finding
+                for finding in data
+                if self._get_last_report_days(finding) <= self.last_report
+            )
 
+        filtered_findings_ids: set[str] = set.intersection(
+            *[
+                set(finding.id for finding in filter_finding_title),
+                set(finding.id for finding in filter_age),
+                set(finding.id for finding in filter_min_severity),
+                set(finding.id for finding in filter_max_severity),
+                set(finding.id for finding in filter_last_report),
+            ],
+        )
+
+        data = tuple(
+            finding for finding in data if finding.id in filtered_findings_ids
+        )
         findings_ids = tuple(finding.id for finding in data)
         findings_vulnerabilities: tuple[Vulnerability, ...]
         findings_verifications: tuple[tuple[FindingVerification], ...]
