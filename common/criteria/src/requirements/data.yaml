@@ -428,6 +428,8 @@
     - asvs.3_2_3
     - asvs.3_4_2
     - asvs.3_4_3
+    - pci.6_2_4
+    - pci.6_4_1
   metadata: {}
 '030':
   en:
@@ -2442,6 +2444,7 @@
     - c2m2.4_1_h
     - c2m2.9_5_h
     - pci.3_7_7
+    - pci.6_5_4
   metadata: {}
 '096':
   en:
@@ -4466,6 +4469,7 @@
     - owaspscp.8
     - bsafss.SI_1-2
     - osamm.IR_3
+    - pci.6_5_5
   metadata: {}
 '157':
   en:
@@ -4997,6 +5001,7 @@
     - owaspscp.11
     - cwe25.89
     - asvs.5_3_4
+    - pci.6_2_4
   metadata: {}
 '171':
   en:
@@ -5031,6 +5036,7 @@
     - owaspscp.8
     - osamm.IR_3
     - c2m2.9_4_d
+    - pci.6_5_6
   metadata: {}
 '172':
   en:
@@ -5327,6 +5333,7 @@
     - asvs.12_3_1
     - c2m2.9_4_d
     - pci.1_4_3
+    - pci.6_2_4
   metadata: {}
 '174':
   en:
@@ -5364,6 +5371,7 @@
     - mvsp.3_3
     - cwe25.352
     - swiftcsc.2_1
+    - pci.6_2_4
   metadata: {}
 '175':
   en:
@@ -5426,6 +5434,7 @@
     - cmmc.CA_L2-3_12_2
     - wasc.A_18
     - mvsp.2_3
+    - pci.6_4_1
   metadata: {}
 '176':
   en:
@@ -5777,6 +5786,7 @@
     - iso27002.8_25
     - iso27002.8_31
     - nistssdf.PW_1_1
+    - pci.6_5_5
   metadata: {}
 '181':
   en:
@@ -7995,6 +8005,7 @@
     - owasprisks.P2
     - asvs.13_1_3
     - pci.1_4_5
+    - pci.6_5_5
   metadata: {}
 '262':
   en:
@@ -8451,6 +8462,7 @@
     - pci.1_2_6
     - pci.2_2_4
     - pci.5_3_2
+    - pci.6_3_3
   metadata: {}
 '273':
   en:
@@ -10376,6 +10388,7 @@
     - c2m2.9_4_b
     - c2m2.9_4_g
     - pci.2_2_5
+    - pci.6_4_3
   metadata: {}
 '331':
   en:
@@ -11294,6 +11307,7 @@
     - gdpr.R39
     - gdpr.R40
     - iso27001.18_1_4
+    - pci.6_4_1
   metadata: {}
 '344':
   en:
@@ -11888,6 +11902,7 @@
     - osamm.EH_1
     - c2m2.1_4_e
     - c2m2.9_3_l
+    - pci.6_3_3
   metadata: {}
 '354':
   en:
@@ -12208,6 +12223,7 @@
     - c2m2.1_2_h
     - pci.3_2_1
     - pci.3_3_3
+    - pci.6_5_6
   metadata: {}
 '361':
   en:

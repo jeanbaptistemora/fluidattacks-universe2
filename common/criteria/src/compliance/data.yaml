@@ -2028,6 +2028,28 @@ pci:
     '5_3_4':
       title: Enable audit logs for the anti-malware solution
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_2_4':
+      title: Software engineering techniques to prevent or mitigate common software
+        attacks
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_3_3':
+      title: Security vulnerabilities are identified and addressed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_4_1':
+      title: Public-facing web applications are protected against attacks
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_4_3':
+      title: Public-facing web applications are protected against attacks
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_5_4':
+      title: Changes to all system components are managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_5_5':
+      title: Changes to all system components are managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '6_5_6':
+      title: Changes to all system components are managed securely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 soc2:
   title: SOC2®
