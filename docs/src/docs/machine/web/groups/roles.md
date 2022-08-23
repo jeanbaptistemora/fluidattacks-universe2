@@ -175,12 +175,13 @@ for each role.
 |Add users            |    |                     |X           |
 |Approve treatments   |    |X                    |X           |
 |Change treatments    |X   |X                    |X           |
-|Deactivate/Activate root  |                     |X           |
+|Deactivate/Activate root |      |X              |X           |
 |Delete groups        |    |                     |X           |
 |Edit roots           |X   |                     |X           |
 |Edit users           |    |                     |X           |
 |Exclusions           |    |                     |X           |
 |Generate a report    |    |X                    |X           |
+|Group policies       |    |                     |X           |
 |Receive notifications|X   |X                    |X           |
 |Request reattack     |X   |X                    |X           |
 |View vulnerabilities |X   |X                    |X           |
