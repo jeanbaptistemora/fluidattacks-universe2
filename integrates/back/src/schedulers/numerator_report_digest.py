@@ -509,7 +509,7 @@ async def _generate_numerator_report(
         for group_name in data["groups"]:
             group_data: Group = await loaders.group.load(group_name)
             data["groups"][group_name]["subscription"] = (
-                "os" if group_data.state.type == "ONESHOT" else "co"
+                "O" if group_data.state.type == "ONESHOT" else "C"
             )
 
     LOGGER.info("- general report successfully generated")
