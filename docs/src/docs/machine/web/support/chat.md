@@ -15,7 +15,7 @@ with fast and personalized support
 on minor issues for which it is not
 necessary to schedule a video call
 (in this case, the
-[Talk to an expert](/squad/support/talk-expert)
+[Talk to Hacker](/squad/support/talk-hacker)
 option would apply).
 
 To find the **Live Chat** option,

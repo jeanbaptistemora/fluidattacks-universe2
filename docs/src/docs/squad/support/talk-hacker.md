@@ -1,16 +1,16 @@
 ---
-id: talk-expert
-title: Talk to an expert
-sidebar_label: Talk to an expert
-slug: /squad/support/talk-expert
+id: talk-hacker
+title: Talk to Hacker
+sidebar_label: Talk to Hacker
+slug: /squad/support/talk-hacker
 ---
 
 We recognize that sometimes you need
 guidance on ASM operations or one of
 our services.
-That is why we have the **Talk to an expert**
+That is why we have the **Talk to Hacker**
 option on our platform (only available on
-[Squad Plan](/squad/support/talk-expert)).
+[Squad Plan](/squad/support/talk-hacker)).
 This function allows you to schedule a
 videoconference where you can present the
 matters on which you need help.
@@ -23,11 +23,11 @@ and can respond to you as quickly as possible.
   the question mark icon on the
   top-right corner of the screen.
 
-  ![Talk to an expert option](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691473/docs/squad/support/talk_to_expert_option.png)
+  ![Talk to Hacker Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1661263456/docs/squad/support/talk_hacker_option.png)
 
 1. A pop-up window will appear
   where you will find
-  **Talk to an expert** next to
+  **Talk to Hacker** next to
   our other support options.
 
   ![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691472/docs/squad/support/support_options.png)

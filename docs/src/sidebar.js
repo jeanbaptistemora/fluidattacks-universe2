@@ -633,7 +633,7 @@ const Squad = [
     type: 'category',
     label: 'Support',
     items: [
-      'squad/support/talk-expert',
+      'squad/support/talk-hacker',
     ],
   },
   'squad/false-negatives',
