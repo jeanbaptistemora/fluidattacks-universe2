@@ -2,12 +2,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef, Row as tableRow } from "@tanstack/react-table";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
-import { selectFilter } from "react-bootstrap-table2-filter";
+import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
@@ -15,9 +15,8 @@ import type { ConfigurableValidator } from "revalidate";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table as Tablez } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
@@ -56,18 +55,16 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const { url } = useRouteMatch();
   const { t } = useTranslation();
 
-  const goToFinding: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ): void => {
-    push(`${url}/${rowInfo.id}/locations`);
-  };
+  function goToFinding(
+    rowInfo: tableRow<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
+  ): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      push(`${url}/${rowInfo.original.id}/locations`);
+      event.preventDefault();
+    };
+  }
 
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openNewDraftModal: () => void = useCallback((): void => {
     setIsDraftModalOpen(true);
@@ -77,69 +74,35 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     setIsDraftModalOpen(false);
   }, []);
 
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("draftSort", JSON.stringify(newSorted));
-  };
-  const selectOptionsStatus = {
-    Created: "Created",
-    Rejected: "Rejected",
-    Submitted: "Submitted",
-  };
-  const onFilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("draftStatusFilter", filterVal);
-  };
-
-  const tableHeaders: IHeaderConfig[] = [
+  const tableheadersz: ColumnDef<
+    IGroupDraftsAndFindingsAttr["group"]["drafts"][0]
+  >[] = [
     {
-      dataField: "reportDate",
+      accessorKey: "reportDate",
       header: "Date",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "title",
+      accessorKey: "title",
       header: "Type",
-      onSort: onSortState,
-      width: "30%",
-      wrapped: true,
     },
     {
-      dataField: "description",
+      accessorKey: "description",
       header: "Description",
-      onSort: onSortState,
-      width: "38%",
-      wrapped: true,
     },
     {
-      dataField: "severityScore",
+      accessorKey: "severityScore",
       header: "Severity",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "openVulnerabilities",
+      accessorKey: "openVulnerabilities",
       header: "Open Vulns.",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "currentState",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "draftStatusFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-      }),
-      formatter: statusFormatter,
+      accessorKey: "currentState",
+      cell: (
+        cell: ICellHelper<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
+      ): JSX.Element => statusFormatter(cell.getValue()),
       header: "State",
-      onSort: onSortState,
-      width: "95px",
-      wrapped: true,
     },
   ];
 
@@ -209,12 +172,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       );
       await refetch();
     }
-  }
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
   }
 
   const handleMutationError: (error: ApolloError) => void = ({
@@ -317,8 +274,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const dataset: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
     formatDrafts(data.group.drafts);
-  const filterSearchTextResult: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
-    filterSearchText(dataset, searchTextFilter);
 
   return (
     <React.StrictMode>
@@ -383,17 +338,9 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <Table
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filterSearchTextResult}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "draftSort", "{}") as string
-        )}
+      <Tablez
+        columns={tableheadersz}
+        data={dataset}
         exportCsv={true}
         extraButtons={
           <Have I={"can_report_vulnerabilities"}>
@@ -408,11 +355,8 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             </Tooltip>
           </Have>
         }
-        headers={tableHeaders}
         id={"tblDrafts"}
-        pageSize={10}
-        rowEvents={{ onClick: goToFinding }}
-        search={false}
+        onRowClick={goToFinding}
       />
     </React.StrictMode>
   );
