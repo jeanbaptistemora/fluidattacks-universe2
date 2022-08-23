@@ -24,7 +24,7 @@ import { AirsLink } from "../components/AirsLink";
 import { BlogFooter } from "../components/BlogFooter";
 import { BlogSeo } from "../components/BlogSeo";
 import { FloatingButton } from "../components/FloatingButton";
-import { InternalForm } from "../components/InternalForm";
+import { InternalCta } from "../components/InternalCta";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -37,6 +37,7 @@ import {
   InternalContainer,
   PageArticle,
 } from "../styles/styledComponents";
+import { translate } from "../utils/translations/translate";
 import {
   capitalizeDashedString,
   capitalizeObject,
@@ -159,7 +160,11 @@ const BlogsIndex: React.FC<IQueryData> = ({
                 <BlogFooter author={author} slug={slug} writer={writer} />
               </BlogArticleContainer>
             </InternalContainer>
-            <InternalForm />
+            <InternalCta
+              description={translate.t("plansPage.portrait.paragraph")}
+              image={"/airs/plans/plans-cta"}
+              title={translate.t("plansPage.portrait.title")}
+            />
             <FloatingButton
               bgColor={"#2e2e38"}
               color={"#fff"}

@@ -16,7 +16,7 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { FloatingButton } from "../components/FloatingButton";
-import { InternalForm } from "../components/InternalForm";
+import { InternalCta } from "../components/InternalCta";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -90,7 +90,11 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 />
               </FullWidthContainer>
             </ComplianceContainer>
-            <InternalForm />
+            <InternalCta
+              description={translate.t("plansPage.portrait.paragraph")}
+              image={"/airs/plans/plans-cta"}
+              title={translate.t("plansPage.portrait.title")}
+            />
             <FloatingButton
               bgColor={"#2e2e38"}
               color={"#fff"}

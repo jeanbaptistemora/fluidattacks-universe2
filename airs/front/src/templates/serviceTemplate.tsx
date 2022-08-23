@@ -16,7 +16,7 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { FloatingButton } from "../components/FloatingButton";
-import { InternalForm } from "../components/InternalForm";
+import { InternalCta } from "../components/InternalCta";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -31,6 +31,7 @@ import {
   ServicesGrid,
   ServicesHeaderContainer,
 } from "../styles/styledComponents";
+import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const ContinuousHackingIndex: React.FC<IQueryData> = ({
@@ -86,7 +87,11 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
                 }}
               />
             </BigPageContainer>
-            <InternalForm />
+            <InternalCta
+              description={translate.t("plansPage.portrait.paragraph")}
+              image={"/airs/plans/plans-cta"}
+              title={translate.t("plansPage.portrait.title")}
+            />
             <FloatingButton
               bgColor={"#2e2e38"}
               color={"#fff"}
