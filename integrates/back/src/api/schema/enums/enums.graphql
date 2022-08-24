@@ -257,8 +257,12 @@ enum SolveEventReason {
 enum EventEvidenceType {
   "File"
   FILE
+  "File 1"
+  FILE_1
   "Image"
   IMAGE
+  "Image 1"
+  IMAGE_1
 }
 
 "Event type enum definition"

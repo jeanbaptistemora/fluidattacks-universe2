@@ -130,7 +130,15 @@ ENUMS: Tuple[EnumType, ...] = (
             "TOE_WILL_REMAIN_UNCHANGED": "TOE_WILL_REMAIN_UNCHANGED",
         },
     ),
-    EnumType("EventEvidenceType", {"FILE": "FILE", "IMAGE": "IMAGE"}),
+    EnumType(
+        "EventEvidenceType",
+        {
+            "FILE": "FILE",
+            "FILE_1": "FILE_1",
+            "IMAGE": "IMAGE",
+            "IMAGE_1": "IMAGE_1",
+        },
+    ),
     EnumType(
         "EventType",
         {
