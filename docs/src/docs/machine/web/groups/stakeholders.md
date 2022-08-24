@@ -50,7 +50,7 @@ add a new stakeholder.
 You will see the following
 pop-up window:
 
-![Stakeholders Add](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_add.png)
+![Stakeholders Add](https://res.cloudinary.com/fluid-attacks/image/upload/v1661374746/docs/web/groups/stakeholders/stakeh_add.png)
 
 Here you must enter information
 about the new stakeholder:
@@ -75,7 +75,7 @@ where you can modify the
 user’s email address,
 role or responsibility.
 
-![Stakeholders Edit](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_edit.png)
+![Stakeholders Edit](https://res.cloudinary.com/fluid-attacks/image/upload/v1661374746/docs/web/groups/stakeholders/stakeh_edit.png)
 
 ### Remove
 
@@ -99,21 +99,14 @@ the selected people from the group.
 ### Filters
 
 In this section,
-two filters are available for
-the table: Role and Invitation.
+you can find the filters on the
+right side of the search bar by
+clicking on the filters icon.
 
-![Stakeholders Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filters.png)
+![Filters Icon](https://res.cloudinary.com/fluid-attacks/image/upload/v1661375344/docs/web/groups/stakeholders/filters_icon.png)
 
-The first allows you to
-filter users by their roles.
+Two filters are available
+for the table: Role and
+Registration status.
 
-![Stakeholders Filter By Rol](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filter_by_rol.png)
-
-The second allows you to
-filter users by their response
-to the invitation to participate
-in the group,
-or lack thereof,
-and their Unregistered status.
-
-![Stakeholders Filter By Response](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filter_by_response.png)
+![Filters Available](https://res.cloudinary.com/fluid-attacks/image/upload/v1661375344/docs/web/groups/stakeholders/filters_type.png)
