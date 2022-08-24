@@ -41,7 +41,7 @@ By detecting aliases,
 we can avoid counting any author more than once.
 After this adjustment,
 we export the resulting database to our software as a file
-and share it through the ASM.
+and share it through the ARM.
 
 At the end of this process,
 we get a complete names file.

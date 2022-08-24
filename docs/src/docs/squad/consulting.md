@@ -5,7 +5,7 @@ sidebar_label: Consulting
 slug: /squad/consulting
 ---
 
-On the ASM,
+On the ARM,
 there are sections
 where you can talk directly to us
 and communicate all the questions,

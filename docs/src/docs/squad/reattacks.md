@@ -11,7 +11,7 @@ You can do this from the
 [Locations](/machine/web/vulnerabilities/management/vulnerability-description#locations-table)
 and
 [To-DoList](/machine/web/vulnerabilities/management/to-do-list)
-sections of the ASM.
+sections of the ARM.
 The steps required are
 fundamentally
 the same in both sections.
@@ -19,7 +19,7 @@ Here,
 we show you how to do
 it from Locations.
 
-1. Log into your ASM account
+1. Log into your ARM account
   and click on one of your
   groups to access it.
   Once inside the group,
@@ -114,7 +114,7 @@ due to [events](/machine/web/groups/events)
 in your environment,
 and having to send another
 reattack request can be tedious.
-That is why the ASM has the
+That is why the ARM has the
 **On_hold** status for reattacks.
 This status denotes when
 reattack requests are put on hold.

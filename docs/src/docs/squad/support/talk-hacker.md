@@ -6,7 +6,7 @@ slug: /squad/support/talk-hacker
 ---
 
 We recognize that sometimes you need
-guidance on ASM operations or one of
+guidance on ARM operations or one of
 our services.
 That is why we have the **Talk to Hacker**
 option on our platform (only available on
@@ -19,7 +19,7 @@ and can respond to you as quickly as possible.
 
 1. To find this option,
   you need to enter one of your
-  groups on the ASM and click on
+  groups on the ARM and click on
   the question mark icon on the
   top-right corner of the screen.
 
