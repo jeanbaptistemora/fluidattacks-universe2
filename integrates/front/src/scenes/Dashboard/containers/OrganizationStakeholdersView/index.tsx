@@ -418,6 +418,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
         />
         <AddUserModal
           action={stakeholderModalAction}
+          domainSuggestings={[]}
           editTitle={t("organization.tabs.users.modalEditTitle")}
           initialValues={
             stakeholderModalAction === "edit"
@@ -428,6 +429,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           onSubmit={handleSubmit}
           open={isStakeholderModalOpen}
           organizationId={organizationId}
+          suggestions={[]}
           title={t("organization.tabs.users.modalAddTitle")}
           type={"organization"}
         />

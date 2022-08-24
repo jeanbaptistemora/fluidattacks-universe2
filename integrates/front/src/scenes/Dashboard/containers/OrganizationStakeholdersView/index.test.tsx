@@ -1,6 +1,12 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import moment from "moment";
@@ -240,10 +246,9 @@ describe("Organization users view", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
     });
-    userEvent.type(
-      screen.getByRole("textbox", { name: "email" }),
-      "testuser2@gmail.com"
-    );
+    fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
+      target: { value: "testuser2@gmail.com" },
+    });
     userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
       "USER",
     ]);
@@ -368,12 +373,12 @@ describe("Organization users view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getByRole("textbox", { name: "email" })).toHaveValue(
+      expect(screen.getByRole("combobox", { name: "email" })).toHaveValue(
         "testuser1@gmail.com"
       );
     });
 
-    expect(screen.getByRole("textbox", { name: "email" })).toBeDisabled();
+    expect(screen.getByRole("combobox", { name: "email" })).toBeDisabled();
     expect(screen.getByRole("combobox", { name: "role" })).toHaveValue("USER");
 
     userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [

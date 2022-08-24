@@ -12,6 +12,8 @@ interface IAddStakeholderModalProps {
   open: boolean;
   organizationId?: string;
   groupName?: string;
+  domainSuggestings: string[];
+  suggestions: string[];
   title: string;
   type: "organization" | "user";
   onClose: () => void;

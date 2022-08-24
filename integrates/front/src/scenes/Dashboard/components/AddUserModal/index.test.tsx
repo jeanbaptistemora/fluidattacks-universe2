@@ -6,7 +6,6 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
 
@@ -29,18 +28,21 @@ const functionMock: () => void = (): void => undefined;
 describe("Add user modal", (): void => {
   const mockPropsAdd: IAddStakeholderModalProps = {
     action: "add",
+    domainSuggestings: [],
     editTitle: "",
     groupName: "TEST",
     initialValues: {},
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
+    suggestions: [],
     title: "",
     type: "user",
   };
 
   const mockPropsEdit: IAddStakeholderModalProps = {
     action: "edit",
+    domainSuggestings: [],
     editTitle: "edit title",
     groupName: "TEST",
     initialValues: {
@@ -50,6 +52,7 @@ describe("Add user modal", (): void => {
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
+    suggestions: [],
     title: "",
     type: "user",
   };
@@ -200,11 +203,10 @@ describe("Add user modal", (): void => {
         screen.getByPlaceholderText("userModal.emailPlaceholder")
       ).toHaveValue("");
     });
-    userEvent.type(
-      screen.getByRole("textbox", { name: "email" }),
-      "unittest@test.com"
-    );
-    fireEvent.blur(screen.getByRole("textbox", { name: "email" }));
+    fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
+      target: { value: "unittest@test.com" },
+    });
+    fireEvent.blur(screen.getByRole("combobox", { name: "email" }));
     await waitFor((): void => {
       expect(
         screen.getByRole("textbox", { name: "responsibility" })
@@ -228,7 +230,7 @@ describe("Add user modal", (): void => {
       </MockedProvider>
     );
     await waitFor((): void => {
-      expect(screen.getByRole("combobox")).toBeInTheDocument();
+      expect(screen.queryAllByRole("combobox")).toHaveLength(2);
     });
 
     expect(screen.queryAllByRole("option")).toHaveLength(4);

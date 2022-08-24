@@ -198,11 +198,13 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           {isStakeholderModalOpen ? (
             <AddUserModal
               action={"add"}
+              domainSuggestings={[]}
               editTitle={""}
               initialValues={{}}
               onClose={closeStakeholderModal}
               onSubmit={handleAddUserSubmit}
               open={true}
+              suggestions={[]}
               title={t("navbar.user")}
               type={"user"}
             />
