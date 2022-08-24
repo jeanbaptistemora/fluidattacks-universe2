@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "batch_stability"
-version = "2.0.1"
+version = "3.0.0"
 description = "Observes batch jobs stability reporter"
 authors = ["Product Team <development@fluidattacks.com>"]
 
@@ -12,7 +12,7 @@ mypy-boto3-batch = "^1.22.8"
 bugsnag = "^4.0.2"
 click = "^8.0.3"
 fa-purity = "^1.17.0"
-utils-logger = "^1.0.0"
+utils-logger-2 = "^1.0.0"
 
 [tool.poetry.scripts]
 observes-batch-stability = 'batch_stability.cli:main'

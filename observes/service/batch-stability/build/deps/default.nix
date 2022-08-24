@@ -1,50 +1,36 @@
 {
-  lib,
-  python_pkgs,
+  nixpkgs,
+  python_version,
 }: let
-  pkgs =
+  lib = {
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
+  };
+
+  override_1 = python_pkgs:
     python_pkgs
     // {
-      typing-extensions = lib.buildPythonPackage rec {
-        pname = "typing_extensions";
-        format = "pyproject";
-        version = "4.2.0";
-        src = lib.fetchPypi {
-          inherit pname version;
-          sha256 = "8cJGVaDaDRtn8H4XpeayoQWJTmgkuSCWN4uzZo7wI3Y=";
-        };
-        nativeBuildInputs = [python_pkgs.flit-core];
+      import-linter = import ./import-linter {
+        inherit lib;
+        click = python_pkgs.click;
+        networkx = python_pkgs.networkx;
       };
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
+      mypy-boto3-batch = import ./boto3/batch-stubs.nix lib python_pkgs;
+      types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
+      types-click = import ./click/stubs.nix lib;
     };
-  _typing_ext_override = x:
-    if x.pname == "typing-extensions"
-    then pkgs.typing-extensions
-    else x;
-  mypy = pkgs.mypy.overridePythonAttrs (
-    old: {
-      propagatedBuildInputs = map _typing_ext_override old.propagatedBuildInputs;
-    }
-  );
-  _mypy_override = x:
-    if x.pname == "mypy"
-    then mypy
-    else x;
-in
-  pkgs
-  // {
-    inherit mypy;
-    import-linter = import ./import-linter {
-      inherit lib;
-      click = pkgs.click;
-      networkx = pkgs.networkx;
-    };
-    fa-purity = pkgs.fa-purity.overridePythonAttrs (
-      old: {
-        nativeBuildInputs = map _mypy_override old.nativeBuildInputs;
-        propagatedBuildInputs = map _typing_ext_override old.propagatedBuildInputs;
-      }
-    );
-    mypy-boto3-batch = import ./boto3/batch-stubs.nix lib pkgs;
-    types-boto3 = import ./boto3/stubs.nix lib pkgs;
-    types-click = import ./click/stubs.nix lib;
-  }
+
+  pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
+  overrides = map pkgs_overrides [];
+  compose = let
+    apply = x: f: f x;
+  in
+    functions: val: builtins.foldl' apply val functions;
+  final_pkgs = compose ([override_1] ++ overrides) (nixpkgs."${python_version}Packages");
+in {
+  inherit lib;
+  python_pkgs = final_pkgs;
+}
