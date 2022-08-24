@@ -4,6 +4,9 @@ Rename the event evidences to keep the consistence with the new ones
 
 Execution Time:    2022-08-23 at 22:15:47 UTC
 Finalization Time: 2022-08-23 at 22:18:48 UTC
+
+Execution Time:    2022-08-24 at 14:40:21 UTC
+Finalization Time: 2022-08-24 at 14:40:29 UTC
 """
 from aioextensions import (
     collect,
@@ -14,7 +17,6 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_BUCKET,
-    FI_TEST_PROJECTS,
 )
 from dataloaders import (
     Dataloaders,
@@ -259,7 +261,6 @@ async def get_group_events(
 async def main() -> None:  # noqa: MC0001
     loaders = get_new_context()
     all_organization_ids = {"ORG#unknown"}
-    test_groups = set(FI_TEST_PROJECTS.split(","))
 
     async for organization in orgs_domain.iterate_organizations():
         all_organization_ids.add(organization.id)
@@ -281,7 +282,6 @@ async def main() -> None:  # noqa: MC0001
                 tuple(
                     get_group_events(loaders, group_name)
                     for group_name in all_group_names
-                    if group_name not in test_groups
                 ),
                 workers=50,
             )
