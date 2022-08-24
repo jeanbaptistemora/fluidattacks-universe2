@@ -190,6 +190,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           `${t("searchFindings.tabUsers.success")} ${email}`,
           t("searchFindings.tabUsers.titleSuccess")
         );
+        setCurrentRow([]);
       }
     },
     onError: (grantError: ApolloError): void => {

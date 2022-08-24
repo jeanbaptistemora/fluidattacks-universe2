@@ -12,7 +12,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -45,6 +45,8 @@ import {
   getAreAllMutationValid,
   removeMultipleAccess,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/utils";
+import { authContext } from "utils/auth";
+import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -121,10 +123,12 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
 }: IOrganizationStakeholders): JSX.Element => {
   const { t } = useTranslation();
   const { organizationName } = useParams<{ organizationName: string }>();
+  const { userEmail }: IAuthContext = useContext(authContext);
 
   // State management
   const [currentRow, setCurrentRow] = useState<IStakeholderDataSet[]>([]);
   const [isStakeholderModalOpen, setIsStakeholderModalOpen] = useState(false);
+  const [domainSuggestion, setDomainSuggestion] = useState<string[]>([]);
   const [stakeholderModalAction, setStakeholderModalAction] = useState<
     "add" | "edit"
   >("add");
@@ -173,6 +177,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           `${t("searchFindings.tabUsers.success")} ${email}`,
           t("organization.tabs.users.successTitle")
         );
+        setCurrentRow([]);
       }
     },
     onError: (grantError: ApolloError): void => {
@@ -285,6 +290,30 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
     t,
     validMutationsHelper,
   ]);
+
+  useEffect((): void => {
+    if (data !== undefined) {
+      const emailStakeholder = data.organization.stakeholders.map(
+        (stakeholder: IStakeholderAttrs): string => stakeholder.email
+      );
+
+      const domains = Array.from(
+        new Set(
+          emailStakeholder.map((email: string): string => {
+            const [, emailDomain] = email.split("@");
+            if (userEmail.endsWith("@fluidattacks.com")) {
+              return emailDomain;
+            }
+
+            return emailDomain === "fluidattacks.com" ? "" : emailDomain;
+          })
+        )
+      );
+      setDomainSuggestion(
+        domains.filter((domain: string): boolean => domain !== "")
+      );
+    }
+  }, [data, userEmail]);
 
   const stakeholdersList: IStakeholderDataSet[] =
     _.isUndefined(data) || _.isEmpty(data)
@@ -418,7 +447,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
         />
         <AddUserModal
           action={stakeholderModalAction}
-          domainSuggestings={[]}
+          domainSuggestings={domainSuggestion}
           editTitle={t("organization.tabs.users.modalEditTitle")}
           initialValues={
             stakeholderModalAction === "edit"
