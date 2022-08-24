@@ -159,12 +159,13 @@ and [Core Impact](https://www.coresecurity.com/products/core-impact)
 for infrastructure testing
 with additional exploits.
 
-## Where does ASM run?
+## Where does ARM run?
 
-Our [ASM](https://fluidattacks.com/categories/asm/) (Attack Surface Manager) platform
+Our [ARM](https://fluidattacks.com/categories/asm/)
+(Attacks Resistance Management) platform
 runs in the cloud.
 
-## Do you manage the access credentials to ASM?
+## Do you manage the access credentials to ARM?
 
 No.
 We use federated authentication.

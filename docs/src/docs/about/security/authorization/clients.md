@@ -5,7 +5,7 @@ sidebar_label: For Clients
 slug: /about/security/authorization/clients
 ---
 
-Our [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+Our [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
 has a set of necessary
 [roles](/criteria/requirements/096)
 for every hacking project.

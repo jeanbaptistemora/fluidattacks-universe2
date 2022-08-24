@@ -33,8 +33,8 @@ of a vulnerability.
 [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 has an interactive reporting platform,
 our Attack Surface Manager
-([ASM](https://fluidattacks.com/categories/asm/)).
-ASM gives all project stakeholders access
+([ARM](https://fluidattacks.com/categories/asm/)).
+ARM gives all project stakeholders access
 to details concerning vulnerabilities
 reported by `Fluid Attacks`.
 (We have the source code
@@ -46,7 +46,7 @@ in our [public repository](https://gitlab.com/fluidattacks).)
 After a report,
 the main objective for developers
 is to eliminate the vulnerability.
-Through ASM,
+Through ARM,
 a client company's developers
 can access detailed first-hand information
 regarding a vulnerability
@@ -56,7 +56,7 @@ to remove it from the application.
 
 ## What happens when a vulnerability is remediated?
 
-Through ASM,
+Through ARM,
 any user with access to the project
 can request verification
 of a remediated vulnerability.
@@ -82,13 +82,13 @@ between all project members.
 This is accomplished
 when you notify us
 because the message goes
-through [ASM](https://fluidattacks.com/categories/asm/)
+through [ARM](https://fluidattacks.com/categories/asm/)
 and by doing so,
 the entire project team is notified.
 
 ## What happens if I do not consider something a vulnerability?
 
-Within ASM,
+Within ARM,
 there is a comment section.
 A client company can post its reasons
 for believing a vulnerability finding is not valid.
@@ -108,17 +108,17 @@ this decision is made entirely by the client,
 not by us,
 and the client assumes all responsibility
 for possible negative impacts of non-remediation.
-In ASM,
+In ARM,
 under the treatment option,
 a client company indicates
 whether it will remediate
 or assume responsibility
 for an identified vulnerability.
 
-## If a client does not remediate a vulnerability, is it excluded from ASM?
+## If a client does not remediate a vulnerability, is it excluded from ARM?
 
 No.
-Reports and ASM include information
+Reports and ARM include information
 regarding all vulnerabilities,
 along with whether vulnerabilities were remediated
 or not.
@@ -134,7 +134,7 @@ from all our information systems.
 
 ## How will our data be erased?
 
-[ASM](https://fluidattacks.com/categories/asm/)
+[ARM](https://fluidattacks.com/categories/asm/)
 uses an automated erasing process,
 removing all the project information
 from our systems

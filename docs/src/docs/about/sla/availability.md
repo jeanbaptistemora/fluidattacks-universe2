@@ -8,7 +8,7 @@ slug: /about/sla/availability
 ## Description
 
 **99.5%** of the time,
-the ASM will be available via the internet
+the ARM will be available via the internet
 for its registered users.
 
 ### Details

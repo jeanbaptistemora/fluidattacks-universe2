@@ -18,13 +18,13 @@ in order to schedule availability.
 
 ## Does the Squad Plan generate reports?
 
-Through our [ASM](https://fluidattacks.com/categories/asm/)
+Through our [ARM](https://fluidattacks.com/categories/asm/)
 (Attack Surface Manager),
 we generate and deliver a technical report
 available in Excel and/or PDF format
 during the execution of the project contract.
 Once the project ends,
-ASM delivers a presentation
+ARM delivers a presentation
 and an executive report,
 also in PDF format.
 
@@ -34,7 +34,7 @@ For the Squad Plan,
 communication takes place
 between developers and hackers
 on a day-to-day basis
-via ASM.
+via ARM.
 In [One-Shot Hacking](https://fluidattacks.com/services/one-shot-hacking/),
 communication is handled
 through the project manager (PM)

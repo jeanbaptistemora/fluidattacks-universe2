@@ -40,7 +40,7 @@ in time will be analyzed.
 
 In the monthly analysis,
 the first and last month of
-the year the ASM service
+the year the ARM service
 usage decreases due to platform
 freezing and customer vacations.
 

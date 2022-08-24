@@ -119,7 +119,7 @@ The steps are as follows:
    of the verification and access robots.
 
 1. The project leader creates an admin user
-   in [ASM](https://fluidattacks.com/categories/asm/)
+   in [ARM](https://fluidattacks.com/categories/asm/)
    (Attack Surface Manager)
    for the client.
 
@@ -127,18 +127,18 @@ The steps are as follows:
    including the developers.
    (They must have Google Apps or Office365.)
 
-1. Vulnerabilities are reported in ASM.
+1. Vulnerabilities are reported in ARM.
 
 1. Project stakeholders access vulnerabilities
    and start remediation.
 
 1. If any questions or problems arise,
    they can be addressed through the comments
-   or chat available in ASM.
+   or chat available in ARM.
 
 1. When the client has remediated the reported vulnerabilities,
    they may request validation of their repairs
-   through ASM.
+   through ARM.
 
 1. Our hacker performs the closure verification
    and updates the report.
