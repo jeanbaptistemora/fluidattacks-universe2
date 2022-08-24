@@ -41,7 +41,7 @@
       font-size: 18px;
       color: #2e2e38;
       line-height: 30px;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     .flex {
@@ -180,6 +180,36 @@
     .icon {
       width: 48px;
       height: 48px;
+    }
+
+    /* Macros */
+
+    .header {
+      align-items: center;
+      background-color: #1c1c22;
+      display: flex;
+      flex-direction: column;
+      padding: 50px;
+    }
+
+      .header > * {
+        color: #f4f4f6 !important;
+      }
+
+    .logo {
+      height: auto;
+      margin-bottom: 20px;
+      width: 250px;
+    }
+
+    .mb2 {
+      margin-bottom: 2em;
+    }
+
+    .title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
     @media only screen and (min-width: 599px) {

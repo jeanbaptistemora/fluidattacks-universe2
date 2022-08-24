@@ -1,33 +1,28 @@
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+{% from 'layouts/components/forms.html' import header, go_to_button %}
 
 {% block layout %}
 <div class="container">
-  {% include 'layouts/components/logo_header.html' %}
-  {{ banner_group('Congratulations') }}
+  {{ header(
+    'Congratulations!',
+    'You have started using the Machine Plan free trial.'
+  ) }}
 
   <div class="main-content">
     <p>Hi, {{ name }},</p>
     <p>
-      You have started using the Machine Plan free trial.
-    </p>
-    <p>
-      You can keep an eye on our ARM platform for now on. Check the reports of
+      You can keep an eye on our ARM platform from now on. Check the reports of
       vulnerabilities we identify in your software to start acting on them.
       Remember that the duration of this free trial is 21 days. But at any time,
       you can become a Fluid Attacks client and further enhance the security of
       your apps.
     </p>
-    <p>
+    <p class="mb2">
       Questions? Don't hesitate to contact us at
       <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>.
     </p>
-    <p>
-      Best Regards,
-    </p>
-    <p>
-      Fluid Attacks Team
-    </p>
+    <p>Best Regards,</p>
+    <p>Fluid Attacks Team</p>
   </div>
 
   {% include 'layouts/components/footer.html' %}

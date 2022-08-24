@@ -1,3 +1,14 @@
+{%+ macro header(title, subtitle) %}
+<div class="header">
+  <img
+    class="logo"
+    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1623782670/docs/logo_dark_esf1gn.png"
+  >
+  <p class="title">{{ title }}</p>
+  <p>{{ subtitle }}</p>
+</div>
+{% endmacro %}
+
 {# Generic Go to button: rounded and centered #}
 {% macro go_to_button(text, url) %}
 <div class="flex justify-center">
