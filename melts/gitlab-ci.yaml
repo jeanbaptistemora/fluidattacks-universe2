@@ -1,6 +1,6 @@
 ---
 /lintPython/module/melts:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -22,7 +22,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/meltsTest:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -44,7 +44,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /melts/test:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:

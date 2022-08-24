@@ -1,6 +1,6 @@
 ---
 /deployTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -43,7 +43,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -65,7 +65,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/skimsTest:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -87,7 +87,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/skimsTestMocksHttp:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -109,7 +109,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -131,7 +131,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -153,7 +153,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /skims/deploy/prod:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -174,7 +174,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /skims/test/cli:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -198,7 +198,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_cmdi:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -220,7 +220,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_crypto:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -242,7 +242,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_hash:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -264,7 +264,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_ldapi:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -286,7 +286,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_pathtraver:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -308,7 +308,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_securecookie:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -330,7 +330,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_sqli:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -352,7 +352,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_trustbound:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -374,7 +374,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_weakrand:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -396,7 +396,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_xpathi:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -418,7 +418,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_xss:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -440,7 +440,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@functional:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -464,7 +464,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@instance_references:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -486,7 +486,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_apk:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -508,7 +508,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_http:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -530,7 +530,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_path:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -552,7 +552,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_ssl:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -574,7 +574,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -596,7 +596,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f001:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -618,7 +618,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f004:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -640,7 +640,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f008:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -662,7 +662,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f021:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -684,7 +684,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f063:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -706,7 +706,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f107:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -728,7 +728,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@unittesting:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -750,7 +750,7 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@vulnerable_js_app:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -772,7 +772,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@vulnerableapp:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:
@@ -794,7 +794,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
   rules:

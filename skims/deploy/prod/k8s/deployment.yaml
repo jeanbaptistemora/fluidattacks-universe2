@@ -24,7 +24,7 @@ spec:
         worker_group: production
       containers:
         - name: skims
-          image: ghcr.io/fluidattacks/makes:22.08
+          image: ghcr.io/fluidattacks/makes:22.09
           imagePullPolicy: Always
           command: [sh]
           args:
