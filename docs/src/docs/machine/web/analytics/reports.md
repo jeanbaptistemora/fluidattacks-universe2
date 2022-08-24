@@ -8,7 +8,7 @@ slug: /machine/web/analytics/reports
 ## Subscription to reports
 
 The Analytics sections on
-the ASM have a subscription
+the ARM have a subscription
 button that allows you to
 subscribe to daily,
 weekly or monthly emails.
@@ -57,13 +57,13 @@ information in that report.
 The **Live** button will
 redirect you to the
 corresponding Analytics
-section on the ASM.
+section on the ARM.
 
 ![Email Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1647621810/docs/web/analytics/reports/email_options.png)
 
 ## Download reports
 
-On the ASM,
+On the ARM,
 you can download the charts
 and data belonging to the
 different Analytics sections.

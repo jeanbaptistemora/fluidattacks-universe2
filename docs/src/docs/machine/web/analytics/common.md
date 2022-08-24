@@ -37,7 +37,7 @@ one of your managers.
 
 ![Exposure Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
 
-In the ASM,
+In the ARM,
 you can track the evolution of your systems
 from a security point of view:
 
@@ -280,7 +280,7 @@ vulnerabilities not yet assigned.
 
 ## Vulnerabilities treatment
 
-On the ASM, you can plan and manage the
+On the ARM, you can plan and manage the
 remediation of security findings.
 Vulnerabilities can be grouped according
 to their assigned treatment:

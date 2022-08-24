@@ -5,7 +5,7 @@ sidebar_label: Introduction
 slug: /machine/web/analytics
 ---
 
-The ASM will give you
+The ARM will give you
 plenty of information
 about the status
 of all the groups
@@ -14,7 +14,7 @@ one of the best ways
 to look at the general status
 of your organization
 is by checking the analytics tab,
-here the ASM will show you
+here the ARM will show you
 graphs and numbers
 that resume all the information
 about your groups for you.

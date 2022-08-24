@@ -87,7 +87,7 @@ we put two things in your hands:
   and thus protects your system
   from vulnerable code introduction.
 - However,
-  accepted vulnerabilities on the ASM
+  accepted vulnerabilities on the ARM
   are ignored by the strict mode,
   and the agent will
   (by decision of your team)
