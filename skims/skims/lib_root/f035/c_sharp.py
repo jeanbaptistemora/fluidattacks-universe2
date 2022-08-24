@@ -1,6 +1,3 @@
-from itertools import (
-    chain,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -9,15 +6,12 @@ from model import (
     graph_model,
 )
 from model.graph_model import (
+    Graph,
     GraphShardMetadataLanguage as GraphLanguage,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-    shard_n_id_query,
-)
-from sast_transformations.danger_nodes.utils import (
-    append_label,
-    mark_assignments_sink,
 )
 from symbolic_eval.evaluate import (
     evaluate,
@@ -27,7 +21,6 @@ from symbolic_eval.utils import (
     get_object_identifiers,
 )
 from typing import (
-    Iterator,
     Set,
 )
 from utils import (
@@ -35,63 +28,28 @@ from utils import (
 )
 
 
-# https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
-def weak_credential_policy(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
+def is_danger_value(graph: Graph, n_id: NId, memb_name: str) -> bool:
     method = core_model.MethodsEnum.CS_WEAK_CREDENTIAL
-    finding = method.value.finding
+    insec_rules = {
+        "RequireDigit": ["false"],
+        "RequireNonAlphanumeric": ["false"],
+        "RequireUppercase": ["false"],
+        "RequireLowercase": ["false"],
+        "RequiredLength": ["0", "1", "2", "3", "4", "5", "6", "7"],
+        "RequiredUniqueChars": ["0", "1", "2", "3", "4", "5"],
+    }
+    if not insec_rules.get(memb_name):
+        return False
 
-    def find_vulns() -> Iterator[core_model.Vulnerabilities]:
-        for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
+    for path in get_backward_paths(graph, n_id):
+        if (
+            (evaluation := evaluate(method, graph, path, n_id))
+            and (results := list(evaluation.triggers))
+            and len(results) > 0
+            and results[0] in insec_rules[memb_name]
         ):
-            for syntax_steps in shard.syntax.values():
-                if len(syntax_steps) == 0:  # handle missing syntax case
-                    continue
-
-                *dependecies, invocation_step = syntax_steps
-                if (
-                    invocation_step.type != "SyntaxStepMethodInvocationChain"
-                    or invocation_step.method != "Configure<IdentityOptions>"
-                ):
-                    continue
-
-                *_, first_param = dependecies
-                if first_param.type != "SyntaxStepLambdaExpression":
-                    continue
-
-                param_syntax, *_ = shard.syntax[first_param.meta.n_id]
-                param_id = param_syntax.meta.n_id
-
-                input_type = "label_input_type"
-                param_syntax.meta.danger = True
-                append_label(shard.graph, param_id, input_type, finding)
-
-                mark_assignments_sink(
-                    finding,
-                    shard.graph,
-                    shard.syntax,
-                    {
-                        "RequireDigit",
-                        "RequiredLength",
-                        "RequireNonAlphanumeric",
-                        "RequireUppercase",
-                        "RequireLowercase",
-                        "RequiredUniqueChars",
-                    },
-                )
-
-                yield shard_n_id_query(
-                    shard_db,
-                    graph_db,
-                    shard,
-                    param_id,
-                    method=method,
-                )
-
-    return tuple(chain.from_iterable(find_vulns()))
+            return True
+    return False
 
 
 def check_no_password_argument(triggers: Set[str]) -> bool:
@@ -102,6 +60,57 @@ def check_no_password_argument(triggers: Set[str]) -> bool:
             if var == "Password" and not value:
                 return True
     return False
+
+
+# https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
+def weak_credential_policy(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    object_type = {"Configure<IdentityOptions>"}
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in g.filter_nodes(
+                graph,
+                graph.nodes,
+                g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                if not graph.nodes[nid].get("member") in object_type:
+                    continue
+
+                al_id = graph.nodes[g.pred(graph, nid)[0]].get("arguments_id")
+                opt_id = g.match_ast(graph, al_id).get("__0__")
+                if (
+                    opt_id
+                    and graph.nodes[opt_id].get("label_type")
+                    == "LambdaExpression"
+                    and (block_id := g.adj_ast(graph, opt_id)[1])
+                ):
+                    config_options = g.adj_ast(graph, block_id)
+                    for assignment in config_options:
+                        arg_list = g.adj_ast(graph, assignment)
+                        if (
+                            len(arg_list) >= 2
+                            and (memb_n := graph.nodes[arg_list[0]])
+                            and "Password" in memb_n.get("expression")
+                            and (member := memb_n.get("member"))
+                            and is_danger_value(graph, arg_list[1], member)
+                        ):
+                            yield shard, arg_list[0]
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_root.f035.csharp_weak_credential_policy.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=core_model.MethodsEnum.CS_WEAK_CREDENTIAL,
+    )
 
 
 def no_password(

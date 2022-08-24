@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f035.literal.c_sharp import (
     cs_no_password,
+    cs_weak_credential,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -15,6 +16,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_NO_PASSWORD: cs_no_password,
+    MethodsEnum.CS_WEAK_CREDENTIAL: cs_weak_credential,
 }
 
 
