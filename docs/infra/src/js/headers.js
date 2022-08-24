@@ -38,6 +38,16 @@ let securityHeaders = {
                          + "payment=(self)",
 }
 
+const homeURL = "https://docs.fluidattacks.com/";
+const redirectMap = new Map([
+  ["/criteria/compliance/owaspten/", homeURL,],
+  ["/criteria/compliance/owaspten", homeURL,],
+  ["/criteria/source/345/", homeURL,],
+  ["/criteria/source/345", homeURL,],
+  ["/types/", homeURL,],
+  ["/types", homeURL,],
+]);
+
 let sanitiseHeaders = {}
 
 let removeHeaders = [
@@ -51,7 +61,15 @@ addEventListener('fetch', event => {
 async function addHeaders(req) {
   let response = await fetch(req)
   let newHdrs = new Headers(response.headers)
-  
+
+  const requestURL = new URL(response.url);
+  const path = requestURL.pathname;
+  const location = redirectMap.get(path);
+
+  if (location) {
+    return Response.redirect(location, 301);
+  }
+
   if (newHdrs.has("Content-Type") && !newHdrs.get("Content-Type").includes("text/html")) {
     return new Response(response.body , {
       status: response.status,
