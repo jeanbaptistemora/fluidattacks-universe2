@@ -54,6 +54,15 @@ def format_forces_vulnerabilities(
         accepted=format_exploit_result(vulenrabilities["accepted"])
         if vulenrabilities.get("accepted")
         else [],
+        num_of_vulns_in_exploits=vulenrabilities.get(
+            "num_of_vulnerabilities_in_exploits"
+        ),
+        num_of_vulns_in_integrates_exploits=vulenrabilities.get(
+            "num_of_vulnerabilities_in_integrates_exploits"
+        ),
+        num_of_vulns_in_accepted_exploits=vulenrabilities.get(
+            "num_of_vulnerabilities_in_accepted_exploits"
+        ),
     )
 
 

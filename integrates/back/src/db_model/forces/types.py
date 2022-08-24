@@ -22,6 +22,9 @@ class ExecutionVulnerabilities(NamedTuple):
     open: Optional[list[ExploitResult]] = None
     closed: Optional[list[ExploitResult]] = None
     accepted: Optional[list[ExploitResult]] = None
+    num_of_vulns_in_exploits: Optional[int] = None
+    num_of_vulns_in_integrates_exploits: Optional[int] = None
+    num_of_vulns_in_accepted_exploits: Optional[int] = None
 
 
 class ForcesExecution(NamedTuple):
