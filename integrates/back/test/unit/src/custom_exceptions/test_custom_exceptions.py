@@ -12,9 +12,11 @@ from custom_exceptions import (
     InvalidFileType,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
+    InvalidPushToken,
     InvalidRange,
     InvalidSchema,
     RepeatedValues,
+    StakeholderNotFound,
     VulnNotFound,
 )
 from dataloaders import (
@@ -57,6 +59,9 @@ from organizations_finding_policies import (
 )
 import os
 import pytest
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -294,6 +299,15 @@ async def test_validate_number_acceptances() -> None:
         )
 
 
+async def test_add_push_token() -> None:
+    loaders: Dataloaders = get_new_context()
+    user_email = "unittest@fluidattacks.com"
+    with pytest.raises(InvalidPushToken):
+        assert await stakeholders_domain.add_push_token(
+            loaders, user_email, "not-a-push-token"
+        )
+
+
 def test_invalid_range_to_list() -> None:
     bad_range_value = "13-12"
     with pytest.raises(InvalidRange):
@@ -324,6 +338,14 @@ async def test_validate_tags() -> None:
         assert await validate_group_tags(
             loaders, "unittesting", ["test-groups"]
         )
+
+
+@pytest.mark.changes_db
+async def test_remove_stakeholder() -> None:
+    email: str = "testanewuser@test.test"
+    loaders: Dataloaders = get_new_context()
+    with pytest.raises(StakeholderNotFound):
+        await loaders.stakeholder.load(email)
 
 
 @pytest.mark.asyncio
