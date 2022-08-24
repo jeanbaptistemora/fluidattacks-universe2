@@ -1911,261 +1911,261 @@ pci:
   es:
     summary: __empty__
   definitions:
-    A1_1:
-      title: A hosting provider must fulfill these requirements
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
-    A1_2:
-      title: Restrict each entity's access and privileges
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
-    A1_3:
-      title: Ensure logging and audit trails
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
-    A2_1:
-      title: Where POS POI terminals use SSL or early TLS
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     '1_2_2':
       title: Network security controls are configured and maintained
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_2_5':
       title: Network security controls are configured and maintained
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_2_6':
       title: Network security controls are configured and maintained
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_3_1':
       title: Inbound traffic to the cardholder data environment is restricted
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_3_2':
       title: Outbound traffic to the cardholder data environment is restricted
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_4_2':
       title: Restrict inbound traffic from untrusted networks
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_4_3':
       title: Implement anti-spoofing measures
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_4_4':
       title: Network connections between trusted and untrusted networks are controlled
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_4_5':
       title: Do not disclosure of internal IP addresses and routing information
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '1_5_1':
       title: Implement security controls on any computing devices
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_2_2':
       title: System components are configured and managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_2_4':
       title: Remove or disable all unnecessary functionality
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_2_5':
       title: System components are configured and managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_2_6':
       title: Configure secure system parameters to prevent misuse
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_2_7':
       title: System components are configured and managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_3_1':
       title: Wireless environments are configured and managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '2_3_2':
       title: Wireless environments are configured and managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_2_1':
       title: Retain account data only where neccesary and deleted when no longer needed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_3_1':
       title: Sensitive authentication data (SAD) is not stored after authorization
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_3_2':
       title: Sensitive authentication data (SAD) is encrypted using strong cryptography
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_3_3':
       title: Sensitive authentication data (SAD) is not stored after authorization
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_4_1':
       title: Data is masked when displayed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_4_2':
       title: Use secure remote-access technologies
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_5_1':
       title: Primary account number (PAN) is secured wherever it is stored
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_6_1':
       title: Protect cryptographic keys used to protect stored account data
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_7_1':
       title: Generation of strong cryptographic keys
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_7_2':
       title: Secure cryptographic key distribution
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_7_3':
       title: Secure cryptographic key storage
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_7_7':
       title: Prevention of unauthorized substitution of cryptographic keys
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '3_7_9':
       title: Secure transmission and storage of cryptographic keys
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '4_2_1':
       title: Strong cryptography during transmission
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '4_2_2':
       title: Strong cryptography to protect data
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '5_2_1':
       title: Deploy an anti-malware solution on system components
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '5_3_2':
       title: Anti-malware mechanisms and processes are active and monitored
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '5_3_4':
       title: Enable audit logs for the anti-malware solution
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_2_4':
       title: Software engineering techniques to prevent or mitigate common software
         attacks
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_3_3':
       title: Security vulnerabilities are identified and addressed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_4_1':
       title: Public-facing web applications are protected against attacks
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_4_3':
       title: Public-facing web applications are protected against attacks
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_5_4':
       title: Changes to all system components are managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_5_5':
       title: Changes to all system components are managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '6_5_6':
       title: Changes to all system components are managed securely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_2_2':
       title: Access to system components and data is appropriately defined and assigned
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_2_3':
       title: Required privileges are approved by authorized personnel
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_2_5':
       title: Access to system components and data is defined and assigned
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_2_6':
       title: Access to system components and data is defined and assigned
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_3_1':
       title: Access to system components and data is managed via an access control
         system
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_3_2':
       title: Access to system components and data is managed via an access control
         system
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '7_3_3':
       title: Access control system is set to deny by default
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_1':
       title: Assign a unique ID before access to system components
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_3':
       title: User identification for users and administrators are strictly managed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_4':
       title: User identification for users and administrators are strictly managed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_5':
       title: Access for terminated users is immediately revoked
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_6':
       title: Inactive user accounts are removed within 90 days of inactivity
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_2_8':
       title: User identification for users and administrators are strictly managed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_1':
       title: Strong authentication for users and administrators is established
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_2':
       title: Strong authentication for users and administrators is established
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_3':
       title: Strong authentication for users and administrators is established
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_5':
       title: Initial or reset password or passphrase used by authorized user
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_6':
       title: Passwords or passphrases with minimum level of complexity
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_7':
       title: A previously used password cannot be used to gain access to an account
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_9':
       title: A password or passphrase cannot be used indefinitely
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_3_11':
       title: An authentication factor cannot be used by anyone other than the user
         assigned
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_4_1':
       title: Multi-factor authentication (MFA) is implemented to secure access
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_4_2':
       title: Multi-factor authentication (MFA) is implemented to secure access
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_4_3':
       title: Multi-factor authentication (MFA) is implemented to secure access
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_5_1':
       title: Multi-factor authentication (MFA) systems are configured to prevent misuse
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '8_6_3':
       title: Use of application and associated authentication factors is strictly
         managed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '9_2_2':
       title: Physical access controls manage entry into systems containing data
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '9_2_3':
       title: Physical access controls manage entry into systems containing data
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '9_4_1':
       title: Media with cardholder data is securely stored and accessed
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '9_4_3':
       title: Media is secured and tracked when transported
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '9_4_7':
       title: Media is secured and tracked when transported
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '10_2_1':
       title: Audit logs are enabled and active for all system components
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '10_3_2':
       title: Audit logs are protected from destruction and unauthorized modifications
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '10_6_1':
       title: System clocks and time are synchronized
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '10_7_2':
       title: Failures of critical security control systems are detected and responded
         to promptly
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '11_2_1':
       title: Wireless access points are identified and monitored
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
     '12_9_1':
       title: Third-party service providers support their customers
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
+    '3_6_1_1':
+      title: Protect cryptographic keys used to protect stored account data
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
+    '3_6_1_2':
+      title: Protect cryptographic keys used to protect stored account data
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
+    '10_2_1_3':
+      title: Audit logs are enabled and active for all system components
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
+    '10_2_1_4':
+      title: Audit logs are enabled and active for all system components
+      link: https://www.pcisecuritystandards.org/documents/PCI-DSS-v4_0.pdf?agreement=true&time=1650291041092
   metadata: {}
 soc2:
   title: SOC2®

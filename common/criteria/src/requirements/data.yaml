@@ -1679,7 +1679,6 @@
     - iso27001.12_4_3
     - nerccip.007-6_R4_1
     - owasp10.A9
-    - pci.A1_3
     - nist.DE_AE-5
     - nydfs.500_14
     - mitre.M1029
@@ -1726,6 +1725,7 @@
     - c2m2.6_1_f
     - pci.5_3_4
     - pci.10_2_1
+    - pci.10_2_1_4
   metadata: {}
 '077':
   en:
@@ -2146,6 +2146,7 @@
     - lgpd.18_II
     - mvsp.2_7
     - owaspscp.7
+    - pci.10_2_1_3
   metadata: {}
 '088':
   en:
@@ -2506,7 +2507,6 @@
     - nist80053.AC-2_7c
     - owasp10.A1
     - owasp10.A7
-    - pci.A1_1
     - nist.ID_AM-5
     - bizec.APP-04
     - certc.FIO32-C
@@ -4122,6 +4122,7 @@
     - iso27002.8_24
     - owaspscp.6
     - c2m2.9_5_e
+    - pci.3_6_1_2
   metadata: {}
 '152':
   en:
@@ -6220,8 +6221,6 @@
     - cwe.732
     - nist80053.AC-6
     - owasp10.A1
-    - pci.A1_1
-    - pci.A1_2
     - soc2.CC6_3
     - soc2.P1_1
     - nist.PR_AC-4
@@ -10800,7 +10799,6 @@
     - cwe.326
     - cwe.757
     - owasp10.A2
-    - pci.A2_1
     - owaspm10.M3
     - nist.PR_PT-4
     - certj.DRD19-J
@@ -11862,6 +11860,7 @@
     - owaspmasvs.V3_5
     - nist800171.5_1
     - c2m2.9_5_e
+    - pci.3_6_1_1
   metadata: {}
 '352':
   en:
@@ -12332,6 +12331,7 @@
     - bsafss.EN_3-2
     - asvs.1_6_3
     - c2m2.9_5_e
+    - pci.3_6_1_1
   metadata: {}
 '362':
   en:
