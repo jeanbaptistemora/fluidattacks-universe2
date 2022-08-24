@@ -34,6 +34,7 @@ from typing import (
 )
 
 LOG = logging.getLogger(__name__)
+_T = TypeVar("_T")
 
 
 @dataclass(frozen=True)
@@ -41,21 +42,22 @@ class _BinFile:
     file_path: str
 
 
-_T = TypeVar("_T")
-
-
 @dataclass(frozen=True)
 class BinFile:
     _inner: _BinFile
 
-    def transform_file(self, function: Callable[[IO[bytes]], _T]) -> _T:
+    def unsafe_transform(self, function: Callable[[IO[bytes]], _T]) -> Cmd[_T]:
         """
         This method can be unsafe.
-        - Do not extract file name from the IO file obj
-        - Or ensure it will be opened only in read mode
+        - Do not extract file name from the IO file obj. IO file name is private.
+        - Ensure it will be reopened in read mode only.
         """
-        with open(self._inner.file_path, "rb") as file:
-            return function(file)
+
+        def _action() -> _T:
+            with open(self._inner.file_path, "rb") as file:
+                return function(file)
+
+        return Cmd.from_cmd(_action)
 
     @staticmethod
     def save(content: Stream[bytes]) -> Cmd[BinFile]:

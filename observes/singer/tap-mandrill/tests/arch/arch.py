@@ -22,6 +22,10 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "export",
         "_utils",
     ),
+    "tap_mandrill._files": (
+        "_str_file",
+        "_bin_file",
+    ),
 }
 
 
