@@ -1,6 +1,6 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Column, Header, RowData, Table } from "@tanstack/react-table";
+import type { RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
 import { NumberFilter } from "./NumberFilter";
@@ -29,15 +29,7 @@ const Filters = <TData extends RowData>({
   }, []);
 
   const columnsToFilter = table
-    .getHeaderGroups()
-    .reduce<Header<TData, unknown>[]>(
-      (previous, current): Header<TData, unknown>[] => [
-        ...previous,
-        ...current.headers,
-      ],
-      []
-    )
-    .map((header): Column<TData, unknown> => header.column)
+    .getAllLeafColumns()
     .filter((column): boolean => column.getCanFilter());
 
   return (

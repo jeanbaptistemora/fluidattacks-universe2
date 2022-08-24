@@ -4,13 +4,13 @@ import React, { useCallback } from "react";
 import { FormikNumber } from "components/Input/Formik";
 import { Col, Row } from "components/Layout";
 
-interface INumberFilterProps<TData extends RowData> {
+interface INumberRangeFilterProps<TData extends RowData> {
   column: Column<TData, unknown>;
 }
 
 const NumberRangeFilter = <TData extends RowData>({
   column,
-}: INumberFilterProps<TData>): JSX.Element => {
+}: INumberRangeFilterProps<TData>): JSX.Element => {
   const minMaxValues = column.getFacetedMinMaxValues();
   const maxValue = minMaxValues === undefined ? undefined : minMaxValues[1];
   const filterValue = column.getFilterValue() as [number, number] | undefined;

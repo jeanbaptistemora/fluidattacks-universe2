@@ -48,7 +48,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
     header: "Found",
   },
   {
-    accessorFn: (row): string => row.finding.severityScore.toString(),
+    accessorFn: (row): number => row.finding.severityScore,
     cell: (cell): JSX.Element => {
       const link = `${cell.row.original.finding.id}/severity`;
       const text = cell.getValue<string>();

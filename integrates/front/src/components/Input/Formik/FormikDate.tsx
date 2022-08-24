@@ -10,7 +10,10 @@ interface IInputDateProps extends IInputBase<HTMLInputElement> {
   min?: Date;
 }
 
-type TInputDateProps = IInputDateProps & TFieldProps;
+type TInputDateProps = IInputDateProps & {
+  field: TFieldProps["field"];
+  form: Pick<TFieldProps["form"], "errors" | "touched">;
+};
 
 const FormikDate: FC<TInputDateProps> = ({
   disabled,
