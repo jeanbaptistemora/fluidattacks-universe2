@@ -229,6 +229,34 @@ def get_vulnerabilities_from_iterator_blocking(
     return results
 
 
+def get_vulnerabilities_for_incomplete_deps(
+    content: str,
+    description_key: str,
+    iterator: Iterator[str],
+    path: str,
+    method: core_model.MethodsEnum,
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        build_lines_vuln(
+            method=method,
+            what=f"{path} (missing dependency: {dep})",
+            where="0",
+            metadata=build_metadata(
+                method=method,
+                description=f"{t(key=description_key)} {t(key='words.in')} "
+                f"{CTX.config.namespace}/{path}",
+                snippet=make_snippet(
+                    content=content,
+                    viewport=SnippetViewport(column=int(0), line=int(0)),
+                ),
+            ),
+        )
+        for dep in iterator
+    )
+
+    return results
+
+
 def str_to_number(token: str, default: float = math.nan) -> float:
     try:
         return float(ast.literal_eval(token))

@@ -1,5 +1,5 @@
 from lib_path.common import (
-    get_vulnerabilities_from_iterator_blocking,
+    get_vulnerabilities_for_incomplete_deps,
 )
 from model.core_model import (
     MethodsEnum,
@@ -10,7 +10,6 @@ import requirements
 import subprocess  # nosec
 from typing import (
     Iterator,
-    Tuple,
 )
 from utils.fs import (
     get_file_content_block,
@@ -59,19 +58,19 @@ def pip_incomplete_dependencies_list(
     )
     get_requirements = get_file_content_block(build_requirements_path)
 
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[str]:
         dependencies_names = list(
             map(_get_name, list(requirements.parse(get_requirements)))
         )
         client_dependencies_names = list(
             map(_get_name, requirements.parse(content))
         )
-        for line_number, name in enumerate(dependencies_names, 1):
+        for name in dependencies_names:
             if name not in client_dependencies_names:
-                yield line_number, 0
+                yield name
 
-    return get_vulnerabilities_from_iterator_blocking(
-        content=get_requirements,
+    return get_vulnerabilities_for_incomplete_deps(
+        content=content,
         description_key="src.lib_path.f079.pip_incomplete_dependencies_list",
         iterator=iterator(),
         path=path,
