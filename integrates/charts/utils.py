@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
@@ -67,15 +70,11 @@ MAX_WITH_DECIMALS = Decimal("10.0")
 
 async def get_all_time_forces_executions(
     group_name: str,
-) -> dict[str, Any]:
-    executions: list[dict[str, Union[str, int]]] = []
-    executions = [
-        execution
-        async for execution in forces_domain.get_executions(
-            group_name=group_name,
-            group_name_key="project_name",
-        )
-    ]
+) -> ForcesExecution:
+    loaders = get_new_context()
+    executions: tuple[
+        ForcesExecution, ...
+    ] = await loaders.forces_executions.load((group_name, None))
 
     return executions
 

@@ -14,29 +14,48 @@ from contextlib import (
 from custom_exceptions import (
     UnsanitizedInputFound,
 )
+from db_model.forces.types import (
+    ForcesExecution,
+)
 from newutils.validations import (
     validate_sanitized_csv_input,
 )
 
 
 async def generate_one(*, group: str) -> dict:
-    executions = await utils.get_all_time_forces_executions(group)
+    executions: tuple[
+        ForcesExecution, ...
+    ] = await utils.get_all_time_forces_executions(group)
 
     executions_in_strict_mode = tuple(
         execution
         for execution in executions
-        if execution["strictness"] == "strict"
+        if execution.strictness == "strict"
     )
 
     executions_in_any_mode_with_vulns = tuple(
         execution
         for execution in executions
-        for vulns in [execution["vulnerabilities"]]
-        if vulns.get("num_of_vulnerabilities_in_exploits", 0) > 0
-        or vulns.get("num_of_vulnerabilities_in_integrates_exploits", 0) > 0
-        or vulns.get("num_of_vulnerabilities_in_accepted_exploits", 0) > 0
-        or vulns.get("num_of_open_vulnerabilities", 0) > 0
-        or vulns.get("num_of_accepted_vulnerabilities", 0) > 0
+        if (
+            execution.vulnerabilities.num_of_vulns_in_exploits
+            if execution.vulnerabilities.num_of_vulns_in_exploits
+            else 0
+        )
+        > 0
+        or (
+            execution.vulnerabilities.num_of_vulns_in_integrates_exploits
+            if execution.vulnerabilities.num_of_vulns_in_integrates_exploits
+            else 0
+        )
+        > 0
+        or (
+            execution.vulnerabilities.num_of_vulns_in_accepted_exploits
+            if execution.vulnerabilities.num_of_vulns_in_accepted_exploits
+            else 0
+        )
+        > 0
+        or execution.vulnerabilities.num_of_open_vulnerabilities > 0
+        or execution.vulnerabilities.num_of_accepted_vulnerabilities > 0
     )
 
     successful_executions_in_strict_mode = tuple(

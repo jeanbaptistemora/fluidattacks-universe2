@@ -8,13 +8,17 @@ from charts.generators.text_box.utils import (
     ForcesReport,
     format_csv_data,
 )
+from db_model.forces.types import (
+    ForcesExecution,
+)
 
 
 async def generate_one(group: str) -> ForcesReport:
-    executions = await utils.get_all_time_forces_executions(group)
+    executions: tuple[
+        ForcesExecution, ...
+    ] = await utils.get_all_time_forces_executions(group)
     unique_executions = set(
-        f'{execution["git_repo"]}{execution["git_branch"]}'
-        for execution in executions
+        f"{execution.repo}{execution.branch}" for execution in executions
     )
 
     return ForcesReport(fontSizeRatio=0.5, text=str(len(unique_executions)))
