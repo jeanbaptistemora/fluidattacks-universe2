@@ -289,6 +289,7 @@ def parse_content(
 def _parse_one_cached(
     *,
     content: bytes,
+    path: str,
     language: GraphShardMetadataLanguage,
 ) -> Optional[GraphShardCacheable]:
     raw_tree: Tree = parse_content(content, language)
@@ -307,7 +308,7 @@ def _parse_one_cached(
     }
 
     if language in syntax_support:
-        if syntax_graph := build_syntax_graph(language, graph):
+        if syntax_graph := build_syntax_graph(path, language, graph):
             syntax_graph = add_syntax_cfg(syntax_graph)
     else:
         syntax_graph = None
@@ -376,6 +377,7 @@ def parse_one(
     try:
         graph = _parse_one_cached(
             content=content,
+            path=path,
             language=language,
         )
     except (

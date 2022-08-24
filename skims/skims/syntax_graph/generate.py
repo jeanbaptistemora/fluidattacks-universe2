@@ -39,6 +39,7 @@ def generic(args: SyntaxGraphArgs) -> str:
         severity="warning",
         group=CTX.config.group,
         namespace=CTX.config.namespace,
+        path=args.path,
         node_type=node_type,
     )
 
@@ -46,12 +47,14 @@ def generic(args: SyntaxGraphArgs) -> str:
 
 
 def build_syntax_graph(
-    language: GraphLanguage, ast_graph: Graph
+    path: str, language: GraphLanguage, ast_graph: Graph
 ) -> Optional[Graph]:
     try:
         syntax_graph = Graph()
         generic(
-            SyntaxGraphArgs(generic, language, ast_graph, syntax_graph, "1")
+            SyntaxGraphArgs(
+                generic, path, language, ast_graph, syntax_graph, "1"
+            )
         )
         return syntax_graph
     except (MissingSyntaxReader, MissingCaseHandling) as error:

@@ -16,6 +16,7 @@ SYNTAX_GRAPH_ARGS = Any
 
 class SyntaxGraphArgs(NamedTuple):
     generic: Callable[[SYNTAX_GRAPH_ARGS], NId]
+    path: str
     language: GraphLanguage
     ast_graph: Graph
     syntax_graph: Graph
@@ -24,6 +25,7 @@ class SyntaxGraphArgs(NamedTuple):
     def fork_n_id(self, n_id: NId) -> SYNTAX_GRAPH_ARGS:
         return SyntaxGraphArgs(
             generic=self.generic,
+            path=self.path,
             language=self.language,
             ast_graph=self.ast_graph,
             syntax_graph=self.syntax_graph,
