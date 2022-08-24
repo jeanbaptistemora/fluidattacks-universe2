@@ -48,7 +48,7 @@ const getUpdateChanges = (
       await updateEvidence({
         variables: {
           eventId,
-          evidenceType: key.toUpperCase(),
+          evidenceType: `${key.toUpperCase()}_1`,
           file: file[0],
         },
       });

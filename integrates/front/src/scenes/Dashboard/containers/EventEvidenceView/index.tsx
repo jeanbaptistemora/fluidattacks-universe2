@@ -124,12 +124,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
   const removeImage = useCallback(async (): Promise<void> => {
     setIsEditing(false);
-    await removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
+    await removeEvidence({ variables: { eventId, evidenceType: "IMAGE_1" } });
   }, [eventId, removeEvidence]);
 
   const removeFile = useCallback(async (): Promise<void> => {
     setIsEditing(false);
-    await removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
+    await removeEvidence({ variables: { eventId, evidenceType: "FILE_1" } });
   }, [eventId, removeEvidence]);
 
   const handleDownload = useCallback(async (): Promise<void> => {
