@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import {
   faPlus,
   faTrashAlt,
@@ -7,14 +9,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { GET_BILLING } from "../GroupAuthorsView/queries";
+import type { IData, IGroupAuthor } from "../GroupAuthorsView/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
@@ -43,7 +48,10 @@ import type {
   IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -52,11 +60,15 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const baseRolesUrl =
     "https://docs.fluidattacks.com/machine/web/groups/roles/";
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const { userEmail }: IAuthContext = useContext(authContext);
 
   // State management
   const [currentRow, setCurrentRow] = useState<IStakeholderDataSet[]>([]);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [userModalAction, setUserModalAction] = useState<"add" | "edit">("add");
+  const [emailSuggestion, setEmailSuggestion] = useState<string[]>([]);
+  const [domainSuggestion, setDomainSuggestion] = useState<string[]>([]);
   const openAddUserModal: () => void = useCallback((): void => {
     setUserModalAction("add");
     setIsUserModalOpen(true);
@@ -153,6 +165,19 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
     },
+    variables: { groupName },
+  });
+  const { data: dataAuthor } = useQuery<IData>(GET_BILLING, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred getting billing data from stakeholder",
+          error
+        );
+      });
+    },
+    skip: permissions.cannot("api_resolvers_group_authors_resolve"),
     variables: { groupName },
   });
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
@@ -279,6 +304,46 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     t,
     validMutationsHelper,
   ]);
+  useEffect((): void => {
+    if (data !== undefined) {
+      const emailStakeholder = data.group.stakeholders.map(
+        (stakeholder: IStakeholderAttrs): string => stakeholder.email
+      );
+      const authorsEmail =
+        dataAuthor === undefined
+          ? []
+          : dataAuthor.group.authors.data.map((value: IGroupAuthor): string => {
+              const { actor } = value;
+              const place: number = actor.lastIndexOf("<");
+
+              return place >= 0
+                ? actor.substring(place + 1, actor.length - 1)
+                : actor;
+            });
+
+      const authorsNotStakeholder = authorsEmail.filter(
+        (value: string): boolean => !emailStakeholder.includes(value)
+      );
+      const domains = Array.from(
+        new Set(
+          [...emailStakeholder, ...authorsEmail].map(
+            (email: string): string => {
+              const [, emailDomain] = email.split("@");
+              if (userEmail.endsWith("@fluidattacks.com")) {
+                return emailDomain;
+              }
+
+              return emailDomain === "fluidattacks.com" ? "" : emailDomain;
+            }
+          )
+        )
+      );
+      setEmailSuggestion(Array.from(new Set(authorsNotStakeholder)));
+      setDomainSuggestion(
+        domains.filter((domain: string): boolean => domain !== "")
+      );
+    }
+  }, [data, dataAuthor, userEmail]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -428,6 +493,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         />
         <AddUserModal
           action={userModalAction}
+          domainSuggestings={userModalAction === "edit" ? [] : domainSuggestion}
           editTitle={t("searchFindings.tabUsers.editStakeholderTitle")}
           groupName={groupName}
           initialValues={
@@ -438,6 +504,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           onClose={closeUserModal}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
+          suggestions={userModalAction === "edit" ? [] : emailSuggestion}
           title={t("searchFindings.tabUsers.title")}
           type={"user"}
         />

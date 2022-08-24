@@ -8,7 +8,7 @@ interface IStakeholderAttrs {
 interface IAddStakeholderModalProps {
   action: "add" | "edit";
   editTitle: string;
-  initialValues: Record<string, string>;
+  initialValues?: Record<string, string>;
   open: boolean;
   organizationId?: string;
   groupName?: string;

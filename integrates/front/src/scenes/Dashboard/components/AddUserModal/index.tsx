@@ -63,7 +63,9 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
   const isOrganizationTypeModal: boolean = type === "organization";
   const sidebarModal: boolean = type === "user" && groupName === undefined;
   const newInitialValues: Record<string, string> = getNewInitialValues(
-    initialValues,
+    _.isEmpty(initialValues) || initialValues === undefined
+      ? { email: "", organizationModal: "", role: "" }
+      : initialValues,
     action,
     isOrganizationTypeModal
   );

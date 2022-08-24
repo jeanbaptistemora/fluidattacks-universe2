@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -372,10 +372,9 @@ describe("Group stakeholders view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.type(
-      screen.getByRole("textbox", { name: "email" }),
-      "unittest@test.com"
-    );
+    fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
+      target: { value: "unittest@test.com" },
+    });
     userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
@@ -666,10 +665,9 @@ describe("Group stakeholders view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.type(
-      screen.getByRole("textbox", { name: "email" }),
-      "unittest@test.com"
-    );
+    fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
+      target: { value: "unittest@test.com" },
+    });
     userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
