@@ -17,6 +17,7 @@
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
+    rev = "a892e559c7b98e81e259222e93426fd060884121";
     ref = "refs/tags/v0.5.2";
   };
   redshift = import redshift_src {

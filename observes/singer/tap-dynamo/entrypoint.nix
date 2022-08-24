@@ -12,6 +12,7 @@
   arch-lint = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
+      rev = "753e5bd2ed248adc92951611b09780dcedb4e0b6";
       ref = "refs/tags/v1.0.0";
     };
   in
@@ -33,6 +34,7 @@
   fa-singer-io = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/singer_io";
+      rev = "d35487441ba37e2a98dca789741407231576e481";
       ref = "refs/tags/v1.4.0";
     };
   in

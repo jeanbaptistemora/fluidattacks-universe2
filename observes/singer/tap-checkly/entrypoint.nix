@@ -26,6 +26,7 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _singer_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/singer_io";
+    rev = "67375a892746d6f6b28966265969f55a09cc1df3";
     ref = "refs/tags/v1.1.0";
   };
   singer-io = import _singer_src {
