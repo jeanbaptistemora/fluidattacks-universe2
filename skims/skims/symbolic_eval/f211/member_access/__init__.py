@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f211.member_access.c_sharp import (
     cs_regex_injection,
+    cs_vuln_regex,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -15,6 +16,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REGEX_INJETCION: cs_regex_injection,
+    MethodsEnum.CS_VULN_REGEX: cs_vuln_regex,
 }
 
 

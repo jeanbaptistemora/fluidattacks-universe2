@@ -8,9 +8,6 @@ from model.graph_model import (
 from symbolic_eval.context.method import (
     solve_invocation,
 )
-from symbolic_eval.f211.method_invocation import (
-    evaluate as evaluate_parameter_f211,
-)
 from symbolic_eval.f338.method_invocation import (
     evaluate as evaluate_parameter_f338,
 )
@@ -34,7 +31,6 @@ from utils import (
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
-    FindingEnum.F211: evaluate_parameter_f211,
     FindingEnum.F338: evaluate_parameter_f338,
 }
 
