@@ -36,7 +36,6 @@ async def _get_executions(
         "KeyConditionExpression": key_condition_expresion,
         "IndexName": "date",
         "ScanIndexForward": False,
-        "Limit": 100,
     }
     results = await dynamodb_ops.query(TABLE_NAME, query_params)
     for result in results:
