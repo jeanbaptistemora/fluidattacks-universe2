@@ -16,7 +16,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill": (
         "api",
         "objs",
-        "_logger",
+        ("_logger", "_files"),
     ),
     "tap_mandrill.api": (
         "export",
