@@ -26,6 +26,9 @@ information:
 
 - **ID:**
   The event’s unique identifier
+- **Root:**
+  Refers to the
+  nickname of the root.
 - **Date reported:**
   When the event was reported
 - **Description:**
