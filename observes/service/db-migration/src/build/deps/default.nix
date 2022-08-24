@@ -7,6 +7,7 @@
   python_version = "python39";
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
+    rev = "4515a1af33cfaf249bf32afc7e8f0b7735959679";
     ref = "refs/tags/v1.5.1";
   };
   purity = import purity_src {
