@@ -29,11 +29,10 @@ def get_project(session: Gitlab, project_id: str) -> Any:
 
 
 def get_pipelines(project: Any, raw_pr: Any) -> list[Any]:
-    pipelines: list[Any] = raw_pr.pipelines.list()
-    new_pipelines: list[Any] = []
-    for pipeline in pipelines:
-        new_pipelines.append(project.pipelines.get(pipeline.id))
-    return new_pipelines
+    return [
+        project.pipelines.get(pipeline.id)
+        for pipeline in raw_pr.pipelines.list()
+    ]
 
 
 def close_pr(pull_request: PullRequest) -> None:
