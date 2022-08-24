@@ -37,7 +37,7 @@ const composeValidators =
     // Needed for compatibility with ConfigurableValidator parameters
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     args: ((value: any) => string | undefined)[]
-  ): unknown =>
+  ): ((value: unknown) => string | undefined) =>
   (value: unknown): string | undefined => {
     const errors = args
       .map((validator): string | undefined => validator(value))

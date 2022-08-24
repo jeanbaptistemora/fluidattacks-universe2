@@ -177,11 +177,6 @@
   border-radius: 2px;
 }
 
-:local .tagInput {
-  display: inline-block;
-  width: 50%;
-}
-
 :local .tagRemove {
   color: #ff3435;
   margin-left: 4px;

@@ -91,8 +91,7 @@ export const FormikTagInput: React.FC<ITagInputProps> = (
   const styles: Record<string, string> = {
     remove: style.tagRemove,
     tag: style.inputTags,
-    tagInput: style.tagInput,
-    tagInputField: `${style["form-control"]} lh-copy pa2`,
+    tagInputField: `${style["form-control"]} pa2`,
   };
 
   return (
