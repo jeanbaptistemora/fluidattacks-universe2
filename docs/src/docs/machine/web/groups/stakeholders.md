@@ -23,7 +23,7 @@ you have to go to the
 **Stakeholders** section
 in your group.
 
-![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622660238/docs/web/groups/stakeholders/stakeholders_section_kwzr4s.png)
+![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1661373759/docs/web/groups/stakeholders/stakeholders_section.png)
 
 ## Functionalities
 
