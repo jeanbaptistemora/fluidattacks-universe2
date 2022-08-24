@@ -70,7 +70,7 @@ const Portrait: React.FC = (): JSX.Element => {
             onEnd={hideVideo}
             opts={opts}
             ref={playerRef}
-            videoId={"uxrMcbZWucc"}
+            videoId={"ilvBEP7R9w0"}
           />
         </HomeVideoContainer>
         <HomeImageContainer isVisible={play}>
