@@ -14,8 +14,6 @@ from time import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 from utils.logs import (
     log,
@@ -76,7 +74,7 @@ def all_pipelines_successful(*, data: TestData) -> bool:
     while index < len(data.pull_request.pipelines()):
         pipeline: Any = data.pull_request.pipelines()[index]
         p_jobs: Any = pipeline.jobs.list()
-        p_jobs_names: List[str] = [job.name for job in p_jobs]
+        p_jobs_names: list[str] = [job.name for job in p_jobs]
         if data.config["job_name"] not in p_jobs_names:
             for p_job in p_jobs:
                 if p_job.status in ("success", "manual"):
@@ -108,7 +106,7 @@ def pr_message_syntax(*, data: TestData) -> bool:
     pr_commit_msg: str = (
         f"{data.pull_request.title}\n\n{data.pull_request.description}"
     )
-    command: List[str] = [
+    command: list[str] = [
         "commitlint",
         "--parser-preset",
         os.path.abspath(data.config["parser"]),
@@ -158,7 +156,7 @@ def most_relevant_type(*, data: TestData) -> bool:
     pr_type: str = (
         pr_match.group(data.syntax.match_groups["type"]) if success else ""
     )
-    relevances: Dict[str, int] = data.config["relevances"]
+    relevances: dict[str, int] = data.config["relevances"]
     highest_type: str = list(relevances.keys())[-1]
     commits: Any = data.pull_request.commits()
     for commit in commits:

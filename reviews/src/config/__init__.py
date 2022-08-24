@@ -4,11 +4,9 @@ from dynaconf import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
-ERR_DEFAULT: Dict[str, str] = {
+ERR_DEFAULT: dict[str, str] = {
     "must_exist_true": "{name} is required.",
     "must_exist_false": "{name} cannot exist.",
     "condition": "{name} invalid for {function}({value}).",
@@ -18,7 +16,7 @@ ERR_DEFAULT: Dict[str, str] = {
 
 
 def dict_has_type_values(
-    dictionary: Dict[str, Any], expected_type: type
+    dictionary: dict[str, Any], expected_type: type
 ) -> bool:
     success: bool = True
     for value in dictionary.values():
@@ -49,7 +47,7 @@ def validate_base(config: Dynaconf) -> None:
         ),
     )
     config.validators.validate()
-    tests: List[str] = list(config["tests"].keys())
+    tests: list[str] = list(config["tests"].keys())
     for test in tests:
         config.validators.register(
             Validator(
@@ -63,7 +61,7 @@ def validate_base(config: Dynaconf) -> None:
 
 
 def validate_specific(config: Dynaconf) -> None:
-    tests: List[str] = list(config["tests"].keys())
+    tests: list[str] = list(config["tests"].keys())
     for test in tests:
         if test in ("commits_user_syntax", "pr_user_syntax"):
             config.validators.register(

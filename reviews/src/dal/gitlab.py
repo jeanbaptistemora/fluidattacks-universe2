@@ -9,12 +9,10 @@ from gitlab import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
-def required_vars() -> List[str]:
+def required_vars() -> list[str]:
     return [
         "CI_MERGE_REQUEST_IID",
         "CI_PROJECT_ID",
@@ -30,11 +28,11 @@ def get_project(session: Gitlab, project_id: str) -> Any:
     return session.projects.get(project_id)
 
 
-def get_pipelines(project: Any, raw_pr: Any) -> List[Any]:
-    pipelines: List[Dict[str, str]] = raw_pr.pipelines()
-    new_pipelines: List[Any] = []
+def get_pipelines(project: Any, raw_pr: Any) -> list[Any]:
+    pipelines: list[Any] = raw_pr.pipelines.list()
+    new_pipelines: list[Any] = []
     for pipeline in pipelines:
-        new_pipelines.append(project.pipelines.get(pipeline["id"]))
+        new_pipelines.append(project.pipelines.get(pipeline.id))
     return new_pipelines
 
 

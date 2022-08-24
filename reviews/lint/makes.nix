@@ -5,7 +5,7 @@
         searchPaths.source = [
           outputs."/reviews/runtime"
         ];
-        python = "3.8";
+        python = "3.9";
         src = "/reviews/src";
       };
     };

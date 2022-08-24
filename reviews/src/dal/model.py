@@ -1,20 +1,18 @@
 from typing import (
     Any,
     Callable,
-    Dict,
-    List,
     NamedTuple,
 )
 
 
 class PullRequest(NamedTuple):
-    author: Dict[str, str]
+    author: dict[str, str]
     changes: Callable[[], Any]
     commits: Callable[[], Any]
     description: str
     id: str
     iid: str
-    pipelines: Callable[[], List[Dict[str, str]]]
+    pipelines: Callable[[], list[dict[str, str]]]
     raw: Any
     source_branch: str
     state: str
@@ -24,12 +22,12 @@ class PullRequest(NamedTuple):
 
 
 class Syntax(NamedTuple):
-    match_groups: Dict[str, int]
+    match_groups: dict[str, int]
     regex: str
     user_regex: str
 
 
 class TestData(NamedTuple):
-    config: Dict[str, Any]
+    config: dict[str, Any]
     pull_request: PullRequest
     syntax: Syntax
