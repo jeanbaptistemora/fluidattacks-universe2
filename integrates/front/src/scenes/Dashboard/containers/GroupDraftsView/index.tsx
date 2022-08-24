@@ -15,7 +15,7 @@ import type { ConfigurableValidator } from "revalidate";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Table as Tablez } from "components/TableNew";
+import { Table } from "components/TableNew";
 import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -74,27 +74,32 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     setIsDraftModalOpen(false);
   }, []);
 
-  const tableheadersz: ColumnDef<
+  const tableColumns: ColumnDef<
     IGroupDraftsAndFindingsAttr["group"]["drafts"][0]
   >[] = [
     {
       accessorKey: "reportDate",
+      enableColumnFilter: false,
       header: "Date",
     },
     {
       accessorKey: "title",
+      enableColumnFilter: false,
       header: "Type",
     },
     {
       accessorKey: "description",
+      enableColumnFilter: false,
       header: "Description",
     },
     {
       accessorKey: "severityScore",
+      enableColumnFilter: false,
       header: "Severity",
     },
     {
       accessorKey: "openVulnerabilities",
+      enableColumnFilter: false,
       header: "Open Vulns.",
     },
     {
@@ -103,6 +108,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         cell: ICellHelper<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
       ): JSX.Element => statusFormatter(cell.getValue()),
       header: "State",
+      meta: { filterType: "select" },
     },
   ];
 
@@ -338,9 +344,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <Tablez
-        columns={tableheadersz}
+      <Table
+        columns={tableColumns}
         data={dataset}
+        enableColumnFilters={true}
         exportCsv={true}
         extraButtons={
           <Have I={"can_report_vulnerabilities"}>

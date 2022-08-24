@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 import { handleGrantError } from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table as Tablezz } from "components/TableNew";
+import { Table } from "components/TableNew";
 import { timeFromNow } from "components/TableNew/formatters/timeFromNow";
 import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
@@ -49,7 +49,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const tableheaderszz: ColumnDef<IStakeholderDataSet>[] = [
+const tableColumns: ColumnDef<IStakeholderDataSet>[] = [
   {
     accessorKey: "email",
     header: translate.t("searchFindings.usersTable.usermail"),
@@ -323,8 +323,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <Tablezz
-          columns={tableheaderszz}
+        <Table
+          columns={tableColumns}
           data={stakeholdersList}
           exportCsv={true}
           extraButtons={

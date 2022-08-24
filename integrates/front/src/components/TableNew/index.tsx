@@ -15,6 +15,7 @@ import type {
   FilterFn,
   FilterMeta,
   Row,
+  RowData,
   SortingState,
 } from "@tanstack/react-table";
 import _ from "lodash";
@@ -35,7 +36,7 @@ import { Button } from "components/Button";
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
-const Table = <TData extends object>({
+const Table = <TData extends RowData>({
   columns,
   columnToggle = false,
   csvName = "Report",

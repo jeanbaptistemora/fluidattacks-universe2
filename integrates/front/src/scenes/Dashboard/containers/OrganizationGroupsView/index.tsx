@@ -137,9 +137,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       accessorKey: "description",
+      enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.description.text"),
     },
-    { accessorKey: "plan", header: t("organization.tabs.groups.plan") },
+    {
+      accessorKey: "plan",
+      header: t("organization.tabs.groups.plan"),
+      meta: { filterType: "select" },
+    },
     {
       accessorKey: "userRole",
       cell: (cell): string => {
@@ -147,6 +152,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           defaultValue: "-",
         });
       },
+      enableColumnFilter: false,
       header: t("organization.tabs.groups.role"),
     },
     {
@@ -157,6 +163,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
         return formatLinkHandler(link, text);
       },
+      enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.events.text"),
     },
   ];
@@ -171,6 +178,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         <Table
           columns={tableHeaders}
           data={dataset}
+          enableColumnFilters={true}
           extraButtons={
             <Can do={"api_mutations_add_group_mutate"}>
               <Button

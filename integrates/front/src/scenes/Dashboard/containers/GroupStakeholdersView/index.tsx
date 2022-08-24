@@ -79,9 +79,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     );
   };
 
-  const tableHeaders: ColumnDef<IStakeholderDataSet>[] = [
+  const tableColumns: ColumnDef<IStakeholderDataSet>[] = [
     {
       accessorKey: "email",
+      enableColumnFilter: false,
       header: t("searchFindings.usersTable.usermail"),
     },
     {
@@ -107,19 +108,23 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         });
       },
       header: t("searchFindings.usersTable.userRole"),
+      meta: { filterType: "select" },
     },
     {
       accessorKey: "responsibility",
+      enableColumnFilter: false,
       header: t("searchFindings.usersTable.userResponsibility"),
     },
     {
       accessorKey: "firstLogin",
+      enableColumnFilter: false,
       header: t("searchFindings.usersTable.firstlogin"),
     },
     {
       accessorKey: "lastLogin",
       cell: (cell: ICellHelper<IStakeholderDataSet>): string =>
         timeFromNow(cell.getValue()),
+      enableColumnFilter: false,
       header: t("searchFindings.usersTable.lastlogin"),
     },
     {
@@ -127,11 +132,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
         statusFormatter(cell.getValue()),
       header: t("searchFindings.usersTable.invitationState"),
+      meta: { filterType: "select" },
     },
     {
       accessorKey: "invitationResend",
       cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
         cell.getValue(),
+      enableColumnFilter: false,
       header: t("searchFindings.usersTable.invitation"),
     },
   ];
@@ -316,8 +323,9 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
         <Table
-          columns={tableHeaders}
+          columns={tableColumns}
           data={stakeholdersList}
+          enableColumnFilters={true}
           exportCsv={true}
           extraButtons={
             <React.Fragment>

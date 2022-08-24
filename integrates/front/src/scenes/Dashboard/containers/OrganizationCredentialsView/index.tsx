@@ -123,7 +123,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   }, [handleRemoveCredentials, selectedCredentials, organizationId]);
 
   // Table config
-  const tableHeadersz: ColumnDef<ICredentialsData>[] = [
+  const tableColumns: ColumnDef<ICredentialsData>[] = [
     {
       accessorKey: "name",
       header: t("organization.tabs.credentials.table.columns.name"),
@@ -141,7 +141,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   return (
     <React.StrictMode>
       <Table
-        columns={tableHeadersz}
+        columns={tableColumns}
         data={credentials}
         extraButtons={
           <ActionButtons
