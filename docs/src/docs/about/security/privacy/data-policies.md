@@ -21,7 +21,7 @@ over the information provided.
 
 All data related to a project
 can be deleted from our
-[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+[Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
 by a user with a **project manager** role.
 Once this action is taken,
 a 30-day

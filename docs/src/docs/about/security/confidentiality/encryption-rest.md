@@ -40,7 +40,7 @@ have industry-standard
 - Our exploits are stored encrypted
   using AES256 keys.
 
-- All [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+- All [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
   data is stored in an AES256 encrypted database.
 
 - Most of our encrypted-at-rest secrets are only decrypted in memory,

@@ -10,8 +10,8 @@ for a non-repudiation policy to be successful.
 Currently,
 we store logs for:
 
-- **Attack Surface Manager's logging system:**
-  [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+- **Attacks Resistance Management's logging system:**
+  [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
   stores a historical status of projects,
   findings, vulnerabilities,
   and other critical components.
@@ -20,8 +20,8 @@ we store logs for:
   The historical status never expires.
   These logs cannot be modified.
 
-- **ASM's error tracking system:**
-  ASM provides real-time logging of errors
+- **ARM's error tracking system:**
+  ARM provides real-time logging of errors
   that occur in its production environments.
   It is especially useful for quickly detecting
   new errors and hacking attempts.

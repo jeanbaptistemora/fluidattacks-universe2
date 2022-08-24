@@ -10,7 +10,7 @@ meaning that we have independent data centers
 spread across multiple regions.
 No hardware maintenance or updates are needed
 as these are carried out by a third party.
-[Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
+[Attacks Resistance Management's (ARM)](https://app.fluidattacks.com/)
 database does not need to be updated
 as new releases are immediately used
 and are always backward-compatible.

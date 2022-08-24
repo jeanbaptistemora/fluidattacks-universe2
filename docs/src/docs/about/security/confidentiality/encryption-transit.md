@@ -29,7 +29,7 @@ All our applications and services have industry-standard
 - We demand all connections
   to support at least TLSv1.2.
 
-- [Attack Surface Manager's (ASM)](https://app.fluidattacks.com/)
+- [Attacks Resistance Management's (ARM)](https://app.fluidattacks.com/)
   database uses TLSv1.2
   for the protection of data in transit.
 
