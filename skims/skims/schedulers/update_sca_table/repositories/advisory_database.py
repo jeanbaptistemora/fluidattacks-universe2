@@ -8,6 +8,7 @@ from typing import (
     Dict,
     Iterable,
     List,
+    Optional,
 )
 from utils.logs import (
     log_blocking,
@@ -21,7 +22,7 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     vuln_id: str,
     platforms: Iterable[str],
     advisories: List[Advisory],
-    severity: str,
+    severity: Optional[str],
 ) -> None:
     current_advisories: Dict[str, str] = {}
     for pkg_obj in affected:
@@ -86,9 +87,9 @@ def get_advisory_database(
                 severity: List[Dict[str, str]] = (
                     from_json.get("severity") or []
                 )
-                severity_val = ""
+                severity_val: Optional[str] = None
                 if len(severity) > 0:
-                    severity_val = str(severity[0].get("score"))
+                    severity_val = severity[0].get("score")
                 get_vulnerabilities_ranges(
                     affected, vuln_id, platforms, advisories, severity_val
                 )
