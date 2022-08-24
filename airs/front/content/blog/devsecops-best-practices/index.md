@@ -358,6 +358,6 @@ to commit fully to developing secure software at speed.
 Wanna try Continuous Hacking Machine Plan?
 [Click here](../../free-trial/)
 to unbox a **21-day free trial**.
-If you want more information,
-fill out the contact form below.
+[Contact us](../../contact-us/)
+if you want more information.
 We're happy to answer all your DevSecOps questions.

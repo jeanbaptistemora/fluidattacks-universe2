@@ -260,7 +260,7 @@ we also have [SCA](../../categories/sca/)
 for detecting security issues
 in your open source or third-party components.
 
-You can fill out the contact form below
+You can [contact us](../../contact-us/)
 to get more information about MAST at `Fluid Attacks`
 and its capabilities.
 And if you want to start enjoying our automatic tests,
