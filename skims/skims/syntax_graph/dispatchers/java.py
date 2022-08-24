@@ -37,6 +37,7 @@ from syntax_graph.syntax_readers.java import (
     import_declaration as java_import_declaration,
     interface_declaration as java_interface_declaration,
     method_invocation as java_method_invocation,
+    modifiers as java_modifiers,
     package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
     update_expression as java_update_expression,
@@ -194,6 +195,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "method_invocation",
         },
         syntax_reader=java_method_invocation.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "modifiers",
+        },
+        syntax_reader=java_modifiers.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -30,13 +30,21 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None
 
-    match_childs = match_ast(args.ast_graph, args.n_id, "attribute_list")
+    match_childs = match_ast(
+        args.ast_graph, args.n_id, "attribute_list", "modifiers"
+    )
     attributes_id = match_childs.get("attribute_list")
+    modifiers_id = match_childs.get("modifiers")
+
+    children_nid = {
+        "attributes_id": attributes_id,
+        "modifiers_id": modifiers_id,
+        "parameters_id": parameters_id,
+    }
+
     if not block_id:
         return build_blockless_method_declaration_node(
-            args, name, parameters_id, attributes_id
+            args, name, children_nid
         )
 
-    return build_method_declaration_node(
-        args, name, block_id, parameters_id, attributes_id
-    )
+    return build_method_declaration_node(args, name, block_id, children_nid)
