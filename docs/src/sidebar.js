@@ -483,7 +483,7 @@ const Machine = [
     type: 'category',
     label: 'Web',
     items: [
-      'machine/web/asm',
+      'machine/web/arm',
       'machine/web/self-enrollment',
       'machine/web/creating-organization',
       'machine/web/user-information',

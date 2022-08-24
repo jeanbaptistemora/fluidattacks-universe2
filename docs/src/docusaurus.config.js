@@ -60,7 +60,7 @@ const config = {
             position: "left",
           },
           {
-            to: "machine/web/asm",
+            to: "machine/web/arm",
             activeBasePath: "machine/web",
             label: "Machine",
             position: "left",

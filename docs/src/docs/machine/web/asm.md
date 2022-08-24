@@ -1,8 +1,8 @@
 ---
-id: asm
+id: arm
 title: Attacks Resistance Management
 sidebar_label: Attacks Resistance Management
-slug: /machine/web/asm
+slug: /machine/web/arm
 ---
 
 `Fluid Attacks'` Attacks Resistance Management (ARM)
@@ -77,7 +77,7 @@ you can go to the Portfolios subsection
 (we employ the same charts and indicators).
 
 Please check the tags
-in [Scope](/machine/web/asm#scope)
+in [Scope](/machine/web/arm#scope)
 for more information.
 
 ### Stakeholders

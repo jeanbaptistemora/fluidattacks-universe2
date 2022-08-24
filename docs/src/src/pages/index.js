@@ -16,7 +16,7 @@ const features = [
   {
     title: "Machine",
     description: <>Guides and information about our Machine plan</>,
-    link: "machine/web/asm",
+    link: "machine/web/arm",
   },
   {
     title: "Squad",

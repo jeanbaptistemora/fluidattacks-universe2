@@ -25,7 +25,7 @@ change are as follows:
   and
   [Black](/about/glossary#black-box) services.
 - **Plan:**
-  [Machine](/machine/web/asm) and
+  [Machine](/machine/web/arm) and
   [Squad](/squad/reattacks).
 
 You have the flexibility
