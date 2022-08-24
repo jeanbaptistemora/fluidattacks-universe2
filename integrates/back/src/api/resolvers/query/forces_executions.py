@@ -48,8 +48,6 @@ async def resolve(
     executions = [
         format_forces_to_resolve(execution) for execution in executions_typed
     ]
-    executions = executions[:100]
-
     return {
         "executions": executions,
         f"{group_name_key}": group_name,
