@@ -72,7 +72,7 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 <<<
 === {{root_scope_title}}
 ==== {{root_git_title}}
-[%autowidth.stretch]
+[cols="50%,15%,23%,12%"]
 |===
 |{{root_url}} |{{root_branch}} |{{root_nickname}} |{{root_state}}
 {% for root in git_root %}
@@ -92,7 +92,7 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 |===
 
 ==== {{root_ip_title}}
-[%autowidth.stretch]
+[cols="42%,13%,33%,12%"]
 |===
 |{{root_address}} |{{port}} |{{root_nickname}} |{{root_state}}
 {% for root in ip_root %}
@@ -104,7 +104,7 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 |===
 
 ==== {{root_url_title}}
-[%autowidth.stretch]
+[cols="42%,14%,10%,22%,12%"]
 |===
 |{{root_host}} |{{path}} |{{port}} |{{root_nickname}} |{{root_state}}
 {% for root in url_root %}
