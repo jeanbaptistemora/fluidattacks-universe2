@@ -11,14 +11,14 @@ You can also integrate the agent
 into your `CI/CD` to ensure
 that your software is built and shipped
 without previously reported vulnerabilities
-in our *ASM*.
+in our *ARM*.
 In order to install the agent
 you need to do the following:
 
 1. Make sure you own
   an DevSecOps agent token.
   This token can be generated
-  in our ASM scope section
+  in our ARM scope section
   (Organization>Groups>GroupName>Scope),
   where you will find
   the DevSecOps Agent Token section.
@@ -62,9 +62,9 @@ you need to do the following:
   takes values between 0.0 (recommended) all the way up to 10. (optional)
 
 Note: Strict mode customization like severity thresholds and grace periods
-for new vulnerabilities can also be set in the ASM organization's Policies tab.
+for new vulnerabilities can also be set in the ARM organization's Policies tab.
 In the case of `--breaking`, the value passed to the CLI option takes
-precedence over the value set in ASM.
+precedence over the value set in ARM.
 
 ## Examples
 

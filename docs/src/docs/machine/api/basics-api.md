@@ -36,7 +36,7 @@ to the API Token post:
     - Go to the API Token post
       and use Browser method to see info about you
       (in this case, your role in the application,
-      remember that you have to previously log in on the ASM):
+      remember that you have to previously log in on the ARM):
 
       ```
       query {

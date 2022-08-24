@@ -21,7 +21,7 @@ force the remediation of those that are
 open and unaccepted.
 
 In the [Policies section](/machine/web/organization/policies)
-on the ASM, you can select and configure
+on the ARM, you can select and configure
 the conditions or policies that the agent
 must validate for breaking the build.
 

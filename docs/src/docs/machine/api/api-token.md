@@ -1,11 +1,11 @@
 ---
 id: api-token
-title: Accessing ASM via API
-sidebar_label: Accessing ASM via API
+title: Accessing ARM via API
+sidebar_label: Accessing ARM via API
 slug: /machine/api
 ---
 
-The ASM app allows users
+The ARM app allows users
 to make requests directly
 to our GraphQL API.
 You can do this
@@ -41,7 +41,7 @@ to last more than 40 minutes,
 you can use an API Token
 as shown below.
 
-## Using the ASM API Token
+## Using the ARM API Token
 
 1. Log in to https://app.fluidattacks.com
 
@@ -49,7 +49,7 @@ as shown below.
    from the web application
    using the `API` option
    in the left panel:
-   ![ASM API Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/api/api-token/app_highlight_apibutton_ayw1r8.webp)
+   ![ARM API Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/api/api-token/app_highlight_apibutton_ayw1r8.webp)
 
 1. Select an expiration date
   up to six months after
