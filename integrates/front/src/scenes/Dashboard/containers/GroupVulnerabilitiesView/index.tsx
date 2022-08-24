@@ -6,13 +6,16 @@ import { useParams } from "react-router-dom";
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type { IGroupVulnerabilities, IVulnerability } from "./types";
 
+import { formatState } from "../GroupFindingsView/utils";
 import { Table } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import { formatTreatment } from "utils/formatHelpers";
 import { useDebouncedCallback } from "utils/hooks";
 
 const tableColumns: ColumnDef<IVulnerability>[] = [
   {
     accessorFn: (row): string => `${row.where} | ${row.specific}`,
+    enableColumnFilter: false,
     header: "Vulnerability",
   },
   {
@@ -24,9 +27,24 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
       return formatLinkHandler(link, text);
     },
     header: "Type",
+    meta: { filterType: "select" },
+  },
+  {
+    accessorKey: "currentState",
+    cell: (cell): JSX.Element => formatState(cell.getValue()),
+    header: "Status",
+    meta: { filterType: "select" },
+  },
+  {
+    accessorKey: "treatment",
+    cell: (cell): string =>
+      formatTreatment(cell.getValue(), cell.row.original.currentState),
+    header: "Treatment",
+    meta: { filterType: "select" },
   },
   {
     accessorKey: "reportDate",
+    enableColumnFilter: false,
     header: "Found",
   },
   {
@@ -38,6 +56,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
       return formatLinkHandler(link, text);
     },
     header: "Severity",
+    meta: { filterType: "number" },
   },
   {
     accessorFn: (): string => "View",
@@ -47,6 +66,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
 
       return formatLinkHandler(link, text);
     },
+    enableColumnFilter: false,
     header: "Evidence",
   },
 ];
@@ -87,6 +107,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
       <Table
         columns={tableColumns}
         data={vulnerabilities}
+        enableColumnFilters={true}
         exportCsv={false}
         id={"tblGroupVulnerabilities"}
         onNextPage={handleNextPage}
