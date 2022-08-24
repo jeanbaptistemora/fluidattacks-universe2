@@ -1088,6 +1088,8 @@ const redirectMap = new Map([
   ["/web/blog/reversing-mortals/", "https://fluidattacks.com/blog/reversing-mortals/"],
   ["/security-testing", "https://fluidattacks.com/solutions/security-testing/"],
   ["/security-testing/", "https://fluidattacks.com/solutions/security-testing/"],
+  ["/products/defends/java/validar-correo-electronico", homeURL],
+  ["/products/defends/java/validar-correo-electronico/", homeURL],
 ]);
 
 addEventListener('fetch', event => {
