@@ -56,7 +56,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
       return formatLinkHandler(link, text);
     },
     header: "Severity",
-    meta: { filterType: "number" },
+    meta: { filterType: "numberRange" },
   },
   {
     accessorFn: (): string => "View",

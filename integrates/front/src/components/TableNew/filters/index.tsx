@@ -4,6 +4,7 @@ import type { Column, Header, RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
 import { NumberFilter } from "./NumberFilter";
+import { NumberRangeFilter } from "./NumberRangeFilter";
 import { SelectFilter } from "./SelectFilter";
 import { TextFilter } from "./TextFilter";
 
@@ -55,6 +56,16 @@ const Filters = <TData extends RowData>({
                 <Row key={column.id}>
                   <Col>
                     <NumberFilter column={column} />
+                  </Col>
+                </Row>
+              );
+            }
+
+            if (filterType === "numberRange") {
+              return (
+                <Row key={column.id}>
+                  <Col>
+                    <NumberRangeFilter column={column} />
                   </Col>
                 </Row>
               );
