@@ -226,9 +226,22 @@ def _validate_max_severity(**kwargs: Any) -> None:
         validate_max_acceptance_severity(Decimal(max_severity))
 
 
+def _get_severity_value(field: Optional[float]) -> Optional[Decimal]:
+    if field:
+        return Decimal(field).quantize(Decimal("0.1"))
+    return None
+
+
+async def _get_finding_title(finding_title: Optional[str]) -> str:
+    if finding_title:
+        await is_valid_finding_title(finding_title)
+        return finding_title[:3]
+    return ""
+
+
 @convert_kwargs_to_snake_case
 @require_login
-async def resolve(
+async def resolve(  # pylint: disable=too-many-locals
     _parent: None,
     info: GraphQLResolveInfo,
     group_name: str,
@@ -291,10 +304,7 @@ async def resolve(
         else set()
     )
     closing_date: Optional[datetime] = kwargs.get("closing_date", None)
-    finding_title: str = kwargs.get("finding_title", "")
-    if finding_title:
-        await is_valid_finding_title(finding_title)
-        finding_title = finding_title[:3]
+    finding_title: str = await _get_finding_title(kwargs.get("finding_title"))
     if closing_date is not None:
         _validate_closing_date(closing_date=closing_date)
         states = set(
@@ -309,6 +319,12 @@ async def resolve(
             ]
         ):
             verifications = set()
+    min_severity: Optional[Decimal] = _get_severity_value(
+        kwargs.get("min_severity")
+    )
+    max_severity: Optional[Decimal] = _get_severity_value(
+        kwargs.get("max_severity")
+    )
     _validate_days(kwargs.get("age", None))
     _validate_min_severity(**kwargs)
     _validate_max_severity(**kwargs)
@@ -324,18 +340,10 @@ async def resolve(
             states=states,
             verifications=verifications,
             closing_date=closing_date,
-            finding_title=finding_title or "",
+            finding_title=finding_title,
             age=kwargs.get("age", None),
-            min_severity=Decimal(kwargs["min_severity"]).quantize(
-                Decimal("0.1")
-            )
-            if kwargs.get("min_severity", None) is not None
-            else None,
-            max_severity=Decimal(kwargs["max_severity"]).quantize(
-                Decimal("0.1")
-            )
-            if kwargs.get("max_severity", None) is not None
-            else None,
+            min_severity=min_severity,
+            max_severity=max_severity,
             last_report=kwargs.get("last_report", None),
             verification_code=verification_code,
         )
