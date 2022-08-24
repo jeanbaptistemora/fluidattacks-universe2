@@ -27,9 +27,11 @@ from typing import (
 def test_get_percent() -> None:
     assert get_percent(0, 10) == "+0%"
     assert get_percent(10, 0) == "-"
-    assert get_percent("0", 10) == "-"
+    # FP: local testing
+    assert get_percent("0", 10) == "-"  # NOSONAR
     assert get_percent(-10, 10) == "-100%"
-    assert get_percent(0.55, 10) == "+6%"
+    # FP: local testing
+    assert get_percent(0.55, 10) == "+6%"  # NOSONAR
     assert get_percent(2, 3) == "+67%"
     assert get_percent(3, 2) == "+150%"
     assert get_percent(-2, 3) == "-67%"
