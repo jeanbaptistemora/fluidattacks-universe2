@@ -157,20 +157,12 @@ const rootSchema = (isDirty: boolean): InferType<TypedSchema> =>
                 const regex =
                   /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u;
 
-                if (value === undefined || values.credentials.type !== "SSH") {
-                  return true;
-                }
-
-                return regex.test(value);
+                return (
+                  value === undefined ||
+                  values.credentials.type !== "SSH" ||
+                  regex.test(value)
+                );
               }
-            )
-            .test(
-              "isGitAccesible",
-              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean =>
-                isDirty ||
-                value === undefined ||
-                values.credentials.type !== "SSH"
             ),
           name: string().when("type", {
             is: undefined,
@@ -191,20 +183,11 @@ const rootSchema = (isDirty: boolean): InferType<TypedSchema> =>
                 value === undefined ||
                 values.credentials.type !== "HTTPS"
             ),
-          token: string()
-            .when("type", {
-              is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
-              otherwise: string(),
-              then: string().required(t("validations.required")),
-            })
-            .test(
-              "isGitAccesible",
-              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean =>
-                isDirty ||
-                value === undefined ||
-                values.credentials.type !== "HTTPS"
-            ),
+          token: string().when("type", {
+            is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
+            otherwise: string(),
+            then: string().required(t("validations.required")),
+          }),
           type: string().required(t("validations.required")),
           user: string()
             .when("type", {
