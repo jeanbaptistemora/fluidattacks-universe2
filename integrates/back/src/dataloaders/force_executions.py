@@ -21,6 +21,7 @@ from newutils.forces import (
 )
 from typing import (
     Iterable,
+    Optional,
 )
 
 TABLE_NAME = "FI_forces"
@@ -28,16 +29,23 @@ TABLE_NAME = "FI_forces"
 
 async def _get_executions(
     group_name: str,
+    limit: Optional[int] = None,
 ) -> list[Item]:
     """Lazy iterator over the executions of a group"""
     key_condition_expresion = Key("subscription").eq(group_name)
-
-    query_params = {
-        "KeyConditionExpression": key_condition_expresion,
-        "IndexName": "date",
-        "ScanIndexForward": False,
-        "Limit": 100,
-    }
+    if limit is not None:
+        query_params = {
+            "KeyConditionExpression": key_condition_expresion,
+            "IndexName": "date",
+            "ScanIndexForward": False,
+            "Limit": limit,
+        }
+    else:
+        query_params = {
+            "KeyConditionExpression": key_condition_expresion,
+            "IndexName": "date",
+            "ScanIndexForward": False,
+        }
     results = await dynamodb_ops.query(TABLE_NAME, query_params)
     for result in results:
         if "accepted" not in result["vulnerabilities"]:
@@ -53,13 +61,13 @@ async def _get_executions(
 class ForcesExecutionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, forces_keys: Iterable[str]
+        self, forces_keys: Iterable[tuple[str, Optional[int]]]
     ) -> tuple[tuple[ForcesExecution, ...], ...]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
         list_items = await collect(
             tuple(
-                _get_executions(group_name=group_name)
-                for group_name in forces_keys
+                _get_executions(group_name=group_name, limit=limit)
+                for group_name, limit in forces_keys
             )
         )
         return tuple(

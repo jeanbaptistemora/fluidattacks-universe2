@@ -44,7 +44,7 @@ async def resolve(
 
     executions_typed: tuple[
         ForcesExecution, ...
-    ] = await loaders.forces_executions.load(group_name)
+    ] = await loaders.forces_executions.load((group_name, 100))
     executions = [
         format_forces_to_resolve(execution) for execution in executions_typed
     ]
