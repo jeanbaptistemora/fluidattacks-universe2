@@ -12,6 +12,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.python39
+      inputs.nixpkgs.tokei
       outputs."/melts"
     ];
   };
