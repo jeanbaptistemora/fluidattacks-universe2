@@ -67,6 +67,7 @@ class BatchProcessing(NamedTuple):
     time: str
     additional_info: str
     queue: str
+    retries: int = 0
 
 
 def get_action(
@@ -93,6 +94,7 @@ def get_action(
         time=item["time"]["S"],
         additional_info=item.get("additional_info", {}).get("S"),
         queue=item["queue"]["S"],
+        retries=item.get("retries", 0),
     )
 
 
@@ -111,14 +113,18 @@ def delete_action(
 def set_running(
     *,
     action_dynamo_pk: str,
+    retries: int,
 ) -> None:
     client = boto3.client("dynamodb", "us-east-1")
     operation_payload = {
         "TableName": "fi_async_processing",
         "Key": {"pk": {"S": action_dynamo_pk}},
-        "UpdateExpression": "SET #25fb0 = :25fb0",
-        "ExpressionAttributeNames": {"#25fb0": "running"},
-        "ExpressionAttributeValues": {":25fb0": {"BOOL": True}},
+        "UpdateExpression": "SET #25fb0 = :25fb0, #attr1 = :attr1",
+        "ExpressionAttributeNames": {"#25fb0": "running", "#attr1": "retries"},
+        "ExpressionAttributeValues": {
+            ":25fb0": {"BOOL": True},
+            ":attr1": {"N": f"{retries}"},
+        },
     }
     client.update_item(**operation_payload)
 
@@ -189,7 +195,7 @@ async def main(  # pylint: disable=too-many-locals)
         )
         return None
 
-    set_running(action_dynamo_pk=action_dynamo_pk)
+    set_running(action_dynamo_pk=action_dynamo_pk, retries=item.retries + 1)
     group_name = item.entity
 
     job_details = json.loads(item.additional_info)

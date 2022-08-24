@@ -12,36 +12,20 @@ from batch.enums import (
 from batch.types import (
     BatchProcessing,
 )
+import logging
 from typing import (
     Any,
     NamedTuple,
 )
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 class CompleteBatchJob(NamedTuple):
     id: str
     status: JobStatus
     vcpus: int
-
-
-async def _get_machine_keys_to_delete(
-    running_actions: list[BatchProcessing],
-    complete_batch_jobs: list[dict[str, Any]],
-) -> list[str]:
-    # Machine executions may fail due to memory consumption.
-    # If there is a failed job, requeue the execution using more resources.
-    # If it still fails, delete it from the DB or else it will be requeued
-    # indefinitely
-
-    machine_keys_to_delete: list[str] = [
-        action.key
-        for action in running_actions
-        if action.action_name == Action.EXECUTE_MACHINE.value
-        for batch_job in complete_batch_jobs
-        if action.batch_job_id == batch_job["jobId"]
-        and batch_job["status"] == JobStatus.FAILED.value
-    ]
-    return machine_keys_to_delete
 
 
 async def _filter_non_requeueable_actions(
@@ -87,21 +71,26 @@ async def _filter_non_requeueable_actions(
             )
         )
     ]
-    succeeded_keys_to_delete = [
-        *succeeded_keys_to_delete,
-        *(
-            await _get_machine_keys_to_delete(
-                [action for action in actions_to_requeue if action.running],
-                list(batch_jobs_dict.values()),
+    retried_keys_to_delete = []
+    for action in actions_to_requeue:
+        if action.retries > 3:
+            retried_keys_to_delete.append(action.key)
+            LOGGER.error(
+                "Batch action exceeded number of retries",
+                extra={
+                    "extra": {
+                        "action_name": action.action_name,
+                        "entity": action.entity,
+                        "last_batch_job": action.batch_job_id,
+                        "addition_info": action.additional_info,
+                    }
+                },
             )
-        ),
-    ]
+
+    keys_to_delete = [*succeeded_keys_to_delete, *retried_keys_to_delete]
 
     await collect(
-        [
-            batch_dal.delete_action(dynamodb_pk=key)
-            for key in succeeded_keys_to_delete
-        ]
+        [batch_dal.delete_action(dynamodb_pk=key) for key in keys_to_delete]
     )
 
     active_keys: list[str] = [
@@ -136,8 +125,7 @@ async def _filter_non_requeueable_actions(
     return [
         action
         for action in actions_to_requeue
-        if action.key
-        not in set(active_keys + pending_keys + succeeded_keys_to_delete)
+        if action.key not in set(active_keys + pending_keys + keys_to_delete)
     ]
 
 
@@ -186,28 +174,23 @@ async def requeue_actions() -> bool:
     futures = []
     attempt_duration_seconds: int = 3600
     for action in actions_to_requeue:
-        if action.action_name == "execute-machine":
-            continue
         if action.batch_job_id:
+            kwargs = {}
             if action.batch_job_id in batch_jobs_dict:
                 try:
-                    resources = {
-                        res["type"]: int(res["value"])
-                        for res in batch_jobs_dict[action.batch_job_id][
-                            "container"
-                        ]["resourceRequirements"]
-                    }
-                    vcpus = resources["VCPU"]
-                    memory = resources["MEMORY"]
+                    vcpus = batch_jobs_dict[action.batch_job_id]["container"][
+                        "vcpus"
+                    ]
+                    memory = batch_jobs_dict[action.batch_job_id]["container"][
+                        "memory"
+                    ]
                     attempt_duration_seconds = batch_jobs_dict[
                         action.batch_job_id
                     ]["timeout"]["attemptDurationSeconds"]
+                    kwargs.update({"memory": memory, "vcpus": vcpus})
                 except KeyError:
-                    vcpus = 2
-                    memory = 2
-            else:
-                vcpus = 2
-                memory = 2
+                    if action.action_name == Action.EXECUTE_MACHINE.value:
+                        kwargs = {"memory": 7200, "vcpus": 4}
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,
@@ -215,9 +198,12 @@ async def requeue_actions() -> bool:
                     action_dynamo_pk=action.key,
                     entity=action.entity,
                     queue=action.queue,
-                    product_name=Product.INTEGRATES.value,
-                    memory=memory,
-                    vcpus=vcpus,
+                    product_name=(
+                        Product.INTEGRATES.value
+                        if action.action_name != Action.EXECUTE_MACHINE.value
+                        else Product.SKIMS.value
+                    ),
+                    **kwargs,
                 )
             )
     new_batch_jobs_ids = await collect(

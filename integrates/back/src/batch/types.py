@@ -20,6 +20,7 @@ class BatchProcessing(NamedTuple):
     additional_info: str
     queue: str
     batch_job_id: Optional[str] = None
+    retries: int = 0
     running: bool = False
 
 

@@ -85,7 +85,9 @@ async def dispatch(
             return None
 
         action = item.action_name
-        await update_action_to_dynamodb(key=item.key, running=True)
+        await update_action_to_dynamodb(
+            key=item.key, retries=item.retries + 1, running=True
+        )
 
         if action in ACTIONS:
             await ACTIONS[action](item=item)

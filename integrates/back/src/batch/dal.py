@@ -439,6 +439,7 @@ async def get_action(
         additional_info=item.get("additional_info", ""),
         queue=item["queue"],
         batch_job_id=item.get("batch_job_id"),
+        retries=item.get("retries", 0),
         running=item.get("running", False),
     )
 
@@ -464,6 +465,7 @@ async def get_actions_by_name(
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
             batch_job_id=item.get("batch_job_id"),
+            retries=item.get("retries", 0),
             running=item.get("running", False),
         )
         for item in response_items
@@ -483,6 +485,7 @@ async def get_actions() -> List[BatchProcessing]:
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
             batch_job_id=item.get("batch_job_id"),
+            retries=item.get("retries", 0),
             running=item.get("running", False),
         )
         for item in items
