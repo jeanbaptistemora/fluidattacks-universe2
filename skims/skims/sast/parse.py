@@ -302,9 +302,11 @@ def _parse_one_cached(
     except ParsingError:
         return None
 
-    # temporarily we will only perform symbolic evaluation to c# files
-    # while it is implemented in other languages
-    if language == GraphShardMetadataLanguage.CSHARP:
+    syntax_support = {
+        GraphShardMetadataLanguage.CSHARP,
+    }
+
+    if language in syntax_support:
         if syntax_graph := build_syntax_graph(language, graph):
             syntax_graph = add_syntax_cfg(syntax_graph)
     else:

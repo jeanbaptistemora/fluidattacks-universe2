@@ -1,9 +1,15 @@
+from ctx import (
+    CTX,
+)
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
 )
 from syntax_graph.dispatchers import (
     DISPATCHERS_BY_LANG,
+)
+from syntax_graph.syntax_readers.common.missing_node import (
+    reader as missing_node_reader,
 )
 from syntax_graph.types import (
     MissingCaseHandling,
@@ -16,6 +22,7 @@ from typing import (
 )
 from utils.logs import (
     log_blocking,
+    log_to_remote_blocking,
 )
 
 
@@ -27,12 +34,15 @@ def generic(args: SyntaxGraphArgs) -> str:
             if node_type in dispatcher.applicable_types:
                 return dispatcher.syntax_reader(args)
 
-    # when we have a considerable amount of syntax readers we must convert
-    # this to log and return missing node if necessary
-    raise MissingSyntaxReader(
-        f"Missing syntax reader for {node_type} in {args.language.name}"
+    log_to_remote_blocking(
+        msg=f"Missing syntax reader in {args.language.name}",
+        severity="warning",
+        group=CTX.config.group,
+        namespace=CTX.config.namespace,
+        node_type=node_type,
     )
-    # return missing_node_reader(args, node_type)
+
+    return missing_node_reader(args, node_type)
 
 
 def build_syntax_graph(
