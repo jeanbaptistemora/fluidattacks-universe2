@@ -1,9 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
 
-from boto3.dynamodb.conditions import (
-    Key,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -26,7 +23,6 @@ from settings import (
 )
 from typing import (
     Any,
-    AsyncIterator,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -56,50 +52,3 @@ async def add_execution(group_name: str, **execution_attributes: Any) -> bool:
 async def add_execution_typed(force_execution: ForcesExecution) -> None:
     item = format_forces_item(force_execution)
     await add_execution(force_execution.group_name, **item)
-
-
-async def get_execution(group_name: str, execution_id: str) -> Any:
-    key_condition_expresion = {
-        "execution_id": execution_id,
-        "subscription": group_name,
-    }
-    result = await dynamodb_ops.get_item(
-        TABLE_NAME, {"Key": key_condition_expresion}
-    )
-    if result:
-        if "accepted" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["accepted"] = []
-        if "open" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["open"] = []
-        if "closed" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["closed"] = []
-        # Compatibility with old API
-        result["project_name"] = result.get("subscription")
-        result["group_name"] = result.get("subscription")
-        return result
-    return {}
-
-
-async def yield_executions(
-    group_name: str,
-    group_name_key: str,
-) -> AsyncIterator[Any]:
-    """Lazy iterator over the executions of a group"""
-    key_condition_expresion = Key("subscription").eq(group_name)
-
-    query_params = {
-        "KeyConditionExpression": key_condition_expresion,
-        "IndexName": "date",
-        "ScanIndexForward": False,
-    }
-    results = await dynamodb_ops.query(TABLE_NAME, query_params)
-    for result in results:
-        if "accepted" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["accepted"] = []
-        if "open" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["open"] = []
-        if "closed" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["closed"] = []
-        result[f"{group_name_key}"] = result.get("subscription")
-        # Exception: WF(AsyncIterator is subtype of iterator)
-        yield result  # NOSONAR

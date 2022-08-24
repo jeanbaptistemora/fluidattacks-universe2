@@ -13,9 +13,6 @@ from db_model.groups.types import (
 from forces import (
     dal as forces_dal,
 )
-from functools import (
-    reduce,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -43,8 +40,6 @@ from starlette.datastructures import (
 import tempfile
 from typing import (
     Any,
-    AsyncIterable,
-    Dict,
     Union,
 )
 
@@ -127,46 +122,8 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
     )
 
 
-def format_execution(execution: Any) -> Dict[str, Any]:
-    for _, vulnerabilities in execution.get("vulnerabilities", {}).items():
-        if not isinstance(vulnerabilities, list):
-            continue
-
-        for vuln in vulnerabilities:
-            explot = {
-                "0.91": "Unproven",
-                "0.94": "Proof of concept",
-                "0.97": "Functional",
-                "1.0": "High",
-                "1": "High",
-            }.get(str(vuln.get("exploitability", 0)), "-")
-            vuln["exploitability"] = explot
-    return execution
-
-
 def format_forces_user_email(group_name: str) -> str:
     return f"forces.{group_name}@fluidattacks.com"
-
-
-async def get_execution(
-    *,
-    group_name: str,
-    execution_id: str,
-) -> Dict[str, Any]:
-    execution = await forces_dal.get_execution(group_name, execution_id)
-    return format_execution(execution)
-
-
-async def get_executions(
-    *,
-    group_name: str,
-    group_name_key: str,
-) -> AsyncIterable[Dict[str, Any]]:
-    async for execution in forces_dal.yield_executions(
-        group_name=group_name,
-        group_name_key=group_name_key,
-    ):
-        yield format_execution(execution)
 
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
@@ -182,7 +139,7 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
 
 async def get_vulns_execution(
     group_name: str, execution_id: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
             FI_AWS_S3_FORCES_BUCKET,
@@ -197,32 +154,6 @@ def is_forces_user(email: str) -> bool:
     """Ensure that is an forces user."""
     pattern = r"forces.(?P<group>\w+)@fluidattacks.com"
     return bool(re.match(pattern, email))
-
-
-def match_fields(my_dict: Dict[str, Any]) -> Dict[str, Any]:
-    """Replace fields from response according to schema."""
-    replace_tuple = (
-        ("mocked_exploits", "integrates_exploits"),
-        (
-            "vulnerability_count_mocked_exploits",
-            "num_of_vulnerabilities_in_integrates_exploits",
-        ),
-        (
-            "vulnerability_count_integrates_exploits",
-            "num_of_vulnerabilities_in_integrates_exploits",
-        ),
-        ("vulnerability_count_exploits", "num_of_vulnerabilities_in_exploits"),
-        (
-            "vulnerability_count_accepted_exploits",
-            "num_of_vulnerabilities_in_accepted_exploits",
-        ),
-    )
-    new = {}
-    for key, val in my_dict.items():
-        if isinstance(val, dict):
-            val = match_fields(val)
-        new[reduce(lambda a, kv: a.replace(*kv), replace_tuple, key)] = val
-    return new
 
 
 async def update_token(
