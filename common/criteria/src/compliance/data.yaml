@@ -2050,6 +2050,122 @@ pci:
     '6_5_6':
       title: Changes to all system components are managed securely
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_2_2':
+      title: Access to system components and data is appropriately defined and assigned
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_2_3':
+      title: Required privileges are approved by authorized personnel
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_2_5':
+      title: Access to system components and data is defined and assigned
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_2_6':
+      title: Access to system components and data is defined and assigned
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_3_1':
+      title: Access to system components and data is managed via an access control
+        system
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_3_2':
+      title: Access to system components and data is managed via an access control
+        system
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '7_3_3':
+      title: Access control system is set to deny by default
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_1':
+      title: Assign a unique ID before access to system components
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_3':
+      title: User identification for users and administrators are strictly managed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_4':
+      title: User identification for users and administrators are strictly managed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_5':
+      title: Access for terminated users is immediately revoked
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_6':
+      title: Inactive user accounts are removed within 90 days of inactivity
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_2_8':
+      title: User identification for users and administrators are strictly managed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_1':
+      title: Strong authentication for users and administrators is established
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_2':
+      title: Strong authentication for users and administrators is established
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_3':
+      title: Strong authentication for users and administrators is established
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_5':
+      title: Initial or reset password or passphrase used by authorized user
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_6':
+      title: Passwords or passphrases with minimum level of complexity
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_7':
+      title: A previously used password cannot be used to gain access to an account
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_9':
+      title: A password or passphrase cannot be used indefinitely
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_3_11':
+      title: An authentication factor cannot be used by anyone other than the user
+        assigned
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_4_1':
+      title: Multi-factor authentication (MFA) is implemented to secure access
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_4_2':
+      title: Multi-factor authentication (MFA) is implemented to secure access
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_4_3':
+      title: Multi-factor authentication (MFA) is implemented to secure access
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_5_1':
+      title: Multi-factor authentication (MFA) systems are configured to prevent misuse
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '8_6_3':
+      title: Use of application and associated authentication factors is strictly
+        managed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '9_2_2':
+      title: Physical access controls manage entry into systems containing data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '9_2_3':
+      title: Physical access controls manage entry into systems containing data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '9_4_1':
+      title: Media with cardholder data is securely stored and accessed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '9_4_3':
+      title: Media is secured and tracked when transported
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '9_4_7':
+      title: Media is secured and tracked when transported
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '10_2_1':
+      title: Audit logs are enabled and active for all system components
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '10_3_2':
+      title: Audit logs are protected from destruction and unauthorized modifications
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '10_6_1':
+      title: System clocks and time are synchronized
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '10_7_2':
+      title: Failures of critical security control systems are detected and responded
+        to promptly
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '11_2_1':
+      title: Wireless access points are identified and monitored
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    '12_9_1':
+      title: Third-party service providers support their customers
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 soc2:
   title: SOC2®
