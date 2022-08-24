@@ -79,9 +79,22 @@ role or responsibility.
 
 ### Remove
 
-Click on this button after
-selecting one stakeholder to
-eliminate them from your group.
+Several Stakeholders can be removed by
+clicking on the checkbox on the left,
+where you can mark all the participants
+to be removed from the group.
+
+![Remove Checkbox](https://res.cloudinary.com/fluid-attacks/image/upload/v1661361374/docs/web/groups/stakeholders/remove_checkbox.png)
+
+After selecting, you go to the Remove button,
+where you will get a pop-up window
+where you confirm if you want to
+remove these participants.
+
+![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661361374/docs/web/groups/stakeholders/remove_button.png)
+
+Clicking this will automatically remove
+the selected people from the group.
 
 ### Filters
 
