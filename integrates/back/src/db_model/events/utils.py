@@ -21,23 +21,11 @@ import simplejson as json  # type: ignore
 
 def format_evidences(evidences: Item) -> EventEvidences:
     return EventEvidences(
-        file=EventEvidence(
-            file_name=evidences["file"]["file_name"],
-            modified_date=evidences["file"]["modified_date"],
-        )
-        if evidences.get("file")
-        else None,
         file_1=EventEvidence(
             file_name=evidences["file_1"]["file_name"],
             modified_date=evidences["file_1"]["modified_date"],
         )
         if evidences.get("file_1")
-        else None,
-        image=EventEvidence(
-            file_name=evidences["image"]["file_name"],
-            modified_date=evidences["image"]["modified_date"],
-        )
-        if evidences.get("image")
         else None,
         image_1=EventEvidence(
             file_name=evidences["image_1"]["file_name"],

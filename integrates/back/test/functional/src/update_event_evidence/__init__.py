@@ -40,7 +40,7 @@ async def get_result(
         )
         variables: dict[str, Any] = {
             "eventId": event,
-            "evidenceType": "IMAGE",
+            "evidenceType": "IMAGE_1",
             "file": uploaded_file,
         }
         data: dict[str, Any] = {"query": query, "variables": variables}

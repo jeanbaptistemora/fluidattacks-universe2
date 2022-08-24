@@ -35,11 +35,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
-                        image=EventEvidence(
+                        image_1=EventEvidence(
                             file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
-                        file=EventEvidence(
+                        file_1=EventEvidence(
                             file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
@@ -72,11 +72,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
-                        image=EventEvidence(
+                        image_1=EventEvidence(
                             file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
-                        file=EventEvidence(
+                        file_1=EventEvidence(
                             file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
@@ -109,11 +109,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
-                        image=EventEvidence(
+                        image_1=EventEvidence(
                             file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
-                        file=EventEvidence(
+                        file_1=EventEvidence(
                             file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
@@ -146,11 +146,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
-                        image=EventEvidence(
+                        image_1=EventEvidence(
                             file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
-                        file=EventEvidence(
+                        file_1=EventEvidence(
                             file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
@@ -191,11 +191,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
-                        image=EventEvidence(
+                        image_1=EventEvidence(
                             file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
-                        file=EventEvidence(
+                        file_1=EventEvidence(
                             file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),

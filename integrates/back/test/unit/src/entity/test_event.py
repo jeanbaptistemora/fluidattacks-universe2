@@ -198,7 +198,7 @@ async def test_update_event_evidence() -> None:
         uploaded_file = UploadFile("test-anim.gif", test_file, "image/gif")
         variables = {
             "eventId": "540462628",
-            "evidenceType": "IMAGE",
+            "evidenceType": "IMAGE_1",
             "file": uploaded_file,
         }
         data = {"query": query, "variables": variables}
@@ -259,7 +259,7 @@ async def test_remove_event_evidence() -> None:
     query = """
         mutation {
             removeEventEvidence(eventId: "484763304",
-                                evidenceType: FILE) {
+                                evidenceType: FILE_1) {
                 success
             }
         }

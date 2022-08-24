@@ -32,8 +32,8 @@ async def test_remove_event_evidence(
 
     loaders: Dataloaders = get_new_context()
     event: Event = await loaders.event.load(event_id)
-    assert event.evidences.image is None
-    assert event.evidences.file
+    assert event.evidences.image_1 is None
+    assert event.evidences.file_1
 
 
 @pytest.mark.asyncio

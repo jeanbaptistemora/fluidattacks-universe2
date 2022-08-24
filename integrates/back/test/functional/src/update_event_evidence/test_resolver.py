@@ -35,7 +35,7 @@ async def test_admin(populate: bool, email: str) -> None:
         event.evidences.image_1.file_name
         == "group1_418900971_evidence_image_1.gif"
     )
-    assert event.evidences.file is None
+    assert event.evidences.file_1 is None
 
 
 @pytest.mark.asyncio

@@ -14,11 +14,8 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[str]:
-    evidence = (
-        parent.evidences.image.file_name if parent.evidences.image else None
-    ) or (
+    return (
         parent.evidences.image_1.file_name
         if parent.evidences.image_1
         else None
     )
-    return evidence

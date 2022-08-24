@@ -19,9 +19,7 @@ class EventActionsBeforeBlocking(str, Enum):
 
 
 class EventEvidenceId(str, Enum):
-    FILE: str = "FILE"
     FILE_1: str = "FILE_1"
-    IMAGE: str = "IMAGE"
     IMAGE_1: str = "IMAGE_1"
     IMAGE_2: str = "IMAGE_2"
     IMAGE_3: str = "IMAGE_3"

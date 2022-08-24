@@ -18,7 +18,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             removeEventEvidence(eventId: "{event}",
-                                evidenceType: IMAGE) {{
+                                evidenceType: IMAGE_1) {{
                 success
             }}
         }}

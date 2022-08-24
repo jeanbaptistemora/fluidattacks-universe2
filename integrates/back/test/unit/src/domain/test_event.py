@@ -202,7 +202,7 @@ async def test_add_comment() -> None:
 async def test_update_evidence() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900978"
-    evidence_type = EventEvidenceId.FILE
+    evidence_type = EventEvidenceId.FILE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -228,7 +228,7 @@ async def test_update_evidence() -> None:
 async def test_update_evidence_invalid_id() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "=malicious-code-here"
-    evidence_type = EventEvidenceId.FILE
+    evidence_type = EventEvidenceId.FILE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -248,7 +248,7 @@ async def test_update_evidence_invalid_id() -> None:
 async def test_update_evidence_invalid_filename() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900978"
-    evidence_type = EventEvidenceId.FILE
+    evidence_type = EventEvidenceId.FILE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -266,7 +266,7 @@ async def test_update_evidence_invalid_filename() -> None:
 
 
 async def test_validate_evidence_invalid_image_type() -> None:
-    evidence_type = EventEvidenceId.IMAGE
+    evidence_type = EventEvidenceId.IMAGE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
@@ -278,7 +278,7 @@ async def test_validate_evidence_invalid_image_type() -> None:
 
 
 async def test_validate_evidence_invalid_file_size() -> None:
-    evidence_type = EventEvidenceId.IMAGE
+    evidence_type = EventEvidenceId.IMAGE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-big-image.jpg")
     with open(filename, "rb") as test_file:
@@ -314,7 +314,7 @@ async def test_mask_event() -> None:
         event_id,
         parent_comment,
     )
-    evidence_type = EventEvidenceId.FILE
+    evidence_type = EventEvidenceId.FILE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:

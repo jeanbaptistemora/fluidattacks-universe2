@@ -220,10 +220,8 @@ async def add_event(
     if root.state.status != "ACTIVE":
         raise InvalidParameter(field="rootId")
     if file:
-        await validate_evidence(EventEvidenceId.FILE, file)
         await validate_evidence(EventEvidenceId.FILE_1, file)
     if image:
-        await validate_evidence(EventEvidenceId.IMAGE, image)
         await validate_evidence(EventEvidenceId.IMAGE_1, image)
 
     tzn = pytz.timezone(TIME_ZONE)
@@ -386,33 +384,6 @@ async def remove_evidence(
             group_name=group_name,
             evidence_info=None,
             evidence_id=evidence_id,
-        )
-
-    evidence_id_to_remove = None
-    if evidence_id is EventEvidenceId.IMAGE:
-        evidence_id_to_remove = EventEvidenceId.IMAGE_1
-    elif evidence_id is EventEvidenceId.IMAGE_1:
-        evidence_id_to_remove = EventEvidenceId.IMAGE
-    elif evidence_id is EventEvidenceId.FILE_1:
-        evidence_id_to_remove = EventEvidenceId.FILE
-    elif evidence_id is EventEvidenceId.FILE:
-        evidence_id_to_remove = EventEvidenceId.FILE_1
-    if (
-        evidence_id_to_remove
-        and (
-            evidence := getattr(
-                event.evidences, str(evidence_id_to_remove.value).lower(), None
-            )
-        )
-        and isinstance(evidence, EventEvidence)
-    ):
-        full_name = f"{group_name}/{event_id}/{evidence.file_name}"
-        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
-        await events_model.update_evidence(
-            event_id=event_id,
-            group_name=group_name,
-            evidence_info=None,
-            evidence_id=evidence_id_to_remove,
         )
 
 
@@ -626,10 +597,6 @@ async def update_evidence(
     file: UploadFile,
     update_date: datetime,
 ) -> None:
-    if evidence_id is EventEvidenceId.IMAGE:
-        evidence_id = EventEvidenceId.IMAGE_1
-    elif evidence_id is EventEvidenceId.FILE:
-        evidence_id = EventEvidenceId.FILE_1
     validations.validate_sanitized_csv_input(event_id)
     event: Event = await loaders.event.load(event_id)
     if event.state.status == EventStateStatus.SOLVED:
@@ -664,30 +631,6 @@ async def update_evidence(
         ),
         evidence_id=evidence_id,
     )
-
-    evidence_id_to_remove = None
-    if evidence_id is EventEvidenceId.IMAGE_1:
-        evidence_id_to_remove = EventEvidenceId.IMAGE
-    elif evidence_id is EventEvidenceId.FILE_1:
-        evidence_id_to_remove = EventEvidenceId.FILE
-
-    if (
-        evidence_id_to_remove
-        and (
-            evidence_to_remove := getattr(
-                event.evidences, str(evidence_id_to_remove.value).lower(), None
-            )
-        )
-        and isinstance(evidence_to_remove, EventEvidence)
-    ):
-        full_name = f"{group_name}/{event_id}/{evidence_to_remove.file_name}"
-        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
-        await events_model.update_evidence(
-            event_id=event_id,
-            group_name=group_name,
-            evidence_info=None,
-            evidence_id=evidence_id_to_remove,
-        )
 
 
 async def update_solving_reason(
