@@ -18,13 +18,14 @@ interface IFileInputProps extends FieldProps {
   className?: string;
   id?: string;
   input: Omit<FieldInputProps<FileList>, "value"> & { value: FileList };
+  multiple?: boolean;
   onClick: () => void;
 }
 
 export const FormikFileInput: React.FC<IFileInputProps> = (
   props: Readonly<IFileInputProps>
 ): JSX.Element => {
-  const { accept, className, id, field, form, onClick } = props;
+  const { accept, className, id, field, form, multiple, onClick } = props;
   const { setFieldValue } = form;
   const { name } = field;
   const { value }: { value: FileList } = field;
@@ -44,6 +45,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
             accept={accept}
             className={style.inputfileBtn}
             data-testid={name}
+            multiple={multiple}
             name={name}
             onChange={handleFileChange}
             onClick={onClick}

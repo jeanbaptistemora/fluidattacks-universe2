@@ -134,37 +134,36 @@ const EvidenceView: React.FC = (): JSX.Element => {
     _.isEmpty(evidenceImages[name].url) ? isEditing : true
   );
 
-  const handleUpdate: (values: Record<string, IEvidenceItem>) => void = async (
-    values: Record<string, IEvidenceItem>
-  ): Promise<void> => {
-    setIsEditing(false);
+  const handleUpdate: (values: Record<string, IEvidenceItem>) => Promise<void> =
+    async (values: Record<string, IEvidenceItem>): Promise<void> => {
+      setIsEditing(false);
 
-    const updateChanges: (
-      evidence: IEvidenceItem & { file?: FileList },
-      key: string
-    ) => Promise<void> = async (
-      evidence: IEvidenceItem & { file?: FileList },
-      key: string
-    ): Promise<void> => {
-      const { description, file } = evidence;
-      const descriptionChanged: boolean =
-        description !== evidenceImages[key].description;
+      const updateChanges: (
+        evidence: IEvidenceItem & { file?: FileList },
+        key: string
+      ) => Promise<void> = async (
+        evidence: IEvidenceItem & { file?: FileList },
+        key: string
+      ): Promise<void> => {
+        const { description, file } = evidence;
+        const descriptionChanged: boolean =
+          description !== evidenceImages[key].description;
 
-      await updateChangesHelper(
-        updateEvidence,
-        updateDescription,
-        file,
-        key,
-        description,
-        findingId,
-        descriptionChanged
-      );
+        await updateChangesHelper(
+          updateEvidence,
+          updateDescription,
+          file,
+          key,
+          description,
+          findingId,
+          descriptionChanged
+        );
+      };
+
+      await Promise.all(_.map(values, updateChanges));
+      setLightboxIndex(-1);
+      await refetch();
     };
-
-    await Promise.all(_.map(values, updateChanges));
-    setLightboxIndex(-1);
-    await refetch();
-  };
 
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);

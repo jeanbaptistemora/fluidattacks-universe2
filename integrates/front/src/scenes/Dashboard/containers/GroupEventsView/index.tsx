@@ -23,12 +23,12 @@ import type {
 } from "./AffectedReattackAccordion/types";
 import {
   handleCreationError,
-  handleFileListUpload,
   handleRequestHoldError,
   handleRequestHoldsHelper,
 } from "./helpers";
 import { selectOptionType } from "./selectOptions";
 import type {
+  IAddEventResultAttr,
   IEventData,
   IEventsDataset,
   IFilterSet,
@@ -37,6 +37,9 @@ import type {
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
 import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
 
+import { handleUpdateEvidenceError } from "../EventEvidenceView/helpers";
+import { UPDATE_EVIDENCE_MUTATION } from "../EventEvidenceView/queries";
+import type { IUpdateEventEvidenceResultAttr } from "../EventEvidenceView/types";
 import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
@@ -230,7 +233,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     (event: IEventData): boolean => event.eventStatus === unsolved
   );
 
-  const [affectsReattacks, setAffectsReattacks] = useState(false);
   const [selectedReattacks, setSelectedReattacks] = useState({});
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -314,60 +316,101 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       }
     );
 
-  const handleCreationResult = async (result: {
-    addEvent: { eventId: string; success: boolean };
-  }): Promise<void> => {
-    closeAddModal();
-
-    if (result.addEvent.success) {
-      msgSuccess(
-        t("group.events.successCreate"),
-        t("group.events.titleSuccess")
-      );
-
-      if (affectsReattacks && !_.isEmpty(selectedReattacks)) {
-        const allHoldsValid = await handleRequestHoldsHelper(
-          requestHold,
-          selectedReattacks,
-          result.addEvent.eventId,
-          groupName
-        );
-
-        if (allHoldsValid) {
-          msgSuccess(
-            t("group.events.form.affectedReattacks.holdsCreate"),
-            t("group.events.titleSuccess")
-          );
-        }
-      }
-      await refetch();
-      await refetchReattacks();
-    }
-  };
-
-  const [addEvent] = useMutation(ADD_EVENT_MUTATION, {
-    onCompleted: handleCreationResult,
+  const [addEvent] = useMutation<IAddEventResultAttr>(ADD_EVENT_MUTATION, {
     onError: handleCreationError,
   });
 
+  const [updateEvidence] = useMutation<IUpdateEventEvidenceResultAttr>(
+    UPDATE_EVIDENCE_MUTATION,
+    {
+      onError: (updateError: ApolloError): void => {
+        handleUpdateEvidenceError(updateError);
+      },
+    }
+  );
+
   const handleSubmit = useCallback(
     async (values: IFormValues): Promise<void> => {
-      setAffectsReattacks(values.affectsReattacks);
-      setSelectedReattacks(formatReattacks(values.affectedReattacks));
-
-      await addEvent({
+      const {
+        affectsReattacks,
+        affectedReattacks,
+        detail,
+        eventDate,
+        eventType,
+        images,
+        files,
+        rootId,
+      } = values;
+      const selectedEventReattacks = formatReattacks(affectedReattacks);
+      const result = await addEvent({
         variables: {
-          detail: values.detail,
-          eventDate: values.eventDate,
-          eventType: values.eventType,
-          file: handleFileListUpload(values.file),
+          detail,
+          eventDate,
+          eventType,
           groupName,
-          image: handleFileListUpload(values.image),
-          rootId: values.rootId,
+          rootId,
         },
       });
+      closeAddModal();
+      if (!_.isNil(result.data) && result.data.addEvent.success) {
+        const { eventId } = result.data.addEvent;
+        msgSuccess(
+          t("group.events.successCreate"),
+          t("group.events.titleSuccess")
+        );
+        if (!_.isUndefined(images)) {
+          [...Array(images.length).keys()].map(
+            async (
+              index: number
+            ): Promise<FetchResult<IUpdateEventEvidenceResultAttr>> =>
+              updateEvidence({
+                variables: {
+                  eventId,
+                  evidenceType: `IMAGE_${index + 1}`,
+                  file: images[index],
+                },
+              })
+          );
+        }
+        if (!_.isUndefined(files)) {
+          void updateEvidence({
+            variables: {
+              eventId,
+              evidenceType: "FILE_1",
+              file: files[0],
+            },
+          });
+        }
+        if (affectsReattacks && !_.isEmpty(selectedEventReattacks)) {
+          const allHoldsValid = await handleRequestHoldsHelper(
+            requestHold,
+            selectedEventReattacks,
+            eventId,
+            groupName
+          );
+
+          if (allHoldsValid) {
+            msgSuccess(
+              t("group.events.form.affectedReattacks.holdsCreate"),
+              t("group.events.titleSuccess")
+            );
+          }
+        }
+
+        await refetch();
+        await refetchReattacks();
+      }
     },
-    [addEvent, groupName]
+    [
+      addEvent,
+      closeAddModal,
+      groupName,
+      refetch,
+      refetchReattacks,
+      requestHold,
+      t,
+      updateEvidence,
+    ]
   );
 
   const handleUpdateAffectedSubmit = useCallback(

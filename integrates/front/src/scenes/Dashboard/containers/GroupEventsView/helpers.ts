@@ -1,16 +1,11 @@
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
 
 import type { RequestVulnerabilitiesHoldResult } from "./AffectedReattackAccordion/types";
 
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-const handleFileListUpload = (file: FileList | undefined): File | undefined => {
-  return _.isEmpty(file) ? undefined : (file as FileList)[0];
-};
 
 const handleCreationError: (creationError: ApolloError) => void = (
   creationError: ApolloError
@@ -124,7 +119,6 @@ const handleRequestHoldsHelper = async (
 
 export {
   handleCreationError,
-  handleFileListUpload,
   handleRequestHoldError,
   handleRequestHoldsHelper,
   handleRequestVerificationError,

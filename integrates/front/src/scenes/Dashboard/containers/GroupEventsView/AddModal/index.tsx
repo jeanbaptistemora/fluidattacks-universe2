@@ -39,6 +39,7 @@ import { Logger } from "utils/logger";
 import {
   composeValidators,
   dateTimeBeforeToday,
+  isValidAmountOfFiles,
   isValidFileSize,
   maxLength,
   required,
@@ -53,6 +54,8 @@ const maxEventDetailsLength = maxLength(MAX_EVENT_DETAILS_LENGTH);
 
 const MAX_FILE_SIZE = 10;
 const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
+const MAX_AMOUNT_OF_FILES = 6;
+const maxAmountOfFiles = isValidAmountOfFiles(MAX_AMOUNT_OF_FILES);
 
 interface IFormValues {
   eventDate: Moment | string;
@@ -60,8 +63,8 @@ interface IFormValues {
   affectedReattacks: string[];
   eventType: string;
   detail: string;
-  file?: FileList;
-  image?: FileList;
+  files?: FileList;
+  images?: FileList;
   rootId: string;
   rootNickname: string;
 }
@@ -137,8 +140,8 @@ const AddModal: React.FC<IAddModalProps> = ({
           detail: "",
           eventDate: "",
           eventType: "",
-          file: undefined,
-          image: undefined,
+          files: undefined,
+          images: undefined,
           rootId: "",
           rootNickname: "",
         }}
@@ -262,10 +265,12 @@ const AddModal: React.FC<IAddModalProps> = ({
                     <Field
                       accept={"image/gif,image/png"}
                       component={FormikFileInput}
-                      id={"image"}
-                      name={"image"}
+                      id={"images"}
+                      multiple={true}
+                      name={"images"}
                       validate={composeValidators([
                         validEvidenceImage,
+                        maxAmountOfFiles,
                         maxFileSize,
                       ])}
                     />
@@ -281,8 +286,8 @@ const AddModal: React.FC<IAddModalProps> = ({
                         "application/pdf,application/zip,text/csv,text/plain"
                       }
                       component={FormikFileInput}
-                      id={"file"}
-                      name={"file"}
+                      id={"files"}
+                      name={"files"}
                       validate={composeValidators([
                         validEventFile,
                         maxFileSize,

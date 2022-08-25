@@ -589,7 +589,7 @@ export const enTranslations: ResourceKey = {
         },
         date: "Event date",
         details: "Details",
-        evidence: "Evidence image",
+        evidence: "Evidence images",
         evidenceFile: "Evidence file",
         invalidFileName: "Evidence filename must not have invalid chars",
         none: "None",
@@ -3583,6 +3583,7 @@ export const enTranslations: ResourceKey = {
   validations: {
     alphabetic: "Only alphabetic characters",
     alphanumeric: "Only alphanumeric characters",
+    amountOfFiles: "The amount of files must be {{count}} or less",
     between: "This value must be between {{min}} and {{max}}",
     columns: "At least 1 column must be shown",
     commitHash: "The commit hash is invalid",

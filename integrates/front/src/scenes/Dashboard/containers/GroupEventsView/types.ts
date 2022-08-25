@@ -1,3 +1,10 @@
+interface IAddEventResultAttr {
+  addEvent: {
+    eventId: string;
+    success: boolean;
+  };
+}
+
 interface IRootAttr {
   id: string;
   nickname: string;
@@ -45,6 +52,7 @@ interface IRequestEventVerificationResultAttr {
 }
 
 export type {
+  IAddEventResultAttr,
   IEventAttr,
   IEventData,
   IEventsDataset,

@@ -19,4 +19,14 @@ interface IGetEventEvidences {
   };
 }
 
-export type { IGetEventEvidences, IEventEvidenceAttr };
+interface IUpdateEventEvidenceResultAttr {
+  updateEventEvidence: {
+    success: boolean;
+  };
+}
+
+export type {
+  IGetEventEvidences,
+  IEventEvidenceAttr,
+  IUpdateEventEvidenceResultAttr,
+};

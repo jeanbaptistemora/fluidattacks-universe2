@@ -174,8 +174,8 @@ describe("eventsView", (): void => {
       1
     );
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
-    expect(screen.getAllByTestId("file")).toHaveLength(1);
-    expect(screen.getAllByTestId("image")).toHaveLength(1);
+    expect(screen.getAllByTestId("files")).toHaveLength(1);
+    expect(screen.getAllByTestId("images")).toHaveLength(1);
   });
 
   it("should request verification", async (): Promise<void> => {
