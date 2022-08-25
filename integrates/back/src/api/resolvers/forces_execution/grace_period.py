@@ -16,7 +16,7 @@ async def resolve(
     **_kwargs: None,
 ) -> int:
     if isinstance(parent, dict):
-        if "grace_period" in parent:
+        if parent.get("grace_period"):
             return int(str(parent["grace_period"]))
         return 0
     return parent.grace_period if parent.grace_period else 0

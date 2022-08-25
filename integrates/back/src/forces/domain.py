@@ -79,7 +79,7 @@ async def add_forces_execution(
         strictness=execution_attributes["strictness"],
         origin=execution_attributes["git_origin"],
         grace_period=int(execution_attributes["grace_period"]),
-        severity_threshold=int(execution_attributes["severity_threshold"]),
+        severity_threshold=execution_attributes["severity_threshold"],
         vulnerabilities=format_forces_vulnerabilities_to_add(
             execution_attributes["vulnerabilities"]
         ),

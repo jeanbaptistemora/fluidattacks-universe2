@@ -3,6 +3,9 @@ from db_model.forces.types import (
     ExploitResult,
     ForcesExecution,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb.types import (
     Item,
 )
@@ -78,8 +81,12 @@ def format_forces(item: Item) -> ForcesExecution:
         exit_code=item["exit_code"],
         strictness=item["strictness"],
         origin=item["git_origin"],
-        grace_period=int(item["grace_period"]),
-        severity_threshold=int(item["severity_threshold"]),
+        grace_period=int(item["grace_period"])
+        if item.get("grace_period")
+        else None,
+        severity_threshold=Decimal(item["severity_threshold"])
+        if item.get("severity_threshold")
+        else None,
         vulnerabilities=format_forces_vulnerabilities(item["vulnerabilities"]),
     )
 
@@ -151,8 +158,12 @@ def format_forces_item(execution: ForcesExecution) -> Item:
         "exit_code": execution.exit_code,
         "strictness": execution.strictness,
         "git_origin": execution.origin,
-        "grace_period": execution.grace_period,
-        "severity_threshold": execution.severity_threshold,
+        "grace_period": execution.grace_period
+        if execution.grace_period
+        else 0,
+        "severity_threshold": execution.severity_threshold
+        if execution.severity_threshold
+        else Decimal("0.0"),
         "vulnerabilities": {
             "num_of_accepted_vulnerabilities": (
                 execution.vulnerabilities.num_of_accepted_vulnerabilities

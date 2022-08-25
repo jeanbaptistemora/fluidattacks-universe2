@@ -1,6 +1,9 @@
 from db_model.forces.enums import (
     VulnerabilityExploitState,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -38,6 +41,6 @@ class ForcesExecution(NamedTuple):
     exit_code: str
     strictness: str
     origin: str
-    severity_threshold: int
     vulnerabilities: ExecutionVulnerabilities
-    grace_period: Optional[int] = None
+    grace_period: Optional[int] = 0
+    severity_threshold: Optional[Decimal] = Decimal("0.0")
