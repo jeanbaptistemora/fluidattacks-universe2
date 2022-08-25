@@ -62,6 +62,8 @@ type Event {
   evidenceFile: String
   "Upload date of evidence file"
   evidenceFileDate: String
+  "Evidence of the event"
+  evidences: EventEvidence!
   "Name of the group linked to the event"
   groupName: String
   "Hacker"

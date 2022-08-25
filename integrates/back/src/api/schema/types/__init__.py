@@ -103,6 +103,12 @@ from .vulnerability_historic_state import (
 from api.schema.types.credentials import (
     CREDENTIALS,
 )
+from api.schema.types.event_evidence import (
+    EVENT_EVIDENCE,
+)
+from api.schema.types.event_evidence_item import (
+    EVENT_EVIDENCE_ITEM,
+)
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
@@ -127,6 +133,8 @@ TYPES: Tuple[ObjectType, ...] = (
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
+    EVENT_EVIDENCE,
+    EVENT_EVIDENCE_ITEM,
     EXECUTION_VULNERABILITIES,
     EXPLOIT_RESULT,
     FINDING_POLICY,

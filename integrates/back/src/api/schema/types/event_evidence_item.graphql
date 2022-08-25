@@ -1,0 +1,7 @@
+"Event evidence item type definition"
+type EventEvidenceItem {
+  "Upload date in the format yyyy-MM-dd hh:mm:ss"
+  date: String
+  "Filename of the event evidence"
+  fileName: String
+}

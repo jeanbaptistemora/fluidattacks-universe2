@@ -1,0 +1,17 @@
+"Event evidence type definition"
+type EventEvidence {
+  "Evidence file 1"
+  file1: EventEvidenceItem
+  "Evidence image 1"
+  image1: EventEvidenceItem
+  "Evidence image 2"
+  image2: EventEvidenceItem
+  "Evidence image 3"
+  image3: EventEvidenceItem
+  "Evidence image 4"
+  image4: EventEvidenceItem
+  "Evidence image 5"
+  image5: EventEvidenceItem
+  "Evidence image 6"
+  image6: EventEvidenceItem
+}
