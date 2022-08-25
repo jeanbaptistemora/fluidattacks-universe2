@@ -96,7 +96,15 @@ const TableWrapper: FC<ITableWrapperProps> = ({
   const enablePagination = dataset.length > pageSize;
 
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  const listSizePerPage: number[] = [10, 20, 30, 50, 100, 200, 500, 1000];
+  const listSizePerPage: number[] = [
+    10,
+    20,
+    50,
+    100,
+    200,
+    500,
+    Math.min(1000, dataset.length),
+  ];
 
   const paginationOptions: PaginationOptions = {
     onSizePerPageChange,
@@ -105,11 +113,8 @@ const TableWrapper: FC<ITableWrapperProps> = ({
     paginationTotalRenderer: PaginationTotalRenderer,
     showTotal: true,
     sizePerPage: preferredPageSize,
-    sizePerPageList: listSizePerPage.slice(
-      0,
-      listSizePerPage.findIndex(
-        (element): boolean => element >= dataset.length
-      ) + 1
+    sizePerPageList: listSizePerPage.filter(
+      (el): boolean => el <= dataset.length
     ),
     sizePerPageRenderer: SizePerPageRenderer,
   };
