@@ -15,7 +15,7 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill": (
         "api",
-        ("_logger", "_files"),
+        ("_logger", "_files", "_utils"),
     ),
     "tap_mandrill.api": (
         "export",
