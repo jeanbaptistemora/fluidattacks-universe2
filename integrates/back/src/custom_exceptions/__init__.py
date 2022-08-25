@@ -33,6 +33,10 @@ class ErrorFileNameAlreadyExists(_SingleMessageException):
     msg: str = "File name already exists in group files"
 
 
+class ExecutionAlreadyCreated(_SingleMessageException):
+    msg: str = "This execution has already exists"
+
+
 class ErrorLoadingOrganizations(_SingleMessageException):
     msg: str = "Unable to read organizations data"
 
