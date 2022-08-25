@@ -1,0 +1,24 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group%}
+
+{% block layout %}
+<div class="container">
+  {{ banner_group('New Enrolled User!') }}
+
+  <div class="main-content">
+    <p>Hello Production,</p>
+    <p>
+      A new user has enrolled to ARM.
+    </p>
+    <p>
+      <strong>Username:</strong> {{ name }}</br>
+      <strong>Email:</strong> {{ email }}</br>
+      <strong>Enrolled date:</strong> {{ enrolled_date }}</br>
+    </p>
+    <p>Best Regards,</p>
+    <p>Fluid Attacks Team</p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
