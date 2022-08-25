@@ -2,7 +2,9 @@
 checks:
   - F052
 namespace: OWASP
-output: skims/test/outputs/benchmark_owasp_hash.csv
+output:
+  file_path: skims/test/outputs/benchmark_owasp_hash.csv
+  format: CSV
 path:
   include:
     - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java

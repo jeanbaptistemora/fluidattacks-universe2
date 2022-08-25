@@ -10,5 +10,7 @@ apk:
     - ../universe/skims/test/data/lib_apk/http_refs.apk
     - ../universe/skims/test/data/lib_apk/get_insecure.apk
 namespace: namespace
-output: skims/test/outputs/lib_apk.csv
+output:
+  file_path: skims/test/outputs/lib_apk.csv
+  format: CSV
 working_dir: ../androguard

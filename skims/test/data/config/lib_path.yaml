@@ -1,13 +1,13 @@
 ---
 language: EN
 namespace: namespace
-output: skims/test/outputs/lib_path.csv
+output:
+  file_path: skims/test/outputs/lib_path.csv
+  format: CSV
 path:
+  exclude:
+    - glob(integrates/**/*)
   include:
     - skims/test/data/lib_path
     - skims/test/data/lib_root
-
-    # Include and exclude skims to test the filter
     - integrates/
-  exclude:
-    - glob(integrates/**/*)

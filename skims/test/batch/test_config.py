@@ -7,10 +7,12 @@ from integrates.dal import (
 from model.core_model import (
     FindingEnum,
     LocalesEnum,
+    OutputFormat,
     SkimsAPKConfig,
     SkimsConfig,
     SkimsDastConfig,
     SkimsHttpConfig,
+    SkimsOutputConfig,
     SkimsPathConfig,
     SkimsSslConfig,
     SkimsSslTarget,
@@ -96,7 +98,10 @@ async def test_generate_config(test_group: str) -> None:
         group=test_group,
         language=LocalesEnum.EN,
         namespace="static_namespace",
-        output=os.path.abspath("result.csv"),
+        output=SkimsOutputConfig(
+            file_path=os.path.abspath("result.csv"),
+            format=OutputFormat.CSV,
+        ),
         path=SkimsPathConfig(
             include=(".",),
             exclude=("glob(**/.git)",),

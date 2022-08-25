@@ -2,13 +2,15 @@
 checks:
   - F133
   - F117
-namespace: dynamic_namespace_1
-output: skims/test/outputs/integrates1.csv
-path:
-  include:
-    - skims/test/data/lib_path/f117
 dast:
   ssl:
     include:
       - host: localhost
         port: 4446
+namespace: dynamic_namespace_1
+output:
+  file_path: skims/test/outputs/integrates1.csv
+  format: CSV
+path:
+  include:
+    - skims/test/data/lib_path/f117

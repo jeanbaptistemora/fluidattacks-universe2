@@ -1103,6 +1103,16 @@ class SkimsDastConfig(NamedTuple):
     ssl: SkimsSslConfig
 
 
+class OutputFormat(Enum):
+    CSV: str = "CSV"
+    SARIF: str = "SARIF"
+
+
+class SkimsOutputConfig(NamedTuple):
+    file_path: str
+    format: OutputFormat
+
+
 class AwsCredentials(NamedTuple):
     access_key_id: str
     secret_access_key: str
@@ -1115,7 +1125,7 @@ class SkimsConfig(NamedTuple):
     group: Optional[str]
     language: LocalesEnum
     namespace: str
-    output: Optional[str]
+    output: Optional[SkimsOutputConfig]
     start_dir: str
     working_dir: str
     dast: Optional[SkimsDastConfig]

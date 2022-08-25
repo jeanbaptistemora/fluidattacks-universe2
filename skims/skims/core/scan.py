@@ -1,5 +1,6 @@
 import aioboto3
 from config import (
+    dump_to_yaml,
     load,
 )
 from contextlib import (
@@ -16,6 +17,9 @@ import csv
 from ctx import (
     CTX,
     MANAGER,
+)
+from custom_exceptions import (
+    NoOutputFilePathSpecified,
 )
 from dast.aws.analyze import (
     analyze as analyze_dast_aws,
@@ -72,6 +76,7 @@ from utils.bugs import (
 from utils.logs import (
     configure as configure_logs,
     log_blocking,
+    log_to_remote_blocking,
 )
 from utils.repositories import (
     get_repo_head_hash,
@@ -103,9 +108,9 @@ async def upload_sarif_result(
 ) -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
-        result = get_sarif(config, stores)
-        with open(file_path, "w", encoding="utf-8") as writer:
-            json.dump(result, writer)
+        notify_findings_as_sarif(
+            config=config, stores=stores, output_path=file_path
+        )
         with open(file_path, "rb") as reader:
             session = aioboto3.Session()
             async with session.client("s3") as s3_client:
@@ -168,14 +173,26 @@ async def execute_skims(
         await _upload_csv_result(stores)
         await upload_sarif_result(config, stores)
         await queue_upload_vulns(config.execution_id)
+    report_results(config=config, stores=stores)
+
+    return stores
+
+
+def report_results(
+    config: core_model.SkimsConfig,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+) -> None:
     if config.output:
-        notify_findings_as_csv(stores, CTX.config.output)
+        if config.output.format == core_model.OutputFormat.CSV:
+            notify_findings_as_csv(
+                stores=stores, output=config.output.file_path
+            )
+        elif config.output.format == core_model.OutputFormat.SARIF:
+            notify_findings_as_sarif(config=config, stores=stores)
     else:
         notify_findings_as_snippets(stores)
 
     log_blocking("info", "Value missing to add:\n%s", CTX.value_to_add)
-
-    return stores
 
 
 def notify_findings_as_snippets(
@@ -240,6 +257,30 @@ def notify_findings_as_csv(
 
     log_blocking("info", "An output file has been written: %s", output)
     return len(rows)
+
+
+def notify_findings_as_sarif(
+    config: core_model.SkimsConfig,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    output_path: Optional[str] = None,
+) -> None:
+    if output_path is None and config.output is None:
+        log_to_remote_blocking(
+            msg="No output file path specified for SARIF output",
+            severity="warning",
+            config=dump_to_yaml(config=config),
+        )
+        raise NoOutputFilePathSpecified()
+
+    file_path: str
+    if output_path is not None:
+        file_path = output_path
+    elif config.output is not None:
+        file_path = config.output.file_path
+
+    result = get_sarif(config, stores)
+    with open(file_path, "w", encoding="utf-8") as writer:
+        json.dump(result, writer)
 
 
 async def persist_to_integrates(

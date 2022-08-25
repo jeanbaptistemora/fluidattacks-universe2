@@ -75,7 +75,17 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 ),
                 "language": confuse.Choice(core_model.LocalesEnum),
                 "namespace": confuse.String(),
-                "output": confuse.String(),
+                "output": confuse.Template(
+                    {
+                        "file_path": confuse.String(),
+                        "format": confuse.OneOf(
+                            [
+                                _format.value
+                                for _format in core_model.OutputFormat
+                            ]
+                        ),
+                    }
+                ),
                 "execution_id": confuse.String(),
                 "path": confuse.Template(
                     {
@@ -94,9 +104,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
         config_apk = config.pop("apk", {})
         config_path = config.pop("path", {})
         config_dast = config.pop("dast", {}) or {}
-
-        if output := config.pop("output", None):
-            output = os.path.abspath(output)
+        output = config.pop("output", None)
 
         skims_config = core_model.SkimsConfig(
             apk=core_model.SkimsAPKConfig(
@@ -131,7 +139,12 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             group=group,
             language=core_model.LocalesEnum(config.pop("language", "EN")),
             namespace=config.pop("namespace"),
-            output=output,
+            output=core_model.SkimsOutputConfig(
+                file_path=os.path.abspath(output["file_path"]),
+                format=core_model.OutputFormat(output["format"]),
+            )
+            if output
+            else None,
             path=core_model.SkimsPathConfig(
                 exclude=config_path.pop("exclude", ()),
                 include=config_path.pop("include", ()),
@@ -193,7 +206,12 @@ def dump_to_yaml(config: core_model.SkimsConfig) -> str:
             else None,
             "language": config.language.value,
             "namespace": config.namespace,
-            "output": config.output,
+            "output": {
+                "file_path": config.output.file_path,
+                "format": config.output.format.value,
+            }
+            if config.output
+            else None,
             "execution_id": config.execution_id,
             "path": {
                 "exclude": list(config.path.exclude),

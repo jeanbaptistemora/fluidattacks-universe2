@@ -1,7 +1,4 @@
 ---
-language: EN
-namespace: namespace
-output: skims/test/outputs/lib_ssl.csv
 dast:
   ssl:
     include:
@@ -13,3 +10,8 @@ dast:
         port: 9999
       - host: wrong
         port: 9999
+language: EN
+namespace: namespace
+output:
+  file_path: skims/test/outputs/lib_ssl.csv
+  format: CSV

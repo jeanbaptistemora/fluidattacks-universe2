@@ -11,7 +11,9 @@ checks:
   - F089
   - F107
 namespace: OWASP
-output: Benchmark_1.2-Fluid-Attacks-v2021.csv
+output:
+  file_path: Benchmark_1.2-Fluid-Attacks-v2021.csv
+  format: CSV
 path:
   include:
     - .

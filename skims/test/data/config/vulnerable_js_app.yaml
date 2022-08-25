@@ -9,7 +9,9 @@ checks:
   - F063
   - F112
 namespace: VULNERABLE_JS_APP
-output: skims/test/outputs/vulnerable_js_app.csv
+output:
+  file_path: skims/test/outputs/vulnerable_js_app.csv
+  format: CSV
 path:
   include:
     - server/routes/testcases/

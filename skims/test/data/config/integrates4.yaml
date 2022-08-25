@@ -3,5 +3,7 @@ checks:
   - F133
   - F117
 namespace: dynamic_namespace_2
-output: skims/test/outputs/integrates4.csv
+output:
+  file_path: skims/test/outputs/integrates4.csv
+  format: CSV
 path: {}

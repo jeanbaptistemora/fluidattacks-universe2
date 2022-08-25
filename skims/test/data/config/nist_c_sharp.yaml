@@ -5,19 +5,17 @@ checks:
   - F061
   - F073
 namespace: NIST
-output: skims/test/outputs/nist_c_sharp.csv
+output:
+  file_path: skims/test/outputs/nist_c_sharp.csv
+  format: CSV
 path:
   include:
-    # F052
     - src/testcases/CWE327_Use_Broken_Crypto/
     - src/testcases/CWE328_Reversible_One_Way_Hash/
-    # F060
     - src/testcases/CWE396_Catch_Generic_Exception/
     - src/testcases/CWE397_Throw_Generic_Exception/
     - src/testcases/CWE395_Catch_NullPointerException/
-    # F061
     - src/testcases/CWE390_Error_Without_Action/
-    # F073
     - src/testcases/CWE478_Missing_Default_Case_in_Switch/
   lib_path: false
   lib_root: true

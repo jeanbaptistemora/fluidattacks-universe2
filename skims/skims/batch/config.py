@@ -403,7 +403,7 @@ async def generate_config(
         group=group_name,
         language=language,
         namespace=namespace,
-        output=os.path.abspath("result.csv"),
+        output=None,
         path=SkimsPathConfig(
             include=include if include else (".",),
             exclude=tuple(

@@ -2,7 +2,9 @@
 checks:
   - F112
 namespace: OWASP
-output: skims/test/outputs/vulnerableapp.csv
+output:
+  file_path: skims/test/outputs/vulnerableapp.csv
+  format: CSV
 path:
   include:
     - src/main/java/org/sasanlabs/service/vulnerability/sqlInjection

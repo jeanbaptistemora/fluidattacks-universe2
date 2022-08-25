@@ -1,10 +1,12 @@
 ---
-language: EN
-namespace: namespace
-output: skims/test/outputs/lib_http.csv
 dast:
   http:
     include:
       - https://this.host.should.not.exist
       - http://localhost:48000/
       - http://localhost:48000/error
+language: EN
+namespace: namespace
+output:
+  file_path: skims/test/outputs/lib_http.csv
+  format: CSV

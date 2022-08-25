@@ -2,12 +2,10 @@
 checks:
   - F063
 namespace: NIST
-output: skims/test/outputs/nist_c_sharp_f063.csv
+output:
+  file_path: skims/test/outputs/nist_c_sharp_f063.csv
+  format: CSV
 path:
-  include:
-    # F063
-    - src/testcases/CWE23_Relative_Path_Traversal/
-    - src/testcases/CWE36_Absolute_Path_Traversal/
   exclude:
     - glob(src/testcases/*/*File*.cs)
     - glob(src/testcases/*/*ReadLine*.cs)
@@ -15,6 +13,9 @@ path:
     - glob(src/testcases/*/*b.cs)
     - glob(src/testcases/*/*c.cs)
     - glob(src/testcases/*/*d.cs)
+  include:
+    - src/testcases/CWE23_Relative_Path_Traversal/
+    - src/testcases/CWE36_Absolute_Path_Traversal/
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

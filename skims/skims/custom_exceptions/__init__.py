@@ -66,3 +66,7 @@ class InvalidFilterCursor(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The cursor is invalid with a filter"
         super(InvalidFilterCursor, self).__init__(msg)
+
+
+class NoOutputFilePathSpecified(_SingleMessageException):
+    msg = "No path was specified for the output file in the configuration"
