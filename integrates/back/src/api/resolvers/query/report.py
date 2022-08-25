@@ -133,6 +133,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     max_severity: Optional[Decimal],
     last_report: Optional[int],
     min_release_date: Optional[datetime],
+    max_release_date: Optional[datetime],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -180,6 +181,9 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "last_report": last_report,
             "min_release_date": min_release_date.isoformat()
             if min_release_date
+            else None,
+            "max_release_date": max_release_date.isoformat()
+            if max_release_date
             else None,
         },
         cls=EncodeDecimal,
@@ -336,6 +340,7 @@ async def resolve(  # pylint: disable=too-many-locals
     _validate_min_severity(**kwargs)
     _validate_max_severity(**kwargs)
     _validate_days(kwargs.get("last_report", None))
+    _validate_closing_date(closing_date=kwargs.get("max_release_date", None))
 
     return {
         "success": await _get_url_group_report(
@@ -353,6 +358,7 @@ async def resolve(  # pylint: disable=too-many-locals
             max_severity=max_severity,
             last_report=kwargs.get("last_report", None),
             min_release_date=kwargs.get("min_release_date", None),
+            max_release_date=kwargs.get("max_release_date", None),
             verification_code=verification_code,
         )
     }

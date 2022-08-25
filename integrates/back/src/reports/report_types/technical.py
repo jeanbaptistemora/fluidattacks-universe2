@@ -168,7 +168,7 @@ async def generate_pdf_file(
     return report_filename
 
 
-async def generate_xls_file(
+async def generate_xls_file(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
@@ -183,6 +183,7 @@ async def generate_xls_file(
     max_severity: Optional[Decimal],
     last_report: Optional[int],
     min_release_date: Optional[datetime],
+    max_release_date: Optional[datetime],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -198,6 +199,7 @@ async def generate_xls_file(
         max_severity=max_severity,
         last_report=last_report,
         min_release_date=min_release_date,
+        max_release_date=max_release_date,
     )
     await it_report.create()
     filepath = it_report.result_filename
