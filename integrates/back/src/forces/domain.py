@@ -70,7 +70,7 @@ async def add_forces_execution(
     force_execution = ForcesExecution(
         id=execution_attributes["execution_id"],
         group_name=group_name,
-        date=execution_attributes["date"],
+        execution_date=execution_attributes["date"],
         commit=execution_attributes["git_commit"],
         repo=execution_attributes["git_repo"],
         branch=execution_attributes["git_branch"],

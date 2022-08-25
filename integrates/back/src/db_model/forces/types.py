@@ -33,7 +33,7 @@ class ExecutionVulnerabilities(NamedTuple):
 class ForcesExecution(NamedTuple):
     id: str
     group_name: str
-    date: str
+    execution_date: str
     commit: str
     repo: str
     branch: str

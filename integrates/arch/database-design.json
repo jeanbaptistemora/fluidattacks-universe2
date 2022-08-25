@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 18, 2022, 03:38 PM",
+    "DateLastModified": "Aug 25, 2022, 1:40 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -945,6 +945,18 @@
         {
           "AttributeName": "comment_type",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "execution_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "kind",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "vulnerabilities",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -10583,73 +10595,23 @@
           "FacetName": "forces_execution",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "EXEC#uuid"
+            "SortKeyAlias": "EXEC#id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "EXEC#b68e1063-18da-44d1-9d1a-295299a9fee7"
-              },
-              "type": {
-                "S": "all"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "exit_code": {
-                "S": "1"
-              },
-              "branch": {
-                "S": "unable to retrieve"
-              },
-              "commit": {
-                "S": "76bd6dbbba2d1864c09ba9af5be134728de8bdd2"
-              },
-              "origin": {
-                "S": "https://gitlab-ci-token:test@gitlab.com/company/test.git"
-              },
-              "repo": {
-                "S": "test"
-              },
-              "strictness": {
-                "S": "strict"
-              },
-              "grace_period": {
-                "N": "0"
-              },
-              "severity_threshold": {
-                "N": "0"
-              },
-              "results": {
-                "M": {
-                  "num_of_accepted_vulnerabilities": {
-                    "N": "0"
-                  },
-                  "num_of_closed_vulnerabilities": {
-                    "N": "238"
-                  },
-                  "num_of_open_vulnerabilities": {
-                    "N": "8"
-                  }
-                }
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "type",
-            "modified_date",
-            "exit_code",
-            "branch",
+            "id",
+            "group_name",
+            "execution_date",
             "commit",
-            "origin",
             "repo",
+            "branch",
+            "kind",
+            "exit_code",
             "strictness",
+            "origin",
+            "vulnerabilities",
             "grace_period",
-            "severity_threshold",
-            "results"
+            "severity_threshold"
           ],
           "DataAccess": {
             "MySql": {}

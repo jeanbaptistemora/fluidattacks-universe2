@@ -26,7 +26,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "execution": ForcesExecution(
                     group_name="group1",
                     id="123",
-                    date=get_from_str(
+                    execution_date=get_from_str(
                         "2020-02-05T00:00:00Z",
                         date_format="%Y-%m-%dT%H:%M:%SZ",
                         zone="UTC",

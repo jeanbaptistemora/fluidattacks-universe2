@@ -73,7 +73,7 @@ def format_forces(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["execution_id"],
         group_name=item["group_name"],
-        date=item["date"],
+        execution_date=item["date"],
         commit=item["git_commit"],
         repo=item["git_repo"],
         branch=item["git_branch"],
@@ -112,7 +112,7 @@ def format_forces_to_resolve(execution: ForcesExecution) -> Item:
     item = {
         "execution_id": execution.id,
         "group_name": execution.group_name,
-        "date": execution.date,
+        "date": execution.execution_date,
         "git_commit": execution.commit,
         "git_repo": execution.repo,
         "git_branch": execution.branch,
@@ -150,7 +150,7 @@ def format_forces_item(execution: ForcesExecution) -> Item:
     return {
         "execution_id": execution.id,
         "subscription": execution.group_name,
-        "date": execution.date,
+        "date": execution.execution_date,
         "git_commit": execution.commit,
         "git_repo": execution.repo,
         "git_branch": execution.branch,
