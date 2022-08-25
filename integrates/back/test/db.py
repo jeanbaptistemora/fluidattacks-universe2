@@ -79,9 +79,6 @@ from finding_comments import (
 from forces import (
     dal as dal_forces,
 )
-from newutils.datetime import (
-    get_from_str,
-)
 from organizations_finding_policies import (
     dal as dal_policies,
 )
@@ -508,15 +505,13 @@ async def populate_organization_finding_policies(
 
 
 async def populate_executions(data: list[Any]) -> bool:
-    coroutines: list[Awaitable[bool]] = []
-    for execution in data:
-        execution["date"] = get_from_str(
-            execution["date"], date_format="%Y-%m-%dT%H:%M:%SZ", zone="UTC"
+    await collect(
+        dal_forces.add_execution_typed(
+            force_execution=item["execution"],
         )
-    coroutines.extend(
-        [dal_forces.add_execution(**execution) for execution in data]
+        for item in data
     )
-    return all(await collect(coroutines))
+    return True
 
 
 async def populate_toe_inputs(data: tuple[ToeInput, ...]) -> bool:

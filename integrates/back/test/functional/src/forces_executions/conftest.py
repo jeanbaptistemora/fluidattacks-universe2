@@ -2,6 +2,13 @@
 from back.test import (
     db,
 )
+from db_model.forces.types import (
+    ExecutionVulnerabilities,
+    ForcesExecution,
+)
+from newutils.datetime import (
+    get_from_str,
+)
 import pytest
 from typing import (
     Any,
@@ -16,23 +23,29 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "executions": [
             {
-                "group_name": "group1",
-                "execution_id": "123",
-                "date": "2020-02-05T00:00:00Z",
-                "exit_code": "1",
-                "git_branch": "master",
-                "git_commit": "6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6",
-                "git_origin": "http://test.com",
-                "git_repo": "Repository",
-                "grace_period": 0,
-                "kind": "dynamic",
-                "severity_threshold": 0.0,
-                "strictness": "strict",
-                "vulnerabilities": {
-                    "num_of_accepted_vulnerabilities": 1,
-                    "num_of_open_vulnerabilities": 1,
-                    "num_of_closed_vulnerabilities": 1,
-                },
+                "execution": ForcesExecution(
+                    group_name="group1",
+                    id="123",
+                    date=get_from_str(
+                        "2020-02-05T00:00:00Z",
+                        date_format="%Y-%m-%dT%H:%M:%SZ",
+                        zone="UTC",
+                    ),
+                    exit_code="1",
+                    branch="master",
+                    commit="6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6",
+                    origin="http://test.com",
+                    repo="Repository",
+                    grace_period=0,
+                    kind="dynamic",
+                    severity_threshold=0.0,
+                    strictness="strict",
+                    vulnerabilities=ExecutionVulnerabilities(
+                        num_of_accepted_vulnerabilities=1,
+                        num_of_open_vulnerabilities=1,
+                        num_of_closed_vulnerabilities=1,
+                    ),
+                ),
             },
         ],
     }
