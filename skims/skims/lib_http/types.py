@@ -7,6 +7,7 @@ from typing import (
 )
 from urllib.parse import (
     ParseResult,
+    urlsplit,
 )
 
 
@@ -25,3 +26,9 @@ class URLContext(NamedTuple):
 
     def __str__(self) -> str:
         return self.url
+
+    def get_base_domain(self) -> str:
+        base_domain = urlsplit(self.url).netloc
+        if base_domain.startswith("www."):
+            base_domain = base_domain.replace("www.", "", 1)
+        return base_domain
