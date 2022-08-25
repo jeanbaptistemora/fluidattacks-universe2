@@ -121,6 +121,21 @@ def get_finding_code_from_title(finding_title: str) -> Optional[str]:
     return None
 
 
+def _get_job_execution_time(
+    job_execution_time: Optional[str],
+    action_time: str,
+    batch_jobs_dict: Dict[str, Any],
+    job_execution: RootMachineExecution,
+) -> Optional[int]:
+    if job_execution_time:
+        return int(date_parse(job_execution_time).timestamp() * 1000)
+    if job_execution.status:
+        return batch_jobs_dict.get(
+            job_execution.job_id, {action_time: None}
+        ).get(action_time)
+    return None
+
+
 async def list_(
     *,
     finding_code: str,
@@ -173,27 +188,17 @@ async def list_(
                 name=job_execution.name,
                 root_nickname=group_roots[job_execution.root_id],
                 queue=job_execution.queue,
-                started_at=int(
-                    date_parse(job_execution.started_at).timestamp() * 1000
-                )
-                if job_execution.started_at is not None
-                else (
-                    batch_jobs_dict.get(
-                        job_execution.job_id, {"startedAt": None}
-                    ).get("startedAt")
-                    if job_execution.status is None
-                    else None
+                started_at=_get_job_execution_time(
+                    job_execution.started_at,
+                    "startedAt",
+                    batch_jobs_dict,
+                    job_execution,
                 ),
-                stopped_at=int(
-                    date_parse(job_execution.stopped_at).timestamp() * 1000
-                )
-                if job_execution.stopped_at is not None
-                else (
-                    batch_jobs_dict.get(
-                        job_execution.job_id, {"stoppedAt": None}
-                    ).get("stoppedAt")
-                    if job_execution.status is None
-                    else None
+                stopped_at=_get_job_execution_time(
+                    job_execution.stopped_at,
+                    "stoppedAt",
+                    batch_jobs_dict,
+                    job_execution,
                 ),
                 status=job_execution.status
                 or ("SUCCESS" if job_execution.success else "FAILED"),
