@@ -203,6 +203,11 @@ def _get_sarif(
         ],
     )
 
+    for check in config.checks:
+        base.runs[0].tool.driver.rules.append(
+            _get_rule(check.name.replace("F", ""))
+        )
+
     for store in stores.values():
         for vulnerability in store.iterate():
             # remove F from findings
