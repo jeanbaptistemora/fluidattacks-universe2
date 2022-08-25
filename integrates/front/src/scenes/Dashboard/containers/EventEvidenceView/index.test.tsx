@@ -13,7 +13,7 @@ import {
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 
-describe("EventEvidenceView", (): void => {
+describe("eventEvidenceView", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
     expect(typeof EventEvidenceView).toBe("function");
@@ -32,10 +32,18 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "CREATED",
-              evidence: "some_image.png",
-              evidenceDate: "2020-10-17 00:00:00",
-              evidenceFile: "",
-              evidenceFileDate: "",
+              evidences: {
+                file1: null,
+                image1: {
+                  date: "2020-10-17 00:00:00",
+                  fileName: "some_image.png",
+                },
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },
@@ -79,10 +87,15 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "CREATED",
-              evidence: "",
-              evidenceDate: "",
-              evidenceFile: "",
-              evidenceFileDate: "",
+              evidences: {
+                file1: null,
+                image1: null,
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },
@@ -121,17 +134,28 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "CREATED",
-              evidence: "some_image.png",
-              evidenceDate: "2020-10-17 00:00:00",
-              evidenceFile: "some_file.pdf",
-              evidenceFileDate: "2020-10-17 00:00:00",
+              evidences: {
+                file1: {
+                  date: "2020-10-11 00:00:00",
+                  fileName: "some_file.pdf",
+                },
+                image1: {
+                  date: "2020-10-12 00:00:00",
+                  fileName: "some_image.png",
+                },
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },
         },
       },
     ];
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -143,9 +167,8 @@ describe("EventEvidenceView", (): void => {
     );
     await waitFor((): void => {
       expect(screen.queryByRole("img")).toBeInTheDocument();
+      expect(container.querySelectorAll(".fa-file")).toHaveLength(1);
     });
-
-    expect(screen.queryByText("File")).toBeInTheDocument();
   });
 
   it("should render image lightbox", async (): Promise<void> => {
@@ -161,10 +184,18 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "CREATED",
-              evidence: "some_image.png",
-              evidenceDate: "2021-02-17 00:00:00",
-              evidenceFile: "",
-              evidenceFileDate: "",
+              evidences: {
+                file1: null,
+                image1: {
+                  date: "2021-02-17 00:00:00",
+                  fileName: "some_image.png",
+                },
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },
@@ -215,10 +246,15 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "SOLVED",
-              evidence: "",
-              evidenceDate: "",
-              evidenceFile: "",
-              evidenceFileDate: "",
+              evidences: {
+                file1: null,
+                image1: null,
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },
@@ -258,10 +294,21 @@ describe("EventEvidenceView", (): void => {
           data: {
             event: {
               eventStatus: "CLOSED",
-              evidence: "",
-              evidenceDate: "",
-              evidenceFile: "some_file.pdf",
-              evidenceFileDate: "2020-10-17 00:00:00",
+              evidences: {
+                file1: {
+                  date: "020-10-17 00:00:00",
+                  fileName: "some_file.pdf",
+                },
+                image1: {
+                  date: "2020-10-12 00:00:00",
+                  fileName: "some_image.png",
+                },
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
               id: "413372600",
             },
           },

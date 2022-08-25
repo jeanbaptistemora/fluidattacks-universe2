@@ -3,6 +3,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 
+import type { IEventEvidenceAttr } from "./types";
+
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -48,7 +50,7 @@ const getUpdateChanges = (
       await updateEvidence({
         variables: {
           eventId,
-          evidenceType: `${key.toUpperCase()}_1`,
+          evidenceType: _.snakeCase(key).toUpperCase(),
           file: file[0],
         },
       });
@@ -75,16 +77,9 @@ const getDownloadHandler = (
 
 const showContent = (
   showEmpty: boolean,
-  data: { event: { evidence: string } }
+  evidence: IEventEvidenceAttr
 ): JSX.Element | string => {
-  return showEmpty ? <div /> : `${location.href}/${data.event.evidence}`;
-};
-
-const checkNotEmptyOrEditing = (
-  value: unknown,
-  isEditing: boolean
-): boolean => {
-  return !_.isEmpty(value) || isEditing;
+  return showEmpty ? <div /> : `${location.href}/${evidence.fileName}`;
 };
 
 export {
@@ -92,5 +87,4 @@ export {
   getUpdateChanges,
   showContent,
   getDownloadHandler,
-  checkNotEmptyOrEditing,
 };

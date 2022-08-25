@@ -16,11 +16,11 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import {
-  checkNotEmptyOrEditing,
   getUpdateChanges,
   handleUpdateEvidenceError,
   showContent,
 } from "./helpers";
+import type { IEventEvidenceAttr, IGetEventEvidences } from "./types";
 
 import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
@@ -32,9 +32,8 @@ import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import type { IGetEventEvidences } from "scenes/Dashboard/containers/EventEvidenceView/types";
 import globalStyle from "styles/global.css";
-import { ButtonToolbarRow } from "styles/styledComponents";
+import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -100,11 +99,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     onError: (updateError: ApolloError): void => {
       handleUpdateEvidenceError(updateError);
     },
-    refetchQueries: [GET_EVENT_EVIDENCES],
   });
 
-  const handleUpdate: (values: Record<string, unknown>) => void = useCallback(
-    async (values: Record<string, unknown>): Promise<void> => {
+  const handleUpdate: (
+    values: Record<string, IEventEvidenceAttr>
+  ) => Promise<void> = useCallback(
+    async (values: Record<string, IEventEvidenceAttr>): Promise<void> => {
       setIsEditing(false);
 
       const updateChanges = getUpdateChanges(eventId, updateEvidence);
@@ -116,35 +116,41 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     [eventId, refetch, updateEvidence]
   );
 
-  const openImage: () => void = useCallback((): void => {
-    if (!isEditing && !isRefetching) {
-      setLightboxIndex(0);
-    }
-  }, [isEditing, isRefetching]);
-
-  const removeImage = useCallback(async (): Promise<void> => {
-    setIsEditing(false);
-    await removeEvidence({ variables: { eventId, evidenceType: "IMAGE_1" } });
-  }, [eventId, removeEvidence]);
-
-  const removeFile = useCallback(async (): Promise<void> => {
-    setIsEditing(false);
-    await removeEvidence({ variables: { eventId, evidenceType: "FILE_1" } });
-  }, [eventId, removeEvidence]);
-
-  const handleDownload = useCallback(async (): Promise<void> => {
-    if (!isEditing) {
-      await downloadEvidence({
-        variables: { eventId, fileName: data?.event.evidenceFile },
-      });
-    }
-  }, [data, downloadEvidence, eventId, isEditing]);
-
   if (_.isEmpty(data) || _.isUndefined(data)) {
     return <div />;
   }
 
-  const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
+  const handleIncomingEvidence = (
+    evidence: IEventEvidenceAttr | null
+  ): IEventEvidenceAttr => {
+    return _.isNull(evidence)
+      ? {
+          date: "",
+          fileName: "",
+        }
+      : evidence;
+  };
+
+  const evidenceImages: Record<string, IEventEvidenceAttr> = {
+    image1: handleIncomingEvidence(data.event.evidences.image1),
+    image2: handleIncomingEvidence(data.event.evidences.image2),
+    image3: handleIncomingEvidence(data.event.evidences.image3),
+    image4: handleIncomingEvidence(data.event.evidences.image4),
+    image5: handleIncomingEvidence(data.event.evidences.image5),
+    image6: handleIncomingEvidence(data.event.evidences.image6),
+  };
+  const imageList: string[] = Object.keys(evidenceImages).filter(
+    (name: string): boolean =>
+      _.isEmpty(evidenceImages[name].fileName) ? isEditing : true
+  );
+  const evidenceFiles: Record<string, IEventEvidenceAttr> = {
+    file1: handleIncomingEvidence(data.event.evidences.file1),
+  };
+  const fileList: string[] = Object.keys(evidenceFiles).filter(
+    (name: string): boolean =>
+      _.isEmpty(evidenceFiles[name].fileName) ? isEditing : true
+  );
+
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
@@ -169,9 +175,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
           </Can>
         </ButtonToolbarRow>
         <br />
-        {_.isEmpty(data.event.evidence) &&
-        _.isEmpty(data.event.evidenceFile) &&
-        !isEditing ? (
+        {_.isEmpty(imageList) && _.isEmpty(fileList) && !isEditing ? (
           <div className={globalStyle["no-data"]}>
             <FontAwesomeIcon icon={faImage} size={"3x"} />
             <p>{t("group.events.evidence.noData")}</p>
@@ -179,7 +183,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         ) : undefined}
         <Formik
           enableReinitialize={true}
-          initialValues={data.event}
+          initialValues={{ ...evidenceImages, ...evidenceFiles }}
           name={"editEvidences"}
           onSubmit={handleUpdate}
         >
@@ -202,50 +206,107 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   </Tooltip>
                 </ButtonToolbarRow>
               ) : undefined}
-              {checkNotEmptyOrEditing(data.event.evidence, isEditing) ? (
-                <EvidenceImage
-                  acceptedMimes={"image/gif,image/png"}
-                  content={showContent(showEmpty, data)}
-                  date={data.event.evidenceDate}
-                  description={"Evidence"}
-                  isDescriptionEditable={false}
-                  isEditing={isEditing}
-                  isRemovable={!_.isEmpty(data.event.evidence)}
-                  name={"image"}
-                  onClick={openImage}
-                  onDelete={removeImage}
-                  validate={composeValidators([
-                    validEvidenceImage,
-                    maxFileSize,
-                  ])}
-                />
-              ) : undefined}
-              {checkNotEmptyOrEditing(data.event.evidenceFile, isEditing) ? (
-                <EvidenceImage
-                  acceptedMimes={
-                    "application/pdf,application/zip,text/csv,text/plain"
-                  }
-                  content={
-                    <div>
-                      <FontAwesomeIcon icon={faFile} size={"1x"} />
-                    </div>
-                  }
-                  date={data.event.evidenceFileDate}
-                  description={"File"}
-                  isDescriptionEditable={false}
-                  isEditing={isEditing}
-                  isRemovable={!_.isEmpty(data.event.evidenceFile)}
-                  name={"file"}
-                  onClick={handleDownload}
-                  onDelete={removeFile}
-                  validate={composeValidators([validEventFile, maxFileSize])}
-                />
-              ) : undefined}
+              <Row>
+                {imageList.map((name: string, index: number): JSX.Element => {
+                  const evidence: IEventEvidenceAttr = evidenceImages[name];
+                  const handleRemove = async (): Promise<void> => {
+                    setIsEditing(false);
+                    await removeEvidence({
+                      variables: {
+                        eventId,
+                        evidenceType: _.snakeCase(name).toUpperCase(),
+                      },
+                    });
+                  };
+
+                  const openImage = (): void => {
+                    if (!isEditing && !isRefetching) {
+                      setLightboxIndex(index);
+                    }
+                  };
+
+                  const showEmpty: boolean =
+                    _.isEmpty(evidence.fileName) || isRefetching;
+
+                  return (
+                    <EvidenceImage
+                      acceptedMimes={"image/gif,image/png"}
+                      content={showContent(showEmpty, evidence)}
+                      date={evidence.date}
+                      description={""}
+                      isDescriptionEditable={false}
+                      isEditing={isEditing}
+                      isRemovable={!_.isEmpty(evidence.fileName)}
+                      key={name}
+                      name={name}
+                      // Next annotations needed due to nested callbacks
+                      onClick={openImage} // eslint-disable-line react/jsx-no-bind
+                      onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                      validate={composeValidators([
+                        validEvidenceImage,
+                        maxFileSize,
+                      ])}
+                    />
+                  );
+                })}
+                {fileList.map((name: string): JSX.Element => {
+                  const evidence: IEventEvidenceAttr = evidenceFiles[name];
+                  const handleRemove = async (): Promise<void> => {
+                    setIsEditing(false);
+                    await removeEvidence({
+                      variables: {
+                        eventId,
+                        evidenceType: _.snakeCase(name).toUpperCase(),
+                      },
+                    });
+                  };
+
+                  const handleDownload = async (): Promise<void> => {
+                    if (!isEditing) {
+                      await downloadEvidence({
+                        variables: {
+                          eventId,
+                          fileName: evidence.fileName,
+                        },
+                      });
+                    }
+                  };
+
+                  return (
+                    <EvidenceImage
+                      acceptedMimes={
+                        "application/pdf,application/zip,text/csv,text/plain"
+                      }
+                      content={
+                        <div>
+                          <FontAwesomeIcon icon={faFile} size={"1x"} />
+                        </div>
+                      }
+                      date={evidence.date}
+                      description={""}
+                      isDescriptionEditable={false}
+                      isEditing={isEditing}
+                      isRemovable={!_.isEmpty(evidence.fileName)}
+                      key={name}
+                      name={name}
+                      // Next annotations needed due to nested callbacks
+                      onClick={handleDownload} // eslint-disable-line react/jsx-no-bind
+                      onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                      validate={composeValidators([
+                        validEventFile,
+                        maxFileSize,
+                      ])}
+                    />
+                  );
+                })}
+              </Row>
             </Form>
           )}
         </Formik>
         <EvidenceLightbox
-          evidenceImages={[{ url: data.event.evidence }]}
+          evidenceImages={imageList.map((name: string): { url: string } => ({
+            url: evidenceImages[name].fileName,
+          }))}
           index={lightboxIndex}
           onChange={setLightboxIndex}
         />
