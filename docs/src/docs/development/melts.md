@@ -41,7 +41,7 @@ Luckily,
 we already have a guide
 for getting your INTEGRATES_API_TOKEN,
 you can check it out
-[here](/machine/api#using-the-asm-api-token).
+[here](/machine/api#using-the-arm-api-token).
 After obtaining the token,
 you must set it as an environment variable,
 in order to do this,
@@ -201,7 +201,7 @@ you can try to fix them:
   hasn't expired,
   for this you only need to
   repeat the steps shown
-  [here](/machine/api#using-the-asm-api-token)
+  [here](/machine/api#using-the-arm-api-token)
   for updating your api token,
   and be aware of when
   it will expire next.

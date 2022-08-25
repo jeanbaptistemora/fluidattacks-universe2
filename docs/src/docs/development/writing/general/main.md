@@ -18,7 +18,7 @@ slug: /development/writing/general/main
 
 * **GM05:** We *must* keep the names of our services, solutions and material
   updated in each of our publications
-  (e.g., if our main application receives the name ASM and not Integrates,
+  (e.g., if our main application receives the name ARM and not Integrates,
   we must present it that way in all our writings).
 
 * **GM06:** We *must* be consistent with the handling of our key terms

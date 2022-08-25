@@ -146,7 +146,7 @@ We use [Kubernetes][KUBERNETES] for:
 
 1. [Hosting](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
     our
-    [ASM][ASM].
+    [ARM][ASM].
 1. [Automatically](https://gitlab.com/fluidattacks/universe/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
     deploying
     [ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
@@ -188,7 +188,7 @@ We do not use [Kubernetes][KUBERNETES] for:
     must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 1. Any changes related to the
-    [ASM][ASM]
+    [ARM][ASM]
     (deployments, autoscaling, ingress...)
     for both
     [development](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/dev/k8s)
@@ -224,11 +224,11 @@ Our cluster implements:
 1. [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
     for automatically scaling
     [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-    like production [ASM][ASM]
+    like production [ARM][ASM]
     based on application load (CPU, Memory, custom metrics).
 1. [New Relic](https://newrelic.com/)
     for monitoring both
-    production [ASM][ASM]
+    production [ARM][ASM]
     and general infrastructure.
 
 ### Debugging

@@ -103,7 +103,7 @@ Used for managing most of our organizational secrets.
 Some examples are:
 
 1. [Airs](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/airs/deploy/secret-management/production.yaml).
-1. [ASM](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/integrates/secrets-production.yaml).
+1. [ARM](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/integrates/secrets-production.yaml).
 1. [Docs](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/docs/secrets/prod.yaml).
 1. [Forces](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/forces/secrets-prod.yaml).
 1. [Makes](https://gitlab.com/fluidattacks/universe/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/makes/applications/makes/secrets/src/production.yaml).

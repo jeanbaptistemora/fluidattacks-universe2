@@ -9,13 +9,13 @@ slug: /development/stack/aws/dynamodb
 
 [DynamoDB][DYNAMODB] is the database we use
 for storing all the business-related data
-in our [ASM][ASM].
+in our [ARM][ASM].
 The main reasons why we chose it
 over other alternatives
 are the following:
 
 - It is a [NoSQL][RDBMS] database
-  perfectly suited to our ASM,
+  perfectly suited to our ARM,
   as it has clear [access patterns](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-modeling-nosql-B.html)
   and is performant and scalable.
 - It is a [SaaS-oriented](https://en.wikipedia.org/wiki/Software_as_a_service)
@@ -120,7 +120,7 @@ are the following:
 We use [DynamoDB][DYNAMODB] for
 
 - storing and retrieving all the business-related data
-  in our [ASM][ASM];
+  in our [ARM][ASM];
 - storing [Point-in-Time Recovery backups](https://gitlab.com/fluidattacks/universe/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/database/terraform/integrates-table.tf#L75)
   of all our data;
 - storing [on-demand backups](https://gitlab.com/fluidattacks/universe/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/backup/terraform/dynamodb.tf)

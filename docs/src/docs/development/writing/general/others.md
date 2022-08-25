@@ -22,7 +22,7 @@ slug: /development/writing/general/others
   Otherwise, it *must* begin with a capital letter
   (e.g., (a) We want to thank all of you:
   clients, community, hackers, developers, partners and providers.
-  (b) Meta-description: We offer you ASM
+  (b) Meta-description: We offer you ARM
   for continuous monitoring of your digital assets.).
 
 * **GO03:** We *must* not repeat punctuation marks
@@ -44,7 +44,7 @@ slug: /development/writing/general/others
   with the word *and*, not with symbols (e.g., *&*).
 
 * **GO08:** We *must* write an acronym and its meaning together
-  (e.g., Go to our Attack Surface Manager (ASM).)
+  (e.g., Go to our Attacks Resistance Management (ARM).)
   only the first time we mention one of them in a subsection,
   page or blog post
   (not in titles or subtitles).

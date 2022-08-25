@@ -9,7 +9,7 @@ slug: /development/stack/aws/redis
 
 We use [Redis][REDIS]
 as the [cache database](https://en.wikipedia.org/wiki/Database_caching)
-for our [ASM][ASM].
+for our [ARM][ASM].
 
 The main reasons why we chose it
 over other alternatives are:
@@ -33,10 +33,10 @@ over other alternatives are:
     and information security.
 1. It can exist within the same [VPC](/development/stack/aws/vpc/)
     as AWS-hosted applications like our
-    [ASM][ASM].
+    [ARM][ASM].
 1. As it exists
     within the same [VPC](/development/stack/aws/vpc/)
-    as our [ASM][ASM],
+    as our [ARM][ASM],
     cached data only has to travel
     within the local network,
     increasing overrall application performance.
@@ -102,7 +102,7 @@ over other alternatives are:
     as it already provides
     very good performance.
     This could considerably simplify
-    our [ASM][ASM] architecture
+    our [ARM][ASM] architecture
     by slightly reducing its performance.
 
 ## Usage
@@ -110,8 +110,8 @@ over other alternatives are:
 We use [Redis][REDIS] for:
 
 1. Retrieving cached data
-    from our [ASM][ASM].
-1. Managing our [ASM][ASM] sessions.
+    from our [ARM][ASM].
+1. Managing our [ARM][ASM] sessions.
 
 ## Guidelines
 
@@ -133,7 +133,7 @@ We use [Redis][REDIS] for:
     [Redis logic](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/redis_cluster),
     that way we can keep
     a consistent architecture.
-1. When working on our [ASM][ASM],
+1. When working on our [ARM][ASM],
     sometimes you will need
     to invalidate [Redis][REDIS] cache,
     you can do this

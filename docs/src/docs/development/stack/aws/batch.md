@@ -73,7 +73,7 @@ We use [Batch][BATCH] for running
 
 - [Production background schedules](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix)
   for all our products.
-- [ASM background tasks](https://gitlab.com/fluidattacks/universe/blob/37b52839d969fe37b4d583756409349f4154ff53/integrates/back/src/batch/enums.py#L21)
+- [ARM background tasks](https://gitlab.com/fluidattacks/universe/blob/37b52839d969fe37b4d583756409349f4154ff53/integrates/back/src/batch/enums.py#L21)
   like cloning roots and refreshing targets of evaluation.
 
 ## Guidelines
