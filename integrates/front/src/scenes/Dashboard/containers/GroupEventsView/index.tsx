@@ -362,17 +362,22 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           [...Array(images.length).keys()].map(
             async (
               index: number
-            ): Promise<FetchResult<IUpdateEventEvidenceResultAttr>> =>
-              updateEvidence({
-                variables: {
-                  eventId,
-                  evidenceType: `IMAGE_${index + 1}`,
-                  file: images[index],
-                },
-              })
+            ): Promise<
+              FetchResult<IUpdateEventEvidenceResultAttr> | undefined
+            > =>
+              _.isUndefined(images[index])
+                ? undefined
+                : updateEvidence({
+                    variables: {
+                      eventId,
+                      evidenceType: `IMAGE_${index + 1}`,
+                      file: images[index],
+                    },
+                  })
           );
         }
-        if (!_.isUndefined(files)) {
+
+        if (!_.isUndefined(files) && !_.isUndefined(files[0])) {
           void updateEvidence({
             variables: {
               eventId,
