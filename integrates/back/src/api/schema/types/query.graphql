@@ -116,6 +116,8 @@ type Query {
     lastReport: Int
     "Maximum CVSS 3.1 score of findings to include"
     maxSeverity: Float
+    "Minimum release date of types to include, in the format `yyyy-MM-ddThh:mm:ssZ`"
+    minReleaseDate: DateTime
     "Minimum CVSS 3.1 score of findings to include"
     minSeverity: Float
     "States to include"

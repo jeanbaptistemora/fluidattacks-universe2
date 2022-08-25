@@ -132,6 +132,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
     last_report: Optional[int],
+    min_release_date: Optional[datetime],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -177,6 +178,9 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "min_severity": min_severity,
             "max_severity": max_severity,
             "last_report": last_report,
+            "min_release_date": min_release_date.isoformat()
+            if min_release_date
+            else None,
         },
         cls=EncodeDecimal,
     )
@@ -199,7 +203,9 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     return success
 
 
-def _validate_closing_date(*, closing_date: datetime) -> None:
+def _validate_closing_date(*, closing_date: Optional[datetime]) -> None:
+    if closing_date is None:
+        return
     tzn = pytz.timezone(TIME_ZONE)
     today = get_now()
     if closing_date.astimezone(tzn) > today:
@@ -325,6 +331,7 @@ async def resolve(  # pylint: disable=too-many-locals
     max_severity: Optional[Decimal] = _get_severity_value(
         kwargs.get("max_severity")
     )
+    _validate_closing_date(closing_date=kwargs.get("min_release_date", None))
     _validate_days(kwargs.get("age", None))
     _validate_min_severity(**kwargs)
     _validate_max_severity(**kwargs)
@@ -345,6 +352,7 @@ async def resolve(  # pylint: disable=too-many-locals
             min_severity=min_severity,
             max_severity=max_severity,
             last_report=kwargs.get("last_report", None),
+            min_release_date=kwargs.get("min_release_date", None),
             verification_code=verification_code,
         )
     }

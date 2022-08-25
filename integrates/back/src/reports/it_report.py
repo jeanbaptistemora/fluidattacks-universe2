@@ -114,6 +114,7 @@ class ITReport:
         min_severity: Optional[Decimal],
         max_severity: Optional[Decimal],
         last_report: Optional[int],
+        min_release_date: Optional[datetime],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -129,6 +130,7 @@ class ITReport:
         self.min_severity = min_severity
         self.max_severity = max_severity
         self.last_report = last_report
+        self.min_release_date = min_release_date
         if self.closing_date:
             self.states = set(
                 [
@@ -195,6 +197,7 @@ class ITReport:
         filter_min_severity = data
         filter_max_severity = data
         filter_last_report = data
+        filter_min_release_date = data
         if self.finding_title:
             filter_finding_title = tuple(
                 finding
@@ -225,6 +228,14 @@ class ITReport:
                 for finding in data
                 if self._get_last_report_days(finding) <= self.last_report
             )
+        if self.min_release_date:
+            filter_min_release_date = tuple(
+                finding
+                for finding in data
+                if finding.approval
+                and datetime.fromisoformat(finding.approval.modified_date)
+                >= self.min_release_date
+            )
 
         filtered_findings_ids: set[str] = set.intersection(
             *[
@@ -233,6 +244,7 @@ class ITReport:
                 set(finding.id for finding in filter_min_severity),
                 set(finding.id for finding in filter_max_severity),
                 set(finding.id for finding in filter_last_report),
+                set(finding.id for finding in filter_min_release_date),
             ],
         )
 

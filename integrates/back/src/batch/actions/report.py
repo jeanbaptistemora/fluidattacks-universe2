@@ -77,6 +77,7 @@ async def get_report(
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
     last_report: Optional[int],
+    min_release_date: Optional[datetime],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -93,6 +94,7 @@ async def get_report(
             min_severity=min_severity,
             max_severity=max_severity,
             last_report=last_report,
+            min_release_date=min_release_date,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -128,6 +130,7 @@ async def send_report(  # pylint: disable=too-many-locals
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
     last_report: Optional[int],
+    min_release_date: Optional[datetime],
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -152,6 +155,7 @@ async def send_report(  # pylint: disable=too-many-locals
                 min_severity=min_severity,
                 max_severity=max_severity,
                 last_report=last_report,
+                min_release_date=min_release_date,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -183,6 +187,7 @@ def get_filter_message(  # noqa: MC0001
     min_severity: Optional[Decimal],
     max_severity: Optional[Decimal],
     last_report: Optional[int],
+    min_release_date: Optional[datetime],
 ) -> str:
     if closing_date:
         states = set(
@@ -228,6 +233,8 @@ def get_filter_message(  # noqa: MC0001
         message += f" Maximum CVSS 3.1 score: {max_severity}."
     if last_report is not None:
         message += f" Last Report in days: {last_report}."
+    if min_release_date:
+        message += f" Minimum release date: {min_release_date}."
 
     return (
         f". With the following filters:{message}"
@@ -270,6 +277,13 @@ async def report(*, item: BatchProcessing) -> None:
         else None
     )
     last_report: Optional[int] = additional_info.get("last_report", None)
+    min_release_date: Optional[datetime] = (
+        datetime.fromisoformat(
+            str(additional_info["min_release_date"])
+        ).astimezone(tz=timezone.utc)
+        if additional_info["min_release_date"]
+        else None
+    )
     message = (
         f"Processing {report_type} report requested by "
         + f"{item.subject} for group {item.entity}"
@@ -284,6 +298,7 @@ async def report(*, item: BatchProcessing) -> None:
             min_severity=min_severity,
             max_severity=max_severity,
             last_report=last_report,
+            min_release_date=min_release_date,
         )
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -299,6 +314,7 @@ async def report(*, item: BatchProcessing) -> None:
         min_severity=min_severity,
         max_severity=max_severity,
         last_report=last_report,
+        min_release_date=min_release_date,
     )
     if report_url:
         await send_report(
@@ -314,4 +330,5 @@ async def report(*, item: BatchProcessing) -> None:
             min_severity=min_severity,
             max_severity=max_severity,
             last_report=last_report,
+            min_release_date=min_release_date,
         )
