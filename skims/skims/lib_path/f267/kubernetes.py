@@ -47,6 +47,7 @@ def _k8s_root_container(
 ) -> Iterator[Any]:
     if (
         getattr(template, "raw")
+        and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
         and (ctx := template.inner.get("securityContext"))
     ):
@@ -85,6 +86,7 @@ def _k8s_check_seccomp_profile(
 ) -> Iterator[Any]:
     if (
         getattr(template, "raw")
+        and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
         and (ctx := template.inner.get("securityContext"))
     ):

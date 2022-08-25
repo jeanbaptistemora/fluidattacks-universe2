@@ -41,7 +41,11 @@ def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
 def iter_security_context(
     template: Node, container_only: bool
 ) -> Iterator[Node]:
-    if getattr(template, "raw") and template.raw.get("apiVersion"):
+    if (
+        getattr(template, "raw")
+        and hasattr(template.raw, "get")
+        and template.raw.get("apiVersion")
+    ):
         if (
             not container_only
             and (kind := template.inner.get("kind"))
