@@ -1,6 +1,7 @@
 from dynamodb.context import (
     FI_AWS_OPENSEARCH_HOST,
     FI_ENVIRONMENT,
+    FI_GOOGLE_CHAT_WEBOOK_URL,
 )
 from dynamodb.types import (
     EventName,
@@ -10,6 +11,7 @@ from dynamodb.utils import (
     format_record,
     SESSION,
 )
+import itertools
 from more_itertools import (
     chunked,
 )
@@ -18,6 +20,11 @@ from opensearchpy import (
     OpenSearch,
     RequestsHttpConnection,
 )
+from operator import (
+    attrgetter,
+)
+import requests
+import traceback
 from typing import (
     Any,
 )
@@ -68,8 +75,36 @@ def _replicate_on_opensearch(records: tuple[Record, ...]) -> None:
         _replicate_chunk(chunk)
 
 
-def replicate(raw_records: tuple[dict[str, Any], ...]) -> None:
-    """Replicates the records on secondary storages"""
+def _trigger_webhooks(records: tuple[Record, ...]) -> None:
+    items_to_notify = tuple(
+        record.item
+        for record in records
+        if record.pk.startswith("VULN#")
+        and record.sk.startswith("FIN#")
+        and record.event_name == EventName.INSERT
+    )
+    items_by_group = itertools.groupby(
+        sorted(items_to_notify, key=attrgetter("group_name")),
+        key=attrgetter("group_name"),
+    )
+
+    for group_name, items in items_by_group:
+        text = "\n".join(
+            [
+                f"🏹 New vulnerabilities reported on group {group_name}:",
+                *[f"- {item['where']} | {item['specific']}" for item in items],
+            ]
+        )
+        requests.post(FI_GOOGLE_CHAT_WEBOOK_URL, json={"text": text})
+
+
+def process(raw_records: tuple[dict[str, Any], ...]) -> None:
+    """Performs operations with the consumed records"""
     records = tuple(format_record(record) for record in raw_records)
 
     _replicate_on_opensearch(records)
+    try:
+        _trigger_webhooks(records)
+    except:
+        print("Couldn't trigger webhooks")
+        traceback.print_exception()

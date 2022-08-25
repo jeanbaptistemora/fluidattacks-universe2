@@ -3,8 +3,8 @@ from dynamodb.context import (
     FI_DYNAMODB_PORT,
     FI_ENVIRONMENT,
 )
-from dynamodb.replicator import (
-    replicate,
+from dynamodb.processor import (
+    process,
 )
 from dynamodb.utils import (
     SESSION,
@@ -120,7 +120,7 @@ def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
     shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
 
     for records in _get_shard_records(shard_iterator):
-        replicate(records)
+        process(records)
 
 
 def consume() -> None:

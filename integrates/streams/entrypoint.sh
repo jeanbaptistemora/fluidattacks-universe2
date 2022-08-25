@@ -5,6 +5,7 @@ function export_secrets {
     AWS_OPENSEARCH_HOST
     DYNAMODB_HOST
     DYNAMODB_PORT
+    GOOGLE_CHAT_WEBOOK_URL
   )
   local secrets_path
 
@@ -26,7 +27,7 @@ function main {
   echo "[INFO] Executing ${module} consumer" \
     && export_secrets "${ENVIRONMENT}" \
     && pushd integrates/streams/src \
-    && python3 "invoker.py" "${module}" \
+    && python3 -u "invoker.py" "${module}" \
     && popd \
     || return 1
 }
