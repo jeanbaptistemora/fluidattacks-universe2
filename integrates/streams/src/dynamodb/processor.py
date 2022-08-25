@@ -21,7 +21,7 @@ from opensearchpy import (
     RequestsHttpConnection,
 )
 from operator import (
-    attrgetter,
+    itemgetter,
 )
 import requests
 import traceback
@@ -84,8 +84,8 @@ def _trigger_webhooks(records: tuple[Record, ...]) -> None:
         and record.event_name == EventName.INSERT
     )
     items_by_group = itertools.groupby(
-        sorted(items_to_notify, key=attrgetter("group_name")),
-        key=attrgetter("group_name"),
+        sorted(items_to_notify, key=itemgetter("group_name")),
+        key=itemgetter("group_name"),
     )
 
     for group_name, items in items_by_group:
@@ -107,4 +107,4 @@ def process(raw_records: tuple[dict[str, Any], ...]) -> None:
         _trigger_webhooks(records)
     except:
         print("Couldn't trigger webhooks")
-        traceback.print_exception()
+        traceback.print_exc()
