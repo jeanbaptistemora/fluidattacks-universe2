@@ -12,6 +12,9 @@ const NumberFilter = <TData extends RowData>({
 }: INumberFilterProps<TData>): JSX.Element => {
   const minMaxValues = column.getFacetedMinMaxValues();
   const maxValue = minMaxValues === undefined ? undefined : minMaxValues[1];
+  const filterValue = column.getFilterValue() as [number, number] | undefined;
+  const currentValue =
+    filterValue === undefined ? [undefined, undefined] : filterValue;
 
   return (
     <div>
@@ -20,9 +23,9 @@ const NumberFilter = <TData extends RowData>({
           name: column.id,
           onBlur: (): void => undefined,
           onChange: (event: React.ChangeEvent<HTMLInputElement>): void => {
-            column.setFilterValue(event.target.value);
+            column.setFilterValue([Number(event.target.value), maxValue]);
           },
-          value: (column.getFilterValue() ?? "") as string,
+          value: currentValue[0] === undefined ? "" : String(currentValue[0]),
         }}
         form={{ errors: {}, touched: {} }}
         label={column.columnDef.header}
