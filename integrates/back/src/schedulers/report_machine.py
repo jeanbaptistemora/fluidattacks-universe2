@@ -839,7 +839,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             vulns_to_open, integrates_vulnerabilities, "open"
         ),
         _get_vulns_with_reattack(
-            vulns_to_open, integrates_vulnerabilities, "closed"
+            vulns_to_close, integrates_vulnerabilities, "closed"
         ),
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
     )
