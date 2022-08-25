@@ -799,7 +799,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-    if finding is None:
+    if finding is None and len(machine_vulnerabilities) > 0:
         finding = await _create_draft(
             group_name,
             vulnerability_id,
@@ -809,6 +809,8 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         )
         loaders.finding.clear(finding.id)
         loaders.group_findings.clear(group_name)
+    if not finding:
+        return
 
     integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
         vuln
