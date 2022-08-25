@@ -11,6 +11,7 @@ interface IVulnerability {
   reportDate: string;
   specific: string;
   treatment: string;
+  verification: string;
   where: string;
 }
 

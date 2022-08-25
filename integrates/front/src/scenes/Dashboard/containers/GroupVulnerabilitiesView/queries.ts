@@ -23,6 +23,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
             reportDate
             specific
             treatment
+            verification
             where
           }
         }

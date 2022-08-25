@@ -43,9 +43,16 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
     meta: { filterType: "select" },
   },
   {
+    accessorKey: "verification",
+    header: "Reattack",
+    meta: { filterType: "select" },
+  },
+
+  {
     accessorKey: "reportDate",
     enableColumnFilter: false,
     header: "Found",
+    meta: { filterType: "dateRange" },
   },
   {
     accessorFn: (row): number => row.finding.severityScore,
@@ -105,6 +112,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   return (
     <div>
       <Table
+        columnToggle={true}
         columns={tableColumns}
         data={vulnerabilities}
         enableColumnFilters={true}
