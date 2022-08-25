@@ -60,8 +60,37 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
         void fetchMore({
           variables: { after: pageInfo.endCursor },
         });
+      } else {
+        const newWheres = [
+          ...new Set(
+            vulnerabilities.map(
+              (value: IVulnerabilityAttr): string => value.where
+            )
+          ),
+        ].join(", ");
+        if (newWheres.length !== wheres.length) {
+          setWheres(newWheres);
+        }
+        const newTreatmentAssignmentEmails = new Set(
+          vulnerabilities
+            .filter(
+              (vulnerability: IVulnerabilityAttr): boolean =>
+                vulnerability.currentState === "open" &&
+                !_.isNull(vulnerability.treatmentAssigned)
+            )
+            .map(
+              (vulnerability: IVulnerabilityAttr): string =>
+                vulnerability.treatmentAssigned as string
+            )
+        );
+        if (
+          newTreatmentAssignmentEmails.size !== treatmentAssignmentEmails.size
+        ) {
+          setTreatmentAssignmentEmails(newTreatmentAssignmentEmails);
+        }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageInfo, fetchMore]);
 
   useEffect((): void => {
@@ -85,32 +114,6 @@ const VulnerabilitiesLoader: React.FC<IVulnerabilitiesLoaderProps> = ({
     (!_.isUndefined(pageInfo) && pageInfo.hasNextPage)
   ) {
     return <div />;
-  }
-
-  const newWheres = [
-    ...new Set(
-      vulnerabilities.map((value: IVulnerabilityAttr): string => value.where)
-    ),
-  ].join(", ");
-  if (newWheres.length !== wheres.length) {
-    setWheres(newWheres);
-  }
-
-  const newTreatmentAssignmentEmails = new Set(
-    vulnerabilities
-      .filter(
-        (vulnerability: IVulnerabilityAttr): boolean =>
-          vulnerability.currentState === "open" &&
-          !_.isNull(vulnerability.treatmentAssigned)
-      )
-      .map(
-        (vulnerability: IVulnerabilityAttr): string =>
-          vulnerability.treatmentAssigned as string
-      )
-  );
-
-  if (newTreatmentAssignmentEmails.size !== treatmentAssignmentEmails.size) {
-    setTreatmentAssignmentEmails(newTreatmentAssignmentEmails);
   }
 
   return <div />;
