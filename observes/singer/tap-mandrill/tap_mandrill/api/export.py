@@ -2,9 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from . import (
-    _utils,
-)
 from dataclasses import (
     dataclass,
 )
@@ -45,6 +42,9 @@ from fa_purity.utils import (
 )
 from mailchimp_transactional import (
     Client,
+)
+from tap_mandrill import (
+    _utils,
 )
 from tap_mandrill._files import (
     BinFile,
@@ -107,8 +107,8 @@ class ExportJob:
 
     @classmethod
     def _decode(cls, raw: FrozenDict[str, str]) -> ResultE[ExportJob]:
-        created_at_res = _get(raw, "created_at").bind(_utils.to_datetime)
-        finished_at_res = _get(raw, "finished_at").bind(_utils.to_datetime)
+        created_at_res = _get(raw, "created_at").bind(_utils.isoparse)
+        finished_at_res = _get(raw, "finished_at").bind(_utils.isoparse)
         state_res = _get(raw, "state").bind(JobState.decode)
         type_res = _get(raw, "type").bind(ExportType.decode)
         return _get(raw, "id").bind(

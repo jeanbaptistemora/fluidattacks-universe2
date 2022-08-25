@@ -18,7 +18,7 @@ from typing import (
 _T = TypeVar("_T")
 
 
-def _handle_value_exp(non_total_function: Callable[[], _T]) -> ResultE[_T]:
+def handle_value_error(non_total_function: Callable[[], _T]) -> ResultE[_T]:
     try:
         return Result.success(non_total_function())
     except ValueError as err:
@@ -26,11 +26,11 @@ def _handle_value_exp(non_total_function: Callable[[], _T]) -> ResultE[_T]:
 
 
 def isoparse(raw: str) -> ResultE[datetime]:
-    return _handle_value_exp(lambda: parser.isoparse(raw))
+    return handle_value_error(lambda: parser.isoparse(raw))
 
 
 def to_int(raw: str) -> ResultE[int]:
-    return _handle_value_exp(lambda: int(raw))
+    return handle_value_error(lambda: int(raw))
 
 
 def get_item(raw: FrozenDict[str, _T], key: str) -> ResultE[_T]:

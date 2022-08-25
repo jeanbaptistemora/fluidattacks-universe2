@@ -20,7 +20,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill.api": (
         "export",
         "objs",
-        "_utils",
     ),
     "tap_mandrill._files": (
         "_zip_file",
@@ -36,7 +35,9 @@ def project_dag() -> DAG:
 
 
 def forbidden_allowlist() -> Dict[FullPathModule, FrozenSet[FullPathModule]]:
-    _raw: Dict[str, FrozenSet[str]] = {}
+    _raw: Dict[str, FrozenSet[str]] = {
+        "dateutil": frozenset(["tap_mandrill._utils"])
+    }
     return {
         FullPathModule.from_raw(k): frozenset(
             FullPathModule.from_raw(i) for i in v
