@@ -7,6 +7,7 @@ import authz
 from context import (
     BASE_URL,
     FI_MAIL_CUSTOMER_SUCCESS,
+    FI_MAIL_PRODUCTION,
     FI_MAIL_REVIEWERS,
 )
 from datetime import (
@@ -54,6 +55,14 @@ async def send_mail_free_trial_start(
         tags=[],
         subject="[ARM] Congratulations! You started your 21-days free-trial",
         template_name="free_trial",
+    )
+    await send_mails_async(
+        loaders,
+        email_to=[FI_MAIL_PRODUCTION],
+        context=context,
+        tags=[],
+        subject="[ARM] New enrolled user",
+        template_name="new_enrolled",
     )
 
 

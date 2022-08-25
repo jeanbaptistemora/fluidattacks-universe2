@@ -64,6 +64,7 @@ async def add_enrollment(
     *,
     loaders: Any,
     user_email: str,
+    full_name: str,
 ) -> None:
     validate_email_address(user_email)
 
@@ -90,6 +91,10 @@ async def add_enrollment(
     email_context: dict[str, Any] = {
         "email": user_email,
         "empty_notification_notice": True,
+        "enrolled_date": datetime_utils.convert_from_iso_str(
+            datetime_utils.get_iso_date()
+        ),
+        "enrolled_name": full_name,
     }
     schedule(mail_free_trial_start(loaders, mail_to, email_context))
 

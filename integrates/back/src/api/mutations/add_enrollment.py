@@ -20,6 +20,7 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    stakeholders as stakeholders_utils,
     token as token_utils,
 )
 from typing import (
@@ -43,6 +44,7 @@ async def mutate(
     await enrollment_domain.add_enrollment(
         loaders=loaders,
         user_email=user_email,
+        full_name=stakeholders_utils.get_full_name(user_data),
     )
     logs_utils.cloudwatch_log(
         info.context,
