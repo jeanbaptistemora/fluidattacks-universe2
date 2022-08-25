@@ -996,7 +996,7 @@ async def main() -> None:
     queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
     signal_handler = SignalHandler()
     while not signal_handler.received_signal:
-        while len(asyncio.all_tasks()) > 60:
+        while len(asyncio.all_tasks()) > 30:
             await asyncio.sleep(0.3)
 
         messages = queue.receive_messages(
