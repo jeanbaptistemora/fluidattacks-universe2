@@ -84,7 +84,7 @@ async def run_boto3_fun(
     credentials: AwsCredentials,
     service: str,
     function: str,
-    parameters: Optional[Dict[str, str]] = None,
+    parameters: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     session = aioboto3.Session(
         aws_access_key_id=credentials.access_key_id,

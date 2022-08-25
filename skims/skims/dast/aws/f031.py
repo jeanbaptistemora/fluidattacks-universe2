@@ -184,11 +184,78 @@ async def group_with_inline_policies(
     return vulns
 
 
+async def full_access_policies(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    policies: List[Dict[str, Any]] = response.get("Policies", [])
+
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", [])
+            pol_access = list(policy_names["Document"]["Statement"])
+
+            for index, item in enumerate(pol_access):
+                if (
+                    item["Effect"] == "Allow"
+                    and "*" in item["Action"]
+                    and "*" in item["Resource"]
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Document/Statement/{index}/Effect",
+                                    f"/Document/Statement/{index}/Action",
+                                    f"/Document/Statement/{index}/Resource",
+                                ),
+                                arn=(f"{policy['Arn']}"),
+                                values=(
+                                    pol_access[index]["Effect"],
+                                    pol_access[index]["Action"],
+                                    pol_access[index]["Resource"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f031_aws.permissive_policy"
+                                ),
+                            )
+                        ],
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_FULL_ACCESS_POLICIES),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    full_access_policies,
     group_with_inline_policies,
-    admin_policy_attached,
     public_buckets,
+    admin_policy_attached,
 )
