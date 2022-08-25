@@ -58,22 +58,28 @@ click on Confirm.
 
 ### Remove
 
-Next to Edit is the Remove button.
+Next to Edit is the **Remove** button.
 With this action,
-you can remove Stakeholders at
-the Organization level.
+you can remove several Stakeholders
+at the Organization level.
 First,
-you must select the
-stakeholder to remove,
-followed by clicking on
-the Remove button.
-A pop-up window will appear where
-you will be asked if you are sure
-to perform this action.
-If so,
-click on confirm.
+you must select the stakeholders
+to remove by clicking on the
+checkbox on the left.
 
-![Stakeholders Remove](https://res.cloudinary.com/fluid-attacks/image/upload/v1658774735/docs/web/analytics/stakeholders/stakeh_remove.png)
+![Checkbox](https://res.cloudinary.com/fluid-attacks/image/upload/v1661438042/docs/web/stakeholders/remove_checkbox.png)
+
+After selecting,
+you go to the **Remove** button,
+where you will get a pop-up window
+where you **confirm** if you want
+to remove these participants.
+
+![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661438040/docs/web/stakeholders/remove_button.png)
+
+Clicking this will automatically
+remove the selected people from
+the Organization.
 
 ### Export
 
