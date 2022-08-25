@@ -34,6 +34,11 @@ const TableContainer = styled.div.attrs({
     width: auto;
   }
 
+  label > input,
+  div {
+    cursor: ${({ clickable }): string => (clickable ? "pointer" : "unset")};
+  }
+
   th {
     cursor: pointer;
     font-weight: 700;

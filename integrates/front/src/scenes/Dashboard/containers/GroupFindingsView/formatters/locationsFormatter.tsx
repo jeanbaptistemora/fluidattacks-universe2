@@ -2,7 +2,6 @@ import _ from "lodash";
 import React from "react";
 
 import type { ILocationsInfoAttr } from "../types";
-import styles from "components/Table/index.css";
 
 export const locationsFormatter: (
   locationsInfo: ILocationsInfoAttr
@@ -20,7 +19,7 @@ export const locationsFormatter: (
   return (
     <div>
       {_.isUndefined(firstLocation) ? undefined : (
-        <p className={`mb0 ${styles.textMesure} tl truncate`}>
+        <p className={`mb0 tl truncate`}>
           {firstLocation}&nbsp;
           {additional > 0 ? <b>{`+${additional}`}</b> : undefined}
         </p>

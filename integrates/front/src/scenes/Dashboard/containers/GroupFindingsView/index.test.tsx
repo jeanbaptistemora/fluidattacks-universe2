@@ -350,7 +350,7 @@ describe("groupFindingsView", (): void => {
     userEvent.click(
       screen.getByRole("checkbox", {
         checked: false,
-        name: "locationsInfo",
+        name: "Locations",
       })
     );
     userEvent.click(

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import type { IFindingData, IVerificationSummaryAttr } from "./types";
+import type { IVerificationSummaryAttr } from "./types";
 
 import { Col33, Row } from "styles/styledComponents";
 
@@ -111,7 +111,7 @@ export const renderDescription = ({
   state,
   treatment,
   verificationSummary,
-}: IFindingData): JSX.Element => (
+}: IDescriptionProps): JSX.Element => (
   <Description
     description={description}
     isExploitable={isExploitable}

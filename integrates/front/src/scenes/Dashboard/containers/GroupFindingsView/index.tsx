@@ -4,11 +4,12 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef, InitialTableState, Row } from "@tanstack/react-table";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
+import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
@@ -17,33 +18,19 @@ import { locationsFormatter } from "./formatters/locationsFormatter";
 import { VulnerabilitiesLoader } from "./loaders/VulnerabilitiesLoader";
 import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
 import {
-  filterAssigned,
   formatFindings,
   formatState,
   getAreAllMutationValid,
-  getFindingsIndex,
   getResults,
   handleRemoveFindingsError,
-  onSelectVariousFindingsHelper,
 } from "./utils";
 
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Table } from "components/Table";
-import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
-import { useRowExpand } from "components/Table/hooks/useRowExpand";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import {
-  filterDateRange,
-  filterLastNumber,
-  filterRange,
-  filterSearchText,
-  filterSelect,
-  filterSubSelectCount,
-  filterWhere,
-} from "components/Table/utils";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
@@ -55,32 +42,11 @@ import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikDropdown } from "utils/forms/fields";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
 
-interface IFilterSet {
-  age: string;
-  currentTreatment: string;
-  lastReport: string;
-  reattack: string;
-  releaseDate: { max: string; min: string };
-  severity: { max: string; min: string };
-  type: string;
-  where: string;
-}
 const GroupFindingsView: React.FC = (): JSX.Element => {
-  const TIMEZONE_OFFSET = 60000;
-  const FORMATTING_DATE_INDEX = 19;
-
-  const now: Date = new Date();
-  const timeSoFar: number = Date.now();
-  const tzoffset: number = now.getTimezoneOffset() * TIMEZONE_OFFSET;
-  const localIsoTime: Date = new Date(timeSoFar - tzoffset);
-  const formattingDate: string = localIsoTime.toISOString();
-  const currentDate: string = formattingDate.slice(0, FORMATTING_DATE_INDEX);
-
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
@@ -96,57 +62,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setIsReportsModalOpen(false);
   }, []);
 
-  const [checkedItems, setCheckedItems] = useStoredState<
-    Record<string, boolean>
-  >(
-    "findingsTableSet",
-    {
-      age: true,
-      closingPercentage: false,
-      lastVulnerability: true,
-      locationsInfo: false,
-      openVulnerabilities: true,
-      reattack: false,
-      severityScore: true,
-      state: true,
-      title: true,
-    },
-    localStorage
-  );
-
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("findingsCustomFilters", false);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
 
   const [findingVulnerabilities, setFindingVulnerabilities] = useState<
     Record<string, IVulnerabilitiesResume>
   >({});
-  const [assignedFilter, setAssignedFilter] = useState("");
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterGroupFindingsTable, setFilterGroupFindingsTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupFindingsTableSet",
-      {
-        age: "",
-        currentTreatment: "",
-        lastReport: "",
-        reattack: "",
-        releaseDate: { max: "", min: "" },
-        severity: { max: "", min: "" },
-        type: "",
-        where: "",
-      },
-      localStorage
-    );
-  const [
-    filterGroupFindingsCurrentStatus,
-    setFilterGroupFindingsCurrentStatus,
-  ] = useStoredState<Record<string, string>>(
-    "groupFindingsCurrentStatus",
-    { currentStatus: "open" },
-    localStorage
-  );
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
     setIsDeleteModalOpen(true);
@@ -155,42 +77,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setIsDeleteModalOpen(false);
   }, []);
 
-  const handleChange: (columnName: string) => void = useCallback(
-    (columnName: string): void => {
-      if (
-        Object.values(checkedItems).filter((val: boolean): boolean => val)
-          .length === 1 &&
-        checkedItems[columnName]
-      ) {
-        // eslint-disable-next-line no-alert
-        alert(t("validations.columns"));
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: true,
-        });
-      } else {
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: !checkedItems[columnName],
-        });
-      }
-    },
-    [checkedItems, setCheckedItems, t]
-  );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
-  const goToFinding: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ): void => {
-    push(`${url}/${rowInfo.id}/locations`);
-  };
+  function goToFinding(rowInfo: Row<IFindingAttr>): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      push(`${url}/${rowInfo.original.id}/locations`);
+      event.preventDefault();
+    };
+  }
 
   const handleQryErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
@@ -202,105 +94,114 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [t]
   );
 
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
-  };
-
-  const tableHeaders: IHeaderConfig[] = [
+  const tableColumns: ColumnDef<IFindingAttr>[] = [
     {
-      dataField: "title",
+      accessorKey: "title",
       header: "Type",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.type"),
-      visible: checkedItems.title,
-      wrapped: true,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "age",
+      accessorKey: "age",
       header: "Age",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.age"),
-      visible: checkedItems.age,
-      wrapped: true,
+      meta: { filterType: "number" },
     },
     {
-      dataField: "lastVulnerability",
-      formatter: (value: number): string =>
-        t("group.findings.description.value", { count: value }),
+      accessorKey: "lastVulnerability",
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        t("group.findings.description.value", { count: cell.getValue() }),
       header: "Last report",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.lastReport"),
-      visible: checkedItems.lastVulnerability,
-      wrapped: true,
+      meta: { filterType: "number" },
     },
     {
-      dataField: "state",
-      formatter: formatState,
+      accessorKey: "state",
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        formatState(cell.getValue()),
       header: "Status",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.status"),
-      visible: checkedItems.state,
-      width: "80px",
-      wrapped: true,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "severityScore",
+      accessorKey: "severityScore",
       header: "Severity",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.severity"),
-      visible: checkedItems.severityScore,
-      wrapped: true,
+      meta: { filterType: "numberRange" },
     },
     {
-      dataField: "openVulnerabilities",
+      accessorKey: "openVulnerabilities",
+      enableColumnFilter: false,
       header: "Open Vulnerabilities",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.locations"),
-      visible: checkedItems.openVulnerabilities,
-      wrapped: true,
     },
     {
-      dataField: "closingPercentage",
-      formatter: formatPercentage,
+      accessorKey: "closingPercentage",
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        formatPercentage(cell.getValue()),
+      enableColumnFilter: false,
       header: t("group.findings.closingPercentage"),
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.closingPercentage"),
-      visible: _.isUndefined(checkedItems.closingPercentage)
-        ? false
-        : checkedItems.closingPercentage,
-      wrapped: true,
+      meta: { filterType: "number" },
     },
     {
-      dataField: "locationsInfo",
-      formatter: locationsFormatter,
+      accessorFn: (row: IFindingAttr): string | undefined =>
+        row.locationsInfo.locations,
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        locationsFormatter(cell.row.original.locationsInfo),
       header: "Locations",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.where"),
-      visible: checkedItems.locationsInfo,
-      wrapped: true,
     },
     {
-      dataField: "reattack",
+      accessorKey: "reattack",
       header: "Reattack",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: t("group.findings.headersTooltips.reattack"),
-      visible: checkedItems.reattack,
-      wrapped: true,
+      meta: { filterType: "select" },
+    },
+    {
+      accessorFn: (row: IFindingAttr): string =>
+        String(
+          Array.from(row.locationsInfo.treatmentAssignmentEmails.values())
+        ),
+      header: "Asignees",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "releaseDate",
+      header: "Release Date",
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorFn: (row: IFindingAttr): string[] => {
+        const treatment = row.treatmentSummary;
+        const treatmentNew = treatment.new > 0 ? "New" : "";
+        const treatmentAccUndef =
+          treatment.acceptedUndefined > 0 ? "Permanently Accepted" : "";
+        const treatmentInProgress =
+          treatment.inProgress > 0 ? "in Progress" : "";
+        const treatmentAccepted =
+          treatment.accepted > 0 ? "Temporarily Accepted" : "";
+
+        return [
+          treatmentNew,
+          treatmentInProgress,
+          treatmentAccepted,
+          treatmentAccUndef,
+        ].filter(Boolean);
+      },
+      cell: (cell: ICellHelper<IFindingAttr>): string => {
+        const treatment = cell.row.original.treatmentSummary;
+
+        return `New: ${treatment.new}, in Progress: ${treatment.inProgress},
+        Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
+        ${treatment.acceptedUndefined}`;
+      },
+      filterFn: "arrIncludes",
+      header: "Treatment",
+      meta: { filterType: "select" },
     },
   ];
+
+  const initialstate: InitialTableState = {
+    columnVisibility: {
+      Asignees: false,
+      Locations: false,
+      Treatment: false,
+      reattack: false,
+      releaseDate: false,
+    },
+  };
 
   const { data, refetch } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     fetchPolicy: "cache-first",
@@ -329,229 +230,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const typesOptions = Object.fromEntries(
     _.sortBy(typesArray, (arr): string => arr[0])
   );
-
-  const initialSort: string = JSON.stringify({
-    dataField: "severityScore",
-    order: "desc",
-  });
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchtextFindings: IFindingAttr[] = filterSearchText(
-    findings,
-    searchTextFilter
-  );
-
-  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupFindingsCurrentStatus(
-      (value): Record<string, string> => ({
-        ...value,
-        currentStatus: event.target.value,
-      })
-    );
-  }
-  const filterCurrentStatusFindings: IFindingAttr[] = filterSelect(
-    findings,
-    filterGroupFindingsCurrentStatus.currentStatus,
-    "state"
-  );
-
-  const onTreatmentChange: (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => void = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        currentTreatment: event.target.value,
-      })
-    );
-  };
-
-  const filterCurrentTreatmentFindings: IFindingAttr[] = filterSubSelectCount(
-    findings,
-    filterGroupFindingsTable.currentTreatment,
-    "treatmentSummary"
-  );
-
-  function onReattackChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({ ...value, reattack: event.target.value })
-    );
-  }
-  const filterReattackFindings: IFindingAttr[] = filterSelect(
-    findings,
-    filterGroupFindingsTable.reattack,
-    "reattack"
-  );
-
-  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({ ...value, type: event.target.value })
-    );
-  }
-  const filterTypeFindings: IFindingAttr[] = filterSelect(
-    findings,
-    filterGroupFindingsTable.type,
-    "title"
-  );
-
-  function onAssignedChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setAssignedFilter(event.target.value);
-  }
-
-  const filterAssignedVulnerabilityFindings: IFindingAttr[] = filterAssigned(
-    findings,
-    assignedFilter
-  );
-
-  function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        where: event.target.value,
-      })
-    );
-  }
-  const filterWhereFindings: IFindingAttr[] = filterWhere(
-    findings,
-    filterGroupFindingsTable.where
-  );
-
-  function onAgeChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({ ...value, age: event.target.value })
-    );
-  }
-  const filterAgeFindings: IFindingAttr[] = filterLastNumber(
-    findings,
-    filterGroupFindingsTable.age,
-    "age"
-  );
-
-  function onLastReportChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({ ...value, lastReport: event.target.value })
-    );
-  }
-  const filterLastReportFindings: IFindingAttr[] = filterLastNumber(
-    findings,
-    filterGroupFindingsTable.lastReport,
-    "lastVulnerability"
-  );
-
-  function onSeverityMinChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        severity: { ...value.severity, min: event.target.value },
-      })
-    );
-  }
-
-  function onSeverityMaxChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        severity: { ...value.severity, max: event.target.value },
-      })
-    );
-  }
-
-  const filterSeverityFindings: IFindingAttr[] = filterRange(
-    findings,
-    filterGroupFindingsTable.severity,
-    "severityScore"
-  );
-
-  const onReleaseDateMinChange: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        releaseDate: { ...value.releaseDate, min: event.target.value },
-      })
-    );
-  };
-
-  const onReleaseDateMaxChange: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.persist();
-    setFilterGroupFindingsTable(
-      (value): IFilterSet => ({
-        ...value,
-        releaseDate: { ...value.releaseDate, max: event.target.value },
-      })
-    );
-  };
-
-  const filterReleaseDateFindings: IFindingAttr[] = filterDateRange(
-    findings,
-    filterGroupFindingsTable.releaseDate,
-    "releaseDate"
-  );
-
-  function clearFilters(): void {
-    setFilterGroupFindingsCurrentStatus(
-      (): Record<string, string> => ({
-        currentStatus: "open",
-      })
-    );
-    setFilterGroupFindingsTable(
-      (): IFilterSet => ({
-        age: "",
-        currentTreatment: "",
-        lastReport: "",
-        reattack: "",
-        releaseDate: { max: "", min: "" },
-        severity: { max: "", min: "" },
-        type: "",
-        where: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultFindings: IFindingAttr[] = _.intersection(
-    filterAssignedVulnerabilityFindings,
-    filterSearchtextFindings,
-    filterCurrentStatusFindings,
-    filterCurrentTreatmentFindings,
-    filterReattackFindings,
-    filterReleaseDateFindings,
-    filterWhereFindings,
-    filterTypeFindings,
-    filterAgeFindings,
-    filterLastReportFindings,
-    filterSeverityFindings
-  );
-
-  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
-    rowId: "id",
-    rows: resultFindings,
-    storageKey: "findingExpandedRows",
-  });
 
   const [removeFinding, { loading: deleting }] = useMutation(
     REMOVE_FINDING_MUTATION,
@@ -603,184 +281,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     void handleRemoveFinding(values.justification);
   }
 
-  function onSelectVariousFindings(
-    isSelect: boolean,
-    findingsSelected: IFindingAttr[]
-  ): string[] {
-    return onSelectVariousFindingsHelper(
-      isSelect,
-      findingsSelected,
-      selectedFindings,
-      setSelectedFindings
-    );
+  function handleRowExpand(row: Row<IFindingAttr>): JSX.Element {
+    return renderDescription(row.original);
   }
-
-  function onSelectOneFinding(
-    finding: IFindingAttr,
-    isSelect: boolean
-  ): boolean {
-    onSelectVariousFindings(isSelect, [finding]);
-
-    return true;
-  }
-
-  const treatmentAssignedOptions = useMemo(
-    (): Record<string, string> =>
-      Object.fromEntries(
-        Array.from(
-          new Set(
-            findings.flatMap((finding: IFindingAttr): string[] =>
-              _.isUndefined(finding.locationsInfo.treatmentAssignmentEmails)
-                ? []
-                : [...finding.locationsInfo.treatmentAssignmentEmails]
-            )
-          )
-        ).map((email: string): string[] => [email, email])
-      ) as Record<string, string>,
-    [findings]
-  );
-  const customFilters: IFilterProps[] = [
-    {
-      defaultValue: filterGroupFindingsTable.lastReport,
-      onChangeInput: onLastReportChange,
-      placeholder: "Last report (last N days)",
-      tooltipId: "group.findings.filtersTooltips.lastReport.id",
-      tooltipMessage: "group.findings.filtersTooltips.lastReport",
-      type: "number",
-    },
-    {
-      defaultValue: filterGroupFindingsTable.type,
-      onChangeSelect: onTypeChange,
-      placeholder: "Type",
-      selectOptions: typesOptions,
-      tooltipId: "group.findings.filtersTooltips.type.id",
-      tooltipMessage: "group.findings.filtersTooltips.type",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupFindingsCurrentStatus.currentStatus,
-      onChangeSelect: onStatusChange,
-      placeholder: "Status",
-      selectOptions: {
-        closed: "Closed",
-        open: "Open",
-      },
-      tooltipId: "group.findings.filtersTooltips.status.id",
-      tooltipMessage: "group.findings.filtersTooltips.status",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupFindingsTable.currentTreatment,
-      onChangeSelect: onTreatmentChange,
-      placeholder: "Treatment",
-      selectOptions: {
-        accepted: "Temporarily Accepted",
-        acceptedUndefined: "Permanently Accepted",
-        inProgress: "In Progress",
-        new: "New",
-      },
-      tooltipId: "group.findings.filtersTooltips.treatment.id",
-      tooltipMessage: "group.findings.filtersTooltips.treatment",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: "Severity (range)",
-      rangeProps: {
-        defaultValue: filterGroupFindingsTable.severity,
-        onChangeMax: onSeverityMaxChange,
-        onChangeMin: onSeverityMinChange,
-        step: 0.1,
-      },
-      tooltipId: "group.findings.filtersTooltips.severity.id",
-      tooltipMessage: "group.findings.filtersTooltips.severity",
-      type: "range",
-    },
-    {
-      defaultValue: filterGroupFindingsTable.age,
-      onChangeInput: onAgeChange,
-      placeholder: "Age (last N days)",
-      tooltipId: "group.findings.filtersTooltips.age.id",
-      tooltipMessage: "group.findings.filtersTooltips.age",
-      type: "number",
-    },
-    {
-      defaultValue: filterGroupFindingsTable.where,
-      onChangeInput: onWhereChange,
-      placeholder: "Locations",
-      tooltipId: "group.findings.filtersTooltips.where.id",
-      tooltipMessage: "group.findings.filtersTooltips.where",
-      type: "text",
-    },
-    {
-      defaultValue: assignedFilter,
-      onChangeSelect: onAssignedChange,
-      placeholder: "Assignee",
-      selectOptions: treatmentAssignedOptions,
-      tooltipId: "group.findings.filtersTooltips.assigned.id",
-      tooltipMessage: "group.findings.filtersTooltips.assigned",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupFindingsTable.reattack,
-      onChangeSelect: onReattackChange,
-      placeholder: "Reattack",
-      selectOptions: {
-        "-": "-",
-        Pending: "Pending",
-      },
-      tooltipId: "group.findings.filtersTooltips.reattack.id",
-      tooltipMessage: "group.findings.filtersTooltips.reattack",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: "Release date (range)",
-      rangeProps: {
-        defaultValue: filterGroupFindingsTable.releaseDate,
-        onChangeMax: onReleaseDateMaxChange,
-        onChangeMin: onReleaseDateMinChange,
-      },
-      tooltipId: "group.findings.filtersTooltips.releaseDate.id",
-      tooltipMessage: "group.findings.filtersTooltips.releaseDate",
-      type: "dateRange",
-    },
-  ];
 
   return (
     <React.StrictMode>
       <Table
-        clearFiltersButton={clearFilters}
         columnToggle={true}
-        csvFilename={`${groupName}-findings-${currentDate}.csv`}
-        customFilters={{
-          customFiltersProps: customFilters,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          resultSize: {
-            current: resultFindings.length,
-            total: findings.length,
-          },
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={resultFindings}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "findingSort", initialSort) as string
-        )}
-        expandRow={{
-          expandByColumnOnly: true,
-          expanded: expandedRows,
-          onExpand: handleRowExpand,
-          onExpandAll: handleRowExpandAll,
-          renderer: renderDescription,
-          showExpandColumn: true,
-        }}
-        exportCsv={false}
+        columns={tableColumns}
+        data={findings}
+        enableColumnFilters={true}
+        expandedRow={handleRowExpand}
         extraButtons={
           <React.Fragment>
             <Can I={"api_resolvers_query_report__get_url_group_report"}>
@@ -814,22 +326,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             </Can>
           </React.Fragment>
         }
-        headers={tableHeaders}
         id={"tblFindings"}
-        onColumnToggle={handleChange}
-        pageSize={10}
-        rowEvents={{ onClick: goToFinding }}
-        search={false}
-        selectionMode={{
-          clickToSelect: false,
-          hideSelectColumn: permissions.cannot(
-            "api_mutations_remove_finding_mutate"
-          ),
-          mode: "checkbox",
-          onSelect: onSelectOneFinding,
-          onSelectAll: onSelectVariousFindings,
-          selected: getFindingsIndex(selectedFindings, resultFindings),
-        }}
+        initState={initialstate}
+        onRowClick={goToFinding}
+        rowSelectionSetter={
+          permissions.can("api_mutations_remove_finding_mutate")
+            ? setSelectedFindings
+            : undefined
+        }
+        rowSelectionState={selectedFindings}
       />
       <ReportsModal
         enableCerts={hasMachine && filledGroupInfo}
