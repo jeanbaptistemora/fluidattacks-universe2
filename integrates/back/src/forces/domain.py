@@ -23,6 +23,9 @@ import json
 from newutils import (
     token as token_utils,
 )
+from newutils.datetime import (
+    get_as_str,
+)
 from newutils.forces import (
     format_forces_vulnerabilities_to_add,
 )
@@ -67,10 +70,14 @@ async def add_forces_execution(
             execution_attributes["grace_period"]
         )
 
-    force_execution = ForcesExecution(
+    forces_execution = ForcesExecution(
         id=execution_attributes["execution_id"],
         group_name=group_name,
-        execution_date=execution_attributes["date"],
+        execution_date=get_as_str(
+            execution_attributes["date"],
+            date_format="%Y-%m-%dT%H:%M:%S.%f%z",
+            zone="UTC",
+        ),
         commit=execution_attributes["git_commit"],
         repo=execution_attributes["git_repo"],
         branch=execution_attributes["git_branch"],
@@ -95,7 +102,7 @@ async def add_forces_execution(
         vulns_file.seek(os.SEEK_SET)
         await save_log_execution(log, log_name)
         await save_log_execution(vulns_file, vulns_name)
-        await forces_dal.add_execution_typed(force_execution=force_execution)
+        await forces_dal.add_execution_typed(forces_execution=forces_execution)
 
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:

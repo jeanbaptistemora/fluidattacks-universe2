@@ -7,6 +7,7 @@ from db_model.forces.types import (
     ForcesExecution,
 )
 from newutils.datetime import (
+    get_as_str,
     get_from_str,
 )
 import pytest
@@ -20,15 +21,20 @@ from typing import (
 @pytest.mark.resolver_test_group("forces_executions")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
+    datetime = get_from_str(
+        "2020-02-05T00:00:00Z",
+        date_format="%Y-%m-%dT%H:%M:%SZ",
+        zone="UTC",
+    )
     data: Dict[str, Any] = {
         "executions": [
             {
                 "execution": ForcesExecution(
                     group_name="group1",
                     id="123",
-                    execution_date=get_from_str(
-                        "2020-02-05T00:00:00Z",
-                        date_format="%Y-%m-%dT%H:%M:%SZ",
+                    execution_date=get_as_str(
+                        date=datetime,
+                        date_format="%Y-%m-%dT%H:%M:%S.%f%z",
                         zone="UTC",
                     ),
                     exit_code="1",

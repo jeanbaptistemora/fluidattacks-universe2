@@ -507,7 +507,7 @@ async def populate_organization_finding_policies(
 async def populate_executions(data: list[Any]) -> bool:
     await collect(
         dal_forces.add_execution_typed(
-            force_execution=item["execution"],
+            forces_execution=item["execution"],
         )
         for item in data
     )
