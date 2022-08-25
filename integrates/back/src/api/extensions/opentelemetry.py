@@ -44,6 +44,13 @@ class FastExtension(Extension):
         return result
 
 
+def format_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: (str(value) if value is None else value)
+        for key, value in attributes.items()
+    }
+
+
 class OpenTelemetryExtension(FastExtension):
     """
     OpenTelemetry extension for ariadne
@@ -60,9 +67,7 @@ class OpenTelemetryExtension(FastExtension):
         operation: Operation = context.operation
         operation_span = trace.get_current_span()
         operation_span.update_name(operation.name)
-        operation_span.set_attributes(
-            {key: str(value) for key, value in operation.variables.items()}
-        )
+        operation_span.set_attributes(format_attributes(operation.variables))
 
     async def resolve(
         self,
@@ -74,10 +79,10 @@ class OpenTelemetryExtension(FastExtension):
         path = "/".join(str(element) for element in format_path(info.path))
 
         if should_trace(info):
-            with self.tracer.start_as_current_span(path) as resolver_span:
-                if kwargs:
-                    resolver_span.set_attributes(kwargs)
-
+            with self.tracer.start_as_current_span(
+                attributes=format_attributes(kwargs),
+                name=path,
+            ):
                 return await super().resolve(next_, obj, info, **kwargs)
 
         return await super().resolve(next_, obj, info, **kwargs)

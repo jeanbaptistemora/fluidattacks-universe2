@@ -3,10 +3,16 @@ from context import (
     FI_NEW_RELIC_LICENSE_KEY,
 )
 from opentelemetry import (
+    metrics,
     trace,
 )
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
+from opentelemetry.exporter.otlp.proto.grpc.exporter import (
     Compression,
+)
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
+    OTLPMetricExporter,
+)
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
 )
 from opentelemetry.instrumentation.aiohttp_client import (
@@ -20,6 +26,12 @@ from opentelemetry.instrumentation.requests import (
 )
 from opentelemetry.instrumentation.starlette import (
     StarletteInstrumentor,
+)
+from opentelemetry.sdk.metrics import (
+    MeterProvider,
+)
+from opentelemetry.sdk.metrics.export import (
+    PeriodicExportingMetricReader,
 )
 from opentelemetry.sdk.resources import (
     DEPLOYMENT_ENVIRONMENT,
@@ -54,16 +66,32 @@ def instrument(app: Starlette) -> None:
             SERVICE_NAME: "integrates",
         }
     )
-    trace.set_tracer_provider(TracerProvider(resource=resource))
 
     if FI_ENVIRONMENT == "production":
-        new_relic_exporter = OTLPSpanExporter(
+        span_exporter = OTLPSpanExporter(
             compression=Compression.Gzip,
             endpoint="https://otlp.nr-data.net:4318/v1/traces",
             headers={"api-key": FI_NEW_RELIC_LICENSE_KEY},
         )
-        span_processor = BatchSpanProcessor(new_relic_exporter)
+        span_processor = BatchSpanProcessor(
+            max_queue_size=4096,
+            span_exporter=span_exporter,
+        )
+        trace.set_tracer_provider(TracerProvider(resource=resource))
         trace.get_tracer_provider().add_span_processor(span_processor)
+
+        metric_exporter = OTLPMetricExporter(
+            compression=Compression.Gzip,
+            endpoint="https://otlp.nr-data.net:4318/v1/metrics",
+            headers={"api-key": FI_NEW_RELIC_LICENSE_KEY},
+        )
+        metric_reader = PeriodicExportingMetricReader(metric_exporter)
+        metrics.set_meter_provider(
+            MeterProvider(
+                metric_readers=[metric_reader],
+                resource=resource,
+            )
+        )
 
     AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()

@@ -44,6 +44,7 @@ closure:
   gitpython: 3.1.12
   googleapis-common-protos: 1.56.4
   graphql-core: 3.2.1
+  grpcio: 1.48.0
   gunicorn: 20.1.0
   h11: 0.13.0
   hijri-converter: 2.2.4
@@ -73,7 +74,7 @@ closure:
   opensearch-py: 2.0.0
   opentelemetry-api: 1.12.0
   opentelemetry-distro: 0.33b0
-  opentelemetry-exporter-otlp-proto-http: 1.12.0
+  opentelemetry-exporter-otlp-proto-grpc: 1.12.0
   opentelemetry-instrumentation: 0.33b0
   opentelemetry-instrumentation-aiohttp-client: 0.33b0
   opentelemetry-instrumentation-asgi: 0.33b0
@@ -495,6 +496,30 @@ links:
   - name: graphql-core-3.2.1.tar.gz
     sha256: 00f26g0nhqy5z75crqz2mmhcx4gpklsci1s5jjz58zbv890z26wx
     url: https://files.pythonhosted.org/packages/61/9e/798c1cfc5b03e98f068a793c2d2f1fd94f76ba50521f3812ff1a4e3c29d2/graphql-core-3.2.1.tar.gz
+  - name: grpcio-1.48.0-cp39-cp39-linux_armv7l.whl
+    sha256: 0yykrv295hxjw7wfnhzciwbvis6r48mphrb73ramj4nrwgs5gvd4
+    url: https://files.pythonhosted.org/packages/f0/7f/8a31b46a3a51592f19c60289f7fc7e9ca02d59290c939b5877fb391c5a18/grpcio-1.48.0-cp39-cp39-linux_armv7l.whl
+  - name: grpcio-1.48.0-cp39-cp39-macosx_10_10_x86_64.whl
+    sha256: 1i0s0dp6pd0h3i1ag3gqskghh2zgw9r6cgd9sxnqhwg1hj0kv130
+    url: https://files.pythonhosted.org/packages/97/b3/401aa6492723e1704f2380d01bb4c81b27a5fcfd21aa91e5ba92b1e4c6f3/grpcio-1.48.0-cp39-cp39-macosx_10_10_x86_64.whl
+  - name: grpcio-1.48.0-cp39-cp39-manylinux_2_17_aarch64.whl
+    sha256: 0lqzfychs7wnr6hb84iky0ldc1b9fkxdfzbypr129pnc4lps5jqf
+    url: https://files.pythonhosted.org/packages/94/50/de62e05e90dc898d105cf0149478760f4eef2b301b278abf0afc098a24f9/grpcio-1.48.0-cp39-cp39-manylinux_2_17_aarch64.whl
+  - name: grpcio-1.48.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 00gmf8mgf0rp9lhh1drkj7vdkxp6mv487m0jvhrld8291izr3x9l
+    url: https://files.pythonhosted.org/packages/00/58/28bda810ec7a0210db848a14e3033170d59b2f5ca928f168d2ff76949cf1/grpcio-1.48.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: grpcio-1.48.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1yavlk9gg1s41izg28lhjd1napk3ar6p75mw5hkkmkz2sy5avi7l
+    url: https://files.pythonhosted.org/packages/2b/64/638c579351d963e0c189a7d28fbc24466f0a876d9128cdb3825c9c03c1e1/grpcio-1.48.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: grpcio-1.48.0-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 1ln6v8a8c1i2m5c3h8na288lxp8nzm2n2413mqqz6sd0yksv47qi
+    url: https://files.pythonhosted.org/packages/ad/3f/db4867653623d46df0ad2bde1ece25d307a22d3343376a7e146ceca3dce7/grpcio-1.48.0-cp39-cp39-musllinux_1_1_i686.whl
+  - name: grpcio-1.48.0-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 19jngd0yy1klc5bi4kmrl4d4i7gknjayk9m0zvy9x229m8ymgc5y
+    url: https://files.pythonhosted.org/packages/76/34/f36d24de64a9c006ea7840c9b1302659316feddb70dfae5adc36bc350cb6/grpcio-1.48.0-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: grpcio-1.48.0.tar.gz
+    sha256: 01lk0c5bw7p993rncpk2cdk4yc2w7fmi2m0r4w3l8qwqh5rvpx7a
+    url: https://files.pythonhosted.org/packages/10/f0/e45a5d5e2ce287dfa7f3b98a8ae9cfb1e87be5cf9d5700af981c0007ab57/grpcio-1.48.0.tar.gz
   - name: gunicorn-20.1.0-py3-none-any.whl
     sha256: 0zl0g83a90j8gdky0hy43j4d3rd0cxban5gvri52ijxivd3lbk4x
     url: https://files.pythonhosted.org/packages/e4/dd/5b190393e6066286773a67dfcc2f9492058e9b57c4867a95f1ba5caf0a83/gunicorn-20.1.0-py3-none-any.whl
@@ -813,12 +838,12 @@ links:
   - name: opentelemetry-distro-0.33b0.tar.gz
     sha256: 1w354slkjkdad6cznfzbr9gg9x4k6ld4ylg3x88bkipdcb4hkjda
     url: https://files.pythonhosted.org/packages/e4/a1/820c8112e4e8fa3143fe64deb1447039c9caea2441537b2786db0e5135a1/opentelemetry-distro-0.33b0.tar.gz
-  - name: opentelemetry_exporter_otlp_proto_http-1.12.0-py3-none-any.whl
-    sha256: 07px9zwr2kys79jwdwdpbkgfa543wn62ijaf7dfk37ang2a2ild6
-    url: https://files.pythonhosted.org/packages/a3/68/83880abc34028da53024d9a8e051f4af9d85b5cc6e23ea176023a29b3237/opentelemetry_exporter_otlp_proto_http-1.12.0-py3-none-any.whl
-  - name: opentelemetry-exporter-otlp-proto-http-1.12.0.tar.gz
-    sha256: 0rp2m6imnnmpcxk1fnmp30jdl868s0x2dq1hy74a33585ycxziq1
-    url: https://files.pythonhosted.org/packages/a8/51/c3d34084b86262cd4a45985140451a68d48d1adc5ee609e7e76543f62361/opentelemetry-exporter-otlp-proto-http-1.12.0.tar.gz
+  - name: opentelemetry_exporter_otlp_proto_grpc-1.12.0-py3-none-any.whl
+    sha256: 11br8zjjls9vpspj52qpy0if3drdxl75sq3l3ifc18kv6c45kdac
+    url: https://files.pythonhosted.org/packages/e1/bb/fbee26282833a450332973457ba6a474283afd0f3b140803b739abc76ce2/opentelemetry_exporter_otlp_proto_grpc-1.12.0-py3-none-any.whl
+  - name: opentelemetry-exporter-otlp-proto-grpc-1.12.0.tar.gz
+    sha256: 15ycp4ksigh1vfi0ydhibdl5kyzkvsbzc9zvwmllxjxb1h45p6mn
+    url: https://files.pythonhosted.org/packages/be/4d/e47b9352ef332f7521a7cf63dbb708a54cace9b2a3fae9b4879415037243/opentelemetry-exporter-otlp-proto-grpc-1.12.0.tar.gz
   - name: opentelemetry_instrumentation-0.33b0-py3-none-any.whl
     sha256: 0q91fh0q038m835vyrxmszp7s1f5aavf1n6bq8gnrb9lw7vfzwch
     url: https://files.pythonhosted.org/packages/53/3c/42c735991534696bb858ed35a679ec0a340981a35be6399cf4ae4208de8a/opentelemetry_instrumentation-0.33b0-py3-none-any.whl
