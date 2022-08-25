@@ -133,10 +133,13 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "EventEvidenceType",
         {
-            "FILE": "FILE",
             "FILE_1": "FILE_1",
-            "IMAGE": "IMAGE",
             "IMAGE_1": "IMAGE_1",
+            "IMAGE_2": "IMAGE_2",
+            "IMAGE_3": "IMAGE_3",
+            "IMAGE_4": "IMAGE_4",
+            "IMAGE_5": "IMAGE_5",
+            "IMAGE_6": "IMAGE_6",
         },
     ),
     EnumType(

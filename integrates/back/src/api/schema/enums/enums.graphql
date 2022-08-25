@@ -255,14 +255,20 @@ enum SolveEventReason {
 
 "Types of Event evidence"
 enum EventEvidenceType {
-  "File"
-  FILE
   "File 1"
   FILE_1
-  "Image"
-  IMAGE
   "Image 1"
   IMAGE_1
+  "Image 2"
+  IMAGE_2
+  "Image 3"
+  IMAGE_3
+  "Image 4"
+  IMAGE_4
+  "Image 5"
+  IMAGE_5
+  "Image 6"
+  IMAGE_6
 }
 
 "Event type enum definition"

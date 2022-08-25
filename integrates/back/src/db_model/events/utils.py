@@ -33,6 +33,36 @@ def format_evidences(evidences: Item) -> EventEvidences:
         )
         if evidences.get("image_1")
         else None,
+        image_2=EventEvidence(
+            file_name=evidences["image_2"]["file_name"],
+            modified_date=evidences["image_2"]["modified_date"],
+        )
+        if evidences.get("image_2")
+        else None,
+        image_3=EventEvidence(
+            file_name=evidences["image_3"]["file_name"],
+            modified_date=evidences["image_3"]["modified_date"],
+        )
+        if evidences.get("image_3")
+        else None,
+        image_4=EventEvidence(
+            file_name=evidences["image_4"]["file_name"],
+            modified_date=evidences["image_4"]["modified_date"],
+        )
+        if evidences.get("image_4")
+        else None,
+        image_5=EventEvidence(
+            file_name=evidences["image_5"]["file_name"],
+            modified_date=evidences["image_5"]["modified_date"],
+        )
+        if evidences.get("image_5")
+        else None,
+        image_6=EventEvidence(
+            file_name=evidences["image_6"]["file_name"],
+            modified_date=evidences["image_6"]["modified_date"],
+        )
+        if evidences.get("image_6")
+        else None,
     )
 
 
