@@ -22,7 +22,6 @@ async def get_result(
             eventStatus
             groupName
             detail
-            evidence
         }}
     }}"""
     data: Dict[str, Any] = {"query": query}

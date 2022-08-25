@@ -32,14 +32,12 @@ async def test_get_events(populate: bool, email: str) -> None:
             "id": "418900971",
             "groupName": "group1",
             "eventStatus": "CREATED",
-            "evidence": "evidence1",
             "detail": "ASM unit test1",
         },
         {
             "id": "418900980",
             "groupName": "group1",
             "eventStatus": "CREATED",
-            "evidence": "evidence2",
             "detail": "ASM unit test2",
         },
     ]

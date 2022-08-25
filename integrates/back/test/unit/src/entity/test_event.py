@@ -238,7 +238,7 @@ async def test_download_event_file() -> None:
         mutation {
             downloadEventFile(
                 eventId: "484763304",
-                fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+                fileName: "unittesting_484763304_evidence_file_1.csv"
             ) {
                 success
                 url

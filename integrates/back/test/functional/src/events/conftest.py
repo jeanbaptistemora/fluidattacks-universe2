@@ -40,7 +40,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                         file_1=EventEvidence(
-                            file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
+                            file_name=(
+                                "unittesting_418900971_evidence_file_1.csv"
+                            ),
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                     ),
@@ -73,7 +75,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                         file_1=EventEvidence(
-                            file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
+                            file_name=(
+                                "unittesting_418900980_evidence_file_.csv"
+                            ),
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                     ),

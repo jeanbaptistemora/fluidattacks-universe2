@@ -33,10 +33,36 @@ async def get_result(
             eventDate
             eventStatus
             eventType
-            evidence
-            evidenceDate
-            evidenceFile
-            evidenceFileDate
+            evidences{{
+                file1 {{
+                    fileName
+                    date
+                }}
+                image1 {{
+                    fileName
+                    date
+                }}
+                image2 {{
+                    fileName
+                    date
+                }}
+                image3 {{
+                    fileName
+                    date
+                }}
+                image4 {{
+                    fileName
+                    date
+                }}
+                image5 {{
+                    fileName
+                    date
+                }}
+                image6 {{
+                    fileName
+                    date
+                }}
+            }}
             groupName
             hacker
             historicState

@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             downloadEventFile(
                 eventId: "{event}",
-                fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+                fileName: "unittesting_418900971_evidence_file_1.csv"
             ) {{
                 success
                 url

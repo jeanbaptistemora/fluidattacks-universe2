@@ -41,11 +41,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
                         image_1=EventEvidence(
-                            file_name="1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
+                            file_name=(
+                                "unittesting_418900971_evidence_image_1.png"
+                            ),
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                         file_1=EventEvidence(
-                            file_name="1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
+                            file_name=(
+                                "unittesting_418900971_evidence_file_1.csv"
+                            ),
                             modified_date="2019-03-11T15:57:45+00:00",
                         ),
                     ),
