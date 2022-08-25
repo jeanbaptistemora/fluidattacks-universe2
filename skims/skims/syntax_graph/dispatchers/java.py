@@ -29,9 +29,12 @@ from syntax_graph.syntax_readers.common import (
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.java import (
+    annotation as java_annotation,
+    annotation_argument_list as java_annotation_argument_list,
     argument_list as java_argument_list,
     assignment_expression as java_assignment_expression,
     class_body as java_class_body,
+    element_value_pair as java_element_value_pair,
     field_access as java_field_access,
     field_declaration as java_field_declaration,
     import_declaration as java_import_declaration,
@@ -49,6 +52,18 @@ from syntax_graph.types import (
 )
 
 JAVA_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "annotation",
+        },
+        syntax_reader=java_annotation.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "annotation_argument_list",
+        },
+        syntax_reader=java_annotation_argument_list.reader,
+    ),
     Dispatcher(
         applicable_types={
             "argument_list",
@@ -76,6 +91,8 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "boolean_literal",
+            "true",
+            "false",
         },
         syntax_reader=common_boolean_literal.reader,
     ),
@@ -134,6 +151,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "block",
         },
         syntax_reader=common_execution_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "element_value_pair",
+        },
+        syntax_reader=java_element_value_pair.reader,
     ),
     Dispatcher(
         applicable_types={

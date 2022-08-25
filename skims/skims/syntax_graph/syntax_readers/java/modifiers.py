@@ -7,8 +7,13 @@ from syntax_graph.syntax_nodes.modifiers import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from utils.graph import (
+    match_ast,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    annotation_id = None
+    children = match_ast(args.ast_graph, args.n_id, "annotation")
+    annotation_id = children.get("annotation")
+
     return build_modifiers_node(args, annotation_id)
