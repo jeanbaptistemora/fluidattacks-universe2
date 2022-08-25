@@ -18,6 +18,9 @@ from graphql.pyutils import (
 from opentelemetry import (
     trace,
 )
+from opentelemetry.attributes import (
+    _VALID_ATTR_VALUE_TYPES,
+)
 from typing import (
     Any,
 )
@@ -46,7 +49,9 @@ class FastExtension(Extension):
 
 def format_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
     return {
-        key: (str(value) if value is None else value)
+        key: (
+            str(value) if type(value) not in _VALID_ATTR_VALUE_TYPES else value
+        )
         for key, value in attributes.items()
     }
 

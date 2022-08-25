@@ -74,7 +74,7 @@ def instrument(app: Starlette) -> None:
             headers={"api-key": FI_NEW_RELIC_LICENSE_KEY},
         )
         span_processor = BatchSpanProcessor(
-            max_queue_size=4096,
+            max_queue_size=8192,
             span_exporter=span_exporter,
         )
         trace.set_tracer_provider(TracerProvider(resource=resource))
