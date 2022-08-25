@@ -362,8 +362,14 @@ const validEventFile: Validator = (value: FileList): string | undefined =>
     ? undefined
     : translate.t("group.events.form.wrongFileType");
 
-const validEvidenceImage: Validator = (value: FileList): string | undefined =>
-  _.isEmpty(value) || hasExtension(["gif", "png"], _.first(value))
+const validEvidenceImage: Validator = (
+  value: FileList | undefined
+): string | undefined =>
+  _.isUndefined(value) ||
+  (!_.isUndefined(value) &&
+    [...Array(value.length).keys()].every((index: number): boolean =>
+      hasExtension(["gif", "png"], value[index])
+    ))
     ? undefined
     : translate.t("group.events.form.wrongImageType");
 
@@ -500,12 +506,25 @@ const isValidFileName: Validator = (file: FileList): string | undefined => {
 
 const isValidFileSize: (maxSize: number) => Validator =
   (maxSize: number): Validator =>
-  (file: FileList): string | undefined => {
+  (file: FileList | undefined): string | undefined => {
     const MIB: number = 1048576;
 
-    return _.isEmpty(file) || file[0].size < MIB * maxSize
+    return _.isUndefined(file) ||
+      (!_.isUndefined(file) &&
+        [...Array(file.length).keys()].every(
+          (index: number): boolean => file[index].size < MIB * maxSize
+        ))
       ? undefined
       : translate.t("validations.fileSize", { count: maxSize });
+  };
+
+const isValidAmountOfFiles: (maxFiles: number) => Validator =
+  (maxFiles: number): Validator =>
+  (file: FileList | undefined): string | undefined => {
+    return _.isUndefined(file) ||
+      (!_.isUndefined(file) && file.length <= maxFiles)
+      ? undefined
+      : translate.t("validations.amountOfFiles", { count: maxFiles });
   };
 
 const isValidDateAccessToken: Validator = (
@@ -608,6 +627,7 @@ export {
   isOptionalInteger,
   isPositive,
   isZeroOrPositive,
+  isValidAmountOfFiles,
   isValidEnvironmentUrl,
   isValidPhoneNumber,
   isValidVulnSeverity,
