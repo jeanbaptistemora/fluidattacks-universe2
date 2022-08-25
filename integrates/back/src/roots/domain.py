@@ -226,7 +226,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise InvalidParameter()
     validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(
-        nickname, url, kwargs["environment"]
+        nickname, kwargs["url"], kwargs["environment"]
     )
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
