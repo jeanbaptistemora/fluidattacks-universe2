@@ -3,6 +3,8 @@ from syntax_graph.syntax_readers.c_sharp import (
     anonymous_object_creation as c_sharp_anonymous_object_creation,
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
+    array_creation_expression as c_sharp_array_creation_expression,
+    array_type as c_sharp_array_type,
     arrow_expression_clause as c_sharp_arrow_expression_clause,
     assignment_expression as c_sharp_assignment_expression,
     attribute as c_sharp_attribute,
@@ -98,6 +100,18 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=c_sharp_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "array_creation_expression",
+        },
+        syntax_reader=c_sharp_array_creation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "array_type",
+        },
+        syntax_reader=c_sharp_array_type.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -36011,9 +36011,6 @@
             }
           },
           "51": {
-            "52": {
-              "label_ast": "AST"
-            },
             "53": {
               "label_ast": "AST"
             },
@@ -36021,19 +36018,53 @@
               "label_ast": "AST"
             }
           },
-          "53": {
-            "54": {
+          "58": {
+            "60": {
               "label_ast": "AST"
             },
-            "55": {
-              "label_ast": "AST"
-            }
-          },
-          "55": {
-            "56": {
+            "62": {
               "label_ast": "AST"
             },
-            "57": {
+            "64": {
+              "label_ast": "AST"
+            },
+            "66": {
+              "label_ast": "AST"
+            },
+            "68": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            },
+            "72": {
+              "label_ast": "AST"
+            },
+            "74": {
+              "label_ast": "AST"
+            },
+            "76": {
+              "label_ast": "AST"
+            },
+            "78": {
+              "label_ast": "AST"
+            },
+            "80": {
+              "label_ast": "AST"
+            },
+            "82": {
+              "label_ast": "AST"
+            },
+            "84": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            },
+            "88": {
+              "label_ast": "AST"
+            },
+            "90": {
               "label_ast": "AST"
             }
           },
@@ -36241,32 +36272,13 @@
             "variable_type": "byte[]"
           },
           "51": {
-            "label_type": "MissingNode",
-            "node_type": "array_creation_expression"
-          },
-          "52": {
-            "label_type": "MissingNode",
-            "node_type": "new"
+            "array_type_id": "53",
+            "initializer_id": "58",
+            "label_type": "ArrayCreation"
           },
           "53": {
-            "label_type": "MissingNode",
-            "node_type": "array_type"
-          },
-          "54": {
-            "label_type": "MissingNode",
-            "node_type": "predefined_type"
-          },
-          "55": {
-            "label_type": "MissingNode",
-            "node_type": "array_rank_specifier"
-          },
-          "56": {
-            "label_type": "MissingNode",
-            "node_type": "["
-          },
-          "57": {
-            "label_type": "MissingNode",
-            "node_type": "]"
+            "array_type": "byte",
+            "label_type": "ArrayType"
           },
           "58": {
             "label_type": "InitializerExpression"
@@ -36276,8 +36288,88 @@
             "label_type": "Class",
             "name": "cipher"
           },
+          "60": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "62": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
+          },
+          "64": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "66": {
+            "label_type": "Literal",
+            "value": "4",
+            "value_type": "number"
+          },
+          "68": {
+            "label_type": "Literal",
+            "value": "5",
+            "value_type": "number"
+          },
+          "70": {
+            "label_type": "Literal",
+            "value": "6",
+            "value_type": "number"
+          },
+          "72": {
+            "label_type": "Literal",
+            "value": "7",
+            "value_type": "number"
+          },
+          "74": {
+            "label_type": "Literal",
+            "value": "8",
+            "value_type": "number"
+          },
+          "76": {
+            "label_type": "Literal",
+            "value": "9",
+            "value_type": "number"
+          },
+          "78": {
+            "label_type": "Literal",
+            "value": "10",
+            "value_type": "number"
+          },
+          "80": {
+            "label_type": "Literal",
+            "value": "11",
+            "value_type": "number"
+          },
+          "82": {
+            "label_type": "Literal",
+            "value": "12",
+            "value_type": "number"
+          },
+          "84": {
+            "label_type": "Literal",
+            "value": "13",
+            "value_type": "number"
+          },
+          "86": {
+            "label_type": "Literal",
+            "value": "14",
+            "value_type": "number"
+          },
+          "88": {
+            "label_type": "Literal",
+            "value": "15",
+            "value_type": "number"
+          },
           "9": {
             "label_type": "DeclarationBlock"
+          },
+          "90": {
+            "label_type": "Literal",
+            "value": "16",
+            "value_type": "number"
           },
           "95": {
             "label_type": "VariableDeclaration",
