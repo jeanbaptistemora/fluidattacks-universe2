@@ -13,6 +13,11 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    Result,
+    ResultE,
+)
+from fa_purity.cmd import (
+    unsafe_unwrap,
 )
 from pathlib import (
     Path,
@@ -21,6 +26,8 @@ from tempfile import (
     TemporaryDirectory,
 )
 from zipfile import (
+    BadZipFile,
+    LargeZipFile,
     ZipFile as _BaseZipFile,
 )
 
@@ -35,9 +42,17 @@ class ZipFile:
     _inner: _ZipFile
 
     @staticmethod
-    def from_bin(bin_file: BinFile) -> ZipFile:
+    def from_bin(bin_file: BinFile) -> ResultE[ZipFile]:
         builder = bin_file.unsafe_transform(lambda f: _BaseZipFile(f, "r"))
-        return ZipFile(_ZipFile(builder))
+        try:
+            # semanticly all _BaseZipFile objs produced by the builder are equivalent,
+            # since BinFile is supposed immutable, but its mutable state is independent
+            with unsafe_unwrap(builder):
+                # test _BaseZipFile build success
+                pass
+            return Result.success(ZipFile(_ZipFile(builder)), Exception)
+        except (BadZipFile, LargeZipFile) as err:
+            return Result.failure(err)
 
     def _extract_single(self, target_dir: Path) -> Cmd[Path]:
         def _extract(zip_obj: _BaseZipFile) -> Cmd[Path]:

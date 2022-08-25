@@ -15,11 +15,11 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill": (
         "api",
-        "objs",
         ("_logger", "_files"),
     ),
     "tap_mandrill.api": (
         "export",
+        "objs",
         "_utils",
     ),
     "tap_mandrill._files": (

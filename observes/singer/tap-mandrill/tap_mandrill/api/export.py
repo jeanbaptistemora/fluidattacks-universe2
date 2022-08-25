@@ -46,6 +46,11 @@ from fa_purity.utils import (
 from mailchimp_transactional import (
     Client,
 )
+from tap_mandrill._files import (
+    BinFile,
+    StrFile,
+    ZipFile,
+)
 from time import (
     sleep,
 )
@@ -131,6 +136,24 @@ class ExportJob:
     def decode(cls, raw: JsonObj) -> ResultE[ExportJob]:
         data = Unfolder(JsonValue(raw)).to_dict_of(str).alt(Exception)
         return data.bind(cls._decode)
+
+    def download(self) -> Cmd[ResultE[StrFile]]:
+        return (
+            BinFile.from_url(self.result_url)
+            .map(lambda r: r.alt(raise_exception).unwrap())
+            .map(ZipFile.from_bin)
+            .bind(
+                lambda r: r.map(
+                    lambda z: z.extract_single_file().map(
+                        lambda x: Result.success(x, Exception)
+                    )
+                )
+                .alt(
+                    lambda x: Cmd.from_cmd(lambda: Result.failure(x, StrFile))
+                )
+                .to_union()
+            )
+        )
 
 
 @dataclass(frozen=True)  # type: ignore[misc]
