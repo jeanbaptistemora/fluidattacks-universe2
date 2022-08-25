@@ -1,5 +1,6 @@
 from syntax_graph.syntax_readers.c_sharp import (
     accessor_declaration as c_sharp_accessor_declaration,
+    anonymous_object_creation as c_sharp_anonymous_object_creation,
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
     arrow_expression_clause as c_sharp_arrow_expression_clause,
@@ -24,6 +25,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     member_binding_expression as c_sharp_member_binding_expression,
+    name_equals as c_sharp_name_equals,
     namespace_declaration as c_sharp_namespace_declaration,
     postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
@@ -78,6 +80,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "accessor_declaration",
         },
         syntax_reader=c_sharp_accessor_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "anonymous_object_creation_expression",
+        },
+        syntax_reader=c_sharp_anonymous_object_creation.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -319,6 +327,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "method_declaration",
         },
         syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "name_equals",
+        },
+        syntax_reader=c_sharp_name_equals.reader,
     ),
     Dispatcher(
         applicable_types={

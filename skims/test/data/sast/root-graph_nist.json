@@ -20943,12 +20943,6 @@
             }
           },
           "248": {
-            "249": {
-              "label_ast": "AST"
-            },
-            "250": {
-              "label_ast": "AST"
-            },
             "251": {
               "label_ast": "AST"
             },
@@ -20963,16 +20957,10 @@
             },
             "267": {
               "label_ast": "AST"
-            },
-            "268": {
-              "label_ast": "AST"
             }
           },
           "251": {
             "252": {
-              "label_ast": "AST"
-            },
-            "253": {
               "label_ast": "AST"
             }
           },
@@ -21511,27 +21499,15 @@
             }
           },
           "606": {
-            "607": {
-              "label_ast": "AST"
-            },
-            "608": {
-              "label_ast": "AST"
-            },
             "609": {
               "label_ast": "AST"
             },
             "612": {
               "label_ast": "AST"
-            },
-            "616": {
-              "label_ast": "AST"
             }
           },
           "609": {
             "610": {
-              "label_ast": "AST"
-            },
-            "611": {
               "label_ast": "AST"
             }
           },
@@ -22540,28 +22516,15 @@
             "variable_type": "var"
           },
           "248": {
-            "label_type": "MissingNode",
-            "node_type": "anonymous_object_creation_expression"
-          },
-          "249": {
-            "label_type": "MissingNode",
-            "node_type": "new"
-          },
-          "250": {
-            "label_type": "MissingNode",
-            "node_type": "{"
+            "label_type": "AnonymousObjectCreation"
           },
           "251": {
-            "label_type": "MissingNode",
-            "node_type": "name_equals"
+            "label_type": "NameEquals",
+            "name_id": "252"
           },
           "252": {
             "label_type": "SymbolLookup",
             "symbol": "totalCount"
-          },
-          "253": {
-            "label_type": "MissingNode",
-            "node_type": "="
           },
           "254": {
             "expression": "_houseRepository.GetAll()",
@@ -22599,10 +22562,6 @@
           "267": {
             "comment": "// Also see OData-Options for this",
             "label_type": "Comment"
-          },
-          "268": {
-            "label_type": "MissingNode",
-            "node_type": "}"
           },
           "271": {
             "label_type": "VariableDeclaration",
@@ -23143,28 +23102,15 @@
             "value_type": "string"
           },
           "606": {
-            "label_type": "MissingNode",
-            "node_type": "anonymous_object_creation_expression"
-          },
-          "607": {
-            "label_type": "MissingNode",
-            "node_type": "new"
-          },
-          "608": {
-            "label_type": "MissingNode",
-            "node_type": "{"
+            "label_type": "AnonymousObjectCreation"
           },
           "609": {
-            "label_type": "MissingNode",
-            "node_type": "name_equals"
+            "label_type": "NameEquals",
+            "name_id": "610"
           },
           "610": {
             "label_type": "SymbolLookup",
             "symbol": "id"
-          },
-          "611": {
-            "label_type": "MissingNode",
-            "node_type": "="
           },
           "612": {
             "expression": "houseEntity",
@@ -23175,10 +23121,6 @@
           "613": {
             "label_type": "SymbolLookup",
             "symbol": "houseEntity"
-          },
-          "616": {
-            "label_type": "MissingNode",
-            "node_type": "}"
           },
           "619": {
             "arguments_id": "624",
