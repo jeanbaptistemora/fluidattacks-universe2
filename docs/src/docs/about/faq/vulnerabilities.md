@@ -32,7 +32,7 @@ of a vulnerability.
 
 [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 has an interactive reporting platform,
-our Attack Surface Manager
+our Attacks Resistance Management
 ([ARM](https://fluidattacks.com/categories/asm/)).
 ARM gives all project stakeholders access
 to details concerning vulnerabilities
