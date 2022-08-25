@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Row, RowData, Table } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
 import _ from "lodash";
-import type { ChangeEventHandler } from "react";
+import type { FormEvent, MouseEventHandler } from "react";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +21,7 @@ interface IBodyProps<TData extends RowData>
     | "rowSelectionSetter"
     | "selectionMode"
   > {
-  radioSelectionhandler: (row: Row<TData>) => ChangeEventHandler;
+  radioSelectionhandler: (row: Row<TData>) => MouseEventHandler;
   table: Table<TData>;
 }
 
@@ -36,6 +36,20 @@ const Body = <TData extends RowData>({
 }: IBodyProps<TData>): JSX.Element => {
   const { t } = useTranslation();
 
+  function rowExpansionHandler(row: Row<TData>): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      event.stopPropagation();
+      row.toggleExpanded();
+    };
+  }
+
+  function rowSelectionHandler(row: Row<TData>): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      event.stopPropagation();
+      row.toggleSelected();
+    };
+  }
+
   return _.isEmpty(data) ? (
     <td colSpan={table.getVisibleLeafColumns().length}>
       <Text ta={"center"}>{t("table.noDataIndication")}</Text>
@@ -45,7 +59,7 @@ const Body = <TData extends RowData>({
       {table.getRowModel().rows.map((row): JSX.Element => {
         return (
           <Fragment key={row.id}>
-            <tr>
+            <tr onClick={onRowClick?.(row)}>
               {row.getVisibleCells().map(
                 (cell): JSX.Element => (
                   <Fragment key={cell.id}>
@@ -55,8 +69,8 @@ const Body = <TData extends RowData>({
                           cell === row.getVisibleCells()[0] &&
                           (row.getIsExpanded() ? (
                             <div
-                              onClick={row.getToggleExpandedHandler()}
-                              onKeyPress={row.getToggleExpandedHandler()}
+                              onClick={rowExpansionHandler(row)}
+                              onKeyPress={rowExpansionHandler(row)}
                               role={"button"}
                               tabIndex={0}
                             >
@@ -64,8 +78,8 @@ const Body = <TData extends RowData>({
                             </div>
                           ) : (
                             <div
-                              onClick={row.getToggleExpandedHandler()}
-                              onKeyPress={row.getToggleExpandedHandler()}
+                              onClick={rowExpansionHandler(row)}
+                              onKeyPress={rowExpansionHandler(row)}
                               role={"button"}
                               tabIndex={0}
                             >
@@ -79,13 +93,13 @@ const Body = <TData extends RowData>({
                               (selectionMode === "radio" ? (
                                 <input
                                   checked={row.getIsSelected()}
-                                  onChange={radioSelectionhandler(row)}
+                                  onClick={radioSelectionhandler(row)}
                                   type={selectionMode}
                                 />
                               ) : (
                                 <input
                                   checked={row.getIsSelected()}
-                                  onChange={row.getToggleSelectedHandler()}
+                                  onClick={rowSelectionHandler(row)}
                                   type={selectionMode}
                                 />
                               ))}
