@@ -29,7 +29,8 @@ def test_client(test_integrates_api_token: str) -> None:
 )
 def test_get_vulnerable_lines() -> None:
     vulnerabilities = get_vulnerable_lines("oneshottest")
-    assert len(vulnerabilities) >= 0
+    # FP: local testing
+    assert len(vulnerabilities) >= 0  # NOSONAR
 
 
 @pytest.mark.usefixtures(
