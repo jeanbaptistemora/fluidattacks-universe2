@@ -168,6 +168,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
   const { data: dataAuthor } = useQuery<IData>(GET_BILLING, {
+    fetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(t("groupAlerts.errorTextsad"));
