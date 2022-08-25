@@ -15,9 +15,6 @@ import boto3
 from contextlib import (
     suppress,
 )
-from core.expected_code_date import (
-    main as get_expected_code_date,
-)
 from core.rebase import (
     main as execute_rebase,
 )
@@ -26,9 +23,6 @@ from core.scan import (
 )
 from ctx import (
     CTX,
-)
-from dateutil.parser import (  # type: ignore
-    parse as date_parser,
 )
 from integrates.dal import (
     get_group_language,
@@ -94,7 +88,7 @@ def get_action(
         time=item["time"]["S"],
         additional_info=item.get("additional_info", {}).get("S"),
         queue=item["queue"]["S"],
-        retries=item.get("retries", 0),
+        retries=int(item.get("retries", {"N": "0"})["N"]),
     )
 
 
@@ -127,36 +121,6 @@ def set_running(
         },
     }
     client.update_item(**operation_payload)
-
-
-async def should_run(
-    group: str, namespace: str, check: str, token: str
-) -> bool:
-    expected_code_date = await get_expected_code_date(
-        check, group, namespace, token
-    )
-    metadata_path = (
-        f"groups/{group}/fusion/{namespace}/.git/fluidattacks_metadata"
-    )
-    try:
-        with open(metadata_path, encoding="utf-8") as handler:
-            metadata_date = date_parser(json.load(handler)["date"])
-    except (FileNotFoundError, KeyError, ValueError) as exc:
-        raise Exception(
-            f"Either {metadata_path} does not exist or it is corrupt"
-        ) from exc
-    return metadata_date > expected_code_date
-
-
-async def _should_run(
-    group: str, namespace: str, check: str, token: str
-) -> Tuple[str, str, str, bool]:
-    return (
-        group,
-        namespace,
-        check,
-        await should_run(group, namespace, check, token),
-    )
 
 
 async def _get_namespace(
