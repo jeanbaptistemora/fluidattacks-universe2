@@ -60,7 +60,7 @@ const Head = <TData extends RowData>({
                         selectionMode === "checkbox" && (
                           <input
                             checked={table.getIsAllRowsSelected()}
-                            onChange={table.getToggleAllRowsSelectedHandler()}
+                            onClick={table.getToggleAllRowsSelectedHandler()}
                             type={"checkbox"}
                           />
                         )}

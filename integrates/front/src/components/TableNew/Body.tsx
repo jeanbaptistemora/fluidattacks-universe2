@@ -93,12 +93,14 @@ const Body = <TData extends RowData>({
                               (selectionMode === "radio" ? (
                                 <input
                                   checked={row.getIsSelected()}
+                                  disabled={!row.getCanSelect()}
                                   onClick={radioSelectionhandler(row)}
                                   type={selectionMode}
                                 />
                               ) : (
                                 <input
                                   checked={row.getIsSelected()}
+                                  disabled={!row.getCanSelect()}
                                   onClick={rowSelectionHandler(row)}
                                   type={selectionMode}
                                 />
