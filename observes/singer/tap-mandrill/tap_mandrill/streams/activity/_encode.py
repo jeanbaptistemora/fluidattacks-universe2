@@ -1,6 +1,10 @@
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    FrozenDict,
+    JsonValue,
+)
 from fa_purity.json import (
     factory as JsonFactory,
 )
@@ -30,26 +34,24 @@ from tap_mandrill.streams.core import (
 @dataclass(frozen=True)
 class ActivitySingerEncoder:
     @staticmethod
-    @property
     def schema() -> JsonSchema:
         # test this property to ensure no failure
-        str_type = JSchemaFactory.from_prim_type(str)
-        int_type = JSchemaFactory.from_prim_type(int)
-        raw = JsonFactory.from_any(
-            {
-                "date": JSchemaFactory.datetime_schema(),
-                "receiver": str_type,
-                "sender": str_type,
-                "subject": str_type,
-                "status": str_type,
-                "tags": str_type,
-                "subaccount": str_type,
-                "opens": int_type,
-                "clicks": int_type,
-                "bounce": str_type,
-            }
-        ).alt(Exception)
-        return raw.bind(JSchemaFactory.from_json).alt(raise_exception).unwrap()
+        str_type = JSchemaFactory.from_prim_type(str).encode()
+        int_type = JSchemaFactory.from_prim_type(int).encode()
+        raw = {
+            "date": JSchemaFactory.datetime_schema().encode(),
+            "receiver": str_type,
+            "sender": str_type,
+            "subject": str_type,
+            "status": str_type,
+            "tags": str_type,
+            "subaccount": str_type,
+            "opens": int_type,
+            "clicks": int_type,
+            "bounce": str_type,
+        }
+        _raw = FrozenDict({k: JsonValue(v) for k, v in raw.items()})
+        return JSchemaFactory.from_json(_raw).alt(raise_exception).unwrap()
 
     @staticmethod
     def to_singer(file: Activity) -> SingerRecord:
