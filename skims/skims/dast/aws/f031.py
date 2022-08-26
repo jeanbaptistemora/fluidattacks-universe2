@@ -214,8 +214,8 @@ async def full_access_policies(
             for index, item in enumerate(pol_access):
                 if (
                     item["Effect"] == "Allow"
-                    and "*" in item["Action"]
-                    and "*" in item["Resource"]
+                    and item["Action"] == "*"
+                    and item["Resource"] == "*"
                 ):
                     locations = [
                         *[
@@ -254,8 +254,8 @@ CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    full_access_policies,
-    group_with_inline_policies,
-    public_buckets,
     admin_policy_attached,
+    full_access_policies,
+    public_buckets,
+    group_with_inline_policies,
 )
