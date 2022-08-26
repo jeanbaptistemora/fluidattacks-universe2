@@ -214,5 +214,12 @@ async def test_persist_result(populate: bool) -> None:
                 finding_id=finding.id,
                 user_email="machine@fludidattacks.com",
             )
-            assert len(comments) == 1
-            assert "back/src/index.js" in comments[0].content
+            assert len(comments) == 2
+            for comment in comments:
+                if "still open" in comment.content:
+                    assert "back/src/index.js" in comment.content
+                elif "were solved" in comment.content:
+                    assert (
+                        "back/src/controller/user/index.js" in comment.content
+                    )
+                    assert "back/src/model/user/index.js" in comment.content

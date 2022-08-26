@@ -1,3 +1,6 @@
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
@@ -54,3 +57,72 @@ class FindingVerificationStatus(Enum):
     REQUESTED: str = "REQUESTED"
     ON_HOLD: str = "ON_HOLD"
     VERIFIED: str = "VERIFIED"
+
+
+class AttackComplexity(Enum):
+    L: Decimal = Decimal("0.77")
+    H: Decimal = Decimal("0.44")
+
+
+class AttackVector(Enum):
+    P: Decimal = Decimal("0.20")
+    L: Decimal = Decimal("0.55")
+    A: Decimal = Decimal("0.62")
+    N: Decimal = Decimal("0.85")
+
+
+class AvailabilityImpact(Enum):
+    N: Decimal = Decimal("0.00")
+    L: Decimal = Decimal("0.22")
+    H: Decimal = Decimal("0.56")
+
+
+class ConfidentialityImpact(Enum):
+    N: Decimal = Decimal("0.00")
+    L: Decimal = Decimal("0.22")
+    H: Decimal = Decimal("0.56")
+
+
+class Exploitability(Enum):
+    U: Decimal = Decimal("0.91")
+    P: Decimal = Decimal("0.94")
+    X: Decimal = Decimal("0.94")
+    F: Decimal = Decimal("0.97")
+    H: Decimal = Decimal("1.0")
+
+
+class IntegrityImpact(Enum):
+    N: Decimal = Decimal("0.00")
+    L: Decimal = Decimal("0.22")
+    H: Decimal = Decimal("0.56")
+
+
+class PrivilegesRequired(Enum):
+    N: Decimal = Decimal("0.85")
+    L: Decimal = Decimal("0.62")
+    H: Decimal = Decimal("0.27")
+
+
+class RemediationLevel(Enum):
+    O: Decimal = Decimal("0.95")
+    T: Decimal = Decimal("0.96")
+    W: Decimal = Decimal("0.97")
+    U: Decimal = Decimal("1.00")
+    X: Decimal = Decimal("1.00")
+
+
+class ReportConfidence(Enum):
+    U: Decimal = Decimal("0.92")
+    R: Decimal = Decimal("0.96")
+    C: Decimal = Decimal("1.00")
+    X: Decimal = Decimal("1.00")
+
+
+class SeverityScope(Enum):
+    U: Decimal = Decimal("0.0")
+    C: Decimal = Decimal("1.0")
+
+
+class UserInteraction(Enum):
+    R: Decimal = Decimal("0.62")
+    N: Decimal = Decimal("0.85")

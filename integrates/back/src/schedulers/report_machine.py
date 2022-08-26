@@ -30,6 +30,7 @@ from datetime import (
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from db_model.finding_comments.enums import (
     CommentType,
@@ -38,7 +39,18 @@ from db_model.finding_comments.types import (
     FindingComment,
 )
 from db_model.findings.enums import (
+    AttackComplexity,
+    AttackVector,
+    AvailabilityImpact,
+    ConfidentialityImpact,
+    Exploitability,
     FindingStateStatus,
+    IntegrityImpact,
+    PrivilegesRequired,
+    RemediationLevel,
+    ReportConfidence,
+    SeverityScope,
+    UserInteraction,
 )
 from db_model.findings.types import (
     Finding,
@@ -57,9 +69,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-)
-from decimal import (
-    Decimal,
 )
 from decorators import (
     retry_on_exceptions,
@@ -106,6 +115,9 @@ from organizations_finding_policies import (
 import os
 import pytz  # type: ignore
 import random
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
 from settings.various import (
     TIME_ZONE,
 )
@@ -134,9 +146,16 @@ from typing import (
     Any,
     Dict,
     List,
+    NamedTuple,
     Optional,
     Set,
     Tuple,
+)
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,
@@ -161,6 +180,11 @@ SNIPPETS_CONTEXT: int = 10
 SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 
+class Context(NamedTuple):
+    loaders: Dataloaders
+    headers: Dict[str, str]
+
+
 class SignalHandler:  # pylint: disable=too-few-public-methods
     def __init__(self) -> None:
         self.received_signal = False
@@ -173,8 +197,14 @@ class SignalHandler:  # pylint: disable=too-few-public-methods
 
 
 async def get_config(
-    boto3_session: aioboto3.Session, execution_id: str
+    boto3_session: aioboto3.Session,
+    execution_id: str,
+    config_path: Optional[str] = None,
 ) -> Dict[str, Any]:
+    # config_path is useful to test this flow locally
+    if config_path is not None:
+        with open(config_path, "rb") as config_file:
+            return yaml.safe_load(config_file)
     async with boto3_session.client("s3") as s3_client:
         with tempfile.NamedTemporaryFile() as temp:
             await s3_client.download_fileobj(
@@ -193,7 +223,12 @@ async def get_config(
 async def get_sarif_log(
     boto3_session: aioboto3.Session,
     execution_id: str,
+    sarif_path: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
+    # sarif_path is useful to test this flow locally
+    if sarif_path is not None:
+        with open(sarif_path, "rb") as sarif_file:
+            return yaml.safe_load(sarif_file)
     async with boto3_session.client("s3") as s3_client:
         with tempfile.NamedTemporaryFile() as temp:
             await s3_client.download_fileobj(
@@ -311,17 +346,41 @@ async def _create_draft(
 ) -> Finding:
     language = language.lower()
     severity_info = Finding31Severity(
-        attack_complexity=Decimal("0.0"),
-        attack_vector=Decimal("0.0"),
-        availability_impact=Decimal("0.0"),
-        confidentiality_impact=Decimal("0.0"),
-        exploitability=Decimal("0.0"),
-        integrity_impact=Decimal("0.0"),
-        privileges_required=Decimal("0.0"),
-        remediation_level=Decimal("0.0"),
-        report_confidence=Decimal("0.0"),
-        severity_scope=Decimal("0.0"),
-        user_interaction=Decimal("0.0"),
+        attack_complexity=AttackComplexity[
+            criteria_vulnerability["score"]["base"]["attack_complexity"]
+        ].value,
+        attack_vector=AttackVector[
+            criteria_vulnerability["score"]["base"]["attack_vector"]
+        ].value,
+        availability_impact=AvailabilityImpact[
+            criteria_vulnerability["score"]["base"]["availability"]
+        ].value,
+        confidentiality_impact=ConfidentialityImpact[
+            criteria_vulnerability["score"]["base"]["confidentiality"]
+        ].value,
+        exploitability=Exploitability[
+            criteria_vulnerability["score"]["temporal"][
+                "exploit_code_maturity"
+            ]
+        ].value,
+        integrity_impact=IntegrityImpact[
+            criteria_vulnerability["score"]["base"]["integrity"]
+        ].value,
+        privileges_required=PrivilegesRequired[
+            criteria_vulnerability["score"]["base"]["privileges_required"]
+        ].value,
+        remediation_level=RemediationLevel[
+            criteria_vulnerability["score"]["temporal"]["remediation_level"]
+        ].value,
+        report_confidence=ReportConfidence[
+            criteria_vulnerability["score"]["temporal"]["report_confidence"]
+        ].value,
+        severity_scope=SeverityScope[
+            criteria_vulnerability["score"]["base"]["scope"]
+        ].value,
+        user_interaction=UserInteraction[
+            criteria_vulnerability["score"]["base"]["user_interaction"]
+        ].value,
     )
     draft_info = FindingDraftToAdd(
         attack_vector_description=criteria_vulnerability[language]["impact"],
@@ -373,28 +432,6 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
         )
 
     return what
-
-
-def _filter_vulns_to_open(
-    stream: dict[str, Any],
-    integrates_vulnerabilities: Tuple[Vulnerability, ...],
-) -> dict[str, Any]:
-    integrates_hashes = {
-        hash((vuln.where, vuln.specific))
-        for vuln in integrates_vulnerabilities
-    }
-    return {
-        "inputs": [
-            vuln
-            for vuln in stream["inputs"]
-            if hash((vuln["url"], vuln["field"])) not in integrates_hashes
-        ],
-        "lines": [
-            vuln
-            for vuln in stream["lines"]
-            if hash((vuln["path"], vuln["line"])) not in integrates_hashes
-        ],
-    }
 
 
 def _get_vulns_with_reattack(
@@ -619,7 +656,6 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
         loaders.toe_input.clear_all()
         loaders.toe_lines.clear_all()
         await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
-        await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
         loaders.toe_input.clear_all()
         loaders.toe_lines.clear_all()
         result = await map_vulnerabilities_to_dynamo(
@@ -650,74 +686,75 @@ async def add_reattack_justification(
         "%Y/%m/%d %H:%M"
     )
     open_justification: str = ""
-    closed_justification: str = ""
-
-    closed_vulns_strs = [
-        f"  - {vuln.where}" for vuln in closed_vulnerabilities
-    ]
     open_vulns_strs = [f"  - {vuln.where}" for vuln in open_vulnerabilities]
     str_open_vulns = "\n ".join(open_vulns_strs) if open_vulns_strs else ""
-    str_closed_vulns = (
-        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
-    )
-
     open_justification = (
-        "Reported vulnerabilities are still open in commit "
-        + f"{commit_hash}: \n {str_open_vulns}"
+        (
+            "A reattack request was executed on "
+            f"{format_date.replace(' ', ' at ')}.\n"
+            "Reported vulnerabilities are still open in commit "
+            f"{commit_hash}:\n"
+            f"{str_open_vulns}"
+        )
         if open_vulns_strs
         else ""
     )
-    if open_justification:
-        open_justification = (
-            "A reattack request was executed on "
-            + f"{format_date.replace(' ', ' at ')}.\n"
-            + open_justification
-        )
-        await comments_domain.add(
-            FindingComment(
-                finding_id=finding_id,
-                id=str(round(time() * 1000)),
-                comment_type=CommentType.COMMENT,
-                parent_id="0",
-                creation_date=datetime_utils.get_as_utc_iso_format(
-                    datetime_utils.get_now()
-                ),
-                full_name="machine",
-                content=open_justification,
-                email="machine@fluidttacks.com",
-            )
-        )
+
+    closed_justification: str = ""
+    closed_vulns_strs = [
+        f"  - {vuln.where}" for vuln in closed_vulnerabilities
+    ]
+    str_closed_vulns = (
+        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
+    )
     closed_justification = (
-        "Reattack request was executed on "
-        + f"{format_date.replace(' ', ' at ')}. \n"
-        + "Reported vulnerabilities were solved "
-        + f"in commit {commit_hash}: \n"
-        + f"{str_closed_vulns} \n"
+        (
+            "A reattack request was executed on "
+            f"{format_date.replace(' ', ' at ')}. \n"
+            f"Reported vulnerabilities were solved in commit {commit_hash}: \n"
+            f"{str_closed_vulns}"
+        )
         if closed_vulns_strs
         else ""
     )
-    if closed_justification:
-        await comments_domain.add(
-            FindingComment(
-                finding_id=finding_id,
-                id=str(round(time() * 1000)),
-                comment_type=CommentType.CONSULT,
-                parent_id="0",
-                creation_date=datetime_utils.get_as_utc_iso_format(
-                    datetime_utils.get_now()
-                ),
-                full_name="machine",
-                content=closed_justification,
-                email="machine@fluidttacks.com",
+
+    LOGGER.info(
+        "%s Vulnerabilities were verified and found open in finding %s",
+        len(open_vulnerabilities),
+        finding_id,
+    )
+    LOGGER.info(
+        "%s Vulnerabilities were verified and found closed in finding %s",
+        len(closed_vulnerabilities),
+        finding_id,
+    )
+    for justification in [open_justification, closed_justification]:
+        if justification:
+            await comments_domain.add(
+                FindingComment(
+                    finding_id=finding_id,
+                    id=str(round(time() * 1000)),
+                    comment_type=CommentType.COMMENT,
+                    parent_id="0",
+                    creation_date=datetime_utils.get_as_utc_iso_format(
+                        datetime_utils.get_now()
+                    ),
+                    full_name="Machine Services",
+                    content=justification,
+                    email="machine@fluidttacks.com",
+                )
             )
-        )
+
+    # Require so the new comments are loaded in the next visit
+    redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
 
 
 async def upload_evidences(
     loaders: Dataloaders,
     finding: Finding,
     machine_vulnerabilities: list[dict[str, Any]],
-) -> None:
+) -> bool:
+    success: bool = True
     evidence_ids = [("evidence_route_5", "evidence_route_5")]
     number_of_samples: int = min(
         len(machine_vulnerabilities), len(evidence_ids)
@@ -750,6 +787,7 @@ async def upload_evidences(
                 description=evidence_description,
             )
         except ConditionalCheckFailedException:
+            success = False
             LOGGER.error(
                 "Cloud not upload evidence for a finding",
                 extra={
@@ -759,6 +797,8 @@ async def upload_evidences(
                     }
                 },
             )
+
+    return success
 
 
 async def release_finding(
@@ -774,6 +814,7 @@ async def release_finding(
         loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
     )
     if auto_approve:
+        loaders.finding.clear(finding.id)
         await findings_domain.approve_draft(
             loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
         )
@@ -794,11 +835,22 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
 ) -> None:
+    if finding is not None and finding.approval is None:
+        LOGGER.info("Deleting draft %s to create a new one", finding.id)
+        await findings_domain.remove_finding(
+            context=Context(loaders=loaders, headers={}),
+            finding_id=finding.id,
+            justification=StateRemovalJustification.NOT_REQUIRED,
+            user_email="machine@fluidattacks.com",
+        )
+        finding = None
+
     machine_vulnerabilities = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
+    draft_created: bool = False
     if finding is None and len(machine_vulnerabilities) > 0:
         finding = await _create_draft(
             group_name,
@@ -807,6 +859,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             criteria_vulnerability,
             criteria_requirements,
         )
+        draft_created = True
         loaders.finding.clear(finding.id)
         loaders.group_findings.clear(group_name)
     if not finding:
@@ -845,11 +898,8 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         ),
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
     )
-    vulns_to_open = _filter_vulns_to_open(
-        vulns_to_open, integrates_vulnerabilities
-    )
 
-    if await persist_vulnerabilities(
+    if processed_vulns := await persist_vulnerabilities(
         loaders,
         group_name,
         git_root,
@@ -860,22 +910,43 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         },
         organization,
     ):
+        # We must ensure the evidences are loaded before trying to release
+        if (
+            await upload_evidences(loaders, finding, machine_vulnerabilities)
+            and draft_created
+        ):
+            # Clear cache to take into account recent vulnerabilities
+            # and evidence updates
+            loaders.finding.clear(finding.id)
+            loaders.finding_vulnerabilities.clear(finding.id)
+            await release_finding(loaders, finding.id, auto_approve)
         await reattack_future
-        await upload_evidences(loaders, finding, machine_vulnerabilities)
-        await release_finding(loaders, finding.id, auto_approve)
+
+        # Update all finding indicators with latest information
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.upload_file,
+            finding_ids=[finding.id],
+            vulnerability_ids=list(processed_vulns),
+        )
     else:
         reattack_future.close()
 
 
-async def process_execution(  # pylint: disable=too-many-locals
+async def process_execution(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     execution_id: str,
     criteria_vulns: dict[str, Any],
     criteria_reqs: dict[str, Any],
+    config_path: Optional[str] = None,
+    sarif_path: Optional[str] = None,
 ) -> bool:
+    # pylint: disable=too-many-locals
+
     boto3_session = aioboto3.Session()
     group_name = execution_id.split("_", maxsplit=1)[0]
-    execution_config = await get_config(boto3_session, execution_id)
+    execution_config = await get_config(
+        boto3_session, execution_id, config_path
+    )
     try:
         git_root = next(  # noqa  # pylint: disabled=unused-variable
             root
@@ -895,7 +966,7 @@ async def process_execution(  # pylint: disable=too-many-locals
             },
         )
         return False
-    results = await get_sarif_log(boto3_session, execution_id)
+    results = await get_sarif_log(boto3_session, execution_id, sarif_path)
     if not results:
         LOGGER.warning(
             "Cloud not find execution result",
