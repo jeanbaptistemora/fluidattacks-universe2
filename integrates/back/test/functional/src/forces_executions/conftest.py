@@ -40,7 +40,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     exit_code="1",
                     branch="master",
                     commit="6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6",
-                    origin="http://test.com",
+                    # FP: local testing
+                    origin="http://test.com",  # NOSONAR
                     repo="Repository",
                     grace_period=0,
                     kind="dynamic",
