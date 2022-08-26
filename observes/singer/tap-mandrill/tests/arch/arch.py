@@ -22,6 +22,14 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "export",
         "objs",
     ),
+    "tap_mandrill.streams": (
+        "activity",
+        "core",
+    ),
+    "tap_mandrill.streams.activity": (
+        "encode",
+        "activity",
+    ),
     "tap_mandrill._files": (
         "_zip_file",
         "_csv_file",
