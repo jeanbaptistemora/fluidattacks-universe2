@@ -5,23 +5,23 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
-    Optional,
+    List,
 )
 
 
 def build_modifiers_node(
-    args: SyntaxGraphArgs, annotation_id: Optional[NId]
+    args: SyntaxGraphArgs, annotation_ids: List[str]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
+        annotation_ids=annotation_ids,
         label_type="Modifiers",
     )
 
-    if annotation_id:
-        args.syntax_graph.nodes[args.n_id]["annotation_id"] = annotation_id
+    for at_id in annotation_ids:
         args.syntax_graph.add_edge(
             args.n_id,
-            args.generic(args.fork_n_id(annotation_id)),
+            args.generic(args.fork_n_id(at_id)),
             label_ast="AST",
         )
 

@@ -10,6 +10,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
+    match_ast_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -29,5 +30,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     variable = node_to_str(graph, identifier_id)
     variable_type = None if type_id is None else node_to_str(graph, type_id)
+    modifiers_id = match_ast_d(graph, args.n_id, "modifiers")
 
-    return build_parameter_node(args, variable, variable_type)
+    return build_parameter_node(args, variable, variable_type, modifiers_id)

@@ -19,7 +19,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         graph, args.n_id, "identifier", "annotation_argument_list"
     )
     if identifier := children.get("identifier"):
-        attr_name = "@" + graph.nodes[identifier].get("label_text")
+        attr_name = graph.nodes[identifier].get("label_text")
         al_id = children.get("annotation_argument_list")
         return build_annotation_node(args, attr_name, al_id)
 

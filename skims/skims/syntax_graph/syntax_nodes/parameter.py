@@ -10,7 +10,10 @@ from typing import (
 
 
 def build_parameter_node(
-    args: SyntaxGraphArgs, variable: str, variable_type: Optional[str]
+    args: SyntaxGraphArgs,
+    variable: str,
+    variable_type: Optional[str],
+    modifier: Optional[str],
 ) -> NId:
 
     args.syntax_graph.add_node(
@@ -19,5 +22,12 @@ def build_parameter_node(
         variable_type=variable_type,
         label_type="Parameter",
     )
+
+    if modifier:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(modifier)),
+            label_ast="AST",
+        )
 
     return args.n_id
