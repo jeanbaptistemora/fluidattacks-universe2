@@ -14,11 +14,13 @@ from typing import (
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill": (
+        "cli",
         ("streams", "singer"),
         "api",
         ("_logger", "_files", "_utils"),
     ),
     "tap_mandrill.api": (
+        "client",
         "export",
         "objs",
     ),
@@ -41,7 +43,10 @@ def project_dag() -> DAG:
 
 def forbidden_allowlist() -> Dict[FullPathModule, FrozenSet[FullPathModule]]:
     _raw: Dict[str, FrozenSet[str]] = {
-        "dateutil": frozenset(["tap_mandrill._utils"])
+        "dateutil": frozenset(["tap_mandrill._utils"]),
+        "mailchimp_transactional": frozenset(
+            ["tap_mandrill.api.export", "tap_mandrill.api.client"]
+        ),
     }
     return {
         FullPathModule.from_raw(k): frozenset(
