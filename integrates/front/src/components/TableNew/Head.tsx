@@ -59,7 +59,10 @@ const Head = <TData extends RowData>({
                         rowSelectionSetter !== undefined &&
                         selectionMode === "checkbox" && (
                           <input
-                            checked={table.getIsAllRowsSelected()}
+                            checked={
+                              table.getIsSomeRowsSelected() ||
+                              table.getIsAllRowsSelected()
+                            }
                             onClick={table.getToggleAllRowsSelectedHandler()}
                             type={"checkbox"}
                           />

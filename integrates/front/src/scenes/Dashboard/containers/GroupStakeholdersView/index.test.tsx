@@ -481,8 +481,8 @@ describe("Group stakeholders view", (): void => {
       ).not.toBeDisabled();
     });
 
-    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(2);
-    expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(1);
+    expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(1);
+    expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(2);
 
     userEvent.click(
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")

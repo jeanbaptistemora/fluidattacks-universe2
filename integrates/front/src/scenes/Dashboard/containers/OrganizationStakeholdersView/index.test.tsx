@@ -527,7 +527,7 @@ describe("Organization users view", (): void => {
     });
 
     expect(screen.queryAllByRole("row")).toHaveLength(2);
-    expect(screen.queryAllByRole("checkbox")[0]).not.toBeChecked();
+    expect(screen.queryAllByRole("checkbox")[0]).toBeChecked();
   });
 
   it("should handle query errors", async (): Promise<void> => {
