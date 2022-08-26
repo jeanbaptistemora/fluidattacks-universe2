@@ -6,7 +6,7 @@ slug: /machine/api/basics-api
 ---
 
 This post will help you use the API,
-which is built as a GraphQL 2 service
+which is built as a GraphQL service
 where you can consume data
 using a common query language.
 If you know how GraphQL works,
@@ -46,10 +46,10 @@ to the API Token post:
       }
       ```
 
-    - If you want to get info about your projects,
+    - If you want to get info about your groups,
       you can enhance the previous query to do it
       so, remember that,
-      since Projects is a list of Project entities,
+      since Groups is a list of Project entities,
       whose are GraphQL entities,
       you must specify the items
       that you want from them,
@@ -58,7 +58,7 @@ to the API Token post:
       ```
       query {
         me {
-          projects {
+          groups {
             name
           }
         }
