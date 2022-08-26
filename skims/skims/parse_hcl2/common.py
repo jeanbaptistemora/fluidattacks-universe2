@@ -52,7 +52,7 @@ def get_attribute_by_block(
 def iterate_resources(
     model: Any,
     expected_source: str,
-    *expected_kinds: str,
+    *expected_kinds: Optional[str],
 ) -> Iterator[Block]:
     if isinstance(model, Tree):
         for child in model.children:
@@ -61,12 +61,15 @@ def iterate_resources(
                 expected_source,
                 *expected_kinds,
             )
-    elif isinstance(model, Block) and (
-        len(model.namespace) == 3
-        and model.namespace[0] == expected_source
-        and model.namespace[1] in expected_kinds
-    ):
-        yield model
+    elif isinstance(model, Block):
+        if (
+            len(model.namespace) == 1 and model.namespace[0] == expected_source
+        ) or (
+            len(model.namespace) == 3
+            and model.namespace[0] == expected_source
+            and model.namespace[1] in expected_kinds
+        ):
+            yield model
 
 
 def iterate_block_attributes(block: Block) -> Iterator[Attribute]:

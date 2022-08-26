@@ -783,6 +783,14 @@
       "title": "380. Supply Chain Attack - Docker"
     }
   },
+  "F381": {
+    "EN": {
+      "title": "381. Supply Chain Attack - Terraform"
+    },
+    "ES": {
+      "title": "381. Supply Chain Attack - Terraform"
+    }
+  },
   "F393": {
     "EN": {
       "title": "393. Use of software with known vulnerabilities in development"

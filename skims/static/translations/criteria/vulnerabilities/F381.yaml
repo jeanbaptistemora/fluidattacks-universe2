@@ -1,0 +1,4 @@
+---
+lib_path.f381.tfm_check_required_version:
+  en: The required_version property is not set
+  es: La propiedad required_version no esta establecida

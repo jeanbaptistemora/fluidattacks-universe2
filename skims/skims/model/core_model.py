@@ -875,6 +875,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
     )
+    F381: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F381",
+        cwe=437,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[266],
+    )
     F393: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F393",
@@ -3585,6 +3592,14 @@ class MethodsEnum(Enum):
         name="unpinned_docker_image",
         module="lib_path",
         finding=FindingEnum.F380,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CHECK_REQUIRED_VERSION = MethodInfo(
+        file_name="terraform",
+        name="check_required_version",
+        module="lib_path",
+        finding=FindingEnum.F381,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
