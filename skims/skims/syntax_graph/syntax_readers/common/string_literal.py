@@ -18,6 +18,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "character_literal",
         "decimal_integer_literal",
         "interpreted_string_literal",
+        "integral_type",
         "line_string_literal",
         "raw_string_literal",
         "string",

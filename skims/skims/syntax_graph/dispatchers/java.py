@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.common import (
     array as common_array,
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
+    break_statement as common_break_statement,
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
     class_declaration as common_class_declaration,
@@ -11,6 +12,7 @@ from syntax_graph.syntax_readers.common import (
     do_statement as common_do_statement,
     execution_block as common_execution_block,
     expression_statement as common_expression_statement,
+    finally_clause as common_finally_clause,
     identifier as common_identifier,
     if_statement as common_if_statement,
     interpolation as common_interpolation,
@@ -33,9 +35,12 @@ from syntax_graph.syntax_readers.java import (
     annotation_argument_list as java_annotation_argument_list,
     argument_list as java_argument_list,
     array_access as java_array_access,
+    array_creation_expression as java_array_creation_expression,
     assignment_expression as java_assignment_expression,
     class_body as java_class_body,
+    dimensions_expr as java_dimensions_expr,
     element_value_pair as java_element_value_pair,
+    enhanced_for_statement as java_enhanced_for_statement,
     field_access as java_field_access,
     field_declaration as java_field_declaration,
     for_statement as java_for_statement,
@@ -87,6 +92,12 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "array_creation_expression",
+        },
+        syntax_reader=java_array_creation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "assignment_expression",
         },
         syntax_reader=java_assignment_expression.reader,
@@ -104,6 +115,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "false",
         },
         syntax_reader=common_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "break_statement",
+        },
+        syntax_reader=common_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -151,6 +168,12 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "dimensions_expr",
+        },
+        syntax_reader=java_dimensions_expr.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "do_statement",
         },
         syntax_reader=common_do_statement.reader,
@@ -169,6 +192,12 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "enhanced_for_statement",
+        },
+        syntax_reader=java_enhanced_for_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "expression_statement",
         },
         syntax_reader=common_expression_statement.reader,
@@ -184,6 +213,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "field_declaration",
         },
         syntax_reader=java_field_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=common_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -300,6 +335,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "character_literal",
             "decimal_integer_literal",
+            "integral_type",
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
