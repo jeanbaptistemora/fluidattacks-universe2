@@ -10,7 +10,7 @@ from fa_singer_io.json_schema.core import (
 from tap_mandrill.api.objs.activity import (
     Activity,
 )
-from tap_mandrill.streams.activity._encode import (
+from tap_mandrill.singer.activity import (
     ActivitySingerEncoder,
 )
 

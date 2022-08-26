@@ -14,7 +14,7 @@ from typing import (
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "tap_mandrill": (
-        "streams",
+        ("streams", "singer"),
         "api",
         ("_logger", "_files", "_utils"),
     ),
@@ -22,13 +22,9 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "export",
         "objs",
     ),
-    "tap_mandrill.streams": (
+    "tap_mandrill.singer": (
         "activity",
         "core",
-    ),
-    "tap_mandrill.streams.activity": (
-        "_encode",
-        "activity",
     ),
     "tap_mandrill._files": (
         "_zip_file",
