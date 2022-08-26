@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from .types import (
     ForcesExecution,
 )
@@ -24,18 +27,29 @@ from dynamodb.exceptions import (
 
 async def add(*, forces_execution: ForcesExecution) -> None:
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
 
     forces_execution_key = keys.build_key(
         facet=TABLE.facets["forces_execution"],
         values={
-            "name": forces_execution.group_name,
             "id": forces_execution.id,
+            "name": forces_execution.group_name,
+        },
+    )
+
+    gsi_2_key = keys.build_key(
+        facet=GSI_2_FACET,
+        values={
+            "execution_date": forces_execution.execution_date,
+            "name": forces_execution.group_name,
         },
     )
 
     forces_execution_item = {
         key_structure.partition_key: forces_execution_key.partition_key,
         key_structure.sort_key: forces_execution_key.sort_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         **format_forces_item(forces_execution),
     }
 

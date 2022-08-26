@@ -10594,13 +10594,15 @@
         {
           "FacetName": "forces_execution",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "EXEC#id"
+            "PartitionKeyAlias": "EXEC#id",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [],
           "NonKeyAttributes": [
             "id",
             "group_name",
+            "pk_2",
+            "sk_2",
             "execution_date",
             "commit",
             "repo",
