@@ -66,6 +66,19 @@ async def send_mail_free_trial_start(
     )
 
 
+async def send_mail_free_trial_over(
+    loaders: Any, email_to: List[str], context: dict[str, Any]
+) -> None:
+    await send_mails_async(
+        loaders,
+        email_to=email_to,
+        context=context,
+        tags=[],
+        subject="[ARM] Want to continue with your machine plan free trial?",
+        template_name="free_trial_over",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
