@@ -361,9 +361,9 @@ def format_csv_data(*, header: str, value: str) -> CsvData:
 
 def format_count(count: FormatSprint) -> dict[str, Decimal]:
     return {
-        "created": count.created.quantize(Decimal("0.01")),
-        "remediated": count.remediated.quantize(Decimal("0.01")),
-        "solved": count.solved.quantize(Decimal("0.01")),
+        "created": count.created.quantize(Decimal("0.1")),
+        "remediated": count.remediated.quantize(Decimal("0.1")),
+        "solved": count.solved.quantize(Decimal("0.1")),
     }
 
 

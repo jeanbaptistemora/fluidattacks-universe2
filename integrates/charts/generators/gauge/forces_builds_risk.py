@@ -27,7 +27,7 @@ async def generate_one(*, group: str) -> dict:
         ForcesExecution, ...
     ] = await utils.get_all_time_forces_executions(group)
 
-    executions_in_strict_mode = tuple(
+    executions_in_strict_mode: tuple[ForcesExecution, ...] = tuple(
         execution
         for execution in executions
         if execution.strictness == "strict"
@@ -61,7 +61,7 @@ async def generate_one(*, group: str) -> dict:
     successful_executions_in_strict_mode = tuple(
         execution
         for execution in executions_in_strict_mode
-        if execution.get("exit_code", 0) == 0
+        if execution.exit_code == 0
     )
 
     return {
