@@ -359,7 +359,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           t("group.events.titleSuccess")
         );
         if (!_.isUndefined(images)) {
-          [...Array(images.length).keys()].map(
+          [...Array(images.length).keys()].forEach(
             async (
               index: number
             ): Promise<
