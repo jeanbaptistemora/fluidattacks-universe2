@@ -13,11 +13,11 @@ function formatValue(value) {
 function render(dataDocument, height, width) {
   const fontSize = dataDocument.fontSizeRatio * Math.min(height, width);
   const fontOffset = fontSize * half * half;
-  const value = parseFloat(parseFloat(dataDocument.text).toFixed(2));
+  const value = parseFloat(parseFloat(dataDocument.text).toFixed(1));
 
   if (dataDocument.arrow && Math.abs(value) !== 0) {
     const arrowFontSize = dataDocument.arrowFontSizeRatio * Math.min(height, width);
-    const arrowFontOffset = 2.25;
+    const arrowFontOffset = 2.05;
     const plusSign = parseFloat(dataDocument.text) < 0 ? '' : '+';
 
     const svg = d3
