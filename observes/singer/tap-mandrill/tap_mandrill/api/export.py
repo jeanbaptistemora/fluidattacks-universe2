@@ -40,6 +40,7 @@ from fa_purity.result.transform import (
 from fa_purity.utils import (
     raise_exception,
 )
+import logging
 from mailchimp_transactional import (
     Client,
 )
@@ -59,6 +60,7 @@ from typing import (
     Union,
 )
 
+LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
 
@@ -181,6 +183,7 @@ class ExportApi:  # type: ignore[no-any-unimported]
         ) -> Result[ExportJob, Union[MaxRetriesReached, KeyError]]:
             retry_num = max_retries + 1
             while retry_num > 0:
+                LOG.info("Consulting status of: %s", job.job_id)
                 jobs = PIterFactory.from_flist(act.unwrap(self.get_jobs()))
                 updated_job = jobs.find_first(lambda j: j.job_id == job.job_id)
                 state = updated_job.map(lambda j: j.state)
@@ -188,9 +191,12 @@ class ExportApi:  # type: ignore[no-any-unimported]
                     lambda s: s in (JobState.waiting, JobState.working)
                 ).value_or(False)
                 if in_progress:
+                    LOG.info("Job %s not finished, waiting...", job.job_id)
                     retry_num = retry_num - 1
                     sleep(check_interval)
                 else:
+                    if updated_job.value_or(None):
+                        LOG.info("Job %s completed", job.job_id)
                     return updated_job.to_result().alt(
                         lambda _: KeyError(f"Missing job {job.job_id}")
                     )
@@ -202,6 +208,8 @@ class ExportApi:  # type: ignore[no-any-unimported]
     def export_activity(self) -> Cmd[ExportJob]:
         def _action() -> ExportJob:
             job: ResultE[JsonObj] = JsonFactory.from_any(self._client.exports.activity()).alt(Exception)  # type: ignore[misc]
-            return job.bind(ExportJob.decode).alt(raise_exception).unwrap()
+            export = job.bind(ExportJob.decode).alt(raise_exception).unwrap()
+            LOG.info("Peding export: %s", export)
+            return export
 
         return Cmd.from_cmd(_action)

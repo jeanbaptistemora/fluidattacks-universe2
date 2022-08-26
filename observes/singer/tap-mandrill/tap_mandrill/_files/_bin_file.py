@@ -73,6 +73,7 @@ class BinFile:
     @classmethod
     def from_url(cls, url: str) -> Cmd[Result[BinFile, HTTPError]]:
         def _action(act: CmdUnwrapper) -> Result[BinFile, HTTPError]:
+            LOG.debug("Getting %s", url)
             with requests.get(url, stream=True) as response:
                 try:
                     response.raise_for_status()
