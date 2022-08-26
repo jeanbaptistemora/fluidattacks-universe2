@@ -27,7 +27,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "core",
     ),
     "tap_mandrill.streams.activity": (
-        "encode",
+        "_encode",
         "activity",
     ),
     "tap_mandrill._files": (
