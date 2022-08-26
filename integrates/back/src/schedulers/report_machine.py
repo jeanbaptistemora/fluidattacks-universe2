@@ -20,6 +20,9 @@ from context import (
 from contextlib import (
     suppress,
 )
+from custom_exceptions import (
+    FindingNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -837,12 +840,23 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 ) -> None:
     if finding is not None and finding.approval is None:
         LOGGER.info("Deleting draft %s to create a new one", finding.id)
-        await findings_domain.remove_finding(
-            context=Context(loaders=loaders, headers={}),
-            finding_id=finding.id,
-            justification=StateRemovalJustification.NOT_REQUIRED,
-            user_email="machine@fluidattacks.com",
-        )
+        try:
+            await findings_domain.remove_finding(
+                context=Context(loaders=loaders, headers={}),
+                finding_id=finding.id,
+                justification=StateRemovalJustification.NOT_REQUIRED,
+                user_email="machine@fluidattacks.com",
+            )
+        except FindingNotFound:
+            LOGGER.error(
+                "Draft could not be deleted because it was not found",
+                extra={
+                    "extra": {
+                        "finding_id": finding.id,
+                        "group_name": finding.group_name,
+                    }
+                },
+            )
         finding = None
 
     machine_vulnerabilities = [
@@ -1075,7 +1089,7 @@ async def main() -> None:
         messages = queue.receive_messages(
             MessageAttributeNames=[],
             MaxNumberOfMessages=10,
-            VisibilityTimeout=30,
+            VisibilityTimeout=600,
         )
         if not messages:
             messages = queue.receive_messages(
