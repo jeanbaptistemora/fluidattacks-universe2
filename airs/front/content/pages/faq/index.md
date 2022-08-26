@@ -336,7 +336,8 @@ based on the qualitative characteristics of a vulnerability.
 26\. How do I get information about the vulnerabilities found in my application?
 
 Continuous Hacking has an interactive reporting platform, our Attack
-Surface Manager (`ASM`). `ASM` gives all project stakeholders access to
+Resistance Management platform (`ARM`). `ARM` gives
+all project stakeholders access to
 details concerning vulnerabilities reported by `Fluid Attacks`. (We have
 the source code of all our
 [products](https://gitlab.com/fluidattacks/universe) in our [public
@@ -348,9 +349,9 @@ repository](https://gitlab.com/fluidattacks).)
 
 27\. What types of reports does Continuous Hacking generate?
 
-Continuous Hacking generates and delivers, through `ASM`, a technical
+Continuous Hacking generates and delivers, through `ARM`, a technical
 report available in `Excel` and/or `PDF` format during the execution of
-the project contract. Once the project ends, `ASM` delivers a
+the project contract. Once the project ends, `ARM` delivers a
 presentation and an executive report, also in `PDF` format.
 
 </div>
@@ -360,7 +361,7 @@ presentation and an executive report, also in `PDF` format.
 28\. What happens after Fluid Attacks reports a vulnerability?
 
 Once `Fluid Attacks` reports a vulnerability, the main objective for
-developers is to eliminate it. Through `ASM`, a client company’s
+developers is to eliminate it. Through `ARM`, a client company’s
 developers can access first-hand detailed information regarding a
 vulnerability in order to plan and execute corrective measures to remove
 it from the application.
@@ -372,7 +373,7 @@ it from the application.
 29\. What communication does Fluid Attacks provide? When? How?
 
 For Continuous Hacking, communication takes place between developers and
-hackers on a day-to-day basis via `ASM`. In One-shot Hacking,
+hackers on a day-to-day basis via `ARM`. In One-shot Hacking,
 communication is handled through the project manager (`PM`) as a single
 point of contact (`SPOC`).
 
@@ -382,7 +383,7 @@ point of contact (`SPOC`).
 
 30\. How does Fluid Attacks know a vulnerability has been eliminated or remediated?
 
-Through `ASM`, any user with access to the project can request
+Through `ARM`, any user with access to the project can request
 verification of a remediated vulnerability. A request for verification
 that a remediated vulnerability no longer poses a risk must be
 accompanied by notification from you that the planned remediation has
@@ -407,7 +408,7 @@ has been executed if you already have access to the source code repositories?
 
 One of Continuous Hacking’s objectives is to maintain clear and
 effortless communication between all project members. This is
-accomplished when you notify us because the message goes through `ASM`
+accomplished when you notify us because the message goes through `ARM`
 and by doing so, the entire project team is notified.
 
 </div>
@@ -416,7 +417,7 @@ and by doing so, the entire project team is notified.
 
 33\. What happens if I do not consider something a vulnerability?
 
-Within `ASM` there is a comment section. A client company can post its
+Within `ARM` there is a comment section. A client company can post its
 reasons for believing a vulnerability finding is not valid. Our experts
 and all other project members can then interface and discuss the
 relative merits of the vulnerability finding as well as the validity of
@@ -430,7 +431,7 @@ it as a security risk, and a final determination can be made.
 
 No. However, this decision is made entirely by the client, not by us,
 and the client assumes all responsibility for possible negative impacts
-of non-remediation. In `ASM`, under the treatment option, a client
+of non-remediation. In `ARM`, under the treatment option, a client
 company indicates whether it will remediate or assume responsibility for
 an identified vulnerability.
 
@@ -439,11 +440,11 @@ an identified vulnerability.
 <div>
 
 35\. If a client decides not to remediate a vulnerability,
-thus assuming responsibility for it, is it excluded from the reports and ASM?
+thus assuming responsibility for it, is it excluded from the reports and ARM?
 
-No. Reports and `ASM` include information regarding all vulnerabilities,
+No. Reports and `ARM` include information regarding all vulnerabilities,
 along with whether vulnerabilities were remediated or not. Your report
-and `ASM` will include all the information with nothing excluded.
+and `ARM` will include all the information with nothing excluded.
 
 </div>
 
@@ -533,7 +534,7 @@ business days and then deleted from all our information systems.
 
 42\. How will our data be erased?
 
-`ASM` uses an automated erasing process, removing all the project
+`ARM` uses an automated erasing process, removing all the project
 information from our systems and generating a `Proof of Delivery` signed
 via [`Docusign`](https://www.docusign.com/).
 
@@ -668,15 +669,15 @@ application tests and `SSH` (`git`) for source code analysis.
 
 <div>
 
-55\. Where does ASM run?
+55\. Where does ARM run?
 
-The platform, `ASM`, runs in the cloud.
+The platform, `ARM`, runs in the cloud.
 
 </div>
 
 <div>
 
-56\. Does Fluid Attacks manage the access credentials to ASM?
+56\. Does Fluid Attacks manage the access credentials to ARM?
 
 No. We use federated authentication. `Google` and `Azure`
 (`Microsoft 360`) are the entities which validate your user access
@@ -772,20 +773,20 @@ service to begin, the security tests start. The steps are as follows:
 6. The project leader receives supplies, and programs the setup of the
     verification and access robots.
 
-7. The project leader creates an admin user in `ASM` for the client.
+7. The project leader creates an admin user in `ARM` for the client.
 
 8. The admin user invites all project stakeholders including the
     developers. (They must have `Google Apps` or `Office365`.)
 
-9. Vulnerabilities are reported in `ASM`.
+9. Vulnerabilities are reported in `ARM`.
 
 10. Project stakeholders access vulnerabilities and start remediation.
 
 11. If any questions or problems arise, they can be addressed through
-      the comments or chat available in `ASM`.
+      the comments or chat available in `ARM`.
 
 12. When the client has remediated the reported vulnerabilities, they
-      may request validation of their repairs through `ASM`.
+      may request validation of their repairs through `ARM`.
 
 13. Our hacker performs the closure verification and updates the report.
 
