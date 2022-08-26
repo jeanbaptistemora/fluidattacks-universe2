@@ -237,7 +237,7 @@ def _validate_max_severity(**kwargs: Any) -> None:
 
 
 def _get_severity_value(field: Optional[float]) -> Optional[Decimal]:
-    if field:
+    if field is not None:
         return Decimal(field).quantize(Decimal("0.1"))
     return None
 

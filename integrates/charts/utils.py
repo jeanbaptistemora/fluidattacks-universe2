@@ -24,9 +24,6 @@ from decimal import (
     Decimal,
     ROUND_FLOOR,
 )
-from forces import (
-    domain as forces_domain,
-)
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -47,7 +44,6 @@ from typing import (
     NamedTuple,
     Optional,
     Type,
-    Union,
 )
 from urllib.parse import (
     urlparse,

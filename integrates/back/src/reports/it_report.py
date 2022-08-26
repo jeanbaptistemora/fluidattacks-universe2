@@ -55,6 +55,7 @@ from pyexcelerate import (
     Worksheet as WorksheetType,
 )
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -95,13 +96,14 @@ class ITReport:
         col_name: index + 1
         for index, col_name in enumerate(GroupVulnsReportHeader.labels())
     }
+    raw_data: list[list[Any]] = []
     workbook: Workbook
 
     row_values: List[Union[str, int, float, datetime]] = [
         EMPTY for _ in range(len(vulnerability) + 1)
     ]
 
-    def __init__(  # pylint: disable = too-many-arguments
+    def __init__(  # pylint: disable=too-many-arguments, too-many-locals
         self,
         data: tuple[Finding, ...],
         group_name: str,
@@ -117,8 +119,10 @@ class ITReport:
         min_release_date: Optional[datetime],
         max_release_date: Optional[datetime],
         loaders: Dataloaders,
+        generate_raw_data: bool = True,
     ) -> None:
         """Initialize variables."""
+        self.generate_raw_data = generate_raw_data
         self.data = data
         self.loaders = loaders
         self.group_name = group_name
@@ -152,11 +156,15 @@ class ITReport:
         )
         self.are_all_verifications = len(self.verifications) == 0
 
+        self.raw_data = [list(self.vulnerability.keys())]
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
         self.parse_template()
 
-    async def create(self) -> None:
+    async def generate_data(self) -> None:
+        await self.generate(self.data)
+
+    async def generate_file(self) -> None:
         await self.generate(self.data)
         self.style_sheet()
         self.save()
@@ -450,7 +458,9 @@ class ITReport:
         cell_content = (
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
         )
-        self.row_values[vuln[cvss_key]] = cell_content
+        self.row_values[vuln[cvss_key]] = (
+            cell_content if self.generate_raw_data else cvss_calculator_url
+        )
 
     def set_finding_data(self, finding: Finding, vuln: Vulnerability) -> None:
         severity = float(findings_domain.get_severity_score(finding.severity))
@@ -714,6 +724,7 @@ class ITReport:
         )
         self.set_cvss_metrics_cell(finding)
 
+        self.raw_data.append(self.row_values[1:])
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
             self.row_values[1:]
         ]
@@ -734,7 +745,9 @@ class ITReport:
             "Report Moment": vuln_date,
             "Age in days": vuln_age_days,
             "Close Moment": vuln_close_date,
-            "External BTS": f'=HYPERLINK("{external_bts}", "{external_bts}")',
+            "External BTS": f'=HYPERLINK("{external_bts}", "{external_bts}")'
+            if self.generate_raw_data
+            else external_bts,
         }
         for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value

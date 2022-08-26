@@ -201,7 +201,7 @@ async def generate_xls_file(  # pylint: disable=too-many-locals
         min_release_date=min_release_date,
         max_release_date=max_release_date,
     )
-    await it_report.create()
+    await it_report.generate_file()
     filepath = it_report.result_filename
 
     return filepath
