@@ -8,21 +8,41 @@ Finalization Time:
 Execution Time:
 Finalization Time:
 """
+from aioextensions import (
+    collect,
+    run,
+)
+from collections import (
+    deque,
+)
 import csv
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from datetime import (
     datetime,
 )
 from db_model.findings.enums import (
     DraftRejectionReason,
+    FindingStateStatus,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingState,
 )
 import logging
 import logging.config
 from newutils import (
     datetime as date_utils,
 )
+from organizations.domain import (
+    get_all_active_group_names,
+)
 from settings import (
     LOGGING,
 )
+import time
 from typing import (
     NamedTuple,
 )
@@ -46,7 +66,7 @@ def resolve_reviewer(raw_reviewer: str, date: datetime) -> str:
     cut_off_date: datetime = date_utils.get_from_str("13/05/2022", "%d/%m/%Y")
     known_reviewers: dict[str, str] = {
         "E": new_reviewer,
-        "G": "",
+        "G": "gmoran@fluidattacks.com",
         "J": "jmartinez@fluidattacks.com",
         "O": old_reviewer,
     }
@@ -74,8 +94,8 @@ def parse_reasons(
     }
 
 
-def parse_rejection_file() -> dict[str, list[RejectionHelper]]:
-    rejection_info: dict[str, list[RejectionHelper]] = {}
+def parse_rejection_file() -> dict[str, deque[RejectionHelper]]:
+    rejection_info: dict[str, deque[RejectionHelper]] = {}
 
     with open(
         file="rejection_file.csv", mode="r", encoding="utf-8"
@@ -89,7 +109,7 @@ def parse_rejection_file() -> dict[str, list[RejectionHelper]]:
             *reasons,
         ) in rows:
             rejection_date = date_utils.get_from_str(raw_date, "%d/%m/%Y")
-            rejection_info.setdefault(finding_id, []).append(
+            rejection_info.setdefault(finding_id, deque()).append(
                 RejectionHelper(
                     finding_id=finding_id,
                     raw_date=rejection_date,
@@ -100,3 +120,80 @@ def parse_rejection_file() -> dict[str, list[RejectionHelper]]:
             )
 
     return rejection_info
+
+
+async def handle_finding(
+    loaders: Dataloaders,
+    finding_id: str,
+    rejections: deque[RejectionHelper],
+    group_name: str,
+) -> None:
+
+    historic_states: tuple[
+        FindingState, ...
+    ] = await loaders.finding_historic_state.load(finding_id)
+    rejected_states: deque[FindingState] = deque(
+        filter(
+            lambda state: state.status == FindingStateStatus.REJECTED,
+            historic_states,
+        )
+    )
+
+    try:
+        assert len(rejected_states) == len(rejections)
+    except AssertionError:
+        LOGGER.error("Failed on %s", group_name)
+        raise
+
+
+async def handle_group(
+    loaders: Dataloaders,
+    group_name: str,
+    rejections: dict[str, deque[RejectionHelper]],
+) -> None:
+    LOGGER.info("Checking %s", group_name)
+    all_findings: tuple[
+        Finding, ...
+    ] = await loaders.group_drafts_and_findings.load(group_name)
+
+    await collect(
+        tuple(
+            handle_finding(
+                loaders=loaders,
+                finding_id=finding.id,
+                rejections=rejections[finding.id],
+                group_name=group_name,
+            )
+            for finding in all_findings
+            if finding.id in rejections
+        ),
+        workers=30,
+    )
+
+
+async def main() -> None:
+    loaders: Dataloaders = get_new_context()
+    rejections = parse_rejection_file()
+    all_group_names: tuple[str] = await get_all_active_group_names(loaders)
+    await collect(
+        tuple(
+            handle_group(
+                loaders=loaders,
+                group_name=group_name,
+                rejections=rejections,
+            )
+            for group_name in all_group_names
+        ),
+        workers=5,
+    )
+
+
+if __name__ == "__main__":
+    execution_time = time.strftime(
+        "Execution Time:    %Y-%m-%d at %H:%M:%S %Z"
+    )
+    run(main())
+    finalization_time = time.strftime(
+        "Finalization Time: %Y-%m-%d at %H:%M:%S %Z"
+    )
+    print(f"{execution_time}\n{finalization_time}")
