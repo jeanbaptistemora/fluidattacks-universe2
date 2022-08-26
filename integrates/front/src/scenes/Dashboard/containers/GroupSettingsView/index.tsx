@@ -37,7 +37,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
         <Card>
           <Portfolio groupName={groupName} />
         </Card>
-        <Can do={"api_mutations_update_group_mutate"}>
+        <Can do={"see_group_services_info"}>
           <Text fw={7} mb={3} mt={4} size={5}>
             {t("searchFindings.servicesTable.services")}
           </Text>
