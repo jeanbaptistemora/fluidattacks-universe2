@@ -1,5 +1,6 @@
-endpoint_url = 'https://gitlab.com'
 platform = 'gitlab'
+endpoint_url = 'https://gitlab.com'
+project_id = "20741933"
 
 
 [syntax]

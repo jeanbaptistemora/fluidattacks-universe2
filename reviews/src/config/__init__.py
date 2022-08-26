@@ -29,8 +29,9 @@ def dict_has_type_values(
 def validate_base(config: Dynaconf) -> None:
     config.validators.register(
         Validator(
-            "endpoint_url",
             "platform",
+            "endpoint_url",
+            "project_id",
             "syntax.regex",
             "tests",
             must_exist=True,

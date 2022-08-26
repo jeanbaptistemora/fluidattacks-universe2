@@ -1,3 +1,6 @@
+from gitlab.v4.objects import (
+    MergeRequest,
+)
 from typing import (
     Any,
     Callable,
@@ -11,9 +14,8 @@ class PullRequest(NamedTuple):
     commits: Callable[[], Any]
     description: str
     id: str
-    iid: str
     pipelines: Callable[[], list[dict[str, str]]]
-    raw: Any
+    raw: MergeRequest
     source_branch: str
     state: str
     target_branch: str
