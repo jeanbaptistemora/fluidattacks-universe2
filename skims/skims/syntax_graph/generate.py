@@ -20,6 +20,9 @@ from typing import (
     cast,
     Optional,
 )
+from utils.env import (
+    guess_environment,
+)
 from utils.logs import (
     log_blocking,
     log_to_remote_blocking,
@@ -34,14 +37,15 @@ def generic(args: SyntaxGraphArgs) -> str:
             if node_type in dispatcher.applicable_types:
                 return dispatcher.syntax_reader(args)
 
-    log_to_remote_blocking(
-        msg=f"Missing syntax reader in {args.language.name}",
-        severity="warning",
-        group=CTX.config.group,
-        namespace=CTX.config.namespace,
-        path=args.path,
-        node_type=node_type,
-    )
+    if guess_environment() == "production":
+        log_to_remote_blocking(
+            msg=f"Missing syntax reader in {args.language.name}",
+            severity="warning",
+            group=CTX.config.group,
+            namespace=CTX.config.namespace,
+            path=args.path,
+            node_type=node_type,
+        )
 
     return missing_node_reader(args, node_type)
 
