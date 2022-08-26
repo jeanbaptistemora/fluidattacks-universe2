@@ -3,6 +3,7 @@ from dataclasses import (
 )
 from fa_purity import (
     FrozenDict,
+    JsonObj,
     JsonValue,
 )
 from fa_purity.json import (
@@ -22,12 +23,16 @@ from fa_singer_io.json_schema.core import (
 )
 from fa_singer_io.singer import (
     SingerRecord,
+    SingerSchema,
 )
 from tap_mandrill.api.objs.activity import (
     Activity,
 )
 from tap_mandrill.streams.core import (
     DataStreams,
+)
+from typing import (
+    Dict,
 )
 
 
@@ -38,7 +43,7 @@ class ActivitySingerEncoder:
         # test this property to ensure no failure
         str_type = JSchemaFactory.from_prim_type(str).encode()
         int_type = JSchemaFactory.from_prim_type(int).encode()
-        raw = {
+        _props: Dict[str, JsonObj] = {
             "date": JSchemaFactory.datetime_schema().encode(),
             "receiver": str_type,
             "sender": str_type,
@@ -50,8 +55,16 @@ class ActivitySingerEncoder:
             "clicks": int_type,
             "bounce": str_type,
         }
-        _raw = FrozenDict({k: JsonValue(v) for k, v in raw.items()})
-        return JSchemaFactory.from_json(_raw).alt(raise_exception).unwrap()
+        props = FrozenDict({k: JsonValue(v) for k, v in _props.items()})
+        raw = {
+            "properties": JsonValue(props),
+            "required": JsonValue(tuple(JsonValue(k) for k in props.keys())),
+        }
+        return (
+            JSchemaFactory.from_json(FrozenDict(raw))
+            .alt(raise_exception)
+            .unwrap()
+        )
 
     @staticmethod
     def to_singer(file: Activity) -> SingerRecord:
