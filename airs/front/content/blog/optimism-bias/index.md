@@ -162,7 +162,8 @@ systems are vulnerable. Go further and make that process automatically
 standards. And close that cycle triggering the fixes required, as soon
 as possible, to keep the business up and running. You can have all of
 that with [Continuous Hacking](../../services/continuous-hacking/) and
-coordinating your team and stakeholders with an Attack Surface Manager.
+coordinating your team and stakeholders with an
+Attack Resistance Management platform.
 
 We hope you have enjoyed this post, and we look forward to hearing from
 you. [Do get in touch with us\!](../../contact-us/)

@@ -122,8 +122,8 @@ contextualized ideas from security professionals can be much more
 valuable for [vulnerability management](../../solutions/vulnerability-management/).
 
 Immediately afterward, what Georgia remarks connects perfectly with what
-we at `Fluid Attacks` do through our Attack Surface Manager. "For me
-it’s important to not only clearly explain my results but also keep an
+we at `Fluid Attacks` do through our Attack Resistance Management platform.
+"For me it’s important to not only clearly explain my results but also keep an
 open dialogue with the client blue team as they work through remediating
 the issues in case they have any questions." In addition, as an
 essential complement to the above, she mentions remediation validation

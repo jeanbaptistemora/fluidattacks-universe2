@@ -158,9 +158,9 @@ steps further:
   experience.
 
 - All that we do gets stored, described, and tracked in our Attack
-  Surface Manager (`ASM`). ASM makes it easier for our customers to
-  keep track of their security weaknesses as well as their fixes
-  performed.
+  Resistance Management platform (`ARM`). ARM makes it easier for
+  our customers to keep track of their security weaknesses as well
+  as their fixes performed.
 
 What about what Dr. Gawande calls M\&M meetings? Well, the good news is
 that our approach makes you less likely to institute a version of the

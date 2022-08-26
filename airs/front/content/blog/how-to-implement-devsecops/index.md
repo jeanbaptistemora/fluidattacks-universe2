@@ -577,13 +577,13 @@ our security tests can check around 50
 for your compliance requirements.
 All security vulnerabilities
 we detect in your software are reported in a single place,
-our Attack Surface Manager (ASM),
+our Attack Resistance Management platform (ARM),
 which fulfills many ASOC tool features.
-The ASM lets you know the security status of your systems and applications,
+The ARM lets you know the security status of your systems and applications,
 learn in detail about the vulnerabilities detected
 and prioritize them for prompt and correct remediation.
 Additionally,
-the ASM allows you to track treatments
+the ARM allows you to track treatments
 and see metrics you can use to benchmark
 and make better decisions,
 among many other things.

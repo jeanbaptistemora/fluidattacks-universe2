@@ -168,7 +168,7 @@ recommendations discussed in this post. On the one hand, we have
 the seismic resistance tests we referred to previously. Vulnerabilities
 are identified, and customers can know the potential damage if they
 remain open (an approximation to counterfactuals). Furthermore, with our
-Attack Surface Manager, an organization can communicate to all
+Attack Resistance Management platform, an organization can communicate to all
 stakeholders what’s behind the scenes that could impact the business.
 This equals adopting transparency, allowing learning for the future, and
 timely signaling what needs to be done quickly.

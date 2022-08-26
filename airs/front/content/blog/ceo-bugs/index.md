@@ -122,15 +122,15 @@ address security quality issues in the whole software development
 lifecycle. Our [hacking tests](../../services/continuous-hacking/)
 covers from static code analysis to attacks (controlled, of course) to
 production environments. We centralize every security hole in our Attack
-Surface Manager (`ASM`). And along with processes and technology, our
-[**Criteria**](https://docs.fluidattacks.com/criteria/) act as unifying
-chain; a criteria to classify findings so customers can quickly identify
-and decide where to start fixing defects. We also test the effectiveness
-of fixes and break the build every time software doesn’t follow those
-rules.
+Resistance Management platform (`ARM`). And along with processes
+and technology, our [**Criteria**](https://docs.fluidattacks.com/criteria/)
+act as unifying chain; a criteria to classify findings so customers
+can quickly identify and decide where to start fixing defects.
+We also test the effectiveness of fixes and break
+the build every time software doesn’t follow those rules.
 
 Will you ask those questions to your team? We can help by giving them to
-you without even asking. Everything would be available at our `ASM`,
+you without even asking. Everything would be available at our `ARM`,
 covering from very technical to strategic levels. Bowens propose a
 simple `2x2` matrix to assess how an organization is performing based on
 quality awareness and response to bugs. `Fluid Attacks` can help you

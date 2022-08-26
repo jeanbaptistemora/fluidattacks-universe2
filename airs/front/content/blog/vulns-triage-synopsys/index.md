@@ -183,7 +183,7 @@ the remediation efforts.
 The aforementioned is clear to us at `Fluid Attacks`. We use those same
 [Temporal metrics of
 `CVSSv3.1`](https://www.first.org/cvss/calculator/3.1) in our company
-and present them in our Attack Surface Manager (see Figure 4).
+and present them in our Attack Resistance Management platform (see Figure 4).
 
 <div class="imgblock">
 

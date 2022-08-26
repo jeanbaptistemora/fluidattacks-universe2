@@ -181,8 +181,9 @@ we excel in proactive [security testing](../../solutions/security-testing/):
   quickly.
 
 - We store, describe, and track almost everything in our Attack
-  Surface Manager (ASM). ASM makes it easier for our customers to keep
-  track of their security weaknesses as well as fixes.
+  Resistance Management platform (ARM). ARM makes it easier
+  for our customers to keep track of their security weaknesses
+  as well as fixes.
 
 We hope you have enjoyed this post, and we look forward to hearing from
 you. [Do get in touch with us\!](../../contact-us/)

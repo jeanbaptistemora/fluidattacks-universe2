@@ -238,6 +238,6 @@ assets, making offensive testing your best line of protection. That way,
 you can learn how to better prepare for potential incidents and outthink
 attackers\! And don’t worry: we do it in a controlled way.
 
-We also invite you to take a look at our Attack Surface Manager, a
-platform to keep track of weaknesses. Think of it as a platform that
+We also invite you to take a look at our Attack Resistance Management platform,
+a platform to keep track of weaknesses. Think of it as a platform that
 helps you to learn how to become antifragile in cybersecurity.

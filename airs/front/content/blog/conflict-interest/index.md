@@ -140,10 +140,10 @@ following:
 - [One-shot hacking](../../services/one-shot-hacking/), if a precise
   audit is needed.
 
-Our customers rely on our Attack Surface Manager, the platform to keep
-track of weaknesses. They don’t have to worry much about managing
-findings on their IT assets; we make it easy for them by providing a
-tool to centralize everything.
+Our customers rely on our Attack Resistance Management platform,
+the platform to keep track of weaknesses. They don’t have
+to worry much about managing findings on their IT assets;
+we make it easy for them by providing a tool to centralize everything.
 
 We want to share with you some advice in avoiding conflicts of interest,
 as concluding remarks:

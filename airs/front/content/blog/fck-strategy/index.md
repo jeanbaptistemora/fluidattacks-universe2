@@ -199,7 +199,8 @@ We offer [Continuous Hacking](../../services/continuous-hacking/), a
 service that provides a constant review of your source code and
 applications, looking for vulnerabilities (allowing the development team
 to focus only on the development), as well as the tracking of the found
-weaknesses. The service leverages our Attack Surface Manager (ASM). ASM
-is a critical component of our value proposition. We know ASM is not yet
-a front-runner. We don’t know whether we are the number one or the
-second, but we work hard to make it better for you.
+weaknesses. The service leverages our Attack Resistance Management
+platform (ARM). ARM is a critical component of our value proposition.
+We know ARM is not yet a front-runner. We don’t know whether
+we are the number one or the second, but we work hard
+to make it better for you.

@@ -210,11 +210,11 @@ We help our clients [achieve DevSecOps](../../solutions/devsecops/),
 securing their projects
 as early in the software development lifecycle as possible (see Figure 1).
 Everything begins when their management team logs into our application,
-the [Attack Surface Manager](https://app.fluidattacks.com/) (ASM).
-Once they provide the URL to their Git repository,
+the [Attack Resistance Management platform](https://app.fluidattacks.com/)
+(ARM). Once they provide the URL to their Git repository,
 it's all ready to start scanning
 with all the might of AI and automation.
-They get reports through the ASM,
+They get reports through the ARM,
 which leads to their remediating the vulnerabilities,
 and so the cycle is constantly repeated.
 Through our [solutions](../../plans/),

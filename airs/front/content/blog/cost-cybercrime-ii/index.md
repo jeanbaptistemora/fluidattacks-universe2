@@ -174,7 +174,7 @@ offer to organizations, comprised of [continuous
 hacking](../../services/continuous-hacking/) and [one-shot
 hacking](../../services/one-shot-hacking/). We detect weaknesses faster,
 featuring a rich characterization, and we also make it easier for
-clients to fix those defects through our ASM and Asserts.
+clients to fix those defects through our ARM and Asserts.
 
 Did you enjoy reading this post? We love to hear from our readers and
 customers. [Do get in touch with us\!](../../contact-us/)

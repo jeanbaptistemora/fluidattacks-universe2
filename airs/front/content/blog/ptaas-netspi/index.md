@@ -117,10 +117,11 @@ particular structure to obtain specific answers translated into
 vulnerabilities.
 
 At this point, it should be noted that within `Fluid Attacks` we have a
-platform similar to that described, an Attack Surface Manager (ASM). ASM
-facilitates the management of vulnerabilities. These vulnerabilities are
-stored in ASM. Access to their evidence is provided there at different
-stages of the process and in real-time. With ASM, our client can
+platform similar to that described, an Attack Resistance Management
+platform (ARM). ARM facilitates the management of vulnerabilities.
+These vulnerabilities are stored in ARM.
+Access to their evidence is provided there at different
+stages of the process and in real-time. With ARM, our client can
 classify and prioritize vulnerabilities, define their treatment, and
 maintain a constant check of their status and remediation progress.
 

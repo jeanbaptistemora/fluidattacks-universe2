@@ -65,8 +65,8 @@ finds a new unpublished vulnerability, we will proceed as follows:
 2. If the vulnerability is found through our [Continuous
     Hacking](../../services/continuous-hacking) or [One-Shot
     Hacking](../../services/one-shot-hacking) services, it will be
-    reported only to the affected customer via our Attack Surface
-    Manager (ASM).
+    reported only to the affected customer via our Attack Resistance
+    Management platform (ARM).
     Moreover,
     if this vulnerability affects a third-party product,
     we will proceed to ask for the customer's consent
