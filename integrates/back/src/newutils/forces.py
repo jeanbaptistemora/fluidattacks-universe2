@@ -9,6 +9,10 @@ from decimal import (
 from dynamodb.types import (
     Item,
 )
+from newutils.datetime import (
+    get_as_utc_iso_format,
+    get_from_str_frcs,
+)
 
 
 def format_exploit_result(result: list[Item]) -> list[ExploitResult]:
@@ -73,7 +77,11 @@ def format_forces(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["execution_id"],
         group_name=item["group_name"],
-        execution_date=item["date"],
+        execution_date=get_as_utc_iso_format(
+            get_from_str_frcs(
+                item["date"], date_format="%Y-%m-%dT%H:%M:%S.%f%z", zone="UTC"
+            )
+        ),
         commit=item["git_commit"],
         repo=item["git_repo"],
         branch=item["git_branch"],
@@ -83,10 +91,10 @@ def format_forces(item: Item) -> ForcesExecution:
         origin=item["git_origin"],
         grace_period=int(item["grace_period"])
         if item.get("grace_period")
-        else None,
+        else 0,
         severity_threshold=Decimal(item["severity_threshold"])
         if item.get("severity_threshold")
-        else None,
+        else Decimal("0.0"),
         vulnerabilities=format_forces_vulnerabilities(item["vulnerabilities"]),
     )
 

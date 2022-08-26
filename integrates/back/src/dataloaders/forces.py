@@ -30,13 +30,6 @@ async def _get_execution(group_name: str, execution_id: str) -> Any:
         TABLE_NAME, {"Key": key_condition_expresion}
     )
     if result:
-        if "accepted" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["accepted"] = []
-        if "open" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["open"] = []
-        if "closed" not in result["vulnerabilities"]:
-            result["vulnerabilities"]["closed"] = []
-        # Compatibility with old API
         result["group_name"] = result.get("subscription")
         return result
     return {}
