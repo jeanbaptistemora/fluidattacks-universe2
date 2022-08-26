@@ -205,9 +205,10 @@ class PDFWordlistEn(Wordlist):
         "content_list",
         [
             "1. Goals",
-            "2. Finding Table",
-            "3. General View",
-            "4. Findings Summary",
+            "2. Scope",
+            "3. Finding Table",
+            "4. General View",
+            "5. Findings Summary",
         ],
     )
     CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Content")

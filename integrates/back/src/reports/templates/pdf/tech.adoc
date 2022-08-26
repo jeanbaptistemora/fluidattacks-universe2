@@ -34,40 +34,6 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 === {{severity_title}}
 {{fluid_tpl['severity_img']}}
 
-//Cuarta pagina - Tabla de hallazgos
-<<<
-[%notitle]
-=== {{resume_table_title}}
-{{finding_table_title_pdf}}
-<<<
-{{finding_table_pdf}}
-
-//Quinta pagina - Vista general
-<<<
-[%notitle]
-=== {{resume_page_title}}
-{{general_view_pdf}}
-
-//Sexta pagina - Vista general
-<<<
-.{{resume_top_title}}
-|===
-|{{resume_vnum_title}}|{{severity_title}}|{{resume_vname_title}}
-{% for row in main_tables['top'] %}
-    {% for col in row %}
-        {{"| "+col|string }}
-    {%-  endfor %}
-{%- endfor %}
-|===
-
-//Septima en adelante - Resumen hallazgos
-<<<
-[%notitle]
-=== {{finding_section_title}}
-{{finding_summary_title_pdf}}
-<<<
-{{finding_summary_pdf}}
-
 //Scope
 <<<
 === {{root_scope_title}}
@@ -115,6 +81,40 @@ If you are reading this report and you are not {{user}}, you are not authorized 
     {{"| "+(root.status|string).capitalize()}}
 {%- endfor %}
 |===
+
+//Cuarta pagina - Tabla de hallazgos
+<<<
+[%notitle]
+=== {{resume_table_title}}
+{{finding_table_title_pdf}}
+<<<
+{{finding_table_pdf}}
+
+//Quinta pagina - Vista general
+<<<
+[%notitle]
+=== {{resume_page_title}}
+{{general_view_pdf}}
+
+//Sexta pagina - Vista general
+<<<
+.{{resume_top_title}}
+|===
+|{{resume_vnum_title}}|{{severity_title}}|{{resume_vname_title}}
+{% for row in main_tables['top'] %}
+    {% for col in row %}
+        {{"| "+col|string }}
+    {%-  endfor %}
+{%- endfor %}
+|===
+
+//Septima en adelante - Resumen hallazgos
+<<<
+[%notitle]
+=== {{finding_section_title}}
+{{finding_summary_title_pdf}}
+<<<
+{{finding_summary_pdf}}
 
 <<<
 {{fluid_tpl['footer_adoc']}}
