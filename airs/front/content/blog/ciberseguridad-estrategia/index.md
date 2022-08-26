@@ -189,7 +189,7 @@ tenemos [Hacking Continuo](../../services/continuous-hacking/) que
 vendría a ser como las pruebas de resistencia sísmica a las que nos
 referíamos antes. Aquí se identifican vulnerabilidades y los clientes
 pueden saber el daño potencial de estas en caso de permanecer abiertas
-(una aproximación a las situaciones hipotéticas). Además, con nuestro
+(una aproximación a las situaciones hipotéticas). Además, con nuestra
 Attack Resistance Management platform, una organización puede mostrarle a los
 interesados todo lo que, tras bambalinas, podría afectar al negocio.
 Esto equivale a adoptar transparencia, permitir el aprendizaje para el

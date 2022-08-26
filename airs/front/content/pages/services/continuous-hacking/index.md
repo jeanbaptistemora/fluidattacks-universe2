@@ -15,8 +15,9 @@ image: continuous
 
 We can break the build in your CI, obliging developers to fix the open
 vulnerabilities in order to deploy. With just one click in our **Attack
-Surface Manager (ASM)**, leaders can decide which vulnerabilities are
-crucial and must break the build in their CI if they are still open.
+Resistance Management platform (ARM)**, leaders can decide which
+vulnerabilities are crucial and must break the build in their CI
+if they are still open.
 
 </div>
 
@@ -25,7 +26,7 @@ crucial and must break the build in their CI if they are still open.
 ### Critical Information Extraction and Information Removal
 
 Information extraction is done to maximize the impacts of the finding.
-The data gathered during a subscription remains on **ASM**. Your
+The data gathered during a subscription remains on **ARM**. Your
 subscription’s admin is allowed to delete it. The data is removed **30**
 days after the admin’s decision. This operation can be reversed during
 those **30** days. In that time, no user (even the admin) has access to
@@ -76,7 +77,7 @@ continuous hacking advances simultaneously with the development.
 `Fluid Attacks` performs multiple finding validations. You can check at
 any time if any of the findings have been closed. To perform remediation
 validation: First, you must define the treatment used to remediate the
-vulnerability. Then, you must request, through **ASM**, a finding
+vulnerability. Then, you must request, through **ARM**, a finding
 validation. You can always resolve any doubts by contacting
 `Fluid Attacks` directly.
 
@@ -84,9 +85,9 @@ validation. You can always resolve any doubts by contacting
 
 <div class="sect2">
 
-### Attack Surface Manager
+### Attack Resistance Management platform
 
-**ASM** is the platform that allows control in the testing and
+**ARM** is the platform that allows control in the testing and
 remediation processes of vulnerabilities. It can be used to access
 general data on each finding. It also allows you to check the findings'
 remediation status and classify them by age. In addition, it displays

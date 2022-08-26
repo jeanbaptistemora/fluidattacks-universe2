@@ -35,10 +35,10 @@ positives and false negatives in our projects.
 
 ### Centralized management
 
-We manage the security testing from a unique point, our Attack Surface
-Manager (ASM). This allows our red team to be available and in constant
-communication with your developers in order to achieve high remediation
-rates. We also use this platform to provide you with easy-to-understand,
-real-time executive indicators.
+We manage the security testing from a unique point, our Attack Resistance
+Management platform (ARM). This allows our red team to be available and
+in constant communication with your developers in order to achieve high
+remediation rates. We also use this platform to provide you
+with easy-to-understand, real-time executive indicators.
 
 </div>

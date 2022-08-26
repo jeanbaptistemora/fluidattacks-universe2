@@ -177,7 +177,7 @@ estándares de seguridad definidos. Y cierra ese ciclo desencadenando las
 correcciones necesarias, tan pronto como sea posible, para mantener el
 negocio en funcionamiento. Puedes tener todo eso con [Hacking
 Continuo](../../services/continuous-hacking/) mientras coordinas a tu
-equipo y partes interesadas con un Attack Resistance Management platform.
+equipo y partes interesadas con una Attack Resistance Management platform.
 
 Esperamos que hayas disfrutado de este post, y esperamos saber de ti.
 [¡Contáctanos\!](../../contact-us/)

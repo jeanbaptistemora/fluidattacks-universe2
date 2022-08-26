@@ -34,9 +34,10 @@ these to ensure both security and quality in your product.
 
 ### Full tracking
 
-Our **Attack Surface Manager (ASM)** allows you to access general and
-specific data for each finding in your code reported by our expert
-security analysts. Furthermore, enables your team to follow the entire
-vulnerability remediation process with detailed, real-time information.
+Our **Attack Resistance Management platform (ARM)** allows you to
+access general and specific data for each finding in your code reported
+by our expert security analysts. Furthermore, enables your team to follow
+the entire vulnerability remediation process with detailed,
+real-time information.
 
 </div>

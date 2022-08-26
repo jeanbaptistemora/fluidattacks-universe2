@@ -5,7 +5,7 @@ description: Our One-Shot Hacking service reports security vulnerabilities in sp
 keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking, Pentesting
 template: service
 definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
-subtext: You can choose on which surface of your system and based on which standards you want to apply evaluations by our certified ethical hackers. They will perform Penetration Testing involving techniques such as SAST, DAST and SCA, and the project’s duration will depend on the Target of Evaluation’s size. During that time, you will find the collected data on our ASM until a final report is issued. Finally, we will conduct reattacks to verify your success in remediating the reported vulnerabilities.
+subtext: You can choose on which surface of your system and based on which standards you want to apply evaluations by our certified ethical hackers. They will perform Penetration Testing involving techniques such as SAST, DAST and SCA, and the project’s duration will depend on the Target of Evaluation’s size. During that time, you will find the collected data on our ARM until a final report is issued. Finally, we will conduct reattacks to verify your success in remediating the reported vulnerabilities.
 image: one-shot
 ---
 
@@ -28,12 +28,12 @@ predefined.
 ### Critical Information Extraction and Information Removal
 
 Information extraction is done to maximize the impacts of the findings.
-The data gathered during a project remains on our **Attack Surface
-Manager (ASM)**. Your project’s admin is allowed to delete it. The data
-is removed **30** days after the admin’s decision. This operation can be
-reversed during those **30** days. In that time, no user (even the
-admin) has access to the project’s data unless the operation is
-reversed.
+The data gathered during a project remains on our **Attack Resistance
+Management platform (ARM)**. Your project’s admin is allowed to delete it.
+The data is removed **30** days after the admin’s decision.
+This operation can be reversed during those **30** days. In that time,
+no user (even the admin) has access to the project’s data unless
+the operation is reversed.
 
 </div>
 
@@ -90,20 +90,20 @@ take part when there is a formal presentation of the executive report.
 
 <div class="sect2">
 
-### Attack Surface Manager
+### Attack Resistance Management platform
 
 You can check the status of findings during the execution of the project
-using **ASM**. Each project must have a leader so that he or she can
+using **ARM**. Each project must have a leader so that he or she can
 express the needs of your company before, during, and after the
 performance. Daily progress reports are sent by email. These include
 coverage, strictness, partial results, and overall progress.
 
 </div>
-  
+
 <div class="sect2 db-l dn">
-  
+
 </div>
 
 <div class="sect2 db-l dn">
-  
+
 </div>
