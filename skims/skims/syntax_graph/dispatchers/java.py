@@ -32,17 +32,20 @@ from syntax_graph.syntax_readers.java import (
     annotation as java_annotation,
     annotation_argument_list as java_annotation_argument_list,
     argument_list as java_argument_list,
+    array_access as java_array_access,
     assignment_expression as java_assignment_expression,
     class_body as java_class_body,
     element_value_pair as java_element_value_pair,
     field_access as java_field_access,
     field_declaration as java_field_declaration,
+    for_statement as java_for_statement,
     import_declaration as java_import_declaration,
     interface_declaration as java_interface_declaration,
     method_invocation as java_method_invocation,
     modifiers as java_modifiers,
     package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
+    unary_expression as java_unary_expression,
     update_expression as java_update_expression,
     while_statement as java_while_statement,
 )
@@ -75,6 +78,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "array_initializer",
         },
         syntax_reader=common_array.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "array_access",
+        },
+        syntax_reader=java_array_access.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -258,6 +267,12 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "for_statement",
+        },
+        syntax_reader=java_for_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "formal_parameter",
         },
         syntax_reader=common_parameter.reader,
@@ -300,6 +315,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "try_statement",
         },
         syntax_reader=common_try_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "unary_expression",
+        },
+        syntax_reader=java_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
