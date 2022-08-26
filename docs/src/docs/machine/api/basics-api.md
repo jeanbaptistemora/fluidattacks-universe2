@@ -58,9 +58,8 @@ to the API Token post:
       ```
       query {
         me {
-          groups {
-            name
-          }
+          userEmail
+          userName
         }
       }
       ```
