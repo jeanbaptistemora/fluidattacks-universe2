@@ -29,6 +29,7 @@ and is divided across many products.
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
 [![Code Grade](https://api.codiga.io/project/34008/score/svg)](https://www.code-inspector.com)
 [![Security Scorecard](https://img.shields.io/badge/Security%20Scorecard-A-green)](https://securityscorecard.com/security-rating/fluidattacks.com?utm_medium=badge&utm_source=fluidattacks.com&utm_campaign=seal-of-trust)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6313/badge)](https://bestpractices.coreinfrastructure.org/projects/6313)
 
 ## Installing
 
