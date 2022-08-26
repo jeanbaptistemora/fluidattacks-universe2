@@ -31,3 +31,7 @@ class TestData(NamedTuple):
     config: dict[str, Any]
     pull_request: PullRequest
     syntax: Syntax
+
+
+class MissingEnvironmentVariable(Exception):
+    pass

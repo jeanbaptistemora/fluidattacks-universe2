@@ -12,14 +12,6 @@ from typing import (
 )
 
 
-def required_vars() -> list[str]:
-    return [
-        "CI_MERGE_REQUEST_IID",
-        "CI_PROJECT_ID",
-        "REVIEWS_TOKEN",
-    ]
-
-
 def login(url: str, token: str) -> Gitlab:
     return Gitlab(url, private_token=token)
 
@@ -58,3 +50,9 @@ def get_pr(session: Gitlab, project_id: str, pr_iid: str) -> PullRequest:
         pipelines=partial(get_pipelines, project, raw_pr),
         raw=raw_pr,
     )
+
+
+def get_prs(session: Gitlab, project_id: str, state: str) -> list[PullRequest]:
+    project: Any = get_project(session, project_id)
+    prs: list[Any] = project.mergerequests.list(state=state)
+    return [get_pr(session, project_id, pr.iid) for pr in prs]

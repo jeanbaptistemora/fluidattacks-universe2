@@ -1,11 +1,8 @@
 import click
 from core import (
-    run_tests,
+    run,
 )
 import sys
-from utils.logs import (
-    log,
-)
 
 
 @click.command()
@@ -14,12 +11,7 @@ from utils.logs import (
 )
 @click.argument("config_path", type=click.Path(exists=True), nargs=1)
 def reviews(legacy: bool, config_path: str) -> None:
-    success: bool = False
-    if legacy:
-        success = run_tests(config_path)
-    else:
-        success = True
-        log("info", "Work in progress")
+    success: bool = run(legacy, config_path)
     sys.exit(0 if success else 1)
 
 
