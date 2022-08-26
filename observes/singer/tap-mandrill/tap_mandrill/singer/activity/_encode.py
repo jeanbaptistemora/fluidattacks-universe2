@@ -23,6 +23,7 @@ from fa_singer_io.json_schema.core import (
 )
 from fa_singer_io.singer import (
     SingerRecord,
+    SingerSchema,
 )
 from tap_mandrill.api.objs.activity import (
     Activity,
@@ -38,7 +39,7 @@ from typing import (
 @dataclass(frozen=True)
 class ActivitySingerEncoder:
     @staticmethod
-    def schema() -> JsonSchema:
+    def schema() -> SingerSchema:
         # test this property to ensure no failure
         str_type = JSchemaFactory.from_prim_type(str).encode()
         int_type = JSchemaFactory.from_prim_type(int).encode()
@@ -59,8 +60,16 @@ class ActivitySingerEncoder:
             "properties": JsonValue(props),
             "required": JsonValue(tuple(JsonValue(k) for k in props.keys())),
         }
+        j_schema = JSchemaFactory.from_json(FrozenDict(raw))
         return (
-            JSchemaFactory.from_json(FrozenDict(raw))
+            j_schema.bind(
+                lambda j: SingerSchema.new(
+                    DataStreams.activity.value,
+                    j,
+                    frozenset(["date"]),
+                    frozenset(),
+                )
+            )
             .alt(raise_exception)
             .unwrap()
         )

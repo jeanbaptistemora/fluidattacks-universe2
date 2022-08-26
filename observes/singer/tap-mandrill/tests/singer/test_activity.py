@@ -4,8 +4,8 @@ from datetime import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
-from fa_singer_io.json_schema.core import (
-    JsonSchema,
+from fa_singer_io.singer import (
+    SingerSchema,
 )
 from tap_mandrill.api.objs.activity import (
     Activity,
@@ -29,15 +29,15 @@ mock_activity = Activity(
 
 
 def test_schema() -> None:
-    assert isinstance(ActivitySingerEncoder.schema(), JsonSchema)
+    assert isinstance(ActivitySingerEncoder.schema(), SingerSchema)
 
 
 def test_record() -> None:
-    schema = ActivitySingerEncoder.schema()
+    jschema = ActivitySingerEncoder.schema().schema
     record = ActivitySingerEncoder.to_singer(mock_activity).record
-    assert schema.validate(record).unwrap() is None
+    assert jschema.validate(record).unwrap() is None
     schema_keys = frozenset(
-        Unfolder(schema.encode()["properties"]).to_json().unwrap().keys()
+        Unfolder(jschema.encode()["properties"]).to_json().unwrap().keys()
     )
     record_keys = frozenset(record.keys())
     assert schema_keys == record_keys
