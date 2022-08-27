@@ -35,16 +35,14 @@ async def test_reject_event_solution(
     comments: str,
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
     result: dict[str, Any] = await get_result(
         user=email, event_id=event_id, comments=comments
     )
     assert "errors" not in result
     assert result["data"]["rejectEventSolution"]["success"]
 
-    loaders = get_new_context()
-    event = await loaders.event.load(event_id)
+    loaders: Dataloaders = get_new_context()
+    event: Event = await loaders.event.load(event_id)
     assert event.state.status == EventStateStatus.CREATED
     event_comments: tuple[
         EventComment, ...
