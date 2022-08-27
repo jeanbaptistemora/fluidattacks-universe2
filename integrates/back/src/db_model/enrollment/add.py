@@ -17,20 +17,23 @@ async def add(*, enrollment: Enrollment) -> None:
         facet=TABLE.facets["enrollment_metadata"],
         values={"email": enrollment.email},
     )
-    item_in_db = await operations.get_item(
+    item = await operations.get_item(
         facets=(TABLE.facets["enrollment_metadata"],),
         key=enrollment_key,
         table=TABLE,
     )
 
-    if not item_in_db:
+    if not item:
         item = {
             key_structure.partition_key: enrollment_key.partition_key,
             key_structure.sort_key: enrollment_key.sort_key,
             **json.loads(json.dumps(enrollment)),
         }
-        await operations.put_item(
-            facet=TABLE.facets["enrollment_metadata"],
-            item=item,
-            table=TABLE,
-        )
+    else:
+        item["enrolled"] = True
+
+    await operations.put_item(
+        facet=TABLE.facets["enrollment_metadata"],
+        item=item,
+        table=TABLE,
+    )
