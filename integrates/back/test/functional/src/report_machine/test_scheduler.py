@@ -207,7 +207,7 @@ async def test_persist_result(populate: bool) -> None:
             assert (
                 "sql injection in" in finding.evidences.evidence5.description
             )
-            # assert False
+
             comments = await comments_domain.get_comments(
                 loaders=loaders,
                 group_name="group1",
