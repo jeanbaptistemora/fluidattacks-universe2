@@ -104,6 +104,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       verifications: string[],
       verificationCode: string
     ): void => {
+      // NOSONAR
       const reportType = "XLS";
       mixpanel.track("GroupReportRequest", { reportType });
 

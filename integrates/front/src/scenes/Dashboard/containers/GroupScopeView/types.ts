@@ -31,12 +31,15 @@ interface ICredentialsAttr {
   name: string;
   type: "" | "HTTPS" | "SSH";
 }
+
+declare type CloningStatusType = "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
+
 interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
+    status: CloningStatusType;
   };
   credentials: ICredentials | null;
   environment: string;
@@ -57,7 +60,7 @@ interface IGitRootData {
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
+    status: CloningStatusType;
   };
   credentials: ICredentials | null;
   environment: string;
@@ -106,7 +109,7 @@ interface IFormValues {
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
+    status: CloningStatusType;
   };
   credentials: ICredentials;
   environment: string;
@@ -124,6 +127,7 @@ interface IFormValues {
 }
 
 export type {
+  CloningStatusType,
   Root,
   IBasicEnvironmentUrl,
   IGitRootAttr,
