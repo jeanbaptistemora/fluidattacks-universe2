@@ -4,10 +4,8 @@ alias target-redshift="observes-target-redshift"
 
 function start_etl {
   local db_creds
-  local mailchimp_creds
 
   db_creds=$(mktemp) \
-    && mailchimp_creds=$(mktemp) \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       mandrill_api_key \
