@@ -1,9 +1,16 @@
 from aioextensions import (
     collect,
 )
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    CI_COMMIT_REF_NAME,
+    FI_AWS_S3_ANALYTICS_BUCKET,
+)
 import csv
 from custom_exceptions import (
-    UnsanitizedInputFound,
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -22,12 +29,11 @@ from findings.domain.core import (
 from itertools import (
     chain,
 )
+import logging
+import logging.config
 from newutils.datetime import (
     get_as_str,
     get_now,
-)
-from newutils.validations import (
-    validate_sanitized_csv_input,
 )
 from organizations.domain import (
     iterate_organizations_and_groups,
@@ -36,21 +42,37 @@ import os
 from reports.it_report import (
     ITReport,
 )
+from s3.resource import (
+    get_s3_resource,
+)
+from settings.logger import (
+    LOGGING,
+)
 import tempfile
+
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
+
+
+async def upload_file(bucket: str, file_path: str, file_name: str) -> None:
+    with open(file_path, mode="rb") as file_object:
+        client = await get_s3_resource()
+        try:
+            await client.upload_fileobj(
+                file_object,
+                bucket,
+                file_name.lstrip("/"),
+            )
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={"extra": locals()})
+            raise UnavailabilityError() from ex
 
 
 async def get_findings(
     *, group_name: str, loaders: Dataloaders
 ) -> tuple[Finding, ...]:
     return await loaders.group_findings.load(group_name)
-
-
-def format_data(value: str) -> str:
-    try:
-        validate_sanitized_csv_input(str(value))
-        return value
-    except UnsanitizedInputFound:
-        return ""
 
 
 async def get_data(
@@ -99,7 +121,8 @@ async def get_data(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    async for _, org_name, org_groups in (
+    folder_date: str = get_as_str(get_now(), date_format="%Y-%m-%d")
+    async for org_id, org_name, org_groups in (
         iterate_organizations_and_groups(loaders)
     ):
         date: str = get_as_str(get_now(), date_format="%Y-%m-%dT%H-%M-%S")
@@ -108,8 +131,8 @@ async def main() -> None:
         )
         with tempfile.TemporaryDirectory() as directory:
             with open(
-                os.path.join(directory, f"{org_name}-{date}.csv"),
-                "w",
+                os.path.join(directory, f"{org_id}-{date}.csv"),
+                mode="w",
                 encoding="utf-8",
             ) as csv_file:
                 writer = csv.writer(
@@ -119,6 +142,13 @@ async def main() -> None:
                     quoting=csv.QUOTE_MINIMAL,
                 )
                 writer.writerow(rows[0])
-                writer.writerows(
-                    [[format_data(value) for value in row] for row in rows[1:]]
+                writer.writerows(rows[1:])
+
+                await upload_file(
+                    FI_AWS_S3_ANALYTICS_BUCKET,
+                    csv_file.name,
+                    (
+                        f"{CI_COMMIT_REF_NAME}/reports/organizations"
+                        f"/{folder_date}/{org_id}-{date}.csv"
+                    ),
                 )
