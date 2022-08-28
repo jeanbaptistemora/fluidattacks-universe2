@@ -169,6 +169,35 @@
       "management:type" = "product";
     };
   };
+  integrates_organization_vulnerabilities = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.organization_vulnerabilities.main"
+    ];
+
+    schedule_expression = "cron(30 1,5,9,13,17,21 * * ? *)";
+    size = "small";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 10800;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_organization_vulnerabilities";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_delete_imamura_stakeholders = {
     enabled = true;
     command = [
