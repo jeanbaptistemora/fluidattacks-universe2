@@ -35,6 +35,21 @@ resource "aws_s3_bucket_logging" "analytics" {
   target_prefix = "log/analytics"
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "analytics" {
+  bucket = aws_s3_bucket.analytics.id
+
+  rule {
+    id     = "analytics"
+    status = "Enabled"
+    noncurrent_version_expiration {
+      noncurrent_days = 14
+    }
+    expiration {
+      days = 14
+    }
+  }
+}
+
 resource "aws_s3_bucket_versioning" "analytics" {
   bucket = aws_s3_bucket.analytics.id
 
