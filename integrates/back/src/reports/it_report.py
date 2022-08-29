@@ -4,6 +4,9 @@ from .typing import (
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    RootNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -43,6 +46,8 @@ from findings.domain.core import (
     get_report_days,
     get_severity_score,
 )
+import logging
+import logging.config
 from newutils import (
     datetime as datetime_utils,
 )
@@ -54,6 +59,9 @@ from pyexcelerate import (
     Workbook,
     Worksheet as WorksheetType,
 )
+from settings.logger import (
+    LOGGING,
+)
 from typing import (
     Any,
     Dict,
@@ -62,11 +70,14 @@ from typing import (
     Union,
 )
 
+logging.config.dictConfig(LOGGING)
+
 EMPTY = "-"
 HEADER_HEIGHT = 20
 ROW_HEIGHT = 57
 RED = Color(255, 52, 53, 1)  # FF3435
 WHITE = Color(255, 255, 255, 1)
+LOGGER = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-instance-attributes
@@ -700,10 +711,23 @@ class ITReport:
 
         nickname = EMPTY
         if row.root_id:
-            root: Root = await self.loaders.root.load(
-                (finding.group_name, row.root_id)
-            )
-            nickname = root.state.nickname
+            try:
+                root: Root = await self.loaders.root.load(
+                    (finding.group_name, row.root_id)
+                )
+                nickname = root.state.nickname
+            except RootNotFound as ex:
+                LOGGER.exception(
+                    ex,
+                    extra=dict(
+                        extra=dict(
+                            finding_id=finding.id,
+                            group_name=row.group_name,
+                            root_id=row.root_id,
+                            vuln_id=row.id,
+                        )
+                    ),
+                )
 
         self.row_values[vuln["#"]] = self.row - 1
         self.row_values[vuln["Related Finding"]] = finding.title
