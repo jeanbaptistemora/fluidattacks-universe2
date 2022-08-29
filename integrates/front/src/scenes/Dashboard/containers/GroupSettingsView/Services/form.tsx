@@ -1,3 +1,5 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
@@ -20,6 +22,7 @@ import type {
   IServicesFormProps,
 } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { FormGroup } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import {
@@ -81,6 +84,10 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   const handleTblButtonClick: () => void = useCallback((): void => {
     setIsModalOpen(true);
   }, [setIsModalOpen]);
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateGroupServices: boolean = permissions.can(
+    "api_mutations_update_group_mutate"
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -92,6 +99,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Col lg={30} md={50} sm={50}>
           <Card>
             <Select
+              disabled={!canUpdateGroupServices}
               label={t("searchFindings.servicesTable.type")}
               name={"type"}
             >
@@ -107,6 +115,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Col lg={30} md={50} sm={50}>
           <Card>
             <Select
+              disabled={!canUpdateGroupServices}
               label={t("searchFindings.servicesTable.service")}
               name={"service"}
             >
@@ -124,6 +133,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
             <Field
               component={FormikSwitchButton}
+              disabled={!canUpdateGroupServices}
               id={"machineSwitch"}
               name={"machine"}
               offlabel={t("searchFindings.servicesTable.inactive")}
@@ -138,6 +148,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
             <Field
               component={FormikSwitchButton}
+              disabled={!canUpdateGroupServices}
               id={"squadSwitch"}
               name={"squad"}
               offlabel={t("searchFindings.servicesTable.inactive")}
