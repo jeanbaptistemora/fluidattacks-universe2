@@ -12,6 +12,7 @@ from model.core_model import (
     AwsCredentials,
     Vulnerability,
 )
+import re
 from typing import (
     Any,
     Callable,
@@ -250,6 +251,87 @@ async def full_access_policies(
     return vulns
 
 
+def _match_pattern(pattern: str, target: str, flags: int = 0) -> bool:
+    # Escape everything that is not `*` and replace `*` with regex `.*`
+    pattern = r".*".join(map(re.escape, pattern.split("*")))
+    return bool(re.match(f"^{pattern}$", target, flags=flags))
+
+
+def _match_iam_passrole(action: str) -> bool:
+    return _match_pattern(str(action), "iam:PassRole")
+
+
+async def open_passrole(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    policies: List[Dict[str, Any]] = response.get("Policies", [])
+
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", [])
+            pol_access = list(policy_names["Document"]["Statement"])
+
+            for index, item in enumerate(pol_access):
+                if isinstance(item["Action"], str):
+                    action = [item["Action"]]
+                else:
+                    action = item["Action"]
+
+                if (
+                    item["Effect"] == "Allow"
+                    and any(map(_match_iam_passrole, action))
+                    and item["Resource"] == "*"
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Document/Statement/{index}/Effect",
+                                    f"/Document/Statement/{index}/Action",
+                                    f"/Document/Statement/{index}/Resource",
+                                ),
+                                arn=(f"{policy['Arn']}"),
+                                values=(
+                                    pol_access[index]["Effect"],
+                                    pol_access[index]["Action"],
+                                    pol_access[index]["Resource"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f031_aws.open_passrole"
+                                ),
+                            )
+                        ],
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_OPEN_PASSROLE),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -258,4 +340,5 @@ CHECKS: Tuple[
     full_access_policies,
     public_buckets,
     group_with_inline_policies,
+    open_passrole,
 )
