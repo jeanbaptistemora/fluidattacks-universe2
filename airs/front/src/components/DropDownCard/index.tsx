@@ -1,7 +1,7 @@
 /* eslint react/no-danger: 0 */
 /* eslint react/forbid-component-props: 0 */
 import React, { useCallback, useState } from "react";
-import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 import {
   CardBody,
@@ -54,9 +54,9 @@ const DropDownCard: React.FC<IProps> = ({
           {isTouch ? undefined : "Read More"}
           <br />
           {isTouch ? (
-            <RiArrowDownSFill className={"arrow w1 pv3"} />
+            <IoIosArrowDown className={"arrow w1 pv3"} />
           ) : (
-            <RiArrowUpSFill className={"arrow w1 pv3"} />
+            <IoIosArrowUp className={"arrow w1 pv3"} />
           )}
         </CardReadMore>
       </CardHeader>

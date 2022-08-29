@@ -655,7 +655,8 @@ const pageTexts: ResourceKey = {
     item1: "Automatic SAST, DAST and SCA",
     item2: "Continuous vulnerability reporting",
     item3:
-      "Vulnerability management in our Attack Surface Manager (+ GraphQL API)",
+      "Vulnerability management in our " +
+      "Attack Resistance Management platform (+ GraphQL API)",
     item4: "Control and accelerate vulnerability remediation",
     item5: "Integration with your CI/CD for stronger control",
     subtitle: "Enjoy all Machine Plan benefits for 21 days:",
@@ -772,9 +773,9 @@ const pageTexts: ResourceKey = {
         "for your vulnerability management program",
       plansCards: {
         item1: "Control of the whole remediation process",
-        item10: "Possibility to talk to an expert via ASM",
+        item10: "Possibility to talk to an expert via ARM",
         item2: "Continuous vulnerability reporting",
-        item3: "Attack Surface Manager (GraphQL API)",
+        item3: "Attack Resistance Management platform (GraphQL API)",
         item4: "Automatic SAST, DAST and SCA",
         item5: "CI/CD DevSecOps",
         item6: "Low rates of false positives and false negatives",
@@ -843,13 +844,14 @@ const pageTexts: ResourceKey = {
       strictSubtitle: "Prevent going live with unmanaged risks",
       strictTitle: "STRICT RELEASE CONTROL",
       supportDescription:
-        "Solve your questions by contacting us through our support channels on the ASM: " +
+        "Solve your questions by contacting us through our support channels on the ARM: " +
         "Live chat, Consulting sections and Talk to an expert.",
       supportSubtitle: "We help you develop software with confidence",
       supportTitle: "SUPPORT",
       vulnDescription:
         "Know your applications and system’s security issues through our " +
-        "Attack Surface Manager (ASM). Learn details about each vulnerability, such as severity, " +
+        "Attack Resistance Management platform (ARM). " +
+        "Learn details about each vulnerability, such as severity, " +
         "evidence and non-compliant standards, as well as remediation suggestions. ",
       vulnSubtitle: "Assess your risk exposure and move strategically",
       vulnTitle: "VULNERABILITIES",
