@@ -80,7 +80,7 @@ def insecure_logging(
         "TraceEvent",
         "Debug",
     }
-    sanitize = {"\\n", "\\t", "\\n"}
+    sanitize = {"\\n", "\\t"}
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
