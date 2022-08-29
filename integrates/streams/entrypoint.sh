@@ -27,7 +27,7 @@ function main {
   echo "[INFO] Executing ${module} consumer" \
     && export_secrets "${ENVIRONMENT}" \
     && pushd integrates/streams/src \
-    && python3 -u "invoker.py" "${module}" \
+    && python3 "invoker.py" "${module}" \
     && popd \
     || return 1
 }

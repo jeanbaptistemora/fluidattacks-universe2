@@ -12,6 +12,9 @@ from dynamodb.utils import (
 from threading import (
     Thread,
 )
+from time import (
+    sleep,
+)
 from typing import (
     Any,
     Iterator,
@@ -32,6 +35,7 @@ TABLE_NAME = "integrates_vms"
 def _get_stream_arn(table_name: str) -> str:
     """Returns the ARN of the stream for the requested table"""
     response = CLIENT.list_streams(TableName=table_name)
+
     return response["Streams"][0]["StreamArn"]
 
 
@@ -84,6 +88,7 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
         ShardIteratorType="LATEST",
         StreamArn=stream_arn,
     )
+
     return response["ShardIterator"]
 
 
@@ -105,7 +110,10 @@ def _get_shard_records(
 
         if records:
             processed_records += len(records)
+
             yield records
+        else:
+            sleep(10)
 
         current_iterator = response.get("NextShardIterator")
 

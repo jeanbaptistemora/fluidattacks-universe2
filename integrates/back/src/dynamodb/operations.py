@@ -2,10 +2,6 @@ from .utils import (
     get_cursor,
     get_key_from_cursor,
 )
-from aioboto3.dynamodb.table import (
-    BatchWriter,
-)
-import aioextensions
 from aioextensions import (
     collect,
 )
@@ -117,15 +113,9 @@ async def batch_delete_item(
     key_structure = table.primary_key
     table_resource = await get_table_resource(table)
 
-    async with BatchWriter(
-        table_resource.name,
-        table_resource.meta.client,
-        flush_amount=25,
-        overwrite_by_pkeys=None,
-        on_exit_loop_sleep=0,
-    ) as batch_writer:
+    async with table_resource.batch_writer() as batch_writer:
         try:
-            await aioextensions.collect(
+            await collect(
                 tuple(
                     batch_writer.delete_item(
                         Key={
@@ -186,15 +176,9 @@ async def batch_get_item(
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
     table_resource = await get_table_resource(table)
 
-    async with BatchWriter(
-        table_resource.name,
-        table_resource.meta.client,
-        flush_amount=25,
-        overwrite_by_pkeys=None,
-        on_exit_loop_sleep=0,
-    ) as batch_writer:
+    async with table_resource.batch_writer() as batch_writer:
         try:
-            await aioextensions.collect(
+            await collect(
                 tuple(
                     batch_writer.put_item(
                         Item=_exclude_none(args=_parse_floats(args=item))
