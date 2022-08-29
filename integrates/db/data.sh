@@ -27,6 +27,7 @@ function main {
     finding_submission
     finding_unreliable_indicators
     finding_verification
+    forces_execution
     root_secret
     git_environment_secret
     git_root_environment_url

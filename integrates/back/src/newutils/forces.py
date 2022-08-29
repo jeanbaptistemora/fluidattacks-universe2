@@ -76,7 +76,7 @@ def format_forces_vulnerabilities(
 def format_forces(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["execution_id"],
-        group_name=item["group_name"],
+        group_name=item.get("group_name", item.get("subscription")),
         execution_date=get_as_utc_iso_format(
             get_from_str_frcs(
                 item["date"], date_format="%Y-%m-%dT%H:%M:%S.%f%z", zone="UTC"

@@ -115,7 +115,7 @@ def format_forces_item(execution: ForcesExecution) -> Item:
         "kind": execution.kind,
         "exit_code": execution.exit_code,
         "strictness": execution.strictness,
-        "git_origin": execution.origin,
+        "origin": execution.origin,
         "grace_period": execution.grace_period
         if execution.grace_period
         else 0,
