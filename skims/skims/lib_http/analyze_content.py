@@ -6,6 +6,9 @@ from bs4.element import (
     Tag,
 )
 import contextlib
+import dns
+import dns.exception
+import dns.resolver
 from lib_http.types import (
     URLContext,
 )
@@ -153,6 +156,37 @@ def get_check_ctx(url: URLContext) -> ContentCheckCtx:
     return ContentCheckCtx(
         url=url,
     )
+
+
+def _query_dns(
+    domain: URLContext,
+    record_type: str,
+    timeout: float = 2.0,
+) -> Optional[list]:
+
+    record_type = record_type.upper()
+    resolver = dns.resolver.Resolver()
+    if record_type == "TXT":
+        resource_records = list(
+            map(
+                lambda r: r.strings,
+                resolver.resolve(domain.url, record_type, lifetime=timeout),
+            )
+        )
+        _resource_record = [
+            resource_record[0][:0].join(resource_record)
+            for resource_record in resource_records
+            if resource_record
+        ]
+        records = [r.decode() for r in _resource_record]
+    else:
+        records = list(
+            map(
+                lambda r: r.to_text().replace('"', "").strip("."),
+                resolver.resolve(domain.url, record_type, lifetime=timeout),
+            )
+        )
+    return records
 
 
 CHECKS: Dict[
