@@ -120,7 +120,7 @@ The steps are as follows:
 
 1. The project leader creates an admin user
    in [ARM](https://fluidattacks.com/categories/arm/)
-   (Attack Surface Manager)
+   (Attacks Resistance Management)
    for the client.
 
 1. The admin user invites all project stakeholders,
@@ -186,7 +186,7 @@ the following scenarios can occur:
   Same as the first scenario,
   but attacks are only related to the change
   that was made.
-  The attack surface that existed
+  The attacks resistance management that existed
   before the subscription point
   is not attacked.
 
