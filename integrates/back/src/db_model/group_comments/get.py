@@ -25,7 +25,7 @@ from typing import (
 )
 
 
-async def get_comments(*, group_name: str) -> tuple[GroupComment, ...]:
+async def _get_comments(*, group_name: str) -> tuple[GroupComment, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_comment"],
         values={"name": group_name},
@@ -54,9 +54,7 @@ class GroupCommentsLoader(DataLoader):
     ) -> tuple[tuple[GroupComment, ...], ...]:
         return await collect(
             tuple(
-                (
-                    get_comments(group_name=group_name)
-                    for group_name in group_names
-                )
+                _get_comments(group_name=group_name)
+                for group_name in group_names
             )
         )

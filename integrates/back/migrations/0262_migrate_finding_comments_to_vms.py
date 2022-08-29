@@ -7,30 +7,26 @@ from aioextensions import (
     collect,
     run,
 )
-from custom_exceptions import (
-    FindingNotFound,
+from boto3.dynamodb.conditions import (
+    Key,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model import (
     finding_comments as finding_comments_model,
+    TABLE,
 )
 from db_model.finding_comments.types import (
     FindingComment,
 )
-from decorators import (
-    Finding,
-)
 from dynamodb import (
+    keys,
+    operations,
     operations_legacy as ops_legacy,
 )
 from dynamodb.types import (
     Item,
-)
-from groups import (
-    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -44,6 +40,9 @@ from settings import (
     LOGGING,
 )
 import time
+from typing import (
+    Any,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -52,32 +51,44 @@ LOGGER_CONSOLE = logging.getLogger("console")
 COMMENTS_TABLE = "fi_finding_comments"
 
 
-async def exists(
-    loaders: Dataloaders,
-    event_id: str,
-) -> bool:
-    try:
-        await loaders.finding.load(event_id)
-        return True
-    except FindingNotFound:
-        return False
+async def get_finding_by_id(finding_id: str) -> dict[str, Any]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"id": finding_id},
+    )
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_metadata"],),
+        limit=1,
+        table=TABLE,
+    )
+
+    return response.items[0] if response.items else {}
 
 
 async def process_comment(
-    loaders: Dataloaders, all_active_group_names: tuple[str, ...], item: Item
+    all_active_group_names: tuple[str, ...], item: Item
 ) -> None:
     comment_type = item["comment_type"]
+    if comment_type == "event":
+        return
+
     finding_id = item["finding_id"]
-    if comment_type != "event" and await exists(loaders, finding_id):
-        finding: Finding = await loaders.finding.load(finding_id)
-        group_name = finding.group_name
-        if (
-            not await groups_domain.exists(loaders, group_name)
-            or group_name not in all_active_group_names
-        ):
-            return
-        finding_comment: FindingComment = format_finding_comments(item)
-        await finding_comments_model.add(finding_comment=finding_comment)
+    finding = await get_finding_by_id(finding_id)
+    if not finding:
+        return
+
+    group_name = finding["group_name"]
+    if group_name not in all_active_group_names:
+        return
+
+    finding_comment: FindingComment = format_finding_comments(item)
+    await finding_comments_model.add(finding_comment=finding_comment)
 
 
 async def main() -> None:
@@ -94,9 +105,10 @@ async def main() -> None:
 
     await collect(
         tuple(
-            process_comment(loaders, all_active_group_names, item)
+            process_comment(all_active_group_names, item)
             for item in comments_scanned
         ),
+        workers=128,
     )
 
 

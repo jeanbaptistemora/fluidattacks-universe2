@@ -28,7 +28,7 @@ def _fill_vuln_info(
     vulns: tuple[Vulnerability, ...],
 ) -> FindingComment:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
-    solicited reattack"""
+    solicited reattack."""
     selected_vulns = [
         f"  - {vuln.where}" for vuln in vulns if vuln.id in vulns_ids
     ]
@@ -138,7 +138,7 @@ def filter_reattack_comments(
 ) -> tuple[list[FindingComment], list[FindingComment]]:
     """Returns the comment list of a finding filtered on whether the comment
     answers a solicited reattack or not. Comments that do this will be within
-    the first element of the tuple while the others will be in the second"""
+    the first element of the tuple while the others will be in the second."""
 
     def filter_func(comment: FindingComment) -> bool:
         return comment.id in verification_comment_ids
