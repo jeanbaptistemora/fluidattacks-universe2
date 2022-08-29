@@ -31,6 +31,7 @@ in
           gitlabEtlProduct = outputs."/computeOnAwsBatch/observesGitlabEtlProduct";
           gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
           mailchimpEtl = outputs."/computeOnAwsBatch/observesMailchimpEtl";
+          mandrillEtl = outputs."/computeOnAwsBatch/observesMandrillEtl";
         });
     };
   }

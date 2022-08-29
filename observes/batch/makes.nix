@@ -85,6 +85,14 @@ in {
         command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
       };
 
+    observesMandrillEtl =
+      sharedConfiguration
+      // {
+        attempts = 1;
+        attemptDurationSeconds = 7200;
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
+      };
+
     observesCodeEtlMirror =
       sharedConfiguration
       // {
