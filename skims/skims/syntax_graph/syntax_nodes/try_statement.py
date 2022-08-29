@@ -14,6 +14,7 @@ def build_try_statement_node(
     block_node: NId,
     catch_block: Optional[NId],
     try_block: Optional[NId],
+    resources_spec: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -26,6 +27,13 @@ def build_try_statement_node(
         args.generic(args.fork_n_id(block_node)),
         label_ast="AST",
     )
+
+    if resources_spec:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(resources_spec)),
+            label_ast="AST",
+        )
 
     if catch_block:
         args.syntax_graph.add_edge(

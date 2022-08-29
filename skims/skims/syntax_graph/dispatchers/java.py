@@ -50,6 +50,7 @@ from syntax_graph.syntax_readers.java import (
     modifiers as java_modifiers,
     package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
+    resource as java_resource,
     switch_block as java_switch_block,
     switch_block_statement_group as java_switch_block_statement_group,
     switch_expression as java_switch_expression,
@@ -326,8 +327,15 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
+            "resource_specification",
         },
         syntax_reader=common_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "resource",
+        },
+        syntax_reader=java_resource.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -377,6 +385,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "try_statement",
+            "try_with_resources_statement",
         },
         syntax_reader=common_try_statement.reader,
     ),

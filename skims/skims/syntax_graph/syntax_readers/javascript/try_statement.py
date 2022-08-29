@@ -15,4 +15,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     handler_id = try_node.get("label_field_handler")
     finalizer_id = try_node.get("label_field_finalizer")
 
-    return build_try_statement_node(args, block_id, finalizer_id, handler_id)
+    return build_try_statement_node(
+        args, block_id, finalizer_id, handler_id, None
+    )
