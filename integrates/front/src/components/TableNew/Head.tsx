@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { RowData, Table } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
 import React from "react";
+import type { FormEvent } from "react";
 
 import type { ITableProps } from "./types";
 
@@ -28,6 +29,24 @@ const Head = <TData extends RowData>({
   selectionMode,
   table,
 }: IHeadProps<TData>): JSX.Element => {
+  function allRowExpansionHandler(): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      event.stopPropagation();
+      table.toggleAllRowsExpanded();
+    };
+  }
+
+  function allRowSelectionHandler(): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      event.stopPropagation();
+      if (table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()) {
+        table.toggleAllRowsSelected();
+      } else {
+        table.resetRowSelection();
+      }
+    };
+  }
+
   return (
     <thead>
       {table.getHeaderGroups().map((headerGroup): JSX.Element => {
@@ -36,13 +55,20 @@ const Head = <TData extends RowData>({
             {headerGroup.headers.map((header): JSX.Element => {
               return (
                 <React.Fragment key={header.id}>
-                  <th>
+                  <th
+                    className={
+                      header.column.getCanSort()
+                        ? "cursor-pointer select-none"
+                        : ""
+                    }
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
                     <Gap>
                       {header === headerGroup.headers[0] &&
                         expandedRow !== undefined && (
                           <div
-                            onClick={table.getToggleAllRowsExpandedHandler()}
-                            onKeyPress={table.getToggleAllRowsExpandedHandler()}
+                            onClick={allRowExpansionHandler()}
+                            onKeyPress={allRowExpansionHandler()}
                             role={"button"}
                             tabIndex={0}
                           >
@@ -63,37 +89,23 @@ const Head = <TData extends RowData>({
                               table.getIsSomeRowsSelected() ||
                               table.getIsAllRowsSelected()
                             }
-                            onClick={table.getToggleAllRowsSelectedHandler()}
+                            onClick={allRowSelectionHandler()}
                             type={"checkbox"}
                           />
                         )}
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : ""
-                          }
-                          onClick={header.column.getToggleSortingHandler()}
-                          onKeyPress={header.column.getToggleSortingHandler()}
-                          role={"button"}
-                          tabIndex={0}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          &nbsp;
-                          <FontAwesomeIcon
-                            icon={
-                              {
-                                asc: faSortUp,
-                                desc: faSortDown,
-                              }[header.column.getIsSorted() as string] ?? faSort
-                            }
-                          />
-                        </div>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
                       )}
+                      &nbsp;
+                      <FontAwesomeIcon
+                        icon={
+                          {
+                            asc: faSortUp,
+                            desc: faSortDown,
+                          }[header.column.getIsSorted() as string] ?? faSort
+                        }
+                      />
                     </Gap>
                   </th>
                 </React.Fragment>

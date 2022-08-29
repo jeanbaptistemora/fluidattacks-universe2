@@ -105,26 +105,12 @@ const Body = <TData extends RowData>({
                                   type={selectionMode}
                                 />
                               ))}
-                            {onRowClick === undefined ? (
-                              <div>
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                                )}
-                              </div>
-                            ) : (
-                              <div
-                                onClick={onRowClick(row)}
-                                onKeyPress={onRowClick(row)}
-                                role={"button"}
-                                tabIndex={0}
-                              >
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                                )}
-                              </div>
-                            )}
+                            <div>
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </div>
                           </Gap>
                         </label>
                       </Gap>
