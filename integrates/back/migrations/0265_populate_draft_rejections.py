@@ -28,6 +28,7 @@ from db_model.findings.enums import (
     FindingStateStatus,
 )
 from db_model.findings.types import (
+    DraftRejection,
     Finding,
     FindingState,
 )
@@ -122,6 +123,37 @@ def parse_rejection_file() -> dict[str, deque[RejectionHelper]]:
     return rejection_info
 
 
+def update_finding_state(
+    old_state: FindingState, helper: RejectionHelper
+) -> tuple[FindingState, FindingState]:
+    """Adds the rejection data to a copy of the old state and returns a tuple
+    of [old_state, new_state]"""
+    rejection: DraftRejection = DraftRejection(
+        other="The draft did not fulfill the required standards"
+        if DraftRejectionReason.OTHER in helper.reasons
+        else "",
+        reasons=helper.reasons,
+        rejected_by=helper.rejected_by,
+        rejection_date=old_state.modified_date,
+        submitted_by=helper.submitted_by,
+    )
+    new_state: FindingState = FindingState(
+        modified_by=old_state.modified_by,
+        modified_date=old_state.modified_date,
+        rejection=rejection,
+        source=old_state.source,
+        status=old_state.status,
+    )
+    return (old_state, new_state)
+
+
+def handle_day_step(
+    old_states: list[FindingState], rejections: list[RejectionHelper]
+) -> None:
+    for old_state, rejection_helper in zip(old_states, rejections):
+        update_finding_state(old_state, rejection_helper)
+
+
 async def handle_finding(
     loaders: Dataloaders,
     finding_id: str,
@@ -140,9 +172,11 @@ async def handle_finding(
     )
 
     try:
-        assert len(rejected_states) == len(rejections)
+        assert len(rejected_states) <= len(rejections)
     except AssertionError:
         LOGGER.error("Failed on %s", group_name)
+        LOGGER.error("Rejected states %s", len(rejected_states))
+        LOGGER.error("Rejections %s", len(rejections))
         raise
 
 
@@ -151,7 +185,6 @@ async def handle_group(
     group_name: str,
     rejections: dict[str, deque[RejectionHelper]],
 ) -> None:
-    LOGGER.info("Checking %s", group_name)
     all_findings: tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
@@ -167,7 +200,7 @@ async def handle_group(
             for finding in all_findings
             if finding.id in rejections
         ),
-        workers=30,
+        workers=20,
     )
 
 
