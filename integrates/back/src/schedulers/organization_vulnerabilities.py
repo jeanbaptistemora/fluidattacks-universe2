@@ -36,11 +36,16 @@ from newutils.datetime import (
     get_now,
 )
 from organizations.domain import (
+    get_all_active_group_names,
     iterate_organizations_and_groups,
+    update_url,
 )
 import os
 from reports.it_report import (
     ITReport,
+)
+from s3.operations import (
+    sign_url,
 )
 from s3.resource import (
     get_s3_resource,
@@ -53,6 +58,7 @@ import tempfile
 logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
+TTL = 21600
 
 
 async def upload_file(bucket: str, file_path: str, file_name: str) -> None:
@@ -122,12 +128,15 @@ async def get_data(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     folder_date: str = get_as_str(get_now(), date_format="%Y-%m-%d")
+    all_group_names: set[str] = set(await get_all_active_group_names(loaders))
     async for org_id, org_name, org_groups in (
         iterate_organizations_and_groups(loaders)
     ):
         date: str = get_as_str(get_now(), date_format="%Y-%m-%dT%H-%M-%S")
         rows: list[list[str]] = await get_data(
-            groups=org_groups, loaders=loaders, organization_name=org_name
+            groups=tuple(all_group_names.intersection(org_groups)),
+            loaders=loaders,
+            organization_name=org_name,
         )
         with tempfile.TemporaryDirectory() as directory:
             with open(
@@ -144,11 +153,20 @@ async def main() -> None:
                 writer.writerow(rows[0])
                 writer.writerows(rows[1:])
 
-                await upload_file(
-                    FI_AWS_S3_ANALYTICS_BUCKET,
-                    csv_file.name,
-                    (
-                        f"{CI_COMMIT_REF_NAME}/reports/organizations"
-                        f"/{folder_date}/{org_id}-{date}.csv"
-                    ),
-                )
+            filename: str = (
+                f"{CI_COMMIT_REF_NAME}/reports/organizations"
+                f"/{folder_date}/{org_id}-{date}.csv"
+            )
+            await upload_file(
+                FI_AWS_S3_ANALYTICS_BUCKET,
+                csv_file.name,
+                filename,
+            )
+            signed_url: str = await sign_url(
+                filename, TTL, FI_AWS_S3_ANALYTICS_BUCKET
+            )
+            await update_url(
+                org_id,
+                org_name,
+                signed_url,
+            )

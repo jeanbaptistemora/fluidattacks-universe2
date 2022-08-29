@@ -711,6 +711,20 @@ async def update_invited_stakeholder(
         )
 
 
+async def update_url(
+    organization_id: str,
+    organization_name: str,
+    vulnerabilities_url: str,
+) -> None:
+    await orgs_model.update_metadata(
+        metadata=OrganizationMetadataToUpdate(
+            vulnerabilities_url=vulnerabilities_url
+        ),
+        organization_id=organization_id,
+        organization_name=organization_name,
+    )
+
+
 async def update_billing_customer(
     organization_id: str,
     organization_name: str,

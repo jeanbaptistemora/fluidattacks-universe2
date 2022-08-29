@@ -40,6 +40,7 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
         ]
         if metadata.payment_methods is not None
         else None,
+        "vulnerabilities_url": metadata.vulnerabilities_url,
     }
     return {
         key: None if not value else value
@@ -58,6 +59,7 @@ def format_organization(item: Item) -> Organization:
         ),
         policies=format_policies(item["policies"]),
         state=format_state(item["state"]),
+        vulnerabilities_url=item.get("vulnerabilities_url", None),
     )
 
 

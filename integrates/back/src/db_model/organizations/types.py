@@ -44,8 +44,10 @@ class Organization(NamedTuple):
     state: OrganizationState
     payment_methods: Optional[list[OrganizationPaymentMethods]] = None
     billing_customer: Optional[str] = None
+    vulnerabilities_url: Optional[str] = None
 
 
 class OrganizationMetadataToUpdate(NamedTuple):
     billing_customer: Optional[str] = None
     payment_methods: Optional[list[OrganizationPaymentMethods]] = None
+    vulnerabilities_url: Optional[str] = None

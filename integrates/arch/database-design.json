@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 29, 2022, 8:57 AM",
+    "DateLastModified": "Aug 29, 2022, 11:50 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -957,6 +957,10 @@
         {
           "AttributeName": "vulnerabilities",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "vulnerabilities_url",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -6050,7 +6054,8 @@
             "policies",
             "billing_customer",
             "payment_methods",
-            "documents"
+            "documents",
+            "vulnerabilities_url"
           ],
           "DataAccess": {
             "MySql": {}
@@ -11732,12 +11737,12 @@
           "NonKeyAttributes": [
             "email",
             "parent_id",
+            "finding_id",
             "content",
             "id",
             "creation_date",
             "full_name",
-            "comment_type",
-            "finding_id"
+            "comment_type"
           ],
           "DataAccess": {
             "MySql": {}
