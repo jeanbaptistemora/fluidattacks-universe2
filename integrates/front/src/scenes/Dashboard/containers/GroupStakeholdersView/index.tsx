@@ -51,7 +51,7 @@ import type {
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -61,6 +61,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const baseRolesUrl =
     "https://docs.fluidattacks.com/machine/web/groups/roles/";
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { userEmail }: IAuthContext = useContext(authContext);
 
   // State management
@@ -178,7 +179,9 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         );
       });
     },
-    skip: permissions.cannot("api_resolvers_group_authors_resolve"),
+    skip:
+      permissions.cannot("api_resolvers_group_authors_resolve") ||
+      groupPermissions.can("has_service_black"),
     variables: { groupName },
   });
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
