@@ -7,15 +7,16 @@ from syntax_graph.syntax_nodes.execution_block import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    cast,
-    Iterator,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
-    return build_execution_block_node(args, cast(Iterator[str], c_ids))
+    graph = args.ast_graph
+    _, *c_ids, _ = adj_ast(graph, args.n_id)  # do not consider { }
+
+    return build_execution_block_node(
+        args,
+        c_ids=(_id for _id in c_ids if graph.nodes[_id]["label_type"] != ";"),
+    )

@@ -8,6 +8,7 @@ from syntax_graph.syntax_readers.common import (
     class_declaration as common_class_declaration,
     comment as common_comment,
     conditional_expression as common_conditional_expression,
+    continue_statement as common_continue_statement,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
     execution_block as common_execution_block,
@@ -46,6 +47,7 @@ from syntax_graph.syntax_readers.java import (
     for_statement as java_for_statement,
     import_declaration as java_import_declaration,
     interface_declaration as java_interface_declaration,
+    lambda_expression as java_lambda_expression,
     method_invocation as java_method_invocation,
     modifiers as java_modifiers,
     package_declaration as java_package_declaration,
@@ -167,6 +169,12 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "continue_statement",
+        },
+        syntax_reader=common_continue_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "declaration_list",
         },
         syntax_reader=common_declaration_block.reader,
@@ -261,6 +269,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "method_declaration",
         },
         syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "lambda_expression",
+        },
+        syntax_reader=java_lambda_expression.reader,
     ),
     Dispatcher(
         applicable_types={
