@@ -21,7 +21,8 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
-    FindingNotFound,
+    AlreadyApproved,
+    AlreadySubmitted,
 )
 from dataloaders import (
     Dataloaders,
@@ -33,7 +34,6 @@ from datetime import (
 )
 from db_model.enums import (
     Source,
-    StateRemovalJustification,
 )
 from db_model.finding_comments.enums import (
     CommentType,
@@ -813,14 +813,24 @@ async def release_finding(
         in (FindingStateStatus.APPROVED, FindingStateStatus.SUBMITTED)
     ):
         return
-    await findings_domain.submit_draft(
-        loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
-    )
-    if auto_approve:
-        loaders.finding.clear(finding.id)
-        await findings_domain.approve_draft(
+    try:
+        await findings_domain.submit_draft(
             loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
         )
+    except AlreadySubmitted:
+        # Several process may try to submit the same finding concurrently.
+        # Handle the exception in case one already did it
+        pass
+    if auto_approve:
+        loaders.finding.clear(finding.id)
+        try:
+            await findings_domain.approve_draft(
+                loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
+            )
+        except AlreadyApproved:
+            # Several process may try to approve the same finding concurrently.
+            # Handle the exception in case one already did it
+            pass
 
 
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
@@ -838,27 +848,6 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
 ) -> None:
-    if finding is not None and finding.approval is None:
-        LOGGER.info("Deleting draft %s to create a new one", finding.id)
-        try:
-            await findings_domain.remove_finding(
-                context=Context(loaders=loaders, headers={}),
-                finding_id=finding.id,
-                justification=StateRemovalJustification.NOT_REQUIRED,
-                user_email="machine@fluidattacks.com",
-            )
-        except FindingNotFound:
-            LOGGER.error(
-                "Draft could not be deleted because it was not found",
-                extra={
-                    "extra": {
-                        "finding_id": finding.id,
-                        "group_name": finding.group_name,
-                    }
-                },
-            )
-        finding = None
-
     machine_vulnerabilities = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
