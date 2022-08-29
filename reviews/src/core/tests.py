@@ -4,6 +4,9 @@ from dal.model import (
 )
 import os
 from pygit2 import (
+    Branch,
+    Diff,
+    GIT_BRANCH_REMOTE,
     GitError,
     Repository,
 )
@@ -39,7 +42,7 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
     )
     max_deltas: int = data.config["max_deltas"]
     try:
-        repo: Any = Repository(repo_path)
+        repo: Repository = Repository(repo_path)
     except GitError as exc:
         log(
             err_log,
@@ -47,11 +50,13 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
         )
         raise exc
     skip_deltas: bool = "- no-deltas-test" in data.pull_request.description
-    base_sha: str = str(data.pull_request.changes()["diff_refs"]["base_sha"])
-    head_sha: str = str(data.pull_request.changes()["diff_refs"]["head_sha"])
-    base_commit: Any = repo.revparse_single(base_sha)
-    head_commit: Any = repo.revparse_single(head_sha)
-    diff: Any = repo.diff(base_commit, head_commit)
+    target: Branch = repo.lookup_branch(
+        f"origin/{data.pull_request.target_branch}", GIT_BRANCH_REMOTE
+    )
+    source: Branch = repo.lookup_branch(
+        f"origin/{data.pull_request.source_branch}", GIT_BRANCH_REMOTE
+    )
+    diff: Diff = repo.diff(target, source)
     diff.find_similar()
     deltas: int = diff.stats.deletions + diff.stats.insertions
     if not skip_deltas and deltas > max_deltas:
