@@ -2,6 +2,9 @@ import authz
 from dataloaders import (
     Dataloaders,
 )
+from db_model import (
+    finding_comments as finding_comments_model,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -13,9 +16,6 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-)
-from finding_comments import (
-    dal as comments_dal,
 )
 from itertools import (
     filterfalse,
@@ -51,11 +51,13 @@ def _is_scope_comment(comment: FindingComment) -> bool:
 
 
 async def add(comment_data: FindingComment) -> None:
-    await comments_dal.add(finding_comment=comment_data)
+    await finding_comments_model.add(finding_comment=comment_data)
 
 
 async def remove(comment_id: str, finding_id: str) -> None:
-    await comments_dal.remove(comment_id=comment_id, finding_id=finding_id)
+    await finding_comments_model.remove(
+        comment_id=comment_id, finding_id=finding_id
+    )
 
 
 async def get_comments(

@@ -14,6 +14,7 @@ from db_model import (
     enrollment as enrollment_model,
     event_comments as event_comments_model,
     events as events_model,
+    finding_comments as finding_comments_model,
     findings as findings_model,
     group_access as group_access_model,
     group_comments as group_comments_model,
@@ -72,9 +73,6 @@ from db_model.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
-)
-from finding_comments import (
-    dal as dal_comment,
 )
 from forces import (
     dal as dal_forces,
@@ -428,7 +426,7 @@ async def populate_event_comments(data: list[Any]) -> bool:
 
 async def populate_finding_comments(data: list[Any]) -> bool:
     await collect(
-        dal_comment.add(
+        finding_comments_model.add(
             finding_comment=item["finding_comment"],
         )
         for item in data

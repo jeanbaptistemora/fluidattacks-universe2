@@ -1,9 +1,6 @@
 from collections import (
     defaultdict,
 )
-from dataloaders.finding_comments.finding_comments import (
-    FindingCommentsLoader,
-)
 from dataloaders.force_executions import (
     ForcesExecutionsLoader,
 )
@@ -25,6 +22,9 @@ from db_model.events.get import (
     EventLoader,
     EventsHistoricStateLoader,
     GroupEventsLoader,
+)
+from db_model.finding_comments.get import (
+    FindingCommentsLoader,
 )
 from db_model.findings.get import (
     FindingHistoricStateLoader,
