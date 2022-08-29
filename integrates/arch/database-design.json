@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 25, 2022, 1:40 PM",
+    "DateLastModified": "Aug 29, 2022, 8:57 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -23003,9 +23003,6 @@
               },
               "where": {
                 "S": "universe/test/test#.config"
-              },
-              "root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "specific": {
                 "S": "123345"
