@@ -123,7 +123,7 @@ def _generate_fields() -> Dict[str, Any]:
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
         "max_cvss": 0.0,
-        "oldest_draft": {"age": 0, "max_cvss": 0.0},
+        "oldest_draft": {"age": 0, "max_cvss": 0.0, "submit_age": 0},
         "groups": {},
     }
     return fields
@@ -226,7 +226,6 @@ async def _draft_content(
     users_email: List[str],
 ) -> None:
     group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
-
     for draft in group_drafts:
         cvss: Decimal = findings_domain.get_severity_score(draft.severity)
         vulns: Tuple[
@@ -239,13 +238,19 @@ async def _draft_content(
             ]:
                 _draft_created_content(
                     content=content,
+                    cvss=cvss,
                     date_report=datetime_utils.get_datetime_from_iso_str(
                         vuln.state.modified_date
                     ),
+                    date_submission=datetime_utils.get_datetime_from_iso_str(
+                        draft.submission.modified_date
+                    )
+                    if draft.submission
+                    else None,
                     group=group,
+                    state=draft.state.status,
                     user_email=vuln.hacker_email,
                     users_email=users_email,
-                    cvss=cvss,
                 )
 
             elif (
@@ -271,11 +276,13 @@ async def _draft_content(
 def _draft_created_content(
     *,
     content: Dict[str, Any],
+    cvss: Decimal = Decimal("0.0"),
     date_report: datetime,
+    date_submission: Optional[datetime],
     group: str,
+    state: FindingStateStatus,
     user_email: str,
     users_email: List[str],
-    cvss: Decimal = Decimal("0.0"),
 ) -> None:
     if user_email in users_email:
         if not content.get(user_email):
@@ -287,13 +294,17 @@ def _draft_created_content(
             field="draft_created",
             group=group,
         )
-        _oldest_draft(content, cvss, date_report, user_email)
+        _oldest_draft(
+            content, cvss, date_report, date_submission, state, user_email
+        )
 
 
-def _oldest_draft(
+def _oldest_draft(  # pylint: disable=too-many-arguments
     content: Dict[str, Any],
     cvss: Decimal,
     date_report: datetime,
+    date_submission: Optional[datetime],
+    state: FindingStateStatus,
     user_email: str,
 ) -> None:
     if not content.get(user_email):
@@ -301,10 +312,24 @@ def _oldest_draft(
 
     draft_days = (datetime_utils.get_now().date() - date_report.date()).days
 
-    if content[user_email]["oldest_draft"]["age"] <= draft_days:
-        if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
-            content[user_email]["oldest_draft"]["max_cvss"] = cvss
-        content[user_email]["oldest_draft"]["age"] = draft_days
+    if date_submission:
+        submission_days = (
+            datetime_utils.get_now().date() - date_submission.date()
+        ).days
+
+        if (
+            content[user_email]["oldest_draft"]["submit_age"]
+            <= submission_days
+            and state == FindingStateStatus.SUBMITTED
+        ):
+            if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
+                content[user_email]["oldest_draft"]["max_cvss"] = cvss
+            content[user_email]["oldest_draft"]["submit_age"] = submission_days
+    else:
+        if content[user_email]["oldest_draft"]["age"] <= draft_days:
+            if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
+                content[user_email]["oldest_draft"]["max_cvss"] = cvss
+            content[user_email]["oldest_draft"]["age"] = draft_days
 
 
 async def _finding_reattacked(  # pylint: disable=too-many-arguments
