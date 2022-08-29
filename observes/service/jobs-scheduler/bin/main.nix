@@ -1,7 +1,7 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   outputs,
   projectPath,
   ...
@@ -10,8 +10,8 @@
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-service-jobs-scheduler-bin";
+  makeScript {
+    name = "observes-scheduler";
     searchPaths = {
       bin = [
         env
@@ -20,4 +20,5 @@ in
         outputs."${inputs.observesIndex.service.scheduler.env.runtime}"
       ];
     };
+    entrypoint = ./entrypoint.sh;
   }

@@ -6,9 +6,11 @@
 }:
 makeScript {
   searchPaths = {
+    bin = [
+      outputs."${inputs.observesIndex.service.scheduler.bin}"
+    ];
     source = [
       outputs."/common/utils/sops"
-      outputs."${inputs.observesIndex.service.scheduler.bin}"
     ];
   };
   name = "observes-job-scheduler";
