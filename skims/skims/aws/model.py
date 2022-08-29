@@ -209,3 +209,9 @@ class AWSApiGatewayStage(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSDefaultNetworkAcl(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

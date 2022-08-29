@@ -3003,6 +3003,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_AWS_ACL_BROAD_NETWORK_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_acl_broad_network_access",
+        module="lib_path",
+        finding=FindingEnum.F157,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_CREATE_TEMP_FILE = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_file_create_temp_file",

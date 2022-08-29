@@ -12,3 +12,6 @@ lib_path.f157.tfm_azure_kv_default_network_access:
 lib_path.f157.tfm_azure_kv_danger_bypass:
   en: Property bypass is either missing or misconfigured
   es: Falta la propiedad bypass o está mal configurada
+lib_path.f157.tfm_aws_acl_broad_network_access:
+  en: make sure the ingress.cidr_block property is not equal to 0.0.0.0/0
+  es: Asegúrese de que la propiedad ingress.cidr_block sea diferente a 0.0.0.0/0
