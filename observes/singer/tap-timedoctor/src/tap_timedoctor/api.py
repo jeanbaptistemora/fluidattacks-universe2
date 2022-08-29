@@ -110,7 +110,7 @@ class Worker:
         company_id: str,
     ) -> StatusAndResponse:
         """Return a collection of user(s) under the given company_id."""
-        resource = f"{self.url}/api/1.0/users" f"?company={company_id}"
+        resource = f"{self.url}/api/1.0/users?company={company_id}"
         return self.request(resource)
 
     def get_projects(
@@ -118,7 +118,7 @@ class Worker:
         company_id: str,
     ) -> StatusAndResponse:
         """Return a collection of projects info under the given company_id."""
-        resource = f"{self.url}/api/1.0/projects" f"?company={company_id}"
+        resource = f"{self.url}/api/1.0/projects?company={company_id}"
         return self.request(resource)
 
     def get_worklogs(
