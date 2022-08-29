@@ -6,7 +6,6 @@ import json
 from typing import (
     Any,
     Dict,
-    Iterable,
     List,
     Optional,
 )
@@ -15,20 +14,25 @@ from utils.logs import (
 )
 
 URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
+PLATFORMS = {
+    "maven": "maven",
+    "nuget": "nuget",
+    "npm": "npm",
+    "pypi": "pip",
+}
 
 
 def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     affected: List[dict],
     vuln_id: str,
-    platforms: Iterable[str],
     advisories: List[Advisory],
     severity: Optional[str],
 ) -> None:
-    current_advisories: Dict[str, str] = {}
+    current_advisories: Dict[str, Dict[str, str]] = {}
     for pkg_obj in affected:
         package: Dict[str, Any] = pkg_obj.get("package") or {}
         ecosystem: str = str(package.get("ecosystem"))
-        if (platform := ecosystem.lower()) not in platforms:
+        if (platform := ecosystem.lower()) not in PLATFORMS.keys():
             continue
         pkg_name: str = str(package.get("name")).lower()
         ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []
@@ -48,28 +52,35 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
             else:
                 final_range = " || ".join((final_range, str_range))
         if pkg_name not in current_advisories:
-            current_advisories.update({pkg_name: final_range})
-        else:
-            cur_range = current_advisories[pkg_name]
             current_advisories.update(
-                {pkg_name: " || ".join((cur_range, final_range))}
+                {pkg_name: {"version": final_range, "platform": platform}}
+            )
+        else:
+            cur_range = current_advisories[pkg_name]["version"]
+            current_advisories.update(
+                {
+                    pkg_name: {
+                        "version": " || ".join((cur_range, final_range)),
+                        "platform": platform,
+                    }
+                }
             )
 
-    for key_pkg, range_val in current_advisories.items():
+    for key_pkg, sub_dict in current_advisories.items():
         advisories.append(
             Advisory(
                 associated_advisory=vuln_id,
-                package_manager=platform,
+                package_manager=PLATFORMS[sub_dict["platform"]],
                 package_name=key_pkg,
                 severity=severity,
                 source=URL_ADVISORY_DATABASE,
-                vulnerable_version=range_val,
+                vulnerable_version=sub_dict["version"],
             )
         )
 
 
 def get_advisory_database(
-    advisories: List[Advisory], tmp_dirname: str, platforms: Iterable[str]
+    advisories: List[Advisory], tmp_dirname: str
 ) -> None:
     filenames = sorted(
         glob.glob(
@@ -91,7 +102,7 @@ def get_advisory_database(
                 if len(severity) > 0:
                     severity_val = severity[0].get("score")
                 get_vulnerabilities_ranges(
-                    affected, vuln_id, platforms, advisories, severity_val
+                    affected, vuln_id, advisories, severity_val
                 )
             except json.JSONDecodeError as exc:
                 log_blocking("error", "%s", exc)

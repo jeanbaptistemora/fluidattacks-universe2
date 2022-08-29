@@ -21,7 +21,6 @@ from tempfile import (
 )
 from typing import (
     Callable,
-    Iterable,
     List,
     Optional,
     Tuple,
@@ -32,18 +31,14 @@ from utils.logs import (
 
 Advisories = List[Advisory]
 
-REPOSITORIES: List[
-    Tuple[Callable[[Advisories, str, Iterable[str]], None], str, Iterable[str]]
-] = [
+REPOSITORIES: List[Tuple[Callable[[Advisories, str], None], str]] = [
     (
         get_advisories_community,
         URL_ADVISORIES_COMMUNITY,
-        ("maven", "npm", "nuget", "pip"),
     ),
     (
         get_advisory_database,
         URL_ADVISORY_DATABASE,
-        ("maven", "npm", "nuget", "pip"),
     ),
 ]
 
@@ -65,15 +60,13 @@ async def update_sca() -> None:
     # cloning repositories
     log_blocking("info", "Cloning neccesary repositories")
     tmp_repositories = [
-        (fun, repo, platforms)
-        for fun, url, platforms in REPOSITORIES
-        if (repo := clone_repo(url))
+        (fun, repo) for fun, url in REPOSITORIES if (repo := clone_repo(url))
     ]
     # processing vulnerable packages
     advisories: Advisories = []
     log_blocking("info", "Processing advisories")
-    for get_ad, repo, platforms in tmp_repositories:
-        get_ad(advisories, repo, platforms)
+    for get_ad, repo in tmp_repositories:
+        get_ad(advisories, repo)
 
     # adding to table
     log_blocking("info", "Adding advisories to skima_sca table")

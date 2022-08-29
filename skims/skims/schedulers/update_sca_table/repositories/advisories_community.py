@@ -5,7 +5,6 @@ import glob
 import re
 from typing import (
     Dict,
-    Iterable,
     List,
     Optional,
     Pattern,
@@ -16,6 +15,13 @@ RE_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
 URL_ADVISORIES_COMMUNITY: str = (
     "https://gitlab.com/gitlab-org/advisories-community.git"
 )
+PLATFORMS = {
+    "maven": "maven",
+    "nuget": "nuget",
+    "npm": "npm",
+    "pypi": "pip",
+}
+ALLOWED_RANGES = ("=", "<", ">", ">=", "<=")
 
 
 def format_range(unformatted_range: str) -> str:
@@ -51,7 +57,7 @@ def fix_pip_range(pip_range: str) -> str:
     return pip_range
 
 
-def format_ranges(platform: str, range_str: str) -> str:
+def _format_ranges(platform: str, range_str: str) -> str:
     if platform in ("maven", "nuget"):
         ranges = re.findall(RE_RANGES, range_str)
         str_ranges = [format_range(ra) for ra in ranges]
@@ -61,13 +67,37 @@ def format_ranges(platform: str, range_str: str) -> str:
     return fix_npm_range(range_str)  # npm
 
 
+def format_ranges(platform: str, range_str: str) -> str:
+    formatted = _format_ranges(platform, range_str)
+    versions = formatted.split("||")
+    fixed_versions = []
+    for version in versions:
+        fixed_items = []
+        split_ver = version.split()
+        for index, item in enumerate(split_ver):
+            if item not in ALLOWED_RANGES and not item.startswith(
+                ALLOWED_RANGES
+            ):
+                previous = split_ver[index - 1] if index > 0 else None
+                operator = previous if previous in ALLOWED_RANGES else "="
+                fixed_item = operator + item
+                fixed_items.append(fixed_item)
+            elif item not in ALLOWED_RANGES:
+                fixed_items.append(item)
+
+        fixed_versions.append(" ".join(fixed_items))
+
+    return " || ".join(fixed_versions)
+
+
 def get_platform_advisories(
     advisories: List[Advisory], tmp_dirname: str, platform: str
 ) -> None:
-    if platform == "pip":
-        platform = "pypi"
     filenames = sorted(
-        glob.glob(f"{tmp_dirname}/{platform}/**/*.yml", recursive=True)
+        glob.glob(
+            f"{tmp_dirname}/{platform}/**/*.yml",
+            recursive=True,
+        )
     )
     for filename in filenames:
         with open(filename, "r", encoding="utf-8") as stream:
@@ -86,12 +116,13 @@ def get_platform_advisories(
                 ) and not package_key.startswith("@"):
                     package_key = package_key.replace("/", ":")
                 formatted_ranges = format_ranges(
-                    platform, str(parsed_yaml.get("affected_range"))
+                    platform,
+                    str(parsed_yaml.get("affected_range")),
                 ).lower()
                 advisories.append(
                     Advisory(
                         associated_advisory=cve_key,
-                        package_manager=platform,
+                        package_manager=PLATFORMS[platform],
                         package_name=package_key,
                         severity=severity,
                         source=URL_ADVISORIES_COMMUNITY,
@@ -103,8 +134,9 @@ def get_platform_advisories(
 
 
 def get_advisories_community(
-    advisories: List[Advisory], tmp_dirname: str, platforms: Iterable[str]
+    advisories: List[Advisory], tmp_dirname: str
 ) -> None:
     print("processing advisories-community")
-    for platform in platforms:
+    # pylint: disable=consider-iterating-dictionary
+    for platform in PLATFORMS.keys():
         get_platform_advisories(advisories, tmp_dirname, platform)
