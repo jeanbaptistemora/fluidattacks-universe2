@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._utils import (
+    handle_api_error,
+)
 from dataclasses import (
     dataclass,
 )
@@ -34,6 +37,9 @@ from fa_purity.json.value.transform import (
 from fa_purity.pure_iter import (
     factory as PIterFactory,
 )
+from fa_purity.pure_iter.factory import (
+    pure_map,
+)
 from fa_purity.result.transform import (
     all_ok,
 )
@@ -51,6 +57,9 @@ from tap_mandrill._files import (
     BinFile,
     StrFile,
     ZipFile,
+)
+from tap_mandrill._utils import (
+    ErrorAtInput,
 )
 from time import (
     sleep,
@@ -103,29 +112,57 @@ class ExportJob:
     job_id: str
     created_at: datetime
     export_type: ExportType
-    finished_at: datetime
+    finished_at: Maybe[datetime]
     state: JobState
-    result_url: str
+    result_url: Maybe[str]
 
     @classmethod
-    def _decode(cls, raw: FrozenDict[str, str]) -> ResultE[ExportJob]:
-        created_at_res = _get(raw, "created_at").bind(_utils.isoparse)
-        finished_at_res = _get(raw, "finished_at").bind(_utils.isoparse)
-        state_res = _get(raw, "state").bind(JobState.decode)
-        type_res = _get(raw, "type").bind(ExportType.decode)
-        return _get(raw, "id").bind(
-            lambda _id: created_at_res.bind(
-                lambda created_at: type_res.bind(
-                    lambda _type: finished_at_res.bind(
-                        lambda finished_at: state_res.bind(
-                            lambda state: _get(raw, "result_url").map(
-                                lambda result_url: ExportJob(
-                                    _id,
-                                    created_at,
-                                    _type,
-                                    finished_at,
-                                    state,
-                                    result_url,
+    def _decode(cls, raw: JsonObj) -> ResultE[ExportJob]:
+        def _to_str(x: JsonValue) -> ResultE[str]:
+            return Unfolder(x).to_primitive(str).alt(Exception)
+
+        created_at_res = (
+            _get(raw, "created_at").bind(_to_str).bind(_utils.isoparse)
+        )
+        finished_at_res = (
+            _get(raw, "finished_at")
+            .bind(
+                lambda x: Unfolder(x)
+                .to_optional(lambda u: u.to_primitive(str))
+                .alt(Exception)
+            )
+            .map(
+                lambda x: Maybe.from_optional(x).map(
+                    lambda d: _utils.isoparse(d)
+                )
+            )
+            .bind(lambda x: _utils.merge_maybe_result(x))
+        )
+        result_url_res = _get(raw, "result_url").bind(
+            lambda x: Unfolder(x)
+            .to_optional(lambda u: u.to_primitive(str))
+            .map(lambda i: Maybe.from_optional(i))
+            .alt(Exception)
+        )
+        state_res = _get(raw, "state").bind(_to_str).bind(JobState.decode)
+        type_res = _get(raw, "type").bind(_to_str).bind(ExportType.decode)
+        return (
+            _get(raw, "id")
+            .bind(_to_str)
+            .bind(
+                lambda _id: created_at_res.bind(
+                    lambda created_at: type_res.bind(
+                        lambda _type: finished_at_res.bind(
+                            lambda finished_at: state_res.bind(
+                                lambda state: result_url_res.map(
+                                    lambda result_url: ExportJob(
+                                        _id,
+                                        created_at,
+                                        _type,
+                                        finished_at,
+                                        state,
+                                        result_url,
+                                    )
                                 )
                             )
                         )
@@ -136,12 +173,12 @@ class ExportJob:
 
     @classmethod
     def decode(cls, raw: JsonObj) -> ResultE[ExportJob]:
-        data = Unfolder(JsonValue(raw)).to_dict_of(str).alt(Exception)
+        data = Unfolder(JsonValue(raw)).to_json().alt(Exception)
         return data.bind(cls._decode)
 
     def download(self) -> Cmd[ResultE[StrFile]]:
         return (
-            BinFile.from_url(self.result_url)
+            BinFile.from_url(self.result_url.unwrap())
             .map(lambda r: r.alt(raise_exception).unwrap())
             .map(ZipFile.from_bin)
             .bind(
@@ -164,12 +201,27 @@ class ExportApi:  # type: ignore[no-any-unimported]
 
     def get_jobs(self) -> Cmd[FrozenList[ExportJob]]:
         def _action() -> FrozenList[ExportJob]:
-            jobs: ResultE[FrozenList[JsonObj]] = JsonFactory.json_list(self._client.exports.list()).alt(Exception)  # type: ignore[misc]
+            jobs: Result[FrozenList[JsonObj], ErrorAtInput] = (
+                handle_api_error(
+                    lambda: self._client.exports.list()  # type: ignore[misc, no-any-return]
+                )
+                .alt(lambda e: ErrorAtInput(Exception(e), ""))
+                .bind(
+                    lambda r: JsonFactory.json_list(r).alt(lambda e: ErrorAtInput(e, str(r)))  # type: ignore[misc]
+                )
+            )
             return (
                 jobs.bind(
-                    lambda l: all_ok(tuple(ExportJob.decode(i) for i in l))
+                    lambda l: all_ok(
+                        pure_map(
+                            lambda i: ExportJob.decode(i).alt(
+                                lambda e: ErrorAtInput(e, str(i))
+                            ),
+                            l,
+                        ).transform(lambda x: tuple(x))
+                    )
                 )
-                .alt(raise_exception)
+                .alt(lambda e: e.raise_err(LOG))  # type: ignore[misc]
                 .unwrap()
             )
 
@@ -207,8 +259,24 @@ class ExportApi:  # type: ignore[no-any-unimported]
 
     def export_activity(self) -> Cmd[ExportJob]:
         def _action() -> ExportJob:
-            job: ResultE[JsonObj] = JsonFactory.from_any(self._client.exports.activity()).alt(Exception)  # type: ignore[misc]
-            export = job.bind(ExportJob.decode).alt(raise_exception).unwrap()
+            job: Result[JsonObj, ErrorAtInput] = (
+                handle_api_error(
+                    lambda: self._client.exports.activity()  # type: ignore[misc, no-any-return]
+                )
+                .alt(lambda e: ErrorAtInput(e, ""))
+                .bind(
+                    lambda r: JsonFactory.from_any(r).alt(lambda e: ErrorAtInput(e, str(r)))  # type: ignore[misc]
+                )
+            )
+            export = (
+                job.bind(
+                    lambda j: ExportJob.decode(j).alt(
+                        lambda e: ErrorAtInput(e, str(j))
+                    )
+                )
+                .alt(lambda e: e.raise_err(LOG))  # type: ignore[misc]
+                .unwrap()
+            )
             LOG.info("Peding export: %s", export)
             return export
 
