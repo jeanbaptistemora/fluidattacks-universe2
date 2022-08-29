@@ -35,12 +35,14 @@ def get_pull_request(project: Project, pull_request_id: str) -> PullRequest:
         changes=raw.changes,
         pipelines=partial(get_pipelines, project, raw),
         raw=raw,
+        url=raw.web_url,
     )
 
 
 def get_pull_requests(project: Project) -> dict[str, PullRequest]:
     raws: list[ProjectMergeRequest] = project.mergerequests.list(
-        state="opened"
+        get_all=True,
+        state="opened",
     )
     return {raw.iid: get_pull_request(project, raw.iid) for raw in raws}
 
@@ -50,7 +52,7 @@ def get_pipelines(
 ) -> list[ProjectPipeline]:
     return [
         project.pipelines.get(pipeline.id)
-        for pipeline in pull_request.pipelines.list()
+        for pipeline in pull_request.pipelines.list(get_all=True)
     ]
 
 

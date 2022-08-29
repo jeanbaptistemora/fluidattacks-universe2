@@ -70,6 +70,22 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
     return success or not should_fail
 
 
+def first_pipeline_successful(*, data: TestData) -> bool:
+    """Test if first pipeline was successful"""
+    should_fail: bool = data.config["fail"]
+    err_log: str = get_err_log(should_fail)
+    last = data.pull_request.pipelines()[-1]
+    success: bool = last.status in ("success", "manual")
+    if not success:
+        log(
+            err_log,
+            "Pipeline: %s\n has status: %s\n with status: %s\n",
+            last.web_url,
+            last.status,
+        )
+    return success
+
+
 def all_pipelines_successful(*, data: TestData) -> bool:
     """Test if all previous pipelines were successful"""
     should_fail: bool = data.config["fail"]
@@ -78,7 +94,7 @@ def all_pipelines_successful(*, data: TestData) -> bool:
     index: int = 0
     while index < len(data.pull_request.pipelines()):
         pipeline: Any = data.pull_request.pipelines()[index]
-        p_jobs: Any = pipeline.jobs.list()
+        p_jobs: Any = pipeline.jobs.list(get_all=True)
         p_jobs_names: list[str] = [job.name for job in p_jobs]
         if data.config["job_name"] not in p_jobs_names:
             for p_job in p_jobs:

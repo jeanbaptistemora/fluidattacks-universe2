@@ -37,6 +37,7 @@ def run_tests_gitlab(
 ) -> bool:
     success = True
 
+    log("info", "Reviewing PR: %s", pull_request.url)
     if not tests.skip_ci(pull_request):
         syntax: Syntax = Syntax(
             match_groups=config["syntax"]["match_groups"],
@@ -50,7 +51,7 @@ def run_tests_gitlab(
                 syntax=syntax,
             )
             test: Callable[[], bool] = partial(getattr(tests, name), data=data)
-            log("info", f"Running tests.{name}")
+            log("info", "Running tests.%s", name)
             success = test() and success
             if (
                 not success
@@ -59,6 +60,7 @@ def run_tests_gitlab(
             ):
                 gl.close_pr(pull_request)
                 log("error", "Merge Request closed by: %s", name)
+    log("info", "Finished reviewing %s\n\n", pull_request.url)
 
     return success
 

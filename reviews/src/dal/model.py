@@ -21,6 +21,7 @@ class PullRequest(NamedTuple):
     target_branch: str
     title: str
     type: str
+    url: str
 
 
 class Syntax(NamedTuple):
