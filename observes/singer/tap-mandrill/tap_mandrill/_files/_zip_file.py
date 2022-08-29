@@ -25,16 +25,23 @@ from pathlib import (
 from tempfile import (
     TemporaryDirectory,
 )
+from typing import (
+    Callable,
+    IO,
+    TypeVar,
+)
 from zipfile import (
     BadZipFile,
     LargeZipFile,
     ZipFile as _BaseZipFile,
 )
 
+_T = TypeVar("_T")
+
 
 @dataclass(frozen=True)
 class _ZipFile:
-    file: Cmd[_BaseZipFile]
+    file: BinFile
 
 
 @dataclass(frozen=True)
@@ -50,22 +57,31 @@ class ZipFile:
             with unsafe_unwrap(builder):
                 # test _BaseZipFile build success
                 pass
-            return Result.success(ZipFile(_ZipFile(builder)), Exception)
+            return Result.success(ZipFile(_ZipFile(bin_file)), Exception)
         except (BadZipFile, LargeZipFile) as err:
             return Result.failure(err)
 
+    def _unsafe_map(self, function: Callable[[_BaseZipFile], _T]) -> Cmd[_T]:
+        def _action(file: IO[bytes]) -> Cmd[_T]:
+            def _inner() -> _T:
+                with _BaseZipFile(file.name, "r") as zip_obj:
+                    return function(zip_obj)
+
+            return Cmd.from_cmd(_inner)
+
+        return self._inner.file.unsafe_transform(_action).bind(lambda x: x)
+
     def _extract_single(self, target_dir: Path) -> Cmd[Path]:
-        def _extract(zip_obj: _BaseZipFile) -> Cmd[Path]:
+        def _extract(zip_obj: _BaseZipFile) -> Path:
             files = zip_obj.namelist()
-            if len(files) > 1:
+            if len(files) != 1:
                 raise Exception(
                     f"Expected only 1 compressed file got {len(files)}"
                 )
-            return Cmd.from_cmd(
-                lambda: zip_obj.extract(files[0], target_dir.as_posix())
-            ).map(lambda p: Path(p))
+            path = zip_obj.extract(files[0], target_dir.as_posix())
+            return Path(path)
 
-        return self._inner.file.bind(lambda z: _extract(z))
+        return self._unsafe_map(_extract)
 
     def extract_single_file(self) -> Cmd[StrFile]:
         def _action() -> Cmd[StrFile]:

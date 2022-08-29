@@ -20,7 +20,7 @@ from tap_mandrill.api.objs.activity import (
 def all_activity(client: ExportApi) -> Cmd[PureIter[Activity]]:
     data: Cmd[StrFile] = (
         client.export_activity()
-        .bind(lambda j: client.until_finish(j, 60 * 10, 11))
+        .bind(lambda j: client.until_finish(j, 60 * 1, 30))
         .bind(
             lambda r: r.map(lambda j: j.download())
             .alt(raise_exception)
