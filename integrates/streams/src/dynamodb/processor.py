@@ -103,6 +103,7 @@ def _trigger_webhooks(records: tuple[Record, ...]) -> None:
                 ],
             ]
         )
+
         requests.post(FI_GOOGLE_CHAT_WEBOOK_URL, json={"text": text})
 
 

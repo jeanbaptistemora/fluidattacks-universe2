@@ -101,7 +101,7 @@ def _get_shard_records(
 
     while True:
         try:
-            response = CLIENT.get_records(ShardIterator=shard_iterator)
+            response = CLIENT.get_records(ShardIterator=current_iterator)
         except CLIENT.exceptions.ExpiredIteratorException:
             print("Iterator expired, moving on")
             break
@@ -112,19 +112,21 @@ def _get_shard_records(
             processed_records += len(records)
 
             yield records
+            sleep(1)
         else:
             sleep(10)
 
         current_iterator = response.get("NextShardIterator")
 
         if current_iterator is None:
+            print("Shard closed, moving on")
             break
 
     print("Processed", processed_records, "records")
 
 
 def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
-    """Retrieves the records from the shard and triggers replication"""
+    """Retrieves the records from the shard and triggers processing"""
     shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
 
     for records in _get_shard_records(shard_iterator):
