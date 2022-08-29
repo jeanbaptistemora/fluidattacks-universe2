@@ -66,7 +66,6 @@ project_id = "20741933"
       test = 6
       style = 7
 
-  [tests.all_pipelines_successful]
+  [tests.first_pipeline_successful]
     fail = true
     close_pr = true
-    job_name = '/reviews'

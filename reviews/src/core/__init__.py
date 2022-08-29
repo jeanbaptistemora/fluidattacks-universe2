@@ -56,7 +56,7 @@ def run_tests_gitlab(
             if (
                 not success
                 and args["close_pr"]
-                and pull_request.raw.state not in "closed"
+                and pull_request.state not in "closed"
             ):
                 gl.close_pr(pull_request)
                 log("error", "Merge Request closed by: %s", name)

@@ -73,15 +73,6 @@ def validate_specific(config: Dynaconf) -> None:
                     messages=ERR_DEFAULT,
                 ),
             )
-        elif test in "all_pipelines_successful":
-            config.validators.register(
-                Validator(
-                    f"tests.{test}.job_name",
-                    must_exist=True,
-                    is_type_of=str,
-                    messages=ERR_DEFAULT,
-                ),
-            )
         elif test in "pr_under_max_deltas":
             config.validators.register(
                 Validator(

@@ -8,13 +8,17 @@ from typing import (
 )
 
 
+class Pipeline(NamedTuple):
+    id: str
+    status: str
+    url: str
+
+
 class PullRequest(NamedTuple):
     author: dict[str, str]
-    changes: Callable[[], Any]
     commits: Callable[[], Any]
     description: str
-    id: str
-    pipelines: Callable[[], list[dict[str, str]]]
+    pipelines: Callable[[], list[Pipeline]]
     raw: MergeRequest
     source_branch: str
     state: str

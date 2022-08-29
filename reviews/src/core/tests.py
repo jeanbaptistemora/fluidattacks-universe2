@@ -1,4 +1,5 @@
 from dal.model import (
+    Pipeline,
     PullRequest,
     TestData,
 )
@@ -12,9 +13,6 @@ from pygit2 import (
 )
 import re
 import subprocess
-from time import (
-    sleep,
-)
 from typing import (
     Any,
 )
@@ -72,51 +70,26 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
 
 def first_pipeline_successful(*, data: TestData) -> bool:
     """Test if first pipeline was successful"""
+    success: bool = False
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
-    last = data.pull_request.pipelines()[-1]
-    success: bool = last.status in ("success", "manual")
-    if not success:
+    pipelines: list[Pipeline] = data.pull_request.pipelines()
+    if len(pipelines) < 1:
         log(
             err_log,
-            "Pipeline: %s\n has status: %s\n with status: %s\n",
-            last.web_url,
-            last.status,
+            "This pull request does not have any associated pipelines.",
         )
+    else:
+        last: Pipeline = pipelines[-1]
+        success = last.status in ("success", "manual")
+        if not success:
+            log(
+                err_log,
+                "Pipeline: %s\n" "Has status: %s\n",
+                last.web_url,
+                last.status,
+            )
     return success
-
-
-def all_pipelines_successful(*, data: TestData) -> bool:
-    """Test if all previous pipelines were successful"""
-    should_fail: bool = data.config["fail"]
-    err_log: str = get_err_log(should_fail)
-    success: bool = True
-    index: int = 0
-    while index < len(data.pull_request.pipelines()):
-        pipeline: Any = data.pull_request.pipelines()[index]
-        p_jobs: Any = pipeline.jobs.list(get_all=True)
-        p_jobs_names: list[str] = [job.name for job in p_jobs]
-        if data.config["job_name"] not in p_jobs_names:
-            for p_job in p_jobs:
-                if p_job.status in ("success", "manual"):
-                    # Nothing to assigned
-                    pass
-                elif p_job.status in ("pending", "running", "created"):
-                    sleep(5)
-                    index = -1
-                else:
-                    log(
-                        err_log,
-                        "Pipeline: %s\n"
-                        "has the job: %s\n"
-                        "with status: %s\n",
-                        pipeline.web_url,
-                        p_job.name,
-                        p_job.status,
-                    )
-                    success = False
-        index += 1
-    return success or not should_fail
 
 
 def pr_message_syntax(*, data: TestData) -> bool:
