@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from aiodataloader import (
     DataLoader,
 )
@@ -13,9 +16,6 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
-)
-from db_model.events.constants import (
-    GSI_2_FACET,
 )
 from db_model.forces.types import (
     ForcesExecution,
@@ -36,6 +36,7 @@ async def _get_executions(
     *, group_name: str, limit: Optional[int] = None
 ) -> tuple[ForcesExecution, ...]:
     if limit is None:
+        paginate = False
         primary_key = keys.build_key(
             facet=TABLE.facets["forces_execution"],
             values={"name": group_name},
@@ -48,6 +49,7 @@ async def _get_executions(
             primary_key.partition_key
         )
     else:
+        paginate = True
         facet = GSI_2_FACET
         primary_key = keys.build_key(
             facet=facet,
@@ -60,14 +62,14 @@ async def _get_executions(
         condition_expression = Key(key_structure.partition_key).eq(
             primary_key.partition_key
         ) & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-
     response = await operations.query(
+        paginate=paginate,
         condition_expression=condition_expression,
         facets=(TABLE.facets["forces_execution"],),
+        limit=limit,
         table=TABLE,
         index=index,
     )
-
     return tuple(format_forces_execution(item) for item in response.items)
 
 

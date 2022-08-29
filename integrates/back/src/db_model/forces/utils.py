@@ -88,7 +88,7 @@ def format_forces_execution(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["id"],
         group_name=item["group_name"],
-        execution_date=item["date"],
+        execution_date=item["execution_date"],
         commit=item["commit"],
         repo=item["repo"],
         branch=item["branch"],
