@@ -1,21 +1,22 @@
 {
-  system,
-  legacy_pkgs,
-  local_lib,
+  nixpkgs,
+  python_version,
   src,
 }: let
-  metadata = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).tool.poetry;
-  lib = {
-    buildEnv = legacy_pkgs.python39.buildEnv.override;
-    buildPythonPackage = legacy_pkgs.python39.pkgs.buildPythonPackage;
-    fetchPypi = legacy_pkgs.python3Packages.fetchPypi;
-  };
-  pythonPkgs = import ./build/deps {
-    inherit lib legacy_pkgs system local_lib;
-    pythonPkgs = legacy_pkgs.python39Packages;
+  metadata = let
+    _metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).project;
+    file_str = builtins.readFile "${src}/${_metadata.name}/__init__.py";
+    match = builtins.match ".*__version__ *= *\"(.+?)\"\n.*" file_str;
+    version = builtins.elemAt match 0;
+  in
+    _metadata // {inherit version;};
+  deps = import ./build/deps {
+    inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata pythonPkgs;
+    inherit src metadata;
+    lib = deps.lib;
+    python_pkgs = deps.python_pkgs;
   };
   checks = import ./check {self_pkg = self_pkgs.pkg;};
 in

@@ -1,11 +1,10 @@
-from utils_logger.v2 import (
-    BugsnagConf,
-    set_bugsnag,
-    set_main_log,
-    start_session,
+from ._logger import (
+    set_logger,
+)
+from fa_purity.cmd import (
+    unsafe_unwrap,
 )
 
-__version__ = "1.0.1"
-set_bugsnag(BugsnagConf("service", __version__, __file__, False))
-start_session()
-LOG = set_main_log(__name__)
+__version__ = "2.0.0"
+
+unsafe_unwrap(set_logger(__name__, __version__))

@@ -1,35 +1,38 @@
 {
-  lib,
-  system,
-  local_lib,
-  legacy_pkgs,
-  pythonPkgs,
+  nixpkgs,
+  python_version,
 }: let
-  python_version = "python39";
-  purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    rev = "4515a1af33cfaf249bf32afc7e8f0b7735959679";
-    ref = "refs/tags/v1.5.1";
+  lib = {
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
   };
-  purity = import purity_src {
-    inherit system legacy_pkgs python_version;
-    self = purity_src;
-    path_filter = {root, ...}: root;
-  };
-in
-  pythonPkgs
-  // {
-    import-linter = import ./import-linter {
-      inherit lib;
-      click = pythonPkgs.click;
-      networkx = pythonPkgs.networkx;
+  # pkg_override = names: (import ./pkg_override.nix) (x: (x ? overridePythonAttrs && builtins.elem x.pname names));
+  # pycheck_override = python_pkgs: (import ./pkg_override.nix) (x: (x ? name && x.name == "pytest-check-hook")) python_pkgs.pytestCheckHook;
+
+  override_1 = python_pkgs:
+    python_pkgs
+    // {
+      types-click = import ./click/stubs.nix lib;
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
-    purity = purity.pkg;
-    types-click = import ./click/stubs.nix lib;
-    utils-logger =
-      (import local_lib.utils-logger {
-        src = local_lib.utils-logger;
-        inherit python_version legacy_pkgs;
-      })
-      .pkg;
-  }
+
+  # pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  # pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
+  overrides = [];
+  # overrides = map pkgs_overrides [
+  #   pycheck_override
+  #   pytz_override
+  #   requests_override
+  # ];
+  compose = let
+    apply = x: f: f x;
+  in
+    functions: val: builtins.foldl' apply val functions;
+  final_pkgs = compose ([override_1] ++ overrides) (nixpkgs."${python_version}Packages");
+in {
+  inherit lib;
+  python_pkgs = final_pkgs;
+}

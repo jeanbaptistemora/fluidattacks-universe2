@@ -1,29 +1,25 @@
 {
   lib,
-  pythonPkgs,
-  src,
   metadata,
+  python_pkgs,
+  src,
 }: let
-  runtime_deps = with pythonPkgs; [
+  runtime_deps = with python_pkgs; [
     click
-    purity
+    fa-purity
     pytz
     utils-logger
     types-click
     types-pytz
   ];
-  dev_deps = with pythonPkgs; [
-    import-linter
+  build_deps = with python_pkgs; [flit-core];
+  test_deps = with python_pkgs; [
+    arch-lint
     mypy
-    poetry
     pytest
-    toml
-    types-toml
   ];
   pkg = (import ./build.nix) {
-    inherit lib src metadata;
-    nativeBuildInputs = dev_deps;
-    propagatedBuildInputs = runtime_deps;
+    inherit lib src metadata runtime_deps build_deps test_deps;
   };
   build_env = extraLibs:
     lib.buildEnv {
@@ -33,6 +29,6 @@
 in {
   inherit pkg;
   env.runtime = build_env runtime_deps;
-  env.dev = build_env (runtime_deps ++ dev_deps);
+  env.dev = build_env (runtime_deps ++ test_deps ++ build_deps);
   env.bin = build_env [pkg];
 }
