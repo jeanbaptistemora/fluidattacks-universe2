@@ -37,8 +37,8 @@ class OrganizationId:
         if not _name.isalnum():
             err = ValueError(f"Org name is not alphanum i.e. {_name}")
             return Result.failure(err)
-        UUIDv4 = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$"
-        if re.match(UUIDv4, _uuid, re.I) is None:
+        uuidv4 = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$"
+        if re.match(uuidv4, _uuid, re.I) is None:
             err = ValueError(f"Org id is not an UUIDv4 i.e. {_uuid}")
             return Result.failure(err)
 
