@@ -1191,6 +1191,19 @@ class StakeholderNotInGroup(CustomBaseException):
         super(StakeholderNotInGroup, self).__init__(msg)
 
 
+class ExecutionNotFound(CustomBaseException):
+    """
+    Exception to control data availability.
+    """
+
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = "Exception - Execution not found"
+        else:
+            msg = "Access denied"
+        super(ExecutionNotFound, self).__init__(msg)
+
+
 class VulnAlreadyClosed(CustomBaseException):
     """Exception to control vulnerability updates"""
 
