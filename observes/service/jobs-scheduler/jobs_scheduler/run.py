@@ -1,11 +1,14 @@
-from enum import (
-    Enum,
+from .conf.bin_map import (
+    job_to_bin_cmd,
 )
 from fa_purity.cmd import (
     Cmd,
 )
 from fa_purity.maybe import (
     Maybe,
+)
+from jobs_scheduler.conf.job import (
+    Job,
 )
 import logging
 import subprocess
@@ -42,7 +45,9 @@ def _run_command_action(cmd: List[str], dry_run: bool) -> None:
     LOG.info("`%s` will be executed", " ".join(cmd))
 
 
-def run_job(job_bin: str, dry_run: bool) -> Cmd[None]:
+def run_job(job: Job, dry_run: bool) -> Cmd[None]:
     return Cmd.from_cmd(
-        lambda: _run_command_action(job_bin.replace(".", "-").split(), dry_run)
+        lambda: _run_command_action(
+            job_to_bin_cmd(job).replace(".", "-").split(), dry_run
+        )
     )

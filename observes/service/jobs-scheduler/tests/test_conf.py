@@ -1,4 +1,4 @@
-from jobs_scheduler.conf import (
+from jobs_scheduler.conf.schedule import (
     SCHEDULE,
 )
 

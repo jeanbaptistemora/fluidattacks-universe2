@@ -11,9 +11,10 @@ from fa_purity.cmd.transform import (
 from fa_purity.utils import (
     raise_exception,
 )
-from jobs_scheduler.conf import (
-    Jobs,
-    new_job,
+from jobs_scheduler.conf.job import (
+    Job,
+)
+from jobs_scheduler.conf.schedule import (
     SCHEDULE,
 )
 from jobs_scheduler.cron import (
@@ -62,18 +63,18 @@ def run_schedule(
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
         if match.match_cron(cron, _now):
-            exe_jobs.extend(execute_job(job.value, dry_run) for job in jobs)
+            exe_jobs.extend(execute_job(job, dry_run) for job in jobs)
     serial_merge(tuple(exe_jobs)).compute()
 
 
 @click.command()  # type: ignore[misc]
 @click.argument(
-    "job", type=click.Choice([i.name for i in Jobs], case_sensitive=False)
+    "job", type=click.Choice([i.name for i in Job], case_sensitive=False)
 )
 @click.option("--dry-run", is_flag=True)
 def run_job(job: str, dry_run: bool) -> NoReturn:
     execute_job(
-        new_job(job).alt(raise_exception).unwrap().value, dry_run
+        Job.new_job(job).alt(raise_exception).unwrap(), dry_run
     ).compute()
 
 

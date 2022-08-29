@@ -15,8 +15,13 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "jobs_scheduler": (
         "cli",
+        "run",
         "conf",
-        ("cron", "run", "_logger"),
+        ("cron", "_logger"),
+    ),
+    "jobs_scheduler.conf": (
+        ("schedule", "bin_map"),
+        "job",
     ),
     "jobs_scheduler.cron": (
         "match",
