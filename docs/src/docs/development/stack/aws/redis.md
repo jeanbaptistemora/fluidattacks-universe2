@@ -141,6 +141,6 @@ We use [Redis][REDIS] for:
     Please visit our [API Documentation section](https://app.fluidattacks.com/api)
     for more information.
 
-[ASM]: https://fluidattacks.com/categories/asm/
+[ASM]: https://fluidattacks.com/categories/arm/
 [REDIS]: https://aws.amazon.com/redis/
 [DYNAMODB]: /development/stack/aws/dynamodb/

@@ -33,7 +33,7 @@ of a vulnerability.
 [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 has an interactive reporting platform,
 our Attacks Resistance Management
-([ARM](https://fluidattacks.com/categories/asm/)).
+([ARM](https://fluidattacks.com/categories/arm/)).
 ARM gives all project stakeholders access
 to details concerning vulnerabilities
 reported by `Fluid Attacks`.
@@ -82,7 +82,7 @@ between all project members.
 This is accomplished
 when you notify us
 because the message goes
-through [ARM](https://fluidattacks.com/categories/asm/)
+through [ARM](https://fluidattacks.com/categories/arm/)
 and by doing so,
 the entire project team is notified.
 
@@ -134,7 +134,7 @@ from all our information systems.
 
 ## How will our data be erased?
 
-[ARM](https://fluidattacks.com/categories/asm/)
+[ARM](https://fluidattacks.com/categories/arm/)
 uses an automated erasing process,
 removing all the project information
 from our systems

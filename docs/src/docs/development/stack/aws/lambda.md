@@ -63,7 +63,7 @@ We use [Lambda][LAMBDA] for
   by using [scheduled lambdas](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/makes/applications/makes/ci/src/terraform/clean-lambda.tf),
   and
 - [sending emails](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/integrates/deploy/terraform-resources/lambda/send_mail_notification.tf)
-  on our [ARM](https://fluidattacks.com/categories/asm/).
+  on our [ARM](https://fluidattacks.com/categories/arm/).
 
 ## Guidelines
 

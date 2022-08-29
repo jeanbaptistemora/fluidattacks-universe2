@@ -18,7 +18,7 @@ in order to schedule availability.
 
 ## Does the Squad Plan generate reports?
 
-Through our [ARM](https://fluidattacks.com/categories/asm/)
+Through our [ARM](https://fluidattacks.com/categories/arm/)
 (Attack Surface Manager),
 we generate and deliver a technical report
 available in Excel and/or PDF format

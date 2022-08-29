@@ -8,7 +8,7 @@ slug: /machine/web/vulnerabilities/delete
 Sometimes,
 it is necessary
 that a vulnerability
-be removed from the ASM
+be removed from the ARM
 for different reasons.
 Nevertheless,
 deleting the information

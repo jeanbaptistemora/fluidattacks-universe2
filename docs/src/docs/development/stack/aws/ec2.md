@@ -64,7 +64,7 @@ are the following:
   like [CI/CD jobs][CI],
   [Batch tasks][BATCH]
   and [horizontally-scaled applications](https://gitlab.com/fluidattacks/universe/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
-  like our [ARM](https://fluidattacks.com/categories/asm/).
+  like our [ARM](https://fluidattacks.com/categories/arm/).
 - It supports [Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html),
   which allows us to automatically scale up and down
   the number of machines running our applications.

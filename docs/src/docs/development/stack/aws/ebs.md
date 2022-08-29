@@ -108,7 +108,7 @@ We use [AWS EBS][EBS] for
   (we use 50 GiB GP2 disks
   for hosting the base operating system
   and stored containers
-  for applications like our [ARM](https://fluidattacks.com/categories/asm/).
+  for applications like our [ARM](https://fluidattacks.com/categories/arm/).
   High disk throughput is not required
   as our ARM does not store any data
   within local disks);

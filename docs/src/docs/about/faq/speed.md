@@ -119,7 +119,7 @@ The steps are as follows:
    of the verification and access robots.
 
 1. The project leader creates an admin user
-   in [ARM](https://fluidattacks.com/categories/asm/)
+   in [ARM](https://fluidattacks.com/categories/arm/)
    (Attack Surface Manager)
    for the client.
 

@@ -161,7 +161,7 @@ with additional exploits.
 
 ## Where does ARM run?
 
-Our [ARM](https://fluidattacks.com/categories/asm/)
+Our [ARM](https://fluidattacks.com/categories/arm/)
 (Attacks Resistance Management) platform
 runs in the cloud.
 

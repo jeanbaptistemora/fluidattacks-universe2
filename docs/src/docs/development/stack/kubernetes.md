@@ -296,7 +296,7 @@ Some more complex examples are:
 | `kubectl exec -it -n <namespace> <pod> -c <container> -- <command>` | `kubectl exec -it -n development app-dsalazaratfluid-7c485cf565-w9gwg -c app -- bash` | Access a container within pod |
 | `kubectl edit deployment -n <namespace> <deployment>`               | `kubectl edit deployment -n development integrates-dsalazaratfluid`                   | Edit a specific deployment    |
 
-[ASM]: https://fluidattacks.com/categories/asm/
+[ASM]: https://fluidattacks.com/categories/arm/
 [KUBERNETES]: https://kubernetes.io/
 [ROLLBACKS]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment
 [OSS]: https://opensource.com/resources/what-open-source

@@ -157,6 +157,6 @@ You can track the progress [here](https://gitlab.com/fluidattacks/universe/-/iss
   with [NoSQL Workbench for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html).
 
 [DYNAMODB]: https://aws.amazon.com/dynamodb/
-[ASM]: https://fluidattacks.com/categories/asm/
+[ASM]: https://fluidattacks.com/categories/arm/
 [RDBMS]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html
 [DESIGN]: https://gitlab.com/fluidattacks/universe/-/blob/trunk/integrates/arch/database-design.json
