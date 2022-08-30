@@ -1,6 +1,3 @@
-from db_model.finding_comments.enums import (
-    CommentType,
-)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -9,7 +6,6 @@ from dynamodb.types import (
 )
 from newutils.datetime import (
     convert_from_iso_str,
-    convert_to_iso_str,
     format_comment_date,
 )
 
@@ -27,19 +23,6 @@ def _get_fullname(objective_data: FindingComment) -> str:
     return real_name
 
 
-def format_finding_comments(item: Item) -> FindingComment:
-    return FindingComment(
-        finding_id=item["finding_id"],
-        id=str(item["comment_id"]),
-        comment_type=CommentType[str(item["comment_type"]).upper()],
-        parent_id=str(item["parent"]),
-        creation_date=convert_to_iso_str(item["created"]),
-        full_name=item.get("fullname", None),
-        content=item["content"],
-        email=item["email"],
-    )
-
-
 def format_finding_consulting_resolve(finding_comment: FindingComment) -> Item:
     fullname = _get_fullname(objective_data=finding_comment)
     return {
@@ -54,18 +37,4 @@ def format_finding_consulting_resolve(finding_comment: FindingComment) -> Item:
             convert_from_iso_str(finding_comment.creation_date)
         ),
         "parent": finding_comment.parent_id,
-    }
-
-
-def format_finding_comment_item(finding_comment: FindingComment) -> Item:
-    return {
-        "finding_id": finding_comment.finding_id,
-        "comment_id": int(finding_comment.id),
-        "parent": finding_comment.parent_id,
-        "comment_type": finding_comment.comment_type.value.lower(),
-        "created": convert_from_iso_str(finding_comment.creation_date),
-        "fullname": finding_comment.full_name,
-        "content": finding_comment.content,
-        "email": finding_comment.email,
-        "modified": convert_from_iso_str(finding_comment.creation_date),
     }
