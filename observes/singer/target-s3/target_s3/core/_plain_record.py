@@ -18,6 +18,9 @@ from fa_purity.json.value.core import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
+from fa_purity.pure_iter.factory import (
+    pure_map,
+)
 from fa_purity.result.transform import (
     all_ok,
 )
@@ -52,7 +55,12 @@ class PlainRecord:
             .map(lambda d: tuple(d.items()))
             .map(
                 lambda t: tuple(
-                    v.to_any_primitive().map(lambda x: (k, x)) for k, v in t
+                    pure_map(
+                        lambda p: p[1]
+                        .to_any_primitive()
+                        .map(lambda x: (p[0], x)),
+                        t,
+                    )
                 )
             )
             .alt(Exception)

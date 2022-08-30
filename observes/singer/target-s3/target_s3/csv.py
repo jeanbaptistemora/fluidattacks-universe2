@@ -26,6 +26,7 @@ from fa_purity.json.value.transform import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
+    pure_map,
 )
 from fa_purity.result.transform import (
     all_ok,
@@ -128,10 +129,10 @@ def _reformat_group_records(
         return Result.success(value)
 
     _records = all_ok(
-        tuple(
-            _adjust(k, v).map(lambda a: (k, a))
-            for k, v in record.record.record.items()
-        )
+        pure_map(
+            lambda p: _adjust(p[0], p[1]).map(lambda a: (p[0], a)),
+            tuple(record.record.record.items()),
+        ).transform(lambda x: tuple(x))
     ).map(lambda l: FrozenDict(dict(l)))
     return _records.bind(
         lambda r: CompletePlainRecord.new(
@@ -149,7 +150,9 @@ def _reformat_group(group: RecordGroup) -> RecordGroup:
         .map(lambda d: tuple(d.items()))
         .map(
             lambda p: tuple(
-                _is_datetime(i[1]).map(lambda b: (i[0], b)) for i in p
+                pure_map(
+                    lambda i: _is_datetime(i[1]).map(lambda b: (i[0], b)), p
+                )
             )
         )
         .bind(lambda x: all_ok(x).map(lambda y: from_flist(y)))
