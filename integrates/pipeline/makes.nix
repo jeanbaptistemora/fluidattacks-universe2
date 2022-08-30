@@ -534,6 +534,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/dirOfModules/streams";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintPython/imports/integrates";
             gitlabExtra = gitlabLint;
           }

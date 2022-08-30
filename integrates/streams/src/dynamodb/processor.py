@@ -23,8 +23,7 @@ from opensearchpy import (
 from operator import (
     itemgetter,
 )
-import requests
-import traceback
+import requests  # type: ignore
 from typing import (
     Any,
 )
@@ -59,7 +58,7 @@ def _replicate_on_opensearch(records: tuple[Record, ...]) -> None:
             }
             body.append(action)
 
-            if action_name == "index":
+            if action_name == "index" and record.item:
                 body.append(record.item)
 
         CLIENT.bulk(body=body)
@@ -83,6 +82,7 @@ def _trigger_webhooks(records: tuple[Record, ...]) -> None:
         if record.pk.startswith("VULN#")
         and record.sk.startswith("FIN#")
         and record.event_name == EventName.INSERT
+        and record.item
     )
     items_by_group = itertools.groupby(
         sorted(items_to_notify, key=itemgetter("group_name")),
@@ -94,11 +94,12 @@ def _trigger_webhooks(records: tuple[Record, ...]) -> None:
             sorted(items, key=lambda item: item["sk"].split("#")[1]),
             key=lambda item: item["sk"].split("#")[1],
         )
+        base_url = "https://app.fluidattacks.com/groups"
         text = "\n".join(
             [
                 f"🏹 New vulnerabilities reported on group {group_name}:",
                 *[
-                    f"- https://app.fluidattacks.com/groups/{group_name}/vulns/{finding_id}/locations"
+                    f"- {base_url}/{group_name}/vulns/{finding_id}/locations"
                     for finding_id, _ in items_by_finding
                 ],
             ]
@@ -112,8 +113,4 @@ def process(raw_records: tuple[dict[str, Any], ...]) -> None:
     records = tuple(format_record(record) for record in raw_records)
 
     _replicate_on_opensearch(records)
-    try:
-        _trigger_webhooks(records)
-    except:
-        print("Couldn't trigger webhooks")
-        traceback.print_exc()
+    _trigger_webhooks(records)

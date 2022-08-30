@@ -6,9 +6,6 @@ from dynamodb.context import (
 from dynamodb.processor import (
     process,
 )
-from dynamodb.resource import (
-    TABLE_RESOURCES,
-)
 from dynamodb.utils import (
     SESSION,
 )
@@ -64,19 +61,15 @@ def _describe_stream(
 def _get_stream_shards(
     stream_arn: str,
 ) -> Iterator[tuple[dict[str, Any], ...]]:
-    """Yields the open shards for the requested stream"""
+    """Yields the shards for the requested stream"""
     current_shard_id = None
 
     while True:
         response = _describe_stream(current_shard_id, stream_arn)
         description = response["StreamDescription"]
-        open_shards = tuple(
-            shard
-            for shard in description["Shards"]
-            if "EndingSequenceNumber" not in shard["SequenceNumberRange"]
-        )
+        shards = description["Shards"]
 
-        yield open_shards
+        yield shards
 
         current_shard_id = description.get("LastEvaluatedShardId")
 
@@ -85,6 +78,7 @@ def _get_stream_shards(
 
 
 def _get_shard_checkpoint(shard_id: str) -> Optional[str]:
+    """Returns the last known iterator for the requested shard"""
     response = TABLE_RESOURCE.get_item(
         Key={"pk": f"SHARD#{shard_id}", "sk": f"SHARD#{shard_id}"}
     )
@@ -97,7 +91,7 @@ def _get_shard_checkpoint(shard_id: str) -> Optional[str]:
 
 
 def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
-    """Returns the id of the iterator for the requested shard"""
+    """Returns the iterator id for the requested shard"""
     shard_checkpoint = _get_shard_checkpoint(shard_id)
 
     if shard_checkpoint:
@@ -112,7 +106,7 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     return response["ShardIterator"]
 
 
-def _save_checkpoint(shard_id: str, last_iterator: str) -> None:
+def _save_shard_checkpoint(shard_id: str, last_iterator: str) -> None:
     TABLE_RESOURCE.put_item(
         Item={
             "pk": f"SHARD#{shard_id}",
@@ -123,12 +117,13 @@ def _save_checkpoint(shard_id: str, last_iterator: str) -> None:
 
 
 def _get_shard_records(
+    shard_id: str,
     shard_iterator: str,
 ) -> Iterator[tuple[dict[str, Any], ...]]:
     """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
-    processed_records = 0
     processed_batches = 0
+    processed_records = 0
 
     while True:
         try:
@@ -138,7 +133,7 @@ def _get_shard_records(
             processed_records += len(records)
 
             if processed_batches % 10 == 0:
-                _save_checkpoint(current_iterator)
+                _save_shard_checkpoint(shard_id, current_iterator)
 
             if records:
                 yield records
@@ -160,10 +155,20 @@ def _get_shard_records(
 
 def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
     """Retrieves the records from the shard and triggers processing"""
-    shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
+    shard_id = shard["ShardId"]
+    shard_iterator = _get_shard_iterator(stream_arn, shard_id)
 
-    for records in _get_shard_records(shard_iterator):
+    for records in _get_shard_records(shard_id, shard_iterator):
         process(records)
+
+
+def _remove_shard_checkpoint(shard: dict[str, Any]) -> None:
+    """Removes a checkpoint in the database"""
+    shard_id = shard["ShardId"]
+
+    TABLE_RESOURCE.delete_item(
+        Key={"pk": f"SHARD#{shard_id}", "sk": f"SHARD#{shard_id}"}
+    )
 
 
 def consume() -> None:
@@ -173,13 +178,18 @@ def consume() -> None:
 
     for shards in _get_stream_shards(stream_arn):
         for shard in shards:
-            worker = Thread(
-                args=(shard, stream_arn),
-                daemon=True,
-                target=_consume_shard_records,
-            )
-            workers.append(worker)
-            worker.start()
+            is_closed = "EndingSequenceNumber" in shard["SequenceNumberRange"]
+
+            if is_closed:
+                _remove_shard_checkpoint(shard)
+            else:
+                worker = Thread(
+                    args=(shard, stream_arn),
+                    daemon=True,
+                    target=_consume_shard_records,
+                )
+                workers.append(worker)
+                worker.start()
 
     print("Running with", len(workers), "workers")
 

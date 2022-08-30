@@ -3932,6 +3932,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/lintPython/dirOfModules/streams:
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /lintPython/dirOfModules/streams
+  stage: lint-code
+  tags:
+    - dev_small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/imports/integrates:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true

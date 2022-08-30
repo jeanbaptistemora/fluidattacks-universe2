@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./lint/makes.nix
+  ];
+}

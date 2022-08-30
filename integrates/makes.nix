@@ -5,5 +5,6 @@
     ./infra/makes.nix
     ./pipeline/makes.nix
     ./jobs/makes.nix
+    ./streams/makes.nix
   ];
 }
