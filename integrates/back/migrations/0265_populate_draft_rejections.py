@@ -188,11 +188,37 @@ async def update_finding_state(
         raise FindingNotFound() from ex
 
 
-def handle_day_step(
-    old_states: list[FindingState], rejections: list[RejectionHelper]
+def filter_states_by_day(
+    queue: deque[FindingState], current_date: str
+) -> tuple[FindingState, ...]:
+    filtered_list: list[FindingState] = []
+    while (
+        len(queue) > 0
+        and queue[-1].modified_date.split("T")[0] == current_date.split("T")[0]
+    ):
+        filtered_list.append(queue.pop())
+    return tuple(filtered_list)
+
+
+def filter_rejections_by_day(
+    queue: deque[RejectionHelper], current_date: str
+) -> tuple[RejectionHelper, ...]:
+    filtered_list: list[RejectionHelper] = []
+    while (
+        len(queue) > 0
+        and date_utils.get_as_utc_iso_format(queue[0].raw_date).split("T")[0]
+        == current_date.split("T")[0]
+    ):
+        filtered_list.append(queue.popleft())
+    return tuple(filtered_list)
+
+
+async def handle_day_step(
+    old_states: tuple[FindingState, ...],
+    rejections: tuple[RejectionHelper, ...],
 ) -> None:
     for old_state, rejection_helper in zip(old_states, rejections):
-        update_finding_state(old_state, rejection_helper)
+        await update_finding_state(old_state, rejection_helper)
 
 
 async def handle_finding(
