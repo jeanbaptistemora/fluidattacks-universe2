@@ -1,5 +1,5 @@
-from lib_root.utilities.java import (
-    yield_method_invocation,
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
 )
 from lib_sast.types import (
     ShardDb,
@@ -20,10 +20,20 @@ def java_file_create_temp_file(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
+    method = core_model.MethodsEnum.JAVA_CREATE_TEMP_FILE
+
     def n_ids() -> graph_model.GraphShardNodes:
-        danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
-        for shard, method_id, method_name in yield_method_invocation(graph_db):
-            if method_name in danger_methods:
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for method_id in search_method_invocation_naive(
+                graph, danger_methods
+            ):
                 yield shard, method_id
 
     translation_key = (
@@ -31,7 +41,7 @@ def java_file_create_temp_file(
     )
     return get_vulnerabilities_from_n_ids(
         desc_key=translation_key,
-        desc_params=dict(lang="Java"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.JAVA_CREATE_TEMP_FILE,
+        method=method,
     )
