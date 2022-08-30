@@ -1122,7 +1122,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 1800;
+    timeout = 3600;
     parallel = 1;
 
     environment = [
