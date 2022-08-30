@@ -66,7 +66,7 @@ const ContacUsIndex: React.FC<IQueryData> = ({
                 }
                 style={{
                   border: "0",
-                  height: "830px",
+                  height: "1000px",
                   marginBottom: "-7px",
                   width: "100%",
                 }}
