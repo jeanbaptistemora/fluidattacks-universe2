@@ -12852,7 +12852,2618 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "107": {
+            "109": {
+              "label_ast": "AST"
+            }
+          },
+          "109": {
+            "112": {
+              "label_ast": "AST"
+            }
+          },
+          "11": {
+            "13": {
+              "label_ast": "AST"
+            },
+            "177": {
+              "label_ast": "AST"
+            },
+            "272": {
+              "label_ast": "AST"
+            },
+            "355": {
+              "label_ast": "AST"
+            },
+            "450": {
+              "label_ast": "AST"
+            },
+            "514": {
+              "label_ast": "AST"
+            },
+            "60": {
+              "label_ast": "AST"
+            },
+            "605": {
+              "label_ast": "AST"
+            },
+            "700": {
+              "label_ast": "AST"
+            },
+            "783": {
+              "label_ast": "AST"
+            },
+            "859": {
+              "label_ast": "AST"
+            }
+          },
+          "115": {
+            "117": {
+              "label_ast": "AST"
+            }
+          },
+          "117": {
+            "120": {
+              "label_ast": "AST"
+            }
+          },
+          "120": {
+            "123": {
+              "label_ast": "AST"
+            }
+          },
+          "123": {
+            "125": {
+              "label_ast": "AST"
+            }
+          },
+          "129": {
+            "132": {
+              "label_ast": "AST"
+            },
+            "133": {
+              "label_ast": "AST"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST"
+            },
+            "21": {
+              "label_ast": "AST"
+            }
+          },
+          "133": {
+            "135": {
+              "label_ast": "AST"
+            }
+          },
+          "135": {
+            "138": {
+              "label_ast": "AST"
+            },
+            "139": {
+              "label_ast": "AST"
+            }
+          },
+          "139": {
+            "141": {
+              "label_ast": "AST"
+            }
+          },
+          "145": {
+            "147": {
+              "label_ast": "AST"
+            }
+          },
+          "147": {
+            "150": {
+              "label_ast": "AST"
+            }
+          },
+          "150": {
+            "153": {
+              "label_ast": "AST"
+            },
+            "154": {
+              "label_ast": "AST"
+            }
+          },
+          "159": {
+            "168": {
+              "label_ast": "AST"
+            },
+            "169": {
+              "label_ast": "AST"
+            }
+          },
+          "169": {
+            "171": {
+              "label_ast": "AST"
+            },
+            "173": {
+              "label_ast": "AST"
+            }
+          },
+          "177": {
+            "178": {
+              "label_ast": "AST"
+            },
+            "185": {
+              "label_ast": "AST"
+            }
+          },
+          "185": {
+            "187": {
+              "label_ast": "AST"
+            },
+            "199": {
+              "label_ast": "AST"
+            },
+            "217": {
+              "label_ast": "AST"
+            },
+            "224": {
+              "label_ast": "AST"
+            },
+            "246": {
+              "label_ast": "AST"
+            },
+            "254": {
+              "label_ast": "AST"
+            }
+          },
+          "187": {
+            "189": {
+              "label_ast": "AST"
+            }
+          },
+          "189": {
+            "192": {
+              "label_ast": "AST"
+            }
+          },
+          "199": {
+            "201": {
+              "label_ast": "AST"
+            }
+          },
+          "201": {
+            "204": {
+              "label_ast": "AST"
+            }
+          },
+          "204": {
+            "212": {
+              "label_ast": "AST"
+            },
+            "213": {
+              "label_ast": "AST"
+            }
+          },
+          "21": {
+            "23": {
+              "label_ast": "AST"
+            },
+            "41": {
+              "label_ast": "AST"
+            }
+          },
+          "217": {
+            "219": {
+              "label_ast": "AST"
+            }
+          },
+          "219": {
+            "222": {
+              "label_ast": "AST"
+            }
+          },
+          "224": {
+            "226": {
+              "label_ast": "AST"
+            }
+          },
+          "226": {
+            "229": {
+              "label_ast": "AST"
+            }
+          },
+          "229": {
+            "232": {
+              "label_ast": "AST"
+            }
+          },
+          "23": {
+            "25": {
+              "label_ast": "AST"
+            }
+          },
+          "232": {
+            "234": {
+              "label_ast": "AST"
+            },
+            "236": {
+              "label_ast": "AST"
+            }
+          },
+          "236": {
+            "239": {
+              "label_ast": "AST"
+            },
+            "240": {
+              "label_ast": "AST"
+            }
+          },
+          "240": {
+            "242": {
+              "label_ast": "AST"
+            }
+          },
+          "246": {
+            "248": {
+              "label_ast": "AST"
+            }
+          },
+          "248": {
+            "251": {
+              "label_ast": "AST"
+            }
+          },
+          "25": {
+            "28": {
+              "label_ast": "AST"
+            }
+          },
+          "254": {
+            "263": {
+              "label_ast": "AST"
+            },
+            "264": {
+              "label_ast": "AST"
+            }
+          },
+          "264": {
+            "266": {
+              "label_ast": "AST"
+            },
+            "268": {
+              "label_ast": "AST"
+            }
+          },
+          "272": {
+            "273": {
+              "label_ast": "AST"
+            },
+            "280": {
+              "label_ast": "AST"
+            }
+          },
+          "28": {
+            "36": {
+              "label_ast": "AST"
+            },
+            "37": {
+              "label_ast": "AST"
+            }
+          },
+          "280": {
+            "282": {
+              "label_ast": "AST"
+            },
+            "294": {
+              "label_ast": "AST"
+            },
+            "312": {
+              "label_ast": "AST"
+            },
+            "337": {
+              "label_ast": "AST"
+            }
+          },
+          "282": {
+            "284": {
+              "label_ast": "AST"
+            }
+          },
+          "284": {
+            "287": {
+              "label_ast": "AST"
+            }
+          },
+          "294": {
+            "296": {
+              "label_ast": "AST"
+            }
+          },
+          "296": {
+            "299": {
+              "label_ast": "AST"
+            }
+          },
+          "299": {
+            "307": {
+              "label_ast": "AST"
+            },
+            "308": {
+              "label_ast": "AST"
+            }
+          },
+          "312": {
+            "314": {
+              "label_ast": "AST"
+            }
+          },
+          "314": {
+            "317": {
+              "label_ast": "AST"
+            }
+          },
+          "317": {
+            "320": {
+              "label_ast": "AST"
+            }
+          },
+          "320": {
+            "322": {
+              "label_ast": "AST"
+            },
+            "324": {
+              "label_ast": "AST"
+            },
+            "326": {
+              "label_ast": "AST"
+            }
+          },
+          "326": {
+            "329": {
+              "label_ast": "AST"
+            },
+            "330": {
+              "label_ast": "AST"
+            }
+          },
+          "330": {
+            "332": {
+              "label_ast": "AST"
+            }
+          },
+          "337": {
+            "346": {
+              "label_ast": "AST"
+            },
+            "347": {
+              "label_ast": "AST"
+            }
+          },
+          "347": {
+            "349": {
+              "label_ast": "AST"
+            },
+            "351": {
+              "label_ast": "AST"
+            }
+          },
+          "355": {
+            "356": {
+              "label_ast": "AST"
+            },
+            "363": {
+              "label_ast": "AST"
+            }
+          },
+          "363": {
+            "365": {
+              "label_ast": "AST"
+            },
+            "377": {
+              "label_ast": "AST"
+            },
+            "395": {
+              "label_ast": "AST"
+            },
+            "413": {
+              "label_ast": "AST"
+            },
+            "426": {
+              "label_ast": "AST"
+            }
+          },
+          "365": {
+            "367": {
+              "label_ast": "AST"
+            }
+          },
+          "367": {
+            "370": {
+              "label_ast": "AST"
+            }
+          },
+          "377": {
+            "379": {
+              "label_ast": "AST"
+            }
+          },
+          "379": {
+            "382": {
+              "label_ast": "AST"
+            }
+          },
+          "382": {
+            "390": {
+              "label_ast": "AST"
+            },
+            "391": {
+              "label_ast": "AST"
+            }
+          },
+          "395": {
+            "397": {
+              "label_ast": "AST"
+            }
+          },
+          "397": {
+            "400": {
+              "label_ast": "AST"
+            }
+          },
+          "400": {
+            "403": {
+              "label_ast": "AST"
+            }
+          },
+          "403": {
+            "405": {
+              "label_ast": "AST"
+            },
+            "407": {
+              "label_ast": "AST"
+            },
+            "409": {
+              "label_ast": "AST"
+            }
+          },
+          "41": {
+            "43": {
+              "label_ast": "AST"
+            }
+          },
+          "413": {
+            "414": {
+              "label_ast": "AST"
+            },
+            "416": {
+              "label_ast": "AST"
+            }
+          },
+          "416": {
+            "419": {
+              "label_ast": "AST"
+            },
+            "420": {
+              "label_ast": "AST"
+            }
+          },
+          "420": {
+            "422": {
+              "label_ast": "AST"
+            }
+          },
+          "426": {
+            "435": {
+              "label_ast": "AST"
+            },
+            "436": {
+              "label_ast": "AST"
+            }
+          },
+          "43": {
+            "53": {
+              "label_ast": "AST"
+            },
+            "54": {
+              "label_ast": "AST"
+            }
+          },
+          "436": {
+            "438": {
+              "label_ast": "AST"
+            },
+            "440": {
+              "label_ast": "AST"
+            }
+          },
+          "440": {
+            "443": {
+              "label_ast": "AST"
+            },
+            "444": {
+              "label_ast": "AST"
+            }
+          },
+          "450": {
+            "451": {
+              "label_ast": "AST"
+            },
+            "458": {
+              "label_ast": "AST"
+            }
+          },
+          "458": {
+            "460": {
+              "label_ast": "AST"
+            },
+            "472": {
+              "label_ast": "AST"
+            },
+            "496": {
+              "label_ast": "AST"
+            }
+          },
+          "460": {
+            "462": {
+              "label_ast": "AST"
+            }
+          },
+          "462": {
+            "465": {
+              "label_ast": "AST"
+            }
+          },
+          "472": {
+            "474": {
+              "label_ast": "AST"
+            }
+          },
+          "474": {
+            "477": {
+              "label_ast": "AST"
+            }
+          },
+          "477": {
+            "480": {
+              "label_ast": "AST"
+            }
+          },
+          "480": {
+            "482": {
+              "label_ast": "AST"
+            },
+            "484": {
+              "label_ast": "AST"
+            },
+            "486": {
+              "label_ast": "AST"
+            }
+          },
+          "486": {
+            "489": {
+              "label_ast": "AST"
+            },
+            "490": {
+              "label_ast": "AST"
+            }
+          },
+          "496": {
+            "505": {
+              "label_ast": "AST"
+            },
+            "506": {
+              "label_ast": "AST"
+            }
+          },
+          "506": {
+            "508": {
+              "label_ast": "AST"
+            },
+            "510": {
+              "label_ast": "AST"
+            }
+          },
+          "514": {
+            "515": {
+              "label_ast": "AST"
+            },
+            "522": {
+              "label_ast": "AST"
+            }
+          },
+          "522": {
+            "524": {
+              "label_ast": "AST"
+            },
+            "536": {
+              "label_ast": "AST"
+            },
+            "543": {
+              "label_ast": "AST"
+            },
+            "544": {
+              "label_ast": "AST"
+            },
+            "558": {
+              "label_ast": "AST"
+            },
+            "573": {
+              "label_ast": "AST"
+            },
+            "587": {
+              "label_ast": "AST"
+            }
+          },
+          "524": {
+            "526": {
+              "label_ast": "AST"
+            }
+          },
+          "526": {
+            "529": {
+              "label_ast": "AST"
+            }
+          },
+          "536": {
+            "538": {
+              "label_ast": "AST"
+            }
+          },
+          "538": {
+            "541": {
+              "label_ast": "AST"
+            }
+          },
+          "54": {
+            "56": {
+              "label_ast": "AST"
+            }
+          },
+          "544": {
+            "546": {
+              "label_ast": "AST"
+            }
+          },
+          "546": {
+            "549": {
+              "label_ast": "AST"
+            }
+          },
+          "549": {
+            "552": {
+              "label_ast": "AST"
+            }
+          },
+          "552": {
+            "554": {
+              "label_ast": "AST"
+            }
+          },
+          "558": {
+            "561": {
+              "label_ast": "AST"
+            },
+            "562": {
+              "label_ast": "AST"
+            }
+          },
+          "562": {
+            "564": {
+              "label_ast": "AST"
+            }
+          },
+          "564": {
+            "567": {
+              "label_ast": "AST"
+            },
+            "568": {
+              "label_ast": "AST"
+            }
+          },
+          "573": {
+            "575": {
+              "label_ast": "AST"
+            }
+          },
+          "575": {
+            "578": {
+              "label_ast": "AST"
+            }
+          },
+          "578": {
+            "581": {
+              "label_ast": "AST"
+            },
+            "582": {
+              "label_ast": "AST"
+            }
+          },
+          "587": {
+            "596": {
+              "label_ast": "AST"
+            },
+            "597": {
+              "label_ast": "AST"
+            }
+          },
+          "597": {
+            "599": {
+              "label_ast": "AST"
+            },
+            "601": {
+              "label_ast": "AST"
+            }
+          },
+          "6": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "60": {
+            "61": {
+              "label_ast": "AST"
+            },
+            "66": {
+              "label_ast": "AST"
+            },
+            "75": {
+              "label_ast": "AST"
+            }
+          },
+          "605": {
+            "606": {
+              "label_ast": "AST"
+            },
+            "613": {
+              "label_ast": "AST"
+            }
+          },
+          "613": {
+            "615": {
+              "label_ast": "AST"
+            },
+            "627": {
+              "label_ast": "AST"
+            },
+            "634": {
+              "label_ast": "AST"
+            },
+            "652": {
+              "label_ast": "AST"
+            },
+            "674": {
+              "label_ast": "AST"
+            },
+            "682": {
+              "label_ast": "AST"
+            }
+          },
+          "615": {
+            "617": {
+              "label_ast": "AST"
+            }
+          },
+          "617": {
+            "620": {
+              "label_ast": "AST"
+            }
+          },
+          "627": {
+            "629": {
+              "label_ast": "AST"
+            }
+          },
+          "629": {
+            "632": {
+              "label_ast": "AST"
+            }
+          },
+          "634": {
+            "636": {
+              "label_ast": "AST"
+            }
+          },
+          "636": {
+            "639": {
+              "label_ast": "AST"
+            }
+          },
+          "639": {
+            "647": {
+              "label_ast": "AST"
+            },
+            "648": {
+              "label_ast": "AST"
+            }
+          },
+          "652": {
+            "654": {
+              "label_ast": "AST"
+            }
+          },
+          "654": {
+            "657": {
+              "label_ast": "AST"
+            }
+          },
+          "657": {
+            "660": {
+              "label_ast": "AST"
+            }
+          },
+          "66": {
+            "68": {
+              "label_ast": "AST"
+            }
+          },
+          "660": {
+            "662": {
+              "label_ast": "AST"
+            },
+            "664": {
+              "label_ast": "AST"
+            }
+          },
+          "664": {
+            "667": {
+              "label_ast": "AST"
+            },
+            "668": {
+              "label_ast": "AST"
+            }
+          },
+          "668": {
+            "670": {
+              "label_ast": "AST"
+            }
+          },
+          "674": {
+            "676": {
+              "label_ast": "AST"
+            }
+          },
+          "676": {
+            "679": {
+              "label_ast": "AST"
+            }
+          },
+          "682": {
+            "691": {
+              "label_ast": "AST"
+            },
+            "692": {
+              "label_ast": "AST"
+            }
+          },
+          "692": {
+            "694": {
+              "label_ast": "AST"
+            },
+            "696": {
+              "label_ast": "AST"
+            }
+          },
+          "700": {
+            "701": {
+              "label_ast": "AST"
+            },
+            "708": {
+              "label_ast": "AST"
+            }
+          },
+          "708": {
+            "710": {
+              "label_ast": "AST"
+            },
+            "722": {
+              "label_ast": "AST"
+            },
+            "740": {
+              "label_ast": "AST"
+            },
+            "765": {
+              "label_ast": "AST"
+            }
+          },
+          "710": {
+            "712": {
+              "label_ast": "AST"
+            }
+          },
+          "712": {
+            "715": {
+              "label_ast": "AST"
+            }
+          },
+          "722": {
+            "724": {
+              "label_ast": "AST"
+            }
+          },
+          "724": {
+            "727": {
+              "label_ast": "AST"
+            }
+          },
+          "727": {
+            "735": {
+              "label_ast": "AST"
+            },
+            "736": {
+              "label_ast": "AST"
+            }
+          },
+          "740": {
+            "742": {
+              "label_ast": "AST"
+            }
+          },
+          "742": {
+            "745": {
+              "label_ast": "AST"
+            }
+          },
+          "745": {
+            "748": {
+              "label_ast": "AST"
+            }
+          },
+          "748": {
+            "750": {
+              "label_ast": "AST"
+            },
+            "752": {
+              "label_ast": "AST"
+            },
+            "754": {
+              "label_ast": "AST"
+            }
+          },
+          "75": {
+            "107": {
+              "label_ast": "AST"
+            },
+            "114": {
+              "label_ast": "AST"
+            },
+            "115": {
+              "label_ast": "AST"
+            },
+            "129": {
+              "label_ast": "AST"
+            },
+            "145": {
+              "label_ast": "AST"
+            },
+            "159": {
+              "label_ast": "AST"
+            },
+            "77": {
+              "label_ast": "AST"
+            },
+            "89": {
+              "label_ast": "AST"
+            }
+          },
+          "754": {
+            "757": {
+              "label_ast": "AST"
+            },
+            "758": {
+              "label_ast": "AST"
+            }
+          },
+          "758": {
+            "760": {
+              "label_ast": "AST"
+            }
+          },
+          "765": {
+            "774": {
+              "label_ast": "AST"
+            },
+            "775": {
+              "label_ast": "AST"
+            }
+          },
+          "77": {
+            "79": {
+              "label_ast": "AST"
+            }
+          },
+          "775": {
+            "777": {
+              "label_ast": "AST"
+            },
+            "779": {
+              "label_ast": "AST"
+            }
+          },
+          "783": {
+            "784": {
+              "label_ast": "AST"
+            },
+            "791": {
+              "label_ast": "AST"
+            }
+          },
+          "79": {
+            "82": {
+              "label_ast": "AST"
+            }
+          },
+          "791": {
+            "793": {
+              "label_ast": "AST"
+            },
+            "805": {
+              "label_ast": "AST"
+            },
+            "823": {
+              "label_ast": "AST"
+            },
+            "835": {
+              "label_ast": "AST"
+            }
+          },
+          "793": {
+            "795": {
+              "label_ast": "AST"
+            }
+          },
+          "795": {
+            "798": {
+              "label_ast": "AST"
+            }
+          },
+          "805": {
+            "807": {
+              "label_ast": "AST"
+            }
+          },
+          "807": {
+            "810": {
+              "label_ast": "AST"
+            }
+          },
+          "810": {
+            "813": {
+              "label_ast": "AST"
+            }
+          },
+          "813": {
+            "815": {
+              "label_ast": "AST"
+            },
+            "817": {
+              "label_ast": "AST"
+            },
+            "819": {
+              "label_ast": "AST"
+            }
+          },
+          "823": {
+            "824": {
+              "label_ast": "AST"
+            },
+            "826": {
+              "label_ast": "AST"
+            }
+          },
+          "826": {
+            "829": {
+              "label_ast": "AST"
+            },
+            "830": {
+              "label_ast": "AST"
+            }
+          },
+          "835": {
+            "844": {
+              "label_ast": "AST"
+            },
+            "845": {
+              "label_ast": "AST"
+            }
+          },
+          "845": {
+            "847": {
+              "label_ast": "AST"
+            },
+            "849": {
+              "label_ast": "AST"
+            }
+          },
+          "849": {
+            "852": {
+              "label_ast": "AST"
+            },
+            "853": {
+              "label_ast": "AST"
+            }
+          },
+          "859": {
+            "860": {
+              "label_ast": "AST"
+            },
+            "867": {
+              "label_ast": "AST"
+            }
+          },
+          "867": {
+            "869": {
+              "label_ast": "AST"
+            },
+            "881": {
+              "label_ast": "AST"
+            },
+            "896": {
+              "label_ast": "AST"
+            },
+            "905": {
+              "label_ast": "AST"
+            },
+            "923": {
+              "label_ast": "AST"
+            }
+          },
+          "869": {
+            "871": {
+              "label_ast": "AST"
+            }
+          },
+          "871": {
+            "874": {
+              "label_ast": "AST"
+            }
+          },
+          "881": {
+            "883": {
+              "label_ast": "AST"
+            }
+          },
+          "883": {
+            "886": {
+              "label_ast": "AST"
+            }
+          },
+          "886": {
+            "889": {
+              "label_ast": "AST"
+            },
+            "890": {
+              "label_ast": "AST"
+            }
+          },
+          "89": {
+            "91": {
+              "label_ast": "AST"
+            }
+          },
+          "890": {
+            "892": {
+              "label_ast": "AST"
+            }
+          },
+          "896": {
+            "899": {
+              "label_ast": "AST"
+            },
+            "900": {
+              "label_ast": "AST"
+            }
+          },
+          "900": {
+            "902": {
+              "label_ast": "AST"
+            }
+          },
+          "905": {
+            "907": {
+              "label_ast": "AST"
+            }
+          },
+          "907": {
+            "910": {
+              "label_ast": "AST"
+            }
+          },
+          "91": {
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "910": {
+            "913": {
+              "label_ast": "AST"
+            }
+          },
+          "913": {
+            "915": {
+              "label_ast": "AST"
+            },
+            "917": {
+              "label_ast": "AST"
+            },
+            "919": {
+              "label_ast": "AST"
+            }
+          },
+          "923": {
+            "932": {
+              "label_ast": "AST"
+            },
+            "933": {
+              "label_ast": "AST"
+            }
+          },
+          "933": {
+            "935": {
+              "label_ast": "AST"
+            },
+            "937": {
+              "label_ast": "AST"
+            }
+          },
+          "94": {
+            "102": {
+              "label_ast": "AST"
+            },
+            "103": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "102": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextFloat"
+          },
+          "103": {
+            "label_type": "ArgumentList"
+          },
+          "107": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "109": {
+            "label_type": "VariableDeclarator",
+            "value_id": "112",
+            "variable_name": "cookieName"
+          },
+          "11": {
+            "label_type": "ClassBody"
+          },
+          "112": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "114": {
+            "comment": "// this should initialize a new instance to be used in subsequent statements",
+            "label_type": "Comment"
+          },
+          "115": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "117": {
+            "label_type": "VariableDeclarator",
+            "value_id": "120",
+            "variable_name": "currentUser"
+          },
+          "120": {
+            "arguments_id": "123",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "123": {
+            "label_type": "ArgumentList"
+          },
+          "125": {
+            "label_type": "Literal",
+            "value": "\"Jane Doe\"",
+            "value_type": "string"
+          },
+          "129": {
+            "arguments_id": "133",
+            "expression": "setUserId",
+            "expression_id": "132",
+            "label_type": "MethodInvocation"
+          },
+          "13": {
+            "block_id": "21",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "14",
+            "name": "createRandom"
+          },
+          "132": {
+            "label_type": "SymbolLookup",
+            "symbol": "setUserId"
+          },
+          "133": {
+            "label_type": "ArgumentList"
+          },
+          "135": {
+            "arguments_id": "139",
+            "expression": "toString",
+            "expression_id": "138",
+            "label_type": "MethodInvocation"
+          },
+          "138": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "139": {
+            "label_type": "ArgumentList"
+          },
+          "14": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "141": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "145": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "147": {
+            "label_type": "VariableDeclarator",
+            "value_id": "150",
+            "variable_name": "cookieKey"
+          },
+          "150": {
+            "arguments_id": "154",
+            "expression": "getUserId",
+            "expression_id": "153",
+            "label_type": "MethodInvocation"
+          },
+          "153": {
+            "label_type": "SymbolLookup",
+            "symbol": "getUserId"
+          },
+          "154": {
+            "label_type": "ArgumentList"
+          },
+          "159": {
+            "arguments_id": "169",
+            "expression": "setAttribute",
+            "expression_id": "168",
+            "label_type": "MethodInvocation"
+          },
+          "168": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "169": {
+            "label_type": "ArgumentList"
+          },
+          "171": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "173": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieKey"
+          },
+          "177": {
+            "block_id": "185",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "178",
+            "name": "test_01"
+          },
+          "178": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "185": {
+            "label_type": "ExecutionBlock"
+          },
+          "187": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "189": {
+            "label_type": "VariableDeclarator",
+            "value_id": "192",
+            "variable_name": "request"
+          },
+          "192": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "199": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "2": {
+            "expression": "javax.servlet.http.HttpServletRequest",
+            "label_type": "Import"
+          },
+          "201": {
+            "label_type": "VariableDeclarator",
+            "value_id": "204",
+            "variable_name": "rand"
+          },
+          "204": {
+            "arguments_id": "213",
+            "expression": "nextFloat",
+            "expression_id": "212",
+            "label_type": "MethodInvocation"
+          },
+          "21": {
+            "label_type": "ExecutionBlock"
+          },
+          "212": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextFloat"
+          },
+          "213": {
+            "label_type": "ArgumentList"
+          },
+          "217": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "219": {
+            "label_type": "VariableDeclarator",
+            "value_id": "222",
+            "variable_name": "cookieName"
+          },
+          "222": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "224": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "226": {
+            "label_type": "VariableDeclarator",
+            "value_id": "229",
+            "variable_name": "currentUser"
+          },
+          "229": {
+            "arguments_id": "232",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "23": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "float"
+          },
+          "232": {
+            "label_type": "ArgumentList"
+          },
+          "234": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "236": {
+            "arguments_id": "240",
+            "expression": "toString",
+            "expression_id": "239",
+            "label_type": "MethodInvocation"
+          },
+          "239": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "240": {
+            "label_type": "ArgumentList"
+          },
+          "242": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "246": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "248": {
+            "label_type": "VariableDeclarator",
+            "value_id": "251",
+            "variable_name": "cookieKey"
+          },
+          "25": {
+            "label_type": "VariableDeclarator",
+            "value_id": "28",
+            "variable_name": "rand"
+          },
+          "251": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "254": {
+            "arguments_id": "264",
+            "expression": "setAttribute",
+            "expression_id": "263",
+            "label_type": "MethodInvocation"
+          },
+          "263": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "264": {
+            "label_type": "ArgumentList"
+          },
+          "266": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "268": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieKey"
+          },
+          "272": {
+            "block_id": "280",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "273",
+            "name": "test_02"
+          },
+          "273": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "28": {
+            "arguments_id": "37",
+            "expression": "nextFloat",
+            "expression_id": "36",
+            "label_type": "MethodInvocation"
+          },
+          "280": {
+            "label_type": "ExecutionBlock"
+          },
+          "282": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "284": {
+            "label_type": "VariableDeclarator",
+            "value_id": "287",
+            "variable_name": "request"
+          },
+          "287": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "294": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "296": {
+            "label_type": "VariableDeclarator",
+            "value_id": "299",
+            "variable_name": "rand"
+          },
+          "299": {
+            "arguments_id": "308",
+            "expression": "nextInt",
+            "expression_id": "307",
+            "label_type": "MethodInvocation"
+          },
+          "307": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextInt"
+          },
+          "308": {
+            "label_type": "ArgumentList"
+          },
+          "312": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "314": {
+            "label_type": "VariableDeclarator",
+            "value_id": "317",
+            "variable_name": "currentUser"
+          },
+          "317": {
+            "arguments_id": "320",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "320": {
+            "label_type": "ArgumentList"
+          },
+          "322": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "324": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "326": {
+            "arguments_id": "330",
+            "expression": "toString",
+            "expression_id": "329",
+            "label_type": "MethodInvocation"
+          },
+          "329": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "330": {
+            "label_type": "ArgumentList"
+          },
+          "332": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "337": {
+            "arguments_id": "347",
+            "expression": "setAttribute",
+            "expression_id": "346",
+            "label_type": "MethodInvocation"
+          },
+          "346": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "347": {
+            "label_type": "ArgumentList"
+          },
+          "349": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "351": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "355": {
+            "block_id": "363",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "356",
+            "name": "test_03"
+          },
+          "356": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "36": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextFloat"
+          },
+          "363": {
+            "label_type": "ExecutionBlock"
+          },
+          "365": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "367": {
+            "label_type": "VariableDeclarator",
+            "value_id": "370",
+            "variable_name": "request"
+          },
+          "37": {
+            "label_type": "ArgumentList"
+          },
+          "370": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "377": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "379": {
+            "label_type": "VariableDeclarator",
+            "value_id": "382",
+            "variable_name": "rand"
+          },
+          "382": {
+            "arguments_id": "391",
+            "expression": "nextFloat",
+            "expression_id": "390",
+            "label_type": "MethodInvocation"
+          },
+          "390": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextFloat"
+          },
+          "391": {
+            "label_type": "ArgumentList"
+          },
+          "395": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "397": {
+            "label_type": "VariableDeclarator",
+            "value_id": "400",
+            "variable_name": "currentUser"
+          },
+          "400": {
+            "arguments_id": "403",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "403": {
+            "label_type": "ArgumentList"
+          },
+          "405": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "407": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "409": {
+            "label_type": "Literal",
+            "value": "\"xxxxxxxxxx\"",
+            "value_type": "string"
+          },
+          "41": {
+            "label_type": "Return",
+            "value_id": "43"
+          },
+          "413": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "416",
+            "variable_id": "414"
+          },
+          "414": {
+            "field_text": "currentUser.userId",
+            "label_type": "FieldAccess"
+          },
+          "416": {
+            "arguments_id": "420",
+            "expression": "toString",
+            "expression_id": "419",
+            "label_type": "MethodInvocation"
+          },
+          "419": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "420": {
+            "label_type": "ArgumentList"
+          },
+          "422": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "426": {
+            "arguments_id": "436",
+            "expression": "setAttribute",
+            "expression_id": "435",
+            "label_type": "MethodInvocation"
+          },
+          "43": {
+            "arguments_id": "54",
+            "expression": "substring",
+            "expression_id": "53",
+            "label_type": "MethodInvocation"
+          },
+          "435": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "436": {
+            "label_type": "ArgumentList"
+          },
+          "438": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "440": {
+            "arguments_id": "444",
+            "expression": "getUserId",
+            "expression_id": "443",
+            "label_type": "MethodInvocation"
+          },
+          "443": {
+            "label_type": "SymbolLookup",
+            "symbol": "getUserId"
+          },
+          "444": {
+            "label_type": "ArgumentList"
+          },
+          "450": {
+            "block_id": "458",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "451",
+            "name": "test_04"
+          },
+          "451": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "458": {
+            "label_type": "ExecutionBlock"
+          },
+          "460": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "462": {
+            "label_type": "VariableDeclarator",
+            "value_id": "465",
+            "variable_name": "request"
+          },
+          "465": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "472": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "474": {
+            "label_type": "VariableDeclarator",
+            "value_id": "477",
+            "variable_name": "currentUser"
+          },
+          "477": {
+            "arguments_id": "480",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "480": {
+            "label_type": "ArgumentList"
+          },
+          "482": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "484": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "486": {
+            "arguments_id": "490",
+            "expression": "createSecureRandom",
+            "expression_id": "489",
+            "label_type": "MethodInvocation"
+          },
+          "489": {
+            "label_type": "SymbolLookup",
+            "symbol": "createSecureRandom"
+          },
+          "490": {
+            "label_type": "ArgumentList"
+          },
+          "496": {
+            "arguments_id": "506",
+            "expression": "setAttribute",
+            "expression_id": "505",
+            "label_type": "MethodInvocation"
+          },
+          "505": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "506": {
+            "label_type": "ArgumentList"
+          },
+          "508": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "510": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "514": {
+            "block_id": "522",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "515",
+            "name": "test_05"
+          },
+          "515": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "522": {
+            "label_type": "ExecutionBlock"
+          },
+          "524": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "526": {
+            "label_type": "VariableDeclarator",
+            "value_id": "529",
+            "variable_name": "request"
+          },
+          "529": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "53": {
+            "label_type": "SymbolLookup",
+            "symbol": "substring"
+          },
+          "536": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "538": {
+            "label_type": "VariableDeclarator",
+            "value_id": "541",
+            "variable_name": "cookieName"
+          },
+          "54": {
+            "label_type": "ArgumentList"
+          },
+          "541": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "543": {
+            "comment": "// this should initialize a new instance to be used in subsequent statements",
+            "label_type": "Comment"
+          },
+          "544": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "546": {
+            "label_type": "VariableDeclarator",
+            "value_id": "549",
+            "variable_name": "currentUser"
+          },
+          "549": {
+            "arguments_id": "552",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "552": {
+            "label_type": "ArgumentList"
+          },
+          "554": {
+            "label_type": "Literal",
+            "value": "\"Jane Doe\"",
+            "value_type": "string"
+          },
+          "558": {
+            "arguments_id": "562",
+            "expression": "setUserId",
+            "expression_id": "561",
+            "label_type": "MethodInvocation"
+          },
+          "56": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "string"
+          },
+          "561": {
+            "label_type": "SymbolLookup",
+            "symbol": "setUserId"
+          },
+          "562": {
+            "label_type": "ArgumentList"
+          },
+          "564": {
+            "arguments_id": "568",
+            "expression": "createRandom",
+            "expression_id": "567",
+            "label_type": "MethodInvocation"
+          },
+          "567": {
+            "label_type": "SymbolLookup",
+            "symbol": "createRandom"
+          },
+          "568": {
+            "label_type": "ArgumentList"
+          },
+          "573": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "575": {
+            "label_type": "VariableDeclarator",
+            "value_id": "578",
+            "variable_name": "cookieKey"
+          },
+          "578": {
+            "arguments_id": "582",
+            "expression": "getUserId",
+            "expression_id": "581",
+            "label_type": "MethodInvocation"
+          },
+          "581": {
+            "label_type": "SymbolLookup",
+            "symbol": "getUserId"
+          },
+          "582": {
+            "label_type": "ArgumentList"
+          },
+          "587": {
+            "arguments_id": "597",
+            "expression": "setAttribute",
+            "expression_id": "596",
+            "label_type": "MethodInvocation"
+          },
+          "596": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "597": {
+            "label_type": "ArgumentList"
+          },
+          "599": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "6": {
+            "block_id": "11",
+            "label_type": "Class",
+            "name": "App"
+          },
+          "60": {
+            "block_id": "75",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "61",
+            "name": "main",
+            "parameters_id": "66"
+          },
+          "601": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieKey"
+          },
+          "605": {
+            "block_id": "613",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "606",
+            "name": "test_06"
+          },
+          "606": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "61": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "613": {
+            "label_type": "ExecutionBlock"
+          },
+          "615": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "617": {
+            "label_type": "VariableDeclarator",
+            "value_id": "620",
+            "variable_name": "request"
+          },
+          "620": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "627": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "629": {
+            "label_type": "VariableDeclarator",
+            "value_id": "632",
+            "variable_name": "cookieName"
+          },
+          "632": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "634": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "636": {
+            "label_type": "VariableDeclarator",
+            "value_id": "639",
+            "variable_name": "rand"
+          },
+          "639": {
+            "arguments_id": "648",
+            "expression": "nextFloat",
+            "expression_id": "647",
+            "label_type": "MethodInvocation"
+          },
+          "647": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextFloat"
+          },
+          "648": {
+            "label_type": "ArgumentList"
+          },
+          "652": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "654": {
+            "label_type": "VariableDeclarator",
+            "value_id": "657",
+            "variable_name": "currentUser"
+          },
+          "657": {
+            "arguments_id": "660",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "66": {
+            "label_type": "ParameterList"
+          },
+          "660": {
+            "label_type": "ArgumentList"
+          },
+          "662": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "664": {
+            "arguments_id": "668",
+            "expression": "toString",
+            "expression_id": "667",
+            "label_type": "MethodInvocation"
+          },
+          "667": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "668": {
+            "label_type": "ArgumentList"
+          },
+          "670": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "674": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "676": {
+            "label_type": "VariableDeclarator",
+            "value_id": "679",
+            "variable_name": "cookieKey"
+          },
+          "679": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "68": {
+            "label_type": "Parameter",
+            "variable": "args",
+            "variable_type": "String[]"
+          },
+          "682": {
+            "arguments_id": "692",
+            "expression": "setAttribute",
+            "expression_id": "691",
+            "label_type": "MethodInvocation"
+          },
+          "691": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "692": {
+            "label_type": "ArgumentList"
+          },
+          "694": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "696": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieKey"
+          },
+          "700": {
+            "block_id": "708",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "701",
+            "name": "test_07"
+          },
+          "701": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "708": {
+            "label_type": "ExecutionBlock"
+          },
+          "710": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "712": {
+            "label_type": "VariableDeclarator",
+            "value_id": "715",
+            "variable_name": "request"
+          },
+          "715": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "722": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "724": {
+            "label_type": "VariableDeclarator",
+            "value_id": "727",
+            "variable_name": "rand"
+          },
+          "727": {
+            "arguments_id": "736",
+            "expression": "nextInt",
+            "expression_id": "735",
+            "label_type": "MethodInvocation"
+          },
+          "735": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextInt"
+          },
+          "736": {
+            "label_type": "ArgumentList"
+          },
+          "740": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "742": {
+            "label_type": "VariableDeclarator",
+            "value_id": "745",
+            "variable_name": "currentUser"
+          },
+          "745": {
+            "arguments_id": "748",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "748": {
+            "label_type": "ArgumentList"
+          },
+          "75": {
+            "label_type": "ExecutionBlock"
+          },
+          "750": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "752": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "754": {
+            "arguments_id": "758",
+            "expression": "toString",
+            "expression_id": "757",
+            "label_type": "MethodInvocation"
+          },
+          "757": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "758": {
+            "label_type": "ArgumentList"
+          },
+          "760": {
+            "label_type": "SymbolLookup",
+            "symbol": "rand"
+          },
+          "765": {
+            "arguments_id": "775",
+            "expression": "setAttribute",
+            "expression_id": "774",
+            "label_type": "MethodInvocation"
+          },
+          "77": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "774": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "775": {
+            "label_type": "ArgumentList"
+          },
+          "777": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "779": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "783": {
+            "block_id": "791",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "784",
+            "name": "test_08"
+          },
+          "784": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "79": {
+            "label_type": "VariableDeclarator",
+            "value_id": "82",
+            "variable_name": "request"
+          },
+          "791": {
+            "label_type": "ExecutionBlock"
+          },
+          "793": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "795": {
+            "label_type": "VariableDeclarator",
+            "value_id": "798",
+            "variable_name": "request"
+          },
+          "798": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "805": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "807": {
+            "label_type": "VariableDeclarator",
+            "value_id": "810",
+            "variable_name": "currentUser"
+          },
+          "810": {
+            "arguments_id": "813",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "813": {
+            "label_type": "ArgumentList"
+          },
+          "815": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "817": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "819": {
+            "label_type": "Literal",
+            "value": "\"xxxxxxxxxx\"",
+            "value_type": "string"
+          },
+          "82": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "823": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "826",
+            "variable_id": "824"
+          },
+          "824": {
+            "field_text": "currentUser.userId",
+            "label_type": "FieldAccess"
+          },
+          "826": {
+            "arguments_id": "830",
+            "expression": "createRandom",
+            "expression_id": "829",
+            "label_type": "MethodInvocation"
+          },
+          "829": {
+            "label_type": "SymbolLookup",
+            "symbol": "createRandom"
+          },
+          "830": {
+            "label_type": "ArgumentList"
+          },
+          "835": {
+            "arguments_id": "845",
+            "expression": "setAttribute",
+            "expression_id": "844",
+            "label_type": "MethodInvocation"
+          },
+          "844": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "845": {
+            "label_type": "ArgumentList"
+          },
+          "847": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "849": {
+            "arguments_id": "853",
+            "expression": "getUserId",
+            "expression_id": "852",
+            "label_type": "MethodInvocation"
+          },
+          "852": {
+            "label_type": "SymbolLookup",
+            "symbol": "getUserId"
+          },
+          "853": {
+            "label_type": "ArgumentList"
+          },
+          "859": {
+            "block_id": "867",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "860",
+            "name": "test_09"
+          },
+          "860": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "867": {
+            "label_type": "ExecutionBlock"
+          },
+          "869": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "HttpServletRequest"
+          },
+          "871": {
+            "label_type": "VariableDeclarator",
+            "value_id": "874",
+            "variable_name": "request"
+          },
+          "874": {
+            "label_type": "ObjectCreation",
+            "name": "HttpServletRequest"
+          },
+          "881": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "883": {
+            "label_type": "VariableDeclarator",
+            "value_id": "886",
+            "variable_name": "file"
+          },
+          "886": {
+            "arguments_id": "890",
+            "expression": "getParamert",
+            "expression_id": "889",
+            "label_type": "MethodInvocation"
+          },
+          "889": {
+            "label_type": "SymbolLookup",
+            "symbol": "getParamert"
+          },
+          "89": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "float"
+          },
+          "890": {
+            "label_type": "ArgumentList"
+          },
+          "892": {
+            "label_type": "Literal",
+            "value": "\"xxxxxxxxxx\"",
+            "value_type": "string"
+          },
+          "896": {
+            "arguments_id": "900",
+            "expression": "readFile",
+            "expression_id": "899",
+            "label_type": "MethodInvocation"
+          },
+          "899": {
+            "label_type": "SymbolLookup",
+            "symbol": "readFile"
+          },
+          "900": {
+            "label_type": "ArgumentList"
+          },
+          "902": {
+            "label_type": "SymbolLookup",
+            "symbol": "file"
+          },
+          "905": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "User"
+          },
+          "907": {
+            "label_type": "VariableDeclarator",
+            "value_id": "910",
+            "variable_name": "currentUser"
+          },
+          "91": {
+            "label_type": "VariableDeclarator",
+            "value_id": "94",
+            "variable_name": "rand"
+          },
+          "910": {
+            "arguments_id": "913",
+            "label_type": "ObjectCreation",
+            "name": "User"
+          },
+          "913": {
+            "label_type": "ArgumentList"
+          },
+          "915": {
+            "label_type": "Literal",
+            "value": "\"Jane\"",
+            "value_type": "string"
+          },
+          "917": {
+            "label_type": "Literal",
+            "value": "\"Doe\"",
+            "value_type": "string"
+          },
+          "919": {
+            "label_type": "Literal",
+            "value": "\"xxxxxxxxxxxxx\"",
+            "value_type": "string"
+          },
+          "923": {
+            "arguments_id": "933",
+            "expression": "setAttribute",
+            "expression_id": "932",
+            "label_type": "MethodInvocation"
+          },
+          "932": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "933": {
+            "label_type": "ArgumentList"
+          },
+          "935": {
+            "label_type": "Literal",
+            "value": "\"testInstanceReference\"",
+            "value_type": "string"
+          },
+          "937": {
+            "field_text": "currentUser.lastName",
+            "label_type": "FieldAccess"
+          },
+          "94": {
+            "arguments_id": "103",
+            "expression": "nextFloat",
+            "expression_id": "102",
+            "label_type": "MethodInvocation"
+          }
+        }
+      }
     },
     {
       "graph": {
@@ -16338,7 +18949,781 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "104": {
+            "107": {
+              "label_ast": "AST"
+            },
+            "115": {
+              "label_ast": "AST"
+            },
+            "121": {
+              "label_ast": "AST"
+            }
+          },
+          "107": {
+            "108": {
+              "label_ast": "AST"
+            },
+            "109": {
+              "label_ast": "AST"
+            }
+          },
+          "109": {
+            "111": {
+              "label_ast": "AST"
+            }
+          },
+          "115": {
+            "116": {
+              "label_ast": "AST"
+            },
+            "118": {
+              "label_ast": "AST"
+            }
+          },
+          "121": {
+            "122": {
+              "label_ast": "AST"
+            },
+            "124": {
+              "label_ast": "AST"
+            }
+          },
+          "127": {
+            "128": {
+              "label_ast": "AST"
+            },
+            "135": {
+              "label_ast": "AST"
+            }
+          },
+          "135": {
+            "137": {
+              "label_ast": "AST"
+            },
+            "138": {
+              "label_ast": "AST"
+            }
+          },
+          "138": {
+            "140": {
+              "label_ast": "AST"
+            }
+          },
+          "143": {
+            "144": {
+              "label_ast": "AST"
+            },
+            "148": {
+              "label_ast": "AST"
+            },
+            "154": {
+              "label_ast": "AST"
+            }
+          },
+          "148": {
+            "150": {
+              "label_ast": "AST"
+            }
+          },
+          "154": {
+            "156": {
+              "label_ast": "AST"
+            },
+            "158": {
+              "label_ast": "AST"
+            }
+          },
+          "158": {
+            "159": {
+              "label_ast": "AST"
+            },
+            "161": {
+              "label_ast": "AST"
+            }
+          },
+          "16": {
+            "20": {
+              "label_ast": "AST"
+            }
+          },
+          "164": {
+            "165": {
+              "label_ast": "AST"
+            },
+            "172": {
+              "label_ast": "AST"
+            }
+          },
+          "172": {
+            "174": {
+              "label_ast": "AST"
+            },
+            "181": {
+              "label_ast": "AST"
+            },
+            "188": {
+              "label_ast": "AST"
+            }
+          },
+          "174": {
+            "176": {
+              "label_ast": "AST"
+            }
+          },
+          "176": {
+            "179": {
+              "label_ast": "AST"
+            }
+          },
+          "181": {
+            "183": {
+              "label_ast": "AST"
+            }
+          },
+          "183": {
+            "186": {
+              "label_ast": "AST"
+            }
+          },
+          "188": {
+            "190": {
+              "label_ast": "AST"
+            }
+          },
+          "193": {
+            "194": {
+              "label_ast": "AST"
+            },
+            "198": {
+              "label_ast": "AST"
+            },
+            "204": {
+              "label_ast": "AST"
+            }
+          },
+          "198": {
+            "200": {
+              "label_ast": "AST"
+            }
+          },
+          "2": {
+            "7": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "204": {
+            "207": {
+              "label_ast": "AST"
+            }
+          },
+          "207": {
+            "208": {
+              "label_ast": "AST"
+            },
+            "210": {
+              "label_ast": "AST"
+            }
+          },
+          "213": {
+            "214": {
+              "label_ast": "AST"
+            },
+            "218": {
+              "label_ast": "AST"
+            },
+            "224": {
+              "label_ast": "AST"
+            }
+          },
+          "218": {
+            "220": {
+              "label_ast": "AST"
+            }
+          },
+          "224": {
+            "227": {
+              "label_ast": "AST"
+            }
+          },
+          "227": {
+            "228": {
+              "label_ast": "AST"
+            },
+            "230": {
+              "label_ast": "AST"
+            }
+          },
+          "23": {
+            "27": {
+              "label_ast": "AST"
+            }
+          },
+          "30": {
+            "31": {
+              "label_ast": "AST"
+            },
+            "34": {
+              "label_ast": "AST"
+            },
+            "40": {
+              "label_ast": "AST"
+            }
+          },
+          "34": {
+            "36": {
+              "label_ast": "AST"
+            }
+          },
+          "40": {
+            "42": {
+              "label_ast": "AST"
+            },
+            "44": {
+              "label_ast": "AST"
+            }
+          },
+          "44": {
+            "47": {
+              "label_ast": "AST"
+            },
+            "48": {
+              "label_ast": "AST"
+            }
+          },
+          "48": {
+            "50": {
+              "label_ast": "AST"
+            }
+          },
+          "54": {
+            "55": {
+              "label_ast": "AST"
+            },
+            "58": {
+              "label_ast": "AST"
+            },
+            "68": {
+              "label_ast": "AST"
+            }
+          },
+          "58": {
+            "60": {
+              "label_ast": "AST"
+            },
+            "64": {
+              "label_ast": "AST"
+            }
+          },
+          "68": {
+            "70": {
+              "label_ast": "AST"
+            },
+            "72": {
+              "label_ast": "AST"
+            },
+            "80": {
+              "label_ast": "AST"
+            }
+          },
+          "7": {
+            "127": {
+              "label_ast": "AST"
+            },
+            "143": {
+              "label_ast": "AST"
+            },
+            "16": {
+              "label_ast": "AST"
+            },
+            "164": {
+              "label_ast": "AST"
+            },
+            "193": {
+              "label_ast": "AST"
+            },
+            "213": {
+              "label_ast": "AST"
+            },
+            "23": {
+              "label_ast": "AST"
+            },
+            "30": {
+              "label_ast": "AST"
+            },
+            "54": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            },
+            "9": {
+              "label_ast": "AST"
+            }
+          },
+          "72": {
+            "73": {
+              "label_ast": "AST"
+            },
+            "74": {
+              "label_ast": "AST"
+            }
+          },
+          "74": {
+            "76": {
+              "label_ast": "AST"
+            }
+          },
+          "80": {
+            "81": {
+              "label_ast": "AST"
+            },
+            "83": {
+              "label_ast": "AST"
+            }
+          },
+          "86": {
+            "104": {
+              "label_ast": "AST"
+            },
+            "87": {
+              "label_ast": "AST"
+            },
+            "90": {
+              "label_ast": "AST"
+            }
+          },
+          "9": {
+            "13": {
+              "label_ast": "AST"
+            }
+          },
+          "90": {
+            "100": {
+              "label_ast": "AST"
+            },
+            "92": {
+              "label_ast": "AST"
+            },
+            "96": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "100": {
+            "label_type": "Parameter",
+            "variable": "Id",
+            "variable_type": "String"
+          },
+          "104": {
+            "label_type": "ClassBody"
+          },
+          "107": {
+            "arguments_id": "109",
+            "expression": "setName",
+            "expression_id": "108",
+            "label_type": "MethodInvocation"
+          },
+          "108": {
+            "label_type": "SymbolLookup",
+            "symbol": "setName"
+          },
+          "109": {
+            "label_type": "ArgumentList"
+          },
+          "111": {
+            "label_type": "SymbolLookup",
+            "symbol": "name"
+          },
+          "115": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "118",
+            "variable_id": "116"
+          },
+          "116": {
+            "field_text": "this.lastName",
+            "label_type": "FieldAccess"
+          },
+          "118": {
+            "label_type": "SymbolLookup",
+            "symbol": "lastName"
+          },
+          "121": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "124",
+            "variable_id": "122"
+          },
+          "122": {
+            "label_type": "SymbolLookup",
+            "symbol": "userId"
+          },
+          "124": {
+            "label_type": "SymbolLookup",
+            "symbol": "Id"
+          },
+          "127": {
+            "block_id": "135",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "128",
+            "name": "getName"
+          },
+          "128": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "13": {
+            "label_type": "VariableDeclarator",
+            "variable_name": "name"
+          },
+          "135": {
+            "label_type": "ExecutionBlock"
+          },
+          "137": {
+            "comment": "// it must to return the value of the field referring to the current instance",
+            "label_type": "Comment"
+          },
+          "138": {
+            "label_type": "Return",
+            "value_id": "140"
+          },
+          "140": {
+            "label_type": "SymbolLookup",
+            "symbol": "name"
+          },
+          "143": {
+            "block_id": "154",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "144",
+            "name": "setName",
+            "parameters_id": "148"
+          },
+          "144": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "148": {
+            "label_type": "ParameterList"
+          },
+          "150": {
+            "label_type": "Parameter",
+            "variable": "name",
+            "variable_type": "String"
+          },
+          "154": {
+            "label_type": "ExecutionBlock"
+          },
+          "156": {
+            "comment": "// this should modify the field referencing the current instance",
+            "label_type": "Comment"
+          },
+          "158": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "161",
+            "variable_id": "159"
+          },
+          "159": {
+            "field_text": "this.name",
+            "label_type": "FieldAccess"
+          },
+          "16": {
+            "field_type": "String",
+            "label_type": "FieldDeclaration"
+          },
+          "161": {
+            "label_type": "SymbolLookup",
+            "symbol": "name"
+          },
+          "164": {
+            "block_id": "172",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "165",
+            "name": "getUserId"
+          },
+          "165": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "172": {
+            "label_type": "ExecutionBlock"
+          },
+          "174": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "176": {
+            "label_type": "VariableDeclarator",
+            "value_id": "179",
+            "variable_name": "someNumber"
+          },
+          "179": {
+            "label_type": "Literal",
+            "value": "13",
+            "value_type": "string"
+          },
+          "181": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "183": {
+            "label_type": "VariableDeclarator",
+            "value_id": "186",
+            "variable_name": "Id"
+          },
+          "186": {
+            "field_text": "this.userId",
+            "label_type": "FieldAccess"
+          },
+          "188": {
+            "label_type": "Return",
+            "value_id": "190"
+          },
+          "190": {
+            "label_type": "SymbolLookup",
+            "symbol": "Id"
+          },
+          "193": {
+            "block_id": "204",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "194",
+            "name": "setUserId",
+            "parameters_id": "198"
+          },
+          "194": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "198": {
+            "label_type": "ParameterList"
+          },
+          "2": {
+            "block_id": "7",
+            "label_type": "Class",
+            "name": "User"
+          },
+          "20": {
+            "label_type": "VariableDeclarator",
+            "variable_name": "lastName"
+          },
+          "200": {
+            "label_type": "Parameter",
+            "variable": "userId",
+            "variable_type": "String"
+          },
+          "204": {
+            "label_type": "ExecutionBlock"
+          },
+          "207": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "210",
+            "variable_id": "208"
+          },
+          "208": {
+            "field_text": "this.userId",
+            "label_type": "FieldAccess"
+          },
+          "210": {
+            "label_type": "SymbolLookup",
+            "symbol": "userId"
+          },
+          "213": {
+            "block_id": "224",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "214",
+            "name": "setLastName",
+            "parameters_id": "218"
+          },
+          "214": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "218": {
+            "label_type": "ParameterList"
+          },
+          "220": {
+            "label_type": "Parameter",
+            "variable": "lastName",
+            "variable_type": "String"
+          },
+          "224": {
+            "label_type": "ExecutionBlock"
+          },
+          "227": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "230",
+            "variable_id": "228"
+          },
+          "228": {
+            "field_text": "this.lastName",
+            "label_type": "FieldAccess"
+          },
+          "23": {
+            "field_type": "String",
+            "label_type": "FieldDeclaration"
+          },
+          "230": {
+            "label_type": "SymbolLookup",
+            "symbol": "lastName"
+          },
+          "27": {
+            "label_type": "VariableDeclarator",
+            "variable_name": "userId"
+          },
+          "30": {
+            "block_id": "40",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "31",
+            "name": "User",
+            "parameters_id": "34"
+          },
+          "31": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "34": {
+            "label_type": "ParameterList"
+          },
+          "36": {
+            "label_type": "Parameter",
+            "variable": "name",
+            "variable_type": "String"
+          },
+          "40": {
+            "label_type": "ClassBody"
+          },
+          "42": {
+            "comment": "/*\n         * there must be a reference to the current instance, that instance must be\n         * passed to the setName function\n         */",
+            "label_type": "Comment"
+          },
+          "44": {
+            "arguments_id": "48",
+            "expression": "setName",
+            "expression_id": "47",
+            "label_type": "MethodInvocation"
+          },
+          "47": {
+            "label_type": "SymbolLookup",
+            "symbol": "setName"
+          },
+          "48": {
+            "label_type": "ArgumentList"
+          },
+          "50": {
+            "label_type": "SymbolLookup",
+            "symbol": "name"
+          },
+          "54": {
+            "block_id": "68",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "55",
+            "name": "User",
+            "parameters_id": "58"
+          },
+          "55": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "58": {
+            "label_type": "ParameterList"
+          },
+          "60": {
+            "label_type": "Parameter",
+            "variable": "name",
+            "variable_type": "String"
+          },
+          "64": {
+            "label_type": "Parameter",
+            "variable": "lastName",
+            "variable_type": "String"
+          },
+          "68": {
+            "label_type": "ClassBody"
+          },
+          "7": {
+            "label_type": "ClassBody"
+          },
+          "70": {
+            "comment": "/*\n         * it must be recognized as a constructor with the signature User_2, the current\n         * instance must be passed to the setName function, but it must also be modified\n         * by the declaration\n         */",
+            "label_type": "Comment"
+          },
+          "72": {
+            "arguments_id": "74",
+            "expression": "setName",
+            "expression_id": "73",
+            "label_type": "MethodInvocation"
+          },
+          "73": {
+            "label_type": "SymbolLookup",
+            "symbol": "setName"
+          },
+          "74": {
+            "label_type": "ArgumentList"
+          },
+          "76": {
+            "label_type": "SymbolLookup",
+            "symbol": "name"
+          },
+          "80": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "83",
+            "variable_id": "81"
+          },
+          "81": {
+            "field_text": "this.lastName",
+            "label_type": "FieldAccess"
+          },
+          "83": {
+            "label_type": "SymbolLookup",
+            "symbol": "lastName"
+          },
+          "86": {
+            "block_id": "104",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "87",
+            "name": "User",
+            "parameters_id": "90"
+          },
+          "87": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "9": {
+            "field_type": "String",
+            "label_type": "FieldDeclaration"
+          },
+          "90": {
+            "label_type": "ParameterList"
+          },
+          "92": {
+            "label_type": "Parameter",
+            "variable": "name",
+            "variable_type": "String"
+          },
+          "96": {
+            "label_type": "Parameter",
+            "variable": "lastName",
+            "variable_type": "String"
+          }
+        }
+      }
     }
   ],
   "shards_by_language_class": {

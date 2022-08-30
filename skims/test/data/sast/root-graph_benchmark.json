@@ -8353,7 +8353,1736 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "15": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "102": {
+            "105": {
+              "label_ast": "AST"
+            }
+          },
+          "105": {
+            "107": {
+              "label_ast": "AST"
+            },
+            "109": {
+              "label_ast": "AST"
+            }
+          },
+          "113": {
+            "116": {
+              "label_ast": "AST"
+            },
+            "117": {
+              "label_ast": "AST"
+            }
+          },
+          "117": {
+            "119": {
+              "label_ast": "AST"
+            }
+          },
+          "119": {
+            "120": {
+              "label_ast": "AST"
+            },
+            "122": {
+              "label_ast": "AST"
+            }
+          },
+          "127": {
+            "130": {
+              "label_ast": "AST"
+            },
+            "131": {
+              "label_ast": "AST"
+            }
+          },
+          "131": {
+            "133": {
+              "label_ast": "AST"
+            }
+          },
+          "137": {
+            "140": {
+              "label_ast": "AST"
+            },
+            "141": {
+              "label_ast": "AST"
+            }
+          },
+          "141": {
+            "143": {
+              "label_ast": "AST"
+            }
+          },
+          "143": {
+            "146": {
+              "label_ast": "AST"
+            },
+            "147": {
+              "label_ast": "AST"
+            }
+          },
+          "153": {
+            "156": {
+              "label_ast": "AST"
+            },
+            "157": {
+              "label_ast": "AST"
+            }
+          },
+          "157": {
+            "159": {
+              "label_ast": "AST"
+            }
+          },
+          "159": {
+            "180": {
+              "label_ast": "AST"
+            },
+            "181": {
+              "label_ast": "AST"
+            }
+          },
+          "187": {
+            "190": {
+              "label_ast": "AST"
+            },
+            "191": {
+              "label_ast": "AST"
+            }
+          },
+          "191": {
+            "193": {
+              "label_ast": "AST"
+            }
+          },
+          "196": {
+            "198": {
+              "label_ast": "AST"
+            }
+          },
+          "198": {
+            "201": {
+              "label_ast": "AST"
+            }
+          },
+          "201": {
+            "204": {
+              "label_ast": "AST"
+            },
+            "205": {
+              "label_ast": "AST"
+            }
+          },
+          "205": {
+            "207": {
+              "label_ast": "AST"
+            }
+          },
+          "211": {
+            "214": {
+              "label_ast": "AST"
+            },
+            "215": {
+              "label_ast": "AST"
+            }
+          },
+          "215": {
+            "217": {
+              "label_ast": "AST"
+            },
+            "219": {
+              "label_ast": "AST"
+            }
+          },
+          "223": {
+            "224": {
+              "label_ast": "AST"
+            },
+            "231": {
+              "label_ast": "AST"
+            },
+            "246": {
+              "label_ast": "AST"
+            }
+          },
+          "231": {
+            "233": {
+              "label_ast": "AST"
+            },
+            "237": {
+              "label_ast": "AST"
+            }
+          },
+          "246": {
+            "248": {
+              "label_ast": "AST"
+            },
+            "250": {
+              "label_ast": "AST"
+            },
+            "259": {
+              "label_ast": "AST"
+            },
+            "272": {
+              "label_ast": "AST"
+            },
+            "279": {
+              "label_ast": "AST"
+            },
+            "348": {
+              "label_ast": "AST"
+            },
+            "355": {
+              "label_ast": "AST"
+            },
+            "362": {
+              "label_ast": "AST"
+            }
+          },
+          "250": {
+            "253": {
+              "label_ast": "AST"
+            },
+            "254": {
+              "label_ast": "AST"
+            }
+          },
+          "254": {
+            "256": {
+              "label_ast": "AST"
+            }
+          },
+          "259": {
+            "261": {
+              "label_ast": "AST"
+            }
+          },
+          "261": {
+            "264": {
+              "label_ast": "AST"
+            }
+          },
+          "264": {
+            "267": {
+              "label_ast": "AST"
+            },
+            "268": {
+              "label_ast": "AST"
+            }
+          },
+          "272": {
+            "274": {
+              "label_ast": "AST"
+            }
+          },
+          "274": {
+            "277": {
+              "label_ast": "AST"
+            }
+          },
+          "279": {
+            "283": {
+              "label_ast": "AST"
+            },
+            "288": {
+              "label_ast": "AST"
+            }
+          },
+          "283": {
+            "284": {
+              "label_ast": "AST"
+            },
+            "286": {
+              "label_ast": "AST"
+            }
+          },
+          "288": {
+            "290": {
+              "label_ast": "AST"
+            }
+          },
+          "290": {
+            "298": {
+              "label_ast": "AST"
+            }
+          },
+          "298": {
+            "300": {
+              "label_ast": "AST"
+            }
+          },
+          "300": {
+            "304": {
+              "label_ast": "AST"
+            },
+            "319": {
+              "label_ast": "AST"
+            }
+          },
+          "304": {
+            "313": {
+              "label_ast": "AST"
+            },
+            "314": {
+              "label_ast": "AST"
+            }
+          },
+          "31": {
+            "49": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "314": {
+            "316": {
+              "label_ast": "AST"
+            }
+          },
+          "319": {
+            "322": {
+              "label_ast": "AST"
+            },
+            "342": {
+              "label_ast": "AST"
+            }
+          },
+          "322": {
+            "323": {
+              "label_ast": "AST"
+            },
+            "325": {
+              "label_ast": "AST"
+            }
+          },
+          "325": {
+            "328": {
+              "label_ast": "AST"
+            },
+            "329": {
+              "label_ast": "AST"
+            }
+          },
+          "329": {
+            "331": {
+              "label_ast": "AST"
+            },
+            "339": {
+              "label_ast": "AST"
+            }
+          },
+          "331": {
+            "334": {
+              "label_ast": "AST"
+            },
+            "335": {
+              "label_ast": "AST"
+            }
+          },
+          "348": {
+            "350": {
+              "label_ast": "AST"
+            }
+          },
+          "350": {
+            "353": {
+              "label_ast": "AST"
+            }
+          },
+          "355": {
+            "357": {
+              "label_ast": "AST"
+            }
+          },
+          "357": {
+            "360": {
+              "label_ast": "AST"
+            }
+          },
+          "362": {
+            "364": {
+              "label_ast": "AST"
+            },
+            "482": {
+              "label_ast": "AST"
+            },
+            "547": {
+              "label_ast": "AST"
+            }
+          },
+          "364": {
+            "367": {
+              "label_ast": "AST"
+            },
+            "376": {
+              "label_ast": "AST"
+            },
+            "393": {
+              "label_ast": "AST"
+            },
+            "406": {
+              "label_ast": "AST"
+            },
+            "421": {
+              "label_ast": "AST"
+            }
+          },
+          "367": {
+            "368": {
+              "label_ast": "AST"
+            },
+            "370": {
+              "label_ast": "AST"
+            }
+          },
+          "370": {
+            "371": {
+              "label_ast": "AST"
+            },
+            "373": {
+              "label_ast": "AST"
+            }
+          },
+          "376": {
+            "377": {
+              "label_ast": "AST"
+            },
+            "379": {
+              "label_ast": "AST"
+            }
+          },
+          "379": {
+            "382": {
+              "label_ast": "AST"
+            }
+          },
+          "382": {
+            "384": {
+              "label_ast": "AST"
+            }
+          },
+          "384": {
+            "387": {
+              "label_ast": "AST"
+            }
+          },
+          "387": {
+            "389": {
+              "label_ast": "AST"
+            }
+          },
+          "393": {
+            "395": {
+              "label_ast": "AST"
+            }
+          },
+          "395": {
+            "398": {
+              "label_ast": "AST"
+            }
+          },
+          "398": {
+            "400": {
+              "label_ast": "AST"
+            },
+            "401": {
+              "label_ast": "AST"
+            }
+          },
+          "401": {
+            "403": {
+              "label_ast": "AST"
+            }
+          },
+          "406": {
+            "408": {
+              "label_ast": "AST"
+            }
+          },
+          "408": {
+            "411": {
+              "label_ast": "AST"
+            }
+          },
+          "411": {
+            "414": {
+              "label_ast": "AST"
+            },
+            "415": {
+              "label_ast": "AST"
+            }
+          },
+          "415": {
+            "417": {
+              "label_ast": "AST"
+            }
+          },
+          "421": {
+            "430": {
+              "label_ast": "AST"
+            },
+            "431": {
+              "label_ast": "AST"
+            }
+          },
+          "431": {
+            "433": {
+              "label_ast": "AST"
+            }
+          },
+          "433": {
+            "434": {
+              "label_ast": "AST"
+            },
+            "455": {
+              "label_ast": "AST"
+            }
+          },
+          "434": {
+            "435": {
+              "label_ast": "AST"
+            },
+            "453": {
+              "label_ast": "AST"
+            }
+          },
+          "435": {
+            "436": {
+              "label_ast": "AST"
+            },
+            "438": {
+              "label_ast": "AST"
+            }
+          },
+          "438": {
+            "447": {
+              "label_ast": "AST"
+            },
+            "448": {
+              "label_ast": "AST"
+            }
+          },
+          "448": {
+            "450": {
+              "label_ast": "AST"
+            }
+          },
+          "455": {
+            "464": {
+              "label_ast": "AST"
+            },
+            "465": {
+              "label_ast": "AST"
+            }
+          },
+          "465": {
+            "467": {
+              "label_ast": "AST"
+            }
+          },
+          "467": {
+            "470": {
+              "label_ast": "AST"
+            }
+          },
+          "470": {
+            "472": {
+              "label_ast": "AST"
+            },
+            "474": {
+              "label_ast": "AST"
+            },
+            "476": {
+              "label_ast": "AST"
+            }
+          },
+          "482": {
+            "490": {
+              "label_ast": "AST"
+            }
+          },
+          "49": {
+            "223": {
+              "label_ast": "AST"
+            },
+            "51": {
+              "label_ast": "AST"
+            },
+            "62": {
+              "label_ast": "AST"
+            }
+          },
+          "490": {
+            "493": {
+              "label_ast": "AST"
+            },
+            "509": {
+              "label_ast": "AST"
+            }
+          },
+          "493": {
+            "496": {
+              "label_ast": "AST"
+            },
+            "497": {
+              "label_ast": "AST"
+            }
+          },
+          "497": {
+            "499": {
+              "label_ast": "AST"
+            }
+          },
+          "499": {
+            "500": {
+              "label_ast": "AST"
+            },
+            "505": {
+              "label_ast": "AST"
+            }
+          },
+          "500": {
+            "501": {
+              "label_ast": "AST"
+            },
+            "503": {
+              "label_ast": "AST"
+            }
+          },
+          "509": {
+            "518": {
+              "label_ast": "AST"
+            },
+            "519": {
+              "label_ast": "AST"
+            }
+          },
+          "51": {
+            "57": {
+              "label_ast": "AST"
+            }
+          },
+          "519": {
+            "521": {
+              "label_ast": "AST"
+            }
+          },
+          "521": {
+            "522": {
+              "label_ast": "AST"
+            },
+            "524": {
+              "label_ast": "AST"
+            }
+          },
+          "524": {
+            "533": {
+              "label_ast": "AST"
+            },
+            "534": {
+              "label_ast": "AST"
+            }
+          },
+          "534": {
+            "536": {
+              "label_ast": "AST"
+            }
+          },
+          "536": {
+            "539": {
+              "label_ast": "AST"
+            },
+            "540": {
+              "label_ast": "AST"
+            }
+          },
+          "547": {
+            "549": {
+              "label_ast": "AST"
+            }
+          },
+          "549": {
+            "551": {
+              "label_ast": "AST"
+            }
+          },
+          "551": {
+            "555": {
+              "label_ast": "AST"
+            },
+            "560": {
+              "label_ast": "AST"
+            }
+          },
+          "555": {
+            "556": {
+              "label_ast": "AST"
+            },
+            "558": {
+              "label_ast": "AST"
+            }
+          },
+          "560": {
+            "562": {
+              "label_ast": "AST"
+            }
+          },
+          "562": {
+            "564": {
+              "label_ast": "AST"
+            },
+            "582": {
+              "label_ast": "AST"
+            }
+          },
+          "564": {
+            "567": {
+              "label_ast": "AST"
+            },
+            "576": {
+              "label_ast": "AST"
+            }
+          },
+          "567": {
+            "570": {
+              "label_ast": "AST"
+            },
+            "571": {
+              "label_ast": "AST"
+            }
+          },
+          "57": {
+            "60": {
+              "label_ast": "AST"
+            }
+          },
+          "576": {
+            "577": {
+              "label_ast": "AST"
+            },
+            "579": {
+              "label_ast": "AST"
+            }
+          },
+          "582": {
+            "590": {
+              "label_ast": "AST"
+            }
+          },
+          "590": {
+            "592": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            },
+            "85": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "72": {
+              "label_ast": "AST"
+            },
+            "76": {
+              "label_ast": "AST"
+            }
+          },
+          "85": {
+            "113": {
+              "label_ast": "AST"
+            },
+            "125": {
+              "label_ast": "AST"
+            },
+            "127": {
+              "label_ast": "AST"
+            },
+            "137": {
+              "label_ast": "AST"
+            },
+            "153": {
+              "label_ast": "AST"
+            },
+            "187": {
+              "label_ast": "AST"
+            },
+            "196": {
+              "label_ast": "AST"
+            },
+            "211": {
+              "label_ast": "AST"
+            },
+            "88": {
+              "label_ast": "AST"
+            },
+            "97": {
+              "label_ast": "AST"
+            }
+          },
+          "88": {
+            "91": {
+              "label_ast": "AST"
+            },
+            "92": {
+              "label_ast": "AST"
+            }
+          },
+          "92": {
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "97": {
+            "99": {
+              "label_ast": "AST"
+            }
+          },
+          "99": {
+            "102": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "102": {
+            "arguments_id": "105",
+            "label_type": "ObjectCreation",
+            "name": "javax.servlet.http.Cookie"
+          },
+          "105": {
+            "label_type": "ArgumentList"
+          },
+          "107": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00001\"",
+            "value_type": "string"
+          },
+          "109": {
+            "label_type": "Literal",
+            "value": "\"FileName\"",
+            "value_type": "string"
+          },
+          "11": {
+            "expression": "javax.servlet.ServletException",
+            "label_type": "Import"
+          },
+          "113": {
+            "arguments_id": "117",
+            "expression": "setMaxAge",
+            "expression_id": "116",
+            "label_type": "MethodInvocation"
+          },
+          "116": {
+            "label_type": "SymbolLookup",
+            "symbol": "setMaxAge"
+          },
+          "117": {
+            "label_type": "ArgumentList"
+          },
+          "119": {
+            "label_type": "BinaryOperation",
+            "left_id": "120",
+            "operator": "*",
+            "right_id": "122"
+          },
+          "120": {
+            "label_type": "Literal",
+            "value": "60",
+            "value_type": "string"
+          },
+          "122": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "string"
+          },
+          "125": {
+            "comment": "//Store cookie for 3 minutes",
+            "label_type": "Comment"
+          },
+          "127": {
+            "arguments_id": "131",
+            "expression": "setSecure",
+            "expression_id": "130",
+            "label_type": "MethodInvocation"
+          },
+          "130": {
+            "label_type": "SymbolLookup",
+            "symbol": "setSecure"
+          },
+          "131": {
+            "label_type": "ArgumentList"
+          },
+          "133": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "137": {
+            "arguments_id": "141",
+            "expression": "setPath",
+            "expression_id": "140",
+            "label_type": "MethodInvocation"
+          },
+          "140": {
+            "label_type": "SymbolLookup",
+            "symbol": "setPath"
+          },
+          "141": {
+            "label_type": "ArgumentList"
+          },
+          "143": {
+            "arguments_id": "147",
+            "expression": "getRequestURI",
+            "expression_id": "146",
+            "label_type": "MethodInvocation"
+          },
+          "146": {
+            "label_type": "SymbolLookup",
+            "symbol": "getRequestURI"
+          },
+          "147": {
+            "label_type": "ArgumentList"
+          },
+          "15": {
+            "expression": "javax.servlet.annotation.WebServlet",
+            "label_type": "Import"
+          },
+          "153": {
+            "arguments_id": "157",
+            "expression": "setDomain",
+            "expression_id": "156",
+            "label_type": "MethodInvocation"
+          },
+          "156": {
+            "label_type": "SymbolLookup",
+            "symbol": "setDomain"
+          },
+          "157": {
+            "label_type": "ArgumentList"
+          },
+          "159": {
+            "arguments_id": "181",
+            "expression": "getHost",
+            "expression_id": "180",
+            "label_type": "MethodInvocation"
+          },
+          "180": {
+            "label_type": "SymbolLookup",
+            "symbol": "getHost"
+          },
+          "181": {
+            "label_type": "ArgumentList"
+          },
+          "187": {
+            "arguments_id": "191",
+            "expression": "addCookie",
+            "expression_id": "190",
+            "label_type": "MethodInvocation"
+          },
+          "19": {
+            "expression": "javax.servlet.http.HttpServlet",
+            "label_type": "Import"
+          },
+          "190": {
+            "label_type": "SymbolLookup",
+            "symbol": "addCookie"
+          },
+          "191": {
+            "label_type": "ArgumentList"
+          },
+          "193": {
+            "label_type": "SymbolLookup",
+            "symbol": "userCookie"
+          },
+          "196": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.RequestDispatcher"
+          },
+          "198": {
+            "label_type": "VariableDeclarator",
+            "value_id": "201",
+            "variable_name": "rd"
+          },
+          "2": {
+            "comment": "/**\n* OWASP Benchmark v1.2\n*\n* This file is part of the Open Web Application Security Project (OWASP)\n* Benchmark Project. For details, please see\n* <a href=\"https://owasp.org/www-project-benchmark/\">https://owasp.org/www-project-benchmark/</a>.\n*\n* The OWASP Benchmark is free software: you can redistribute it and/or modify it under the terms\n* of the GNU General Public License as published by the Free Software Foundation, version 2.\n*\n* The OWASP Benchmark is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without\n* even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n* GNU General Public License for more details.\n*\n* @author Dave Wichers\n* @created 2015\n*/",
+            "label_type": "Comment"
+          },
+          "201": {
+            "arguments_id": "205",
+            "expression": "getRequestDispatcher",
+            "expression_id": "204",
+            "label_type": "MethodInvocation"
+          },
+          "204": {
+            "label_type": "SymbolLookup",
+            "symbol": "getRequestDispatcher"
+          },
+          "205": {
+            "label_type": "ArgumentList"
+          },
+          "207": {
+            "label_type": "Literal",
+            "value": "\"/pathtraver-00/BenchmarkTest00001.html\"",
+            "value_type": "string"
+          },
+          "211": {
+            "arguments_id": "215",
+            "expression": "include",
+            "expression_id": "214",
+            "label_type": "MethodInvocation"
+          },
+          "214": {
+            "label_type": "SymbolLookup",
+            "symbol": "include"
+          },
+          "215": {
+            "label_type": "ArgumentList"
+          },
+          "217": {
+            "label_type": "SymbolLookup",
+            "symbol": "request"
+          },
+          "219": {
+            "label_type": "SymbolLookup",
+            "symbol": "response"
+          },
+          "223": {
+            "block_id": "246",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "224",
+            "name": "doPost",
+            "parameters_id": "231"
+          },
+          "224": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "23": {
+            "expression": "javax.servlet.http.HttpServletRequest",
+            "label_type": "Import"
+          },
+          "231": {
+            "label_type": "ParameterList"
+          },
+          "233": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "237": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "246": {
+            "label_type": "ExecutionBlock"
+          },
+          "248": {
+            "comment": "// some code",
+            "label_type": "Comment"
+          },
+          "250": {
+            "arguments_id": "254",
+            "expression": "setContentType",
+            "expression_id": "253",
+            "label_type": "MethodInvocation"
+          },
+          "253": {
+            "label_type": "SymbolLookup",
+            "symbol": "setContentType"
+          },
+          "254": {
+            "label_type": "ArgumentList"
+          },
+          "256": {
+            "label_type": "Literal",
+            "value": "\"text/html;charset=UTF-8\"",
+            "value_type": "string"
+          },
+          "259": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie[]"
+          },
+          "261": {
+            "label_type": "VariableDeclarator",
+            "value_id": "264",
+            "variable_name": "theCookies"
+          },
+          "264": {
+            "arguments_id": "268",
+            "expression": "getCookies",
+            "expression_id": "267",
+            "label_type": "MethodInvocation"
+          },
+          "267": {
+            "label_type": "SymbolLookup",
+            "symbol": "getCookies"
+          },
+          "268": {
+            "label_type": "ArgumentList"
+          },
+          "27": {
+            "expression": "javax.servlet.http.HttpServletResponse",
+            "label_type": "Import"
+          },
+          "272": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "274": {
+            "label_type": "VariableDeclarator",
+            "value_id": "277",
+            "variable_name": "param"
+          },
+          "277": {
+            "label_type": "Literal",
+            "value": "\"noCookieValueSupplied\"",
+            "value_type": "string"
+          },
+          "279": {
+            "condition_id": "281",
+            "label_type": "If",
+            "true_id": "288"
+          },
+          "283": {
+            "label_type": "BinaryOperation",
+            "left_id": "284",
+            "operator": "!=",
+            "right_id": "286"
+          },
+          "284": {
+            "label_type": "SymbolLookup",
+            "symbol": "theCookies"
+          },
+          "286": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "288": {
+            "label_type": "ExecutionBlock"
+          },
+          "290": {
+            "body_id": "298",
+            "identifier_name": "theCookie",
+            "identifier_type": "javax.servlet.http.Cookie",
+            "label_type": "EnhancedForStatement",
+            "value_id": "298"
+          },
+          "298": {
+            "label_type": "ExecutionBlock"
+          },
+          "3": {
+            "expression": "org.owasp.benchmark.testcode",
+            "label_type": "PackageDeclaration"
+          },
+          "300": {
+            "condition_id": "302",
+            "label_type": "If",
+            "true_id": "319"
+          },
+          "304": {
+            "arguments_id": "314",
+            "expression": "equals",
+            "expression_id": "313",
+            "label_type": "MethodInvocation"
+          },
+          "31": {
+            "block_id": "49",
+            "label_type": "Class",
+            "name": "BenchmarkTest00001"
+          },
+          "313": {
+            "label_type": "SymbolLookup",
+            "symbol": "equals"
+          },
+          "314": {
+            "label_type": "ArgumentList"
+          },
+          "316": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00001\"",
+            "value_type": "string"
+          },
+          "319": {
+            "label_type": "ExecutionBlock"
+          },
+          "322": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "325",
+            "variable_id": "323"
+          },
+          "323": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "325": {
+            "arguments_id": "329",
+            "expression": "decode",
+            "expression_id": "328",
+            "label_type": "MethodInvocation"
+          },
+          "328": {
+            "label_type": "SymbolLookup",
+            "symbol": "decode"
+          },
+          "329": {
+            "label_type": "ArgumentList"
+          },
+          "331": {
+            "arguments_id": "335",
+            "expression": "getValue",
+            "expression_id": "334",
+            "label_type": "MethodInvocation"
+          },
+          "334": {
+            "label_type": "SymbolLookup",
+            "symbol": "getValue"
+          },
+          "335": {
+            "label_type": "ArgumentList"
+          },
+          "339": {
+            "label_type": "Literal",
+            "value": "\"UTF-8\"",
+            "value_type": "string"
+          },
+          "342": {
+            "label_type": "Break"
+          },
+          "348": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "350": {
+            "label_type": "VariableDeclarator",
+            "value_id": "353",
+            "variable_name": "fileName"
+          },
+          "353": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "355": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "java.io.FileInputStream"
+          },
+          "357": {
+            "label_type": "VariableDeclarator",
+            "value_id": "360",
+            "variable_name": "fis"
+          },
+          "360": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "362": {
+            "block_id": "364",
+            "label_type": "TryStatement"
+          },
+          "364": {
+            "label_type": "ExecutionBlock"
+          },
+          "367": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "370",
+            "variable_id": "368"
+          },
+          "368": {
+            "label_type": "SymbolLookup",
+            "symbol": "fileName"
+          },
+          "370": {
+            "label_type": "BinaryOperation",
+            "left_id": "371",
+            "operator": "+",
+            "right_id": "373"
+          },
+          "371": {
+            "field_text": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "label_type": "FieldAccess"
+          },
+          "373": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "376": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "379",
+            "variable_id": "377"
+          },
+          "377": {
+            "label_type": "SymbolLookup",
+            "symbol": "fis"
+          },
+          "379": {
+            "arguments_id": "382",
+            "label_type": "ObjectCreation",
+            "name": "java.io.FileInputStream"
+          },
+          "382": {
+            "label_type": "ArgumentList"
+          },
+          "384": {
+            "arguments_id": "387",
+            "label_type": "ObjectCreation",
+            "name": "java.io.File"
+          },
+          "387": {
+            "label_type": "ArgumentList"
+          },
+          "389": {
+            "label_type": "SymbolLookup",
+            "symbol": "fileName"
+          },
+          "393": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "byte[]"
+          },
+          "395": {
+            "label_type": "VariableDeclarator",
+            "value_id": "398",
+            "variable_name": "b"
+          },
+          "398": {
+            "array_type_id": "400",
+            "initializer_id": "401",
+            "label_type": "ArrayCreation"
+          },
+          "400": {
+            "label_type": "Literal",
+            "value": "byte",
+            "value_type": "string"
+          },
+          "401": {
+            "label_type": "DimensionsExpr",
+            "value_id": "403"
+          },
+          "403": {
+            "label_type": "Literal",
+            "value": "1000",
+            "value_type": "string"
+          },
+          "406": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "408": {
+            "label_type": "VariableDeclarator",
+            "value_id": "411",
+            "variable_name": "size"
+          },
+          "411": {
+            "arguments_id": "415",
+            "expression": "read",
+            "expression_id": "414",
+            "label_type": "MethodInvocation"
+          },
+          "414": {
+            "label_type": "SymbolLookup",
+            "symbol": "read"
+          },
+          "415": {
+            "label_type": "ArgumentList"
+          },
+          "417": {
+            "label_type": "SymbolLookup",
+            "symbol": "b"
+          },
+          "421": {
+            "arguments_id": "431",
+            "expression": "println",
+            "expression_id": "430",
+            "label_type": "MethodInvocation"
+          },
+          "430": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "431": {
+            "label_type": "ArgumentList"
+          },
+          "433": {
+            "label_type": "BinaryOperation",
+            "left_id": "434",
+            "operator": "+",
+            "right_id": "455"
+          },
+          "434": {
+            "label_type": "BinaryOperation",
+            "left_id": "435",
+            "operator": "+",
+            "right_id": "453"
+          },
+          "435": {
+            "label_type": "BinaryOperation",
+            "left_id": "436",
+            "operator": "+",
+            "right_id": "438"
+          },
+          "436": {
+            "label_type": "Literal",
+            "value": "\"The beginning of file: '\"",
+            "value_type": "string"
+          },
+          "438": {
+            "arguments_id": "448",
+            "expression": "encodeForHTML",
+            "expression_id": "447",
+            "label_type": "MethodInvocation"
+          },
+          "447": {
+            "label_type": "SymbolLookup",
+            "symbol": "encodeForHTML"
+          },
+          "448": {
+            "label_type": "ArgumentList"
+          },
+          "450": {
+            "label_type": "SymbolLookup",
+            "symbol": "fileName"
+          },
+          "453": {
+            "label_type": "Literal",
+            "value": "\"' is:\\n\\n\"",
+            "value_type": "string"
+          },
+          "455": {
+            "arguments_id": "465",
+            "expression": "encodeForHTML",
+            "expression_id": "464",
+            "label_type": "MethodInvocation"
+          },
+          "464": {
+            "label_type": "SymbolLookup",
+            "symbol": "encodeForHTML"
+          },
+          "465": {
+            "label_type": "ArgumentList"
+          },
+          "467": {
+            "arguments_id": "470",
+            "label_type": "ObjectCreation",
+            "name": "String"
+          },
+          "470": {
+            "label_type": "ArgumentList"
+          },
+          "472": {
+            "label_type": "SymbolLookup",
+            "symbol": "b"
+          },
+          "474": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "string"
+          },
+          "476": {
+            "label_type": "SymbolLookup",
+            "symbol": "size"
+          },
+          "482": {
+            "block_id": "490",
+            "label_type": "CatchClause"
+          },
+          "49": {
+            "label_type": "ClassBody"
+          },
+          "490": {
+            "label_type": "ExecutionBlock"
+          },
+          "493": {
+            "arguments_id": "497",
+            "expression": "println",
+            "expression_id": "496",
+            "label_type": "MethodInvocation"
+          },
+          "496": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "497": {
+            "label_type": "ArgumentList"
+          },
+          "499": {
+            "label_type": "BinaryOperation",
+            "left_id": "500",
+            "operator": "+",
+            "right_id": "505"
+          },
+          "500": {
+            "label_type": "BinaryOperation",
+            "left_id": "501",
+            "operator": "+",
+            "right_id": "503"
+          },
+          "501": {
+            "label_type": "Literal",
+            "value": "\"Couldn't open FileInputStream on file: '\"",
+            "value_type": "string"
+          },
+          "503": {
+            "label_type": "SymbolLookup",
+            "symbol": "fileName"
+          },
+          "505": {
+            "label_type": "Literal",
+            "value": "\"'\"",
+            "value_type": "string"
+          },
+          "509": {
+            "arguments_id": "519",
+            "expression": "println",
+            "expression_id": "518",
+            "label_type": "MethodInvocation"
+          },
+          "51": {
+            "field_type": "long",
+            "label_type": "FieldDeclaration"
+          },
+          "518": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "519": {
+            "label_type": "ArgumentList"
+          },
+          "521": {
+            "label_type": "BinaryOperation",
+            "left_id": "522",
+            "operator": "+",
+            "right_id": "524"
+          },
+          "522": {
+            "label_type": "Literal",
+            "value": "\"Problem getting FileInputStream: \"",
+            "value_type": "string"
+          },
+          "524": {
+            "arguments_id": "534",
+            "expression": "encodeForHTML",
+            "expression_id": "533",
+            "label_type": "MethodInvocation"
+          },
+          "533": {
+            "label_type": "SymbolLookup",
+            "symbol": "encodeForHTML"
+          },
+          "534": {
+            "label_type": "ArgumentList"
+          },
+          "536": {
+            "arguments_id": "540",
+            "expression": "getMessage",
+            "expression_id": "539",
+            "label_type": "MethodInvocation"
+          },
+          "539": {
+            "label_type": "SymbolLookup",
+            "symbol": "getMessage"
+          },
+          "540": {
+            "label_type": "ArgumentList"
+          },
+          "547": {
+            "block_id": "549",
+            "label_type": "FinallyClause"
+          },
+          "549": {
+            "label_type": "ExecutionBlock"
+          },
+          "551": {
+            "condition_id": "553",
+            "label_type": "If",
+            "true_id": "560"
+          },
+          "555": {
+            "label_type": "BinaryOperation",
+            "left_id": "556",
+            "operator": "!=",
+            "right_id": "558"
+          },
+          "556": {
+            "label_type": "SymbolLookup",
+            "symbol": "fis"
+          },
+          "558": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "560": {
+            "label_type": "ExecutionBlock"
+          },
+          "562": {
+            "block_id": "564",
+            "label_type": "TryStatement"
+          },
+          "564": {
+            "label_type": "ExecutionBlock"
+          },
+          "567": {
+            "arguments_id": "571",
+            "expression": "close",
+            "expression_id": "570",
+            "label_type": "MethodInvocation"
+          },
+          "57": {
+            "label_type": "VariableDeclarator",
+            "value_id": "60",
+            "variable_name": "serialVersionUID"
+          },
+          "570": {
+            "label_type": "SymbolLookup",
+            "symbol": "close"
+          },
+          "571": {
+            "label_type": "ArgumentList"
+          },
+          "576": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "579",
+            "variable_id": "577"
+          },
+          "577": {
+            "label_type": "SymbolLookup",
+            "symbol": "fis"
+          },
+          "579": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "582": {
+            "block_id": "590",
+            "label_type": "CatchClause"
+          },
+          "590": {
+            "label_type": "ExecutionBlock"
+          },
+          "592": {
+            "comment": "// we tried...",
+            "label_type": "Comment"
+          },
+          "60": {
+            "label_type": "Literal",
+            "value": "1L",
+            "value_type": "string"
+          },
+          "62": {
+            "block_id": "85",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "63",
+            "name": "doGet",
+            "parameters_id": "70"
+          },
+          "63": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "7": {
+            "expression": "java.io.IOException",
+            "label_type": "Import"
+          },
+          "70": {
+            "label_type": "ParameterList"
+          },
+          "72": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "76": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "85": {
+            "label_type": "ExecutionBlock"
+          },
+          "88": {
+            "arguments_id": "92",
+            "expression": "setContentType",
+            "expression_id": "91",
+            "label_type": "MethodInvocation"
+          },
+          "91": {
+            "label_type": "SymbolLookup",
+            "symbol": "setContentType"
+          },
+          "92": {
+            "label_type": "ArgumentList"
+          },
+          "94": {
+            "label_type": "Literal",
+            "value": "\"text/html;charset=UTF-8\"",
+            "value_type": "string"
+          },
+          "97": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie"
+          },
+          "99": {
+            "label_type": "VariableDeclarator",
+            "value_id": "102",
+            "variable_name": "userCookie"
+          }
+        }
+      }
     },
     {
       "graph": {
@@ -12648,7 +14377,911 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "15": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "106": {
+            "108": {
+              "label_ast": "AST"
+            },
+            "112": {
+              "label_ast": "AST"
+            }
+          },
+          "121": {
+            "123": {
+              "label_ast": "AST"
+            },
+            "125": {
+              "label_ast": "AST"
+            },
+            "134": {
+              "label_ast": "AST"
+            },
+            "141": {
+              "label_ast": "AST"
+            },
+            "173": {
+              "label_ast": "AST"
+            },
+            "175": {
+              "label_ast": "AST"
+            },
+            "189": {
+              "label_ast": "AST"
+            },
+            "202": {
+              "label_ast": "AST"
+            }
+          },
+          "125": {
+            "128": {
+              "label_ast": "AST"
+            },
+            "129": {
+              "label_ast": "AST"
+            }
+          },
+          "129": {
+            "131": {
+              "label_ast": "AST"
+            }
+          },
+          "134": {
+            "136": {
+              "label_ast": "AST"
+            }
+          },
+          "136": {
+            "139": {
+              "label_ast": "AST"
+            }
+          },
+          "141": {
+            "145": {
+              "label_ast": "AST"
+            },
+            "157": {
+              "label_ast": "AST"
+            }
+          },
+          "145": {
+            "146": {
+              "label_ast": "AST"
+            },
+            "155": {
+              "label_ast": "AST"
+            }
+          },
+          "146": {
+            "149": {
+              "label_ast": "AST"
+            },
+            "150": {
+              "label_ast": "AST"
+            }
+          },
+          "150": {
+            "152": {
+              "label_ast": "AST"
+            }
+          },
+          "157": {
+            "160": {
+              "label_ast": "AST"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST"
+            },
+            "163": {
+              "label_ast": "AST"
+            }
+          },
+          "163": {
+            "166": {
+              "label_ast": "AST"
+            },
+            "167": {
+              "label_ast": "AST"
+            }
+          },
+          "167": {
+            "169": {
+              "label_ast": "AST"
+            }
+          },
+          "175": {
+            "176": {
+              "label_ast": "AST"
+            },
+            "178": {
+              "label_ast": "AST"
+            }
+          },
+          "178": {
+            "181": {
+              "label_ast": "AST"
+            },
+            "182": {
+              "label_ast": "AST"
+            }
+          },
+          "182": {
+            "184": {
+              "label_ast": "AST"
+            },
+            "186": {
+              "label_ast": "AST"
+            }
+          },
+          "189": {
+            "191": {
+              "label_ast": "AST"
+            }
+          },
+          "191": {
+            "194": {
+              "label_ast": "AST"
+            }
+          },
+          "194": {
+            "195": {
+              "label_ast": "AST"
+            },
+            "200": {
+              "label_ast": "AST"
+            }
+          },
+          "195": {
+            "196": {
+              "label_ast": "AST"
+            },
+            "198": {
+              "label_ast": "AST"
+            }
+          },
+          "202": {
+            "204": {
+              "label_ast": "AST"
+            },
+            "261": {
+              "label_ast": "AST"
+            }
+          },
+          "204": {
+            "206": {
+              "label_ast": "AST"
+            },
+            "219": {
+              "label_ast": "AST"
+            },
+            "233": {
+              "label_ast": "AST"
+            },
+            "247": {
+              "label_ast": "AST"
+            }
+          },
+          "206": {
+            "208": {
+              "label_ast": "AST"
+            }
+          },
+          "208": {
+            "211": {
+              "label_ast": "AST"
+            }
+          },
+          "211": {
+            "214": {
+              "label_ast": "AST"
+            },
+            "215": {
+              "label_ast": "AST"
+            }
+          },
+          "219": {
+            "221": {
+              "label_ast": "AST"
+            }
+          },
+          "221": {
+            "224": {
+              "label_ast": "AST"
+            }
+          },
+          "224": {
+            "227": {
+              "label_ast": "AST"
+            },
+            "228": {
+              "label_ast": "AST"
+            }
+          },
+          "228": {
+            "230": {
+              "label_ast": "AST"
+            }
+          },
+          "233": {
+            "235": {
+              "label_ast": "AST"
+            }
+          },
+          "235": {
+            "238": {
+              "label_ast": "AST"
+            }
+          },
+          "238": {
+            "241": {
+              "label_ast": "AST"
+            },
+            "242": {
+              "label_ast": "AST"
+            }
+          },
+          "247": {
+            "250": {
+              "label_ast": "AST"
+            },
+            "251": {
+              "label_ast": "AST"
+            }
+          },
+          "251": {
+            "253": {
+              "label_ast": "AST"
+            },
+            "255": {
+              "label_ast": "AST"
+            },
+            "257": {
+              "label_ast": "AST"
+            }
+          },
+          "261": {
+            "269": {
+              "label_ast": "AST"
+            }
+          },
+          "269": {
+            "271": {
+              "label_ast": "AST"
+            }
+          },
+          "271": {
+            "275": {
+              "label_ast": "AST"
+            },
+            "277": {
+              "label_ast": "AST"
+            },
+            "300": {
+              "label_ast": "AST"
+            }
+          },
+          "277": {
+            "280": {
+              "label_ast": "AST"
+            },
+            "295": {
+              "label_ast": "AST"
+            }
+          },
+          "280": {
+            "289": {
+              "label_ast": "AST"
+            },
+            "290": {
+              "label_ast": "AST"
+            }
+          },
+          "290": {
+            "292": {
+              "label_ast": "AST"
+            }
+          },
+          "300": {
+            "302": {
+              "label_ast": "AST"
+            }
+          },
+          "302": {
+            "305": {
+              "label_ast": "AST"
+            }
+          },
+          "305": {
+            "307": {
+              "label_ast": "AST"
+            }
+          },
+          "31": {
+            "49": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "49": {
+            "51": {
+              "label_ast": "AST"
+            },
+            "62": {
+              "label_ast": "AST"
+            },
+            "98": {
+              "label_ast": "AST"
+            }
+          },
+          "51": {
+            "57": {
+              "label_ast": "AST"
+            }
+          },
+          "57": {
+            "60": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            },
+            "85": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "72": {
+              "label_ast": "AST"
+            },
+            "76": {
+              "label_ast": "AST"
+            }
+          },
+          "85": {
+            "88": {
+              "label_ast": "AST"
+            }
+          },
+          "88": {
+            "89": {
+              "label_ast": "AST"
+            },
+            "90": {
+              "label_ast": "AST"
+            }
+          },
+          "90": {
+            "92": {
+              "label_ast": "AST"
+            },
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "98": {
+            "106": {
+              "label_ast": "AST"
+            },
+            "121": {
+              "label_ast": "AST"
+            },
+            "99": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "106": {
+            "label_type": "ParameterList"
+          },
+          "108": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "11": {
+            "expression": "javax.servlet.ServletException",
+            "label_type": "Import"
+          },
+          "112": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "121": {
+            "label_type": "ExecutionBlock"
+          },
+          "123": {
+            "comment": "// some code",
+            "label_type": "Comment"
+          },
+          "125": {
+            "arguments_id": "129",
+            "expression": "setContentType",
+            "expression_id": "128",
+            "label_type": "MethodInvocation"
+          },
+          "128": {
+            "label_type": "SymbolLookup",
+            "symbol": "setContentType"
+          },
+          "129": {
+            "label_type": "ArgumentList"
+          },
+          "131": {
+            "label_type": "Literal",
+            "value": "\"text/html;charset=UTF-8\"",
+            "value_type": "string"
+          },
+          "134": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "136": {
+            "label_type": "VariableDeclarator",
+            "value_id": "139",
+            "variable_name": "param"
+          },
+          "139": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
+          },
+          "141": {
+            "condition_id": "143",
+            "label_type": "If",
+            "true_id": "157"
+          },
+          "145": {
+            "label_type": "BinaryOperation",
+            "left_id": "146",
+            "operator": "!=",
+            "right_id": "155"
+          },
+          "146": {
+            "arguments_id": "150",
+            "expression": "getHeader",
+            "expression_id": "149",
+            "label_type": "MethodInvocation"
+          },
+          "149": {
+            "label_type": "SymbolLookup",
+            "symbol": "getHeader"
+          },
+          "15": {
+            "expression": "javax.servlet.annotation.WebServlet",
+            "label_type": "Import"
+          },
+          "150": {
+            "label_type": "ArgumentList"
+          },
+          "152": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00008\"",
+            "value_type": "string"
+          },
+          "155": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "157": {
+            "label_type": "ExecutionBlock"
+          },
+          "160": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "163",
+            "variable_id": "161"
+          },
+          "161": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "163": {
+            "arguments_id": "167",
+            "expression": "getHeader",
+            "expression_id": "166",
+            "label_type": "MethodInvocation"
+          },
+          "166": {
+            "label_type": "SymbolLookup",
+            "symbol": "getHeader"
+          },
+          "167": {
+            "label_type": "ArgumentList"
+          },
+          "169": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00008\"",
+            "value_type": "string"
+          },
+          "173": {
+            "comment": "// URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().",
+            "label_type": "Comment"
+          },
+          "175": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "178",
+            "variable_id": "176"
+          },
+          "176": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "178": {
+            "arguments_id": "182",
+            "expression": "decode",
+            "expression_id": "181",
+            "label_type": "MethodInvocation"
+          },
+          "181": {
+            "label_type": "SymbolLookup",
+            "symbol": "decode"
+          },
+          "182": {
+            "label_type": "ArgumentList"
+          },
+          "184": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "186": {
+            "label_type": "Literal",
+            "value": "\"UTF-8\"",
+            "value_type": "string"
+          },
+          "189": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "19": {
+            "expression": "javax.servlet.http.HttpServlet",
+            "label_type": "Import"
+          },
+          "191": {
+            "label_type": "VariableDeclarator",
+            "value_id": "194",
+            "variable_name": "sql"
+          },
+          "194": {
+            "label_type": "BinaryOperation",
+            "left_id": "195",
+            "operator": "+",
+            "right_id": "200"
+          },
+          "195": {
+            "label_type": "BinaryOperation",
+            "left_id": "196",
+            "operator": "+",
+            "right_id": "198"
+          },
+          "196": {
+            "label_type": "Literal",
+            "value": "\"{call \"",
+            "value_type": "string"
+          },
+          "198": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "2": {
+            "comment": "/**\n* OWASP Benchmark v1.2\n*\n* This file is part of the Open Web Application Security Project (OWASP)\n* Benchmark Project. For details, please see\n* <a href=\"https://www.owasp.org/index.php/Benchmark\">https://www.owasp.org/index.php/Benchmark</a>.\n*\n* The OWASP Benchmark is free software: you can redistribute it and/or modify it under the terms\n* of the GNU General Public License as published by the Free Software Foundation, version 2.\n*\n* The OWASP Benchmark is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without\n* even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n* GNU General Public License for more details.\n*\n* @author Dave Wichers <a href=\"https://www.aspectsecurity.com\">Aspect Security</a>\n* @created 2015\n*/",
+            "label_type": "Comment"
+          },
+          "200": {
+            "label_type": "Literal",
+            "value": "\"}\"",
+            "value_type": "string"
+          },
+          "202": {
+            "block_id": "204",
+            "label_type": "TryStatement"
+          },
+          "204": {
+            "label_type": "ExecutionBlock"
+          },
+          "206": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "java.sql.Connection"
+          },
+          "208": {
+            "label_type": "VariableDeclarator",
+            "value_id": "211",
+            "variable_name": "connection"
+          },
+          "211": {
+            "arguments_id": "215",
+            "expression": "getSqlConnection",
+            "expression_id": "214",
+            "label_type": "MethodInvocation"
+          },
+          "214": {
+            "label_type": "SymbolLookup",
+            "symbol": "getSqlConnection"
+          },
+          "215": {
+            "label_type": "ArgumentList"
+          },
+          "219": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "java.sql.CallableStatement"
+          },
+          "221": {
+            "label_type": "VariableDeclarator",
+            "value_id": "224",
+            "variable_name": "statement"
+          },
+          "224": {
+            "arguments_id": "228",
+            "expression": "prepareCall",
+            "expression_id": "227",
+            "label_type": "MethodInvocation"
+          },
+          "227": {
+            "label_type": "SymbolLookup",
+            "symbol": "prepareCall"
+          },
+          "228": {
+            "label_type": "ArgumentList"
+          },
+          "23": {
+            "expression": "javax.servlet.http.HttpServletRequest",
+            "label_type": "Import"
+          },
+          "230": {
+            "label_type": "SymbolLookup",
+            "symbol": "sql"
+          },
+          "233": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "java.sql.ResultSet"
+          },
+          "235": {
+            "label_type": "VariableDeclarator",
+            "value_id": "238",
+            "variable_name": "rs"
+          },
+          "238": {
+            "arguments_id": "242",
+            "expression": "executeQuery",
+            "expression_id": "241",
+            "label_type": "MethodInvocation"
+          },
+          "241": {
+            "label_type": "SymbolLookup",
+            "symbol": "executeQuery"
+          },
+          "242": {
+            "label_type": "ArgumentList"
+          },
+          "247": {
+            "arguments_id": "251",
+            "expression": "printResults",
+            "expression_id": "250",
+            "label_type": "MethodInvocation"
+          },
+          "250": {
+            "label_type": "SymbolLookup",
+            "symbol": "printResults"
+          },
+          "251": {
+            "label_type": "ArgumentList"
+          },
+          "253": {
+            "label_type": "SymbolLookup",
+            "symbol": "rs"
+          },
+          "255": {
+            "label_type": "SymbolLookup",
+            "symbol": "sql"
+          },
+          "257": {
+            "label_type": "SymbolLookup",
+            "symbol": "response"
+          },
+          "261": {
+            "block_id": "269",
+            "label_type": "CatchClause"
+          },
+          "269": {
+            "label_type": "ExecutionBlock"
+          },
+          "27": {
+            "expression": "javax.servlet.http.HttpServletResponse",
+            "label_type": "Import"
+          },
+          "271": {
+            "condition_id": "273",
+            "false_id": "300",
+            "label_type": "If",
+            "true_id": "277"
+          },
+          "275": {
+            "field_text": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "label_type": "FieldAccess"
+          },
+          "277": {
+            "label_type": "ExecutionBlock"
+          },
+          "280": {
+            "arguments_id": "290",
+            "expression": "println",
+            "expression_id": "289",
+            "label_type": "MethodInvocation"
+          },
+          "289": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "290": {
+            "label_type": "ArgumentList"
+          },
+          "292": {
+            "label_type": "Literal",
+            "value": "\"Error processing request.\"",
+            "value_type": "string"
+          },
+          "295": {
+            "label_type": "Return",
+            "value_id": null
+          },
+          "3": {
+            "expression": "org.owasp.benchmark.testcode",
+            "label_type": "PackageDeclaration"
+          },
+          "300": {
+            "expression_id": "302",
+            "label_type": "ThrowStatement"
+          },
+          "302": {
+            "arguments_id": "305",
+            "label_type": "ObjectCreation",
+            "name": "ServletException"
+          },
+          "305": {
+            "label_type": "ArgumentList"
+          },
+          "307": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
+          },
+          "31": {
+            "block_id": "49",
+            "label_type": "Class",
+            "name": "BenchmarkTest00008"
+          },
+          "49": {
+            "label_type": "ClassBody"
+          },
+          "51": {
+            "field_type": "long",
+            "label_type": "FieldDeclaration"
+          },
+          "57": {
+            "label_type": "VariableDeclarator",
+            "value_id": "60",
+            "variable_name": "serialVersionUID"
+          },
+          "60": {
+            "label_type": "Literal",
+            "value": "1L",
+            "value_type": "string"
+          },
+          "62": {
+            "block_id": "85",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "63",
+            "name": "doGet",
+            "parameters_id": "70"
+          },
+          "63": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "7": {
+            "expression": "java.io.IOException",
+            "label_type": "Import"
+          },
+          "70": {
+            "label_type": "ParameterList"
+          },
+          "72": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "76": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "85": {
+            "label_type": "ExecutionBlock"
+          },
+          "88": {
+            "arguments_id": "90",
+            "expression": "doPost",
+            "expression_id": "89",
+            "label_type": "MethodInvocation"
+          },
+          "89": {
+            "label_type": "SymbolLookup",
+            "symbol": "doPost"
+          },
+          "90": {
+            "label_type": "ArgumentList"
+          },
+          "92": {
+            "label_type": "SymbolLookup",
+            "symbol": "request"
+          },
+          "94": {
+            "label_type": "SymbolLookup",
+            "symbol": "response"
+          },
+          "98": {
+            "block_id": "121",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "99",
+            "name": "doPost",
+            "parameters_id": "106"
+          },
+          "99": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          }
+        }
+      }
     },
     {
       "graph": {
@@ -21919,7 +24552,2058 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "15": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "106": {
+            "108": {
+              "label_ast": "AST"
+            },
+            "112": {
+              "label_ast": "AST"
+            }
+          },
+          "121": {
+            "124": {
+              "label_ast": "AST"
+            },
+            "133": {
+              "label_ast": "AST"
+            },
+            "140": {
+              "label_ast": "AST"
+            },
+            "172": {
+              "label_ast": "AST"
+            },
+            "174": {
+              "label_ast": "AST"
+            },
+            "188": {
+              "label_ast": "AST"
+            },
+            "195": {
+              "label_ast": "AST"
+            },
+            "239": {
+              "label_ast": "AST"
+            },
+            "257": {
+              "label_ast": "AST"
+            },
+            "271": {
+              "label_ast": "AST"
+            },
+            "278": {
+              "label_ast": "AST"
+            },
+            "297": {
+              "label_ast": "AST"
+            },
+            "331": {
+              "label_ast": "AST"
+            },
+            "336": {
+              "label_ast": "AST"
+            },
+            "346": {
+              "label_ast": "AST"
+            },
+            "353": {
+              "label_ast": "AST"
+            },
+            "366": {
+              "label_ast": "AST"
+            },
+            "479": {
+              "label_ast": "AST"
+            },
+            "639": {
+              "label_ast": "AST"
+            }
+          },
+          "124": {
+            "127": {
+              "label_ast": "AST"
+            },
+            "128": {
+              "label_ast": "AST"
+            }
+          },
+          "128": {
+            "130": {
+              "label_ast": "AST"
+            }
+          },
+          "133": {
+            "135": {
+              "label_ast": "AST"
+            }
+          },
+          "135": {
+            "138": {
+              "label_ast": "AST"
+            }
+          },
+          "140": {
+            "144": {
+              "label_ast": "AST"
+            },
+            "156": {
+              "label_ast": "AST"
+            }
+          },
+          "144": {
+            "145": {
+              "label_ast": "AST"
+            },
+            "154": {
+              "label_ast": "AST"
+            }
+          },
+          "145": {
+            "148": {
+              "label_ast": "AST"
+            },
+            "149": {
+              "label_ast": "AST"
+            }
+          },
+          "149": {
+            "151": {
+              "label_ast": "AST"
+            }
+          },
+          "156": {
+            "159": {
+              "label_ast": "AST"
+            }
+          },
+          "159": {
+            "160": {
+              "label_ast": "AST"
+            },
+            "162": {
+              "label_ast": "AST"
+            }
+          },
+          "162": {
+            "165": {
+              "label_ast": "AST"
+            },
+            "166": {
+              "label_ast": "AST"
+            }
+          },
+          "166": {
+            "168": {
+              "label_ast": "AST"
+            }
+          },
+          "174": {
+            "175": {
+              "label_ast": "AST"
+            },
+            "177": {
+              "label_ast": "AST"
+            }
+          },
+          "177": {
+            "180": {
+              "label_ast": "AST"
+            },
+            "181": {
+              "label_ast": "AST"
+            }
+          },
+          "181": {
+            "183": {
+              "label_ast": "AST"
+            },
+            "185": {
+              "label_ast": "AST"
+            }
+          },
+          "188": {
+            "190": {
+              "label_ast": "AST"
+            }
+          },
+          "190": {
+            "193": {
+              "label_ast": "AST"
+            }
+          },
+          "195": {
+            "199": {
+              "label_ast": "AST"
+            },
+            "204": {
+              "label_ast": "AST"
+            }
+          },
+          "199": {
+            "200": {
+              "label_ast": "AST"
+            },
+            "202": {
+              "label_ast": "AST"
+            }
+          },
+          "204": {
+            "207": {
+              "label_ast": "AST"
+            }
+          },
+          "207": {
+            "208": {
+              "label_ast": "AST"
+            },
+            "210": {
+              "label_ast": "AST"
+            }
+          },
+          "210": {
+            "213": {
+              "label_ast": "AST"
+            }
+          },
+          "213": {
+            "215": {
+              "label_ast": "AST"
+            }
+          },
+          "215": {
+            "218": {
+              "label_ast": "AST"
+            },
+            "219": {
+              "label_ast": "AST"
+            }
+          },
+          "219": {
+            "221": {
+              "label_ast": "AST"
+            }
+          },
+          "221": {
+            "224": {
+              "label_ast": "AST"
+            },
+            "225": {
+              "label_ast": "AST"
+            }
+          },
+          "225": {
+            "227": {
+              "label_ast": "AST"
+            }
+          },
+          "227": {
+            "230": {
+              "label_ast": "AST"
+            },
+            "231": {
+              "label_ast": "AST"
+            }
+          },
+          "239": {
+            "241": {
+              "label_ast": "AST"
+            }
+          },
+          "241": {
+            "244": {
+              "label_ast": "AST"
+            }
+          },
+          "244": {
+            "252": {
+              "label_ast": "AST"
+            },
+            "253": {
+              "label_ast": "AST"
+            }
+          },
+          "257": {
+            "259": {
+              "label_ast": "AST"
+            }
+          },
+          "259": {
+            "262": {
+              "label_ast": "AST"
+            }
+          },
+          "262": {
+            "265": {
+              "label_ast": "AST"
+            },
+            "266": {
+              "label_ast": "AST"
+            }
+          },
+          "266": {
+            "268": {
+              "label_ast": "AST"
+            }
+          },
+          "271": {
+            "273": {
+              "label_ast": "AST"
+            }
+          },
+          "273": {
+            "276": {
+              "label_ast": "AST"
+            }
+          },
+          "278": {
+            "280": {
+              "label_ast": "AST"
+            }
+          },
+          "280": {
+            "283": {
+              "label_ast": "AST"
+            }
+          },
+          "283": {
+            "292": {
+              "label_ast": "AST"
+            },
+            "293": {
+              "label_ast": "AST"
+            }
+          },
+          "297": {
+            "299": {
+              "label_ast": "AST"
+            }
+          },
+          "299": {
+            "302": {
+              "label_ast": "AST"
+            }
+          },
+          "302": {
+            "305": {
+              "label_ast": "AST"
+            },
+            "306": {
+              "label_ast": "AST"
+            }
+          },
+          "306": {
+            "308": {
+              "label_ast": "AST"
+            }
+          },
+          "308": {
+            "309": {
+              "label_ast": "AST"
+            },
+            "321": {
+              "label_ast": "AST"
+            }
+          },
+          "309": {
+            "310": {
+              "label_ast": "AST"
+            },
+            "319": {
+              "label_ast": "AST"
+            }
+          },
+          "31": {
+            "49": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "310": {
+            "313": {
+              "label_ast": "AST"
+            },
+            "314": {
+              "label_ast": "AST"
+            }
+          },
+          "314": {
+            "316": {
+              "label_ast": "AST"
+            }
+          },
+          "321": {
+            "324": {
+              "label_ast": "AST"
+            },
+            "325": {
+              "label_ast": "AST"
+            }
+          },
+          "331": {
+            "332": {
+              "label_ast": "AST"
+            },
+            "334": {
+              "label_ast": "AST"
+            }
+          },
+          "336": {
+            "338": {
+              "label_ast": "AST"
+            }
+          },
+          "338": {
+            "341": {
+              "label_ast": "AST"
+            }
+          },
+          "341": {
+            "342": {
+              "label_ast": "AST"
+            },
+            "344": {
+              "label_ast": "AST"
+            }
+          },
+          "346": {
+            "348": {
+              "label_ast": "AST"
+            }
+          },
+          "348": {
+            "351": {
+              "label_ast": "AST"
+            }
+          },
+          "353": {
+            "355": {
+              "label_ast": "AST"
+            }
+          },
+          "355": {
+            "358": {
+              "label_ast": "AST"
+            }
+          },
+          "358": {
+            "361": {
+              "label_ast": "AST"
+            },
+            "362": {
+              "label_ast": "AST"
+            }
+          },
+          "366": {
+            "370": {
+              "label_ast": "AST"
+            },
+            "375": {
+              "label_ast": "AST"
+            }
+          },
+          "370": {
+            "371": {
+              "label_ast": "AST"
+            },
+            "373": {
+              "label_ast": "AST"
+            }
+          },
+          "375": {
+            "377": {
+              "label_ast": "AST"
+            }
+          },
+          "377": {
+            "380": {
+              "label_ast": "AST"
+            },
+            "387": {
+              "label_ast": "AST"
+            },
+            "397": {
+              "label_ast": "AST"
+            },
+            "401": {
+              "label_ast": "AST"
+            }
+          },
+          "380": {
+            "382": {
+              "label_ast": "AST"
+            }
+          },
+          "382": {
+            "385": {
+              "label_ast": "AST"
+            }
+          },
+          "387": {
+            "388": {
+              "label_ast": "AST"
+            },
+            "392": {
+              "label_ast": "AST"
+            }
+          },
+          "388": {
+            "390": {
+              "label_ast": "AST"
+            }
+          },
+          "392": {
+            "393": {
+              "label_ast": "AST"
+            },
+            "395": {
+              "label_ast": "AST"
+            }
+          },
+          "397": {
+            "398": {
+              "label_ast": "AST"
+            }
+          },
+          "401": {
+            "403": {
+              "label_ast": "AST"
+            },
+            "414": {
+              "label_ast": "AST"
+            }
+          },
+          "403": {
+            "405": {
+              "label_ast": "AST"
+            }
+          },
+          "405": {
+            "408": {
+              "label_ast": "AST"
+            }
+          },
+          "408": {
+            "409": {
+              "label_ast": "AST"
+            }
+          },
+          "414": {
+            "418": {
+              "label_ast": "AST"
+            },
+            "433": {
+              "label_ast": "AST"
+            }
+          },
+          "418": {
+            "421": {
+              "label_ast": "AST"
+            },
+            "422": {
+              "label_ast": "AST"
+            }
+          },
+          "422": {
+            "424": {
+              "label_ast": "AST"
+            }
+          },
+          "424": {
+            "427": {
+              "label_ast": "AST"
+            },
+            "428": {
+              "label_ast": "AST"
+            }
+          },
+          "433": {
+            "435": {
+              "label_ast": "AST"
+            }
+          },
+          "435": {
+            "439": {
+              "label_ast": "AST"
+            },
+            "467": {
+              "label_ast": "AST"
+            }
+          },
+          "439": {
+            "448": {
+              "label_ast": "AST"
+            },
+            "449": {
+              "label_ast": "AST"
+            }
+          },
+          "449": {
+            "451": {
+              "label_ast": "AST"
+            }
+          },
+          "451": {
+            "460": {
+              "label_ast": "AST"
+            },
+            "461": {
+              "label_ast": "AST"
+            }
+          },
+          "461": {
+            "463": {
+              "label_ast": "AST"
+            }
+          },
+          "467": {
+            "470": {
+              "label_ast": "AST"
+            }
+          },
+          "470": {
+            "471": {
+              "label_ast": "AST"
+            },
+            "473": {
+              "label_ast": "AST"
+            }
+          },
+          "479": {
+            "483": {
+              "label_ast": "AST"
+            },
+            "485": {
+              "label_ast": "AST"
+            },
+            "511": {
+              "label_ast": "AST"
+            }
+          },
+          "485": {
+            "488": {
+              "label_ast": "AST"
+            }
+          },
+          "488": {
+            "497": {
+              "label_ast": "AST"
+            },
+            "498": {
+              "label_ast": "AST"
+            }
+          },
+          "49": {
+            "51": {
+              "label_ast": "AST"
+            },
+            "62": {
+              "label_ast": "AST"
+            },
+            "98": {
+              "label_ast": "AST"
+            }
+          },
+          "498": {
+            "500": {
+              "label_ast": "AST"
+            }
+          },
+          "500": {
+            "501": {
+              "label_ast": "AST"
+            },
+            "506": {
+              "label_ast": "AST"
+            }
+          },
+          "501": {
+            "502": {
+              "label_ast": "AST"
+            },
+            "504": {
+              "label_ast": "AST"
+            }
+          },
+          "51": {
+            "57": {
+              "label_ast": "AST"
+            }
+          },
+          "511": {
+            "513": {
+              "label_ast": "AST"
+            },
+            "529": {
+              "label_ast": "AST"
+            },
+            "539": {
+              "label_ast": "AST"
+            },
+            "549": {
+              "label_ast": "AST"
+            },
+            "564": {
+              "label_ast": "AST"
+            },
+            "565": {
+              "label_ast": "AST"
+            },
+            "567": {
+              "label_ast": "AST"
+            },
+            "585": {
+              "label_ast": "AST"
+            },
+            "595": {
+              "label_ast": "AST"
+            }
+          },
+          "513": {
+            "515": {
+              "label_ast": "AST"
+            }
+          },
+          "515": {
+            "518": {
+              "label_ast": "AST"
+            }
+          },
+          "518": {
+            "521": {
+              "label_ast": "AST"
+            }
+          },
+          "521": {
+            "523": {
+              "label_ast": "AST"
+            },
+            "525": {
+              "label_ast": "AST"
+            }
+          },
+          "529": {
+            "532": {
+              "label_ast": "AST"
+            },
+            "533": {
+              "label_ast": "AST"
+            }
+          },
+          "533": {
+            "535": {
+              "label_ast": "AST"
+            }
+          },
+          "539": {
+            "542": {
+              "label_ast": "AST"
+            },
+            "543": {
+              "label_ast": "AST"
+            }
+          },
+          "543": {
+            "545": {
+              "label_ast": "AST"
+            }
+          },
+          "549": {
+            "552": {
+              "label_ast": "AST"
+            },
+            "553": {
+              "label_ast": "AST"
+            }
+          },
+          "553": {
+            "555": {
+              "label_ast": "AST"
+            }
+          },
+          "555": {
+            "558": {
+              "label_ast": "AST"
+            },
+            "559": {
+              "label_ast": "AST"
+            }
+          },
+          "567": {
+            "576": {
+              "label_ast": "AST"
+            },
+            "577": {
+              "label_ast": "AST"
+            }
+          },
+          "57": {
+            "60": {
+              "label_ast": "AST"
+            }
+          },
+          "577": {
+            "579": {
+              "label_ast": "AST"
+            },
+            "581": {
+              "label_ast": "AST"
+            }
+          },
+          "585": {
+            "588": {
+              "label_ast": "AST"
+            },
+            "589": {
+              "label_ast": "AST"
+            }
+          },
+          "589": {
+            "591": {
+              "label_ast": "AST"
+            }
+          },
+          "595": {
+            "604": {
+              "label_ast": "AST"
+            },
+            "605": {
+              "label_ast": "AST"
+            }
+          },
+          "605": {
+            "607": {
+              "label_ast": "AST"
+            }
+          },
+          "607": {
+            "608": {
+              "label_ast": "AST"
+            },
+            "634": {
+              "label_ast": "AST"
+            }
+          },
+          "608": {
+            "609": {
+              "label_ast": "AST"
+            },
+            "626": {
+              "label_ast": "AST"
+            }
+          },
+          "609": {
+            "610": {
+              "label_ast": "AST"
+            },
+            "624": {
+              "label_ast": "AST"
+            }
+          },
+          "610": {
+            "611": {
+              "label_ast": "AST"
+            },
+            "616": {
+              "label_ast": "AST"
+            }
+          },
+          "611": {
+            "612": {
+              "label_ast": "AST"
+            },
+            "614": {
+              "label_ast": "AST"
+            }
+          },
+          "616": {
+            "619": {
+              "label_ast": "AST"
+            },
+            "620": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            },
+            "85": {
+              "label_ast": "AST"
+            }
+          },
+          "626": {
+            "629": {
+              "label_ast": "AST"
+            },
+            "630": {
+              "label_ast": "AST"
+            }
+          },
+          "639": {
+            "648": {
+              "label_ast": "AST"
+            },
+            "649": {
+              "label_ast": "AST"
+            }
+          },
+          "649": {
+            "651": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "72": {
+              "label_ast": "AST"
+            },
+            "76": {
+              "label_ast": "AST"
+            }
+          },
+          "85": {
+            "88": {
+              "label_ast": "AST"
+            }
+          },
+          "88": {
+            "89": {
+              "label_ast": "AST"
+            },
+            "90": {
+              "label_ast": "AST"
+            }
+          },
+          "90": {
+            "92": {
+              "label_ast": "AST"
+            },
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "98": {
+            "106": {
+              "label_ast": "AST"
+            },
+            "121": {
+              "label_ast": "AST"
+            },
+            "99": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "106": {
+            "label_type": "ParameterList"
+          },
+          "108": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "11": {
+            "expression": "javax.servlet.ServletException",
+            "label_type": "Import"
+          },
+          "112": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "121": {
+            "label_type": "ExecutionBlock"
+          },
+          "124": {
+            "arguments_id": "128",
+            "expression": "setContentType",
+            "expression_id": "127",
+            "label_type": "MethodInvocation"
+          },
+          "127": {
+            "label_type": "SymbolLookup",
+            "symbol": "setContentType"
+          },
+          "128": {
+            "label_type": "ArgumentList"
+          },
+          "130": {
+            "label_type": "Literal",
+            "value": "\"text/html;charset=UTF-8\"",
+            "value_type": "string"
+          },
+          "133": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "135": {
+            "label_type": "VariableDeclarator",
+            "value_id": "138",
+            "variable_name": "param"
+          },
+          "138": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
+          },
+          "140": {
+            "condition_id": "142",
+            "label_type": "If",
+            "true_id": "156"
+          },
+          "144": {
+            "label_type": "BinaryOperation",
+            "left_id": "145",
+            "operator": "!=",
+            "right_id": "154"
+          },
+          "145": {
+            "arguments_id": "149",
+            "expression": "getHeader",
+            "expression_id": "148",
+            "label_type": "MethodInvocation"
+          },
+          "148": {
+            "label_type": "SymbolLookup",
+            "symbol": "getHeader"
+          },
+          "149": {
+            "label_type": "ArgumentList"
+          },
+          "15": {
+            "expression": "javax.servlet.annotation.WebServlet",
+            "label_type": "Import"
+          },
+          "151": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00167\"",
+            "value_type": "string"
+          },
+          "154": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "156": {
+            "label_type": "ExecutionBlock"
+          },
+          "159": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "162",
+            "variable_id": "160"
+          },
+          "160": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "162": {
+            "arguments_id": "166",
+            "expression": "getHeader",
+            "expression_id": "165",
+            "label_type": "MethodInvocation"
+          },
+          "165": {
+            "label_type": "SymbolLookup",
+            "symbol": "getHeader"
+          },
+          "166": {
+            "label_type": "ArgumentList"
+          },
+          "168": {
+            "label_type": "Literal",
+            "value": "\"BenchmarkTest00167\"",
+            "value_type": "string"
+          },
+          "172": {
+            "comment": "// URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().",
+            "label_type": "Comment"
+          },
+          "174": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "177",
+            "variable_id": "175"
+          },
+          "175": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "177": {
+            "arguments_id": "181",
+            "expression": "decode",
+            "expression_id": "180",
+            "label_type": "MethodInvocation"
+          },
+          "180": {
+            "label_type": "SymbolLookup",
+            "symbol": "decode"
+          },
+          "181": {
+            "label_type": "ArgumentList"
+          },
+          "183": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "185": {
+            "label_type": "Literal",
+            "value": "\"UTF-8\"",
+            "value_type": "string"
+          },
+          "188": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "19": {
+            "expression": "javax.servlet.http.HttpServlet",
+            "label_type": "Import"
+          },
+          "190": {
+            "label_type": "VariableDeclarator",
+            "value_id": "193",
+            "variable_name": "bar"
+          },
+          "193": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
+          },
+          "195": {
+            "condition_id": "197",
+            "label_type": "If",
+            "true_id": "204"
+          },
+          "199": {
+            "label_type": "BinaryOperation",
+            "left_id": "200",
+            "operator": "!=",
+            "right_id": "202"
+          },
+          "2": {
+            "comment": "/**\n* OWASP Benchmark Project v1.2\n*\n* This file is part of the Open Web Application Security Project (OWASP)\n* Benchmark Project. For details, please see\n* <a href=\"https://owasp.org/www-project-benchmark/\">https://owasp.org/www-project-benchmark/</a>.\n*\n* The OWASP Benchmark is free software: you can redistribute it and/or modify it under the terms\n* of the GNU General Public License as published by the Free Software Foundation, version 2.\n*\n* The OWASP Benchmark is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without\n* even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n* GNU General Public License for more details.\n*\n* @author Nick Sanidas\n* @created 2015\n*/",
+            "label_type": "Comment"
+          },
+          "200": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "202": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "204": {
+            "label_type": "ExecutionBlock"
+          },
+          "207": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "210",
+            "variable_id": "208"
+          },
+          "208": {
+            "label_type": "SymbolLookup",
+            "symbol": "bar"
+          },
+          "210": {
+            "arguments_id": "213",
+            "label_type": "ObjectCreation",
+            "name": "String"
+          },
+          "213": {
+            "label_type": "ArgumentList"
+          },
+          "215": {
+            "arguments_id": "219",
+            "expression": "decodeBase64",
+            "expression_id": "218",
+            "label_type": "MethodInvocation"
+          },
+          "218": {
+            "label_type": "SymbolLookup",
+            "symbol": "decodeBase64"
+          },
+          "219": {
+            "label_type": "ArgumentList"
+          },
+          "221": {
+            "arguments_id": "225",
+            "expression": "encodeBase64",
+            "expression_id": "224",
+            "label_type": "MethodInvocation"
+          },
+          "224": {
+            "label_type": "SymbolLookup",
+            "symbol": "encodeBase64"
+          },
+          "225": {
+            "label_type": "ArgumentList"
+          },
+          "227": {
+            "arguments_id": "231",
+            "expression": "getBytes",
+            "expression_id": "230",
+            "label_type": "MethodInvocation"
+          },
+          "23": {
+            "expression": "javax.servlet.http.HttpServletRequest",
+            "label_type": "Import"
+          },
+          "230": {
+            "label_type": "SymbolLookup",
+            "symbol": "getBytes"
+          },
+          "231": {
+            "label_type": "ArgumentList"
+          },
+          "239": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "long"
+          },
+          "241": {
+            "label_type": "VariableDeclarator",
+            "value_id": "244",
+            "variable_name": "l"
+          },
+          "244": {
+            "arguments_id": "253",
+            "expression": "nextLong",
+            "expression_id": "252",
+            "label_type": "MethodInvocation"
+          },
+          "252": {
+            "label_type": "SymbolLookup",
+            "symbol": "nextLong"
+          },
+          "253": {
+            "label_type": "ArgumentList"
+          },
+          "257": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "259": {
+            "label_type": "VariableDeclarator",
+            "value_id": "262",
+            "variable_name": "rememberMeKey"
+          },
+          "262": {
+            "arguments_id": "266",
+            "expression": "toString",
+            "expression_id": "265",
+            "label_type": "MethodInvocation"
+          },
+          "265": {
+            "label_type": "SymbolLookup",
+            "symbol": "toString"
+          },
+          "266": {
+            "label_type": "ArgumentList"
+          },
+          "268": {
+            "label_type": "SymbolLookup",
+            "symbol": "l"
+          },
+          "27": {
+            "expression": "javax.servlet.http.HttpServletResponse",
+            "label_type": "Import"
+          },
+          "271": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "273": {
+            "label_type": "VariableDeclarator",
+            "value_id": "276",
+            "variable_name": "user"
+          },
+          "276": {
+            "label_type": "Literal",
+            "value": "\"Logan\"",
+            "value_type": "string"
+          },
+          "278": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "280": {
+            "label_type": "VariableDeclarator",
+            "value_id": "283",
+            "variable_name": "fullClassName"
+          },
+          "283": {
+            "arguments_id": "293",
+            "expression": "getName",
+            "expression_id": "292",
+            "label_type": "MethodInvocation"
+          },
+          "292": {
+            "label_type": "SymbolLookup",
+            "symbol": "getName"
+          },
+          "293": {
+            "label_type": "ArgumentList"
+          },
+          "297": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "299": {
+            "label_type": "VariableDeclarator",
+            "value_id": "302",
+            "variable_name": "testCaseNumber"
+          },
+          "3": {
+            "expression": "org.owasp.benchmark.testcode",
+            "label_type": "PackageDeclaration"
+          },
+          "302": {
+            "arguments_id": "306",
+            "expression": "substring",
+            "expression_id": "305",
+            "label_type": "MethodInvocation"
+          },
+          "305": {
+            "label_type": "SymbolLookup",
+            "symbol": "substring"
+          },
+          "306": {
+            "label_type": "ArgumentList"
+          },
+          "308": {
+            "label_type": "BinaryOperation",
+            "left_id": "309",
+            "operator": "+",
+            "right_id": "321"
+          },
+          "309": {
+            "label_type": "BinaryOperation",
+            "left_id": "310",
+            "operator": "+",
+            "right_id": "319"
+          },
+          "31": {
+            "block_id": "49",
+            "label_type": "Class",
+            "name": "BenchmarkTest00167"
+          },
+          "310": {
+            "arguments_id": "314",
+            "expression": "lastIndexOf",
+            "expression_id": "313",
+            "label_type": "MethodInvocation"
+          },
+          "313": {
+            "label_type": "SymbolLookup",
+            "symbol": "lastIndexOf"
+          },
+          "314": {
+            "label_type": "ArgumentList"
+          },
+          "316": {
+            "label_type": "Literal",
+            "value": "'.'",
+            "value_type": "string"
+          },
+          "319": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "string"
+          },
+          "321": {
+            "arguments_id": "325",
+            "expression": "length",
+            "expression_id": "324",
+            "label_type": "MethodInvocation"
+          },
+          "324": {
+            "label_type": "SymbolLookup",
+            "symbol": "length"
+          },
+          "325": {
+            "label_type": "ArgumentList"
+          },
+          "331": {
+            "label_type": "Assignment",
+            "operator": "+=",
+            "value_id": "334",
+            "variable_id": "332"
+          },
+          "332": {
+            "label_type": "SymbolLookup",
+            "symbol": "user"
+          },
+          "334": {
+            "label_type": "SymbolLookup",
+            "symbol": "testCaseNumber"
+          },
+          "336": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "338": {
+            "label_type": "VariableDeclarator",
+            "value_id": "341",
+            "variable_name": "cookieName"
+          },
+          "341": {
+            "label_type": "BinaryOperation",
+            "left_id": "342",
+            "operator": "+",
+            "right_id": "344"
+          },
+          "342": {
+            "label_type": "Literal",
+            "value": "\"rememberMe\"",
+            "value_type": "string"
+          },
+          "344": {
+            "label_type": "SymbolLookup",
+            "symbol": "testCaseNumber"
+          },
+          "346": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "boolean"
+          },
+          "348": {
+            "label_type": "VariableDeclarator",
+            "value_id": "351",
+            "variable_name": "foundUser"
+          },
+          "351": {
+            "label_type": "Literal",
+            "value": "false",
+            "value_type": "bool"
+          },
+          "353": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie[]"
+          },
+          "355": {
+            "label_type": "VariableDeclarator",
+            "value_id": "358",
+            "variable_name": "cookies"
+          },
+          "358": {
+            "arguments_id": "362",
+            "expression": "getCookies",
+            "expression_id": "361",
+            "label_type": "MethodInvocation"
+          },
+          "361": {
+            "label_type": "SymbolLookup",
+            "symbol": "getCookies"
+          },
+          "362": {
+            "label_type": "ArgumentList"
+          },
+          "366": {
+            "condition_id": "368",
+            "label_type": "If",
+            "true_id": "375"
+          },
+          "370": {
+            "label_type": "BinaryOperation",
+            "left_id": "371",
+            "operator": "!=",
+            "right_id": "373"
+          },
+          "371": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookies"
+          },
+          "373": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "375": {
+            "label_type": "ExecutionBlock"
+          },
+          "377": {
+            "label_type": "ForStatement"
+          },
+          "380": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "int"
+          },
+          "382": {
+            "label_type": "VariableDeclarator",
+            "value_id": "385",
+            "variable_name": "i"
+          },
+          "385": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "string"
+          },
+          "387": {
+            "label_type": "BinaryOperation",
+            "left_id": "388",
+            "operator": "&&",
+            "right_id": "392"
+          },
+          "388": {
+            "label_type": "UnaryExpression",
+            "operator": "!"
+          },
+          "390": {
+            "label_type": "SymbolLookup",
+            "symbol": "foundUser"
+          },
+          "392": {
+            "label_type": "BinaryOperation",
+            "left_id": "393",
+            "operator": "<",
+            "right_id": "395"
+          },
+          "393": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "395": {
+            "field_text": "cookies.length",
+            "label_type": "FieldAccess"
+          },
+          "397": {
+            "expression_type": "++",
+            "identifier_id": "398",
+            "label_type": "UpdateExpression"
+          },
+          "398": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "401": {
+            "label_type": "ExecutionBlock"
+          },
+          "403": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie"
+          },
+          "405": {
+            "label_type": "VariableDeclarator",
+            "value_id": "408",
+            "variable_name": "cookie"
+          },
+          "408": {
+            "access_index": "i",
+            "label_type": "ArrayAccess"
+          },
+          "409": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookies"
+          },
+          "414": {
+            "condition_id": "416",
+            "label_type": "If",
+            "true_id": "433"
+          },
+          "418": {
+            "arguments_id": "422",
+            "expression": "equals",
+            "expression_id": "421",
+            "label_type": "MethodInvocation"
+          },
+          "421": {
+            "label_type": "SymbolLookup",
+            "symbol": "equals"
+          },
+          "422": {
+            "label_type": "ArgumentList"
+          },
+          "424": {
+            "arguments_id": "428",
+            "expression": "getName",
+            "expression_id": "427",
+            "label_type": "MethodInvocation"
+          },
+          "427": {
+            "label_type": "SymbolLookup",
+            "symbol": "getName"
+          },
+          "428": {
+            "label_type": "ArgumentList"
+          },
+          "433": {
+            "label_type": "ExecutionBlock"
+          },
+          "435": {
+            "condition_id": "437",
+            "label_type": "If",
+            "true_id": "467"
+          },
+          "439": {
+            "arguments_id": "449",
+            "expression": "equals",
+            "expression_id": "448",
+            "label_type": "MethodInvocation"
+          },
+          "448": {
+            "label_type": "SymbolLookup",
+            "symbol": "equals"
+          },
+          "449": {
+            "label_type": "ArgumentList"
+          },
+          "451": {
+            "arguments_id": "461",
+            "expression": "getAttribute",
+            "expression_id": "460",
+            "label_type": "MethodInvocation"
+          },
+          "460": {
+            "label_type": "SymbolLookup",
+            "symbol": "getAttribute"
+          },
+          "461": {
+            "label_type": "ArgumentList"
+          },
+          "463": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "467": {
+            "label_type": "ExecutionBlock"
+          },
+          "470": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "473",
+            "variable_id": "471"
+          },
+          "471": {
+            "label_type": "SymbolLookup",
+            "symbol": "foundUser"
+          },
+          "473": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "479": {
+            "condition_id": "481",
+            "false_id": "511",
+            "label_type": "If",
+            "true_id": "485"
+          },
+          "483": {
+            "label_type": "SymbolLookup",
+            "symbol": "foundUser"
+          },
+          "485": {
+            "label_type": "ExecutionBlock"
+          },
+          "488": {
+            "arguments_id": "498",
+            "expression": "println",
+            "expression_id": "497",
+            "label_type": "MethodInvocation"
+          },
+          "49": {
+            "label_type": "ClassBody"
+          },
+          "497": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "498": {
+            "label_type": "ArgumentList"
+          },
+          "500": {
+            "label_type": "BinaryOperation",
+            "left_id": "501",
+            "operator": "+",
+            "right_id": "506"
+          },
+          "501": {
+            "label_type": "BinaryOperation",
+            "left_id": "502",
+            "operator": "+",
+            "right_id": "504"
+          },
+          "502": {
+            "label_type": "Literal",
+            "value": "\"Welcome back: \"",
+            "value_type": "string"
+          },
+          "504": {
+            "label_type": "SymbolLookup",
+            "symbol": "user"
+          },
+          "506": {
+            "label_type": "Literal",
+            "value": "\"<br/>\"",
+            "value_type": "string"
+          },
+          "51": {
+            "field_type": "long",
+            "label_type": "FieldDeclaration"
+          },
+          "511": {
+            "label_type": "ExecutionBlock"
+          },
+          "513": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie"
+          },
+          "515": {
+            "label_type": "VariableDeclarator",
+            "value_id": "518",
+            "variable_name": "rememberMe"
+          },
+          "518": {
+            "arguments_id": "521",
+            "label_type": "ObjectCreation",
+            "name": "javax.servlet.http.Cookie"
+          },
+          "521": {
+            "label_type": "ArgumentList"
+          },
+          "523": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "525": {
+            "label_type": "SymbolLookup",
+            "symbol": "rememberMeKey"
+          },
+          "529": {
+            "arguments_id": "533",
+            "expression": "setSecure",
+            "expression_id": "532",
+            "label_type": "MethodInvocation"
+          },
+          "532": {
+            "label_type": "SymbolLookup",
+            "symbol": "setSecure"
+          },
+          "533": {
+            "label_type": "ArgumentList"
+          },
+          "535": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "539": {
+            "arguments_id": "543",
+            "expression": "setHttpOnly",
+            "expression_id": "542",
+            "label_type": "MethodInvocation"
+          },
+          "542": {
+            "label_type": "SymbolLookup",
+            "symbol": "setHttpOnly"
+          },
+          "543": {
+            "label_type": "ArgumentList"
+          },
+          "545": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "549": {
+            "arguments_id": "553",
+            "expression": "setPath",
+            "expression_id": "552",
+            "label_type": "MethodInvocation"
+          },
+          "552": {
+            "label_type": "SymbolLookup",
+            "symbol": "setPath"
+          },
+          "553": {
+            "label_type": "ArgumentList"
+          },
+          "555": {
+            "arguments_id": "559",
+            "expression": "getRequestURI",
+            "expression_id": "558",
+            "label_type": "MethodInvocation"
+          },
+          "558": {
+            "label_type": "SymbolLookup",
+            "symbol": "getRequestURI"
+          },
+          "559": {
+            "label_type": "ArgumentList"
+          },
+          "564": {
+            "comment": "// i.e., set path to JUST this servlet ",
+            "label_type": "Comment"
+          },
+          "565": {
+            "comment": "// e.g., /benchmark/sql-01/BenchmarkTest01001",
+            "label_type": "Comment"
+          },
+          "567": {
+            "arguments_id": "577",
+            "expression": "setAttribute",
+            "expression_id": "576",
+            "label_type": "MethodInvocation"
+          },
+          "57": {
+            "label_type": "VariableDeclarator",
+            "value_id": "60",
+            "variable_name": "serialVersionUID"
+          },
+          "576": {
+            "label_type": "SymbolLookup",
+            "symbol": "setAttribute"
+          },
+          "577": {
+            "label_type": "ArgumentList"
+          },
+          "579": {
+            "label_type": "SymbolLookup",
+            "symbol": "cookieName"
+          },
+          "581": {
+            "label_type": "SymbolLookup",
+            "symbol": "rememberMeKey"
+          },
+          "585": {
+            "arguments_id": "589",
+            "expression": "addCookie",
+            "expression_id": "588",
+            "label_type": "MethodInvocation"
+          },
+          "588": {
+            "label_type": "SymbolLookup",
+            "symbol": "addCookie"
+          },
+          "589": {
+            "label_type": "ArgumentList"
+          },
+          "591": {
+            "label_type": "SymbolLookup",
+            "symbol": "rememberMe"
+          },
+          "595": {
+            "arguments_id": "605",
+            "expression": "println",
+            "expression_id": "604",
+            "label_type": "MethodInvocation"
+          },
+          "60": {
+            "label_type": "Literal",
+            "value": "1L",
+            "value_type": "string"
+          },
+          "604": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "605": {
+            "label_type": "ArgumentList"
+          },
+          "607": {
+            "label_type": "BinaryOperation",
+            "left_id": "608",
+            "operator": "+",
+            "right_id": "634"
+          },
+          "608": {
+            "label_type": "BinaryOperation",
+            "left_id": "609",
+            "operator": "+",
+            "right_id": "626"
+          },
+          "609": {
+            "label_type": "BinaryOperation",
+            "left_id": "610",
+            "operator": "+",
+            "right_id": "624"
+          },
+          "610": {
+            "label_type": "BinaryOperation",
+            "left_id": "611",
+            "operator": "+",
+            "right_id": "616"
+          },
+          "611": {
+            "label_type": "BinaryOperation",
+            "left_id": "612",
+            "operator": "+",
+            "right_id": "614"
+          },
+          "612": {
+            "label_type": "SymbolLookup",
+            "symbol": "user"
+          },
+          "614": {
+            "label_type": "Literal",
+            "value": "\" has been remembered with cookie: \"",
+            "value_type": "string"
+          },
+          "616": {
+            "arguments_id": "620",
+            "expression": "getName",
+            "expression_id": "619",
+            "label_type": "MethodInvocation"
+          },
+          "619": {
+            "label_type": "SymbolLookup",
+            "symbol": "getName"
+          },
+          "62": {
+            "block_id": "85",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "63",
+            "name": "doGet",
+            "parameters_id": "70"
+          },
+          "620": {
+            "label_type": "ArgumentList"
+          },
+          "624": {
+            "label_type": "Literal",
+            "value": "\" whose value is: \"",
+            "value_type": "string"
+          },
+          "626": {
+            "arguments_id": "630",
+            "expression": "getValue",
+            "expression_id": "629",
+            "label_type": "MethodInvocation"
+          },
+          "629": {
+            "label_type": "SymbolLookup",
+            "symbol": "getValue"
+          },
+          "63": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "630": {
+            "label_type": "ArgumentList"
+          },
+          "634": {
+            "label_type": "Literal",
+            "value": "\"<br/>\"",
+            "value_type": "string"
+          },
+          "639": {
+            "arguments_id": "649",
+            "expression": "println",
+            "expression_id": "648",
+            "label_type": "MethodInvocation"
+          },
+          "648": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "649": {
+            "label_type": "ArgumentList"
+          },
+          "651": {
+            "label_type": "Literal",
+            "value": "\"Weak Randomness Test java.util.Random.nextLong() executed\"",
+            "value_type": "string"
+          },
+          "7": {
+            "expression": "java.io.IOException",
+            "label_type": "Import"
+          },
+          "70": {
+            "label_type": "ParameterList"
+          },
+          "72": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "76": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "85": {
+            "label_type": "ExecutionBlock"
+          },
+          "88": {
+            "arguments_id": "90",
+            "expression": "doPost",
+            "expression_id": "89",
+            "label_type": "MethodInvocation"
+          },
+          "89": {
+            "label_type": "SymbolLookup",
+            "symbol": "doPost"
+          },
+          "90": {
+            "label_type": "ArgumentList"
+          },
+          "92": {
+            "label_type": "SymbolLookup",
+            "symbol": "request"
+          },
+          "94": {
+            "label_type": "SymbolLookup",
+            "symbol": "response"
+          },
+          "98": {
+            "block_id": "121",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "99",
+            "name": "doPost",
+            "parameters_id": "106"
+          },
+          "99": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          }
+        }
+      }
     }
   ],
   "shards_by_language_class": {

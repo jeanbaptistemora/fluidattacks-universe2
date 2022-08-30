@@ -1562,7 +1562,370 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "100": {
+            "103": {
+              "label_ast": "AST"
+            }
+          },
+          "103": {
+            "105": {
+              "label_ast": "AST"
+            }
+          },
+          "105": {
+            "108": {
+              "label_ast": "AST"
+            }
+          },
+          "108": {
+            "110": {
+              "label_ast": "AST"
+            }
+          },
+          "11": {
+            "13": {
+              "label_ast": "AST"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST"
+            },
+            "21": {
+              "label_ast": "AST"
+            },
+            "36": {
+              "label_ast": "AST"
+            }
+          },
+          "21": {
+            "23": {
+              "label_ast": "AST"
+            },
+            "27": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "38": {
+              "label_ast": "AST"
+            },
+            "40": {
+              "label_ast": "AST"
+            },
+            "49": {
+              "label_ast": "AST"
+            },
+            "50": {
+              "label_ast": "AST"
+            },
+            "63": {
+              "label_ast": "AST"
+            },
+            "85": {
+              "label_ast": "AST"
+            },
+            "95": {
+              "label_ast": "AST"
+            }
+          },
+          "40": {
+            "43": {
+              "label_ast": "AST"
+            },
+            "44": {
+              "label_ast": "AST"
+            }
+          },
+          "44": {
+            "46": {
+              "label_ast": "AST"
+            }
+          },
+          "50": {
+            "52": {
+              "label_ast": "AST"
+            }
+          },
+          "52": {
+            "55": {
+              "label_ast": "AST"
+            }
+          },
+          "55": {
+            "58": {
+              "label_ast": "AST"
+            },
+            "59": {
+              "label_ast": "AST"
+            }
+          },
+          "6": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "63": {
+            "65": {
+              "label_ast": "AST"
+            }
+          },
+          "65": {
+            "68": {
+              "label_ast": "AST"
+            }
+          },
+          "68": {
+            "71": {
+              "label_ast": "AST"
+            },
+            "72": {
+              "label_ast": "AST"
+            }
+          },
+          "72": {
+            "74": {
+              "label_ast": "AST"
+            },
+            "82": {
+              "label_ast": "AST"
+            }
+          },
+          "74": {
+            "77": {
+              "label_ast": "AST"
+            },
+            "78": {
+              "label_ast": "AST"
+            }
+          },
+          "85": {
+            "87": {
+              "label_ast": "AST"
+            }
+          },
+          "87": {
+            "90": {
+              "label_ast": "AST"
+            }
+          },
+          "90": {
+            "91": {
+              "label_ast": "AST"
+            },
+            "93": {
+              "label_ast": "AST"
+            }
+          },
+          "95": {
+            "97": {
+              "label_ast": "AST"
+            }
+          },
+          "97": {
+            "100": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "100": {
+            "arguments_id": "103",
+            "label_type": "ObjectCreation",
+            "name": "java.io.FileInputStream"
+          },
+          "103": {
+            "label_type": "ArgumentList"
+          },
+          "105": {
+            "arguments_id": "108",
+            "label_type": "ObjectCreation",
+            "name": "java.io.File"
+          },
+          "108": {
+            "label_type": "ArgumentList"
+          },
+          "11": {
+            "label_type": "ClassBody"
+          },
+          "110": {
+            "label_type": "SymbolLookup",
+            "symbol": "fileName"
+          },
+          "13": {
+            "block_id": "36",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "14",
+            "name": "doPost",
+            "parameters_id": "21"
+          },
+          "14": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "2": {
+            "expression": "java.io.File",
+            "label_type": "Import"
+          },
+          "21": {
+            "label_type": "ParameterList"
+          },
+          "23": {
+            "label_type": "Parameter",
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
+          },
+          "27": {
+            "label_type": "Parameter",
+            "variable": "response",
+            "variable_type": "HttpServletResponse"
+          },
+          "36": {
+            "label_type": "ExecutionBlock"
+          },
+          "38": {
+            "comment": "// some code",
+            "label_type": "Comment"
+          },
+          "40": {
+            "arguments_id": "44",
+            "expression": "setContentType",
+            "expression_id": "43",
+            "label_type": "MethodInvocation"
+          },
+          "43": {
+            "label_type": "SymbolLookup",
+            "symbol": "setContentType"
+          },
+          "44": {
+            "label_type": "ArgumentList"
+          },
+          "46": {
+            "label_type": "Literal",
+            "value": "\"text/html;charset=UTF-8\"",
+            "value_type": "string"
+          },
+          "49": {
+            "comment": "// Vuln",
+            "label_type": "Comment"
+          },
+          "50": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "javax.servlet.http.Cookie[]"
+          },
+          "52": {
+            "label_type": "VariableDeclarator",
+            "value_id": "55",
+            "variable_name": "theCookie"
+          },
+          "55": {
+            "arguments_id": "59",
+            "expression": "getCookies",
+            "expression_id": "58",
+            "label_type": "MethodInvocation"
+          },
+          "58": {
+            "label_type": "SymbolLookup",
+            "symbol": "getCookies"
+          },
+          "59": {
+            "label_type": "ArgumentList"
+          },
+          "6": {
+            "block_id": "11",
+            "label_type": "Class",
+            "name": "Test"
+          },
+          "63": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "65": {
+            "label_type": "VariableDeclarator",
+            "value_id": "68",
+            "variable_name": "param"
+          },
+          "68": {
+            "arguments_id": "72",
+            "expression": "decode",
+            "expression_id": "71",
+            "label_type": "MethodInvocation"
+          },
+          "71": {
+            "label_type": "SymbolLookup",
+            "symbol": "decode"
+          },
+          "72": {
+            "label_type": "ArgumentList"
+          },
+          "74": {
+            "arguments_id": "78",
+            "expression": "getValue",
+            "expression_id": "77",
+            "label_type": "MethodInvocation"
+          },
+          "77": {
+            "label_type": "SymbolLookup",
+            "symbol": "getValue"
+          },
+          "78": {
+            "label_type": "ArgumentList"
+          },
+          "82": {
+            "label_type": "Literal",
+            "value": "\"UTF-8\"",
+            "value_type": "string"
+          },
+          "85": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "String"
+          },
+          "87": {
+            "label_type": "VariableDeclarator",
+            "value_id": "90",
+            "variable_name": "fileName"
+          },
+          "90": {
+            "label_type": "BinaryOperation",
+            "left_id": "91",
+            "operator": "+",
+            "right_id": "93"
+          },
+          "91": {
+            "field_text": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "label_type": "FieldAccess"
+          },
+          "93": {
+            "label_type": "SymbolLookup",
+            "symbol": "param"
+          },
+          "95": {
+            "label_type": "VariableDeclaration",
+            "variable_type": "java.io.FileInputStream"
+          },
+          "97": {
+            "label_type": "VariableDeclarator",
+            "value_id": "100",
+            "variable_name": "fis"
+          }
+        }
+      }
     },
     {
       "graph": {
@@ -2438,7 +2801,196 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "64": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "11": {
+            "13": {
+              "label_ast": "AST"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST"
+            },
+            "19": {
+              "label_ast": "AST"
+            },
+            "25": {
+              "label_ast": "AST"
+            }
+          },
+          "19": {
+            "21": {
+              "label_ast": "AST"
+            }
+          },
+          "25": {
+            "27": {
+              "label_ast": "AST"
+            }
+          },
+          "27": {
+            "29": {
+              "label_ast": "AST"
+            },
+            "51": {
+              "label_ast": "AST"
+            }
+          },
+          "29": {
+            "32": {
+              "label_ast": "AST"
+            }
+          },
+          "32": {
+            "35": {
+              "label_ast": "AST"
+            },
+            "36": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "38": {
+              "label_ast": "AST"
+            }
+          },
+          "38": {
+            "41": {
+              "label_ast": "AST"
+            },
+            "42": {
+              "label_ast": "AST"
+            }
+          },
+          "42": {
+            "44": {
+              "label_ast": "AST"
+            },
+            "46": {
+              "label_ast": "AST"
+            }
+          },
+          "51": {
+            "59": {
+              "label_ast": "AST"
+            }
+          },
+          "6": {
+            "11": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "11": {
+            "label_type": "ClassBody"
+          },
+          "13": {
+            "block_id": "25",
+            "label_type": "MethodDeclaration",
+            "modifiers_id": "14",
+            "name": "main",
+            "parameters_id": "19"
+          },
+          "14": {
+            "annotation_ids": [],
+            "label_type": "Modifiers"
+          },
+          "19": {
+            "label_type": "ParameterList"
+          },
+          "2": {
+            "expression": "java.io.File",
+            "label_type": "Import"
+          },
+          "21": {
+            "label_type": "Parameter",
+            "variable": "args",
+            "variable_type": "String[]"
+          },
+          "25": {
+            "label_type": "ExecutionBlock"
+          },
+          "27": {
+            "block_id": "29",
+            "label_type": "TryStatement"
+          },
+          "29": {
+            "label_type": "ExecutionBlock"
+          },
+          "32": {
+            "arguments_id": "36",
+            "expression": "println",
+            "expression_id": "35",
+            "label_type": "MethodInvocation"
+          },
+          "35": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "36": {
+            "label_type": "ArgumentList"
+          },
+          "38": {
+            "arguments_id": "42",
+            "expression": "createTempFile",
+            "expression_id": "41",
+            "label_type": "MethodInvocation"
+          },
+          "41": {
+            "label_type": "SymbolLookup",
+            "symbol": "createTempFile"
+          },
+          "42": {
+            "label_type": "ArgumentList"
+          },
+          "44": {
+            "label_type": "Literal",
+            "value": "\"xxx\"",
+            "value_type": "string"
+          },
+          "46": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "51": {
+            "block_id": "59",
+            "label_type": "CatchClause"
+          },
+          "59": {
+            "label_type": "ExecutionBlock"
+          },
+          "6": {
+            "block_id": "11",
+            "label_type": "Class",
+            "name": "Test"
+          },
+          "64": {
+            "comment": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_type": "Comment"
+          }
+        }
+      }
     }
   ],
   "shards_by_language_class": {

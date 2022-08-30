@@ -19,4 +19,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if len(match) == 3 and match["return"] and match[";"]:
         return build_return_node(args, value_id=str(match["__0__"]))
 
+    if len(match) == 2:
+        return build_return_node(args, None)
+
     raise MissingCaseHandling(f"Bad return statement in {args.n_id}")
