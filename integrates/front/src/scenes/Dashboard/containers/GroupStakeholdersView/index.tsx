@@ -14,7 +14,13 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -55,6 +61,7 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
+const DATE_RANGE = 12;
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
@@ -63,8 +70,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { userEmail }: IAuthContext = useContext(authContext);
+  const now: Date = new Date();
+  const thisYear: number = now.getFullYear();
+  const thisMonth: number = now.getMonth();
+  const dateRange: Date[] = useMemo((): Date[] => {
+    return _.range(0, DATE_RANGE).map(
+      (month: number): Date => new Date(thisYear, thisMonth - month)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // State management
+  const [authorsDate, setAuthorsDate] = useState(dateRange[0].toISOString());
   const [currentRow, setCurrentRow] = useState<IStakeholderDataSet[]>([]);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [userModalAction, setUserModalAction] = useState<"add" | "edit">("add");
@@ -172,7 +189,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     fetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred getting billing data from stakeholder",
           error
@@ -182,7 +198,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     skip:
       permissions.cannot("api_resolvers_group_authors_resolve") ||
       groupPermissions.can("has_service_black"),
-    variables: { groupName },
+    variables: { date: authorsDate, groupName },
   });
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
@@ -348,7 +364,15 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         domains.filter((domain: string): boolean => domain !== "")
       );
     }
-  }, [data, dataAuthor, userEmail]);
+    if (dataAuthor !== undefined && dateRange.length > 1) {
+      if (
+        dataAuthor.group.authors.data.length === 0 &&
+        authorsDate !== dateRange[1].toISOString()
+      ) {
+        setAuthorsDate(dateRange[1].toISOString());
+      }
+    }
+  }, [authorsDate, data, dateRange, dataAuthor, userEmail]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
