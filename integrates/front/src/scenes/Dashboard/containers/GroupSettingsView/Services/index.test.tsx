@@ -178,10 +178,6 @@ describe("Services", (): void => {
     },
   ];
 
-  const mockedPermissions: PureAbility<string> = new PureAbility([
-    { action: "api_mutations_update_group_mutate" },
-  ]);
-
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Services).toBe("function");
@@ -194,6 +190,10 @@ describe("Services", (): void => {
   ].forEach((test: { group: string; texts: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
       expect.hasAssertions();
+
+      const mockedPermissions: PureAbility<string> = new PureAbility([
+        { action: "api_mutations_update_group_mutate" },
+      ]);
 
       render(
         <MockedProvider addTypename={false} mocks={mockResponses}>
@@ -320,6 +320,10 @@ describe("Services", (): void => {
       },
     ];
 
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_group_mutate" },
+    ]);
+
     render(
       <MockedProvider
         addTypename={false}
@@ -416,6 +420,63 @@ describe("Services", (): void => {
         "searchFindings.servicesTable.successTitle"
       );
     });
+
+    jest.clearAllMocks();
+  });
+
+  it("should display services form as read-only", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockMutations: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_GROUP_DATA,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              businessId: "",
+              businessName: "",
+              description: "Integrates unit test project",
+              hasASM: true,
+              hasMachine: true,
+              hasSquad: false,
+              language: "EN",
+              name: "unittesting",
+              service: "WHITE",
+              sprintDuration: "1",
+              subscription: "CONTINUOUS",
+            },
+          },
+        },
+      },
+    ];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "see_group_services_info" },
+    ]);
+    render(
+      <MockedProvider addTypename={false} mocks={...mockMutations}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MemoryRouter initialEntries={["/home"]}>
+            <Services groupName={"unittesting"} />
+          </MemoryRouter>
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByText("searchFindings.servicesTable.", { exact: false })
+      ).toHaveLength(10);
+    });
+
+    expect(screen.getByLabelText("type")).toBeDisabled();
+    expect(screen.getByLabelText("service")).toBeDisabled();
+    expect(screen.getByRole("checkbox", { name: "machine" })).toBeDisabled();
+    expect(screen.getByRole("checkbox", { name: "squad" })).toBeDisabled();
 
     jest.clearAllMocks();
   });
