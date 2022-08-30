@@ -15,3 +15,6 @@ lib_path.f372.tfm_azure_storage_account_insecure_transfer:
 lib_apk.analyze_bytecodes.uses_http_resources:
   en: The given APK references HTTP (not HTTPS) resources.
   es: El APK dado referencia recursos HTTP (no HTTPS).
+lib_path.f372.tfm_aws_sec_group_using_http:
+  en: An insecure protocol (HTTP) is being used
+  es: Se esta usando un protocolo inseguro (HTTP)

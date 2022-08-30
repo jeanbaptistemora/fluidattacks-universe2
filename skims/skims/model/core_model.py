@@ -3603,6 +3603,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_AWS_SEC_GROUP_USING_HTTP = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_sec_group_using_http",
+        module="lib_path",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     UNPINNED_DOCKER_IMAGE = MethodInfo(
         file_name="docker",
         name="unpinned_docker_image",

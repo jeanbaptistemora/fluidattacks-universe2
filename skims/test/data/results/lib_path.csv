@@ -27538,6 +27538,30 @@ F414,lines,namespace/skims/test/data/lib_root/f414/disabled_http_header_check.cs
   11 |
      ^ Col 21
 ",csharp.csharp_disabled_http_header_check
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,11,650,skims,372. Use of an insecure channel - HTTP,An insecure protocol (HTTP) is being used in namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,"
+   1 | resource ""aws_security_group"" ""allow_tls"" {
+   2 |
+   3 |   name        = ""allow_tls""
+   4 |   description = ""Allow TLS inbound traffic""
+   5 |   vpc_id      = aws_vpc.main.id
+   6 |
+   7 |   ingress {
+   8 |     description      = ""TLS from VPC""
+   9 |     from_port        = 80
+  10 |     to_port          = 80
+> 11 |     protocol         = 6
+  12 |     cidr_blocks      = [aws_vpc.main.cidr_block]
+  13 |     ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+  14 |   }
+  15 |
+  16 |   egress {
+  17 |     from_port        = 0
+  18 |     to_port          = 0
+  19 |     protocol         = 1
+  20 |     cidr_blocks      = [""0.0.0.0/0""]
+  21 |     ipv6_cidr_blocks = [""::/0""]
+     ^ Col 0
+",terraform.tfm_aws_sec_group_using_http
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,30,650,skims,372. Use of an insecure channel - HTTP,Property enable_https_traffic_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,"
   20 | }
   21 |

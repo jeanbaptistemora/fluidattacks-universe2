@@ -8,6 +8,7 @@ from lib_path.f372.cloudformation import (
     cfn_serves_content_over_http,
 )
 from lib_path.f372.terraform import (
+    tfm_aws_sec_group_using_http,
     tfm_azure_kv_only_accessible_over_https,
     tfm_azure_sa_insecure_transfer,
     tfm_elb2_uses_insecure_protocol,
@@ -84,6 +85,15 @@ def run_tfm_azure_sa_insecure_transfer(
 
 
 @SHIELD_BLOCKING
+def run_tfm_aws_sec_group_using_http(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_aws_sec_group_using_http(
+        content=content, path=path, model=model
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -111,6 +121,7 @@ def analyze(
             run_tfm_elb2_uses_insecure_protocol(content, path, model),
             run_tfm_azure_kv_only_accessible_over_https(content, path, model),
             run_tfm_azure_sa_insecure_transfer(content, path, model),
+            run_tfm_aws_sec_group_using_http(content, path, model),
         )
 
     return results
