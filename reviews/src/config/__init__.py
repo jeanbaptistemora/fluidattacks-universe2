@@ -32,7 +32,6 @@ def validate_base(config: Dynaconf) -> None:
             "platform",
             "endpoint_url",
             "project_id",
-            "syntax.regex",
             "tests",
             must_exist=True,
             messages=ERR_DEFAULT,
@@ -55,7 +54,7 @@ def validate_base(config: Dynaconf) -> None:
 def validate_specific(config: Dynaconf) -> None:
     tests: list[str] = list(config["tests"].keys())
     for test in tests:
-        if test in ("commits_user_syntax", "pr_user_syntax"):
+        if test in ("commit_user_syntax", "pr_user_syntax"):
             config.validators.register(
                 Validator(
                     "syntax.user_regex",

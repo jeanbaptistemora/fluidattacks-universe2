@@ -4,17 +4,14 @@ project_id = "20741933"
 
 
 [syntax]
-  regex = '^(airs|all|asserts|common|docs|forces|integrates|melts|observes|reviews|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
   user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
 
 
 [tests]
 
-  [tests.pr_message_syntax]
+  [tests.pr_message_equals_commit_message]
     fail = true
     close_pr = true
-    config = ".lint-git-commit-msg/config.js"
-    parser = ".lint-git-commit-msg/parser.js"
 
   [tests.branch_equals_to_user]
     fail = true
@@ -25,7 +22,7 @@ project_id = "20741933"
     close_pr = true
     max_commits = 1
 
-  [tests.commits_user_syntax]
+  [tests.commit_user_syntax]
     fail = true
     close_pr = true
 

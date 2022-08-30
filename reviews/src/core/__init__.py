@@ -40,7 +40,6 @@ def run_tests_gitlab(
     log("info", "Reviewing PR: %s", pull_request.url)
     if not tests.skip_ci(pull_request):
         syntax: Syntax = Syntax(
-            regex=config["syntax"]["regex"],
             user_regex=config["syntax"]["user_regex"],
         )
         for name, args in config["tests"].items():
@@ -55,7 +54,7 @@ def run_tests_gitlab(
             if (
                 not success
                 and args["close_pr"]
-                and pull_request.state not in "closed"
+                and pull_request.state not in ("closed", "merged")
             ):
                 gl.close_pr(pull_request)
                 log("error", "Merge Request closed by: %s", name)

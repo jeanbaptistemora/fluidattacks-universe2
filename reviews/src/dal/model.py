@@ -29,7 +29,6 @@ class PullRequest(NamedTuple):
 
 
 class Syntax(NamedTuple):
-    regex: str
     user_regex: str
 
 

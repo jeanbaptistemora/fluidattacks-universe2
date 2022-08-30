@@ -2,7 +2,6 @@
   inputs,
   makePythonPypiEnvironment,
   makeTemplate,
-  outputs,
   projectPath,
   ...
 }:
@@ -19,7 +18,6 @@ makeTemplate {
         name = "reviews-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/reviews/runtime/commitlint"
     ];
   };
   template = ./template.sh;

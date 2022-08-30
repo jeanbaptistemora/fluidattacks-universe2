@@ -3,7 +3,6 @@ from dal.model import (
     PullRequest,
     TestData,
 )
-import os
 from pygit2 import (
     Branch,
     Diff,
@@ -12,7 +11,6 @@ from pygit2 import (
     Repository,
 )
 import re
-import subprocess
 from typing import (
     Any,
 )
@@ -92,31 +90,26 @@ def first_pipeline_successful(*, data: TestData) -> bool:
     return success
 
 
-def pr_message_syntax(*, data: TestData) -> bool:
-    """Run commitlint on PR message"""
-    success: bool = True
+def pr_message_equals_commit_message(*, data: TestData) -> bool:
+    """PR message equals commit message"""
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
-    pr_commit_msg: str = (
-        f"{data.pull_request.title}\n\n{data.pull_request.description}"
+    pr_msg: str = (
+        f"{data.pull_request.title}\n\n{data.pull_request.description}\n"
     )
-    command: list[str] = [
-        "commitlint",
-        "--parser-preset",
-        os.path.abspath(data.config["parser"]),
-        "--config",
-        os.path.abspath(data.config["config"]),
-    ]
-    proc: Any = subprocess.run(
-        command, input=pr_commit_msg, encoding="ascii", check=False
-    )
-    if proc.returncode != 0:
+    commit_msg: str = list(data.pull_request.commits())[0].message
+    success: bool = pr_msg == commit_msg
+    if not success:
         log(
             err_log,
-            "Commitlint tests failed. "
-            "PR Message should be syntax compliant.",
+            "PR message is not equals to commit message. \n\n"
+            "PR message:\n"
+            "%s\n\n"
+            "Commit message:\n"
+            "%s\n\n",
+            pr_msg,
+            commit_msg,
         )
-        success = False
     return success or not should_fail
 
 
@@ -140,41 +133,35 @@ def branch_equals_to_user(*, data: TestData) -> bool:
     return success or not should_fail
 
 
-def commits_user_syntax(*, data: TestData) -> bool:
-    """Test if usernames of all commits associated to PR are compliant"""
-    success: bool = True
+def commit_user_syntax(*, data: TestData) -> bool:
+    """Test if username of commit associated to PR is compliant"""
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
-    failed_user: str = ""
-    commits: Any = data.pull_request.commits()
-    for commit in commits:
-        if not re.match(data.syntax.user_regex, commit.author_name):
-            failed_user = commit.author_name
-            success = False
-            log(
-                err_log,
-                "All commits should have a valid commit user. \n\n"
-                "A commit had user %s.\n"
-                "Please make sure to use the following syntax: \n"
-                "Capitalized name, space and capitalized lastname "
-                "(avoid accents and ñ). \n"
-                "For example: Aureliano Buendia \n"
-                "You can change your git user by running: \n"
-                'git config --global user.name "Aureliano Buendia"',
-                failed_user,
-            )
-            break
+    commit: Any = list(data.pull_request.commits())[0]
+    success: bool = bool(re.match(data.syntax.user_regex, commit.author_name))
+    if not success:
+        log(
+            err_log,
+            "All commits should have a valid commit user. \n\n"
+            "A commit had user %s.\n"
+            "Please make sure to use the following syntax: \n"
+            "Capitalized name, space and capitalized lastname "
+            "(avoid accents and ñ). \n"
+            "For example: Aureliano Buendia \n"
+            "You can change your git user by running: \n"
+            'git config --global user.name "Aureliano Buendia"',
+            commit.author_name,
+        )
     return success or not should_fail
 
 
 def pr_user_syntax(*, data: TestData) -> bool:
     """Test if username of PR author is compliant"""
-    success: bool = True
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
     author: str = data.pull_request.author["name"]
-    if not re.match(data.syntax.user_regex, author):
-        success = False
+    success: bool = bool(re.match(data.syntax.user_regex, author))
+    if not success:
         log(
             err_log,
             "Your gitlab user name is %s. \n"
