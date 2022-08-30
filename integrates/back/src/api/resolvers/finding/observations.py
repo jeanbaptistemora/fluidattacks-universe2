@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -10,9 +13,6 @@ from decorators import (
 from finding_comments import (
     domain as comments_domain,
 )
-from functools import (
-    partial,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -22,40 +22,25 @@ from newutils import (
 from newutils.finding_comments import (
     format_finding_consulting_resolve,
 )
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
-)
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
 @enforce_group_level_auth_async
 async def resolve(
-    parent: Finding, info: GraphQLResolveInfo, **kwargs: None
-) -> List[Dict[str, Any]]:
-    response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding",
-        attr="observations",
-        id=parent.id,
-    )
-    return response
-
-
-async def resolve_no_cache(
-    parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Dict[str, Any]]:
+    parent: Finding,
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> list[dict[str, Any]]:
+    loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data["user_email"]
-    loaders = info.context.loaders
     observations: list[
         FindingComment
     ] = await comments_domain.get_observations(
-        loaders, parent.group_name, parent.id, user_email
+        loaders, parent.group_name, parent.id, user_data["user_email"]
     )
+
     return [
         format_finding_consulting_resolve(comment) for comment in observations
     ]
