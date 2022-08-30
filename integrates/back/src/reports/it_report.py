@@ -13,6 +13,7 @@ from aiohttp.client_exceptions import (
 )
 from botocore.exceptions import (
     ClientError,
+    ConnectTimeoutError,
     HTTPClientError,
 )
 from custom_exceptions import (
@@ -228,6 +229,20 @@ class ITReport:
             unreliable_indicators.unreliable_newest_vulnerability_report_date
         )
 
+    @retry_on_exceptions(
+        exceptions=(
+            ClientConnectorError,
+            ClientError,
+            ClientPayloadError,
+            ConnectTimeoutError,
+            CustomUnavailabilityError,
+            HTTPClientError,
+            ServerTimeoutError,
+            UnavailabilityError,
+        ),
+        sleep_seconds=20,
+        max_attempts=3,
+    )
     async def generate(  # pylint: disable=too-many-locals
         self, data: tuple[Finding, ...]
     ) -> None:
@@ -357,7 +372,7 @@ class ITReport:
                 self._get_vulnerability_data(vulnerability)
                 for vulnerability in vulnerabilities_filtered
             ),
-            workers=4,
+            workers=2,
         )
 
         for vulnerability, historics in zip(
@@ -679,12 +694,14 @@ class ITReport:
             ClientConnectorError,
             ClientError,
             ClientPayloadError,
+            ConnectTimeoutError,
             CustomUnavailabilityError,
             HTTPClientError,
             ServerTimeoutError,
             UnavailabilityError,
         ),
-        sleep_seconds=10,
+        sleep_seconds=20,
+        max_attempts=10,
     )
     async def _get_vulnerability_data(
         self, vuln: Vulnerability
