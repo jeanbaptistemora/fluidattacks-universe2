@@ -656,8 +656,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       placeholder: "Status",
       selectOptions: {
         [t(castEventStatus("VERIFICATION_REQUESTED"))]: "Pending",
-        [t(castEventStatus("CREATED"))]: "Solved",
-        [t(castEventStatus("SOLVED"))]: "Unsolved",
+        [t(castEventStatus("CREATED"))]: "Unsolved",
+        [t(castEventStatus("SOLVED"))]: "Solved",
       },
       tooltipId: "group.events.filtersTooltips.status.id",
       tooltipMessage: "group.events.filtersTooltips.status",
