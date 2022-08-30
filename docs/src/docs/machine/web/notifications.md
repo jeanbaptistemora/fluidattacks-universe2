@@ -132,6 +132,19 @@ comment on the ARM upon clicking it.
 
 ![Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_consulting.png)
 
+### Root updates (root added)
+
+This notification is generated
+when a new root is to be
+created in the Scope section.
+The information displayed in
+this notification refers to the
+fields validated to make a root.
+The role that will receive
+this notification is User Manager.
+
+![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1660854661/docs/web/notifications/notif_root_added.png)
+
 ### Root updates (root moved)
 
 Our attacks resistance management
@@ -174,6 +187,18 @@ that were found with SAST
 and DAST.
 
 ![Root Deactivated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_root_deactivated.png)
+
+### Updated root
+
+This notification is created
+when updating an existing root
+in the Scope section.
+Any field that is updated or information
+is changed will be notified.
+The role that receives this
+email is the User Manager.
+
+![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1660859135/docs/web/notifications/notif_updated_root.png)
 
 ### Analytics report
 
@@ -423,31 +448,6 @@ process of creating the repository,
 the organization and the group.
 
 ![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1660849148/docs/web/notifications/notif_free_trial.png)
-
-### Root added
-
-This notification is generated
-when a new root is to be
-created in the Scope section.
-The information displayed in
-this notification refers to the
-fields validated to make a root.
-The role that will receive
-this notification is User Manager.
-
-![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1660854661/docs/web/notifications/notif_root_added.png)
-
-### Updated root
-
-This notification is created
-when updating an existing root
-in the Scope section.
-Any field that is updated or information
-is changed will be notified.
-The role that receives this
-email is the User Manager.
-
-![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1660859135/docs/web/notifications/notif_updated_root.png)
 
 ### Missing registered environments
 
