@@ -77,13 +77,17 @@ def sync_worklogs(
     api_worker: Worker,
     company_id: str,
     users_list: List[List[str]],
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    start_date_str: str,
+    end_date_str: str,
 ) -> None:
     """API version 1.0.
 
     https://api2.timedoctor.com/#/Activity/getActivityWorklog
     """
+
+    # Convert str to date for needed date handling
+    start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
+    end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
     def write_schema() -> None:
         """Write the schema for this table."""
@@ -131,18 +135,46 @@ def sync_worklogs(
             work_mode_str: str = work_mode_map.get(work_mode, "other")
             return work_mode_str
 
-        (status_code, response) = api_worker.get_worklogs(
-            company_id, user_id, Options(0, start_date, end_date)
-        )
-        ensure_200(status_code)
+        worklogs: List = []
+        interval_start_date = start_date
 
-        response_obj: JSON = json.loads(response)
+        # Can't get too many worklogs at once as it results in an error
+        # so as a workaround we use a loop with a 5 day interval
+        # until the end_date is reached
+        while True:
+            interval_end_date = interval_start_date + datetime.timedelta(
+                days=5
+            )
 
-        logs.log_json_obj("worklogs", response_obj)
+            # The end_date argument in the api is exclusive
+            if interval_end_date >= end_date:
+                interval_end_date = end_date + datetime.timedelta(days=1)
 
-        worklogs = response_obj.get("data", [])
+            # Convert date to str to prevent errors in get_worklogs
+            interval_start_date_str = datetime.datetime.strftime(
+                interval_start_date, "%Y-%m-%d"
+            )
+            interval_end_date_str = datetime.datetime.strftime(
+                interval_end_date, "%Y-%m-%d"
+            )
 
-        for worklog in worklogs[0]:
+            (status_code, response) = api_worker.get_worklogs(
+                company_id,
+                user_id,
+                Options(0, interval_start_date_str, interval_end_date_str),
+            )
+            ensure_200(status_code)
+
+            response_obj: JSON = json.loads(response)
+            logs.log_json_obj("worklogs", response_obj)
+
+            worklogs = worklogs + response_obj.get("data", [])[0]
+
+            interval_start_date = interval_end_date
+            if interval_end_date > end_date:
+                break
+
+        for worklog in worklogs:
             start_time = translate_date(worklog.get("start", ""))
             end_time = datetime.datetime.strptime(
                 start_time, "%Y-%m-%dT%H:%M:%SZ"
@@ -188,6 +220,15 @@ def sync_computer_activity(
     https://api2.timedoctor.com/#/Files/getTypeFiles
     """
 
+    # Adding a day to end_date because the argument in the api is exclusive
+    adjusted_end_date = options.end_date
+
+    if isinstance(options.end_date, str):
+        end_date = datetime.datetime.strptime(
+            options.end_date, "%Y-%m-%d"
+        ) + datetime.timedelta(days=1)
+        adjusted_end_date = datetime.datetime.strftime(end_date, "%Y-%m-%d")
+
     def write_schema() -> None:
         """Write the schema for this table."""
         schema: JSON = {
@@ -231,7 +272,7 @@ def sync_computer_activity(
                 company_id,
                 user_id,
                 offset,
-                Options(limit, options.start_date, options.end_date),
+                Options(limit, options.start_date, adjusted_end_date),
             )
             ensure_200(status_code)
 
