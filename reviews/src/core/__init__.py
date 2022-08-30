@@ -56,7 +56,7 @@ def run_tests_gitlab(
                 and args["close_pr"]
                 and pull_request.state not in ("closed", "merged")
             ):
-                gl.close_pr(pull_request)
+                gl.close_pr(pull_request=pull_request)
                 log("error", "Merge Request closed by: %s", name)
     log("info", "Finished reviewing %s\n\n", pull_request.url)
 
@@ -70,16 +70,16 @@ def run(legacy: bool, config_path: str) -> bool:
 
     if config["platform"] in "gitlab":
         project: GitlabProject = gl.get_project(
-            config["endpoint_url"],
-            str(os.environ.get("REVIEWS_TOKEN")),
-            config["project_id"],
+            url=config["endpoint_url"],
+            token=str(os.environ.get("REVIEWS_TOKEN")),
+            project_id=config["project_id"],
         )
 
         if legacy:
             verify_required_vars(["CI_MERGE_REQUEST_IID"])
             pull_request_id: str = str(os.environ.get("CI_MERGE_REQUEST_IID"))
             pull_request: PullRequest = gl.get_pull_request(
-                project, pull_request_id
+                project=project, pull_request_id=pull_request_id
             )
 
             success = run_tests_gitlab(
@@ -87,7 +87,7 @@ def run(legacy: bool, config_path: str) -> bool:
                 pull_request,
             )
         else:
-            for pull_request in gl.get_pull_requests(project).values():
+            for pull_request in gl.get_pull_requests(project=project).values():
                 run_tests_gitlab(config, pull_request)
 
     return success
