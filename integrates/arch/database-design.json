@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 29, 2022, 11:50 AM",
+    "DateLastModified": "Aug 30, 2022, 08:41 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -960,6 +960,18 @@
         },
         {
           "AttributeName": "vulnerabilities_url",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "subject",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "entity",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "frequency",
           "AttributeType": "S"
         }
       ],
@@ -3038,6 +3050,23 @@
             "phone",
             "is_registered",
             "tours"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "stakeholder_subscription",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "SUBS#ENTITY#entity#SUBJECT#subject"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "email",
+            "entity",
+            "frequency",
+            "subject"
           ],
           "DataAccess": {
             "MySql": {}
