@@ -10,7 +10,6 @@ from dynamodb.types import (
     Item,
 )
 from newutils.datetime import (
-    get_as_utc_iso_format,
     get_from_str_frcs,
 )
 
@@ -77,10 +76,8 @@ def format_forces(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["execution_id"],
         group_name=item.get("group_name", item.get("subscription")),
-        execution_date=get_as_utc_iso_format(
-            get_from_str_frcs(
-                item["date"], date_format="%Y-%m-%dT%H:%M:%S.%f%z", zone="UTC"
-            )
+        execution_date=get_from_str_frcs(
+            item["date"], date_format="%Y-%m-%dT%H:%M:%S.%f%z", zone="UTC"
         ),
         commit=item["git_commit"],
         repo=item["git_repo"],
