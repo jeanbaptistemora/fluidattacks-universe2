@@ -41,6 +41,6 @@ async def add_execution(group_name: str, **execution_attributes: Any) -> bool:
     return success
 
 
-async def add_execution_typed(*, forces_execution: ForcesExecution) -> None:
+async def add(*, forces_execution: ForcesExecution) -> None:
     item = format_forces_item(forces_execution)
     await add_execution(forces_execution.group_name, **item)

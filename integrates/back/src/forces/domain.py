@@ -102,7 +102,7 @@ async def add_forces_execution(
         vulns_file.seek(os.SEEK_SET)
         await save_log_execution(log, log_name)
         await save_log_execution(vulns_file, vulns_name)
-        await forces_dal.add_execution_typed(forces_execution=forces_execution)
+        await forces_dal.add(forces_execution=forces_execution)
 
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
