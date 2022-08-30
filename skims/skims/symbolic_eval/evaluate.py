@@ -48,6 +48,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "Assignment": assignment.evaluate,
     "BinaryOperation": binary_operation.evaluate,
     "ElementAccess": element_access.evaluate,
+    "ElementValuePair": named_argument.evaluate,
     "ExecutionBlock": execution_block.evaluate,
     "If": if_statement.evaluate,
     "InterpolatedStringExpression": interpolated_string_expression.evaluate,
