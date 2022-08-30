@@ -7,6 +7,9 @@ from dataloaders.force_executions import (
 from dataloaders.forces import (
     ForcesExecutionLoader,
 )
+from dataloaders.stakeholder_subscriptions import (
+    StakeholderSubscriptionsLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -176,6 +179,7 @@ class Dataloaders(NamedTuple):
     stakeholder: StakeholderLoader
     stakeholder_groups_access: StakeholderGroupsAccessLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
+    stakeholder_subscriptions: StakeholderSubscriptionsLoader
     stakeholder_with_fallback: StakeholderWithFallbackLoader
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
@@ -310,6 +314,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         stakeholder_organizations_access=(
             stakeholder_organizations_access_loader
         ),
+        stakeholder_subscriptions=StakeholderSubscriptionsLoader(),
         stakeholder_with_fallback=stakeholder_with_fallback,
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),

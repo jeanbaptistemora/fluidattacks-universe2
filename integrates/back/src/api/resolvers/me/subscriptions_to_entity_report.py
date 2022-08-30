@@ -1,6 +1,9 @@
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    subscriptions as subscriptions_utils,
+)
 from subscriptions import (
     domain as subscriptions_domain,
 )
@@ -15,7 +18,7 @@ async def _format_subscriptions(
     return [
         {
             "entity": subscription["sk"]["entity"],
-            "frequency": subscriptions_domain.period_to_frequency(
+            "frequency": subscriptions_utils.period_to_frequency(
                 period=subscription["period"]
             ),
             "subject": subscription["sk"]["subject"],

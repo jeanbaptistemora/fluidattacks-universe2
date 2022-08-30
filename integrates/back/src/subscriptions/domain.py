@@ -41,6 +41,7 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     reports,
+    subscriptions as subscriptions_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -50,9 +51,6 @@ from settings import (
 )
 from subscriptions import (
     dal as subscriptions_dal,
-)
-from subscriptions.dal import (
-    NumericType,
 )
 import sys
 from tags import (
@@ -69,26 +67,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-def _frequency_to_period(*, frequency: str) -> int:
-    mapping: dict[str, int] = {
-        "HOURLY": 3600,
-        "DAILY": 86400,
-        "WEEKLY": 604800,
-        "MONTHLY": 2419200,
-    }
-    return mapping[frequency]
-
-
-def period_to_frequency(*, period: NumericType) -> str:
-    mapping: dict[int, str] = {
-        3600: "HOURLY",
-        86400: "DAILY",
-        604800: "WEEKLY",
-        2419200: "MONTHLY",
-    }
-    return mapping[int(period)]
 
 
 def _translate_entity(entity: str) -> str:
@@ -273,7 +251,9 @@ async def subscribe_user_to_entity_report(
             user_email=user_email,
         )
     else:
-        event_period: int = _frequency_to_period(frequency=event_frequency)
+        event_period: int = subscriptions_utils.frequency_to_period(
+            frequency=event_frequency
+        )
         success = await subscriptions_dal.subscribe_user_to_entity_report(
             event_period=event_period,
             report_entity=report_entity,
@@ -349,7 +329,9 @@ async def _process_subscription(
         return
     try:
         await _send_analytics_report(
-            event_frequency=period_to_frequency(period=subscription["period"]),
+            event_frequency=subscriptions_utils.period_to_frequency(
+                period=subscription["period"]
+            ),
             report_entity=subscription["sk"]["entity"],
             report_subject=subscription["sk"]["subject"],
             user_email=subscription["pk"]["email"],
@@ -376,7 +358,10 @@ async def trigger_subscriptions_analytics() -> None:
         for subscription in await get_subscriptions_to_entity_report(
             audience="user",
         )
-        if period_to_frequency(period=subscription["period"]) == frequency
+        if subscriptions_utils.period_to_frequency(
+            period=subscription["period"]
+        )
+        == frequency
     ]
     LOGGER.info(
         "- subscriptions loaded",
