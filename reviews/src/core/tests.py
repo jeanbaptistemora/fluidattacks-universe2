@@ -140,51 +140,6 @@ def branch_equals_to_user(*, data: TestData) -> bool:
     return success or not should_fail
 
 
-def most_relevant_type(*, data: TestData) -> bool:
-    """Test if PR message uses the most relevant type of all its commits"""
-    success: bool = True
-    should_fail: bool = data.config["fail"]
-    err_log: str = get_err_log(should_fail)
-    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
-    success = pr_match is not None
-    pr_type: str = (
-        pr_match.group(data.syntax.match_groups["type"]) if success else ""
-    )
-    relevances: dict[str, int] = data.config["relevances"]
-    highest_type: str = list(relevances.keys())[-1]
-    commits: Any = data.pull_request.commits()
-    for commit in commits:
-        commit_match: Any = re.match(data.syntax.regex, commit.title)
-        if commit_match is None:
-            log(
-                err_log,
-                "Commit title is not syntax compliant:\n%s",
-                commit.title,
-            )
-            success = False
-            continue
-        commit_type = commit_match.group(data.syntax.match_groups["type"])
-        if (
-            commit_type in relevances.keys()
-            and relevances[commit_type] < relevances[highest_type]
-        ):
-            highest_type = commit_type
-    if success and pr_type not in highest_type:
-        log(
-            err_log,
-            "The most relevant type of all commits "
-            "included in your PR is: %s\n"
-            "The type used in your PR title is: %s\n"
-            "Please make sure to change it.\n\n"
-            "The relevance order is (from highest to lowest):\n\n%s",
-            highest_type,
-            pr_type,
-            relevances,
-        )
-        success = False
-    return success or not should_fail
-
-
 def commits_user_syntax(*, data: TestData) -> bool:
     """Test if usernames of all commits associated to PR are compliant"""
     success: bool = True
@@ -235,7 +190,7 @@ def pr_user_syntax(*, data: TestData) -> bool:
 
 
 def pr_max_commits(*, data: TestData) -> bool:
-    """Only one commit per PR"""
+    """Only max_commits per PR"""
     success: bool = True
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
@@ -251,73 +206,4 @@ def pr_max_commits(*, data: TestData) -> bool:
             commit_number,
             max_commits,
         )
-    return success or not should_fail
-
-
-def close_issue_directive(*, data: TestData) -> bool:
-    """Test if a PR has an issue different from #0 without a Close directive"""
-    success: bool = True
-    should_fail: bool = data.config["fail"]
-    err_log: str = get_err_log(should_fail)
-    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
-    pr_issue: str = pr_match.group(data.syntax.match_groups["issue"])
-    if pr_match is None:
-        success = False
-    if (
-        success
-        and pr_issue not in "#0"
-        and f"Closes {pr_issue}" not in data.pull_request.description
-    ):
-        log(
-            err_log,
-            "This PR is referencing issue %s "
-            "but it does not have a: Close %s "
-            "in its footer. Was this intentional?",
-            pr_issue,
-            pr_issue,
-        )
-        success = False
-    return success or not should_fail
-
-
-def pr_only_one_product(*, data: TestData) -> bool:
-    """Test if a PR only contains commits for its product"""
-    success: bool = True
-    should_fail: bool = data.config["fail"]
-    err_log: str = get_err_log(should_fail)
-    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
-    pr_product: str = pr_match.group(data.syntax.match_groups["product"])
-    if pr_match is None:
-        log(
-            err_log,
-            "PR title is not syntax compliant: %s",
-            data.pull_request.title,
-        )
-        success = False
-    else:
-        commits: Any = data.pull_request.commits()
-        for commit in commits:
-            commit_match: Any = re.match(data.syntax.regex, commit.title)
-            if commit_match is None:
-                log(
-                    err_log,
-                    "Commit title is not syntax compliant:\n%s",
-                    commit.title,
-                )
-                success = False
-            else:
-                commit_product: str = commit_match.group(
-                    data.syntax.match_groups["product"]
-                )
-                if commit_product not in pr_product:
-                    log(
-                        err_log,
-                        "All associated commits must "
-                        "have the same product as the PR.\n"
-                        "PR product: %s\n"
-                        "Commit product: %s",
-                        pr_product,
-                        commit_product,
-                    )
-                    success = False
     return success or not should_fail

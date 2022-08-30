@@ -37,15 +37,6 @@ def validate_base(config: Dynaconf) -> None:
             must_exist=True,
             messages=ERR_DEFAULT,
         ),
-        Validator(
-            "syntax.match_groups",
-            must_exist=True,
-            condition=lambda x: dict_has_type_values(x, int),
-            messages={
-                "must_exist_true": "{name} is required.",
-                "condition": "{name} invalid. All values must be int",
-            },
-        ),
     )
     config.validators.validate()
     tests: list[str] = list(config["tests"].keys())
@@ -88,47 +79,10 @@ def validate_specific(config: Dynaconf) -> None:
                     messages=ERR_DEFAULT,
                 ),
             )
-        elif test in "most_relevant_type":
-            config.validators.register(
-                Validator(
-                    f"tests.{test}.relevances",
-                    must_exist=True,
-                    condition=lambda x: dict_has_type_values(x, int),
-                    messages={
-                        "must_exist_true": "{name} is required.",
-                        "condition": "{name} invalid. "
-                        "All values must be int",
-                    },
-                ),
-                Validator(
-                    "syntax.match_groups.type",
-                    must_exist=True,
-                    is_type_of=int,
-                    messages=ERR_DEFAULT,
-                ),
-            )
         elif test in "pr_max_commits":
             config.validators.register(
                 Validator(
                     f"tests.{test}.max_commits",
-                    must_exist=True,
-                    is_type_of=int,
-                    messages=ERR_DEFAULT,
-                ),
-            )
-        elif test in "close_issue_directive":
-            config.validators.register(
-                Validator(
-                    "syntax.match_groups.issue",
-                    must_exist=True,
-                    is_type_of=int,
-                    messages=ERR_DEFAULT,
-                ),
-            )
-        elif test in "pr_only_one_product":
-            config.validators.register(
-                Validator(
-                    "syntax.match_groups.product",
                     must_exist=True,
                     is_type_of=int,
                     messages=ERR_DEFAULT,

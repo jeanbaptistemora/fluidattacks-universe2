@@ -40,7 +40,6 @@ def run_tests_gitlab(
     log("info", "Reviewing PR: %s", pull_request.url)
     if not tests.skip_ci(pull_request):
         syntax: Syntax = Syntax(
-            match_groups=config["syntax"]["match_groups"],
             regex=config["syntax"]["regex"],
             user_regex=config["syntax"]["user_regex"],
         )

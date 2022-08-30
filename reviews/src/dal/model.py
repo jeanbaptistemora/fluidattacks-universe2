@@ -29,7 +29,6 @@ class PullRequest(NamedTuple):
 
 
 class Syntax(NamedTuple):
-    match_groups: dict[str, int]
     regex: str
     user_regex: str
 

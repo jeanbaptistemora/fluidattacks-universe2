@@ -6,13 +6,6 @@ project_id = "20741933"
 [syntax]
   regex = '^(airs|all|asserts|common|docs|forces|integrates|melts|observes|reviews|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
   user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
-  [syntax.match_groups]
-    product = 1
-    type = 2
-    scope = 3
-    issue = 4
-    issue_part = 5
-    title = 6
 
 
 [tests]
@@ -28,8 +21,8 @@ project_id = "20741933"
     close_pr = true
 
   [tests.pr_max_commits]
-    fail = false
-    close_pr = false
+    fail = true
+    close_pr = true
     max_commits = 1
 
   [tests.commits_user_syntax]
@@ -40,31 +33,11 @@ project_id = "20741933"
     fail = true
     close_pr = true
 
-  [tests.close_issue_directive]
-    fail = false
-    close_pr = false
-
-  [tests.pr_only_one_product]
-    fail = true
-    close_pr = true
-
   [tests.pr_under_max_deltas]
     fail = true
     close_pr = true
     max_deltas = 100
     repo_path = '.'
-
-  [tests.most_relevant_type]
-    fail = true
-    close_pr = true
-    [tests.most_relevant_type.relevances]
-      rever = 1
-      feat = 2
-      perf = 3
-      fix = 4
-      refac = 5
-      test = 6
-      style = 7
 
   [tests.first_pipeline_successful]
     fail = true
