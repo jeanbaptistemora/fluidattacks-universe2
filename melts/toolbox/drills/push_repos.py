@@ -132,8 +132,6 @@ def s3_sync_fusion_to_s3(
 @shield(retries=1)
 def main(
     subs: str,
-    aws_login: bool = True,
-    aws_profile: str = "continuous-admin",
     force: bool = False,
 ) -> bool:
     """
@@ -219,8 +217,6 @@ def main(
         or not generic.is_env_ci()
     ):
         LOGGER.info("Update sync date in DB")
-        if aws_login:
-            generic.aws_login(aws_profile)
         last_sync.update_last_sync_date("last_sync_date", subs)
     if passed and subs != TEST_SUBS:
         utils.integrates.refresh_toe_lines(subs)

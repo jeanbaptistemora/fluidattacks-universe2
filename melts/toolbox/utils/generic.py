@@ -5,7 +5,6 @@ from botocore.exceptions import (
 from click import (
     BadParameter,
 )
-import configparser
 from configparser import (
     ConfigParser,
 )
@@ -466,47 +465,6 @@ def okta_aws_login(profile: str = "default") -> bool:
     _set_aws_env_creds(profile)
 
     return success == 0
-
-
-def aws_login(profile: str = "default") -> None:
-    """
-    Login as either:
-    1. AWS Prod if branch is trunk in CI
-    2. AWS Dev if branch is dev in CI
-    3. Okta AWS if local integration
-    """
-    if is_env_ci():
-        if is_branch_trunk():
-            os.environ["AWS_ACCESS_KEY_ID"] = os.environ[
-                "PROD_AWS_ACCESS_KEY_ID"
-            ]
-            os.environ["AWS_SECRET_ACCESS_KEY"] = os.environ[
-                "PROD_AWS_SECRET_ACCESS_KEY"
-            ]
-        else:
-            os.environ["AWS_ACCESS_KEY_ID"] = os.environ[
-                "DEV_AWS_ACCESS_KEY_ID"
-            ]
-            os.environ["AWS_SECRET_ACCESS_KEY"] = os.environ[
-                "DEV_AWS_SECRET_ACCESS_KEY"
-            ]
-
-        aws_access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
-        aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
-
-        credentials = configparser.ConfigParser()
-        credentials_dir = os.path.expanduser("~/.aws")
-        credentials_path = f"{credentials_dir}/credentials"
-        credentials.read(credentials_path)
-        credentials.setdefault("default", {})
-        credentials["default"]["aws_access_key_id"] = aws_access_key_id
-        credentials["default"]["aws_secret_access_key"] = aws_secret_access_key
-        os.makedirs(credentials_dir, exist_ok=True)
-        with open(credentials_path, "w", encoding="utf8") as handler:
-            credentials.write(handler)
-
-    else:
-        okta_aws_login(profile)
 
 
 @lru_cache(maxsize=None, typed=True)
