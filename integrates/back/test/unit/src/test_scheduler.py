@@ -273,7 +273,7 @@ async def test_update_group_indicators() -> None:
     test_data: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group_name)
     )
-    assert len(test_data) == 27
+    assert len(test_data) == 28
     assert test_data.last_closed_vulnerability_days == 946
     assert test_data.last_closed_vulnerability_finding == "457497316"
     assert test_data.max_open_severity == Decimal("6.3")
@@ -327,7 +327,7 @@ async def test_update_group_indicators() -> None:
     test_imamura_data: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load("deleteimamura")
     )
-    assert len(test_imamura_data) == 27
+    assert len(test_imamura_data) == 28
 
 
 @pytest.mark.changes_db

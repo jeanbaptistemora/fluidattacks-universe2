@@ -6,14 +6,28 @@ import asyncio
 from batch.actions.refresh_toe_lines import (
     pull_repositories,
 )
+from custom_exceptions import (
+    IndicatorAlreadyUpdated,
+)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
+)
+from db_model.groups.update import (
+    update_unreliable_indicators as update_group_indicators,
 )
 from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
     GitRoot,
+    RootUnreliableIndicatorsToUpdate,
+)
+from db_model.roots.update import (
+    update_unreliable_indicators as update_root_indicators,
 )
 import json
 import logging
@@ -29,6 +43,22 @@ from typing import (
 )
 
 LOGGER = logging.getLogger(__name__)
+
+
+def clone_mirrors(tmpdir: str, group: str) -> Tuple[str, List[str]]:
+    os.chdir(tmpdir)
+    pull_repositories(
+        tmpdir=tmpdir,
+        group_name=group,
+        optional_repo_nickname=None,
+    )
+    repositories_path = f"{tmpdir}/groups/{group}/fusion"
+    os.chdir(repositories_path)
+    repositories = [
+        _dir for _dir in os.listdir(repositories_path) if os.path.isdir(_dir)
+    ]
+
+    return repositories_path, repositories
 
 
 async def get_root_languages_stats(
@@ -83,14 +113,110 @@ async def get_root_languages_stats(
     return languages_stats
 
 
+async def update_language_indicators(
+    loaders: Dataloaders,
+    group: str,
+    roots_by_nickname: Dict[str, GitRoot],
+    roots_languages_distribution: Dict[str, Dict[str, int]],
+) -> None:
+    group_languages: Dict[str, int] = {}
+    for nickname, languages in roots_languages_distribution.items():
+        root = roots_by_nickname.get(nickname)
+        if not root or not languages:
+            continue
+        for language, locs in languages.items():
+            if language not in group_languages:
+                group_languages[language] = locs
+            else:
+                group_languages[language] += locs
+        try:
+            await update_root_indicators(
+                current_value=root,
+                indicators=RootUnreliableIndicatorsToUpdate(
+                    unreliable_languages=languages
+                ),
+            )
+            LOGGER.info("Root %s language stats were updated", nickname)
+        except IndicatorAlreadyUpdated:
+            LOGGER.info("Root %s language stats did not change", nickname)
+
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_unreliable_indicators.load(group)
+    )
+    await update_group_indicators(
+        group_name=group,
+        indicators=GroupUnreliableIndicators(
+            closed_vulnerabilities=group_indicators.closed_vulnerabilities,
+            exposed_over_time_cvssf=group_indicators.exposed_over_time_cvssf,
+            exposed_over_time_month_cvssf=(
+                group_indicators.exposed_over_time_month_cvssf
+            ),
+            exposed_over_time_year_cvssf=(
+                group_indicators.exposed_over_time_year_cvssf
+            ),
+            languages=group_languages,
+            last_closed_vulnerability_days=(
+                group_indicators.last_closed_vulnerability_days
+            ),
+            last_closed_vulnerability_finding=(
+                group_indicators.last_closed_vulnerability_finding
+            ),
+            max_open_severity=group_indicators.max_open_severity,
+            max_open_severity_finding=(
+                group_indicators.max_open_severity_finding
+            ),
+            max_severity=group_indicators.max_severity,
+            mean_remediate=group_indicators.mean_remediate,
+            mean_remediate_critical_severity=(
+                group_indicators.mean_remediate_critical_severity
+            ),
+            mean_remediate_high_severity=(
+                group_indicators.mean_remediate_high_severity
+            ),
+            mean_remediate_low_severity=(
+                group_indicators.mean_remediate_low_severity
+            ),
+            mean_remediate_medium_severity=(
+                group_indicators.mean_remediate_medium_severity
+            ),
+            open_findings=group_indicators.open_findings,
+            open_vulnerabilities=group_indicators.open_vulnerabilities,
+            remediated_over_time=group_indicators.remediated_over_time,
+            remediated_over_time_30=group_indicators.remediated_over_time_30,
+            remediated_over_time_90=group_indicators.remediated_over_time_90,
+            remediated_over_time_cvssf=(
+                group_indicators.remediated_over_time_cvssf
+            ),
+            remediated_over_time_cvssf_30=(
+                group_indicators.remediated_over_time_cvssf_30
+            ),
+            remediated_over_time_cvssf_90=(
+                group_indicators.remediated_over_time_cvssf_90
+            ),
+            remediated_over_time_month=(
+                group_indicators.remediated_over_time_month
+            ),
+            remediated_over_time_month_cvssf=(
+                group_indicators.remediated_over_time_month_cvssf
+            ),
+            remediated_over_time_year=(
+                group_indicators.remediated_over_time_year
+            ),
+            remediated_over_time_year_cvssf=(
+                group_indicators.remediated_over_time_year_cvssf
+            ),
+            treatment_summary=group_indicators.treatment_summary,
+        ),
+    )
+    LOGGER.info("Group %s language stats were updated", group)
+
+
 async def main() -> None:
     loaders = get_new_context()
-    groups: Tuple[str, ...] = await orgs_domain.get_all_active_group_names(
-        loaders
-    )
+    groups = await orgs_domain.get_all_active_group_names(loaders)
     groups_roots = await loaders.group_roots.load_many(groups)
     for group, roots in zip(groups, groups_roots):
-        active_git_roots = [
+        active_git_roots: List[GitRoot] = [
             root
             for root in roots
             if (
@@ -98,41 +224,41 @@ async def main() -> None:
                 and root.state.status == RootStatus.ACTIVE
             )
         ]
-        roots_nicknames = [root.state.nickname for root in active_git_roots]
+        LOGGER.info(
+            "Updating language stats for group %s in %s roots",
+            group,
+            len(active_git_roots),
+        )
+
+        roots_nicknames: List[str] = [
+            root.state.nickname for root in active_git_roots
+        ]
+        roots_by_nickname: Dict[str, GitRoot] = {
+            root.state.nickname: root for root in active_git_roots
+        }
         with tempfile.TemporaryDirectory() as tmpdir:
-            os.chdir(tmpdir)
-            pull_repositories(
-                tmpdir=tmpdir,
-                group_name=group,
-                optional_repo_nickname=None,
-            )
-            repositories_path = f"{tmpdir}/groups/{group}/fusion"
-            os.chdir(repositories_path)
-            repositories = [
-                _dir
-                for _dir in os.listdir(repositories_path)
-                if os.path.isdir(_dir)
-            ]
-            languages_distribution = await collect(
+            clone_path, clone_repos = clone_mirrors(tmpdir=tmpdir, group=group)
+            languages_distribution: Tuple[Dict[str, int], ...] = await collect(
                 (
                     get_root_languages_stats(
-                        path=repositories_path,
-                        folder=repository,
+                        path=clone_path,
+                        folder=repo,
                         group=group,
                         roots_nicknames=roots_nicknames,
                     )
-                    for repository in repositories
+                    for repo in clone_repos
                 ),
                 workers=os.cpu_count(),
             )
-            roots_language_distribution = dict(
-                zip(repositories, languages_distribution)
+            roots_language_distribution: Dict[str, Dict[str, int]] = dict(
+                zip(clone_repos, languages_distribution)
             )
-            LOGGER.info(
-                "Language distribution for group %s: %s",
-                group,
-                roots_language_distribution,
-            )
+        await update_language_indicators(
+            loaders=loaders,
+            group=group,
+            roots_by_nickname=roots_by_nickname,
+            roots_languages_distribution=roots_language_distribution,
+        )
 
 
 if __name__ == "__main__":

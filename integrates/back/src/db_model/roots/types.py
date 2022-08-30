@@ -12,6 +12,7 @@ from enum import (
     Enum,
 )
 from typing import (
+    Dict,
     List,
     Literal,
     NamedTuple,
@@ -21,10 +22,12 @@ from typing import (
 
 
 class RootUnreliableIndicators(NamedTuple):
+    unreliable_languages: Dict[str, int] = {}
     unreliable_last_status_update: str = ""
 
 
 class RootUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_languages: Optional[Dict[str, int]] = None
     unreliable_last_status_update: Optional[str] = None
 
 

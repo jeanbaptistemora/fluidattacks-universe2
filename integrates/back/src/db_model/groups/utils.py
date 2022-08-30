@@ -87,6 +87,7 @@ def format_unreliable_indicators(item: Item) -> GroupUnreliableIndicators:
             "exposed_over_time_month_cvssf"
         ),
         exposed_over_time_year_cvssf=item.get("exposed_over_time_year_cvssf"),
+        languages=item["languages"] if "languages" in item else None,
         last_closed_vulnerability_days=int(
             item["last_closed_vulnerability_days"]
         )
@@ -153,6 +154,7 @@ def format_unreliable_indicators_item(
         "exposed_over_time_year_cvssf": getattr(
             indicators, "exposed_over_time_year_cvssf"
         ),
+        "languages": getattr(indicators, "languages"),
         "last_closed_vulnerability_days": getattr(
             indicators, "last_closed_vulnerability_days"
         ),

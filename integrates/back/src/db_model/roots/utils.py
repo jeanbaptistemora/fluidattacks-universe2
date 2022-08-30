@@ -25,9 +25,10 @@ def format_unreliable_indicators(
     unreliable_indicators: Item,
 ) -> RootUnreliableIndicators:
     return RootUnreliableIndicators(
+        unreliable_languages=unreliable_indicators.get("languages", {}),
         unreliable_last_status_update=unreliable_indicators[
             "unreliable_last_status_update"
-        ]
+        ],
     )
 
 
