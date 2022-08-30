@@ -6,6 +6,9 @@ from dynamodb.context import (
 from dynamodb.processor import (
     process,
 )
+from dynamodb.resource import (
+    TABLE_RESOURCES,
+)
 from dynamodb.utils import (
     SESSION,
 )
@@ -21,15 +24,15 @@ from typing import (
     Optional,
 )
 
-CLIENT = SESSION.client(
-    endpoint_url=(
-        f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"
-        if FI_ENVIRONMENT == "dev"
-        else None
-    ),
-    service_name="dynamodbstreams",
+ENDPOINT = (
+    f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"
+    if FI_ENVIRONMENT == "dev"
+    else None
 )
+CLIENT = SESSION.client(endpoint_url=ENDPOINT, service_name="dynamodbstreams")
 TABLE_NAME = "integrates_vms"
+RESOURCE = SESSION.resource(endpoint_url=ENDPOINT, service_name="dynamodb")
+TABLE_RESOURCE = RESOURCE.Table(TABLE_NAME)
 
 
 def _get_stream_arn(table_name: str) -> str:
@@ -81,8 +84,25 @@ def _get_stream_shards(
             break
 
 
+def _get_shard_checkpoint(shard_id: str) -> Optional[str]:
+    response = TABLE_RESOURCE.get_item(
+        Key={"pk": f"SHARD#{shard_id}", "sk": f"SHARD#{shard_id}"}
+    )
+    item = response.get("Item")
+
+    if item:
+        return item["last_iterator"]
+
+    return None
+
+
 def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     """Returns the id of the iterator for the requested shard"""
+    shard_checkpoint = _get_shard_checkpoint(shard_id)
+
+    if shard_checkpoint:
+        return shard_checkpoint
+
     response = CLIENT.get_shard_iterator(
         ShardId=shard_id,
         ShardIteratorType="LATEST",
@@ -92,34 +112,47 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     return response["ShardIterator"]
 
 
+def _save_checkpoint(shard_id: str, last_iterator: str) -> None:
+    TABLE_RESOURCE.put_item(
+        Item={
+            "pk": f"SHARD#{shard_id}",
+            "sk": f"SHARD#{shard_id}",
+            "last_iterator": last_iterator,
+        }
+    )
+
+
 def _get_shard_records(
     shard_iterator: str,
 ) -> Iterator[tuple[dict[str, Any], ...]]:
     """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
     processed_records = 0
+    processed_batches = 0
 
     while True:
         try:
             response = CLIENT.get_records(ShardIterator=current_iterator)
-        except CLIENT.exceptions.ExpiredIteratorException:
-            print("Iterator expired, moving on")
-            break
-
-        records = tuple(response["Records"])
-
-        if records:
+            records = tuple(response["Records"])
+            processed_batches += 1
             processed_records += len(records)
 
-            yield records
-            sleep(1)
-        else:
-            sleep(10)
+            if processed_batches % 10 == 0:
+                _save_checkpoint(current_iterator)
 
-        current_iterator = response.get("NextShardIterator")
+            if records:
+                yield records
+                sleep(1)
+            else:
+                sleep(10)
 
-        if current_iterator is None:
-            print("Shard closed, moving on")
+            current_iterator = response.get("NextShardIterator")
+
+            if current_iterator is None:
+                print("Shard closed, moving on")
+                break
+        except CLIENT.exceptions.ExpiredIteratorException:
+            print("Iterator expired, moving on")
             break
 
     print("Processed", processed_records, "records")
