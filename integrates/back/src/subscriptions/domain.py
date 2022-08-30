@@ -5,9 +5,6 @@ from analytics import (
     domain as analytics_domain,
 )
 import authz
-from authz import (
-    get_group_level_role,
-)
 import base64
 from custom_exceptions import (
     SnapshotNotFound,
@@ -35,9 +32,6 @@ from db_model.stakeholders.types import (
 )
 from decorators import (
     retry_on_exceptions,
-)
-from group_access.domain import (
-    get_stakeholders_to_notify,
 )
 import logging
 import logging.config
@@ -418,28 +412,3 @@ async def trigger_subscriptions_analytics() -> None:
         _process_subscription(subscription=subscription)
         for subscription in subscriptions
     )
-
-
-async def get_users_subscribed_to_consult(
-    *,
-    loaders: Dataloaders,
-    group_name: str,
-    comment_type: str,
-    is_finding_released: bool = True,
-) -> list[str]:
-    users = await get_stakeholders_to_notify(loaders, group_name)
-    if comment_type.lower() == "observation" or not is_finding_released:
-        roles: list[str] = await collect(
-            tuple(
-                get_group_level_role(loaders, email, group_name)
-                for email in users
-            ),
-            workers=16,
-        )
-        hackers = [
-            email for email, role in zip(users, roles) if role == "hacker"
-        ]
-
-        return hackers
-
-    return users

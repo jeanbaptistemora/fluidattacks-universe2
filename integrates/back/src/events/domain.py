@@ -102,6 +102,9 @@ from findings import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
 import logging
 from mailer import (
     events as events_mail,
@@ -124,9 +127,6 @@ from settings import (
 )
 from starlette.datastructures import (
     UploadFile,
-)
-from subscriptions.domain import (
-    get_users_subscribed_to_consult,
 )
 from time import (
     time,
@@ -194,7 +194,7 @@ async def add_comment(
                 loaders=loaders,
                 comment_data=comment_data,
                 event_id=event_id,
-                recipients=await get_users_subscribed_to_consult(
+                recipients=await get_stakeholders_subscribed_to_consult(
                     loaders=info.context.loaders,
                     group_name=event.group_name,
                     comment_type="event",

@@ -8,6 +8,9 @@ from custom_exceptions import (
     StakeholderNotFound,
     StakeholderNotInGroup,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -197,6 +200,31 @@ async def get_stakeholders_to_notify(
     loaders: Any, group_name: str, active: bool = True
 ) -> list[str]:
     return await get_group_stakeholders_emails(loaders, group_name, active)
+
+
+async def get_stakeholders_subscribed_to_consult(
+    *,
+    loaders: Dataloaders,
+    group_name: str,
+    comment_type: str,
+    is_finding_released: bool = True,
+) -> list[str]:
+    emails = await get_stakeholders_to_notify(loaders, group_name)
+    if comment_type.lower() == "observation" or not is_finding_released:
+        roles: tuple[str, ...] = await collect(
+            tuple(
+                authz.get_group_level_role(loaders, email, group_name)
+                for email in emails
+            ),
+            workers=16,
+        )
+        hackers = [
+            email for email, role in zip(emails, roles) if role == "hacker"
+        ]
+
+        return hackers
+
+    return emails
 
 
 async def get_stakeholders_email_by_preferences(

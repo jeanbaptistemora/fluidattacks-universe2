@@ -23,6 +23,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
 from group_comments import (
     domain as group_comments_domain,
 )
@@ -37,9 +40,6 @@ from newutils import (
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
-)
-from subscriptions.domain import (
-    get_users_subscribed_to_consult,
 )
 import time
 from typing import (
@@ -58,7 +58,7 @@ async def send_group_consult_mail(
         loaders=loaders,
         comment_data=comment_data,
         user_mail=user_email,
-        recipients=await get_users_subscribed_to_consult(
+        recipients=await get_stakeholders_subscribed_to_consult(
             loaders=loaders,
             group_name=group_name,
             comment_type="group",

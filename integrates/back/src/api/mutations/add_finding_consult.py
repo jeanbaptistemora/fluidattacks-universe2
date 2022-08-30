@@ -34,6 +34,9 @@ from graphql import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
 from mailer import (
     findings as findings_mail,
 )
@@ -45,9 +48,6 @@ from newutils import (
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
-)
-from subscriptions.domain import (
-    get_users_subscribed_to_consult,
 )
 from time import (
     time,
@@ -73,7 +73,7 @@ async def send_finding_consult_mail(
         user_mail=user_email,
         finding_id=finding_id,
         finding_title=finding_title,
-        recipients=await get_users_subscribed_to_consult(
+        recipients=await get_stakeholders_subscribed_to_consult(
             loaders=info.context.loaders,
             group_name=group_name,
             comment_type=comment_data.comment_type.value.lower(),

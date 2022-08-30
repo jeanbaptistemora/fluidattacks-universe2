@@ -14,6 +14,9 @@ from db_model.group_comments.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
 from mailer.groups import (
     send_mail_comment,
 )
@@ -22,9 +25,6 @@ from newutils.datetime import (
     get_now,
 )
 import pytest
-from subscriptions.domain import (
-    get_users_subscribed_to_consult,
-)
 import time
 from typing import (
     Any,
@@ -106,7 +106,7 @@ async def test_add_group_consult_with_suppress(
         loaders=loaders,
         comment_data=comment_data,
         user_mail=email,
-        recipients=await get_users_subscribed_to_consult(
+        recipients=await get_stakeholders_subscribed_to_consult(
             loaders=loaders, group_name=group_name, comment_type="group"
         ),
         group_name=group_name,
