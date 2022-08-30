@@ -102,7 +102,7 @@ async def test_update() -> None:
             "sk_meta": "entity_report",
         },
     ]
-    assert await get_user_subscriptions(user_email="test_user_email",) == [
+    assert await get_user_subscriptions(email="test_user_email",) == [
         {
             "period": Decimal("86400"),
             "pk": {"email": "test_user_email", "meta": "user"},
@@ -115,7 +115,7 @@ async def test_update() -> None:
             "sk_meta": "entity_report",
         }
     ]
-    assert await get_user_subscriptions(user_email="test_user_email2",) == [
+    assert await get_user_subscriptions(email="test_user_email2",) == [
         {
             "period": Decimal("3600"),
             "pk": {"email": "test_user_email2", "meta": "user"},
@@ -129,7 +129,7 @@ async def test_update() -> None:
         }
     ]
     assert await get_user_subscriptions(
-        user_email="integratesmanager@gmail.com",
+        email="integratesmanager@gmail.com",
     ) == [
         {
             "period": Decimal("3600"),
@@ -147,7 +147,7 @@ async def test_update() -> None:
         }
     ]
     assert await get_user_subscriptions(
-        user_email="integratesmanager@fluidattacks.com",
+        email="integratesmanager@fluidattacks.com",
     ) == [
         {
             "period": Decimal("2419200"),

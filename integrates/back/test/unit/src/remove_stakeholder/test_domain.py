@@ -36,4 +36,4 @@ async def test_remove_stakeholder() -> None:
     await remove_stakeholder_all_organizations(
         loaders=get_new_context(), email=email, modified_by=modified_by
     )
-    assert await get_user_subscriptions(user_email=email) == []
+    assert await get_user_subscriptions(email=email) == []

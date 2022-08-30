@@ -56,7 +56,7 @@ async def get_subscriptions_to_entity_report(
 
 async def get_user_subscriptions(
     *,
-    user_email: str,
+    email: str,
 ) -> List[Dict[Any, Any]]:
     results = await dynamodb_ops.query(
         query_attrs=dict(
@@ -64,7 +64,7 @@ async def get_user_subscriptions(
                 mapping_to_key(
                     {
                         "meta": "user",
-                        "email": user_email,
+                        "email": email,
                     }
                 )
             ),

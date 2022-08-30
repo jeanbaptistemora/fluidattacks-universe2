@@ -99,7 +99,7 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    subscriptions = await get_user_subscriptions(user_email=email)
+    subscriptions = await get_user_subscriptions(email=email)
     await collect(
         tuple(
             unsubscribe_user_to_entity_report(

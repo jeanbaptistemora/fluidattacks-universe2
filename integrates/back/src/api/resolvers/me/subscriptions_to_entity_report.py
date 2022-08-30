@@ -6,16 +6,31 @@ from subscriptions import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
-async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Dict[str, str]]:
-    user_email = str(parent["user_email"])
+async def _format_subscriptions(
+    subscriptions: list[dict[str, Any]],
+) -> list[dict[str, str]]:
+    return [
+        {
+            "entity": subscription["sk"]["entity"],
+            "frequency": subscriptions_domain.period_to_frequency(
+                period=subscription["period"]
+            ),
+            "subject": subscription["sk"]["subject"],
+        }
+        for subscription in subscriptions
+        if subscription["sk"]["meta"] == "entity_report"
+    ]
 
-    return await subscriptions_domain.get_user_subscriptions_to_entity_report(
-        user_email=user_email
-    )
+
+async def resolve(
+    parent: dict[str, Any],
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> list[dict[str, str]]:
+    email = str(parent["user_email"])
+    subscriptions = await subscriptions_domain.get_user_subscriptions(email)
+
+    return await _format_subscriptions(subscriptions)

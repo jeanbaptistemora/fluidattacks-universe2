@@ -81,7 +81,7 @@ def _frequency_to_period(*, frequency: str) -> int:
     return mapping[frequency]
 
 
-def _period_to_frequency(*, period: NumericType) -> str:
+def period_to_frequency(*, period: NumericType) -> str:
     mapping: dict[int, str] = {
         3600: "HOURLY",
         86400: "DAILY",
@@ -151,32 +151,8 @@ async def get_subscriptions_to_entity_report(
     )
 
 
-async def get_user_subscriptions(
-    *,
-    user_email: str,
-) -> list[dict[str, Any]]:
-    return await subscriptions_dal.get_user_subscriptions(
-        user_email=user_email,
-    )
-
-
-async def get_user_subscriptions_to_entity_report(
-    *,
-    user_email: str,
-) -> list[dict[str, str]]:
-    return [
-        {
-            "entity": subscription["sk"]["entity"],
-            "frequency": _period_to_frequency(period=subscription["period"]),
-            "subject": subscription["sk"]["subject"],
-        }
-        for subscription in (
-            await subscriptions_dal.get_user_subscriptions(
-                user_email=user_email,
-            )
-        )
-        if subscription["sk"]["meta"] == "entity_report"
-    ]
+async def get_user_subscriptions(email: str) -> list[dict[str, Any]]:
+    return await subscriptions_dal.get_user_subscriptions(email=email)
 
 
 @retry_on_exceptions(
@@ -373,9 +349,7 @@ async def _process_subscription(
         return
     try:
         await _send_analytics_report(
-            event_frequency=_period_to_frequency(
-                period=subscription["period"]
-            ),
+            event_frequency=period_to_frequency(period=subscription["period"]),
             report_entity=subscription["sk"]["entity"],
             report_subject=subscription["sk"]["subject"],
             user_email=subscription["pk"]["email"],
@@ -402,7 +376,7 @@ async def trigger_subscriptions_analytics() -> None:
         for subscription in await get_subscriptions_to_entity_report(
             audience="user",
         )
-        if _period_to_frequency(period=subscription["period"]) == frequency
+        if period_to_frequency(period=subscription["period"]) == frequency
     ]
     LOGGER.info(
         "- subscriptions loaded",
