@@ -172,6 +172,32 @@ def test_group_forces(
     assert "Identifier" in driver.page_source
 
 
+def test_group_stakeholder(
+    driver: WebDriver,
+    credentials: Credentials,
+    asm_endpoint: str,
+    timeout: int,
+) -> None:
+    # Login
+    utils.login(driver, asm_endpoint, credentials)
+
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/stakeholders")
+    utils.wait_for_text(
+        driver,
+        "integratesuser2@gmail.com",
+        timeout,
+    )
+    assert "Stakeholder email" in driver.page_source
+
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/stakeholders")
+    utils.wait_for_text(
+        driver,
+        "integratesuser@gmail.com",
+        timeout,
+    )
+    assert "Registration status" in driver.page_source
+
+
 def test_group_scope_repositories(  # pylint: disable=too-many-locals
     driver: WebDriver,
     credentials: Credentials,

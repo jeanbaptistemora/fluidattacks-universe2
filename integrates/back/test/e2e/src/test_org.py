@@ -157,6 +157,24 @@ def test_org_groups(
     )
 
 
+def test_org_stakeholder(
+    driver: WebDriver,
+    credentials: Credentials,
+    asm_endpoint: str,
+    timeout: int,
+) -> None:
+    # Login
+    utils.login(driver, asm_endpoint, credentials)
+
+    driver.get(f"{asm_endpoint}/orgs/okada/stakeholders")
+    utils.wait_for_text(
+        driver,
+        "forces.unittesting@fluidattacks.com",
+        timeout,
+    )
+    assert "First login" in driver.page_source
+
+
 def test_org_portfolios(
     driver: WebDriver,
     credentials: Credentials,
