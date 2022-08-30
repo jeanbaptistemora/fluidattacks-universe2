@@ -118,6 +118,7 @@ async def get_data(
         last_report=None,
         min_release_date=None,
         max_release_date=None,
+        location="",
         generate_raw_data=False,
     )
     await report.generate_data()

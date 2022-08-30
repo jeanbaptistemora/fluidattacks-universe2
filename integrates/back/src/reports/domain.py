@@ -49,6 +49,7 @@ async def get_group_report_url(  # pylint: disable=too-many-locals
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -82,6 +83,7 @@ async def get_group_report_url(  # pylint: disable=too-many-locals
             last_report=last_report,
             min_release_date=min_release_date,
             max_release_date=max_release_date,
+            location=location,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(

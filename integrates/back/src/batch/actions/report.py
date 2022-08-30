@@ -79,6 +79,7 @@ async def get_report(  # pylint: disable=too-many-locals
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -97,6 +98,7 @@ async def get_report(  # pylint: disable=too-many-locals
             last_report=last_report,
             min_release_date=min_release_date,
             max_release_date=max_release_date,
+            location=location,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -134,6 +136,7 @@ async def send_report(  # pylint: disable=too-many-locals
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -160,6 +163,7 @@ async def send_report(  # pylint: disable=too-many-locals
                 last_report=last_report,
                 min_release_date=min_release_date,
                 max_release_date=max_release_date,
+                location=location,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -193,6 +197,7 @@ def get_filter_message(  # noqa: MC0001
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
 ) -> str:
     if closing_date:
         states = set(
@@ -242,6 +247,8 @@ def get_filter_message(  # noqa: MC0001
         message += f" Minimum release date: {min_release_date}."
     if max_release_date:
         message += f" Maximum release date: {max_release_date}."
+    if location:
+        message += f" Location: {location}."
 
     return (
         f". With the following filters:{message}"
@@ -250,7 +257,9 @@ def get_filter_message(  # noqa: MC0001
     )
 
 
-async def report(*, item: BatchProcessing) -> None:
+async def report(  # pylint: disable=too-many-locals
+    *, item: BatchProcessing
+) -> None:
     additional_info: Dict[str, Any] = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
     treatments = {
@@ -298,6 +307,8 @@ async def report(*, item: BatchProcessing) -> None:
         if additional_info.get("max_release_date") is not None
         else None
     )
+    location: str = additional_info.get("location", "")
+
     LOGGER_TRANSACTIONAL.info(
         ":".join(
             [
@@ -317,6 +328,7 @@ async def report(*, item: BatchProcessing) -> None:
                     last_report=last_report,
                     min_release_date=min_release_date,
                     max_release_date=max_release_date,
+                    location=location,
                 ),
             ]
         )
@@ -335,6 +347,7 @@ async def report(*, item: BatchProcessing) -> None:
         last_report=last_report,
         min_release_date=min_release_date,
         max_release_date=max_release_date,
+        location=location,
     )
     if report_url:
         await send_report(
@@ -352,4 +365,5 @@ async def report(*, item: BatchProcessing) -> None:
             last_report=last_report,
             min_release_date=min_release_date,
             max_release_date=max_release_date,
+            location=location,
         )

@@ -184,6 +184,7 @@ async def generate_xls_file(  # pylint: disable=too-many-locals
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -200,6 +201,7 @@ async def generate_xls_file(  # pylint: disable=too-many-locals
         last_report=last_report,
         min_release_date=min_release_date,
         max_release_date=max_release_date,
+        location=location,
     )
     await it_report.generate_file()
     filepath = it_report.result_filename

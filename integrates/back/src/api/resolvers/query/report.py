@@ -57,6 +57,10 @@ from newutils.datetime import (
 from newutils.findings import (
     is_valid_finding_title,
 )
+from newutils.validations import (
+    validate_field_length,
+    validate_fields,
+)
 from organizations.domain import (
     validate_max_acceptance_severity,
     validate_min_acceptance_severity,
@@ -134,6 +138,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     last_report: Optional[int],
     min_release_date: Optional[datetime],
     max_release_date: Optional[datetime],
+    location: str,
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -185,6 +190,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "max_release_date": max_release_date.isoformat()
             if max_release_date
             else None,
+            "location": location,
         },
         cls=EncodeDecimal,
     )
@@ -247,6 +253,16 @@ async def _get_finding_title(finding_title: Optional[str]) -> str:
         await is_valid_finding_title(finding_title)
         return finding_title[:3]
     return ""
+
+
+def _validate_location(location: Optional[str]) -> None:
+    if location:
+        validate_fields([location])
+        validate_field_length(
+            location,
+            limit=100,
+            is_greater_than_limit=False,
+        )
 
 
 @convert_kwargs_to_snake_case
@@ -341,6 +357,7 @@ async def resolve(  # pylint: disable=too-many-locals
     _validate_max_severity(**kwargs)
     _validate_days(kwargs.get("last_report", None))
     _validate_closing_date(closing_date=kwargs.get("max_release_date", None))
+    _validate_location(location=kwargs.get("location", None))
 
     return {
         "success": await _get_url_group_report(
@@ -359,6 +376,7 @@ async def resolve(  # pylint: disable=too-many-locals
             last_report=kwargs.get("last_report", None),
             min_release_date=kwargs.get("min_release_date", None),
             max_release_date=kwargs.get("max_release_date", None),
+            location=kwargs.get("location", ""),
             verification_code=verification_code,
         )
     }

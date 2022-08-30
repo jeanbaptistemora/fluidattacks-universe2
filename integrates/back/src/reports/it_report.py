@@ -148,6 +148,7 @@ class ITReport:
         last_report: Optional[int],
         min_release_date: Optional[datetime],
         max_release_date: Optional[datetime],
+        location: str,
         loaders: Dataloaders,
         generate_raw_data: bool = True,
     ) -> None:
@@ -167,6 +168,7 @@ class ITReport:
         self.last_report = last_report
         self.min_release_date = min_release_date
         self.max_release_date = max_release_date
+        self.location = location
         if self.closing_date:
             self.states = set(
                 [
@@ -243,7 +245,7 @@ class ITReport:
         sleep_seconds=20,
         max_attempts=3,
     )
-    async def generate(  # pylint: disable=too-many-locals
+    async def generate(  # pylint: disable=too-many-locals # noqa: MC0001
         self, data: tuple[Finding, ...]
     ) -> None:
         filter_finding_title = data
@@ -359,6 +361,13 @@ class ITReport:
                     vulnerability.state.modified_date
                 ).astimezone(tz=timezone.utc)
                 <= self.closing_date
+            )
+
+        if self.location:
+            vulnerabilities_filtered = tuple(
+                vulnerability
+                for vulnerability in vulnerabilities_filtered
+                if vulnerability.where.find(self.location) >= 0
             )
 
         vulnerabilities_historics: tuple[

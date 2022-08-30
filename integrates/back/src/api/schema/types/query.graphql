@@ -114,6 +114,8 @@ type Query {
     lang: ReportLang
     "Days since the last reported vulnerability in Types (last N days) to include"
     lastReport: Int
+    "Location to include"
+    location: String
     "Maximum CVSS 3.1 score of findings to include"
     maxSeverity: Float
     "Maximum release date of types to include"
