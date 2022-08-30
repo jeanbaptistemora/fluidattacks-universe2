@@ -46,7 +46,7 @@ def standard_name(name: str) -> str:
 
 def ensure_200(status_code: Optional[int]) -> None:
     """Ensure status_code 200 or exit."""
-    if not status_code == 200:
+    if status_code != 200:
         print(f"INFO: Timedoctor API, ERROR {status_code}")
         print("          The service is probably down.")
         print("         You should run this script again later.")

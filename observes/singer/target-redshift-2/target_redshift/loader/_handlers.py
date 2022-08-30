@@ -75,6 +75,7 @@ def _in_threads(cmds: PureIter[Cmd[None]], nodes: int) -> Cmd[None]:
         pool = ThreadPool(nodes=nodes)  # type: ignore[misc]
         results: Iterable[None] = cast(Iterable[None], pool.imap(lambda c: act.unwrap(c), cmds))  # type: ignore[misc]
         for _ in results:
+            # compute ThreadPool jobs
             pass
 
     return new_cmd(_action)

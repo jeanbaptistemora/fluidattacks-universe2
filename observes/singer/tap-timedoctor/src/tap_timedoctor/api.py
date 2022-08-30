@@ -40,7 +40,7 @@ def retry_on_errors(func: Callable) -> Callable:
         """Retry the function if status code is not 200."""
         for _ in range(10):
             (status_code, response) = func(*args, **kwargs)
-            if not status_code == 200:
+            if status_code != 200:
                 print("INFO: Retrying due to API error...")
                 time.sleep(5.0)
             else:

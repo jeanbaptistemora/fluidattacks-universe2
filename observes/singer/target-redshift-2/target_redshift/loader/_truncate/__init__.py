@@ -23,20 +23,21 @@ from redshift_client.table.core import (
 
 
 def _truncate_str(column: Column, item: PrimitiveVal) -> PrimitiveVal:
-    if isinstance(column.data_type.value, PrecisionType):
-        if column.data_type.value.data_type in (
-            PrecisionTypes.CHAR,
-            PrecisionTypes.VARCHAR,
-        ):
-            if isinstance(item, str):
-                return utf8_byte_truncate(
-                    item, column.data_type.value.precision
-                ).unwrap()
-            if column.nullable and item is None:
-                return item
-            raise Exception(
-                f"`CHAR` or `VARCHAR` item must be an str instance; got {type(item)}"
-            )
+    if isinstance(
+        column.data_type.value, PrecisionType
+    ) and column.data_type.value.data_type in (
+        PrecisionTypes.CHAR,
+        PrecisionTypes.VARCHAR,
+    ):
+        if isinstance(item, str):
+            return utf8_byte_truncate(
+                item, column.data_type.value.precision
+            ).unwrap()
+        if column.nullable and item is None:
+            return item
+        raise Exception(
+            f"`CHAR` or `VARCHAR` item must be an str instance; got {type(item)}"
+        )
     return item
 
 
