@@ -4,8 +4,20 @@ from .typing import (
 from aioextensions import (
     collect,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
+from botocore.exceptions import (
+    ClientError,
+    HTTPClientError,
+)
 from custom_exceptions import (
     RootNotFound,
+    UnavailabilityError as CustomUnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -38,6 +50,12 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from findings import (
     domain as findings_domain,
@@ -339,7 +357,7 @@ class ITReport:
                 self._get_vulnerability_data(vulnerability)
                 for vulnerability in vulnerabilities_filtered
             ),
-            workers=32,
+            workers=4,
         )
 
         for vulnerability, historics in zip(
@@ -656,6 +674,18 @@ class ITReport:
             vulnerability_id
         )
 
+    @retry_on_exceptions(
+        exceptions=(
+            ClientConnectorError,
+            ClientError,
+            ClientPayloadError,
+            CustomUnavailabilityError,
+            HTTPClientError,
+            ServerTimeoutError,
+            UnavailabilityError,
+        ),
+        sleep_seconds=10,
+    )
     async def _get_vulnerability_data(
         self, vuln: Vulnerability
     ) -> tuple[

@@ -514,7 +514,8 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
         return await collect(
-            tuple(_get_historic_treatment(vulnerability_id=id) for id in ids)
+            tuple(_get_historic_treatment(vulnerability_id=id) for id in ids),
+            workers=64,
         )
 
 
@@ -526,7 +527,8 @@ class VulnerabilityHistoricVerificationLoader(DataLoader):
         return await collect(
             tuple(
                 _get_historic_verification(vulnerability_id=id) for id in ids
-            )
+            ),
+            workers=64,
         )
 
 
