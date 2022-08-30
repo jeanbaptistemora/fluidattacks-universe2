@@ -4,6 +4,7 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
 )
 from db_model.roots.get import (
+    get_download_url,
     get_upload_url_post,
 )
 import logging
@@ -15,6 +16,9 @@ import tarfile
 import tempfile
 from typing import (
     Optional,
+)
+from urllib.request import (
+    urlretrieve,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -80,3 +84,18 @@ async def upload_cloned_repo_to_s3_tar(
 
     os.remove(zip_output_path)
     return success
+
+
+async def download_repo(
+    group_name: str,
+    nickname: str,
+    path_to_extract: str,
+) -> None:
+    download_url = await get_download_url(group_name, nickname)
+    if not download_url:
+        return
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tar_path = f"{tmpdir}/{nickname}.tar.gz"
+        urlretrieve(download_url, tar_path)  # nosec
+        with tarfile.open(tar_path, "r:gz") as tar_handler:
+            tar_handler.extractall(path_to_extract, numeric_owner=True)

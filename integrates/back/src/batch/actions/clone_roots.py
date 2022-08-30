@@ -64,8 +64,8 @@ from machine.jobs import (
     queue_job_new,
     SkimsBatchQueue,
 )
-import newutils.git
-from newutils.git import (
+import newutils.git_self
+from newutils.git_self import (
     ssh_ls_remote,
 )
 from roots import (
@@ -228,7 +228,7 @@ async def _ls_remote_root(
     if isinstance(cred.state.secret, HttpsSecret):
         return (
             root.id,
-            await newutils.git.https_ls_remote(
+            await newutils.git_self.https_ls_remote(
                 repo_url=root.state.url,
                 user=cred.state.secret.user,
                 password=cred.state.secret.password,
@@ -237,7 +237,7 @@ async def _ls_remote_root(
     if isinstance(cred.state.secret, HttpsPatSecret):
         return (
             root.id,
-            await newutils.git.https_ls_remote(
+            await newutils.git_self.https_ls_remote(
                 repo_url=root.state.url,
                 token=cred.state.secret.token,
             ),

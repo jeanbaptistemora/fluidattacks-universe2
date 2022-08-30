@@ -48,7 +48,7 @@ import logging
 import logging.config
 from newutils import (
     files as files_utils,
-    git as git_utils,
+    git_self as git_utils,
 )
 import os
 from settings import (

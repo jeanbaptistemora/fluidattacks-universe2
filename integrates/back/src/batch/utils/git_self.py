@@ -27,7 +27,7 @@ from git.repo.base import (
     Repo,
 )
 import logging
-import newutils.git
+import newutils.git_self
 from settings.logger import (
     LOGGING,
 )
@@ -57,14 +57,14 @@ async def clone_root(
 ) -> CloneResult:
     with tempfile.TemporaryDirectory() as temp_dir:
         if isinstance(cred.state.secret, SshSecret):
-            folder_to_clone_root, stderr = await newutils.git.ssh_clone(
+            folder_to_clone_root, stderr = await newutils.git_self.ssh_clone(
                 branch=branch,
                 credential_key=cred.state.secret.key,
                 repo_url=root_url,
                 temp_dir=temp_dir,
             )
         elif isinstance(cred.state.secret, HttpsPatSecret):
-            folder_to_clone_root, stderr = await newutils.git.https_clone(
+            folder_to_clone_root, stderr = await newutils.git_self.https_clone(
                 branch=branch,
                 password=None,
                 repo_url=root_url,
@@ -73,7 +73,7 @@ async def clone_root(
                 user=None,
             )
         elif isinstance(cred.state.secret, HttpsSecret):
-            folder_to_clone_root, stderr = await newutils.git.https_clone(
+            folder_to_clone_root, stderr = await newutils.git_self.https_clone(
                 branch=branch,
                 password=cred.state.secret.password,
                 repo_url=root_url,
