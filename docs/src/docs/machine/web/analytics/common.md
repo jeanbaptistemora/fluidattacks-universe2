@@ -160,6 +160,18 @@ or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 assigned to them.
 
+## Exposure trends by categories
+
+![Exposure Trends Categories](https://res.cloudinary.com/fluid-attacks/image/upload/v1661885630/docs/web/analytics/common/exposure_trends_cat.png)
+
+According to the nine categories
+that group the different
+types of vulnerabilities,
+it will be possible to filter by
+days how the CVSSF of these has varied,
+showing whether the exposure
+has increased or decreased.
+
 ## Accepted vulnerabilities by user
 
 ![Accepted Vulns By User](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/accepted_vulns_by_user_pfrrpz.png)
@@ -368,7 +380,7 @@ The value is zero when no
 vulnerability has been
 remediated in the period.
 
-## Report Technique
+## Report technique
 
 ![Report Technique](https://res.cloudinary.com/fluid-attacks/image/upload/v1657895822/docs/web/analytics/common/report_technique.png)
 
