@@ -108,7 +108,7 @@ def _translate_entity(entity: str) -> str:
 
 async def can_subscribe_user_to_entity_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     report_entity: str,
     report_subject: str,
     user_email: str,
@@ -133,10 +133,17 @@ async def can_subscribe_user_to_entity_report(
             email=user_email,
             subject=report_subject,
         )
-    elif report_entity.lower() == "comments":
-        success = True
     else:
-        raise ValueError("Invalid report_entity or report_subject")
+        LOGGER.error(
+            "- Invalid report_entity or report_subject",
+            extra={
+                "extra": {
+                    "report_entity": report_entity,
+                    "report_subject": report_subject,
+                    "user_email": user_email,
+                }
+            },
+        )
 
     return success
 
@@ -178,6 +185,11 @@ async def get_user_subscriptions_to_entity_report(
     ]
 
 
+@retry_on_exceptions(
+    exceptions=(UnableToSendMail,),
+    max_attempts=3,
+    sleep_seconds=1.0,
+)
 async def _send_analytics_report(
     *,
     event_frequency: str,
@@ -257,33 +269,9 @@ async def _send_analytics_report(
     )
 
 
-@retry_on_exceptions(
-    exceptions=(UnableToSendMail,),
-    max_attempts=3,
-    sleep_seconds=1.0,
-)
-async def _send_user_to_entity_report(
-    *,
-    event_frequency: str,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
-) -> None:
-    if (
-        report_entity.lower() != "comments"
-        and not report_entity.lower() == "digest"
-    ):
-        await _send_analytics_report(
-            event_frequency=event_frequency,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
-        )
-
-
 async def _should_not_send_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     report_entity: str,
     report_subject: str,
     user_email: str,
@@ -323,7 +311,7 @@ async def subscribe_user_to_entity_report(
             user_email=user_email,
         )
         if success:
-            await _send_user_to_entity_report(
+            await _send_analytics_report(
                 event_frequency=event_frequency,
                 report_entity=report_entity,
                 report_subject=report_subject,
@@ -390,7 +378,7 @@ async def _process_subscription(
         )
         return
     try:
-        await _send_user_to_entity_report(
+        await _send_analytics_report(
             event_frequency=_period_to_frequency(
                 period=subscription["period"]
             ),
@@ -420,9 +408,7 @@ async def trigger_subscriptions_analytics() -> None:
         for subscription in await get_subscriptions_to_entity_report(
             audience="user",
         )
-        if str(subscription["sk"]["entity"]).lower() != "comments"
-        and str(subscription["sk"]["entity"]).lower() != "digest"
-        and _period_to_frequency(period=subscription["period"]) == frequency
+        if _period_to_frequency(period=subscription["period"]) == frequency
     ]
     LOGGER.info(
         "- subscriptions loaded",
@@ -436,7 +422,7 @@ async def trigger_subscriptions_analytics() -> None:
 
 async def get_users_subscribed_to_consult(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     comment_type: str,
     is_finding_released: bool = True,

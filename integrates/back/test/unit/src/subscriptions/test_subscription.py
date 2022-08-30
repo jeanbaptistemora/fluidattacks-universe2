@@ -35,12 +35,6 @@ async def test_update() -> None:
         report_subject="test_report_subject2",
         user_email="test_user_email2",
     )
-    await subscribe_user_to_entity_report(
-        event_period=86400,
-        report_entity="DIGEST",
-        report_subject="ALL_GROUPS",
-        user_email="test_user_email3",
-    )
 
     assert await get_subscriptions_to_entity_report(audience="user",) == [
         {
@@ -65,31 +59,6 @@ async def test_update() -> None:
                 "entity": "test_report_entity",
                 "meta": "entity_report",
                 "subject": "test_report_subject",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("3600"),
-            "pk": {
-                "email": "integratesuser@gmail.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "DIGEST",
-                "meta": "entity_report",
-                "subject": "ALL_GROUPS",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("86400"),
-            "pk": {"email": "test_user_email3", "meta": "user"},
-            "pk_meta": "user",
-            "sk": {
-                "entity": "DIGEST",
-                "meta": "entity_report",
-                "subject": "ALL_GROUPS",
             },
             "sk_meta": "entity_report",
         },
@@ -173,24 +142,6 @@ async def test_update() -> None:
                 "entity": "GROUP",
                 "meta": "entity_report",
                 "subject": "unittesting",
-            },
-            "sk_meta": "entity_report",
-        }
-    ]
-    assert await get_user_subscriptions(
-        user_email="integratesuser@gmail.com",
-    ) == [
-        {
-            "period": Decimal("3600"),
-            "pk": {
-                "email": "integratesuser@gmail.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "DIGEST",
-                "meta": "entity_report",
-                "subject": "ALL_GROUPS",
             },
             "sk_meta": "entity_report",
         }

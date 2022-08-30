@@ -226,7 +226,7 @@ async def test_revoke_group_level_role() -> None:
     )
 
 
-@pytest.mark.abc
+@pytest.mark.changes_db
 async def test_revoke_user_level_role() -> None:
     await grant_user_level_role("revoke_user_LEVEL_role@gmail.com", "user")
 

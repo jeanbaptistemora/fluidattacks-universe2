@@ -258,7 +258,6 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "SubscriptionReportEntity",
         {
-            "COMMENTS": "COMMENTS",
             "GROUP": "GROUP",
             "ORGANIZATION": "ORGANIZATION",
             "PORTFOLIO": "PORTFOLIO",

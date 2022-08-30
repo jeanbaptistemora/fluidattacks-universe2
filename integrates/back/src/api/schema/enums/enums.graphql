@@ -579,8 +579,6 @@ enum NotificationsName {
 
 "Subscription report entity enum definition"
 enum SubscriptionReportEntity {
-  "Comments"
-  COMMENTS
   "Group"
   GROUP
   "Organization"
