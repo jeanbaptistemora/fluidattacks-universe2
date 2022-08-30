@@ -133,10 +133,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/imports/observesServiceTimedoctorTokens";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/imports/observesTapAnnounceKit";
             gitlabExtra = gitlabLint;
           }
@@ -190,10 +186,6 @@ in {
           }
           {
             output = "/lintPython/module/observesCommonPostgresClientTests";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesServiceTimedoctorTokens";
             gitlabExtra = gitlabLint;
           }
           {

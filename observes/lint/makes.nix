@@ -21,7 +21,6 @@ in {
                 "/observes/common/utils-logger/src"
                 "/observes/common/postgres-client/src"
                 "/observes/common/purity"
-                "/observes/service/timedoctor-tokens/src"
                 "/observes/singer/tap-zoho-crm/src"
               ]
               ++ [
@@ -91,10 +90,6 @@ in {
       observesTapTimedoctor = {
         config = "${inputs.observesIndex.tap.timedoctor.src}/setup.imports.cfg";
         src = inputs.observesIndex.tap.timedoctor.root;
-      };
-      observesServiceTimedoctorTokens = {
-        config = "/observes/service/timedoctor-tokens/src/timedoctor_tokens/setup.imports.cfg";
-        src = "/observes/service/timedoctor-tokens/src";
       };
     };
     modules = {
@@ -265,13 +260,6 @@ in {
         ];
         python = "3.8";
         src = inputs.observesIndex.target.redshift.src;
-      };
-      observesServiceTimedoctorTokens = {
-        searchPaths.source = [
-          outputs."/observes/service/timedoctor-tokens/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/service/timedoctor-tokens/src/timedoctor_tokens";
       };
     };
   };
