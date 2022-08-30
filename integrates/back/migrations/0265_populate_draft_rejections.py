@@ -12,16 +12,25 @@ from aioextensions import (
     collect,
     run,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+)
 from collections import (
     deque,
 )
 import csv
+from custom_exceptions import (
+    FindingNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
+)
+from db_model import (
+    TABLE,
 )
 from db_model.findings.enums import (
     DraftRejectionReason,
@@ -31,6 +40,16 @@ from db_model.findings.types import (
     DraftRejection,
     Finding,
     FindingState,
+)
+from db_model.findings.utils import (
+    format_state_item,
+)
+from dynamodb import (
+    keys,
+    operations,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
 )
 import logging
 import logging.config
@@ -123,11 +142,11 @@ def parse_rejection_file() -> dict[str, deque[RejectionHelper]]:
     return rejection_info
 
 
-def update_finding_state(
+async def update_finding_state(
     old_state: FindingState, helper: RejectionHelper
-) -> tuple[FindingState, FindingState]:
-    """Adds the rejection data to a copy of the old state and returns a tuple
-    of [old_state, new_state]"""
+) -> None:
+    """Adds the rejection data to a copy of the old state and sends it to
+    dynamo"""
     rejection: DraftRejection = DraftRejection(
         other="The draft did not fulfill the required standards"
         if DraftRejectionReason.OTHER in helper.reasons
@@ -144,7 +163,29 @@ def update_finding_state(
         source=old_state.source,
         status=old_state.status,
     )
-    return (old_state, new_state)
+
+    key_structure = TABLE.primary_key
+    new_state_item = format_state_item(new_state)
+    state_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_state"],
+        values={
+            "id": helper.finding_id,
+            "iso8601utc": old_state.modified_date,
+        },
+    )
+
+    try:
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists()
+            & Attr("state.status").eq(FindingStateStatus.REJECTED.value)
+            & Attr("state.modified_date").eq(old_state.modified_date)
+            & Attr("state.rejection").not_exists(),
+            item=new_state_item,
+            key=state_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise FindingNotFound() from ex
 
 
 def handle_day_step(
