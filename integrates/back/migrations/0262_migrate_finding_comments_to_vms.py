@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Migrate event comments to "integrates_vms" table.
+
+Execution Time:    2022-08-30 at 01:11:28 UTC
+Finalization Time: 2022-08-30 at 01:20:11 UTC
 """
 
 from aioextensions import (
@@ -108,7 +111,7 @@ async def main() -> None:
             process_comment(all_active_group_names, item)
             for item in comments_scanned
         ),
-        workers=128,
+        workers=256,
     )
 
 
