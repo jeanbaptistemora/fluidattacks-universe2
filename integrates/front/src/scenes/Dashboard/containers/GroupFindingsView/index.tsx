@@ -150,10 +150,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       meta: { filterType: "select" },
     },
     {
-      accessorFn: (row: IFindingAttr): string =>
-        String(
-          Array.from(row.locationsInfo.treatmentAssignmentEmails.values())
-        ),
+      accessorFn: (row: IFindingAttr): string[] =>
+        Array.from(row.locationsInfo.treatmentAssignmentEmails.values()),
+      filterFn: "arrIncludes",
       header: "Asignees",
       meta: { filterType: "select" },
     },

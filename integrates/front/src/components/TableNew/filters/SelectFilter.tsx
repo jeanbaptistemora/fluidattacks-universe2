@@ -33,13 +33,16 @@ const SelectFilter = <TData extends RowData>({
         name={column.id}
       >
         <option value={""}>{"All"}</option>
-        {sortedUniqueValues.map(
-          (value): JSX.Element => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          )
-        )}
+        {sortedUniqueValues
+          .flatMap((value): string => value)
+          .filter((value, index, arr): boolean => arr.indexOf(value) === index)
+          .map(
+            (value): JSX.Element => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            )
+          )}
       </FormikSelect>
     </div>
   );
