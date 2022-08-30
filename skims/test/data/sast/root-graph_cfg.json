@@ -25991,6 +25991,9 @@
             }
           },
           "1002": {
+            "1003": {
+              "label_ast": "AST"
+            },
             "1005": {
               "label_ast": "AST"
             },
@@ -26004,6 +26007,9 @@
             }
           },
           "1016": {
+            "1017": {
+              "label_ast": "AST"
+            },
             "1019": {
               "label_ast": "AST"
             },
@@ -26056,6 +26062,9 @@
             }
           },
           "1050": {
+            "1051": {
+              "label_ast": "AST"
+            },
             "1053": {
               "label_ast": "AST"
             },
@@ -26077,6 +26086,9 @@
             }
           },
           "106": {
+            "107": {
+              "label_ast": "AST"
+            },
             "109": {
               "label_ast": "AST"
             },
@@ -26135,6 +26147,9 @@
             }
           },
           "1096": {
+            "1097": {
+              "label_ast": "AST"
+            },
             "1099": {
               "label_ast": "AST"
             },
@@ -26201,6 +26216,9 @@
             }
           },
           "1134": {
+            "1135": {
+              "label_ast": "AST"
+            },
             "1137": {
               "label_ast": "AST"
             },
@@ -26275,6 +26293,9 @@
             }
           },
           "117": {
+            "118": {
+              "label_ast": "AST"
+            },
             "120": {
               "label_ast": "AST"
             },
@@ -26283,6 +26304,9 @@
             }
           },
           "1172": {
+            "1173": {
+              "label_ast": "AST"
+            },
             "1175": {
               "label_ast": "AST"
             },
@@ -26322,6 +26346,9 @@
             }
           },
           "1195": {
+            "1196": {
+              "label_ast": "AST"
+            },
             "1198": {
               "label_ast": "AST"
             },
@@ -26346,6 +26373,9 @@
             }
           },
           "1212": {
+            "1213": {
+              "label_ast": "AST"
+            },
             "1215": {
               "label_ast": "AST"
             },
@@ -26428,6 +26458,9 @@
             }
           },
           "1259": {
+            "1260": {
+              "label_ast": "AST"
+            },
             "1262": {
               "label_ast": "AST"
             },
@@ -26446,6 +26479,9 @@
             }
           },
           "1273": {
+            "1274": {
+              "label_ast": "AST"
+            },
             "1276": {
               "label_ast": "AST"
             },
@@ -26533,6 +26569,9 @@
             }
           },
           "1316": {
+            "1317": {
+              "label_ast": "AST"
+            },
             "1319": {
               "label_ast": "AST"
             },
@@ -26546,6 +26585,9 @@
             }
           },
           "1330": {
+            "1331": {
+              "label_ast": "AST"
+            },
             "1333": {
               "label_ast": "AST"
             },
@@ -26646,6 +26688,9 @@
             }
           },
           "139": {
+            "140": {
+              "label_ast": "AST"
+            },
             "142": {
               "label_ast": "AST"
             },
@@ -26701,6 +26746,9 @@
             }
           },
           "1420": {
+            "1421": {
+              "label_ast": "AST"
+            },
             "1423": {
               "label_ast": "AST"
             },
@@ -26824,6 +26872,9 @@
             }
           },
           "149": {
+            "150": {
+              "label_ast": "AST"
+            },
             "152": {
               "label_ast": "AST"
             },
@@ -26944,6 +26995,9 @@
             }
           },
           "1547": {
+            "1548": {
+              "label_ast": "AST"
+            },
             "1550": {
               "label_ast": "AST"
             },
@@ -27025,6 +27079,9 @@
             }
           },
           "159": {
+            "160": {
+              "label_ast": "AST"
+            },
             "162": {
               "label_ast": "AST"
             },
@@ -27156,6 +27213,9 @@
             }
           },
           "169": {
+            "170": {
+              "label_ast": "AST"
+            },
             "172": {
               "label_ast": "AST"
             },
@@ -27205,6 +27265,9 @@
             }
           },
           "179": {
+            "180": {
+              "label_ast": "AST"
+            },
             "182": {
               "label_ast": "AST"
             },
@@ -27242,6 +27305,9 @@
             }
           },
           "194": {
+            "195": {
+              "label_ast": "AST"
+            },
             "197": {
               "label_ast": "AST"
             },
@@ -27255,6 +27321,9 @@
             }
           },
           "204": {
+            "205": {
+              "label_ast": "AST"
+            },
             "207": {
               "label_ast": "AST"
             },
@@ -27268,6 +27337,9 @@
             }
           },
           "214": {
+            "215": {
+              "label_ast": "AST"
+            },
             "217": {
               "label_ast": "AST"
             },
@@ -27302,6 +27374,9 @@
             }
           },
           "235": {
+            "236": {
+              "label_ast": "AST"
+            },
             "238": {
               "label_ast": "AST"
             },
@@ -27357,6 +27432,9 @@
             }
           },
           "266": {
+            "267": {
+              "label_ast": "AST"
+            },
             "269": {
               "label_ast": "AST"
             },
@@ -27394,6 +27472,9 @@
             }
           },
           "289": {
+            "290": {
+              "label_ast": "AST"
+            },
             "292": {
               "label_ast": "AST"
             },
@@ -27540,6 +27621,9 @@
             }
           },
           "303": {
+            "304": {
+              "label_ast": "AST"
+            },
             "306": {
               "label_ast": "AST"
             },
@@ -27606,6 +27690,9 @@
             }
           },
           "331": {
+            "332": {
+              "label_ast": "AST"
+            },
             "334": {
               "label_ast": "AST"
             },
@@ -27680,6 +27767,9 @@
             }
           },
           "370": {
+            "371": {
+              "label_ast": "AST"
+            },
             "373": {
               "label_ast": "AST"
             },
@@ -27764,6 +27854,9 @@
             }
           },
           "414": {
+            "415": {
+              "label_ast": "AST"
+            },
             "417": {
               "label_ast": "AST"
             },
@@ -27822,6 +27915,9 @@
             }
           },
           "449": {
+            "450": {
+              "label_ast": "AST"
+            },
             "452": {
               "label_ast": "AST"
             },
@@ -27875,6 +27971,9 @@
             }
           },
           "472": {
+            "473": {
+              "label_ast": "AST"
+            },
             "475": {
               "label_ast": "AST"
             },
@@ -27917,6 +28016,9 @@
             }
           },
           "495": {
+            "496": {
+              "label_ast": "AST"
+            },
             "498": {
               "label_ast": "AST"
             },
@@ -27935,6 +28037,9 @@
             }
           },
           "509": {
+            "510": {
+              "label_ast": "AST"
+            },
             "512": {
               "label_ast": "AST"
             },
@@ -28017,6 +28122,9 @@
             }
           },
           "545": {
+            "546": {
+              "label_ast": "AST"
+            },
             "548": {
               "label_ast": "AST"
             },
@@ -28057,6 +28165,9 @@
             }
           },
           "565": {
+            "566": {
+              "label_ast": "AST"
+            },
             "568": {
               "label_ast": "AST"
             },
@@ -28115,6 +28226,9 @@
             }
           },
           "596": {
+            "597": {
+              "label_ast": "AST"
+            },
             "599": {
               "label_ast": "AST"
             },
@@ -28157,6 +28271,9 @@
             }
           },
           "625": {
+            "626": {
+              "label_ast": "AST"
+            },
             "628": {
               "label_ast": "AST"
             },
@@ -28186,6 +28303,9 @@
             }
           },
           "64": {
+            "65": {
+              "label_ast": "AST"
+            },
             "67": {
               "label_ast": "AST"
             },
@@ -28194,6 +28314,9 @@
             }
           },
           "644": {
+            "645": {
+              "label_ast": "AST"
+            },
             "647": {
               "label_ast": "AST"
             },
@@ -28218,6 +28341,9 @@
             }
           },
           "661": {
+            "662": {
+              "label_ast": "AST"
+            },
             "664": {
               "label_ast": "AST"
             },
@@ -28291,6 +28417,9 @@
             }
           },
           "700": {
+            "701": {
+              "label_ast": "AST"
+            },
             "703": {
               "label_ast": "AST"
             },
@@ -28317,6 +28446,9 @@
             }
           },
           "715": {
+            "716": {
+              "label_ast": "AST"
+            },
             "718": {
               "label_ast": "AST"
             },
@@ -28343,6 +28475,9 @@
             }
           },
           "730": {
+            "731": {
+              "label_ast": "AST"
+            },
             "733": {
               "label_ast": "AST"
             },
@@ -28367,6 +28502,9 @@
             }
           },
           "744": {
+            "745": {
+              "label_ast": "AST"
+            },
             "747": {
               "label_ast": "AST"
             },
@@ -28467,6 +28605,9 @@
             }
           },
           "793": {
+            "794": {
+              "label_ast": "AST"
+            },
             "796": {
               "label_ast": "AST"
             },
@@ -28516,6 +28657,9 @@
             }
           },
           "821": {
+            "822": {
+              "label_ast": "AST"
+            },
             "824": {
               "label_ast": "AST"
             },
@@ -28540,6 +28684,9 @@
             }
           },
           "838": {
+            "839": {
+              "label_ast": "AST"
+            },
             "841": {
               "label_ast": "AST"
             },
@@ -28595,6 +28742,9 @@
             }
           },
           "870": {
+            "871": {
+              "label_ast": "AST"
+            },
             "873": {
               "label_ast": "AST"
             },
@@ -28658,6 +28808,9 @@
             }
           },
           "900": {
+            "901": {
+              "label_ast": "AST"
+            },
             "903": {
               "label_ast": "AST"
             },
@@ -28724,6 +28877,9 @@
             }
           },
           "93": {
+            "94": {
+              "label_ast": "AST"
+            },
             "96": {
               "label_ast": "AST"
             },
@@ -28745,6 +28901,9 @@
             }
           },
           "939": {
+            "940": {
+              "label_ast": "AST"
+            },
             "942": {
               "label_ast": "AST"
             },
@@ -28891,7 +29050,12 @@
             "arguments_id": "1006",
             "expression": "println",
             "expression_id": "1005",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1003"
+          },
+          "1003": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1005": {
             "label_type": "SymbolLookup",
@@ -28917,7 +29081,12 @@
             "arguments_id": "1020",
             "expression": "println",
             "expression_id": "1019",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1017"
+          },
+          "1017": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1019": {
             "label_type": "SymbolLookup",
@@ -28983,7 +29152,12 @@
             "arguments_id": "1054",
             "expression": "println",
             "expression_id": "1053",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1051"
+          },
+          "1051": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1053": {
             "label_type": "SymbolLookup",
@@ -29011,7 +29185,8 @@
             "arguments_id": "110",
             "expression": "println",
             "expression_id": "109",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "107"
           },
           "1068": {
             "label_type": "BinaryOperation",
@@ -29022,6 +29197,10 @@
           "1069": {
             "label_type": "SymbolLookup",
             "symbol": "counter"
+          },
+          "107": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1071": {
             "label_type": "Literal",
@@ -29080,7 +29259,12 @@
             "arguments_id": "1100",
             "expression": "println",
             "expression_id": "1099",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1097"
+          },
+          "1097": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1099": {
             "label_type": "SymbolLookup",
@@ -29153,7 +29337,12 @@
             "arguments_id": "1138",
             "expression": "println",
             "expression_id": "1137",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1135"
+          },
+          "1135": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1137": {
             "label_type": "SymbolLookup",
@@ -29227,13 +29416,19 @@
             "arguments_id": "121",
             "expression": "printStackTrace",
             "expression_id": "120",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "118"
           },
           "1172": {
             "arguments_id": "1176",
             "expression": "println",
             "expression_id": "1175",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1173"
+          },
+          "1173": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1175": {
             "label_type": "SymbolLookup",
@@ -29246,6 +29441,10 @@
             "label_type": "Literal",
             "value": "\"You are three or less than three yr old\"",
             "value_type": "string"
+          },
+          "118": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
           },
           "1181": {
             "label_type": "Break"
@@ -29278,7 +29477,12 @@
             "arguments_id": "1199",
             "expression": "println",
             "expression_id": "1198",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1196"
+          },
+          "1196": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1198": {
             "label_type": "SymbolLookup",
@@ -29312,7 +29516,12 @@
             "arguments_id": "1216",
             "expression": "println",
             "expression_id": "1215",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1213"
+          },
+          "1213": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1215": {
             "label_type": "SymbolLookup",
@@ -29400,11 +29609,16 @@
             "arguments_id": "1263",
             "expression": "println",
             "expression_id": "1262",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1260"
           },
           "126": {
             "label_type": "VariableDeclaration",
             "variable_type": "ArrayList<Integer>"
+          },
+          "1260": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1262": {
             "label_type": "SymbolLookup",
@@ -29425,7 +29639,12 @@
             "arguments_id": "1277",
             "expression": "println",
             "expression_id": "1276",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1274"
+          },
+          "1274": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1276": {
             "label_type": "SymbolLookup",
@@ -29521,7 +29740,12 @@
             "arguments_id": "1320",
             "expression": "println",
             "expression_id": "1319",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1317"
+          },
+          "1317": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1319": {
             "label_type": "SymbolLookup",
@@ -29542,7 +29766,12 @@
             "arguments_id": "1334",
             "expression": "println",
             "expression_id": "1333",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1331"
+          },
+          "1331": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1333": {
             "label_type": "SymbolLookup",
@@ -29672,7 +29901,8 @@
             "arguments_id": "143",
             "expression": "add",
             "expression_id": "142",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "140"
           },
           "1391": {
             "expression_type": "++",
@@ -29690,6 +29920,10 @@
             "condition_id": "1399",
             "label_type": "If",
             "true_id": "1413"
+          },
+          "140": {
+            "label_type": "SymbolLookup",
+            "symbol": "numbers"
           },
           "1401": {
             "label_type": "BinaryOperation",
@@ -29735,7 +29969,12 @@
             "arguments_id": "1424",
             "expression": "println",
             "expression_id": "1423",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1421"
+          },
+          "1421": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "1423": {
             "label_type": "SymbolLookup",
@@ -29877,7 +30116,8 @@
             "arguments_id": "153",
             "expression": "add",
             "expression_id": "152",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "150"
           },
           "1490": {
             "label_type": "VariableDeclarator",
@@ -29905,6 +30145,10 @@
           },
           "15": {
             "label_type": "ClassBody"
+          },
+          "150": {
+            "label_type": "SymbolLookup",
+            "symbol": "numbers"
           },
           "1500": {
             "expression_type": "++",
@@ -30002,7 +30246,12 @@
             "arguments_id": "1551",
             "expression": "println",
             "expression_id": "1550",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "1548"
+          },
+          "1548": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "155": {
             "label_type": "Literal",
@@ -30105,10 +30354,15 @@
             "arguments_id": "163",
             "expression": "add",
             "expression_id": "162",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "160"
           },
           "1597": {
             "label_type": "ExecutionBlock"
+          },
+          "160": {
+            "label_type": "SymbolLookup",
+            "symbol": "numbers"
           },
           "1600": {
             "arguments_id": "1602",
@@ -30237,7 +30491,8 @@
             "arguments_id": "173",
             "expression": "add",
             "expression_id": "172",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "170"
           },
           "1690": {
             "label_type": "Resource",
@@ -30263,6 +30518,10 @@
             "modifiers_id": "18",
             "name": "main",
             "parameters_id": "23"
+          },
+          "170": {
+            "label_type": "SymbolLookup",
+            "symbol": "numbers"
           },
           "1700": {
             "label_type": "VariableDeclarator",
@@ -30298,11 +30557,16 @@
             "arguments_id": "183",
             "expression": "forEach",
             "expression_id": "182",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "180"
           },
           "18": {
             "annotation_ids": [],
             "label_type": "Modifiers"
+          },
+          "180": {
+            "label_type": "SymbolLookup",
+            "symbol": "numbers"
           },
           "182": {
             "label_type": "SymbolLookup",
@@ -30329,7 +30593,12 @@
             "arguments_id": "198",
             "expression": "println",
             "expression_id": "197",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "195"
+          },
+          "195": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "197": {
             "label_type": "SymbolLookup",
@@ -30350,7 +30619,12 @@
             "arguments_id": "208",
             "expression": "println",
             "expression_id": "207",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "205"
+          },
+          "205": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "207": {
             "label_type": "SymbolLookup",
@@ -30367,7 +30641,12 @@
             "arguments_id": "218",
             "expression": "println",
             "expression_id": "217",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "215"
+          },
+          "215": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "217": {
             "label_type": "SymbolLookup",
@@ -30399,7 +30678,12 @@
             "arguments_id": "239",
             "expression": "println",
             "expression_id": "238",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "236"
+          },
+          "236": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "238": {
             "label_type": "SymbolLookup",
@@ -30466,7 +30750,12 @@
             "arguments_id": "270",
             "expression": "println",
             "expression_id": "269",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "267"
+          },
+          "267": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "269": {
             "label_type": "SymbolLookup",
@@ -30507,10 +30796,15 @@
             "arguments_id": "293",
             "expression": "println",
             "expression_id": "292",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "290"
           },
           "29": {
             "label_type": "ExecutionBlock"
+          },
+          "290": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "292": {
             "label_type": "SymbolLookup",
@@ -30531,7 +30825,12 @@
             "arguments_id": "307",
             "expression": "println",
             "expression_id": "306",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "304"
+          },
+          "304": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "306": {
             "label_type": "SymbolLookup",
@@ -30594,7 +30893,12 @@
             "arguments_id": "335",
             "expression": "println",
             "expression_id": "334",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "332"
+          },
+          "332": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "334": {
             "label_type": "SymbolLookup",
@@ -30680,7 +30984,12 @@
             "arguments_id": "374",
             "expression": "println",
             "expression_id": "373",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "371"
+          },
+          "371": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "373": {
             "label_type": "SymbolLookup",
@@ -30782,7 +31091,12 @@
             "arguments_id": "418",
             "expression": "println",
             "expression_id": "417",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "415"
+          },
+          "415": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "417": {
             "label_type": "SymbolLookup",
@@ -30862,11 +31176,16 @@
             "arguments_id": "453",
             "expression": "println",
             "expression_id": "452",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "450"
           },
           "45": {
             "block_id": "47",
             "label_type": "TryStatement"
+          },
+          "450": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "452": {
             "label_type": "SymbolLookup",
@@ -30911,7 +31230,12 @@
             "arguments_id": "476",
             "expression": "println",
             "expression_id": "475",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "473"
+          },
+          "473": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "475": {
             "label_type": "SymbolLookup",
@@ -30957,7 +31281,12 @@
             "arguments_id": "499",
             "expression": "println",
             "expression_id": "498",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "496"
+          },
+          "496": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "498": {
             "label_type": "SymbolLookup",
@@ -30978,12 +31307,17 @@
             "arguments_id": "513",
             "expression": "println",
             "expression_id": "512",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "510"
           },
           "51": {
             "label_type": "VariableDeclarator",
             "value_id": "54",
             "variable_name": "myNumbers"
+          },
+          "510": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "512": {
             "label_type": "SymbolLookup",
@@ -31050,7 +31384,12 @@
             "arguments_id": "549",
             "expression": "println",
             "expression_id": "548",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "546"
+          },
+          "546": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "548": {
             "label_type": "SymbolLookup",
@@ -31091,7 +31430,12 @@
             "arguments_id": "569",
             "expression": "println",
             "expression_id": "568",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "566"
+          },
+          "566": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "568": {
             "label_type": "SymbolLookup",
@@ -31158,7 +31502,12 @@
             "arguments_id": "600",
             "expression": "println",
             "expression_id": "599",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "597"
+          },
+          "597": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "599": {
             "label_type": "SymbolLookup",
@@ -31221,7 +31570,12 @@
             "arguments_id": "629",
             "expression": "println",
             "expression_id": "628",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "626"
+          },
+          "626": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "628": {
             "label_type": "SymbolLookup",
@@ -31249,7 +31603,8 @@
             "arguments_id": "68",
             "expression": "println",
             "expression_id": "67",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "65"
           },
           "641": {
             "label_type": "Literal",
@@ -31260,7 +31615,12 @@
             "arguments_id": "648",
             "expression": "println",
             "expression_id": "647",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "645"
+          },
+          "645": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "647": {
             "label_type": "SymbolLookup",
@@ -31268,6 +31628,10 @@
           },
           "648": {
             "label_type": "ArgumentList"
+          },
+          "65": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "650": {
             "label_type": "Literal",
@@ -31287,7 +31651,12 @@
             "arguments_id": "665",
             "expression": "println",
             "expression_id": "664",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "662"
+          },
+          "662": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "664": {
             "label_type": "SymbolLookup",
@@ -31365,7 +31734,12 @@
             "arguments_id": "704",
             "expression": "println",
             "expression_id": "703",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "701"
+          },
+          "701": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "703": {
             "label_type": "SymbolLookup",
@@ -31399,7 +31773,12 @@
             "arguments_id": "719",
             "expression": "println",
             "expression_id": "718",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "716"
+          },
+          "716": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "718": {
             "label_type": "SymbolLookup",
@@ -31429,7 +31808,12 @@
             "arguments_id": "734",
             "expression": "println",
             "expression_id": "733",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "731"
+          },
+          "731": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "733": {
             "label_type": "SymbolLookup",
@@ -31453,7 +31837,12 @@
             "arguments_id": "748",
             "expression": "println",
             "expression_id": "747",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "745"
+          },
+          "745": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "747": {
             "label_type": "SymbolLookup",
@@ -31548,7 +31937,12 @@
             "arguments_id": "797",
             "expression": "println",
             "expression_id": "796",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "794"
+          },
+          "794": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "796": {
             "label_type": "SymbolLookup",
@@ -31605,7 +31999,12 @@
             "arguments_id": "825",
             "expression": "println",
             "expression_id": "824",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "822"
+          },
+          "822": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "824": {
             "label_type": "SymbolLookup",
@@ -31632,7 +32031,12 @@
             "arguments_id": "842",
             "expression": "println",
             "expression_id": "841",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "839"
+          },
+          "839": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "841": {
             "label_type": "SymbolLookup",
@@ -31692,7 +32096,12 @@
             "arguments_id": "874",
             "expression": "println",
             "expression_id": "873",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "871"
+          },
+          "871": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "873": {
             "label_type": "SymbolLookup",
@@ -31755,7 +32164,12 @@
             "arguments_id": "904",
             "expression": "println",
             "expression_id": "903",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "901"
+          },
+          "901": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "903": {
             "label_type": "SymbolLookup",
@@ -31825,7 +32239,8 @@
             "arguments_id": "97",
             "expression": "toString",
             "expression_id": "96",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "94"
           },
           "930": {
             "label_type": "Literal",
@@ -31848,7 +32263,16 @@
             "arguments_id": "943",
             "expression": "println",
             "expression_id": "942",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "940"
+          },
+          "94": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
+          },
+          "940": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "942": {
             "label_type": "SymbolLookup",

@@ -1642,6 +1642,9 @@
             }
           },
           "40": {
+            "41": {
+              "label_ast": "AST"
+            },
             "43": {
               "label_ast": "AST"
             },
@@ -1665,6 +1668,9 @@
             }
           },
           "55": {
+            "56": {
+              "label_ast": "AST"
+            },
             "58": {
               "label_ast": "AST"
             },
@@ -1689,6 +1695,9 @@
             }
           },
           "68": {
+            "69": {
+              "label_ast": "AST"
+            },
             "71": {
               "label_ast": "AST"
             },
@@ -1705,6 +1714,9 @@
             }
           },
           "74": {
+            "75": {
+              "label_ast": "AST"
+            },
             "77": {
               "label_ast": "AST"
             },
@@ -1807,7 +1819,12 @@
             "arguments_id": "44",
             "expression": "setContentType",
             "expression_id": "43",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "41"
+          },
+          "41": {
+            "label_type": "SymbolLookup",
+            "symbol": "response"
           },
           "43": {
             "label_type": "SymbolLookup",
@@ -1838,7 +1855,12 @@
             "arguments_id": "59",
             "expression": "getCookies",
             "expression_id": "58",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "56"
+          },
+          "56": {
+            "label_type": "SymbolLookup",
+            "symbol": "request"
           },
           "58": {
             "label_type": "SymbolLookup",
@@ -1865,7 +1887,12 @@
             "arguments_id": "72",
             "expression": "decode",
             "expression_id": "71",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "69"
+          },
+          "69": {
+            "field_text": "java.net.URLDecoder",
+            "label_type": "FieldAccess"
           },
           "71": {
             "label_type": "SymbolLookup",
@@ -1878,7 +1905,12 @@
             "arguments_id": "78",
             "expression": "getValue",
             "expression_id": "77",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "75"
+          },
+          "75": {
+            "label_type": "SymbolLookup",
+            "symbol": "theCookie"
           },
           "77": {
             "label_type": "SymbolLookup",
@@ -2857,6 +2889,9 @@
             }
           },
           "32": {
+            "33": {
+              "label_ast": "AST"
+            },
             "35": {
               "label_ast": "AST"
             },
@@ -2870,6 +2905,9 @@
             }
           },
           "38": {
+            "39": {
+              "label_ast": "AST"
+            },
             "41": {
               "label_ast": "AST"
             },
@@ -2941,7 +2979,12 @@
             "arguments_id": "36",
             "expression": "println",
             "expression_id": "35",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "33"
+          },
+          "33": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
           },
           "35": {
             "label_type": "SymbolLookup",
@@ -2954,7 +2997,12 @@
             "arguments_id": "42",
             "expression": "createTempFile",
             "expression_id": "41",
-            "label_type": "MethodInvocation"
+            "label_type": "MethodInvocation",
+            "object_id": "39"
+          },
+          "39": {
+            "label_type": "SymbolLookup",
+            "symbol": "File"
           },
           "41": {
             "label_type": "SymbolLookup",

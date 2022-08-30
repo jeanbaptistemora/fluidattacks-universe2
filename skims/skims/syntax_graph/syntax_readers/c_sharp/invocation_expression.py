@@ -23,4 +23,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if "__0__" not in match_ast(args.ast_graph, arguments_id, "(", ")"):
         arguments_id = None
 
-    return build_method_invocation_node(args, expr, expr_id, arguments_id)
+    return build_method_invocation_node(
+        args, expr, expr_id, arguments_id, None
+    )

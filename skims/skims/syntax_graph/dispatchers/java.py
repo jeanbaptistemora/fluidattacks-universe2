@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.common import (
     program as common_program,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
+    this as common_this,
     throw_statement as common_throw_statement,
     try_statement as common_try_statement,
     variable_declaration as common_variable_declaration,
@@ -389,6 +390,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "switch_label",
         },
         syntax_reader=java_switch_label.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "this",
+        },
+        syntax_reader=common_this.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -13,7 +13,16 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    expr_id = args.ast_graph.nodes[args.n_id]["label_field_name"]
-    arguments_id = args.ast_graph.nodes[args.n_id]["label_field_arguments"]
-    expr = node_to_str(args.ast_graph, expr_id)
-    return build_method_invocation_node(args, expr, expr_id, arguments_id)
+    graph = args.ast_graph
+    expr_id = graph.nodes[args.n_id]["label_field_name"]
+    arguments_id = graph.nodes[args.n_id]["label_field_arguments"]
+    expr = node_to_str(graph, expr_id)
+
+    if object_id := graph.nodes[args.n_id].get("label_field_object"):
+        return build_method_invocation_node(
+            args, expr, expr_id, arguments_id, object_id
+        )
+
+    return build_method_invocation_node(
+        args, expr, expr_id, arguments_id, None
+    )
