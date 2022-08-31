@@ -15,9 +15,9 @@
       Here are the details of the group:
     </p>
     <p>
-      <strong>Date</strong>: {{ report_date }}.<br>
+      <strong>Date:</strong> {{ report_date }}.<br>
       {% for key, value in group_changes.items() %}
-        <strong>{{ key }}</strong>:
+        <strong>{{ key }}:</strong>
         {% if value["from"] == value["to"] %}
           {{ value["to"] }}.
         {% else %}

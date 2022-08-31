@@ -17,9 +17,9 @@
     <div style="line-height: 30px;">
       {% for key, value in new_root_content.items() %}
         {% if key in key_format %}
-          <strong>{{ key_format[key] }}</strong>:
+          <strong>{{ key_format[key] }}:</strong>
         {% else %}
-          <strong>{{ key.replace('_', ' ').capitalize().replace('vpn', 'VPN') }}</strong>:
+          <strong>{{ key.replace('_', ' ').capitalize().replace('vpn', 'VPN') }}:</strong>
         {% endif %}
         {% if key in ["url", "gitignore"]%}
           <div class="row">

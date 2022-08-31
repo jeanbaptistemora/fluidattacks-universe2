@@ -18,17 +18,17 @@
       <strong>{{ state }}</strong> in group <strong>{{ group }}</strong>:
     </p>
     <p>
-      <strong>Type</strong>: {{ event_type }}.<br/>
-      <strong>Description</strong>: {{ description }}.<br/>
-      {% if reason %}<strong>Reason</strong>: {{ reason }}.<br/>{% endif %}
+      <strong>Type:</strong> {{ event_type }}.<br/>
+      <strong>Description:</strong> {{ description }}.<br/>
+      {% if reason %}<strong>Reason:</strong> {{ reason }}.<br/>{% endif %}
       {% if root_url %}
-        <strong>Root URL</strong>:
+        <strong>Root URL:</strong>
         <a href="{{ root_url }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
           {{ root_url }}
         </a><br/>
       {% endif %}
-      <strong>Age</strong>: {{ event_age }} days. (best closing average 4.2 days).<br/>
-      <strong>Date</strong>: {{ report_date }}.
+      <strong>Age:</strong> {{ event_age }} days. (best closing average 4.2 days).<br/>
+      <strong>Date:</strong> {{ report_date }}.
     </p>
     <p></p>
     <p>Regards,<br/>

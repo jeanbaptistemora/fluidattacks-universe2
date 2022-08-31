@@ -14,14 +14,14 @@
       by <strong>{{ responsible }}</strong> as {{ user_role }}.
     </p>
     <p>
-      <strong>Git Root</strong>: {{ git_root }}<br>
-      <strong>Git Root URL</strong>:
+      <strong>Git Root:</strong> {{ git_root }}<br>
+      <strong>Git Root URL:</strong>
       <a href="{{ url_added }}" target="_blank" rel="noopener noreferrer">{{ git_root_url }}</a><br>
-      {% if urls_deleted and reason %} <strong>Reason</strong>: {{ reason }}.<br> {% endif %}
-      <strong>Date</strong>: {{ report_date }}.<br>
+      {% if urls_deleted and reason %} <strong>Reason:</strong> {{ reason }}.<br> {% endif %}
+      <strong>Date:</strong> {{ report_date }}.<br>
       {% if urls_added %}
         <ul style="padding: 1rem;line-height: 30px;">
-          <li><strong>URLs added</strong>:</li>
+          <li><strong>URLs added:</strong></li>
           <ul>
             {% for url_added in urls_added %}
               <li><a href="{{ url_added }}" target="_blank" rel="noopener noreferrer">{{ url_added }}</a></li>
@@ -31,7 +31,7 @@
       {% endif %}
       {% if urls_deleted %}
         <ul style="padding: 1rem;line-height: 30px;">
-          <li><strong>URLs deleted</strong>:</li>
+          <li><strong>URLs deleted:</strong></li>
           <ul>
             {% for url_deleted in urls_deleted %}
               <li><a href="{{ url_deleted }}" target="_blank" rel="noopener noreferrer">{{ url_deleted }}</a></li>

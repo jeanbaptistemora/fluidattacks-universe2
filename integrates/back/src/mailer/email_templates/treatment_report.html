@@ -14,14 +14,14 @@
       {% if responsible %}by <strong>{{ responsible }}</strong> as {{ user_role }}{% endif %}:
     </p>
     <p style="margin-bottom: 0px;">
-      <strong>Date</strong>: {{ date }}.<br>
-      <strong>Type</strong>: {{ finding }}.<br>
-      <strong>Location</strong>: {{ location }}.<br>
-      <strong>Justification</strong>: {{ justification }}.<br>
+      <strong>Date:</strong> {{ date }}.<br>
+      <strong>Type:</strong> {{ finding }}.<br>
+      <strong>Location:</strong> {{ location }}.<br>
+      <strong>Justification:</strong> {{ justification }}.<br>
     </p>
     {% if not is_approved %}
       <p style="margin-bottom: 0px;">
-        <Strong>Waiting for approval from</Strong>:
+        <Strong>Waiting for approval from:</strong>
       </p>
       <ul style="margin-top: 10px;line-height: 30px;margin-bottom: 2rem;">
         {% for manager in managers_email %}
