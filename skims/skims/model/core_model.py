@@ -623,6 +623,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[95, 96, 186],
     )
+    F176: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F176",
+        cwe=16,
+        execution_queue=ExecutionQueue.control,
+        requirements=[266],
+    )
     F177: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F177",
@@ -3025,6 +3032,14 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F160,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CONTAINER_USING_SSHPASS = MethodInfo(
+        file_name="docker",
+        name="container_using_sshpass",
+        module="lib_path",
+        finding=FindingEnum.F176,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(

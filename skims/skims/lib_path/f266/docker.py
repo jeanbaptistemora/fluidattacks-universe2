@@ -12,11 +12,11 @@ from typing import (
 )
 
 COMMANDS_REGEX = [
-    re.compile(r"^RUN.*useradd"),
-    re.compile(r"^RUN.*adduser"),
-    re.compile(r"^RUN.*addgroup"),
-    re.compile(r"^RUN.*usergroup"),
-    re.compile(r"^RUN.*usermod"),
+    re.compile(r"(\s+|^RUN).*useradd"),
+    re.compile(r"(\s+|^RUN).*adduser"),
+    re.compile(r"(\s+|^RUN).*addgroup"),
+    re.compile(r"(\s+|^RUN).*usergroup"),
+    re.compile(r"(\s+|^RUN).*usermod"),
     re.compile(r"^USER"),
 ]
 
