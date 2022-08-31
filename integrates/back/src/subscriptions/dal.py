@@ -4,6 +4,9 @@ from boto3.dynamodb.conditions import (
 from custom_types import (
     DynamoDelete,
 )
+from db_model.subscriptions.types import (
+    Subscription,
+)
 from decimal import (
     Decimal,
 )
@@ -13,6 +16,9 @@ from dynamodb import (
 from newutils.encodings import (
     key_to_mapping,
     mapping_to_key,
+)
+from newutils.subscriptions import (
+    format_subscription,
 )
 from typing import (
     Any,
@@ -52,6 +58,20 @@ async def get_subscriptions_to_entity_report(
         table=SUBSCRIPTIONS_TABLE,
     )
     return _unpack_items(results)
+
+
+async def get_all_subsriptions() -> tuple[Subscription, ...]:
+    results = await dynamodb_ops.query(
+        query_attrs=dict(
+            IndexName="pk_meta",
+            KeyConditionExpression=(
+                Key("pk_meta").eq("user") & Key("sk_meta").eq("entity_report")
+            ),
+        ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
+    subscription_items = _unpack_items(results)
+    return tuple(format_subscription(item) for item in subscription_items)
 
 
 async def get_user_subscriptions(

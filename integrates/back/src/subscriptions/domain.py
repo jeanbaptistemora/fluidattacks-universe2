@@ -30,6 +30,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.subscriptions.types import (
+    Subscription,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -127,6 +130,10 @@ async def get_subscriptions_to_entity_report(
     return await subscriptions_dal.get_subscriptions_to_entity_report(
         audience=audience,
     )
+
+
+async def get_all_subscriptions() -> tuple[Subscription, ...]:
+    return await subscriptions_dal.get_all_subsriptions()
 
 
 async def get_user_subscriptions(email: str) -> list[dict[str, Any]]:
@@ -294,34 +301,34 @@ async def unsubscribe_user_to_entity_report(
     )
 
 
-async def _validate_subscription(
-    subscription: dict[str, Any],
+async def _validate_subscription_typed(
+    subscription: Subscription,
 ) -> bool:
     # A user may be subscribed but now he does not have access to the
     #   group or organization, so let's handle this case
     loaders: Dataloaders = get_new_context()
     if await can_subscribe_user_to_entity_report(
         loaders=loaders,
-        report_entity=subscription["sk"]["entity"],
-        report_subject=subscription["sk"]["subject"],
-        user_email=subscription["pk"]["email"],
+        report_entity=subscription.entity,
+        report_subject=subscription.subject,
+        user_email=subscription.email,
     ):
         return True
     # Unsubscribe this user, he won't even notice as he no longer
     #   has access to the requested resource
     await unsubscribe_user_to_entity_report(
-        report_entity=subscription["sk"]["entity"],
-        report_subject=subscription["sk"]["subject"],
-        user_email=subscription["pk"]["email"],
+        report_entity=subscription.entity,
+        report_subject=subscription.subject,
+        user_email=subscription.email,
     )
     return False
 
 
-async def _process_subscription(
+async def _process_subscription_typed(
     *,
-    subscription: dict[str, Any],
+    subscription: Subscription,
 ) -> None:
-    if not await _validate_subscription(subscription):
+    if not await _validate_subscription_typed(subscription):
         LOGGER.warning(
             "- user without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
@@ -329,12 +336,10 @@ async def _process_subscription(
         return
     try:
         await _send_analytics_report(
-            event_frequency=subscriptions_utils.period_to_frequency(
-                period=subscription["period"]
-            ),
-            report_entity=subscription["sk"]["entity"],
-            report_subject=subscription["sk"]["subject"],
-            user_email=subscription["pk"]["email"],
+            event_frequency=subscription.frequency,
+            report_entity=subscription.entity,
+            report_subject=subscription.subject,
+            user_email=subscription.email,
         )
     except UnableToSendMail as ex:
         LOGGER.exception(ex, extra={"extra": {"subscription": subscription}})
@@ -355,19 +360,14 @@ async def trigger_subscriptions_analytics() -> None:
 
     subscriptions = [
         subscription
-        for subscription in await get_subscriptions_to_entity_report(
-            audience="user",
-        )
-        if subscriptions_utils.period_to_frequency(
-            period=subscription["period"]
-        )
-        == frequency
+        for subscription in await get_all_subscriptions()
+        if subscription.frequency == frequency
     ]
     LOGGER.info(
         "- subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )
     await collect(
-        _process_subscription(subscription=subscription)
+        _process_subscription_typed(subscription=subscription)
         for subscription in subscriptions
     )
