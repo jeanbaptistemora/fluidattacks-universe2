@@ -1,10 +1,14 @@
+from dynamodb.checkpoint import (
+    get_shard_checkpoint,
+    remove_shard_checkpoint,
+    save_shard_checkpoint,
+)
 from dynamodb.processor import (
     process,
 )
 from dynamodb.resource import (
     CLIENT,
     TABLE_NAME,
-    TABLE_RESOURCE,
 )
 import logging
 from threading import (
@@ -67,22 +71,9 @@ def _get_stream_shards(
             break
 
 
-def _get_shard_checkpoint(shard_id: str) -> Optional[str]:
-    """Returns the last known iterator for the requested shard"""
-    response = TABLE_RESOURCE.get_item(
-        Key={"pk": f"SHARD#{shard_id}", "sk": f"SHARD#{shard_id}"}
-    )
-    item = response.get("Item")
-
-    if item:
-        return item["last_iterator"]
-
-    return None
-
-
 def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     """Returns the iterator id for the requested shard"""
-    shard_checkpoint = _get_shard_checkpoint(shard_id)
+    shard_checkpoint = get_shard_checkpoint(shard_id)
 
     if shard_checkpoint:
         LOGGER.info("%s starting from checkpoint", shard_id)
@@ -96,16 +87,6 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     )
 
     return response["ShardIterator"]
-
-
-def _save_shard_checkpoint(shard_id: str, last_iterator: str) -> None:
-    TABLE_RESOURCE.put_item(
-        Item={
-            "pk": f"SHARD#{shard_id}",
-            "sk": f"SHARD#{shard_id}",
-            "last_iterator": last_iterator,
-        }
-    )
 
 
 def _get_shard_records(
@@ -125,7 +106,7 @@ def _get_shard_records(
             processed_records += len(records)
 
             if processed_batches % 10 == 0:
-                _save_shard_checkpoint(shard_id, current_iterator)
+                save_shard_checkpoint(shard_id, current_iterator)
 
             if records:
                 yield records
@@ -154,15 +135,6 @@ def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
         process(records)
 
 
-def _remove_shard_checkpoint(shard: dict[str, Any]) -> None:
-    """Removes a checkpoint in the database"""
-    shard_id = shard["ShardId"]
-
-    TABLE_RESOURCE.delete_item(
-        Key={"pk": f"SHARD#{shard_id}", "sk": f"SHARD#{shard_id}"}
-    )
-
-
 def consume() -> None:
     """Consumes the DynamoDB stream"""
     stream_arn = _get_stream_arn(TABLE_NAME)
@@ -173,7 +145,7 @@ def consume() -> None:
             is_closed = "EndingSequenceNumber" in shard["SequenceNumberRange"]
 
             if is_closed:
-                _remove_shard_checkpoint(shard)
+                remove_shard_checkpoint(shard["ShardId"])
             else:
                 worker = Thread(
                     args=(shard, stream_arn),
