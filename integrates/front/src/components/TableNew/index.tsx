@@ -89,12 +89,16 @@ const Table = <TData extends RowData>({
 
   const filterFun: FilterFn<TData> = (
     row: Row<TData>,
-    columnId: string,
-    value: string
+    _columnId: string,
+    filterValue: string
   ): boolean => {
-    return String(row.getValue(columnId))
-      .toLowerCase()
-      .includes(value.toLowerCase());
+    return Object.values(row.original as object).some((element): boolean => {
+      if (String(element).toLowerCase().includes(filterValue.toLowerCase())) {
+        return true;
+      }
+
+      return false;
+    });
   };
 
   const table = useReactTable<TData>({
