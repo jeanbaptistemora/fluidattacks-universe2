@@ -310,13 +310,6 @@ async def _handle_vulnerability_acceptance(
         treatments_to_add = (
             new_treatment._replace(assigned=vulnerability.treatment.assigned),
         )
-        await send_treatment_report_mail(
-            loaders=loaders,
-            modified_by=new_treatment.modified_by,
-            justification=new_treatment.justification,
-            vulnerability_id=vulnerability.id,
-            is_approved=True,
-        )
     elif (
         new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.REJECTED
@@ -355,6 +348,18 @@ async def _handle_vulnerability_acceptance(
                     treatment=treatment,
                 )
                 current_value = current_value._replace(treatment=treatment)
+
+        if (
+            new_treatment.acceptance_status
+            == VulnerabilityAcceptanceStatus.APPROVED
+        ):
+            await send_treatment_report_mail(
+                loaders=loaders,
+                modified_by=new_treatment.modified_by,
+                justification=new_treatment.justification,
+                vulnerability_id=vulnerability.id,
+                is_approved=True,
+            )
 
 
 async def handle_vulnerabilities_acceptance(
