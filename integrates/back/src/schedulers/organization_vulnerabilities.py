@@ -1,8 +1,17 @@
 from aioextensions import (
     collect,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
 from botocore.exceptions import (
     ClientError,
+    ConnectTimeoutError,
+    HTTPClientError,
 )
 from context import (
     CI_COMMIT_REF_NAME,
@@ -10,7 +19,7 @@ from context import (
 )
 import csv
 from custom_exceptions import (
-    UnavailabilityError,
+    UnavailabilityError as CustomUnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -22,6 +31,12 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from findings.domain.core import (
     get_severity_score,
@@ -72,7 +87,7 @@ async def upload_file(bucket: str, file_path: str, file_name: str) -> None:
             )
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError() from ex
+            raise CustomUnavailabilityError() from ex
 
 
 async def get_findings(
@@ -81,6 +96,21 @@ async def get_findings(
     return await loaders.group_findings.load(group_name)
 
 
+@retry_on_exceptions(
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        ClientPayloadError,
+        ConnectionResetError,
+        ConnectTimeoutError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        ServerTimeoutError,
+        UnavailabilityError,
+    ),
+    sleep_seconds=40,
+    max_attempts=5,
+)
 async def get_data(
     *, groups: tuple[str, ...], loaders: Dataloaders, organization_name: str
 ) -> list[list[str]]:
@@ -89,7 +119,7 @@ async def get_data(
             get_findings(group_name=group_name, loaders=loaders)
             for group_name in groups
         ),
-        workers=4,
+        workers=2,
     )
     findings_ord = tuple(
         sorted(

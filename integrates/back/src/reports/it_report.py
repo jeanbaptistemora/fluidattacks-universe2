@@ -65,8 +65,14 @@ from findings.domain.core import (
     get_report_days,
     get_severity_score,
 )
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
+from more_itertools import (
+    chunked,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -204,11 +210,19 @@ class ITReport:
     async def _get_findings_vulnerabilities(
         self, findings_ids: tuple[str, ...]
     ) -> tuple[Vulnerability, ...]:
-        return (
-            await self.loaders.finding_vulnerabilities_nzr.load_many_chained(
-                list(findings_ids)
+        findings = chain.from_iterable(
+            await collect(
+                tuple(
+                    self.loaders.finding_vulnerabilities_nzr.load_many_chained(
+                        chuncked_findings
+                    )
+                    for chuncked_findings in chunked(list(findings_ids), 16)
+                ),
+                workers=4,
             )
         )
+
+        return tuple(findings)
 
     async def _get_findings_historics_verifications(
         self, findings_ids: tuple[str, ...]
@@ -236,6 +250,7 @@ class ITReport:
             ClientConnectorError,
             ClientError,
             ClientPayloadError,
+            ConnectionResetError,
             ConnectTimeoutError,
             CustomUnavailabilityError,
             HTTPClientError,
@@ -703,6 +718,7 @@ class ITReport:
             ClientConnectorError,
             ClientError,
             ClientPayloadError,
+            ConnectionResetError,
             ConnectTimeoutError,
             CustomUnavailabilityError,
             HTTPClientError,

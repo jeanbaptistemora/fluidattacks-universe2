@@ -234,7 +234,8 @@ class FindingHistoricVerificationLoader(DataLoader):
         self, finding_ids: Iterable[str]
     ) -> tuple[tuple[FindingVerification], ...]:
         return await collect(
-            tuple(map(_get_historic_verification, finding_ids))
+            tuple(map(_get_historic_verification, finding_ids)),
+            workers=32,
         )
 
 
