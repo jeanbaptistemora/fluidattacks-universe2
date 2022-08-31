@@ -12,6 +12,7 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import type { ConfigurableValidator } from "revalidate";
 import type { TestContext } from "yup";
 import { array, number, object } from "yup";
 
@@ -30,7 +31,12 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { composeValidators, isGreaterDate } from "utils/validations";
+import {
+  composeValidators,
+  isGreaterDate,
+  maxLength,
+  validTextField,
+} from "utils/validations";
 
 interface IDeactivationModalProps {
   isOpen: boolean;
@@ -43,6 +49,7 @@ interface IFormValues {
   age: number | undefined;
   closingDate: string;
   findingTitle: string;
+  location: string;
   maxSeverity: number | undefined;
   minSeverity: number | undefined;
   states: string[];
@@ -50,6 +57,8 @@ interface IFormValues {
   verifications: string[];
 }
 
+const MAX_LENGTH: number = 100;
+const maxLocationLength: ConfigurableValidator = maxLength(MAX_LENGTH);
 const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   isOpen,
   onClose,
@@ -97,6 +106,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       age: number | undefined,
       closingDate: string | undefined,
       findingTitle: string | undefined,
+      location: string | undefined,
       maxSeverity: number | undefined,
       minSeverity: number | undefined,
       states: string[],
@@ -114,6 +124,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           closingDate,
           findingTitle,
           groupName,
+          location,
           maxSeverity,
           minSeverity,
           reportType,
@@ -187,6 +198,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 age: number | undefined;
                 closingDate: string;
                 findingTitle: string;
+                location: string;
                 maxSeverity: number | undefined;
                 minSeverity: number | undefined;
                 states: string[];
@@ -203,6 +215,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                       _.isEmpty(values.findingTitle)
                         ? undefined
                         : values.findingTitle,
+                      _.isEmpty(values.location) ? undefined : values.location,
                       _.isEmpty(String(values.maxSeverity))
                         ? undefined
                         : values.maxSeverity,
@@ -230,6 +243,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                     age: undefined,
                     closingDate: "",
                     findingTitle: "",
+                    location: "",
                     maxSeverity: undefined,
                     minSeverity: undefined,
                     states: [],
@@ -373,6 +387,28 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 min={0}
                                 name={"age"}
                                 type={"number"}
+                              />
+                            </Tooltip>
+                          </Col>
+                          <Col lg={40} md={40} sm={50}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.location.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.location.id"}
+                              place={"top"}
+                              tip={t("group.findings.report.location.tooltip")}
+                            >
+                              <Field
+                                component={FormikText}
+                                name={"location"}
+                                type={"text"}
+                                validate={composeValidators([
+                                  maxLocationLength,
+                                  validTextField,
+                                ])}
                               />
                             </Tooltip>
                           </Col>

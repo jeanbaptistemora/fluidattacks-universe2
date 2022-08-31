@@ -734,6 +734,10 @@ export const enTranslations: ResourceKey = {
           tooltip: "Filter by type",
         },
         generateXls: "Generate XLS",
+        location: {
+          text: "Locations",
+          tooltip: "Filter by location",
+        },
         maxSeverity: {
           text: "Max severity",
           tooltip: "Filter out vulnerabilities with severity more than value",
