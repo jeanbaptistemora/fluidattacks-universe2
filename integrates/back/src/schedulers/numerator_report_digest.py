@@ -371,6 +371,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
     content: Dict[str, Any],
     users_email: List[str],
 ) -> None:
+
     if finding.state.status != FindingStateStatus.APPROVED:
         return None
 
@@ -384,7 +385,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
             content=content,
             date_range=date_range,
             date_report=datetime_utils.get_datetime_from_iso_str(
-                finding.state.modified_date
+                vuln.state.modified_date
             ),
             field="released",
             group=group,
