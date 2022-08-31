@@ -1,4 +1,5 @@
 from boto3.dynamodb.conditions import (
+    Attr,
     Key,
 )
 from custom_types import (
@@ -19,6 +20,7 @@ from newutils.encodings import (
 )
 from newutils.subscriptions import (
     format_subscription,
+    frequency_to_period,
 )
 from typing import (
     Any,
@@ -60,9 +62,11 @@ async def get_subscriptions_to_entity_report(
     return _unpack_items(results)
 
 
-async def get_all_subsriptions() -> tuple[Subscription, ...]:
+async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
+    frequency_period = frequency_to_period(frequency=frequency)
     results = await dynamodb_ops.query(
         query_attrs=dict(
+            FilterExpression=Attr("period").eq(frequency_period),
             IndexName="pk_meta",
             KeyConditionExpression=(
                 Key("pk_meta").eq("user") & Key("sk_meta").eq("entity_report")

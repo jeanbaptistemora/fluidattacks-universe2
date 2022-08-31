@@ -132,8 +132,8 @@ async def get_subscriptions_to_entity_report(
     )
 
 
-async def get_all_subscriptions() -> tuple[Subscription, ...]:
-    return await subscriptions_dal.get_all_subsriptions()
+async def get_all_subscriptions(*, frequency: str) -> tuple[Subscription, ...]:
+    return await subscriptions_dal.get_all_subsriptions(frequency=frequency)
 
 
 async def get_user_subscriptions(email: str) -> list[dict[str, Any]]:
@@ -358,11 +358,7 @@ async def trigger_subscriptions_analytics() -> None:
         )
         raise UnableToProcessSubscription()
 
-    subscriptions = [
-        subscription
-        for subscription in await get_all_subscriptions()
-        if subscription.frequency == frequency
-    ]
+    subscriptions = list(await get_all_subscriptions(frequency=frequency))
     LOGGER.info(
         "- subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
