@@ -434,6 +434,26 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
             )
         )
 
+    if (
+        (properties := vulnerability.get("properties"))
+        and (
+            properties.get("source_method")
+            == "python.pip_incomplete_dependencies_list"
+        )
+        and (message_properties := vulnerability["message"].get("properties"))
+        and (message_properties)
+        and (vulnerability["ruleId"] == "079")
+    ):
+        what = " ".join(
+            (
+                what,
+                (
+                    "(missing dependency "
+                    f"{message_properties['dependency_name']})"
+                ),
+            )
+        )
+
     return what
 
 
