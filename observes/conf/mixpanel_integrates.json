@@ -17,6 +17,7 @@
     "AddVulnerabilityTag",
     "AnalyticsSubscribe",
     "AnalyticsUnsubscribe",
+    "AutoenrollCancel",
     "AutoenrollCheckAccess",
     "AutoenrollmentWelcome",
     "AutoenrollSubmit",
