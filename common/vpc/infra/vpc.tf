@@ -5,9 +5,9 @@ resource "aws_vpc" "fluid-vpc" {
 
   tags = {
     "Name"               = "fluid-vpc"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -16,9 +16,9 @@ resource "aws_internet_gateway" "fluid-vpc" {
 
   tags = {
     "Name"               = "fluid-vpc"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 

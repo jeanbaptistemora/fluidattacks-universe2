@@ -220,9 +220,9 @@ locals {
         ]
         tags = {
           "Name"               = "prod_observes"
-          "management:area"    = "cost"
-          "management:product" = "common"
-          "management:type"    = "product"
+          "Management:Area"    = "cost"
+          "Management:Product" = "common"
+          "Management:Type"    = "product"
         }
       }
     }
@@ -237,9 +237,9 @@ module "prod_observes_aws" {
 
   tags = {
     "Name"               = "prod_observes"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 

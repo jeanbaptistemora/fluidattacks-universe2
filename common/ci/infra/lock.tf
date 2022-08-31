@@ -14,8 +14,8 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
   tags = {
     "Name"               = "terraform_state_lock"
-    "management:area"    = "innovation"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "innovation"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }

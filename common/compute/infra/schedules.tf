@@ -75,9 +75,9 @@ resource "aws_cloudwatch_event_rule" "main" {
 
   tags = {
     "Name"               = each.key
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 

@@ -44,9 +44,9 @@ resource "aws_sns_topic" "main" {
 
   tags = {
     "Name"               = "compute_alert"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -71,9 +71,9 @@ resource "aws_cloudwatch_event_rule" "alert" {
 
   tags = {
     "Name"               = "compute_alert"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 

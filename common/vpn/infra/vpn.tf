@@ -3,9 +3,9 @@ resource "aws_vpn_gateway" "main" {
 
   tags = {
     "Name"               = "main"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -23,8 +23,8 @@ module "vpn" {
 
   tags = {
     "Name"               = each.key
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }

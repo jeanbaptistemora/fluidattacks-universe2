@@ -77,8 +77,8 @@ module "cluster" {
     "GithubRepo"             = "terraform-aws-eks"
     "GithubOrg"              = "terraform-aws-modules"
     "karpenter.sh/discovery" = local.cluster_name
-    "management:area"        = "cost"
-    "management:product"     = "common"
-    "management:type"        = "product"
+    "Management:Area"        = "cost"
+    "Management:Product"     = "common"
+    "Management:Type"        = "product"
   }
 }

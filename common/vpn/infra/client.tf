@@ -22,9 +22,9 @@ resource "aws_iam_saml_provider" "main" {
 
   tags = {
     "Name"               = "vpn"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -40,9 +40,9 @@ module "acm" {
 
   tags = {
     "Name"               = "vpn.fluidattacks.com"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -64,9 +64,9 @@ resource "aws_cloudwatch_log_group" "main" {
 
   tags = {
     "Name"               = "vpn"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
@@ -121,8 +121,8 @@ resource "aws_ec2_client_vpn_endpoint" "main" {
 
   tags = {
     "Name"               = "main"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }

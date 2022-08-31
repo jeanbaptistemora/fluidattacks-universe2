@@ -3,9 +3,9 @@ resource "aws_s3_bucket" "common_logging" {
 
   tags = {
     "Name"               = "common.logging"
-    "management:area"    = "innovation"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "innovation"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }

@@ -15,8 +15,8 @@ module "cache" {
 
   tags = {
     "Name"               = "common-ci-cache"
-    "management:area"    = "innovation"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "innovation"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }

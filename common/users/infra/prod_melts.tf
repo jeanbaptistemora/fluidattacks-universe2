@@ -37,9 +37,9 @@ module "prod_melts_aws" {
 
   tags = {
     "Name"               = "prod_melts"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }
 
