@@ -421,7 +421,6 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
         and (technique_value := properties.get("technique"))
         and (technique_value == "SCA")
         and (message_properties := vulnerability["message"].get("properties"))
-        and (message_properties)
     ):
         what = " ".join(
             (
@@ -441,7 +440,6 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
             == "python.pip_incomplete_dependencies_list"
         )
         and (message_properties := vulnerability["message"].get("properties"))
-        and (message_properties)
         and (vulnerability["ruleId"] == "079")
     ):
         what = " ".join(
