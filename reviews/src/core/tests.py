@@ -37,8 +37,13 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
         if not success:
             log(
                 err_log,
-                "PRs should be under or equal to %s deltas."
-                "This one has %s deltas",
+                "PRs should be under or equal to %s deltas.\n"
+                "This one has %s deltas.\n"
+                "You can run 'git diff --stat' locally "
+                "to know the staged deltas.\n"
+                "You can also add the '- no-deltas-test' "
+                "directive to your commit message "
+                "in case skipping this test is mandatory.",
                 max_deltas,
                 deltas,
             )
