@@ -60,9 +60,14 @@
       width: 50%;
     }
 
+    .tc {
+      text-align: center;
+    }
+
     .container {
+      background: #f4f4f6;
       margin: 0 auto;
-      max-width: 1000px;
+      max-width: 600px;
       width: 100%;
     }
 
@@ -150,7 +155,6 @@
     a#download {
       background: #ff3435;
       font-weight: bold;
-      letter-spacing: 1px;
       line-height: 100%;
       text-align: center;
       text-decoration: none;
@@ -177,43 +181,82 @@
       padding: 0.3rem;
     }
 
-    .icon {
-      width: 48px;
-      height: 48px;
-    }
-
     .big-list-icon li::marker {
       font-size: 24px;
     }
 
     /* Macros */
 
-    .header {
-      align-items: center;
-      background-color: #1c1c22;
-      display: flex;
-      flex-direction: column;
-      padding: 50px;
+    .arm-banner {
+      background-color: #bf0b1a;
+      color: #fff;
+      padding: 16px;
+      text-align:center;
     }
 
-      .header > * {
+    .dark-header {
+      align-items: center;
+      background-color: #2e2e38;
+      padding: 24px;
+      text-align: center;
+    }
+
+      .dark-header > * {
         color: #f4f4f6 !important;
       }
 
-    .logo {
-      height: auto;
-      margin-bottom: 20px;
-      width: 250px;
+    .header-logo {
+      height: 100px;
+      width: 220px;
+    }
+
+    .title-icon {
+      width: 24px;
+      height: 24px;
+      vertical-align: sub;
     }
 
     .mb2 {
       margin-bottom: 2em;
     }
 
-    .title {
+    .header-title {
       font-size: 30px;
       font-weight: 700;
       margin-bottom: 10px;
+    }
+
+    .body-title {
+      padding: 16px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .main-button {
+      border-radius: 4px;
+      color: #fff !important;
+      font-size: 18px;
+      line-height: 100%;
+      padding: 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .primary-button {
+      background-color: #bf0b1a !important;
+    }
+
+    .primary-button:hover {
+      background-color: #f2182a !important;
+    }
+
+    .secondary-button {
+      background-color: #2e2e38 !important;
+    }
+
+    .secondary-button:hover {
+      background-color: #49495a !important;
     }
 
     @media only screen and (min-width: 599px) {

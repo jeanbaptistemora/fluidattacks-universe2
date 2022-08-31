@@ -1,28 +1,32 @@
 {%+ macro header(title, subtitle) %}
-<div class="header">
-  <img
-    class="logo"
-    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1623782670/docs/logo_dark_esf1gn.png"
-    alt="fluid logo dark"
-  >
-  <p class="title">{{ title }}</p>
-  <p>{{ subtitle }}</p>
+<div class="dark-header">
+  <div class="w-100 tc">
+    <img
+      alt="fluid logo dark"
+      class="header-logo"
+      src="https://res.cloudinary.com/fluid-attacks/image/upload/v1623782670/docs/logo_dark_esf1gn.png"
+      style="margin-bottom: 10px !important;">
+  </div>
+  <p class="header-title w-100">{{ title }}</p>
+  <p class="ma0 w-100" style="margin-bottom: 0 !important;">
+    {{ subtitle }}
+  </p>
 </div>
 {% endmacro %}
 
 {# Generic Go to button: rounded and centered #}
-{% macro go_to_button(text, url) %}
+{% macro go_to_button(text, url, type) %}
 <div class="flex justify-center">
-  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+  <a class="main-button justify-center {{ type }}" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
     {{ text }}
   </a>
 </div>
 {% endmacro %}
 
 {# Customized button for charts report use #}
-{% macro charts_report_button(text, url) %}
+{% macro charts_report_button(text, url, type) %}
 <td style="text-align: -webkit-center;">
-  <a id="download" class="pa3 dim fixed-w-150" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+  <a id="download" class="main-button fixed-w-150 {{ type }}" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
     {{ text }}
   </a>
 </td>
@@ -49,48 +53,22 @@
 {% endmacro %}
 
 {# Generic red banner #}
-{% macro banner(icon_url, padding) %}
-<table aria-hidden="true" style="
-    height: 250px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/222436b8-0957-02df-7905-176379f344b5.png);
-    table-layout: fixed;
-    width: 100%;">
-  <tr>
-    <td style="text-align: center;">
-      <table aria-hidden="true" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;">
-        <tr>
-          <td style="text-align: center;">
-            <table aria-hidden="true" style="width: 100%;">
-              <tr>
-                <td style="text-align: center;">
-                  <div
-                    style="border: 2px solid #ffffff; padding: {{ padding }}; border-radius: 50%; height: 78px; width: 78px; margin: 0 auto;">
-                    <div class="icon">
-                      <img
-                        alt="Banner custom icon"
-                        src="{{ icon_url }}"
-                        style="height: 45px; vertical-align: center;">
-                    </div>
-                  </div>
-                  <h3 style="text-align: center; color: #f4f4f6; font-weight: 700; padding: 10px 30px;">{{ caller() }}</h3>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+{% macro banner(icon_url) %}
+<div class="body-title">
+  <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
+    <img
+    alt="Banner custom icon"
+    class="title-icon"
+    src="{{ icon_url }}">
+    {{ caller() }}
+  </p>
+</div>
 {% endmacro %}
 
 {# Custom banner with news icon #}
 {% macro banner_news(text) %}
   {% call banner(
-    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/905d41fe-7d2d-98f2-b103-1f57ed9c45b3.png',
-    '13px 10px 0 8px'
+    'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/news.png',
     ) %}
     {{ text }}
   {% endcall %}
@@ -99,8 +77,7 @@
 {# Custom banner with finding icon #}
 {% macro banner_finding(text) %}
   {% call banner(
-    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/283b1305-0ab0-d9d0-6b65-a66b37726028.png',
-    '15px 10px 0 13px'
+    'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/finding.png',
     ) %}
     {{ text }}
   {% endcall %}
@@ -109,8 +86,7 @@
 {# Custom banner with group icon #}
 {% macro banner_group(text) %}
   {% call banner(
-    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/20d48161-3617-0825-733c-08db696c7f2c.png',
-    '15px 13px 0 13px'
+    'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/group.png',
     ) %}
     {{ text }}
   {% endcall %}

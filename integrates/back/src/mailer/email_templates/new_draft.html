@@ -3,7 +3,8 @@
 
 {% block layout %}
 <div class="container">
-  {% include 'layouts/components/logo_header.html' %}
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
   {{ banner_finding('New Draft') }}
 
   <div class="main-content">
@@ -21,7 +22,7 @@
     </div>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-    {{ go_to_button('Go to draft', finding_url) }}
+    {{ go_to_button('Go to draft', finding_url, 'primary-button') }}
     <br />
   </div>
 
