@@ -135,3 +135,174 @@ The steps are explained below.
   the answer to that request.
 
   ![Play Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_play_button.png)
+
+### Authentication of requests from code
+
+Another way to perform authentication
+is to generate scripts.
+We will show you a small example
+based on the Python programming language.
+
+First,
+we generate the script we want.
+Keep in mind that we will always
+use the POST method to request
+any necessary action.
+If you want to know
+more about this method,
+read more
+[here](https://graphql.org/learn/serving-over-http/#post-request).
+
+![Script](https://res.cloudinary.com/fluid-attacks/image/upload/v1661954582/docs/api/api-token/authentication_script.png)
+
+When you run the script,
+you will get what you requested
+from the query in the terminal.
+Please note that the token
+generated in the API is
+unique and confidential;
+we recommend not sharing this token.
+
+## Playground Docs
+
+In the playground,
+you have a tab called **Docs**,
+located on the right,
+where it will show you all the
+possible fields to build queries
+and all the possible mutations.
+
+![Playground](https://res.cloudinary.com/fluid-attacks/image/upload/v1661956347/docs/api/api-token/playground_docs.png)
+
+By clicking on it,
+you can continue to explore
+tab by tab all the operations
+that the API offers.
+
+![Playground Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1661956661/docs/api/api-token/playground_tab_api.png)
+
+We invite you to explore this
+documentation in the API playground.
+
+## Paginated fields
+
+In the API,
+you will find two
+kinds of list fields.
+Some are paginated
+and others are not.
+The main difference between them
+is that non-paginated lists return
+all available results directly,
+returned as a normal list
+between square brackets.
+
+![Paginated Fields](https://res.cloudinary.com/fluid-attacks/image/upload/v1661956832/docs/api/api-token/paginated_list_fields.png)
+
+While paginated lists,
+often identified by the
+suffix **connection**,
+return only a certain amount
+of results and a “cursor” that
+can be included in subsequent
+requests to advance through the pages.
+
+![Suffix Connection](https://res.cloudinary.com/fluid-attacks/image/upload/v1661956982/docs/api/api-token/paginated_connection.png)
+
+It is important to keep these
+differences in mind when building
+integrations that need to
+retrieve all the information
+in a paginated field.
+We invite you read to more about
+it on GraphQL's official website
+[here](https://graphql.org/learn/pagination/).
+
+Let's review this example together.
+I want to validate the first ten
+vulnerabilities of the Narrabri group.
+
+![Paginated Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1661957196/docs/api/api-token/paginated_example.png)
+
+When putting the range of the
+information that I want to bring me,
+the result will bring me these.
+If there is a next page in the
+last item of the query,
+there is **hasNextPage**
+and **endCursor**,
+which tells us that there is
+the next page and gives
+us its cursor token.
+
+![Item Query](https://res.cloudinary.com/fluid-attacks/image/upload/v1661957372/docs/api/api-token/paginated_item.png)
+
+To use the cursor,
+you can pass it as the
+argument **after** in
+the paginated field.
+
+![Argument After](https://res.cloudinary.com/fluid-attacks/image/upload/v1661957408/docs/api/api-token/paginated_argument.png)
+
+You will be able to continue
+exploring the pages as long
+as hasNextPage is set to true.
+The GraphQL documentation
+offers more examples
+[here](https://graphql.org/learn/pagination/#complete-connection-model).
+
+## Rate limits
+
+You can make 100 requests
+per minute to the API.
+If this value is exceeded,
+it may fail the HTTP status code 429,
+accompanied by a header
+specifying the time to wait
+before making the next request.
+
+It is recommended to handle that
+scenario in your script by reading
+the  `"retry-after"` header,
+and waiting that amount of
+time before continuing.
+In this example,
+you can see how to control this
+scenario in a Python script.
+
+```python
+import requests
+from time import sleep
+query = """
+{
+  me {
+    userName
+    userEmail
+  }
+}
+"""
+token = ""
+def request():
+    while True:
+        response = requests.post(
+            "https://app.fluidattacks.com/api",
+            json={"query": query},
+            headers={"authorization": f"Bearer {token}"},
+        )
+        if response.status_code == 429:
+            seconds = response.headers["retry-after"]
+            sleep(seconds + 1)
+        else:
+            break
+    return response
+response = request()
+print(response.json())
+
+```
+
+This solution may vary depending
+on the HTTP client library or
+language of your preference.
+Waiting 1 additional second to
+the value indicated by the header
+is also advisable.
