@@ -46,6 +46,22 @@ Application integrity becomes a matter of keeping a healthy source code.
 This is after making the source code
 the only variable that affects an application.
 
+## Governance model
+
+We enforce the model as a "do-ocracy", meaning that:
+
+- No formalities, meaning that the one who does the work is the one who makes
+  decisions.
+
+- Every member is responsible for every part of the code involving its work,
+  which means there are no roles declared, we all are developers, testers,
+  and administrators of the project in a certain way.
+
+By applying this philosophy we enforce a faster way to develop
+our applications, complementing this with strict
+[pipelines](#continuous-deployment) and [micro-changes](#micro-changes)
+to ensure security and availability.
+
 ## Infrastructure as Code (IaC)
 
 All our infrastructure is versioned
