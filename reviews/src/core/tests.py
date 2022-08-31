@@ -31,7 +31,6 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
         success = True
     else:
         deltas: int = data.pull_request.deltas
-        print(deltas)
         max_deltas: int = data.config["max_deltas"]
         success = deltas <= max_deltas
         if not success:

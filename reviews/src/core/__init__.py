@@ -58,36 +58,36 @@ def run_tests_gitlab(
             ):
                 gl.close_pr(pull_request=pull_request)
                 log("error", "Merge Request closed by: %s", name)
-    log("info", "Finished reviewing %s\n\n", pull_request.url)
 
     return success
 
 
-def run(legacy: bool, config_path: str) -> bool:
-    success: bool = True
+def run(config_path: str) -> bool:
+    success: bool = False
     verify_required_vars(["REVIEWS_TOKEN"])
     config: Dynaconf = load(config_path)
 
     if config["platform"] in "gitlab":
+        verify_required_vars(["CI_MERGE_REQUEST_IID"])
         project: GitlabProject = gl.get_project(
             url=config["endpoint_url"],
             token=str(os.environ.get("REVIEWS_TOKEN")),
             project_id=config["project_id"],
         )
+        pull_request_id: str = str(os.environ.get("CI_MERGE_REQUEST_IID"))
+        pull_request: PullRequest = gl.get_pull_request(
+            project=project, pull_request_id=pull_request_id
+        )
 
-        if legacy:
-            verify_required_vars(["CI_MERGE_REQUEST_IID"])
-            pull_request_id: str = str(os.environ.get("CI_MERGE_REQUEST_IID"))
-            pull_request: PullRequest = gl.get_pull_request(
-                project=project, pull_request_id=pull_request_id
-            )
-
-            success = run_tests_gitlab(
-                config,
-                pull_request,
-            )
-        else:
-            for pull_request in gl.get_pull_requests(project=project).values():
-                run_tests_gitlab(config, pull_request)
+        success = run_tests_gitlab(
+            config,
+            pull_request,
+        )
+    else:
+        log(
+            "error",
+            "platform is %s. Only 'gitlab' supported for now.",
+            config["platform"],
+        )
 
     return success
