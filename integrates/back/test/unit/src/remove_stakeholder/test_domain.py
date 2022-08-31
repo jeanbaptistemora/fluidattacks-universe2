@@ -12,9 +12,6 @@ import pytest
 from remove_stakeholder.domain import (
     remove_stakeholder_all_organizations,
 )
-from subscriptions.domain import (
-    get_user_subscriptions,
-)
 
 # Run async tests
 pytestmark = [
@@ -36,4 +33,4 @@ async def test_remove_stakeholder() -> None:
     await remove_stakeholder_all_organizations(
         loaders=get_new_context(), email=email, modified_by=modified_by
     )
-    assert await get_user_subscriptions(email=email) == []
+    assert await loaders.stakeholder_subscriptions.load(email) == ()

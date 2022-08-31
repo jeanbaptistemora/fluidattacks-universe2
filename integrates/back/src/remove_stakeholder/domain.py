@@ -20,6 +20,9 @@ from db_model.group_access.types import (
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
+from db_model.subscriptions.types import (
+    Subscription,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -65,7 +68,6 @@ from stakeholders import (
     domain as stakeholders_domain,
 )
 from subscriptions.domain import (
-    get_user_subscriptions,
     unsubscribe_user_to_entity_report,
 )
 from typing import (
@@ -99,12 +101,14 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    subscriptions = await get_user_subscriptions(email=email)
+    subscriptions: tuple[
+        Subscription
+    ] = await loaders.stakeholder_subscriptions.load(email)
     await collect(
         tuple(
             unsubscribe_user_to_entity_report(
-                report_entity=subscription["sk"]["entity"],
-                report_subject=subscription["sk"]["subject"],
+                report_entity=subscription.entity,
+                report_subject=subscription.subject,
                 user_email=email,
             )
             for subscription in subscriptions
