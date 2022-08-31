@@ -15,6 +15,7 @@ from botocore.exceptions import (
     ClientError,
     ConnectTimeoutError,
     HTTPClientError,
+    ReadTimeoutError,
 )
 from custom_exceptions import (
     RootNotFound,
@@ -254,6 +255,7 @@ class ITReport:
             ConnectTimeoutError,
             CustomUnavailabilityError,
             HTTPClientError,
+            ReadTimeoutError,
             ServerTimeoutError,
             UnavailabilityError,
         ),
@@ -722,6 +724,7 @@ class ITReport:
             ConnectTimeoutError,
             CustomUnavailabilityError,
             HTTPClientError,
+            ReadTimeoutError,
             ServerTimeoutError,
             UnavailabilityError,
         ),

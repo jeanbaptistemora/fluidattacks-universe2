@@ -8,14 +8,21 @@ from aiohttp.client_exceptions import (
     ClientPayloadError,
     ServerTimeoutError,
 )
+from analytics.domain import (
+    is_decimal,
+)
 from botocore.exceptions import (
     ClientError,
     ConnectTimeoutError,
     HTTPClientError,
+    ReadTimeoutError,
 )
 from context import (
     CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET,
+)
+from contextlib import (
+    suppress,
 )
 import csv
 from custom_exceptions import (
@@ -40,9 +47,6 @@ from dynamodb.exceptions import (
 )
 from findings.domain.core import (
     get_severity_score,
-)
-from itertools import (
-    chain,
 )
 import logging
 import logging.config
@@ -105,32 +109,27 @@ async def get_findings(
         ConnectTimeoutError,
         CustomUnavailabilityError,
         HTTPClientError,
+        ReadTimeoutError,
         ServerTimeoutError,
         UnavailabilityError,
     ),
     sleep_seconds=40,
     max_attempts=5,
 )
-async def get_data(
-    *, groups: tuple[str, ...], loaders: Dataloaders, organization_name: str
+async def _get_group_data(
+    *, group_name: str, loaders: Dataloaders
 ) -> list[list[str]]:
-    organization_findings: tuple[tuple[Finding, ...], ...] = await collect(
-        tuple(
-            get_findings(group_name=group_name, loaders=loaders)
-            for group_name in groups
-        ),
-        workers=2,
-    )
+    findings = await get_findings(group_name=group_name, loaders=loaders)
     findings_ord = tuple(
         sorted(
-            chain.from_iterable(organization_findings),
+            findings,
             key=lambda finding: get_severity_score(finding.severity),
             reverse=True,
         )
     )
     report = ITReport(
         data=findings_ord,
-        group_name=organization_name,
+        group_name=group_name,
         loaders=loaders,
         treatments=set(VulnerabilityTreatmentStatus),
         states=set(
@@ -154,6 +153,88 @@ async def get_data(
     await report.generate_data()
 
     return report.raw_data
+
+
+@retry_on_exceptions(
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        ClientPayloadError,
+        ConnectionResetError,
+        ConnectTimeoutError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        ReadTimeoutError,
+        ServerTimeoutError,
+        UnavailabilityError,
+    ),
+    sleep_seconds=40,
+    max_attempts=5,
+)
+async def get_data(
+    *, groups: tuple[str, ...], loaders: Dataloaders, organization_name: str
+) -> list[list[str]]:
+    all_data: tuple[list[list[str]], ...] = await collect(
+        tuple(
+            _get_group_data(group_name=group_name, loaders=loaders)
+            for group_name in groups
+        ),
+        workers=1,
+    )
+    report = ITReport(
+        data=tuple(),
+        group_name=organization_name,
+        loaders=loaders,
+        treatments=set(VulnerabilityTreatmentStatus),
+        states=set(
+            [
+                VulnerabilityStateStatus["CLOSED"],
+                VulnerabilityStateStatus["OPEN"],
+            ]
+        ),
+        verifications=set(),
+        closing_date=None,
+        finding_title="",
+        age=None,
+        min_severity=None,
+        max_severity=None,
+        last_report=None,
+        min_release_date=None,
+        max_release_date=None,
+        location="",
+        generate_raw_data=False,
+    )
+    await report.generate_data()
+
+    header = report.raw_data
+    rows: list[list[str]] = []
+    for data in all_data:
+        if len(data) > 1:
+            rows.extend(data[1:])
+
+    severity_column: int = 0
+    with suppress(ValueError):
+        severity_column = (
+            header[0].index("Severity") if len(header) > 0 else severity_column
+        )
+
+    rows_ord: tuple[list[str], ...] = tuple(
+        sorted(
+            rows,
+            key=lambda row: float(str(row[severity_column]))
+            if is_decimal(str(row[severity_column]))
+            else float("0.0"),
+            reverse=True,
+        )
+    )
+    rows_formatted: list[list[str]] = [
+        [str(index), *row[1:]] for index, row in enumerate(rows_ord, 1)
+    ]
+
+    return [
+        *header,
+        *rows_formatted,
+    ]
 
 
 async def main() -> None:
