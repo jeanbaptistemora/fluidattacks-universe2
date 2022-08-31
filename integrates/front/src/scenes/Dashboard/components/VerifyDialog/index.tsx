@@ -55,6 +55,9 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
             case "Exception - Stakeholder verification could not be started":
               msgError(t("verifyDialog.alerts.nonSentVerificationCode"));
               break;
+            case "Exception - Too many requests":
+              msgError(t("groupAlerts.tooManyRequests"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning(

@@ -1648,3 +1648,9 @@ class EventVerificationNotRequested(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The event verification has not been requested"
         super(EventVerificationNotRequested, self).__init__(msg)
+
+
+class TooManyRequests(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Too many requests"
+        super(TooManyRequests, self).__init__(msg)

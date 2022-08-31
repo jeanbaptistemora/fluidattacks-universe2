@@ -1431,6 +1431,8 @@ export const enTranslations: ResourceKey = {
     requestedReattackSuccess: "A reattack has been requested successfully",
     requestedZeroRiskSuccess: "Zero risk vulnerability has been requested",
     titleSuccess: "Congratulations",
+    tooManyRequests:
+      "Too many requests - Please wait and make the request again",
     updated: "Updated",
     updatedTitle: "Correct!",
     value: "Value",

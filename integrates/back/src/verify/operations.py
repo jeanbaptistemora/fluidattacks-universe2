@@ -15,6 +15,7 @@ from custom_exceptions import (
     CouldNotVerifyStakeholder,
     InvalidMobileNumber,
     InvalidVerificationCode,
+    TooManyRequests,
 )
 from twilio.base.exceptions import (
     TwilioRestException,
@@ -58,6 +59,8 @@ async def start_verification(
             channel=channel.value.lower(),
         )
     except TwilioRestException as exc:
+        if exc.code == 20429:
+            raise TooManyRequests() from exc
         raise CouldNotStartStakeholderVerification() from exc
 
 
