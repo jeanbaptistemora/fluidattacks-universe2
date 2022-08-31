@@ -20,6 +20,7 @@ makeScript {
       inputs.nixpkgs.utillinux
     ];
     source = [
+      outputs."/common/utils/aws"
       outputs."/airs/npm/env"
       outputs."/airs/npm/runtime"
       outputs."/common/utils/sops"

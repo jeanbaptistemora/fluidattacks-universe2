@@ -8,6 +8,8 @@ makeScript {
   replace = {
     __argAirsBuild__ = outputs."/airs/build";
     __argAirsDevelopment__ = outputs."/airs/config/development";
+    __argSecretsAwsDev__ = outputs."/secretsForAwsFromGitlab/dev";
+    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodAirs";
   };
   name = "airs";
   searchPaths = {

@@ -4,6 +4,7 @@ function main {
   local src="${1}"
 
   : \
+    && aws_login "dev" "3600" \
     && sops_export_vars __argAirsSecrets__/dev.yaml \
       CLOUDINARY_API_SECRET \
       CLOUDINARY_API_KEY \

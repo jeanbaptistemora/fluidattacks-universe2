@@ -18,6 +18,7 @@ makeScript {
       inputs.nixpkgs.nodejs-16_x
     ];
     source = [
+      outputs."/common/utils/aws"
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
       outputs."/common/utils/lint-typescript"

@@ -21,6 +21,12 @@
       sessionToken = "AWS_SESSION_TOKEN";
     };
   };
+  secretsForAwsFromGitlab = {
+    dev = {
+      roleArn = "arn:aws:iam::205810638802:role/dev";
+      duration = 3600;
+    };
+  };
   secretsForEnvFromSops = {
     commonCloudflareDev = {
       vars = [

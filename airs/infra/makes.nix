@@ -3,6 +3,7 @@
     modules = {
       airsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodAirs"
           outputs."/secretsForEnvFromSops/airsInfraProd"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
@@ -15,6 +16,7 @@
     modules = {
       airsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
@@ -43,6 +45,7 @@
     modules = {
       airsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];

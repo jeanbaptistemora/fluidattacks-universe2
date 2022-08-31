@@ -17,7 +17,7 @@
     - m . /airs/eph
   stage: deploy-app
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -39,7 +39,7 @@
     - m . /airs/lint/code
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -61,7 +61,7 @@
     - m . /airs/lint/content
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -83,7 +83,7 @@
     - m . /airs/lint/styles
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -103,7 +103,7 @@
     - m . /airs/prod
   stage: deploy-app
   tags:
-    - prod_airs_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -124,7 +124,7 @@
     - m . /deployTerraform/airsInfra
   stage: deploy-infra
   tags:
-    - prod_airs_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -146,7 +146,7 @@
     - m . /lintMarkdown/airs
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -168,7 +168,7 @@
     - m . /lintTerraform/airsInfra
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -191,7 +191,7 @@
     - m . /testTerraform/airsInfra
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

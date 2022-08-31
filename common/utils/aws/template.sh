@@ -12,7 +12,7 @@ function _aws_login_ci {
     --role-arn "arn:aws:iam::205810638802:role/${1}"
     --role-session-name "commonCi-${CI_PROJECT_ID}-${CI_PIPELINE_ID}-${CI_JOB_ID}"
     --web-identity-token "${CI_JOB_JWT_V2}"
-    --duration-seconds "${2:-3600}"
+    --duration-seconds "${2}"
   )
   local session
   export AWS_ACCESS_KEY_ID
