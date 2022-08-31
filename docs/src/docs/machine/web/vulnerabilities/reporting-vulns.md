@@ -63,7 +63,7 @@ This is the structure of the
 inputs that you have to fill in.
 Here we explain what each field refers to.
 
-![Inputs Yaml Format](https://res.cloudinary.com/fluid-attacks/image/upload/v1661973578/docs/web/vulnerabilities/reporting-vulns/format_report_inputs.png)
+![Inputs Yaml Format](https://res.cloudinary.com/fluid-attacks/image/upload/v1661973578/docs/web/vulnerabilities/reporting-vulns/format_lines.png)
 
 - **Field:**
   The name of the specific
@@ -162,3 +162,54 @@ You can go to this [link](/machine/api)
 in order to learn more about using the}
 GraphQL API to access all of the
 information in the ARM.
+
+### The lines yaml format
+
+Then,
+we also have the format for
+reporting line vulnerabilities:
+
+![Lines Format](https://res.cloudinary.com/fluid-attacks/image/upload/v1661973578/docs/web/vulnerabilities/reporting-vulns/format_report_inputs.png)
+
+- **Line:**
+  This is the specific line or
+  lines in the file that contains
+  the type of vulnerability
+  that is being reported.
+- **Commit_hash:**
+  This is a 40 characters long
+  string that points to the
+  specific commit that last
+  modified the file before
+  encountering the vulnerability.
+- **Path:**
+  This is the directory path
+  to find the file inside
+  its repository.
+- **State:**
+  This field specifies if the
+  vulnerability currently still
+  persists or if it has already
+  been resolved.
+  It can be **open** or **closed**.
+- **Repo_nickname:**
+  This field is the same
+  one as in the
+  [inputs format](/machine/web/vulnerabilities/reporting-vulns#the-inputs-yaml-format).
+- **Source:**
+  Where the origin of the
+  location was given.
+  Which can be **Analyst**,
+  **Machine** or **Escape**.
+- **Tool:**
+  It will give us information
+  on which tool the
+  vulnerability was found.
+  This field is divided into
+  two fields: **Impact**;
+  here,
+  you specify if it was direct
+  or indirect and **name** you
+  specify the tool's name.
+  Keep in mind that you
+  can put several tools.
