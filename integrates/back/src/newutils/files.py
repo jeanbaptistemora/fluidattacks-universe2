@@ -6,6 +6,9 @@ from binaryornot.check import (
 )
 import magic
 import os
+from pathspec.patterns.gitwildmatch import (
+    GitWildMatchPattern,
+)
 from starlette.concurrency import (
     run_in_threadpool,
 )
@@ -13,6 +16,7 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
+    Iterator,
     List,
     Optional,
 )
@@ -102,3 +106,37 @@ def path_is_include(
             break
 
     return is_include
+
+
+def _iter_full_paths(path: str) -> Iterator[str]:
+    """Recursively yield full paths to files for a given starting path."""
+    if os.path.isfile(path):
+        yield path
+    elif os.path.exists(path):
+        for entry in os.scandir(path):
+            full_path = entry.path
+            if entry.is_dir(follow_symlinks=False):
+                yield f"{entry.path}/"
+                yield from _iter_full_paths(full_path)
+            else:
+                yield full_path
+
+
+def iter_rel_paths(starting_path: str) -> Iterator[str]:
+    """Recursively yield relative paths to files for a given starting path."""
+    yield from (
+        path.replace(starting_path, "")[1:]
+        for path in _iter_full_paths(starting_path)
+    )
+
+
+def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
+    matches = []
+    for pattern in patterns:
+        if pattern.include is not None:
+            if file in pattern.match((file,)):
+                matches.append(pattern.include)
+            elif not pattern.include:
+                matches.append(True)
+
+    return all(matches) if matches else False

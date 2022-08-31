@@ -7,11 +7,20 @@ from db_model.roots.get import (
     get_download_url,
     get_upload_url_post,
 )
+from db_model.roots.types import (
+    GitRoot,
+)
 import logging
+from newutils.files import (
+    iter_rel_paths,
+    match_file,
+)
 import os
+import pathspec
 from settings.logger import (
     LOGGING,
 )
+import shutil
 import tarfile
 import tempfile
 from typing import (
@@ -86,16 +95,35 @@ async def upload_cloned_repo_to_s3_tar(
     return success
 
 
+def _delete_out_of_scope_files(git_ignore: list[str], repo_path: str) -> bool:
+    # Get the expected repo name from the URL
+    spec_ignore = pathspec.PathSpec.from_lines("gitwildmatch", git_ignore)
+    # Compute what files should be deleted according to the scope rules
+    for path in iter_rel_paths(repo_path):
+        if match_file(spec_ignore.patterns, path):
+            if path.startswith(".git/"):
+                continue
+            path_to_delete = os.path.join(repo_path, path)
+            if os.path.isfile(path_to_delete):
+                os.unlink(path_to_delete)
+            elif os.path.isdir(path_to_delete):
+                shutil.rmtree(path_to_delete)
+    return True
+
+
 async def download_repo(
     group_name: str,
-    nickname: str,
+    git_root: GitRoot,
     path_to_extract: str,
 ) -> None:
-    download_url = await get_download_url(group_name, nickname)
+    download_url = await get_download_url(group_name, git_root.state.nickname)
     if not download_url:
         return
     with tempfile.TemporaryDirectory() as tmpdir:
-        tar_path = f"{tmpdir}/{nickname}.tar.gz"
+        tar_path = f"{tmpdir}/{git_root.state.nickname}.tar.gz"
         urlretrieve(download_url, tar_path)  # nosec
         with tarfile.open(tar_path, "r:gz") as tar_handler:
             tar_handler.extractall(path_to_extract, numeric_owner=True)
+            _delete_out_of_scope_files(
+                git_root.state.gitignore, f"{tmpdir}/{git_root.state.nickname}"
+            )
