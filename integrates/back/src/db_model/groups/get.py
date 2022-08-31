@@ -30,8 +30,12 @@ from dynamodb import (
     keys,
     operations,
 )
+from itertools import (
+    chain,
+)
 from typing import (
     Iterable,
+    Tuple,
 )
 
 
@@ -61,7 +65,7 @@ async def _get_group(*, group_name: str) -> Group:
 async def _get_group_historic_state(
     *,
     group_name: str,
-) -> tuple[GroupState, ...]:
+) -> Tuple[GroupState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_historic_state"],
         values={"name": group_name},
@@ -100,7 +104,7 @@ async def _get_organization_groups(
     *,
     group_dataloader: DataLoader,
     organization_id: str,
-) -> tuple[Group, ...]:
+) -> Tuple[Group, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"organization_id": remove_org_id_prefix(organization_id)},
@@ -130,10 +134,16 @@ async def _get_organization_groups(
 
 
 class GroupLoader(DataLoader):
+    async def load_many_chained(
+        self, group_names: Iterable[str]
+    ) -> Tuple[Group, ...]:
+        unchained_data = await self.load_many(group_names)
+        return tuple(chain.from_iterable(unchained_data))
+
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
-    ) -> tuple[Group, ...]:
+    ) -> Tuple[Group, ...]:
         return await collect(
             tuple(
                 _get_group(group_name=group_name) for group_name in group_names
@@ -145,7 +155,7 @@ class GroupHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
-    ) -> tuple[tuple[GroupState, ...], ...]:
+    ) -> Tuple[Tuple[GroupState, ...], ...]:
         return await collect(
             tuple(
                 _get_group_historic_state(group_name=group_name)
@@ -158,7 +168,7 @@ class GroupUnreliableIndicatorsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
-    ) -> tuple[GroupUnreliableIndicators, ...]:
+    ) -> Tuple[GroupUnreliableIndicators, ...]:
         return await collect(
             tuple(
                 _get_group_unreliable_indicators(group_name=group_name)
@@ -175,7 +185,7 @@ class OrganizationGroupsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
-    ) -> tuple[tuple[Group, ...], ...]:
+    ) -> Tuple[Tuple[Group, ...], ...]:
         return await collect(
             tuple(
                 _get_organization_groups(

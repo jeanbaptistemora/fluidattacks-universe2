@@ -18,7 +18,11 @@ from dynamodb import (
     keys,
     operations,
 )
+from itertools import (
+    chain,
+)
 from typing import (
+    Iterable,
     Tuple,
 )
 
@@ -51,6 +55,12 @@ async def get_enrollment(*, email: str) -> Enrollment:
 
 
 class EnrollmentLoader(DataLoader):
+    async def load_many_chained(
+        self, emails: Iterable[str]
+    ) -> Tuple[Enrollment, ...]:
+        unchained_data = await self.load_many(emails)
+        return tuple(chain.from_iterable(unchained_data))
+
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, emails: Tuple[str, ...]
