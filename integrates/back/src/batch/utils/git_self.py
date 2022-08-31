@@ -1,21 +1,12 @@
-from aioextensions import (
-    collect,
-)
 from batch.types import (
     CloneResult,
 )
 from batch.utils.s3 import (
     upload_cloned_repo_to_s3_tar,
 )
-from concurrent.futures import (
-    ThreadPoolExecutor,
-)
 from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidParameter,
-)
-from dataloaders import (
-    Dataloaders,
 )
 from datetime import (
     datetime,
@@ -25,18 +16,6 @@ from db_model.credentials.types import (
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
-)
-from db_model.findings.types import (
-    Finding,
-)
-from db_model.roots.types import (
-    GitRoot,
-)
-from db_model.vulnerabilities.enums import (
-    VulnerabilityType,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from decorators import (
     retry_on_exceptions,
@@ -54,12 +33,6 @@ from settings.logger import (
 )
 import shutil
 import tempfile
-from typing import (
-    Optional,
-)
-from vulnerabilities.domain.rebase import (
-    rebase as rebase_vulnerability,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -72,93 +45,6 @@ cloned_repo_to_s3_tar = retry_on_exceptions(
     max_attempts=4,
     sleep_seconds=120,
 )(upload_cloned_repo_to_s3_tar)
-
-
-async def _get_vulnerabilities_to_rebase(
-    loaders: Dataloaders,
-    group_name: str,
-    git_root: GitRoot,
-) -> tuple[Vulnerability, ...]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-    findings_vulns: tuple[
-        tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
-        tuple(find.id for find in findings)
-    )
-    vulnerabilities: tuple[Vulnerability, ...] = tuple(
-        vuln
-        for vulns in findings_vulns
-        for vuln in vulns
-        if vuln.root_id == git_root.id
-        and vuln.commit is not None
-        and vuln.type == VulnerabilityType.LINES
-    )
-    return vulnerabilities
-
-
-def _rebase_vulnerability(
-    repo: Repo, vulnerability: Vulnerability
-) -> Optional[git_utils.RebaseResult]:
-    try:
-        if vulnerability.commit and (
-            result := git_utils.rebase(
-                repo,
-                path=vulnerability.where,
-                line=int(vulnerability.specific),
-                rev_a=str(
-                    vulnerability.commit if vulnerability.commit else None
-                ),
-                rev_b="HEAD",
-            )
-        ):
-            return result
-    except GitError as exc:
-        LOGGER.exception(
-            exc,
-            extra=dict(
-                extra={
-                    "vuln_id": vulnerability.id,
-                }
-            ),
-        )
-    return None
-
-
-async def rebase_root(
-    loaders: Dataloaders, group_name: str, repo: Repo, git_root: GitRoot
-) -> None:
-    vulnerabilities = await _get_vulnerabilities_to_rebase(
-        loaders, group_name, git_root
-    )
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        all_rebase: tuple[
-            tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
-        ] = tuple(
-            executor.map(
-                lambda vuln: (_rebase_vulnerability(repo, vuln), vuln),
-                vulnerabilities,
-            )
-        )
-    futures = [
-        rebase_vulnerability(
-            finding_id=vuln.finding_id,
-            finding_vulns_data=tuple(
-                item
-                for item in vulnerabilities
-                if item.finding_id == vuln.finding_id
-            ),
-            vulnerability_commit=rebase_result.rev,
-            vulnerability_id=vuln.id,
-            vulnerability_where=rebase_result.path,
-            vulnerability_specific=str(rebase_result.line),
-            vulnerability_type=vuln.type,
-        )
-        for rebase_result, vuln in all_rebase
-        if rebase_result
-    ]
-    await collect(futures)
 
 
 async def clone_root(
