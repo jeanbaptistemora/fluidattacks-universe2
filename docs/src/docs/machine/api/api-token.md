@@ -5,99 +5,133 @@ sidebar_label: Accessing ARM via API
 slug: /machine/api
 ---
 
-The ARM app allows users
-to make requests directly
-to our GraphQL API.
-You can do this
-by using one of the following methods:
+The ARM allows users to make
+requests to its **GraphQL API**.
+To get started,
+it is recommended to get some
+basic knowledge of this query language.
 
-## Using the GraphQL playground
+## What is GraphQL?
+
+[GraphQL](https://graphql.org/) is a
+query language for APIs,
+with a single endpoint which
+is `https://app.fluidattacks.com/api`
+where you can perform requests with
+**Queries** to fetch data and
+**Mutations** to create,
+delete,
+and modify the data you need.
+Having this clear,
+it is necessary to have basic
+knowledge of this language;
+if you are new to GraphQL,
+we invite you to read more
+[here](/machine/api/basics-api).
+
+After learning the basics,
+let’s find out how we can **authenticate**
+ourselves and start exploring the **GraphQL API**.
+
+## Autentication
+
+There are two ways you can authenticate
+and start using the API:
+from the **GraphQL playground**
+or by **HTTP** requests in **code**.
+
+We will now explain the GraphQL
+playground authentication,
+which allows two ways.
+
+### Authentication with the ARM login
+
+Here the authentication is done
+through the ARM platform login,
+these are the following steps:
 
 1. Log in to https://app.fluidattacks.com
 1. Open https://app.fluidattacks.com/api
-1. Open the Settings using the upper-right button
+1. Open the Settings using the upper-right button.
 
-  ![Browser Api Settings](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/api/api-token/api_highlight_settings_byubm9.webp)
+  ![Settings](https://res.cloudinary.com/fluid-attacks/image/upload/v1661897870/docs/api/api-token/armlogin_settings.png)
 
-1. Set a new value:
-  `"request.credentials": "include"`
-  and save the settings
+1. Here you open the
+  playground settings,
+  and you have to change the
+  item called "request.credentials"
+  which comes with the word "omit"
+  you have to change it to the word
+  "include" followed by
+  clicking save settings.
 
-  ![Setting Request Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211884/docs/api/api-token/api_highlight_reqcreds_sgljuh.webp)
+  ![Request Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/armlogin_requestcredentials.png)
 
-1. Go to a new tab
-  and make your queries
+1. Once you save the changes,
+  you can write the queries you need,
+  and then click the “play” button
+  to get the answer to your request.
 
-  ![Query Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/api/api-token/query_example_pcw8ra.webp)
+  ![Play Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_play_button.png)
 
-**Note**: This method uses the same session
-as the web application,
-which lasts for 40 minutes.
-After that,
-you need to log in to https://app.fluidattacks.com again
-and refresh the https://app.fluidattacks.com/api page.
-If you want your session
-to last more than 40 minutes,
-you can use an API Token
-as shown below.
+> **Note:** This method uses the same session
+> as the web application,
+> which lasts for 40 minutes.
+> After that,
+> you need to log in to https://app.fluidattacks.com again and
+> refresh the https://app.fluidattacks.com/api page.
+> If you want your session to last more than 40 minutes,
+> you can use an API Token as shown below.
 
-## Using the ARM API Token
+### Authentication with the ARM API Token
+
+In this authentication process,
+it is required to generate
+the ARM API Token.
+The steps are explained below.
 
 1. Log in to https://app.fluidattacks.com
+1. Generate the API Token from
+  the web application by going
+  to the User information drop-down menu,
+  by clicking on the option that says API.
 
-1. Generate the API Token
-   from the web application
-   using the `API` option
-   in the left panel:
-   ![ARM API Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/api/api-token/app_highlight_apibutton_ayw1r8.webp)
+  ![Generate API Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_api.png)
 
 1. Select an expiration date
-  up to six months after
-  the creation date:
+  up to six months after the creation date:
 
-  ![API Token Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/api/api-token/api_token_modal_uqt5k9.webp)
+  ![Expiration Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_expiration.png)
 
-1. After clicking the “Proceed” button,
+1. After clicking the “Confirm” button,
   you will see a string labeled “Access Token”.
   This will be your API Token:
 
-  ![Generated API Token in App](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211884/docs/api/api-token/app_apitoken_generated_zhrspd.webp)
+  ![Confirm Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_confirm.png)
 
 1. Store this token safely,
-  as it is the only time you will see it.
+  as it is the only time
+  you will see it.
   With it,
   you can do the same things
-  that you usually do
-  on the Integrates web application.
+  that you usually do on the
+  web application.
+1. Now,
+  enter the playground by browsing
+  to https://app.fluidattacks.com/api
+1. Here,
+  go to the bottom of the page
+  and click on HTTP HEADERS
 
-You can also generate the API Token
-using the next GraphQL mutation on
-https://app.fluidattacks.com/api,
-where `expirationTime` is a `Unix Timestamp`
+  ![Headers](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_http_header.png)
 
-```graphql
-mutation {
-  updateAccessToken(expirationTime:1577854799) {
-    sessionJwt
-  }
-}
-```
+1. Type `{"authorization":"Bearer API Token"}`
 
-You will get the API Token
-under the `sessionJwt` value:
+  ![Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_type.png)
 
-![Generated API Token in Browser](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/api/api-token/browser_apitoken_generated_kbkphs.webp)
+1. Then you put the query of
+  the request you want to make,
+  click the “play” button to see
+  the answer to that request.
 
-Add a new Header in `HTTP HEADERS`
-with the name `Authorization`
-and the value `Bearer <api-token>`,
-where `<api-token>` is the token generated
-in the previous steps:
-
-![Set Authorization Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/api/api-token/apitoken_setheader_ehr86e.webp)
-
-Done!
-Now you can make queries
-with the same API Token
-for up to six months
-(depending on the `expirationTime` you set earlier)
+  ![Play Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661898294/docs/api/api-token/token_play_button.png)
