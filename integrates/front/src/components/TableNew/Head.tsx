@@ -40,9 +40,9 @@ const Head = <TData extends RowData>({
     return (event: FormEvent): void => {
       event.stopPropagation();
       if (table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()) {
-        table.toggleAllRowsSelected();
-      } else {
         table.resetRowSelection();
+      } else {
+        table.toggleAllRowsSelected();
       }
     };
   }

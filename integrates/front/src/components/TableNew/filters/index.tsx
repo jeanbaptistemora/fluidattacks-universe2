@@ -34,7 +34,7 @@ const Filters = <TData extends RowData>({
 
   return (
     <React.Fragment>
-      <Button onClick={openPanel} variant={"ghost"}>
+      <Button id={"filter-config"} onClick={openPanel} variant={"ghost"}>
         <FontAwesomeIcon icon={faFilter} />
       </Button>
       <SidePanel onClose={closePanel} open={open}>

@@ -1,6 +1,5 @@
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -13,7 +12,6 @@ import {
 } from "@tanstack/react-table";
 import type {
   FilterFn,
-  FilterMeta,
   Row,
   RowData,
   SortingState,
@@ -92,13 +90,11 @@ const Table = <TData extends RowData>({
   const filterFun: FilterFn<TData> = (
     row: Row<TData>,
     columnId: string,
-    value: string,
-    addMeta: (meta: FilterMeta) => void
+    value: string
   ): boolean => {
-    const itemRank = rankItem(row.getValue(columnId), value);
-    addMeta({ itemRank });
-
-    return itemRank.passed;
+    return String(row.getValue(columnId))
+      .toLowerCase()
+      .includes(value.toLowerCase());
   };
 
   const table = useReactTable<TData>({
