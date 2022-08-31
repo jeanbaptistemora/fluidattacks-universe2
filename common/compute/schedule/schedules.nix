@@ -179,7 +179,7 @@
       "schedulers.groups_languages_distribution.main"
     ];
 
-    schedule_expression = "cron(30 23 ? * 2,4 *)";
+    schedule_expression = "cron(0,30 0 ? * 2,5 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 1;
