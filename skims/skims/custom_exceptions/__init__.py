@@ -17,7 +17,7 @@ class _SingleMessageException(CustomBaseException):
 
 
 class AdvisoryAlreadyCreated(_SingleMessageException):
-    msg: str = "This advisory has already been created"
+    msg: str = "This advisory has already been created, use 'update' instead"
 
 
 class UnavailabilityError(_SingleMessageException):

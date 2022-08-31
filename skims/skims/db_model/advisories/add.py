@@ -8,6 +8,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    AdvisoryAlreadyCreated,
     InvalidSeverity,
     InvalidVulnerableVersion,
 )
@@ -27,10 +28,11 @@ from utils.logs import (
 )
 
 
-async def add(*, advisory: Advisory) -> None:
+async def add(*, advisory: Advisory, no_overwrite: bool = False) -> None:
     try:
-        await _add(advisory=advisory)
+        await _add(advisory=advisory, no_overwrite=no_overwrite)
     except (
+        AdvisoryAlreadyCreated,
         InvalidSeverity,
         InvalidVulnerableVersion,
     ) as exc:
@@ -43,7 +45,7 @@ async def add(*, advisory: Advisory) -> None:
         )
 
 
-async def _add(*, advisory: Advisory) -> None:
+async def _add(*, advisory: Advisory, no_overwrite: bool) -> None:
     advisory = format_advisory(advisory)
     items = []
     key_structure = TABLE.primary_key
@@ -67,6 +69,8 @@ async def _add(*, advisory: Advisory) -> None:
         table=TABLE,
     )
     if response.items:
+        if no_overwrite:
+            raise AdvisoryAlreadyCreated()
         current_ad = response.items[0]
         if (
             current_ad.get("vulnerable_version") != advisory.vulnerable_version

@@ -71,7 +71,7 @@ async def patch_sca(filename: str, action: str) -> None:
             ]
             for adv in items:
                 if action == ADD:
-                    await advisories_model.add(advisory=adv)
+                    await advisories_model.add(advisory=adv, no_overwrite=True)
                 elif action == UPDATE:
                     await advisories_model.update(advisory=adv)
                 else:
