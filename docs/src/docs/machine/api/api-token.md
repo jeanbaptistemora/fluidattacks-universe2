@@ -306,3 +306,75 @@ language of your preference.
 Waiting 1 additional second to
 the value indicated by the header
 is also advisable.
+
+## Temporary network errors
+
+There may be moments where
+the API cannot respond in
+time due to high demand,
+connection failures,
+or other network-related issues.
+
+It is recommended to implement
+a retrying strategy,
+where failed requests are performed
+again a certain amount of times,
+aiming to increase the resiliency
+of your integration.
+This is especially important
+when supporting mission-critical flows.
+Here’s a small example in a Python script.
+
+```python
+MAX_RETRIES = 10
+
+def request():
+    while True:
+        response = requests.post(
+            "https://app.fluidattacks.com/api",
+            json={"query": query},
+            headers={"authorization": f"Bearer {token}"},
+        )
+
+        if response.status_code == 429:
+            seconds = response.headers["retry-after"]
+            sleep(seconds + 1)
+        elif response.status >= 500:
+            retries += 1
+            if retries == MAX_RETRIES:
+                break
+            sleep(retries)
+        else:
+            break
+
+    return response
+
+```
+
+Remember that this solution may
+vary depending on the HTTP client
+library or language of your preference.
+
+## ARM API response status
+
+When the ARM API receives a request,
+it can respond with different status codes.
+Here are the most common ones.
+
+| Code      | Description                                                                                                                                                                                                                                  |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200       | The request has been processed. You can read more about the response body on GraphQL’s official website [here](https://graphql.org/learn/serving-over-http/#response).                                                                                                                                |
+| 400       | The request has a syntax error. Check the response for clues as to where it went wrong. Also, check https://graphql.org/learn/ to learn more about the  GraphQL query syntax.                                                                |
+| 429       | The limit of requests per minute has been exceeded. Check the limits [here](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/dns/infra/rate_limit.tf#L3). You can modify your logic to reduce the number of requests or implement a retrying strategy, waiting the time indicated in the "retry-after" header (in seconds). |
+| 502 - 504 | These errors can occur at times of high demand when the server cannot handle the request in time. They are usually temporary errors. We recommend implementing a retry mechanism. If the error persists, contact help@fluidattacks.com       |
+
+## Response times
+
+With GraphQL you can request a
+large amount of data
+in a single request,
+but you have to keep in mind
+that the response times will
+vary accordingly.
+Therefore it may be useful to
+split queries in different requests as needed.
