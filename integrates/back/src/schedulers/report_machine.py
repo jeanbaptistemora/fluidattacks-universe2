@@ -935,8 +935,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         reattack_future.close()
 
 
-async def process_execution(  # pylint: disable=too-many-arguments
-    loaders: Dataloaders,
+async def process_execution(
     execution_id: str,
     criteria_vulns: dict[str, Any],
     criteria_reqs: dict[str, Any],
@@ -945,6 +944,7 @@ async def process_execution(  # pylint: disable=too-many-arguments
 ) -> bool:
     # pylint: disable=too-many-locals
 
+    loaders: Dataloaders = get_new_context()
     boto3_session = aioboto3.Session()
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(
@@ -1065,7 +1065,6 @@ def _callback_done(
 
 
 async def main() -> None:
-    loaders: Dataloaders = get_new_context()
     criteria_vulns = await get_vulns_file()
     criteria_reqs = get_requirements_file()
     sqs = boto3.resource("sqs", region_name=FI_AWS_REGION_NAME)
@@ -1093,7 +1092,6 @@ async def main() -> None:
         for message in messages:
             task = asyncio.create_task(
                 process_execution(
-                    loaders,
                     _decode_sqs_message(message),
                     criteria_vulns,
                     criteria_reqs,

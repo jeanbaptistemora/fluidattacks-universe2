@@ -170,7 +170,6 @@ async def test_persist_result(populate: bool) -> None:
             )
 
             await process_execution(
-                get_new_context(),
                 "group1_1234345",
                 criteria_vulns,
                 criteria_reqs,
