@@ -179,7 +179,7 @@
       "schedulers.groups_languages_distribution.main"
     ];
 
-    schedule_expression = "cron(0 10 ? * 2,4 *)";
+    schedule_expression = "cron(30 23 ? * 2,4 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 1;
@@ -188,6 +188,7 @@
 
     environment = [
       "CACHIX_AUTH_TOKEN"
+      "INTEGRATES_API_TOKEN"
       "UNIVERSE_API_TOKEN"
     ];
 
