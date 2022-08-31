@@ -169,6 +169,35 @@
       "management:type" = "product";
     };
   };
+  integrates_groups_languages_distribution = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.groups_languages_distribution.main"
+    ];
+
+    schedule_expression = "cron(0 10 ? * 2,4 *)";
+    size = "small";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 21600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_groups_languages_distribution";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_organization_vulnerabilities = {
     enabled = true;
     command = [
