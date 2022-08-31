@@ -141,6 +141,20 @@ def _get_sca_info(what: str) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _get_missing_dependency(what: str) -> Optional[Dict[str, Any]]:
+    try:
+        str_info = what.split(" ", maxsplit=1)[1]
+    except IndexError:
+        return None
+    if match := re.match(r"\(missing dependency: (?P<name>(.+))\)$", str_info):
+        match_dict = match.groupdict()
+        return dict(
+            dependency_name=match_dict["name"],
+        )
+
+    return None
+
+
 def _format_what(what: str) -> str:
     if " " in what:
         return what.split(" ")[0]
@@ -222,6 +236,21 @@ def _get_sarif(
                 and (sca_info := _get_sca_info(vulnerability.what))
             ):
                 properties = sca_info
+
+            if (
+                (vulnerability.skims_metadata)
+                and (
+                    vulnerability.skims_metadata.source_method
+                    == "python.pip_incomplete_dependencies_list"
+                )
+                and (rule_id == "079")
+                and (
+                    dependency_info := _get_missing_dependency(
+                        vulnerability.what
+                    )
+                )
+            ):
+                properties = dependency_info
 
             result = sarif_om.Result(
                 rule_id=rule_id,
