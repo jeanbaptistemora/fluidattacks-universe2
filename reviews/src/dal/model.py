@@ -1,11 +1,20 @@
 from gitlab.v4.objects import (
     MergeRequest,
+    Project as GitlabProject,
+)
+from gql import (
+    Client as GqlClient,
 )
 from typing import (
     Any,
     Callable,
     NamedTuple,
 )
+
+
+class Project(NamedTuple):
+    rest: GitlabProject
+    gql: GqlClient
 
 
 class Pipeline(NamedTuple):
@@ -18,6 +27,8 @@ class PullRequest(NamedTuple):
     author: dict[str, str]
     commits: Callable[[], Any]
     description: str
+    deltas: int
+    id: str
     pipelines: Callable[[], list[Pipeline]]
     raw: MergeRequest
     source_branch: str

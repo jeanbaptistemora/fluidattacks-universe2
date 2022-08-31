@@ -71,12 +71,6 @@ def validate_specific(config: Dynaconf) -> None:
                     is_type_of=int,
                     messages=ERR_DEFAULT,
                 ),
-                Validator(
-                    f"tests.{test}.repo_path",
-                    must_exist=True,
-                    is_type_of=str,
-                    messages=ERR_DEFAULT,
-                ),
             )
         elif test in "pr_max_commits":
             config.validators.register(

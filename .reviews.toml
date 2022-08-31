@@ -34,7 +34,6 @@ project_id = "20741933"
     fail = true
     close_pr = true
     max_deltas = 100
-    repo_path = '.'
 
   [tests.first_pipeline_successful]
     fail = true

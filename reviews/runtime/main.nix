@@ -11,7 +11,7 @@ makeTemplate {
   };
   name = "reviews-runtime";
   searchPaths = {
-    bin = [inputs.nixpkgs.python39];
+    bin = [inputs.nixpkgs.python310];
     pythonPackage = [(projectPath "/reviews/src")];
     source = [
       (makePythonPypiEnvironment {

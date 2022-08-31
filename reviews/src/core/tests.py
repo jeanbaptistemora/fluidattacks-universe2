@@ -3,13 +3,6 @@ from dal.model import (
     PullRequest,
     TestData,
 )
-from pygit2 import (
-    Branch,
-    Diff,
-    GIT_BRANCH_REMOTE,
-    GitError,
-    Repository,
-)
 import re
 from typing import (
     Any,
@@ -29,40 +22,26 @@ def skip_ci(pull_request: PullRequest) -> bool:
 
 
 def pr_under_max_deltas(*, data: TestData) -> bool:
-    """PR under max_deltas if commit is not solution"""
-    success: bool = True
+    """PR deltas under max_deltas"""
+    success: bool = False
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
-    repo_path = (
-        "." if data.config["repo_path"] is None else data.config["repo_path"]
-    )
-    max_deltas: int = data.config["max_deltas"]
-    try:
-        repo: Repository = Repository(repo_path)
-    except GitError as exc:
-        log(
-            err_log,
-            "You must be in the repo path in order to run this test",
-        )
-        raise exc
     skip_deltas: bool = "- no-deltas-test" in data.pull_request.description
-    target: Branch = repo.lookup_branch(
-        f"origin/{data.pull_request.target_branch}", GIT_BRANCH_REMOTE
-    )
-    source: Branch = repo.lookup_branch(
-        f"origin/{data.pull_request.source_branch}", GIT_BRANCH_REMOTE
-    )
-    diff: Diff = repo.diff(target, source)
-    diff.find_similar()
-    deltas: int = diff.stats.deletions + diff.stats.insertions
-    if not skip_deltas and deltas > max_deltas:
-        log(
-            err_log,
-            "PR should be under or equal to %s deltas. You PR has %s deltas",
-            max_deltas,
-            deltas,
-        )
-        success = False
+    if skip_deltas:
+        success = True
+    else:
+        deltas: int = data.pull_request.deltas
+        print(deltas)
+        max_deltas: int = data.config["max_deltas"]
+        success = deltas <= max_deltas
+        if not success:
+            log(
+                err_log,
+                "PRs should be under or equal to %s deltas."
+                "This one has %s deltas",
+                max_deltas,
+                deltas,
+            )
     return success or not should_fail
 
 
@@ -87,7 +66,7 @@ def first_pipeline_successful(*, data: TestData) -> bool:
                 last.web_url,
                 last.status,
             )
-    return success
+    return success or not should_fail
 
 
 def pr_message_equals_commit_message(*, data: TestData) -> bool:
