@@ -5,9 +5,9 @@ resource "aws_s3_bucket" "analytics" {
 
   tags = {
     "Name"               = "fluidintegrates.analytics"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -66,9 +66,9 @@ resource "aws_s3_bucket" "resources" {
 
   tags = {
     "Name"               = "fluidintegrates.resources"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -123,9 +123,9 @@ resource "aws_s3_bucket" "evidences" {
 
   tags = {
     "Name"               = "fluidintegrates.evidences"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -168,9 +168,9 @@ resource "aws_s3_bucket" "reports" {
 
   tags = {
     "Name"               = "fluidintegrates.reports"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -226,9 +226,9 @@ resource "aws_s3_bucket" "build" {
 
   tags = {
     "Name"               = "fluidintegrates.build"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -271,9 +271,9 @@ resource "aws_s3_bucket" "forces" {
 
   tags = {
     "Name"               = "fluidintegrates.forces"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -316,9 +316,9 @@ resource "aws_s3_bucket" "continuous_repositories" {
 
   tags = {
     "Name"               = "continuous-repositories"
-    "management:area"    = "cost"
-    "management:product" = "services"
-    "management:type"    = "service"
+    "Management:Area"    = "cost"
+    "Management:Product" = "services"
+    "Management:Type"    = "service"
     "Access"             = "private"
   }
 }
@@ -373,9 +373,9 @@ resource "aws_s3_bucket" "continuous_data" {
 
   tags = {
     "Name"               = "continuous-data"
-    "management:area"    = "cost"
-    "management:product" = "services"
-    "management:type"    = "service"
+    "Management:Area"    = "cost"
+    "Management:Product" = "services"
+    "Management:Type"    = "service"
     "Access"             = "private"
   }
 }

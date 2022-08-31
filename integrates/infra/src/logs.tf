@@ -3,9 +3,9 @@ resource "aws_cloudwatch_log_group" "fluid" {
 
   tags = {
     "Name"               = "FLUID"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
   }
 }
 

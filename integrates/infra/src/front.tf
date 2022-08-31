@@ -5,9 +5,9 @@ resource "aws_s3_bucket" "dev" {
 
   tags = {
     "Name"               = "integrates.front.development.fluidattacks.com"
-    "management:area"    = "innovation"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "innovation"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
@@ -95,9 +95,9 @@ resource "aws_s3_bucket" "prod" {
 
   tags = {
     "Name"               = "integrates.front.production.fluidattacks.com"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }

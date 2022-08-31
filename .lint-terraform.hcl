@@ -9,9 +9,9 @@ rule "aws_resource_missing_tags" {
   enabled = true
   tags = [
     "Name",
-    "management:area",
-    "management:product",
-    "management:type",
+    "Management:Area",
+    "Management:Product",
+    "Management:Type",
   ]
   exclude = [
     "aws_elasticache_subnet_group",
