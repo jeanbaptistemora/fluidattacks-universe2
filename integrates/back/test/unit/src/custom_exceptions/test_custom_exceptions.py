@@ -4,6 +4,7 @@ from back.test.unit.src.utils import (
     create_dummy_session,
 )
 from custom_exceptions import (
+    ErrorUploadingFileS3,
     EventNotFound,
     FindingNamePolicyNotFound,
     GroupNotFound,
@@ -17,6 +18,7 @@ from custom_exceptions import (
     InvalidSchema,
     RepeatedValues,
     StakeholderNotFound,
+    UnavailabilityError,
     VulnNotFound,
 )
 from dataloaders import (
@@ -59,6 +61,9 @@ from organizations_finding_policies import (
 )
 import os
 import pytest
+from s3 import (
+    operations as s3_ops,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -78,6 +83,20 @@ import yaml  # type: ignore
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+async def test_exception_error_uploading_file_s3() -> None:
+    bucket_name = "test_bucket"
+    file_name = "test-anim.gif"
+    file_location = os.path.dirname(os.path.abspath(__file__))
+    file_location = os.path.join(file_location, "mock/" + file_name)
+    with pytest.raises(ErrorUploadingFileS3):
+        with open(file_location, "rb") as data:
+            await s3_ops.upload_memory_file(
+                bucket_name,
+                data,
+                file_name,
+            )
 
 
 async def test_exception_event_not_found() -> None:
@@ -346,6 +365,21 @@ async def test_remove_stakeholder() -> None:
     loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await loaders.stakeholder.load(email)
+
+
+async def test_exception_unavailability_error() -> None:
+    bucket_name = "bad_test_bucket"
+    file_name = "test-anim.gif"
+    file_location = os.path.dirname(os.path.abspath(__file__))
+    file_location = os.path.join(file_location, "mock/" + file_name)
+    with pytest.raises(UnavailabilityError):
+        with open(file_location, "rb"):
+            test_file = UploadFile(filename=file_name)
+            await s3_ops.upload_memory_file(
+                bucket_name,
+                test_file,
+                file_name,
+            )
 
 
 @pytest.mark.asyncio
