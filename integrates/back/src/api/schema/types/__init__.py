@@ -103,6 +103,9 @@ from .vulnerability_historic_state import (
 from api.schema.types.credentials import (
     CREDENTIALS,
 )
+from api.schema.types.enrollment import (
+    ENROLLMENT,
+)
 from api.schema.types.event_evidence import (
     EVENT_EVIDENCE,
 )
@@ -115,6 +118,9 @@ from api.schema.types.mutation_payloads import (
 )
 from api.schema.types.toe_lines import (
     TOELINES,
+)
+from api.schema.types.trial import (
+    TRIAL,
 )
 from api.schema.types.verification_summary import (
     VERIFICATION_SUMMARY,
@@ -132,6 +138,7 @@ TYPES: Tuple[ObjectType, ...] = (
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
+    ENROLLMENT,
     EVENT,
     EVENT_EVIDENCE,
     EVENT_EVIDENCE_ITEM,
@@ -163,6 +170,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
+    TRIAL,
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     URLROOT,

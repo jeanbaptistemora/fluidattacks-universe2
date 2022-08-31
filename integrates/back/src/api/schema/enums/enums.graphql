@@ -407,6 +407,20 @@ enum ManagedType {
   UNDER_REVIEW
 }
 
+"Enrollment trial state"
+enum EnrollmentTrialState {
+  "On extended trial"
+  EXTENDED
+  "Extended trial ended"
+  EXTENDED_ENDED
+  "On trial"
+  TRIAL
+  "Trial ended"
+  TRIAL_ENDED
+}
+
+
+
 "Approval status of an organization finding policy"
 enum OrganizationFindingPolicy {
   "Policy was approved and enacted"

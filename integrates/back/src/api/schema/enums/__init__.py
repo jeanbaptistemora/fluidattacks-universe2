@@ -216,6 +216,15 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
+        "EnrollmentTrialState",
+        {
+            "EXTENDED": "EXTENDED",
+            "EXTENDED_ENDED": "EXTENDED_ENDED",
+            "TRIAL": "TRIAL",
+            "TRIAL_ENDED": "TRIAL_ENDED",
+        },
+    ),
+    EnumType(
         "OrganizationFindingPolicy",
         {"APPROVED": "APPROVED", "REJECTED": "REJECTED"},
     ),

@@ -8,4 +8,6 @@ type Trial {
   extensionDays: Int!
   "Beginning date of the ASM trial"
   startDate: String!
+  "Trial state based on its dates"
+  state: EnrollmentTrialState!
 }
