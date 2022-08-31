@@ -15,6 +15,7 @@ from model.core_model import (
 from model.graph_model import (
     GraphDB,
     GraphShard,
+    GraphShardMetadataLanguage,
     GraphShardNodes,
 )
 from sast.query import (
@@ -35,27 +36,6 @@ from utils.languages.java import (
 from utils.string import (
     complete_attrs_on_set,
 )
-
-
-def _yield_insecure_pass(
-    graph_db: GraphDB,
-) -> GraphShardNodes:
-    framework = "org.springframework.security"
-    insecure_instances = complete_attrs_on_set(
-        {
-            f"{framework}.authentication.encoding.ShaPasswordEncoder",
-            f"{framework}.authentication.encoding.Md5PasswordEncoder",
-            f"{framework}.crypto.password.LdapShaPasswordEncoder",
-            f"{framework}.crypto.password.Md4PasswordEncoder",
-            f"{framework}.crypto.password.MessageDigestPasswordEncoder",
-            f"{framework}.crypto.password.NoOpPasswordEncoder",
-            f"{framework}.crypto.password.StandardPasswordEncoder",
-            f"{framework}.crypto.scrypt.SCryptPasswordEncoder",
-        }
-    )
-    for shard, object_id, type_name in yield_object_creation(graph_db):
-        if type_name in insecure_instances:
-            yield shard, object_id
 
 
 def java_security_yield_insecure_key(
@@ -235,11 +215,41 @@ def java_insecure_pass(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_INSECURE_PASS
+    framework = "org.springframework.security"
+    insecure_instances = complete_attrs_on_set(
+        {
+            f"{framework}.authentication.encoding.ShaPasswordEncoder",
+            f"{framework}.authentication.encoding.Md5PasswordEncoder",
+            f"{framework}.crypto.password.LdapShaPasswordEncoder",
+            f"{framework}.crypto.password.Md4PasswordEncoder",
+            f"{framework}.crypto.password.MessageDigestPasswordEncoder",
+            f"{framework}.crypto.password.NoOpPasswordEncoder",
+            f"{framework}.crypto.password.StandardPasswordEncoder",
+            f"{framework}.crypto.scrypt.SCryptPasswordEncoder",
+        }
+    )
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+            ):
+                if graph.nodes[n_id]["name"] in insecure_instances:
+                    yield shard, n_id
+
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_pass.description",
-        desc_params=dict(lang="Java"),
-        graph_shard_nodes=_yield_insecure_pass(graph_db),
-        method=MethodsEnum.JAVA_INSECURE_PASS,
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
     )
 
 
