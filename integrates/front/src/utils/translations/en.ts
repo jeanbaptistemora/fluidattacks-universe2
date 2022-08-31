@@ -1172,6 +1172,7 @@ export const enTranslations: ResourceKey = {
         addModal: {
           alerts: {
             alreadyExists: "The input already exists.",
+            invalidCharacter: "Field contains forbidden characters",
             invalidComponent: "The root does not have the component.",
             invalidUrl: "The URL is not valid.",
             success: "Input has been added.",

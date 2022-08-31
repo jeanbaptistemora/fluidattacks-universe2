@@ -73,6 +73,9 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
             case "Exception - The URL is not valid":
               msgError(t("group.toe.inputs.addModal.alerts.invalidUrl"));
               break;
+            case "Exception - Invalid characters":
+              msgError(t("group.toe.inputs.addModal.alerts.invalidCharacter"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding toe input", error);
