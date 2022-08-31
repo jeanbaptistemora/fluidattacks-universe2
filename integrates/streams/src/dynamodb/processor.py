@@ -3,13 +3,15 @@ from dynamodb.context import (
     FI_ENVIRONMENT,
     FI_GOOGLE_CHAT_WEBOOK_URL,
 )
+from dynamodb.resource import (
+    SESSION,
+)
 from dynamodb.types import (
     EventName,
     Record,
 )
 from dynamodb.utils import (
     format_record,
-    SESSION,
 )
 import itertools
 from more_itertools import (

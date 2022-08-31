@@ -1,6 +1,3 @@
-from boto3 import (
-    Session,
-)
 from boto3.dynamodb.types import (
     TypeDeserializer,
 )
@@ -11,8 +8,6 @@ from dynamodb.types import (
 from typing import (
     Any,
 )
-
-SESSION = Session()
 
 
 def deserialize_dynamodb_json(item: dict[str, Any]) -> dict[str, Any]:

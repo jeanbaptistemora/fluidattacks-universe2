@@ -1,5 +1,20 @@
 import importlib
+import logging.config
 import sys
+
+
+def initialize_settings() -> None:
+    logging.config.dictConfig(
+        {
+            "handlers": {
+                "console": {"class": "logging.StreamHandler", "level": "INFO"},
+            },
+            "loggers": {
+                "": {"handlers": ["console"], "level": "INFO"},
+            },
+            "version": 1,
+        }
+    )
 
 
 def invoke_consumer(module_name: str) -> None:
@@ -9,4 +24,5 @@ def invoke_consumer(module_name: str) -> None:
 
 
 if __name__ == "__main__":
+    initialize_settings()
     invoke_consumer(sys.argv[1])

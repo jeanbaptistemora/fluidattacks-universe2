@@ -1,14 +1,12 @@
-from dynamodb.context import (
-    FI_DYNAMODB_HOST,
-    FI_DYNAMODB_PORT,
-    FI_ENVIRONMENT,
-)
 from dynamodb.processor import (
     process,
 )
-from dynamodb.utils import (
-    SESSION,
+from dynamodb.resource import (
+    CLIENT,
+    TABLE_NAME,
+    TABLE_RESOURCE,
 )
+import logging
 from threading import (
     Thread,
 )
@@ -21,15 +19,7 @@ from typing import (
     Optional,
 )
 
-ENDPOINT = (
-    f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"
-    if FI_ENVIRONMENT == "dev"
-    else None
-)
-CLIENT = SESSION.client(endpoint_url=ENDPOINT, service_name="dynamodbstreams")
-TABLE_NAME = "integrates_vms"
-RESOURCE = SESSION.resource(endpoint_url=ENDPOINT, service_name="dynamodb")
-TABLE_RESOURCE = RESOURCE.Table(TABLE_NAME)
+LOGGER = logging.getLogger(__name__)
 
 
 def _get_stream_arn(table_name: str) -> str:
@@ -95,8 +85,10 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
     shard_checkpoint = _get_shard_checkpoint(shard_id)
 
     if shard_checkpoint:
+        LOGGER.info("%s starting from checkpoint", shard_id)
         return shard_checkpoint
 
+    LOGGER.info("%s starting from the beginning", shard_id)
     response = CLIENT.get_shard_iterator(
         ShardId=shard_id,
         ShardIteratorType="LATEST",
@@ -144,13 +136,13 @@ def _get_shard_records(
             current_iterator = response.get("NextShardIterator")
 
             if current_iterator is None:
-                print("Shard closed, moving on")
+                LOGGER.warning("Shard closed, moving on")
                 break
         except CLIENT.exceptions.ExpiredIteratorException:
-            print("Iterator expired, moving on")
+            LOGGER.warning("Iterator expired, moving on")
             break
 
-    print("Processed", processed_records, "records")
+    LOGGER.info("%s processed %s records", shard_id, processed_records)
 
 
 def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
@@ -191,9 +183,9 @@ def consume() -> None:
                 workers.append(worker)
                 worker.start()
 
-    print("Running with", len(workers), "workers")
+    LOGGER.info("Running with %s workers", len(workers))
 
     for worker in workers:
         worker.join()
 
-    print("Stream consumption completed.")
+    LOGGER.info("Stream consumption completed.")
