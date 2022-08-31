@@ -80,7 +80,7 @@ def insecure_logging(
         "TraceEvent",
         "Debug",
     }
-    sanitize = {"\\n", "\\t"}
+    sanitize = {"\\n", "\\t", "\\r"}
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
@@ -106,9 +106,12 @@ def insecure_logging(
                         if (
                             evaluation
                             and evaluation.danger
-                            and not all(
-                                char in evaluation.triggers
-                                for char in sanitize
+                            and not (
+                                "Replace" in evaluation.triggers
+                                and all(
+                                    char in evaluation.triggers
+                                    for char in sanitize
+                                )
                             )
                         ):
                             yield shard, nid
