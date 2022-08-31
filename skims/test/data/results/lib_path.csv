@@ -26818,42 +26818,76 @@ F058,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),applic
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
-   1 |  class XmlSerializerTestCase : Controller
+   1 | ass XmlSerializerTestCase : Controller
    2 |
-   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
+   3 | c ActionResult unsecuredeserialization(HttpRequest typeName)
    4 |
-   5 |   //insecure
-   6 |   Tpe t = Type.GetType(typeName);
-   7 |   XmlSerializer serializer = new XmlSerializer(t);
+   5 | /insecure
+   6 | pe t = Type.GetType(typeName);
+   7 | mlSerializer insec_serial = new XmlSerializer(t);
    8 |
-   9 |   //insecure
-> 10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+   9 | /insecure
+> 10 | mlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
   11 |
-  12 |   //secure
-  13 |   ExpectedType obj = null;
-  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+  12 | /secure
+  13 | xpectedType obj = null;
+  14 | mlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
   15 |
-  16 |
-     ^ Col 6
+  16 | /insecure
+  17 | ar req = new HttpRequest();
+  18 | ar t2 = Type.GetType(req);
+  19 | mlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | /secure
+     ^ Col 9
 ",c_sharp.c_sharp_check_xml_serializer
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
-   1 |  class XmlSerializerTestCase : Controller
+   1 | lass XmlSerializerTestCase : Controller
    2 |
-   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
+   3 | ic ActionResult unsecuredeserialization(HttpRequest typeName)
    4 |
-   5 |   //insecure
-   6 |   Tpe t = Type.GetType(typeName);
->  7 |   XmlSerializer serializer = new XmlSerializer(t);
+   5 | //insecure
+   6 | Tpe t = Type.GetType(typeName);
+>  7 | XmlSerializer insec_serial = new XmlSerializer(t);
    8 |
-   9 |   //insecure
-  10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+   9 | //insecure
+  10 | XmlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
   11 |
-  12 |   //secure
-  13 |   ExpectedType obj = null;
-  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+  12 | //secure
+  13 | ExpectedType obj = null;
+  14 | XmlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
   15 |
-  16 |
-     ^ Col 6
+  16 | //insecure
+  17 | var req = new HttpRequest();
+  18 | var t2 = Type.GetType(req);
+  19 | XmlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | //secure
+     ^ Col 8
+",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,19,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+   5 | /insecure
+   6 | pe t = Type.GetType(typeName);
+   7 | mlSerializer insec_serial = new XmlSerializer(t);
+   8 |
+   9 | /insecure
+  10 | mlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 | /secure
+  13 | xpectedType obj = null;
+  14 | mlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
+  15 |
+  16 | /insecure
+  17 | ar req = new HttpRequest();
+  18 | ar t2 = Type.GetType(req);
+> 19 | mlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | /secure
+  22 | tring greeting = ""hello"";
+  23 | mlSerializer sec_serial2 = new XmlSerializer(Type.GetType(greeting));
+  24 |
+  25 |
+     ^ Col 9
 ",c_sharp.c_sharp_check_xml_serializer
 F096,lines,namespace/skims/test/data/lib_root/f096/js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
  in namespace/skims/test/data/lib_root/f096/js_deserialization.cs","

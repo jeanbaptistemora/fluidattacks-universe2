@@ -53,7 +53,7 @@ def is_danger_value(graph: Graph, n_id: NId, memb_name: str) -> bool:
 
 
 def check_no_password_argument(triggers: Set[str]) -> bool:
-    eval_str = "".join(reversed(list(triggers)))
+    eval_str = "".join(list(triggers))
     for arg_part in eval_str.split(";"):
         if "=" in arg_part:
             var, value = arg_part.split("=", maxsplit=1)

@@ -4,13 +4,22 @@ public class XmlSerializerTestCase : Controller
     {
         //insecure
         Tpe t = Type.GetType(typeName);
-        XmlSerializer serializer = new XmlSerializer(t);
+        XmlSerializer insec_serial = new XmlSerializer(t);
 
         //insecure
-        XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+        XmlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
 
         //secure
         ExpectedType obj = null;
-        XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+        XmlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
+
+        //insecure
+        var req = new HttpRequest();
+        var t2 = Type.GetType(req);
+        XmlSerializer insec_serial3 = new XmlSerializer(t2);
+
+        //secure
+        string greeting = "hello";
+        XmlSerializer sec_serial2 = new XmlSerializer(Type.GetType(greeting));
     }
 }
