@@ -62,14 +62,14 @@ def first_pipeline_successful(*, data: TestData) -> bool:
             "This pull request does not have any associated pipelines.",
         )
     else:
-        last: Pipeline = pipelines[-1]
-        success = last.status in ("success", "manual")
+        first: Pipeline = pipelines[-1]
+        success = first.status in ("success", "manual")
         if not success:
             log(
                 err_log,
                 "Pipeline: %s\n" "Has status: %s\n",
-                last.web_url,
-                last.status,
+                first.web_url,
+                first.status,
             )
     return success or not should_fail
 
