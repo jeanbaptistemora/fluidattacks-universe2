@@ -209,10 +209,10 @@
     ];
 
     schedule_expression = "cron(30 1,5,9,13,17,21 * * ? *)";
-    size = "small";
+    size = "medium";
     awsRole = "prod_integrates";
     attempts = 3;
-    timeout = 21600;
+    timeout = 43200;
     parallel = 1;
 
     environment = [
