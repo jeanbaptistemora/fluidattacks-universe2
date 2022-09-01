@@ -4,7 +4,12 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ColumnDef, InitialTableState, Row } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  InitialTableState,
+  Row,
+} from "@tanstack/react-table";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -42,6 +47,7 @@ import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikDropdown } from "utils/forms/fields";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
@@ -55,6 +61,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
+  const [columnFilters, columnFiltersSetter] =
+    useStoredState<ColumnFiltersState>("test", []);
   const openReportsModal: () => void = useCallback((): void => {
     setIsReportsModalOpen(true);
   }, []);
@@ -293,6 +301,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Table
+        columnFilterSetter={columnFiltersSetter}
+        columnFilterState={columnFilters}
         columnToggle={true}
         columns={tableColumns}
         data={findings}

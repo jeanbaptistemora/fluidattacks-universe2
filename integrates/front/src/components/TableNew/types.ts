@@ -2,6 +2,7 @@ import type {
   Cell,
   Column,
   ColumnDef,
+  ColumnFiltersState,
   InitialTableState,
   Row,
   RowData,
@@ -25,6 +26,8 @@ interface IPagMenuProps<TData extends RowData> {
 interface ITableProps<TData extends RowData> {
   csvName?: string;
   data: TData[];
+  columnFilterSetter?: Dispatch<SetStateAction<ColumnFiltersState>>;
+  columnFilterState?: ColumnFiltersState;
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;
   enableRowSelection?: boolean | ((row: Row<TData>) => boolean);

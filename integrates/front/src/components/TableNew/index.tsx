@@ -11,6 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type {
+  ColumnFiltersState,
   FilterFn,
   Row,
   RowData,
@@ -35,6 +36,8 @@ import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
 const Table = <TData extends RowData>({
+  columnFilterSetter = undefined,
+  columnFilterState = undefined,
   columns,
   columnToggle = false,
   csvName = "Report",
@@ -54,6 +57,7 @@ const Table = <TData extends RowData>({
   rowSelectionState = undefined,
   selectionMode = "checkbox",
 }: Readonly<ITableProps<TData>>): JSX.Element => {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState(
     initState?.columnVisibility ?? {}
   );
@@ -111,12 +115,16 @@ const Table = <TData extends RowData>({
     getRowCanExpand: (): boolean => expandedRow !== undefined,
     getSortedRowModel: getSortedRowModel(),
     globalFilterFn: filterFun,
+    onColumnFiltersChange: columnFilterSetter
+      ? columnFilterSetter
+      : setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     state: {
+      columnFilters: columnFilterState ? columnFilterState : columnFilters,
       columnVisibility,
       expanded,
       globalFilter,
