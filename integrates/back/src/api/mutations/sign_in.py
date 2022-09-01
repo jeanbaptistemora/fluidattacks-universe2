@@ -50,9 +50,6 @@ from settings.auth import (
 from stakeholders import (
     domain as stakeholders_domain,
 )
-from subscriptions import (
-    domain as subscriptions_domain,
-)
 from typing import (
     Any,
     Optional,
@@ -104,21 +101,6 @@ async def autoenroll_stakeholder(
             ),
         ),
     )
-
-    # Enroll new Fluid users to Comments by default
-    if (
-        "@fluidattacks.com" in email
-        and await subscriptions_domain.subscribe_user_to_entity_report(
-            event_frequency="DAILY",
-            report_entity="COMMENTS",
-            report_subject="ALL_GROUPS",
-            user_email=email,
-        )
-    ):
-        LOGGER.info(
-            "New user subscribed to comments in all groups",
-            extra={"extra": email},
-        )
 
 
 @retry_on_exceptions(
