@@ -194,7 +194,8 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             LOGGER.info("Failed to clone %s", root.state.nickname)
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
-    if cloned_roots_nicknames:
+
+    if group.state.has_machine and cloned_roots_nicknames:
         queue = SkimsBatchQueue.MEDIUM
         await queue_job_new(
             dataloaders=dataloaders,

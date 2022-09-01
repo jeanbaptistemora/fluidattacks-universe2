@@ -83,7 +83,7 @@ async def test_clone_roots(
                 action_name=Action.EXECUTE_MACHINE.value, entity="group1"
             )
         )
-        > 0
+        == 0
     )
 
 
