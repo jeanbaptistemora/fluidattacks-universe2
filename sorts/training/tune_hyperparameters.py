@@ -40,9 +40,9 @@ def deploy_hyperparameter_tuning_job() -> None:
         objective_type="Maximize",
         hyperparameter_ranges=MODEL_HYPERPARAMETERS[model],
         tags=[
-            {"Key": "management:area", "Value": "cost"},
-            {"Key": "management:product", "Value": "sorts"},
-            {"Key": "management:type", "Value": "product"},
+            {"Key": "Management:Area", "Value": "cost"},
+            {"Key": "Management:Product", "Value": "sorts"},
+            {"Key": "Management:Type", "Value": "product"},
         ],
     )
 
