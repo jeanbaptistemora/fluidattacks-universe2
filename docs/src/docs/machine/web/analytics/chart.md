@@ -13,7 +13,7 @@ download it or modify its
 presentation.
 These are the chart options:
 
-![Chart Analytics Tools](https://res.cloudinary.com/fluid-attacks/image/upload/v1649181366/docs/web/analytics/chart/chart_analytics_tools.png)
+![Chart Analytics Tools](https://res.cloudinary.com/fluid-attacks/image/upload/v1662071077/docs/web/analytics/chart/chart_tools.png)
 
 ## Filter
 
@@ -39,7 +39,7 @@ This option lets
 you download graph,
 table,
 or metric information
-as a .csv file extension.
+as a `.csv` file extension.
 
 ## Download
 
