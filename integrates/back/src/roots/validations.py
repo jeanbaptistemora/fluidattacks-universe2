@@ -154,8 +154,10 @@ def is_git_unique(
     https://docs.fluidattacks.com/machine/web/groups/scope/roots#single-root-assessment
     """
     for root in roots:
-        if isinstance(root, GitRoot) and (
-            root.state.status == RootStatus.ACTIVE or include_inactive
+        if (
+            isinstance(root, GitRoot)
+            and (root.state.status == RootStatus.ACTIVE or include_inactive)
+            and root.state.reason != "GROUP_DELETED"
         ):
             if (url.lower(), group_name) == (
                 root.state.url.lower(),
@@ -191,6 +193,7 @@ def is_ip_unique(
         for root in roots
         if isinstance(root, IPRoot)
         and (root.state.status == RootStatus.ACTIVE or include_inactive)
+        and root.state.reason != "GROUP_DELETED"
     )
 
 
@@ -214,6 +217,7 @@ def is_url_unique(  # pylint: disable=too-many-arguments
         for root in roots
         if isinstance(root, URLRoot)
         and (root.state.status == RootStatus.ACTIVE or include_inactive)
+        and root.state.reason != "GROUP_DELETED"
     )
 
 
