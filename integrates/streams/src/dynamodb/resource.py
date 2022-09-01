@@ -11,7 +11,8 @@ from dynamodb.context import (
 )
 
 ENDPOINT = (
-    f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"
+    # FP: the endpoint is hosted in a local environment
+    f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
     if FI_ENVIRONMENT == "dev"
     else None
 )
