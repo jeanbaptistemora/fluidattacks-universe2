@@ -11,7 +11,7 @@ from typing import (
 @pytest.mark.resolver_test_group("organization")
 @pytest.mark.parametrize(
     ("email", "role", "permissions"),
-    (("admin@gmail.com", "admin", 10),),
+    (("admin@gmail.com", "admin", 11),),
 )
 async def test_get_organization_ver_1(
     populate: bool, email: str, role: str, permissions: int
@@ -70,7 +70,7 @@ async def test_get_organization_ver_1(
     ("email", "role", "permissions"),
     (
         ("user@gmail.com", "user", 3),
-        ("user_manager@gmail.com", "user_manager", 21),
+        ("user_manager@gmail.com", "user_manager", 22),
         ("vulnerability_manager@gmail.com", "user", 3),
         ("hacker@gmail.com", "user", 3),
         ("reattacker@gmail.com", "user", 3),
@@ -109,7 +109,7 @@ async def test_get_organization_ver_2(
 @pytest.mark.resolver_test_group("organization")
 @pytest.mark.parametrize(
     ("email", "role", "permissions"),
-    (("admin@gmail.com", "admin", 10),),
+    (("admin@gmail.com", "admin", 11),),
 )
 async def test_get_organization_default_values(
     populate: bool, email: str, role: str, permissions: int

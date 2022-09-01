@@ -14,6 +14,7 @@ from api.resolvers.organization import (
     permissions,
     stakeholders,
     user_role,
+    vulnerabilities_url,
     vulnerability_grace_period,
 )
 from ariadne import (
@@ -40,6 +41,7 @@ ORGANIZATION.set_field("paymentMethods", payment_methods.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
 ORGANIZATION.set_field("userRole", user_role.resolve)
+ORGANIZATION.set_field("vulnerabilitiesUrl", vulnerabilities_url.resolve)
 ORGANIZATION.set_field(
     "vulnerabilityGracePeriod", vulnerability_grace_period.resolve
 )
