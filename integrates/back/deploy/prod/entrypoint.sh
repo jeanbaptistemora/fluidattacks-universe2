@@ -71,6 +71,7 @@ function deploy {
   export UUID
 
   : \
+    && aws_login "prod_integrates" "3600" \
     && aws_eks_update_kubeconfig 'common' 'us-east-1' \
     && B64_CACHIX_AUTH_TOKEN="$(b64 "${CACHIX_AUTH_TOKEN}")" \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \

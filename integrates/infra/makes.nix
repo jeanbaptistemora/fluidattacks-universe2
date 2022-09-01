@@ -3,6 +3,7 @@
     modules = {
       integratesInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodIntegrates"
           outputs."/secretsForEnvFromSops/integratesInfraProd"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
         ];
@@ -15,6 +16,7 @@
     modules = {
       integratesInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
         ];
@@ -54,6 +56,7 @@
     modules = {
       integratesInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
         ];

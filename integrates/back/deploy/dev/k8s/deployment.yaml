@@ -127,7 +127,6 @@ spec:
           args:
             - gitlab:fluidattacks/universe@${CI_COMMIT_SHA}
             - /integrates/storage
-            - eph
           env:
             - name: MAKES_K8S_COMPAT
               value: '1'

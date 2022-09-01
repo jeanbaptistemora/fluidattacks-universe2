@@ -15,7 +15,9 @@ function main {
   local out="out"
   export BATCH_BIN
 
-  source __argIntegratesBackEnv__/template dev \
+  : \
+    && source __argIntegratesBackEnv__/template dev \
+    && aws_login "dev" "3600" \
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
     && DAEMON=true integrates-cache \

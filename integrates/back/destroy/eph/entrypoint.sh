@@ -4,6 +4,7 @@ function main {
   local namespace='development'
 
   : \
+    && aws_login "dev" "3600" \
     && aws_eks_update_kubeconfig common us-east-1 \
     && kubectl delete --all deployment -n "${namespace}" \
     && kubectl delete --all hpa -n "${namespace}" \

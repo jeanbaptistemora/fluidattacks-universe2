@@ -34,6 +34,7 @@ in
           name = "integrates-coverage";
           sourcesYaml = ./pypi-sources.yaml;
         })
+        outputs."/common/utils/aws"
         outputs."/common/utils/sops"
       ];
     };

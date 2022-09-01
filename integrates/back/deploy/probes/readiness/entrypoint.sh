@@ -6,6 +6,7 @@ function main {
   local endpoint_local="${3}"
 
   : \
+    && aws_login "${user}" "3600" \
     && validate_aws_credentials_with_user "${user}" \
     && validate_response_content "${endpoint_local}" "${content}"
 }

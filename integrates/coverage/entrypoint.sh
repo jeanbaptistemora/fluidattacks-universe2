@@ -8,6 +8,7 @@ function main {
   )
 
   : \
+    && aws_login "dev" "3600" \
     && pushd integrates \
     && coverage combine \
     && coverage report "${coverage_args[@]}" \

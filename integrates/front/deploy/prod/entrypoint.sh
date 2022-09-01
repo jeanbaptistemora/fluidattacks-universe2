@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  deploy production trunk
+  deploy prod_integrates production trunk
 }
 
 main "${@}"

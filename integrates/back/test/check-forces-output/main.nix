@@ -20,6 +20,7 @@ makeScript {
       outputs."/forces"
     ];
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };
