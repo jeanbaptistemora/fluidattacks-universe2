@@ -16,9 +16,6 @@ from dataloaders import (
 from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
-from db_model.groups.update import (
-    update_unreliable_indicators as update_group_indicators,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -28,6 +25,12 @@ from db_model.roots.types import (
 )
 from db_model.roots.update import (
     update_unreliable_indicators as update_root_indicators,
+)
+from db_model.types import (
+    CodeLanguage,
+)
+from groups import (
+    domain as groups_domain,
 )
 import json
 import logging
@@ -133,7 +136,10 @@ async def update_language_indicators(
             await update_root_indicators(
                 current_value=root,
                 indicators=RootUnreliableIndicatorsToUpdate(
-                    unreliable_languages=languages
+                    unreliable_code_languages=[
+                        CodeLanguage(language=language, loc=loc)
+                        for language, loc in languages.items()
+                    ]
                 ),
             )
             LOGGER.info("Root %s language stats were updated", nickname)
@@ -143,10 +149,14 @@ async def update_language_indicators(
     group_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group)
     )
-    await update_group_indicators(
+    await groups_domain.update_indicators(
         group_name=group,
         indicators=GroupUnreliableIndicators(
             closed_vulnerabilities=group_indicators.closed_vulnerabilities,
+            code_languages=[
+                CodeLanguage(language=language, loc=loc)
+                for language, loc in group_languages.items()
+            ],
             exposed_over_time_cvssf=group_indicators.exposed_over_time_cvssf,
             exposed_over_time_month_cvssf=(
                 group_indicators.exposed_over_time_month_cvssf
@@ -154,7 +164,6 @@ async def update_language_indicators(
             exposed_over_time_year_cvssf=(
                 group_indicators.exposed_over_time_year_cvssf
             ),
-            languages=group_languages,
             last_closed_vulnerability_days=(
                 group_indicators.last_closed_vulnerability_days
             ),

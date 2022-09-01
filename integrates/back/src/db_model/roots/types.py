@@ -8,11 +8,13 @@ from db_model.roots.enums import (
     RootStatus,
     RootType,
 )
+from db_model.types import (
+    CodeLanguage,
+)
 from enum import (
     Enum,
 )
 from typing import (
-    Dict,
     List,
     Literal,
     NamedTuple,
@@ -22,12 +24,12 @@ from typing import (
 
 
 class RootUnreliableIndicators(NamedTuple):
-    unreliable_languages: Dict[str, int] = {}
+    unreliable_code_languages: List[CodeLanguage] = []
     unreliable_last_status_update: str = ""
 
 
 class RootUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_languages: Optional[Dict[str, int]] = None
+    unreliable_code_languages: Optional[List[CodeLanguage]] = None
     unreliable_last_status_update: Optional[str] = None
 
 

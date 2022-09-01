@@ -980,6 +980,9 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
 ) -> GroupUnreliableIndicators:
     info("Getting group indicator", extra={"group_name": group.name})
     loaders: Dataloaders = get_new_context()
+    current_indicators: GroupUnreliableIndicators = (
+        await loaders.group_unreliable_indicators.load(group.name)
+    )
     findings = await loaders.group_findings.load(group.name)
 
     (
@@ -1042,6 +1045,8 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
     await update_vulnerabilities_indicators(loaders, group.name)
 
     return GroupUnreliableIndicators(
+        closed_vulnerabilities=closed_vulnerabilities,
+        code_languages=current_indicators.code_languages,
         last_closed_vulnerability_days=last_closed_vulnerability_days,
         last_closed_vulnerability_finding=(
             last_closed_vulnerability.finding_id
@@ -1053,7 +1058,6 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
         if max_open_severity_finding
         else "",
         max_severity=max_severity,
-        closed_vulnerabilities=closed_vulnerabilities,
         mean_remediate=mean_remediate,
         open_findings=open_findings,
         mean_remediate_critical_severity=remediate_critical,

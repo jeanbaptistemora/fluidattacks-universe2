@@ -11,6 +11,11 @@ from typing import (
 )
 
 
+class CodeLanguage(NamedTuple):
+    language: str
+    loc: int
+
+
 class Policies(NamedTuple):
     modified_date: str
     modified_by: str

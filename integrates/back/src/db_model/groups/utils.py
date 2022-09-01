@@ -21,6 +21,9 @@ from db_model.organizations.utils import (
     add_org_id_prefix,
     format_policies,
 )
+from db_model.types import (
+    CodeLanguage,
+)
 from db_model.utils import (
     get_first_day_iso_date,
 )
@@ -29,7 +32,9 @@ from dynamodb.types import (
 )
 from typing import (
     Any,
+    Dict,
     Optional,
+    Union,
 )
 
 
@@ -82,12 +87,17 @@ def format_unreliable_indicators(item: Item) -> GroupUnreliableIndicators:
         closed_vulnerabilities=int(item["closed_vulnerabilities"])
         if "closed_vulnerabilities" in item
         else None,
+        code_languages=[
+            CodeLanguage(language=language["language"], loc=language["loc"])
+            for language in item["code_languages"]
+        ]
+        if "code_languages" in item
+        else None,
         exposed_over_time_cvssf=item.get("exposed_over_time_cvssf"),
         exposed_over_time_month_cvssf=item.get(
             "exposed_over_time_month_cvssf"
         ),
         exposed_over_time_year_cvssf=item.get("exposed_over_time_year_cvssf"),
-        languages=item["languages"] if "languages" in item else None,
         last_closed_vulnerability_days=int(
             item["last_closed_vulnerability_days"]
         )
@@ -145,6 +155,12 @@ def format_unreliable_indicators_item(
         "closed_vulnerabilities": getattr(
             indicators, "closed_vulnerabilities"
         ),
+        "code_languages": [
+            format_code_language(code_language)
+            for code_language in indicators.code_languages
+        ]
+        if indicators.code_languages
+        else None,
         "exposed_over_time_cvssf": getattr(
             indicators, "exposed_over_time_cvssf"
         ),
@@ -154,7 +170,6 @@ def format_unreliable_indicators_item(
         "exposed_over_time_year_cvssf": getattr(
             indicators, "exposed_over_time_year_cvssf"
         ),
-        "languages": getattr(indicators, "languages"),
         "last_closed_vulnerability_days": getattr(
             indicators, "last_closed_vulnerability_days"
         ),
@@ -300,4 +315,13 @@ def format_treatment_summary_item(
         "accepted_undefined": treatment_data.accepted_undefined,
         "in_progress": treatment_data.in_progress,
         "new": treatment_data.new,
+    }
+
+
+def format_code_language(
+    code_language: CodeLanguage,
+) -> Dict[str, Union[str, int]]:
+    return {
+        "language": code_language.language,
+        "loc": code_language.loc,
     }

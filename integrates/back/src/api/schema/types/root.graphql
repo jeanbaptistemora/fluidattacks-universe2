@@ -8,6 +8,15 @@ interface IRoot {
   state: ResourceState!
 }
 
+"Definition for language distribution in a repository"
+type CodeLanguages {
+  "Name of the language"
+  language: String!
+  "Number of lines of code"
+  loc: Int!
+}
+
+
 "Git Root cloning status definition"
 type GitRootCloningStatus {
   "Full SHA-1 hash of the cloned repo"

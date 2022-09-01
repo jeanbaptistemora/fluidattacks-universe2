@@ -8911,6 +8911,20 @@
               "closed_vulnerabilities": {
                 "N": "0"
               },
+              "code_languages": {
+                "L": [
+                  {
+                    "M": {
+                      "language": {
+                        "S": "Python"
+                      },
+                      "loc": {
+                        "N": "15"
+                      }
+                    }
+                  }
+                ]
+              },
               "mean_remediate_high_severity": {
                 "N": "0"
               },
@@ -9118,6 +9132,30 @@
               },
               "closed_vulnerabilities": {
                 "N": "8"
+              },
+              "code_languages": {
+                "L": [
+                  {
+                    "M": {
+                      "language": {
+                        "S": "Python"
+                      },
+                      "loc": {
+                        "N": "15"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "language": {
+                        "S": "Ruby"
+                      },
+                      "loc": {
+                        "N": "27"
+                      }
+                    }
+                  }
+                ]
               },
               "mean_remediate_high_severity": {
                 "N": "0"
@@ -10399,6 +10437,7 @@
           ],
           "NonKeyAttributes": [
             "closed_vulnerabilities",
+            "code_languages",
             "exposed_over_time_cvssf",
             "exposed_over_time_month_cvssf",
             "exposed_over_time_year_cvssf",

@@ -2,6 +2,7 @@ from api.resolvers.group import (
     analytics,
     authors,
     closed_vulnerabilities,
+    code_languages,
     consulting,
     context,
     credentials,
@@ -58,6 +59,7 @@ GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("authors", authors.resolve)
 GROUP.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
+GROUP.set_field("codeLanguages", code_languages.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("credentials", credentials.resolve)
 GROUP.set_field("deletionDate", deletion_date.resolve)
