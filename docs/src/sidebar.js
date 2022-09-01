@@ -124,6 +124,7 @@ const About = [
           'about/security/integrity/secure-emails',
           'about/security/integrity/developing-integrity',
           'about/security/integrity/static-website',
+          'about/security/integrity/supply-chain-levels-for-software-artifacts',
         ],
       },
     ],
