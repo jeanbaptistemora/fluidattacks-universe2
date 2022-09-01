@@ -21,22 +21,22 @@
   gitlabDeployApp = {
     rules = gitlabOnlyProd;
     stage = "deploy-app";
-    tags = ["prod_forces_small"];
+    tags = ["small"];
   };
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;
     stage = "build";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
 in {
   pipelines = {

@@ -12,6 +12,7 @@ makeScript {
     ];
     source = [
       outputs."/melts/lib"
+      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };

@@ -29,6 +29,7 @@ function forces_failed {
 
 function main {
   : \
+    && aws_login "prod_forces" "3600" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && sops_export_vars "forces/secrets-prod.yaml" \

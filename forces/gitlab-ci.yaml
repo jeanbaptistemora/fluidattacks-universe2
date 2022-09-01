@@ -17,7 +17,7 @@
     - m . /deployContainerImage/forcesDev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -37,7 +37,7 @@
     - m . /deployContainerImage/forcesProd
   stage: deploy-app
   tags:
-    - prod_forces_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -60,7 +60,7 @@
     - m . /forces/test
   stage: post-deploy
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +82,7 @@
     - m . /lintPython/module/forces
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -104,7 +104,7 @@
     - m . /lintPython/module/forcesTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -126,7 +126,7 @@
     - m . /pipelineOnGitlab/forces
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

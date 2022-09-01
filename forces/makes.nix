@@ -27,6 +27,7 @@
           user = "DOCKER_HUB_USER";
         };
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/forcesDev"
         ];
         src = outputs."/forces/container";
@@ -39,6 +40,7 @@
           user = "DOCKER_HUB_USER";
         };
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodForces"
           outputs."/secretsForEnvFromSops/forcesProd"
         ];
         src = outputs."/forces/container";
@@ -64,6 +66,12 @@
         python = "3.8";
         src = "/forces/test";
       };
+    };
+  };
+  secretsForAwsFromGitlab = {
+    prodForces = {
+      roleArn = "arn:aws:iam::205810638802:role/prod_forces";
+      duration = 3600;
     };
   };
   secretsForEnvFromSops = {
