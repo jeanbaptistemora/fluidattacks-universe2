@@ -446,7 +446,7 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
             (
                 what,
                 (
-                    "(missing dependency "
+                    "(missing dependency: "
                     f"{message_properties['dependency_name']})"
                 ),
             )
