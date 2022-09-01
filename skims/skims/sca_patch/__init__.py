@@ -49,7 +49,8 @@ def check_item(item: dict, action: str) -> Advisory:
         key in item for key in ("vulnerable_version", "severity")
     ):
         raise InvalidPatchItem()
-
+    if action == UPDATE and "created_at" not in item:
+        raise InvalidPatchItem()
     return Advisory(
         associated_advisory=item["associated_advisory"],
         package_manager=item["package_manager"],
@@ -57,6 +58,7 @@ def check_item(item: dict, action: str) -> Advisory:
         source=item["source"] if action == REMOVE else PATCH_SRC,
         vulnerable_version=item.get("vulnerable_version", ""),
         severity=item.get("severity"),
+        created_at=item.get("created_at"),
     )
 
 

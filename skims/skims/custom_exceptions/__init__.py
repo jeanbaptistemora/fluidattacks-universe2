@@ -43,6 +43,7 @@ class InvalidPatchItem(_SingleMessageException):
     msg: str = (
         "Invalid item, "
         "if 'add/update' then all attributes except 'source' are required, "
+        "if 'update' then 'created_at' attribute is required, "
         "if 'delete' then 'vulnerable_version', 'severity' are not required"
     )
 
