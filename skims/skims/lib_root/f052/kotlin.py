@@ -1,5 +1,7 @@
+from contextlib import (
+    suppress,
+)
 from lib_root.f052.java import (
-    java_security_yield_insecure_key,
     javax_yield_insecure_ciphers,
     jvm_yield_insecure_hash,
 )
@@ -29,10 +31,37 @@ from typing import (
     List,
     Set,
 )
+from utils.crypto import (
+    insecure_elliptic_curve,
+)
 import utils.graph as g
 from utils.string import (
     complete_attrs_on_set,
 )
+
+
+def security_yield_insecure_key(
+    shard: GraphShard, type_name: str, parameters: List[Any]
+) -> GraphShardNodes:
+    insecure_rsa_spec = complete_attrs_on_set(
+        {"security.spec.RSAKeyGenParameterSpec"}
+    )
+    insecure_ec_spec = complete_attrs_on_set(
+        {"security.spec.ECGenParameterSpec"}
+    )
+    if parameters and type_name in insecure_rsa_spec:
+        param_id = parameters[0]
+        if param_text := shard.graph.nodes[param_id].get("label_text"):
+            with suppress(TypeError):
+                key_length = int(param_text)
+                if key_length < 2048:
+                    yield shard, param_id
+    if parameters and type_name in insecure_ec_spec:
+        param_id = parameters[0]
+        if (
+            param_text := shard.graph.nodes[param_id].get("label_text")
+        ) and insecure_elliptic_curve(param_text.replace('"', "")):
+            yield shard, param_id
 
 
 def _yield_insecure_key(
@@ -46,9 +75,7 @@ def _yield_insecure_key(
             g.adj_ast(shard.graph, argument_id)[0]
             for argument_id in match["value_argument"]
         ]
-        yield from java_security_yield_insecure_key(
-            shard, method_name, parameters
-        )
+        yield from security_yield_insecure_key(shard, method_name, parameters)
 
 
 def _yield_insecure_hash(

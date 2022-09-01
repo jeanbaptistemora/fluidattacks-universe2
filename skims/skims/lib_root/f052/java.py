@@ -3,7 +3,6 @@ from contextlib import (
 )
 from lib_root.utilities.java import (
     yield_method_invocation,
-    yield_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -20,6 +19,12 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from typing import (
     Any,
@@ -38,28 +43,17 @@ from utils.string import (
 )
 
 
-def java_security_yield_insecure_key(
-    shard: GraphShard, type_name: str, parameters: List[Any]
-) -> GraphShardNodes:
-    insecure_rsa_spec = complete_attrs_on_set(
-        {"java.security.spec.RSAKeyGenParameterSpec"}
-    )
-    insecure_ec_spec = complete_attrs_on_set(
-        {"java.security.spec.ECGenParameterSpec"}
-    )
-    if parameters and type_name in insecure_rsa_spec:
-        param_id = parameters[0]
-        if param_text := shard.graph.nodes[param_id].get("label_text"):
-            with suppress(TypeError):
-                key_length = int(param_text)
-                if key_length < 2048:
-                    yield shard, param_id
-    if parameters and type_name in insecure_ec_spec:
-        param_id = parameters[0]
-        if (
-            param_text := shard.graph.nodes[param_id].get("label_text")
-        ) and insecure_elliptic_curve(param_text.replace('"', "")):
-            yield shard, param_id
+def is_insecure_argument(triggers: Set[str], check: str = "RSA") -> bool:
+    eval_str = "".join(list(triggers))
+    print(eval_str)
+    if check == "RSA":
+        with suppress(TypeError):
+            key_length = int(eval_str)
+            if key_length < 2048:
+                return True
+    if check == "EC":
+        return insecure_elliptic_curve(eval_str)
+    return False
 
 
 def jvm_yield_insecure_hash(
@@ -109,26 +103,6 @@ def jvm_yield_insecure_hash(
                 "sha-1",
             }:
                 yield shard, param_id
-
-
-def _yield_insecure_key(
-    graph_db: GraphDB,
-) -> GraphShardNodes:
-    for shard, object_id, type_name in yield_object_creation(graph_db):
-        match = g.match_ast(
-            shard.graph,
-            object_id,
-            "argument_list",
-        )
-        parameters = g.adj_ast(
-            shard.graph,
-            str(match["argument_list"]),
-        )[1:-1]
-        yield from java_security_yield_insecure_key(
-            shard,
-            type_name,
-            list(parameters),
-        )
 
 
 def _yield_insecure_hash(
@@ -257,11 +231,51 @@ def java_insecure_key(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_INSECURE_KEY
+    insecure_rsa_spec = complete_attrs_on_set(
+        {"java.security.spec.RSAKeyGenParameterSpec"}
+    )
+    insecure_ec_spec = complete_attrs_on_set(
+        {"java.security.spec.ECGenParameterSpec"}
+    )
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+            ):
+                oc_attrs = graph.nodes[n_id]
+                check = None
+                if oc_attrs["name"] in insecure_ec_spec:
+                    check = "EC"
+                if oc_attrs["name"] in insecure_rsa_spec:
+                    check = "RSA"
+
+                if check and (
+                    param := g.match_ast(
+                        graph, oc_attrs.get("arguments_id")
+                    ).get("__0__")
+                ):
+                    for path in get_backward_paths(graph, param):
+                        evaluation = evaluate(method, graph, path, param)
+                        if evaluation and is_insecure_argument(
+                            evaluation.triggers, check
+                        ):
+                            yield shard, n_id
+
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_key.description",
-        desc_params=dict(lang="Java"),
-        graph_shard_nodes=_yield_insecure_key(graph_db),
-        method=MethodsEnum.JAVA_INSECURE_KEY,
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
     )
 
 

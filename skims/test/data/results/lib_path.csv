@@ -21531,52 +21531,52 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310,skims,052. Ins
      ^ Col 0
 ",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
-  22 |       Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
-  23 |       Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
-  24 |       Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
-  25 |       Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
-  26 |       Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
-  27 |       Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
-  28 |       Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
-  29 |       Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
-  30 |       Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
-  31 |       SSLContext.getInstance(""SSLv3"");
-  32 |       SSLContext.getInstance(""TLSv1.2"");
-  33 |       new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
-  34 |       new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
-  35 |       new ECGenParameterSpec(""secp521r1"");
-> 36 |       new ECGenParameterSpec(""c2pnb208w1"");
-  37 |       javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
-  38 |       javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
-  39 |       javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
-  40 |       ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
-  41 |   }
-  42 | }
-     ^ Col 2
+  22 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+  23 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
+  24 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
+  25 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
+  26 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
+  27 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
+  28 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
+  29 |         Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
+  30 |         Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
+  31 |         SSLContext.getInstance(""SSLv3"");
+  32 |         SSLContext.getInstance(""TLSv1.2"");
+  33 |         new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
+  34 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
+  35 |         new ECGenParameterSpec(""secp521r1"");
+> 36 |         new ECGenParameterSpec(""c2pnb208w1"");
+  37 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+  38 |         javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
+  39 |         javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+  40 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
+  41 |     }
+  42 |   }
+     ^ Col 0
 ",java.java_insecure_key
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
-  22 |   Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
-  23 |   Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
-  24 |   Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
-  25 |   Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
-  26 |   Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
-  27 |   Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
-  28 |   Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
-  29 |   Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
-  30 |   Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
-  31 |   SSLContext.getInstance(""SSLv3"");
-  32 |   SSLContext.getInstance(""TLSv1.2"");
-  33 |   new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
-> 34 |   new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
-  35 |   new ECGenParameterSpec(""secp521r1"");
-  36 |   new ECGenParameterSpec(""c2pnb208w1"");
-  37 |   javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
-  38 |   javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
-  39 |   javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
-  40 |   ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
-  41 |
-  42 |
-     ^ Col 6
+  22 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+  23 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
+  24 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
+  25 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
+  26 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
+  27 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
+  28 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
+  29 |         Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
+  30 |         Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
+  31 |         SSLContext.getInstance(""SSLv3"");
+  32 |         SSLContext.getInstance(""TLSv1.2"");
+  33 |         new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
+> 34 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
+  35 |         new ECGenParameterSpec(""secp521r1"");
+  36 |         new ECGenParameterSpec(""c2pnb208w1"");
+  37 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+  38 |         javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
+  39 |         javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+  40 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
+  41 |     }
+  42 |   }
+     ^ Col 0
 ",java.java_insecure_key
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   24 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
