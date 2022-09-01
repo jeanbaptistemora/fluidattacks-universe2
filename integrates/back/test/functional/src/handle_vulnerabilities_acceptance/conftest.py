@@ -184,6 +184,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
+                        assigned="user@gmail.com",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -221,6 +222,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
+                        assigned="user@gmail.com",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -258,6 +260,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
+                        assigned="user@gmail.com",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -295,6 +298,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
+                        assigned="user@gmail.com",
                         modified_date="2018-04-09T00:45:11+00:00",
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
