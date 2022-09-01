@@ -7,8 +7,11 @@ from aioextensions import (
     collect,
     run,
 )
-from dataloaders import (
-    get_new_context,
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    ExecutionAlreadyCreated,
 )
 from db_model import (
     forces as forces_model,
@@ -22,24 +25,15 @@ from dynamodb import (
 from dynamodb.types import (
     Item,
 )
-from groups import (
-    domain as groups_domain,
-)
 import logging
 import logging.config
 from newutils.forces import (
     format_forces,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Any,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -48,26 +42,15 @@ LOGGER_CONSOLE = logging.getLogger("console")
 FORCES_TABLE = "FI_forces"
 
 
-async def process_execution(
-    loaders: Any, all_active_group_names: tuple[str, ...], item: Item
-) -> None:
-    group_name = item["subscription"]
-    if (
-        not await groups_domain.exists(loaders, group_name)
-        or group_name not in all_active_group_names
-    ):
-        return
+async def process_execution(item: Item) -> None:
     forces_execution: ForcesExecution = format_forces(item)
-    await forces_model.add(forces_execution=forces_execution)
+    with suppress(ExecutionAlreadyCreated):
+        await forces_model.add(forces_execution=forces_execution)
 
 
 async def main() -> None:
-    loaders = get_new_context()
     executions_scanned: list[Item] = await ops_legacy.scan(
         table=FORCES_TABLE, scan_attrs={}
-    )
-    all_active_group_names = await orgs_domain.get_all_active_group_names(
-        loaders
     )
     LOGGER_CONSOLE.info(
         "All forces executions",
@@ -75,10 +58,8 @@ async def main() -> None:
     )
 
     await collect(
-        tuple(
-            process_execution(loaders, all_active_group_names, item)
-            for item in executions_scanned
-        ),
+        tuple(process_execution(item) for item in executions_scanned),
+        workers=256,
     )
 
 
