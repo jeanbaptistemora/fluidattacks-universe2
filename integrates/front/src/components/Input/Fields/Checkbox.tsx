@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { ICheckboxProps } from "../Formik";
-import { FormikCheckbox } from "../Formik";
+import type { ICheckboxProps } from "../Formik/FormikCheckbox";
+import { FormikCheckbox } from "../Formik/FormikCheckbox";
 
 const Checkbox: FC<ICheckboxProps> = ({
   checked,
@@ -11,6 +11,10 @@ const Checkbox: FC<ICheckboxProps> = ({
   id,
   label,
   name,
+  onBlur,
+  onChange,
+  onFocus,
+  onKeyDown,
   required,
   tooltip,
   value,
@@ -22,6 +26,10 @@ const Checkbox: FC<ICheckboxProps> = ({
     id={id}
     label={label}
     name={name}
+    onBlur={onBlur}
+    onChange={onChange}
+    onFocus={onFocus}
+    onKeyDown={onKeyDown}
     required={required}
     tooltip={tooltip}
     type={"checkbox"}

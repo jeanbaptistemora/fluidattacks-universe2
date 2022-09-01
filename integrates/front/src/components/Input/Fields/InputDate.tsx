@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IInputDateProps } from "../Formik";
-import { FormikDate } from "../Formik";
+import type { IInputDateProps } from "../Formik/FormikDate";
+import { FormikDate } from "../Formik/FormikDate";
 
 const InputDate: FC<IInputDateProps> = ({
   disabled = false,
@@ -13,6 +13,7 @@ const InputDate: FC<IInputDateProps> = ({
   min,
   name,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   required,
@@ -28,6 +29,7 @@ const InputDate: FC<IInputDateProps> = ({
     min={min}
     name={name}
     onBlur={onBlur}
+    onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     required={required}

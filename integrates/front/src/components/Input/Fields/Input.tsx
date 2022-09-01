@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IInputProps } from "../Formik";
-import { FormikInput } from "../Formik";
+import type { IInputProps } from "../Formik/FormikInput";
+import { FormikInput } from "../Formik/FormikInput";
 
 const Input: FC<IInputProps> = ({
   childLeft,
@@ -14,6 +14,7 @@ const Input: FC<IInputProps> = ({
   list,
   name,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   placeholder,
@@ -33,6 +34,7 @@ const Input: FC<IInputProps> = ({
     list={list}
     name={name}
     onBlur={onBlur}
+    onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}

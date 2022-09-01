@@ -1,7 +1,13 @@
 import type { FieldProps } from "formik";
 import _ from "lodash";
-import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
-import React from "react";
+import type {
+  ChangeEvent,
+  FC,
+  FocusEvent,
+  KeyboardEvent,
+  ReactNode,
+} from "react";
+import React, { useCallback } from "react";
 
 import type { ILabelProps } from "./Label";
 import { Label } from "./Label";
@@ -10,7 +16,11 @@ import { InputBox, InputWrapper } from "./styles";
 
 import { Alert } from "components/Alert";
 
-type TFieldProps = FieldProps<string, Record<string, string>>;
+type TField = FieldProps<string, Record<string, string>>;
+
+type TFieldProps = Pick<TField, "field"> & {
+  form: Pick<TField["form"], "errors" | "touched">;
+};
 
 interface IInput
   extends IStyledInputProps,
@@ -20,9 +30,13 @@ interface IInput
   name: string;
 }
 
-interface IInputBase<T = HTMLElement> extends IInput {
-  disabled?: boolean;
+interface IFormikHandlers<T = HTMLElement> {
   onBlur?: (event: FocusEvent<T>) => void;
+  onChange?: (event: ChangeEvent<T>) => void;
+}
+
+interface IInputBase<T = HTMLElement> extends IInput, IFormikHandlers<T> {
+  disabled?: boolean;
   onFocus?: (event: FocusEvent<T>) => void;
   onKeyDown?: (event: KeyboardEvent<T>) => void;
   validate?: (value: unknown) => string | undefined;
@@ -30,7 +44,7 @@ interface IInputBase<T = HTMLElement> extends IInput {
 
 interface IInputBaseProps extends IInput {
   children?: ReactNode;
-  form: Pick<TFieldProps["form"], "errors" | "touched">;
+  form: TFieldProps["form"];
 }
 
 const InputBase: FC<IInputBaseProps> = ({
@@ -60,5 +74,27 @@ const InputBase: FC<IInputBaseProps> = ({
   );
 };
 
+const useHandlers = <T extends HTMLElement>(
+  field: IFormikHandlers<T>,
+  input: IFormikHandlers<T>
+): [IFormikHandlers<T>["onBlur"], IFormikHandlers<T>["onChange"]] => {
+  const onBlur = useCallback(
+    (ev: FocusEvent<T>): void => {
+      field.onBlur?.(ev);
+      input.onBlur?.(ev);
+    },
+    [field, input]
+  );
+  const onChange = useCallback(
+    (ev: ChangeEvent<T>): void => {
+      field.onChange?.(ev);
+      input.onChange?.(ev);
+    },
+    [field, input]
+  );
+
+  return [onBlur, onChange];
+};
+
 export type { IInputBase, TFieldProps };
-export { InputBase };
+export { InputBase, useHandlers };

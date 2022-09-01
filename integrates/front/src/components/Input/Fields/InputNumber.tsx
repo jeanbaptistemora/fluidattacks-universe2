@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IInputNumberProps } from "../Formik";
-import { FormikNumber } from "../Formik";
+import type { IInputNumberProps } from "../Formik/FormikNumber";
+import { FormikNumber } from "../Formik/FormikNumber";
 
 const InputNumber: FC<IInputNumberProps> = ({
   disabled = false,
@@ -13,6 +13,7 @@ const InputNumber: FC<IInputNumberProps> = ({
   min,
   name,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   placeholder,
@@ -29,6 +30,7 @@ const InputNumber: FC<IInputNumberProps> = ({
     min={min}
     name={name}
     onBlur={onBlur}
+    onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}

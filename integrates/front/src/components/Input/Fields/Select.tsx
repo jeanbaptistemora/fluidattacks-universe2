@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { ISelectProps } from "../Formik";
-import { FormikSelect } from "../Formik";
+import type { ISelectProps } from "../Formik/FormikSelect";
+import { FormikSelect } from "../Formik/FormikSelect";
 
 const Select: FC<ISelectProps> = ({
   children,
@@ -12,6 +12,7 @@ const Select: FC<ISelectProps> = ({
   label,
   name,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   required,
@@ -25,6 +26,7 @@ const Select: FC<ISelectProps> = ({
     label={label}
     name={name}
     onBlur={onBlur}
+    onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     required={required}
