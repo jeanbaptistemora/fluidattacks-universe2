@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.common import (
     program as common_program,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
+    ternary_expression as common_ternary_expression,
     this as common_this,
     throw_statement as common_throw_statement,
     try_statement as common_try_statement,
@@ -48,6 +49,7 @@ from syntax_graph.syntax_readers.java import (
     field_declaration as java_field_declaration,
     for_statement as java_for_statement,
     import_declaration as java_import_declaration,
+    instanceof_expression as java_instanceof_expression,
     interface_declaration as java_interface_declaration,
     lambda_expression as java_lambda_expression,
     method_invocation as java_method_invocation,
@@ -244,6 +246,8 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
+            "type_identifier",
+            "scoped_type_identifier",
         },
         syntax_reader=common_identifier.reader,
     ),
@@ -258,6 +262,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "import_declaration",
         },
         syntax_reader=java_import_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "instanceof_expression",
+        },
+        syntax_reader=java_instanceof_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -397,6 +407,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "switch_label",
         },
         syntax_reader=java_switch_label.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "ternary_expression",
+        },
+        syntax_reader=common_ternary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
