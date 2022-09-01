@@ -9811,6 +9811,20 @@ F176,lines,namespace/skims/test/data/lib_path/f176/Dockerfile,7,16,skims,176. In
   8 |     apt clean
     ^ Col 0
 ",docker.container_using_sshpass
+F176,lines,namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,8,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,"
+   1 | #!/bin/bash
+   2 | echo ""adding host to known host""
+   3 | mkdir -p ~/.ssh
+   4 | touch ~/.ssh/known_hosts
+   5 | ssh-keyscan sftp >> ~/.ssh/known_hosts
+   6 | echo ""run command on remote server""
+   7 |
+>  8 | sshpass -p pass sftp foo@sftp << EOF
+   9 |     ls
+  10 |     pwd
+  11 | EOF
+     ^ Col 0
+",bash.bash_using_sshpass
 F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
  in namespace/skims/test/data/lib_path/f037/webVuln.config","
   1 | <configuration>

@@ -3042,6 +3042,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    BASH_USING_SSHPASS = MethodInfo(
+        file_name="bash",
+        name="bash_using_sshpass",
+        module="lib_path",
+        finding=FindingEnum.F176,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",

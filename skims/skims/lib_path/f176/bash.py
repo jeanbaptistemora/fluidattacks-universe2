@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-def container_using_sshpass(content: str, path: str) -> Vulnerabilities:
+def bash_using_sshpass(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
             if re.match(r"(\s+|^)sshpass -p", line):
@@ -23,5 +23,5 @@ def container_using_sshpass(content: str, path: str) -> Vulnerabilities:
         description_key="lib_path.f176.common",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.CONTAINER_USING_SSHPASS,
+        method=MethodsEnum.BASH_USING_SSHPASS,
     )
