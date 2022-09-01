@@ -12,6 +12,10 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    datetime as datetime_utils,
+    logs as logs_utils,
+)
 
 
 @concurrent_decorators(
@@ -20,10 +24,21 @@ from graphql.type.definition import (
 )
 async def resolve(
     parent: Organization,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
+    logs_utils.cloudwatch_log(
+        info.context,
+        "Security: Attempted to get vulnerabilities for organization"
+        f": {parent.id} at {datetime_utils.get_now()}",
+    )
+
     if parent.vulnerabilities_url is None:
         raise DocumentNotFound()
 
+    logs_utils.cloudwatch_log(
+        info.context,
+        "Security: Get vulnerabilities for organization"
+        f": {parent.id} at {datetime_utils.get_now()}",
+    )
     return parent.vulnerabilities_url
