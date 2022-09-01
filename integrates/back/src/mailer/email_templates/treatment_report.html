@@ -8,16 +8,28 @@
   {{ banner_finding('Treatment Alert') }}
 
   <div class="main-content">
-    <p>Hello {{ name }},</p>
+    <p>Hi {{ name }},</p>
     <p>
-      A permanent treatment {{ approve_state }} in the group <strong>{{ group }}</strong>
-      {% if responsible %}by <strong>{{ responsible }}</strong> as {{ user_role }}{% endif %}:
+      A permanent treatment for a vulnerability in the group
+      <strong>
+        {{ group }}
+      </strong>
+      {{ approve_state }}
+      {% if responsible %} by
+        <strong>
+          <a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible }}</a></strong>{% endif %}:
     </p>
     <p style="margin-bottom: 0px;">
-      <strong>Date:</strong> {{ date }}.<br>
-      <strong>Type:</strong> {{ finding }}.<br>
-      <strong>Location:</strong> {{ location }}.<br>
-      <strong>Justification:</strong> {{ justification }}.<br>
+      <strong>Date:</strong> {{ date }}<br>
+      <strong>Type of vulnerability:</strong> {{ finding }}<br>
+      <strong>Location:</strong> {{ location }}<br>
+      <strong>Justification:</strong> {{ justification }}<br>
     </p>
     {% if not is_approved %}
       <p style="margin-bottom: 0px;">
@@ -25,7 +37,15 @@
       </p>
       <ul style="margin-top: 10px;line-height: 30px;margin-bottom: 2rem;">
         {% for manager in managers_email %}
-          <li>{{ manager }}</li>
+          <li>
+            <a
+              href="mailto:{{ manager }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #ff3435;"
+            >
+              {{ manager }}</a>
+          </li>
         {% endfor %}
       </ul>
     {% endif %}

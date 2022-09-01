@@ -98,7 +98,9 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     is_approved: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    approve_state: str = "has been approved" if is_approved else "is requested"
+    approve_state: str = (
+        "has been approved" if is_approved else "has been requested"
+    )
     user_email: str = modified_by if modified_by else ""
     user_role = await authz.get_group_level_role(
         loaders, user_email, group_name
