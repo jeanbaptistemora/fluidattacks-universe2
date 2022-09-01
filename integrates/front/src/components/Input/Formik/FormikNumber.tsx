@@ -14,10 +14,7 @@ interface IInputNumberProps extends IInputBase<HTMLInputElement> {
   placeholder?: string;
 }
 
-type TInputNumberProps = IInputNumberProps & {
-  field: TFieldProps["field"];
-  form: Pick<TFieldProps["form"], "errors" | "touched">;
-};
+type TInputNumberProps = IInputNumberProps & TFieldProps;
 
 const FormikNumber: FC<TInputNumberProps> = ({
   disabled,

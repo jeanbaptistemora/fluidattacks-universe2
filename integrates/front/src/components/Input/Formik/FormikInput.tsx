@@ -1,8 +1,8 @@
-import type { FC, FocusEvent, ReactNode } from "react";
-import React, { useCallback } from "react";
+import type { FC, ReactNode } from "react";
+import React from "react";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 import { StyledInput } from "../styles";
 
 interface IInputProps extends IInputBase<HTMLInputElement> {
@@ -13,21 +13,19 @@ interface IInputProps extends IInputBase<HTMLInputElement> {
   type?: "email" | "password" | "text";
 }
 
-type TInputProps = IInputProps & {
-  field: TFieldProps["field"];
-  form: Pick<TFieldProps["form"], "errors" | "touched">;
-};
+type TInputProps = IInputProps & TFieldProps;
 
 const FormikInput: FC<TInputProps> = ({
   childLeft,
   childRight,
   disabled,
-  field: { name, onBlur: onBlurField, onChange, value },
+  field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
   label,
   list,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   placeholder,
@@ -36,12 +34,9 @@ const FormikInput: FC<TInputProps> = ({
   type,
   variant = "solid",
 }: Readonly<TInputProps>): JSX.Element => {
-  const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLInputElement>): void => {
-      onBlurField(ev);
-      onBlur?.(ev);
-    },
-    [onBlur, onBlurField]
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
   );
 
   return (
@@ -63,7 +58,7 @@ const FormikInput: FC<TInputProps> = ({
         list={list}
         name={name}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         placeholder={placeholder}

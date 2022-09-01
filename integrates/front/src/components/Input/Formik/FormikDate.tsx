@@ -1,8 +1,8 @@
-import type { FC, FocusEvent } from "react";
-import React, { useCallback } from "react";
+import type { FC } from "react";
+import React from "react";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 import { StyledInput } from "../styles";
 
 interface IInputDateProps extends IInputBase<HTMLInputElement> {
@@ -10,32 +10,27 @@ interface IInputDateProps extends IInputBase<HTMLInputElement> {
   min?: Date;
 }
 
-type TInputDateProps = IInputDateProps & {
-  field: TFieldProps["field"];
-  form: Pick<TFieldProps["form"], "errors" | "touched">;
-};
+type TInputDateProps = IInputDateProps & TFieldProps;
 
 const FormikDate: FC<TInputDateProps> = ({
   disabled,
-  field: { name, onBlur: onBlurField, onChange, value },
+  field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
   label,
   max,
   min,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   required,
   tooltip,
   variant = "solid",
 }: Readonly<TInputDateProps>): JSX.Element => {
-  const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLInputElement>): void => {
-      onBlurField(ev);
-      onBlur?.(ev);
-    },
-    [onBlur, onBlurField]
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
   );
 
   return (
@@ -57,7 +52,7 @@ const FormikDate: FC<TInputDateProps> = ({
         min={min?.toISOString().substring(0, 10)}
         name={name}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         type={"date"}

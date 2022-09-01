@@ -1,11 +1,11 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FC, FocusEvent } from "react";
-import React, { Fragment, useCallback } from "react";
+import type { FC } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 
 interface ICheckboxProps extends IInputBase<HTMLInputElement> {
   checked?: boolean;
@@ -68,15 +68,15 @@ const FormikCheckbox: FC<TCheckboxProps> = ({
   id = name,
   label,
   onBlur,
+  onChange,
+  onFocus,
+  onKeyDown,
   required,
   tooltip,
 }: Readonly<TCheckboxProps>): JSX.Element => {
-  const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLInputElement>): void => {
-      fieldBlur(ev);
-      onBlur?.(ev);
-    },
-    [fieldBlur, onBlur]
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
   );
 
   return (
@@ -93,7 +93,9 @@ const FormikCheckbox: FC<TCheckboxProps> = ({
               id={id}
               name={name}
               onBlur={handleBlur}
-              onChange={fieldChange}
+              onChange={handleChange}
+              onFocus={onFocus}
+              onKeyDown={onKeyDown}
               value={value}
             />
             <FontAwesomeIcon icon={faCheck} />

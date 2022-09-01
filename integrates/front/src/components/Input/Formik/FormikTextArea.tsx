@@ -1,8 +1,7 @@
-import type { FieldProps } from "formik";
 import type { FC, FocusEvent } from "react";
 import React, { useCallback } from "react";
 
-import type { IInputBase } from "../InputBase";
+import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledTextArea } from "../styles";
 
@@ -11,8 +10,7 @@ interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
   rows?: number;
 }
 
-type TTextAreaProps = FieldProps<string, Record<string, string>> &
-  ITextAreaProps;
+type TTextAreaProps = ITextAreaProps & TFieldProps;
 
 const FormikTextArea: FC<TTextAreaProps> = ({
   disabled,

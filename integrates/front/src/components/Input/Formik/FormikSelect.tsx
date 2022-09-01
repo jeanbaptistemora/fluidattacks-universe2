@@ -1,39 +1,34 @@
-import type { FC, FocusEvent, ReactNode } from "react";
-import React, { useCallback } from "react";
+import type { FC, ReactNode } from "react";
+import React from "react";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 import { StyledSelect } from "../styles";
 
 interface ISelectProps extends IInputBase<HTMLSelectElement> {
   children?: ReactNode;
 }
 
-type TSelectProps = ISelectProps & {
-  field: TFieldProps["field"];
-  form: Pick<TFieldProps["form"], "errors" | "touched">;
-};
+type TSelectProps = ISelectProps & TFieldProps;
 
 const FormikSelect: FC<TSelectProps> = ({
   children,
   disabled,
-  field: { name, onBlur: onBlurField, onChange, value },
+  field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
   label,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   required,
   tooltip,
   variant,
 }: Readonly<TSelectProps>): JSX.Element => {
-  const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLSelectElement>): void => {
-      onBlurField(ev);
-      onBlur?.(ev);
-    },
-    [onBlur, onBlurField]
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
   );
 
   return (
@@ -53,7 +48,7 @@ const FormikSelect: FC<TSelectProps> = ({
         id={id}
         name={name}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         value={value}
