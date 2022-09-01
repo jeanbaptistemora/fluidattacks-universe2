@@ -693,7 +693,7 @@ async def validate_evidence(
     else:
         raise InvalidFileType("EVENT")
 
-    if not await files_utils.get_file_size(file) < 10 * mib:
+    if await files_utils.get_file_size(file) > 10 * mib:
         raise InvalidFileSize()
 
 

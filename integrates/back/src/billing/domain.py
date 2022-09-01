@@ -413,7 +413,7 @@ async def validate_file(file: UploadFile) -> None:
     if not await files_utils.assert_uploaded_file_mime(file, allowed_mimes):
         raise InvalidFileType("TAX_ID")
 
-    if not await files_utils.get_file_size(file) < 10 * mib:
+    if await files_utils.get_file_size(file) > 10 * mib:
         raise InvalidFileSize()
 
 
