@@ -76,6 +76,7 @@ from utils.bugs import (
 from utils.logs import (
     configure as configure_logs,
     log_blocking,
+    log_to_remote,
     log_to_remote_blocking,
 )
 from utils.repositories import (
@@ -291,9 +292,9 @@ async def persist_to_integrates(
     return await persist(group=group, stores=stores)
 
 
-async def notify_start(job_id: str) -> None:
+async def notify_start(job_id: str, root: Optional[str] = None) -> None:
     await do_start_skims_execution(
-        root=CTX.config.namespace,
+        root=root or CTX.config.namespace,
         group_name=CTX.config.group,
         job_id=job_id,
         start_date=datetime.utcnow(),
@@ -418,10 +419,18 @@ async def execute_set_of_configs(
             finding: get_ephemeral_store()
             for finding in core_model.FindingEnum
         }
-        if integrates_access and batch_job_id:
-            await notify_start(batch_job_id)
 
         add_bugsnag_data(namespace=CTX.config.namespace)
+        if integrates_access and batch_job_id:
+            await notify_start(batch_job_id, root=current_config.namespace)
+        else:
+            await log_to_remote(
+                severity="warning",
+                msg="Unable to notify the start of the execution",
+                job_id=batch_job_id or "",
+                integrates_access=str(integrates_access),
+                namespace=current_config.namespace,
+            )
 
         log_blocking("info", f"Executing config {index+1}: {len(configs)}")
         log_blocking("info", f"Namespace: {CTX.config.namespace}/")
@@ -431,6 +440,15 @@ async def execute_set_of_configs(
         os.chdir(CTX.config.working_dir)
 
         await execute_skims(stores)
+        if batch_job_id and integrates_access:
+            await notify_end(
+                batch_job_id,
+                config=current_config,
+                persisted_results={
+                    finding: core_model.PersistResult(success=True)
+                    for finding in stores.keys()
+                },
+            )
 
     reset_ephemeral_state()
     return success
