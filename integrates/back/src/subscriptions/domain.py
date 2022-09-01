@@ -30,6 +30,10 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.subscriptions.enums import (
+    SubscriptionEntity,
+    SubscriptionFrequency,
+)
 from db_model.subscriptions.types import (
     Subscription,
 )
@@ -44,7 +48,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     reports,
-    subscriptions as subscriptions_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -250,42 +253,38 @@ async def subscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-) -> bool:
+) -> None:
     if event_frequency.lower() == "never":
-        success = await unsubscribe_user_to_entity_report(
+        await unsubscribe_user_to_entity_report(
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
     else:
-        event_period: int = subscriptions_utils.frequency_to_period(
-            frequency=event_frequency
+        subscription = Subscription(
+            email=user_email,
+            entity=SubscriptionEntity[report_entity],
+            frequency=SubscriptionFrequency[event_frequency],
+            subject=report_subject,
         )
-        success = await subscriptions_dal.subscribe_user_to_entity_report(
-            event_period=event_period,
+        await subscriptions_dal.add(subscription=subscription)
+        await _send_analytics_report(
+            event_frequency=event_frequency,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
-        if success:
-            await _send_analytics_report(
-                event_frequency=event_frequency,
-                report_entity=report_entity,
-                report_subject=report_subject,
-                user_email=user_email,
-            )
-            LOGGER.info(
-                "User subscribed correctly",
-                extra={
-                    "extra": {
-                        "frequency": event_frequency,
-                        "entity": report_entity,
-                        "subject": report_subject,
-                        "user": user_email,
-                    }
-                },
-            )
-    return success
+        LOGGER.info(
+            "User subscribed correctly",
+            extra={
+                "extra": {
+                    "frequency": event_frequency,
+                    "entity": report_entity,
+                    "subject": report_subject,
+                    "user": user_email,
+                }
+            },
+        )
 
 
 async def unsubscribe_user_to_entity_report(

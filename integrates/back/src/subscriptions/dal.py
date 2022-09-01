@@ -128,6 +128,18 @@ async def subscribe_user_to_entity_report(
     )
 
 
+async def add(*, subscription: Subscription) -> None:
+    event_period: int = frequency_to_period(
+        frequency=subscription.frequency.value
+    )
+    await subscribe_user_to_entity_report(
+        event_period=event_period,
+        report_entity=subscription.entity.value,
+        report_subject=subscription.subject,
+        user_email=subscription.email,
+    )
+
+
 async def unsubscribe_user_to_entity_report(
     *,
     report_entity: str,

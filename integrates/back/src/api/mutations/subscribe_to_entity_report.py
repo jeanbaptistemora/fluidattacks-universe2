@@ -35,7 +35,6 @@ async def mutate(
     report_entity: str,
     report_subject: str,
 ) -> SimplePayloadType:
-    success: bool = False
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
@@ -46,26 +45,18 @@ async def mutate(
         report_subject=report_subject,
         user_email=user_email,
     ):
-        success = await subscriptions_domain.subscribe_user_to_entity_report(
+        await subscriptions_domain.subscribe_user_to_entity_report(
             event_frequency=frequency,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
-
-        if success:
-            logs_utils.cloudwatch_log(
-                info.context,
-                f"user: {user_email} edited subscription to "
-                f"entity_report: {report_entity}/{report_subject} "
-                f"frequency: {frequency}",
-            )
-        else:
-            LOGGER.error(
-                "Couldn't subscribe to %s report",
-                report_entity,
-                extra={"extra": locals()},
-            )
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"user: {user_email} edited subscription to "
+            f"entity_report: {report_entity}/{report_subject} "
+            f"frequency: {frequency}",
+        )
     else:
         logs_utils.cloudwatch_log(
             info.context,
@@ -75,4 +66,4 @@ async def mutate(
             f"without permission",
         )
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

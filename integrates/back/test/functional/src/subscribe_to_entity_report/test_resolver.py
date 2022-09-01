@@ -1,6 +1,16 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    get_new_context,
+)
+from db_model.subscriptions.enums import (
+    SubscriptionEntity,
+    SubscriptionFrequency,
+)
+from db_model.subscriptions.types import (
+    Subscription,
+)
 import pytest
 from typing import (
     Any,
@@ -34,3 +44,10 @@ async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["subscribeToEntityReport"]["success"]
+    loaders = get_new_context()
+    subscription: tuple[
+        Subscription, ...
+    ] = await loaders.stakeholder_subscriptions.load(email)
+    assert subscription[-1].email == email
+    assert subscription[-1].frequency == SubscriptionFrequency.MONTHLY
+    assert subscription[-1].entity == SubscriptionEntity.ORGANIZATION
