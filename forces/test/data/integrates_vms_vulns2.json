@@ -59,6 +59,12 @@
           "id": {
             "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
           },
+          "group_name": {
+            "S": "herrin"
+          },
+          "hacker_email": {
+            "S": "forces.fluidattacks.com"
+          },
           "pk": {
             "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
           },

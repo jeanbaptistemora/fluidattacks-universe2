@@ -33,7 +33,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "BOOL": true
+                "S": "MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -71,7 +71,7 @@
             "S": "OTHER"
           },
           "managed": {
-            "BOOL": true
+            "S": "MANAGED"
           },
           "service": {
             "S": "WHITE"
