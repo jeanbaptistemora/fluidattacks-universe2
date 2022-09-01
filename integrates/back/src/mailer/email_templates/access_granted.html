@@ -9,32 +9,45 @@
 
   <div class="main-content">
     <p>Good news!</p>
-    <p>You have been invited by <strong>{{ responsible }}</strong> as {{ user_role }} to access our <strong>Attacks Resistance Management</strong>.
-      Please confirm your access and check vulnerabilities related to:
+    <p>You have been invited by
+      <strong>
+        <a
+          href="mailto:{{ responsible }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ responsible }}
+        </a>
+      </strong>
+      to use our <strong>Attack Resistance Management platform (ARM)</strong>.
+      Please confirm your access and check vulnerabilities in:
     </p>
     <p>
       {%- if group_description %}
-      - <strong>Group:</strong> {{ group }}.<br>
-      - <strong>Description:</strong> {{ group_description }}.
+        <strong>Group:</strong> {{ group }}<br>
+        <strong>Description:</strong> {{ group_description }}
       {%- else %}
-      - <strong>Organization:</strong> {{ group }}.
+        <strong>Organization:</strong> {{ group }}
       {%- endif %}
     </p>
     <p>
-      By clicking the button below,
-      you confirm your access to Fluid Attacks'
-      Attacks Resistance Management and agree to our
-      <a href="https://fluidattacks.com/privacy/" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+      This invitation is valid for seven calendar days from now.
+      By clicking on <strong>Confirm access</strong>,
+      you accept to join Fluid Attacks' ARM and agree to our
+      <a
+        href="https://fluidattacks.com/privacy/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #ff3435;"
+      >
         Privacy Policy
       </a>.
-    </p>
-    <p>
-      This invitation is valid for seven calendar days from now,
-      and you will not have access to the group until the invitation is accepted.
-      If you click on the <strong>Reject access</strong> button,
-      or do not confirm the invitation in the seven calendar days period,
-      it will be deleted from our systems,
-      and you will need a new invitation.
+      If you click on <strong>Reject access</strong>
+      or do not confirm the invitation before the deadline,
+      it will be removed from our systems.
+      You will need a new invitation,
+      which you will have to accept in order to gain access to our ARM.
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
