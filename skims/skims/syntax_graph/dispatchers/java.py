@@ -39,6 +39,7 @@ from syntax_graph.syntax_readers.java import (
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
     assignment_expression as java_assignment_expression,
+    cast_expression as java_cast_expression,
     class_body as java_class_body,
     dimensions_expr as java_dimensions_expr,
     element_value_pair as java_element_value_pair,
@@ -129,6 +130,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "break_statement",
         },
         syntax_reader=common_break_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "cast_expression",
+        },
+        syntax_reader=java_cast_expression.reader,
     ),
     Dispatcher(
         applicable_types={

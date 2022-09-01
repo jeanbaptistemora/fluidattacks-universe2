@@ -43,9 +43,8 @@ from utils.string import (
 )
 
 
-def is_insecure_argument(triggers: Set[str], check: str = "RSA") -> bool:
+def is_insecure_key_argument(triggers: Set[str], check: str = "RSA") -> bool:
     eval_str = "".join(list(triggers))
-    print(eval_str)
     if check == "RSA":
         with suppress(TypeError):
             key_length = int(eval_str)
@@ -266,7 +265,7 @@ def java_insecure_key(
                 ):
                     for path in get_backward_paths(graph, param):
                         evaluation = evaluate(method, graph, path, param)
-                        if evaluation and is_insecure_argument(
+                        if evaluation and is_insecure_key_argument(
                             evaluation.triggers, check
                         ):
                             yield shard, n_id
