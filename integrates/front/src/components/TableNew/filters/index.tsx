@@ -34,6 +34,14 @@ const Filters = <TData extends RowData>({
       (column): boolean => column.getCanFilter() && column.getIsVisible()
     );
 
+  function resetFiltersHandler(): (event: React.FormEvent) => void {
+    table.resetColumnFilters();
+
+    return (event: React.FormEvent): void => {
+      event.stopPropagation();
+    };
+  }
+
   return (
     <React.Fragment>
       <Button id={"filter-config"} onClick={openPanel} variant={"ghost"}>
@@ -83,6 +91,13 @@ const Filters = <TData extends RowData>({
               </Row>
             );
           })}
+          <Row>
+            <Col>
+              <Button onClick={resetFiltersHandler} variant={"secondary"}>
+                {"Clear filters"}
+              </Button>
+            </Col>
+          </Row>
         </React.Fragment>
       </SidePanel>
     </React.Fragment>
