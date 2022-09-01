@@ -8,10 +8,12 @@
   {{ banner_group('Analytics Report') }}
 
   <div class="main-content">
-    <p>Hello {{ name }},</p>
+    <p>Hi {{ name }},</p>
     <p>
-      Below, you will find the Analytics report for {{ report_entity }} <strong>{{ report_subject }}</strong>,
-      sent as part of your {{ frequency_lower }} subscription. The report will be available for 2 days:
+      Below, you will find the Analytics report for the organization
+      {{ report_entity }} <strong>{{ report_subject }}</strong>,
+      sent as part of your {{ frequency_lower }} subscription.
+      This report will be available for two days.
     </p>
     <p></p>
     {{ analytics_image(image_src, 1200) }}
@@ -22,8 +24,7 @@
       If you require this information you can find it directly on the ARM.
       You can modify the notifications frequency or disable them by visiting this
       <a href="{{ live_report_url }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        link
-      </a>.
+        link</a>.
     </p>
     <p></p>
     <p>Regards,<br>

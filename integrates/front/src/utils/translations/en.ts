@@ -355,7 +355,7 @@ export const enTranslations: ResourceKey = {
         "https://example.com/user/repo.git or a SSH URL like " +
         "git@github.com:user/repo.git",
     },
-    welcome: "Welcome to the Attack Resistance Management platform (ARM)",
+    welcome: "Welcome to the Attacks Resistance Management platform (ARM)",
   },
   comments: {
     editorPlaceholder: "Add your comment here",
@@ -1479,7 +1479,7 @@ export const enTranslations: ResourceKey = {
         "of Title VIII of the Colombian Penal Code, and article 16 " +
         "and subsequent articles of Law 256 of 1996.",
       privacy:
-        "By using the Fluid Attacks' Attack Resistance Management platform, you agree to our ",
+        "By using the Fluid Attacks' Attacks Resistance Management platform, you agree to our ",
       privacyLinkText: "Privacy Policy",
     },
     rememberCbo: {
