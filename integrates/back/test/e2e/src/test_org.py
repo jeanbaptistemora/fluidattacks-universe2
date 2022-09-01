@@ -136,6 +136,7 @@ def test_org_groups(
         driver,
         "button",
         "Skip",
+        "button",
         timeout,
     )
     close_tour.click()

@@ -220,6 +220,7 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
         driver,
         "button",
         "Skip",
+        "button",
         timeout,
     )
     close_tour.click()
