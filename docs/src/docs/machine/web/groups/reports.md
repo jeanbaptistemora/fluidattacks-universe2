@@ -14,7 +14,7 @@ appears at the top left,
 as you can see in the
 following screenshot:
 
-![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_vul_subsection.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1662054349/docs/web/groups/reports/report_section.png)
 
 The available report options
 have either summarized and
@@ -28,7 +28,7 @@ the Reports button,
 you can see the following
 options:
 
-![Reports Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_options.png)
+![Reports Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1662054348/docs/web/groups/reports/report_options.png)
 
 - **Certificate:**
   This option generates
@@ -80,7 +80,7 @@ verification code that
 will be sent to your mobile,
 as you can see below:
 
-![Verification Code](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_verification.png)
+![Verification Code](https://res.cloudinary.com/fluid-attacks/image/upload/v1662054348/docs/web/groups/reports/report_verification.png)
 
 As immediately announced
 by a message in the ARM,
