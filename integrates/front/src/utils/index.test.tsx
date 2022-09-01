@@ -1,5 +1,6 @@
 import type { ConfigurableValidator } from "revalidate";
 
+import { getEnvironment } from "utils/environment";
 import {
   alphaNumeric,
   isLowerDate,
@@ -573,5 +574,15 @@ describe("Validations", (): void => {
     );
 
     expect(date).toBeDefined();
+  });
+});
+
+describe("environments", (): void => {
+  it("should return development", (): void => {
+    expect.hasAssertions();
+
+    const environment: string = getEnvironment();
+
+    expect(environment).toBe("development");
   });
 });
