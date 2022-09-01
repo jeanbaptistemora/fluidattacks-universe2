@@ -1,15 +1,21 @@
 from context import (
     FI_INTEGRATES_REPORTS_LOGO_PATH,
 )
-from decimal import (
-    Decimal,
+from dataloaders import (
+    get_new_context,
+)
+from db_model.subscriptions.enums import (
+    SubscriptionEntity,
+    SubscriptionFrequency,
+)
+from db_model.subscriptions.types import (
+    Subscription,
 )
 import os
 import pytest
 from subscriptions.dal import (
-    get_subscriptions_to_entity_report,
-    get_user_subscriptions,
-    subscribe_user_to_entity_report,
+    add,
+    get_all_subsriptions,
 )
 
 pytestmark = [
@@ -23,158 +29,101 @@ def test_image_path() -> None:
 
 @pytest.mark.changes_db
 async def test_update() -> None:
-    await subscribe_user_to_entity_report(
-        event_period=86400,
-        report_entity="test_report_entity",
-        report_subject="test_report_subject",
-        user_email="test_user_email",
+    test_data_1 = Subscription(
+        email="test_user_email@test.com",
+        entity=SubscriptionEntity.ORGANIZATION,
+        frequency=SubscriptionFrequency.WEEKLY,
+        subject="test_report_subject",
     )
-    await subscribe_user_to_entity_report(
-        event_period=3600.0,
-        report_entity="test_report_entity",
-        report_subject="test_report_subject2",
-        user_email="test_user_email2",
+    test_data_2 = Subscription(
+        email="test_user_email2@test.com",
+        entity=SubscriptionEntity.GROUP,
+        frequency=SubscriptionFrequency.MONTHLY,
+        subject="test_report_subject2",
+    )
+    await add(subscription=test_data_1)
+    await add(subscription=test_data_2)
+
+    assert await get_all_subsriptions(frequency="HOURLY") == (
+        Subscription(
+            email="integratesmanager@gmail.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.HOURLY,
+            subject="unittesting",
+        ),
+    )
+    assert await get_all_subsriptions(frequency="DAILY") == (
+        Subscription(
+            email="integratesmanager@fluidattacks.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.DAILY,
+            subject="unittesting",
+        ),
+    )
+    assert await get_all_subsriptions(frequency="WEEKLY") == (
+        Subscription(
+            email="test_user_email@test.com",
+            entity=SubscriptionEntity.ORGANIZATION,
+            frequency=SubscriptionFrequency.WEEKLY,
+            subject="test_report_subject",
+        ),
+    )
+    assert await get_all_subsriptions(frequency="MONTHLY") == (
+        Subscription(
+            email="test_user_email2@test.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.MONTHLY,
+            subject="test_report_subject2",
+        ),
+        Subscription(
+            email="integratesmanager@fluidattacks.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.MONTHLY,
+            subject="oneshottest",
+        ),
     )
 
-    assert await get_subscriptions_to_entity_report(audience="user",) == [
-        {
-            "period": Decimal("3600"),
-            "pk": {
-                "email": "integratesmanager@gmail.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "unittesting",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("86400"),
-            "pk": {"email": "test_user_email", "meta": "user"},
-            "pk_meta": "user",
-            "sk": {
-                "entity": "test_report_entity",
-                "meta": "entity_report",
-                "subject": "test_report_subject",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("3600"),
-            "pk": {"email": "test_user_email2", "meta": "user"},
-            "pk_meta": "user",
-            "sk": {
-                "entity": "test_report_entity",
-                "meta": "entity_report",
-                "subject": "test_report_subject2",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("86400"),
-            "pk": {
-                "email": "integratesmanager@fluidattacks.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "unittesting",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("2419200"),
-            "pk": {
-                "email": "integratesmanager@fluidattacks.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "oneshottest",
-            },
-            "sk_meta": "entity_report",
-        },
-    ]
-    assert await get_user_subscriptions(email="test_user_email",) == [
-        {
-            "period": Decimal("86400"),
-            "pk": {"email": "test_user_email", "meta": "user"},
-            "pk_meta": "user",
-            "sk": {
-                "entity": "test_report_entity",
-                "meta": "entity_report",
-                "subject": "test_report_subject",
-            },
-            "sk_meta": "entity_report",
-        }
-    ]
-    assert await get_user_subscriptions(email="test_user_email2",) == [
-        {
-            "period": Decimal("3600"),
-            "pk": {"email": "test_user_email2", "meta": "user"},
-            "pk_meta": "user",
-            "sk": {
-                "entity": "test_report_entity",
-                "meta": "entity_report",
-                "subject": "test_report_subject2",
-            },
-            "sk_meta": "entity_report",
-        }
-    ]
-    assert await get_user_subscriptions(
-        email="integratesmanager@gmail.com",
-    ) == [
-        {
-            "period": Decimal("3600"),
-            "pk": {
-                "email": "integratesmanager@gmail.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "unittesting",
-            },
-            "sk_meta": "entity_report",
-        }
-    ]
-    assert await get_user_subscriptions(
-        email="integratesmanager@fluidattacks.com",
-    ) == [
-        {
-            "period": Decimal("2419200"),
-            "pk": {
-                "email": "integratesmanager@fluidattacks.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "oneshottest",
-            },
-            "sk_meta": "entity_report",
-        },
-        {
-            "period": Decimal("86400"),
-            "pk": {
-                "email": "integratesmanager@fluidattacks.com",
-                "meta": "user",
-            },
-            "pk_meta": "user",
-            "sk": {
-                "entity": "GROUP",
-                "meta": "entity_report",
-                "subject": "unittesting",
-            },
-            "sk_meta": "entity_report",
-        },
-    ]
+    loaders = get_new_context()
+
+    assert await loaders.stakeholder_subscriptions.load(test_data_1.email) == (
+        Subscription(
+            email="test_user_email@test.com",
+            entity=SubscriptionEntity.ORGANIZATION,
+            frequency=SubscriptionFrequency.WEEKLY,
+            subject="test_report_subject",
+        ),
+    )
+    assert await loaders.stakeholder_subscriptions.load(test_data_2.email) == (
+        Subscription(
+            email="test_user_email2@test.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.MONTHLY,
+            subject="test_report_subject2",
+        ),
+    )
+    assert await loaders.stakeholder_subscriptions.load(
+        "integratesmanager@gmail.com",
+    ) == (
+        Subscription(
+            email="integratesmanager@gmail.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.HOURLY,
+            subject="unittesting",
+        ),
+    )
+    assert await loaders.stakeholder_subscriptions.load(
+        "integratesmanager@fluidattacks.com",
+    ) == (
+        Subscription(
+            email="integratesmanager@fluidattacks.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.MONTHLY,
+            subject="oneshottest",
+        ),
+        Subscription(
+            email="integratesmanager@fluidattacks.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.DAILY,
+            subject="unittesting",
+        ),
+    )

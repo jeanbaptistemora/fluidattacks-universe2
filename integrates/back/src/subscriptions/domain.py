@@ -62,9 +62,6 @@ import sys
 from tags import (
     domain as tags_domain,
 )
-from typing import (
-    Any,
-)
 from urllib.parse import (
     quote_plus,
 )
@@ -126,21 +123,8 @@ async def can_subscribe_user_to_entity_report(
     return success
 
 
-async def get_subscriptions_to_entity_report(
-    *,
-    audience: str,
-) -> list[dict[str, Any]]:
-    return await subscriptions_dal.get_subscriptions_to_entity_report(
-        audience=audience,
-    )
-
-
 async def get_all_subscriptions(*, frequency: str) -> tuple[Subscription, ...]:
     return await subscriptions_dal.get_all_subsriptions(frequency=frequency)
-
-
-async def get_user_subscriptions(email: str) -> list[dict[str, Any]]:
-    return await subscriptions_dal.get_user_subscriptions(email=email)
 
 
 @retry_on_exceptions(
@@ -292,8 +276,8 @@ async def unsubscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-) -> bool:
-    return await subscriptions_dal.unsubscribe_user_to_entity_report(
+) -> None:
+    await subscriptions_dal.unsubscribe_user_to_entity_report(
         report_entity=report_entity,
         report_subject=report_subject,
         user_email=user_email,

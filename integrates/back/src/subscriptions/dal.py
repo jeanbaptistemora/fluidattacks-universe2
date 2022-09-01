@@ -45,23 +45,6 @@ def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
     ]
 
 
-async def get_subscriptions_to_entity_report(
-    *,
-    audience: str,
-) -> List[Dict[Any, Any]]:
-    results = await dynamodb_ops.query(
-        query_attrs=dict(
-            IndexName="pk_meta",
-            KeyConditionExpression=(
-                Key("pk_meta").eq(audience)
-                & Key("sk_meta").eq("entity_report")
-            ),
-        ),
-        table=SUBSCRIPTIONS_TABLE,
-    )
-    return _unpack_items(results)
-
-
 async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
     frequency_period = frequency_to_period(frequency=frequency)
     results = await dynamodb_ops.query(
@@ -76,26 +59,6 @@ async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
     )
     subscription_items = _unpack_items(results)
     return tuple(format_subscription(item) for item in subscription_items)
-
-
-async def get_user_subscriptions(
-    *,
-    email: str,
-) -> List[Dict[Any, Any]]:
-    results = await dynamodb_ops.query(
-        query_attrs=dict(
-            KeyConditionExpression=Key("pk").eq(
-                mapping_to_key(
-                    {
-                        "meta": "user",
-                        "email": email,
-                    }
-                )
-            ),
-        ),
-        table=SUBSCRIPTIONS_TABLE,
-    )
-    return _unpack_items(results)
 
 
 async def subscribe_user_to_entity_report(
@@ -145,8 +108,8 @@ async def unsubscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-) -> bool:
-    return await dynamodb_ops.delete_item(
+) -> None:
+    await dynamodb_ops.delete_item(
         delete_attrs=DynamoDelete(
             Key=dict(
                 pk=mapping_to_key(
