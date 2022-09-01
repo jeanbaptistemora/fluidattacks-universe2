@@ -190,6 +190,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Treatment",
       meta: { filterType: "select" },
     },
+    {
+      accessorKey: "description",
+      enableColumnFilter: false,
+      header: "Description",
+    },
   ];
 
   const initialstate: InitialTableState = {
@@ -197,6 +202,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       Asignees: false,
       Locations: false,
       Treatment: false,
+      description: false,
       reattack: false,
       releaseDate: false,
     },
