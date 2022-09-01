@@ -38319,3 +38319,77 @@
   metadata:
     en:
       details: __empty__
+'423':
+  en:
+    title: Inappropriate coding practices - System exit
+    description: >
+      The J2EE application use System.exit(), it is undesirable for
+      a web application to attempt to shut down the application container.  Accessing
+      a function that can shut down the application is an avenue
+      for denial of service (DoS) attacks.
+    impact: >
+      - Temporarily or permanently deny access to the application resource.
+    recommendation: >
+      Delegate shutdown functions only to privileged and duly authorized
+      accesses.
+    threat: >
+      Authenticated attacker from the Internet.
+  category: Abuse Functionality
+  examples:
+    non_compliant: |
+      There are system.exit() in the code
+      ```java
+      Public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+          ...
+        } catch (ApplicationSpecificException ase) {
+          logger.error("Caught: " + ase.toString());
+          System.exit(1);
+        }
+      }
+      ```
+    compliant: |
+      The application does not have any system.exit() in the source code
+      ```java
+      Public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+          ...
+        } catch (ApplicationSpecificException ase) {
+          logger.error("Caught: " + ase.toString());
+        }
+      }
+      ```
+  remediation_time: '15'
+  es:
+    title: Inappropriate coding practices - System exit
+    description: >
+      La aplicación J2EE utiliza System.exit(), no es deseable que una
+      aplicación web intente cerrar el contenedor de la aplicación.
+      Acceder a una función que puede cerrar la aplicación es una vía
+      para ataques de denegación de servicio (DoS).
+    impact: >
+      - Denegar temporal o permanentemente el acceso al recurso 
+       de la aplicación.
+    recommendation: >
+      Delegar las funciones de apagado solo a accesos privilegiados
+      y debidamente autorizados.
+    threat: >
+      Atacante autenticado desde Internet.
+  score:
+    base:
+      attack_vector: N
+      attack_complexity: H
+      privileges_required: L
+      user_interaction: N
+      scope: U
+      confidentiality: N
+      integrity: N
+      availability: L
+    temporal:
+      exploit_code_maturity: U
+      remediation_level: U
+      report_confidence: R
+  requirements: ['164', '167', '072', '327']
+  metadata:
+    en:
+      details: __empty__
