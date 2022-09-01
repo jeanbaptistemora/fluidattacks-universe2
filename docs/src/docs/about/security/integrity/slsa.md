@@ -20,7 +20,7 @@ we use the
 
 ## Source Requirements
 
-### Version controlled
+### Version Controlled - L4
 
 Every change to the source
 is tracked in a version control system
@@ -43,3 +43,21 @@ that meets the following requirements:
   immutable revision.
   For example:
   [1e1cb90fe224fb033b582829aad903cfef4ae9b9](https://gitlab.com/fluidattacks/universe/-/commit/1e1cb90fe224fb033b582829aad903cfef4ae9b9).
+
+### Verified History - L4
+
+Every change in the revision’s history
+need to pass through a Merge Request.
+
+In order to create or approve a Merge Request
+both the author and the reviewer
+need to be strongly authenticated into GitLab.
+The authentication process requires 2FA,
+and the dates of the change
+are recorded in the Merge Request.
+
+Only users who were previously granted access
+by a platform Admin can create Merge Requests.
+
+For example:
+[MR 28742](https://gitlab.com/fluidattacks/universe/-/merge_requests/28742).
