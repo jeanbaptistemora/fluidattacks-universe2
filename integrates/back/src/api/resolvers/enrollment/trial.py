@@ -8,6 +8,9 @@ from enrollment import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
 )
@@ -22,8 +25,14 @@ async def resolve(
 
     return {
         "completed": trial.completed,
-        "extension_date": trial.extension_date,
+        "extension_date": datetime_utils.convert_from_iso_str(
+            trial.extension_date
+        )
+        if trial.extension_date
+        else "",
         "extension_days": trial.extension_days,
-        "start_date": trial.start_date,
+        "start_date": datetime_utils.convert_from_iso_str(trial.start_date)
+        if trial.start_date
+        else "",
         "state": enrollment_domain.get_enrollment_trial_state(trial),
     }

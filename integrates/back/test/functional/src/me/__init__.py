@@ -29,6 +29,7 @@ async def get_result(
                     extensionDate
                     extensionDays
                     startDate
+                    state
                 }}
             }}
             hasMobileApp
