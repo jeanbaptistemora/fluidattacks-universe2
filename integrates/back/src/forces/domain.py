@@ -21,10 +21,8 @@ from groups import (
 )
 import json
 from newutils import (
+    datetime as datetime_utils,
     token as token_utils,
-)
-from newutils.datetime import (
-    get_as_str,
 )
 from newutils.forces import (
     format_forces_vulnerabilities_to_add,
@@ -73,10 +71,8 @@ async def add_forces_execution(
     forces_execution = ForcesExecution(
         id=execution_attributes["execution_id"],
         group_name=group_name,
-        execution_date=get_as_str(
-            execution_attributes["date"],
-            date_format="%Y-%m-%dT%H:%M:%S.%f%z",
-            zone="UTC",
+        execution_date=datetime_utils.get_as_utc_iso_format(
+            execution_attributes["date"]
         ),
         commit=execution_attributes["git_commit"],
         repo=execution_attributes["git_repo"],

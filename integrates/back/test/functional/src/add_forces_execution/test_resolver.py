@@ -10,7 +10,6 @@ from db_model.forces.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -24,7 +23,7 @@ from typing import (
 )
 async def test_add_forces_execution(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )
@@ -40,6 +39,7 @@ async def test_add_forces_execution(populate: bool, email: str) -> None:
     assert force_execution.id == execution
     assert force_execution.branch == "master"
     assert force_execution.commit == "2e7b34c1358db2ff4123c3c76e7fe3bf9f2838f2"
+    assert force_execution.execution_date == "2020-02-20T00:00:00+00:00"
     assert force_execution.vulnerabilities.num_of_accepted_vulnerabilities == 1
 
 
@@ -60,7 +60,7 @@ async def test_add_forces_execution(populate: bool, email: str) -> None:
 )
 async def test_add_forces_execution_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )

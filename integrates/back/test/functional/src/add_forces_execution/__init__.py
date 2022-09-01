@@ -11,7 +11,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -19,13 +18,13 @@ async def get_result(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     execution: str = "18c1e735a73243f2ab1ee0757041f80e"
     path: str = os.path.dirname(os.path.abspath(__file__))
     filename: str = os.path.join(
         path, "../../../unit/src/new_utils/mock/test-log.log"
     )
-    result: Dict[str, Any] = {}
+    result: dict[str, Any] = {}
     with open(filename, "rb") as test_file:
         uploaded_file: UploadFile = UploadFile(
             test_file.name, test_file, "text/plain"
@@ -85,13 +84,13 @@ async def get_result(
                 }
             }
         """
-        variables: Dict[str, Any] = {
+        variables: dict[str, Any] = {
             "file": uploaded_file,
-            "date": "2020-02-20T00:00:00Z",
+            "date": "2020-02-20T00:00:00+00:00",
             "groupName": group,
             "executionId": execution,
         }
-        data: Dict[str, Any] = {"query": query, "variables": variables}
+        data: dict[str, Any] = {"query": query, "variables": variables}
         result = await get_graphql_result(
             data,
             stakeholder=user,

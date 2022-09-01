@@ -9,8 +9,8 @@ from decimal import (
 from dynamodb.types import (
     Item,
 )
-from newutils.datetime import (
-    get_from_str_frcs,
+from newutils import (
+    datetime as datetime_utils,
 )
 
 
@@ -76,7 +76,7 @@ def format_forces(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["execution_id"],
         group_name=item.get("group_name", item.get("subscription")),
-        execution_date=get_from_str_frcs(
+        execution_date=datetime_utils.get_from_str_frcs(
             item["date"], date_format="%Y-%m-%dT%H:%M:%S.%f%z", zone="UTC"
         ),
         commit=item["git_commit"],
@@ -155,7 +155,11 @@ def format_forces_item(execution: ForcesExecution) -> Item:
     return {
         "execution_id": execution.id,
         "subscription": execution.group_name,
-        "date": execution.execution_date,
+        "date": datetime_utils.get_as_str(
+            datetime_utils.get_datetime_from_iso_str(execution.execution_date),
+            date_format="%Y-%m-%dT%H:%M:%S.%f%z",
+            zone="UTC",
+        ),
         "git_commit": execution.commit,
         "git_repo": execution.repo,
         "git_branch": execution.branch,
