@@ -4,8 +4,10 @@ import type {
   ColumnDef,
   ColumnFiltersState,
   InitialTableState,
+  PaginationState,
   Row,
   RowData,
+  SortingState,
   Table,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -44,9 +46,13 @@ interface ITableProps<TData extends RowData> {
   onNextPage?: () => Promise<void>;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
   onSearch?: (search: string) => void;
+  paginationSetter?: Dispatch<SetStateAction<PaginationState>>;
+  paginationState?: PaginationState;
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
   rowSelectionState?: TData[];
   selectionMode?: "checkbox" | "radio";
+  sortingSetter?: Dispatch<SetStateAction<SortingState>>;
+  sortingState?: SortingState;
 }
 
 interface IToggleProps<TData extends RowData> {

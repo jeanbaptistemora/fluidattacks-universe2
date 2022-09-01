@@ -13,6 +13,7 @@ import {
 import type {
   ColumnFiltersState,
   FilterFn,
+  PaginationState,
   Row,
   RowData,
   SortingState,
@@ -55,11 +56,19 @@ const Table = <TData extends RowData>({
   onNextPage = undefined,
   onRowClick = undefined,
   onSearch = undefined,
+  paginationSetter = undefined,
+  paginationState = undefined,
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
+  sortingSetter = undefined,
+  sortingState = undefined,
 }: Readonly<ITableProps<TData>>): JSX.Element => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
   const [columnVisibility, setColumnVisibility] = useState(
     initState?.columnVisibility ?? {}
   );
@@ -125,8 +134,9 @@ const Table = <TData extends RowData>({
       : setColumnVisibility,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: paginationSetter ? paginationSetter : setPagination,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
+    onSortingChange: sortingSetter ? sortingSetter : setSorting,
     state: {
       columnFilters: columnFilterState ? columnFilterState : columnFilters,
       columnVisibility: columnVisibilityState
@@ -134,8 +144,9 @@ const Table = <TData extends RowData>({
         : columnVisibility,
       expanded,
       globalFilter,
+      pagination: paginationState ? paginationState : pagination,
       rowSelection,
-      sorting,
+      sorting: sortingState ? sortingState : sorting,
     },
   });
 
