@@ -3,6 +3,7 @@
     modules = {
       docsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodDocs"
           outputs."/secretsForEnvFromSops/docsInfraProd"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
@@ -15,6 +16,7 @@
     modules = {
       docsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
@@ -43,6 +45,7 @@
     modules = {
       docsInfra = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];

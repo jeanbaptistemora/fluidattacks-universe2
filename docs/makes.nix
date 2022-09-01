@@ -9,4 +9,10 @@
       targets = ["/docs/src/docs"];
     };
   };
+  secretsForAwsFromGitlab = {
+    prodDocs = {
+      roleArn = "arn:aws:iam::205810638802:role/prod_docs";
+      duration = 3600;
+    };
+  };
 }
