@@ -33,6 +33,14 @@ directly to the section of
 where you find information
 corresponding to the chart.
 
+## .CSV Download
+
+This option lets
+you download graph,
+table,
+or metric information
+as a .csv file extension.
+
 ## Download
 
 This option allows you to
