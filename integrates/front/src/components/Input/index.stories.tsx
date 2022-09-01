@@ -8,6 +8,7 @@ import { object, string } from "yup";
 
 import type {
   ICheckboxProps,
+  IInputArrayProps,
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
@@ -18,6 +19,7 @@ import {
   Checkbox as CheckboxComp,
   DataList,
   Input,
+  InputArray as InputArrayComp,
   InputDate as InputDateComp,
   InputNumber as InputNumberComp,
   Select as SelectComp,
@@ -78,6 +80,19 @@ const StoryCheckbox: Story<ICheckboxProps> = (props): JSX.Element => (
   >
     <Form id={"exampleForm"}>
       <CheckboxComp {...props} id={"ExCheckbox"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
+const StoryInputArray: Story<IInputArrayProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+    validationSchema={validations}
+  >
+    <Form id={"exampleForm"}>
+      <InputArrayComp {...props} id={"ExInput"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -151,6 +166,16 @@ Checkbox.args = {
   tooltip: "Example tooltip",
 };
 
+const InputArray = StoryInputArray.bind({});
+InputArray.args = {
+  disabled: false,
+  label: "ExampleLabel",
+  placeholder: "Example placeholder",
+  required: false,
+  tooltip: "Example tooltip",
+  variant: "solid",
+};
+
 const InputDate = StoryInputDate.bind({});
 
 const InputNumber = StoryInputNumber.bind({});
@@ -204,5 +229,14 @@ TextArea.args = {
   variant: "solid",
 };
 
-export { Default, Checkbox, InputDate, InputNumber, Search, Select, TextArea };
+export {
+  Default,
+  Checkbox,
+  InputArray,
+  InputDate,
+  InputNumber,
+  Search,
+  Select,
+  TextArea,
+};
 export default config;

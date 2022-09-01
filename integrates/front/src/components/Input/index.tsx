@@ -1,14 +1,14 @@
 import { DataList } from "./DataList";
-import {
-  Checkbox,
-  Input,
-  InputDate,
-  InputNumber,
-  Select,
-  TextArea,
-} from "./Fields";
+import { Checkbox } from "./Fields/Checkbox";
+import { Input } from "./Fields/Input";
+import { InputArray } from "./Fields/InputArray";
+import { InputDate } from "./Fields/InputDate";
+import { InputNumber } from "./Fields/InputNumber";
+import { Select } from "./Fields/Select";
+import { TextArea } from "./Fields/TextArea";
 import type {
   ICheckboxProps,
+  IInputArrayProps,
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
@@ -22,6 +22,7 @@ export type {
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
+  IInputArrayProps,
   ISelectProps,
   ITextAreaProps,
 };
@@ -31,6 +32,7 @@ export {
   Input,
   InputDate,
   InputNumber,
+  InputArray,
   Label,
   Select,
   TextArea,

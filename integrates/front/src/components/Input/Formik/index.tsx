@@ -1,3 +1,5 @@
+import type { IInputArrayProps } from "./FormikArray";
+import { FormikArray } from "./FormikArray";
 import type { ICheckboxProps } from "./FormikCheckbox";
 import { FormikCheckbox } from "./FormikCheckbox";
 import type { IInputDateProps } from "./FormikDate";
@@ -13,6 +15,7 @@ import { FormikTextArea } from "./FormikTextArea";
 
 export type {
   ICheckboxProps,
+  IInputArrayProps,
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
@@ -20,6 +23,7 @@ export type {
   ITextAreaProps,
 };
 export {
+  FormikArray,
   FormikCheckbox,
   FormikDate,
   FormikInput,

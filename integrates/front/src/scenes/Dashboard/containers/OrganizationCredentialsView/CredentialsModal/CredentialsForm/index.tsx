@@ -6,8 +6,7 @@ import { useTranslation } from "react-i18next";
 import type { ICredentialsFormProps, IFormValues } from "./types";
 import { validateSchema } from "./utils";
 
-import { Input, TextArea } from "components/Input/Fields";
-import { Select } from "components/Input/Fields/Select";
+import { Input, Select, TextArea } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { ModalConfirm } from "components/Modal";
