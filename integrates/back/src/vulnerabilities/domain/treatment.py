@@ -69,7 +69,6 @@ from newutils.vulnerabilities import (
 )
 from typing import (
     Any,
-    Awaitable,
     Dict,
     List,
     Optional,
@@ -374,7 +373,6 @@ async def handle_vulnerabilities_acceptance(
     validations.validate_field_length(justification, 10000)
     validations.validate_fields([justification])
     today = datetime_utils.get_iso_date()
-    coroutines: List[Awaitable[None]] = []
 
     all_vulns: tuple[
         Vulnerability, ...
@@ -397,8 +395,8 @@ async def handle_vulnerabilities_acceptance(
             modified_by=user_email,
             status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
         )
-        coroutines.extend(
-            [
+        await collect(
+            tuple(
                 _handle_vulnerability_acceptance(
                     loaders=loaders,
                     finding_id=finding_id,
@@ -407,7 +405,8 @@ async def handle_vulnerabilities_acceptance(
                 )
                 for vuln in vulnerabilities
                 if vuln.id in rejected_vulns
-            ]
+            ),
+            workers=40,
         )
     if accepted_vulns:
         approved_treatment = VulnerabilityTreatment(
@@ -417,8 +416,8 @@ async def handle_vulnerabilities_acceptance(
             modified_by=user_email,
             status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
         )
-        coroutines.extend(
-            [
+        await collect(
+            tuple(
                 _handle_vulnerability_acceptance(
                     loaders=loaders,
                     finding_id=finding_id,
@@ -427,9 +426,9 @@ async def handle_vulnerabilities_acceptance(
                 )
                 for vuln in vulnerabilities
                 if vuln.id in accepted_vulns
-            ]
+            ),
+            workers=100,
         )
-    await collect(coroutines, workers=40)
 
 
 async def send_treatment_change_mail(
