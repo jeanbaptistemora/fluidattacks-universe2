@@ -18,7 +18,7 @@ In this document,
 we use the
 [version 0.1 of the specification](https://slsa.dev/spec/v0.1/requirements).
 
-## Source Requirements
+## Source Requirements - L3
 
 ### Version Controlled - L4
 
@@ -57,7 +57,29 @@ and the dates of the change
 are recorded in the Merge Request.
 
 Only users who were previously granted access
-by a platform Admin can create Merge Requests.
+by a platform Admin can create or review Merge Requests.
 
 For example:
 [MR 28742](https://gitlab.com/fluidattacks/universe/-/merge_requests/28742).
+
+### Retained Indefinitely - L4
+
+The revision and its change history
+are preserved indefinitely
+and cannot be deleted
+or modified (not even with multi-party approval).
+
+At the moment,
+no legal requirement
+impedes us to preserve indefinitely our change history,
+and no obliteration policy is in effect.
+In fact, our source code is Free and Open Source Software:
+[Change History](https://gitlab.com/fluidattacks/universe/-/commits).
+
+<!--
+### Two person reviewed - L4
+
+This is required for L4, but not for L3
+
+We need to change our policy for this if we want to be L4
+-->
