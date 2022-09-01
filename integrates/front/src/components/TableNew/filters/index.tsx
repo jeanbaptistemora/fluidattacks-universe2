@@ -30,7 +30,9 @@ const Filters = <TData extends RowData>({
 
   const columnsToFilter = table
     .getAllLeafColumns()
-    .filter((column): boolean => column.getCanFilter());
+    .filter(
+      (column): boolean => column.getCanFilter() && column.getIsVisible()
+    );
 
   return (
     <React.Fragment>

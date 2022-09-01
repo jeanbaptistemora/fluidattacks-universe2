@@ -156,14 +156,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "openVulnerabilities",
-      enableColumnFilter: false,
       header: "Open Vulnerabilities",
     },
     {
       accessorKey: "closingPercentage",
       cell: (cell: ICellHelper<IFindingAttr>): string =>
         formatPercentage(cell.getValue()),
-      enableColumnFilter: false,
       header: t("group.findings.closingPercentage"),
       meta: { filterType: "number" },
     },
@@ -222,7 +220,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "description",
-      enableColumnFilter: false,
       header: "Description",
     },
   ];
