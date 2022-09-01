@@ -18,11 +18,17 @@ from batch.types import (
 from custom_exceptions import (
     RootAlreadyCloning,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -34,6 +40,7 @@ from db_model.roots.types import (
     GitRoot,
     LastMachineExecutions,
     MachineFindingResult,
+    Root,
     RootMachineExecution,
 )
 from enum import (
@@ -255,90 +262,99 @@ async def _queue_sync_git_roots(
 
 async def queue_job_new(  # pylint: disable=too-many-arguments
     group_name: str,
-    dataloaders: Any,
+    dataloaders: Dataloaders,
     finding_codes: Union[Tuple[str, ...], List[str]],
     queue: SkimsBatchQueue = SkimsBatchQueue.MEDIUM,
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
     clone_before: bool = False,
     **kwargs: Any,
 ) -> Optional[PutActionResult]:
-    git_roots: List[GitRoot] = []
-    if dataloaders:
-        git_roots = await dataloaders.group_roots.load(group_name)
-
-    if not roots:
-        roots = list(
-            root.state.nickname
-            for root in git_roots
+    queue_result: Optional[PutActionResult] = None
+    group: Group = await dataloaders.group.load(group_name)
+    if group.state.has_machine:
+        group_roots: Tuple[Root, ...] = await dataloaders.group_roots.load(
+            group_name
+        )
+        group_git_roots: List[GitRoot] = [
+            root
+            for root in group_roots
             if isinstance(root, GitRoot)
             and root.state.status == RootStatus.ACTIVE
-            and root.state.credential_id is not None
-        )
-
-    if not roots:
-        return None
-
-    if (
-        (clone_before and dataloaders)
-        and (
-            result_clone := (
-                await _queue_sync_git_roots(
-                    loaders=dataloaders,
-                    user_email="integrates@fluidattacks.com",
-                    group_name=group_name,
-                    force=True,
-                    roots=tuple(
-                        root
-                        for root in git_roots
-                        if root.state.nickname in roots
-                    ),
+        ]
+        if not roots:
+            roots = list(
+                root.state.nickname
+                for root in group_git_roots
+                if (
+                    (root.state.credential_id is not None and clone_before)
+                    or not clone_before
                 )
             )
-        )
-        and (clone_job_id := result_clone.batch_job_id)
-    ):
-        kwargs["dependsOn"] = [
-            {"jobId": clone_job_id, "type": "SEQUENTIAL"},
-        ]
-    queue_result = await put_action(
-        action=Action.EXECUTE_MACHINE,
-        vcpus=4,
-        product_name=Product.SKIMS,
-        queue=queue.value,
-        entity=group_name,
-        additional_info=json.dumps(
-            {
-                "roots": list(sorted(roots)),
-                "checks": list(sorted(finding_codes)),
-            }
-        ),
-        attempt_duration_seconds=86400,
-        subject="integrates@fluidattacks.com",
-        memory=7200,
-        **kwargs,
-    )
 
-    if git_roots:
-        await collect(
-            [
-                add_machine_execution(
-                    root_id=git_root_item.id,
-                    job_id=queue_result.batch_job_id,
-                    createdAt=datetime.now(),
-                    findings_executed=list(
-                        {
-                            "finding": finding,
-                            "open": 0,
-                            "modified": 0,
-                        }
-                        for finding in finding_codes
-                    ),
+        if roots:
+            if (
+                clone_before
+                and (
+                    result_clone := (
+                        await _queue_sync_git_roots(
+                            loaders=dataloaders,
+                            user_email="integrates@fluidattacks.com",
+                            group_name=group_name,
+                            force=True,
+                            roots=tuple(
+                                root
+                                for root in group_git_roots
+                                if root.state.nickname in roots
+                            ),
+                        )
+                    )
                 )
-                for git_root_item in git_roots
-                if git_root_item.state.nickname in roots
-                and queue_result.batch_job_id
-            ]
-        )
+                and (clone_job_id := result_clone.batch_job_id)
+            ):
+                kwargs["dependsOn"] = [
+                    {"jobId": clone_job_id, "type": "SEQUENTIAL"},
+                ]
+
+            queue_result = await put_action(
+                action=Action.EXECUTE_MACHINE,
+                vcpus=4,
+                product_name=Product.SKIMS,
+                queue=queue.value,
+                entity=group_name,
+                additional_info=json.dumps(
+                    {
+                        "roots": list(sorted(roots)),
+                        "checks": list(sorted(finding_codes)),
+                    }
+                ),
+                attempt_duration_seconds=86400,
+                subject="integrates@fluidattacks.com",
+                memory=7200,
+                **kwargs,
+            )
+
+            await collect(
+                [
+                    add_machine_execution(
+                        root_id=root.id,
+                        job_id=queue_result.batch_job_id,
+                        createdAt=datetime.now(),
+                        findings_executed=list(
+                            {
+                                "finding": finding,
+                                "open": 0,
+                                "modified": 0,
+                            }
+                            for finding in finding_codes
+                        ),
+                    )
+                    for root in group_git_roots
+                    if (
+                        root.state.nickname in roots
+                        and queue_result.batch_job_id
+                    )
+                ]
+            )
 
     return queue_result
 
