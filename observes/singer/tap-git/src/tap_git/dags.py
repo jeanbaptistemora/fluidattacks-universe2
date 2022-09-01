@@ -82,7 +82,7 @@ def get_commits__parse_git_rev_list(
                 iter_git_rev_list, rev_list_info
             )
             # check data integrity
-            if not commit_node_sha == commit_info_sha:
+            if commit_node_sha != commit_info_sha:
                 raise Exception(f"Not {commit_node_sha} == {commit_info_sha}.")
 
             authored = datetime.datetime.utcfromtimestamp(int(authored))

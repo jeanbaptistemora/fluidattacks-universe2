@@ -66,8 +66,8 @@ def _schema_filter(schema: SchemaId) -> bool:
             not schema.name.startswith("pg_"),
             not schema.name.startswith("dynamodb_"),
             not schema.name.endswith("backup"),
-            not schema.name == "information_schema",
-            not schema.name in EPHEMERAL_SCHEMAS,
+            schema.name != "information_schema",
+            schema.name not in EPHEMERAL_SCHEMAS,
             schema.name in TARGETS,
         ]
     )
