@@ -4,12 +4,23 @@ locals {
       awsRole      = ""
       access_level = "not_protected"
       root_size    = 10
-      replicas     = 1
+      replicas     = 3
       instance     = "c5ad.large"
       tags         = ["small"]
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
         "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    large = {
+      awsRole      = ""
+      access_level = "not_protected"
+      root_size    = 35
+      replicas     = 1
+      instance     = "m5a.large"
+      tags         = ["large"]
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
       ]
     }
     dev_small = {
