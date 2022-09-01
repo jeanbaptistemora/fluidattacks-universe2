@@ -14,6 +14,15 @@ const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
   }
 `;
 
+const GET_VULNERABILITIES_URL: DocumentNode = gql`
+  query GetOrgVulnerabilitiesUrl($identifier: String!) {
+    organization(organizationId: $identifier) {
+      name
+      vulnerabilitiesUrl
+    }
+  }
+`;
+
 const SUBSCRIBE_TO_ENTITY_REPORT: DocumentNode = gql`
   mutation SubscribeToEntityReport(
     $frequency: Frequency!
@@ -30,4 +39,8 @@ const SUBSCRIBE_TO_ENTITY_REPORT: DocumentNode = gql`
   }
 `;
 
-export { SUBSCRIPTIONS_TO_ENTITY_REPORT, SUBSCRIBE_TO_ENTITY_REPORT };
+export {
+  GET_VULNERABILITIES_URL,
+  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+  SUBSCRIBE_TO_ENTITY_REPORT,
+};

@@ -152,6 +152,13 @@ export const enTranslations: ResourceKey = {
           msg: "No more e-mails will be sent",
           title: "You've been successfully unsubscribed!",
         },
+        vulnerabilitiesUrl: {
+          error:
+            "No export currently available, please wait until the report is " +
+            "finished before requesting a new file for this organization",
+          text: "Vulnerabilities",
+          tooltip: "Download csv file with all organization vulnerabilities",
+        },
       },
       forces: {
         title: "Agent",

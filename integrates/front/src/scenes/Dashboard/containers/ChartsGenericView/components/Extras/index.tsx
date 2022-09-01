@@ -1,8 +1,9 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
   faChartBar,
   faDownload,
+  faFileCsv,
   faHourglassHalf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +27,7 @@ import { ExternalLink } from "components/ExternalLink";
 import { Gap } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import {
+  GET_VULNERABILITIES_URL,
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
 } from "scenes/Dashboard/containers/ChartsGenericView/queries";
@@ -35,8 +37,10 @@ import type {
   ISubscriptionToEntityReport,
   ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/containers/ChartsGenericView/types";
+import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
 
 const frequencies: string[] = ["daily", "weekly", "monthly", "never"];
 
@@ -74,6 +78,31 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
       },
     }
   );
+
+  const [getUrl] = useLazyQuery(GET_VULNERABILITIES_URL, {
+    onCompleted: (result: {
+      organization: { vulnerabilitiesUrl: string };
+    }): void => {
+      openUrl(result.organization.vulnerabilitiesUrl);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        if (error.message === "Exception - Document not found") {
+          msgError(t("analytics.sections.extras.vulnerabilitiesUrl.error"));
+        } else {
+          Logger.error(
+            "An error occurred getting vulnerabilities url for organization",
+            error.message
+          );
+        }
+      });
+    },
+    variables: { identifier: subject },
+  });
+
+  const getVulnerabilitiesUrl = useCallback((): void => {
+    getUrl();
+  }, [getUrl]);
 
   const subscribeDropdownOnSelect = useCallback(
     (key: string): void => {
@@ -174,6 +203,22 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
             )
           )}
         </Dropdown>
+        {entity === "organization" ? (
+          <Can do={"api_resolvers_organization_vulnerabilities_url_resolve"}>
+            <Tooltip
+              disp={"inline-block"}
+              id={"analytics.sections.extras.vulnerabilitiesUrl.id"}
+              place={"right"}
+              tip={t("analytics.sections.extras.vulnerabilitiesUrl.tooltip")}
+            >
+              <Button onClick={getVulnerabilitiesUrl} variant={"secondary"}>
+                <FontAwesomeIcon icon={faFileCsv} />
+                &nbsp;
+                {t("analytics.sections.extras.vulnerabilitiesUrl.text")}
+              </Button>
+            </Tooltip>
+          </Can>
+        ) : undefined}
       </Gap>
     </React.StrictMode>
   );
