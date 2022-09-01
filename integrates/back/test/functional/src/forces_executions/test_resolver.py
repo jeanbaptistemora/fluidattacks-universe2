@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -26,7 +25,7 @@ from typing import (
 )
 async def test_get_forces_executions(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )
@@ -57,7 +56,7 @@ async def test_get_forces_executions(populate: bool, email: str) -> None:
 )
 async def test_get_forces_executions_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )

@@ -19,10 +19,6 @@ from graphql.type.definition import (
 from newutils.forces import (
     format_forces_to_resolve,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-    get_present_key,
-)
 from typing import (
     Any,
 )
@@ -37,9 +33,7 @@ from typing import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> dict[str, Any]:
-    # Compatibility with old API
-    group_name: str = get_key_or_fallback(kwargs).lower()
-    group_name_key: str = get_present_key(kwargs)
+    group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
 
     executions_typed: tuple[
@@ -50,5 +44,5 @@ async def resolve(
     ]
     return {
         "executions": executions,
-        f"{group_name_key}": group_name,
+        "group_name": group_name,
     }
