@@ -56,9 +56,8 @@ security becomes a shared responsibility of all organization members.
 To implement DevSecOps is to shift security to the left.
 It is to integrate it into the technology development process
 before the first line of code appears.
-To adopt DevSecOps is to bring into the continuous integration
-and continuous deployment (CI/CD) pipelines
-security requirements and tests (largely automated),
+To adopt DevSecOps is to bring into the SDLC
+security requirements and tests,
 vulnerability prioritization and remediation,
 and judicious monitoring for risk prevention and cost savings.
 Unlike previous methodologies,
@@ -101,7 +100,8 @@ These are integrated into the cycles
 and facilitate many processes.
 Security testing with automated tools,
 for instance,
-is essential for the DevSecOps culture.
+that complement manual security testing by experts,
+is valuable in the DevSecOps culture.
 However,
 automation must be used when necessary and not excessively
 so that it doesn't affect the effectiveness of software development
@@ -142,8 +142,8 @@ within an organization:
 - Start by evaluating small portions of code
   or specific, prioritized cases.
 
-- Conduct periodic manual interventions
-  as a complement to retest and drill down.
+- Conduct continuous manual interventions
+  to retest and drill down.
 
 - Use metrics to measure performance and progress,
   and learn from feedback.
@@ -301,16 +301,16 @@ for correctly implementing the DevSecOps culture in your organization.
   for secure coding
   and security issues handling and remediation.
   Naturally,
-  they should witness and participate in the use of technologies
-  to identify vulnerabilities in your organization's products
+  they should witness and participate
+  in the identification of vulnerabilities in your organization's products
   and in their remediation,
   receiving continuous feedback.
   To further develop their expertise and trust,
   they can also resort to earning certificates.
 
 - **Choice of moments for security activities:**
-  Before you think about what types of security activities
-  and what tools to acquire for your organization,
+  Before thinking about what types of security activities
+  to implement in your organization,
   it's prudent to reflect on the moments of the SDLC
   where they will be applied.
   By defining these points
@@ -327,19 +327,18 @@ for correctly implementing the DevSecOps culture in your organization.
   Then,
   in the building phase,
   having added code to the repository,
-  automated [static application security testing](../../categories/sast/)
+  [static application security testing](../../categories/sast/)
   (SAST)
   and [software composition analysis](../../categories/sca/)
   (SCA)
-  tools can come into play.
-  The former scan code for vulnerabilities
-  whereas the latter scan code dependencies.
+  can come into play.
+  The former review code for vulnerabilities
+  whereas the latter review code dependencies.
   In the testing phase,
   having a product ready to run and be tested,
   [dynamic application security testing](../../categories/dast/)
-  (DAST)
-  tools can be used.
-  These do not access code
+  (DAST) can be used.
+  This method do not access code
   but send attack vectors to the endpoints of running applications.
   [Penetration testing](../../solutions/penetration-testing/)
   can be performed later,
@@ -363,7 +362,7 @@ for correctly implementing the DevSecOps culture in your organization.
 - **Automation of security activities:**
   To automate tools and processes related to security
   within the DevSecOps methodology
-  is crucial to avoid undermining the purpose of the DevOps approach
+  is useful to avoid undermining the purpose of the DevOps approach
   of injecting speed.
   Process automation allows processes to take place
   consistently and iteratively.
@@ -372,12 +371,11 @@ for correctly implementing the DevSecOps culture in your organization.
   for quick remediation of security issues.
   However,
   it's important you determine how far automation should go
-  and when manual interventions are necessary,
-  such as when you apply [penetration testing](../choosing-pentesting-team/).
+  because manual interventions are always necessary,
+  for example [penetration testing](../choosing-pentesting-team/).
   Certainly,
-  the manual effort must be kept limited,
-  but it still proves to be a valuable component
-  in favor of accuracy and depth.
+  the manual effort remains an indispensable component
+  for accuracy and depth.
 
   Of note is that
   software and standards for its regulation are constantly changing.
@@ -408,7 +406,7 @@ for correctly implementing the DevSecOps culture in your organization.
   to tackle in short periods
   can lead them to feel reluctant to work on fixing them.
   So,
-  instead of running full scans every time,
+  instead of running full tests every time,
   a gradual assessment may be more reasonable,
   for example,
   in early cases,
@@ -416,7 +414,7 @@ for correctly implementing the DevSecOps culture in your organization.
   or looking for vulnerabilities,
   of high priority.
   Later on,
-  the following scans or security activities will serve
+  the following tests or security activities will serve
   as a complement for a broader and deeper assessment
   before going to production.
   Additionally,
@@ -426,7 +424,7 @@ for correctly implementing the DevSecOps culture in your organization.
 
 - **Manual security activities:**
   As previously stated,
-  while automation is essential in adopting DevSecOps,
+  while automation is relevant in adopting DevSecOps,
   manual activity continues to be especially important.
   Automated vulnerability detection tools still report lies
   (false positives)
@@ -497,7 +495,7 @@ go to [this post](../devsecops-best-practices/).
 
 DevSecOps implementation includes tools
 for different security testing types
-integrated into the CI/CD pipeline stages.
+integrated into the SDLC.
 
 - **SAST:**
   Tools for this type of testing scan code
@@ -526,13 +524,12 @@ Some recommended considerations for tool selection include the following:
   i.e., generates low false positive and false negative rates,
   and looks for what you need it to look for.
 
-- It is fast enough to work within your pipeline.
+- It is fast enough to work within your SDLC.
 
 - It covers policies that your company needs to cover.
 
 - It can work continuously,
-  in parallel and integrated with other tools in use,
-  covering the entire target of evaluation.
+  in parallel and integrated with other tools in use.
 
 Additionally,
 we would like to highlight a couple of resources
@@ -546,15 +543,13 @@ that are pretty useful in the implementation of DevSecOps:
   real attacks are simulated to identify vulnerabilities
   that threat actors in a given environment could exploit.
 
-- **Application security orchestration and correlation (ASOC):**
+- **Attack resistance management platform:**
   This is another type of tool
-  that facilitates the organization and management of security testing tools
-  within an SDLC.
-  Additionally,
-  it allows unifying the data obtained by such tools,
-  eliminating duplicates,
-  correlating them
-  and prioritizing key findings.
+  that facilitates the management
+  and remediation of security vulnerabilities.
+  It consolidates data obtained by different methods and tools,
+  makes it easier to understand and analyze the detected problems,
+  and prioritizes the key findings for prompt remediation.
 
 ## Implement DevSecOps with Fluid Attacks
 
@@ -577,9 +572,8 @@ our security tests can check around 50
 for your compliance requirements.
 All security vulnerabilities
 we detect in your software are reported in a single place,
-our Attack Resistance Management platform (ARM),
-which fulfills many ASOC tool features.
-The ARM lets you know the security status of your systems and applications,
+our Attack Resistance Management platform (ARM).
+The ARM lets you know the security status of your systems and apps,
 learn in detail about the vulnerabilities detected
 and prioritize them for prompt and correct remediation.
 Additionally,

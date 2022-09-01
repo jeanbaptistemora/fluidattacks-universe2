@@ -22,19 +22,21 @@ that embeds security into every phase of software development.
 As we have said
 in [our advice on DevSecOps implementation](../how-to-implement-devsecops/),
 there are several tools
-that may help you
-in the process of integrating this culture in your organization.
-DevSecOps tools are those
-that allow you
-to perform diverse testing methods automatically
-throughout the entire software development lifecycle (SDLC),
-thus complementing the job of expert security testers.
-The experts perform the security testing methods manually,
-find complex vulnerabilities
-and review the accuracy of the reports created by the tools,
-also across the SDLC.
-This combined methodology allows for the comprehensive integration
-of security while moving at DevOps speed.
+that may be part of this culture in your organization.
+DevSecOps tools,
+which serve as a complement to the work of expert security testers
+in this approach,
+are those that allow you to perform diverse testing methods automatically
+throughout the entire software development lifecycle (SDLC).
+The experts perform the security testing methods manually
+to identify more complex and higher severity vulnerabilities
+and, additionally,
+review the reports created by the tools,
+which, although fast,
+have accuracy shortcomings.
+This combined methodology is quite valuable
+for the comprehensive integration of security
+while moving at DevOps speed.
 
 In this blog post,
 we'll talk about the DevSecOps tools
@@ -49,12 +51,7 @@ Developers need to deploy software solutions into production
 several times a day
 to meet consumer demand
 and keep up with the trends.
-The [DevOps](../devops-concept/) methodology emerged
-to inject speed to the development process.
-In order to do this,
-DevOps teams automate tools and processes.
-
-DevOps traditionally places security
+[DevOps](../devops-concept/) traditionally places security
 in the testing phase of the SDLC,
 hunting for bugs and errors.
 But as soon as teams become aware
@@ -64,21 +61,25 @@ they learn the importance
 of making security a part of the SDLC
 from the very start.
 This is at the heart of a culture called DevSecOps
-and is, partly,
-achieved by integrating security testing tools into the DevOps workflow
-to enable automated security checks across the SDLC.
+and is partly achieved
+by integrating manual and automated security testing
+into the DevOps workflow
+to enable security checks across the SDLC.
 Of course,
 we say "partly" because a few more things need to be achieved
 to fully embrace DevSecOps.
 (See "[How to implement DevSecOps](../how-to-implement-devsecops/)"
 and "[DevSecOps best practices](../devsecops-best-practices/).")
 
-Tools for DevSecOps allow running security testing methods automatically.
-They are used throughout the entire SDLC
+Tools for DevSecOps,
+which complement the manual work of security analysts,
+allow running some security testing methods automatically.
+These tools are used throughout the entire SDLC
 and with the guidance of security experts.
-These experts constantly review the result reports by the tools.
-Combined manual and automated work yields accurate
-and faster results.
+In addition to focusing on the vulnerabilities
+that represent the most significant risk exposure for a system,
+these experts constantly review the result reports by the tools.
+Combined manual and automated work yields accurate and faster results.
 Below,
 you can see a representation of the SDLC.
 As we've argued in [another post](../how-to-implement-devsecops/),
@@ -238,29 +239,25 @@ than an attack surface management (ASM) platform.
 
 ## Leveraging DevSecOps tools for Continuous Hacking
 
-Using DevSecOps tools,
-always in combination with manual work,
-allows you to embed security testing into the entire SDLC.
-We integrate these tools
-in a single solution called [Continuous Hacking](../../services/continuous-hacking/).
-We created this solution with two principles in mind.
-One,
-that no ongoing manual process should be an obstacle
-for developers deploying the system into production.
-Two,
-that developers should deploy micro changes first
-and then [ethical hackers](../what-is-ethical-hacking/)
-and DevSecOps tools test
-for **all** the security issues in the technology.
-Therefore,
-our tools are not integrated
-into our clients' continuous integration
-and continuous deployment (CI/CD) pipelines.
-Rather,
-tools and hackers test the latest versions of the repositories
-corresponding to our clients' projects continuously.
-Following the two principles allows software development teams
-to deploy into production several times a day
+At `Fluid Attacks`,
+we integrate DevSecOps tools
+into a single solution called [Continuous Hacking](../../services/continuous-hacking/).
+In our working scheme,
+developers deploy micro changes first
+on their repositories,
+and then our [ethical hackers](../what-is-ethical-hacking/) manually,
+together with such automated tools,
+seek to detect **all** the security issues in the technology.
+In such a way,
+we continuously test the latest versions of the repositories
+corresponding to our clients' projects.
+It's our DevSecOps agent
+that we incorporate into the continuous integration
+and continuous deployment (CI/CD) pipelines
+to ensure that no identified vulnerability is released into production.
+Thanks to our security testing scheme,
+software development teams deploy technology to production
+several times a day
 without sacrificing speed and security.
 
 Want to try our DevSecOps tools free for 21 days?
