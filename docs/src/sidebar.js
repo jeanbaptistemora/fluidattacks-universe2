@@ -513,6 +513,7 @@ const Machine = [
         type: 'category',
         label: 'Groups',
         items: [
+          'machine/web/groups/information',
           'machine/web/groups/introduction',
           'machine/web/groups/general',
           'machine/web/groups/vulnerabilities',
