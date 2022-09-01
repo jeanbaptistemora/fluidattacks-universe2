@@ -45,7 +45,7 @@ def open_redirect(
             for member in yield_syntax_graph_member_access(
                 graph, {"Response"}
             ):
-                if not graph.nodes[member].get("member") == "Redirect":
+                if graph.nodes[member].get("member") != "Redirect":
                     continue
                 pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):

@@ -29,7 +29,7 @@ def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
         allow_keys = {"Action", "NotAction", "NotResource", "Resource"}
         keys_to_change = []
         for key, value in stmt.data.items():
-            if (key.inner in allow_keys) and not value.data_type == Type.ARRAY:
+            if (key.inner in allow_keys) and value.data_type != Type.ARRAY:
                 keys_to_change.append(
                     (
                         key,

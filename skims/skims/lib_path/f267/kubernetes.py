@@ -20,9 +20,9 @@ def _k8s_check_add_capability(
     template: Any,
 ) -> Iterator[Any]:
     for ctx in iter_security_context(template, True):
-        if (
-            cap_add := get_containers_capabilities(ctx, "add")
-        ) and not cap_add[0].data.lower() in {
+        if (cap_add := get_containers_capabilities(ctx, "add")) and cap_add[
+            0
+        ].data.lower() not in {
             "net_bind_service",
             "null",
             "nil",

@@ -100,7 +100,7 @@ def service_point_manager_disabled(
             for member in yield_syntax_graph_member_access(
                 graph, {"AppContext"}
             ):
-                if not graph.nodes[member]["member"] == "SetSwitch":
+                if graph.nodes[member]["member"] != "SetSwitch":
                     continue
 
                 pred = g.pred_ast(shard.graph, member)[0]
@@ -187,7 +187,7 @@ def httpclient_no_revocation_list(
                     label_type="ObjectCreation",
                 ),
             ):
-                if not s_graph.nodes[nid].get("name") == "HttpClient":
+                if s_graph.nodes[nid].get("name") != "HttpClient":
                     continue
                 for path in get_backward_paths(s_graph, nid):
                     evaluation = evaluate(method, s_graph, path, nid)

@@ -174,7 +174,7 @@ def c_sharp_aesmanaged_secure_mode(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                if not graph.nodes[nid].get("name") == "AesManaged":
+                if graph.nodes[nid].get("name") != "AesManaged":
                     continue
                 if g.match_ast(graph, nid, "InitializerExpression")[
                     "InitializerExpression"
@@ -304,7 +304,7 @@ def c_sharp_disabled_strong_crypto(
             for member in yield_syntax_graph_member_access(
                 graph, {"AppContext"}
             ):
-                if not graph.nodes[member]["member"] == "SetSwitch":
+                if graph.nodes[member]["member"] != "SetSwitch":
                     continue
                 pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):

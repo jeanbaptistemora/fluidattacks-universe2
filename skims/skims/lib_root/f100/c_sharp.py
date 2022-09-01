@@ -49,7 +49,7 @@ def insec_create(
                     (member := g.match_ast_d(graph, n_id, "MemberAccess"))
                     and (expr := graph.nodes[member].get("expression"))
                     and (memb := graph.nodes[member].get("member"))
-                    and not (f"{expr}.{memb}" in paths)
+                    and (f"{expr}.{memb}" not in paths)
                 ):
                     continue
                 for path in get_backward_paths(graph, n_id):

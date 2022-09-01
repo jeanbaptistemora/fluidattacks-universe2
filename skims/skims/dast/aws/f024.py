@@ -639,7 +639,7 @@ async def default_seggroup_allows_all_traffic(
 
     if security_groups:
         for group in security_groups:
-            if not group["GroupName"] == "default":
+            if group["GroupName"] != "default":
                 continue
             locations: List[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):

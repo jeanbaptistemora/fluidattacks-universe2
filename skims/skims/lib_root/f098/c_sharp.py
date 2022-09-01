@@ -51,7 +51,7 @@ def path_injection(
                     (member := g.match_ast_d(graph, nid, "MemberAccess"))
                     and (expr := graph.nodes[member].get("expression"))
                     and (memb := graph.nodes[member].get("member"))
-                    and not (f"{expr}.{memb}" in paths)
+                    and (f"{expr}.{memb}" not in paths)
                 ):
                     continue
                 for path in get_backward_paths(graph, nid):

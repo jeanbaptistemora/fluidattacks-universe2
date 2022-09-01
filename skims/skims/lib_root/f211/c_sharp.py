@@ -99,7 +99,7 @@ def vuln_regular_expression(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="MemberAccess"),
             ):
-                if not graph.nodes[nid].get("member") in regex_methods:
+                if graph.nodes[nid].get("member") not in regex_methods:
                     continue
 
                 method_id = g.pred_ast(graph, nid)[0]
@@ -148,7 +148,7 @@ def regex_injection(
                 continue
             graph = shard.syntax_graph
             for member in yield_syntax_graph_member_access(graph, {"Regex"}):
-                if not graph.nodes[member]["member"] == "Match":
+                if graph.nodes[member]["member"] != "Match":
                     continue
                 pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):

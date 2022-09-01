@@ -134,7 +134,7 @@ def _get_metadata_class_fields(
 
     if class_body_id := g.match_ast_d(graph, n_id, "class_body"):
         for c_id in g.adj(graph, class_body_id):
-            if not graph.nodes[c_id]["label_type"] == "field_declaration":
+            if graph.nodes[c_id]["label_type"] != "field_declaration":
                 continue
 
             match = g.match_ast(

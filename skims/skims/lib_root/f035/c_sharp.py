@@ -82,7 +82,7 @@ def weak_credential_policy(
                 graph.nodes,
                 g.pred_has_labels(label_type="MemberAccess"),
             ):
-                if not graph.nodes[nid].get("member") in object_type:
+                if graph.nodes[nid].get("member") not in object_type:
                     continue
 
                 al_id = graph.nodes[g.pred(graph, nid)[0]].get("arguments_id")
