@@ -18,6 +18,9 @@ from typing import (
     Dict,
     Tuple,
 )
+from utils.function import (
+    semver_match,
+)
 
 VALID_RANGES = ("=", "<", ">", ">=", "<=")
 CVSS_BASE_METRICS: Dict[str, Tuple[str, ...]] = {
@@ -72,6 +75,7 @@ def _check_versions(versions: str) -> bool:
         range_ver = version_range.split()
         if not all(ver.startswith(VALID_RANGES) for ver in range_ver):
             return False
+    semver_match("1.0", versions, True)
     return True
 
 

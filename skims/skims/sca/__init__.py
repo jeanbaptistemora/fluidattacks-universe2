@@ -1,7 +1,6 @@
 from ctx import (
     CTX,
     STATIC,
-    TOOLS_SEMVER_MATCH,
 )
 from db_model.advisories.constants import (
     PATCH_SRC,
@@ -22,11 +21,8 @@ from typing import (
     List,
     Tuple,
 )
-from utils.logs import (
-    log_blocking,
-)
-from utils.system import (
-    read_blocking,
+from utils.function import (
+    semver_match,
 )
 
 Database = Dict[str, Dict[str, List[str]]]
@@ -57,23 +53,6 @@ with open(f"{STATIC}/sca/nuget.json", encoding="utf-8") as _FILE:
 
 with open(f"{STATIC}/sca/pip.json", encoding="utf-8") as _FILE:
     DATABASE_PIP: Database = _validate(json.load(_FILE))
-
-
-def semver_match(left: str, right: str) -> bool:
-    code, out, _ = read_blocking(TOOLS_SEMVER_MATCH, left, right)
-
-    if code == 0:
-        data = json.loads(out)
-        if data["success"]:
-            return data["match"]
-
-        log_blocking(
-            "error", "Semver match %s to %s: %s", left, right, data["error"]
-        )
-    else:
-        log_blocking("error", "Semver match %s to %s", left, right)
-
-    return False
 
 
 async def get_remote_advisories(

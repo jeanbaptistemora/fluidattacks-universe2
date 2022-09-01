@@ -5,8 +5,15 @@ from asyncio import (
 from asyncio.tasks import (
     wait_for,
 )
+from ctx import (
+    TOOLS_SEMVER_MATCH,
+)
+from custom_exceptions import (
+    InvalidVulnerableVersion,
+)
 import functools
 import inspect
+import json
 from metaloaders.model import (
     Node,
 )
@@ -36,6 +43,9 @@ from utils.logs import (
     log_blocking,
     log_to_remote,
     log_to_remote_blocking,
+)
+from utils.system import (
+    read_blocking,
 )
 
 # Constants
@@ -106,6 +116,30 @@ def get_dict_values(dict_val: dict, *keys: str) -> Optional[Any]:
         else:
             return None
     return cur_dict
+
+
+def semver_match(left: str, right: str, exc: bool = False) -> bool:
+    code, out, _ = read_blocking(TOOLS_SEMVER_MATCH, left, right)
+
+    if code == 0:
+        data = json.loads(out)
+        if data["success"]:
+            return data["match"]
+        if exc:
+            raise InvalidVulnerableVersion()
+        log_blocking(
+            "error",
+            "Semver match %s to %s: %s",
+            left,
+            right,
+            data["error"],
+        )
+    elif exc:
+        raise InvalidVulnerableVersion()
+    else:
+        log_blocking("error", "Semver match %s to %s", left, right)
+
+    return False
 
 
 def shield(

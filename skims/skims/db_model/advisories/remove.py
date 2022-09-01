@@ -23,3 +23,4 @@ async def remove(
         },
     )
     await operations.delete_item(key=primary_key, table=TABLE)
+    print(f"Removed ( {platform}#{pkg_name}  {advisory_id}#{source} )")
