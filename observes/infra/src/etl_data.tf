@@ -3,9 +3,9 @@ resource "aws_s3_bucket" "etl_data" {
 
   tags = {
     "Name"               = "observes.etl-data"
-    "management:area"    = "cost"
-    "management:product" = "observes"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "observes"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }

@@ -3,9 +3,9 @@ resource "aws_s3_bucket" "fluidanalytics" {
 
   tags = {
     "Name"               = "fluidanalytics"
-    "management:area"    = "cost"
-    "management:product" = "observes"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "observes"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }

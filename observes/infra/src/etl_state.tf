@@ -3,9 +3,9 @@ resource "aws_s3_bucket" "observes_state" {
 
   tags = {
     "Name"               = "observes.state"
-    "management:area"    = "cost"
-    "management:product" = "observes"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "observes"
+    "Management:Type"    = "product"
     "Access"             = "private"
   }
 }
