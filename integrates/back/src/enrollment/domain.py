@@ -18,6 +18,9 @@ from db_model.enrollment.types import (
 from decorators import (
     retry_on_exceptions,
 )
+from enum import (
+    Enum,
+)
 import logging
 import logging.config
 from mailchimp_transactional.api_client import (
@@ -41,6 +44,16 @@ from typing import (
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
+TRIAL_PERIOD_DAYS: int = 21
+EXTENDED_TRIAL_PERIOD_DAYS: int = 9
+
+
+class EnrollmentTrialState(str, Enum):
+    EXTENDED: str = "EXTENDED"
+    EXTENDED_ENDED: str = "EXTENDED_ENDED"
+    TRIAL: str = "TRIAL"
+    TRIAL_ENDED: str = "TRIAL_ENDED"
+
 
 mail_free_trial_start = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
@@ -109,3 +122,35 @@ async def update_metadata(
             email=email,
             metadata=metadata,
         )
+
+
+def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
+    if not trial.start_date:
+        return EnrollmentTrialState.TRIAL_ENDED
+
+    trial_date = datetime_utils.get_datetime_from_iso_str(trial.start_date)
+    if (
+        datetime_utils.get_plus_delta(
+            trial_date,
+            days=TRIAL_PERIOD_DAYS,
+        )
+        > datetime_utils.get_now()
+    ):
+        return EnrollmentTrialState.TRIAL
+
+    if not trial.extension_days or not trial.extension_date:
+        return EnrollmentTrialState.TRIAL_ENDED
+
+    extended_trial_date = datetime_utils.get_datetime_from_iso_str(
+        trial.extension_date
+    )
+    if (
+        datetime_utils.get_plus_delta(
+            extended_trial_date,
+            days=EXTENDED_TRIAL_PERIOD_DAYS,
+        )
+        > datetime_utils.get_now()
+    ):
+        return EnrollmentTrialState.EXTENDED
+
+    return EnrollmentTrialState.EXTENDED_ENDED

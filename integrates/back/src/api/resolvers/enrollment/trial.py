@@ -2,8 +2,8 @@ from db_model.enrollment.types import (
     Enrollment,
     Trial,
 )
-from enum import (
-    Enum,
+from enrollment import (
+    domain as enrollment_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -11,20 +11,6 @@ from graphql.type.definition import (
 from typing import (
     Any,
 )
-
-
-class EnrollmentTrialState(str, Enum):
-    EXTENDED: str = "EXTENDED"
-    EXTENDED_ENDED: str = "EXTENDED_ENDED"
-    TRIAL: str = "TRIAL"
-    TRIAL_ENDED: str = "TRIAL_ENDED"
-
-
-def _get_enrollment_trial_state(trial: Trial) -> str:
-    if not trial.extension_date:
-        return EnrollmentTrialState.TRIAL_ENDED.value
-
-    return EnrollmentTrialState.TRIAL.value
 
 
 async def resolve(
@@ -39,5 +25,5 @@ async def resolve(
         "extension_date": trial.extension_date,
         "extension_days": trial.extension_days,
         "start_date": trial.start_date,
-        "state": _get_enrollment_trial_state(trial),
+        "state": enrollment_domain.get_enrollment_trial_state(trial),
     }
