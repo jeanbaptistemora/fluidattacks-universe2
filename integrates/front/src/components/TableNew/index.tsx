@@ -36,10 +36,12 @@ import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
 const Table = <TData extends RowData>({
+  columns,
   columnFilterSetter = undefined,
   columnFilterState = undefined,
-  columns,
   columnToggle = false,
+  columnVisibilityState = undefined,
+  columnVisibilitySetter = undefined,
   csvName = "Report",
   data,
   enableColumnFilters = false,
@@ -118,14 +120,18 @@ const Table = <TData extends RowData>({
     onColumnFiltersChange: columnFilterSetter
       ? columnFilterSetter
       : setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
+    onColumnVisibilityChange: columnVisibilitySetter
+      ? columnVisibilitySetter
+      : setColumnVisibility,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     state: {
       columnFilters: columnFilterState ? columnFilterState : columnFilters,
-      columnVisibility,
+      columnVisibility: columnVisibilityState
+        ? columnVisibilityState
+        : columnVisibility,
       expanded,
       globalFilter,
       rowSelection,

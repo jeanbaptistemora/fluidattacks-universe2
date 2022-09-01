@@ -7,6 +7,7 @@ import type {
   Row,
   RowData,
   Table,
+  VisibilityState,
 } from "@tanstack/react-table";
 import type { Dispatch, FormEvent, SetStateAction } from "react";
 
@@ -28,8 +29,10 @@ interface ITableProps<TData extends RowData> {
   data: TData[];
   columnFilterSetter?: Dispatch<SetStateAction<ColumnFiltersState>>;
   columnFilterState?: ColumnFiltersState;
-  columns: ColumnDef<TData>[];
   columnToggle?: boolean;
+  columnVisibilitySetter?: Dispatch<SetStateAction<VisibilityState>>;
+  columnVisibilityState?: VisibilityState;
+  columns: ColumnDef<TData>[];
   enableRowSelection?: boolean | ((row: Row<TData>) => boolean);
   enableColumnFilters?: boolean;
   enableSearchBar?: boolean;

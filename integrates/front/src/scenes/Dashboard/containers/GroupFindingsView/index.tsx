@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  InitialTableState,
   Row,
+  VisibilityState,
 } from "@tanstack/react-table";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -62,7 +62,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
   const [columnFilters, columnFiltersSetter] =
-    useStoredState<ColumnFiltersState>("test", []);
+    useStoredState<ColumnFiltersState>("tblFindings-columnFilters", []);
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("tblFindings-visibilityState", {
+      Asignees: false,
+      Locations: false,
+      Treatment: false,
+      description: false,
+      reattack: false,
+      releaseDate: false,
+    });
   const openReportsModal: () => void = useCallback((): void => {
     setIsReportsModalOpen(true);
   }, []);
@@ -205,17 +214,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const initialstate: InitialTableState = {
-    columnVisibility: {
-      Asignees: false,
-      Locations: false,
-      Treatment: false,
-      description: false,
-      reattack: false,
-      releaseDate: false,
-    },
-  };
-
   const { data, refetch } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     fetchPolicy: "cache-first",
     onError: handleQryErrors,
@@ -304,6 +302,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         columnFilterSetter={columnFiltersSetter}
         columnFilterState={columnFilters}
         columnToggle={true}
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
         columns={tableColumns}
         data={findings}
         enableColumnFilters={true}
@@ -342,7 +342,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           </React.Fragment>
         }
         id={"tblFindings"}
-        initState={initialstate}
         onRowClick={goToFinding}
         rowSelectionSetter={
           permissions.can("api_mutations_remove_finding_mutate")
