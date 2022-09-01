@@ -7,8 +7,8 @@ resource "aws_sqs_queue" "skims_report_queue" {
 
   tags = {
     "Name"               = "skims.queue"
-    "management:area"    = "cost"
-    "management:product" = "skims"
-    "management:type"    = "product"
+    "Management:Area"    = "cost"
+    "Management:Product" = "skims"
+    "Management:Type"    = "product"
   }
 }
