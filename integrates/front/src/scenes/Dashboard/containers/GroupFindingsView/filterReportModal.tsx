@@ -49,6 +49,7 @@ interface IFormValues {
   age: number | undefined;
   closingDate: string;
   findingTitle: string;
+  lastReport: number | undefined;
   location: string;
   maxSeverity: number | undefined;
   minSeverity: number | undefined;
@@ -106,6 +107,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       age: number | undefined,
       closingDate: string | undefined,
       findingTitle: string | undefined,
+      lastReport: number | undefined,
       location: string | undefined,
       maxSeverity: number | undefined,
       minSeverity: number | undefined,
@@ -124,6 +126,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           closingDate,
           findingTitle,
           groupName,
+          lastReport,
           location,
           maxSeverity,
           minSeverity,
@@ -198,6 +201,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 age: number | undefined;
                 closingDate: string;
                 findingTitle: string;
+                lastReport: number | undefined;
                 location: string;
                 maxSeverity: number | undefined;
                 minSeverity: number | undefined;
@@ -215,6 +219,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                       _.isEmpty(values.findingTitle)
                         ? undefined
                         : values.findingTitle,
+                      _.isEmpty(String(values.lastReport))
+                        ? undefined
+                        : values.lastReport,
                       _.isEmpty(values.location) ? undefined : values.location,
                       _.isEmpty(String(values.maxSeverity))
                         ? undefined
@@ -243,6 +250,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                     age: undefined,
                     closingDate: "",
                     findingTitle: "",
+                    lastReport: undefined,
                     location: "",
                     maxSeverity: undefined,
                     minSeverity: undefined,
@@ -390,7 +398,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               />
                             </Tooltip>
                           </Col>
-                          <Col lg={40} md={40} sm={50}>
+                          <Col lg={45} md={45} sm={50}>
                             <p className={"mb1 mt1"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.location.text")}
@@ -409,6 +417,29 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                   maxLocationLength,
                                   validTextField,
                                 ])}
+                              />
+                            </Tooltip>
+                          </Col>
+                          <Col lg={5} md={5} sm={5} />
+                          <Col lg={20} md={20} sm={50}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.lastReport.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.lastReport.id"}
+                              place={"top"}
+                              tip={t(
+                                "group.findings.report.lastReport.tooltip"
+                              )}
+                            >
+                              <Field
+                                component={FormikText}
+                                max={10000}
+                                min={0}
+                                name={"lastReport"}
+                                type={"number"}
                               />
                             </Tooltip>
                           </Col>

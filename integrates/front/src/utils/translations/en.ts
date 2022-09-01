@@ -741,6 +741,10 @@ export const enTranslations: ResourceKey = {
           tooltip: "Filter by type",
         },
         generateXls: "Generate XLS",
+        lastReport: {
+          text: "Last Report",
+          tooltip: "Filter type by days since the last reported vulnerability",
+        },
         location: {
           text: "Locations",
           tooltip: "Filter by location",

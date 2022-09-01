@@ -47,6 +47,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $reportType: ReportType!
     $groupName: String!
     $lang: ReportLang
+    $lastReport: Int
     $location: String
     $treatments: [VulnerabilityTreatment!]
     $states: [VulnerabilityState!]
@@ -63,6 +64,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
       findingTitle: $findingTitle
       groupName: $groupName
       lang: $lang
+      lastReport: $lastReport
       location: $location
       maxSeverity: $maxSeverity
       minSeverity: $minSeverity
