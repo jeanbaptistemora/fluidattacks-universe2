@@ -5,7 +5,7 @@ function main {
   local result
 
   : \
-    && source "__awsLoginDev__/template" \
+    && source "__argAwsLoginDev__/template" \
     && sops_export_vars "__argCommonStatusSecrets__" \
       COMMAND_LINE_TRIGGER \
     && result="$(curl "https://api.checklyhq.com/check-groups/${group_id}/trigger/${COMMAND_LINE_TRIGGER}")" \

@@ -22,6 +22,10 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3.1.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.2"
+    }
   }
 
   backend "s3" {
