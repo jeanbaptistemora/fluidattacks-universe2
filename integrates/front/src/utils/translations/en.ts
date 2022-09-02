@@ -892,6 +892,12 @@ export const enTranslations: ResourceKey = {
       tableAdvice: "Click on an execution to see more details",
     },
     scope: {
+      codeLanguages: {
+        lang: "Language",
+        loc: "Lines of Code",
+        percent: "Percentage",
+        title: "Code Languages",
+      },
       common: {
         add: "Add new root",
         addTooltip: "Add a new git root to this group",

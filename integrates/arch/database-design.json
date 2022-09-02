@@ -8913,20 +8913,6 @@
               "closed_vulnerabilities": {
                 "N": "0"
               },
-              "code_languages": {
-                "L": [
-                  {
-                    "M": {
-                      "language": {
-                        "S": "Python"
-                      },
-                      "loc": {
-                        "N": "15"
-                      }
-                    }
-                  }
-                ]
-              },
               "mean_remediate_high_severity": {
                 "N": "0"
               },
@@ -9755,6 +9741,20 @@
               },
               "closed_vulnerabilities": {
                 "N": "0"
+              },
+              "code_languages": {
+                "L": [
+                  {
+                    "M": {
+                      "language": {
+                        "S": "Python"
+                      },
+                      "loc": {
+                        "N": "15"
+                      }
+                    }
+                  }
+                ]
               },
               "mean_remediate_high_severity": {
                 "N": "0"

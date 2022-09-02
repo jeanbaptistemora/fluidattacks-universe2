@@ -126,10 +126,17 @@ interface IFormValues {
   useVpn: boolean;
 }
 
+interface ICodeLanguage {
+  language: string;
+  loc: number;
+  percentage?: string;
+}
+
 export type {
   CloningStatusType,
   Root,
   IBasicEnvironmentUrl,
+  ICodeLanguage,
   IGitRootAttr,
   IGitRootData,
   IIPRootAttr,

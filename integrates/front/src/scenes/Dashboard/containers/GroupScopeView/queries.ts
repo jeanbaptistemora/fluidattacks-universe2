@@ -4,6 +4,10 @@ import type { DocumentNode } from "graphql";
 const GET_ROOTS: DocumentNode = gql`
   query GetRoots($groupName: String!) {
     group(groupName: $groupName) {
+      codeLanguages {
+        language
+        loc
+      }
       name
       roots {
         ... on GitRoot {

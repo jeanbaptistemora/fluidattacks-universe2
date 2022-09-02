@@ -39,6 +39,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -134,7 +135,12 @@ describe("GroupScopeView", (): void => {
       },
       result: {
         data: {
-          group: { __typename: "Group", name: "unittesting", roots: [] },
+          group: {
+            __typename: "Group",
+            codeLanguages: null,
+            name: "unittesting",
+            roots: [],
+          },
         },
       },
     };
@@ -173,6 +179,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -333,6 +340,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -391,6 +399,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -539,6 +548,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -594,6 +604,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -703,6 +714,7 @@ describe("GroupScopeView", (): void => {
           data: {
             group: {
               __typename: "Group",
+              codeLanguages: null,
               name: "unittesting",
               roots: [
                 {
@@ -760,6 +772,7 @@ describe("GroupScopeView", (): void => {
           data: {
             group: {
               __typename: "Group",
+              codeLanguages: null,
               name: "unittesting",
               roots: [
                 {
