@@ -111,10 +111,86 @@ and no obliteration policy is in effect.
 In fact, our source code is Free and Open Source Software:
 [Change History](https://gitlab.com/fluidattacks/universe/-/commits).
 
-<!--
-### Two person reviewed - L4
+### Two person reviewed
 
-This is required for L4, but not for L3
+<!-- TODO: We need two trusted persons for L4 -->
 
-We need to change our policy for this if we want to be L4
--->
+Every change in the revision’s history
+is agreed to by at least one trusted person
+prior to submission
+and each of these trusted persons
+are authenticated into the platform (using 2FA) first.
+
+## Build Requirements
+
+### Scripted Build
+
+All build steps were fully defined
+using GitLab CI/CD, Makes and Nix.
+
+Manual commands are not necessary to invoke the build script.
+A new build is triggered automatically
+each time new changes are pushed to the repository.
+
+For example:
+[1](https://gitlab.com/fluidattacks/universe/-/blob/a567ebed88d68a1c18c3889b3a273ba1e9fa37a1/skims/gitlab-ci.yaml),
+[2](https://gitlab.com/fluidattacks/universe/-/blob/a567ebed88d68a1c18c3889b3a273ba1e9fa37a1/skims/env/development/main.nix),
+[3](https://gitlab.com/fluidattacks/universe/-/blob/a567ebed88d68a1c18c3889b3a273ba1e9fa37a1/skims/config/runtime/template.sh).
+
+### Build Service
+
+All build steps run on GitLab CI/CD.
+
+### Build As Code
+
+All build steps have been defined as-code using the
+[GitLab CI/CD configuration file](https://gitlab.com/fluidattacks/universe/-/blob/trunk/.gitlab-ci.yml).
+
+### Ephemeral Environment
+
+<!-- Machines are reused, but this is OK. -->
+
+Our build service
+runs each build step
+inside a container
+that is provisioned solely for each build
+and not reused from a prior build.
+For example: [Container Image](https://gitlab.com/fluidattacks/universe/-/blob/aa44f91956d7aef7847a12cd971c14de9d0c8058/.gitlab-ci.yml#L39).
+
+### Isolated
+
+<!-- TODO: Caches if used need to be content-addressed to be L3 or L4 -->
+
+Our build service
+ensures that the build steps
+run in an isolated environment
+free of influence from other build instances,
+whether prior or concurrent,
+by using containerization technologies.
+
+Builds are executed using the [Nix package manager][nix],
+which prevents builds
+from accessing any external environment variables,
+network resources, sockets,
+or paths in the file system.
+
+Each build is created as a different OS process
+inside a [Control Group](https://en.wikipedia.org/wiki/Cgroups)
+making them isolated from each other.
+
+Input-addressed build caches are used to speed-up the pipeline.
+
+### Parameter-less
+
+The build output cannot be affected by user parameters
+other than the build entry point
+and the top-level source location.
+
+In order to modify the build output,
+a change to the source code must happen first.
+
+<!-- References -->
+
+[gitlab_ci_cd]: https://docs.gitlab.com/ee/ci/
+[makes]: https://github.com/fluidattacks/makes
+[nix]: https://nixos.org/
