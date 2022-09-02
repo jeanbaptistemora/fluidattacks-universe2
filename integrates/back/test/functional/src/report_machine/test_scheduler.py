@@ -222,3 +222,179 @@ async def test_persist_result(populate: bool) -> None:
                         "back/src/controller/user/index.js" in comment.content
                     )
                     assert "back/src/model/user/index.js" in comment.content
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report_machine")
+async def test_report_f079(populate: bool) -> None:
+    assert populate
+    criteria_vulns = await get_vulns_file()
+    criteria_reqs = get_requirements_file()
+    with mock.patch(
+        "schedulers.report_machine.get_config",
+        side_effect=mock.AsyncMock(
+            return_value={
+                "namespace": "nickname",
+                "language": "EN",
+                "path": {
+                    "include": [
+                        "skims/test/data/lib_path/f011/requirements.txt"
+                    ],
+                    "exclude": [],
+                },
+                "apk": {"include": [], "exclude": []},
+            }
+        ),
+    ):
+        with mock.patch(
+            "schedulers.report_machine.get_sarif_log",
+            side_effect=mock.AsyncMock(
+                return_value={
+                    "runs": [
+                        {
+                            "tool": {
+                                "driver": {
+                                    "name": "skims",
+                                    "contents": [
+                                        "localizedData",
+                                        "nonLocalizedData",
+                                    ],
+                                    "rules": [
+                                        {
+                                            "id": "079",
+                                            "defaultConfiguration": {
+                                                "level": "error"
+                                            },
+                                            "fullDescription": {
+                                                "text": "Dependencies are not explicitly declared (name and version) within the source code. They are copied directly into the repositories.\n"  # noqa
+                                            },
+                                            "help": {
+                                                "text": "All dependencies must be declared and must referenced with a dependency manager (npm, pip, maven). This allows to standardize projects construction and packaging.\n"  # noqa
+                                            },
+                                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/079#details",  # noqa
+                                            "name": "Non-upgradable dependencies",  # noqa
+                                            "properties": {
+                                                "auto_approve": "true"
+                                            },
+                                        }
+                                    ],
+                                }
+                            },
+                            "newlineSequences": ["\r\n", "\n"],
+                            "originalUriBaseIds": {
+                                "SRCROOT": {"uri": "universe"}
+                            },
+                            "results": [
+                                {
+                                    "message": {
+                                        "text": "The dependency is not explicitly declared in your requirements.txt in universe/skims/test/data/lib_path/f011/requirements.txt",  # noqa
+                                        "properties": {
+                                            "dependency_name": "decorator"
+                                        },
+                                    },
+                                    "kind": "open",
+                                    "level": "error",
+                                    "locations": [
+                                        {
+                                            "physicalLocation": {
+                                                "artifactLocation": {
+                                                    "uri": "skims/test/data/lib_path/f011/requirements.txt"  # noqa
+                                                },
+                                                "region": {
+                                                    "snippet": {
+                                                        "text": "  1 | aioextensions==21.7.2261349\n  2 | apk-signer==1.1.1\n  3 | apturl==0.5.2\n  4 | asn1crypto==1.4.0\n  5 | Pillow==6.0.0\n    ^ Col 0"  # noqa
+                                                    },
+                                                    "startLine": 0,
+                                                },
+                                            }
+                                        }
+                                    ],
+                                    "properties": {
+                                        "kind": "lines",
+                                        "source_method": "python.pip_incomplete_dependencies_list",  # noqa
+                                        "stream": "skims",
+                                        "technique": "BSAST",
+                                    },
+                                    "ruleId": "079",
+                                    "taxa": [
+                                        {
+                                            "id": "302",
+                                            "toolComponent": {
+                                                "name": "criteria"
+                                            },
+                                        }
+                                    ],
+                                },
+                            ],
+                            "taxonomies": [
+                                {
+                                    "name": "criteria",
+                                    "contents": [
+                                        "localizedData",
+                                        "nonLocalizedData",
+                                    ],
+                                    "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",  # noqa
+                                    "isComprehensive": "false",
+                                    "organization": "Fluidattcks",
+                                    "shortDescription": {
+                                        "text": "The fluidattcks security requirements"  # noqa
+                                    },
+                                    "taxa": [
+                                        {
+                                            "id": "302",
+                                            "fullDescription": {
+                                                "text": "The usage of third-party software and libraries is very common in modern applications, as it greatly reduces the effort required to develop them. Unfortunately, this software may introduce vulnerabilities into the application, which causes it to require frequent updates. In order to ease the constant update process, instead of directly including third-party software source code in application repositories, it should merely be referenced and managed using a package manager.\n"  # noqa
+                                            },
+                                            "helpUri": "https://docs.fluidattacks.com/criteria/requirements/302",  # noqa
+                                            "name": "Declare dependencies explicitly",  # noqa
+                                            "shortDescription": {
+                                                "text": "All dependencies (third-party software/libraries) must be explicitly declared (name and specific version) in a file inside the source code repository. Their source code must not be directly included in the repository.\n"  # noqa
+                                            },
+                                        }
+                                    ],
+                                    "version": "1",
+                                }
+                            ],
+                            "versionControlProvenance": [
+                                {
+                                    "repositoryUri": "https://gitlab.com/fluidattacks/universe.git",  # noqa
+                                    "branch": "lsaavedraatfluid",
+                                    "revisionId": "6e38c1c855ff9d87f9e51247a23fb17d5ae9b617",  # noqa
+                                }
+                            ],
+                        }
+                    ],
+                    "version": "2.1.0",
+                    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",  # noqa
+                }
+            ),
+        ):
+            from schedulers.report_machine import (
+                process_execution,
+            )
+
+            await process_execution(
+                "group1_1234345",
+                criteria_vulns,
+                criteria_reqs,
+            )
+            loaders = get_new_context()
+            group_findings: Tuple[
+                Finding, ...
+            ] = await loaders.group_drafts_and_findings.load("group1")
+            group_findings = tuple(
+                finding for finding in group_findings if "079" in finding.title
+            )
+            assert len(group_findings) > 0
+            finding = group_findings[0]
+
+            integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+                vuln
+                for vuln in await loaders.finding_vulnerabilities.load(
+                    finding.id
+                )
+                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                and vuln.state.source == Source.MACHINE
+            )
+
+            assert len(integrates_vulnerabilities) == 1
