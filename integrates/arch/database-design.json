@@ -3063,6 +3063,8 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "pk_2",
+            "sk_2",
             "email",
             "entity",
             "frequency",
