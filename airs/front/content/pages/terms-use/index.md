@@ -5,15 +5,21 @@ description: The following are restrictions, intellectual property rights, limit
 keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions, Terms of Use, Ethical Hacking, Pentesting
 ---
 
+#### *This document was last updated on September 2, 2022*
+
 ### Introduction
 
-These Terms contained herein on this webpage, shall govern your use of
-this website, including all pages found within it (collectively referred
-to herein below as this “Website”). These Terms apply in full force and
-effect to your use of this Website and, by making use of it, you
-expressly accept all terms and conditions contained herein in full. You
-must not use this Website, if you have any objection to any of these
-Terms.
+These Terms contained herein on this webpage
+shall govern your use of this website,
+including all pages found within it
+and associated sites linked to [fluidattacks.com](../) by `Fluid Attacks`
+(collectively referred to herein below as this “Website”).
+These Terms apply in full force and effect
+to your use of this Website and,
+by making use of it,
+you expressly accept all terms and conditions contained herein in full.
+You must not use this Website,
+if you have any objection to any of these Terms.
 
 ### Intellectual Property Rights
 

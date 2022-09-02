@@ -5,14 +5,17 @@ description: This Privacy Policy describes the manner in which Fluid Attacks col
 keywords: Fluid Attacks, Privacy, Policy, Information, Website, Right.
 ---
 
-#### *This document was last updated on January 18, 2022*
+#### *This document was last updated on September 2, 2022*
 
-This privacy policy ("Policy") describes how `Fluid Attacks` ("Fluid
-Attacks", "we", "us" or "our") collects, protects and uses the
-personally identifiable information ("Personal Information") you
-("User", "you" or "your") may provide on the fluidattacks.com website
-and any of its products or services (collectively, "Website" or
-"Services").
+This privacy policy ("Policy") describes how `Fluid Attacks`
+("Fluid Attacks", "we", "us" or "our")
+collects, protects and uses the personally identifiable information
+("Personal Information")
+you ("User", "you" or "your")
+may provide on the [fluidattacks.com](../) website,
+associated sites linked to [fluidattacks.com](../) by `Fluid Attacks`,
+and any of its products or services
+(collectively, "Website" or "Services").
 
 It also describes the choices available to you regarding our use of your
 Personal Information and how you can access and update this information.
