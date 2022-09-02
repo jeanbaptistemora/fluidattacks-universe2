@@ -1,10 +1,6 @@
 from contextlib import (
     suppress,
 )
-from lib_root.f052.java import (
-    javax_yield_insecure_ciphers,
-    jvm_yield_insecure_hash,
-)
 from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
@@ -35,6 +31,9 @@ from utils.crypto import (
     insecure_elliptic_curve,
 )
 import utils.graph as g
+from utils.languages.java import (
+    is_cipher_vulnerable as java_cipher_vulnerable,
+)
 from utils.string import (
     complete_attrs_on_set,
 )
@@ -64,6 +63,99 @@ def security_yield_insecure_key(
             yield shard, param_id
 
 
+def yield_insecure_hash(
+    shard: GraphShard,
+    method_name: str,
+    method_id: str,
+    parameters: List[Any],
+) -> GraphShardNodes:
+    insecure_digests = {
+        "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
+        "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
+        "org.apache.commons.codec.digest.DigestUtils.getShaDigest",
+        "org.apache.commons.codec.digest.DigestUtils.getSha1Digest",
+        "org.apache.commons.codec.digest.DigestUtils.md2",
+        "org.apache.commons.codec.digest.DigestUtils.md2Hex",
+        "org.apache.commons.codec.digest.DigestUtils.md5",
+        "org.apache.commons.codec.digest.DigestUtils.md5Hex",
+        "org.apache.commons.codec.digest.DigestUtils.sha",
+        "org.apache.commons.codec.digest.DigestUtils.shaHex",
+        "org.apache.commons.codec.digest.DigestUtils.sha1",
+        "org.apache.commons.codec.digest.DigestUtils.sha1Hex",
+        "com.google.common.hash.Hashing.adler32",
+        "com.google.common.hash.Hashing.crc32",
+        "com.google.common.hash.Hashing.crc32c",
+        "com.google.common.hash.Hashing.goodFastHash",
+        "com.google.common.hash.Hashing.hmacMd5",
+        "com.google.common.hash.Hashing.hmacSha1",
+        "com.google.common.hash.Hashing.md5",
+        "com.google.common.hash.Hashing.sha1",
+        "java.security.spec.MGF1ParameterSpec.SHA1",
+    }
+    if method_name in complete_attrs_on_set(insecure_digests):
+        yield shard, method_id
+    if method_name in complete_attrs_on_set(
+        {
+            "java.security.MessageDigest.getInstance",
+        }
+    ):
+        for param_id in parameters:
+            if (
+                param_text := shard.graph.nodes[param_id].get("label_text")
+            ) and param_text.lower().replace('"', "") in {
+                "md2",
+                "md4",
+                "md5",
+                "sha1",
+                "sha-1",
+            }:
+                yield shard, param_id
+
+
+def yield_insecure_ciphers(
+    shard: GraphShard, method_name: str, parameters: List[Any]
+) -> GraphShardNodes:
+    ciphers: Set[str] = complete_attrs_on_set(
+        {
+            "javax.crypto.Cipher.getInstance",
+            "javax.crypto.KeyGenerator.getInstance",
+        }
+    )
+    ssl_ciphers_safe: Set[str] = {
+        "tls",
+        "tlsv1.2",
+        "tlsv1.3",
+        "dtls",
+        "dtlsv1.2",
+        "dtlsv1.3",
+    }
+    ssl_ciphers: Set[str] = complete_attrs_on_set(
+        {"javax.net.ssl.SSLContext.getInstance"}
+    )
+
+    if method_name not in ciphers | ssl_ciphers:
+        return
+
+    for param_id in parameters:
+        param_type = shard.graph.nodes[param_id]["label_type"]
+        param_text = shard.graph.nodes[param_id].get("label_text")
+
+        is_cipher_vulnerable: bool = (
+            method_name in ciphers
+            and param_text
+            and java_cipher_vulnerable(param_text)
+        )
+        is_ssl_cipher_vulnerable: bool = (
+            method_name in ssl_ciphers
+            and param_type in {"line_string_literal", "string_literal"}
+            and param_text
+            and param_text.lower()[1:-1] not in ssl_ciphers_safe
+        )
+
+        if is_cipher_vulnerable or is_ssl_cipher_vulnerable:
+            yield shard, param_id
+
+
 def _yield_insecure_key(
     graph_db: GraphDB,
 ) -> GraphShardNodes:
@@ -89,7 +181,7 @@ def _yield_insecure_hash(
             g.adj_ast(shard.graph, argument_id)[0]
             for argument_id in match["value_argument"]
         ]
-        yield from jvm_yield_insecure_hash(
+        yield from yield_insecure_hash(
             shard, method_name, method_id, parameters
         )
 
@@ -126,7 +218,7 @@ def _yield_insecure_ciphers(
             g.adj_ast(shard.graph, argument_id)[0]
             for argument_id in match["value_argument"]
         ]
-        yield from javax_yield_insecure_ciphers(shard, method_name, parameters)
+        yield from yield_insecure_ciphers(shard, method_name, parameters)
         yield from _okhttp_yield_insecure_ciphers(
             shard, method_name, parameters
         )

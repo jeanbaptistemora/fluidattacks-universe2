@@ -7,6 +7,8 @@ from symbolic_eval.f052.literal.c_sharp import (
     cs_rsa_secure_mode,
 )
 from symbolic_eval.f052.literal.java import (
+    java_insecure_cipher,
+    java_insecure_hash,
     java_insecure_key,
 )
 from symbolic_eval.types import (
@@ -23,6 +25,8 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_INSECURE_KEYS: cs_insecure_keys,
     MethodsEnum.CS_RSA_SECURE_MODE: cs_rsa_secure_mode,
     MethodsEnum.JAVA_INSECURE_KEY: java_insecure_key,
+    MethodsEnum.JAVA_INSECURE_HASH: java_insecure_hash,
+    MethodsEnum.JAVA_INSECURE_CIPHER: java_insecure_cipher,
 }
 
 

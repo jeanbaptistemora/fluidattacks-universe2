@@ -2,7 +2,7 @@ from contextlib import (
     suppress,
 )
 from lib_root.utilities.java import (
-    yield_method_invocation,
+    yield_method_invocation_syntax_graph,
 )
 from lib_sast.types import (
     ShardDb,
@@ -12,8 +12,8 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
-    GraphShard,
     GraphShardMetadataLanguage,
     GraphShardNodes,
 )
@@ -27,8 +27,6 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
-    Any,
-    List,
     Set,
 )
 from utils.crypto import (
@@ -43,7 +41,7 @@ from utils.string import (
 )
 
 
-def is_insecure_key_argument(triggers: Set[str], check: str = "RSA") -> bool:
+def is_insecure_key_argument(triggers: Set[str], check: str) -> bool:
     eval_str = "".join(list(triggers))
     if check == "RSA":
         with suppress(TypeError):
@@ -55,83 +53,17 @@ def is_insecure_key_argument(triggers: Set[str], check: str = "RSA") -> bool:
     return False
 
 
-def jvm_yield_insecure_hash(
-    shard: GraphShard,
-    method_name: str,
-    method_id: str,
-    parameters: List[Any],
-) -> GraphShardNodes:
-    insecure_digests = {
-        "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
-        "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
-        "org.apache.commons.codec.digest.DigestUtils.getShaDigest",
-        "org.apache.commons.codec.digest.DigestUtils.getSha1Digest",
-        "org.apache.commons.codec.digest.DigestUtils.md2",
-        "org.apache.commons.codec.digest.DigestUtils.md2Hex",
-        "org.apache.commons.codec.digest.DigestUtils.md5",
-        "org.apache.commons.codec.digest.DigestUtils.md5Hex",
-        "org.apache.commons.codec.digest.DigestUtils.sha",
-        "org.apache.commons.codec.digest.DigestUtils.shaHex",
-        "org.apache.commons.codec.digest.DigestUtils.sha1",
-        "org.apache.commons.codec.digest.DigestUtils.sha1Hex",
-        "com.google.common.hash.Hashing.adler32",
-        "com.google.common.hash.Hashing.crc32",
-        "com.google.common.hash.Hashing.crc32c",
-        "com.google.common.hash.Hashing.goodFastHash",
-        "com.google.common.hash.Hashing.hmacMd5",
-        "com.google.common.hash.Hashing.hmacSha1",
-        "com.google.common.hash.Hashing.md5",
-        "com.google.common.hash.Hashing.sha1",
-        "java.security.spec.MGF1ParameterSpec.SHA1",
-    }
-    if method_name in complete_attrs_on_set(insecure_digests):
-        yield shard, method_id
-    if method_name in complete_attrs_on_set(
-        {
-            "java.security.MessageDigest.getInstance",
-        }
-    ):
-        for param_id in parameters:
-            if (
-                param_text := shard.graph.nodes[param_id].get("label_text")
-            ) and param_text.lower().replace('"', "") in {
-                "md2",
-                "md4",
-                "md5",
-                "sha1",
-                "sha-1",
-            }:
-                yield shard, param_id
+def is_insecure_hash_argument(graph: Graph, param: str) -> bool:
+    method = MethodsEnum.JAVA_INSECURE_HASH
+    for path in get_backward_paths(graph, param):
+        if evaluation := evaluate(method, graph, path, param):
+            return evaluation.danger
+    return False
 
 
-def _yield_insecure_hash(
-    graph_db: GraphDB,
-) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_method_invocation(graph_db):
-        match = g.match_ast_group(
-            shard.graph,
-            method_id,
-            "argument_list",
-        )
-        parameters = g.adj_ast(
-            shard.graph,
-            match["argument_list"][0],
-        )[1:-1]
-        yield from jvm_yield_insecure_hash(
-            shard, method_name, method_id, list(parameters)
-        )
-
-
-def javax_yield_insecure_ciphers(
-    shard: GraphShard, method_name: str, parameters: List[Any]
-) -> GraphShardNodes:
-    ciphers: Set[str] = complete_attrs_on_set(
-        {
-            "javax.crypto.Cipher.getInstance",
-            "javax.crypto.KeyGenerator.getInstance",
-        }
-    )
-    ssl_ciphers_safe: Set[str] = {
+def is_insecure_cipher_argument(graph: Graph, param: str, check: str) -> bool:
+    method = MethodsEnum.JAVA_INSECURE_CIPHER
+    ssl_safe_methods = {
         "tls",
         "tlsv1.2",
         "tlsv1.3",
@@ -139,56 +71,20 @@ def javax_yield_insecure_ciphers(
         "dtlsv1.2",
         "dtlsv1.3",
     }
-    ssl_ciphers: Set[str] = complete_attrs_on_set(
-        {"javax.net.ssl.SSLContext.getInstance"}
-    )
-
-    if method_name not in ciphers | ssl_ciphers:
-        return
-
-    for param_id in parameters:
-        param_type = shard.graph.nodes[param_id]["label_type"]
-        param_text = shard.graph.nodes[param_id].get("label_text")
-
-        is_cipher_vulnerable: bool = (
-            method_name in ciphers
-            and param_text
-            and java_cipher_vulnerable(param_text)
-        )
-        is_ssl_cipher_vulnerable: bool = (
-            method_name in ssl_ciphers
-            and param_type in {"line_string_literal", "string_literal"}
-            and param_text
-            and param_text.lower()[1:-1] not in ssl_ciphers_safe
-        )
-
-        if is_cipher_vulnerable or is_ssl_cipher_vulnerable:
-            yield shard, param_id
-
-
-def _yield_insecure_ciphers(
-    graph_db: GraphDB,
-) -> GraphShardNodes:
-    for shard, method_id, method_name in yield_method_invocation(graph_db):
-        match = g.match_ast_group(
-            shard.graph,
-            method_id,
-            "argument_list",
-        )
-        parameters = g.adj_ast(
-            shard.graph,
-            match["argument_list"][0],
-        )[1:-1]
-        yield from javax_yield_insecure_ciphers(
-            shard, method_name, list(parameters)
-        )
+    for path in get_backward_paths(graph, param):
+        if evaluation := evaluate(method, graph, path, param):
+            eval_str = "".join(list(evaluation.triggers))
+            if check == "CR":
+                return java_cipher_vulnerable(eval_str)
+            if check == "SSL":
+                return not eval_str.lower() in ssl_safe_methods
+    return False
 
 
 def java_insecure_pass(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_PASS
     framework = "org.springframework.security"
     insecure_instances = complete_attrs_on_set(
         {
@@ -222,7 +118,7 @@ def java_insecure_pass(
         desc_key="src.lib_path.f052.insecure_pass.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=method,
+        method=MethodsEnum.JAVA_INSECURE_PASS,
     )
 
 
@@ -282,10 +178,60 @@ def java_insecure_hash(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    insecure_digests_1 = complete_attrs_on_set(
+        {
+            "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
+            "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
+            "org.apache.commons.codec.digest.DigestUtils.getShaDigest",
+            "org.apache.commons.codec.digest.DigestUtils.getSha1Digest",
+            "org.apache.commons.codec.digest.DigestUtils.md2",
+            "org.apache.commons.codec.digest.DigestUtils.md2Hex",
+            "org.apache.commons.codec.digest.DigestUtils.md5",
+            "org.apache.commons.codec.digest.DigestUtils.md5Hex",
+            "org.apache.commons.codec.digest.DigestUtils.sha",
+            "org.apache.commons.codec.digest.DigestUtils.shaHex",
+            "org.apache.commons.codec.digest.DigestUtils.sha1",
+            "org.apache.commons.codec.digest.DigestUtils.sha1Hex",
+            "com.google.common.hash.Hashing.adler32",
+            "com.google.common.hash.Hashing.crc32",
+            "com.google.common.hash.Hashing.crc32c",
+            "com.google.common.hash.Hashing.goodFastHash",
+            "com.google.common.hash.Hashing.hmacMd5",
+            "com.google.common.hash.Hashing.hmacSha1",
+            "com.google.common.hash.Hashing.md5",
+            "com.google.common.hash.Hashing.sha1",
+            "java.security.spec.MGF1ParameterSpec.SHA1",
+        }
+    )
+    insecure_digests_2 = complete_attrs_on_set(
+        {"java.security.MessageDigest.getInstance"}
+    )
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                if m_name in insecure_digests_1:
+                    yield shard, m_id
+                elif m_name in insecure_digests_2:
+                    mi_attrs = graph.nodes[m_id]
+                    m_al = g.adj_ast(graph, mi_attrs.get("arguments_id"))
+                    is_insecure = []
+                    for argument in m_al:
+                        res = is_insecure_hash_argument(graph, argument)
+                        is_insecure.append(res)
+                    if any(is_insecure):
+                        yield shard, m_id
+
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_hash.description",
-        desc_params=dict(lang="Java"),
-        graph_shard_nodes=_yield_insecure_hash(graph_db),
+        desc_params={},
+        graph_shard_nodes=n_ids(),
         method=MethodsEnum.JAVA_INSECURE_HASH,
     )
 
@@ -294,9 +240,43 @@ def java_insecure_cipher(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    ciphers = complete_attrs_on_set(
+        {
+            "javax.crypto.Cipher.getInstance",
+            "javax.crypto.KeyGenerator.getInstance",
+        }
+    )
+    ssl_ciphers = complete_attrs_on_set(
+        {"javax.net.ssl.SSLContext.getInstance"}
+    )
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                if m_name in ciphers:
+                    check = "CR"
+                elif m_name in ssl_ciphers:
+                    check = "SSL"
+                else:
+                    continue
+
+                mi_attrs = graph.nodes[m_id]
+                m_al = g.adj_ast(graph, mi_attrs.get("arguments_id"))
+                is_insecure = []
+                for argument in m_al:
+                    res = is_insecure_cipher_argument(graph, argument, check)
+                    is_insecure.append(res)
+                if any(is_insecure):
+                    yield shard, m_id
+
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
-        desc_params=dict(lang="Java"),
-        graph_shard_nodes=_yield_insecure_ciphers(graph_db),
+        desc_params={},
+        graph_shard_nodes=n_ids(),
         method=MethodsEnum.JAVA_INSECURE_CIPHER,
     )
