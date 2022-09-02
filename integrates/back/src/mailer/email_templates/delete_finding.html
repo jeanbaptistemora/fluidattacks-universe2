@@ -8,20 +8,24 @@
   {{ banner_finding('Type of Vulnerability Deleted') }}
 
   <div class="main-content">
-    <p>Hello {{ name }},</p>
+    <p>Hi {{ name }},</p>
+    <p>
+      A type of vulnerability in the group <strong>{{ group }}</strong> has been deleted by
+      <strong>
+        <a
+          href="mailto:{{ hacker_email }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ hacker_email }}</a></strong>:
+    </p>
     <div style="padding-left: 2rem !important;">
       <p>
-        A type of vulnerability in group <strong>{{ group }}</strong> has been deleted by
-        <strong>
-          <a href="mailto:{{ hacker_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-            {{ hacker_email }}
-          </a>
-        </strong>
-        as {{ user_role }}.
+        <strong>Type of vulnerability:</strong> {{ finding_name }}<br>
+        <strong>ID:</strong> {{ finding_id }}<br>
+        <strong>Justification:</strong> {{ justification }}<br>
       </p>
-      <p><strong>Type of vulnerability:</strong> {{ finding_name }}.</p>
-      <p><strong>ID:</strong> {{ finding_id }}.</p>
-      <p><strong>Justification:</strong> {{ justification }}.</p>
     </div>
     <p>Regards,<br>
       Fluid Attacks Team</p>

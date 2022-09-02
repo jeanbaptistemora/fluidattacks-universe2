@@ -8,33 +8,34 @@
   {{ banner_news('API Deprecation Notice') }}
 
   <div class="main-content">
-    <p>Hello {{ name }},</p>
+    <p>Hi {{ name }},</p>
     <p>
-      As part of the ARM's continuous evolution, the following deprecated
-      elements are nearing the end of their six month phase-out window, and
-      therefore will be <strong>removed</strong> from our API next month:
+      The following API elements are nearing the end of
+      their six-month lifespan to become deprecated.
+      Therefore, we will <strong>remove</strong> them from our API next month:
     </p>
     {% for object, fields in deprecations.items() %}
     <div class="row">
-      <div class="column left" style="width: 30%; text-align: center;">
-        Of <strong>{{ object }}</strong>:
+      <div class="column left" style="width: 35%; text-align: left;">
+        <strong>From {{ object }}:</strong>
       </div>
-      <div class="column right" style="width: 70%; text-align: center;">
+      <div class="column right" style="width: 65%; text-align: center;">
         {{ fields }}
       </div>
     </div>
     {% endfor %}
     <br>
     <p>
-      If your product is consuming any of the aforementioned API elements in
-      its queries, we encourage you to update them before the planned removal
-      takes effect <strong>next month</strong>.
+      If your product currently consumes any of the above API elements
+      in its queries, we encourage you to
+      <strong>update them before</strong>
+      next month’s planned removal.
       For more information, you can check the
       <a href="https://app.fluidattacks.com/api"
-         target="_blank" rel="noopener noreferrer"
-         style="color: #ff3435;">
-         ARM API docs
-      </a>.
+        target="_blank" rel="noopener noreferrer"
+        style="color: #ff3435;"
+      >
+        ARM API docs</a>.
     </p>
     <p></p>
     <p>Regards,<br>
