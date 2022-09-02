@@ -13,11 +13,6 @@ from utils import (
 )
 
 
-def java_method_invoc_to_str(graph: graph_model.Graph, method_inv: str) -> str:
-    ids = g.match_ast_group(graph, method_inv, "identifier")["identifier"]
-    return ".".join([graph.nodes[i]["label_text"] for i in ids])
-
-
 def info_leak_stacktrace(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
@@ -26,34 +21,41 @@ def info_leak_stacktrace(
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
-            graph = shard.graph
-            for catch in g.filter_nodes(
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.filter_nodes(
                 graph,
                 nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="catch_clause"),
+                predicate=g.pred_has_labels(label_type="CatchClause"),
             ):
-                param = g.match_ast_d(graph, catch, "catch_formal_parameter")
-                exception_id = g.match_ast_d(graph, str(param), "identifier")
+                childs = g.match_ast(
+                    graph, n_id, "CatchParameter", "ExecutionBlock"
+                )
+                param = childs.get("CatchParameter")
+                block = childs.get("ExecutionBlock")
 
-                if exception_id is None:
+                if not (param and block):
                     continue
+                exc_name = graph.nodes[param].get("variable_name")
 
-                exception = graph.nodes[exception_id]["label_text"]
-                block = g.match_ast_d(graph, catch, "block")
-                for method_inv_id in g.filter_nodes(
+                for m_id in g.filter_nodes(
                     graph,
                     nodes=g.adj_ast(graph, str(block), depth=-1),
-                    predicate=g.pred_has_labels(
-                        label_type="method_invocation"
-                    ),
+                    predicate=g.pred_has_labels(label_type="MethodInvocation"),
                 ):
-                    method_inv = java_method_invoc_to_str(graph, method_inv_id)
-                    if method_inv == f"{exception}.printStackTrace":
-                        yield shard, method_inv_id
+                    m_node = graph.nodes[m_id]
+                    if (
+                        m_node["expression"] == "printStackTrace"
+                        and (symbol_id := m_node.get("object_id"))
+                        and graph.nodes[symbol_id]["symbol"] == exc_name
+                    ):
+                        yield shard, m_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_root.f234.java_info_leak_stacktrace",
-        desc_params=dict(lang="Java"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
         method=core_model.MethodsEnum.JAVA_LEAK_STACKTRACE,
     )
