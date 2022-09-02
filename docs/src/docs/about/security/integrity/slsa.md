@@ -18,7 +18,9 @@ In this document,
 we use the
 [version 0.1 of the specification](https://slsa.dev/spec/v0.1/requirements).
 
-These are the levels achieved by Fluid Attacks:
+Our current SLSA level is 2.
+The following is a detail of the levels achieved
+on each of the requirements:
 
 | Requirement                    | Level |
 | :----------------------------- | :---: |
@@ -33,13 +35,23 @@ These are the levels achieved by Fluid Attacks:
 | Build - Isolated               |   2   |
 | Build - Parameter-less         |   4   |
 | Build - Hermetic               |   4   |
+| Build - Reproducible           |   3   |
+| Provenance (doesn't apply)     |   -   |
+| Common - Security              |   4   |
+| Common - Access                |   3   |
+| Common - Superusers            |   3   |
 
 For clarity,
 this is how SLSA definitions map into our infrastructure:
 
+- **Source**: Git repository at:
+  [fluidattacks/universe](https://gitlab.com/fluidattacks/universe).
 - **Platform**: [GitLab CI/CD][gitlab_ci_cd],
   [Makes][makes],
   and the [Nix package manager][nix].
+- **Build service**:
+  [GitLab CI/CD][gitlab_ci_cd]
+  and related infrastructure.
 - **Build**: A Nix derivation.
 - **Environment**: A sandbox
   that [Chroot](https://en.wikipedia.org/wiki/Chroot)s
@@ -51,7 +63,7 @@ this is how SLSA definitions map into our infrastructure:
 - **Steps**: Instructions declared
   in the corresponding Makes configuration files
   written using the Nix programming language
-  and shell scripting.
+  and shell scripting, versioned as-code in the _source_.
 
 ## Source Requirements
 
@@ -157,6 +169,10 @@ that is provisioned solely for each build
 and not reused from a prior build.
 For example: [Container Image](https://gitlab.com/fluidattacks/universe/-/blob/aa44f91956d7aef7847a12cd971c14de9d0c8058/.gitlab-ci.yml#L39).
 
+Additionally,
+the [Nix package manager][nix]
+provides an ephemeral environment to each of the derivations.
+
 ### Isolated
 
 <!-- TODO: Caches if used need to be content-addressed to be L3 or L4 -->
@@ -215,6 +231,66 @@ The [Nix package manager][nix]:
   before allowing a build to use it,
   and fails the build if the verification fails.
 - Denies network connectivity if no expected hash is specified.
+
+### Reproducible
+
+All of our build scripts are intended to be reproducible.
+
+The reproducibility guarantees of our build scripts
+are that of the [Nix package manager][nix].
+
+If a build fails to be reproducible,
+we do not explicitly define why.
+
+## Provenance Requirements
+
+In SLSA,
+"Provenance" is a piece of verifiable information
+about software artifacts
+describing where,
+when and how
+they were produced.
+
+The purpose of this requirement
+is to protect consumers
+from using a compromised package:
+
+![Supply Chain Threat Model](https://res.cloudinary.com/fluid-attacks/image/upload/v1662151018/docs/about/security/integrity/slsa-supply-chain-threats.svg)
+
+At Fluid Attacks consumers and builders are the same entity.
+We don't use artifacts or packages as a mean of distribution.
+
+Instead,
+consumers use [Makes][makes],
+a source identifier,
+and the target artifact identifier,
+and then all sources,
+dependencies and intermediate artifacts
+are built locally in the consumer machine
+using the [Nix package manager][nix]
+by following the steps and environment
+defined as-code in the source.
+
+## Common Requirements
+
+### Security
+
+For more information see:
+[Fluid Attacks's security page](/about/security).
+
+### Access
+
+Our build service is SaaS,
+which means physical access is not possible.
+Administrators can access the build machines
+through remote protocols
+without multi-party approval.
+
+### Superusers
+
+Only a small number of platform admins may override the guarantees provided by SLSA.
+Doing so does not currently require approval
+of a second platform admin.
 
 <!-- References -->
 
