@@ -7,7 +7,7 @@ slug: /development/melts
 
 ## What is Melts?
 
-Melts is a Fluid Attacks tool
+Melts is a `Fluid Attacks` tool
 that has many functions
 for consulting and managing
 the resources that every group has.
@@ -224,7 +224,7 @@ you can try to fix them:
   regarding permissions.
 - If none of these work,
   get in contact
-  with the fluid attacks team
+  with the `Fluid Attacks` team
   sending an e-mail to
   help@fluidattacks.com
   to assist you with any problems.

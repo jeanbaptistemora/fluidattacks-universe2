@@ -35,7 +35,7 @@ The first way is through our URL.
 
 - Based on the email you subscribed
   to, you will be getting an email from
-  Fluid Attacks about subscription
+  `Fluid Attacks` about subscription
   confirmation.
   Click on the “Click here to verify” to
   verify your subscription.
@@ -65,7 +65,7 @@ The second way to subscribe is through are ARM.
 
 - Based on the email you subscribed
   to you will be getting an email from
-  Fluid Attacks about subscription
+  `Fluid Attacks` about subscription
   confirmation.
   Click on the “Click here to verify”
   to verify your subscription.

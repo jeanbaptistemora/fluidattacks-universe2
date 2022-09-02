@@ -147,7 +147,7 @@ this notification is User Manager.
 
 ### Root updates (root moved)
 
-Our attacks resistance management
+Our Attacks Resistance Management
 platform makes it possible to
 correct errors such as having
 created a root in the wrong group.
@@ -166,7 +166,7 @@ where from and where to.
 
 ### Root updates (root deactivated)
 
-Our attacks resistance management
+Our Attacks Resistance Management
 platform allows you to deactivate
 a root when it does
 not exist anymore,
@@ -292,8 +292,8 @@ report of the event on the ARM.
 ### Policies update
 
 If you are a user manager or
-customer manager on our attack
-surface management platform,
+customer manager on our Attacks
+Resistance Management platform,
 you will receive emails
 notifying  any updates to your
 organization’s acceptance policies.

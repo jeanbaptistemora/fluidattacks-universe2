@@ -31,7 +31,7 @@ and whether or not they are
 registered to the ARM.
 See below how to invite them
 to open an account in our
-attacks resistance management
+Attacks Resistance Management
 platform.
 
 When you need to see the list
@@ -71,8 +71,8 @@ The notion of shared responsibility
 for secure development makes it
 especially important that all
 of the contributors to any given
-repository be part of our attacks
-resistance management platform.
+repository be part of our Attacks
+Resistance Management platform.
 If you are a user manager,
 you can send registration
 invitations to contributors

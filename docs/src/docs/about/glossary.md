@@ -52,7 +52,7 @@ The Target of Evaluation or ToE
 is the product or system
 that will be the subject
 of the penetration testing
-done by Fluid Attacks.
+done by `Fluid Attacks`.
 The ToE is mostly defined by specifying
 which git repositories and/or environments
 you want us to check

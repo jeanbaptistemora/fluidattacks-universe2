@@ -78,7 +78,7 @@ we'll need to:
     When this ends,
     the results file will be located
     in the results/ folder
-    with the name of Fluid Attacks
+    with the name of `Fluid Attacks`
     and CSV extension.
 
 1. At this point you can generate

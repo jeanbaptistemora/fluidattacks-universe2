@@ -234,7 +234,7 @@ and the worst organization.
 One of the main dilemmas organizations face
 every day is which vulnerability they
 should close first.
-To address this, we at Fluid Attacks designed
+To address this, we at `Fluid Attacks` designed
 a metric called the [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 to help you make better decisions.
 
