@@ -18,9 +18,44 @@ In this document,
 we use the
 [version 0.1 of the specification](https://slsa.dev/spec/v0.1/requirements).
 
-## Source Requirements - L3
+These are the levels achieved by Fluid Attacks:
 
-### Version Controlled - L4
+| Requirement                    | Level |
+| :----------------------------- | :---: |
+| Source - Version Controlled    |   4   |
+| Source - Verified History      |   4   |
+| Source - Retained Indefinitely |   4   |
+| Source - Two Person Reviewed   |   3   |
+| Build - Scripted Build         |   4   |
+| Build - Build Service          |   4   |
+| Build - Build As Code          |   4   |
+| Build - Ephemeral Environment  |   4   |
+| Build - Isolated               |   2   |
+| Build - Parameter-less         |   4   |
+| Build - Hermetic               |   4   |
+
+For clarity,
+this is how SLSA definitions map into our infrastructure:
+
+- **Platform**: [GitLab CI/CD][gitlab_ci_cd],
+  [Makes][makes],
+  and the [Nix package manager][nix].
+- **Build**: A Nix derivation.
+- **Environment**: [Control Group](https://en.wikipedia.org/wiki/Cgroups)
+  created by Nix
+  that [Chroot](https://en.wikipedia.org/wiki/Chroot)s
+  into an empty temporary directory,
+  and provides no network
+  or file system access
+  outside of it.
+- **Steps**: Instructions declared
+  in the corresponding Makes configuration files
+  written using the Nix programming language
+  and shell scripting.
+
+## Source Requirements
+
+### Version Controlled
 
 Every change to the source
 is tracked in a version control system
@@ -44,7 +79,7 @@ that meets the following requirements:
   For example:
   [1e1cb90fe224fb033b582829aad903cfef4ae9b9](https://gitlab.com/fluidattacks/universe/-/commit/1e1cb90fe224fb033b582829aad903cfef4ae9b9).
 
-### Verified History - L4
+### Verified History
 
 Every change in the revision’s history
 need to pass through a Merge Request.
@@ -62,7 +97,7 @@ by a platform Admin can create or review Merge Requests.
 For example:
 [MR 28742](https://gitlab.com/fluidattacks/universe/-/merge_requests/28742).
 
-### Retained Indefinitely - L4
+### Retained Indefinitely
 
 The revision and its change history
 are preserved indefinitely
