@@ -1,3 +1,6 @@
+from collections import (
+    defaultdict,
+)
 from dynamodb.checkpoint import (
     get_checkpoint,
     remove_checkpoint,
@@ -8,7 +11,14 @@ from dynamodb.resource import (
     TABLE_NAME,
 )
 from dynamodb.triggers import (
-    trigger_processors,
+    TRIGGERS,
+)
+from dynamodb.types import (
+    Record,
+    Trigger,
+)
+from dynamodb.utils import (
+    format_record,
 )
 import logging
 from threading import (
@@ -97,7 +107,7 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
 def _get_shard_records(
     shard_id: str,
     shard_iterator: str,
-) -> Iterator[tuple[dict[str, Any], ...]]:
+) -> Iterator[tuple[Record, ...]]:
     """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
     processed_records = 0
@@ -105,13 +115,15 @@ def _get_shard_records(
     while True:
         try:
             response = CLIENT.get_records(ShardIterator=current_iterator)
-            records = tuple(response["Records"])
+            records = tuple(
+                format_record(record) for record in response["Records"]
+            )
 
             if records:
                 yield records
 
                 processed_records += len(records)
-                sequence_number = records[-1]["dynamodb"]["SequenceNumber"]
+                sequence_number = records[-1].sequence_number
 
                 save_checkpoint(shard_id, sequence_number)
                 sleep(1)
@@ -133,9 +145,19 @@ def _get_shard_records(
 def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
     """Retrieves the records from the shard and triggers processing"""
     shard_iterator = _get_shard_iterator(stream_arn, shard_id)
+    batches: dict[Trigger, list] = defaultdict(list)
 
     for records in _get_shard_records(shard_id, shard_iterator):
-        trigger_processors(records)
+        for trigger in TRIGGERS:
+            matching_records = (
+                record for record in records if trigger.records_filter(record)
+            )
+            batches[trigger].extend(matching_records)
+
+            if len(batches[trigger]) >= trigger.batch_size:
+                batch: list[Record] = batches[trigger][: trigger.batch_size]
+                trigger.records_processor(tuple(batch))
+                batches[trigger] = batches[trigger][trigger.batch_size :]
 
 
 def consume() -> None:

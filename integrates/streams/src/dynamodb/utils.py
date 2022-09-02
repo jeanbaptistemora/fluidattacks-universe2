@@ -27,11 +27,12 @@ def format_record(record: dict[str, Any]) -> Record:
     """
     return Record(
         event_name=EventName[record["eventName"]],
-        pk=record["dynamodb"]["Keys"]["pk"]["S"],
-        sk=record["dynamodb"]["Keys"]["sk"]["S"],
         item=(
             deserialize_dynamodb_json(record["dynamodb"]["NewImage"])
             if "NewImage" in record["dynamodb"]
             else None
         ),
+        pk=record["dynamodb"]["Keys"]["pk"]["S"],
+        sequence_number=record["dynamodb"]["SequenceNumber"],
+        sk=record["dynamodb"]["Keys"]["sk"]["S"],
     )

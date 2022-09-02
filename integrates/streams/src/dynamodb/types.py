@@ -19,6 +19,7 @@ class Record(NamedTuple):
     event_name: EventName
     item: Optional[dict[str, Any]]
     pk: str
+    sequence_number: str
     sk: str
 
 
