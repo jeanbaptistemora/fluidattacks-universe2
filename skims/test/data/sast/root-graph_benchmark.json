@@ -9066,7 +9066,20 @@
             }
           },
           "482": {
+            "485": {
+              "label_ast": "AST"
+            },
             "490": {
+              "label_ast": "AST"
+            }
+          },
+          "485": {
+            "486": {
+              "label_ast": "AST"
+            }
+          },
+          "486": {
+            "487": {
               "label_ast": "AST"
             }
           },
@@ -9271,7 +9284,20 @@
             }
           },
           "582": {
+            "585": {
+              "label_ast": "AST"
+            },
             "590": {
+              "label_ast": "AST"
+            }
+          },
+          "585": {
+            "586": {
+              "label_ast": "AST"
+            }
+          },
+          "586": {
+            "587": {
               "label_ast": "AST"
             }
           },
@@ -10190,6 +10216,17 @@
             "block_id": "490",
             "label_type": "CatchClause"
           },
+          "485": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "486": {
+            "label_type": "CatchType"
+          },
+          "487": {
+            "label_type": "SymbolLookup",
+            "symbol": "Exception"
+          },
           "49": {
             "label_type": "ClassBody"
           },
@@ -10415,6 +10452,17 @@
           "582": {
             "block_id": "590",
             "label_type": "CatchClause"
+          },
+          "585": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "586": {
+            "label_type": "CatchType"
+          },
+          "587": {
+            "label_type": "SymbolLookup",
+            "symbol": "Exception"
           },
           "590": {
             "label_type": "ExecutionBlock"
@@ -15114,7 +15162,20 @@
             }
           },
           "261": {
+            "264": {
+              "label_ast": "AST"
+            },
             "269": {
+              "label_ast": "AST"
+            }
+          },
+          "264": {
+            "265": {
+              "label_ast": "AST"
+            }
+          },
+          "265": {
+            "266": {
               "label_ast": "AST"
             }
           },
@@ -15620,6 +15681,17 @@
           "261": {
             "block_id": "269",
             "label_type": "CatchClause"
+          },
+          "264": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "265": {
+            "label_type": "CatchType"
+          },
+          "266": {
+            "label_type": "SymbolLookup",
+            "symbol": "java.sql.SQLException"
           },
           "269": {
             "label_type": "ExecutionBlock"

@@ -15,15 +15,20 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     block_node = args.ast_graph.nodes[args.n_id]["label_field_body"]
     childs = match_ast(
-        args.ast_graph, args.n_id, "catch_declaration", "catch_filter_clause"
+        args.ast_graph,
+        args.n_id,
+        "catch_declaration",
+        "catch_filter_clause",
+        "catch_formal_parameter",
     )
     catch_declaration_block = childs.get("catch_declaration")
     catch_filter_clause_block = childs.get("catch_filter_clause")
+    catch_parameter = childs.get("catch_formal_parameter")
 
     return build_catch_clause_node(
         args,
         block_node,
         catch_declaration_block,
         catch_filter_clause_block,
-        None,
+        catch_parameter,
     )

@@ -27074,6 +27074,9 @@
             }
           },
           "1589": {
+            "1592": {
+              "label_ast": "AST"
+            },
             "1597": {
               "label_ast": "AST"
             }
@@ -27086,6 +27089,16 @@
               "label_ast": "AST"
             },
             "163": {
+              "label_ast": "AST"
+            }
+          },
+          "1592": {
+            "1593": {
+              "label_ast": "AST"
+            }
+          },
+          "1593": {
+            "1594": {
               "label_ast": "AST"
             }
           },
@@ -27136,7 +27149,20 @@
             }
           },
           "1640": {
+            "1643": {
+              "label_ast": "AST"
+            },
             "1648": {
+              "label_ast": "AST"
+            }
+          },
+          "1643": {
+            "1644": {
+              "label_ast": "AST"
+            }
+          },
+          "1644": {
+            "1645": {
               "label_ast": "AST"
             }
           },
@@ -28574,6 +28600,9 @@
             }
           },
           "78": {
+            "81": {
+              "label_ast": "AST"
+            },
             "86": {
               "label_ast": "AST"
             }
@@ -28630,6 +28659,11 @@
               "label_ast": "AST"
             }
           },
+          "81": {
+            "82": {
+              "label_ast": "AST"
+            }
+          },
           "810": {
             "811": {
               "label_ast": "AST"
@@ -28653,6 +28687,11 @@
           },
           "816": {
             "818": {
+              "label_ast": "AST"
+            }
+          },
+          "82": {
+            "83": {
               "label_ast": "AST"
             }
           },
@@ -30357,6 +30396,17 @@
             "label_type": "MethodInvocation",
             "object_id": "160"
           },
+          "1592": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "1593": {
+            "label_type": "CatchType"
+          },
+          "1594": {
+            "label_type": "SymbolLookup",
+            "symbol": "E"
+          },
           "1597": {
             "label_type": "ExecutionBlock"
           },
@@ -30412,6 +30462,17 @@
           "1640": {
             "block_id": "1648",
             "label_type": "CatchClause"
+          },
+          "1643": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "1644": {
+            "label_type": "CatchType"
+          },
+          "1645": {
+            "label_type": "SymbolLookup",
+            "symbol": "E"
           },
           "1648": {
             "label_type": "ExecutionBlock"
@@ -31971,6 +32032,10 @@
             "value": "4",
             "value_type": "string"
           },
+          "81": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
           "810": {
             "label_type": "SwitchBlockStatementGroup"
           },
@@ -31995,6 +32060,9 @@
             "value": "6",
             "value_type": "string"
           },
+          "82": {
+            "label_type": "CatchType"
+          },
           "821": {
             "arguments_id": "825",
             "expression": "println",
@@ -32017,6 +32085,10 @@
             "label_type": "Literal",
             "value": "\"You are six or less than six yr old\"",
             "value_type": "string"
+          },
+          "83": {
+            "label_type": "SymbolLookup",
+            "symbol": "IndexException"
           },
           "830": {
             "label_type": "Break"

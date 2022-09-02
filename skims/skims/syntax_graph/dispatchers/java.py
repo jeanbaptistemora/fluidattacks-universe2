@@ -5,6 +5,8 @@ from syntax_graph.syntax_readers.common import (
     break_statement as common_break_statement,
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
+    catch_parameter as common_catch_parameter,
+    catch_type as common_catch_type,
     class_declaration as common_class_declaration,
     comment as common_comment,
     conditional_expression as common_conditional_expression,
@@ -150,6 +152,18 @@ JAVA_DISPATCHERS: Dispatchers = (
             "catch_declaration",
         },
         syntax_reader=common_catch_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "catch_formal_parameter",
+        },
+        syntax_reader=common_catch_parameter.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "catch_type",
+        },
+        syntax_reader=common_catch_type.reader,
     ),
     Dispatcher(
         applicable_types={

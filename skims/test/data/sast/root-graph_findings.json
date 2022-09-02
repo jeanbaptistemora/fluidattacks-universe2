@@ -2924,7 +2924,20 @@
             }
           },
           "51": {
+            "54": {
+              "label_ast": "AST"
+            },
             "59": {
+              "label_ast": "AST"
+            }
+          },
+          "54": {
+            "55": {
+              "label_ast": "AST"
+            }
+          },
+          "55": {
+            "56": {
               "label_ast": "AST"
             }
           },
@@ -3024,6 +3037,17 @@
           "51": {
             "block_id": "59",
             "label_type": "CatchClause"
+          },
+          "54": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "55": {
+            "label_type": "CatchType"
+          },
+          "56": {
+            "label_type": "SymbolLookup",
+            "symbol": "Exception"
           },
           "59": {
             "label_type": "ExecutionBlock"
