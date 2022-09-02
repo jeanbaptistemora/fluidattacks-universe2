@@ -1,6 +1,9 @@
 from context import (
     FI_AWS_S3_FORCES_BUCKET,
 )
+from db_model import (
+    forces as forces_model,
+)
 from db_model.forces.types import (
     ForcesExecution,
 )
@@ -99,6 +102,7 @@ async def add_forces_execution(
         await save_log_execution(log, log_name)
         await save_log_execution(vulns_file, vulns_name)
         await forces_dal.add(forces_execution=forces_execution)
+        await forces_model.add(forces_execution=forces_execution)
 
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
