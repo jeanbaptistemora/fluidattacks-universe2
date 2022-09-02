@@ -1,9 +1,9 @@
 from collections import (
     defaultdict,
 )
-from dynamodb.processor import (
-    replicate_on_opensearch,
-    trigger_webhooks,
+from dynamodb.processors import (
+    opensearch,
+    webhooks,
 )
 from dynamodb.types import (
     EventName,
@@ -24,7 +24,7 @@ TRIGGERS: tuple[Trigger, ...] = (
             lambda record: record.pk.startswith("VULN#")
             and record.sk.startswith("FIN#")
         ),
-        records_processor=trigger_webhooks,
+        records_processor=webhooks.process,
     ),
     Trigger(
         batch_size=100,
@@ -33,7 +33,7 @@ TRIGGERS: tuple[Trigger, ...] = (
             and record.sk.startswith("FIN#")
             and record.event_name == EventName.INSERT
         ),
-        records_processor=replicate_on_opensearch,
+        records_processor=opensearch.process,
     ),
 )
 
