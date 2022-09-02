@@ -1,6 +1,7 @@
 from aioextensions import (
     collect,
     in_thread,
+    schedule,
 )
 import authz
 from custom_exceptions import (
@@ -352,12 +353,14 @@ async def _handle_vulnerability_acceptance(
             new_treatment.acceptance_status
             == VulnerabilityAcceptanceStatus.APPROVED
         ):
-            await send_treatment_report_mail(
-                loaders=loaders,
-                modified_by=new_treatment.modified_by,
-                justification=new_treatment.justification,
-                vulnerability_id=vulnerability.id,
-                is_approved=True,
+            schedule(
+                send_treatment_report_mail(
+                    loaders=loaders,
+                    modified_by=new_treatment.modified_by,
+                    justification=new_treatment.justification,
+                    vulnerability_id=vulnerability.id,
+                    is_approved=True,
+                )
             )
 
 
