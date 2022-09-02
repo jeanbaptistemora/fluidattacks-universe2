@@ -494,7 +494,7 @@ async def send_mail_devsecops_agent_token(
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
-        "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y-%m-%d at %H:%M:%S"),
         "responsible": user_email,
         "user_role": user_role.replace("_", " "),
         "had_token": had_token,
@@ -519,7 +519,7 @@ async def send_mail_user_unsubscribed(
 ) -> None:
     email_context: dict[str, Any] = {
         "group_name": group_name,
-        "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y-%m-%d at %H:%M:%S"),
         "user_email": user_email,
     }
     await send_mails_async(

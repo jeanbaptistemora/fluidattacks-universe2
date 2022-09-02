@@ -53,17 +53,17 @@
 {% endmacro %}
 
 {# Generic red banner #}
-{% macro banner(icon_url) %}
-<div class="body-title">
-  <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
-    <img
-    alt="Banner custom icon"
-    class="title-icon"
-    src="{{ icon_url }}">
-    {{ caller() }}
-  </p>
-</div>
-{% endmacro %}
+{%- macro banner(icon_url) %}
+    <div class="body-title">
+      <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
+        <img
+        alt="Banner custom icon"
+        class="title-icon"
+        src="{{ icon_url }}">
+        {{ caller() }}
+      </p>
+    </div>
+{%- endmacro %}
 
 {# Custom banner with news icon #}
 {% macro banner_news(text) %}
@@ -84,13 +84,13 @@
 {% endmacro %}
 
 {# Custom banner with group icon #}
-{% macro banner_group(text) %}
-  {% call banner(
+{%- macro banner_group(text) %}
+  {%- call banner(
     'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/group.png',
     ) %}
     {{ text }}
   {% endcall %}
-{% endmacro %}
+{%- endmacro %}
 
 {# Bulleted text area for findings #}
 {%+ macro findings_area(list) %}

@@ -8,25 +8,35 @@
   {{ banner_group('DevSecOps Agent Token') }}
 
   <div class="main-content">
-    <p>Hello {{ name }},</p>
+    <p>Hi {{ name }},</p>
     <p>
-      A DevSecOps Agent token has been
-      {% if had_token %} reset {% else %} generated {% endif %} {{ report_date }}
-      in the group <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>
-      as {{ user_role }}.<br/>
-    </p>
-    <p>
-      You can use the DevSeCops agent on any OS that Docker can run on. You can also integrate
-      the agent into your <strong>CI/CD</strong> to ensure that your software is built and shipped without previously
-      reported vulnerabilities in our ARM. In order to install the agent you need to follow the following guide:
-    </p>
-    <ul>
-      <li style="margin-top:2rem;">
-        <a href="https://docs.fluidattacks.com/machine/agent/installation" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-          DevSecOps Installation
+      A DevSecOps Agent token in the group
+      <strong>{{ group_name }}</strong> has been
+      {% if had_token %} reset {% else %} generated {% endif %}
+      by <strong>
+        <a
+          href="mailto:{{ responsible }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ responsible }}
         </a>
-      </li>
-    </ul>
+      </strong> {{ report_date }}.<br/>
+    </p>
+    <p>
+      You can use our DevSecOps agent on any OS on which Docker can run.
+      You can also integrate it into your <strong>CI/CD pipeline</strong>
+      to ensure that your software is built and shipped without vulnerabilities
+      previously reported in our ARM.
+      In order to install the agent, you need to follow
+      <a href="https://docs.fluidattacks.com/machine/agent/installation"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #ff3435;"
+      >
+        this guide</a>.
+    </p>
     <p>Regards,<br>Fluid Attacks Team</p>
     {{ go_to_button('Go to scope', scope_url, 'primary-button') }}
   </div>
