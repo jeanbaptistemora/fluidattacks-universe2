@@ -3,7 +3,7 @@ import { Buffer } from "buffer";
 import { useMutation } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { FormikProps } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -13,10 +13,9 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { Input, Label, Select, TextArea } from "components/Input";
+import { Input, InputArray, Select, TextArea } from "components/Input";
 import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
   handleValidationError,
   rootSchema,
@@ -26,7 +25,6 @@ import type {
   ICheckGitAccessResult,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
-import { FormikText } from "utils/forms/fields";
 
 interface IAddRootProps {
   initialValues: IRootAttr;
@@ -275,26 +273,16 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     placeholder={t("autoenrollment.environment.placeholder")}
                   />
                 </Col>
-                <Col>
-                  <Label tooltip={t("autoenrollment.exclusions.tooltip")}>
-                    {t("autoenrollment.exclusions.label")}
-                  </Label>
-                </Col>
                 <Col lg={100} md={100} sm={100}>
-                  <FormikArrayField
-                    allowEmpty={true}
-                    initialValue={""}
+                  <InputArray
+                    id={"exclusions"}
+                    initValue={""}
+                    label={t("autoenrollment.exclusions.label")}
+                    max={5}
                     name={"exclusions"}
-                  >
-                    {(fieldName: string): JSX.Element => (
-                      <Field
-                        component={FormikText}
-                        name={fieldName}
-                        placeholder={t("autoenrollment.exclusions.placeholder")}
-                        type={"text"}
-                      />
-                    )}
-                  </FormikArrayField>
+                    placeholder={t("autoenrollment.exclusions.placeholder")}
+                    tooltip={t("autoenrollment.exclusions.tooltip")}
+                  />
                 </Col>
                 {!showSubmitAlert && rootMessages.message !== "" && (
                   <Alert

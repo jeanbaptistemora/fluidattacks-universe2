@@ -43,7 +43,7 @@ const FormikArray: FC<IInputArrayProps> = ({
 
       return (
         <Gap disp={"block"} id={id} mv={8}>
-          <Label required={required} tooltip={tooltip}>
+          <Label htmlFor={id} required={required} tooltip={tooltip}>
             {label}
           </Label>
           {values.length > 0 ? (
