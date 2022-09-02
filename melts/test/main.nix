@@ -6,6 +6,9 @@
 }:
 makeScript {
   name = "melts-test";
+  replace = {
+    __argAwsLoginDev__ = outputs."/secretsForAwsFromGitlab/dev";
+  };
   searchPaths = {
     source = [
       outputs."/melts/config/development"

@@ -14,7 +14,7 @@
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
 in {
   pipelines = {
@@ -40,7 +40,7 @@ in {
               }
             ];
             stage = "test-code";
-            tags = ["dev_large"];
+            tags = ["large"];
             variables = {
               SERVICES = "s3";
               HOSTNAME_EXTERNAL = "localstack";

@@ -17,7 +17,7 @@
     - m . /lintPython/module/melts
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -39,7 +39,7 @@
     - m . /lintPython/module/meltsTest
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -64,7 +64,7 @@
       name: localstack/localstack
   stage: test-code
   tags:
-    - dev_large
+    - large
   variables:
     GIT_DEPTH: 1
     HOSTNAME_EXTERNAL: localstack
