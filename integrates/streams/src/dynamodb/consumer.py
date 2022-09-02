@@ -3,12 +3,12 @@ from dynamodb.checkpoint import (
     remove_checkpoint,
     save_checkpoint,
 )
-from dynamodb.processor import (
-    process,
-)
 from dynamodb.resource import (
     CLIENT,
     TABLE_NAME,
+)
+from dynamodb.triggers import (
+    trigger_processors,
 )
 import logging
 from threading import (
@@ -100,7 +100,6 @@ def _get_shard_records(
 ) -> Iterator[tuple[dict[str, Any], ...]]:
     """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
-    processed_batches = 0
     processed_records = 0
 
     while True:
@@ -109,14 +108,12 @@ def _get_shard_records(
             records = tuple(response["Records"])
 
             if records:
-                processed_batches += 1
-                processed_records += len(records)
-
-                if processed_batches % 10 == 0:
-                    sequence_number = records[-1]["dynamodb"]["SequenceNumber"]
-                    save_checkpoint(shard_id, sequence_number)
-
                 yield records
+
+                processed_records += len(records)
+                sequence_number = records[-1]["dynamodb"]["SequenceNumber"]
+
+                save_checkpoint(shard_id, sequence_number)
                 sleep(1)
             else:
                 sleep(10)
@@ -138,7 +135,7 @@ def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
     shard_iterator = _get_shard_iterator(stream_arn, shard_id)
 
     for records in _get_shard_records(shard_id, shard_iterator):
-        process(records)
+        trigger_processors(records)
 
 
 def consume() -> None:

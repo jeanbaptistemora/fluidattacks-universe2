@@ -10,9 +10,6 @@ from dynamodb.types import (
     EventName,
     Record,
 )
-from dynamodb.utils import (
-    format_record,
-)
 import itertools
 from more_itertools import (
     chunked,
@@ -26,9 +23,6 @@ from operator import (
     itemgetter,
 )
 import requests  # type: ignore
-from typing import (
-    Any,
-)
 
 CREDENTIALS = SESSION.get_credentials()
 CLIENT = OpenSearch(
@@ -42,7 +36,7 @@ CLIENT = OpenSearch(
 )
 
 
-def _replicate_on_opensearch(records: tuple[Record, ...]) -> None:
+def replicate_on_opensearch(records: tuple[Record, ...]) -> None:
     """Replicates the item on AWS OpenSearch"""
 
     def _replicate_chunk(chunk: tuple[Record, ...]) -> None:
@@ -76,7 +70,7 @@ def _replicate_on_opensearch(records: tuple[Record, ...]) -> None:
         _replicate_chunk(chunk)
 
 
-def _trigger_webhooks(records: tuple[Record, ...]) -> None:
+def trigger_webhooks(records: tuple[Record, ...]) -> None:
     """Notifies external integrations"""
     items_to_notify = tuple(
         record.item
@@ -108,11 +102,3 @@ def _trigger_webhooks(records: tuple[Record, ...]) -> None:
         )
 
         requests.post(FI_GOOGLE_CHAT_WEBOOK_URL, json={"text": text})
-
-
-def process(raw_records: tuple[dict[str, Any], ...]) -> None:
-    """Performs operations with the consumed records"""
-    records = tuple(format_record(record) for record in raw_records)
-
-    _replicate_on_opensearch(records)
-    _trigger_webhooks(records)

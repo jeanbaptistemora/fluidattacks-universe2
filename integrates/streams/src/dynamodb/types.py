@@ -3,6 +3,7 @@ from enum import (
 )
 from typing import (
     Any,
+    Callable,
     NamedTuple,
     Optional,
 )
@@ -19,3 +20,9 @@ class Record(NamedTuple):
     item: Optional[dict[str, Any]]
     pk: str
     sk: str
+
+
+class Trigger(NamedTuple):
+    batch_size: int
+    records_filter: Callable[[Record], bool]
+    records_processor: Callable[[tuple[Record, ...]], None]
