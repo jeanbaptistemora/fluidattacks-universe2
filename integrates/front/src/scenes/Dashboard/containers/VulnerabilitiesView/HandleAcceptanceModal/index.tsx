@@ -127,7 +127,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       const rejectedVulnIds: string[] = rejectedVulns.map(
         (vuln: IVulnDataAttr): string => vuln.id
       );
-      await isAcceptedUndefinedSelectedHelper(
+      isAcceptedUndefinedSelectedHelper(
         isAcceptedUndefinedSelected,
         handleAcceptance,
         acceptedVulnIds,

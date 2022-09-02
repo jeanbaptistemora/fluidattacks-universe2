@@ -5,6 +5,7 @@ import type {
   MutationHookOptions,
 } from "@apollo/client";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import { GET_FINDING_LOCATIONS } from "../../GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
@@ -198,7 +199,7 @@ const rejectZeroRiskProps = (
   };
 };
 
-const isAcceptedUndefinedSelectedHelper = async (
+const isAcceptedUndefinedSelectedHelper = (
   isAcceptedUndefinedSelected: boolean,
   handleAcceptance: (
     options?: MutationFunctionOptions | undefined
@@ -209,16 +210,36 @@ const isAcceptedUndefinedSelectedHelper = async (
     justification: string;
   },
   rejectedVulnIds: string[]
-): Promise<void> => {
+): void => {
   if (isAcceptedUndefinedSelected) {
-    await handleAcceptance({
-      variables: {
-        acceptedVulnerabilities: acceptedVulnIds,
-        findingId,
-        justification: values.justification,
-        rejectedVulnerabilities: rejectedVulnIds,
-      },
-    });
+    const chunksize = 10;
+
+    if (!_.isEmpty(acceptedVulnIds)) {
+      const acceptedChunks = _.chunk(acceptedVulnIds, chunksize);
+      acceptedChunks.map(async (acceptedChunk): Promise<void> => {
+        await handleAcceptance({
+          variables: {
+            acceptedVulnerabilities: acceptedChunk,
+            findingId,
+            justification: values.justification,
+            rejectedVulnerabilities: [],
+          },
+        });
+      });
+    }
+    if (!_.isEmpty(rejectedVulnIds)) {
+      const rejectedChunks = _.chunk(rejectedVulnIds, chunksize);
+      rejectedChunks.map(async (rejectedChunk): Promise<void> => {
+        await handleAcceptance({
+          variables: {
+            acceptedVulnerabilities: [],
+            findingId,
+            justification: values.justification,
+            rejectedVulnerabilities: rejectedChunk,
+          },
+        });
+      });
+    }
   }
 };
 
