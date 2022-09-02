@@ -49,6 +49,8 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $lang: ReportLang
     $lastReport: Int
     $location: String
+    $minReleaseDate: DateTime
+    $maxReleaseDate: DateTime
     $treatments: [VulnerabilityTreatment!]
     $states: [VulnerabilityState!]
     $verifications: [VulnerabilityVerification!]
@@ -66,7 +68,9 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
       lang: $lang
       lastReport: $lastReport
       location: $location
+      maxReleaseDate: $maxReleaseDate
       maxSeverity: $maxSeverity
+      minReleaseDate: $minReleaseDate
       minSeverity: $minSeverity
       states: $states
       treatments: $treatments

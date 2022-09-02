@@ -743,15 +743,25 @@ export const enTranslations: ResourceKey = {
         generateXls: "Generate XLS",
         lastReport: {
           text: "Last Report",
-          tooltip: "Filter type by days since the last reported vulnerability",
+          tooltip: "Filter types by days since the last reported vulnerability",
         },
         location: {
           text: "Locations",
           tooltip: "Filter by location",
         },
+        maxReleaseDate: {
+          text: "Max release date",
+          tooltip:
+            "Filter out vulnerabilities with release date greater than value",
+        },
         maxSeverity: {
           text: "Max severity",
           tooltip: "Filter out vulnerabilities with severity more than value",
+        },
+        minReleaseDate: {
+          text: "Min release date",
+          tooltip:
+            "Filter out vulnerabilities with release date less than value",
         },
         minSeverity: {
           text: "Min severity",

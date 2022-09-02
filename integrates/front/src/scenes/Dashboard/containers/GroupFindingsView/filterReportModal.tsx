@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 import type { TestContext } from "yup";
-import { array, number, object } from "yup";
+import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
 import { Col, Hr, Row } from "components/Layout";
@@ -51,7 +51,9 @@ interface IFormValues {
   findingTitle: string;
   lastReport: number | undefined;
   location: string;
+  maxReleaseDate: string;
   maxSeverity: number | undefined;
+  minReleaseDate: string;
   minSeverity: number | undefined;
   states: string[];
   treatments: string[];
@@ -109,7 +111,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       findingTitle: string | undefined,
       lastReport: number | undefined,
       location: string | undefined,
+      maxReleaseDate: string | undefined,
       maxSeverity: number | undefined,
+      minReleaseDate: string | undefined,
       minSeverity: number | undefined,
       states: string[],
       treatments: string[] | undefined,
@@ -128,7 +132,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           groupName,
           lastReport,
           location,
+          maxReleaseDate,
           maxSeverity,
+          minReleaseDate,
           minSeverity,
           reportType,
           states,
@@ -142,6 +148,21 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   );
 
   const validations = object().shape({
+    maxReleaseDate: date()
+      .max(new Date(), t("validations.greaterDate"))
+      .test({
+        exclusive: false,
+        message: "Must be greater than or equal to Min release date",
+        name: "min",
+        params: {},
+        test: (value: Date | undefined, thisContext: TestContext): boolean => {
+          const { minReleaseDate } = thisContext.parent;
+
+          return value === undefined || minReleaseDate === undefined
+            ? true
+            : value >= minReleaseDate;
+        },
+      }),
     maxSeverity: number()
       .max(10)
       .test({
@@ -158,6 +179,21 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           return value === undefined || minSeverity === undefined
             ? true
             : value >= (minSeverity ?? 0);
+        },
+      }),
+    minReleaseDate: date()
+      .max(new Date(), t("validations.greaterDate"))
+      .test({
+        exclusive: false,
+        message: "Must be less than or equal to Max release date",
+        name: "max",
+        params: {},
+        test: (value: Date | undefined, thisContext: TestContext): boolean => {
+          const { maxReleaseDate } = thisContext.parent;
+
+          return value === undefined || maxReleaseDate === undefined
+            ? true
+            : value <= maxReleaseDate;
         },
       }),
     minSeverity: number()
@@ -203,8 +239,11 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 findingTitle: string;
                 lastReport: number | undefined;
                 location: string;
+                maxReleaseDate: string | undefined;
                 maxSeverity: number | undefined;
+                minReleaseDate: string | undefined;
                 minSeverity: number | undefined;
+
                 states: string[];
                 treatments: string[];
                 verifications: string[];
@@ -223,9 +262,15 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                         ? undefined
                         : values.lastReport,
                       _.isEmpty(values.location) ? undefined : values.location,
+                      _.isEmpty(values.maxReleaseDate)
+                        ? undefined
+                        : values.maxReleaseDate,
                       _.isEmpty(String(values.maxSeverity))
                         ? undefined
                         : values.maxSeverity,
+                      _.isEmpty(values.minReleaseDate)
+                        ? undefined
+                        : values.minReleaseDate,
                       _.isEmpty(String(values.minSeverity))
                         ? undefined
                         : values.minSeverity,
@@ -252,7 +297,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                     findingTitle: "",
                     lastReport: undefined,
                     location: "",
+                    maxReleaseDate: "",
                     maxSeverity: undefined,
+                    minReleaseDate: "",
                     minSeverity: undefined,
                     states: [],
                     treatments: [],
@@ -311,9 +358,110 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               </Field>
                             </Tooltip>
                           </Col>
-                          <Col lg={30} md={30} sm={90}>
+                          <Col lg={50} md={50} sm={90}>
+                            <Row align={"start"} justify={"start"}>
+                              <Col lg={45} md={45} sm={45}>
+                                <Col lg={100} md={100} sm={100}>
+                                  <p className={"mb1 mt1"}>
+                                    <span className={"fw8"}>
+                                      {t(
+                                        "group.findings.report.minReleaseDate.text"
+                                      )}
+                                    </span>
+                                  </p>
+                                  <Tooltip
+                                    id={
+                                      "group.findings.report.minReleaseDate.id"
+                                    }
+                                    place={"top"}
+                                    tip={t(
+                                      "group.findings.report.minReleaseDate.tooltip"
+                                    )}
+                                  >
+                                    <Field
+                                      component={FormikDate}
+                                      customChange={onChangeDate}
+                                      name={"minReleaseDate"}
+                                    />
+                                  </Tooltip>
+                                </Col>
+                              </Col>
+                              <Col lg={5} md={5} sm={5} />
+                              <Col lg={45} md={45} sm={45}>
+                                <p className={"mb1 mt1"}>
+                                  <span className={"fw8"}>
+                                    {t(
+                                      "group.findings.report.maxReleaseDate.text"
+                                    )}
+                                  </span>
+                                </p>
+                                <Col lg={100} md={100} sm={100}>
+                                  <Tooltip
+                                    id={
+                                      "group.findings.report.maxReleaseDate.id"
+                                    }
+                                    place={"top"}
+                                    tip={t(
+                                      "group.findings.report.maxReleaseDate.tooltip"
+                                    )}
+                                  >
+                                    <Field
+                                      component={FormikDate}
+                                      customChange={onChangeDate}
+                                      name={"maxReleaseDate"}
+                                    />
+                                  </Tooltip>
+                                </Col>
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col lg={45} md={45} sm={50}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.location.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.location.id"}
+                              place={"top"}
+                              tip={t("group.findings.report.location.tooltip")}
+                            >
+                              <Field
+                                component={FormikText}
+                                name={"location"}
+                                type={"text"}
+                                validate={composeValidators([
+                                  maxLocationLength,
+                                  validTextField,
+                                ])}
+                              />
+                            </Tooltip>
+                          </Col>
+                          <Col lg={15} md={15} sm={50}>
+                            <p className={"mb1 mt1"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.lastReport.text")}
+                              </span>
+                            </p>
+                            <Tooltip
+                              id={"group.findings.report.lastReport.id"}
+                              place={"top"}
+                              tip={t(
+                                "group.findings.report.lastReport.tooltip"
+                              )}
+                            >
+                              <Field
+                                component={FormikText}
+                                max={10000}
+                                min={0}
+                                name={"lastReport"}
+                                type={"number"}
+                              />
+                            </Tooltip>
+                          </Col>
+                          <Col lg={25} md={25} sm={90}>
                             <Row align={"start"} justify={"between"}>
-                              <Col lg={40} md={40} sm={40}>
+                              <Col lg={45} md={45} sm={45}>
                                 <p className={"mb1 mt1"}>
                                   <span className={"fw8"}>
                                     {t(
@@ -350,7 +498,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                   </Col>
                                 </Row>
                               </Col>
-                              <Col lg={40} md={50} sm={50}>
+                              <Col lg={45} md={45} sm={45}>
                                 <p className={"mb1 mt1"}>
                                   <span className={"fw8"}>
                                     {t(
@@ -377,7 +525,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               </Col>
                             </Row>
                           </Col>
-                          <Col lg={5} md={5} sm={5} />
                           <Col lg={15} md={15} sm={50}>
                             <p className={"mb1 mt1"}>
                               <span className={"fw8"}>
@@ -394,51 +541,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 max={10000}
                                 min={0}
                                 name={"age"}
-                                type={"number"}
-                              />
-                            </Tooltip>
-                          </Col>
-                          <Col lg={45} md={45} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.location.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.location.id"}
-                              place={"top"}
-                              tip={t("group.findings.report.location.tooltip")}
-                            >
-                              <Field
-                                component={FormikText}
-                                name={"location"}
-                                type={"text"}
-                                validate={composeValidators([
-                                  maxLocationLength,
-                                  validTextField,
-                                ])}
-                              />
-                            </Tooltip>
-                          </Col>
-                          <Col lg={5} md={5} sm={5} />
-                          <Col lg={20} md={20} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.lastReport.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.lastReport.id"}
-                              place={"top"}
-                              tip={t(
-                                "group.findings.report.lastReport.tooltip"
-                              )}
-                            >
-                              <Field
-                                component={FormikText}
-                                max={10000}
-                                min={0}
-                                name={"lastReport"}
                                 type={"number"}
                               />
                             </Tooltip>
