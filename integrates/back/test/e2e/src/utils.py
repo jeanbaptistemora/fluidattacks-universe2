@@ -55,7 +55,7 @@ def wait_for_aria_label(
     driver: WebDriver, element: str, text: str, role: str, timeout: int
 ) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
-        ec.presence_of_element_located(
+        ec.visibility_of_element_located(
             (
                 By.XPATH,
                 f"//{element}[@aria-label='{text}' and @role='{role}']",
