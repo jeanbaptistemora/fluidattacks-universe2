@@ -80,7 +80,16 @@ export const Login: React.FC = (): JSX.Element => {
           onClick={handleBitbucketLogin}
           text={t("login.bitbucket")}
         />
-        <div className={`mt3 mb0 tc ${style["text-color"]}`}>
+        <div className={`mb0 tc ${style["text-color"]}`}>
+          <p>
+            <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+              {"Terms of Use"}
+            </ExternalLink>
+            {"|"}
+            <ExternalLink href={"https://fluidattacks.com/privacy/"}>
+              {"Privacy Policy."}
+            </ExternalLink>
+          </p>
           <p className={"mb0"}>
             {t("info.deploymentDate")}&nbsp;
             {INTEGRATES_DEPLOYMENT_DATE}
