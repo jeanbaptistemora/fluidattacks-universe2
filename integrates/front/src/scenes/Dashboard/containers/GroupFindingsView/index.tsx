@@ -37,6 +37,7 @@ import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
@@ -186,6 +187,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "releaseDate",
+      filterFn: filterDate,
       header: "Release Date",
       meta: { filterType: "dateRange" },
     },

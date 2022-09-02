@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { RowData, Table } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 
+import { DateRangeFilter } from "./DateRangeFilter";
 import { NumberFilter } from "./NumberFilter";
 import { NumberRangeFilter } from "./NumberRangeFilter";
 import { SelectFilter } from "./SelectFilter";
@@ -78,6 +79,16 @@ const Filters = <TData extends RowData>({
                 <Row key={column.id}>
                   <Col>
                     <SelectFilter column={column} />
+                  </Col>
+                </Row>
+              );
+            }
+
+            if (filterType === "dateRange") {
+              return (
+                <Row key={column.id}>
+                  <Col>
+                    <DateRangeFilter column={column} />
                   </Col>
                 </Row>
               );

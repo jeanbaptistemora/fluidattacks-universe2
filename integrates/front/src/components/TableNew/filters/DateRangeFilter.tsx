@@ -11,7 +11,7 @@ interface IDateRangeFilterProps<TData extends RowData> {
 const DateRangeFilter = <TData extends RowData>({
   column,
 }: IDateRangeFilterProps<TData>): JSX.Element => {
-  const filterValue = column.getFilterValue() as [string, string] | undefined;
+  const filterValue = column.getFilterValue() as [number, number] | undefined;
   const currentValue =
     filterValue === undefined ? [undefined, undefined] : filterValue;
 
@@ -19,9 +19,11 @@ const DateRangeFilter = <TData extends RowData>({
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       column.setFilterValue(
         (
-          old: [string, string] | undefined
-        ): [string | undefined, string | undefined] => [
-          event.target.value === "" ? undefined : event.target.value,
+          old: [number, number] | undefined
+        ): [number | undefined, number | undefined] => [
+          event.target.value === ""
+            ? undefined
+            : Date.parse(event.target.value),
           old === undefined ? undefined : old[1],
         ]
       );
@@ -33,10 +35,12 @@ const DateRangeFilter = <TData extends RowData>({
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       column.setFilterValue(
         (
-          old: [string, string] | undefined
-        ): [string | undefined, string | undefined] => [
+          old: [number, number] | undefined
+        ): [number | undefined, number | undefined] => [
           old === undefined ? undefined : old[0],
-          event.target.value === "" ? undefined : event.target.value,
+          event.target.value === ""
+            ? undefined
+            : Date.parse(event.target.value),
         ]
       );
     },
@@ -51,7 +55,10 @@ const DateRangeFilter = <TData extends RowData>({
             name: column.id,
             onBlur: (): void => undefined,
             onChange: handleMinChange,
-            value: currentValue[0] ?? "",
+            value:
+              currentValue[0] === undefined
+                ? ""
+                : new Date(currentValue[0]).toISOString().split("T")[0],
           }}
           form={{ errors: {}, touched: {} }}
           label={column.columnDef.header}
@@ -64,7 +71,10 @@ const DateRangeFilter = <TData extends RowData>({
             name: column.id,
             onBlur: (): void => undefined,
             onChange: handleMaxChange,
-            value: currentValue[1] ?? "",
+            value:
+              currentValue[1] === undefined
+                ? ""
+                : new Date(currentValue[1]).toISOString().split("T")[0],
           }}
           form={{ errors: {}, touched: {} }}
           label={""}
