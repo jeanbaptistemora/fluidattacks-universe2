@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CardsSection } from "./CardsSection";
-import { Comparative } from "./Comparative ";
+import { Comparative } from "./Comparative";
 import { PlansSection } from "./PlansSection";
 import { Portrait } from "./Portrait";
 
