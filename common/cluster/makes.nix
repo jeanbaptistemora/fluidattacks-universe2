@@ -17,6 +17,7 @@ in {
       commonCluster = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForEnvFromSops/commonClusterProd"
           outputs."/secretsForTerraformFromEnv/commonCluster"
@@ -31,6 +32,7 @@ in {
       commonCluster = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonClusterDev"
           outputs."/secretsForTerraformFromEnv/commonCluster"
@@ -63,6 +65,7 @@ in {
       commonCluster = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonClusterDev"
           outputs."/secretsForTerraformFromEnv/commonCluster"

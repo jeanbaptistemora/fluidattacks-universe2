@@ -4,8 +4,10 @@ function main {
   local group_id="235242"
   local result
 
-  sops_export_vars "__argCommonStatusSecrets__" \
-    COMMAND_LINE_TRIGGER \
+  : \
+    && source "__awsLoginDev__/template" \
+    && sops_export_vars "__argCommonStatusSecrets__" \
+      COMMAND_LINE_TRIGGER \
     && result="$(curl "https://api.checklyhq.com/check-groups/${group_id}/trigger/${COMMAND_LINE_TRIGGER}")" \
     && info "Check results:" \
     && echo "${result}" | jq . \

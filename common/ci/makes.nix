@@ -19,6 +19,7 @@ in {
       commonCi = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
         ];
@@ -32,6 +33,7 @@ in {
       commonCi = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
         ];
@@ -60,6 +62,7 @@ in {
       commonCi = {
         setup = [
           searchPaths
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
         ];

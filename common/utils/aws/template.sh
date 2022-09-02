@@ -34,7 +34,7 @@ function aws_login {
     info "Logging in as '${session}' using GitLab OIDC." \
       && _aws_login_ci "${session}" "${duration}"
   else
-    info "Looks like this job is not running on GitLab CI. Skipping."
+    info "It looks like this job is not running on GitLab CI. Skipping."
   fi
 }
 

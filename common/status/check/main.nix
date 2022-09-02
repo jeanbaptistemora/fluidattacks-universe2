@@ -7,6 +7,7 @@
 }:
 makeScript {
   replace = {
+    __awsLoginDev__ = outputs."/secretsForAwsFromGitlab/dev";
     __argCommonStatusSecrets__ = projectPath "/common/status/secrets.yaml";
   };
   entrypoint = ./entrypoint.sh;

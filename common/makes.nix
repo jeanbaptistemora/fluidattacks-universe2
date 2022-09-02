@@ -26,6 +26,10 @@
       roleArn = "arn:aws:iam::205810638802:role/dev";
       duration = 3600;
     };
+    prodCommon = {
+      roleArn = "arn:aws:iam::205810638802:role/prod_common";
+      duration = 3600;
+    };
   };
   secretsForEnvFromSops = {
     commonCloudflareDev = {

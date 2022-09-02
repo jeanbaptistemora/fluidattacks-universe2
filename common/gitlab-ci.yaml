@@ -17,7 +17,7 @@
     - m . /common/criteria/test/base
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -39,7 +39,7 @@
     - m . /common/criteria/test/skims-sync
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -61,7 +61,7 @@
     - m . /common/criteria/test/unreferenced
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +82,7 @@
     - m . /deployTerraform/commonCi
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -103,7 +103,7 @@
     - m . /deployTerraform/commonCluster
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -124,7 +124,7 @@
     - m . /deployTerraform/commonCompute
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -145,7 +145,7 @@
     - m . /deployTerraform/commonDns
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -166,7 +166,7 @@
     - m . /deployTerraform/commonFoss
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -187,7 +187,7 @@
     - m . /deployTerraform/commonOkta
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -208,7 +208,7 @@
     - m . /deployTerraform/commonStatus
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -229,7 +229,7 @@
     - m . /deployTerraform/commonUsers
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -250,7 +250,7 @@
     - m . /deployTerraform/commonVpc
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -271,7 +271,7 @@
     - m . /deployTerraform/commonVpn
   stage: deploy-infra
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -293,7 +293,7 @@
     - m . /docs/generate/criteria
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -315,7 +315,7 @@
     - m . /lintPython/module/commonComputeScheduleParseTerraform
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -337,7 +337,7 @@
     - m . /lintPython/module/commonOktaParse
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -359,7 +359,7 @@
     - m . /lintTerraform/commonCi
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -381,7 +381,7 @@
     - m . /lintTerraform/commonCluster
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -403,7 +403,7 @@
     - m . /lintTerraform/commonCompute
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -425,7 +425,7 @@
     - m . /lintTerraform/commonDns
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -447,7 +447,7 @@
     - m . /lintTerraform/commonFoss
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -469,7 +469,7 @@
     - m . /lintTerraform/commonOkta
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -491,7 +491,7 @@
     - m . /lintTerraform/commonStatus
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -513,7 +513,7 @@
     - m . /lintTerraform/commonUsers
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -535,7 +535,7 @@
     - m . /lintTerraform/commonVpc
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -557,7 +557,7 @@
     - m . /lintTerraform/commonVpn
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -579,7 +579,7 @@
     - m . /lintWithAjv/common/compute/arch/sizes
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -601,7 +601,7 @@
     - m . /lintWithAjv/common/criteria/compliance
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -623,7 +623,7 @@
     - m . /lintWithAjv/common/criteria/requirements
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -645,7 +645,7 @@
     - m . /lintWithAjv/common/criteria/vulnerabilities
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -667,7 +667,7 @@
     - m . /pipelineOnGitlab/common
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -685,7 +685,7 @@
     - m . /taintTerraform/commonUsersKeys1
   stage: rotation
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -703,7 +703,7 @@
     - m . /taintTerraform/commonUsersKeys2
   stage: rotation
   tags:
-    - prod_common_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -725,7 +725,7 @@
     - m . /testTerraform/commonCi
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -747,7 +747,7 @@
     - m . /testTerraform/commonCluster
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -769,7 +769,7 @@
     - m . /testTerraform/commonCompute
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -791,7 +791,7 @@
     - m . /testTerraform/commonDns
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -813,7 +813,7 @@
     - m . /testTerraform/commonFoss
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -835,7 +835,7 @@
     - m . /testTerraform/commonOkta
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -857,7 +857,7 @@
     - m . /testTerraform/commonStatus
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -879,7 +879,7 @@
     - m . /testTerraform/commonUsers
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -901,7 +901,7 @@
     - m . /testTerraform/commonVpc
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -923,7 +923,7 @@
     - m . /testTerraform/commonVpn
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

@@ -4,6 +4,7 @@
     modules = {
       commonFoss = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonFossProd"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
@@ -16,6 +17,7 @@
     modules = {
       commonFoss = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonFossDev"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
@@ -43,6 +45,7 @@
     modules = {
       commonFoss = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonFossDev"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];

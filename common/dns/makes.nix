@@ -4,6 +4,7 @@
     modules = {
       commonDns = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
@@ -16,6 +17,7 @@
     modules = {
       commonDns = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
@@ -34,6 +36,7 @@
     modules = {
       commonDns = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];

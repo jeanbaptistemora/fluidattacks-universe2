@@ -7,6 +7,7 @@
     modules = {
       commonOkta = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
@@ -19,6 +20,7 @@
     modules = {
       commonOkta = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
@@ -44,6 +46,7 @@
     modules = {
       commonOkta = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];

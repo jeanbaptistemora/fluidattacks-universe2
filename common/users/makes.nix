@@ -9,6 +9,7 @@
     modules = {
       commonUsers = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -21,6 +22,7 @@
     modules = {
       commonUsers = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -33,6 +35,7 @@
     modules = {
       commonUsersKeys1 = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -54,6 +57,7 @@
       };
       commonUsersKeys2 = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -79,6 +83,7 @@
     modules = {
       commonUsers = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];

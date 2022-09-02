@@ -8,6 +8,7 @@
     modules = {
       commonCompute = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
@@ -19,6 +20,7 @@
     modules = {
       commonCompute = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
@@ -30,6 +32,7 @@
     modules = {
       commonCompute = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/dev"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
