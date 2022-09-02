@@ -41,13 +41,13 @@ this is how SLSA definitions map into our infrastructure:
   [Makes][makes],
   and the [Nix package manager][nix].
 - **Build**: A Nix derivation.
-- **Environment**: [Control Group](https://en.wikipedia.org/wiki/Cgroups)
-  created by Nix
+- **Environment**: A sandbox
   that [Chroot](https://en.wikipedia.org/wiki/Chroot)s
   into an empty temporary directory,
-  and provides no network
-  or file system access
-  outside of it.
+  provides private versions
+  of `/proc`, `/dev`, `/dev/shm`, and `/dev/pts`,
+  and uses a private PID, mount, network, IPC, and UTS namespace
+  to isolate itself from other processes in the system.
 - **Steps**: Instructions declared
   in the corresponding Makes configuration files
   written using the Nix programming language
@@ -111,7 +111,7 @@ and no obliteration policy is in effect.
 In fact, our source code is Free and Open Source Software:
 [Change History](https://gitlab.com/fluidattacks/universe/-/commits).
 
-### Two person reviewed
+### Two Person Reviewed
 
 <!-- TODO: We need two trusted persons for L4 -->
 
@@ -143,8 +143,8 @@ All build steps run on GitLab CI/CD.
 
 ### Build As Code
 
-All build steps have been defined as-code using the
-[GitLab CI/CD configuration file](https://gitlab.com/fluidattacks/universe/-/blob/trunk/.gitlab-ci.yml).
+All build steps have been stored and versioned
+in the Git Repository: [.gitlab-ci.yml](https://gitlab.com/fluidattacks/universe/-/blob/trunk/.gitlab-ci.yml).
 
 ### Ephemeral Environment
 
@@ -173,10 +173,11 @@ which prevents builds
 from accessing any external environment variables,
 network resources, sockets,
 or paths in the file system.
-
-Each build is created as a different OS process
-inside a [Control Group](https://en.wikipedia.org/wiki/Cgroups)
-making them isolated from each other.
+and provides private versions
+of `/proc`, `/dev`, `/dev/shm`, and `/dev/pts`,
+and uses a private PID, mount, network, IPC, and UTS namespace
+to isolate the build from other builds
+happening concurrently in the system.
 
 Input-addressed build caches are used to speed-up the pipeline.
 
@@ -188,6 +189,32 @@ and the top-level source location.
 
 In order to modify the build output,
 a change to the source code must happen first.
+
+### Hermetic
+
+Builds are executed using the [Nix package manager][nix],
+which prevents builds
+from accessing any external environment variables,
+network resources, sockets,
+or paths in the file system.
+
+All transitive build steps, sources, and dependencies
+are fully declared up front with immutable references.
+For example:
+[makes.nix](https://gitlab.com/fluidattacks/universe/-/blob/cf4c6e37b76978f6ca9036f79602bca32383d61a/makes.nix#L93).
+
+The [Nix package manager][nix]:
+
+- Fetches all of the declared artifacts
+  into a trusted control plane (the /nix/store).
+- Mounts into the build sandbox
+  the specific /nix/store paths required by it.
+- Allows a build to fetch artifacts over the network
+  if and only if the expected artifact integrity is specified.
+- Validates the integrity of each artifact
+  before allowing a build to use it,
+  and fails the build if the verification fails.
+- Denies network connectivity if no expected hash is specified.
 
 <!-- References -->
 
