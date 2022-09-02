@@ -18,6 +18,7 @@ from syntax_graph.syntax_readers.dart import (
     function_signature as dart_function_signature,
     import_or_export as dart_import_or_export,
     selector as dart_selector,
+    type_identifier as dart_type_identifier,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -52,6 +53,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "block",
+            "extension_body",
         },
         syntax_reader=common_execution_block.reader,
     ),
@@ -127,6 +129,12 @@ DART_DISPATCHERS: Dispatchers = (
             "selector",
         },
         syntax_reader=dart_selector.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_identifier",
+        },
+        syntax_reader=dart_type_identifier.reader,
     ),
     Dispatcher(
         applicable_types={

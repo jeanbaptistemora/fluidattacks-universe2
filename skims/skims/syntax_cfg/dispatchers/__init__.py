@@ -39,6 +39,7 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "ExecutionBlock",
+            "ParameterList",
         },
         cfg_builder=step_by_step.build,
     ),
@@ -58,6 +59,7 @@ DISPATCHERS: Dispatchers = (
             "CatchDeclaration",
             "ClassBody",
             "Comment",
+            "FunctionBody",
             "LexicalDeclaration",
             "Literal",
             "MethodInvocation",

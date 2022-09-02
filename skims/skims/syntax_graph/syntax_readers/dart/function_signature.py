@@ -1,8 +1,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.function_signature import (
-    build_function_signature_node,
+from syntax_graph.syntax_nodes.method_declaration import (
+    build_method_declaration_node,
 )
 from syntax_graph.types import (
     MissingCaseHandling,
@@ -27,8 +27,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
         )
     ):
         function_name = node_to_str(args.ast_graph, name_id)
-        return build_function_signature_node(
-            args, function_name, parameters_id, body_id
+        return build_method_declaration_node(
+            args, function_name, body_id, {"parameters_id": parameters_id}
         )
 
     raise MissingCaseHandling(
