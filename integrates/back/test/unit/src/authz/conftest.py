@@ -17,7 +17,7 @@ def aws_credentials() -> None:
     os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(name="dynamo_resource", scope="module")
 def dynamodb() -> ServiceResource:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
@@ -25,7 +25,7 @@ def dynamodb() -> ServiceResource:
 
 
 @pytest.fixture(scope="module", autouse=True)
-def create_table(dynamodb: ServiceResource) -> None:
+def create_table(dynamo_resource: ServiceResource) -> None:
     table_name = "fi_authz"
     key_schema = [
         {"AttributeName": "subject", "KeyType": "HASH"},
@@ -80,10 +80,10 @@ def create_table(dynamodb: ServiceResource) -> None:
         ),
     ]
 
-    dynamodb.create_table(
+    dynamo_resource.create_table(
         TableName=table_name,
         KeySchema=key_schema,
         AttributeDefinitions=attribute_definitions,
     )
     for item in data:
-        dynamodb.Table(table_name).put_item(Item=item)
+        dynamo_resource.Table(table_name).put_item(Item=item)

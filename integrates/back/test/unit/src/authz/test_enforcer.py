@@ -19,6 +19,7 @@ pytestmark = [
 ]
 
 
+# pylint: disable=consider-using-dict-items
 @pytest.mark.changes_db
 async def test_organization_level_enforcer() -> None:
     test_cases = {
@@ -62,6 +63,7 @@ async def test_organization_level_enforcer() -> None:
                     ), f"{role} should not be able to do {action}"
 
 
+# pylint: disable=consider-using-dict-items
 @pytest.mark.changes_db
 async def test_group_level_enforcer() -> None:
     test_cases = {
@@ -97,6 +99,7 @@ async def test_group_level_enforcer() -> None:
                     ), f"{role} should not be able to do {action}"
 
 
+# pylint: disable=consider-using-dict-items
 @pytest.mark.changes_db
 async def test_user_level_enforcer() -> None:
     test_cases = [

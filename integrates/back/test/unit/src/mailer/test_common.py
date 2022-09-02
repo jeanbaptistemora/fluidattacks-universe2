@@ -1,4 +1,3 @@
-# pylint: disable=too-many-arguments
 from aioextensions import (
     collect,
 )
