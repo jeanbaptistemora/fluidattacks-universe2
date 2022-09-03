@@ -40,7 +40,6 @@ async def get_result(
                 minAcceptanceSeverity
                 minBreakingSeverity
                 openFindings
-                totalTreatment
                 subscription
                 deletionDate
                 userDeletion

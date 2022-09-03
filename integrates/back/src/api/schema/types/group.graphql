@@ -144,14 +144,6 @@ type Group {
     "Id of the root the lines is associated with"
     rootId: ID
   ): ToeLinesConnection!
-  "Total amount of treatments, divided by category"
-  totalTreatment: GenericScalar!
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/09/02.
-      Use `treatmentSummary` at finding level instead.
-      """
-    )
   "Last removed user from the group"
   userDeletion: String
   "Role of the current user within the group"
