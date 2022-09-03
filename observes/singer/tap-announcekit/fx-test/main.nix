@@ -9,6 +9,7 @@ makeScript {
   replace = {
     __argEnvSrc__ = projectPath inputs.observesIndex.tap.announcekit.root;
     __argEnvTestDir__ = "fx_tests";
+    __argSecretsAwsDev__ = outputs."/secretsForAwsFromGitlab/dev";
   };
   searchPaths = {
     source = [

@@ -52,6 +52,7 @@ function dynamodb_etl {
     && schemas=$(mktemp -d) \
     && singer_file=$(mktemp) \
     && data=$(mktemp) \
+    && aws_login "prod_observes" "3600" \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
     && export_notifier_key \

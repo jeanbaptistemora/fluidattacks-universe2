@@ -8,6 +8,7 @@ function main {
 
   db_creds=$(mktemp) \
     && zoho_creds=$(mktemp) \
+    && source "__argSecretsAwsProd__/template" \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       zoho_crm_bulk_creator_creds \

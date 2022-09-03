@@ -8,6 +8,7 @@ function job_timedoctor {
 
   db_creds=$(mktemp) \
     && mkdir ./logs \
+    && aws_login "prod_observes" "3600" \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \

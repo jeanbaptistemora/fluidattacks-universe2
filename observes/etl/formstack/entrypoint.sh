@@ -9,6 +9,7 @@ function start_etl {
 
   db_creds=$(mktemp) \
     && formstack_creds=$(mktemp) \
+    && source "__argSecretsAwsProd__/template" \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_auth_formstack \

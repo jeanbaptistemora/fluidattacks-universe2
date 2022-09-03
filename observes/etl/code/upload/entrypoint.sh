@@ -14,6 +14,7 @@ function job_code_upload {
     && creds=$(mktemp) \
     && migration_groups_file=$(mktemp) \
     && migrated_groups_file=$(mktemp) \
+    && source "__argSecretsAwsProd__/template" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
       SERVICES_API_TOKEN \

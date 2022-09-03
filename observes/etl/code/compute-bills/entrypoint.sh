@@ -11,6 +11,7 @@ function job_compute_bills {
 
   db=$(mktemp) \
     && creds=$(mktemp) \
+    && aws_login "prod_observes" "3600" \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && export_notifier_key \

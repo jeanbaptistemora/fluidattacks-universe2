@@ -5,6 +5,9 @@
   ...
 }:
 makeScript {
+  replace = {
+    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodObserves";
+  };
   searchPaths = {
     source = [
       outputs."/common/utils/sops"

@@ -26,27 +26,27 @@
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-infra";
-    tags = ["prod_observes_small"];
+    tags = ["small"];
   };
   gitlabBuild = {
     rules = gitlabOnlyDev;
     stage = "build";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabTestCode = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   # new standard
   index = inputs.observesIndex;

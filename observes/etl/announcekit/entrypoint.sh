@@ -8,6 +8,7 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
+    && source "__argSecretsAwsProd__/template" \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       announcekit_user \
       announcekit_passwd \

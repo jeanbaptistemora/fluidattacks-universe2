@@ -50,6 +50,7 @@ function dynamodb_etl {
   schemas=$(mktemp -d) \
     && singer_file=$(mktemp) \
     && data=$(mktemp) \
+    && aws_login "prod_observes" "3600" \
     && echo '[INFO] Generating secret files' \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       'REDSHIFT_DATABASE' \

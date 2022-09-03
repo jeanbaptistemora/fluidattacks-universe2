@@ -5,6 +5,9 @@
   ...
 }:
 makeScript {
+  replace = {
+    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodObserves";
+  };
   searchPaths = {
     bin = [
       outputs."${inputs.observesIndex.tap.json.bin}"

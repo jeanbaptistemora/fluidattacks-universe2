@@ -9,6 +9,7 @@ function job_code_mirror {
     && if test -z "${group}"; then
       abort '[INFO] Please set the first argument to the group name'
     fi \
+    && source "__argSecretsAwsProd__/template" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && pushd "${working_dir}" \

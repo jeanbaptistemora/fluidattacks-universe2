@@ -3,6 +3,7 @@ export ANNOUNCEKIT_USER
 export ANNOUNCEKIT_PASSWD
 
 : \
+  && source "__argSecretsAwsDev__/template" \
   && sops_export_vars 'observes/secrets/dev.yaml' \
     "announcekit_user" \
     "announcekit_passwd" \

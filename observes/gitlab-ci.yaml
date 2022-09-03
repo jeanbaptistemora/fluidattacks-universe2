@@ -16,7 +16,7 @@
     - m . /deployTerraform/observes
   stage: deploy-infra
   tags:
-    - prod_observes_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -38,7 +38,7 @@
     - m . /lintPython/imports/observesArch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -60,7 +60,7 @@
     - m . /lintPython/imports/observesCommonPaginator
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +82,7 @@
     - m . /lintPython/imports/observesCommonPostgresClient
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -104,7 +104,7 @@
     - m . /lintPython/imports/observesCommonSingerIo
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -126,7 +126,7 @@
     - m . /lintPython/imports/observesTapAnnounceKit
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -148,7 +148,7 @@
     - m . /lintPython/imports/observesTapBugsnag
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -170,7 +170,7 @@
     - m . /lintPython/imports/observesTapCsv
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -192,7 +192,7 @@
     - m . /lintPython/imports/observesTapDelighted
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -214,7 +214,7 @@
     - m . /lintPython/imports/observesTapFormstack
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -236,7 +236,7 @@
     - m . /lintPython/imports/observesTapJson
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -258,7 +258,7 @@
     - m . /lintPython/imports/observesTapMailchimp
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -280,7 +280,7 @@
     - m . /lintPython/imports/observesTapMixpanel
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -302,7 +302,7 @@
     - m . /lintPython/imports/observesTapTimedoctor
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -324,7 +324,7 @@
     - m . /lintPython/module/observesCommonPaginator
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -346,7 +346,7 @@
     - m . /lintPython/module/observesCommonPostgresClient
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -368,7 +368,7 @@
     - m . /lintPython/module/observesCommonPostgresClientTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -390,7 +390,7 @@
     - m . /lintPython/module/observesCommonSingerIo
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -412,7 +412,7 @@
     - m . /lintPython/module/observesCommonSingerIoTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -434,7 +434,7 @@
     - m . /lintPython/module/observesStreamerZohoCrm
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -456,7 +456,7 @@
     - m . /lintPython/module/observesStreamerZohoCrmTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -478,7 +478,7 @@
     - m . /lintPython/module/observesTapAnnounceKit
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -500,7 +500,7 @@
     - m . /lintPython/module/observesTapAnnounceKitTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -522,7 +522,7 @@
     - m . /lintPython/module/observesTapBugsnag
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -544,7 +544,7 @@
     - m . /lintPython/module/observesTapCsv
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -566,7 +566,7 @@
     - m . /lintPython/module/observesTapCsvTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -588,7 +588,7 @@
     - m . /lintPython/module/observesTapDelighted
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -610,7 +610,7 @@
     - m . /lintPython/module/observesTapFormstack
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -632,7 +632,7 @@
     - m . /lintPython/module/observesTapJson
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -654,7 +654,7 @@
     - m . /lintPython/module/observesTapMailchimp
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -676,7 +676,7 @@
     - m . /lintPython/module/observesTapMailchimpTests
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -698,7 +698,7 @@
     - m . /lintPython/module/observesTapTimedoctor
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -720,7 +720,7 @@
     - m . /lintPython/module/observesTargetRedshift
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -742,7 +742,7 @@
     - m . /lintTerraform/observes
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -764,7 +764,7 @@
     - m . /observes/common/asm-dal/check/arch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -786,7 +786,7 @@
     - m . /observes/common/asm-dal/check/runtime
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -808,7 +808,7 @@
     - m . /observes/common/asm-dal/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -830,7 +830,7 @@
     - m . /observes/common/asm-dal/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -852,7 +852,7 @@
     - m . /observes/common/asm-dal/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -874,7 +874,7 @@
     - m . /observes/common/singer-io/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -896,7 +896,7 @@
     - m . /observes/common/utils-logger-2/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -918,7 +918,7 @@
     - m . /observes/common/utils-logger-2/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -940,7 +940,7 @@
     - m . /observes/common/utils-logger-2/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -962,7 +962,7 @@
     - m . /observes/etl/code/lint
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -984,7 +984,7 @@
     - m . /observes/etl/code/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1006,7 +1006,7 @@
     - m . /observes/etl/dynamo_etl_conf/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1028,7 +1028,7 @@
     - m . /observes/etl/dynamo_etl_conf/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1050,7 +1050,7 @@
     - m . /observes/etl/dynamo_etl_conf/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1072,7 +1072,7 @@
     - m . /observes/service/batch-stability/check/arch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1094,7 +1094,7 @@
     - m . /observes/service/batch-stability/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1116,7 +1116,7 @@
     - m . /observes/service/batch-stability/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1138,7 +1138,7 @@
     - m . /observes/service/batch-stability/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1160,7 +1160,7 @@
     - m . /observes/service/job-last-success/check/arch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1182,7 +1182,7 @@
     - m . /observes/service/job-last-success/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1204,7 +1204,7 @@
     - m . /observes/service/job-last-success/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1226,7 +1226,7 @@
     - m . /observes/service/job-last-success/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1248,7 +1248,7 @@
     - m . /observes/service/jobs-scheduler/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1270,7 +1270,7 @@
     - m . /observes/service/jobs-scheduler/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1292,7 +1292,7 @@
     - m . /observes/service/jobs-scheduler/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1314,7 +1314,7 @@
     - m . /observes/singer/tap-announcekit/fx-test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1336,7 +1336,7 @@
     - m . /observes/singer/tap-announcekit/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1358,7 +1358,7 @@
     - m . /observes/singer/tap-checkly/check/arch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1380,7 +1380,7 @@
     - m . /observes/singer/tap-checkly/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1402,7 +1402,7 @@
     - m . /observes/singer/tap-checkly/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1424,7 +1424,7 @@
     - m . /observes/singer/tap-checkly/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1446,7 +1446,7 @@
     - m . /observes/singer/tap-csv/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1468,7 +1468,7 @@
     - m . /observes/singer/tap-dynamo/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1490,7 +1490,7 @@
     - m . /observes/singer/tap-dynamo/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1512,7 +1512,7 @@
     - m . /observes/singer/tap-dynamo/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1534,7 +1534,7 @@
     - m . /observes/singer/tap-gitlab/check/arch
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1556,7 +1556,7 @@
     - m . /observes/singer/tap-gitlab/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1578,7 +1578,7 @@
     - m . /observes/singer/tap-gitlab/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1600,7 +1600,7 @@
     - m . /observes/singer/tap-gitlab/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1622,7 +1622,7 @@
     - m . /observes/singer/tap-mailchimp/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1644,7 +1644,7 @@
     - m . /observes/singer/tap-mandrill/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1666,7 +1666,7 @@
     - m . /observes/singer/tap-mandrill/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1688,7 +1688,7 @@
     - m . /observes/singer/tap-mandrill/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1710,7 +1710,7 @@
     - m . /observes/singer/tap-mixpanel/test
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1732,7 +1732,7 @@
     - m . /observes/singer/target-s3/check/tests
   stage: test-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1754,7 +1754,7 @@
     - m . /observes/singer/target-s3/check/types
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1776,7 +1776,7 @@
     - m . /observes/singer/target-s3/env/dev
   stage: build
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1798,7 +1798,7 @@
     - m . /pipelineOnGitlab/observes
   stage: lint-code
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1820,7 +1820,7 @@
     - m . /testTerraform/observes
   stage: test-infra
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

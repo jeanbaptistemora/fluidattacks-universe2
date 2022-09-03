@@ -3,6 +3,7 @@
     modules = {
       observes = {
         setup = [
+          outputs."/secretsForAwsFromGitlab/prodObserves"
           outputs."/secretsForEnvFromSops/observesProd"
           outputs."/secretsForTerraformFromEnv/observesProd"
         ];
@@ -14,6 +15,7 @@
   lintTerraform = {
     modules = {
       observes = {
+        setup = [outputs."/secretsForAwsFromGitlab/dev"];
         src = "/observes/infra/src";
         version = "1.0";
       };
@@ -34,6 +36,7 @@
   testTerraform = {
     modules = {
       observes = {
+        setup = [outputs."/secretsForAwsFromGitlab/dev"];
         src = "/observes/infra/src";
         version = "1.0";
       };

@@ -17,6 +17,7 @@ function job_timedoctor_backup {
     && ca_file="timedoctor.computer_activity.${start_date}.${end_date}.singer" \
     && wl_file="timedoctor.worklogs.${start_date}.${end_date}.singer" \
     && mkdir ./logs \
+    && source "__argSecretsAwsProd__/template" \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \

@@ -6,6 +6,7 @@ alias target-redshift="observes-target-redshift"
 
 function start_etl {
   : \
+    && source "__argSecretsAwsDev__/template" \
     && sops_export_vars 'observes/secrets-dev.yaml' \
       announcekit_user \
       announcekit_passwd \
