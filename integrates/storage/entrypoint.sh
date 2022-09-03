@@ -61,13 +61,15 @@ function serve {
         && if test -z "${CI_COMMIT_REF_NAME:-}"; then
           CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
         fi \
-        && for bucket in "${buckets_by_branch[@]}"; do
-          aws_s3_sync \
-            "s3://${bucket}/${CI_COMMIT_REF_NAME}" \
-            "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
-            --delete \
-            || return 1
-        done \
+        && if test "${CI_COMMIT_REF_NAME}" != "trunk"; then
+          for bucket in "${buckets_by_branch[@]}"; do
+            aws_s3_sync \
+              "s3://${bucket}/${CI_COMMIT_REF_NAME}" \
+              "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
+              --delete \
+              || return 1
+          done
+        fi \
         && bill_date="$(date +'%Y/%m')" \
         && aws_s3_sync \
           "s3://${bill_bucket}/bills/test" \
