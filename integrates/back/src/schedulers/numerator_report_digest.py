@@ -385,7 +385,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
             content=content,
             date_range=date_range,
             date_report=datetime_utils.get_datetime_from_iso_str(
-                vuln.state.modified_date
+                finding.state.modified_date
             ),
             field="released",
             group=group,
