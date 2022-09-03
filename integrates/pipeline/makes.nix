@@ -153,6 +153,12 @@
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingMakes
   ];
+  gitlabOnlyDevAndProd = [
+    gitlabCi.rules.notMrs
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingMakes
+  ];
   gitlabDeployEphemeralRule = [
     gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
@@ -188,7 +194,7 @@
     tags = ["small"];
   };
   gitlabExternal = {
-    rules = gitlabOnlyDev;
+    rules = gitlabOnlyDevAndProd;
     stage = "external";
     tags = ["small"];
   };
@@ -202,8 +208,13 @@
     stage = "post-deploy";
     tags = ["small"];
   };
-  gitlabTest = {
+  gitlabTestDev = {
     rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = ["small"];
+  };
+  gitlabTestDevAndProd = {
+    rules = gitlabOnlyDevAndProd;
     stage = "test-code";
     tags = ["small"];
   };
@@ -300,7 +311,7 @@ in {
             inherit args;
             output = "/integrates/back/test/functional";
             gitlabExtra =
-              gitlabTest
+              gitlabTestDevAndProd
               // {
                 artifacts = {
                   paths = ["integrates/.coverage*"];
@@ -314,7 +325,7 @@ in {
           {
             output = "/integrates/back/test/unit";
             gitlabExtra =
-              gitlabTest
+              gitlabTestDevAndProd
               // {
                 artifacts = {
                   name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
@@ -327,7 +338,7 @@ in {
           }
           {
             output = "/integrates/back/test/check-forces-output";
-            gitlabExtra = gitlabTest;
+            gitlabExtra = gitlabTestDev;
           }
           rec {
             args = ["dev" (toString gitlabExtra.parallel) "gitlab"];
@@ -455,7 +466,7 @@ in {
           {
             output = "/integrates/front/test";
             gitlabExtra =
-              gitlabTest
+              gitlabTestDevAndProd
               // {
                 after_script = [
                   "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
