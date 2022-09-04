@@ -1,6 +1,7 @@
 {
   fetchGithub,
   fromJsonFile,
+  inputs,
   projectPath,
   ...
 }: {
@@ -38,6 +39,10 @@
     skimsTestPythonCategories =
       fromJsonFile
       (projectPath "/skims/test/test_groups.json");
+    skimsTestPythonCategoriesCI =
+      builtins.filter
+      (category: category != "_" && category != "all")
+      (inputs.skimsTestPythonCategories);
     skimsTreeSitterCSharp = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-c-sharp";

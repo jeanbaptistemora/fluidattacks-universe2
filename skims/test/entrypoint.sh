@@ -26,7 +26,7 @@ function main {
       -vvv \
     && popd \
     && popd \
-    && copy "${RANDOM_DIR}/__project__/skims/.coverage" skims/.coverage
+    && copy "${RANDOM_DIR}/__project__/skims/.coverage" skims/.coverage.__argCategory__
 }
 
 main "${@}"

@@ -152,6 +152,55 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/skims/coverage:
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs:
+    - /testPython/skims@benchmark_cmdi
+    - /testPython/skims@benchmark_crypto
+    - /testPython/skims@benchmark_hash
+    - /testPython/skims@benchmark_ldapi
+    - /testPython/skims@benchmark_pathtraver
+    - /testPython/skims@benchmark_securecookie
+    - /testPython/skims@benchmark_sqli
+    - /testPython/skims@benchmark_trustbound
+    - /testPython/skims@benchmark_weakrand
+    - /testPython/skims@benchmark_xpathi
+    - /testPython/skims@benchmark_xss
+    - /testPython/skims@functional
+    - /testPython/skims@instance_references
+    - /testPython/skims@lib_apk
+    - /testPython/skims@lib_http
+    - /testPython/skims@lib_path
+    - /testPython/skims@lib_ssl
+    - /testPython/skims@nist_c_sharp
+    - /testPython/skims@nist_c_sharp_f001
+    - /testPython/skims@nist_c_sharp_f004
+    - /testPython/skims@nist_c_sharp_f008
+    - /testPython/skims@nist_c_sharp_f021
+    - /testPython/skims@nist_c_sharp_f063
+    - /testPython/skims@nist_c_sharp_f107
+    - /testPython/skims@unittesting
+    - /testPython/skims@vulnerableapp
+    - /testPython/skims@vulnerable_js_app
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /skims/coverage
+  stage: post-deploy
+  tags:
+    - dev_small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /skims/deploy/prod:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
@@ -198,6 +247,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_cmdi:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -220,6 +274,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_crypto:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -242,6 +301,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_hash:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -264,6 +328,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_ldapi:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -286,6 +355,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_pathtraver:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -308,6 +382,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_securecookie:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -330,6 +409,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_sqli:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -352,6 +436,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_trustbound:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -374,6 +463,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_weakrand:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -396,6 +490,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_xpathi:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -418,6 +517,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@benchmark_xss:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -440,6 +544,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@functional:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:
@@ -464,6 +573,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@instance_references:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -486,6 +600,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_apk:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -508,6 +627,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_http:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -530,6 +654,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_path:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -552,6 +681,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_ssl:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -574,6 +708,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -596,6 +735,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f001:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -618,6 +762,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f004:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -640,6 +789,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f008:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -662,6 +816,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f021:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -684,6 +843,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f063:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -706,6 +870,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@nist_c_sharp_f107:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -728,6 +897,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@unittesting:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -750,6 +924,11 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@vulnerable_js_app:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -772,6 +951,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@vulnerableapp:
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []

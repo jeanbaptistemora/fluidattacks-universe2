@@ -97,14 +97,35 @@ in {
               then 0
               else 1;
             gitlabExtra =
-              if builtins.elem category categoriesIntegrates
-              then gitlabTestFuntional
-              else gitlabTest;
+              (
+                if builtins.elem category categoriesIntegrates
+                then gitlabTestFuntional
+                else gitlabTest
+              )
+              // {
+                artifacts = {
+                  name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
+                  paths = [
+                    "skims/.coverage*"
+                  ];
+                  expire_in = "1 week";
+                };
+              };
           })
-          (builtins.filter
-            (category: category != "_" && category != "all")
-            (inputs.skimsTestPythonCategories)))
+          inputs.skimsTestPythonCategoriesCI)
         ++ [
+          {
+            output = "/skims/coverage";
+            gitlabExtra =
+              gitlabTest
+              // {
+                needs =
+                  builtins.map
+                  (category: "/testPython/skims@${category}")
+                  inputs.skimsTestPythonCategoriesCI;
+                stage = "post-deploy";
+              };
+          }
           {
             output = "/skims/test/cli";
             gitlabExtra = gitlabTestFuntional;
