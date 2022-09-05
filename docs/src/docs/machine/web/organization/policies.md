@@ -15,26 +15,26 @@ You can access the **Policies** section
 by clicking on the **Policies** tab on
 your organization's home page on ARM.
 
-![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1657120528/docs/web/organizations/policies_list.png)
+![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1662386894/docs/web/organizations/policies_tab.png)
 
 In this section,
 you will find two tables.
 The first one allows you to define
-values for five policies within your
+values for six policies within your
 organization.
-The first three policies specify
+The first four policies specify
 the conditions for the temporary
 acceptance of vulnerabilities;
 the other two,
 for breaking the build.
 Below we explain each of the
-five policies you can set up.
+six policies you can set up.
 You can hover your cursor over
 the icon with the letter _i_
 next to a policy to see the
 value we recommend.
 
-![Policies Section Detail](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537790/docs/web/organizations/policies_section_tab.png)
+![Policies Section Detail](https://res.cloudinary.com/fluid-attacks/image/upload/v1662386893/docs/web/organizations/list_policies.png)
 
 ## Maximum number of calendar days a finding can be temporarily accepted​
 
@@ -86,21 +86,27 @@ of the CVSS score that a vulnerability
 has to have in order for the DevSecOps
 agent to break the build.
 
-## Temporal CVSS 3.1 score range between which a finding can be accepted​
+## Temporal acceptance: minimum CVSS 3.1 score allowed for assignment
 
-Here you define the range in severity
-score, according to the CVSS 3.1 (values
-from 0.0 to 10.0), within which you want
-vulnerabilities to be temporarily accepted.
-This means that you can control the
-maximum risk you are willing to take.
-As you will certainly not accept some
-risks, the DevSecOps agent will break
-your build for the severity scores you
-consider relevant.
-Of course, if you choose the recommended
-0.0 score, no vulnerability can be
+Here you define the minimum
+range in severity score,
+according to CVSS 3.1
+(values from 0.0 to 10.0),
+within which you want vulnerabilities
+to be temporarily accepted.
+
+## Temporal acceptance: maximum CVSS 3.1 score allowed for assignment
+
+Here you define the maximum
+range in severity score,
+according to CVSS 3.1
+(values from 0.0 to 10.0),
+within which you want
+vulnerabilities to be
 temporarily accepted.
+This means that you can control
+the maximum risk you are willing
+to take.
 
 ## Permanent acceptance
 
