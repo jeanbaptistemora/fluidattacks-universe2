@@ -39,7 +39,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -137,7 +136,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [],
           },
@@ -179,7 +177,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -340,7 +337,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -399,7 +395,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -548,7 +543,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -604,7 +598,6 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             roots: [
               {
@@ -714,7 +707,6 @@ describe("GroupScopeView", (): void => {
           data: {
             group: {
               __typename: "Group",
-              codeLanguages: null,
               name: "unittesting",
               roots: [
                 {
@@ -772,7 +764,6 @@ describe("GroupScopeView", (): void => {
           data: {
             group: {
               __typename: "Group",
-              codeLanguages: null,
               name: "unittesting",
               roots: [
                 {

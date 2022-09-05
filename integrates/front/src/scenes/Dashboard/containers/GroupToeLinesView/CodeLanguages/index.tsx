@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ICodeLanguage } from "../types";
+import { formatPercentage } from "../utils";
 import { Table } from "components/Table";
 import { Text } from "components/Text";
 
@@ -25,7 +26,7 @@ export const CodeLanguages: React.FC<ICodeLanguagesProps> = ({
     (lang): ICodeLanguage => ({
       language: lang.language,
       loc: lang.loc,
-      percentage: `${Math.round((lang.loc * 100) / totalLoc)}%`,
+      percentage: lang.loc / totalLoc,
     })
   );
 
@@ -52,6 +53,7 @@ export const CodeLanguages: React.FC<ICodeLanguagesProps> = ({
           },
           {
             dataField: "percentage",
+            formatter: formatPercentage,
             header: t("group.scope.codeLanguages.percent"),
             nonToggleList: true,
             visible: true,
