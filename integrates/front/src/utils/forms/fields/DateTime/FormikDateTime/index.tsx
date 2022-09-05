@@ -10,12 +10,13 @@ import "react-datetime/css/react-datetime.css";
 
 interface IDateTimeProps extends FieldProps {
   disabled?: boolean;
+  dataTestId?: string;
 }
 
 export const FormikDateTime: React.FC<IDateTimeProps> = (
   props: Readonly<IDateTimeProps>
 ): JSX.Element => {
-  const { field, form, disabled = false } = props;
+  const { dataTestId, field, form, disabled = false } = props;
   const { name } = field;
 
   function handleChange(value: Moment | string): void {
@@ -29,7 +30,13 @@ export const FormikDateTime: React.FC<IDateTimeProps> = (
   return (
     <React.Fragment>
       <Datetime
-        inputProps={{ className: style["form-control"], disabled }}
+        inputProps={{
+          className: style["form-control"],
+          // @ts-expect-error It is a valid prop
+          "data-testid": dataTestId,
+          disabled,
+          name,
+        }}
         utc={false}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading

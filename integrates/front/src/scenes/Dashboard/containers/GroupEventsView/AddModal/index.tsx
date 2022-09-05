@@ -175,6 +175,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     <ControlLabel>{t("group.events.form.date")}</ControlLabel>
                     <Field
                       component={FormikDateTime}
+                      dataTestId={"event-date-time"}
                       name={"eventDate"}
                       validate={composeValidators([
                         required,

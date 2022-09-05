@@ -7,8 +7,10 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_ROOTS } from "../GroupScopeView/queries";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView";
 import {
+  ADD_EVENT_MUTATION,
   GET_EVENTS,
   REQUEST_EVENT_VERIFICATION_MUTATION,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
@@ -176,6 +178,164 @@ describe("eventsView", (): void => {
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("files")).toHaveLength(1);
     expect(screen.getAllByTestId("images")).toHaveLength(1);
+  });
+
+  it("should render add event", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const images = [
+      new File(["hello"], "hello.png", { type: "image/png" }),
+      new File(["there"], "there.png", { type: "image/png" }),
+    ];
+    const file = new File(["file-evidence"], "evidence.txt", {
+      type: "text/plain",
+    });
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENTS,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              events: [
+                {
+                  closingDate: "-",
+                  detail: "Test description",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "SOLVED",
+                  eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+                  groupName: "unittesting",
+                  id: "463457733",
+                },
+              ],
+              name: "unittesting",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_ROOTS,
+          variables: { groupName: "unittesting" },
+        },
+        result: {
+          data: {
+            group: {
+              __typename: "Group",
+              codeLanguages: null,
+              name: "unittesting",
+              roots: [
+                {
+                  __typename: "GitRoot",
+                  branch: "master",
+                  cloningStatus: {
+                    __typename: "GitRootCloningStatus",
+                    message: "root created",
+                    status: "UNKNOWN",
+                  },
+                  credentials: {
+                    __typename: "Credentials",
+                    id: "",
+                    name: "",
+                    type: "",
+                  },
+                  environment: "production",
+                  environmentUrls: [],
+                  gitEnvironmentUrls: [],
+                  gitignore: ["bower_components/*", "node_modules/*"],
+                  id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                  includesHealthCheck: true,
+                  nickname: "universe",
+                  state: "ACTIVE",
+                  url: "https://gitlab.com/fluidattacks/universe",
+                  useVpn: false,
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: ADD_EVENT_MUTATION,
+          variables: {
+            detail: "detail test",
+            eventDate: "2021-09-07T00:00:00Z",
+            eventType: "CLONING_ISSUES",
+            groupName: "unittesting",
+            rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+          },
+        },
+        result: {
+          data: {
+            addEvent: {
+              eventId: "123",
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_add_event_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.btn.text")).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("group.events.btn.text"));
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.new")).toBeInTheDocument();
+    });
+
+    userEvent.type(
+      screen.getByRole("textbox", { name: "rootNickname" }),
+      "universe"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "detail" }),
+      "detail test"
+    );
+    userEvent.paste(
+      screen.getByTestId("event-date-time"),
+      "09/07/2021 12:00 AM"
+    );
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "eventType" }),
+      ["group.events.type.cloningIssues"]
+    );
+    userEvent.upload(screen.getByTestId("images"), images);
+    userEvent.upload(screen.getByTestId("files"), file);
+    userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.events.successCreate",
+        "group.events.titleSuccess"
+      );
+    });
   });
 
   it("should request verification", async (): Promise<void> => {

@@ -345,7 +345,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       const result = await addEvent({
         variables: {
           detail,
-          eventDate,
+          eventDate:
+            typeof eventDate === "string"
+              ? eventDate
+              : eventDate.utc().format(),
           eventType,
           groupName,
           rootId,
@@ -354,10 +357,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       closeAddModal();
       if (!_.isNil(result.data) && result.data.addEvent.success) {
         const { eventId } = result.data.addEvent;
-        msgSuccess(
-          t("group.events.successCreate"),
-          t("group.events.titleSuccess")
-        );
         if (!_.isUndefined(images)) {
           [...Array(images.length).keys()].forEach(
             async (
@@ -401,6 +400,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             );
           }
         }
+        msgSuccess(
+          t("group.events.successCreate"),
+          t("group.events.titleSuccess")
+        );
 
         await refetch();
         await refetchReattacks();
