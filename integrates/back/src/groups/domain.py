@@ -22,7 +22,6 @@ from context import (
 from custom_exceptions import (
     AlreadyPendingDeletion,
     BillingSubscriptionSameActive,
-    ErrorRemovingGroup,
     ErrorUpdatingGroup,
     GroupNotFound,
     HasActiveRoots,
@@ -424,9 +423,6 @@ async def remove_group(
         group_name=group_name,
         modified_by=user_email,
     )
-    if not await authz.revoke_cached_group_service_policies(group_name):
-        raise ErrorRemovingGroup.new()
-
     await groups_model.update_state(
         group_name=group_name,
         organization_id=group.organization_id,

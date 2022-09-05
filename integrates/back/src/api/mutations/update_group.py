@@ -1,7 +1,6 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-import authz
 from batch import (
     dal as batch_dal,
 )
@@ -115,7 +114,6 @@ async def mutate(
         raise
 
     await redis_del_by_deps("update_group", group_name=group_name)
-    await authz.revoke_cached_group_service_policies(group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Updated group {group_name} successfully",

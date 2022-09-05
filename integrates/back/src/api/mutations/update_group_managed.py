@@ -1,7 +1,6 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-import authz
 from custom_types import (
     SimplePayload,
 )
@@ -60,8 +59,6 @@ async def mutate(
         managed=managed,
         user_email=user_email,
     )
-
-    await authz.revoke_cached_group_service_policies(group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Updated managed in group {group_name} successfully",

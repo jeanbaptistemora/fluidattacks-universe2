@@ -39,9 +39,6 @@ from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from typing import (
     NamedTuple,
 )
@@ -250,16 +247,6 @@ async def has_access_to_group(
 ) -> bool:
     """Verify if the user has access to a group."""
     return bool(await get_group_level_role(loaders, email, group_name))
-
-
-async def revoke_cached_group_service_policies(group_name: str) -> bool:
-    """Revoke the cached policies for the provided group."""
-    # Delete the cache key from the cache
-    await redis_del_by_deps(
-        "revoke_authz_group",
-        authz_group_name=group_name.lower(),
-    )
-    return True
 
 
 async def revoke_group_level_role(

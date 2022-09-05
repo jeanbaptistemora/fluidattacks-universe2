@@ -49,10 +49,6 @@ class ErrorLoadingStakeholderSubscriptions(_SingleMessageException):
     msg: str = "Unable to read subscriptions data"
 
 
-class ErrorRemovingGroup(_SingleMessageException):
-    msg: str = "Unable to remove group"
-
-
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 
