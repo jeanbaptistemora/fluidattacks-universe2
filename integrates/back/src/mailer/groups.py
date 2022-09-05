@@ -67,8 +67,13 @@ async def send_mail_free_trial_start(
 
 
 async def send_mail_free_trial_over(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], group_name: str
 ) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+    context = {
+        "expires_date": datetime_utils.get_now(),
+        "payment_link": f"{BASE_URL}/orgs/{org_name}/billing",
+    }
     await send_mails_async(
         loaders,
         email_to=email_to,

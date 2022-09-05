@@ -6,6 +6,7 @@ from .types import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json  # type: ignore
 
 
 def format_enrollment(item: Item) -> Enrollment:
@@ -28,6 +29,7 @@ def format_trial(item: Item) -> Trial:
 def format_metadata_item(metadata: EnrollmentMetadataToUpdate) -> Item:
     item: Item = {
         "enrolled": metadata.enrolled,
+        "trial": json.loads(json.dumps(metadata.trial)),
     }
     return {
         key: None if not value and value is not False else value

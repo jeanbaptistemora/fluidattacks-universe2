@@ -19,3 +19,4 @@ class Enrollment(NamedTuple):
 
 class EnrollmentMetadataToUpdate(NamedTuple):
     enrolled: Optional[bool] = None
+    trial: Optional[Trial] = None

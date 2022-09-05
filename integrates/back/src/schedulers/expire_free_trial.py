@@ -10,6 +10,7 @@ from dataloaders import (
 )
 from db_model.enrollment.types import (
     Enrollment,
+    EnrollmentMetadataToUpdate,
 )
 from db_model.groups.enums import (
     GroupManaged,
@@ -17,10 +18,16 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
+from enrollment import (
+    domain as enrollment_domain,
+)
 from groups import (
     domain as groups_domain,
 )
 import logging
+from mailer import (
+    groups as groups_mail,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -34,8 +41,8 @@ from settings import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
 FREE_TRIAL_DAYS = 21
+LOGGER = logging.getLogger(__name__)
 
 
 def get_days_since(date: str) -> int:
@@ -45,15 +52,31 @@ def get_days_since(date: str) -> int:
     ).days
 
 
-async def expire(loaders: Dataloaders, group: Group) -> None:
+async def expire(
+    loaders: Dataloaders,
+    group: Group,
+    enrollment: Enrollment,
+) -> None:
     try:
         LOGGER.info("Will expire %s", group.name)
+        await enrollment_domain.update_metadata(
+            loaders=loaders,
+            email=group.created_by,
+            metadata=EnrollmentMetadataToUpdate(
+                trial=enrollment.trial._replace(completed=True)
+            ),
+        )
         await groups_domain.update_group_managed(
             loaders=loaders,
             comments="Trial period has expired",
             group_name=group.name,
             managed=GroupManaged.UNDER_REVIEW,
             user_email="integrates@fluidattacks.com",
+        )
+        await groups_mail.send_mail_free_trial_over(
+            loaders=loaders,
+            email_to=[group.created_by],
+            group_name=group.name,
         )
     except InvalidManagedChange:
         LOGGER.exception("Couldn't expire %s", group.name)
@@ -69,9 +92,10 @@ async def main() -> None:
 
     await collect(
         tuple(
-            expire(loaders, group)
+            expire(loaders, group, enrollment)
             for group, enrollment in zip(groups, enrollments)
             if not enrollment.trial.completed
+            and enrollment.trial.start_date
             and get_days_since(enrollment.trial.start_date)
             - enrollment.trial.extension_days
             >= FREE_TRIAL_DAYS
