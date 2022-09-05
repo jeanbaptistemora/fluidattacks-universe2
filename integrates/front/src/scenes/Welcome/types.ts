@@ -10,13 +10,14 @@ interface IGetStakeholderWelcomeResult {
       name: string;
     }[];
     userEmail: string;
-    userName: string;
   };
 }
 
 interface IGetStakeholderEnrollmentResult {
   me: {
     enrollment: IEnrollment;
+    userEmail: string;
+    userName: string;
   };
 }
 

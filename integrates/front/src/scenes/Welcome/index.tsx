@@ -31,16 +31,6 @@ const Welcome: React.FC = (): JSX.Element => {
   const [getStakeholderWelcome, { data: welcomeData }] =
     useLazyQuery<IGetStakeholderWelcomeResult>(GET_STAKEHOLDER_WELCOME, {
       onCompleted: async ({ me }): Promise<void> => {
-        Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-        mixpanel.identify(me.userEmail);
-        mixpanel.register({
-          User: me.userName,
-          // Intentional snake case
-          // eslint-disable-next-line camelcase
-          integrates_user_email: me.userEmail,
-        });
-        mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
-        initializeZendesk(me.userEmail, me.userName);
         setHasPersonalEmail(await isPersonalEmail(me.userEmail));
       },
       onError: (error): void => {
@@ -56,8 +46,19 @@ const Welcome: React.FC = (): JSX.Element => {
     GET_STAKEHOLDER_ENROLLMENT,
     {
       fetchPolicy: "cache-first",
-      onCompleted: (data: IGetStakeholderEnrollmentResult): void => {
-        if (data.me.enrollment.enrolled) {
+      onCompleted: ({ me }): void => {
+        Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
+        mixpanel.identify(me.userEmail);
+        mixpanel.register({
+          User: me.userName,
+          // Intentional snake case
+          // eslint-disable-next-line camelcase
+          integrates_user_email: me.userEmail,
+        });
+        mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
+        initializeZendesk(me.userEmail, me.userName);
+
+        if (me.enrollment.enrolled) {
           setIsEnrolled(true);
         } else {
           getStakeholderWelcome();

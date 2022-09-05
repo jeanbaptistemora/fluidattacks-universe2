@@ -10,7 +10,6 @@ const GET_STAKEHOLDER_WELCOME = gql`
         name
       }
       userEmail
-      userName
     }
   }
 `;
@@ -22,6 +21,7 @@ const GET_STAKEHOLDER_ENROLLMENT = gql`
         enrolled
       }
       userEmail
+      userName
     }
   }
 `;
