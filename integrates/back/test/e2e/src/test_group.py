@@ -221,7 +221,7 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
         "button",
         "Skip",
         "button",
-        timeout,
+        timeout * 2,
     )
     close_tour.click()
     add_repo.click()
