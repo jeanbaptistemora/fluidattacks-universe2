@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.common import (
     array as common_array,
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
+    break_statement as common_break_statement,
     call_expression as common_call_expression,
     comment as common_comment,
     else_clause as common_else_clause,
@@ -15,6 +16,7 @@ from syntax_graph.syntax_readers.common import (
     parameter_list as common_parameter_list,
     parenthesized_expression as common_parenthesized_expression,
     program as common_program,
+    return_statement as common_return_statement,
     statement_block as common_statement_block,
     string_literal as common_string_literal,
     switch_body as common_switch_body,
@@ -35,6 +37,7 @@ from syntax_graph.syntax_readers.javascript import (
     member_expression as javascript_member_expression,
     object as javascript_object,
     try_statement as javascript_try_statement,
+    while_statement as javascript_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -84,6 +87,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "true",
         },
         syntax_reader=common_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "break_statement",
+        },
+        syntax_reader=common_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -191,6 +200,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "return_statement",
+        },
+        syntax_reader=common_return_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "statement_block",
         },
         syntax_reader=common_statement_block.reader,
@@ -249,5 +264,11 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "variable_declarator",
         },
         syntax_reader=common_variable_declarator.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=javascript_while_statement.reader,
     ),
 )
