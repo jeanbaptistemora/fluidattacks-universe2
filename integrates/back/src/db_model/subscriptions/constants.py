@@ -10,3 +10,5 @@ ALL_SUBSCRIPTIONS_INDEX_METADATA = Facet(
     pk_alias="SUBS#all",
     sk_alias="SUBS#frequency",
 )
+
+SUBSCRIPTIONS_PREFIX = "SUBS#"

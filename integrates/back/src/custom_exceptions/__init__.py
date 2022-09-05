@@ -45,6 +45,10 @@ class ErrorLoadingStakeholders(_SingleMessageException):
     msg: str = "Unable to read stakeholders data"
 
 
+class ErrorLoadingStakeholderSubscriptions(_SingleMessageException):
+    msg: str = "Unable to read subscriptions data"
+
+
 class ErrorRemovingGroup(_SingleMessageException):
     msg: str = "Unable to remove group"
 
