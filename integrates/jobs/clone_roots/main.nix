@@ -13,6 +13,7 @@ makeScript {
   searchPaths = {
     bin = [(makePythonVersion "3.9")];
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/env"
     ];
   };

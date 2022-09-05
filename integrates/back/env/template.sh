@@ -5,10 +5,10 @@ function main {
 
   : \
     && case "${env}" in
-      dev) aws_login_dev ;;
+      dev) aws_login "dev" "3600" ;;
       eph) : ;;
       prod) : ;;
-      prod-local) aws_login_prod 'integrates' ;;
+      prod-local) aws_login "prod_integrates" "3600" ;;
       *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in

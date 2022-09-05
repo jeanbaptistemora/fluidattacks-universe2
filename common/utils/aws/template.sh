@@ -13,6 +13,7 @@ function _aws_login_ci {
     --role-session-name "commonCi-${CI_PROJECT_ID}-${CI_PIPELINE_ID}-${CI_JOB_ID}"
     --web-identity-token "${CI_JOB_JWT_V2}"
     --duration-seconds "${2}"
+    --region "us-east-1"
   )
   local session
   export AWS_ACCESS_KEY_ID
@@ -29,6 +30,7 @@ function _aws_login_ci {
 function aws_login {
   local session="${1}"
   local duration="${2}"
+  export AWS_DEFAULT_REGION="us-east-1"
 
   if test -n "${CI_JOB_JWT_V2:-}"; then
     info "Logging in as '${session}' using GitLab OIDC." \
