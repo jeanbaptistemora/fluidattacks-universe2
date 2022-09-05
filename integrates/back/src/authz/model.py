@@ -263,6 +263,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_vulnerability_historic_verification_resolve",
             "api_resolvers_query_environment_url_resolve",
             "api_resolvers_git_root_credentials_get_credentials_value",
+            "see_internal_toe",
         },
         tags={
             "drills",
