@@ -18,11 +18,17 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.ast_graph,
         args.n_id,
         "block",
+        "statement_block",
         "while",
         "binary_expression",
         "parenthesized_expression",
     )
-    block_node = str(match_childs["block"])
+
+    if match_childs.get("block"):
+        block_node = str(match_childs["block"])
+    else:
+        block_node = str(match_childs["statement_block"])
+
     if match_childs.get("binary_expression"):
         conditional_node = str(match_childs["binary_expression"])
     elif match_childs.get("while"):

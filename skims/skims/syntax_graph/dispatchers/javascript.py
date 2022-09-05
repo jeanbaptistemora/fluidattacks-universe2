@@ -4,9 +4,13 @@ from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
     break_statement as common_break_statement,
     call_expression as common_call_expression,
+    class_body as common_class_body,
+    class_declaration as common_class_declaration,
     comment as common_comment,
+    do_statement as common_do_statement,
     else_clause as common_else_clause,
     expression_statement as common_expression_statement,
+    finally_clause as common_finally_clause,
     identifier as common_identifier,
     if_statement as common_if_statement,
     method_declaration as common_method_declaration,
@@ -26,6 +30,7 @@ from syntax_graph.syntax_readers.common import (
     throw_statement as common_throw_statement,
     variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
+    yield_expression as common_yield_expression,
 )
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
@@ -66,6 +71,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "assignment_expression",
+            "augmented_assignment_expression",
         },
         syntax_reader=javascript_assignment_expression.reader,
     ),
@@ -108,9 +114,27 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "class_body",
+        },
+        syntax_reader=common_class_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_declaration",
+        },
+        syntax_reader=common_class_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "comment",
         },
         syntax_reader=common_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "do_statement",
+        },
+        syntax_reader=common_do_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -139,6 +163,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=common_finally_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "lexical_declaration",
         },
         syntax_reader=javascript_lexical_declaration.reader,
@@ -153,6 +183,8 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "function",
             "function_declaration",
+            "generator_function_declaration",
+            "method_definition",
         },
         syntax_reader=common_method_declaration.reader,
     ),
@@ -270,5 +302,11 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "while_statement",
         },
         syntax_reader=javascript_while_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "yield_expression",
+        },
+        syntax_reader=common_yield_expression.reader,
     ),
 )

@@ -7,6 +7,7 @@ from syntax_graph.syntax_readers.common import (
     catch_declaration as common_catch_declaration,
     catch_parameter as common_catch_parameter,
     catch_type as common_catch_type,
+    class_body as common_class_body,
     class_declaration as common_class_declaration,
     comment as common_comment,
     conditional_expression as common_conditional_expression,
@@ -43,7 +44,6 @@ from syntax_graph.syntax_readers.java import (
     array_creation_expression as java_array_creation_expression,
     assignment_expression as java_assignment_expression,
     cast_expression as java_cast_expression,
-    class_body as java_class_body,
     dimensions_expr as java_dimensions_expr,
     element_value_pair as java_element_value_pair,
     enhanced_for_statement as java_enhanced_for_statement,
@@ -171,7 +171,7 @@ JAVA_DISPATCHERS: Dispatchers = (
             "constructor_body",
             "interface_body",
         },
-        syntax_reader=java_class_body.reader,
+        syntax_reader=common_class_body.reader,
     ),
     Dispatcher(
         applicable_types={

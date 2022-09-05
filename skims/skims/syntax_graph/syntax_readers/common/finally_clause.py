@@ -13,7 +13,7 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    childs = match_ast(args.ast_graph, args.n_id, "block")
-    finally_block = childs.get("block")
+    childs = match_ast(args.ast_graph, args.n_id, "block", "statement_block")
+    finally_block = childs.get("block") or childs.get("statement_block")
 
     return build_finally_clause_node(args, finally_block)
