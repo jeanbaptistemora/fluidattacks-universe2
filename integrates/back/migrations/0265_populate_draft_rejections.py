@@ -148,12 +148,18 @@ async def update_finding_state(
 ) -> None:
     """Adds the rejection data to a copy of the old state and sends it to
     dynamo"""
+    # Some lines lack the reason for the rejection
+    reasons = (
+        helper.reasons
+        if helper.reasons != set()
+        else {DraftRejectionReason.OTHER}
+    )
     rejection: DraftRejection = DraftRejection(
         other="The draft did not fulfill the required standards"
-        if DraftRejectionReason.OTHER in helper.reasons
+        if DraftRejectionReason.OTHER in reasons
         else "",
-        reasons=helper.reasons,
-        rejected_by=helper.rejected_by,
+        reasons=reasons,
+        rejected_by=old_state.modified_by,
         rejection_date=old_state.modified_date,
         submitted_by=helper.submitted_by,
     )
@@ -172,14 +178,20 @@ async def update_finding_state(
     try:
         await operations.update_item(
             condition_expression=Attr(key_structure.partition_key).exists()
-            & Attr("state.status").eq(FindingStateStatus.REJECTED.value)
-            & Attr("state.modified_date").eq(old_state.modified_date)
-            & Attr("state.rejection").not_exists(),
-            item=new_state_item,
+            & Attr("status").eq(FindingStateStatus.REJECTED.value)
+            & Attr("modified_date").eq(old_state.modified_date)
+            & Attr("rejection").not_exists(),
+            item={
+                key_structure.partition_key: state_key.partition_key,
+                key_structure.sort_key: state_key.sort_key,
+                **new_state_item,
+            },
             key=state_key,
             table=TABLE,
         )
+        LOGGER.info("Successfully updated a state")
     except ConditionalCheckFailedException as ex:
+        LOGGER.error("Tried to update %s", new_state_item)
         raise FindingNotFound() from ex
 
 
@@ -231,9 +243,8 @@ async def handle_finding(
             rejected_states, current_date
         )
         day_rejections: tuple[RejectionHelper, ...] = filter_rejections_by_day(
-            rejected_states, current_date
+            rejections, current_date
         )
-        placeholders: tuple[RejectionHelper, ...] = tuple()
         if FILL_BLANKS and len(day_states) > len(day_rejections):
             diff: int = len(day_states) - len(day_rejections)
             placeholders = tuple(
@@ -243,28 +254,27 @@ async def handle_finding(
                         leftover_state.modified_date
                     ),
                     reasons={DraftRejectionReason.OTHER},
-                    rejected_by=resolve_reviewer(
-                        "",
-                        date_utils.get_datetime_from_iso_str(
-                            leftover_state.modified_date
-                        ),
-                    ),
-                    submitted_by=leftover_state.modified_by,
+                    rejected_by=leftover_state.modified_by,
+                    submitted_by="",
                 )
                 for leftover_state in day_states[-diff:]
             )
-        if placeholders:
             day_rejections += placeholders
+        # LOGGER.info("Current date: %s", current_date)
+        # LOGGER.info("Day states: %s", day_states)
+        # LOGGER.info("Day rejections: %s\n", day_rejections)
         for old_state, rejection_helper in zip(day_states, day_rejections):
             await update_finding_state(old_state, rejection_helper)
 
     try:
         assert len(rejected_states) <= len(rejections)
     except AssertionError:
-        LOGGER.error("Failed on %s", group_name)
-        LOGGER.error("Rejected states %s", len(rejected_states))
-        LOGGER.error("Rejections %s", len(rejections))
-        raise
+        LOGGER.info(
+            "Mismatch in %s: States: %s, Rejections: %s",
+            group_name,
+            len(rejected_states),
+            len(rejections),
+        )
 
 
 async def handle_group(
