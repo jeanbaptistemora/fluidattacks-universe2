@@ -5,11 +5,9 @@
   ...
 }:
 makeScript {
-  replace = {
-    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodObserves";
-  };
   searchPaths = {
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
       outputs."${inputs.observesIndex.service.db_migration.env.runtime}"
     ];

@@ -8,7 +8,7 @@ function start_etl {
 
   db_creds=$(mktemp) \
     && zoho_creds=$(mktemp) \
-    && source "__argSecretsAwsProd__/template" \
+    && aws_login "prod_observes" "3600" \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       zoho_crm_etl_creds \

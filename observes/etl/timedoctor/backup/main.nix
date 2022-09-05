@@ -5,9 +5,6 @@
   ...
 }:
 makeScript {
-  replace = {
-    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodObserves";
-  };
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli
@@ -17,6 +14,7 @@ makeScript {
     ];
     source = [
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."/common/utils/aws"
       outputs."/common/utils/gitlab"
       outputs."/common/utils/sops"
       outputs."/observes/common/db-creds"

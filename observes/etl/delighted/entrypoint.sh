@@ -8,7 +8,7 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && source "__argSecretsAwsProd__/template" \
+    && aws_login "prod_observes" "3600" \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       delighted_api_key \
       bugsnag_notifier_key \

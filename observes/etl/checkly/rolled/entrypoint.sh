@@ -7,7 +7,7 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && source "__argSecretsAwsProd__/template" \
+    && aws_login "prod_observes" "3600" \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       checkly_api_user \
       checkly_api_key \

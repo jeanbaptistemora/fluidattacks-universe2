@@ -6,7 +6,7 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && source "__argSecretsAwsProd__/template" \
+    && aws_login "prod_observes" "3600" \
     && json_db_creds "${db_creds}" \
     && export_notifier_key \
     && gitlab-etl \

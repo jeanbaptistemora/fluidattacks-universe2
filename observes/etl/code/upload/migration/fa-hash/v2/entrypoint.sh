@@ -9,7 +9,7 @@ function migration {
 
   db=$(mktemp) \
     && creds=$(mktemp) \
-    && source "__argSecretsAwsProd__/template" \
+    && aws_login "prod_observes" "3600" \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && code-etl \

@@ -5,14 +5,12 @@
   ...
 }:
 makeScript {
-  replace = {
-    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodObserves";
-  };
   searchPaths = {
     bin = [
       outputs."${inputs.observesIndex.service.scheduler.bin}"
     ];
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };
