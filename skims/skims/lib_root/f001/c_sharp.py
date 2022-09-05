@@ -1,6 +1,8 @@
 from lib_root.utilities.c_sharp import (
-    get_object_argument_list,
-    get_variable_attribute,
+    yield_syntax_graph_object_creation,
+)
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
 )
 from lib_sast.types import (
     ShardDb,
@@ -9,12 +11,17 @@ from model import (
     core_model,
     graph_model,
 )
-import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
+from utils import (
+    graph as g,
 )
 
 
@@ -22,78 +29,33 @@ def sql_injection(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    danger_methods = {"ExecuteSqlCommand"}
+    danger_objects = {"SqlCommand"}
+    method = core_model.MethodsEnum.CS_SQL_INJECTION
+
     def n_ids() -> graph_model.GraphShardNodes:
-
-        danger_methods = {"ExecuteSqlCommand"}
-        danger_objects = {"SqlCommand"}
-
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
-            for syntax_steps in shard.syntax.values():
-                for index, syntax_step in enumerate(syntax_steps):
-                    if (
-                        isinstance(
-                            syntax_step,
-                            graph_model.SyntaxStepMethodInvocationChain,
-                        )
-                        and syntax_step.method in danger_methods
-                    ) or (
-                        isinstance(
-                            syntax_step,
-                            graph_model.SyntaxStepObjectInstantiation,
-                        )
-                        and syntax_step.object_type in danger_objects
-                    ):
-                        dependencies = list(
-                            dep
-                            for dep in get_dependencies(index, syntax_steps)
-                            if isinstance(
-                                dep,
-                                (
-                                    graph_model.SyntaxStepSymbolLookup,
-                                    graph_model.SyntaxStepBinaryExpression,
-                                ),
-                            )
-                        )
-                        if not secure_command(
-                            shard, dependencies, syntax_step.meta.n_id
-                        ):
-                            yield shard, syntax_step.meta.n_id
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for nid in [
+                *search_method_invocation_naive(graph, danger_methods),
+                *yield_syntax_graph_object_creation(graph, danger_objects),
+            ]:
+                test_nid = g.adj_ast(
+                    graph,
+                    graph.nodes[nid].get("arguments_id"),
+                )[0]
+                for path in get_backward_paths(graph, test_nid):
+                    evaluation = evaluate(method, graph, path, test_nid)
+                    if evaluation and evaluation.danger:
+                        yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.001.description",
-        desc_params=dict(lang="C#"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_SQL_INJECTION,
+        method=method,
     )
-
-
-def secure_command(
-    shard: graph_model.GraphShard, dependencies: list, elem_id: str
-) -> bool:
-
-    if not dependencies:
-        return True
-
-    secure_chars = ("@", "{", "}", "[(]", "[)]")
-
-    for depend in dependencies:
-        if isinstance(depend, graph_model.SyntaxStepSymbolLookup):
-            is_var = True
-            depend = depend.symbol
-            sql_str = get_variable_attribute(shard, depend, "text")
-        elif isinstance(depend, graph_model.SyntaxStepBinaryExpression):
-            is_var = False
-            sql_str = get_object_argument_list(shard, elem_id)
-        for elem in secure_chars:
-            if (
-                not sql_str or re.search(elem, sql_str) or " " not in sql_str
-            ) or (
-                is_var
-                and get_variable_attribute(shard, depend, "type")
-                != "binary_expression"
-            ):
-                return True
-
-    return False
