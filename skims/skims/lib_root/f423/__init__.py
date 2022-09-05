@@ -1,4 +1,4 @@
-from lib_root.f424.java import (
+from lib_root.f423.java import (
     uses_exit_method as java_uses_exit_method,
 )
 from model import (
@@ -6,5 +6,5 @@ from model import (
     graph_model,
 )
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F234
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F423
 QUERIES: graph_model.Queries = ((FINDING, java_uses_exit_method),)

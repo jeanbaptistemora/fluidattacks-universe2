@@ -27,7 +27,7 @@ def uses_exit_method(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.JAVA_LEAK_STACKTRACE
+    method = core_model.MethodsEnum.JAVA_USES_SYSTEM_EXIT
     exit_methods = {
         "System.exit(0)",
         "Runtime.getRuntime().exit(0)",
@@ -61,7 +61,7 @@ def uses_exit_method(
                         yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f066.js_uses_console_log",
+        desc_key="lib_root.f423.uses_system_exit",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

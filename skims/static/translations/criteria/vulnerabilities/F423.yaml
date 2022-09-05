@@ -1,0 +1,4 @@
+---
+lib_root.f423.uses_system_exit:
+  en: Application uses System.exit()
+  es: La aplicacion usa System.exit()
