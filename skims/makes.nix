@@ -54,6 +54,12 @@
       };
     };
   };
+  secretsForAwsFromGitlab = {
+    prodSkims = {
+      roleArn = "arn:aws:iam::205810638802:role/prod_skims";
+      duration = 3600;
+    };
+  };
   securePythonWithBandit = {
     skims = {
       python = "3.8";

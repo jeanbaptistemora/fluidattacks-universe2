@@ -4,7 +4,7 @@ function main {
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
 
-  aws_login_prod skims \
+  aws_login "prod_skims" "3600" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && pushd '__argSkims__' \

@@ -5,7 +5,7 @@ function main {
   local path="${2:-}"
 
   shopt -s nullglob \
-    && aws_login_prod 'skims' \
+    && aws_login "prod_skims" "3600" \
     && pushd skims \
     && python3 'skims/sca_patch/__init__.py' "${action}" "${path}" \
     && popd \

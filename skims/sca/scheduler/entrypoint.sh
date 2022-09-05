@@ -8,7 +8,7 @@ function main {
       echo '[ERROR] Second argument must be the module to execute' \
         && return 1
     fi \
-    && aws_login_prod 'skims' \
+    && aws_login "prod_skims" "3600" \
     && pushd skims \
     && python3 'skims/schedulers/invoker.py' "${module}" \
     && popd \

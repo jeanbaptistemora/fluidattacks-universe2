@@ -62,7 +62,7 @@ function deploy {
   export REPLICAS
   export UUID
 
-  aws_login_prod integrates \
+  aws_login "prod_integrates" "3600" \
     && ensure_gitlab_env_vars \
       PROD_SKIMS_AWS_ACCESS_KEY_ID \
       PROD_SKIMS_AWS_SECRET_ACCESS_KEY \

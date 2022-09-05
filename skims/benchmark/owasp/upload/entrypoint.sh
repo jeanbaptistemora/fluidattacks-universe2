@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function upload {
-  aws_login_prod 'observes' \
+  aws_login "prod_observes" "3600" \
     && db_creds="$(mktemp)" \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
