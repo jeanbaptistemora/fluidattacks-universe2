@@ -70,6 +70,7 @@ from typing import (
 # Constants
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
+FILL_BLANKS: bool = False
 
 
 class RejectionHelper(NamedTuple):
@@ -156,13 +157,7 @@ async def update_finding_state(
         rejection_date=old_state.modified_date,
         submitted_by=helper.submitted_by,
     )
-    new_state: FindingState = FindingState(
-        modified_by=old_state.modified_by,
-        modified_date=old_state.modified_date,
-        rejection=rejection,
-        source=old_state.source,
-        status=old_state.status,
-    )
+    new_state: FindingState = old_state._replace(rejection=rejection)
 
     key_structure = TABLE.primary_key
     new_state_item = format_state_item(new_state)
@@ -213,14 +208,6 @@ def filter_rejections_by_day(
     return tuple(filtered_list)
 
 
-async def handle_day_step(
-    old_states: tuple[FindingState, ...],
-    rejections: tuple[RejectionHelper, ...],
-) -> None:
-    for old_state, rejection_helper in zip(old_states, rejections):
-        await update_finding_state(old_state, rejection_helper)
-
-
 async def handle_finding(
     loaders: Dataloaders,
     finding_id: str,
@@ -237,6 +224,39 @@ async def handle_finding(
             historic_states,
         )
     )
+
+    while rejected_states:
+        current_date: str = rejected_states[-1].modified_date
+        day_states: tuple[FindingState, ...] = filter_states_by_day(
+            rejected_states, current_date
+        )
+        day_rejections: tuple[RejectionHelper, ...] = filter_rejections_by_day(
+            rejected_states, current_date
+        )
+        placeholders: tuple[RejectionHelper, ...] = tuple()
+        if FILL_BLANKS and len(day_states) > len(day_rejections):
+            diff: int = len(day_states) - len(day_rejections)
+            placeholders = tuple(
+                RejectionHelper(
+                    finding_id=finding_id,
+                    raw_date=date_utils.get_datetime_from_iso_str(
+                        leftover_state.modified_date
+                    ),
+                    reasons={DraftRejectionReason.OTHER},
+                    rejected_by=resolve_reviewer(
+                        "",
+                        date_utils.get_datetime_from_iso_str(
+                            leftover_state.modified_date
+                        ),
+                    ),
+                    submitted_by=leftover_state.modified_by,
+                )
+                for leftover_state in day_states[-diff:]
+            )
+        if placeholders:
+            day_rejections += placeholders
+        for old_state, rejection_helper in zip(day_states, day_rejections):
+            await update_finding_state(old_state, rejection_helper)
 
     try:
         assert len(rejected_states) <= len(rejections)
