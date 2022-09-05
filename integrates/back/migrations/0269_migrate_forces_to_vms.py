@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Migrate forces executions to "integrates_vms" table.
+
+Execution Time:    2022-09-05 at 15:10:34 UTC
+Finalization Time: 2022-09-05 at 15:18:16 UTC
 """
 
 from aioextensions import (
