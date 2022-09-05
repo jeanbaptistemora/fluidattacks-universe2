@@ -218,7 +218,9 @@ async def generate() -> None:  # pylint: disable=too-many-locals
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, p_groups in await get_portfolios_groups(org_name):
-            portfolios.append((portfolio, tuple(p_groups)))
+            portfolios.append(
+                (f"{org_id}PORTFOLIO#{portfolio}", tuple(p_groups))
+            )
 
     all_groups_data: tuple[Benchmarking, ...] = await collect(
         tuple(
@@ -362,7 +364,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                 data=(
                     (
                         await get_data_many_groups(
-                            organization_id=portfolio,
+                            organization_id=f"{org_id}PORTFOLIO#{portfolio}",
                             groups=tuple(group_names),
                             loaders=loaders,
                         )
@@ -371,7 +373,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                     get_average_entities(
                         entities=get_valid_subjects(
                             all_subjects=all_portfolios_data,
-                            subject=portfolio,
+                            subject=f"{org_id}PORTFOLIO#{portfolio}",
                         )
                     ),
                     worst_portfolio_exposure,
