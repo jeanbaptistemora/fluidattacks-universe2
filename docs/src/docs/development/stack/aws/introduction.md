@@ -97,9 +97,7 @@ to generate a key pair:
 
     ```bash
     function okta-login {
-      local role="${1:-<default-role>}" # Set as default role the role that you uses most
-      local role_uppercase="$(echo "${role^^}" | tr - _)" # Used to export "PROD_*" vars
-      local env="${role_uppercase##*_}" # Services compatibility
+      local role="${1:-<default-role>}" # Set the default role you use the most
       local args=(
         authenticate
         --user "<user-email>"
@@ -114,17 +112,13 @@ to generate a key pair:
       ) # Flags required for aws-okta-processor
 
       eval $(aws-okta-processor "${args[@]}") \
-        && export "${role_uppercase}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
-        && export "${role_uppercase}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" \
-        && export "${env}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
-        && export "${env}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" \
         && export AWS_DEFAULT_REGION="us-east-1"
     }
     ```
 
     Be sure to replace the parameters.
-        - `<user-email>`: Email.
-        - `<user-password>`.
+        - `<user-email>`: Okta Email.
+        - `<user-password>`: Okta Password.
         - `<default-role>`: Use `dev` or another role.
 
 1. Source your profile.
