@@ -3179,7 +3179,12 @@
     expire_in: 1 day
     paths:
       - integrates/build
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: integrates/coverage.xml
     when: on_success
+  coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:

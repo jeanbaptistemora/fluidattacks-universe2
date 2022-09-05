@@ -394,7 +394,14 @@ in {
                   paths = ["integrates/build"];
                   expire_in = "1 day";
                   when = "on_success";
+                  reports = {
+                    coverage_report = {
+                      coverage_format = "cobertura";
+                      path = "integrates/coverage.xml";
+                    };
+                  };
                 };
+                coverage = "/(?i)total.*? (100(?:\\.0+)?\\%|[1-9]?\\d(?:\\.\\d+)?\\%)$/";
                 needs =
                   [
                     "/integrates/back/test/unit"

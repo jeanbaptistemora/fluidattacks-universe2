@@ -11,6 +11,7 @@ function main {
     && coverage combine \
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
+    && coverage xml "${coverage_args[@]}" \
     && mv .coverage .coverage."functional_${1}" \
     && popd \
     || return 1
