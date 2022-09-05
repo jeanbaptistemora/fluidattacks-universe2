@@ -116,5 +116,3 @@ GROUP.set_field("userDeletion", user_deletion.resolve)
 GROUP.set_field("userRole", user_role.resolve)
 GROUP.set_field("vulnerabilities", vulnerabilities.resolve)
 GROUP.set_field("vulnerabilityGracePeriod", vulnerability_grace_period.resolve)
-
-# --------------------------- Deprecated fields -------------------------------

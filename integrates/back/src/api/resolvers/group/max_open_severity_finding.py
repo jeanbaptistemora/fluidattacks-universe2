@@ -11,14 +11,8 @@ from db_model.groups.types import (
 from decorators import (
     require_asm,
 )
-from functools import (
-    partial,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
 )
 from typing import (
     Optional,
@@ -27,20 +21,6 @@ from typing import (
 
 @require_asm
 async def resolve(
-    parent: Group,
-    info: GraphQLResolveInfo,
-    **kwargs: None,
-) -> Optional[Finding]:
-    response: Optional[Finding] = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, info, **kwargs),
-        entity="group",
-        attr="max_open_severity_finding",
-        name=parent.name,
-    )
-    return response
-
-
-async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
