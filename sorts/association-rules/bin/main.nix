@@ -15,6 +15,7 @@ in
         env
       ];
       source = [
+        outputs."/common/utils/aws"
         outputs."/common/utils/sops"
       ];
     };

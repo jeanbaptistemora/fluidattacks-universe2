@@ -22,22 +22,22 @@
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-infra";
-    tags = ["prod_sorts_small"];
+    tags = ["small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["dev_small"];
+    tags = ["small"];
   };
 in {
   pipelines = {
@@ -83,7 +83,7 @@ in {
               (gitlabCi.rules.always)
             ];
             stage = "pre-build";
-            tags = ["prod_sorts_large"];
+            tags = ["large"];
           };
         }
         {
@@ -98,7 +98,7 @@ in {
               (gitlabCi.rules.always)
             ];
             stage = "build";
-            tags = ["prod_sorts_large"];
+            tags = ["large"];
           };
         }
         {

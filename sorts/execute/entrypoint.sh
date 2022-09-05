@@ -26,6 +26,7 @@ function main {
   local groups_file
 
   : \
+    && aws_login "prod_sorts" "3600" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && sops_export_vars 'sorts/secrets.yaml' \
