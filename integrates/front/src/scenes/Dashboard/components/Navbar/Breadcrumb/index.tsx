@@ -359,7 +359,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           : findingData.finding.title
         : item;
 
-      if (breadcrumbItem === lastOrganization.name) {
+      if (breadcrumbItem === lastOrganization.name && index === 0) {
         return orgDropdown;
       }
       if (breadcrumbItem === lastGroup.name) {
