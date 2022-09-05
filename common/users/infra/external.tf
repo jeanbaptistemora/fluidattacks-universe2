@@ -73,16 +73,3 @@ resource "aws_iam_user_policy_attachment" "snowflake-user-policy" {
 resource "aws_iam_access_key" "snowflake-access-key" {
   user = aws_iam_user.snowflake-user.name
 }
-
-module "snowflake_publish_credentials" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = aws_iam_access_key.snowflake-access-key
-  key_2     = aws_iam_access_key.snowflake-access-key
-  prefix    = "PROD_SNOWFLAKE"
-  protected = true
-}
