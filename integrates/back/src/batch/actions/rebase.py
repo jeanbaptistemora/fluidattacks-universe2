@@ -13,6 +13,12 @@ from batch.utils.s3 import (
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    InvalidVulnerabilityAlreadyExists,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -59,6 +65,9 @@ from typing import (
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
 )
+from vulnerabilities.domain.utils import (
+    get_path_from_integrates_vulnerability,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -104,7 +113,7 @@ async def _get_vulnerabilities_to_rebase(
         for vulns in findings_vulns
         for vuln in vulns
         if vuln.root_id == git_root.id
-        and vuln.commit is not None
+        # and vuln.commit is not None
         and vuln.type == VulnerabilityType.LINES
     )
     return vulnerabilities
@@ -114,15 +123,20 @@ def _rebase_vulnerability(
     repo: Repo, vulnerability: Vulnerability
 ) -> Optional[git_utils.RebaseResult]:
     try:
-        if vulnerability.commit and (
-            result := git_utils.rebase(
-                repo,
-                path=vulnerability.where,
-                line=int(vulnerability.specific),
-                rev_a=str(
-                    vulnerability.commit if vulnerability.commit else None
-                ),
-                rev_b="HEAD",
+        if (
+            vulnerability.commit
+            and vulnerability.commit
+            != "0000000000000000000000000000000000000000"
+            and (
+                result := git_utils.rebase(
+                    repo,
+                    path=get_path_from_integrates_vulnerability(
+                        vulnerability.where, vulnerability.type
+                    )[1],
+                    line=int(vulnerability.specific),
+                    rev_a=vulnerability.commit,
+                    rev_b="HEAD",
+                )
             )
         ):
             return result
@@ -136,6 +150,28 @@ def _rebase_vulnerability(
             ),
         )
     return None
+
+
+async def _rebase_vulnerability_integrates(
+    *,
+    finding_id: str,
+    finding_vulns_data: Tuple[Vulnerability, ...],
+    vulnerability_commit: str,
+    vulnerability_id: str,
+    vulnerability_where: str,
+    vulnerability_specific: str,
+    vulnerability_type: VulnerabilityType,
+) -> None:
+    with suppress(InvalidVulnerabilityAlreadyExists):
+        await rebase_vulnerability(
+            finding_id=finding_id,
+            finding_vulns_data=finding_vulns_data,
+            vulnerability_commit=vulnerability_commit,
+            vulnerability_id=vulnerability_id,
+            vulnerability_where=vulnerability_where,
+            vulnerability_specific=vulnerability_specific,
+            vulnerability_type=vulnerability_type,
+        )
 
 
 async def rebase_root(
@@ -154,7 +190,7 @@ async def rebase_root(
             )
         )
     futures = [
-        rebase_vulnerability(
+        _rebase_vulnerability_integrates(
             finding_id=vuln.finding_id,
             finding_vulns_data=tuple(
                 item
@@ -163,7 +199,9 @@ async def rebase_root(
             ),
             vulnerability_commit=rebase_result.rev,
             vulnerability_id=vuln.id,
-            vulnerability_where=rebase_result.path,
+            vulnerability_where=(
+                f"{git_root.state.nickname}/{rebase_result.path}"
+            ),
             vulnerability_specific=str(rebase_result.line),
             vulnerability_type=vuln.type,
         )
@@ -182,12 +220,12 @@ async def rebase(*, item: BatchProcessing) -> None:
 
     dataloaders: Dataloaders = get_new_context()
     group_roots_loader = dataloaders.group_roots
-    group_roots = tuple(
+    group_roots: Tuple[GitRoot, ...] = tuple(
         root
         for root in await group_roots_loader.load(group_name)
         if root.state.status == RootStatus.ACTIVE
     )
-
+    # In the off case there are multiple roots with the same nickname
     root_ids = tuple(
         roots_domain.get_root_id_by_nickname(
             nickname=nickname,
@@ -199,6 +237,7 @@ async def rebase(*, item: BatchProcessing) -> None:
     roots: Tuple[GitRoot, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )
+
     for git_root in roots:
         with tempfile.TemporaryDirectory() as tmpdir:
             os.chdir(tmpdir)
