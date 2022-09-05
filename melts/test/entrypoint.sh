@@ -20,7 +20,7 @@ function start_localstack {
 
 function main {
   : \
-    && source "__argAwsLoginDev__/template" \
+    && aws_login "dev" "3600" \
     && if ! test -n "${CI:-}"; then
       # check if is in local environment
       start_localstack

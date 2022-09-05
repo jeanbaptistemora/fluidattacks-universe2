@@ -4,10 +4,9 @@ function main {
   local group="${1:-}"
   export CI='true'
   export CI_COMMIT_REF_NAME='trunk'
-  export PROD_AWS_ACCESS_KEY_ID
-  export PROD_AWS_SECRET_ACCESS_KEY
 
-  shopt -s nullglob \
+  : \
+    && shopt -s nullglob \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && use_git_repo_services \
