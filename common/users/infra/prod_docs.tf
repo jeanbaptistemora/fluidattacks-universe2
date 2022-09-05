@@ -97,19 +97,6 @@ module "prod_docs_keys" {
   tags   = each.value.tags
 }
 
-module "prod_docs_publish_credentials" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = module.prod_docs_aws.keys.1
-  key_2     = module.prod_docs_aws.keys.2
-  prefix    = "PROD_DOCS"
-  protected = true
-}
-
 module "prod_docs_cloudflare" {
   source = "./modules/cloudflare"
 

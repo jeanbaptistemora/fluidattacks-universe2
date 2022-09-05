@@ -252,16 +252,3 @@ module "prod_observes_keys" {
   users  = each.value.users
   tags   = each.value.tags
 }
-
-module "prod_observes_publish_credentials" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = module.prod_observes_aws.keys.1
-  key_2     = module.prod_observes_aws.keys.2
-  prefix    = "PROD_OBSERVES"
-  protected = true
-}

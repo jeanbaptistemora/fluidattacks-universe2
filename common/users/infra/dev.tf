@@ -258,33 +258,6 @@ module "dev_keys" {
   tags   = each.value.tags
 }
 
-module "dev_publish_credentials_product" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = module.dev_aws.keys.1
-  key_2     = module.dev_aws.keys.2
-  prefix    = "DEV"
-  protected = false
-}
-
-module "dev_publish_credentials_services" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.services
-  }
-
-  key_1      = module.dev_aws.keys.1
-  key_2      = module.dev_aws.keys.2
-  prefix     = "DEV"
-  project_id = "4603023"
-  protected  = false
-}
-
 module "dev_cloudflare" {
   source = "./modules/cloudflare"
 

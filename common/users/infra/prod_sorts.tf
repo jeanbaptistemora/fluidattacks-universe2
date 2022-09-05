@@ -206,16 +206,3 @@ module "prod_sorts_keys" {
   users  = each.value.users
   tags   = each.value.tags
 }
-
-module "prod_sorts_publish_credentials" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = module.prod_sorts_aws.keys.1
-  key_2     = module.prod_sorts_aws.keys.2
-  prefix    = "PROD_SORTS"
-  protected = true
-}

@@ -42,16 +42,3 @@ module "prod_melts_aws" {
     "Management:Type"    = "product"
   }
 }
-
-module "prod_melts_publish_credentials" {
-  source = "./modules/publish_credentials"
-
-  providers = {
-    gitlab = gitlab.universe
-  }
-
-  key_1     = module.prod_melts_aws.keys.1
-  key_2     = module.prod_melts_aws.keys.2
-  prefix    = "PROD_MELTS"
-  protected = true
-}

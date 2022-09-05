@@ -671,42 +671,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/commonUsersKeys1:
-  image: ghcr.io/fluidattacks/makes:22.09
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $common_users_rotate_even == null
-      when: never
-    - when: always
-  script:
-    - m . /taintTerraform/commonUsersKeys1
-  stage: rotation
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/taintTerraform/commonUsersKeys2:
-  image: ghcr.io/fluidattacks/makes:22.09
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $common_users_rotate_odd == null
-      when: never
-    - when: always
-  script:
-    - m . /taintTerraform/commonUsersKeys2
-  stage: rotation
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /testTerraform/commonCi:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true

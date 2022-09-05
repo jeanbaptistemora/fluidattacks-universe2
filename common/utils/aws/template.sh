@@ -8,6 +8,7 @@ function _get_credential {
 }
 
 function _aws_login_ci {
+  # AWS STS args
   local args=(
     --role-arn "arn:aws:iam::205810638802:role/${1}"
     --role-session-name "commonCi-${CI_PROJECT_ID}-${CI_PIPELINE_ID}-${CI_JOB_ID}"
@@ -15,29 +16,37 @@ function _aws_login_ci {
     --duration-seconds "${2}"
     --region "us-east-1"
   )
-  local attempts="60"
+
+  # Retry logic
+  local max="60"
   local wait="1"
-  local try="0"
+  local try="1"
+  local success="1"
+
+  # Session variables
   local session
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_SESSION_TOKEN
 
   : \
-    && while [ "${try}" -le "${attempts}" ]; do
+    && while [ "${try}" -le "${max}" ]; do
       if session="$(aws sts assume-role-with-web-identity "${args[@]}" 2> /dev/null)"; then
-        break
-      elif [ "${try}" -eq "${attempts}" ]; then
-        error "Could not login to AWS."
+        success="0" \
+          && break
       else
-        info "Login failed. Attempt ${try} of ${attempts}." \
+        info "Login failed. Attempt ${try} of ${max}." \
           && sleep "${wait}" \
           && try=$((try + 1))
       fi
     done \
-    && AWS_ACCESS_KEY_ID="$(_get_credential "AccessKeyId" "${session}")" \
-    && AWS_SECRET_ACCESS_KEY="$(_get_credential "SecretAccessKey" "${session}")" \
-    && AWS_SESSION_TOKEN="$(_get_credential "SessionToken" "${session}")"
+    && if [ "${success}" == "0" ]; then
+      AWS_ACCESS_KEY_ID="$(_get_credential "AccessKeyId" "${session}")" \
+        && AWS_SECRET_ACCESS_KEY="$(_get_credential "SecretAccessKey" "${session}")" \
+        && AWS_SESSION_TOKEN="$(_get_credential "SessionToken" "${session}")"
+    else
+      error "Could not login to AWS."
+    fi
 }
 
 function aws_login {

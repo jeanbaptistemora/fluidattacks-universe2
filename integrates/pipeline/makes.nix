@@ -179,11 +179,6 @@
     stage = "deploy-app";
     tags = ["small"];
   };
-  gitlabDeployAppProd = {
-    rules = gitlabOnlyProd;
-    stage = "deploy-app";
-    tags = ["small"];
-  };
   gitlabDeployAppProdResourceGroup = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
@@ -270,42 +265,6 @@ in {
                   name = "production";
                   url = "https://app.fluidattacks.com";
                 };
-              };
-          }
-          {
-            args = ["even"];
-            output = "/integrates/back/deploy/prod";
-            gitlabExtra =
-              gitlabDeployAppProd
-              // {
-                environment = {
-                  name = "production";
-                  url = "https://app.fluidattacks.com";
-                };
-                needs = ["/taintTerraform/commonUsersKeys1"];
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "common_users_rotate_even")
-                  (gitlabCi.rules.always)
-                ];
-              };
-          }
-          {
-            args = ["odd"];
-            output = "/integrates/back/deploy/prod";
-            gitlabExtra =
-              gitlabDeployAppProd
-              // {
-                environment = {
-                  name = "production";
-                  url = "https://app.fluidattacks.com";
-                };
-                needs = ["/taintTerraform/commonUsersKeys2"];
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "common_users_rotate_odd")
-                  (gitlabCi.rules.always)
-                ];
               };
           }
         ]

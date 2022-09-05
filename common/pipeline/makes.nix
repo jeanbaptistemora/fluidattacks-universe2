@@ -29,24 +29,6 @@
     stage = "lint-code";
     tags = ["small"];
   };
-  gitlabRotateUsersKeys1 = {
-    rules = [
-      gitlabCi.rules.schedules
-      (gitlabCi.rules.varIsDefined "common_users_rotate_even")
-      gitlabCi.rules.always
-    ];
-    stage = "rotation";
-    tags = ["small"];
-  };
-  gitlabRotateUsersKeys2 = {
-    rules = [
-      gitlabCi.rules.schedules
-      (gitlabCi.rules.varIsDefined "common_users_rotate_odd")
-      gitlabCi.rules.always
-    ];
-    stage = "rotation";
-    tags = ["small"];
-  };
   gitlabTestCode = {
     rules = gitlabOnlyDev;
     stage = "test-code";
@@ -189,14 +171,6 @@ in {
         {
           output = "/pipelineOnGitlab/common";
           gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/taintTerraform/commonUsersKeys1";
-          gitlabExtra = gitlabRotateUsersKeys1;
-        }
-        {
-          output = "/taintTerraform/commonUsersKeys2";
-          gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
           output = "/testTerraform/commonCi";

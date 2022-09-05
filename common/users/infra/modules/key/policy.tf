@@ -3,12 +3,10 @@ locals {
   admin_arns = concat(
     ["arn:aws:iam::${data.aws_caller_identity.main.account_id}:root"],
     [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"],
-    [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"],
   )
-  user_arns = concat(
-    [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"],
-    [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"],
-  )
+  user_arns = [
+    for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
+  ]
   policy = {
     Version = "2012-10-17",
     Statement = [
