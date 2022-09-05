@@ -277,7 +277,7 @@ async def unsubscribe_user_to_entity_report(
     report_subject: str,
     user_email: str,
 ) -> None:
-    await subscriptions_dal.unsubscribe_user_to_entity_report(
+    await subscriptions_dal.remove(
         report_entity=report_entity,
         report_subject=report_subject,
         user_email=user_email,

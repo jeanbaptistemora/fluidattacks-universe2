@@ -103,7 +103,7 @@ async def add(*, subscription: Subscription) -> None:
     )
 
 
-async def unsubscribe_user_to_entity_report(
+async def remove(
     *,
     report_entity: str,
     report_subject: str,
