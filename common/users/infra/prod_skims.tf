@@ -232,6 +232,34 @@ module "prod_skims_aws" {
   name   = "prod_skims"
   policy = local.prod_skims.policies.aws
 
+  assume_role_policy = [
+    {
+      Sid    = "commonClusterAssumePolicy",
+      Effect = "Allow",
+      Principal = {
+        Federated = join(
+          "/",
+          [
+            "arn:aws:iam::205810638802:oidc-provider",
+            replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
+          ]
+        )
+      },
+      Action = "sts:AssumeRoleWithWebIdentity",
+      Condition = {
+        StringEquals = {
+          join(
+            ":",
+            [
+              replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
+              "sub",
+            ]
+          ) : "system:serviceaccount:production:prod-skims"
+        },
+      },
+    },
+  ]
+
   tags = {
     "Name"               = "prod_skims"
     "Management:Area"    = "cost"

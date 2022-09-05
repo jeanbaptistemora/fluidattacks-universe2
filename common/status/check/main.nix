@@ -7,7 +7,6 @@
 }:
 makeScript {
   replace = {
-    __argAwsLoginDev__ = outputs."/secretsForAwsFromGitlab/dev";
     __argCommonStatusSecrets__ = projectPath "/common/status/secrets.yaml";
   };
   entrypoint = ./entrypoint.sh;
@@ -18,6 +17,7 @@ makeScript {
       inputs.nixpkgs.jq
     ];
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };
