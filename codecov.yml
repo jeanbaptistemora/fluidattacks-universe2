@@ -13,3 +13,8 @@ coverage:
         threshold: 6%
     changes: false
     patch: false
+flags:
+  integrates:
+    paths: [integrates/]
+  skims:
+    paths: [skims/]
