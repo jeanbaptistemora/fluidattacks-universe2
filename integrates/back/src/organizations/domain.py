@@ -279,10 +279,10 @@ async def complete_register_for_organization_invitation(
                 email=email,
                 enrolled=True,
                 trial=Trial(
-                    completed=True,
-                    extension_date=datetime_utils.get_iso_date(),
+                    completed=False,
+                    extension_date="",
                     extension_days=0,
-                    start_date=datetime_utils.get_iso_date(),
+                    start_date="",
                 ),
             )
         )

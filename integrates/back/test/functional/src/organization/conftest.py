@@ -44,6 +44,8 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "groups": [
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="group1",
@@ -63,6 +65,8 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="group2",

@@ -91,6 +91,8 @@ class GroupFile(NamedTuple):
 
 
 class Group(NamedTuple):
+    created_by: str
+    created_date: str
     description: str
     language: GroupLanguage
     name: str

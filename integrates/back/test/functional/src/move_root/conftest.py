@@ -138,6 +138,8 @@ async def populate() -> bool:
         "groups": (
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="kibi",
@@ -157,6 +159,8 @@ async def populate() -> bool:
             },
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="kuri",
@@ -176,6 +180,8 @@ async def populate() -> bool:
             },
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="udon",
@@ -195,6 +201,8 @@ async def populate() -> bool:
             },
             {
                 "group": Group(
+                    created_by="unknown",
+                    created_date="2020-05-20T22:00:00+00:00",
                     description="-",
                     language=GroupLanguage.EN,
                     name="kurau",

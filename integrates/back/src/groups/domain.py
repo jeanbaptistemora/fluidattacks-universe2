@@ -247,10 +247,10 @@ async def complete_register_for_group_invitation(
                     email=email,
                     enrolled=True,
                     trial=Trial(
-                        completed=True,
-                        extension_date=datetime_utils.get_iso_date(),
+                        completed=False,
+                        extension_date="",
                         extension_days=0,
-                        start_date=datetime_utils.get_iso_date(),
+                        start_date="",
                     ),
                 )
             )
@@ -314,6 +314,8 @@ async def add_group(
 
     await groups_model.add(
         group=Group(
+            created_by=user_email,
+            created_date=datetime_utils.get_iso_date(),
             description=description,
             language=language,
             name=group_name,

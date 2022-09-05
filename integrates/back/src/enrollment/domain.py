@@ -93,7 +93,7 @@ async def add_enrollment(
             enrolled=True,
             trial=Trial(
                 completed=False,
-                extension_date=datetime_utils.get_iso_date(),
+                extension_date="",
                 extension_days=0,
                 start_date=datetime_utils.get_iso_date(),
             ),

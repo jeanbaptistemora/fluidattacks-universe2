@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 30, 2022, 08:41 AM",
+    "DateLastModified": "Sep 05, 2022, 11:52 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -972,6 +972,14 @@
         },
         {
           "AttributeName": "frequency",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "code_languages",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "created_by",
           "AttributeType": "S"
         }
       ],
@@ -3063,12 +3071,12 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "email",
             "pk_2",
             "sk_2",
-            "email",
+            "subject",
             "entity",
-            "frequency",
-            "subject"
+            "frequency"
           ],
           "DataAccess": {
             "MySql": {}
@@ -8317,7 +8325,9 @@
             "disambiguation",
             "sprint_duration",
             "policies",
-            "sprint_start_date"
+            "sprint_start_date",
+            "created_by",
+            "created_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -10439,7 +10449,6 @@
           ],
           "NonKeyAttributes": [
             "closed_vulnerabilities",
-            "code_languages",
             "exposed_over_time_cvssf",
             "exposed_over_time_month_cvssf",
             "exposed_over_time_year_cvssf",
@@ -10465,7 +10474,8 @@
             "remediated_over_time_month_cvssf",
             "remediated_over_time_year",
             "remediated_over_time_year_cvssf",
-            "treatment_summary"
+            "treatment_summary",
+            "code_languages"
           ],
           "DataAccess": {
             "MySql": {}
@@ -10990,21 +11000,21 @@
             }
           ],
           "NonKeyAttributes": [
+            "exit_code",
+            "branch",
+            "commit",
+            "origin",
+            "repo",
+            "strictness",
+            "grace_period",
+            "severity_threshold",
             "id",
             "group_name",
             "pk_2",
             "sk_2",
             "execution_date",
-            "commit",
-            "repo",
-            "branch",
             "kind",
-            "exit_code",
-            "strictness",
-            "origin",
-            "vulnerabilities",
-            "grace_period",
-            "severity_threshold"
+            "vulnerabilities"
           ],
           "DataAccess": {
             "MySql": {}
