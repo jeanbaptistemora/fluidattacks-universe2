@@ -8,8 +8,6 @@ makeScript {
   replace = {
     __argAirsBuild__ = outputs."/airs/build";
     __argAirsDevelopment__ = outputs."/airs/config/development";
-    __argSecretsAwsDev__ = outputs."/secretsForAwsFromGitlab/dev";
-    __argSecretsAwsProd__ = outputs."/secretsForAwsFromGitlab/prodAirs";
   };
   name = "airs";
   searchPaths = {
@@ -23,6 +21,9 @@ makeScript {
       inputs.nixpkgs.utillinux
       outputs."/common/utils/bugsnag/announce"
       outputs."/common/utils/bugsnag/source-map-uploader"
+    ];
+    source = [
+      outputs."/common/utils/aws"
     ];
   };
   entrypoint = ./entrypoint.sh;
