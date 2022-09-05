@@ -70,8 +70,8 @@ amount of days.
 
 ![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/treatmentless_by_group_neyank.png)
 
-The percentage of treatmentless vulnerabilities
-that each group has
+The percentage of vulnerabilities
+with no treatment that each group
 compared with the whole portfolio.
 
 ## Tags by groups

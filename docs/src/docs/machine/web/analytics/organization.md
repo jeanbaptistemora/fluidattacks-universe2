@@ -92,8 +92,8 @@ your groups.
 
 ![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
 
-The percentage of treatmentless
-vulnerabilities that each group
+The percentage of vulnerabilities
+with no treatment that each group
 has compared with the whole organization.
 
 ## Vulnerabilities by group
