@@ -1045,6 +1045,8 @@ async def process_execution(
 
 
 def _decode_sqs_message(message: Any) -> str:
+    with suppress(json.JSONDecodeError):
+        return json.loads(message.body)["execution_id"]
     return json.loads(
         base64.b64decode(
             json.loads(base64.b64decode(message.body).decode())["body"]
