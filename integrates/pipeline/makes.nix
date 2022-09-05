@@ -160,11 +160,14 @@
     gitlabTitleMatchingMakes
   ];
   gitlabDeployEphemeralRule = [
-    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
-    (gitlabCi.rules.titleMatching "^(all|integrates|skims|forces)")
+    # Skims needs the ephemeral in dev and prod
+    (gitlabCi.rules.titleMatching "^(all|skims)")
+    # Integrates and forces only need ephemeral in dev
+    gitlabBranchNotTrunk
+    (gitlabCi.rules.titleMatching "^(all|integrates|forces)")
   ];
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;

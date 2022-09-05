@@ -55,15 +55,16 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|skims|forces)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|forces)/
   script:
     - m . /integrates/back/deploy/dev
   stage: deploy-app
