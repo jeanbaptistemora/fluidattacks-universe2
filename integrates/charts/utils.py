@@ -14,12 +14,6 @@ from db_model.groups.enums import (
 from db_model.portfolios.types import (
     Portfolio,
 )
-from db_model.vulnerabilities.enums import (
-    VulnerabilityType,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
     ROUND_FLOOR,
@@ -44,9 +38,6 @@ from typing import (
     NamedTuple,
     Optional,
     Type,
-)
-from urllib.parse import (
-    urlparse,
 )
 
 
@@ -81,37 +72,6 @@ def get_finding_name(item: list[str]) -> str:
 
 def get_result_path(name: str) -> str:
     return os.path.join(os.environ["RESULTS_DIR"], name)
-
-
-def get_repo_from_where(where: str) -> str:
-    if "/" in where:
-        repo = where.split("/", 1)[0]
-    elif "\\" in where:
-        repo = where.split("\\", 1)[0]
-    else:
-        repo = where
-
-    return repo
-
-
-def get_vulnerability_source(vulnerability: Vulnerability) -> str:
-    where = vulnerability.where.strip()
-
-    if vulnerability.type == VulnerabilityType.LINES:
-        root: str = get_repo_from_where(where)
-    elif vulnerability.type == VulnerabilityType.PORTS:
-        root = where
-    elif vulnerability.type == VulnerabilityType.INPUTS:
-        try:
-            url = urlparse(where)
-        except ValueError:
-            root = where
-        else:
-            root = url.hostname or where
-    else:
-        root = where
-
-    return root
 
 
 async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
