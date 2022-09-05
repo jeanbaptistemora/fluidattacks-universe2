@@ -15,13 +15,26 @@ function _aws_login_ci {
     --duration-seconds "${2}"
     --region "us-east-1"
   )
+  local attempts="60"
+  local wait="1"
+  local try="0"
   local session
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_SESSION_TOKEN
 
   : \
-    && session="$(aws sts assume-role-with-web-identity "${args[@]}")" \
+    && while [ "${try}" -le "${attempts}" ]; do
+      if session="$(aws sts assume-role-with-web-identity "${args[@]}" 2> /dev/null)"; then
+        break
+      elif [ "${try}" -eq "${attempts}" ]; then
+        error "Could not login to AWS."
+      else
+        info "Login failed. Attempt ${try} of ${attempts}." \
+          && sleep "${wait}" \
+          && try=$((try + 1))
+      fi
+    done \
     && AWS_ACCESS_KEY_ID="$(_get_credential "AccessKeyId" "${session}")" \
     && AWS_SECRET_ACCESS_KEY="$(_get_credential "SecretAccessKey" "${session}")" \
     && AWS_SESSION_TOKEN="$(_get_credential "SessionToken" "${session}")"

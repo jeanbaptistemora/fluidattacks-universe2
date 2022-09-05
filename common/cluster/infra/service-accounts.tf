@@ -8,10 +8,6 @@ locals {
       namespace = "production"
       role      = "prod_integrates"
     }
-    prod-skims = {
-      namespace = "production"
-      role      = "prod_skims"
-    }
   }
 }
 
