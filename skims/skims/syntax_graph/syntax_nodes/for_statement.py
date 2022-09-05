@@ -4,13 +4,16 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Optional,
+)
 
 
 def build_for_statement_node(
     args: SyntaxGraphArgs,
     initializer_node: str,
     condition_node: str,
-    update_node: str,
+    update_node: Optional[str],
     body_node: str,
 ) -> NId:
 
@@ -31,11 +34,12 @@ def build_for_statement_node(
         label_ast="AST",
     )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(update_node)),
-        label_ast="AST",
-    )
+    if update_node:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(update_node)),
+            label_ast="AST",
+        )
 
     args.syntax_graph.add_edge(
         args.n_id,

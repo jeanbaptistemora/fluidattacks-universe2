@@ -28,6 +28,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "string_literal",
         "array_initializer",
         "cast_expression",
+        "number",
     }
 
     childs = [

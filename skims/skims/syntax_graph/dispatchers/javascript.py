@@ -28,6 +28,7 @@ from syntax_graph.syntax_readers.common import (
     switch_default as common_switch_default,
     switch_statement as common_switch_statement,
     throw_statement as common_throw_statement,
+    update_expression as common_update_expression,
     variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
     yield_expression as common_yield_expression,
@@ -38,6 +39,7 @@ from syntax_graph.syntax_readers.javascript import (
     assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
     catch_clause as javascript_catch_clause,
+    for_statement as javascript_for_statement,
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     object as javascript_object,
@@ -169,6 +171,13 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "for_statement",
+            "for_in_statement",
+        },
+        syntax_reader=javascript_for_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "lexical_declaration",
         },
         syntax_reader=javascript_lexical_declaration.reader,
@@ -284,6 +293,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "try_statement",
         },
         syntax_reader=javascript_try_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "update_expression",
+        },
+        syntax_reader=common_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={

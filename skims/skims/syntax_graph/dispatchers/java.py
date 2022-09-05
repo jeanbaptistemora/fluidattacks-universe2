@@ -33,6 +33,7 @@ from syntax_graph.syntax_readers.common import (
     this as common_this,
     throw_statement as common_throw_statement,
     try_statement as common_try_statement,
+    update_expression as common_update_expression,
     variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
 )
@@ -64,7 +65,6 @@ from syntax_graph.syntax_readers.java import (
     switch_expression as java_switch_expression,
     switch_label as java_switch_label,
     unary_expression as java_unary_expression,
-    update_expression as java_update_expression,
     while_statement as java_while_statement,
 )
 from syntax_graph.types import (
@@ -457,7 +457,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "update_expression",
         },
-        syntax_reader=java_update_expression.reader,
+        syntax_reader=common_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={
