@@ -45,10 +45,6 @@ const GET_TOE_LINES: DocumentNode = gql`
     $rootId: ID
   ) {
     group(groupName: $groupName) {
-      codeLanguages {
-        language
-        loc
-      }
       name
       toeLines(
         bePresent: $bePresent

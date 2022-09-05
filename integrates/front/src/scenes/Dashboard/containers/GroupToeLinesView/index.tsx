@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
-import { CodeLanguages } from "./CodeLanguages";
 import { editableAttackedLinesFormatter } from "./formatters/editableAttackedLinesFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
@@ -40,7 +39,6 @@ import {
   VERIFY_TOE_LINES,
 } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
-  ICodeLanguage,
   IFilterSet,
   IGroupToeLinesViewProps,
   ISortsSuggestionAttr,
@@ -265,7 +263,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   };
   const { data, fetchMore, refetch } = useQuery<{
     group: {
-      codeLanguages: ICodeLanguage[] | null;
       toeLines: IToeLinesConnection;
     };
   }>(GET_TOE_LINES, {
@@ -864,7 +861,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         search={false}
         selectionMode={selectionMode}
       />
-      <CodeLanguages languages={data.group.codeLanguages} />
 
       <HandleAdditionModal
         groupName={groupName}

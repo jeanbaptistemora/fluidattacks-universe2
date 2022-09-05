@@ -10,6 +10,7 @@ import type { IToeContentProps } from "./types";
 import { groupContext } from "../GroupContent/context";
 import type { IGroupContext } from "../GroupContent/types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
+import { GroupToeLanguagesView } from "../GroupToeLanguagesView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
@@ -53,6 +54,13 @@ const toeContent: React.FC<IToeContentProps> = ({
               {t("group.toe.tabs.inputs.text")}
             </Tab>
           </Can>
+          <Tab
+            id={"toeLanguagesTab"}
+            link={`${url}/languages`}
+            tooltip={t("group.toe.tabs.languages.tooltip")}
+          >
+            {t("group.toe.tabs.languages.text")}
+          </Tab>
         </Tabs>
       </div>
       <TabContent>
@@ -63,8 +71,12 @@ const toeContent: React.FC<IToeContentProps> = ({
           <Route exact={true} path={`${path}/inputs`}>
             <GroupToeInputsView isInternal={isInternal} />
           </Route>
+          <Route>
+            <GroupToeLanguagesView />
+          </Route>
           {canGetToeLines ? <Redirect to={`${path}/lines`} /> : undefined}
           {canGetToeInputs ? <Redirect to={`${path}/inputs`} /> : undefined}
+          <Redirect to={`${path}/languages`} />
           <Redirect to={groupPath} />
         </Switch>
       </TabContent>

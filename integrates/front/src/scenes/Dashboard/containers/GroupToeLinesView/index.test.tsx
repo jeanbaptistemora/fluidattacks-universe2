@@ -48,7 +48,6 @@ describe("groupToeLinesView", (): void => {
         data: {
           group: {
             __typename: "Group",
-            codeLanguages: null,
             name: "unittesting",
             toeLines: {
               __typename: "ToeLinesConnection",

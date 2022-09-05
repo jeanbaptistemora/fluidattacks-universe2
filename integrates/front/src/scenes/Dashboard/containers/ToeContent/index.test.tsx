@@ -32,7 +32,7 @@ describe("ToeContent", (): void => {
       </MemoryRouter>
     );
     await waitFor((): void => {
-      expect(screen.queryAllByRole("link")).toHaveLength(2);
+      expect(screen.queryAllByRole("link")).toHaveLength(3);
     });
 
     expect(

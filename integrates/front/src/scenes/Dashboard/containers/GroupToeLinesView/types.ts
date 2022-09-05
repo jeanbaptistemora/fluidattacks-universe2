@@ -1,9 +1,3 @@
-interface ICodeLanguage {
-  language: string;
-  loc: number;
-  percentage?: number;
-}
-
 interface IFilterSet {
   bePresent: string;
   coverage: { max: string; min: string };
@@ -93,7 +87,6 @@ interface IVerifyToeLinesResultAttr {
 }
 
 export type {
-  ICodeLanguage,
   IFilterSet,
   IGitRootAttr,
   IGroupToeLinesViewProps,
