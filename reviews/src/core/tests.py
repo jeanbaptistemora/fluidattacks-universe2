@@ -85,7 +85,7 @@ def pr_message_equals_commit_message(*, data: TestData) -> bool:
     if not success:
         log(
             err_log,
-            "PR message is not equals to commit message. \n\n"
+            "PR message is not equal to commit message. \n\n"
             "PR message:\n"
             "%s\n\n"
             "Commit message:\n"
