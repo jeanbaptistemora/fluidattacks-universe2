@@ -1001,6 +1001,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
     )
+    F423: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F423",
+        cwe=382,
+        execution_queue=ExecutionQueue.injection,
+        requirements=[164, 167, 72, 327],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
@@ -3921,4 +3928,12 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F416,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JAVA_USES_SYSTEM_EXIT = MethodInfo(
+        file_name="java",
+        name="java_uses_exit_method",
+        module="lib_root",
+        finding=FindingEnum.F423,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
     )

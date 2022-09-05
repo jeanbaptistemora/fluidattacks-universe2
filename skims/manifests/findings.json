@@ -926,5 +926,13 @@
     "ES": {
       "title": "416. XAML injection"
     }
+  },
+  "F423": {
+    "EN": {
+      "title": "423. Inappropriate coding practices - System exit"
+    },
+    "ES": {
+      "title": "423. Inappropriate coding practices - System exit"
+    }
   }
 }
