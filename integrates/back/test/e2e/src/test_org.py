@@ -23,7 +23,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Vulnerabilities by source",
     "Total types",
     "Days until zero exposure",
-    "Treatmentless vulnerabilities",
+    "Vulnerabilities with no treatment",
     "Vulnerabilities being re-attacked",
     "Days since last remediation",
     "Total vulnerabilities",

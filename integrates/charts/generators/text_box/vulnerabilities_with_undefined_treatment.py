@@ -55,7 +55,7 @@ def format_data(undefined_count: int) -> dict:
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    title: str = "Treatmentless vulnerabilities"
+    title: str = "Vulnerabilities with no treatment"
     async for group_name in utils.iterate_groups():
         document = format_data(
             undefined_count=await generate_one(loaders, group_name),

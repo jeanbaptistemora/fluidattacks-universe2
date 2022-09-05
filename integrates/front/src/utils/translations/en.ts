@@ -255,7 +255,7 @@ export const enTranslations: ResourceKey = {
         title: "Total vulnerabilities",
       },
       vulnsWithUndefinedTreatment: {
-        title: "Treatmentless vulnerabilities",
+        title: "Vulnerabilities with no treatment",
       },
     },
   },
