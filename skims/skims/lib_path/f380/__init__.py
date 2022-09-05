@@ -1,5 +1,5 @@
 from lib_path.common import (
-    EXTENSIONS_YAML,
+    EXTENSIONS_DOCKERFILE,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
 )
@@ -9,7 +9,6 @@ from lib_path.f380.docker import (
 from model.core_model import (
     Vulnerabilities,
 )
-import re
 from typing import (
     Callable,
     Tuple,
@@ -31,9 +30,9 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if (file_name in NAMES_DOCKERFILE and file_extension == "") or (
-        re.search("docker", file_name, re.IGNORECASE)
-        and file_extension in EXTENSIONS_YAML
+    if (
+        file_name in NAMES_DOCKERFILE
+        and file_extension in EXTENSIONS_DOCKERFILE
     ):
         results = (run_unpinned_docker_image(content_generator(), path),)
 

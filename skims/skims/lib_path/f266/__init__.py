@@ -1,5 +1,5 @@
 from lib_path.common import (
-    EXTENSIONS_YAML,
+    EXTENSIONS_DOCKERFILE,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
 )
@@ -8,10 +8,6 @@ from lib_path.f266.docker import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from re import (
-    IGNORECASE,
-    search,
 )
 from typing import (
     Callable,
@@ -33,9 +29,9 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if (file_name in NAMES_DOCKERFILE and file_extension == "") or (
-        search("docker", file_name, IGNORECASE)
-        and file_extension in EXTENSIONS_YAML
+    if (
+        file_name in NAMES_DOCKERFILE
+        and file_extension in EXTENSIONS_DOCKERFILE
     ):
         results = (run_container_whitout_user(content_generator(), path),)
 

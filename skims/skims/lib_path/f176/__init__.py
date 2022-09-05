@@ -1,5 +1,6 @@
 from lib_path.common import (
     EXTENSIONS_BASH,
+    EXTENSIONS_DOCKERFILE,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
@@ -12,10 +13,6 @@ from lib_path.f176.docker import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from re import (
-    IGNORECASE,
-    search,
 )
 from typing import (
     Callable,
@@ -42,10 +39,10 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if (file_name in NAMES_DOCKERFILE and file_extension == "") or (
-        search("docker", file_name, IGNORECASE)
-        and file_extension in EXTENSIONS_YAML
-    ):
+    if (
+        file_name in NAMES_DOCKERFILE
+        and file_extension in EXTENSIONS_DOCKERFILE
+    ) or ("docker" in file_name.lower() and file_extension in EXTENSIONS_YAML):
         results = (run_container_using_sshpass(content_generator(), path),)
     elif file_extension in EXTENSIONS_BASH:
         results = (

@@ -1,4 +1,5 @@
 from lib_path.common import (
+    EXTENSIONS_DOCKERFILE,
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
@@ -127,10 +128,13 @@ def analyze(
     }:
         results = (*results, run_aws_credentials(content, path))
 
-    if file_name in NAMES_DOCKERFILE:
+    if (
+        file_name in NAMES_DOCKERFILE
+        and file_extension in EXTENSIONS_DOCKERFILE
+    ):
         results = (*results, run_dockerfile_env_secrets(content, path))
 
-    elif file_name == "docker-compose" and file_extension in EXTENSIONS_YAML:
+    elif "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
         results = (
             *results,
             *(
