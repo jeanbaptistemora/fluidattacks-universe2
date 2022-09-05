@@ -12,7 +12,7 @@ the organization Analytics and Policies.
 Allowing them to give access to new
 stakeholders or configure policies.
 
-![Stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1658774736/docs/web/analytics/stakeholders/stakeh_introduction.png)
+![Stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1662390064/docs/web/stakeholders/stakehold_tab.png)
 
 In the stakeholder section,
 you have four
