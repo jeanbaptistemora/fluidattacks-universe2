@@ -21,6 +21,12 @@
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingSkims
   ];
+  gitlabOnlyDevAndTrunk = [
+    gitlabCi.rules.notMrs
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingSkims
+  ];
 
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
@@ -34,12 +40,12 @@
     tags = ["small"];
   };
   gitlabTest = {
-    rules = gitlabOnlyDev;
+    rules = gitlabOnlyDevAndTrunk;
     stage = "test-code";
     tags = ["small"];
   };
   gitlabTestFuntional = {
-    rules = gitlabOnlyDev;
+    rules = gitlabOnlyDevAndTrunk;
     stage = "post-deploy";
     tags = ["small"];
     resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";

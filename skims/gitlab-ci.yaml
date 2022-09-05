@@ -184,8 +184,6 @@
     - /testPython/skims@vulnerableapp
     - /testPython/skims@vulnerable_js_app
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -197,7 +195,7 @@
     - m . /skims/coverage
   stage: post-deploy
   tags:
-    - dev_small
+    - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -229,8 +227,6 @@
     - /integrates/back/deploy/dev
   resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -256,8 +252,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -283,8 +277,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -310,8 +302,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -337,8 +327,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -364,8 +352,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -391,8 +377,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -418,8 +402,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -445,8 +427,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -472,8 +452,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -499,8 +477,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -526,8 +502,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -555,8 +529,6 @@
     - /integrates/back/deploy/dev
   resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -582,8 +554,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -609,8 +579,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -636,8 +604,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -663,8 +629,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -690,8 +654,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -717,8 +679,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -744,8 +704,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -771,8 +729,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -798,8 +754,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -825,8 +779,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -852,8 +804,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -879,8 +829,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -906,8 +854,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -933,8 +879,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -960,8 +904,6 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
