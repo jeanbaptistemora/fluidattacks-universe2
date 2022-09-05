@@ -79,6 +79,28 @@ async def send_mail_free_trial_over(
     )
 
 
+async def send_abandoned_trial_registration(
+    loaders: Any,
+    email_to: List[str],
+    context: dict[str, Any],
+    first_time: bool,
+) -> None:
+    await send_mails_async(
+        loaders,
+        email_to=email_to,
+        context=context,
+        tags=[],
+        subject=(
+            f'[{context["registered_name"]}], '
+            "start your Continuous Hacking Free Trial "
+            ""
+            if first_time
+            else "(reminder)"
+        ),
+        template_name="abandoned_trial_registration",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
