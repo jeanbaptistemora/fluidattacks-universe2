@@ -65,10 +65,9 @@ resource "aws_iam_user" "snowflake-user" {
   }
 }
 
-resource "aws_iam_user_policy" "snowflake-user-policy" {
-  name   = "snowflake-user-policy"
-  user   = aws_iam_user.snowflake-user.name
-  policy = aws_iam_policy.snowflake-read-policy.arn
+resource "aws_iam_user_policy_attachment" "snowflake-user-policy" {
+  user       = aws_iam_user.snowflake-user.name
+  policy_arn = aws_iam_policy.snowflake-read-policy.arn
 }
 
 resource "aws_iam_access_key" "snowflake-access-key" {
