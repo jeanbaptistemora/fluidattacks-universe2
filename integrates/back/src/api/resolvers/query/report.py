@@ -223,11 +223,10 @@ def _validate_closing_date(*, closing_date: Optional[datetime]) -> None:
 
 
 def _validate_days(field: Optional[int]) -> None:
-    if field is not None:
-        if MIN_VALUE > field or field > MAX_VALUE:
-            raise InvalidReportFilter(
-                f"Age value must be between {MIN_VALUE} and {MAX_VALUE}"
-            )
+    if field and (MIN_VALUE > field or field > MAX_VALUE):
+        raise InvalidReportFilter(
+            f"Age value must be between {MIN_VALUE} and {MAX_VALUE}"
+        )
 
 
 def _validate_min_severity(**kwargs: Any) -> None:
