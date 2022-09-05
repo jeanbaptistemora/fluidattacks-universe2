@@ -1509,11 +1509,13 @@ export const enTranslations: ResourceKey = {
     title: "Legal notice",
   },
   login: {
-    auth: "Welcome back, please authenticate to proceed.",
-    bitbucket: "Sign in with Bitbucket",
-    google: "Sign in with Google",
-    microsoft: "Sign in with Microsoft",
+    auth: "Sign in to Fluid Attacks' ARM Platform",
+    bitbucket: "Continue with Bitbucket",
+    google: "Continue with Google",
+    microsoft: "Continue with Microsoft",
     newuser: "If you are a new user, click below to sign up.",
+    privacyLinkText: "Privacy Policy",
+    termsOfUseLinkText: "Terms of Use",
   },
   navbar: {
     config: {

@@ -13,9 +13,9 @@ def test_others_login_screen(
 ) -> None:
     # Enter login screen
     driver.get(asm_endpoint)
-    assert utils.wait_for_text(
+    assert utils.wait_for_id(
         driver,
-        "please authenticate to proceed.",
+        "login-auth",
         timeout,
     )
 

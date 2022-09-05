@@ -44,7 +44,9 @@ export const Login: React.FC = (): JSX.Element => {
     <LoginContainer>
       <LoginGrid>
         <img alt={"logo"} className={style.logo} src={logo} />
-        <p className={`tc mt4 mb4 ${style["text-color"]}`}>{t("login.auth")}</p>
+        <p className={`tc mt4 mb4 ${style["text-color"]}`} id={"login-auth"}>
+          {t("login.auth")}
+        </p>
         <LoginButton
           className={"btn-lgoogle mb2 black"}
           icon={
@@ -83,11 +85,11 @@ export const Login: React.FC = (): JSX.Element => {
         <div className={`mb0 tc ${style["text-color"]}`}>
           <p>
             <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-              {"Terms of Use"}
+              {t("login.termsOfUseLinkText")}
             </ExternalLink>
             {"|"}
             <ExternalLink href={"https://fluidattacks.com/privacy/"}>
-              {"Privacy Policy."}
+              {t("login.privacyLinkText")}
             </ExternalLink>
           </p>
           <p className={"mb0"}>
