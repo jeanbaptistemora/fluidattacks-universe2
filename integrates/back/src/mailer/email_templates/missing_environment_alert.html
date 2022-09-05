@@ -2,33 +2,29 @@
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Missing Registered Environments') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      In the group <strong>{{ group }}</strong> created {{ group_date }}
-      {% if group_date == 1 %}week{% else %}weeks{% endif %} ago, you have not
-      registered any environments yet.
-    </p>
-    <p>
-      <a
-        href="https://docs.fluidattacks.com/machine/web/groups/scope/roots/#managing-git-root-environments"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="color: #ff3435;"
-      >
-        How to register?
-      </a>
-    </p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Missing Registered Environments') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        You have not yet registered any environment in the group
+        <strong>{{ group -}}</strong>, created {{ group_date }}
+        {% if group_date == 1 %}week{% else %}weeks{% endif %} ago.
+        If you are not sure how to register the environments, please
+        <a
+          href="https://docs.fluidattacks.com/machine/web/groups/scope/roots/#managing-git-root-environments"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          check here</a>.
+      </p>
+      <p>Regards,<br>
+        Fluid Attacks Team</p>
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
