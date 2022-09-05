@@ -47,21 +47,6 @@ def get_from_str(
     return pytz.timezone(zone).localize(unaware_datetime, is_dst=False)
 
 
-def get_from_str_frcs(
-    date_str: str,
-    date_format: str = DEFAULT_DATE_FORMAT,
-    zone: str = TIME_ZONE,
-) -> str:
-    try:
-        unaware_datetime = datetime.strptime(date_str, date_format)
-        return get_as_utc_iso_format(
-            pytz.timezone(zone).normalize(unaware_datetime)
-        )
-    except ValueError:
-        isodate: datetime = datetime.fromisoformat(date_str)
-        return isodate.astimezone(tz=timezone.utc).isoformat()
-
-
 def get_as_str(
     date: datetime,
     date_format: str = DEFAULT_DATE_FORMAT,
