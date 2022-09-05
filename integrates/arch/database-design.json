@@ -3069,7 +3069,86 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "SUBS#ENTITY#entity#SUBJECT#subject"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "subject": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "SUBS#ENTITY#group#SUBJECT#oneshottest"
+              },
+              "pk_2": {
+                "S": "SUBS#all"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "SUBS#monthly"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "MONTHLY"
+              }
+            },
+            {
+              "subject": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "SUBS#ENTITY#group#SUBJECT#unittesting"
+              },
+              "pk_2": {
+                "S": "SUBS#all"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "SUBS#daily"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "DAILY"
+              }
+            },
+            {
+              "subject": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "SUBS#ENTITY#group#SUBJECT#unittesting"
+              },
+              "pk_2": {
+                "S": "SUBS#all"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "sk_2": {
+                "S": "SUBS#hourly"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "HOURLY"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "email",
             "pk_2",

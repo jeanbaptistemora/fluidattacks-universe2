@@ -32,7 +32,7 @@ async def add(*, subscription: Subscription) -> None:
         facet=ALL_SUBSCRIPTIONS_INDEX_METADATA,
         values={
             "all": "all",
-            "frequency": subscription.frequency,
+            "frequency": subscription.frequency.lower(),
         },
     )
     item = {

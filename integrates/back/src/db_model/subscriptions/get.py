@@ -54,7 +54,7 @@ async def _get_stakeholder_subscriptions(
 async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
     primary_key = keys.build_key(
         facet=ALL_SUBSCRIPTIONS_INDEX_METADATA,
-        values={"all": "all", "frequency": frequency},
+        values={"all": "all", "frequency": frequency.lower()},
     )
     index = TABLE.indexes["gsi_2"]
     key_structure = index.primary_key
