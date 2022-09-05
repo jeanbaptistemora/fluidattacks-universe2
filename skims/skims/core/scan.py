@@ -1,4 +1,5 @@
 import aioboto3
+import boto3
 from config import (
     dump_to_yaml,
     load,
@@ -35,12 +36,6 @@ from integrates.graphql import (
     create_session,
 )
 import json
-from kombu import (
-    Connection,
-)
-from kombu.utils.url import (
-    safequote,
-)
 from lib_apk.analyze import (
     analyze as analyze_apk,
 )
@@ -123,22 +118,21 @@ async def upload_sarif_result(
 
 
 async def queue_upload_vulns(execution_id: str) -> None:
-    access_key = os.environ["AWS_ACCESS_KEY_ID"]
-    secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
-
-    broker_url = f"sqs://{safequote(access_key)}:{safequote(secret_key)}@"
-    with Connection(broker_url) as conn:
-        queue = conn.SimpleQueue("skims-report-queue")
-        message = {
-            "id": execution_id,
-            "task": "process-skims-result",
-            "args": [execution_id],
-            "kwargs": {},
-            "retries": 0,
-            "eta": datetime.now().isoformat(),
-        }
-        queue.put(message)
-        queue.close()
+    session = boto3.Session()
+    client = session.client("sqs")
+    broker_url = session.client("sqs").get_queue_url(QueueName="celery")[
+        "QueueUrl"
+    ]
+    client.send_message(
+        QueueUrl=broker_url,
+        MessageBody=json.dumps(
+            {
+                "execution_id": execution_id,
+                "task": "process-skims-result",
+                "eta": datetime.now().isoformat(),
+            }
+        ),
+    )
 
 
 async def execute_skims(

@@ -437,10 +437,10 @@ async def upload_config(config: core_model.SkimsConfig) -> bool:
             handler.write(file_content)
         with open(file_path, "rb") as reader:
             session = aioboto3.Session()
-            async with session.client("s3") as s3_client:
-                await s3_client.upload_fileobj(
+            async with session.resource("s3") as s3_resource:
+                bucket = await s3_resource.Bucket("name")
+                await bucket.upload_fileobj(
                     reader,
-                    "skims.data",
                     f"configs/{config.execution_id}.yaml",
                 )
                 return True
