@@ -1,12 +1,6 @@
 from collections import (
     defaultdict,
 )
-from dataloaders.force_executions import (
-    ForcesExecutionsLoader,
-)
-from dataloaders.forces import (
-    ForcesExecutionLoader,
-)
 from dataloaders.stakeholder_subscriptions import (
     StakeholderSubscriptionsLoader,
 )
@@ -37,6 +31,10 @@ from db_model.findings.get import (
     GroupDraftsLoader,
     GroupFindingsLoader,
     MeDraftsLoader,
+)
+from db_model.forces.get import (
+    ForcesExecutionLoader,
+    ForcesExecutionsLoader,
 )
 from db_model.group_access.get import (
     GroupAccessLoader,

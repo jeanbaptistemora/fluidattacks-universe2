@@ -13,9 +13,6 @@ from db_model.group_access.types import (
 from db_model.groups.types import (
     GroupMetadataToUpdate,
 )
-from forces import (
-    dal as forces_dal,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -101,7 +98,6 @@ async def add_forces_execution(
         vulns_file.seek(os.SEEK_SET)
         await save_log_execution(log, log_name)
         await save_log_execution(vulns_file, vulns_name)
-        await forces_dal.add(forces_execution=forces_execution)
         await forces_model.add(forces_execution=forces_execution)
 
 

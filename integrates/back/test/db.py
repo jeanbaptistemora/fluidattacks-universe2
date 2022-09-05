@@ -16,6 +16,7 @@ from db_model import (
     events as events_model,
     finding_comments as finding_comments_model,
     findings as findings_model,
+    forces as forces_model,
     group_access as group_access_model,
     group_comments as group_comments_model,
     groups as groups_model,
@@ -73,9 +74,6 @@ from db_model.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
-)
-from forces import (
-    dal as dal_forces,
 )
 from organizations_finding_policies import (
     dal as dal_policies,
@@ -504,7 +502,7 @@ async def populate_organization_finding_policies(
 
 async def populate_executions(data: list[Any]) -> bool:
     await collect(
-        dal_forces.add(
+        forces_model.add(
             forces_execution=item["execution"],
         )
         for item in data
