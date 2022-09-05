@@ -15,7 +15,9 @@ function main {
     && coverage html "${coverage_args[@]}" -d build \
     && coverage xml "${coverage_args[@]}" \
     && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
-    && codecov -C "${CI_COMMIT_SHA}" -B "${CI_COMMIT_REF_NAME}" -F integrates \
+    && if test "${CI_COMMIT_REF_NAME}" = trunk; then
+      codecov -B trunk -C "${CI_COMMIT_SHA}" -F integrates
+    fi \
     && popd \
     || return 1
 }
