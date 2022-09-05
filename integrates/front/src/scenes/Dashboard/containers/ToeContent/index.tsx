@@ -71,7 +71,7 @@ const toeContent: React.FC<IToeContentProps> = ({
           <Route exact={true} path={`${path}/inputs`}>
             <GroupToeInputsView isInternal={isInternal} />
           </Route>
-          <Route>
+          <Route exact={true} path={`${path}/languages`}>
             <GroupToeLanguagesView />
           </Route>
           {canGetToeLines ? <Redirect to={`${path}/lines`} /> : undefined}
