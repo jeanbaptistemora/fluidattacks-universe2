@@ -138,7 +138,6 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
     ["email"],
     [
         ["architect@fluidattacks.com"],
-        ["reattacker@fluidattacks.com"],
         ["user@fluidattacks.com"],
         ["user_manager@fluidattacks.com"],
         ["vulnerability_manager@fluidattacks.com"],
@@ -146,7 +145,6 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
         ["service_forces@fluidattacks.com"],
         ["architect@gmail.com"],
         ["hacker@gmail.com"],
-        ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
