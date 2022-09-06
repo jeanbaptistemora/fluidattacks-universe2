@@ -4,7 +4,7 @@ let
   singerPath = "/observes/singer";
   etlsPath = "/observes/etl";
   underscore_pkg = root: builtins.replaceStrings ["-"] ["_"] (baseNameOf root);
-  std_data = root: {
+  standard_1 = root: {
     root = "${root}/src";
     env = {
       runtime = "${root}/env/runtime";
@@ -16,7 +16,7 @@ let
     lint = "${root}/lint";
     test = "${root}/test";
   };
-  new_std = root: {
+  standard_2 = root: {
     inherit root;
     src = "${root}/${underscore_pkg root}";
     check = {
@@ -30,27 +30,30 @@ let
       dev = "${root}/env/dev";
     };
   };
+  standard_3 = let
+    no_arch_job = base:
+      base
+      // {
+        check = builtins.removeAttrs base.check ["arch"];
+      };
+  in
+    x: no_arch_job (standard_2 x);
   override_attrs = old: override: old // override old;
-  no_arch_job = base:
-    base
-    // {
-      check = builtins.removeAttrs base.check ["arch"];
-    };
 in {
   service = {
-    batch_stability = new_std "${servicePath}/batch-stability";
+    batch_stability = standard_2 "${servicePath}/batch-stability";
     db_migration =
-      (std_data "${servicePath}/db-migration")
+      (standard_1 "${servicePath}/db-migration")
       // {
         root = "${servicePath}/db-migration/src";
       };
-    job_last_success = new_std "${servicePath}/job-last-success";
-    scheduler = no_arch_job (new_std "${servicePath}/jobs-scheduler");
+    job_last_success = standard_2 "${servicePath}/job-last-success";
+    scheduler = standard_3 "${servicePath}/jobs-scheduler";
   };
   etl = {
-    dynamo = no_arch_job (new_std "${etlsPath}/dynamo_etl_conf");
+    dynamo = standard_3 "${etlsPath}/dynamo_etl_conf";
     code =
-      (new_std "${etlsPath}/code")
+      (standard_2 "${etlsPath}/code")
       // {
         root = "/observes/code_etl";
         lint = "${etlsPath}/code/lint";
@@ -58,48 +61,49 @@ in {
       };
   };
   common = {
-    asm_dal = override_attrs (new_std "${commonPath}/asm-dal") (
+    asm_dal = override_attrs (standard_2 "${commonPath}/asm-dal") (
       old: {check = old.check // {runtime = "${old.root}/check/runtime";};}
     );
     paginator = "${commonPath}/paginator";
     postgresClient = "${commonPath}/postgres-client/src";
     purity = "${commonPath}/purity";
     singer_io =
-      std_data "${commonPath}/singer-io"
+      standard_1 "${commonPath}/singer-io"
       // {
         env2.dev = "${commonPath}/singer-io/env2/dev";
       };
     utils_logger =
-      std_data "${commonPath}/utils-logger"
+      standard_1 "${commonPath}/utils-logger"
       // {
         new_env.dev = "${commonPath}/utils-logger/new-env/dev";
       };
-    utils_logger_2 = no_arch_job (new_std "${commonPath}/utils-logger-2");
+    utils_logger_2 = standard_3 "${commonPath}/utils-logger-2";
   };
   tap = {
-    announcekit = std_data "${singerPath}/tap-announcekit";
-    bugsnag = std_data "${singerPath}/tap-bugsnag";
-    checkly = new_std "${singerPath}/tap-checkly";
-    csv = std_data "${singerPath}/tap-csv";
-    delighted = std_data "${singerPath}/tap-delighted";
-    dynamo = no_arch_job (new_std "${singerPath}/tap-dynamo");
-    formstack = std_data "${singerPath}/tap-formstack";
-    git = std_data "${singerPath}/tap-git";
-    gitlab = new_std "${singerPath}/tap-gitlab";
-    json = std_data "${singerPath}/tap-json";
-    mailchimp = std_data "${singerPath}/tap-mailchimp";
-    mandrill = no_arch_job (new_std "${singerPath}/tap-mandrill");
-    mixpanel = std_data "${singerPath}/tap-mixpanel";
-    timedoctor = std_data "${singerPath}/tap-timedoctor";
-    zoho_analytics = std_data "${singerPath}/tap-zoho-analytics";
-    zoho_crm = std_data "${singerPath}/tap-zoho-crm";
+    announcekit = standard_1 "${singerPath}/tap-announcekit";
+    bugsnag = standard_3 "${singerPath}/tap-bugsnag";
+    checkly = standard_2 "${singerPath}/tap-checkly";
+    csv = standard_1 "${singerPath}/tap-csv";
+    delighted = standard_1 "${singerPath}/tap-delighted";
+    dynamo = standard_3 "${singerPath}/tap-dynamo";
+    formstack = standard_1 "${singerPath}/tap-formstack";
+    git = standard_1 "${singerPath}/tap-git";
+    gitlab = standard_2 "${singerPath}/tap-gitlab";
+    json = standard_1 "${singerPath}/tap-json";
+    mailchimp = standard_1 "${singerPath}/tap-mailchimp";
+    mandrill = standard_3 "${singerPath}/tap-mandrill";
+    mixpanel = standard_1 "${singerPath}/tap-mixpanel";
+    timedoctor = standard_1 "${singerPath}/tap-timedoctor";
+    zoho_analytics = standard_1 "${singerPath}/tap-zoho-analytics";
+    zoho_crm = standard_1 "${singerPath}/tap-zoho-crm";
   };
   target = {
-    s3 = no_arch_job (new_std "${singerPath}/target-s3");
-    redshift = new_std "${singerPath}/target-redshift";
-    redshift_2 = no_arch_job (new_std "${singerPath}/target-redshift-2"
+    s3 = standard_3 "${singerPath}/target-s3";
+    redshift = standard_2 "${singerPath}/target-redshift";
+    redshift_2 =
+      standard_3 "${singerPath}/target-redshift-2"
       // {
         src = "${singerPath}/target-redshift-2/target_redshift";
-      });
+      };
   };
 }
