@@ -28,6 +28,7 @@ from syntax_graph.syntax_readers.common import (
     switch_default as common_switch_default,
     switch_statement as common_switch_statement,
     throw_statement as common_throw_statement,
+    unary_expression as common_unary_expression,
     update_expression as common_update_expression,
     variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
@@ -40,9 +41,11 @@ from syntax_graph.syntax_readers.javascript import (
     await_expression as javascript_await_expression,
     catch_clause as javascript_catch_clause,
     for_statement as javascript_for_statement,
+    import_statement as javascript_import_statement,
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     object as javascript_object,
+    subscript_expression as javascript_subscript_expression,
     try_statement as javascript_try_statement,
     while_statement as javascript_while_statement,
 )
@@ -165,6 +168,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "import_statement",
+        },
+        syntax_reader=javascript_import_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "finally_clause",
         },
         syntax_reader=common_finally_clause.reader,
@@ -260,6 +269,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "subscript_expression",
+        },
+        syntax_reader=javascript_subscript_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "switch_body",
         },
         syntax_reader=common_switch_body.reader,
@@ -293,6 +308,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "try_statement",
         },
         syntax_reader=javascript_try_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "unary_expression",
+        },
+        syntax_reader=common_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -14,5 +14,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     operator = args.ast_graph.nodes[node_id["label_field_operator"]][
         "label_text"
     ]
-    operand = node_id["label_field_operand"]
+    operand = node_id.get("label_field_operand") or node_id.get(
+        "label_field_argument"
+    )
     return build_unary_expression_node(args, operator, operand)

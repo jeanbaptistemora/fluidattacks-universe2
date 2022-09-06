@@ -1,0 +1,24 @@
+from model.graph_model import (
+    NId,
+)
+from syntax_graph.syntax_nodes.import_statement import (
+    build_import_statement_node,
+)
+from syntax_graph.types import (
+    MissingCaseHandling,
+    SyntaxGraphArgs,
+)
+from utils.graph.text_nodes import (
+    node_to_str,
+)
+
+
+def reader(args: SyntaxGraphArgs) -> NId:
+    node = args.ast_graph.nodes[args.n_id]
+    source_id = node.get("label_field_source")
+    if not source_id:
+        raise MissingCaseHandling(
+            f"Bad import statement handling in {args.n_id}"
+        )
+    import_text = node_to_str(args.ast_graph, source_id)
+    return build_import_statement_node(args, import_text)

@@ -14,7 +14,7 @@ def build_statement_block_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        label_type="CatchDeclaration",
+        label_type="StatementBlock",
     )
 
     for c_id in c_ids:
