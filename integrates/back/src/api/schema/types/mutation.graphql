@@ -814,6 +814,12 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Helper mutation to send a manual vulnerability report notification"
+  sendVulnerabilityNotification(
+    "Identifier of the Finding where the vulnerabilities are"
+    findingId: String!
+  ): SimplePayload!
+
   "Signs an user in"
   signIn(
     "OAuth token"

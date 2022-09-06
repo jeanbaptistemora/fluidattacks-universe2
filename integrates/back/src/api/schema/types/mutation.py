@@ -72,6 +72,7 @@ from api.mutations import (
     request_vulnerabilities_verification,
     request_vulnerabilities_zero_risk,
     send_assigned_notification,
+    send_vulnerability_notification,
     sign_in,
     sign_post_url,
     solve_event,
@@ -240,6 +241,9 @@ MUTATION.set_field(
 )
 MUTATION.set_field(
     "sendAssignedNotification", send_assigned_notification.mutate
+)
+MUTATION.set_field(
+    "sendVulnerabilityNotification", send_vulnerability_notification.mutate
 )
 MUTATION.set_field("signIn", sign_in.mutate)
 MUTATION.set_field("signPostUrl", sign_post_url.mutate)
