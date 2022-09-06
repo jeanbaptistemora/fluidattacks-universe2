@@ -81,6 +81,8 @@ locals {
             "arn:aws:s3:::integrates*",
             "arn:aws:s3:::continuous*",
             "arn:aws:s3:::continuous*/*",
+            "arn:aws:s3:::skims.data/",
+            "arn:aws:s3:::skims.data/*",
           ]
         },
         {
