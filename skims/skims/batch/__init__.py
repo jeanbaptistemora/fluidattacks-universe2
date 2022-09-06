@@ -12,12 +12,6 @@ from batch.repositories import (
     get_namespace,
 )
 import boto3
-from contextlib import (
-    suppress,
-)
-from core.rebase import (
-    main as execute_rebase,
-)
 from core.scan import (
     execute_set_of_configs as execute_skims_configs,
 )
@@ -229,18 +223,8 @@ async def main(  # pylint: disable=too-many-locals)
     success = True
 
     for configs in set_configs:
-        with suppress(Exception):
-            if configs:
-                log_blocking(
-                    "info", "Running skims for %s", configs[0].namespace
-                )
-                log_blocking("info", "Executing rebase")
-                await execute_rebase(
-                    group_name,
-                    configs[0].namespace,
-                    configs[0].working_dir,
-                    token,
-                )
+        if configs:
+            log_blocking("info", "Running skims for %s", configs[0].namespace)
         log_blocking("info", "Uploading set of configs")
         await aioextensions.collect(
             [upload_config(config) for config in configs]

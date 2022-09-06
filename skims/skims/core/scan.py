@@ -120,9 +120,9 @@ async def upload_sarif_result(
 async def queue_upload_vulns(execution_id: str) -> None:
     session = boto3.Session()
     client = session.client("sqs")
-    broker_url = session.client("sqs").get_queue_url(QueueName="celery")[
-        "QueueUrl"
-    ]
+    broker_url = session.client("sqs").get_queue_url(
+        QueueName="skims-report-queue"
+    )["QueueUrl"]
     client.send_message(
         QueueUrl=broker_url,
         MessageBody=json.dumps(

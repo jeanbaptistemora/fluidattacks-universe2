@@ -122,6 +122,7 @@ async def main() -> None:
         [
             _roots_by_group(loaders, group)
             for group in await loaders.group.load_many(group_names)
+            if group.state.has_machine
         ]
     )
 
