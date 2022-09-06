@@ -16,7 +16,7 @@ function main {
     && coverage xml "${coverage_args[@]}" \
     && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
     && if test "${CI_COMMIT_REF_NAME}" = trunk; then
-      codecov -B trunk -C "${CI_COMMIT_SHA}" -F integrates
+      codecov -B integrates -C "${CI_COMMIT_SHA}" -F integrates
     fi \
     && popd \
     || return 1
