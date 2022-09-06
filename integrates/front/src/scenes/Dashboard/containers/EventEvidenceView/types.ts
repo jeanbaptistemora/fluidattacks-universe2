@@ -1,6 +1,7 @@
 interface IEventEvidenceAttr {
   date: string;
   fileName: string;
+  file?: FileList;
 }
 
 interface IGetEventEvidences {

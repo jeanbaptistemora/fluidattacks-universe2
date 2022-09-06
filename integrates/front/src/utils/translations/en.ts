@@ -523,6 +523,11 @@ export const enTranslations: ResourceKey = {
         tooltip: "You have unsolved events in {{ groups }}",
       },
       evidence: {
+        alerts: {
+          update: {
+            success: "Evidence has been updated",
+          },
+        },
         edit: "Edit",
         editTooltip: "Modify the evidence for this event",
         noData: "There are no evidences",

@@ -1,6 +1,5 @@
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
 import React from "react";
 
 import type { IEventEvidenceAttr } from "./types";
@@ -37,27 +36,6 @@ const handleUpdateEvidenceError = (updateError: ApolloError): void => {
   });
 };
 
-const getUpdateChanges = (
-  eventId: string,
-  updateEvidence: (
-    variables: Record<string, unknown>
-  ) => Promise<FetchResult<unknown>>
-): ((evidence: { file?: FileList }, key: string) => Promise<void>) => {
-  return async (evidence: { file?: FileList }, key: string): Promise<void> => {
-    const { file } = evidence;
-
-    if (!_.isUndefined(file)) {
-      await updateEvidence({
-        variables: {
-          eventId,
-          evidenceType: _.snakeCase(key).toUpperCase(),
-          file: file[0],
-        },
-      });
-    }
-  };
-};
-
 const getDownloadHandler = (
   isEditing: boolean,
   downloadEvidence: (
@@ -82,9 +60,4 @@ const showContent = (
   return showEmpty ? <div /> : `${location.href}/${evidence.fileName}`;
 };
 
-export {
-  handleUpdateEvidenceError,
-  getUpdateChanges,
-  showContent,
-  getDownloadHandler,
-};
+export { handleUpdateEvidenceError, showContent, getDownloadHandler };

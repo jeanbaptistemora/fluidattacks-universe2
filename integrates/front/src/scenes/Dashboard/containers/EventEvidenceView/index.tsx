@@ -1,5 +1,5 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import {
   faFile,
   faImage,
@@ -15,12 +15,12 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import {
-  getUpdateChanges,
-  handleUpdateEvidenceError,
-  showContent,
-} from "./helpers";
-import type { IEventEvidenceAttr, IGetEventEvidences } from "./types";
+import { handleUpdateEvidenceError, showContent } from "./helpers";
+import type {
+  IEventEvidenceAttr,
+  IGetEventEvidences,
+  IUpdateEventEvidenceResultAttr,
+} from "./types";
 
 import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
@@ -35,8 +35,9 @@ import {
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import {
   composeValidators,
@@ -95,25 +96,50 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     },
     refetchQueries: [GET_EVENT_EVIDENCES],
   });
-  const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
-    onError: (updateError: ApolloError): void => {
-      handleUpdateEvidenceError(updateError);
-    },
-  });
+  const [updateEvidence] = useMutation<IUpdateEventEvidenceResultAttr>(
+    UPDATE_EVIDENCE_MUTATION,
+    {
+      onError: (updateError: ApolloError): void => {
+        handleUpdateEvidenceError(updateError);
+      },
+    }
+  );
 
   const handleUpdate: (
-    values: Record<string, IEventEvidenceAttr>
+    values: Record<string, { file?: FileList }>
   ) => Promise<void> = useCallback(
-    async (values: Record<string, IEventEvidenceAttr>): Promise<void> => {
+    async (values: Record<string, { file?: FileList }>): Promise<void> => {
       setIsEditing(false);
 
-      const updateChanges = getUpdateChanges(eventId, updateEvidence);
-
-      await Promise.all(_.map(values, updateChanges));
+      const results = await Promise.all(
+        _.map(
+          _.omitBy(values, (evidence: { file?: FileList }): boolean =>
+            _.isUndefined(evidence.file)
+          ) as Record<string, { file: FileList }>,
+          async (
+            evidence,
+            key
+          ): Promise<FetchResult<IUpdateEventEvidenceResultAttr>> =>
+            updateEvidence({
+              variables: {
+                eventId,
+                evidenceType: _.snakeCase(key).toUpperCase(),
+                file: evidence.file[0],
+              },
+            })
+        )
+      );
+      const errors = getErrors<IUpdateEventEvidenceResultAttr>(results);
+      if (!_.isEmpty(results) && _.isEmpty(errors)) {
+        msgSuccess(
+          t("group.events.evidence.alerts.update.success"),
+          t("groupAlerts.updatedTitle")
+        );
+      }
       setLightboxIndex(-1);
       await refetch();
     },
-    [eventId, refetch, updateEvidence]
+    [t, eventId, refetch, updateEvidence]
   );
 
   if (_.isEmpty(data) || _.isUndefined(data)) {
