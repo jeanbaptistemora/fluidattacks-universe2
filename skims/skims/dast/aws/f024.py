@@ -53,7 +53,7 @@ async def allows_anyone_to_admin_ports(
         credentials, service="ec2", function="describe_security_groups"
     )
     vulns: Tuple[Vulnerability, ...] = ()
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     for group in security_groups:
         locations: List[Location] = []
         for port in admin_ports:
@@ -133,7 +133,7 @@ async def unrestricted_cidrs(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -205,7 +205,7 @@ async def unrestricted_ip_protocols(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if security_groups:
         for group in security_groups:
@@ -284,7 +284,7 @@ async def security_groups_ip_ranges_in_rfc1918(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -334,7 +334,7 @@ async def unrestricted_dns_access(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -428,7 +428,7 @@ async def unrestricted_ftp_access(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -528,7 +528,7 @@ async def open_all_ports_to_the_public(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -634,7 +634,7 @@ async def default_seggroup_allows_all_traffic(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:
@@ -714,7 +714,7 @@ async def instances_without_profile(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
-    instances: List[Dict[str, Any]] = response.get("Reservations", [])
+    instances = response.get("Reservations", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     for i in instances:
@@ -757,7 +757,7 @@ async def insecure_port_range_in_security_group(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    security_groups = response.get("SecurityGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     if security_groups:

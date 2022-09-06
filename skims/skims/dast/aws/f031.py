@@ -32,7 +32,7 @@ async def admin_policy_attached(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_policies"
     )
-    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    policies = response.get("Policies", []) if response else []
     elevated_policies = {
         "arn:aws:iam::aws:policy/PowerUserAccess",
         "arn:aws:iam::aws:policy/IAMFullAccess",
@@ -83,7 +83,7 @@ async def public_buckets(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
-    buckets: List[Dict[str, Any]] = response.get("Buckets", [])
+    buckets = response.get("Buckets", []) if response else []
 
     perms = ["READ", "WRITE", "FULL_CONTROL", "READ_ACP", "WRITE_ACP"]
     public_acl = "http://acs.amazonaws.com/groups/global/AllUsers"
@@ -98,7 +98,7 @@ async def public_buckets(
                 function="get_bucket_acl",
                 parameters={"Bucket": str(bucket_name)},
             )
-            grants: List[Dict[str, Any]] = bucket_grants.get("Grants", [])
+            grants = bucket_grants.get("Grants", [])
             for index, grant in enumerate(grants):
                 locations = [
                     *[
@@ -140,7 +140,7 @@ async def group_with_inline_policies(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_groups"
     )
-    groups: List[Dict[str, Any]] = response.get("Groups", [])
+    groups = response.get("Groups", []) if response else []
 
     vulns: core_model.Vulnerabilities = ()
     if groups:
@@ -151,9 +151,7 @@ async def group_with_inline_policies(
                 function="list_group_policies",
                 parameters={"GroupName": str(group["GroupName"])},
             )
-            policy_names: List[Dict[str, Any]] = group_policies.get(
-                "PolicyNames", []
-            )
+            policy_names = group_policies.get("PolicyNames", [])
 
             locations: List[Location] = []
             if policy_names:
@@ -194,7 +192,7 @@ async def full_access_policies(
         function="list_policies",
         parameters={"Scope": "Local", "OnlyAttached": True},
     )
-    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    policies = response.get("Policies", []) if response else []
 
     vulns: core_model.Vulnerabilities = ()
     if policies:
@@ -270,7 +268,7 @@ async def open_passrole(
         function="list_policies",
         parameters={"Scope": "Local", "OnlyAttached": True},
     )
-    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    policies = response.get("Policies", []) if response else []
 
     vulns: core_model.Vulnerabilities = ()
     if policies:
@@ -357,7 +355,7 @@ async def permissive_policy(
         function="list_policies",
         parameters={"Scope": "Local", "OnlyAttached": True},
     )
-    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    policies = response.get("Policies", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
@@ -424,7 +422,7 @@ async def full_access_to_ssm(
         function="list_policies",
         parameters={"Scope": "Local", "OnlyAttached": True},
     )
-    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    policies = response.get("Policies", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:

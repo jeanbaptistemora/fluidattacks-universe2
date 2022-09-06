@@ -1,4 +1,5 @@
 import aioboto3
+import botocore
 from dast.aws.types import (
     Location,
 )
@@ -18,6 +19,9 @@ from typing import (
     Dict,
     List,
     Optional,
+)
+from utils.logs import (
+    log_exception_blocking,
 )
 from utils.string import (
     make_snippet,
@@ -86,11 +90,15 @@ async def run_boto3_fun(
     function: str,
     parameters: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    session = aioboto3.Session(
-        aws_access_key_id=credentials.access_key_id,
-        aws_secret_access_key=credentials.secret_access_key,
-    )
-    async with session.client(
-        service,
-    ) as client:
-        return await (getattr(client, function))(**(parameters or {}))
+    try:
+        session = aioboto3.Session(
+            aws_access_key_id=credentials.access_key_id,
+            aws_secret_access_key=credentials.secret_access_key,
+        )
+        async with session.client(
+            service,
+        ) as client:
+            return await (getattr(client, function))(**(parameters or {}))
+    except botocore.exceptions.ClientError:
+        log_exception_blocking("exception", botocore.exceptions.ClientError)
+        return {}
