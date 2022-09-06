@@ -15,7 +15,7 @@ function main {
     && aws_login "dev" "3600" \
     && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
     && if test "${CI_COMMIT_REF_NAME}" = trunk; then
-      codecov -B trunk -C "${CI_COMMIT_SHA}" -F skims
+      codecov -B skims -C "${CI_COMMIT_SHA}" -F skims
     fi \
     && popd \
     || return 1
