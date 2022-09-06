@@ -12865,58 +12865,70 @@
             }
           },
           "107": {
-            "109": {
-              "label_ast": "AST"
-            }
-          },
-          "109": {
             "112": {
               "label_ast": "AST"
+            },
+            "114": {
+              "label_cfg": "CFG"
             }
           },
           "11": {
             "13": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "177": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "272": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "355": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "450": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "514": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "60": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "605": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "700": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "783": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "859": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "114": {
+            "115": {
+              "label_cfg": "CFG"
             }
           },
           "115": {
-            "117": {
-              "label_ast": "AST"
-            }
-          },
-          "117": {
             "120": {
               "label_ast": "AST"
+            },
+            "129": {
+              "label_cfg": "CFG"
             }
           },
           "120": {
@@ -12938,6 +12950,9 @@
             },
             "133": {
               "label_ast": "AST"
+            },
+            "145": {
+              "label_cfg": "CFG"
             }
           },
           "13": {
@@ -12945,7 +12960,8 @@
               "label_ast": "AST"
             },
             "21": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "133": {
@@ -12970,13 +12986,11 @@
             }
           },
           "145": {
-            "147": {
-              "label_ast": "AST"
-            }
-          },
-          "147": {
             "150": {
               "label_ast": "AST"
+            },
+            "159": {
+              "label_cfg": "CFG"
             }
           },
           "150": {
@@ -13025,12 +13039,14 @@
               "label_ast": "AST"
             },
             "185": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "185": {
             "187": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "199": {
               "label_ast": "AST"
@@ -13049,23 +13065,19 @@
             }
           },
           "187": {
-            "189": {
-              "label_ast": "AST"
-            }
-          },
-          "189": {
             "192": {
               "label_ast": "AST"
+            },
+            "199": {
+              "label_cfg": "CFG"
             }
           },
           "199": {
-            "201": {
-              "label_ast": "AST"
-            }
-          },
-          "201": {
             "204": {
               "label_ast": "AST"
+            },
+            "217": {
+              "label_cfg": "CFG"
             }
           },
           "204": {
@@ -13081,30 +13093,27 @@
           },
           "21": {
             "23": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "41": {
               "label_ast": "AST"
             }
           },
           "217": {
-            "219": {
-              "label_ast": "AST"
-            }
-          },
-          "219": {
             "222": {
               "label_ast": "AST"
+            },
+            "224": {
+              "label_cfg": "CFG"
             }
           },
           "224": {
-            "226": {
-              "label_ast": "AST"
-            }
-          },
-          "226": {
             "229": {
               "label_ast": "AST"
+            },
+            "246": {
+              "label_cfg": "CFG"
             }
           },
           "229": {
@@ -13113,8 +13122,11 @@
             }
           },
           "23": {
-            "25": {
+            "28": {
               "label_ast": "AST"
+            },
+            "41": {
+              "label_cfg": "CFG"
             }
           },
           "232": {
@@ -13142,18 +13154,11 @@
             }
           },
           "246": {
-            "248": {
-              "label_ast": "AST"
-            }
-          },
-          "248": {
             "251": {
               "label_ast": "AST"
-            }
-          },
-          "25": {
-            "28": {
-              "label_ast": "AST"
+            },
+            "254": {
+              "label_cfg": "CFG"
             }
           },
           "254": {
@@ -13191,7 +13196,8 @@
               "label_ast": "AST"
             },
             "280": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "28": {
@@ -13207,7 +13213,8 @@
           },
           "280": {
             "282": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "294": {
               "label_ast": "AST"
@@ -13220,23 +13227,19 @@
             }
           },
           "282": {
-            "284": {
-              "label_ast": "AST"
-            }
-          },
-          "284": {
             "287": {
               "label_ast": "AST"
+            },
+            "294": {
+              "label_cfg": "CFG"
             }
           },
           "294": {
-            "296": {
-              "label_ast": "AST"
-            }
-          },
-          "296": {
             "299": {
               "label_ast": "AST"
+            },
+            "312": {
+              "label_cfg": "CFG"
             }
           },
           "299": {
@@ -13251,13 +13254,11 @@
             }
           },
           "312": {
-            "314": {
-              "label_ast": "AST"
-            }
-          },
-          "314": {
             "317": {
               "label_ast": "AST"
+            },
+            "337": {
+              "label_cfg": "CFG"
             }
           },
           "317": {
@@ -13327,12 +13328,14 @@
               "label_ast": "AST"
             },
             "363": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "363": {
             "365": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "377": {
               "label_ast": "AST"
@@ -13348,23 +13351,19 @@
             }
           },
           "365": {
-            "367": {
-              "label_ast": "AST"
-            }
-          },
-          "367": {
             "370": {
               "label_ast": "AST"
+            },
+            "377": {
+              "label_cfg": "CFG"
             }
           },
           "377": {
-            "379": {
-              "label_ast": "AST"
-            }
-          },
-          "379": {
             "382": {
               "label_ast": "AST"
+            },
+            "395": {
+              "label_cfg": "CFG"
             }
           },
           "382": {
@@ -13379,13 +13378,11 @@
             }
           },
           "395": {
-            "397": {
-              "label_ast": "AST"
-            }
-          },
-          "397": {
             "400": {
               "label_ast": "AST"
+            },
+            "413": {
+              "label_cfg": "CFG"
             }
           },
           "400": {
@@ -13415,6 +13412,9 @@
             },
             "416": {
               "label_ast": "AST"
+            },
+            "426": {
+              "label_cfg": "CFG"
             }
           },
           "416": {
@@ -13501,12 +13501,14 @@
               "label_ast": "AST"
             },
             "458": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "458": {
             "460": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "472": {
               "label_ast": "AST"
@@ -13516,23 +13518,19 @@
             }
           },
           "460": {
-            "462": {
-              "label_ast": "AST"
-            }
-          },
-          "462": {
             "465": {
               "label_ast": "AST"
+            },
+            "472": {
+              "label_cfg": "CFG"
             }
           },
           "472": {
-            "474": {
-              "label_ast": "AST"
-            }
-          },
-          "474": {
             "477": {
               "label_ast": "AST"
+            },
+            "496": {
+              "label_cfg": "CFG"
             }
           },
           "477": {
@@ -13602,12 +13600,14 @@
               "label_ast": "AST"
             },
             "522": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "522": {
             "524": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "536": {
               "label_ast": "AST"
@@ -13629,23 +13629,19 @@
             }
           },
           "524": {
-            "526": {
-              "label_ast": "AST"
-            }
-          },
-          "526": {
             "529": {
               "label_ast": "AST"
+            },
+            "536": {
+              "label_cfg": "CFG"
             }
           },
           "536": {
-            "538": {
-              "label_ast": "AST"
-            }
-          },
-          "538": {
             "541": {
               "label_ast": "AST"
+            },
+            "543": {
+              "label_cfg": "CFG"
             }
           },
           "54": {
@@ -13653,14 +13649,17 @@
               "label_ast": "AST"
             }
           },
-          "544": {
-            "546": {
-              "label_ast": "AST"
+          "543": {
+            "544": {
+              "label_cfg": "CFG"
             }
           },
-          "546": {
+          "544": {
             "549": {
               "label_ast": "AST"
+            },
+            "558": {
+              "label_cfg": "CFG"
             }
           },
           "549": {
@@ -13682,6 +13681,9 @@
             },
             "562": {
               "label_ast": "AST"
+            },
+            "573": {
+              "label_cfg": "CFG"
             }
           },
           "562": {
@@ -13701,13 +13703,11 @@
             }
           },
           "573": {
-            "575": {
-              "label_ast": "AST"
-            }
-          },
-          "575": {
             "578": {
               "label_ast": "AST"
+            },
+            "587": {
+              "label_cfg": "CFG"
             }
           },
           "578": {
@@ -13765,7 +13765,8 @@
               "label_ast": "AST"
             },
             "75": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "605": {
@@ -13773,12 +13774,14 @@
               "label_ast": "AST"
             },
             "613": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "613": {
             "615": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "627": {
               "label_ast": "AST"
@@ -13797,33 +13800,27 @@
             }
           },
           "615": {
-            "617": {
-              "label_ast": "AST"
-            }
-          },
-          "617": {
             "620": {
               "label_ast": "AST"
+            },
+            "627": {
+              "label_cfg": "CFG"
             }
           },
           "627": {
-            "629": {
-              "label_ast": "AST"
-            }
-          },
-          "629": {
             "632": {
               "label_ast": "AST"
+            },
+            "634": {
+              "label_cfg": "CFG"
             }
           },
           "634": {
-            "636": {
-              "label_ast": "AST"
-            }
-          },
-          "636": {
             "639": {
               "label_ast": "AST"
+            },
+            "652": {
+              "label_cfg": "CFG"
             }
           },
           "639": {
@@ -13838,13 +13835,11 @@
             }
           },
           "652": {
-            "654": {
-              "label_ast": "AST"
-            }
-          },
-          "654": {
             "657": {
               "label_ast": "AST"
+            },
+            "674": {
+              "label_cfg": "CFG"
             }
           },
           "657": {
@@ -13882,13 +13877,11 @@
             }
           },
           "674": {
-            "676": {
-              "label_ast": "AST"
-            }
-          },
-          "676": {
             "679": {
               "label_ast": "AST"
+            },
+            "682": {
+              "label_cfg": "CFG"
             }
           },
           "682": {
@@ -13926,12 +13919,14 @@
               "label_ast": "AST"
             },
             "708": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "708": {
             "710": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "722": {
               "label_ast": "AST"
@@ -13944,23 +13939,19 @@
             }
           },
           "710": {
-            "712": {
-              "label_ast": "AST"
-            }
-          },
-          "712": {
             "715": {
               "label_ast": "AST"
+            },
+            "722": {
+              "label_cfg": "CFG"
             }
           },
           "722": {
-            "724": {
-              "label_ast": "AST"
-            }
-          },
-          "724": {
             "727": {
               "label_ast": "AST"
+            },
+            "740": {
+              "label_cfg": "CFG"
             }
           },
           "727": {
@@ -13975,13 +13966,11 @@
             }
           },
           "740": {
-            "742": {
-              "label_ast": "AST"
-            }
-          },
-          "742": {
             "745": {
               "label_ast": "AST"
+            },
+            "765": {
+              "label_cfg": "CFG"
             }
           },
           "745": {
@@ -14020,7 +14009,8 @@
               "label_ast": "AST"
             },
             "77": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "89": {
               "label_ast": "AST"
@@ -14065,8 +14055,11 @@
             }
           },
           "77": {
-            "79": {
+            "82": {
               "label_ast": "AST"
+            },
+            "89": {
+              "label_cfg": "CFG"
             }
           },
           "775": {
@@ -14082,17 +14075,14 @@
               "label_ast": "AST"
             },
             "791": {
-              "label_ast": "AST"
-            }
-          },
-          "79": {
-            "82": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "791": {
             "793": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "805": {
               "label_ast": "AST"
@@ -14105,23 +14095,19 @@
             }
           },
           "793": {
-            "795": {
-              "label_ast": "AST"
-            }
-          },
-          "795": {
             "798": {
               "label_ast": "AST"
+            },
+            "805": {
+              "label_cfg": "CFG"
             }
           },
           "805": {
-            "807": {
-              "label_ast": "AST"
-            }
-          },
-          "807": {
             "810": {
               "label_ast": "AST"
+            },
+            "823": {
+              "label_cfg": "CFG"
             }
           },
           "810": {
@@ -14146,6 +14132,9 @@
             },
             "826": {
               "label_ast": "AST"
+            },
+            "835": {
+              "label_cfg": "CFG"
             }
           },
           "826": {
@@ -14205,12 +14194,14 @@
               "label_ast": "AST"
             },
             "867": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "867": {
             "869": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "881": {
               "label_ast": "AST"
@@ -14226,23 +14217,19 @@
             }
           },
           "869": {
-            "871": {
-              "label_ast": "AST"
-            }
-          },
-          "871": {
             "874": {
               "label_ast": "AST"
+            },
+            "881": {
+              "label_cfg": "CFG"
             }
           },
           "881": {
-            "883": {
-              "label_ast": "AST"
-            }
-          },
-          "883": {
             "886": {
               "label_ast": "AST"
+            },
+            "896": {
+              "label_cfg": "CFG"
             }
           },
           "886": {
@@ -14257,7 +14244,10 @@
             }
           },
           "89": {
-            "91": {
+            "107": {
+              "label_cfg": "CFG"
+            },
+            "94": {
               "label_ast": "AST"
             }
           },
@@ -14275,6 +14265,9 @@
             },
             "900": {
               "label_ast": "AST"
+            },
+            "905": {
+              "label_cfg": "CFG"
             }
           },
           "900": {
@@ -14283,18 +14276,11 @@
             }
           },
           "905": {
-            "907": {
-              "label_ast": "AST"
-            }
-          },
-          "907": {
             "910": {
               "label_ast": "AST"
-            }
-          },
-          "91": {
-            "94": {
-              "label_ast": "AST"
+            },
+            "923": {
+              "label_cfg": "CFG"
             }
           },
           "910": {
@@ -14368,12 +14354,9 @@
           },
           "107": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "109": {
-            "label_type": "VariableDeclarator",
             "value_id": "112",
-            "variable_name": "cookieName"
+            "variable": "cookieName",
+            "variable_type": "String"
           },
           "11": {
             "label_type": "ClassBody"
@@ -14389,12 +14372,9 @@
           },
           "115": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "117": {
-            "label_type": "VariableDeclarator",
             "value_id": "120",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "120": {
             "arguments_id": "123",
@@ -14461,12 +14441,9 @@
           },
           "145": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "147": {
-            "label_type": "VariableDeclarator",
             "value_id": "150",
-            "variable_name": "cookieKey"
+            "variable": "cookieKey",
+            "variable_type": "String"
           },
           "150": {
             "arguments_id": "154",
@@ -14541,12 +14518,9 @@
           },
           "187": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "189": {
-            "label_type": "VariableDeclarator",
             "value_id": "192",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "192": {
             "label_type": "ObjectCreation",
@@ -14554,16 +14528,13 @@
           },
           "199": {
             "label_type": "VariableDeclaration",
+            "value_id": "204",
+            "variable": "rand",
             "variable_type": "int"
           },
           "2": {
             "expression": "javax.servlet.http.HttpServletRequest",
             "label_type": "Import"
-          },
-          "201": {
-            "label_type": "VariableDeclarator",
-            "value_id": "204",
-            "variable_name": "rand"
           },
           "204": {
             "arguments_id": "213",
@@ -14588,12 +14559,9 @@
           },
           "217": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "219": {
-            "label_type": "VariableDeclarator",
             "value_id": "222",
-            "variable_name": "cookieName"
+            "variable": "cookieName",
+            "variable_type": "String"
           },
           "222": {
             "label_type": "Literal",
@@ -14602,12 +14570,9 @@
           },
           "224": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "226": {
-            "label_type": "VariableDeclarator",
             "value_id": "229",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "229": {
             "arguments_id": "232",
@@ -14616,6 +14581,8 @@
           },
           "23": {
             "label_type": "VariableDeclaration",
+            "value_id": "28",
+            "variable": "rand",
             "variable_type": "float"
           },
           "232": {
@@ -14650,17 +14617,9 @@
           },
           "246": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "248": {
-            "label_type": "VariableDeclarator",
             "value_id": "251",
-            "variable_name": "cookieKey"
-          },
-          "25": {
-            "label_type": "VariableDeclarator",
-            "value_id": "28",
-            "variable_name": "rand"
+            "variable": "cookieKey",
+            "variable_type": "String"
           },
           "251": {
             "field_text": "currentUser.lastName",
@@ -14728,12 +14687,9 @@
           },
           "282": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "284": {
-            "label_type": "VariableDeclarator",
             "value_id": "287",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "287": {
             "label_type": "ObjectCreation",
@@ -14745,12 +14701,9 @@
           },
           "294": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "296": {
-            "label_type": "VariableDeclarator",
             "value_id": "299",
-            "variable_name": "rand"
+            "variable": "rand",
+            "variable_type": "int"
           },
           "299": {
             "arguments_id": "308",
@@ -14772,12 +14725,9 @@
           },
           "312": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "314": {
-            "label_type": "VariableDeclarator",
             "value_id": "317",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "317": {
             "arguments_id": "320",
@@ -14879,12 +14829,9 @@
           },
           "365": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "367": {
-            "label_type": "VariableDeclarator",
             "value_id": "370",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "37": {
             "label_type": "ArgumentList"
@@ -14895,12 +14842,9 @@
           },
           "377": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "379": {
-            "label_type": "VariableDeclarator",
             "value_id": "382",
-            "variable_name": "rand"
+            "variable": "rand",
+            "variable_type": "int"
           },
           "382": {
             "arguments_id": "391",
@@ -14922,12 +14866,9 @@
           },
           "395": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "397": {
-            "label_type": "VariableDeclarator",
             "value_id": "400",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "400": {
             "arguments_id": "403",
@@ -15076,12 +15017,9 @@
           },
           "460": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "462": {
-            "label_type": "VariableDeclarator",
             "value_id": "465",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "465": {
             "label_type": "ObjectCreation",
@@ -15093,12 +15031,9 @@
           },
           "472": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "474": {
-            "label_type": "VariableDeclarator",
             "value_id": "477",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "477": {
             "arguments_id": "480",
@@ -15199,12 +15134,9 @@
           },
           "524": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "526": {
-            "label_type": "VariableDeclarator",
             "value_id": "529",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "529": {
             "label_type": "ObjectCreation",
@@ -15216,12 +15148,9 @@
           },
           "536": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "538": {
-            "label_type": "VariableDeclarator",
             "value_id": "541",
-            "variable_name": "cookieName"
+            "variable": "cookieName",
+            "variable_type": "String"
           },
           "54": {
             "label_type": "ArgumentList"
@@ -15237,12 +15166,9 @@
           },
           "544": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "546": {
-            "label_type": "VariableDeclarator",
             "value_id": "549",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "549": {
             "arguments_id": "552",
@@ -15300,12 +15226,9 @@
           },
           "573": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "575": {
-            "label_type": "VariableDeclarator",
             "value_id": "578",
-            "variable_name": "cookieKey"
+            "variable": "cookieKey",
+            "variable_type": "String"
           },
           "578": {
             "arguments_id": "582",
@@ -15396,12 +15319,9 @@
           },
           "615": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "617": {
-            "label_type": "VariableDeclarator",
             "value_id": "620",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "620": {
             "label_type": "ObjectCreation",
@@ -15409,12 +15329,9 @@
           },
           "627": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "629": {
-            "label_type": "VariableDeclarator",
             "value_id": "632",
-            "variable_name": "cookieName"
+            "variable": "cookieName",
+            "variable_type": "String"
           },
           "632": {
             "label_type": "Literal",
@@ -15423,12 +15340,9 @@
           },
           "634": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "636": {
-            "label_type": "VariableDeclarator",
             "value_id": "639",
-            "variable_name": "rand"
+            "variable": "rand",
+            "variable_type": "int"
           },
           "639": {
             "arguments_id": "648",
@@ -15450,12 +15364,9 @@
           },
           "652": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "654": {
-            "label_type": "VariableDeclarator",
             "value_id": "657",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "657": {
             "arguments_id": "660",
@@ -15497,12 +15408,9 @@
           },
           "674": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "676": {
-            "label_type": "VariableDeclarator",
             "value_id": "679",
-            "variable_name": "cookieKey"
+            "variable": "cookieKey",
+            "variable_type": "String"
           },
           "679": {
             "field_text": "currentUser.lastName",
@@ -15568,12 +15476,9 @@
           },
           "710": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "712": {
-            "label_type": "VariableDeclarator",
             "value_id": "715",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "715": {
             "label_type": "ObjectCreation",
@@ -15581,12 +15486,9 @@
           },
           "722": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "724": {
-            "label_type": "VariableDeclarator",
             "value_id": "727",
-            "variable_name": "rand"
+            "variable": "rand",
+            "variable_type": "int"
           },
           "727": {
             "arguments_id": "736",
@@ -15608,12 +15510,9 @@
           },
           "740": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "742": {
-            "label_type": "VariableDeclarator",
             "value_id": "745",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "745": {
             "arguments_id": "748",
@@ -15682,6 +15581,8 @@
           },
           "77": {
             "label_type": "VariableDeclaration",
+            "value_id": "82",
+            "variable": "request",
             "variable_type": "HttpServletRequest"
           },
           "770": {
@@ -15713,22 +15614,14 @@
             "annotation_ids": [],
             "label_type": "Modifiers"
           },
-          "79": {
-            "label_type": "VariableDeclarator",
-            "value_id": "82",
-            "variable_name": "request"
-          },
           "791": {
             "label_type": "ExecutionBlock"
           },
           "793": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "795": {
-            "label_type": "VariableDeclarator",
             "value_id": "798",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "798": {
             "label_type": "ObjectCreation",
@@ -15736,12 +15629,9 @@
           },
           "805": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "807": {
-            "label_type": "VariableDeclarator",
             "value_id": "810",
-            "variable_name": "currentUser"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "810": {
             "arguments_id": "813",
@@ -15868,12 +15758,9 @@
           },
           "869": {
             "label_type": "VariableDeclaration",
-            "variable_type": "HttpServletRequest"
-          },
-          "871": {
-            "label_type": "VariableDeclarator",
             "value_id": "874",
-            "variable_name": "request"
+            "variable": "request",
+            "variable_type": "HttpServletRequest"
           },
           "874": {
             "label_type": "ObjectCreation",
@@ -15881,12 +15768,9 @@
           },
           "881": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "883": {
-            "label_type": "VariableDeclarator",
             "value_id": "886",
-            "variable_name": "file"
+            "variable": "file",
+            "variable_type": "String"
           },
           "886": {
             "arguments_id": "890",
@@ -15905,6 +15789,8 @@
           },
           "89": {
             "label_type": "VariableDeclaration",
+            "value_id": "94",
+            "variable": "rand",
             "variable_type": "float"
           },
           "890": {
@@ -15939,17 +15825,9 @@
           },
           "905": {
             "label_type": "VariableDeclaration",
-            "variable_type": "User"
-          },
-          "907": {
-            "label_type": "VariableDeclarator",
             "value_id": "910",
-            "variable_name": "currentUser"
-          },
-          "91": {
-            "label_type": "VariableDeclarator",
-            "value_id": "94",
-            "variable_name": "rand"
+            "variable": "currentUser",
+            "variable_type": "User"
           },
           "910": {
             "arguments_id": "913",
@@ -19523,13 +19401,16 @@
           },
           "104": {
             "107": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "115": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "121": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "107": {
@@ -19566,15 +19447,22 @@
               "label_ast": "AST"
             },
             "135": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "135": {
             "137": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "138": {
               "label_ast": "AST"
+            }
+          },
+          "137": {
+            "138": {
+              "label_cfg": "CFG"
             }
           },
           "138": {
@@ -19590,7 +19478,8 @@
               "label_ast": "AST"
             },
             "154": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "148": {
@@ -19600,10 +19489,16 @@
           },
           "154": {
             "156": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "158": {
               "label_ast": "AST"
+            }
+          },
+          "156": {
+            "158": {
+              "label_cfg": "CFG"
             }
           },
           "158": {
@@ -19624,12 +19519,14 @@
               "label_ast": "AST"
             },
             "172": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "172": {
             "174": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "181": {
               "label_ast": "AST"
@@ -19639,23 +19536,19 @@
             }
           },
           "174": {
-            "176": {
-              "label_ast": "AST"
-            }
-          },
-          "176": {
             "179": {
               "label_ast": "AST"
+            },
+            "181": {
+              "label_cfg": "CFG"
             }
           },
           "181": {
-            "183": {
-              "label_ast": "AST"
-            }
-          },
-          "183": {
             "186": {
               "label_ast": "AST"
+            },
+            "188": {
+              "label_cfg": "CFG"
             }
           },
           "188": {
@@ -19671,7 +19564,8 @@
               "label_ast": "AST"
             },
             "204": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "198": {
@@ -19687,7 +19581,8 @@
           },
           "204": {
             "207": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "207": {
@@ -19706,7 +19601,8 @@
               "label_ast": "AST"
             },
             "224": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "218": {
@@ -19716,7 +19612,8 @@
           },
           "224": {
             "227": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "227": {
@@ -19740,7 +19637,8 @@
               "label_ast": "AST"
             },
             "40": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "34": {
@@ -19750,10 +19648,12 @@
           },
           "40": {
             "42": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "44": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "44": {
@@ -19780,7 +19680,8 @@
               "label_ast": "AST"
             },
             "68": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "58": {
@@ -19793,48 +19694,62 @@
           },
           "68": {
             "70": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "72": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "80": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "7": {
             "127": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "143": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "16": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "164": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "193": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "213": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "23": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "30": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "54": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "86": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "9": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "72": {
@@ -19860,7 +19775,8 @@
           },
           "86": {
             "104": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "87": {
               "label_ast": "AST"
@@ -20031,12 +19947,9 @@
           },
           "174": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "176": {
-            "label_type": "VariableDeclarator",
             "value_id": "179",
-            "variable_name": "someNumber"
+            "variable": "someNumber",
+            "variable_type": "int"
           },
           "179": {
             "label_type": "Literal",
@@ -20045,12 +19958,9 @@
           },
           "181": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "183": {
-            "label_type": "VariableDeclarator",
             "value_id": "186",
-            "variable_name": "Id"
+            "variable": "Id",
+            "variable_type": "String"
           },
           "186": {
             "field_text": "this.userId",

@@ -8415,6 +8415,9 @@
             },
             "117": {
               "label_ast": "AST"
+            },
+            "125": {
+              "label_cfg": "CFG"
             }
           },
           "117": {
@@ -8430,6 +8433,11 @@
               "label_ast": "AST"
             }
           },
+          "125": {
+            "127": {
+              "label_cfg": "CFG"
+            }
+          },
           "127": {
             "128": {
               "label_ast": "AST"
@@ -8439,6 +8447,9 @@
             },
             "131": {
               "label_ast": "AST"
+            },
+            "137": {
+              "label_cfg": "CFG"
             }
           },
           "131": {
@@ -8455,6 +8466,9 @@
             },
             "141": {
               "label_ast": "AST"
+            },
+            "153": {
+              "label_cfg": "CFG"
             }
           },
           "141": {
@@ -8482,6 +8496,9 @@
             },
             "157": {
               "label_ast": "AST"
+            },
+            "187": {
+              "label_cfg": "CFG"
             }
           },
           "157": {
@@ -8541,6 +8558,9 @@
             },
             "191": {
               "label_ast": "AST"
+            },
+            "196": {
+              "label_cfg": "CFG"
             }
           },
           "191": {
@@ -8549,13 +8569,11 @@
             }
           },
           "196": {
-            "198": {
-              "label_ast": "AST"
-            }
-          },
-          "198": {
             "201": {
               "label_ast": "AST"
+            },
+            "211": {
+              "label_cfg": "CFG"
             }
           },
           "201": {
@@ -8601,7 +8619,8 @@
               "label_ast": "AST"
             },
             "246": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "231": {
@@ -8614,7 +8633,8 @@
           },
           "246": {
             "248": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "250": {
               "label_ast": "AST"
@@ -8638,6 +8658,11 @@
               "label_ast": "AST"
             }
           },
+          "248": {
+            "250": {
+              "label_cfg": "CFG"
+            }
+          },
           "250": {
             "251": {
               "label_ast": "AST"
@@ -8647,6 +8672,9 @@
             },
             "254": {
               "label_ast": "AST"
+            },
+            "259": {
+              "label_cfg": "CFG"
             }
           },
           "254": {
@@ -8655,13 +8683,11 @@
             }
           },
           "259": {
-            "261": {
-              "label_ast": "AST"
-            }
-          },
-          "261": {
             "264": {
               "label_ast": "AST"
+            },
+            "272": {
+              "label_cfg": "CFG"
             }
           },
           "264": {
@@ -8676,13 +8702,11 @@
             }
           },
           "272": {
-            "274": {
-              "label_ast": "AST"
-            }
-          },
-          "274": {
             "277": {
               "label_ast": "AST"
+            },
+            "279": {
+              "label_cfg": "CFG"
             }
           },
           "279": {
@@ -8690,7 +8714,11 @@
               "label_ast": "AST"
             },
             "288": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "348": {
+              "label_cfg": "CFG"
             }
           },
           "283": {
@@ -8703,17 +8731,20 @@
           },
           "288": {
             "290": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "290": {
             "298": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "298": {
             "300": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "300": {
@@ -8721,7 +8752,11 @@
               "label_ast": "AST"
             },
             "319": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "348": {
+              "label_cfg": "CFG"
             }
           },
           "304": {
@@ -8759,7 +8794,8 @@
           },
           "319": {
             "322": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "342": {
               "label_ast": "AST"
@@ -8771,6 +8807,9 @@
             },
             "325": {
               "label_ast": "AST"
+            },
+            "342": {
+              "label_cfg": "CFG"
             }
           },
           "325": {
@@ -8803,40 +8842,45 @@
               "label_ast": "AST"
             }
           },
-          "348": {
-            "350": {
-              "label_ast": "AST"
+          "342": {
+            "348": {
+              "label_cfg": "CFG"
             }
           },
-          "350": {
+          "348": {
             "353": {
               "label_ast": "AST"
+            },
+            "355": {
+              "label_cfg": "CFG"
             }
           },
           "355": {
-            "357": {
-              "label_ast": "AST"
-            }
-          },
-          "357": {
             "360": {
               "label_ast": "AST"
+            },
+            "362": {
+              "label_cfg": "CFG"
             }
           },
           "362": {
             "364": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "482": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "547": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "364": {
             "367": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "376": {
               "label_ast": "AST"
@@ -8857,6 +8901,9 @@
             },
             "370": {
               "label_ast": "AST"
+            },
+            "376": {
+              "label_cfg": "CFG"
             }
           },
           "370": {
@@ -8873,6 +8920,9 @@
             },
             "379": {
               "label_ast": "AST"
+            },
+            "393": {
+              "label_cfg": "CFG"
             }
           },
           "379": {
@@ -8896,13 +8946,11 @@
             }
           },
           "393": {
-            "395": {
-              "label_ast": "AST"
-            }
-          },
-          "395": {
             "398": {
               "label_ast": "AST"
+            },
+            "406": {
+              "label_cfg": "CFG"
             }
           },
           "398": {
@@ -8919,13 +8967,11 @@
             }
           },
           "406": {
-            "408": {
-              "label_ast": "AST"
-            }
-          },
-          "408": {
             "411": {
               "label_ast": "AST"
+            },
+            "421": {
+              "label_cfg": "CFG"
             }
           },
           "411": {
@@ -9085,13 +9131,16 @@
           },
           "49": {
             "223": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "51": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "62": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "490": {
@@ -9314,7 +9363,8 @@
               "label_ast": "AST"
             },
             "85": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "70": {
@@ -9351,7 +9401,8 @@
               "label_ast": "AST"
             },
             "88": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "97": {
               "label_ast": "AST"
@@ -9366,6 +9417,9 @@
             },
             "92": {
               "label_ast": "AST"
+            },
+            "97": {
+              "label_cfg": "CFG"
             }
           },
           "92": {
@@ -9374,13 +9428,11 @@
             }
           },
           "97": {
-            "99": {
-              "label_ast": "AST"
-            }
-          },
-          "99": {
             "102": {
               "label_ast": "AST"
+            },
+            "113": {
+              "label_cfg": "CFG"
             }
           }
         },
@@ -9611,12 +9663,9 @@
           },
           "196": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.RequestDispatcher"
-          },
-          "198": {
-            "label_type": "VariableDeclarator",
             "value_id": "201",
-            "variable_name": "rd"
+            "variable": "rd",
+            "variable_type": "javax.servlet.RequestDispatcher"
           },
           "2": {
             "comment": "/**\n* OWASP Benchmark v1.2\n*\n* This file is part of the Open Web Application Security Project (OWASP)\n* Benchmark Project. For details, please see\n* <a href=\"https://owasp.org/www-project-benchmark/\">https://owasp.org/www-project-benchmark/</a>.\n*\n* The OWASP Benchmark is free software: you can redistribute it and/or modify it under the terms\n* of the GNU General Public License as published by the Free Software Foundation, version 2.\n*\n* The OWASP Benchmark is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without\n* even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n* GNU General Public License for more details.\n*\n* @author Dave Wichers\n* @created 2015\n*/",
@@ -9731,12 +9780,9 @@
           },
           "259": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.http.Cookie[]"
-          },
-          "261": {
-            "label_type": "VariableDeclarator",
             "value_id": "264",
-            "variable_name": "theCookies"
+            "variable": "theCookies",
+            "variable_type": "javax.servlet.http.Cookie[]"
           },
           "264": {
             "arguments_id": "268",
@@ -9762,12 +9808,9 @@
           },
           "272": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "274": {
-            "label_type": "VariableDeclarator",
             "value_id": "277",
-            "variable_name": "param"
+            "variable": "param",
+            "variable_type": "String"
           },
           "277": {
             "label_type": "Literal",
@@ -9917,12 +9960,9 @@
           },
           "348": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "350": {
-            "label_type": "VariableDeclarator",
             "value_id": "353",
-            "variable_name": "fileName"
+            "variable": "fileName",
+            "variable_type": "String"
           },
           "353": {
             "label_type": "Literal",
@@ -9931,12 +9971,9 @@
           },
           "355": {
             "label_type": "VariableDeclaration",
-            "variable_type": "java.io.FileInputStream"
-          },
-          "357": {
-            "label_type": "VariableDeclarator",
             "value_id": "360",
-            "variable_name": "fis"
+            "variable": "fis",
+            "variable_type": "java.io.FileInputStream"
           },
           "360": {
             "label_type": "Literal",
@@ -10006,12 +10043,9 @@
           },
           "393": {
             "label_type": "VariableDeclaration",
-            "variable_type": "byte[]"
-          },
-          "395": {
-            "label_type": "VariableDeclarator",
             "value_id": "398",
-            "variable_name": "b"
+            "variable": "b",
+            "variable_type": "byte[]"
           },
           "398": {
             "array_type_id": "400",
@@ -10034,12 +10068,9 @@
           },
           "406": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "408": {
-            "label_type": "VariableDeclarator",
             "value_id": "411",
-            "variable_name": "size"
+            "variable": "size",
+            "variable_type": "int"
           },
           "411": {
             "arguments_id": "415",
@@ -10532,12 +10563,9 @@
           },
           "97": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.http.Cookie"
-          },
-          "99": {
-            "label_type": "VariableDeclarator",
             "value_id": "102",
-            "variable_name": "userCookie"
+            "variable": "userCookie",
+            "variable_type": "javax.servlet.http.Cookie"
           }
         }
       }
@@ -14885,7 +14913,8 @@
           },
           "121": {
             "123": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "125": {
               "label_ast": "AST"
@@ -14909,6 +14938,11 @@
               "label_ast": "AST"
             }
           },
+          "123": {
+            "125": {
+              "label_cfg": "CFG"
+            }
+          },
           "125": {
             "126": {
               "label_ast": "AST"
@@ -14918,6 +14952,9 @@
             },
             "129": {
               "label_ast": "AST"
+            },
+            "134": {
+              "label_cfg": "CFG"
             }
           },
           "129": {
@@ -14926,13 +14963,11 @@
             }
           },
           "134": {
-            "136": {
-              "label_ast": "AST"
-            }
-          },
-          "136": {
             "139": {
               "label_ast": "AST"
+            },
+            "141": {
+              "label_cfg": "CFG"
             }
           },
           "141": {
@@ -14940,7 +14975,11 @@
               "label_ast": "AST"
             },
             "157": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "173": {
+              "label_cfg": "CFG"
             }
           },
           "145": {
@@ -14969,7 +15008,8 @@
           },
           "157": {
             "160": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "160": {
@@ -14978,6 +15018,9 @@
             },
             "163": {
               "label_ast": "AST"
+            },
+            "173": {
+              "label_cfg": "CFG"
             }
           },
           "163": {
@@ -14996,12 +15039,20 @@
               "label_ast": "AST"
             }
           },
+          "173": {
+            "175": {
+              "label_cfg": "CFG"
+            }
+          },
           "175": {
             "176": {
               "label_ast": "AST"
             },
             "178": {
               "label_ast": "AST"
+            },
+            "189": {
+              "label_cfg": "CFG"
             }
           },
           "178": {
@@ -15024,13 +15075,11 @@
             }
           },
           "189": {
-            "191": {
-              "label_ast": "AST"
-            }
-          },
-          "191": {
             "194": {
               "label_ast": "AST"
+            },
+            "202": {
+              "label_cfg": "CFG"
             }
           },
           "194": {
@@ -15051,15 +15100,18 @@
           },
           "202": {
             "204": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "261": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "204": {
             "206": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "219": {
               "label_ast": "AST"
@@ -15072,13 +15124,11 @@
             }
           },
           "206": {
-            "208": {
-              "label_ast": "AST"
-            }
-          },
-          "208": {
             "211": {
               "label_ast": "AST"
+            },
+            "219": {
+              "label_cfg": "CFG"
             }
           },
           "211": {
@@ -15093,13 +15143,11 @@
             }
           },
           "219": {
-            "221": {
-              "label_ast": "AST"
-            }
-          },
-          "221": {
             "224": {
               "label_ast": "AST"
+            },
+            "233": {
+              "label_cfg": "CFG"
             }
           },
           "224": {
@@ -15119,13 +15167,11 @@
             }
           },
           "233": {
-            "235": {
-              "label_ast": "AST"
-            }
-          },
-          "235": {
             "238": {
               "label_ast": "AST"
+            },
+            "247": {
+              "label_cfg": "CFG"
             }
           },
           "238": {
@@ -15253,13 +15299,16 @@
           },
           "49": {
             "51": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "62": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "98": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "51": {
@@ -15280,7 +15329,8 @@
               "label_ast": "AST"
             },
             "85": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "70": {
@@ -15293,7 +15343,8 @@
           },
           "85": {
             "88": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "88": {
@@ -15317,7 +15368,8 @@
               "label_ast": "AST"
             },
             "121": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "99": {
               "label_ast": "AST"
@@ -15377,12 +15429,9 @@
           },
           "134": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "136": {
-            "label_type": "VariableDeclarator",
             "value_id": "139",
-            "variable_name": "param"
+            "variable": "param",
+            "variable_type": "String"
           },
           "139": {
             "label_type": "Literal",
@@ -15511,16 +15560,13 @@
           },
           "189": {
             "label_type": "VariableDeclaration",
+            "value_id": "194",
+            "variable": "sql",
             "variable_type": "String"
           },
           "19": {
             "expression": "javax.servlet.http.HttpServlet",
             "label_type": "Import"
-          },
-          "191": {
-            "label_type": "VariableDeclarator",
-            "value_id": "194",
-            "variable_name": "sql"
           },
           "194": {
             "label_type": "BinaryOperation",
@@ -15561,12 +15607,9 @@
           },
           "206": {
             "label_type": "VariableDeclaration",
-            "variable_type": "java.sql.Connection"
-          },
-          "208": {
-            "label_type": "VariableDeclarator",
             "value_id": "211",
-            "variable_name": "connection"
+            "variable": "connection",
+            "variable_type": "java.sql.Connection"
           },
           "211": {
             "arguments_id": "215",
@@ -15588,12 +15631,9 @@
           },
           "219": {
             "label_type": "VariableDeclaration",
-            "variable_type": "java.sql.CallableStatement"
-          },
-          "221": {
-            "label_type": "VariableDeclarator",
             "value_id": "224",
-            "variable_name": "statement"
+            "variable": "statement",
+            "variable_type": "java.sql.CallableStatement"
           },
           "224": {
             "arguments_id": "228",
@@ -15623,12 +15663,9 @@
           },
           "233": {
             "label_type": "VariableDeclaration",
-            "variable_type": "java.sql.ResultSet"
-          },
-          "235": {
-            "label_type": "VariableDeclarator",
             "value_id": "238",
-            "variable_name": "rs"
+            "variable": "rs",
+            "variable_type": "java.sql.ResultSet"
           },
           "238": {
             "arguments_id": "242",
@@ -25181,7 +25218,8 @@
           },
           "121": {
             "124": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "133": {
               "label_ast": "AST"
@@ -25247,6 +25285,9 @@
             },
             "128": {
               "label_ast": "AST"
+            },
+            "133": {
+              "label_cfg": "CFG"
             }
           },
           "128": {
@@ -25255,13 +25296,11 @@
             }
           },
           "133": {
-            "135": {
-              "label_ast": "AST"
-            }
-          },
-          "135": {
             "138": {
               "label_ast": "AST"
+            },
+            "140": {
+              "label_cfg": "CFG"
             }
           },
           "140": {
@@ -25269,7 +25308,11 @@
               "label_ast": "AST"
             },
             "156": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "172": {
+              "label_cfg": "CFG"
             }
           },
           "144": {
@@ -25298,7 +25341,8 @@
           },
           "156": {
             "159": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "159": {
@@ -25307,6 +25351,9 @@
             },
             "162": {
               "label_ast": "AST"
+            },
+            "172": {
+              "label_cfg": "CFG"
             }
           },
           "162": {
@@ -25325,12 +25372,20 @@
               "label_ast": "AST"
             }
           },
+          "172": {
+            "174": {
+              "label_cfg": "CFG"
+            }
+          },
           "174": {
             "175": {
               "label_ast": "AST"
             },
             "177": {
               "label_ast": "AST"
+            },
+            "188": {
+              "label_cfg": "CFG"
             }
           },
           "177": {
@@ -25353,13 +25408,11 @@
             }
           },
           "188": {
-            "190": {
-              "label_ast": "AST"
-            }
-          },
-          "190": {
             "193": {
               "label_ast": "AST"
+            },
+            "195": {
+              "label_cfg": "CFG"
             }
           },
           "195": {
@@ -25367,7 +25420,11 @@
               "label_ast": "AST"
             },
             "204": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "239": {
+              "label_cfg": "CFG"
             }
           },
           "199": {
@@ -25380,7 +25437,8 @@
           },
           "204": {
             "207": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "207": {
@@ -25389,6 +25447,9 @@
             },
             "210": {
               "label_ast": "AST"
+            },
+            "239": {
+              "label_cfg": "CFG"
             }
           },
           "210": {
@@ -25445,13 +25506,11 @@
             }
           },
           "239": {
-            "241": {
-              "label_ast": "AST"
-            }
-          },
-          "241": {
             "244": {
               "label_ast": "AST"
+            },
+            "257": {
+              "label_cfg": "CFG"
             }
           },
           "244": {
@@ -25466,13 +25525,11 @@
             }
           },
           "257": {
-            "259": {
-              "label_ast": "AST"
-            }
-          },
-          "259": {
             "262": {
               "label_ast": "AST"
+            },
+            "271": {
+              "label_cfg": "CFG"
             }
           },
           "262": {
@@ -25492,23 +25549,19 @@
             }
           },
           "271": {
-            "273": {
-              "label_ast": "AST"
-            }
-          },
-          "273": {
             "276": {
               "label_ast": "AST"
+            },
+            "278": {
+              "label_cfg": "CFG"
             }
           },
           "278": {
-            "280": {
-              "label_ast": "AST"
-            }
-          },
-          "280": {
             "283": {
               "label_ast": "AST"
+            },
+            "297": {
+              "label_cfg": "CFG"
             }
           },
           "283": {
@@ -25534,13 +25587,11 @@
             }
           },
           "297": {
-            "299": {
-              "label_ast": "AST"
-            }
-          },
-          "299": {
             "302": {
               "label_ast": "AST"
+            },
+            "331": {
+              "label_cfg": "CFG"
             }
           },
           "302": {
@@ -25614,16 +25665,17 @@
             },
             "334": {
               "label_ast": "AST"
+            },
+            "336": {
+              "label_cfg": "CFG"
             }
           },
           "336": {
-            "338": {
-              "label_ast": "AST"
-            }
-          },
-          "338": {
             "341": {
               "label_ast": "AST"
+            },
+            "346": {
+              "label_cfg": "CFG"
             }
           },
           "341": {
@@ -25635,23 +25687,19 @@
             }
           },
           "346": {
-            "348": {
-              "label_ast": "AST"
-            }
-          },
-          "348": {
             "351": {
               "label_ast": "AST"
+            },
+            "353": {
+              "label_cfg": "CFG"
             }
           },
           "353": {
-            "355": {
-              "label_ast": "AST"
-            }
-          },
-          "355": {
             "358": {
               "label_ast": "AST"
+            },
+            "366": {
+              "label_cfg": "CFG"
             }
           },
           "358": {
@@ -25670,7 +25718,11 @@
               "label_ast": "AST"
             },
             "375": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "370": {
@@ -25683,75 +25735,97 @@
           },
           "375": {
             "377": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "377": {
             "380": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "387": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "397": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "401": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "380": {
-            "382": {
-              "label_ast": "AST"
-            }
-          },
-          "382": {
             "385": {
               "label_ast": "AST"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "387": {
             "388": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "392": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "388": {
             "390": {
               "label_ast": "AST"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "392": {
             "393": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "395": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "393": {
+            "479": {
+              "label_cfg": "CFG"
+            }
+          },
+          "395": {
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "397": {
             "398": {
               "label_ast": "AST"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "401": {
             "403": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "414": {
               "label_ast": "AST"
             }
           },
           "403": {
-            "405": {
-              "label_ast": "AST"
-            }
-          },
-          "405": {
             "408": {
               "label_ast": "AST"
+            },
+            "414": {
+              "label_cfg": "CFG"
             }
           },
           "408": {
@@ -25764,7 +25838,11 @@
               "label_ast": "AST"
             },
             "433": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "418": {
@@ -25796,7 +25874,8 @@
           },
           "433": {
             "435": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "435": {
@@ -25804,7 +25883,11 @@
               "label_ast": "AST"
             },
             "467": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "439": {
@@ -25863,7 +25946,8 @@
           },
           "467": {
             "470": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "470": {
@@ -25872,6 +25956,9 @@
             },
             "473": {
               "label_ast": "AST"
+            },
+            "479": {
+              "label_cfg": "CFG"
             }
           },
           "479": {
@@ -25879,15 +25966,18 @@
               "label_ast": "AST"
             },
             "485": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "511": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "485": {
             "488": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "488": {
@@ -25899,6 +25989,9 @@
             },
             "498": {
               "label_ast": "AST"
+            },
+            "639": {
+              "label_cfg": "CFG"
             }
           },
           "489": {
@@ -25914,13 +26007,16 @@
           },
           "49": {
             "51": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "62": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "98": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "498": {
@@ -25951,7 +26047,8 @@
           },
           "511": {
             "513": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "529": {
               "label_ast": "AST"
@@ -25979,13 +26076,11 @@
             }
           },
           "513": {
-            "515": {
-              "label_ast": "AST"
-            }
-          },
-          "515": {
             "518": {
               "label_ast": "AST"
+            },
+            "529": {
+              "label_cfg": "CFG"
             }
           },
           "518": {
@@ -26010,6 +26105,9 @@
             },
             "533": {
               "label_ast": "AST"
+            },
+            "539": {
+              "label_cfg": "CFG"
             }
           },
           "533": {
@@ -26026,6 +26124,9 @@
             },
             "543": {
               "label_ast": "AST"
+            },
+            "549": {
+              "label_cfg": "CFG"
             }
           },
           "543": {
@@ -26042,6 +26143,9 @@
             },
             "553": {
               "label_ast": "AST"
+            },
+            "564": {
+              "label_cfg": "CFG"
             }
           },
           "553": {
@@ -26060,6 +26164,16 @@
               "label_ast": "AST"
             }
           },
+          "564": {
+            "565": {
+              "label_cfg": "CFG"
+            }
+          },
+          "565": {
+            "567": {
+              "label_cfg": "CFG"
+            }
+          },
           "567": {
             "568": {
               "label_ast": "AST"
@@ -26069,6 +26183,9 @@
             },
             "577": {
               "label_ast": "AST"
+            },
+            "585": {
+              "label_cfg": "CFG"
             }
           },
           "568": {
@@ -26104,6 +26221,9 @@
             },
             "589": {
               "label_ast": "AST"
+            },
+            "595": {
+              "label_cfg": "CFG"
             }
           },
           "589": {
@@ -26120,6 +26240,9 @@
             },
             "605": {
               "label_ast": "AST"
+            },
+            "639": {
+              "label_cfg": "CFG"
             }
           },
           "596": {
@@ -26197,7 +26320,8 @@
               "label_ast": "AST"
             },
             "85": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "626": {
@@ -26248,7 +26372,8 @@
           },
           "85": {
             "88": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "88": {
@@ -26272,7 +26397,8 @@
               "label_ast": "AST"
             },
             "121": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             },
             "99": {
               "label_ast": "AST"
@@ -26328,12 +26454,9 @@
           },
           "133": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "135": {
-            "label_type": "VariableDeclarator",
             "value_id": "138",
-            "variable_name": "param"
+            "variable": "param",
+            "variable_type": "String"
           },
           "138": {
             "label_type": "Literal",
@@ -26462,16 +26585,13 @@
           },
           "188": {
             "label_type": "VariableDeclaration",
+            "value_id": "193",
+            "variable": "bar",
             "variable_type": "String"
           },
           "19": {
             "expression": "javax.servlet.http.HttpServlet",
             "label_type": "Import"
-          },
-          "190": {
-            "label_type": "VariableDeclarator",
-            "value_id": "193",
-            "variable_name": "bar"
           },
           "193": {
             "label_type": "Literal",
@@ -26583,12 +26703,9 @@
           },
           "239": {
             "label_type": "VariableDeclaration",
-            "variable_type": "long"
-          },
-          "241": {
-            "label_type": "VariableDeclarator",
             "value_id": "244",
-            "variable_name": "l"
+            "variable": "l",
+            "variable_type": "long"
           },
           "244": {
             "arguments_id": "253",
@@ -26610,12 +26727,9 @@
           },
           "257": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "259": {
-            "label_type": "VariableDeclarator",
             "value_id": "262",
-            "variable_name": "rememberMeKey"
+            "variable": "rememberMeKey",
+            "variable_type": "String"
           },
           "262": {
             "arguments_id": "266",
@@ -26645,12 +26759,9 @@
           },
           "271": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "273": {
-            "label_type": "VariableDeclarator",
             "value_id": "276",
-            "variable_name": "user"
+            "variable": "user",
+            "variable_type": "String"
           },
           "276": {
             "label_type": "Literal",
@@ -26659,12 +26770,9 @@
           },
           "278": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "280": {
-            "label_type": "VariableDeclarator",
             "value_id": "283",
-            "variable_name": "fullClassName"
+            "variable": "fullClassName",
+            "variable_type": "String"
           },
           "283": {
             "arguments_id": "293",
@@ -26700,12 +26808,9 @@
           },
           "297": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "299": {
-            "label_type": "VariableDeclarator",
             "value_id": "302",
-            "variable_name": "testCaseNumber"
+            "variable": "testCaseNumber",
+            "variable_type": "String"
           },
           "3": {
             "expression": "org.owasp.benchmark.testcode",
@@ -26809,12 +26914,9 @@
           },
           "336": {
             "label_type": "VariableDeclaration",
-            "variable_type": "String"
-          },
-          "338": {
-            "label_type": "VariableDeclarator",
             "value_id": "341",
-            "variable_name": "cookieName"
+            "variable": "cookieName",
+            "variable_type": "String"
           },
           "341": {
             "label_type": "BinaryOperation",
@@ -26833,12 +26935,9 @@
           },
           "346": {
             "label_type": "VariableDeclaration",
-            "variable_type": "boolean"
-          },
-          "348": {
-            "label_type": "VariableDeclarator",
             "value_id": "351",
-            "variable_name": "foundUser"
+            "variable": "foundUser",
+            "variable_type": "boolean"
           },
           "351": {
             "label_type": "Literal",
@@ -26847,12 +26946,9 @@
           },
           "353": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.http.Cookie[]"
-          },
-          "355": {
-            "label_type": "VariableDeclarator",
             "value_id": "358",
-            "variable_name": "cookies"
+            "variable": "cookies",
+            "variable_type": "javax.servlet.http.Cookie[]"
           },
           "358": {
             "arguments_id": "362",
@@ -26900,12 +26996,9 @@
           },
           "380": {
             "label_type": "VariableDeclaration",
-            "variable_type": "int"
-          },
-          "382": {
-            "label_type": "VariableDeclarator",
             "value_id": "385",
-            "variable_name": "i"
+            "variable": "i",
+            "variable_type": "int"
           },
           "385": {
             "label_type": "Literal",
@@ -26954,12 +27047,9 @@
           },
           "403": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.http.Cookie"
-          },
-          "405": {
-            "label_type": "VariableDeclarator",
             "value_id": "408",
-            "variable_name": "cookie"
+            "variable": "cookie",
+            "variable_type": "javax.servlet.http.Cookie"
           },
           "408": {
             "access_index": "i",
@@ -27187,12 +27277,9 @@
           },
           "513": {
             "label_type": "VariableDeclaration",
-            "variable_type": "javax.servlet.http.Cookie"
-          },
-          "515": {
-            "label_type": "VariableDeclarator",
             "value_id": "518",
-            "variable_name": "rememberMe"
+            "variable": "rememberMe",
+            "variable_type": "javax.servlet.http.Cookie"
           },
           "518": {
             "arguments_id": "521",

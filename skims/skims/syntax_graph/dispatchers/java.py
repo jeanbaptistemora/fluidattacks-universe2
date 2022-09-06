@@ -35,7 +35,6 @@ from syntax_graph.syntax_readers.common import (
     try_statement as common_try_statement,
     unary_expression as common_unary_expression,
     update_expression as common_update_expression,
-    variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.java import (
@@ -65,6 +64,7 @@ from syntax_graph.syntax_readers.java import (
     switch_block_statement_group as java_switch_block_statement_group,
     switch_expression as java_switch_expression,
     switch_label as java_switch_label,
+    variable_declaration as java_variable_declaration,
     while_statement as java_while_statement,
 )
 from syntax_graph.types import (
@@ -463,7 +463,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "local_variable_declaration",
         },
-        syntax_reader=common_variable_declaration.reader,
+        syntax_reader=java_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
