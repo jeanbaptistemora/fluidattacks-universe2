@@ -9,13 +9,13 @@ function start_etl {
     && aws_login "prod_observes" "3600" \
     && json_db_creds "${db_creds}" \
     && export_notifier_key \
-    && ensure_gitlab_env_vars \
-      AUTONOMIC_API_TOKEN \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
+      autonomic_api_token \
     && gitlab-etl \
       'gitlab-ci' \
       'autonomicjump/challenges' \
       's3://observes.state/gitlab_etl/challenges_state.json' \
-      "${AUTONOMIC_API_TOKEN}" \
+      "${autonomic_api_token}" \
       "${db_creds}"
 }
 
