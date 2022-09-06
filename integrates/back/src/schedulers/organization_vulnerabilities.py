@@ -72,6 +72,7 @@ from s3.resource import (
 from settings.logger import (
     LOGGING,
 )
+import tarfile
 import tempfile
 
 logging.config.dictConfig(LOGGING)
@@ -250,9 +251,10 @@ async def main() -> None:
             loaders=loaders,
             organization_name=org_name,
         )
+        csv_filename = f"{org_id}-{date}.csv"
         with tempfile.TemporaryDirectory() as directory:
             with open(
-                os.path.join(directory, f"{org_id}-{date}.csv"),
+                os.path.join(directory, csv_filename),
                 mode="w",
                 encoding="utf-8",
             ) as csv_file:
@@ -265,13 +267,20 @@ async def main() -> None:
                 writer.writerow(rows[0])
                 writer.writerows(rows[1:])
 
+            with tarfile.open(
+                os.path.join(directory, f"{org_id}-{date}.tar.gz"), "w:gz"
+            ) as tar_file:
+                tar_file.add(
+                    os.path.join(directory, csv_filename), arcname=csv_filename
+                )
+
             filename: str = (
                 f"{CI_COMMIT_REF_NAME}/reports/organizations"
-                f"/{folder_date}/{org_id}-{date}.csv"
+                f"/{folder_date}/{org_id}-{date}.tar.gz"
             )
             await upload_file(
                 FI_AWS_S3_ANALYTICS_BUCKET,
-                csv_file.name,
+                str(tar_file.name),
                 filename,
             )
             signed_url: str = await sign_url(
