@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Tracking as TrackingItem,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,26 +13,25 @@ from db_model.vulnerabilities.types import (
 from findings import (
     domain as findings_domain,
 )
+from findings.types import (
+    Tracking,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from typing import (
-    List,
-    Tuple,
 )
 
 
 async def _get_treatments(
-    *, loaders: Dataloaders, vulnerabilities_id: Tuple[str, ...]
-) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
+    *, loaders: Dataloaders, vulnerabilities_id: tuple[str, ...]
+) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
     return await loaders.vulnerability_historic_treatment.load_many(
         vulnerabilities_id
     )
 
 
 async def _get_states(
-    *, loaders: Dataloaders, vulnerabilities_id: Tuple[str, ...]
-) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
+    *, loaders: Dataloaders, vulnerabilities_id: tuple[str, ...]
+) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
     return await loaders.vulnerability_historic_state.load_many(
         vulnerabilities_id
     )
@@ -43,7 +39,7 @@ async def _get_states(
 
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[TrackingItem]:
+) -> list[Tracking]:
     if not parent.approval:
         return []
 

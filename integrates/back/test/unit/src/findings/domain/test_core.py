@@ -28,6 +28,9 @@ from findings.domain import (
     mask_finding,
     verify_vulnerabilities,
 )
+from findings.types import (
+    Tracking,
+)
 from freezegun import (  # type: ignore
     freeze_time,
 )
@@ -50,6 +53,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.mymark
 async def test_get_tracking_vulnerabilities() -> None:
     loaders: Dataloaders = get_new_context()
     finding_vulns_loader = loaders.finding_vulnerabilities_nzr
@@ -69,56 +73,56 @@ async def test_get_tracking_vulnerabilities() -> None:
         vulns_treatment=vulns_treatment,
     )
     expected_output = [
-        {
-            "cycle": 0,
-            "open": 1,
-            "closed": 0,
-            "date": "2019-08-30",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 1,
-            "open": 15,
-            "closed": 0,
-            "date": "2019-09-12",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 2,
-            "open": 6,
-            "closed": 0,
-            "date": "2019-09-13",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 3,
-            "open": 0,
-            "closed": 4,
-            "date": "2019-09-13",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 4,
-            "open": 2,
-            "closed": 0,
-            "date": "2019-09-16",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
+        Tracking(
+            cycle=0,
+            open=1,
+            closed=0,
+            date="2019-08-30",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=1,
+            open=15,
+            closed=0,
+            date="2019-09-12",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=2,
+            open=6,
+            closed=0,
+            date="2019-09-13",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=3,
+            open=0,
+            closed=4,
+            date="2019-09-13",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=4,
+            open=2,
+            closed=0,
+            date="2019-09-16",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
     ]
     assert test_data == expected_output
 
@@ -135,36 +139,36 @@ async def test_get_tracking_vulnerabilities() -> None:
         vulns_treatment=vulns_treatment,
     )
     expected_output = [
-        {
-            "cycle": 0,
-            "open": 1,
-            "closed": 0,
-            "date": "2019-09-12",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 1,
-            "open": 1,
-            "closed": 0,
-            "date": "2019-09-13",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 2,
-            "open": 0,
-            "closed": 0,
-            "date": "2019-09-13",
-            "accepted": 1,
-            "accepted_undefined": 0,
-            "assigned": "integratesuser@gmail.com",
-            "justification": "accepted justification",
-        },
+        Tracking(
+            cycle=0,
+            open=1,
+            closed=0,
+            date="2019-09-12",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=1,
+            open=1,
+            closed=0,
+            date="2019-09-13",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
+        Tracking(
+            cycle=2,
+            open=0,
+            closed=0,
+            date="2019-09-13",
+            accepted=1,
+            accepted_undefined=0,
+            assigned="integratesuser@gmail.com",
+            justification="accepted justification",
+        ),
     ]
     assert test_data == expected_output
 
@@ -181,16 +185,16 @@ async def test_get_tracking_vulnerabilities() -> None:
         vulns_treatment=vulns_treatment,
     )
     expected_output = [
-        {
-            "cycle": 0,
-            "open": 1,
-            "closed": 0,
-            "date": "2020-01-03",
-            "accepted": 0,
-            "assigned": "",
-            "accepted_undefined": 0,
-            "justification": "",
-        },
+        Tracking(
+            cycle=0,
+            open=1,
+            closed=0,
+            date="2020-01-03",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+        ),
     ]
     assert test_data == expected_output
 
@@ -207,36 +211,42 @@ async def test_get_tracking_vulnerabilities() -> None:
         vulns_treatment=vulns_treatment,
     )
     expected_output = [
-        {
-            "cycle": 0,
-            "open": 1,
-            "closed": 0,
-            "date": "2019-01-15",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 1,
-            "open": 0,
-            "closed": 1,
-            "date": "2019-01-15",
-            "accepted": 0,
-            "accepted_undefined": 0,
-            "assigned": "",
-            "justification": "",
-        },
-        {
-            "cycle": 2,
-            "open": 0,
-            "closed": 0,
-            "date": "2019-01-15",
-            "accepted": 1,
-            "accepted_undefined": 0,
-            "assigned": "integratesuser@gmail.com",
-            "justification": "This is a treatment justification test",
-        },
+        Tracking(
+            cycle=0,
+            open=1,
+            closed=0,
+            date="2019-01-15",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+            effectiveness=None,
+            new=None,
+            in_progress=None,
+        ),
+        Tracking(
+            cycle=1,
+            open=0,
+            closed=1,
+            date="2019-01-15",
+            accepted=0,
+            accepted_undefined=0,
+            assigned="",
+            justification="",
+            effectiveness=None,
+            new=None,
+            in_progress=None,
+        ),
+        Tracking(
+            cycle=2,
+            open=0,
+            closed=0,
+            date="2019-01-15",
+            accepted=1,
+            accepted_undefined=0,
+            assigned="integratesuser@gmail.com",
+            justification="This is a treatment justification test",
+        ),
     ]
     assert test_data == expected_output
 

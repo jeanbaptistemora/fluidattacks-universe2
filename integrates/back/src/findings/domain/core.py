@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from aiodataloader import (
     DataLoader,
 )
@@ -22,9 +21,6 @@ from custom_exceptions import (
     NotVerificationRequested,
     PermissionDenied,
     VulnNotFound,
-)
-from custom_types import (
-    Tracking as TrackingItem,
 )
 from datetime import (
     datetime,
@@ -76,6 +72,7 @@ from findings import (
 )
 from findings.types import (
     FindingDescriptionToUpdate,
+    Tracking,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -444,7 +441,7 @@ async def get_status(loaders: Any, finding_id: str) -> str:
 def get_tracking_vulnerabilities(
     vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
     vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
-) -> List[TrackingItem]:
+) -> List[Tracking]:
     """Get tracking vulnerabilities dictionary."""
     states_actions = vulns_utils.get_state_actions(vulns_state)
     treatments_actions = vulns_utils.get_treatment_actions(vulns_treatment)
@@ -457,7 +454,7 @@ def get_tracking_vulnerabilities(
         )
     )
     return [
-        TrackingItem(
+        Tracking(
             cycle=index,
             open=action.times if action.action == "OPEN" else 0,
             closed=action.times if action.action == "CLOSED" else 0,

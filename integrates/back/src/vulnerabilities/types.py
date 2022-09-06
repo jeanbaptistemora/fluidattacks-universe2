@@ -29,3 +29,6 @@ class Verifications(NamedTuple):
     requested: int
     on_hold: int
     verified: int
+
+
+ToolItem = dict[str, str]

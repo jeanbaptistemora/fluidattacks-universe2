@@ -8,9 +8,6 @@ from custom_exceptions import (
     VulnNotFound,
     VulnNotInFinding,
 )
-from custom_types import (
-    ToolItem,
-)
 from db_model import (
     vulnerabilities as vulns_model,
 )
@@ -97,6 +94,7 @@ from typing import (
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
     GroupedVulnerabilitiesInfo,
+    ToolItem,
     Treatments,
     Verifications,
 )

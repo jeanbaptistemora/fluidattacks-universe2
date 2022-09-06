@@ -29,3 +29,17 @@ class FindingDraftToAdd(NamedTuple):
     severity: Finding31Severity
     threat: str
     title: str
+
+
+class Tracking(NamedTuple):
+    cycle: int
+    open: int
+    closed: int
+    date: str
+    accepted: int
+    accepted_undefined: int
+    assigned: str
+    justification: str
+    effectiveness: Optional[int] = None
+    new: Optional[int] = None
+    in_progress: Optional[int] = None

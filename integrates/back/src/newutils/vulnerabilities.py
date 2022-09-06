@@ -15,10 +15,6 @@ from custom_exceptions import (
     RootNotFound,
     VulnAlreadyClosed,
 )
-from custom_types import (
-    Action,
-    ToolItem,
-)
 from datetime import (
     date as datetype,
     datetime,
@@ -71,10 +67,19 @@ from typing import (
     Dict,
     Iterable,
     List,
+    NamedTuple,
     Optional,
     Tuple,
     Union,
 )
+
+
+class Action(NamedTuple):
+    action: str
+    assigned: str
+    date: str
+    justification: str
+    times: int
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -207,7 +212,7 @@ def filter_remediated(
 
 def _format_tool_item(
     tool: VulnerabilityTool,
-) -> ToolItem:
+) -> Item:
     return {
         "name": tool.name,
         "impact": str(tool.impact.value).lower(),
@@ -216,8 +221,8 @@ def _format_tool_item(
 
 async def format_vulnerabilities(
     group_name: str, loaders: Any, vulnerabilities: tuple[Vulnerability, ...]
-) -> Dict[str, List[Dict[str, Union[str, ToolItem]]]]:
-    finding: Dict[str, List[Dict[str, Union[str, ToolItem]]]] = {
+) -> Dict[str, List[Dict[str, Union[str, Item]]]]:
+    finding: Dict[str, List[Dict[str, Union[str, Item]]]] = {
         "ports": [],
         "lines": [],
         "inputs": [],

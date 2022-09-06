@@ -2,51 +2,19 @@
 # module about UPPER_CASE naming style with every variable declared here
 # pylint: disable-all
 
-from boto3.dynamodb.conditions import (
-    ConditionBase,
-)
 from datetime import (
     datetime,
 )
 from typing import (
     Any,
     Dict,
-    List,
     NamedTuple,
-    Union,
 )
 from typing_extensions import (
     TypedDict,
 )
 
-Action = NamedTuple(
-    "Action",
-    [
-        ("action", str),
-        ("assigned", str),
-        ("date", str),
-        ("justification", str),
-        ("times", int),
-    ],
-)
 Datetime = datetime
-Tracking = TypedDict(
-    "Tracking",
-    {
-        "cycle": int,
-        "open": int,
-        "closed": int,
-        "effectiveness": int,
-        "date": str,
-        "new": int,
-        "in_progress": int,
-        "accepted": int,
-        "accepted_undefined": int,
-        "assigned": str,
-        "justification": str,
-    },
-    total=False,
-)
 
 # Analytics
 GraphicParameters = NamedTuple(
@@ -224,6 +192,3 @@ SignPostUrlsPayload = NamedTuple(
 class Phone(NamedTuple):
     calling_country_code: str
     national_number: str
-
-
-ToolItem = dict[str, str]
