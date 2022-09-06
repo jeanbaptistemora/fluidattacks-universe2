@@ -1477,6 +1477,11 @@ async def move_root(
             includes_health_check=root.state.includes_health_check,
             nickname=root.state.nickname,
             url=root.state.url,
+            credentials=(
+                {"id": root.state.credential_id}
+                if root.state.credential_id
+                else None
+            ),
         )
         new_root_id = new_root.id
     elif isinstance(root, IPRoot):
