@@ -527,6 +527,14 @@
       "title": "177. Insecure service configuration - Security Groups"
     }
   },
+  "F182": {
+    "EN": {
+      "title": "182. Email spoofing"
+    },
+    "ES": {
+      "title": "182. Email spoofing"
+    }
+  },
   "F183": {
     "EN": {
       "title": "183. Debugging enabled in production"

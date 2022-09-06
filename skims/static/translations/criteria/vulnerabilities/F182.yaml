@@ -1,0 +1,4 @@
+---
+lib_http.analyze_headers.check_spf_record.missing:
+  en: Missing spf record in the DNS
+  es: Registro spf ausente en el DNS

@@ -641,6 +641,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
     )
+    F182: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F182",
+        cwe=16,
+        execution_queue=ExecutionQueue.http,
+        requirements=[62, 273],
+    )
     F183: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F183",
@@ -2243,6 +2250,14 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F036,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
+    )
+    CHECK_SPF_RECORD = MethodInfo(
+        file_name="analyze_headers",
+        name="check_spf_record",
+        module="lib_http",
+        finding=FindingEnum.F182,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.DAST,
     )
     DOTNETCONFIG_NOT_SUPPRESS_VULN_HEADER = MethodInfo(

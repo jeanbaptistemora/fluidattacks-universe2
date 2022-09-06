@@ -6,6 +6,9 @@ from __future__ import (
     annotations,
 )
 
+import dns
+import dns.exception
+import dns.resolver
 from http_headers import (
     as_string,
     content_security_policy,
@@ -523,6 +526,49 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     return HeaderCheckCtx(
         headers_parsed=headers_parsed,
         url_ctx=url,
+    )
+
+
+def _query_dns(
+    domain: str,
+    timeout: float = 2.0,
+) -> list:
+
+    resolver = dns.resolver.Resolver()
+    record_type = "TXT"
+    resource_records = list(
+        map(
+            lambda r: r.strings,
+            resolver.resolve(domain, record_type, lifetime=timeout),
+        )
+    )
+    _resource_record = [
+        resource_record[0][:0].join(resource_record)
+        for resource_record in resource_records
+        if resource_record
+    ]
+    records = [r.decode() for r in _resource_record]
+    return records
+
+
+def _check_spf_record(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
+    domain: str
+    validator: bool = False
+
+    domain = ctx.url_ctx.get_base_domain()
+    for record in _query_dns(domain):
+        if "v=spf1" in record:
+            validator = True
+    if not validator:
+        locations.append("check_spf_record.missing")
+
+    return _create_vulns(
+        locations=locations,
+        header=header,
+        ctx=ctx,
+        method=core_model.MethodsEnum.CHECK_SPF_RECORD,
     )
 
 
