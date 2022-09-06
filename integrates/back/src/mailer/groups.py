@@ -97,9 +97,8 @@ async def send_abandoned_trial_notification(
         context={},
         tags=[],
         subject=(
-            f"[{fname}], " "start your Continuous Hacking Free Trial " ""
-            if first_time
-            else "(reminder)"
+            f"[{fname}], start your Continuous Hacking Free Trial"
+            + ("" if first_time else " (reminder)")
         ),
         template_name="abandoned_trial_notification",
     )
