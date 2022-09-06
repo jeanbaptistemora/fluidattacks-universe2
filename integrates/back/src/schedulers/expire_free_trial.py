@@ -58,7 +58,12 @@ async def expire(
     enrollment: Enrollment,
 ) -> None:
     try:
-        LOGGER.info("Will expire %s", group.name)
+        LOGGER.info(
+            "Will expire group %s, created_by %s, start_date: %s",
+            group.name,
+            group.created_by,
+            enrollment.trial.start_date,
+        )
         await enrollment_domain.update_metadata(
             loaders=loaders,
             email=group.created_by,
@@ -97,7 +102,7 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
     group_authors = tuple(group.created_by for group in groups)
-    enrollments: tuple[Enrollment, ...] = loaders.enrollment.load_many(
+    enrollments: tuple[Enrollment, ...] = await loaders.enrollment.load_many(
         group_authors
     )
 
