@@ -10,10 +10,6 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 3.10.0"
     }
-    gitlab = {
-      source  = "gitlabhq/gitlab"
-      version = "3.12.0"
-    }
   }
 
   backend "s3" {
@@ -27,14 +23,4 @@ terraform {
 
 provider "aws" {
   region = var.region
-}
-
-provider "gitlab" {
-  alias = "universe"
-  token = var.gitlab_token
-}
-
-provider "gitlab" {
-  alias = "services"
-  token = var.gitlab_token_services
 }

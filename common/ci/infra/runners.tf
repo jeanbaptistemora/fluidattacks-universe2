@@ -1,22 +1,20 @@
 locals {
   runners = {
     small = {
-      access_level = "not_protected"
-      root_size    = 10
-      replicas     = 4
-      instance     = "c5ad.large"
-      tags         = ["small"]
+      root_size = 10
+      replicas  = 4
+      instance  = "c5ad.large"
+      tags      = ["small"]
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
         "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
       ]
     }
     large = {
-      access_level = "not_protected"
-      root_size    = 35
-      replicas     = 1
-      instance     = "m5a.large"
-      tags         = ["large"]
+      root_size = 35
+      replicas  = 1
+      instance  = "m5a.large"
+      tags      = ["large"]
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
       ]
@@ -78,7 +76,7 @@ module "runners" {
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "86400"
-    access_level       = each.value.access_level
+    access_level       = "not_protected"
   }
 
   # Workers
