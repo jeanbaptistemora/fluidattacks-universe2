@@ -1,6 +1,6 @@
 ---
 slug: offensive-hyperv-directx-1/
-title: DirectX/HyperV An Offensive View
+title: DirectX/HyperV; An Offensive View
 date: 2022-09-06
 category: attacks
 subtitle: A Black Hat talk follow up
@@ -17,7 +17,7 @@ about2: We don't need the key, we'll break in RATM
 source: https://unsplash.com/photos/iulnjpZyWnc
 ---
 
-I attended Black Hat USA 2022. The available talks
+This year I attended Black Hat USA. The available talks
 were diverse, all of them inviting and some of them
 particularly attractive for my current field of work,
 which is currently mainly focused on advanced topics
@@ -71,7 +71,7 @@ The first laptop will be the debuggee (`host1`).
 In that laptop, the latest version of Windows 11 was
 installed:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481151/blog/offensive-hyperv-directx-1/Screenshot_2022-09-02_170953.webp)
 
@@ -80,7 +80,7 @@ installed:
 In that machine, WSL was installed along with Kali
 as guest VM:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_171949.webp)
 
@@ -93,7 +93,7 @@ of [WSL](https://github.com/microsoft/WSL2-Linux-Kernel/releases),
 so I built it to use it. To the date of the exercise,
 the latest version was `5.15.57.1`.
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-02_171509.webp)
 
@@ -102,7 +102,7 @@ the latest version was `5.15.57.1`.
 Make sure that you have partitionable GPUs
 using `Get-VMHostPartitionableGpu`:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172158.webp)
 
@@ -113,7 +113,7 @@ be able to perform remote debugging using a network connection.
 I tried to do that, but failed because the physical network
 adapter didn't support debugging:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172126.webp)
 
@@ -127,7 +127,7 @@ To do that, I had to:
 - Find a USB3 port on my debuggee laptop with debugging support.
   That could be done using __USBView__ from Windows SDK:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172045.webp)
 
@@ -135,7 +135,7 @@ To do that, I had to:
 
 - Enabling debug options.
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172015.webp)
 
@@ -143,7 +143,7 @@ To do that, I had to:
 
 - Plug the debugger and the debuggee using a quality USB3 cable.
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_171730.webp)
 
@@ -324,7 +324,7 @@ First, I'm going to pause the execution on `gdb`
 at `*create_device+176` which is when the `IOCTL`
 calling to `LX_DXCREATEDEVICE` is performed:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_150948.webp)
 
@@ -333,7 +333,7 @@ calling to `LX_DXCREATEDEVICE` is performed:
 If we see the value of the variable `ddd.device`
 before the call, you should see something like this:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151006.webp)
 
@@ -342,13 +342,13 @@ before the call, you should see something like this:
 After the `IOCTL`, we can see that the device handle
 is now populated:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151035.webp)
 
 </div>
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151051.webp)
 
@@ -359,7 +359,7 @@ going to need to set a few breakpoints to check the
 flow. First, let's put a breakpoint
 at `dxgkrnl!VmBusProcessPacket`
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151313.webp)
 
@@ -376,7 +376,7 @@ which is added when the kernel is compiled with
 
 Let's put another breakpoint there:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662482749/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_114526.webp)
 
@@ -385,7 +385,7 @@ Let's put another breakpoint there:
 Now, let's put a breakpoint
 at `dxgkrnl!VmBusExecuteCommandInProcessContext`:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_160007.webp)
 
@@ -396,7 +396,7 @@ at `dxgkrnl!VmBusExecuteCommandInProcessContext+0x1f0`
 we can also find an indirect call being performed. We
 can set a new breakpoint in that place:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_160050.webp)
 
@@ -405,7 +405,7 @@ can set a new breakpoint in that place:
 Finally, a breakpoint at `dxgkrnl!VmBusCompletePacket`
 will be set:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662482824/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_114653.webp)
 
@@ -413,7 +413,7 @@ will be set:
 
 We should now have five breakpoints as follows:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_160835.webp)
 
@@ -424,7 +424,7 @@ reference the steps described above in the following
 execution flow. When we run the sample code again,
 it hits our first breakpoint (step 5):
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151349.webp)
 
@@ -436,7 +436,7 @@ which is an indirect call to the first command's handler.
 In this case, the handling function was resolved
 as `dxgkrnl!DXG_HOST_GLOBAL_VMBUS::VmBusCreateProcess` (step 6):
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/bp2.gif)
 
@@ -448,7 +448,7 @@ the caller the result of
 the `dxgkrnl!DXG_HOST_GLOBAL_VMBUS::VmBusCreateProcess`
 command:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_162624.webp)
 
@@ -460,7 +460,7 @@ but the next breakpoint hit is
 at `dxgkrnl!VmBusExecuteCommandInProcessContext`, which means
 that the incoming command is not a global command (step 7):
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_162650.webp)
 
@@ -472,7 +472,7 @@ which contains the indirect call resolved to a non-global
 command. In this case, we see the command we sent
 (`LX_DXCREATEDEVICE`) for creating a device:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/bp4.gif)
 
@@ -485,7 +485,7 @@ to `dxgkrnl!CastToVmBusCommand<DXGKVMB_COMMAND_CREATEDEVICE>`
 which will extract the needed parts of
 the `DXGADAPTER_VMBUS_PACKET` (step 8):
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_163241.webp)
 
@@ -493,7 +493,7 @@ the `DXGADAPTER_VMBUS_PACKET` (step 8):
 
 Here's the decompiled code:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662483805/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_120255.webp)
 
@@ -504,7 +504,7 @@ at `dxgkrnl!DXG_HOST_VIRTUALGPU_VMBUS::VmBusCreateDevice+0x3b0`,
 we can see a call to `dxgkrnl!DxgkCreateDeviceImpl` which do
 the dirty job (step 9):
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662483947/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_120538.webp)
 
@@ -519,7 +519,7 @@ that if we check the double word data pointed by the
 `rdx` register, we should see the device handler (`0x40000000`)
 returned as we saw before in the Linux VM output:
 
-<div class="imgblock">
+<div align="left" class="imgblock">
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_162933.webp)
 
