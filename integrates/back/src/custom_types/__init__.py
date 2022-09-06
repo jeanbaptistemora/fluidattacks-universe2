@@ -10,49 +10,8 @@ from typing import (
     Dict,
     NamedTuple,
 )
-from typing_extensions import (
-    TypedDict,
-)
 
 Datetime = datetime
-
-# Analytics
-GraphicParameters = NamedTuple(
-    "GraphicParameters",
-    [
-        ("document_name", str),
-        ("document_type", str),
-        ("entity", str),
-        ("generator_name", str),
-        ("generator_type", str),
-        ("height", int),
-        ("subject", str),
-        ("width", int),
-    ],
-)
-GraphicsForEntityParameters = NamedTuple(
-    "GraphicsForEntityParameters",
-    [
-        ("entity", str),
-        ("subject", str),
-    ],
-)
-GraphicsCsvParameters = NamedTuple(
-    "GraphicsCsvParameters",
-    [
-        ("document_name", str),
-        ("document_type", str),
-        ("entity", str),
-        ("subject", str),
-    ],
-)
-ReportParameters = NamedTuple(
-    "ReportParameters",
-    [
-        ("entity", str),
-        ("subject", str),
-    ],
-)
 
 # Payloads
 AddConsultPayload = NamedTuple(

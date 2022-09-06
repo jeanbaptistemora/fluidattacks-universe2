@@ -1,6 +1,12 @@
 from analytics import (
     dal as analytics_dal,
 )
+from analytics.types import (
+    GraphicParameters,
+    GraphicsCsvParameters,
+    GraphicsForEntityParameters,
+    ReportParameters,
+)
 from ariadne import (
     convert_camel_case_to_snake,
 )
@@ -14,12 +20,6 @@ import csv
 from custom_exceptions import (
     DocumentNotFound,
     InvalidAuthorization,
-)
-from custom_types import (
-    GraphicParameters,
-    GraphicsCsvParameters,
-    GraphicsForEntityParameters,
-    ReportParameters,
 )
 from dataloaders import (
     Dataloaders,
@@ -236,7 +236,14 @@ async def handle_graphic_request(request: Request) -> Response:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         response = templates_utils.graphic_error(request)
     else:
-        response = templates_utils.graphic_view(request, document, params)
+        response = templates_utils.graphic_view(
+            request,
+            document,
+            params.height,
+            params.width,
+            params.generator_type,
+            params.generator_name,
+        )
 
     return response
 

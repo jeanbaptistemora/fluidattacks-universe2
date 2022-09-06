@@ -1,9 +1,5 @@
 # Starlette templates renders
 
-
-from custom_types import (
-    GraphicParameters,
-)
 import json
 from settings import (
     DEBUG,
@@ -70,8 +66,13 @@ def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
     )
 
 
-def graphic_view(
-    request: Request, document: object, params: GraphicParameters
+def graphic_view(  # pylint: disable=too-many-arguments
+    request: Request,
+    document: object,
+    height: int,
+    width: int,
+    generator_type: str,
+    generator_name: str,
 ) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name="graphic.html",
@@ -79,14 +80,14 @@ def graphic_view(
             request=request,
             args=dict(
                 data=json.dumps(document),
-                height=params.height,
-                width=params.width,
+                height=height,
+                width=width,
             ),
             generator_src=(
                 f"graphics/"
                 f"generators/"
-                f"{params.generator_type}/"
-                f"{params.generator_name}.js"
+                f"{generator_type}/"
+                f"{generator_name}.js"
             ),
             c3js=f"{STATIC_URL}/external/C3/c3.js",
             c3css=(f"{STATIC_URL}/external/C3/c3.css"),
