@@ -1,11 +1,11 @@
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from billing import (
     domain as billing_domain,
-)
-from custom_types import (
-    SimplePayload,
 )
 from db_model.organizations.types import (
     Organization,

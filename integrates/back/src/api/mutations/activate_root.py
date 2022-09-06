@@ -1,6 +1,9 @@
 from aiodataloader import (
     DataLoader,
 )
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -10,9 +13,6 @@ from batch import (
 from batch.enums import (
     Action,
     Product,
-)
-from custom_types import (
-    SimplePayload,
 )
 from db_model.roots.enums import (
     RootStatus,

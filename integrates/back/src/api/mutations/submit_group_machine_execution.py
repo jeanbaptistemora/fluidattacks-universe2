@@ -1,3 +1,6 @@
+from api.mutations import (
+    SimplePayloadMessage,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -6,9 +9,6 @@ from botocore.exceptions import (
 )
 from contextlib import (
     suppress,
-)
-from custom_types import (
-    SimplePayloadMessage,
 )
 from db_model.roots.enums import (
     RootStatus,

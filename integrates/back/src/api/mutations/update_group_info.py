@@ -1,3 +1,6 @@
+from api.mutations import (
+    SimplePayload as SimplePayloadType,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -5,9 +8,6 @@ from custom_exceptions import (
     InvalidDate,
     InvalidParameter,
     PermissionDenied,
-)
-from custom_types import (
-    SimplePayload as SimplePayloadType,
 )
 from dataloaders import (
     Dataloaders,

@@ -1,3 +1,6 @@
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -16,9 +19,6 @@ from contextlib import (
 )
 from custom_exceptions import (
     RootAlreadyCloning,
-)
-from custom_types import (
-    SimplePayload,
 )
 from db_model.roots.types import (
     GitRoot,

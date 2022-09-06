@@ -2,7 +2,7 @@ from aioextensions import (
     collect,
     schedule,
 )
-from custom_types import (
+from api.mutations import (
     SimplePayload,
 )
 from decorators import (

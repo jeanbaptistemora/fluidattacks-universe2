@@ -13,9 +13,6 @@ from custom_exceptions import (
     SameValues,
     VulnNotFound,
 )
-from custom_types import (
-    Datetime,
-)
 from datetime import (
     datetime,
     timedelta,
@@ -258,7 +255,7 @@ async def add_vulnerability_treatment(
 
 
 def get_treatment_change(
-    vulnerability: Vulnerability, min_date: Datetime
+    vulnerability: Vulnerability, min_date: datetime
 ) -> Optional[tuple[str, Vulnerability]]:
     if vulnerability.treatment is not None:
         last_treatment_date = datetime.fromisoformat(
@@ -442,7 +439,7 @@ async def send_treatment_change_mail(
     finding_title: str,
     group_name: str,
     justification: str,
-    min_date: Datetime,
+    min_date: datetime,
     modified_by: str,
 ) -> bool:
     vulns: tuple[

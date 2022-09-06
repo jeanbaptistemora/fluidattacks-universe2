@@ -1,8 +1,8 @@
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    SimplePayload,
 )
 from decorators import (
     enforce_group_level_auth_async,

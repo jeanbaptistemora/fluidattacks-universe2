@@ -1,14 +1,14 @@
 from api import (
     APP_EXCEPTIONS,
 )
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     InvalidFileType,
-)
-from custom_types import (
-    SimplePayload,
 )
 from dataloaders import (
     Dataloaders,

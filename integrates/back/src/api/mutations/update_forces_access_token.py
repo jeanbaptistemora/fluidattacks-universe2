@@ -1,11 +1,11 @@
+from api.mutations import (
+    UpdateAccessTokenPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     InvalidExpirationTime,
-)
-from custom_types import (
-    UpdateAccessTokenPayload,
 )
 from dataloaders import (
     Dataloaders,

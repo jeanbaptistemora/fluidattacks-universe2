@@ -1,8 +1,8 @@
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    SimplePayload,
 )
 from dataloaders import (
     Dataloaders,

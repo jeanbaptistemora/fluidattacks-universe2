@@ -1,12 +1,15 @@
-from custom_types import (
-    Phone,
-)
 from db_model.stakeholders.types import (
     StakeholderPhone,
 )
 from typing import (
+    NamedTuple,
     Union,
 )
+
+
+class Phone(NamedTuple):
+    calling_country_code: str
+    national_number: str
 
 
 def get_international_format_phone_number(

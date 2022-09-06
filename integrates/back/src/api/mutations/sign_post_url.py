@@ -1,8 +1,8 @@
+from api.mutations import (
+    SignPostUrlsPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    SignPostUrlsPayload,
 )
 from decorators import (
     concurrent_decorators,

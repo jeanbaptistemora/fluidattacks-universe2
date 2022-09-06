@@ -1,12 +1,12 @@
+from api.mutations import (
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     InvalidExpirationTime,
     UnavailabilityError,
-)
-from custom_types import (
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from decorators import (
     require_login,

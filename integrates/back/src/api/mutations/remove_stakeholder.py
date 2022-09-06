@@ -1,4 +1,4 @@
-from custom_types import (
+from api.mutations import (
     SimplePayload as SimplePayloadType,
 )
 from dataloaders import (

@@ -1,15 +1,15 @@
 from api import (
     APP_EXCEPTIONS,
 )
+from api.mutations import (
+    SimplePayload as SimplePayloadType,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
-)
-from custom_types import (
-    SimplePayload as SimplePayloadType,
 )
 from db_model.events.enums import (
     EventStateStatus,

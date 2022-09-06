@@ -1,3 +1,6 @@
+from api.mutations import (
+    SimplePayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -9,9 +12,6 @@ from billing.types import (
 )
 from custom_exceptions import (
     InvalidPaymentBusinessName,
-)
-from custom_types import (
-    SimplePayload,
 )
 from dataloaders import (
     Dataloaders,
