@@ -7,41 +7,11 @@
     "CVE-2012-3446": "<=0.11.0",
     "CVE-2013-6480": ">=0.12.3 <=0.13.2"
   },
-  "aws-encryption-sdk": {
-    "SNYK-PYTHON-AWSENCRYPTIONSDK-1298656": "<1.9.0 || >=2.0.0 <2.2.0"
-  },
-  "aws-encryption-sdk-cli": {
-    "SNYK-PYTHON-AWSENCRYPTIONSDKCLI-1298657": "<1.9.0 || >=2.0.0 <2.2.0"
-  },
-  "binderhub": {
-    "SNYK-PYTHON-BINDERHUB-1569898": "<=0.1.0"
-  },
-  "bitlyshortener": {
-    "SNYK-PYTHON-BITLYSHORTENER-2359021": "<0.6.0"
-  },
-  "botframework-connector": {
-    "SNYK-PYTHON-BOTFRAMEWORKCONNECTOR-1083278": "4.10.0 || 4.8.0 || >=4.7.0 <4.7.2 || >=4.9.0 <4.9.3"
-  },
-  "bounter": {
-    "SNYK-PYTHON-BOUNTER-2321974": "<=1.1.1"
-  },
-  "cabot": {
-    "SNYK-PYTHON-CABOT-609862": "<=0.11.12"
-  },
-  "coapthon3": {
-    "SNYK-PYTHON-COAPTHON3-174110": "<=1.0.2"
-  },
-  "django-piston": {
-    "SNYK-PYTHON-DJANGOPISTON-40674": "<0.2.3"
-  },
   "django-tastypie": {
     "CVE-2011-4104": "<0.9.11"
   },
   "djblets": {
     "CVE-2014-3995": "<0.7.30 || >0.8.0 <0.8.3"
-  },
-  "docutils": {
-    "SNYK-PYTHON-DOCUTILS-560328": "0.5"
   },
   "dulwich": {
     "CVE-2015-0838": "<0.9.9"
@@ -62,52 +32,15 @@
   "logilab-common": {
     "CVE-2014-1839": "<=0.60.0"
   },
-  "lxdui": {
-    "SNYK-PYTHON-LXDUI-1582378": "<=1.0.1"
-  },
   "lxml": {
     "CVE-2014-3146": "<3.3.5"
   },
   "oauth2": {
     "CVE-2013-4347": "<=1.5.211"
   },
-  "opencv-contrib-python": {
-    "SNYK-PYTHON-OPENCVCONTRIBPYTHON-1731318": "<4.2.0.32"
-  },
-  "opencv-contrib-python-headless": {
-    "SNYK-PYTHON-OPENCVCONTRIBPYTHONHEADLESS-1731317": "<4.2.0.32"
-  },
-  "opencv-python": {
-    "SNYK-PYTHON-OPENCVPYTHON-1731320": "<4.2.0.32"
-  },
-  "osxcollector": {
-    "SNYK-PYTHON-OSXCOLLECTOR-1570184": "<1.11"
-  },
-  "papermerge": {
-    "SNYK-PYTHON-PAPERMERGE-1047773": "<=1.3.0"
-  },
   "pip": {
     "CVE-2013-1629": "<1.3",
     "CVE-2013-1888": "<1.3"
-  },
-  "plone.app.dexterity": {
-    "SNYK-PYTHON-PLONEAPPDEXTERITY-1047472": "<2.6.8"
-  },
-  "plone.app.event": {
-    "SNYK-PYTHON-PLONEAPPEVENT-1047470": "<3.2.10"
-  },
-  "plone.app.theming": {
-    "SNYK-PYTHON-PLONEAPPTHEMING-1047471": "<4.1.6"
-  },
-  "plone.app.users": {
-    "SNYK-PYTHON-PLONEAPPUSERS-40070": ">=1.0a1 <1.0.5",
-    "SNYK-PYTHON-PLONEAPPUSERS-40425": ">=2.0 <2.3.8"
-  },
-  "plone.supermodel": {
-    "SNYK-PYTHON-PLONESUPERMODEL-1047469": "<1.6.3"
-  },
-  "pollbot": {
-    "SNYK-PYTHON-POLLBOT-1083271": "<=1.1.4"
   },
   "products.plonepas": {
     "CVE-2009-0662": ">=3 <3.9"
@@ -121,9 +54,6 @@
   },
   "pyopenssl": {
     "CVE-2013-4314": "<0.13.1"
-  },
-  "pytest-server-fixtures": {
-    "SNYK-PYTHON-PYTESTSERVERFIXTURES-40636": "<1.1.0"
   },
   "python-cjson": {
     "CVE-2010-1666": "1.0.5"
@@ -142,23 +72,11 @@
   "python-swiftclient": {
     "CVE-2013-6396": ">=1.0 <=1.9.0"
   },
-  "rsa": {
-    "SNYK-PYTHON-RSA-1038401": ">=2.0 <4.7"
-  },
   "soappy": {
     "CVE-2014-3243": "0.12.5"
   },
   "suds": {
     "CVE-2013-2217": "0.4"
-  },
-  "swift": {
-    "SNYK-PYTHON-SWIFT-1299111": "<2.15.2"
-  },
-  "txaws": {
-    "SNYK-PYTHON-TXAWS-1569604": "<0.4.0"
-  },
-  "web2py": {
-    "SNYK-PYTHON-WEB2PY-2942138": "<=2.1.1 "
   },
   "zope2": {
     "CVE-2012-6661": "<2.13.19"
