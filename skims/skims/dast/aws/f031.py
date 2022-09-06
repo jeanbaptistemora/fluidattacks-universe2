@@ -355,7 +355,7 @@ async def permissive_policy(
         credentials,
         service="iam",
         function="list_policies",
-        parameters={"Scope": "Local"},
+        parameters={"Scope": "Local", "OnlyAttached": True},
     )
     policies: List[Dict[str, Any]] = response.get("Policies", [])
     vulns: core_model.Vulnerabilities = ()
@@ -415,10 +415,73 @@ async def permissive_policy(
     return vulns
 
 
+async def full_access_to_ssm(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", [])
+            pol_access = list(policy_names["Document"]["Statement"])
+            for index, item in enumerate(pol_access):
+                if isinstance(item["Action"], str):
+                    action = [item["Action"]]
+                else:
+                    action = item["Action"]
+
+                if item["Effect"] == "Allow" and any(
+                    map(lambda act: act == "ssm:*", action)
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Document/Statement/{index}/Action",
+                                ),
+                                arn=(f"{policy['Arn']}"),
+                                values=(pol_access[index]["Action"],),
+                                description=t(
+                                    "src.lib_path."
+                                    "f031.iam_has_full_access_to_ssm"
+                                ),
+                            )
+                        ],
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_FULL_ACCESS_SSM),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    full_access_to_ssm,
     permissive_policy,
     admin_policy_attached,
     full_access_policies,
