@@ -14,5 +14,5 @@ resource "twilio_verify_services_rate_limits_buckets_v2" "phone_number_rate_limi
   service_sid    = twilio_verify_services_v2.verify.sid
   rate_limit_sid = twilio_verify_services_rate_limits_v2.phone_number_rate_limit.sid
   interval       = 60
-  max            = 2
+  max            = 4
 }
