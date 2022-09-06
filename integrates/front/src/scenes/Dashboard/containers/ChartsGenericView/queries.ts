@@ -15,10 +15,13 @@ const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
 `;
 
 const GET_VULNERABILITIES_URL: DocumentNode = gql`
-  query GetOrgVulnerabilitiesUrl($identifier: String!) {
+  query GetOrgVulnerabilitiesUrl(
+    $identifier: String!
+    $verificationCode: String
+  ) {
     organization(organizationId: $identifier) {
       name
-      vulnerabilitiesUrl
+      vulnerabilitiesUrl(verificationCode: $verificationCode)
     }
   }
 `;

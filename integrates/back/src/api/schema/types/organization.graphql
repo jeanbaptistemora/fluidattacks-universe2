@@ -41,7 +41,10 @@ type Organization {
   "Role of the current user within the organization"
   userRole: String
   "Signed URL for organization vulnerabilities csv file"
-  vulnerabilitiesUrl: String
+  vulnerabilitiesUrl(
+    "OTP code to verify the stakeholder"
+    verificationCode: String
+  ): String
   """
   Grace period in days where newly reported vulnerabilities won't break the
   build (DevSecOps only)

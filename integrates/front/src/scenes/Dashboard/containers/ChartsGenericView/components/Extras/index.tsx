@@ -12,7 +12,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -26,6 +26,7 @@ import { Dropdown } from "components/Dropdown";
 import { ExternalLink } from "components/ExternalLink";
 import { Gap } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
+import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import {
   GET_VULNERABILITIES_URL,
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -57,6 +58,8 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
   downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entityName, subject);
 
+  const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+
   const { data: dataSubscriptions, refetch: refetchSubscriptions } =
     useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
       onError: ({ graphQLErrors }: ApolloError): void => {
@@ -83,26 +86,43 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
     onCompleted: (result: {
       organization: { vulnerabilitiesUrl: string };
     }): void => {
+      setIsVerifyDialogOpen(false);
       openUrl(result.organization.vulnerabilitiesUrl);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        if (error.message === "Exception - Document not found") {
-          msgError(t("analytics.sections.extras.vulnerabilitiesUrl.error"));
-        } else {
-          Logger.error(
-            "An error occurred getting vulnerabilities url for organization",
-            error.message
-          );
+        switch (error.message) {
+          case "Exception - Stakeholder could not be verified":
+            msgError(t("group.findings.report.alerts.nonVerifiedStakeholder"));
+            break;
+          case "Exception - The verification code is invalid":
+            msgError(t("group.findings.report.alerts.invalidVerificationCode"));
+            break;
+          case "Exception - Document not found":
+            msgError(t("analytics.sections.extras.vulnerabilitiesUrl.error"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error(
+              "An error occurred getting vulnerabilities url for organization",
+              error.message
+            );
         }
       });
     },
-    variables: { identifier: subject },
   });
 
-  const getVulnerabilitiesUrl = useCallback((): void => {
-    getUrl();
-  }, [getUrl]);
+  const getVulnerabilitiesUrl = useCallback(
+    (verificationCode: string): void => {
+      getUrl({
+        variables: {
+          identifier: subject,
+          verificationCode,
+        },
+      });
+    },
+    [getUrl, subject]
+  );
 
   const subscribeDropdownOnSelect = useCallback(
     (key: string): void => {
@@ -205,18 +225,38 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
         </Dropdown>
         {entity === "organization" ? (
           <Can do={"api_resolvers_organization_vulnerabilities_url_resolve"}>
-            <Tooltip
-              disp={"inline-block"}
-              id={"analytics.sections.extras.vulnerabilitiesUrl.id"}
-              place={"right"}
-              tip={t("analytics.sections.extras.vulnerabilitiesUrl.tooltip")}
-            >
-              <Button onClick={getVulnerabilitiesUrl} variant={"secondary"}>
-                <FontAwesomeIcon icon={faFileCsv} />
-                &nbsp;
-                {t("analytics.sections.extras.vulnerabilitiesUrl.text")}
-              </Button>
-            </Tooltip>
+            <VerifyDialog isOpen={isVerifyDialogOpen}>
+              {(setVerifyCallbacks): JSX.Element => {
+                function onRequestReport(): void {
+                  setVerifyCallbacks(
+                    (verificationCode: string): void => {
+                      getVulnerabilitiesUrl(verificationCode);
+                    },
+                    (): void => {
+                      setIsVerifyDialogOpen(false);
+                    }
+                  );
+                  setIsVerifyDialogOpen(true);
+                }
+
+                return (
+                  <Tooltip
+                    disp={"inline-block"}
+                    id={"analytics.sections.extras.vulnerabilitiesUrl.id"}
+                    place={"right"}
+                    tip={t(
+                      "analytics.sections.extras.vulnerabilitiesUrl.tooltip"
+                    )}
+                  >
+                    <Button onClick={onRequestReport} variant={"secondary"}>
+                      <FontAwesomeIcon icon={faFileCsv} />
+                      &nbsp;
+                      {t("analytics.sections.extras.vulnerabilitiesUrl.text")}
+                    </Button>
+                  </Tooltip>
+                );
+              }}
+            </VerifyDialog>
           </Can>
         ) : undefined}
       </Gap>
