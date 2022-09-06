@@ -2527,6 +2527,10 @@ export const enTranslations: ResourceKey = {
         emailNotificationText: "Assigned email notification sent successfully",
         emailNotificationTitle: "Notification Status",
       },
+      notify: {
+        text: "Notify",
+        tooltip: "Send reported finding notification",
+      },
       old: "Old",
       path: "Path",
       port: "Port",
