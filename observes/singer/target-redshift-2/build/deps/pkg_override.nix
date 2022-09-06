@@ -9,14 +9,10 @@ let
       if pkg ? overridePythonAttrs
       then
         pkg.overridePythonAttrs (
-          old: {
-            checkInputs = map override (old.checkInputs or []);
-            buildInputs = map override (old.buildInputs or []);
-            nativeBuildInputs = map override (old.nativeBuildInputs or []);
-            propagatedBuildInputs = map override (old.propagatedBuildInputs or []);
-            propagatedNativeBuildInputs = map override (old.propagatedNativeBuildInputs or []);
-            pythonPath = map override (old.pythonPath or []);
-          }
+          builtins.mapAttrs (_: value:
+            if builtins.isList value
+            then map override value
+            else override value)
         )
       else pkg;
 in
