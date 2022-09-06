@@ -1,12 +1,12 @@
 import aiohttp
+from api.mutations import (
+    SignInPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from authlib.integrations.starlette_client import (
     OAuthError,
-)
-from custom_types import (
-    SignInPayload as SignInPayloadType,
 )
 from dataloaders import (
     Dataloaders,
@@ -171,7 +171,7 @@ async def get_provider_user_info(
 @convert_kwargs_to_snake_case
 async def mutate(
     _: Any, info: GraphQLResolveInfo, auth_token: str, provider: str
-) -> SignInPayloadType:
+) -> SignInPayload:
     session_jwt = ""
     success = False
     loaders: Dataloaders = info.context.loaders
@@ -195,7 +195,7 @@ async def mutate(
     else:
         LOGGER.exception("Mobile login failed", extra={"extra": locals()})
 
-    return SignInPayloadType(session_jwt=session_jwt, success=success)
+    return SignInPayload(session_jwt=session_jwt, success=success)
 
 
 async def log_stakeholder_in(

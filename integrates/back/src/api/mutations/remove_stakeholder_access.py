@@ -1,8 +1,8 @@
+from api.mutations import (
+    RemoveStakeholderAccessPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
 )
 from decorators import (
     concurrent_decorators,
@@ -36,7 +36,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     user_email: str,
     group_name: str,
-) -> RemoveStakeholderAccessPayloadType:
+) -> RemoveStakeholderAccessPayload:
     user_data = await token_utils.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
     await groups_domain.remove_user(
@@ -52,6 +52,6 @@ async def mutate(
     )
     logs_utils.cloudwatch_log(info.context, msg)
 
-    return RemoveStakeholderAccessPayloadType(
+    return RemoveStakeholderAccessPayload(
         success=True, removed_email=user_email
     )

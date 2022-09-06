@@ -1,6 +1,9 @@
 from api import (
     APP_EXCEPTIONS,
 )
+from api.mutations import (
+    SimpleFindingPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -8,9 +11,6 @@ from custom_exceptions import (
     InvalidCvssField,
     InvalidCvssVersion,
     NotCvssVersion,
-)
-from custom_types import (
-    SimpleFindingPayload,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,

@@ -1,3 +1,6 @@
+from api.mutations import (
+    UpdateStakeholderPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -7,9 +10,6 @@ from authz.validations import (
 )
 from custom_exceptions import (
     StakeholderNotFound,
-)
-from custom_types import (
-    UpdateStakeholderPayload as UpdateStakeholderPayloadType,
 )
 from dataloaders import (
     Dataloaders,
@@ -98,7 +98,7 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     **updated_data: str,
-) -> UpdateStakeholderPayloadType:
+) -> UpdateStakeholderPayload:
     group_name: str = updated_data["group_name"].lower()
     modified_role: str = map_roles(updated_data["role"])
     modified_email: str = updated_data["email"]
@@ -141,7 +141,7 @@ async def mutate(
     )
     logs_utils.cloudwatch_log(info.context, msg)
 
-    return UpdateStakeholderPayloadType(
+    return UpdateStakeholderPayload(
         success=True,
         modified_stakeholder=dict(group_name=group_name, email=modified_email),
     )

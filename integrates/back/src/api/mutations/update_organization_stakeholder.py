@@ -1,3 +1,6 @@
+from api.mutations import (
+    UpdateStakeholderPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -8,9 +11,6 @@ from authz.validations import (
 from custom_exceptions import (
     StakeholderNotFound,
     StakeholderNotInOrganization,
-)
-from custom_types import (
-    UpdateStakeholderPayload,
 )
 from dataloaders import (
     Dataloaders,

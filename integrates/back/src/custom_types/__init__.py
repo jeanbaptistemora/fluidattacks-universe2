@@ -16,68 +16,7 @@ Datetime = datetime
 # Payloads
 DynamoDelete = NamedTuple("DynamoDelete", [("Key", Dict[str, Any])])
 
-UpdateStakeholderPayload = NamedTuple(
-    "UpdateStakeholderPayload",
-    [
-        ("success", bool),
-        ("modified_stakeholder", Dict[str, Any]),
-    ],
-)
-UpdateToeInputPayload = NamedTuple(
-    "UpdateToeInputPayload",
-    [
-        ("component", str),
-        ("entry_point", str),
-        ("group_name", str),
-        ("root_id", str),
-        ("success", bool),
-    ],
-)
-UpdateToeLinesPayload = NamedTuple(
-    "UpdateToeLinesPayload",
-    [
-        ("filename", str),
-        ("group_name", str),
-        ("root_id", str),
-        ("success", bool),
-    ],
-)
-ExecuteMachinePayload = NamedTuple(
-    "ExecuteMachinePayload",
-    [
-        ("success", bool),
-        ("pipeline_url", str),
-    ],
-)
 
-RemoveStakeholderAccessPayload = NamedTuple(
-    "RemoveStakeholderAccessPayload",
-    [
-        ("success", bool),
-        ("removed_email", str),
-    ],
-)
-SignInPayload = NamedTuple(
-    "SignInPayload",
-    [
-        ("success", bool),
-        ("session_jwt", str),
-    ],
-)
-SimpleFindingPayload = NamedTuple(
-    "SimpleFindingPayload",
-    [
-        ("success", bool),
-        ("finding", Dict[str, Any]),
-    ],
-)
-SimpleGroupPayload = NamedTuple(
-    "SimpleGroupPayload",
-    [
-        ("success", bool),
-        ("group", dict[str, Any]),
-    ],
-)
 SimplePayload = NamedTuple(
     "SimplePayload",
     [
