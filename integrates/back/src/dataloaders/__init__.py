@@ -64,9 +64,9 @@ from db_model.portfolios.get import (
 )
 from db_model.roots.get import (
     GitEnvironmentSecretsLoader,
-    GitEnvironmentUrlsLoader,
     GroupRootsLoader,
     OrganizationRootsLoader,
+    RootEnvironmentUrlsLoader,
     RootHistoricCloningLoader,
     RootHistoricStatesLoader,
     RootLoader,
@@ -140,7 +140,7 @@ class Dataloaders(NamedTuple):
     )
     forces_execution: ForcesExecutionLoader
     forces_executions: ForcesExecutionsLoader
-    git_environment_urls: GitEnvironmentUrlsLoader
+    root_environment_urls: RootEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
     group_comments: GroupCommentsLoader
@@ -273,7 +273,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         ),
         forces_execution=ForcesExecutionLoader(),
         forces_executions=ForcesExecutionsLoader(),
-        git_environment_urls=GitEnvironmentUrlsLoader(),
+        root_environment_urls=RootEnvironmentUrlsLoader(),
         group=group_loader,
         group_access=group_access_loader,
         group_comments=GroupCommentsLoader(),

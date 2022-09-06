@@ -14,8 +14,8 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
+    RootEnvironmentUrl,
 )
 import logging
 import logging.config
@@ -23,7 +23,7 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 from roots.domain import (
-    add_git_environment_url,
+    add_root_environment_url,
 )
 from settings import (
     LOGGING,
@@ -57,11 +57,11 @@ async def main() -> None:
             if not isinstance(root, GitRoot):
                 continue
             environment_urls: list[
-                GitEnvironmentUrl
-            ] = await loaders.git_environment_urls.load(root.id)
+                RootEnvironmentUrl
+            ] = await loaders.root_environment_urls.load(root.id)
             await collect(
                 [
-                    add_git_environment_url(
+                    add_root_environment_url(
                         loaders,
                         group,
                         root.id,

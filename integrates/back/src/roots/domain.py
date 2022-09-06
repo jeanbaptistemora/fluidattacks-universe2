@@ -55,15 +55,15 @@ from db_model.roots.enums import (
     RootType,
 )
 from db_model.roots.types import (
-    GitEnvironmentCloud,
-    GitEnvironmentUrl,
-    GitEnvironmentUrlType,
     GitRoot,
     GitRootCloning,
     GitRootState,
     IPRoot,
     IPRootState,
     Root,
+    RootEnvironmentCloud,
+    RootEnvironmentUrl,
+    RootEnvironmentUrlType,
     RootMachineExecution,
     RootState,
     RootUnreliableIndicators,
@@ -566,7 +566,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     )
     await collect(
         [
-            add_git_environment_url(
+            add_root_environment_url(
                 loaders, group_name, root_id, url, url_type="URL"
             )
             for url in urls_added
@@ -1597,7 +1597,7 @@ async def add_secret(  # pylint: disable=too-many-arguments
     return await roots_model.add_secret(root_id, secret)
 
 
-async def add_git_environment_secret(
+async def add_root_environment_secret(
     url_id: str,
     key: str,
     value: str,
@@ -1609,17 +1609,17 @@ async def add_git_environment_secret(
         description=description,
         created_at=datetime.now(),
     )
-    return await roots_model.add_git_environment_secret(url_id, secret)
+    return await roots_model.add_root_environment_secret(url_id, secret)
 
 
 async def _add_secrets_aws(environment_id: str) -> None:
-    await add_git_environment_secret(
+    await add_root_environment_secret(
         environment_id,
         key="AWS_ACCESS_KEY_ID",
         value="",
         description="AWS access keys to make programmatic calls to AWS",
     )
-    await add_git_environment_secret(
+    await add_root_environment_secret(
         environment_id,
         key="AWS_SECRET_ACCESS_KEY",
         value="",
@@ -1627,7 +1627,7 @@ async def _add_secrets_aws(environment_id: str) -> None:
     )
 
 
-async def add_git_environment_url(  # pylint: disable=too-many-arguments
+async def add_root_environment_url(  # pylint: disable=too-many-arguments
     loaders: Any,
     group_name: str,
     root_id: str,
@@ -1635,29 +1635,29 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
     url_type: str,
     cloud_type: Optional[str] = None,
 ) -> bool:
-    _cloud_type: Optional[GitEnvironmentCloud] = None
+    _cloud_type: Optional[RootEnvironmentCloud] = None
     try:
-        _url_type = GitEnvironmentUrlType[url_type]
+        _url_type = RootEnvironmentUrlType[url_type]
         if cloud_type:
-            _cloud_type = GitEnvironmentCloud[cloud_type]
+            _cloud_type = RootEnvironmentCloud[cloud_type]
     except KeyError as exc:
         raise InvalidField("url_type") from exc
 
     await loaders.root.load((group_name, root_id))
-    environment = GitEnvironmentUrl(
+    environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),
         url=url,
         url_type=_url_type,
         cloud_name=_cloud_type,
     )
-    result_environment = await roots_model.add_git_environment_url(
+    result_environment = await roots_model.add_root_environment_url(
         root_id, url=environment
     )
     if not result_environment:
         return False
 
-    if cloud_type and cloud_type == GitEnvironmentCloud.AWS:
+    if cloud_type and cloud_type == RootEnvironmentCloud.AWS:
         await _add_secrets_aws(environment.id)
     return True
 
@@ -1709,8 +1709,8 @@ async def remove_environment_url_id(
     *, loaders: Any, root_id: str, url_id: str
 ) -> str:
     urls: tuple[
-        GitEnvironmentUrl, ...
-    ] = await loaders.git_environment_urls.load((root_id))
+        RootEnvironmentUrl, ...
+    ] = await loaders.root_environment_urls.load((root_id))
     url: Optional[str] = next(
         (env_url.url for env_url in urls if env_url.id == url_id),
         None,

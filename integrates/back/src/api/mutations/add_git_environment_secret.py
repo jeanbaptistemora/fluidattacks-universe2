@@ -13,7 +13,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from roots.domain import (
-    add_git_environment_secret,
+    add_root_environment_secret,
 )
 from typing import (
     Any,
@@ -35,6 +35,6 @@ async def mutate(
     description: Optional[str] = None,
     **_kwargs: Any,
 ) -> SimplePayload:
-    result = await add_git_environment_secret(url_id, key, value, description)
+    result = await add_root_environment_secret(url_id, key, value, description)
 
     return SimplePayload(success=result)

@@ -9,10 +9,10 @@ from db_model.roots.constants import (
     ORG_INDEX_METADATA,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
     MachineFindingResult,
     Root,
+    RootEnvironmentUrl,
     RootMachineExecution,
     Secret,
 )
@@ -137,13 +137,13 @@ async def add_secret(
     return False
 
 
-async def add_git_environment_secret(
+async def add_root_environment_secret(
     url_id: str,
     secret: Secret,
 ) -> bool:
     key_structure = TABLE.primary_key
     secret_key = keys.build_key(
-        facet=TABLE.facets["git_environment_secret"],
+        facet=TABLE.facets["root_environment_secret"],
         values={"hash": url_id, "key": secret.key},
     )
     secret_item = {
@@ -163,13 +163,13 @@ async def add_git_environment_secret(
     return False
 
 
-async def add_git_environment_url(
+async def add_root_environment_url(
     root_id: str,
-    url: GitEnvironmentUrl,
+    url: RootEnvironmentUrl,
 ) -> bool:
     key_structure = TABLE.primary_key
     url_key = keys.build_key(
-        facet=TABLE.facets["git_root_environment_url"],
+        facet=TABLE.facets["root_environment_url"],
         values={"uuid": root_id, "hash": url.id},
     )
     url_item = {

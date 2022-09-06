@@ -21,12 +21,12 @@ from db_model.findings.types import (
     Finding31Severity,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
     GitRootState,
     IPRoot,
     IPRootState,
     Root,
+    RootEnvironmentUrl,
     URLRoot,
     URLRootState,
 )
@@ -180,8 +180,8 @@ Context = TypedDict(
 
 async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
     urls: tuple[
-        GitEnvironmentUrl, ...
-    ] = await loaders.git_environment_urls.load((root_id))
+        RootEnvironmentUrl, ...
+    ] = await loaders.root_environment_urls.load((root_id))
 
     return tuple(url.url for url in urls)
 

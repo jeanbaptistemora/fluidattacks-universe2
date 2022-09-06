@@ -56,7 +56,7 @@ async def has_environment(
     group: str,
 ) -> bool:
     roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
-    git_roots = await loaders.git_environment_urls.load_many_chained(
+    git_roots = await loaders.root_environment_urls.load_many_chained(
         [root.id for root in roots]
     )
     return any(git_roots)

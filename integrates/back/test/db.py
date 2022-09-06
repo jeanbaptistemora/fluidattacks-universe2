@@ -363,7 +363,7 @@ async def populate_roots(data: list[dict[str, Any]]) -> bool:
     await collect([_populate_root_historic_state(item) for item in data])
     await collect(
         [
-            roots_model.add_git_environment_url(item["root"].id, url)
+            roots_model.add_root_environment_url(item["root"].id, url)
             for item in data
             if isinstance(item["root"], GitRoot)
             for url in item["root"].state.git_environment_urls

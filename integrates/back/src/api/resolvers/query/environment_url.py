@@ -5,7 +5,7 @@ from db_model.roots.get import (
     get_git_environment_url_by_id,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
+    RootEnvironmentUrl,
 )
 from decorators import (
     concurrent_decorators,
@@ -28,7 +28,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, url_id: str, **kwargs: Any
-) -> Optional[GitEnvironmentUrl]:
+) -> Optional[RootEnvironmentUrl]:
     url = await get_git_environment_url_by_id(url_id=url_id)
 
     if url:

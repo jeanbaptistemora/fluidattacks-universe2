@@ -39,7 +39,7 @@ async def mutate(  # pylint: disable = too-many-arguments
     cloud_name: Optional[str] = None,
     **_kwargs: Any,
 ) -> SimplePayload:
-    await roots_domain.add_git_environment_url(
+    await roots_domain.add_root_environment_url(
         loaders=info.context.loaders,
         group_name=group_name,
         root_id=root_id,

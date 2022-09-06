@@ -13,10 +13,10 @@ from db_model.roots.enums import (
     RootType,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
     GitRootCloning,
     GitRootState,
+    RootEnvironmentUrl,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -48,7 +48,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         environment_urls=["https://test.com"],
                         git_environment_urls=[
-                            GitEnvironmentUrl(
+                            RootEnvironmentUrl(
                                 url="https://test.com",
                                 id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
                             )
@@ -82,7 +82,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         environment_urls=["https://test.com"],
                         git_environment_urls=[
-                            GitEnvironmentUrl(
+                            RootEnvironmentUrl(
                                 url="https://test.com",
                                 id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
                             )

@@ -20,10 +20,10 @@ from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
     IPRoot,
     Root,
+    RootEnvironmentUrl,
     URLRoot,
 )
 from git import (
@@ -228,7 +228,7 @@ def validate_active_root(root: Root) -> None:
 
 
 def _validate_aws_component(
-    component: str, env_urls: list[GitEnvironmentUrl]
+    component: str, env_urls: list[RootEnvironmentUrl]
 ) -> bool:
     return any(
         x.url in component
@@ -242,8 +242,8 @@ async def validate_git_root_component(
 ) -> None:
     if isinstance(root, GitRoot):
         env_urls: list[
-            GitEnvironmentUrl
-        ] = await loaders.git_environment_urls.load(root.id)
+            RootEnvironmentUrl
+        ] = await loaders.root_environment_urls.load(root.id)
         env_urls = [*env_urls, *root.state.git_environment_urls]
         if (
             component not in [x.url for x in env_urls]

@@ -12258,7 +12258,7 @@
           }
         },
         {
-          "FacetName": "git_environment_secret",
+          "FacetName": "root_environment_secret",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "URL#hash",
             "SortKeyAlias": "ENVIRONMENT_SECRET#key"
@@ -12293,7 +12293,7 @@
           }
         },
         {
-          "FacetName": "git_root_environment_url",
+          "FacetName": "root_environment_url",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "URL#hash"

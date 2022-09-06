@@ -26,12 +26,12 @@ from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
-    GitEnvironmentCloud,
-    GitEnvironmentUrl,
-    GitEnvironmentUrlType,
     GitRootCloning,
     MachineFindingResult,
     Root,
+    RootEnvironmentCloud,
+    RootEnvironmentUrl,
+    RootEnvironmentUrlType,
     RootMachineExecution,
     RootState,
     Secret,
@@ -425,7 +425,7 @@ async def get_environment_secrets(
     *, url_id: str, secret_key: Optional[str] = None
 ) -> Tuple[Secret, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_environment_secret"],
+        facet=TABLE.facets["root_environment_secret"],
         values={
             "hash": url_id,
             **({"key": secret_key} if secret_key else {}),
@@ -443,7 +443,7 @@ async def get_environment_secrets(
                 )
             )
         ),
-        facets=(TABLE.facets["git_environment_secret"],),
+        facets=(TABLE.facets["root_environment_secret"],),
         table=TABLE,
     )
     return tuple(
@@ -461,9 +461,9 @@ async def get_environment_secrets(
 
 async def get_git_environment_urls(
     *, root_id: str, url_id: Optional[str] = None
-) -> Tuple[GitEnvironmentUrl, ...]:
+) -> Tuple[RootEnvironmentUrl, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_environment_url"],
+        facet=TABLE.facets["root_environment_url"],
         values={
             "uuid": root_id,
             **({"hash": url_id} if url_id else {}),
@@ -481,18 +481,18 @@ async def get_git_environment_urls(
                 )
             )
         ),
-        facets=(TABLE.facets["git_root_environment_url"],),
+        facets=(TABLE.facets["root_environment_url"],),
         table=TABLE,
     )
     return tuple(
-        GitEnvironmentUrl(
+        RootEnvironmentUrl(
             url=item["url"],
             id=item["sk"].split("URL#")[-1],
             created_at=datetime.fromisoformat(item["created_at"])
             if "created_at" in item
             else None,
-            url_type=GitEnvironmentUrlType[item["type"]],
-            cloud_name=GitEnvironmentCloud[item["cloud_name"]]
+            url_type=RootEnvironmentUrlType[item["type"]],
+            cloud_name=RootEnvironmentCloud[item["cloud_name"]]
             if "cloud_name" in item
             else None,
         )
@@ -502,9 +502,9 @@ async def get_git_environment_urls(
 
 async def get_git_environment_url_by_id(
     *, url_id: str, root_id: Optional[str] = None
-) -> Optional[GitEnvironmentUrl]:
+) -> Optional[RootEnvironmentUrl]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_environment_url"],
+        facet=TABLE.facets["root_environment_url"],
         values={
             "hash": url_id,
             **({"uuid": root_id} if root_id else {}),
@@ -523,21 +523,21 @@ async def get_git_environment_url_by_id(
                 )
             )
         ),
-        facets=(TABLE.facets["git_root_environment_url"],),
+        facets=(TABLE.facets["root_environment_url"],),
         table=TABLE,
         index=index,
     )
     if not response.items:
         return None
     item = response.items[0]
-    return GitEnvironmentUrl(
+    return RootEnvironmentUrl(
         url=item["url"],
         id=item["sk"].split("URL#")[-1],
         created_at=datetime.fromisoformat(item["created_at"])
         if "created_at" in item
         else None,
-        url_type=GitEnvironmentUrlType[item["type"]],
-        cloud_name=GitEnvironmentCloud[item["cloud_name"]]
+        url_type=RootEnvironmentUrlType[item["type"]],
+        cloud_name=RootEnvironmentCloud[item["cloud_name"]]
         if "cloud_name" in item
         else None,
     )
@@ -563,17 +563,17 @@ class GitEnvironmentSecretsLoader(DataLoader):
         )
 
 
-class GitEnvironmentUrlsLoader(DataLoader):
+class RootEnvironmentUrlsLoader(DataLoader):
     async def load_many_chained(
         self, root_ids: List[str]
-    ) -> Tuple[GitEnvironmentUrl, ...]:
+    ) -> Tuple[RootEnvironmentUrl, ...]:
         unchained_data = await self.load_many(root_ids)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
-    ) -> Tuple[Tuple[GitEnvironmentUrl, ...], ...]:
+    ) -> Tuple[Tuple[RootEnvironmentUrl, ...], ...]:
         return await collect(
             get_git_environment_urls(root_id=root_id) for root_id in root_ids
         )

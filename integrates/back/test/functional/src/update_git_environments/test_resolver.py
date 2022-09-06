@@ -150,7 +150,7 @@ async def test_add_git_environment_url(populate: bool, email: str) -> None:
     env_urls = "https://nice-env-test.com"
 
     loaders = get_new_context()
-    assert len(await loaders.git_environment_urls.load((root_id))) == 2
+    assert len(await loaders.root_environment_urls.load((root_id))) == 2
 
     result: Dict[str, Any] = await mutation_add(
         user=email,
@@ -162,8 +162,8 @@ async def test_add_git_environment_url(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["addGitEnvironmentUrl"]["success"]
 
-    loaders.git_environment_urls.clear_all()
-    assert len(await loaders.git_environment_urls.load((root_id))) == 3
+    loaders.root_environment_urls.clear_all()
+    assert len(await loaders.root_environment_urls.load((root_id))) == 3
     assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 0
 
     result_toe: Dict[str, Any] = await get_result(
@@ -196,7 +196,7 @@ async def test_remove_git_environment_url(populate: bool, email: str) -> None:
     env_urls = "https://nice-env-test.com"
 
     loaders = get_new_context()
-    assert len(await loaders.git_environment_urls.load((root_id))) == 3
+    assert len(await loaders.root_environment_urls.load((root_id))) == 3
 
     result: Dict[str, Any] = await mutation_remove(
         group_name=group_name,
@@ -207,8 +207,8 @@ async def test_remove_git_environment_url(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["removeEnvironmentUrl"]["success"]
 
-    loaders.git_environment_urls.clear_all()
+    loaders.root_environment_urls.clear_all()
     loaders.root_toe_inputs.clear_all()
     assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 0
-    assert len(await loaders.git_environment_urls.load((root_id))) == 2
+    assert len(await loaders.root_environment_urls.load((root_id))) == 2
     assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 1

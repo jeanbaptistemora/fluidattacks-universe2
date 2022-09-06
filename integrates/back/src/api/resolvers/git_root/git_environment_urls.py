@@ -2,8 +2,8 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    GitEnvironmentUrl,
     GitRoot,
+    RootEnvironmentUrl,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -12,10 +12,10 @@ from graphql.type.definition import (
 
 async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
-) -> tuple[GitEnvironmentUrl, ...]:
+) -> tuple[RootEnvironmentUrl, ...]:
     loaders: Dataloaders = info.context.loaders
     urls: tuple[
-        GitEnvironmentUrl, ...
-    ] = await loaders.git_environment_urls.load((parent.id))
+        RootEnvironmentUrl, ...
+    ] = await loaders.root_environment_urls.load((parent.id))
 
     return tuple(url._replace(group_name=parent.group_name) for url in urls)

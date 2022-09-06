@@ -48,28 +48,28 @@ class Secret(NamedTuple):
     created_at: Optional[datetime] = None
 
 
-class GitEnvironmentUrlType(str, Enum):
+class RootEnvironmentUrlType(str, Enum):
     URL: str = "URL"
     CLOUD: str = "CLOUD"
     DATABASE: str = "DATABASE"
     APK: str = "APK"
 
 
-class GitEnvironmentCloud(str, Enum):
+class RootEnvironmentCloud(str, Enum):
     AWS: str = "AWS"
     GCP: str = "GCP"
     AZURE: str = "AZURE"
     KUBERNETES: str = "KUBERNETES"
 
 
-class GitEnvironmentUrl(NamedTuple):
+class RootEnvironmentUrl(NamedTuple):
     url: str
     id: str
     secrets: list[Secret] = []
     created_at: Optional[datetime] = None
     group_name: Optional[str] = None
-    url_type: GitEnvironmentUrlType = GitEnvironmentUrlType.URL
-    cloud_name: Optional[GitEnvironmentCloud] = None
+    url_type: RootEnvironmentUrlType = RootEnvironmentUrlType.URL
+    cloud_name: Optional[RootEnvironmentCloud] = None
 
 
 class GitRootState(NamedTuple):
@@ -84,7 +84,7 @@ class GitRootState(NamedTuple):
     credential_id: Optional[str] = None
     environment_urls: List[str] = []
     download_url: Optional[str] = None
-    git_environment_urls: List[GitEnvironmentUrl] = []
+    git_environment_urls: List[RootEnvironmentUrl] = []
     gitignore: List[str] = []
     other: Optional[str] = None
     reason: Optional[str] = None

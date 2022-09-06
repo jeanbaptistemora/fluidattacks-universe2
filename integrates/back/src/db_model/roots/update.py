@@ -279,7 +279,7 @@ async def remove_secret(root_id: str, secret_key: str) -> None:
 
 async def remove_environment_url_secret(url_id: str, secret_key: str) -> None:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_environment_secret"],
+        facet=TABLE.facets["root_environment_secret"],
         values={"hash": url_id, "key": secret_key},
     )
     await operations.delete_item(key=primary_key, table=TABLE)
@@ -290,7 +290,7 @@ async def remove_environment_url(
     url_id: str,
 ) -> None:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_environment_url"],
+        facet=TABLE.facets["root_environment_url"],
         values={"uuid": root_id, "hash": url_id},
     )
     await operations.delete_item(key=primary_key, table=TABLE)
