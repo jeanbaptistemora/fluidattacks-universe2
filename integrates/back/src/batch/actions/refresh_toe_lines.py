@@ -36,6 +36,9 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
+from git import (
+    Git,
+)
 from git.exc import (
     GitCommandError,
     InvalidGitRepositoryError,
@@ -310,6 +313,16 @@ async def refresh_active_root_repo_toe_lines(
                 "repo_nickname": root_repo.state.nickname,
             }
         },
+    )
+    Git().execute(
+        [
+            "git",
+            "config",
+            "--global",
+            "--add",
+            "safe.directory",
+            f"{os.getcwd()}/{root_repo.state.nickname}",
+        ]
     )
     try:
         repo = Repo(root_repo.state.nickname)

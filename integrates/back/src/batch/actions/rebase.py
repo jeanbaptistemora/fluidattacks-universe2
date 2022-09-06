@@ -227,14 +227,18 @@ async def rebase(*, item: BatchProcessing) -> None:
         if root.state.status == RootStatus.ACTIVE
     )
     # In the off case there are multiple roots with the same nickname
-    root_ids = tuple(
-        roots_domain.get_root_id_by_nickname(
-            nickname=nickname,
-            group_roots=group_roots,
-            only_git_roots=True,
+    if item.additional_info == "*":
+        root_ids = tuple(root.id for root in group_roots)
+    else:
+        root_ids = tuple(
+            roots_domain.get_root_id_by_nickname(
+                nickname=nickname,
+                group_roots=group_roots,
+                only_git_roots=True,
+            )
+            for nickname in root_nicknames
         )
-        for nickname in root_nicknames
-    )
+
     roots: Tuple[GitRoot, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )

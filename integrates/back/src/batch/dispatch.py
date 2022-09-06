@@ -10,6 +10,9 @@ from batch.actions.handle_finding_policy import (
 from batch.actions.move_root import (
     move_root,
 )
+from batch.actions.rebase import (
+    rebase,
+)
 from batch.actions.refresh_toe_inputs import (
     refresh_toe_inputs,
 )
@@ -62,6 +65,7 @@ ACTIONS = {
         remove_group_resources,
         remove_roots,
         report,
+        rebase,
         update_nickname,
     ]
 }
