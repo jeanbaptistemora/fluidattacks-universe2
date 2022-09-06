@@ -332,10 +332,94 @@ async def open_passrole(
     return vulns
 
 
+def _is_action_permissive(action: Any) -> bool:
+    if not isinstance(action, str):
+        # A var or syntax error
+        return False
+
+    splitted = action.split(":", 1)  # a:b
+    provider = splitted[0]  # a
+    effect = splitted[1] if splitted[1:] else None  # b
+
+    return (
+        (provider == "*")
+        or (effect and effect.startswith("*"))
+        or ("*" in provider and effect is None)
+    )
+
+
+async def permissive_policy(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local"},
+    )
+    policies: List[Dict[str, Any]] = response.get("Policies", [])
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", [])
+            pol_access = list(policy_names["Document"]["Statement"])
+            for index, item in enumerate(pol_access):
+                if isinstance(item["Action"], str):
+                    action = [item["Action"]]
+                else:
+                    action = item["Action"]
+
+                if (
+                    item["Effect"] == "Allow"
+                    and any(map(_is_action_permissive, action))
+                    and item["Resource"] == "*"
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Document/Statement/{index}/Action",
+                                    f"/Document/Statement/{index}/Resource",
+                                ),
+                                arn=(f"{policy['Arn']}"),
+                                values=(
+                                    pol_access[index]["Action"],
+                                    pol_access[index]["Resource"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f031_aws.permissive_policy"
+                                ),
+                            )
+                        ],
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_PERMISSIVE_POLICY),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    permissive_policy,
     admin_policy_attached,
     full_access_policies,
     public_buckets,
