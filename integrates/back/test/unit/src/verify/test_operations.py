@@ -14,6 +14,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skip
 async def test_get_contry_code() -> None:
     test_phone_number = "12345678"
     test_result = await get_contry_code(test_phone_number)
@@ -24,6 +25,7 @@ async def test_get_contry_code() -> None:
         assert test_result == "US"
 
 
+@pytest.mark.skip
 async def test_start_verification() -> None:
     test_phone_number = "12345678"
     test_result = await start_verification(phone_number=test_phone_number)
@@ -33,6 +35,7 @@ async def test_start_verification() -> None:
         await start_verification(phone_number="+15108675310")
 
 
+@pytest.mark.skip
 async def test_validate_mobile() -> None:
     test_phone_number = "12345678"
     test_result = await validate_mobile(test_phone_number)
