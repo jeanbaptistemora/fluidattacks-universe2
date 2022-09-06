@@ -1,6 +1,7 @@
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
+    get_recipient_first_name,
     send_mails_async,
 )
 import authz
@@ -84,25 +85,23 @@ async def send_mail_free_trial_over(
     )
 
 
-async def send_abandoned_trial_registration(
+async def send_abandoned_trial_notification(
     loaders: Any,
-    email_to: List[str],
-    context: dict[str, Any],
+    email_to: str,
     first_time: bool,
 ) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
     await send_mails_async(
         loaders,
-        email_to=email_to,
-        context=context,
+        email_to=[email_to],
+        context={},
         tags=[],
         subject=(
-            f'[{context["registered_name"]}], '
-            "start your Continuous Hacking Free Trial "
-            ""
+            f"[{fname}], " "start your Continuous Hacking Free Trial " ""
             if first_time
             else "(reminder)"
         ),
-        template_name="abandoned_trial_registration",
+        template_name="abandoned_trial_notification",
     )
 
 
