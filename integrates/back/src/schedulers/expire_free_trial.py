@@ -82,6 +82,17 @@ async def expire(
         LOGGER.exception("Couldn't expire %s", group.name)
 
 
+def get_remaining_days(enrollment: Enrollment) -> int:
+    trial = enrollment.trial
+    days = (
+        trial.extension_days - get_days_since(trial.extension_date)
+        if trial.extension_date
+        else FREE_TRIAL_DAYS - get_days_since(trial.start_date)
+    )
+
+    return max(0, days)
+
+
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
@@ -96,8 +107,6 @@ async def main() -> None:
             for group, enrollment in zip(groups, enrollments)
             if not enrollment.trial.completed
             and enrollment.trial.start_date
-            and get_days_since(enrollment.trial.start_date)
-            - enrollment.trial.extension_days
-            >= FREE_TRIAL_DAYS
+            and get_remaining_days(enrollment) == 0
         )
     )
