@@ -1001,6 +1001,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
     )
+    F418: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F418",
+        cwe=16,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[266],
+    )
     F423: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F423",
@@ -3945,6 +3952,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F416,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    DOCKER_COMPOSE_READ_ONLY = MethodInfo(
+        file_name="docker",
+        name="docker_compose_read_only",
+        module="lib_path",
+        finding=FindingEnum.F418,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_USES_SYSTEM_EXIT = MethodInfo(
         file_name="java",

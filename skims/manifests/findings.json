@@ -927,6 +927,14 @@
       "title": "416. XAML injection"
     }
   },
+  "F418": {
+    "EN": {
+      "title": "418. Insecure service configuration - Docker"
+    },
+    "ES": {
+      "title": "418. Insecure service configuration - Docker"
+    }
+  },
   "F423": {
     "EN": {
       "title": "423. Inappropriate coding practices - System exit"

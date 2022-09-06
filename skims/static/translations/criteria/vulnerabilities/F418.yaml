@@ -1,0 +1,4 @@
+---
+lib_path.f418.docker_compose_read_only:
+  en: Property read_only is either missing or misconfigured
+  es: Falta la propiedad read_only o está mal configurada
