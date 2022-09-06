@@ -40,9 +40,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const permissions: PureAbility<string> = useAbility(
       authzPermissionsContext
     );
-    const canGetHistoricState: boolean = permissions.can(
-      "api_resolvers_finding_historic_state_resolve"
-    );
     const canHandleVulnsAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
@@ -81,23 +78,11 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
       CONFIRM_VULNERABILITIES_ZERO_RISK,
-      confirmZeroRiskProps(
-        refetchData,
-        handleCloseModal,
-        findingId,
-        groupName,
-        canGetHistoricState
-      )
+      confirmZeroRiskProps(refetchData, handleCloseModal, findingId, groupName)
     );
     const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
       REJECT_VULNERABILITIES_ZERO_RISK,
-      rejectZeroRiskProps(
-        refetchData,
-        handleCloseModal,
-        findingId,
-        groupName,
-        canGetHistoricState
-      )
+      rejectZeroRiskProps(refetchData, handleCloseModal, findingId, groupName)
     );
 
     function getInitialTreatment(

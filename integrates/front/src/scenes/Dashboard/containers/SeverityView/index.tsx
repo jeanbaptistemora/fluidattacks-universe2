@@ -1,7 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import { faPen, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
@@ -33,7 +31,6 @@ import type {
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
 import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -43,7 +40,6 @@ import { required } from "utils/validations";
 const SeverityView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { findingId } = useParams<{ findingId: string }>();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -121,9 +117,6 @@ const SeverityView: React.FC = (): JSX.Element => {
       {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState: permissions.can(
-            "api_resolvers_finding_historic_state_resolve"
-          ),
           findingId,
         },
       },

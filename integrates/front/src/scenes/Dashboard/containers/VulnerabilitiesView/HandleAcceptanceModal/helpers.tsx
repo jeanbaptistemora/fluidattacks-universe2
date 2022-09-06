@@ -97,8 +97,7 @@ const confirmZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
   findingId: string,
-  groupName: string,
-  canGetHistoricState: boolean
+  groupName: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IConfirmVulnZeroRiskResultAttr): void => {
@@ -135,7 +134,6 @@ const confirmZeroRiskProps = (
       {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState,
           findingId,
         },
       },
@@ -147,8 +145,7 @@ const rejectZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
   findingId: string,
-  groupName: string,
-  canGetHistoricState: boolean
+  groupName: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
@@ -185,7 +182,6 @@ const rejectZeroRiskProps = (
       {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState,
           findingId,
         },
       },

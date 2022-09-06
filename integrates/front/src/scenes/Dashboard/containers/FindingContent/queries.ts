@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FINDING_HEADER: DocumentNode = gql`
-  query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!) {
+  query GetFindingHeader($findingId: String!) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
       id
@@ -12,7 +12,6 @@ const GET_FINDING_HEADER: DocumentNode = gql`
       state
       title
       minTimeToRemediate
-      historicState @include(if: $canGetHistoricState)
       currentState
     }
   }

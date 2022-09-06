@@ -267,7 +267,6 @@ describe("handle vulns acceptance modal", (): void => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState: false,
           findingId: "422286126",
         },
       },
@@ -428,7 +427,6 @@ describe("handle vulns acceptance modal", (): void => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState: false,
           findingId: "422286126",
         },
       },
@@ -589,7 +587,6 @@ describe("handle vulns acceptance modal", (): void => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState: false,
           findingId: "422286126",
         },
       },
@@ -756,7 +753,6 @@ describe("handle vulns acceptance modal", (): void => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetHistoricState: false,
           findingId: "422286126",
         },
       },

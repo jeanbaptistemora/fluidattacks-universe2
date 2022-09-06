@@ -1,7 +1,5 @@
 import type { ApolloError, QueryResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -51,7 +49,6 @@ import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
 import { ControlLabel, FormGroup, TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { FormikDropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
@@ -68,7 +65,6 @@ const FindingContent: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const { pathname } = useLocation();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { replace } = useHistory();
 
   // Side effects
@@ -103,9 +99,6 @@ const FindingContent: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      canGetHistoricState: permissions.can(
-        "api_resolvers_finding_historic_state_resolve"
-      ),
       findingId,
     },
   });

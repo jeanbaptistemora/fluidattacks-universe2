@@ -1,7 +1,5 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import { faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikHelpers } from "formik";
@@ -27,7 +25,6 @@ import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/q
 import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
-import { authzPermissionsContext } from "utils/authz/config";
 import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
@@ -50,7 +47,6 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   refetchData,
 }: IUploadVulnProps): JSX.Element => {
   const { t } = useTranslation();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   function handleUploadError(updateError: ApolloError): void {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -152,9 +148,6 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetHistoricState: permissions.can(
-              "api_resolvers_finding_historic_state_resolve"
-            ),
             findingId,
           },
         },

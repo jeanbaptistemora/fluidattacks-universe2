@@ -1,6 +1,4 @@
 import { useMutation } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -31,7 +29,6 @@ import {
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { authzPermissionsContext } from "utils/authz/config";
 
 interface IVulnData {
   currentState: string;
@@ -63,10 +60,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   refetchData,
 }: IUpdateVerificationModal): JSX.Element => {
   const MAX_JUSTIFICATION_LENGTH = 10000;
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canDisplayHacker: boolean = permissions.can(
-    "api_resolvers_finding_hacker_resolve"
-  );
   const { t } = useTranslation();
 
   // State management
@@ -110,7 +103,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetHistoricState: canDisplayHacker,
             findingId: vulnerabilitiesList[0].findingId,
           },
         },

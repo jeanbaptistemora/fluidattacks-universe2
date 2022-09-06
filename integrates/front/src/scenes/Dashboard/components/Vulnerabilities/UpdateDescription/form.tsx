@@ -96,9 +96,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { t } = useTranslation();
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canGetHistoricState: boolean = permissions.can(
-    "api_resolvers_finding_historic_state_resolve"
-  );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
@@ -320,7 +317,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetHistoricState,
             findingId: vulnerabilities[0].findingId,
           },
         },

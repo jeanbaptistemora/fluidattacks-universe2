@@ -3,11 +3,6 @@ interface IHeaderQueryResult {
     closedVulns: number;
     currentState: string;
     hacker?: string;
-    historicState: {
-      analyst: string;
-      date: string;
-      state: string;
-    }[];
     id: string;
     minTimeToRemediate: number;
     openVulns: number;

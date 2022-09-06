@@ -47,7 +47,6 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetHistoricState: true,
         findingId: "438679960",
       },
     },
@@ -56,18 +55,6 @@ describe("FindingContent", (): void => {
         finding: {
           closedVulns: 0,
           currentState: "APPROVED",
-          historicState: [
-            {
-              analyst: "someone@fluidattacks.com",
-              date: "2019-10-31 10:00:53",
-              state: "CREATED",
-            },
-            {
-              analyst: "approver@fluidattacks.com",
-              date: "2019-10-31 12:00:00",
-              state: "APPROVED",
-            },
-          ],
           id: "438679960",
           minTimeToRemediate: 60,
           openVulns: 3,
@@ -94,7 +81,6 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetHistoricState: true,
         findingId: "438679960",
       },
     },
@@ -103,13 +89,6 @@ describe("FindingContent", (): void => {
         finding: {
           closedVulns: 0,
           currentState: "CREATED",
-          historicState: [
-            {
-              analyst: "someone@fluidattacks.com",
-              date: "2019-10-31 10:00:53",
-              state: "CREATED",
-            },
-          ],
           id: "438679960",
           minTimeToRemediate: 60,
           openVulns: 3,
@@ -136,7 +115,6 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetHistoricState: true,
         findingId: "438679960",
       },
     },
@@ -145,13 +123,6 @@ describe("FindingContent", (): void => {
         finding: {
           closedVulns: 0,
           currentState: "CREATED",
-          historicState: [
-            {
-              analyst: "someone@fluidattacks.com",
-              date: "2019-10-31 10:00:53",
-              state: "CREATED",
-            },
-          ],
           id: "438679960",
           minTimeToRemediate: 60,
           openVulns: 3,
@@ -174,10 +145,7 @@ describe("FindingContent", (): void => {
     },
   };
 
-  type resultType = Record<
-    string,
-    { finding: { historicState: Record<string, unknown>[] } }
-  >;
+  type resultType = Record<string, { finding: { currentState: string } }>;
   const result: resultType = draftMock.result as resultType;
   const submittedDraftMock: Readonly<MockedResponse> = {
     ...draftMock,
@@ -188,14 +156,6 @@ describe("FindingContent", (): void => {
         finding: {
           ...result.data.finding,
           currentState: "SUBMITTED",
-          historicState: [
-            ...result.data.finding.historicState,
-            {
-              analyst: "someone@fluidattacks.com",
-              date: "2019-10-31 11:30:00",
-              state: "SUBMITTED",
-            },
-          ],
         },
       },
     },
@@ -212,24 +172,17 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <authzGroupContext.Provider
-              value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
-              }
-            >
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzGroupContext.Provider>
-          </authzPermissionsContext.Provider>
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -246,24 +199,17 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <authzGroupContext.Provider
-              value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
-              }
-            >
-              <Route
-                component={FindingContent}
-                path={"/:groupName/vulns/:findingId/description"}
-              />
-            </authzGroupContext.Provider>
-          </authzPermissionsContext.Provider>
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -282,7 +228,6 @@ describe("FindingContent", (): void => {
     jest.clearAllMocks();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -318,7 +263,6 @@ describe("FindingContent", (): void => {
     jest.clearAllMocks();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
@@ -384,7 +328,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -442,7 +385,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -499,7 +441,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_approve_draft_mutate" },
     ]);
     render(
@@ -568,7 +509,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_approve_draft_mutate" },
     ]);
     render(
@@ -636,7 +576,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
@@ -704,7 +643,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
@@ -769,7 +707,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
@@ -837,7 +774,6 @@ describe("FindingContent", (): void => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
