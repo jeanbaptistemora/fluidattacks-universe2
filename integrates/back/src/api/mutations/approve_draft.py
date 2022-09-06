@@ -4,11 +4,11 @@ from aioextensions import (
 from api import (
     APP_EXCEPTIONS,
 )
+from api.mutations import (
+    ApproveDraftPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    ApproveDraftPayload,
 )
 from dataloaders import (
     Dataloaders,

@@ -27,9 +27,6 @@ from custom_exceptions import (
     RequiredFieldToBeUpdate,
     VulnNotFound,
 )
-from custom_types import (
-    AddEventPayload,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -212,7 +209,7 @@ async def add_event(
     file: Optional[UploadFile] = None,
     image: Optional[UploadFile] = None,
     **kwargs: Any,
-) -> AddEventPayload:
+) -> str:
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
     events_validations.validate_type(EventType[kwargs["event_type"]])
@@ -281,7 +278,7 @@ async def add_event(
         )
     )
 
-    return AddEventPayload(event.id, True)
+    return event.id
 
 
 async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:

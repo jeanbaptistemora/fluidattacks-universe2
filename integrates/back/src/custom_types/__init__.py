@@ -14,52 +14,8 @@ from typing import (
 Datetime = datetime
 
 # Payloads
-AddConsultPayload = NamedTuple(
-    "AddConsultPayload",
-    [
-        ("success", bool),
-        ("comment_id", str),
-    ],
-)
-AddStakeholderPayload = NamedTuple(
-    "AddStakeholderPayload",
-    [
-        ("success", bool),
-        ("email", str),
-    ],
-)
-
-
-class AddDraftPayload(NamedTuple):
-    draft_id: str
-    success: bool
-
-
-class AddRootPayload(NamedTuple):
-    root_id: str
-    success: bool
-
-
-class AddEventPayload(NamedTuple):
-    event_id: str
-    success: bool
-
-
-ApproveDraftPayload = NamedTuple(
-    "ApproveDraftPayload",
-    [
-        ("success", bool),
-        ("release_date", str),
-    ],
-)
-DownloadFilePayload = NamedTuple(
-    "DownloadFilePayload",
-    [
-        ("success", bool),
-        ("url", str),
-    ],
-)
 DynamoDelete = NamedTuple("DynamoDelete", [("Key", Dict[str, Any])])
+
 UpdateStakeholderPayload = NamedTuple(
     "UpdateStakeholderPayload",
     [

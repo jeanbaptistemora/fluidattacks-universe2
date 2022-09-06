@@ -1,14 +1,14 @@
 from aioextensions import (
     schedule,
 )
+from api.mutations import (
+    AddConsultPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     PermissionDenied,
-)
-from custom_types import (
-    AddConsultPayload as AddConsultPayloadType,
 )
 from db_model.finding_comments.enums import (
     CommentType,
@@ -152,6 +152,6 @@ async def _add_finding_consult(
 )
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **parameters: Any
-) -> AddConsultPayloadType:
+) -> AddConsultPayload:
     comment_id = await _add_finding_consult(info, **parameters)
-    return AddConsultPayloadType(success=True, comment_id=comment_id)
+    return AddConsultPayload(success=True, comment_id=comment_id)

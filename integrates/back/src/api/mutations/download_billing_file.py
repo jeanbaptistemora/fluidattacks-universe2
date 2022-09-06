@@ -1,14 +1,14 @@
 # None
 
 
+from api.mutations import (
+    DownloadFilePayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from billing import (
     domain as billing_domain,
-)
-from custom_types import (
-    DownloadFilePayload,
 )
 from db_model.organizations.types import (
     Organization,

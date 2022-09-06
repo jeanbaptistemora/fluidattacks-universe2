@@ -1,11 +1,11 @@
 from aioextensions import (
     schedule,
 )
+from api.mutations import (
+    AddConsultPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    AddConsultPayload as AddConsultPayloadType,
 )
 from dataloaders import (
     Dataloaders,
@@ -76,7 +76,7 @@ async def send_group_consult_mail(
 )
 async def mutate(
     _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
-) -> AddConsultPayloadType:
+) -> AddConsultPayload:
     loaders: Dataloaders = info.context.loaders
     validations_utils.validate_fields([parameters["content"]])
     group_name = group_name.lower()
@@ -117,4 +117,4 @@ async def mutate(
         f"Security: Added comment to {group_name} group successfully",
     )
 
-    return AddConsultPayloadType(success=True, comment_id=str(comment_id))
+    return AddConsultPayload(success=True, comment_id=str(comment_id))

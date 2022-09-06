@@ -1,15 +1,15 @@
 from api import (
     APP_EXCEPTIONS,
 )
+from api.mutations import (
+    AddDraftPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     HasRejectedDrafts,
     MachineCanNotOperate,
-)
-from custom_types import (
-    AddDraftPayload,
 )
 from db_model.enums import (
     Source,

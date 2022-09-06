@@ -13,9 +13,6 @@ from custom_exceptions import (
     InvalidFileType,
     UnsanitizedInputFound,
 )
-from custom_types import (
-    AddEventPayload,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -27,6 +24,7 @@ from db_model.events.enums import (
     EventEvidenceId,
     EventSolutionReason,
     EventStateStatus,
+    EventType,
 )
 from db_model.events.types import (
     Event,
@@ -60,13 +58,17 @@ async def test_add_event() -> None:
         "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
-    event_payload = await events_domain.add_event(
+    event_id = await events_domain.add_event(
         get_new_context(),
         hacker_email="unittesting@fluidattacks.com",
         group_name="unittesting",
         **attrs,
     )
-    assert event_payload.success
+    loaders = get_new_context()
+    event: Event = await loaders.event.load(event_id)
+    assert event.id == event_id
+    assert event.hacker == "unittesting@fluidattacks.com"
+    assert event.type == EventType.AUTHORIZATION_SPECIAL_ATTACK
 
 
 @pytest.mark.changes_db
@@ -97,8 +99,7 @@ async def test_add_event_file_image() -> None:
                 image=uploaded_image,
                 **attrs,
             )
-    assert isinstance(test_data, AddEventPayload)
-    assert test_data.success
+    assert isinstance(test_data, str)
 
 
 @pytest.mark.changes_db

@@ -1,8 +1,8 @@
+from api.mutations import (
+    DownloadFilePayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    DownloadFilePayload as DownloadFilePayloadType,
 )
 from decorators import (
     concurrent_decorators,
@@ -36,7 +36,7 @@ LOGGER = logging.getLogger(__name__)
 )
 async def mutate(
     _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
-) -> DownloadFilePayloadType:
+) -> DownloadFilePayload:
     success = False
     file_info = parameters["files_data"]
     group_name = group_name.lower()
@@ -66,4 +66,4 @@ async def mutate(
             "Couldn't generate signed URL", extra={"extra": parameters}
         )
 
-    return DownloadFilePayloadType(success=success, url=str(signed_url))
+    return DownloadFilePayload(success=success, url=str(signed_url))

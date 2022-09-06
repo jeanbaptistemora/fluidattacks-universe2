@@ -1,8 +1,8 @@
+from api.mutations import (
+    AddConsultPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    AddConsultPayload,
 )
 from db_model.event_comments.types import (
     EventComment,

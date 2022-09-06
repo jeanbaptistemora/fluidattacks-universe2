@@ -1,8 +1,8 @@
+from api.mutations import (
+    AddRootPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    AddRootPayload,
 )
 from decorators import (
     concurrent_decorators,

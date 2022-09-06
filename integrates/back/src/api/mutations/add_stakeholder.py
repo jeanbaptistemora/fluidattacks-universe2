@@ -1,12 +1,12 @@
+from api.mutations import (
+    AddStakeholderPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 import authz
 from custom_exceptions import (
     InvalidRoleProvided,
-)
-from custom_types import (
-    AddStakeholderPayload,
 )
 from dataloaders import (
     Dataloaders,

@@ -1,8 +1,8 @@
+from api.mutations import (
+    AddEventPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
-)
-from custom_types import (
-    AddEventPayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -59,7 +59,7 @@ async def mutate(
         validations.validate_sanitized_csv_input(
             image.filename, image.content_type
         )
-    event_payload = await events_domain.add_event(
+    event_id = await events_domain.add_event(
         info.context.loaders,
         hacker_email=hacker_email,
         group_name=group_name.lower(),
@@ -67,11 +67,10 @@ async def mutate(
         image=image,
         **kwargs,
     )
-    if event_payload.success:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Added a new event in {group_name} group successfully",
-        )
-        redis_del_by_deps_soon("add_event", group_name=group_name)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Added a new event in {group_name} group successfully",
+    )
+    redis_del_by_deps_soon("add_event", group_name=group_name)
 
-    return event_payload
+    return AddEventPayload(event_id=event_id, success=True)
