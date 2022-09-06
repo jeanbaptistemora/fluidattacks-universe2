@@ -1,20 +1,22 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  Row,
+  SortingState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
+import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Modal } from "components/Modal";
-import { Table } from "components/Table";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import {
-  filterSearchText,
-  filterSelect,
-  filterText,
-} from "components/Table/utils";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
@@ -27,13 +29,6 @@ import { formatDate } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-
-interface IFilterSet {
-  repository: string;
-  status: string;
-  strictness: string;
-  type: string;
-}
 
 const GroupForcesView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -70,34 +65,21 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
-
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("groupForcesCustomFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterGroupForcesTable, setFilterGroupForcesTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupForcesSet",
-      {
-        repository: "",
-        status: "",
-        strictness: "",
-        type: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("forcesSort", JSON.stringify(newSorted));
-  };
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblForcesExecutionsTableFilters",
+    []
+  );
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblForcesExecutionsSorting",
+    []
+  );
+  const [pagination, setPagination] = useStoredState<PaginationState>(
+    "tblForcesExecutionsPagination",
+    {
+      pageIndex: 0,
+      pageSize: 10,
+    }
+  );
 
   const toTitleCase: (str: string) => string = (str: string): string =>
     str
@@ -108,59 +90,54 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       )
       .join(" ");
 
-  const headersExecutionTable: IHeaderConfig[] = [
+  const headersExecutionTable: ColumnDef<IExecution>[] = [
     {
-      dataField: "date",
+      accessorKey: "date",
       header: t("group.forces.date"),
-      onSort: onSortState,
+      meta: { filterType: "dateRange" },
     },
     {
-      dataField: "status",
-      formatter: statusFormatter,
+      accessorKey: "status",
+      cell: (cell: ICellHelper<IExecution>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: t("group.forces.status.title"),
-      onSort: onSortState,
-      width: "105px",
-      wrapped: true,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "foundVulnerabilities.total",
-      header: t("group.forces.status.vulnerabilities"),
-      onSort: onSortState,
-      wrapped: true,
+      accessorFn: (row: IExecution): number => {
+        return row.foundVulnerabilities.total;
+      },
+      header: String(t("group.forces.status.vulnerabilities")),
+      meta: { filterType: "number" },
     },
     {
-      dataField: "strictness",
+      accessorKey: "strictness",
       header: t("group.forces.strictness.title"),
-      onSort: onSortState,
-      wrapped: true,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "kind",
+      accessorKey: "kind",
       header: t("group.forces.kind.title"),
-      onSort: onSortState,
-      wrapped: true,
     },
     {
-      dataField: "gitRepo",
+      accessorKey: "gitRepo",
       header: t("group.forces.gitRepo"),
-      onSort: onSortState,
-      wrapped: true,
     },
     {
-      dataField: "executionId",
+      accessorKey: "executionId",
       header: t("group.forces.identifier"),
-      onSort: onSortState,
-      wrapped: true,
     },
   ];
 
-  const openSeeExecutionDetailsModal: (
-    event: Record<string, unknown>,
-    row: IExecution
-  ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
-    setCurrentRow(row);
-    setIsExecutionDetailsModalOpen(true);
-  };
+  function openSeeExecutionDetailsModal(
+    rowInfo: Row<IExecution>
+  ): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      setCurrentRow(rowInfo.original);
+      setIsExecutionDetailsModalOpen(true);
+      event.preventDefault();
+    };
+  }
 
   const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
     setIsExecutionDetailsModalOpen(false);
@@ -231,183 +208,22 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     }
   );
 
-  const initialSort: string = JSON.stringify({
-    dataField: "date",
-    order: "desc",
-  });
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchTextExecutions: IExecution[] = filterSearchText(
-    executions,
-    searchTextFilter
-  );
-
-  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        status: event.target.value,
-      })
-    );
-  }
-  const filterStatusExecutions: IExecution[] = filterSelect(
-    executions,
-    filterGroupForcesTable.status,
-    "status"
-  );
-
-  function onStrictnessChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        strictness: event.target.value,
-      })
-    );
-  }
-  const filterStrictnessExecutions: IExecution[] = filterSelect(
-    executions,
-    filterGroupForcesTable.strictness,
-    "strictness"
-  );
-
-  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        type: event.target.value,
-      })
-    );
-  }
-  const filterTypeExecutions: IExecution[] = filterSelect(
-    executions,
-    filterGroupForcesTable.type,
-    "kind"
-  );
-
-  function onRepositoryChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        repository: event.target.value,
-      })
-    );
-  }
-  const filterGroupNameExecutions: IExecution[] = filterText(
-    executions,
-    filterGroupForcesTable.repository,
-    "gitRepo"
-  );
-
-  function clearFilters(): void {
-    setFilterGroupForcesTable(
-      (): IFilterSet => ({
-        repository: "",
-        status: "",
-        strictness: "",
-        type: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultExecutions: IExecution[] = _.intersection(
-    filterSearchTextExecutions,
-    filterStatusExecutions,
-    filterStrictnessExecutions,
-    filterTypeExecutions,
-    filterGroupNameExecutions
-  );
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterGroupForcesTable.status,
-      onChangeSelect: onStatusChange,
-      placeholder: "Status",
-      selectOptions: {
-        Secure: "Secure",
-        Vulnerable: "Vulnerable",
-      },
-      tooltipId: "group.forces.filtersTooltips.status.id",
-      tooltipMessage: "group.forces.filtersTooltips.status",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupForcesTable.strictness,
-      onChangeSelect: onStrictnessChange,
-      placeholder: "Strictness",
-      selectOptions: {
-        Strict: "Strict",
-        Tolerant: "Tolerant",
-      },
-      tooltipId: "group.forces.filtersTooltips.strictness.id",
-      tooltipMessage: "group.forces.filtersTooltips.strictness",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupForcesTable.type,
-      onChangeSelect: onTypeChange,
-      placeholder: "Type",
-      selectOptions: {
-        ALL: "ALL",
-        DAST: "DAST",
-        SAST: "SAST",
-      },
-      tooltipId: "group.forces.filtersTooltips.kind.id",
-      tooltipMessage: "group.forces.filtersTooltips.kind",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupForcesTable.repository,
-      onChangeInput: onRepositoryChange,
-      placeholder: "Git Repository",
-      tooltipId: "group.forces.filtersTooltips.repository.id",
-      tooltipMessage: "group.forces.filtersTooltips.repository",
-      type: "text",
-    },
-  ];
-
   return (
     <React.StrictMode>
       <p>{t("group.forces.tableAdvice")}</p>
       <Table
-        clearFiltersButton={clearFilters}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          resultSize: {
-            current: resultExecutions.length,
-            total: executions.length,
-          },
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={resultExecutions}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "forcesSort", initialSort) as string
-        )}
+        columnFilterSetter={setColumnFilters}
+        columnFilterState={columnFilters}
+        columns={headersExecutionTable}
+        data={executions}
+        enableColumnFilters={true}
         exportCsv={true}
-        headers={headersExecutionTable}
         id={"tblForcesExecutions"}
-        pageSize={100}
-        rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-        search={false}
+        onRowClick={openSeeExecutionDetailsModal}
+        paginationSetter={setPagination}
+        paginationState={pagination}
+        sortingSetter={setSorting}
+        sortingState={sorting}
       />
       <Modal
         onClose={closeSeeExecutionDetailsModal}
