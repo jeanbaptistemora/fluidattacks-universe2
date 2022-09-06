@@ -11,6 +11,7 @@
     observesServiceJobLastSuccess = service.job_last_success;
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
+    observesTapBugsnag = tap.bugsnag;
     observesTapDynamo = tap.dynamo;
     observesTapGitlab = tap.gitlab;
     observesTapMandrill = tap.mandrill;
