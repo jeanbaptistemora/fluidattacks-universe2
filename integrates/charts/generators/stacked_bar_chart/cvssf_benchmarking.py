@@ -406,7 +406,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     ):
         organizations.append((org_id, org_groups))
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            portfolios.append((portfolio, tuple(groups)))
+            portfolios.append(
+                (f"{org_id}PORTFOLIO#{portfolio}", tuple(groups))
+            )
 
     all_organizations_data = await collect(
         tuple(
@@ -472,7 +474,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_data(
                 organization=await get_data_one_organization(
-                    organization_id=portfolio,
+                    organization_id=f"{org_id}PORTFOLIO#{portfolio}",
                     groups=tuple(groups),
                     loaders=loaders,
                 ),
@@ -480,7 +482,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 mean_cvssf=get_mean_organizations(
                     organizations=get_valid_organizations(
                         organizations=all_portfolios_data,
-                        organization_id=portfolio,
+                        organization_id=f"{org_id}PORTFOLIO#{portfolio}",
                     )
                 ),
                 worst_cvssf=worst_portfolio_cvssf,
