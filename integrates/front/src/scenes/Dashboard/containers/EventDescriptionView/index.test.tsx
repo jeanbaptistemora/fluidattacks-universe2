@@ -75,24 +75,6 @@ describe("eventDescriptionView", (): void => {
     });
   });
 
-  it("should render affected components", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const { container } = render(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={EventDescriptionView}
-            path={"/:groupName/events/:eventId/description"}
-          />
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await waitFor((): void => {
-      expect(container.textContent).toContain("-");
-    });
-  });
-
   it("should render solving modal", async (): Promise<void> => {
     expect.hasAssertions();
 

@@ -755,40 +755,38 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           exportCsv={true}
           extraButtons={
             <React.Fragment>
-              <Can do={"api_mutations_add_event_mutate"} not={isOpenMode}>
-                <Tooltip
-                  id={"group.events.btn.tooltip.id"}
-                  tip={t("group.events.btn.tooltip")}
-                >
-                  <Button onClick={openAddModal} variant={"primary"}>
-                    <FontAwesomeIcon icon={faPlus} />
-                    &nbsp;{t("group.events.btn.text")}
-                  </Button>
-                </Tooltip>
-              </Can>
-              <Can
-                do={"api_mutations_request_vulnerabilities_hold_mutate"}
-                not={isOpenMode}
-              >
-                <Tooltip
-                  id={"group.events.form.affectedReattacks.btn.id"}
-                  tip={t("group.events.form.affectedReattacks.btn.tooltip")}
-                >
-                  <Button
-                    disabled={!(hasReattacks && hasOpenEvents)}
-                    onClick={openUpdateAffectedModal}
-                    variant={"secondary"}
+              {isOpenMode ? undefined : (
+                <Can do={"api_mutations_add_event_mutate"}>
+                  <Tooltip
+                    id={"group.events.btn.tooltip.id"}
+                    tip={t("group.events.btn.tooltip")}
                   >
-                    <FontAwesomeIcon icon={faPlus} />
-                    &nbsp;
-                    {t("group.events.form.affectedReattacks.btn.text")}
-                  </Button>
-                </Tooltip>
-              </Can>
-              <Can
-                do={"api_mutations_request_event_verification_mutate"}
-                not={isOpenMode && !isOpenRequestVerificationMode}
-              >
+                    <Button onClick={openAddModal} variant={"primary"}>
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;{t("group.events.btn.text")}
+                    </Button>
+                  </Tooltip>
+                </Can>
+              )}
+              {isOpenMode ? undefined : (
+                <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
+                  <Tooltip
+                    id={"group.events.form.affectedReattacks.btn.id"}
+                    tip={t("group.events.form.affectedReattacks.btn.tooltip")}
+                  >
+                    <Button
+                      disabled={!(hasReattacks && hasOpenEvents)}
+                      onClick={openUpdateAffectedModal}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;
+                      {t("group.events.form.affectedReattacks.btn.text")}
+                    </Button>
+                  </Tooltip>
+                </Can>
+              )}
+              <Can do={"api_mutations_request_event_verification_mutate"}>
                 <Tooltip
                   id={"group.events.remediationModal.btn.id"}
                   tip={t("group.events.remediationModal.btn.tooltip")}

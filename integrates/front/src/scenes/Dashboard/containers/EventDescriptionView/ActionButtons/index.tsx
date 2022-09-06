@@ -55,25 +55,27 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
                 {t("group.events.description.markAsSolved")}
               </Button>
             </Can>
-            <Can
-              do={"api_mutations_reject_event_solution_mutate"}
-              not={eventStatus !== "VERIFICATION_REQUESTED"}
-            >
-              <Tooltip
-                id={
-                  "group.events.description.rejectSolution.button.tooltip.btn"
-                }
-                tip={t(
-                  "group.events.description.rejectSolution.button.tooltip"
-                )}
-              >
-                <Button onClick={openRejectSolutionModal} variant={"secondary"}>
-                  <FontAwesomeIcon icon={faXmark} />
-                  &nbsp;
-                  {t("group.events.description.rejectSolution.button.text")}
-                </Button>
-              </Tooltip>
-            </Can>
+            {eventStatus === "VERIFICATION_REQUESTED" ? (
+              <Can do={"api_mutations_reject_event_solution_mutate"}>
+                <Tooltip
+                  id={
+                    "group.events.description.rejectSolution.button.tooltip.btn"
+                  }
+                  tip={t(
+                    "group.events.description.rejectSolution.button.tooltip"
+                  )}
+                >
+                  <Button
+                    onClick={openRejectSolutionModal}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                    &nbsp;
+                    {t("group.events.description.rejectSolution.button.text")}
+                  </Button>
+                </Tooltip>
+              </Can>
+            ) : undefined}
           </Fragment>
         )}
         {(canUpdateEvent || canUpdateEventSolvingReason) && isEditing ? (
