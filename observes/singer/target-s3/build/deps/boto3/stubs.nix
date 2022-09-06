@@ -1,4 +1,7 @@
-lib: python_pkgs: let
+{
+  lib,
+  python_pkgs,
+}: let
   botocore-stubs = lib.buildPythonPackage rec {
     pname = "botocore-stubs";
     version = "1.26.3";

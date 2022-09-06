@@ -1,4 +1,7 @@
-lib: python_pkgs:
+{
+  lib,
+  python_pkgs,
+}:
 lib.buildPythonPackage rec {
   pname = "mypy-boto3-s3";
   version = "1.23.0";

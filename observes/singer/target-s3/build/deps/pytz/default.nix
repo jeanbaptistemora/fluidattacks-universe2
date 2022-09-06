@@ -1,4 +1,7 @@
-lib: python_pkgs:
+{
+  lib,
+  python_pkgs,
+}:
 python_pkgs.pytz.overridePythonAttrs (
   old: rec {
     version = "2021.3";
