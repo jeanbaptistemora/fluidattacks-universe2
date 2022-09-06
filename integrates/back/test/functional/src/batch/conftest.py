@@ -155,7 +155,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "findings": [
             {
                 "finding": Finding(
-                    id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="4c475384-834c-47b0-ac71-a41a066e475f",
                     group_name="group1",
                     state=FindingState(
                         modified_by="test1@gmail.com",
@@ -270,6 +270,123 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_where="192.168.1.2",  # NOSONAR
                 ),
             },
+            {
+                "finding": Finding(
+                    id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="unittesting",
+                    state=FindingState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2017-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                    ),
+                    title="001. SQL injection - C Sharp SQL API",
+                    recommendation="Updated recommendation",
+                    description="I just have updated the description",
+                    hacker_email="test1@gmail.com",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.2"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1.5"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("0.5"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_severity_scope=Decimal("0"),
+                        modified_privileges_required=Decimal("0.27"),
+                        modified_attack_vector=Decimal("0.85"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        privileges_required=Decimal("0.62"),
+                        severity_scope=Decimal("1.2"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("1"),
+                        user_interaction=Decimal("0.85"),
+                    ),
+                    requirements="REQ.0132. Passwords (phrase type) "
+                    "must be at least 3 words long.",
+                    threat="Updated threat",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
+                    evidences=FindingEvidences(
+                        evidence5=FindingEvidence(
+                            description="evidence5",
+                            url=(
+                                "unittesting-3c475384-834c-47b0"
+                                "-ac71-a41a022e401c-evidence5"
+                            ),
+                            modified_date="2020-11-19T13:37:10+00:00",
+                        ),
+                        records=FindingEvidence(
+                            description="records",
+                            url=(
+                                "unittesting-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-records"
+                            ),
+                            modified_date="2111-11-19T13:37:10+00:00",
+                        ),
+                    ),
+                ),
+                "historic_state": [
+                    FindingState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2017-04-08T00:45:12+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                    ),
+                    FindingState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2017-04-08T00:45:13+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.REJECTED,
+                    ),
+                    FindingState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2017-04-08T00:45:14+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                    ),
+                    FindingState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                    ),
+                ],
+                "historic_verification": [
+                    FindingVerification(
+                        comment_id="42343434",
+                        modified_by="test1@gmail.com",
+                        modified_date="2020-01-01T00:45:12+00:00",
+                        status=FindingVerificationStatus.REQUESTED,
+                        vulnerability_ids={
+                            "6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",
+                        },
+                    )
+                ],
+                "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
+                    unreliable_closed_vulnerabilities=3,
+                    unreliable_open_vulnerabilities=5,
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
+                    unreliable_status=FindingStatus.OPEN,
+                    # FP: local testing
+                    unreliable_where="192.168.1.2",  # NOSONAR
+                ),
+            },
         ],
         "roots": [
             {
@@ -282,6 +399,37 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     group_name="group1",
                     id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
+                        environment_urls=[],
+                        environment="production",
+                        git_environment_urls=[],
+                        gitignore=[],
+                        includes_health_check=False,
+                        modified_by="admin@gmail.com",
+                        modified_date="2022-02-10T14:58:10+00:00",
+                        nickname="nickname1",
+                        other="",
+                        reason="",
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/nickname",
+                    ),
+                    type=RootType.GIT,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2022-02-10T14:58:10+00:00",
+                        reason="Cloned successfully",
+                        status=GitCloningStatus.UNKNOWN,
+                        commit="6d4519f5d5b4223feb65fcbc5af68e8ef9964b62",
+                    ),
+                    group_name="unittesting",
+                    id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
@@ -496,7 +644,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
-                    group_name="group1",
+                    group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
                     specific="5",
@@ -521,14 +669,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     where="nickname1/README.md",
-                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                    root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                     commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                 ),
             },
             {
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
-                    group_name="group1",
+                    group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
                     specific="3",
@@ -553,7 +701,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     where="nickname1/README.md",
-                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                    root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                     commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                 ),
             },
@@ -568,7 +716,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 comments="",
                 filename="nickname1/REDME.md",
                 first_attack_at=None,
-                group_name="group1",
+                group_name="unittesting",
                 has_vulnerabilities=False,
                 last_author="customer1@gmail.com",
                 last_commit="be8d00f5fe64d59dc463adb34f9fabdf262e1ed9",
@@ -576,7 +724,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 modified_date=datetime.fromisoformat(
                     "2022-09-05T00:45:11+00:00"
                 ),
-                root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
             ),

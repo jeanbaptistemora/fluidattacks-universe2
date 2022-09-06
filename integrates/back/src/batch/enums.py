@@ -20,6 +20,7 @@ class Product(Enum):
 
 class Action(Enum):
     REPORT = "report"
+    REBASE = "rebase"
     MOVE_ROOT = "move_root"
     HANDLE_FINDING_POLICY = "handle_finding_policy"
     REFRESH_TOE_INPUTS = "refresh_toe_inputs"

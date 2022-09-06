@@ -39,6 +39,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
 )
 from git import (
+    Git,
     GitError,
 )
 from git.repo.base import (
@@ -242,6 +243,16 @@ async def rebase(*, item: BatchProcessing) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             os.chdir(tmpdir)
             repo_path = f"{tmpdir}/{git_root.state.nickname}"
+            Git().execute(
+                [
+                    "git",
+                    "config",
+                    "--global",
+                    "--add",
+                    "safe.directory",
+                    repo_path,
+                ]
+            )
             await download_repo(group_name, git_root, tmpdir)
             repo = Repo(
                 repo_path,

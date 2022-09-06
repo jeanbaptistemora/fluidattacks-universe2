@@ -586,6 +586,28 @@ def generic_data(  # pylint: disable=too-many-locals
                         created_date="2020-05-20T22:00:00+00:00",
                         description="-",
                         language=GroupLanguage.EN,
+                        name="unittesting",
+                        state=GroupState(
+                            has_machine=True,
+                            has_squad=True,
+                            managed=GroupManaged["MANAGED"],
+                            modified_by="unknown",
+                            modified_date="2020-05-20T22:00:00+00:00",
+                            service=GroupService.WHITE,
+                            status=GroupStateStatus.ACTIVE,
+                            tier=GroupTier.OTHER,
+                            type=GroupSubscriptionType.CONTINUOUS,
+                        ),
+                        organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                        sprint_start_date="2022-06-06T00:00:00",
+                    ),
+                },
+                {
+                    "group": Group(
+                        created_by="unknown",
+                        created_date="2020-05-20T22:00:00+00:00",
+                        description="-",
+                        language=GroupLanguage.EN,
                         name="group2",
                         state=GroupState(
                             has_machine=False,
