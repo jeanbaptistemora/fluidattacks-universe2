@@ -155,6 +155,7 @@ describe("Update Description component", (): void => {
       data: {
         finding: {
           closedVulns: 0,
+          currentState: "APPROVED",
           id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
           openVulns: 0,
           releaseDate: null,

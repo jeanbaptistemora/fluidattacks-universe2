@@ -260,10 +260,8 @@ const FindingContent: React.FC = (): JSX.Element => {
   const isDraft: boolean = _.isEmpty(headerData.finding.releaseDate);
   const hasVulns: boolean =
     _.sum([headerData.finding.openVulns, headerData.finding.closedVulns]) > 0;
-  const hasHistory: boolean = !_.isEmpty(headerData.finding.historicState);
-  const hasSubmission: boolean = hasHistory
-    ? headerData.finding.historicState.slice(-1)[0].state === "SUBMITTED"
-    : false;
+  const hasSubmission: boolean =
+    headerData.finding.currentState === "SUBMITTED";
 
   const calculateEstRemediationTime = (): string => {
     if (_.isNil(headerData.finding.minTimeToRemediate)) {

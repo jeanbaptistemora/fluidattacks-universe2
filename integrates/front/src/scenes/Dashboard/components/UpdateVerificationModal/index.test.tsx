@@ -278,6 +278,7 @@ describe("update verification component", (): void => {
           data: {
             finding: {
               closedVulns: 0,
+              currentState: "",
               historicState: [],
               id: "",
               minTimeToRemediate: 60,

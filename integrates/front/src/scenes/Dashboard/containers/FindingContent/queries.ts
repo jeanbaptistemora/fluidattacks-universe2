@@ -13,6 +13,7 @@ const GET_FINDING_HEADER: DocumentNode = gql`
       title
       minTimeToRemediate
       historicState @include(if: $canGetHistoricState)
+      currentState
     }
   }
 `;

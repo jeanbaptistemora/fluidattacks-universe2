@@ -275,6 +275,7 @@ describe("handle vulns acceptance modal", (): void => {
         data: {
           finding: {
             closedVulns: 0,
+            currentState: "CREATED",
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
             minTimeToRemediate: 60,
             openVulns: 0,
@@ -435,6 +436,7 @@ describe("handle vulns acceptance modal", (): void => {
         data: {
           finding: {
             closedVulns: 0,
+            currentState: "CREATED",
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
             openVulns: 0,
             releaseDate: null,
@@ -595,6 +597,7 @@ describe("handle vulns acceptance modal", (): void => {
         data: {
           finding: {
             closedVulns: 0,
+            currentState: "CREATED",
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
             minTimeToRemediate: 60,
             openVulns: 0,
@@ -761,6 +764,7 @@ describe("handle vulns acceptance modal", (): void => {
         data: {
           finding: {
             closedVulns: 0,
+            currentState: "CREATED",
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
             openVulns: 0,
             releaseDate: null,

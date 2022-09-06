@@ -1,6 +1,7 @@
 interface IHeaderQueryResult {
   finding: {
     closedVulns: number;
+    currentState: string;
     hacker?: string;
     historicState: {
       analyst: string;

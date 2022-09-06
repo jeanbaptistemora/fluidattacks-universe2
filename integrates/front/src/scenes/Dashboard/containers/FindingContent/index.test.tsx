@@ -55,6 +55,7 @@ describe("FindingContent", (): void => {
       data: {
         finding: {
           closedVulns: 0,
+          currentState: "APPROVED",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",
@@ -101,6 +102,7 @@ describe("FindingContent", (): void => {
       data: {
         finding: {
           closedVulns: 0,
+          currentState: "CREATED",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",
@@ -142,6 +144,7 @@ describe("FindingContent", (): void => {
       data: {
         finding: {
           closedVulns: 0,
+          currentState: "CREATED",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",
@@ -184,6 +187,7 @@ describe("FindingContent", (): void => {
         ...result.data,
         finding: {
           ...result.data.finding,
+          currentState: "SUBMITTED",
           historicState: [
             ...result.data.finding.historicState,
             {
