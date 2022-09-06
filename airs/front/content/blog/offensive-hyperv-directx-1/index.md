@@ -221,10 +221,10 @@ interactions:
    (Microsoft Media System) components of DirectX that resides
    on the `dxgmms1.sys` and `dxgmms2.sys` drivers.
 10. The MMS system is finally in charge to talk with the
-   corresponding GPU driver, which exposes the adapter that
-   can virtual or physical.
+    corresponding GPU driver, which exposes the adapter that
+    can virtual or physical.
 11. In the end, the response is sent back to the VM
-   via `dxgkrnl!VmBusCompletePacket`.
+    via `dxgkrnl!VmBusCompletePacket`.
 
 It's a complex process if you read it, but let's look at it
 in action. Let's see an example performing only one
