@@ -246,7 +246,7 @@ async def complete_register_for_group_invitation(
                     email=email,
                     enrolled=True,
                     trial=Trial(
-                        completed=False,
+                        completed=True,
                         extension_date="",
                         extension_days=0,
                         start_date="",

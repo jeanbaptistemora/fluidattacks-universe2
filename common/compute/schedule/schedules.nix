@@ -373,6 +373,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_expire_free_trial = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.expire_free_trial.main"
+    ];
+
+    schedule_expression = "cron(0 * * * ? *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_expire_free_trial";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   integrates_missing_environment_alert = {
     enabled = true;
     command = [
