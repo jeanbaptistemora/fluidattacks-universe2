@@ -60,22 +60,16 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_group,
-    get_closed_vulnerabilities,
     get_groups_by_stakeholder,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
-    get_open_findings,
-    get_open_vulnerabilities,
     get_treatment_summary,
-    get_vulnerabilities_with_pending_attacks,
-    is_valid,
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
     set_pending_deletion_date,
     update_group,
-    validate_group_tags,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -110,31 +104,6 @@ from typing import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-async def test_validate_tags() -> None:
-    loaders: Dataloaders = get_new_context()
-    assert await validate_group_tags(
-        loaders, "unittesting", ["testtag", "this-is-ok", "th15-4l50"]
-    )
-    assert await validate_group_tags(
-        loaders, "unittesting", ["this-tag-is-valid", "but this is not"]
-    ) == ["this-tag-is-valid"]
-
-
-async def test_is_valid() -> None:
-    loaders: Dataloaders = get_new_context()
-    assert await is_valid(loaders, "unittesting")
-    assert not await is_valid(loaders, "nonexistent_group")
-
-
-async def test_get_vulnerabilities_with_pending_attacks() -> None:
-    context = get_new_context()
-    test_data = await get_vulnerabilities_with_pending_attacks(
-        loaders=context, group_name="unittesting"
-    )
-    expected_output = 1
-    assert test_data == expected_output
 
 
 async def test_get_last_closed_vulnerability() -> None:
@@ -196,29 +165,6 @@ async def test_get_max_open_severity() -> None:
     test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1].id == "463558592"
-
-
-async def test_get_open_vulnerabilities() -> None:
-    group_name = "unittesting"
-    expected_output = 29
-    open_vulns = await get_open_vulnerabilities(get_new_context(), group_name)
-    assert open_vulns == expected_output
-
-
-async def test_get_closed_vulnerabilities() -> None:
-    group_name = "unittesting"
-    expected_output = 7
-    closed_vulnerabilities = await get_closed_vulnerabilities(
-        get_new_context(), group_name
-    )
-    assert closed_vulnerabilities == expected_output
-
-
-async def test_get_open_findings() -> None:
-    group_name = "unittesting"
-    expected_output = 5
-    open_findings = await get_open_findings(get_new_context(), group_name)
-    assert open_findings == expected_output
 
 
 async def test_get_vuln_opening_date() -> None:

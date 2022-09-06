@@ -17,6 +17,9 @@ from subscriptions.dal import (
     add,
     get_all_subsriptions,
 )
+from subscriptions.domain import (
+    _translate_entity,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -25,6 +28,13 @@ pytestmark = [
 
 def test_image_path() -> None:
     assert os.path.exists(FI_INTEGRATES_REPORTS_LOGO_PATH)
+
+
+def test_translate_entity() -> None:
+    entity_in = "organization"
+    assert _translate_entity(entity=entity_in) == "org"
+    entity_not = "test"
+    assert _translate_entity(entity=entity_not) == entity_not
 
 
 @pytest.mark.changes_db
