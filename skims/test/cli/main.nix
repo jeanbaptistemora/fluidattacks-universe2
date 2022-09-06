@@ -17,9 +17,8 @@ makeScript {
       inputs.nixpkgs.kubectl
     ];
     source = [
-      outputs."/secretsForAwsFromEnv/dev"
-      outputs."/common/utils/sops"
       outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -13,10 +13,11 @@ function main {
   export INTEGRATES_API_ENDPOINT
   export INTEGRATES_API_TOKEN
 
-  sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" \
+  : \
+    && aws_login "dev" "3600" \
+    && sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" \
     && if test -n "${CI:-}"; then
-      aws_login "dev" "3600" \
-        && aws_eks_update_kubeconfig 'common' 'us-east-1' \
+      aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
           -n "development" \

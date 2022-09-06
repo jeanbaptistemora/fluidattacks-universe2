@@ -14,13 +14,6 @@
     ./vpc/makes.nix
     ./vpn/makes.nix
   ];
-  secretsForAwsFromEnv = {
-    dev = {
-      accessKeyId = "DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "DEV_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
-    };
-  };
   secretsForAwsFromGitlab = {
     dev = {
       roleArn = "arn:aws:iam::205810638802:role/dev";
