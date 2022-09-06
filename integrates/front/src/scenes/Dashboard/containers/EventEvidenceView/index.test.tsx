@@ -10,8 +10,19 @@ import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
+  UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgSuccess } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../utils/notifications");
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("eventEvidenceView", (): void => {
   it("should return a fuction", (): void => {
@@ -361,5 +372,115 @@ describe("eventEvidenceView", (): void => {
       );
     });
     jest.clearAllMocks();
+  });
+
+  it("should edit evidences", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const image1 = new File(["image1"], "image1.png", { type: "image/png" });
+    const file = new File(["file-evidence"], "evidence.txt", {
+      type: "text/plain",
+    });
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENT_EVIDENCES,
+          variables: { eventId: "413372600" },
+        },
+        result: {
+          data: {
+            event: {
+              eventStatus: "CREATED",
+              evidences: {
+                file1: null,
+                image1: null,
+                image2: null,
+                image3: null,
+                image4: null,
+                image5: null,
+                image6: null,
+              },
+              id: "413372600",
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_EVIDENCE_MUTATION,
+          variables: {
+            eventId: "413372600",
+            evidenceType: "IMAGE_1",
+            file: image1,
+          },
+        },
+        result: {
+          data: {
+            updateEventEvidence: {
+              success: true,
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: UPDATE_EVIDENCE_MUTATION,
+          variables: {
+            eventId: "413372600",
+            evidenceType: "FILE_1",
+            file,
+          },
+        },
+        result: {
+          data: {
+            updateEventEvidence: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_event_evidence_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventEvidenceView}
+              path={"/:groupName/events/:eventId/evidence"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.events.evidence.edit")
+      ).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("group.events.evidence.edit"));
+    userEvent.upload(screen.getByTestId("image1.file"), image1);
+    userEvent.upload(screen.getByTestId("file1.file"), file);
+    userEvent.click(
+      screen.getByRole("button", {
+        name: /searchfindings\.tabevidence\.update/iu,
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.events.evidence.alerts.update.success",
+        "groupAlerts.updatedTitle"
+      );
+    });
   });
 });
