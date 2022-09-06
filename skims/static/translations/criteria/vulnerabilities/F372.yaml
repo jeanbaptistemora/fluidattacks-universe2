@@ -1,17 +1,17 @@
 ---
 lib_path.f372.azure_only_accessible_over_http:
   en: Property https_only is either missing or misconfigured
-  es: Falta la propiedad https_only o está mal configuradaesté activada
+  es: La propiedad https_only no está presente o se encuentra mal configurada
 src.lib_path.f372.elb2_uses_insecure_protocol:
   en: TargetGroup should use a safe protocol (HTTPS)
   es: El TargetGroup debería usar un protocolo seguro (HTTPS)
 src.lib_path.f372.serves_content_over_http:
   en: Property viewer_protocol_policy.allow-all is either missing or misconfigured
-  es: Falta la propiedad viewer_protocol_policy.allow-all o está mal configuradaesté
-    activada
+  es: La propiedad viewer_protocol_policy.allow-all no está presente o se encuentra
+    mal configurada
 lib_path.f372.tfm_azure_storage_account_insecure_transfer:
   en: Property enable_https_traffic_only is either missing or misconfigured
-  es: Falta la propiedad enable_https_traffic_only o está mal configuradaesté activada
+  es: La propiedad enable_https_traffic_only no está presente o se encuentra mal configurada
 lib_apk.analyze_bytecodes.uses_http_resources:
   en: The given APK references HTTP (not HTTPS) resources.
   es: El APK dado referencia recursos HTTP (no HTTPS).
