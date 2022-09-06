@@ -159,34 +159,38 @@ def get_check_ctx(url: URLContext) -> ContentCheckCtx:
 
 
 def _query_dns(
-    domain: URLContext,
-    record_type: str,
+    domain: str,
     timeout: float = 2.0,
-) -> Optional[list]:
+) -> list:
 
-    record_type = record_type.upper()
     resolver = dns.resolver.Resolver()
-    if record_type == "TXT":
-        resource_records = list(
-            map(
-                lambda r: r.strings,
-                resolver.resolve(domain.url, record_type, lifetime=timeout),
-            )
+    record_type = "TXT"
+    resource_records = list(
+        map(
+            lambda r: r.strings,
+            resolver.resolve(domain, record_type, lifetime=timeout),
         )
-        _resource_record = [
-            resource_record[0][:0].join(resource_record)
-            for resource_record in resource_records
-            if resource_record
-        ]
-        records = [r.decode() for r in _resource_record]
-    else:
-        records = list(
-            map(
-                lambda r: r.to_text().replace('"', "").strip("."),
-                resolver.resolve(domain.url, record_type, lifetime=timeout),
-            )
-        )
+    )
+    _resource_record = [
+        resource_record[0][:0].join(resource_record)
+        for resource_record in resource_records
+        if resource_record
+    ]
+    records = [r.decode() for r in _resource_record]
     return records
+
+
+def _check_spf_records(ctx: ContentCheckCtx) -> bool:
+    domain: str
+    validator: bool = False
+    txt_records: List[str] = []
+
+    domain = ctx.url.get_base_domain()
+    txt_records = _query_dns(domain)
+    for record in txt_records:
+        if "v=spf1" in record:
+            validator = True
+    return validator
 
 
 CHECKS: Dict[

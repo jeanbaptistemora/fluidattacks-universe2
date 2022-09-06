@@ -1279,6 +1279,7 @@ class DeveloperEnum(Enum):
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
     JUAN_RESTREPO: str = "jrestrepo@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
+    JULIAN_GOMEZ: str = "ugomez@fluidattacks.com"
 
 
 class TechniqueEnum(Enum):
