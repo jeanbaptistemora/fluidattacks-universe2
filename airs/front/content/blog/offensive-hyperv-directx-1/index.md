@@ -5,7 +5,7 @@ date: 2022-09-06
 category: attacks
 subtitle: A Black Hat talk follow up
 tags: vulnerability, hacking, exploit, software
-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1662484193/blog/offensive-hyperv-directx-1/axel-ruffini-iulnjpZyWnc-unsplash.webp
+image: https://res.cloudinary.com/fluid-attacks/image/upload/v1662512922/blog/offensive-hyperv-directx-1/cover_hyperv_directx.webp
 alt: Photo by Axel Ruffini on Unsplash
 description: We will take a brief understanding at DirectX, a new attack surface on Hyper-V
 keywords: Business, Security, Hacking, Exploit, Ethical Hacking, Pentesting, Bypass, Evasion, Windows
