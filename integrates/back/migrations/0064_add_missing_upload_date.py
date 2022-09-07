@@ -18,7 +18,7 @@ from aioextensions import (
 from context import (
     FI_AWS_S3_BUCKET,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding,
 )
 from dataloaders.group import (

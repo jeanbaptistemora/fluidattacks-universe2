@@ -15,7 +15,7 @@ import aioboto3
 from aioextensions import (
     run,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Group as ProjectType,
 )
 from dynamodb import (

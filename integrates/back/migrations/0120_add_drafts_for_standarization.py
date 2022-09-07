@@ -39,7 +39,7 @@ import csv
 from custom_exceptions import (
     InvalidFindingTitle,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding as FindingType,
     Historic as HistoricType,
 )

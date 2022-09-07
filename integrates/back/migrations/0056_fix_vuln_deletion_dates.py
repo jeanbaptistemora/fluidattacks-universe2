@@ -17,7 +17,7 @@ from aioextensions import (
     run,
 )
 import copy
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )

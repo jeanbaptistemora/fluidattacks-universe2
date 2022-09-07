@@ -23,7 +23,7 @@ from contextlib import (
 from custom_exceptions import (
     RepeatedToeInput,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Group,
 )
 from dataloaders import (

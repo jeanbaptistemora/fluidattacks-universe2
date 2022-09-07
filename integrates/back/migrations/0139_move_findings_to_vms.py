@@ -33,7 +33,7 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     AlreadyCreated,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     DynamoQuery as DynamoQueryType,
     Finding as FindingType,
     Historic as HistoricType,

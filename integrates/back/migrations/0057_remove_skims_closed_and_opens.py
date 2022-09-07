@@ -47,7 +47,7 @@ from aioextensions import (
     collect,
     run,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Vulnerability,
 )
 from dataloaders.group import (

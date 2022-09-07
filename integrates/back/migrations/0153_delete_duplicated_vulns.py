@@ -35,7 +35,7 @@ from aioextensions import (
 from copy import (
     deepcopy,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Vulnerability as VulnerabilityType,
 )
 from dataloaders import (

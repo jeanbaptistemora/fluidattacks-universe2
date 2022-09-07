@@ -12,7 +12,7 @@ Finalization Time:  2020-05-13 17:14 UTC-5
 """
 
 import bugsnag
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Historic as HistoricType,
     Resource as ResourceType,
 )

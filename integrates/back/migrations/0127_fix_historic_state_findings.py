@@ -28,7 +28,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 import csv
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding as FindingType,
     Historic as HistoricType,
 )

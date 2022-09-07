@@ -19,7 +19,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 import copy
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding,
     Historic,
 )

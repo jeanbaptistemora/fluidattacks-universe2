@@ -27,7 +27,7 @@ from collections import (
     defaultdict,
 )
 import csv
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding,
 )
 from dataloaders import (

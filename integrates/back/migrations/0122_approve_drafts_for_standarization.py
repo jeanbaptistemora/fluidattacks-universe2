@@ -43,7 +43,7 @@ from custom_exceptions import (
     IncompleteDraft,
     NotSubmitted,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Finding as FindingType,
 )
 from dataloaders import (

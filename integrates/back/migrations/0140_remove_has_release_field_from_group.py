@@ -18,7 +18,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Group,
 )
 from dynamodb import (

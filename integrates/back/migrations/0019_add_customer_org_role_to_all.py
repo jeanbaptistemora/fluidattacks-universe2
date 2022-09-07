@@ -22,7 +22,7 @@ import authz
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Organization as OrganizationType,
 )
 from dynamodb.operations_legacy import (

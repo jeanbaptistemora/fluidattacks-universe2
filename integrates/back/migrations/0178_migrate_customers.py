@@ -21,7 +21,7 @@ from aiohttp.client_exceptions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     User as UserType,
 )
 from dynamodb import (

@@ -21,7 +21,7 @@ from aioextensions import (
 from collections import (
     defaultdict,
 )
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Comment as CommentType,
 )
 from dataloaders import (

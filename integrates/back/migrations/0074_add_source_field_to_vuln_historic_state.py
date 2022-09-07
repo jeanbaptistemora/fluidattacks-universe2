@@ -16,7 +16,7 @@ from aioextensions import (
     run,
 )
 import copy
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Historic,
     Vulnerability,
 )

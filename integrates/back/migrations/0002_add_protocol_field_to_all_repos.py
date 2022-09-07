@@ -18,7 +18,7 @@ Finalization Time:  2020-05-13 19:37 UTC-5
 """
 import argparse
 import bugsnag
-from custom_types import (
+from custom_types import (  # pylint: disable=import-error
     Group as GroupType,
     Resource as ResourceType,
 )
