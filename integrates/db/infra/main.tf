@@ -466,14 +466,6 @@ resource "aws_dynamodb_table" "skims_sca" {
     name            = "gsi_sk"
     hash_key        = "sk"
     range_key       = "pk"
-    projection_type = "INCLUDE"
-    non_key_attributes = [
-      "associated_advisory",
-      "package_name",
-      "package_manager",
-      "vulnerable_version",
-      "severity",
-      "source"
-    ]
+    projection_type = "ALL"
   }
 }

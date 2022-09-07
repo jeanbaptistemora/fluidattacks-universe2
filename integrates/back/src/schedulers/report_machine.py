@@ -166,6 +166,7 @@ from unreliable_indicators.operations import (
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,
+    ignore_advisories,
 )
 from vulnerability_files.domain import (
     map_vulnerabilities_to_dynamo,
@@ -416,7 +417,9 @@ async def _create_draft(
     )
 
 
-def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
+def _get_path_from_sarif_vulnerability(
+    vulnerability: Dict[str, Any], ignore_cve: bool = False
+) -> str:
     what = vulnerability["locations"][0]["physicalLocation"][
         "artifactLocation"
     ]["uri"]
@@ -455,6 +458,8 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
                 ),
             )
         )
+    if ignore_cve:
+        what = ignore_advisories(what)
 
     return what
 
@@ -590,7 +595,7 @@ def _machine_vulns_to_close(
     machine_hashes = {
         hash(
             (
-                _get_path_from_sarif_vulnerability(vuln),
+                _get_path_from_sarif_vulnerability(vuln, True),
                 str(
                     vuln["locations"][0]["physicalLocation"]["region"][
                         "startLine"
@@ -607,9 +612,9 @@ def _machine_vulns_to_close(
         # his result was not found by Skims
         if hash(
             (
-                get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
-                    1
-                ],
+                get_path_from_integrates_vulnerability(
+                    vuln.where, vuln.type, True
+                )[1],
                 vuln.specific,
             )
         )

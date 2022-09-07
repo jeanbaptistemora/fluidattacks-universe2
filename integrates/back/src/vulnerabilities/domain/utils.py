@@ -30,6 +30,7 @@ import html
 from newutils import (
     datetime as datetime_utils,
 )
+import re
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -67,6 +68,7 @@ def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
 def get_path_from_integrates_vulnerability(
     vulnerability_where: str,
     vulnerability_type: VulnerabilityType,
+    ignore_cve: bool = False,
 ) -> Tuple[str, str]:
     if vulnerability_type in {
         VulnerabilityType.INPUTS,
@@ -84,7 +86,18 @@ def get_path_from_integrates_vulnerability(
             namespace, where = "", chunks[0]
     else:
         raise NotImplementedError()
+    if ignore_cve:
+        where = ignore_advisories(where)
     return namespace, where
+
+
+def ignore_advisories(where: Optional[str]) -> str:
+    if where is not None and (
+        match := re.search(r"(?P<cve>\s\[.*\])?$", where)
+    ):
+        cve = match.groupdict()["cve"]
+        return where.replace(str(cve), "")
+    return str(where)
 
 
 def get_hash_from_typed(
@@ -101,6 +114,7 @@ def get_hash_from_typed(
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
         where = html.escape(where, quote=False)
+    where = ignore_advisories(where)
     return get_hash(
         specific=specific,
         type_=type_,
