@@ -5,10 +5,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f091.literal.c_sharp import (
-    cs_insecure_logging,
-)
-from symbolic_eval.f091.literal.java import (
+from symbolic_eval.f091.method_invocation.java import (
     java_insecure_logging,
 )
 from symbolic_eval.types import (
@@ -21,7 +18,6 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_INSECURE_LOGGING: cs_insecure_logging,
     MethodsEnum.JAVA_INSECURE_LOGGING: java_insecure_logging,
 }
 
