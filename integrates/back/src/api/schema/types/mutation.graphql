@@ -290,6 +290,18 @@ type Mutation {
     tags: JSONString
   ): SimpleGroupPayload!
 
+  "Adds an environment URL to the Ip root"
+  addIpEnvironmentUrl(
+    "Group of the root"
+    groupName: String!
+    "Id of the root to add the environment"
+    rootId: ID!
+    "Url value"
+    url: String!
+    "Url Type"
+    urlType: IpEnvironmentUrlType!
+  ): SimplePayload!
+
   "Adds an IP to the Group roots"
   addIpRoot(
     "IP address of the environment to test"
