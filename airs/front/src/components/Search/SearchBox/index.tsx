@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // This exclusion is necessary due to the nature of the implementation
 /* eslint import/no-default-export:0 */
 /* eslint react/jsx-no-bind:0 */

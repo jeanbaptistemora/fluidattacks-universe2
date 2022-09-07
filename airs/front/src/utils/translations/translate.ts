@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint @typescript-eslint/no-floating-promises:0 */
 import type { TOptions } from "i18next";
 import i18next, { t, use } from "i18next";

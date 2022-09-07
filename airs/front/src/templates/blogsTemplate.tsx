@@ -1,4 +1,10 @@
 /*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
  *There is no danger using dangerouslySetInnerHTML since everything is built in
  *compile time, also
  *Default exports are needed for pages used in nodes by default to create pages

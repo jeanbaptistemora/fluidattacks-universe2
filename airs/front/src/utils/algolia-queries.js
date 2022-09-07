@@ -1,27 +1,29 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
 const pageQuery = `{
-  pages: allMarkdownRemark(
-    filter: {fields: {slug: {regex: ""}}}
-  ) {
-    edges {
-      node {
-        id
-        fields {
-          slug
-        }
-        frontmatter {
-          author
-          description
-          keywords
-          title
+    pages: allMarkdownRemark(
+      filter: {fields: {slug: {regex: ""}}}
+    ) {
+      edges {
+        node {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            author
+            description
+            keywords
+            title
+          }
         }
       }
     }
-  }
-}`;
+  }`;
 
-function pageToAlgoliaRecord({
-  node: { id, fields, frontmatter, ...rest },
-}) {
+function pageToAlgoliaRecord({ node: { id, fields, frontmatter, ...rest } }) {
   return {
     objectID: id,
     ...fields,

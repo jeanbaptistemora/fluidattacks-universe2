@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
 const _ = require(`lodash`);
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
