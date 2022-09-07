@@ -82,6 +82,9 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           case "Exception - Active root with the same Nickname already exists":
             msgError(t("group.scope.common.errors.duplicateNickname"));
             break;
+          case "Exception - The file has not been found":
+            msgError(t("group.scope.common.errors.fileNotFound"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.error("Couldn't add url roots", error);

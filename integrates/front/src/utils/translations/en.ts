@@ -961,6 +961,7 @@ export const enTranslations: ResourceKey = {
             "A root with the same URL/branch already exists in this organization. Please activate the exiting root.",
           duplicateUrlInTargetGroup:
             "A root with the same URL/branch already exists in the target group. Please activate the exiting root.",
+          fileNotFound: "The file has not been found",
           hasVulns:
             "Can't update as there are already vulnerabilities reported for this root",
         },
