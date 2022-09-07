@@ -205,13 +205,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 >
                   {translate.t("organization.tabs.credentials.text")}
                 </Tab>
-                <Tab
-                  id={"commercialTab"}
-                  link={`${url}/commercial`}
-                  tooltip={"Commercial reports"}
-                >
-                  {"Commercial"}
-                </Tab>
               </Tabs>
             </div>
             <TabContent>
