@@ -67,7 +67,7 @@ async def get_all_subscriptions(
     return tuple(format_subscription(item) for item in subscription_items)
 
 
-async def subscribe_user_to_entity_report(
+async def _subscribe_user_to_entity_report(
     *,
     event_period: NumericType,
     report_entity: str,
@@ -101,7 +101,7 @@ async def add(*, subscription: Subscription) -> None:
     event_period: int = frequency_to_period(
         frequency=subscription.frequency.value
     )
-    await subscribe_user_to_entity_report(
+    await _subscribe_user_to_entity_report(
         event_period=event_period,
         report_entity=subscription.entity.value,
         report_subject=subscription.subject,

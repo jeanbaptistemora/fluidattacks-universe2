@@ -11,6 +11,9 @@ from ariadne import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.subscriptions.enums import (
+    SubscriptionEntity,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -23,9 +26,6 @@ from newutils import (
 from subscriptions import (
     domain as subscriptions_domain,
 )
-from typing import (
-    Any,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -33,38 +33,39 @@ LOGGER = logging.getLogger(__name__)
 
 @convert_kwargs_to_snake_case
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     frequency: str,
     report_entity: str,
     report_subject: str,
 ) -> SimplePayloadType:
-    user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
+    user_info = await token_utils.get_jwt_content(info.context)
+    email = user_info["user_email"]
+    subscription_entity = SubscriptionEntity[report_entity.upper()]
 
-    if await subscriptions_domain.can_subscribe_user_to_entity_report(
+    if await subscriptions_domain.can_subscribe(
         loaders=loaders,
-        report_entity=report_entity,
-        report_subject=report_subject,
-        user_email=user_email,
+        entity=subscription_entity,
+        subject=report_subject,
+        email=email,
     ):
         await subscriptions_domain.subscribe_user_to_entity_report(
             event_frequency=frequency,
             report_entity=report_entity,
             report_subject=report_subject,
-            user_email=user_email,
+            user_email=email,
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"user: {user_email} edited subscription to "
+            f"user: {email} edited subscription to "
             f"entity_report: {report_entity}/{report_subject} "
             f"frequency: {frequency}",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f"user: {user_email} attempted to edit subscription to "
+            f"user: {email} attempted to edit subscription to "
             f"entity_report: {report_entity}/{report_subject} "
             f"frequency: {frequency} "
             f"without permission",

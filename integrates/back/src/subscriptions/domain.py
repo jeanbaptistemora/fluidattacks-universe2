@@ -84,41 +84,41 @@ def _translate_entity(entity: str) -> str:
     return entity
 
 
-async def can_subscribe_user_to_entity_report(
+async def can_subscribe(
     *,
     loaders: Dataloaders,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> bool:
     success: bool = False
 
-    if report_entity.lower() == "group":
+    if entity == SubscriptionEntity.GROUP:
         success = await authz.has_access_to_group(
             loaders,
-            user_email,
-            report_subject.lower(),
+            email,
+            subject.lower(),
         )
-    elif report_entity.lower() == "organization":
+    elif entity == SubscriptionEntity.ORGANIZATION:
         success = await orgs_domain.has_access(
             loaders=loaders,
-            email=user_email,
-            organization_id=report_subject,
+            email=email,
+            organization_id=subject,
         )
-    elif report_entity.lower() == "portfolio":
+    elif entity == SubscriptionEntity.PORTFOLIO:
         success = await tags_domain.has_user_access(
             loaders=loaders,
-            email=user_email,
-            subject=report_subject,
+            email=email,
+            subject=subject,
         )
     else:
         LOGGER.error(
-            "- Invalid report_entity or report_subject",
+            "- Invalid entity or subject",
             extra={
                 "extra": {
-                    "report_entity": report_entity,
-                    "report_subject": report_subject,
-                    "user_email": user_email,
+                    "entity": entity,
+                    "subject": subject,
+                    "email": email,
                 }
             },
         )
@@ -289,20 +289,18 @@ async def unsubscribe_user_to_entity_report(
     )
 
 
-async def _validate_subscription_typed(
-    subscription: Subscription,
-) -> bool:
-    # A user may be subscribed but now he does not have access to the
+async def _validate_subscription(subscription: Subscription) -> bool:
+    # A stakeholder may be subscribed but now he does not have access to the
     #   group or organization, so let's handle this case
     loaders: Dataloaders = get_new_context()
-    if await can_subscribe_user_to_entity_report(
+    if await can_subscribe(
         loaders=loaders,
-        report_entity=subscription.entity,
-        report_subject=subscription.subject,
-        user_email=subscription.email,
+        entity=subscription.entity,
+        subject=subscription.subject,
+        email=subscription.email,
     ):
         return True
-    # Unsubscribe this user, he won't even notice as he no longer
+    # Unsubscribe this stakeholder, he won't even notice as he no longer
     #   has access to the requested resource
     await unsubscribe_user_to_entity_report(
         report_entity=subscription.entity,
@@ -312,11 +310,11 @@ async def _validate_subscription_typed(
     return False
 
 
-async def _process_subscription_typed(
+async def _process_subscription(
     *,
     subscription: Subscription,
 ) -> None:
-    if not await _validate_subscription_typed(subscription):
+    if not await _validate_subscription(subscription):
         LOGGER.warning(
             "- user without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
@@ -346,6 +344,6 @@ async def trigger_subscriptions_analytics() -> None:
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )
     await collect(
-        _process_subscription_typed(subscription=subscription)
+        _process_subscription(subscription=subscription)
         for subscription in subscriptions
     )
