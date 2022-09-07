@@ -1,5 +1,5 @@
-from aiodataloader import (
-    DataLoader,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
@@ -8,52 +8,28 @@ from db_model.findings.types import (
 from decorators import (
     enforce_group_level_auth_async,
 )
-from functools import (
-    partial,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.datetime import (
     convert_from_iso_str,
 )
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
-)
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 
 
 @enforce_group_level_auth_async
 async def resolve(
-    parent: Finding, info: GraphQLResolveInfo, **kwargs: None
-) -> List[Dict[str, str]]:
-    response: List[Dict[str, str]] = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding",
-        attr="historic_state",
-        id=parent.id,
-    )
-    return response
-
-
-async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Dict[str, str]]:
-    historic_state_loader: DataLoader = (
-        info.context.loaders.finding_historic_state
-    )
-    historic_state: Tuple[
+) -> list[dict[str, str]]:
+    loaders: Dataloaders = info.context.loaders
+    historic_state: tuple[
         FindingState, ...
-    ] = await historic_state_loader.load(parent.id)
+    ] = await loaders.finding_historic_state.load(parent.id)
+
     return [
         {
             "analyst": state.modified_by,
             "date": convert_from_iso_str(state.modified_date),
-            "source": state.source.value.lower(),
+            "source": str(state.source.value).lower(),
             "state": state.status.value,
         }
         for state in historic_state
