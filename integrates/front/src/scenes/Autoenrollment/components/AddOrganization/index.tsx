@@ -7,8 +7,7 @@
 import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
@@ -17,8 +16,7 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Checkbox, Input, Select, TextArea } from "components/Input";
-import { Col, Gap, Row } from "components/Layout";
-import { Modal, ModalConfirm } from "components/Modal";
+import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
 import { regExps } from "utils/validations";
@@ -61,19 +59,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   successMutation,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-
-  const [showCancelModal, setShowCancelModal] = useState(false);
-
-  function cancelClick(): void {
-    setShowCancelModal(true);
-  }
-  function yesClick(): void {
-    mixpanel.track("AutoenrollCancel");
-    location.replace("/logout");
-  }
-  function noClick(): void {
-    setShowCancelModal(false);
-  }
 
   const validations = object().shape({
     groupDescription: string()
@@ -183,26 +168,11 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               </Alert>
             ) : undefined}
           </Row>
-          <Gap mv={6}>
+          <div className={"flex justify-start mv2"}>
             <Button disabled={isSubmitting} type={"submit"} variant={"primary"}>
               {t("autoenrollment.proceed")}
             </Button>
-            <Button onClick={cancelClick}>
-              {t("components.modal.cancel")}
-            </Button>
-          </Gap>
-          <Modal
-            onClose={noClick}
-            open={showCancelModal}
-            title={t("autoenrollment.cancelModal.body")}
-          >
-            <ModalConfirm
-              onCancel={noClick}
-              onConfirm={yesClick}
-              txtCancel={t("autoenrollment.cancelModal.no")}
-              txtConfirm={t("autoenrollment.cancelModal.yes")}
-            />
-          </Modal>
+          </div>
         </Form>
       </Formik>
     </div>

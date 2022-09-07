@@ -20,8 +20,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Input, InputArray, Select, TextArea } from "components/Input";
-import { Col, Gap, Row } from "components/Layout";
-import { Modal, ModalConfirm } from "components/Modal";
+import { Col, Row } from "components/Layout";
 import {
   handleValidationError,
   rootSchema,
@@ -59,7 +58,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
-  const [showCancelModal, setShowCancelModal] = useState(false);
 
   function handleSubmit(): void {
     setRootMessages({
@@ -68,17 +66,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
     });
     onCompleted();
   }
-  function cancelClick(): void {
-    setShowCancelModal(true);
-  }
-  function yesClick(): void {
-    mixpanel.track("AutoenrollCancel");
-    location.replace("/logout");
-  }
-  function noClick(): void {
-    setShowCancelModal(false);
-  }
-
   const formRef = useRef<FormikProps<IRootAttr>>(null);
 
   const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
@@ -274,9 +261,11 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   )}
                 <Col lg={100} md={100} sm={100}>
                   <Input
+                    id={"env"}
                     label={t("autoenrollment.environment.label")}
                     name={"env"}
                     placeholder={t("autoenrollment.environment.placeholder")}
+                    tooltip={t("Description of the application environment")}
                   />
                 </Col>
                 <Col lg={100} md={100} sm={100}>
@@ -299,26 +288,11 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   </Alert>
                 )}
               </Row>
-              <Gap>
+              <div className={"flex justify-start mt2"}>
                 <Button onClick={handleAccess} variant={"primary"}>
                   {t("autoenrollment.next")}
                 </Button>
-                <Button onClick={cancelClick}>
-                  {t("components.modal.cancel")}
-                </Button>
-              </Gap>
-              <Modal
-                onClose={noClick}
-                open={showCancelModal}
-                title={t("autoenrollment.cancelModal.body")}
-              >
-                <ModalConfirm
-                  onCancel={noClick}
-                  onConfirm={yesClick}
-                  txtCancel={t("autoenrollment.cancelModal.no")}
-                  txtConfirm={t("autoenrollment.cancelModal.yes")}
-                />
-              </Modal>
+              </div>
             </Form>
           );
         }}
