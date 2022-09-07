@@ -14,8 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 import { LoginButton, LoginContainer, LoginGrid } from "./components";
 
@@ -30,7 +31,16 @@ import {
 } from "utils/ctx";
 
 export const Login: React.FC = (): JSX.Element => {
+  const { hash } = useLocation();
   const { t } = useTranslation();
+
+  useEffect((): void => {
+    if (hash === "#trial") {
+      sessionStorage.setItem("trial", "true");
+    } else {
+      sessionStorage.removeItem("trial");
+    }
+  }, [hash]);
 
   // Event handlers
   function handleBitbucketLogin(): void {

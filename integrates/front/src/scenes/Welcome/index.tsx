@@ -11,7 +11,6 @@ import Bugsnag from "@bugsnag/js";
 import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 import { GET_STAKEHOLDER_ENROLLMENT } from "./queries";
 import type { IGetStakeholderEnrollmentResult } from "./types";
@@ -23,7 +22,6 @@ import { Logger } from "utils/logger";
 import { initializeZendesk } from "utils/widgets";
 
 const Welcome: React.FC = (): JSX.Element => {
-  const { hash } = useLocation();
   const { t } = useTranslation();
 
   const { data } = useQuery<IGetStakeholderEnrollmentResult>(
@@ -60,7 +58,7 @@ const Welcome: React.FC = (): JSX.Element => {
   const isEnrolled = data.me.enrollment.enrolled;
 
   if (isEnrolled) {
-    if (hash === "#trial") {
+    if (sessionStorage.getItem("trial") === "true") {
       return <Announce message={t("autoenrollment.notElegible")} />;
     }
 
