@@ -84,7 +84,7 @@ we shared that **67.4%** of the total risk exposure
 in the assessed systems
 was reported by the manual method).
 This makes it possible for vulnerability remediation,
-an action that should always be attached to the code review,
+an action that should always be connected to the code review,
 to follow a prioritization.
 Ultimately,
 the idea is to reduce the number of flaws
@@ -104,15 +104,16 @@ Security in general
 and common weaknesses in software and their exploitation
 are not usually taught to developers in their academies and workplaces.
 And even the most experienced developers,
-due to factors as basic as burnout or carelessness,
+due to factors such as burnout or carelessness,
 can make coding mistakes
-and end up giving birth to vulnerabilities
-such as those listed in the OWASP Top 10 and CWE Top 25.
+and end up generating vulnerabilities
+such as those listed in the [OWASP Top 10](https://docs.fluidattacks.com/criteria/compliance/owasp10)
+and [CWE Top 25](https://docs.fluidattacks.com/criteria/compliance/cwe25).
 For reasons such as these,
-source code should remain under review
-more often than not by security experts.
+source code should usually remain under review
+by security experts.
 
-The secure code review identifies the absence of safe coding practices,
+Secure code review identifies the absence of safe coding practices,
 lack of appropriate security controls,
 and violation of compliance standards
 such as [PCI DSS](https://docs.fluidattacks.com/criteria/compliance/pci)
