@@ -1,5 +1,5 @@
-from lib_root.utilities.common import (
-    get_method_name,
+from lib_root.utilities.java import (
+    yield_method_invocation_syntax_graph,
 )
 from lib_sast.types import (
     ShardDb,
@@ -8,6 +8,7 @@ from model import (
     core_model,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage,
     GraphShardNodes,
@@ -18,9 +19,18 @@ from sast.query import (
 from utils import (
     graph as g,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
-)
+
+
+def get_parent_method_name(graph: Graph, n_id: str) -> str:
+    parent = g.pred_ast(graph, n_id)[0]
+    while graph.nodes[parent].get("label_type") != "MethodDeclaration":
+        get_nodes = g.pred_ast(graph, parent)
+        if get_nodes:
+            parent = get_nodes[0]
+        else:
+            return "no_method_found"
+
+    return graph.nodes[parent]["name"]
 
 
 def uses_exit_method(
@@ -29,36 +39,25 @@ def uses_exit_method(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JAVA_USES_SYSTEM_EXIT
     exit_methods = {
-        "System.exit(0)",
-        "Runtime.getRuntime().exit(0)",
-        "Runtime.getRuntime().halt(0)",
+        "System.exit",
+        "Runtime.getRuntime.exit",
+        "Runtime.getRuntime.halt",
     }
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
-            graph = shard.graph
-            for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(label_type="expression_statement"),
-            ):
-                match = g.match_ast(
-                    graph,
-                    member,
-                    "method_invocation",
-                )
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
 
-                if member_expression_id := match["method_invocation"]:
-                    method_name = node_to_str(graph, member_expression_id)
-                    node_cfg = g.pred_ast(graph, member, depth=1)[0]
-
-                    if (
-                        get_method_name(graph, node_cfg) != "main"
-                        and method_name in exit_methods
-                    ):
-                        yield shard, member
+            for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                if (
+                    get_parent_method_name(graph, m_id) != "main"
+                    and m_name in exit_methods
+                ):
+                    yield shard, m_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f423.uses_system_exit",
