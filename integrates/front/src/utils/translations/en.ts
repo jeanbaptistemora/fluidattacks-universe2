@@ -339,6 +339,9 @@ export const enTranslations: ResourceKey = {
       },
     },
     next: "Next",
+    notElegible:
+      "You're not elegible for the free trial.\n" +
+      "You have been an active user",
     organizationName: {
       label: "Organization name ",
       placeholder: "My organization",
