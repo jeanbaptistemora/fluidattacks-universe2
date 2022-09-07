@@ -4,6 +4,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
+import moment from "moment";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -42,6 +43,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
   const { t } = useTranslation();
   const msToSec: number = 1000;
   const yyyymmdd: number = 10;
+
+  const sixMonthsLater: string = moment().add(6, "months").format("YYYY-MM-DD");
+
+  const oneDayLater: string = moment().add(1, "day").format("YYYY-MM-DD");
 
   const [data, refetch] = useGetAPIToken();
   const accessToken: IGetAccessTokenDictAttr | undefined = _.isUndefined(data)
@@ -106,6 +111,8 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               <Field
                 component={FormikDate}
                 dataTestId={"expiration-time-input"}
+                maxDate={sixMonthsLater}
+                minDate={oneDayLater}
                 name={"expirationTime"}
                 type={"date"}
                 validate={composeValidators([

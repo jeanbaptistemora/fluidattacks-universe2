@@ -16,6 +16,8 @@ interface IDateProps extends FieldProps {
   dataTestId?: string;
   id?: string;
   input: Omit<FieldInputProps<string>, "value"> & { value: string };
+  maxDate?: string;
+  minDate?: string;
 }
 
 export const FormikDate: React.FC<IDateProps> = (
@@ -23,7 +25,8 @@ export const FormikDate: React.FC<IDateProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<IDateProps>
 ): JSX.Element => {
-  const { customChange, dataTestId, disabled, id, field } = props;
+  const { customChange, dataTestId, disabled, id, field, maxDate, minDate } =
+    props;
   const { name, onBlur, onChange } = field;
   const { value }: { value: string | undefined } = field;
 
@@ -42,6 +45,8 @@ export const FormikDate: React.FC<IDateProps> = (
         data-testid={dataTestId}
         disabled={disabled}
         id={id}
+        max={maxDate}
+        min={minDate}
         name={name}
         onBlur={onBlur}
         onChange={handleChange}
