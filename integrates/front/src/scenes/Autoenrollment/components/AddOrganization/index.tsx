@@ -9,13 +9,13 @@ import { Form, Formik } from "formik";
 // eslint-disable-next-line import/no-named-default
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { array, object, string } from "yup";
+import { object, string } from "yup";
 
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Checkbox, Input, Select, TextArea } from "components/Input";
+import { Input, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
@@ -87,7 +87,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       )
       .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
     reportLanguage: string().required(t("validations.required")),
-    terms: array().of(string()).required().length(1, t("validations.required")),
   });
 
   return (
@@ -141,24 +140,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 placeholder={t("autoenrollment.groupDescription.placeholder")}
               />
             </Col>
-            <Col lg={100} md={100} sm={100}>
-              <Checkbox
-                label={
-                  <Text>
-                    {t("autoenrollment.acceptTerms")}
-                    <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-                      {t("autoenrollment.termsOfService")}
-                    </ExternalLink>
-                    {t("autoenrollment.and")}
-                    <ExternalLink href={"https://fluidattacks.com/privacy/"}>
-                      {t("autoenrollment.privacyPolicy")}
-                    </ExternalLink>
-                  </Text>
-                }
-                name={"terms"}
-                value={"accept"}
-              />
-            </Col>
             {!showSubmitAlert && orgMessages.message !== "" ? (
               <Alert
                 onTimeOut={setShowSubmitAlert}
@@ -173,6 +154,16 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               {t("autoenrollment.proceed")}
             </Button>
           </div>
+          <Text>
+            {t("autoenrollment.acceptTerms")}
+            <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+              {t("autoenrollment.termsOfService")}
+            </ExternalLink>
+            {t("autoenrollment.and")}
+            <ExternalLink href={"https://fluidattacks.com/privacy/"}>
+              {t("autoenrollment.privacyPolicy")}
+            </ExternalLink>
+          </Text>
         </Form>
       </Formik>
     </div>

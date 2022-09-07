@@ -293,7 +293,7 @@ export const enTranslations: ResourceKey = {
       },
       name: {
         label: "Credential name",
-        placeholder: "Name or sentence to identify these credentials",
+        placeholder: "Word/phrase identifier",
       },
       password: "Password",
       sshKey: "Private SSH Key",
@@ -306,8 +306,9 @@ export const enTranslations: ResourceKey = {
       user: "User",
     },
     environment: {
-      label: "Description of the application environment",
+      label: "Environment kind",
       placeholder: "qa",
+      tooltip: "Description of the application environment",
     },
     exclusions: {
       label: "Exclusions ",
