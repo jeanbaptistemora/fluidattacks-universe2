@@ -59,7 +59,7 @@ async def expire(
 ) -> None:
     try:
         LOGGER.info(
-            "Will expire group %s, created_by %s, start_date: %s",
+            "Will expire group %s, created_by %s, start_date %s",
             group.name,
             group.created_by,
             enrollment.trial.start_date,
@@ -84,7 +84,11 @@ async def expire(
             group_name=group.name,
         )
     except InvalidManagedChange:
-        LOGGER.exception("Couldn't expire %s", group.name)
+        LOGGER.exception(
+            "Couldn't expire group %s, managed %s",
+            group.name,
+            group.state.managed,
+        )
 
 
 def get_remaining_days(enrollment: Enrollment) -> int:

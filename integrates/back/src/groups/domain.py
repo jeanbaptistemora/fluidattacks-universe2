@@ -460,8 +460,13 @@ async def update_group_managed(
 
     if managed != group.state.managed:
         if (
-            managed == "MANAGED" and group.state.managed == "UNDER_REVIEW"
-        ) or (managed == "UNDER_REVIEW" and group.state.managed == "MANAGED"):
+            managed == GroupManaged.MANAGED
+            and group.state.managed == GroupManaged.UNDER_REVIEW
+        ) or (
+            managed == GroupManaged.UNDER_REVIEW
+            and group.state.managed
+            in {GroupManaged.MANAGED, GroupManaged.TRIAL}
+        ):
             await update_state(
                 group_name=group_name,
                 organization_id=group.organization_id,
