@@ -12,6 +12,16 @@ interface IRoot {
   state: ResourceState!
 }
 
+"Root environment url definition"
+interface EnvironmentUrl {
+  "Date of creation"
+  createdAt: DateTime
+  "GitRoot environment url"
+  id: String!
+  "Environment url"
+  url: String!
+}
+
 "Definition for language distribution in a repository"
 type CodeLanguages {
   "Name of the language"
@@ -19,7 +29,6 @@ type CodeLanguages {
   "Number of lines of code"
   loc: Int!
 }
-
 
 "Git Root cloning status definition"
 type GitRootCloningStatus {
@@ -32,7 +41,7 @@ type GitRootCloningStatus {
 }
 
 "Git Root environment url definition"
-type GitEnvironmentUrl {
+type GitEnvironmentUrl implements EnvironmentUrl {
   "Date of creation"
   createdAt: DateTime
   "GitRoot environment url"
@@ -89,10 +98,24 @@ type GitRoot implements IRoot {
   vulnerabilities: [Vulnerability!]
 }
 
+"Ip Root environment url definition"
+type IpEnvironmentUrl implements EnvironmentUrl {
+  "Date of creation"
+  createdAt: DateTime
+  "GitRoot environment url"
+  id: String!
+  "Environment url"
+  url: String!
+  "Environment url type"
+  urlType: IpEnvironmentUrlType!
+}
+
 "IP Root type definition"
 type IPRoot implements IRoot {
   "IP address of the environment to test"
   address: String!
+  "URLs to access the environment"
+  environmentUrls: [IpEnvironmentUrl!]!
   "ID of the root"
   id: ID!
   "Nickname for the root"
@@ -105,7 +128,7 @@ type IPRoot implements IRoot {
   vulnerabilities: [Vulnerability!]
 }
 
-"Git root secret"
+"Root secret"
 type Secret {
   "Description of secret"
   description: String

@@ -423,8 +423,6 @@ enum EnrollmentTrialState {
   TRIAL_ENDED
 }
 
-
-
 "Approval status of an organization finding policy"
 enum OrganizationFindingPolicy {
   "Policy was approved and enacted"
@@ -705,7 +703,7 @@ enum CredentialType {
   SSH
 }
 
-"Environment url types"
+"Git Environment url types"
 enum GitEnvironmentCloud {
   "APK"
   APK
@@ -713,4 +711,10 @@ enum GitEnvironmentCloud {
   CLOUD
   "URl"
   URL
+}
+
+"Ip Environment types"
+enum IpEnvironmentUrlType {
+  "APK"
+  APK
 }
