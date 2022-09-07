@@ -63,7 +63,7 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
               );
             })}
           </ul>
-          <AirsLink href={"https://app.fluidattacks.com/"}>
+          <AirsLink href={"https://app.fluidattacks.com/#trial"}>
             <NewRegularRedButton>
               {translate.t("freeTrial.button")}
             </NewRegularRedButton>
