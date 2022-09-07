@@ -139,26 +139,36 @@ async def get_all_subscriptions(
 )
 async def _send_analytics_report(
     *,
-    event_frequency: str,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    frequency: SubscriptionFrequency,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    try:
-        if await _should_not_send_report(
-            loaders=loaders,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
-        ):
+    if entity == SubscriptionEntity.GROUP:
+        group_name = subject.lower()
+        group: Group = await loaders.group.load(group_name)
+        if group.state.status == GroupStateStatus.DELETED:
+            await unsubscribe(
+                entity=entity,
+                subject=subject,
+                email=email,
+            )
             return
 
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    if (
+        Notification.CHARTS_REPORT
+        not in stakeholder.notifications_preferences.email
+    ):
+        return
+
+    try:
         image_url: str = await reports.expose_bytes_as_url(
             content=base64.b64decode(
                 await analytics_domain.get_graphics_report(
-                    entity=report_entity.lower(),
-                    subject=report_subject,
+                    entity=entity.lower(),
+                    subject=subject,
                 )
             ),
             ext="png",
@@ -170,70 +180,37 @@ async def _send_analytics_report(
             ex,
             extra={
                 "extra": dict(
-                    report_entity=report_entity,
-                    report_subject=report_subject,
-                    user_email=user_email,
+                    entity=entity,
+                    subject=subject,
+                    email=email,
                 )
             },
         )
         return
 
-    report_entity = report_entity.lower()
-    if report_entity == "organization":
-        organization: Organization = await loaders.organization.load(
-            report_subject
-        )
-        report_subject = organization.name
-    elif report_entity == "portfolio":
-        report_subject = report_subject.split("PORTFOLIO#")[-1]
+    if entity == SubscriptionEntity.ORGANIZATION:
+        organization: Organization = await loaders.organization.load(subject)
+        subject = organization.name
+    elif entity == SubscriptionEntity.PORTFOLIO:
+        subject = subject.split("PORTFOLIO#")[-1]
 
-    report_subject = report_subject.lower()
-
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    if (
-        Notification.CHARTS_REPORT
-        in stakeholder.notifications_preferences.email
-    ):
-        await analytics_mail.send_mail_analytics(
-            get_new_context(),
-            user_email,
-            date=datetime_utils.get_as_str(
-                datetime_utils.get_now(), "%Y/%m/%d"
-            ),
-            frequency_title=event_frequency.title(),
-            frequency_lower=event_frequency.lower(),
-            image_src=image_url,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            report_subject_title=report_subject.title(),
-            report_entity_percent=quote_plus(_translate_entity(report_entity)),
-            report_subject_percent=quote_plus(report_subject),
-        )
-
+    await analytics_mail.send_mail_analytics(
+        loaders,
+        email,
+        date=datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d"),
+        frequency_title=frequency.title(),
+        frequency_lower=frequency.lower(),
+        image_src=image_url,
+        report_entity=entity,
+        report_subject=subject.lower(),
+        report_subject_title=subject.title(),
+        report_entity_percent=quote_plus(_translate_entity(entity)),
+        report_subject_percent=quote_plus(subject.lower()),
+    )
     LOGGER.info(
         "- analytics email sent to user",
-        extra={"extra": dict(user_email=user_email)},
+        extra={"extra": dict(email=email)},
     )
-
-
-async def _should_not_send_report(
-    *,
-    loaders: Dataloaders,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
-) -> bool:
-    if report_entity.lower() == "group":
-        group_name = report_subject.lower()
-        group: Group = await loaders.group.load(group_name)
-        if group.state.status == GroupStateStatus.DELETED:
-            await unsubscribe_user_to_entity_report(
-                report_entity=report_entity,
-                report_subject=report_subject,
-                user_email=user_email,
-            )
-            return True
-    return False
 
 
 async def subscribe_user_to_entity_report(
@@ -244,10 +221,10 @@ async def subscribe_user_to_entity_report(
     user_email: str,
 ) -> None:
     if event_frequency.lower() == "never":
-        await unsubscribe_user_to_entity_report(
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
+        await unsubscribe(
+            entity=SubscriptionEntity[report_entity],
+            subject=report_subject,
+            email=user_email,
         )
     else:
         subscription = Subscription(
@@ -258,10 +235,10 @@ async def subscribe_user_to_entity_report(
         )
         await subscriptions_dal.add(subscription=subscription)
         await _send_analytics_report(
-            event_frequency=event_frequency,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
+            frequency=SubscriptionFrequency[event_frequency],
+            entity=SubscriptionEntity[report_entity],
+            subject=report_subject,
+            email=user_email,
         )
         LOGGER.info(
             "User subscribed correctly",
@@ -276,16 +253,16 @@ async def subscribe_user_to_entity_report(
         )
 
 
-async def unsubscribe_user_to_entity_report(
+async def unsubscribe(
     *,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> None:
     await subscriptions_dal.remove(
-        report_entity=report_entity,
-        report_subject=report_subject,
-        user_email=user_email,
+        entity=entity,
+        subject=subject,
+        email=email,
     )
 
 
@@ -302,10 +279,10 @@ async def _validate_subscription(subscription: Subscription) -> bool:
         return True
     # Unsubscribe this stakeholder, he won't even notice as he no longer
     #   has access to the requested resource
-    await unsubscribe_user_to_entity_report(
-        report_entity=subscription.entity,
-        report_subject=subscription.subject,
-        user_email=subscription.email,
+    await unsubscribe(
+        entity=subscription.entity,
+        subject=subscription.subject,
+        email=subscription.email,
     )
     return False
 
@@ -316,16 +293,16 @@ async def _process_subscription(
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER.warning(
-            "- user without access, unsubscribed",
+            "- stakeholder without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
         )
         return
     try:
         await _send_analytics_report(
-            event_frequency=subscription.frequency,
-            report_entity=subscription.entity,
-            report_subject=subscription.subject,
-            user_email=subscription.email,
+            frequency=subscription.frequency,
+            entity=subscription.entity,
+            subject=subscription.subject,
+            email=subscription.email,
         )
     except UnableToSendMail as ex:
         LOGGER.exception(ex, extra={"extra": {"subscription": subscription}})

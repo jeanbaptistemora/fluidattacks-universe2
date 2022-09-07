@@ -5,6 +5,9 @@
 from db_model import (
     TABLE,
 )
+from db_model.subscriptions.enums import (
+    SubscriptionEntity,
+)
 from dynamodb import (
     keys,
 )
@@ -15,16 +18,16 @@ from dynamodb.operations import (
 
 async def remove(
     *,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_subscription"],
         values={
-            "email": user_email,
-            "entity": report_entity.lower(),
-            "subject": report_subject,
+            "email": email,
+            "entity": entity.lower(),
+            "subject": subject,
         },
     )
 

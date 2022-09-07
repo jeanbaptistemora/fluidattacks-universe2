@@ -7,6 +7,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from db_model.subscriptions.enums import (
+    SubscriptionEntity,
     SubscriptionFrequency,
 )
 from db_model.subscriptions.types import (
@@ -111,9 +112,9 @@ async def add(*, subscription: Subscription) -> None:
 
 async def remove(
     *,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> None:
     await dynamodb_ops.delete_item(
         delete_attrs=dynamodb_ops.DynamoDelete(
@@ -121,14 +122,14 @@ async def remove(
                 pk=mapping_to_key(
                     {
                         "meta": "user",
-                        "email": user_email,
+                        "email": email,
                     }
                 ),
                 sk=mapping_to_key(
                     {
                         "meta": "entity_report",
-                        "entity": report_entity,
-                        "subject": report_subject,
+                        "entity": entity,
+                        "subject": subject,
                     }
                 ),
             )

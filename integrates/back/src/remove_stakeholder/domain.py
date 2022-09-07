@@ -13,6 +13,9 @@ from custom_exceptions import (
     InvalidAuthorization,
     UnableToSendMail,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     group_access as group_access_model,
 )
@@ -72,7 +75,7 @@ from stakeholders import (
     domain as stakeholders_domain,
 )
 from subscriptions.domain import (
-    unsubscribe_user_to_entity_report,
+    unsubscribe,
 )
 from typing import (
     Any,
@@ -87,7 +90,7 @@ mail_confirm_deletion = retry_on_exceptions(
 
 
 async def remove_stakeholder_all_organizations(
-    *, loaders: Any, email: str, modified_by: str
+    *, loaders: Dataloaders, email: str, modified_by: str
 ) -> None:
     organizations: tuple[
         OrganizationAccess, ...
@@ -110,10 +113,10 @@ async def remove_stakeholder_all_organizations(
     ] = await loaders.stakeholder_subscriptions.load(email)
     await collect(
         tuple(
-            unsubscribe_user_to_entity_report(
-                report_entity=subscription.entity,
-                report_subject=subscription.subject,
-                user_email=email,
+            unsubscribe(
+                entity=subscription.entity,
+                subject=subscription.subject,
+                email=email,
             )
             for subscription in subscriptions
         )
@@ -150,7 +153,7 @@ async def remove_stakeholder_all_organizations(
     await stakeholders_domain.remove(loaders=loaders, email=email)
 
 
-async def complete_deletion(*, loaders: Any, email: str) -> None:
+async def complete_deletion(*, loaders: Dataloaders, email: str) -> None:
     await group_access_model.remove(email=email, group_name="confirm_deletion")
     await remove_stakeholder_all_organizations(
         loaders=loaders,
@@ -178,7 +181,7 @@ async def complete_deletion(*, loaders: Any, email: str) -> None:
 
 async def get_email_from_url_token(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     url_token: str,
 ) -> str:
     try:
@@ -206,7 +209,7 @@ async def get_email_from_url_token(
 
 async def get_confirm_deletion(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> Optional[GroupAccess]:
     if await group_access_domain.exists(loaders, "confirm_deletion", email):
@@ -220,7 +223,7 @@ async def get_confirm_deletion(
 
 async def confirm_deletion_mail(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
 ) -> bool:
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
