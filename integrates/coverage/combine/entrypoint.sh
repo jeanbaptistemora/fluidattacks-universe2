@@ -7,11 +7,9 @@
 function main {
   local coverage_args=(
     --omit="back/migrations/*"
-    --skip-empty
-    -i
+    --ignore-errors
   )
   pushd integrates \
-    && ls -al \
     && coverage combine \
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \

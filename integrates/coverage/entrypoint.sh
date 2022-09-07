@@ -7,13 +7,13 @@
 function main {
   local coverage_args=(
     --omit="back/migrations/*"
-    --skip-empty
-    -i
+    --ignore-errors
   )
 
   : \
     && aws_login "dev" "3600" \
     && pushd integrates \
+    && coverage run --data-file='.coverage.back.src' --source='back/src' "$(mktemp)" \
     && coverage combine \
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
