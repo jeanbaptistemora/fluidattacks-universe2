@@ -14,11 +14,11 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_types import (
-    DynamoDelete,
-)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
+)
+from dynamodb.operations_legacy import (
+    DynamoDelete,
 )
 from groups import (
     dal as groups_dal,

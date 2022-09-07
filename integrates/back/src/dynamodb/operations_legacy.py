@@ -8,9 +8,6 @@ from contextlib import (
 from custom_exceptions import (
     UnavailabilityError,
 )
-from custom_types import (
-    DynamoDelete as DynamoDeleteType,
-)
 from decimal import (
     Decimal,
 )
@@ -24,10 +21,15 @@ from typing import (
     Any,
     Dict,
     List,
+    NamedTuple,
 )
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+class DynamoDelete(NamedTuple):
+    Key: dict[str, Any]
 
 
 @asynccontextmanager
@@ -36,7 +38,7 @@ async def client() -> aioboto3.session.Session.client:
         yield dynamodb_client
 
 
-async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
+async def delete_item(table: str, delete_attrs: DynamoDelete) -> bool:
     success: bool = False
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)

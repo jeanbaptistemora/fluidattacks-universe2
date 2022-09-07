@@ -55,10 +55,6 @@ class DownloadFilePayload(NamedTuple):
     url: str
 
 
-class DynamoDelete(NamedTuple):
-    Key: dict[str, Any]
-
-
 class UpdateStakeholderPayload(NamedTuple):
     success: bool
     modified_stakeholder: dict[str, Any]

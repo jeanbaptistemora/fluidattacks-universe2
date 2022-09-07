@@ -29,9 +29,6 @@ from context import (
     FI_ENVIRONMENT,
     UNIVERSE_API_TOKEN,
 )
-from custom_types import (
-    DynamoDelete,
-)
 from datetime import (
     datetime,
 )
@@ -403,7 +400,8 @@ async def delete_action(
             subject=subject,  # type: ignore
         )
         return await dynamodb_ops.delete_item(
-            delete_attrs=DynamoDelete(Key=dict(pk=key)), table=TABLE_NAME
+            delete_attrs=dynamodb_ops.DynamoDelete(Key=dict(pk=key)),
+            table=TABLE_NAME,
         )
     except ClientError as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))

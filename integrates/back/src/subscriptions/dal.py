@@ -2,9 +2,6 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from custom_types import (
-    DynamoDelete,
-)
 from db_model.subscriptions.types import (
     Subscription,
 )
@@ -110,7 +107,7 @@ async def remove(
     user_email: str,
 ) -> None:
     await dynamodb_ops.delete_item(
-        delete_attrs=DynamoDelete(
+        delete_attrs=dynamodb_ops.DynamoDelete(
             Key=dict(
                 pk=mapping_to_key(
                     {
