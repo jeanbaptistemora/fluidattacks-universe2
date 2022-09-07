@@ -87,7 +87,7 @@ the latest version was `5.15.57.1`.
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-02_171509.webp)
 
-Make sure that you have partitionable GPUs
+Make sure that you have partitionable GPUs on the host
 using `Get-VMHostPartitionableGpu`:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172158.webp)
@@ -99,7 +99,7 @@ adapter didn't support debugging:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172126.webp)
 
-So I had to use another approach. Luckily, Windows has several
+I had to use another approach. Luckily, Windows has several
 ways to be debugged. In this case, I chose to use
 [USB3 debugging](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-usb-3-0-debug-cable-connection).
 To do that, I had to:
@@ -182,7 +182,7 @@ interactions:
    on the `dxgmms1.sys` and `dxgmms2.sys` drivers.
 10. The MMS system is finally in charge to talk with the
     corresponding GPU driver, which exposes the adapter that
-    can virtual or physical.
+    can either be virtual or physical.
 11. In the end, the response is sent back to the VM
     via `dxgkrnl!VmBusCompletePacket`.
 
@@ -298,8 +298,11 @@ is now populated:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151051.webp)
 
-Now, let's check at the host running Windows. We're
-going to need to set a few breakpoints to check the
+Now, let's check at the host running Windows. We
+should be able to witness the creating of the device
+handler (`0x40000000`) on a `dxgkrnl!VmBusCompletePacket`
+response.
+We're going to need to set a few breakpoints to check the
 flow. First, let's put a breakpoint
 at `dxgkrnl!VmBusProcessPacket`
 
@@ -316,7 +319,7 @@ which is added when the kernel is compiled with
 
 Let's put another breakpoint there:
 
-![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662482749/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_114526.webp)
+![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662551624/blog/offensive-hyperv-directx-1/Screenshot_2022-09-07_065335.webp)
 
 Now, let's put a breakpoint
 at `dxgkrnl!VmBusExecuteCommandInProcessContext`:
@@ -339,9 +342,10 @@ We should now have five breakpoints as follows:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481153/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_160835.webp)
 
-I'm going to
-reference the steps described above in the following
-execution flow. When we run the sample code again,
+I'm going to reference the steps described above
+in the following execution flow.
+
+When we run the sample code again,
 it hits our first breakpoint (step 5):
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151349.webp)
@@ -401,7 +405,7 @@ the dirty job (step 9):
 And finally, when we continue the execution, the breakpoint
 at `dxgkrnl!VmBusProcessPacket` is hit. According to
 [this article](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/vmbuskernelmodeclientlibapi/nc-vmbuskernelmodeclientlibapi-fn_vmb_channel_packet_complete),
-the second parameter of the function `dxgkrnl!VmBusProcessPacket`
+the second parameter of the function `dxgkrnl!VmBusCompletePacket`
 is the data to be sent back to the caller (step 11). It means
 that if we check the double word data pointed by the
 `rdx` register, we should see the device handler (`0x40000000`)
@@ -420,7 +424,7 @@ You can understand most of the internals by
 [reading](../../categories/sast/) the WSL code,
 performing [reverse engineering](../../categories/re/) of the
 Windows drivers and doing
-[kernel debugging](../../categories/dast/).
+[kernel debugging](../windows-kernel-debugging/).
 In the next article, we will see that most of the `dxgkrnl`
 commands are not stateless and some of them depends on
 creating certain kernel objects first. We will also see how
