@@ -12,12 +12,14 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart import (
+    format_csv_data,
+)
 from charts.generators.bar_chart.mttr_benchmarking_cvssf import (
     _get_historic_verification,
 )
 from charts.generators.bar_chart.utils import (
     Benchmarking,
-    format_csv_data,
     get_valid_subjects,
     get_vulnerability_reattacks,
     GROUP_CATEGORIES,
@@ -51,12 +53,27 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+import math
 from organizations.domain import (
     get_all_active_group_names,
 )
 from statistics import (
     mean,
 )
+
+
+def format_cvssf_log(cvssf: Decimal) -> Decimal:
+    if cvssf <= Decimal("0.0"):
+        return cvssf.quantize(Decimal("0.1"))
+
+    return Decimal(math.log2(cvssf))
+
+
+def format_max_value(data: tuple[Decimal, ...]) -> Decimal:
+    if data:
+        return sorted(data, reverse=True)[0]
+
+    return Decimal("1.0")
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -118,7 +135,7 @@ async def get_data_many_groups(
             Decimal("0.1")
         )
         if groups_data
-        else Decimal("Infinity")
+        else Decimal("0.0")
     )
     number_of_reattacks = sum(
         group_data.number_of_reattacks for group_data in groups_data
@@ -173,12 +190,7 @@ def format_data(
             columns=[
                 [
                     "Exposure",
-                    Decimal("0.0")
-                    if data[0] == Decimal("Infinity")
-                    else data[0].quantize(Decimal("0.1")),
-                    data[1],
-                    data[2],
-                    data[3],
+                    *[format_cvssf_log(value) for value in data],
                 ]
             ],
             colors={
@@ -203,6 +215,13 @@ def format_data(
                 ),
             ),
         ),
+        maxValue=format_max_value(data),
+        maxValueLog=format_max_value(
+            tuple(format_cvssf_log(value) for value in data)
+        ),
+        originalValues=[
+            Decimal(value).quantize(Decimal("0.1")) for value in data
+        ],
     )
 
 
