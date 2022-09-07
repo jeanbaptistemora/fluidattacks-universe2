@@ -26,6 +26,9 @@ from ctx import (
 from custom_exceptions import (
     NoOutputFilePathSpecified,
 )
+from dast.aws.analyze import (
+    analyze as analyze_dast_aws,
+)
 from datetime import (
     datetime,
 )
@@ -162,9 +165,9 @@ async def execute_skims(
             await analyze_ssl(stores=stores)
         if config.dast.http.include:
             await analyze_http(stores=stores)
-        # for aws_cred in config.dast.aws_credentials:
-        #     if aws_cred:
-        #         await analyze_dast_aws(credentials=aws_cred, stores=stores)
+        for aws_cred in config.dast.aws_credentials:
+            if aws_cred:
+                await analyze_dast_aws(credentials=aws_cred, stores=stores)
     if config.execution_id:
         await _upload_csv_result(stores)
         await upload_sarif_result(config, stores)
