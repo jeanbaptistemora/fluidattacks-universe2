@@ -1,9 +1,7 @@
 {
   "axis:axis": {
     "CVE-2012-5784": "<=1.4",
-    "CVE-2014-3596": "<=1.4",
-    "SNYK-JAVA-AXIS-30071": "<=1.4",
-    "SNYK-JAVA-AXIS-30189": "<=1.4"
+    "CVE-2014-3596": "<=1.4"
   },
   "ballerina:ballerina-lang": {
     "GHSA-f5qg-fqrw-v5ww": ">=0 <1.2.14"
@@ -13,12 +11,6 @@
   },
   "ca.juliusdavies:not-yet-commons-ssl": {
     "CVE-2014-3604": ">=0 <=0.3.13"
-  },
-  "ca.uhn.hapi.fhir:hapi-fhir-base": {
-    "SNYK-JAVA-CAUHNHAPIFHIR-1290498": "<5.4.0"
-  },
-  "ch.qos.logback:logback-classic": {
-    "SNYK-JAVA-CHQOSLOGBACK-31407": ">=0.3 <1.2.0"
   },
   "cn.fxbin.bubble:bubble-fireworks-core": {
     "GHSA-hj36-84cp-29pr": ">=0 <2021.5"
@@ -39,36 +31,14 @@
     "GHSA-6q3p-36f4-cwxv": "<=2.2.9",
     "GHSA-729f-wvj3-c4pj": "<=2.2.9"
   },
-  "com.fasterxml.jackson.core:jackson-core": {
-    "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31519": "<2.8.6",
-    "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31520": ">=2.3.0-rc1 <2.7.7"
-  },
-  "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": {
-    "SNYK-JAVA-COMFASTERXMLJACKSONDATATYPE-173759": "<2.9.8"
-  },
-  "com.google.code.gson:gson": {
-    "SNYK-JAVA-COMGOOGLECODEGSON-1730327": "<2.8.9"
-  },
-  "com.jcraft:jsch": {
-    "SNYK-JAVA-COMJCRAFT-30302": ">=0.1.29 <0.1.54"
-  },
   "com.newrelic.agent.java:newrelic-agent": {
     "NR21-03": ">=4.12.0 <6.5.2 || >=7.0.0 <7.4.2"
   },
   "com.newrelic.agent.java:newrelic-java": {
     "NR21-03": ">=4.12.0 <6.5.2 || >=7.0.0 <7.4.2"
   },
-  "com.nimbusds:oauth2-oidc-sdk": {
-    "SNYK-JAVA-COMNIMBUSDS-1243767": ">=5.0 <8.36.2 || >=9.0 <9.3.1"
-  },
   "com.opensymphony:xwork": {
     "CVE-2008-6504": ">=2.0-alpha0 <=2.0.5 || >=2.1-alpha0 <=2.1.1"
-  },
-  "com.oracle:ojdbc7": {
-    "SNYK-JAVA-COMORACLE-572380": "<=12.1.0.2"
-  },
-  "com.oracle:ojdbc8": {
-    "SNYK-JAVA-COMORACLE-572379": ">=12.1.0 <12.2.0.1"
   },
   "com.sap.scimono:scimono-server": {
     "GHSA-29q4-gxjq-rx5c": ">=0 <0.0.19"
@@ -81,9 +51,6 @@
   },
   "com.splunk.logging:splunk-library-javalogging": {
     "GHSA-94g7-hpv8-h9qm": "<1.11.1"
-  },
-  "com.starkbank.ellipticcurve:starkbank-ecdsa": {
-    "SNYK-JAVA-COMSTARKBANKELLIPTICCURVE-1913039": "<1.0.1"
   },
   "com.starkbank:ecdsa-java": {
     "GHSA-9wx7-jrvc-28mm": "1.0.0"
@@ -101,9 +68,6 @@
   },
   "commons-beanutils:commons-beanutils": {
     "CVE-2014-0114": ">=0 <=1.9.1"
-  },
-  "commons-codec:commons-codec": {
-    "SNYK-JAVA-COMMONSCODEC-561518": "<1.13"
   },
   "commons-collections:commons-collections": {
     "CVE-2015-6420": "4.0.0 || >=0 <=3.2.1"
@@ -131,33 +95,20 @@
   "dev.personnummer:personnummer": {
     "GHSA-q3vw-4jx3-rrr2": "<1.0.1"
   },
-  "dom4j:dom4j": {
-    "SNYK-JAVA-DOM4J-174153": "<=1.6.1"
-  },
   "io.jenkins.plugins:folder-auth": {
     "GHSA-5vjc-qx43-r747": "<1.4"
   },
   "io.netty:netty": {
     "CVE-2014-3488": ">=3.9-alpha0 <=3.9.1.final"
   },
-  "io.springfox:springfox-swagger-ui": {
-    "SNYK-JAVA-IOSPRINGFOX-1075064": "<2.10.0"
-  },
-  "io.springfox:springfox-swagger2": {
-    "SNYK-JAVA-IOSPRINGFOX-1317096": ">=2.10.0 <=3.0.0"
-  },
   "io.undertow:undertow-core": {
-    "CVE-2014-7816": ">=1.0-alpha0 <=1.0.16.final || >=1.1-alpha0 <=1.1.0.cr4 || >=1.2-alpha0 <=1.2.0.beta2",
-    "SNYK-JAVA-IOUNDERTOW-2391283": "<2.2.15.final"
+    "CVE-2014-7816": ">=1.0-alpha0 <=1.0.16.final || >=1.1-alpha0 <=1.1.0.cr4 || >=1.2-alpha0 <=1.2.0.beta2"
   },
   "io.whitesource:curekit": {
     "VE-2022-23082": ">=1.0.1 <=1.1.3"
   },
   "javax.faces:jsf-impl": {
     "CVE-2013-5855": ">=1.2_03 <2.0.0"
-  },
-  "javax.servlet:jstl": {
-    "SNYK-JAVA-JAVAXSERVLET-30449": "<=1.2.1"
   },
   "jline:jline": {
     "CVE-2010-1330": ">=0 <1.4.1",
@@ -193,23 +144,11 @@
     "CVE-2015-0263": ">=0 <=2.13.3 || >=2.14-alpha0 <=2.14.1",
     "CVE-2015-0264": ">=0 <=2.13.3 || >=2.14-alpha0 <=2.14.1"
   },
-  "org.apache.camel:camel-cxf": {
-    "SNYK-JAVA-ORGAPACHECAMEL-30536": "<2.16.4 || >=2.17.0 <2.17.1"
-  },
-  "org.apache.camel:camel-http": {
-    "SNYK-JAVA-ORGAPACHECAMEL-474289": ">=2.12.0 <2.15.5 || >=2.16.0 <2.16.1"
-  },
-  "org.apache.camel:camel-http4": {
-    "SNYK-JAVA-ORGAPACHECAMEL-30539": ">=2.16.0 <2.16.1 || >=2.6.0 <2.15.5"
-  },
   "org.apache.camel:camel-jackson": {
     "CVE-2016-9571": ">=0 <=2.16.4 || >=2.17-alpha0 <=2.17.4 || >=2.18-alpha0 <=2.18.1"
   },
   "org.apache.camel:camel-jacksonxml": {
     "CVE-2016-9571": ">=2.16-alpha0 <=2.16.4 || >=2.17-alpha0 <=2.17.4 || >=2.18-alpha0 <=2.18.1"
-  },
-  "org.apache.camel:camel-xmljson": {
-    "SNYK-JAVA-ORGAPACHECAMEL-174808": "<2.24.0"
   },
   "org.apache.cassandra:cassandra-all": {
     "CVE-2015-0225": ">=1.2-alpha0 <=1.2.19 || >=2.0-alpha0 <=2.0.13 || >=2.1-alpha0 <=2.1.3"
@@ -219,9 +158,6 @@
   },
   "org.apache.commons:commons-compress": {
     "CVE-2012-2098": ">=0 <1.4.1"
-  },
-  "org.apache.commons:commons-dbcp2": {
-    "SNYK-JAVA-ORGAPACHECOMMONS-559327": "<2.9.0"
   },
   "org.apache.cxf.fediz:fediz-jetty8": {
     "GHSA-w3gh-g32m-cvhr": "<1.4.4"
@@ -270,11 +206,6 @@
   "org.apache.flink:flink-runtime_2.12": {
     "GHSA-395w-qhqr-9fr6": "<1.11.3"
   },
-  "org.apache.hadoop:hadoop-core": {
-    "SNYK-JAVA-ORGAPACHEHADOOP-1020811": ">=3.0.0 <3.0.1",
-    "SNYK-JAVA-ORGAPACHEHADOOP-30629": "<1.2.1",
-    "SNYK-JAVA-ORGAPACHEHADOOP-31574": "<1.0.4"
-  },
   "org.apache.hive:hive-exec": {
     "GHSA-w4x9-4f5x-8jj8": "<0.13.1"
   },
@@ -318,9 +249,6 @@
   },
   "org.apache.solr:solr-velocity": {
     "CVE-2013-6397": ">=0 <=4.5.1"
-  },
-  "org.apache.spark:spark-core_2.10": {
-    "SNYK-JAVA-ORGAPACHESPARK-1586030": "<=2.2.3"
   },
   "org.apache.struts:struts2-config-browser-plugin": {
     "CVE-2013-6348": ">=2-alpha0 <=2.3.15.3"
@@ -397,18 +325,11 @@
   "org.directwebremoting:dwr": {
     "CVE-2007-0185": "<1.1.4"
   },
-  "org.dom4j:dom4j": {
-    "SNYK-JAVA-ORGDOM4J-32474": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.1",
-    "SNYK-JAVA-ORGDOM4J-565810": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.3"
-  },
   "org.drools:drools-core": {
     "CVE-2010-3708": "4.0.7"
   },
   "org.elasticsearch:elasticsearch": {
     "CVE-2014-6439": ">=0 <=1.3.4"
-  },
-  "org.freemarker:freemarker": {
-    "SNYK-JAVA-ORGFREEMARKER-1076795": "<2.3.30"
   },
   "org.fusesource.hawtjni:hawtjni-runtime": {
     "CVE-2013-2035": ">=1-alpha0 <=1.7"
@@ -463,9 +384,6 @@
   "org.http4s:http4s-core_2.12": {
     "GHSA-xhv5-w9c5-2r2w": ">=0 <0.21.17"
   },
-  "org.jasypt:jasypt": {
-    "SNYK-JAVA-ORGJASYPT-31668": "<1.9.2"
-  },
   "org.jboss.cache:jbosscache-core": {
     "CVE-2012-0034": "3.2.8.ga"
   },
@@ -513,9 +431,6 @@
   },
   "org.jboss.ws:jbossws-common": {
     "CVE-2011-1483": "1.1.0.sp7"
-  },
-  "org.jdom:jdom": {
-    "SNYK-JAVA-ORGJDOM-1311147": "<=2.0.2"
   },
   "org.jenkins-ci.plugins:metrics": {
     "GHSA-gg9m-x3cg-69vh": "<=4.0.2.8"
@@ -572,18 +487,11 @@
   "org.postgresql:pgjdbc-aggregate": {
     "GHSA-568q-9fw5-28wf": "<42.2.5"
   },
-  "org.quartz-scheduler:quartz": {
-    "SNYK-JAVA-ORGQUARTZSCHEDULER-461170": ">=2.0.0 <2.3.2"
-  },
   "org.richfaces.core:richfaces-core-impl": {
     "CVE-2014-0086": ">=4-alpha0 <=4.3.5.final || >=5-alpha0 <=5.0.0.alpha3"
   },
   "org.richfaces.ui:richfaces-ui": {
     "CVE-2013-2165": ">=3 <=3.3.3.final"
-  },
-  "org.springframework.batch:spring-batch-core": {
-    "SNYK-JAVA-ORGSPRINGFRAMEWORKBATCH-572008": ">=4.0.0.release <4.2.3.release",
-    "SNYK-JAVA-ORGSPRINGFRAMEWORKBATCH-73519": ">=3.0.9.release <3.0.10.release || >=4.0.0.release <4.0.2.release || >=4.1.0.release <4.1.1.release"
   },
   "org.springframework.cloud:spring-cloud-function-core": {
     "": ">=3.1.0 <3.1.7 || >=3.2.0 <3.2.3"
@@ -602,25 +510,15 @@
   },
   "org.springframework.security:spring-security-web": {
     "CVE-2010-3700": ">=3.0.0.release <3.0.4.release",
-    "CVE-2011-2732": ">=3.0.0.release <3.0.6.release",
-    "SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497": ">=0 <5.2.9.release || >=5.3.0 <5.3.7 || >=5.4.0 <5.4.3"
-  },
-  "org.springframework.ws:spring-ws-core": {
-    "SNYK-JAVA-ORGSPRINGFRAMEWORKWS-73516": "<2.4.4.release || >=3.0.0.release <3.0.6.release"
+    "CVE-2011-2732": ">=3.0.0.release <3.0.6.release"
   },
   "org.springframework:spring-beans": {
     "CVE-2010-1622": ">=2.5.0 <2.5.6 || >=3.0.0 <3.0.3"
-  },
-  "org.springframework:spring-context": {
-    "SNYK-JAVA-ORGSPRINGFRAMEWORK-31323": ">=3.2.13 <3.2.14 || >=4.1.6 <4.1.7"
   },
   "org.springframework:spring-core": {
     "CVE-2009-1190": ">=1-alpha0 <=1.2.9 || >=2-alpha0 <=2.5.6 || >=3.0-alpha0 <=3.0.0.m2",
     "CVE-2010-1622": ">=2-alpha0 <=2.5.6.sec01 || >=3.0-alpha0 <=3.0.2.release",
     "CVE-2011-2730": ">=2-alpha0 <=2.5.6.sec02 || >=3.0-alpha0 <=3.0.5.release"
-  },
-  "org.springframework:spring-jms": {
-    "SNYK-JAVA-ORGSPRINGFRAMEWORK-31327": ">=3.2.11.release <3.2.14.release || >=4.0.7.release <4.1.7.release"
   },
   "org.springframework:spring-oxm": {
     "CVE-2013-4152": ">=3.0.0.release <3.2.4.release || >=4.0.0.release <4.0.1.release"
@@ -638,41 +536,8 @@
   "org.springframework:spring-websocket": {
     "CVE-2015-0201": ">=4.1.0.release <4.1.5.release"
   },
-  "org.testng:testng": {
-    "SNYK-JAVA-ORGTESTNG-174823": "<7.0.0-beta4"
-  },
   "org.webjars.npm:jquery": {
     "GHSA-2pqj-h3vj-pqgw": ">=1.7.1 <=1.8.3"
-  },
-  "org.webjars:bootstrap": {
-    "SNYK-JAVA-ORGWEBJARS-479511": "<2.1.0"
-  },
-  "org.webjars:jquery": {
-    "SNYK-JAVA-ORGWEBJARS-479767": "<1.6.3",
-    "SNYK-JAVA-ORGWEBJARS-479771": ">=1.4.2 <1.6.2",
-    "SNYK-JAVA-ORGWEBJARS-479774": "<3.4.0",
-    "SNYK-JAVA-ORGWEBJARS-479778": ">=1.7.1 <1.9.0",
-    "SNYK-JAVA-ORGWEBJARS-479782": "<1.12.2 || >=1.12.3 <2.2.0 || >=2.2.3 <3.0.0",
-    "SNYK-JAVA-ORGWEBJARS-479786": ">=3.0.0-rc1 <3.0.0",
-    "SNYK-JAVA-ORGWEBJARS-565171": ">=1.0.3 <3.5.0",
-    "SNYK-JAVA-ORGWEBJARS-567882": ">=1.2.0 <3.5.0",
-    "SNYK-JAVA-ORGWEBJARS-569654": "<1.9.0"
-  },
-  "org.webjars:swagger-ui": {
-    "SNYK-JAVA-ORGWEBJARS-2314887": "<4.1.3",
-    "SNYK-JAVA-ORGWEBJARS-449821": "<3.18.1",
-    "SNYK-JAVA-ORGWEBJARS-449822": "<3.4.4",
-    "SNYK-JAVA-ORGWEBJARS-449832": "<2.1.0",
-    "SNYK-JAVA-ORGWEBJARS-449833": "<2.2.5",
-    "SNYK-JAVA-ORGWEBJARS-449834": "<2.2.2",
-    "SNYK-JAVA-ORGWEBJARS-449835": "<2.2.2",
-    "SNYK-JAVA-ORGWEBJARS-449836": "<2.2.2",
-    "SNYK-JAVA-ORGWEBJARS-449922": "<3.20.9",
-    "SNYK-JAVA-ORGWEBJARS-449943": "<2.1.0-m1",
-    "SNYK-JAVA-ORGWEBJARS-449945": "<2.2.2",
-    "SNYK-JAVA-ORGWEBJARS-449947": ">=3.0.2 <3.0.14",
-    "SNYK-JAVA-ORGWEBJARS-480243": "<3.23.11",
-    "SNYK-JAVA-ORGWEBJARS-575003": "<3.26.1"
   },
   "org.wildfly:wildfly-undertow": {
     "GHSA-fmr4-w67p-vh8x": "<12.0.0"
@@ -686,9 +551,6 @@
   "struts:struts": {
     "CVE-2012-1007": ">=0 <=1.3.10",
     "CVE-2014-0114": ">1.0 <=1.3.10"
-  },
-  "system.io.pipelines": {
-    "SNYK-DOTNET-SYSTEMIOPIPELINES-72389": ">=4.5.0 <4.5.1"
   },
   "taglibs:standard": {
     "CVE-2015-0254": "<1.2.3"
