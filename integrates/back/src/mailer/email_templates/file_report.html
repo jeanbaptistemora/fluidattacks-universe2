@@ -8,31 +8,54 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('File Update') }}
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('File Update') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        A file
+        {%- if state == 'added' %}
+        has been {{ state }} by
+        <strong>
+          <a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a>
+        </strong>
+        to the group <strong>{{ group_name }}</strong>:
+        {%- else %}
+        in the group <strong>{{ group_name }}</strong> has been {{ state }} by
+        <strong>
+          <a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a></strong>:
+        {%- endif %}
+      </p>
+      <p>
+        <strong>Date:</strong> {{ report_date }}<br>
+        <strong>File:</strong> {{ file_name }}<br>
+        <strong>Description:</strong> {{ file_description }}<br>
+        {%- if uploaded_date %}
+        <strong>Upload date:</strong> {{ uploaded_date }}
+        ({{ uploaded_days_to_date }} days)
+        {%- endif %}
+      </p>
+      <p></p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+      <br />
+    </div>
 
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      A file has been {{ state }} in group <strong>{{ group_name }}</strong>
-      by <strong>{{ responsible }}</strong> as {{ user_role }}.
-    </p>
-    <p>
-      <strong>File:</strong> {{ file_name }}.<br>
-      <strong>Description:</strong> {{ file_description }}.<br>
-      <strong>Moment:</strong> {{ report_date }}.
-      {% if uploaded_date %}
-        <strong>Uploaded date:</strong> {{ uploaded_date }}
-        ({{ uploaded_days_to_date }} days).
-      {% endif %}
-    </p>
-    <p></p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-    <br />
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}

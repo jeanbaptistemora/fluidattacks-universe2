@@ -15,12 +15,12 @@ SPDX-License-Identifier: MPL-2.0
     <div class="main-content">
       <p>Hi {{ name }},</p>
       <p>
-      {%- if reminder_notification %}
-      Reminder, you have events
-      {%- else %}
-      An event has been
-      {%- endif %}
-      <strong>{{ state }}</strong> in the group <strong>{{ group }}</strong>:
+        {%- if reminder_notification %}
+        Reminder, you have events
+        {%- else %}
+        An event has been
+        {%- endif %}
+        <strong>{{ state }}</strong> in the group <strong>{{ group }}</strong>:
       </p>
       <p>
         <strong>Date:</strong> {{ report_date }}<br/>
