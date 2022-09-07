@@ -8,6 +8,9 @@ Populate the draft rejection info in the respective finding historic states
 
 Execution Time:    2022-09-06 at 16:23:16 UTC-5
 Finalization Time: 2022-09-06 at 16:25:30 UTC-5
+
+Execution Time:    2022-09-07 at 16:05:52 UTC-5
+Finalization Time: 2022-09-07 at 16:08:04 UTC-5
 """
 from aioextensions import (
     collect,
@@ -32,6 +35,9 @@ from datetime import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.enums import (
+    Source,
 )
 from db_model.findings.enums import (
     DraftRejectionReason,
@@ -71,7 +77,7 @@ from typing import (
 # Constants
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-FILL_BLANKS: bool = False
+FILL_BLANKS: bool = True
 
 
 class RejectionHelper(NamedTuple):
@@ -149,7 +155,7 @@ def parse_rejection_file() -> dict[str, deque[RejectionHelper]]:
     return rejection_info
 
 
-async def update_finding_state(
+async def update_finding_historic_state(
     old_state: FindingState, helper: RejectionHelper
 ) -> None:
     """Adds the rejection data to a copy of the old state and sends it to
@@ -243,9 +249,19 @@ async def handle_blanks(
     for position, state in enumerate(leftover_states):
         if state.status == FindingStateStatus.REJECTED:
             submission = next(
-                sub_state
-                for sub_state in leftover_states[position:]
-                if sub_state.status == FindingStateStatus.SUBMITTED
+                (
+                    sub_state
+                    for sub_state in leftover_states[position:]
+                    if sub_state.status == FindingStateStatus.SUBMITTED
+                ),
+                # Some Rejected states are not followed (preceded) by a
+                # Submitted state
+                FindingState(
+                    modified_by="",
+                    modified_date=state.modified_date,
+                    source=Source.ASM,
+                    status=FindingStateStatus.SUBMITTED,
+                ),
             )
             leftover_pairs.append((state, submission))
 
@@ -264,15 +280,16 @@ async def handle_blanks(
         )
         for leftover_state, submission in leftover_pairs
     )
-    for old_state, rejection_helper in placeholders:
-        await update_finding_state(old_state, rejection_helper)
+    for placeholder in placeholders:
+        await update_finding_historic_state(
+            placeholder.old_state, placeholder.rejection
+        )
 
 
 async def handle_finding(
     loaders: Dataloaders,
     finding_id: str,
     rejections: deque[RejectionHelper],
-    group_name: str,
 ) -> None:
 
     historic_states: tuple[
@@ -294,17 +311,7 @@ async def handle_finding(
             rejections, current_date
         )
         for old_state, rejection_helper in zip(day_states, day_rejections):
-            await update_finding_state(old_state, rejection_helper)
-
-    try:
-        assert len(rejected_states) <= len(rejections)
-    except AssertionError:
-        LOGGER.info(
-            "Mismatch in %s: States: %s, Rejections: %s",
-            group_name,
-            len(rejected_states),
-            len(rejections),
-        )
+            await update_finding_historic_state(old_state, rejection_helper)
 
 
 async def handle_group(
@@ -334,7 +341,6 @@ async def handle_group(
                     loaders=loaders,
                     finding_id=finding.id,
                     rejections=rejections[finding.id],
-                    group_name=group_name,
                 )
                 for finding in all_findings
                 if finding.id in rejections
