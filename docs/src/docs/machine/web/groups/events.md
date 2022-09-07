@@ -196,32 +196,85 @@ You can leave your comments there.
 
 ## Types of events
 
-### Authorization for special attack
+### Network access issues
 
-This event type corresponds to
-situations when the hacker
-requests permission to
-exploit a vulnerability,
-anticipating that its
-exploitation may cause
-anomalous behaviors in your
-system’s infrastructure or environment.
+The network port no
+longer has internet access.
 
-### Incorrect or missing supplies
+### VPN issues
 
-This event type refers to
-situations when the testing
-environment is down or when
-you provide incorrect URLs
-or bad credentials.
+Fails on the VPN connection.
 
-### ToE different from what was agreed upon
+### Remote access issues
 
-This event type refers to
-situations when you add a
-git repository or environment
-that we didn’t agree to assess
-when the ToE was defined.
+Problems with connection methods.
+For example,
+when access to environmental
+is not possible.
+
+### Authorization special attack
+
+A specific test needs to be performed,
+which may affect availability
+or integrity and requires
+permission by the customer
+to carry out a specific test.
+
+### Client cancels project milestone
+
+Customer cancels projects.
+
+### Client explicitly suspends project
+
+The client suspends the
+project for a specified
+time or excludes a
+particular part of the ToE.
+
+### Cloning issues
+
+Some repository does not clone.
+
+### Credential issues
+
+No credentials exist,
+or those that do exist
+are not valid.
+
+### Data update required
+
+Reset user credentials or
+data changes to consume a service.
+
+### Environment issues
+
+Problems in the environment,
+either because it does not
+open or because some flow
+inside it has functional problems.
+
+### Installer issues
+
+Unable to install or error
+when installed on mobile
+or desktop application.
+
+### Missing supplies
+
+Lack of supplies
+other than credentials.
+
+### TOE differs approved
+
+In One-Shot or continuous
+service there are services
+different from those agreed
+upon or non-existent functionalities.
+
+### Other
+
+Any other problems that do not
+fall into the above categories.
 
 ## Creating an event
 
