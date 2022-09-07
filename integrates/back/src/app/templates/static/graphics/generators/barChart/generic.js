@@ -67,7 +67,7 @@ function formatLogYTick(value) {
   }
   const base = 100.0;
 
-  return Math.round(Math.pow(2.0, value) * base) / base;
+  return parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1));
 }
 
 function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
