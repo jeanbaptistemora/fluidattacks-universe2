@@ -23,7 +23,6 @@ from api.mutations import (
     add_group,
     add_group_consult,
     add_group_tags,
-    add_ip_environment_url,
     add_ip_root,
     add_machine_execution,
     add_organization,
@@ -158,7 +157,6 @@ MUTATION.set_field("addGitEnvironmentUrl", add_git_environment.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addGroupTags", add_group_tags.mutate)
-MUTATION.set_field("addIpEnvironmentUrl", add_ip_environment_url.mutate)
 MUTATION.set_field("addIpRoot", add_ip_root.mutate)
 MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field(

@@ -1656,15 +1656,6 @@ class TooManyRequests(CustomBaseException):
         super(TooManyRequests, self).__init__(msg)
 
 
-class InvalidRootEnvironmentType(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - The environment type is not valid for the type of "
-            "root"
-        )
-        super(InvalidRootEnvironmentType, self).__init__(msg)
-
-
 class InvalidRootType(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The type of the root is invalid"

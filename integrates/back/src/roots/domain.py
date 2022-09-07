@@ -21,7 +21,6 @@ from custom_exceptions import (
     HasVulns,
     InvalidField,
     InvalidParameter,
-    InvalidRootEnvironmentType,
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
@@ -1660,14 +1659,7 @@ async def add_root_environment_url(  # pylint: disable=too-many-arguments
     except KeyError as exc:
         raise InvalidField("urlType") from exc
 
-    root: Root = await loaders.root.load((group_name, root_id))
-    if (
-        isinstance(root, (URLRoot, IPRoot))
-        and _url_type is not RootEnvironmentUrlType.APK
-    ):
-        raise InvalidRootEnvironmentType()
-    if isinstance(root, (URLRoot, IPRoot)) and cloud_type is not None:
-        raise InvalidField("cloudType")
+    await loaders.root.load((group_name, root_id))
     environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),

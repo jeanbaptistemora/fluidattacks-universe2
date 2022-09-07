@@ -26,7 +26,6 @@ from api.resolvers.git_root import (
 )
 from api.resolvers.ip_root import (
     address,
-    environment_urls as ip_environment_urls,
     port as ip_port,
 )
 from api.resolvers.root import (
@@ -72,7 +71,6 @@ ENVIRONMENT_URL.set_field("secrets", environment_secrets.resolve)
 
 IPROOT: ObjectType = ObjectType("IPRoot")
 IPROOT.set_field("address", address.resolve)
-IPROOT.set_field("environmentUrls", ip_environment_urls.resolve)
 IPROOT.set_field("nickname", nickname.resolve)
 IPROOT.set_field("port", ip_port.resolve)
 IPROOT.set_field("state", state.resolve)
