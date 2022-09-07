@@ -281,8 +281,9 @@ Device created: 0x40000000
 
 Let's first look at the Linux side of things.
 First, I'm going to pause the execution on `gdb`
-at `*create_device+176` which is when the `IOCTL`
-calling to `LX_DXCREATEDEVICE` is performed:
+at `*create_device+176` (`sample1.c:43`) which is
+when the `IOCTL` calling the command `LX_DXCREATEDEVICE`
+is performed:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_150948.webp)
 
@@ -299,7 +300,7 @@ is now populated:
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481152/blog/offensive-hyperv-directx-1/Screenshot_2022-09-05_151051.webp)
 
 Now, let's check at the host running Windows. We
-should be able to witness the creating of the device
+should be able to witness the creation of the device
 handler (`0x40000000`) on a `dxgkrnl!VmBusCompletePacket`
 response.
 We're going to need to set a few breakpoints to check the
@@ -403,7 +404,7 @@ the dirty job (step 9):
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662483947/blog/offensive-hyperv-directx-1/Screenshot_2022-09-06_120538.webp)
 
 And finally, when we continue the execution, the breakpoint
-at `dxgkrnl!VmBusProcessPacket` is hit. According to
+at `dxgkrnl!VmBusCompletePacket` is hit. According to
 [this article](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/vmbuskernelmodeclientlibapi/nc-vmbuskernelmodeclientlibapi-fn_vmb_channel_packet_complete),
 the second parameter of the function `dxgkrnl!VmBusCompletePacket`
 is the data to be sent back to the caller (step 11). It means
