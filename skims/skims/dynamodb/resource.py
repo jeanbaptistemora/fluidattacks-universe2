@@ -9,10 +9,7 @@ from contextlib import (
     AsyncExitStack,
 )
 from ctx import (
-    AWS_ACCESS_KEY_ID,
     AWS_REGION_NAME,
-    AWS_SECRET_ACCESS_KEY,
-    AWS_SESSION_TOKEN,
 )
 from dynamodb.types import (
     Table,
@@ -23,9 +20,6 @@ from typing import (
 )
 
 RESOURCE_OPTIONS = {
-    "aws_access_key_id": AWS_ACCESS_KEY_ID,
-    "aws_secret_access_key": AWS_SECRET_ACCESS_KEY,
-    "aws_session_token": AWS_SESSION_TOKEN,
     "config": AioConfig(
         # The time in seconds till a timeout exception is thrown when
         # attempting to make a connection. [60]

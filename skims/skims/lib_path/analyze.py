@@ -5,8 +5,6 @@ from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
 from ctx import (
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY,
     CTX,
 )
 from functools import (
@@ -217,17 +215,6 @@ def analyze_one_path(  # noqa: MC0001
                 core_model.FindingEnum.F117,
             }:
                 continue
-
-        if finding in {
-            core_model.FindingEnum.F011,
-            core_model.FindingEnum.F393,
-        } and (AWS_ACCESS_KEY_ID is None or AWS_SECRET_ACCESS_KEY is None):
-            log_blocking(
-                "warning",
-                "Finding F%s will not be checked due to missing credentials",
-                finding.value.title.split(".")[2],
-            )
-            continue
 
         result[finding] = analyzer(
             content_generator=file_content_generator,
