@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
 # Contributing
 
 As a cybersecurity product we want to make the world a safer place

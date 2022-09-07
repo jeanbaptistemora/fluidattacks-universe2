@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from sast_transformations.control_flow.common import (
     link_to_last_node as common_link_to_last_node,
     step_by_step as common_step_by_step,

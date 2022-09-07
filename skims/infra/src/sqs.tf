@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 resource "aws_sqs_queue" "skims_report_queue" {
   name                      = "skims-report-queue"
   delay_seconds             = 5

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.utilities.go import (
     yield_shard_member_access,
     yield_shard_object_creation,

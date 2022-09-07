@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.f416.c_sharp import (
     xaml_injection as c_sharp_xaml_injection,
 )

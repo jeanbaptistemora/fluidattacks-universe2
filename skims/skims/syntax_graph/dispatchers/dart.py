@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
     execution_block as common_execution_block,

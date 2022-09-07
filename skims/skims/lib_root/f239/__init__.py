@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.f239.c_sharp import (
     info_leak_errors as c_sharp_info_leak_errors,
 )

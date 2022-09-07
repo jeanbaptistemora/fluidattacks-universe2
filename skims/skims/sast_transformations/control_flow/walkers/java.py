@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from sast_transformations.control_flow.common import (
     catch_statement as common_catch_statement,
     if_statement as common_if_statement,

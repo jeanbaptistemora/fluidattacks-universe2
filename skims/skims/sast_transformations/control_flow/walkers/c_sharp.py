@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from sast_transformations.control_flow.c_sharp import (
     lambda_expression as c_sharp_lambda_expression,
     switch_statement as c_sharp_switch_statement,

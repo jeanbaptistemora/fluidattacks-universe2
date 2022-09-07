@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from aws.iam.utils import (
     yield_statements_from_policy,
     yield_statements_from_policy_document,

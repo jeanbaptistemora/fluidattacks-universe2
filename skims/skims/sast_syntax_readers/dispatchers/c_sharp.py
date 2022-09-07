@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from sast_syntax_readers.c_sharp import (
     argument as c_sharp_argument,
     array_creation_expression as c_sharp_array_creation_expression,

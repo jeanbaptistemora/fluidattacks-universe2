@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.f011.c_sharp import (
     schema_by_url as c_sharp_schema_by_url,
     xsl_transform_object as c_sharp_xsl_transform_object,

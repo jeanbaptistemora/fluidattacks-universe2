@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # The purpose of this module is to return datetime AWARE objects
 # so the entire codebase work in UTC-based clocks no matter the data-source
 from datetime import (

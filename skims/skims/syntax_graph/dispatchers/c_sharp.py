@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from syntax_graph.syntax_readers.c_sharp import (
     accessor_declaration as c_sharp_accessor_declaration,
     anonymous_object_creation as c_sharp_anonymous_object_creation,

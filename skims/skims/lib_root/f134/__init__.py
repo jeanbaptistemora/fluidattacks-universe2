@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.f134.c_sharp import (
     insecure_cors as csharp_insecure_cors,
     insecure_cors_origin as csharp_insecure_cors_origin,

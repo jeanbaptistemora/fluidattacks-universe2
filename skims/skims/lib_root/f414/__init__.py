@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from lib_root.f414.c_sharp import (
     disabled_http_header_check as c_sharp_disabled_http_header_check,
 )
