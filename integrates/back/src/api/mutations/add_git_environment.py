@@ -8,6 +8,16 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    InvalidRootType,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.roots.types import (
+    GitRoot,
+    Root,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -43,8 +53,12 @@ async def mutate(  # pylint: disable = too-many-arguments
     cloud_name: Optional[str] = None,
     **_kwargs: Any,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
+    root: Root = await loaders.root.load((group_name, root_id))
+    if not isinstance(root, GitRoot):
+        raise InvalidRootType()
     await roots_domain.add_root_environment_url(
-        loaders=info.context.loaders,
+        loaders=loaders,
         group_name=group_name,
         root_id=root_id,
         url=url,
