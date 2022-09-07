@@ -269,12 +269,16 @@ export const enTranslations: ResourceKey = {
     minimumWidth: "ARM is only available on desktops",
   },
   autoenrollment: {
+    aboutToStart:
+      "And that's it. You're about to start finding vulnerabilities.",
     acceptTerms: "By signing up, you agree with Fluid Attacks'",
+    addRepository: "Add a code repository we can start hacking",
     and: "and",
     branch: {
       label: "Branch",
       placeholder: "qa",
     },
+    canAddMore: "This is the first repo. You can add more when you finish!",
     cancelModal: {
       body: "Do you want to cancel your free trial?",
       no: "No",
@@ -344,12 +348,15 @@ export const enTranslations: ResourceKey = {
     reportLanguage: "Report language ",
     reportLanguageTip:
       "Select the language of your preference to report vulnerabilities",
+    setupOrganization: "Name your organization and group",
     standby: {
       subtitle:
         "You have created your group. You can relax and wait for the " +
         "results of the security testing",
       title: "Our Machine is running!",
     },
+    step1: "Step 1 of 2",
+    step2: "Step 2 of 2",
     subtitle: "To begin, add the first code repository",
     termsOfService: "Terms of service",
     title: "Let's create your group",
@@ -361,7 +368,6 @@ export const enTranslations: ResourceKey = {
         "https://example.com/user/repo.git\n" +
         "git@github.com:user/repo.git",
     },
-    welcome: "Welcome to the Attacks Resistance Management platform (ARM)",
   },
   comments: {
     editorPlaceholder: "Add your comment here",

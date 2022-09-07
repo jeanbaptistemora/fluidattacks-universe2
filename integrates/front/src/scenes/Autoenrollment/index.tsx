@@ -390,33 +390,40 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
         <DashboardContent id={"dashboard"}>
           <Switch>
             <Route exact={true} path={"/autoenrollment/organization"}>
-              <Col lg={100} md={100} sm={100}>
-                <Text fw={7} mb={3} mt={4} size={4} ta={"center"}>
-                  {t("autoenrollment.title")}
-                </Text>
-                <Row justify={"center"}>
-                  <Col lg={40} md={60} sm={90}>
-                    <FormContent>
-                      <AddOrganization
-                        isSubmitting={isSubmitting}
-                        onSubmit={handleSubmit}
-                        orgMessages={orgMessages}
-                        orgValues={organizationValues}
-                        setShowSubmitAlert={setShowSubmitAlert}
-                        showSubmitAlert={showSubmitAlert}
-                        successMutation={successMutation}
-                      />
-                    </FormContent>
-                  </Col>
-                </Row>
-              </Col>
+              <Text mb={1} mt={5} ta={"center"}>
+                {t("autoenrollment.step2")}
+              </Text>
+              <Text fw={7} mb={1} size={4} ta={"center"}>
+                {t("autoenrollment.setupOrganization")}
+              </Text>
+              <Text mb={1} ta={"center"}>
+                {t("autoenrollment.aboutToStart")}
+              </Text>
+              <Row justify={"center"}>
+                <Col lg={40} md={60} sm={90}>
+                  <FormContent>
+                    <AddOrganization
+                      isSubmitting={isSubmitting}
+                      onSubmit={handleSubmit}
+                      orgMessages={orgMessages}
+                      orgValues={organizationValues}
+                      setShowSubmitAlert={setShowSubmitAlert}
+                      showSubmitAlert={showSubmitAlert}
+                      successMutation={successMutation}
+                    />
+                  </FormContent>
+                </Col>
+              </Row>
             </Route>
             <Route exact={true} path={"/autoenrollment/repository"}>
-              <Text fw={7} mt={4} size={4} ta={"center"}>
-                {t("autoenrollment.welcome")}
+              <Text mb={1} mt={5} ta={"center"}>
+                {t("autoenrollment.step1")}
               </Text>
-              <Text mb={3} mt={1} ta={"center"}>
-                {t("autoenrollment.subtitle")}
+              <Text fw={7} mb={1} size={4} ta={"center"}>
+                {t("autoenrollment.addRepository")}
+              </Text>
+              <Text mb={1} ta={"center"}>
+                {t("autoenrollment.canAddMore")}
               </Text>
               <Row justify={"center"}>
                 <Col lg={40} md={60} sm={90}>
