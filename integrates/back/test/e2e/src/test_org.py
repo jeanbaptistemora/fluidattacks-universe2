@@ -141,7 +141,7 @@ def test_org_groups(
         "button",
         "Skip",
         "button",
-        timeout * 2,
+        timeout,
     )
     close_tour.click()
     add_group.click()
