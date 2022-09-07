@@ -63,7 +63,7 @@
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
       redshift-client = nixpkgs.redshift-client."${python_version}".pkg;
     };
-  # final_nixpkgs
+  # integrate all
   compose = let
     apply = x: f: f x;
   in

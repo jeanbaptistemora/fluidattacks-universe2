@@ -50,7 +50,7 @@
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
 
-  # final_pkgs
+  # integrate all
   compose = let
     apply = x: f: f x;
   in
