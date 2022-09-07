@@ -158,7 +158,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               </Button>
             </Gap>
           )}
-          <ModalConfirm disabled={hasAPIToken} onCancel={onClose} />
+          {hasAPIToken ? undefined : <ModalConfirm onCancel={onClose} />}
         </Form>
       </Formik>
     </Modal>

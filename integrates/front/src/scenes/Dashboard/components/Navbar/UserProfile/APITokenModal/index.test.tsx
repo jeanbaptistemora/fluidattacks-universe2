@@ -120,7 +120,6 @@ describe("Update access token modal", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
     expect(
       screen.queryAllByText("updateAccessToken.expirationTime")
     ).toHaveLength(0);
