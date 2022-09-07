@@ -306,6 +306,7 @@ def _parse_one_cached(
     syntax_support = {
         GraphShardMetadataLanguage.CSHARP,
         GraphShardMetadataLanguage.JAVA,
+        GraphShardMetadataLanguage.JAVASCRIPT,
     }
 
     if language in syntax_support:

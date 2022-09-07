@@ -79135,7 +79135,3985 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "1004": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1005": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1033": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1034": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1048": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1059": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "106": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1060": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1117": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "113": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1145": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1157": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1172": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1230": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1247": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1257": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1272": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1279": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1289": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1300": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1313": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1327": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1346": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1362": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1374": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1378": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "144": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "154": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "156": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "166": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "167": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "168": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "175": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "212": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "222": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "223": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "224": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "254": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "275": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "276": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "277": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "284": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "317": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "327": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "328": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "329": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "336": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "343": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "378": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "380": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "390": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "391": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "484": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "485": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "52": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "566": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "573": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "574": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "597": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "616": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "624": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "636": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "675": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "676": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "677": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "678": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "692": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "720": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "721": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "756": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "757": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "806": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "823": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "824": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "825": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "832": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "956": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "966": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "967": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "974": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "981": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "1005": {
+            "1007": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1015": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "1007": {
+            "1009": {
+              "label_ast": "AST"
+            },
+            "1013": {
+              "label_ast": "AST"
+            }
+          },
+          "1009": {
+            "1011": {
+              "label_ast": "AST"
+            }
+          },
+          "1015": {
+            "1018": {
+              "label_ast": "AST"
+            },
+            "1020": {
+              "label_ast": "AST"
+            }
+          },
+          "1020": {
+            "1022": {
+              "label_ast": "AST"
+            },
+            "1024": {
+              "label_ast": "AST"
+            },
+            "1031": {
+              "label_ast": "AST"
+            }
+          },
+          "1024": {
+            "1026": {
+              "label_ast": "AST"
+            }
+          },
+          "1026": {
+            "1028": {
+              "label_ast": "AST"
+            }
+          },
+          "1034": {
+            "1036": {
+              "label_ast": "AST"
+            }
+          },
+          "1048": {
+            "1049": {
+              "label_ast": "AST"
+            },
+            "1051": {
+              "label_ast": "AST"
+            }
+          },
+          "1051": {
+            "1052": {
+              "label_ast": "AST"
+            },
+            "1054": {
+              "label_ast": "AST"
+            }
+          },
+          "1054": {
+            "1055": {
+              "label_ast": "AST"
+            },
+            "1057": {
+              "label_ast": "AST"
+            }
+          },
+          "106": {
+            "108": {
+              "label_ast": "AST"
+            }
+          },
+          "1060": {
+            "1066": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "1066": {
+            "1068": {
+              "label_ast": "AST"
+            },
+            "1111": {
+              "label_ast": "AST"
+            }
+          },
+          "1068": {
+            "1070": {
+              "label_ast": "AST"
+            }
+          },
+          "1070": {
+            "1073": {
+              "label_ast": "AST"
+            }
+          },
+          "1073": {
+            "1075": {
+              "label_ast": "AST"
+            },
+            "1076": {
+              "label_ast": "AST"
+            }
+          },
+          "1076": {
+            "1078": {
+              "label_ast": "AST"
+            }
+          },
+          "1078": {
+            "1079": {
+              "label_ast": "AST"
+            }
+          },
+          "108": {
+            "111": {
+              "label_ast": "AST"
+            }
+          },
+          "11": {
+            "13": {
+              "label_ast": "AST"
+            }
+          },
+          "1111": {
+            "1113": {
+              "label_ast": "AST"
+            }
+          },
+          "1117": {
+            "1118": {
+              "label_ast": "AST"
+            }
+          },
+          "1118": {
+            "1120": {
+              "label_ast": "AST"
+            },
+            "1122": {
+              "label_ast": "AST"
+            }
+          },
+          "113": {
+            "115": {
+              "label_ast": "AST"
+            }
+          },
+          "1145": {
+            "1147": {
+              "label_ast": "AST"
+            }
+          },
+          "1147": {
+            "1150": {
+              "label_ast": "AST"
+            }
+          },
+          "115": {
+            "118": {
+              "label_ast": "AST"
+            }
+          },
+          "1150": {
+            "1152": {
+              "label_ast": "AST"
+            }
+          },
+          "1152": {
+            "1154": {
+              "label_ast": "AST"
+            }
+          },
+          "1157": {
+            "1159": {
+              "label_ast": "AST"
+            }
+          },
+          "1159": {
+            "1162": {
+              "label_ast": "AST"
+            }
+          },
+          "1162": {
+            "1167": {
+              "label_ast": "AST"
+            }
+          },
+          "1172": {
+            "1177": {
+              "label_ast": "AST"
+            }
+          },
+          "1177": {
+            "1179": {
+              "label_ast": "AST"
+            },
+            "1181": {
+              "label_ast": "AST"
+            }
+          },
+          "1181": {
+            "1183": {
+              "label_ast": "AST"
+            },
+            "1191": {
+              "label_ast": "AST"
+            }
+          },
+          "1183": {
+            "1185": {
+              "label_ast": "AST"
+            },
+            "1187": {
+              "label_ast": "AST"
+            },
+            "1189": {
+              "label_ast": "AST"
+            }
+          },
+          "1191": {
+            "1193": {
+              "label_ast": "AST"
+            },
+            "1208": {
+              "label_ast": "AST"
+            }
+          },
+          "1193": {
+            "1195": {
+              "label_ast": "AST"
+            }
+          },
+          "1195": {
+            "1198": {
+              "label_ast": "AST"
+            }
+          },
+          "1198": {
+            "1199": {
+              "label_ast": "AST"
+            },
+            "1204": {
+              "label_ast": "AST"
+            }
+          },
+          "1199": {
+            "1202": {
+              "label_ast": "AST"
+            }
+          },
+          "120": {
+            "124": {
+              "label_ast": "AST"
+            },
+            "126": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "1208": {
+            "1213": {
+              "label_ast": "AST"
+            }
+          },
+          "1213": {
+            "1215": {
+              "label_ast": "AST"
+            },
+            "1217": {
+              "label_ast": "AST"
+            }
+          },
+          "1217": {
+            "1219": {
+              "label_ast": "AST"
+            }
+          },
+          "1219": {
+            "1220": {
+              "label_ast": "AST"
+            },
+            "1222": {
+              "label_ast": "AST"
+            }
+          },
+          "1230": {
+            "1242": {
+              "label_ast": "AST"
+            }
+          },
+          "1242": {
+            "1244": {
+              "label_ast": "AST"
+            }
+          },
+          "1247": {
+            "1252": {
+              "label_ast": "AST"
+            }
+          },
+          "1252": {
+            "1254": {
+              "label_ast": "AST"
+            }
+          },
+          "1257": {
+            "1259": {
+              "label_ast": "AST"
+            }
+          },
+          "1259": {
+            "1265": {
+              "label_ast": "AST"
+            }
+          },
+          "126": {
+            "128": {
+              "label_ast": "AST"
+            },
+            "135": {
+              "label_ast": "AST"
+            }
+          },
+          "1265": {
+            "1267": {
+              "label_ast": "AST"
+            }
+          },
+          "1267": {
+            "1269": {
+              "label_ast": "AST"
+            }
+          },
+          "128": {
+            "130": {
+              "label_ast": "AST"
+            }
+          },
+          "13": {
+            "15": {
+              "label_ast": "AST"
+            },
+            "16": {
+              "label_ast": "AST"
+            }
+          },
+          "130": {
+            "133": {
+              "label_ast": "AST"
+            }
+          },
+          "135": {
+            "137": {
+              "label_ast": "AST"
+            }
+          },
+          "137": {
+            "140": {
+              "label_ast": "AST"
+            }
+          },
+          "1378": {
+            "1380": {
+              "label_ast": "AST"
+            }
+          },
+          "1380": {
+            "1383": {
+              "label_ast": "AST"
+            }
+          },
+          "1383": {
+            "1386": {
+              "label_ast": "AST"
+            }
+          },
+          "1386": {
+            "1388": {
+              "label_ast": "AST"
+            }
+          },
+          "144": {
+            "149": {
+              "label_ast": "AST"
+            }
+          },
+          "149": {
+            "151": {
+              "label_ast": "AST"
+            }
+          },
+          "156": {
+            "161": {
+              "label_ast": "AST"
+            }
+          },
+          "16": {
+            "18": {
+              "label_ast": "AST"
+            }
+          },
+          "161": {
+            "163": {
+              "label_ast": "AST"
+            }
+          },
+          "168": {
+            "170": {
+              "label_ast": "AST"
+            }
+          },
+          "170": {
+            "173": {
+              "label_ast": "AST"
+            }
+          },
+          "175": {
+            "179": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "184": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "179": {
+            "180": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "182": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "18": {
+            "19": {
+              "label_ast": "AST"
+            }
+          },
+          "184": {
+            "186": {
+              "label_ast": "AST"
+            },
+            "202": {
+              "label_ast": "AST"
+            }
+          },
+          "186": {
+            "190": {
+              "label_ast": "AST"
+            },
+            "195": {
+              "label_ast": "AST"
+            }
+          },
+          "190": {
+            "191": {
+              "label_ast": "AST"
+            },
+            "193": {
+              "label_ast": "AST"
+            }
+          },
+          "195": {
+            "197": {
+              "label_ast": "AST"
+            }
+          },
+          "202": {
+            "203": {
+              "label_ast": "AST"
+            },
+            "205": {
+              "label_ast": "AST"
+            }
+          },
+          "205": {
+            "206": {
+              "label_ast": "AST"
+            },
+            "208": {
+              "label_ast": "AST"
+            }
+          },
+          "212": {
+            "217": {
+              "label_ast": "AST"
+            }
+          },
+          "217": {
+            "219": {
+              "label_ast": "AST"
+            }
+          },
+          "224": {
+            "227": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "227": {
+            "229": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "229": {
+            "231": {
+              "label_ast": "AST"
+            },
+            "237": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "231": {
+            "233": {
+              "label_ast": "AST"
+            },
+            "235": {
+              "label_ast": "AST"
+            }
+          },
+          "237": {
+            "240": {
+              "label_ast": "AST"
+            }
+          },
+          "240": {
+            "241": {
+              "label_ast": "AST"
+            },
+            "246": {
+              "label_ast": "AST"
+            }
+          },
+          "241": {
+            "244": {
+              "label_ast": "AST"
+            }
+          },
+          "246": {
+            "247": {
+              "label_ast": "AST"
+            },
+            "249": {
+              "label_ast": "AST"
+            }
+          },
+          "254": {
+            "259": {
+              "label_ast": "AST"
+            }
+          },
+          "259": {
+            "261": {
+              "label_ast": "AST"
+            }
+          },
+          "261": {
+            "272": {
+              "label_ast": "AST"
+            }
+          },
+          "277": {
+            "279": {
+              "label_ast": "AST"
+            }
+          },
+          "279": {
+            "282": {
+              "label_ast": "AST"
+            }
+          },
+          "284": {
+            "286": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "295": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "286": {
+            "289": {
+              "label_ast": "AST"
+            }
+          },
+          "289": {
+            "290": {
+              "label_ast": "AST"
+            },
+            "292": {
+              "label_ast": "AST"
+            }
+          },
+          "295": {
+            "298": {
+              "label_ast": "AST"
+            },
+            "300": {
+              "label_ast": "AST"
+            }
+          },
+          "3": {
+            "9": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "300": {
+            "303": {
+              "label_ast": "AST"
+            },
+            "313": {
+              "label_ast": "AST"
+            },
+            "314": {
+              "label_ast": "AST"
+            }
+          },
+          "303": {
+            "308": {
+              "label_ast": "AST"
+            }
+          },
+          "308": {
+            "310": {
+              "label_ast": "AST"
+            }
+          },
+          "317": {
+            "322": {
+              "label_ast": "AST"
+            }
+          },
+          "322": {
+            "324": {
+              "label_ast": "AST"
+            }
+          },
+          "329": {
+            "331": {
+              "label_ast": "AST"
+            }
+          },
+          "331": {
+            "334": {
+              "label_ast": "AST"
+            }
+          },
+          "336": {
+            "338": {
+              "label_ast": "AST"
+            }
+          },
+          "338": {
+            "341": {
+              "label_ast": "AST"
+            }
+          },
+          "343": {
+            "345": {
+              "label_ast": "AST"
+            },
+            "366": {
+              "label_ast": "AST"
+            }
+          },
+          "345": {
+            "348": {
+              "label_ast": "AST"
+            },
+            "354": {
+              "label_ast": "AST"
+            }
+          },
+          "348": {
+            "349": {
+              "label_ast": "AST"
+            },
+            "351": {
+              "label_ast": "AST"
+            }
+          },
+          "354": {
+            "355": {
+              "label_ast": "AST"
+            },
+            "357": {
+              "label_ast": "AST"
+            }
+          },
+          "357": {
+            "358": {
+              "label_ast": "AST"
+            },
+            "360": {
+              "label_ast": "AST"
+            }
+          },
+          "366": {
+            "367": {
+              "label_ast": "AST"
+            },
+            "372": {
+              "label_ast": "AST"
+            }
+          },
+          "367": {
+            "368": {
+              "label_ast": "AST"
+            },
+            "370": {
+              "label_ast": "AST"
+            }
+          },
+          "372": {
+            "373": {
+              "label_ast": "AST"
+            },
+            "375": {
+              "label_ast": "AST"
+            }
+          },
+          "380": {
+            "385": {
+              "label_ast": "AST"
+            }
+          },
+          "385": {
+            "387": {
+              "label_ast": "AST"
+            }
+          },
+          "391": {
+            "396": {
+              "label_ast": "AST"
+            },
+            "400": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "396": {
+            "398": {
+              "label_ast": "AST"
+            }
+          },
+          "400": {
+            "402": {
+              "label_ast": "AST"
+            },
+            "416": {
+              "label_ast": "AST"
+            }
+          },
+          "402": {
+            "404": {
+              "label_ast": "AST"
+            }
+          },
+          "404": {
+            "407": {
+              "label_ast": "AST"
+            }
+          },
+          "407": {
+            "412": {
+              "label_ast": "AST"
+            }
+          },
+          "416": {
+            "418": {
+              "label_ast": "AST"
+            },
+            "468": {
+              "label_ast": "AST"
+            }
+          },
+          "418": {
+            "420": {
+              "label_ast": "AST"
+            }
+          },
+          "420": {
+            "424": {
+              "label_ast": "AST"
+            },
+            "426": {
+              "label_ast": "AST"
+            }
+          },
+          "426": {
+            "428": {
+              "label_ast": "AST"
+            },
+            "449": {
+              "label_ast": "AST"
+            },
+            "462": {
+              "label_ast": "AST"
+            }
+          },
+          "428": {
+            "430": {
+              "label_ast": "AST"
+            }
+          },
+          "430": {
+            "438": {
+              "label_ast": "AST"
+            }
+          },
+          "438": {
+            "440": {
+              "label_ast": "AST"
+            }
+          },
+          "440": {
+            "445": {
+              "label_ast": "AST"
+            }
+          },
+          "449": {
+            "453": {
+              "label_ast": "AST"
+            },
+            "455": {
+              "label_ast": "AST"
+            }
+          },
+          "455": {
+            "457": {
+              "label_ast": "AST"
+            }
+          },
+          "468": {
+            "470": {
+              "label_ast": "AST"
+            }
+          },
+          "470": {
+            "473": {
+              "label_ast": "AST"
+            }
+          },
+          "473": {
+            "478": {
+              "label_ast": "AST"
+            }
+          },
+          "485": {
+            "489": {
+              "label_ast": "AST"
+            },
+            "493": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "489": {
+            "491": {
+              "label_ast": "AST"
+            }
+          },
+          "493": {
+            "495": {
+              "label_ast": "AST"
+            },
+            "509": {
+              "label_ast": "AST"
+            },
+            "510": {
+              "label_ast": "AST"
+            },
+            "517": {
+              "label_ast": "AST"
+            },
+            "518": {
+              "label_ast": "AST"
+            },
+            "549": {
+              "label_ast": "AST"
+            },
+            "559": {
+              "label_ast": "AST"
+            },
+            "560": {
+              "label_ast": "AST"
+            }
+          },
+          "495": {
+            "497": {
+              "label_ast": "AST"
+            }
+          },
+          "497": {
+            "500": {
+              "label_ast": "AST"
+            }
+          },
+          "500": {
+            "502": {
+              "label_ast": "AST"
+            }
+          },
+          "502": {
+            "504": {
+              "label_ast": "AST"
+            }
+          },
+          "504": {
+            "506": {
+              "label_ast": "AST"
+            }
+          },
+          "510": {
+            "512": {
+              "label_ast": "AST"
+            }
+          },
+          "512": {
+            "515": {
+              "label_ast": "AST"
+            }
+          },
+          "518": {
+            "523": {
+              "label_ast": "AST"
+            },
+            "525": {
+              "label_ast": "AST"
+            },
+            "535": {
+              "label_ast": "AST"
+            }
+          },
+          "52": {
+            "59": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "525": {
+            "527": {
+              "label_ast": "AST"
+            }
+          },
+          "527": {
+            "529": {
+              "label_ast": "AST"
+            }
+          },
+          "529": {
+            "532": {
+              "label_ast": "AST"
+            }
+          },
+          "535": {
+            "537": {
+              "label_ast": "AST"
+            },
+            "539": {
+              "label_ast": "AST"
+            }
+          },
+          "539": {
+            "540": {
+              "label_ast": "AST"
+            },
+            "542": {
+              "label_ast": "AST"
+            }
+          },
+          "542": {
+            "545": {
+              "label_ast": "AST"
+            }
+          },
+          "549": {
+            "554": {
+              "label_ast": "AST"
+            }
+          },
+          "554": {
+            "556": {
+              "label_ast": "AST"
+            }
+          },
+          "560": {
+            "562": {
+              "label_ast": "AST"
+            }
+          },
+          "566": {
+            "568": {
+              "label_ast": "AST"
+            }
+          },
+          "568": {
+            "570": {
+              "label_ast": "AST"
+            }
+          },
+          "574": {
+            "576": {
+              "label_ast": "AST"
+            }
+          },
+          "576": {
+            "579": {
+              "label_ast": "AST"
+            }
+          },
+          "579": {
+            "581": {
+              "label_ast": "AST"
+            },
+            "586": {
+              "label_ast": "AST"
+            },
+            "591": {
+              "label_ast": "AST"
+            }
+          },
+          "581": {
+            "582": {
+              "label_ast": "AST"
+            },
+            "584": {
+              "label_ast": "AST"
+            }
+          },
+          "586": {
+            "587": {
+              "label_ast": "AST"
+            },
+            "589": {
+              "label_ast": "AST"
+            }
+          },
+          "59": {
+            "62": {
+              "label_ast": "AST"
+            },
+            "72": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            },
+            "96": {
+              "label_ast": "AST"
+            }
+          },
+          "591": {
+            "592": {
+              "label_ast": "AST"
+            },
+            "594": {
+              "label_ast": "AST"
+            }
+          },
+          "597": {
+            "603": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "603": {
+            "606": {
+              "label_ast": "AST"
+            }
+          },
+          "606": {
+            "607": {
+              "label_ast": "AST"
+            },
+            "612": {
+              "label_ast": "AST"
+            }
+          },
+          "607": {
+            "610": {
+              "label_ast": "AST"
+            }
+          },
+          "616": {
+            "617": {
+              "label_ast": "AST"
+            },
+            "622": {
+              "label_ast": "AST"
+            }
+          },
+          "617": {
+            "620": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "67": {
+              "label_ast": "AST"
+            }
+          },
+          "624": {
+            "626": {
+              "label_ast": "AST"
+            }
+          },
+          "626": {
+            "629": {
+              "label_ast": "AST"
+            }
+          },
+          "629": {
+            "631": {
+              "label_ast": "AST"
+            },
+            "632": {
+              "label_ast": "AST"
+            }
+          },
+          "636": {
+            "640": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "642": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "644": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "644": {
+            "646": {
+              "label_ast": "AST"
+            }
+          },
+          "646": {
+            "650": {
+              "label_ast": "AST"
+            },
+            "660": {
+              "label_ast": "AST"
+            }
+          },
+          "650": {
+            "655": {
+              "label_ast": "AST"
+            }
+          },
+          "655": {
+            "657": {
+              "label_ast": "AST"
+            }
+          },
+          "660": {
+            "663": {
+              "label_ast": "AST"
+            }
+          },
+          "663": {
+            "668": {
+              "label_ast": "AST"
+            }
+          },
+          "668": {
+            "670": {
+              "label_ast": "AST"
+            }
+          },
+          "67": {
+            "69": {
+              "label_ast": "AST"
+            }
+          },
+          "678": {
+            "680": {
+              "label_ast": "AST"
+            }
+          },
+          "680": {
+            "683": {
+              "label_ast": "AST"
+            }
+          },
+          "683": {
+            "685": {
+              "label_ast": "AST"
+            },
+            "687": {
+              "label_ast": "AST"
+            },
+            "689": {
+              "label_ast": "AST"
+            }
+          },
+          "692": {
+            "696": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "698": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "700": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "700": {
+            "703": {
+              "label_ast": "AST"
+            },
+            "709": {
+              "label_ast": "AST"
+            }
+          },
+          "703": {
+            "704": {
+              "label_ast": "AST"
+            },
+            "706": {
+              "label_ast": "AST"
+            }
+          },
+          "709": {
+            "714": {
+              "label_ast": "AST"
+            }
+          },
+          "714": {
+            "716": {
+              "label_ast": "AST"
+            }
+          },
+          "72": {
+            "74": {
+              "label_ast": "AST"
+            }
+          },
+          "721": {
+            "724": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "732": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "737": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "741": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "724": {
+            "726": {
+              "label_ast": "AST"
+            }
+          },
+          "726": {
+            "729": {
+              "label_ast": "AST"
+            }
+          },
+          "732": {
+            "733": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "735": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "737": {
+            "738": {
+              "label_ast": "AST"
+            }
+          },
+          "74": {
+            "77": {
+              "label_ast": "AST"
+            }
+          },
+          "741": {
+            "744": {
+              "label_ast": "AST"
+            },
+            "754": {
+              "label_ast": "AST"
+            }
+          },
+          "744": {
+            "749": {
+              "label_ast": "AST"
+            }
+          },
+          "749": {
+            "751": {
+              "label_ast": "AST"
+            }
+          },
+          "757": {
+            "760": {
+              "label_ast": "AST"
+            },
+            "764": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "760": {
+            "762": {
+              "label_ast": "AST"
+            }
+          },
+          "764": {
+            "766": {
+              "label_ast": "AST"
+            },
+            "771": {
+              "label_ast": "AST"
+            },
+            "800": {
+              "label_ast": "AST"
+            }
+          },
+          "766": {
+            "768": {
+              "label_ast": "AST"
+            }
+          },
+          "77": {
+            "79": {
+              "label_ast": "AST"
+            }
+          },
+          "771": {
+            "775": {
+              "label_ast": "AST"
+            },
+            "780": {
+              "label_ast": "AST"
+            },
+            "789": {
+              "label_ast": "AST"
+            }
+          },
+          "775": {
+            "776": {
+              "label_ast": "AST"
+            },
+            "778": {
+              "label_ast": "AST"
+            }
+          },
+          "780": {
+            "783": {
+              "label_ast": "AST"
+            }
+          },
+          "783": {
+            "784": {
+              "label_ast": "AST"
+            },
+            "786": {
+              "label_ast": "AST"
+            }
+          },
+          "789": {
+            "791": {
+              "label_ast": "AST"
+            }
+          },
+          "79": {
+            "81": {
+              "label_ast": "AST"
+            }
+          },
+          "791": {
+            "794": {
+              "label_ast": "AST"
+            }
+          },
+          "794": {
+            "795": {
+              "label_ast": "AST"
+            },
+            "797": {
+              "label_ast": "AST"
+            }
+          },
+          "800": {
+            "802": {
+              "label_ast": "AST"
+            }
+          },
+          "806": {
+            "811": {
+              "label_ast": "AST"
+            }
+          },
+          "811": {
+            "813": {
+              "label_ast": "AST"
+            }
+          },
+          "813": {
+            "815": {
+              "label_ast": "AST"
+            }
+          },
+          "815": {
+            "817": {
+              "label_ast": "AST"
+            }
+          },
+          "817": {
+            "819": {
+              "label_ast": "AST"
+            }
+          },
+          "825": {
+            "827": {
+              "label_ast": "AST"
+            }
+          },
+          "827": {
+            "830": {
+              "label_ast": "AST"
+            }
+          },
+          "832": {
+            "836": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "838": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "838": {
+            "840": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "858": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "876": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "894": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "912": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "916": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "934": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "840": {
+            "845": {
+              "label_ast": "AST"
+            }
+          },
+          "845": {
+            "850": {
+              "label_ast": "AST"
+            }
+          },
+          "850": {
+            "852": {
+              "label_ast": "AST"
+            }
+          },
+          "858": {
+            "863": {
+              "label_ast": "AST"
+            }
+          },
+          "86": {
+            "91": {
+              "label_ast": "AST"
+            }
+          },
+          "863": {
+            "868": {
+              "label_ast": "AST"
+            }
+          },
+          "868": {
+            "870": {
+              "label_ast": "AST"
+            }
+          },
+          "876": {
+            "881": {
+              "label_ast": "AST"
+            }
+          },
+          "881": {
+            "886": {
+              "label_ast": "AST"
+            }
+          },
+          "886": {
+            "888": {
+              "label_ast": "AST"
+            }
+          },
+          "894": {
+            "899": {
+              "label_ast": "AST"
+            }
+          },
+          "899": {
+            "904": {
+              "label_ast": "AST"
+            }
+          },
+          "9": {
+            "11": {
+              "label_ast": "AST"
+            }
+          },
+          "904": {
+            "906": {
+              "label_ast": "AST"
+            }
+          },
+          "91": {
+            "93": {
+              "label_ast": "AST"
+            }
+          },
+          "916": {
+            "921": {
+              "label_ast": "AST"
+            }
+          },
+          "921": {
+            "926": {
+              "label_ast": "AST"
+            }
+          },
+          "926": {
+            "928": {
+              "label_ast": "AST"
+            }
+          },
+          "934": {
+            "938": {
+              "label_ast": "AST"
+            }
+          },
+          "938": {
+            "943": {
+              "label_ast": "AST"
+            }
+          },
+          "943": {
+            "945": {
+              "label_ast": "AST"
+            }
+          },
+          "945": {
+            "946": {
+              "label_ast": "AST"
+            },
+            "951": {
+              "label_ast": "AST"
+            }
+          },
+          "946": {
+            "947": {
+              "label_ast": "AST"
+            },
+            "949": {
+              "label_ast": "AST"
+            }
+          },
+          "956": {
+            "961": {
+              "label_ast": "AST"
+            }
+          },
+          "961": {
+            "963": {
+              "label_ast": "AST"
+            }
+          },
+          "967": {
+            "969": {
+              "label_ast": "AST"
+            }
+          },
+          "969": {
+            "972": {
+              "label_ast": "AST"
+            }
+          },
+          "974": {
+            "976": {
+              "label_ast": "AST"
+            }
+          },
+          "976": {
+            "979": {
+              "label_ast": "AST"
+            }
+          },
+          "981": {
+            "985": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "990": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "985": {
+            "986": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "988": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "99": {
+            "101": {
+              "label_ast": "AST"
+            }
+          },
+          "990": {
+            "993": {
+              "label_ast": "AST"
+            },
+            "998": {
+              "label_ast": "AST"
+            }
+          },
+          "993": {
+            "994": {
+              "label_ast": "AST"
+            }
+          },
+          "998": {
+            "1001": {
+              "label_ast": "AST"
+            },
+            "999": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "1001": {
+            "label_type": "SymbolLookup",
+            "symbol": "n"
+          },
+          "1004": {
+            "comment": "// try catch",
+            "label_type": "Comment"
+          },
+          "1005": {
+            "block_id": "1007",
+            "label_type": "TryStatement"
+          },
+          "1007": {
+            "label_type": "StatementBlock"
+          },
+          "1009": {
+            "expression_id": "1011",
+            "label_type": "ThrowStatement"
+          },
+          "101": {
+            "label_type": "ArgumentList"
+          },
+          "1011": {
+            "label_type": "Literal",
+            "value": "'myException'",
+            "value_type": "string"
+          },
+          "1013": {
+            "comment": "// generates an exception",
+            "label_type": "Comment"
+          },
+          "1015": {
+            "block_id": "1020",
+            "label_type": "CatchClause"
+          },
+          "1018": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
+          },
+          "1020": {
+            "label_type": "StatementBlock"
+          },
+          "1022": {
+            "comment": "// statements to handle any exceptions",
+            "label_type": "Comment"
+          },
+          "1024": {
+            "function_name": "logMyErrors",
+            "label_type": "CallExpression"
+          },
+          "1026": {
+            "label_type": "ArgumentList"
+          },
+          "1028": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
+          },
+          "1031": {
+            "comment": "// pass exception object to error handler",
+            "label_type": "Comment"
+          },
+          "1033": {
+            "comment": "// multiple assignments in the same statement",
+            "label_type": "Comment"
+          },
+          "1034": {
+            "label_type": "VariableDeclaration"
+          },
+          "1036": {
+            "label_type": "VariableDeclarator",
+            "variable_name": "x"
+          },
+          "1048": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "1051",
+            "variable_id": "1049"
+          },
+          "1049": {
+            "label_type": "SymbolLookup",
+            "symbol": "x"
+          },
+          "105": {
+            "comment": "// block",
+            "label_type": "Comment"
+          },
+          "1051": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "1054",
+            "variable_id": "1052"
+          },
+          "1052": {
+            "label_type": "SymbolLookup",
+            "symbol": "y"
+          },
+          "1054": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "1057",
+            "variable_id": "1055"
+          },
+          "1055": {
+            "label_type": "SymbolLookup",
+            "symbol": "z"
+          },
+          "1057": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
+          },
+          "1059": {
+            "comment": "// arrow functions",
+            "label_type": "Comment"
+          },
+          "106": {
+            "label_type": "VariableDeclaration"
+          },
+          "1060": {
+            "block_id": "1066",
+            "label_type": "MethodDeclaration",
+            "name": "resolveAfter3Seconds"
+          },
+          "1066": {
+            "label_type": "StatementBlock"
+          },
+          "1068": {
+            "label_type": "VariableDeclaration"
+          },
+          "1070": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1073",
+            "variable_name": "a"
+          },
+          "1073": {
+            "arguments_id": "1076",
+            "constructor_id": "1075",
+            "label_type": "NewExpression"
+          },
+          "1075": {
+            "label_type": "SymbolLookup",
+            "symbol": "Promise"
+          },
+          "1076": {
+            "label_type": "ArgumentList"
+          },
+          "1078": {
+            "block_id": "1081",
+            "label_type": "BlocklessMethodDeclaration"
+          },
+          "1079": {
+            "label_type": "SymbolLookup",
+            "symbol": "resolve"
+          },
+          "108": {
+            "label_type": "VariableDeclarator",
+            "value_id": "111",
+            "variable_name": "x"
+          },
+          "11": {
+            "label_type": "Return",
+            "value_id": "13"
+          },
+          "111": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "1111": {
+            "label_type": "Return",
+            "value_id": "1113"
+          },
+          "1113": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "1117": {
+            "block_id": "1125",
+            "label_type": "BlocklessMethodDeclaration"
+          },
+          "1118": {
+            "label_type": "ParameterList"
+          },
+          "1120": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "1122": {
+            "label_type": "SymbolLookup",
+            "symbol": "b"
+          },
+          "113": {
+            "declarator_id": "115",
+            "label_type": "LexicalDeclaration"
+          },
+          "1145": {
+            "label_type": "VariableDeclaration"
+          },
+          "1147": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1150",
+            "variable_name": "express"
+          },
+          "115": {
+            "label_type": "VariableDeclarator",
+            "value_id": "118",
+            "variable_name": "y"
+          },
+          "1150": {
+            "function_name": "require",
+            "label_type": "CallExpression"
+          },
+          "1152": {
+            "label_type": "ArgumentList"
+          },
+          "1154": {
+            "label_type": "Literal",
+            "value": "'express'",
+            "value_type": "string"
+          },
+          "1157": {
+            "label_type": "VariableDeclaration"
+          },
+          "1159": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1162",
+            "variable_name": "router"
+          },
+          "1162": {
+            "function_name": "express.Router",
+            "label_type": "CallExpression"
+          },
+          "1167": {
+            "label_type": "ArgumentList"
+          },
+          "1172": {
+            "function_name": "router.get",
+            "label_type": "CallExpression"
+          },
+          "1177": {
+            "label_type": "ArgumentList"
+          },
+          "1179": {
+            "label_type": "Literal",
+            "value": "'/'",
+            "value_type": "string"
+          },
+          "118": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "1181": {
+            "block_id": "1191",
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "1183"
+          },
+          "1183": {
+            "label_type": "ParameterList"
+          },
+          "1185": {
+            "label_type": "SymbolLookup",
+            "symbol": "req"
+          },
+          "1187": {
+            "label_type": "SymbolLookup",
+            "symbol": "res"
+          },
+          "1189": {
+            "label_type": "SymbolLookup",
+            "symbol": "next"
+          },
+          "1191": {
+            "label_type": "StatementBlock"
+          },
+          "1193": {
+            "label_type": "VariableDeclaration"
+          },
+          "1195": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1198",
+            "variable_name": "user"
+          },
+          "1198": {
+            "arguments_id": "1204",
+            "constructor_id": "1199",
+            "label_type": "NewExpression"
+          },
+          "1199": {
+            "expression": "params",
+            "expression_id": "1202",
+            "label_type": "MemberAccess",
+            "member": "req"
+          },
+          "120": {
+            "condition_id": "122",
+            "label_type": "If",
+            "true_id": "126"
+          },
+          "1202": {
+            "label_type": "SymbolLookup",
+            "symbol": "params"
+          },
+          "1204": {
+            "label_type": "Literal",
+            "value": "'user'",
+            "value_type": "string"
+          },
+          "1208": {
+            "function_name": "res.render",
+            "label_type": "CallExpression"
+          },
+          "1213": {
+            "label_type": "ArgumentList"
+          },
+          "1215": {
+            "label_type": "Literal",
+            "value": "'index'",
+            "value_type": "string"
+          },
+          "1217": {
+            "label_type": "Object"
+          },
+          "1219": {
+            "key_id": "1220",
+            "label_type": "Pair",
+            "value_id": "1222"
+          },
+          "1220": {
+            "label_type": "SymbolLookup",
+            "symbol": "title"
+          },
+          "1222": {
+            "label_type": "Literal",
+            "value": "'Express'",
+            "value_type": "string"
+          },
+          "1230": {
+            "function_name": "express.Router().call",
+            "label_type": "CallExpression"
+          },
+          "124": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "1242": {
+            "label_type": "ArgumentList"
+          },
+          "1244": {
+            "label_type": "Literal",
+            "value": "'/users'",
+            "value_type": "string"
+          },
+          "1247": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "1252": {
+            "label_type": "ArgumentList"
+          },
+          "1254": {
+            "label_type": "Literal",
+            "value": "'hello'",
+            "value_type": "string"
+          },
+          "1257": {
+            "declarator_id": "1259",
+            "label_type": "LexicalDeclaration"
+          },
+          "1259": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1265",
+            "variable_name": "{exec}"
+          },
+          "126": {
+            "label_type": "StatementBlock"
+          },
+          "1265": {
+            "function_name": "require",
+            "label_type": "CallExpression"
+          },
+          "1267": {
+            "label_type": "ArgumentList"
+          },
+          "1269": {
+            "label_type": "Literal",
+            "value": "\"child_process\"",
+            "value_type": "string"
+          },
+          "1272": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "1279": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "128": {
+            "label_type": "VariableDeclaration"
+          },
+          "1289": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "13": {
+            "arguments_id": "16",
+            "constructor_id": "15",
+            "label_type": "NewExpression"
+          },
+          "130": {
+            "label_type": "VariableDeclarator",
+            "value_id": "133",
+            "variable_name": "x"
+          },
+          "1300": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "1313": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "1327": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "133": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
+          },
+          "1346": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "135": {
+            "declarator_id": "137",
+            "label_type": "LexicalDeclaration"
+          },
+          "1362": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "137": {
+            "label_type": "VariableDeclarator",
+            "value_id": "140",
+            "variable_name": "y"
+          },
+          "1374": {
+            "expression": "\"module-name\"",
+            "label_type": "Import"
+          },
+          "1378": {
+            "label_type": "VariableDeclaration"
+          },
+          "1380": {
+            "label_type": "VariableDeclarator",
+            "value_id": "1383",
+            "variable_name": "promise"
+          },
+          "1383": {
+            "function_name": "import",
+            "label_type": "CallExpression"
+          },
+          "1386": {
+            "label_type": "ArgumentList"
+          },
+          "1388": {
+            "label_type": "Literal",
+            "value": "\"module-name\"",
+            "value_type": "string"
+          },
+          "140": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
+          },
+          "144": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "149": {
+            "label_type": "ArgumentList"
+          },
+          "15": {
+            "label_type": "SymbolLookup",
+            "symbol": "Promise"
+          },
+          "151": {
+            "label_type": "SymbolLookup",
+            "symbol": "x"
+          },
+          "154": {
+            "comment": "// expected output: 2",
+            "label_type": "Comment"
+          },
+          "156": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "16": {
+            "label_type": "ArgumentList"
+          },
+          "161": {
+            "label_type": "ArgumentList"
+          },
+          "163": {
+            "label_type": "SymbolLookup",
+            "symbol": "y"
+          },
+          "166": {
+            "comment": "// expected output: 1",
+            "label_type": "Comment"
+          },
+          "167": {
+            "comment": "// break",
+            "label_type": "Comment"
+          },
+          "168": {
+            "declarator_id": "170",
+            "label_type": "LexicalDeclaration"
+          },
+          "170": {
+            "label_type": "VariableDeclarator",
+            "value_id": "173",
+            "variable_name": "i"
+          },
+          "173": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "175": {
+            "conditional_id": "177",
+            "label_type": "WhileStatement"
+          },
+          "179": {
+            "label_type": "BinaryOperation",
+            "left_id": "180",
+            "operator": "<",
+            "right_id": "182"
+          },
+          "18": {
+            "block_id": "21",
+            "label_type": "BlocklessMethodDeclaration"
+          },
+          "180": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "182": {
+            "label_type": "Literal",
+            "value": "6",
+            "value_type": "number"
+          },
+          "184": {
+            "label_type": "StatementBlock"
+          },
+          "186": {
+            "condition_id": "188",
+            "label_type": "If",
+            "true_id": "195"
+          },
+          "19": {
+            "label_type": "SymbolLookup",
+            "symbol": "resolve"
+          },
+          "190": {
+            "label_type": "BinaryOperation",
+            "left_id": "191",
+            "operator": "===",
+            "right_id": "193"
+          },
+          "191": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "193": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "195": {
+            "label_type": "StatementBlock"
+          },
+          "197": {
+            "label_type": "Break"
+          },
+          "2": {
+            "comment": "// async function",
+            "label_type": "Comment"
+          },
+          "202": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "205",
+            "variable_id": "203"
+          },
+          "203": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "205": {
+            "label_type": "BinaryOperation",
+            "left_id": "206",
+            "operator": "+",
+            "right_id": "208"
+          },
+          "206": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "208": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "212": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "217": {
+            "label_type": "ArgumentList"
+          },
+          "219": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "222": {
+            "comment": "// expected output: 3",
+            "label_type": "Comment"
+          },
+          "223": {
+            "comment": "// class",
+            "label_type": "Comment"
+          },
+          "224": {
+            "block_id": "227",
+            "label_type": "Class",
+            "name": "Polygon"
+          },
+          "227": {
+            "label_type": "ClassBody"
+          },
+          "229": {
+            "block_id": "237",
+            "label_type": "MethodDeclaration",
+            "name": "constructor",
+            "parameters_id": "231"
+          },
+          "231": {
+            "label_type": "ParameterList"
+          },
+          "233": {
+            "label_type": "SymbolLookup",
+            "symbol": "height"
+          },
+          "235": {
+            "label_type": "SymbolLookup",
+            "symbol": "width"
+          },
+          "237": {
+            "label_type": "StatementBlock"
+          },
+          "240": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "246",
+            "variable_id": "241"
+          },
+          "241": {
+            "expression": "area",
+            "expression_id": "244",
+            "label_type": "MemberAccess",
+            "member": "this"
+          },
+          "244": {
+            "label_type": "SymbolLookup",
+            "symbol": "area"
+          },
+          "246": {
+            "label_type": "BinaryOperation",
+            "left_id": "247",
+            "operator": "*",
+            "right_id": "249"
+          },
+          "247": {
+            "label_type": "SymbolLookup",
+            "symbol": "height"
+          },
+          "249": {
+            "label_type": "SymbolLookup",
+            "symbol": "width"
+          },
+          "254": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "259": {
+            "label_type": "ArgumentList"
+          },
+          "261": {
+            "expression": "area",
+            "expression_id": "272",
+            "label_type": "MemberAccess",
+            "member": "newPolygon(4,3)"
+          },
+          "272": {
+            "label_type": "SymbolLookup",
+            "symbol": "area"
+          },
+          "275": {
+            "comment": "// expected output: 12",
+            "label_type": "Comment"
+          },
+          "276": {
+            "comment": "// const",
+            "label_type": "Comment"
+          },
+          "277": {
+            "declarator_id": "279",
+            "label_type": "LexicalDeclaration"
+          },
+          "279": {
+            "label_type": "VariableDeclarator",
+            "value_id": "282",
+            "variable_name": "number"
+          },
+          "282": {
+            "label_type": "Literal",
+            "value": "42",
+            "value_type": "number"
+          },
+          "284": {
+            "block_id": "286",
+            "label_type": "TryStatement"
+          },
+          "286": {
+            "label_type": "StatementBlock"
+          },
+          "289": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "292",
+            "variable_id": "290"
+          },
+          "290": {
+            "label_type": "SymbolLookup",
+            "symbol": "number"
+          },
+          "292": {
+            "label_type": "Literal",
+            "value": "99",
+            "value_type": "number"
+          },
+          "295": {
+            "block_id": "300",
+            "label_type": "CatchClause"
+          },
+          "298": {
+            "label_type": "SymbolLookup",
+            "symbol": "err"
+          },
+          "3": {
+            "block_id": "9",
+            "label_type": "MethodDeclaration",
+            "name": "resolveAfter2Seconds"
+          },
+          "300": {
+            "label_type": "StatementBlock"
+          },
+          "303": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "308": {
+            "label_type": "ArgumentList"
+          },
+          "310": {
+            "label_type": "SymbolLookup",
+            "symbol": "err"
+          },
+          "313": {
+            "comment": "// expected output: TypeError: invalid assignment to const `number'",
+            "label_type": "Comment"
+          },
+          "314": {
+            "comment": "// Note - error messages will vary depending on browser",
+            "label_type": "Comment"
+          },
+          "317": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "322": {
+            "label_type": "ArgumentList"
+          },
+          "324": {
+            "label_type": "SymbolLookup",
+            "symbol": "number"
+          },
+          "327": {
+            "comment": "// expected output: 42",
+            "label_type": "Comment"
+          },
+          "328": {
+            "comment": "// do-while",
+            "label_type": "Comment"
+          },
+          "329": {
+            "label_type": "VariableDeclaration"
+          },
+          "331": {
+            "label_type": "VariableDeclarator",
+            "value_id": "334",
+            "variable_name": "result"
+          },
+          "334": {
+            "label_type": "Literal",
+            "value": "''",
+            "value_type": "string"
+          },
+          "336": {
+            "label_type": "VariableDeclaration"
+          },
+          "338": {
+            "label_type": "VariableDeclarator",
+            "value_id": "341",
+            "variable_name": "i"
+          },
+          "341": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "343": {
+            "conditional_id": "364",
+            "label_type": "DoStatement"
+          },
+          "345": {
+            "label_type": "StatementBlock"
+          },
+          "348": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "351",
+            "variable_id": "349"
+          },
+          "349": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "351": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "354": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "357",
+            "variable_id": "355"
+          },
+          "355": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "357": {
+            "label_type": "BinaryOperation",
+            "left_id": "358",
+            "operator": "+",
+            "right_id": "360"
+          },
+          "358": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "360": {
+            "label_type": "Literal",
+            "value": "' '",
+            "value_type": "string"
+          },
+          "366": {
+            "label_type": "BinaryOperation",
+            "left_id": "367",
+            "operator": "&&",
+            "right_id": "372"
+          },
+          "367": {
+            "label_type": "BinaryOperation",
+            "left_id": "368",
+            "operator": ">",
+            "right_id": "370"
+          },
+          "368": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "370": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "372": {
+            "label_type": "BinaryOperation",
+            "left_id": "373",
+            "operator": "<",
+            "right_id": "375"
+          },
+          "373": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "375": {
+            "label_type": "Literal",
+            "value": "5",
+            "value_type": "number"
+          },
+          "378": {
+            "comment": "// Despite i == 0 this will still loop as it starts off without the test",
+            "label_type": "Comment"
+          },
+          "380": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "385": {
+            "label_type": "ArgumentList"
+          },
+          "387": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "390": {
+            "comment": "// async for",
+            "label_type": "Comment"
+          },
+          "391": {
+            "block_id": "400",
+            "label_type": "MethodDeclaration",
+            "name": "streamAsyncIterable",
+            "parameters_id": "396"
+          },
+          "396": {
+            "label_type": "ParameterList"
+          },
+          "398": {
+            "label_type": "SymbolLookup",
+            "symbol": "stream"
+          },
+          "400": {
+            "label_type": "StatementBlock"
+          },
+          "402": {
+            "declarator_id": "404",
+            "label_type": "LexicalDeclaration"
+          },
+          "404": {
+            "label_type": "VariableDeclarator",
+            "value_id": "407",
+            "variable_name": "reader"
+          },
+          "407": {
+            "function_name": "stream.getReader",
+            "label_type": "CallExpression"
+          },
+          "412": {
+            "label_type": "ArgumentList"
+          },
+          "416": {
+            "block_id": "418",
+            "label_type": "TryStatement"
+          },
+          "418": {
+            "label_type": "StatementBlock"
+          },
+          "420": {
+            "conditional_id": "422",
+            "label_type": "WhileStatement"
+          },
+          "424": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "426": {
+            "label_type": "StatementBlock"
+          },
+          "428": {
+            "declarator_id": "430",
+            "label_type": "LexicalDeclaration"
+          },
+          "430": {
+            "label_type": "VariableDeclarator",
+            "value_id": "438",
+            "variable_name": "{done,value}"
+          },
+          "438": {
+            "expression_id": "440",
+            "label_type": "AwaitExpression"
+          },
+          "440": {
+            "function_name": "reader.read",
+            "label_type": "CallExpression"
+          },
+          "445": {
+            "label_type": "ArgumentList"
+          },
+          "449": {
+            "condition_id": "451",
+            "label_type": "If",
+            "true_id": "455"
+          },
+          "453": {
+            "label_type": "SymbolLookup",
+            "symbol": "done"
+          },
+          "455": {
+            "label_type": "StatementBlock"
+          },
+          "457": {
+            "label_type": "Return",
+            "value_id": null
+          },
+          "462": {
+            "label_type": "Yield"
+          },
+          "468": {
+            "block_id": "470",
+            "label_type": "FinallyClause"
+          },
+          "470": {
+            "label_type": "StatementBlock"
+          },
+          "473": {
+            "function_name": "reader.releaseLock",
+            "label_type": "CallExpression"
+          },
+          "478": {
+            "label_type": "ArgumentList"
+          },
+          "484": {
+            "comment": "// Fetches data from url and calculates response size using the async generator.",
+            "label_type": "Comment"
+          },
+          "485": {
+            "block_id": "493",
+            "label_type": "MethodDeclaration",
+            "name": "getResponseSize",
+            "parameters_id": "489"
+          },
+          "489": {
+            "label_type": "ParameterList"
+          },
+          "491": {
+            "label_type": "SymbolLookup",
+            "symbol": "url"
+          },
+          "493": {
+            "label_type": "StatementBlock"
+          },
+          "495": {
+            "declarator_id": "497",
+            "label_type": "LexicalDeclaration"
+          },
+          "497": {
+            "label_type": "VariableDeclarator",
+            "value_id": "500",
+            "variable_name": "response"
+          },
+          "500": {
+            "expression_id": "502",
+            "label_type": "AwaitExpression"
+          },
+          "502": {
+            "function_name": "fetch",
+            "label_type": "CallExpression"
+          },
+          "504": {
+            "label_type": "ArgumentList"
+          },
+          "506": {
+            "label_type": "SymbolLookup",
+            "symbol": "url"
+          },
+          "509": {
+            "comment": "// Will hold the size of the response, in bytes.",
+            "label_type": "Comment"
+          },
+          "510": {
+            "declarator_id": "512",
+            "label_type": "LexicalDeclaration"
+          },
+          "512": {
+            "label_type": "VariableDeclarator",
+            "value_id": "515",
+            "variable_name": "responseSize"
+          },
+          "515": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "517": {
+            "comment": "// The for-await-of loop. Async iterates over each portion of the response.",
+            "label_type": "Comment"
+          },
+          "518": {
+            "label_type": "ForStatement"
+          },
+          "52": {
+            "block_id": "59",
+            "label_type": "MethodDeclaration",
+            "name": "asyncCall"
+          },
+          "523": {
+            "label_type": "SymbolLookup",
+            "symbol": "chunk"
+          },
+          "525": {
+            "function_name": "streamAsyncIterable",
+            "label_type": "CallExpression"
+          },
+          "527": {
+            "label_type": "ArgumentList"
+          },
+          "529": {
+            "expression": "body",
+            "expression_id": "532",
+            "label_type": "MemberAccess",
+            "member": "response"
+          },
+          "532": {
+            "label_type": "SymbolLookup",
+            "symbol": "body"
+          },
+          "535": {
+            "label_type": "StatementBlock"
+          },
+          "537": {
+            "comment": "// Incrementing the total response length.",
+            "label_type": "Comment"
+          },
+          "539": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "542",
+            "variable_id": "540"
+          },
+          "540": {
+            "label_type": "SymbolLookup",
+            "symbol": "responseSize"
+          },
+          "542": {
+            "expression": "length",
+            "expression_id": "545",
+            "label_type": "MemberAccess",
+            "member": "chunk"
+          },
+          "545": {
+            "label_type": "SymbolLookup",
+            "symbol": "length"
+          },
+          "549": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "554": {
+            "label_type": "ArgumentList"
+          },
+          "556": {
+            "label_type": "Literal",
+            "value": "`Response Size: ${responseSize} bytes`",
+            "value_type": "string"
+          },
+          "559": {
+            "comment": "// expected output: \"Response Size: 1071472\"",
+            "label_type": "Comment"
+          },
+          "560": {
+            "label_type": "Return",
+            "value_id": "562"
+          },
+          "562": {
+            "label_type": "SymbolLookup",
+            "symbol": "responseSize"
+          },
+          "566": {
+            "function_name": "getResponseSize",
+            "label_type": "CallExpression"
+          },
+          "568": {
+            "label_type": "ArgumentList"
+          },
+          "570": {
+            "label_type": "Literal",
+            "value": "'https://jsonplaceholder.typicode.com/photos'",
+            "value_type": "string"
+          },
+          "573": {
+            "comment": "// for in",
+            "label_type": "Comment"
+          },
+          "574": {
+            "label_type": "VariableDeclaration"
+          },
+          "576": {
+            "label_type": "VariableDeclarator",
+            "value_id": "579",
+            "variable_name": "triangle"
+          },
+          "579": {
+            "label_type": "Object"
+          },
+          "581": {
+            "key_id": "582",
+            "label_type": "Pair",
+            "value_id": "584"
+          },
+          "582": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "584": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "586": {
+            "key_id": "587",
+            "label_type": "Pair",
+            "value_id": "589"
+          },
+          "587": {
+            "label_type": "SymbolLookup",
+            "symbol": "b"
+          },
+          "589": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
+          },
+          "59": {
+            "label_type": "StatementBlock"
+          },
+          "591": {
+            "key_id": "592",
+            "label_type": "Pair",
+            "value_id": "594"
+          },
+          "592": {
+            "label_type": "SymbolLookup",
+            "symbol": "c"
+          },
+          "594": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "597": {
+            "block_id": "603",
+            "label_type": "MethodDeclaration",
+            "name": "ColoredTriangle"
+          },
+          "603": {
+            "label_type": "StatementBlock"
+          },
+          "606": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "612",
+            "variable_id": "607"
+          },
+          "607": {
+            "expression": "color",
+            "expression_id": "610",
+            "label_type": "MemberAccess",
+            "member": "this"
+          },
+          "610": {
+            "label_type": "SymbolLookup",
+            "symbol": "color"
+          },
+          "612": {
+            "label_type": "Literal",
+            "value": "'red'",
+            "value_type": "string"
+          },
+          "616": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "622",
+            "variable_id": "617"
+          },
+          "617": {
+            "expression": "prototype",
+            "expression_id": "620",
+            "label_type": "MemberAccess",
+            "member": "ColoredTriangle"
+          },
+          "62": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "620": {
+            "label_type": "SymbolLookup",
+            "symbol": "prototype"
+          },
+          "622": {
+            "label_type": "SymbolLookup",
+            "symbol": "triangle"
+          },
+          "624": {
+            "label_type": "VariableDeclaration"
+          },
+          "626": {
+            "label_type": "VariableDeclarator",
+            "value_id": "629",
+            "variable_name": "obj"
+          },
+          "629": {
+            "arguments_id": "632",
+            "constructor_id": "631",
+            "label_type": "NewExpression"
+          },
+          "631": {
+            "label_type": "SymbolLookup",
+            "symbol": "ColoredTriangle"
+          },
+          "632": {
+            "label_type": "ArgumentList"
+          },
+          "636": {
+            "label_type": "ForStatement"
+          },
+          "640": {
+            "label_type": "SymbolLookup",
+            "symbol": "prop"
+          },
+          "642": {
+            "label_type": "SymbolLookup",
+            "symbol": "obj"
+          },
+          "644": {
+            "label_type": "StatementBlock"
+          },
+          "646": {
+            "condition_id": "648",
+            "label_type": "If",
+            "true_id": "660"
+          },
+          "650": {
+            "function_name": "obj.hasOwnProperty",
+            "label_type": "CallExpression"
+          },
+          "655": {
+            "label_type": "ArgumentList"
+          },
+          "657": {
+            "label_type": "SymbolLookup",
+            "symbol": "prop"
+          },
+          "660": {
+            "label_type": "StatementBlock"
+          },
+          "663": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "668": {
+            "label_type": "ArgumentList"
+          },
+          "67": {
+            "label_type": "ArgumentList"
+          },
+          "670": {
+            "label_type": "Literal",
+            "value": "`obj.${prop} = ${obj[prop]}`",
+            "value_type": "string"
+          },
+          "675": {
+            "comment": "// Output:",
+            "label_type": "Comment"
+          },
+          "676": {
+            "comment": "// \"obj.color = red\"",
+            "label_type": "Comment"
+          },
+          "677": {
+            "comment": "// for of",
+            "label_type": "Comment"
+          },
+          "678": {
+            "declarator_id": "680",
+            "label_type": "LexicalDeclaration"
+          },
+          "680": {
+            "label_type": "VariableDeclarator",
+            "value_id": "683",
+            "variable_name": "iterable"
+          },
+          "683": {
+            "label_type": "ArrayInitializer"
+          },
+          "685": {
+            "label_type": "Literal",
+            "value": "10",
+            "value_type": "number"
+          },
+          "687": {
+            "label_type": "Literal",
+            "value": "20",
+            "value_type": "number"
+          },
+          "689": {
+            "label_type": "Literal",
+            "value": "30",
+            "value_type": "number"
+          },
+          "69": {
+            "label_type": "Literal",
+            "value": "'calling'",
+            "value_type": "string"
+          },
+          "692": {
+            "label_type": "ForStatement"
+          },
+          "696": {
+            "label_type": "SymbolLookup",
+            "symbol": "value"
+          },
+          "698": {
+            "label_type": "SymbolLookup",
+            "symbol": "iterable"
+          },
+          "700": {
+            "label_type": "StatementBlock"
+          },
+          "703": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "706",
+            "variable_id": "704"
+          },
+          "704": {
+            "label_type": "SymbolLookup",
+            "symbol": "value"
+          },
+          "706": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "709": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "714": {
+            "label_type": "ArgumentList"
+          },
+          "716": {
+            "label_type": "SymbolLookup",
+            "symbol": "value"
+          },
+          "72": {
+            "declarator_id": "74",
+            "label_type": "LexicalDeclaration"
+          },
+          "720": {
+            "comment": "// for",
+            "label_type": "Comment"
+          },
+          "721": {
+            "label_type": "ForStatement"
+          },
+          "724": {
+            "declarator_id": "726",
+            "label_type": "LexicalDeclaration"
+          },
+          "726": {
+            "label_type": "VariableDeclarator",
+            "value_id": "729",
+            "variable_name": "i"
+          },
+          "729": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "732": {
+            "label_type": "BinaryOperation",
+            "left_id": "733",
+            "operator": "<",
+            "right_id": "735"
+          },
+          "733": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "735": {
+            "label_type": "Literal",
+            "value": "9",
+            "value_type": "number"
+          },
+          "737": {
+            "expression_type": "++",
+            "identifier_id": "738",
+            "label_type": "UpdateExpression"
+          },
+          "738": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "74": {
+            "label_type": "VariableDeclarator",
+            "value_id": "77",
+            "variable_name": "result"
+          },
+          "741": {
+            "label_type": "StatementBlock"
+          },
+          "744": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "749": {
+            "label_type": "ArgumentList"
+          },
+          "751": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "754": {
+            "comment": "// more statements",
+            "label_type": "Comment"
+          },
+          "756": {
+            "comment": "// if",
+            "label_type": "Comment"
+          },
+          "757": {
+            "block_id": "764",
+            "label_type": "MethodDeclaration",
+            "name": "testNum",
+            "parameters_id": "760"
+          },
+          "760": {
+            "label_type": "ParameterList"
+          },
+          "762": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "764": {
+            "label_type": "StatementBlock"
+          },
+          "766": {
+            "declarator_id": "768",
+            "label_type": "LexicalDeclaration"
+          },
+          "768": {
+            "label_type": "VariableDeclarator",
+            "variable_name": "result"
+          },
+          "77": {
+            "expression_id": "79",
+            "label_type": "AwaitExpression"
+          },
+          "771": {
+            "condition_id": "773",
+            "false_id": "789",
+            "label_type": "If",
+            "true_id": "780"
+          },
+          "775": {
+            "label_type": "BinaryOperation",
+            "left_id": "776",
+            "operator": ">",
+            "right_id": "778"
+          },
+          "776": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "778": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "780": {
+            "label_type": "StatementBlock"
+          },
+          "783": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "786",
+            "variable_id": "784"
+          },
+          "784": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "786": {
+            "label_type": "Literal",
+            "value": "'positive'",
+            "value_type": "string"
+          },
+          "789": {
+            "label_type": "ElseClause"
+          },
+          "79": {
+            "function_name": "resolveAfter2Seconds",
+            "label_type": "CallExpression"
+          },
+          "791": {
+            "label_type": "StatementBlock"
+          },
+          "794": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "797",
+            "variable_id": "795"
+          },
+          "795": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "797": {
+            "label_type": "Literal",
+            "value": "'NOT positive'",
+            "value_type": "string"
+          },
+          "800": {
+            "label_type": "Return",
+            "value_id": "802"
+          },
+          "802": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "806": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "81": {
+            "label_type": "ArgumentList"
+          },
+          "811": {
+            "label_type": "ArgumentList"
+          },
+          "813": {
+            "function_name": "testNum",
+            "label_type": "CallExpression"
+          },
+          "815": {
+            "label_type": "ArgumentList"
+          },
+          "817": {
+            "label_type": "UnaryExpression",
+            "operator": "-"
+          },
+          "819": {
+            "label_type": "Literal",
+            "value": "5",
+            "value_type": "number"
+          },
+          "823": {
+            "comment": "// expected output: \"NOT positive\"",
+            "label_type": "Comment"
+          },
+          "824": {
+            "comment": "// switc",
+            "label_type": "Comment"
+          },
+          "825": {
+            "declarator_id": "827",
+            "label_type": "LexicalDeclaration"
+          },
+          "827": {
+            "label_type": "VariableDeclarator",
+            "value_id": "830",
+            "variable_name": "expr"
+          },
+          "830": {
+            "label_type": "Literal",
+            "value": "\"Bananas\"",
+            "value_type": "string"
+          },
+          "832": {
+            "body_id": "838",
+            "label_type": "TryStatement",
+            "value_id": "834"
+          },
+          "836": {
+            "label_type": "SymbolLookup",
+            "symbol": "expr"
+          },
+          "838": {
+            "label_type": "SwitchBody"
+          },
+          "840": {
+            "label_type": "SwitchCase",
+            "value": "'Oranges'"
+          },
+          "845": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "850": {
+            "label_type": "ArgumentList"
+          },
+          "852": {
+            "label_type": "Literal",
+            "value": "'Oranges are $0.59 a pound.'",
+            "value_type": "string"
+          },
+          "858": {
+            "label_type": "SwitchCase",
+            "value": "'Apples'"
+          },
+          "86": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "863": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "868": {
+            "label_type": "ArgumentList"
+          },
+          "870": {
+            "label_type": "Literal",
+            "value": "'Apples are $0.32 a pound.'",
+            "value_type": "string"
+          },
+          "876": {
+            "label_type": "SwitchCase",
+            "value": "'Bananas'"
+          },
+          "881": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "886": {
+            "label_type": "ArgumentList"
+          },
+          "888": {
+            "label_type": "Literal",
+            "value": "'Bananas are $0.48 a pound.'",
+            "value_type": "string"
+          },
+          "894": {
+            "label_type": "SwitchCase",
+            "value": "'Cherries'"
+          },
+          "899": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "9": {
+            "label_type": "StatementBlock"
+          },
+          "904": {
+            "label_type": "ArgumentList"
+          },
+          "906": {
+            "label_type": "Literal",
+            "value": "'Cherries are $3.00 a pound.'",
+            "value_type": "string"
+          },
+          "91": {
+            "label_type": "ArgumentList"
+          },
+          "912": {
+            "label_type": "SwitchCase",
+            "value": "'Mangoes'"
+          },
+          "916": {
+            "label_type": "SwitchCase",
+            "value": "'Papayas'"
+          },
+          "921": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "926": {
+            "label_type": "ArgumentList"
+          },
+          "928": {
+            "label_type": "Literal",
+            "value": "'Mangoes and papayas are $2.79 a pound.'",
+            "value_type": "string"
+          },
+          "93": {
+            "label_type": "SymbolLookup",
+            "symbol": "result"
+          },
+          "934": {
+            "label_type": "SwitchDefault"
+          },
+          "938": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "943": {
+            "label_type": "ArgumentList"
+          },
+          "945": {
+            "label_type": "BinaryOperation",
+            "left_id": "946",
+            "operator": "+",
+            "right_id": "951"
+          },
+          "946": {
+            "label_type": "BinaryOperation",
+            "left_id": "947",
+            "operator": "+",
+            "right_id": "949"
+          },
+          "947": {
+            "label_type": "Literal",
+            "value": "'Sorry, we are out of '",
+            "value_type": "string"
+          },
+          "949": {
+            "label_type": "SymbolLookup",
+            "symbol": "expr"
+          },
+          "951": {
+            "label_type": "Literal",
+            "value": "'.'",
+            "value_type": "string"
+          },
+          "956": {
+            "function_name": "console.log",
+            "label_type": "CallExpression"
+          },
+          "96": {
+            "comment": "// expected output: \"resolved\"",
+            "label_type": "Comment"
+          },
+          "961": {
+            "label_type": "ArgumentList"
+          },
+          "963": {
+            "label_type": "Literal",
+            "value": "\"Is there anything else you'd like?\"",
+            "value_type": "string"
+          },
+          "966": {
+            "comment": "// while",
+            "label_type": "Comment"
+          },
+          "967": {
+            "label_type": "VariableDeclaration"
+          },
+          "969": {
+            "label_type": "VariableDeclarator",
+            "value_id": "972",
+            "variable_name": "n"
+          },
+          "972": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "974": {
+            "label_type": "VariableDeclaration"
+          },
+          "976": {
+            "label_type": "VariableDeclarator",
+            "value_id": "979",
+            "variable_name": "x"
+          },
+          "979": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "981": {
+            "conditional_id": "983",
+            "label_type": "WhileStatement"
+          },
+          "985": {
+            "label_type": "BinaryOperation",
+            "left_id": "986",
+            "operator": "<",
+            "right_id": "988"
+          },
+          "986": {
+            "label_type": "SymbolLookup",
+            "symbol": "n"
+          },
+          "988": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "99": {
+            "function_name": "asyncCall",
+            "label_type": "CallExpression"
+          },
+          "990": {
+            "label_type": "StatementBlock"
+          },
+          "993": {
+            "expression_type": "++",
+            "identifier_id": "994",
+            "label_type": "UpdateExpression"
+          },
+          "994": {
+            "label_type": "SymbolLookup",
+            "symbol": "n"
+          },
+          "998": {
+            "label_type": "Assignment",
+            "operator": null,
+            "value_id": "1001",
+            "variable_id": "999"
+          },
+          "999": {
+            "label_type": "SymbolLookup",
+            "symbol": "x"
+          }
+        }
+      }
     },
     {
       "graph": {
