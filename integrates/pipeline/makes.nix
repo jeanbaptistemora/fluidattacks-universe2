@@ -7,9 +7,13 @@
   ...
 }: let
   chartsTemplate = {
+    after_script = ["cp ~/.makes/provenance-* ."];
     artifacts = {
       expire_in = "1 week";
-      paths = ["integrates/charts"];
+      paths = [
+        "integrates/charts"
+        "provenance-*"
+      ];
       when = "on_success";
     };
     stage = "analytics";
@@ -241,8 +245,12 @@ in {
             gitlabExtra =
               gitlabDeployAppDev
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
-                  paths = ["integrates/back/deploy/permissions_matrix"];
+                  paths = [
+                    "integrates/back/deploy/permissions_matrix"
+                    "provenance-*"
+                  ];
                   expire_in = "1 day";
                   when = "on_success";
                 };
@@ -278,8 +286,12 @@ in {
             gitlabExtra =
               gitlabTestDevAndProd
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
-                  paths = ["integrates/.coverage*"];
+                  paths = [
+                    "integrates/.coverage*"
+                    "provenance-*"
+                  ];
                   expire_in = "1 day";
                   when = "on_success";
                 };
@@ -292,10 +304,12 @@ in {
             gitlabExtra =
               gitlabTestDevAndProd
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
                   name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
                   paths = [
                     "integrates/.coverage*"
+                    "provenance-*"
                   ];
                   expire_in = "1 week";
                 };
@@ -355,8 +369,12 @@ in {
             gitlabExtra =
               gitlabExternal
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
-                  paths = ["integrates/build"];
+                  paths = [
+                    "integrates/build"
+                    "provenance-*"
+                  ];
                   expire_in = "1 day";
                   when = "on_success";
                   reports = {
@@ -391,8 +409,12 @@ in {
             gitlabExtra =
               gitlabExternal
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
-                  paths = ["integrates/.coverage*"];
+                  paths = [
+                    "integrates/.coverage*"
+                    "provenance-*"
+                  ];
                   expire_in = "1 day";
                   when = "on_success";
                 };
@@ -442,11 +464,15 @@ in {
               // {
                 after_script = [
                   "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
+                  "cp ~/.makes/provenance-* ."
                 ];
                 artifacts = {
                   expire_in = "1 week";
                   name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-                  paths = ["integrates/front/coverage.lcov"];
+                  paths = [
+                    "integrates/front/coverage.lcov"
+                    "provenance-*"
+                  ];
                 };
               };
           }
