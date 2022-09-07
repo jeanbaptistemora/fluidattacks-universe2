@@ -163,31 +163,6 @@ def cli_language(
     sys.exit(0 if success else 1)
 
 
-@cli.command(help="Update vulnerability locations.", name="rebase")
-@GROUP(required=True)
-@NAMESPACE(required=True)
-@REPO()
-@TOKEN(required=True)
-def cli_rebase(
-    group: str,
-    namespace: str,
-    repository: str,
-    token: str,
-) -> None:
-    success: bool = run(
-        cli_rebase_wrapped(
-            group=group,
-            namespace=namespace,
-            repository=repository,
-            token=token,
-        ),
-    )
-
-    log_blocking("info", "Success: %s", success)
-
-    sys.exit(0 if success else 1)
-
-
 @cli.command(help="Perform vulnerability detection.", name="scan")
 @CONFIG()
 @GROUP()
@@ -260,31 +235,6 @@ async def cli_language_wrapped(
         group=group,
         token=token,
     )
-
-
-@shield(on_error_return=False)
-async def cli_rebase_wrapped(
-    group: str,
-    namespace: str,
-    repository: str,
-    token: str,
-) -> bool:
-    import core.rebase
-
-    initialize_bugsnag()
-    add_bugsnag_data(
-        group=group,
-        namespace=namespace,
-        token=token,
-    )
-    success: bool = await core.rebase.main(
-        group=group,
-        namespace=namespace,
-        repository=repository,
-        token=token,
-    )
-
-    return success
 
 
 @shield_blocking(on_error_return=False)

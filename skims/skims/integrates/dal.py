@@ -937,50 +937,6 @@ async def do_update_evidence_description(
     return False
 
 
-async def do_update_vulnerability_commit(
-    *,
-    vuln_commit: str,
-    vuln_id: str,
-    vuln_what: str,
-    vuln_where: str,
-    client: Optional[GraphQLClient] = None,
-) -> bool:
-    result = await _execute(
-        query="""
-            mutation SkimsDoUpdateVulnerabilityCommit(
-                $vuln_commit: String!
-                $vuln_id: String!
-                $vuln_what: String!
-                $vuln_where: String!
-            ) {
-                updateVulnerabilityCommit(
-                    vulnerabilityCommit: $vuln_commit
-                    vulnerabilityId: $vuln_id
-                    vulnerabilityWhere: $vuln_what
-                    vulnerabilitySpecific: $vuln_where
-                ) {
-                    success
-                }
-            }
-        """,
-        operation="SkimsDoUpdateVulnerabilityCommit",
-        variables=dict(
-            vuln_commit=vuln_commit,
-            vuln_id=vuln_id,
-            vuln_what=vuln_what,
-            vuln_where=vuln_where,
-        ),
-        client=client,
-    )
-    if "errors" in result:
-        return False
-
-    with suppress(AttributeError, KeyError, TypeError):
-        return result["data"]["updateVulnerabilityCommit"]["success"]
-
-    return False
-
-
 async def do_upload_vulnerabilities(
     *,
     finding_id: str,
