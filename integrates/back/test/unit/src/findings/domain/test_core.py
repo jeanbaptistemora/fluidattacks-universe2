@@ -14,6 +14,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -23,9 +26,15 @@ from db_model.finding_comments.types import (
 from db_model.findings.types import (
     Finding,
 )
+from decimal import (
+    Decimal,
+)
 from findings.domain import (
     add_comment,
+    get_last_closed_vulnerability_info,
+    get_max_open_severity,
     get_oldest_no_treatment,
+    get_pending_verification_findings,
     get_tracking_vulnerabilities,
     get_treatment_summary,
     has_access_to_finding,
@@ -43,6 +52,12 @@ from newutils.datetime import (
     get_now,
 )
 import pytest
+from pytz import (  # type: ignore
+    timezone,
+)
+from settings import (
+    TIME_ZONE,
+)
 import time
 from typing import (
     List,
@@ -55,6 +70,45 @@ from vulnerabilities.types import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+async def test_get_last_closed_vulnerability() -> None:
+    findings_to_get = ["463558592", "422286126"]
+    loaders: Dataloaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
+        findings_to_get
+    )
+    (
+        vuln_closed_days,
+        last_closed_vuln,
+    ) = await get_last_closed_vulnerability_info(loaders, findings)
+    tzn = timezone(TIME_ZONE)
+    actual_date = datetime.now(tz=tzn).date()
+    initial_date = datetime(2019, 1, 15).date()
+    assert vuln_closed_days == (actual_date - initial_date).days
+    assert last_closed_vuln.id == "242f848c-148a-4028-8e36-c7d995502590"
+    assert last_closed_vuln.finding_id == "463558592"
+
+
+async def test_get_max_open_severity() -> None:
+    findings_to_get = ["463558592", "422286126"]
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
+        findings_to_get
+    )
+    test_data = await get_max_open_severity(loaders, findings)
+    assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
+    assert test_data[1].id == "463558592"
+
+
+async def test_get_pending_verification_findings() -> None:
+    group_name = "unittesting"
+    loaders = get_new_context()
+    findings = await get_pending_verification_findings(loaders, group_name)
+    assert len(findings) >= 1
+    assert findings[0].title == "038. Business information leak"
+    assert findings[0].id == "436992569"
+    assert findings[0].group_name == "unittesting"
 
 
 @pytest.mark.mymark
