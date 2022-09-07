@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { Error } from "@bugsnag/core/types/event";
 import type Event from "@bugsnag/core/types/event";
 import Bugsnag from "@bugsnag/js";

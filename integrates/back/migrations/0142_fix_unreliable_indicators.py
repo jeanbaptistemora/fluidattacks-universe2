@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # pylint: disable=invalid-name,missing-kwoa
 """
 This migration aims to update the unreliable indicators facet for all

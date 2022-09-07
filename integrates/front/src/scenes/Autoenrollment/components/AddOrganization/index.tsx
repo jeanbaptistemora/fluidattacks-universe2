@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default

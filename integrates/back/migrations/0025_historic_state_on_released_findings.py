@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # pylint: disable=invalid-name,import-error
 # Formerly a draft was identified by 'not having a releaseDate' in the DB.
 # This was migrated and a new column called 'historic_state' was added.

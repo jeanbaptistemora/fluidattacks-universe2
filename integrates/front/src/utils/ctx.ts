@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const CI_COMMIT_REF_NAME: string = "__CI_COMMIT_REF_NAME__";
 const CI_COMMIT_SHA: string = "__CI_COMMIT_SHA__";
 const CI_COMMIT_SHORT_SHA: string = "__CI_COMMIT_SHORT_SHA__";

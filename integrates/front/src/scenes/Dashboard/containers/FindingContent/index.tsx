@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { ApolloError, QueryResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";

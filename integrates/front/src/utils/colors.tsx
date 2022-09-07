@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { IBadgeProps } from "components/Badge";
 
 const statusGrayColor: string[] = ["Requested", "Unknown", "N/a", "Queued"];

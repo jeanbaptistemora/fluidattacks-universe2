@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from context import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,

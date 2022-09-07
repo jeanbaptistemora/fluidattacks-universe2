@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 resource "aws_elasticache_subnet_group" "cache_db" {
   name = "integrates-cache"
   subnet_ids = [

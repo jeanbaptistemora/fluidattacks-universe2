@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable fp/no-rest-parameters */
 import React from "react";

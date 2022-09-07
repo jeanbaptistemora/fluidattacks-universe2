@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # pylint: disable=protected-access, import-error
 from api.mutations.sign_in import (
     log_stakeholder_in,

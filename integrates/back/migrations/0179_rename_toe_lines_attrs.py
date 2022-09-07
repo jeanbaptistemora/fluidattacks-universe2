@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # pylint: disable=invalid-name
 """
 Rename modified_commit by last_commit and commit_author by last_author for toe

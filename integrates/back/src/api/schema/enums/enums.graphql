@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 "Actions after getting blocked by an event"
 enum ActionsAfterBlocking {
   "The hacker started working on another group from another client"

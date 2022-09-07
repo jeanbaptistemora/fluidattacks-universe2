@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 """
     This newutils package houses the schema deprecation parsing and filters to
     find out and report overdue fields in the schema and gather the needed info

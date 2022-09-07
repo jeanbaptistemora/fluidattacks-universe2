@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from aiodataloader import (
     DataLoader,
 )
@@ -168,16 +172,13 @@ async def add_comment(
     )
     content = comment_data.content
     validations.validate_field_length(content, 20000)
-
     await authz.validate_handle_comment_scope(
         loaders, content, user_email, group_name, parent_comment
     )
-
     if param_type == CommentType.OBSERVATION:
         enforcer = await authz.get_group_level_enforcer(loaders, user_email)
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
-
     if parent_comment != "0":
         finding_comments = [
             comment.id

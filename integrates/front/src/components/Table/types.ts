@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable @typescript-eslint/no-explicit-any
   --------
   Disabling this rule is necessary, because the dataset array may contain

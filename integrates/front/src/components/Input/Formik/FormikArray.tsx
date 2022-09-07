@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FieldArray } from "formik";
 import type { FC, ReactNode } from "react";

@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable fp/no-let,fp/no-mutation
   --------
   Used to be able to generate and assign a secret key, every time its useful life expires.

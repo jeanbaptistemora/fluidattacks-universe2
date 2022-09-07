@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # pylint: disable=invalid-name
 """
 This migration fix those vuln deletion dates that have a lot of time difference

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 """
 This migration updates the value of the provider in Django's social_auth table
 of all the users that authenticate to the platform using the Azure button.

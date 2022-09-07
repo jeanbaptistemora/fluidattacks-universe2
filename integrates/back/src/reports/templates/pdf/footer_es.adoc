@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
 Copyright © 2022 Fluid Attacks
 
 Todos los derechos reservados. Este documento contiene información de propiedad

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 "Vulnerability Severity type definition"
 type Severity {
   """Measure of the effort and resources needed for an attacker to put

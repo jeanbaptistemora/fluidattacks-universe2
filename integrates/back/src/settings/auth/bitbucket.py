@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from context import (
     FI_BITBUCKET_OAUTH2_KEY,
     FI_BITBUCKET_OAUTH2_SECRET,
