@@ -4,6 +4,9 @@ from aioextensions import (
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
+from ctx import (
+    CTX,
+)
 import dast.aws.f024
 import dast.aws.f031
 from model import (
@@ -23,13 +26,15 @@ from state.ephemeral import (
     EphemeralStore,
 )
 from typing import (
+    Any,
     Dict,
     List,
+    Tuple,
 )
 
-CHECKS = (
-    *dast.aws.f024.CHECKS,
-    *dast.aws.f031.CHECKS,
+CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+    (core_model.FindingEnum.F024, [*dast.aws.f024.CHECKS]),
+    (core_model.FindingEnum.F031, [*dast.aws.f031.CHECKS]),
 )
 
 
@@ -41,7 +46,14 @@ async def analyze(
 
     vulnerabilities: List[Vulnerability] = list(
         collapse(
-            await collect([check(credentials) for check in CHECKS]),
+            await collect(
+                [
+                    check(credentials)
+                    for finding, checks in CHECKS
+                    for check in checks
+                    if finding in CTX.config.checks
+                ]
+            ),
             base_type=Vulnerability,
         )
     )
