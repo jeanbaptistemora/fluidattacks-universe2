@@ -283,26 +283,26 @@ export const enTranslations: ResourceKey = {
       },
       name: {
         label: "Credential name",
-        placeholder: "Test credential",
+        placeholder: "Name or sentence to identify these credentials",
       },
-      password: "Repository password",
+      password: "Password",
       sshKey: "Private SSH Key",
-      token: "Repository access token",
+      token: "Token",
       type: {
         https: "HTTPS",
         label: "Credential type",
         ssh: "SSH",
       },
-      user: "Repository user",
+      user: "User",
     },
     environment: {
-      label: "Environment kind",
+      label: "Description of the application environment",
       placeholder: "qa",
     },
     exclusions: {
       label: "Exclusions ",
-      placeholder: "/devopsinterbanknew",
-      tooltip: "Enter exclusions paths",
+      placeholder: "/path_to_exclude",
+      tooltip: "Insert up to five code exclusion paths",
     },
     groupDescription: {
       label: "Description of the group",
@@ -348,11 +348,11 @@ export const enTranslations: ResourceKey = {
     termsOfService: "Terms of service",
     title: "Let's create your group",
     url: {
-      label: "URL repository ",
+      label: "Repository URL",
       placeholder: "https://gitrepository.yourproject/sms/...",
       tooltip:
-        "Can be a repository or fork. Allowed only a HTTPS URL like " +
-        "https://example.com/user/repo.git or a SSH URL like " +
+        "Repository or fork. Examples:\n" +
+        "https://example.com/user/repo.git\n" +
         "git@github.com:user/repo.git",
     },
     welcome: "Welcome to the Attacks Resistance Management platform (ARM)",
