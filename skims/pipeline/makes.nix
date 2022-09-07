@@ -108,10 +108,12 @@ in {
                 else gitlabTest
               )
               // {
+                after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
                   name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
                   paths = [
                     "skims/.coverage*"
+                    "provenance-*"
                   ];
                   expire_in = "1 week";
                 };
