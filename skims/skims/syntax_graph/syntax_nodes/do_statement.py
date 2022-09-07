@@ -15,6 +15,7 @@ def build_do_statement_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
+        block_id=block,
         conditional_id=conditional,
         label_type="DoStatement",
     )

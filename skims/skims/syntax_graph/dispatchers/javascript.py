@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.common import (
     comment as common_comment,
     do_statement as common_do_statement,
     else_clause as common_else_clause,
+    export_statement as common_export_statement,
     expression_statement as common_expression_statement,
     finally_clause as common_finally_clause,
     identifier as common_identifier,
@@ -34,8 +35,6 @@ from syntax_graph.syntax_readers.common import (
     throw_statement as common_throw_statement,
     unary_expression as common_unary_expression,
     update_expression as common_update_expression,
-    variable_declaration as common_variable_declaration,
-    variable_declarator as common_variable_declarator,
     yield_expression as common_yield_expression,
 )
 from syntax_graph.syntax_readers.javascript import (
@@ -46,11 +45,11 @@ from syntax_graph.syntax_readers.javascript import (
     catch_clause as javascript_catch_clause,
     for_statement as javascript_for_statement,
     import_statement as javascript_import_statement,
-    lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     object as javascript_object,
     subscript_expression as javascript_subscript_expression,
     try_statement as javascript_try_statement,
+    variable_declaration as javascript_variable_declaration,
     while_statement as javascript_while_statement,
 )
 from syntax_graph.types import (
@@ -153,6 +152,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "export_statement",
+        },
+        syntax_reader=common_export_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "expression_statement",
         },
         syntax_reader=common_expression_statement.reader,
@@ -188,12 +193,6 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "for_in_statement",
         },
         syntax_reader=javascript_for_statement.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "lexical_declaration",
-        },
-        syntax_reader=javascript_lexical_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -328,14 +327,9 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "variable_declaration",
+            "lexical_declaration",
         },
-        syntax_reader=common_variable_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "variable_declarator",
-        },
-        syntax_reader=common_variable_declarator.reader,
+        syntax_reader=javascript_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
