@@ -8,9 +8,6 @@
   "@advanced-rest-client/base": {
     "GHSA-v3wr-67px-44xg": "<0.1.10"
   },
-  "@angular/core": {
-    "SNYK-JS-ANGULARCORE-1070902": "<11.0.5 || >=11.1.0-next.0 <11.1.0-next.3"
-  },
   "@asyncapi/modelina": {
     "GHSA-4jg2-84c2-pj95": "<=0.30.1"
   },
@@ -111,15 +108,8 @@
   "@zhaoyao91/eval-in-vm": {
     "GHSA-jp99-5h8w-gmxc": "0.0.0"
   },
-  "acorn": {
-    "SNYK-JS-ACORN-559469": ">=5.5.0 <5.7.4 || >=6.0.0 <6.4.1 || >=7.0.0 <7.1.1",
-    "www.npmjs.com/advisories/1488": ">=5.5.0 <5.7.4 || >=6.0.0 <6.4.1 || >=7.0.0 <7.1.1"
-  },
   "addax": {
     "GHSA-4q8f-5xxj-946r": "<1.1.0"
-  },
-  "adm-zip": {
-    "SNYK-JS-ADMZIP-1065796": "<0.5.2"
   },
   "ag-grid-community": {
     "GHSA-7p6w-x2gr-rrf8": "<14.0.0"
@@ -132,13 +122,6 @@
   },
   "an0n-chat-lib": {
     "GHSA-7xcv-wvr7-4h6p": "<=0.0.1-security"
-  },
-  "angular": {
-    "SNYK-JS-ANGULAR-572020": "<1.8.0",
-    "npm:angular:20150315": "<1.6.1",
-    "npm:angular:20150807-1": ">=1.3.1 <1.5.0",
-    "npm:angular:20160527": ">=1.0.0 <1.2.30",
-    "npm:angular:20161101": ">=1.5.0 <1.5.9"
   },
   "angular-expressions": {
     "GHSA-j6px-jwvv-vpwq": "<1.1.2"
@@ -207,12 +190,6 @@
   "aurelia-framework": {
     "GHSA-m6j2-v3gq-45r5": "<1.4.1"
   },
-  "axios-http": {
-    "SNYK-JS-AXIOSHTTP-460539": "<=0.0.1-security"
-  },
-  "axioss": {
-    "SNYK-JS-AXIOSS-460538": "<=0.0.1-security"
-  },
   "base64-url": {
     "GHSA-j4mr-9xw3-c9jx": "<2.0.0"
   },
@@ -221,9 +198,6 @@
   },
   "bassmaster": {
     "CVE-2014-7205": "<1.5.2"
-  },
-  "bcrypt": {
-    "SNYK-JS-BCRYPT-575033": "<5.0.0"
   },
   "bigint-money": {
     "GHSA-9r3m-mhfm-39cm": "<0.6.2"
@@ -309,9 +283,6 @@
   "cmmn-js-properties-panel": {
     "GHSA-vmh4-322v-cfpc": "<0.8.0"
   },
-  "coa": {
-    "SNYK-JS-COA-1911118": ">2.0.2"
-  },
   "cocos-utils": {
     "GHSA-rffp-mc78-wjf7": "<=1.0.0"
   },
@@ -329,12 +300,6 @@
   },
   "coffescript": {
     "npm:coffescript:20171006": "<=0.0.1-security"
-  },
-  "color-string": {
-    "SNYK-JS-COLORSTRING-1082939": "<1.5.5"
-  },
-  "colors": {
-    "SNYK-JS-COLORS-2331906": ">1.4.0"
   },
   "command-exists": {
     "GHSA-cff4-rrq6-h78w": "<1.2.4"
@@ -367,9 +332,6 @@
   "crypto-browserify": {
     "npm:crypto-browserify:20140722": "<2.1.11"
   },
-  "crypto-js": {
-    "SNYK-JS-CRYPTOJS-548472": "<3.2.1 || >=3.3.0 <4.0.0"
-  },
   "css_transform_step": {
     "GHSA-4rx9-58m7-gr8w": "1.0.6"
   },
@@ -387,9 +349,6 @@
   },
   "decompress": {
     "npmjs.com/advisories/1217": "<4.2.1"
-  },
-  "decompress-tar": {
-    "SNYK-JS-DECOMPRESSTAR-559095": "<=4.1.1"
   },
   "decompress-zip": {
     "npmjs.com/advisories/777": "<0.2.2 || >=0.3.0 <0.3.2"
@@ -436,21 +395,11 @@
   "eco": {
     "GHSA-r32x-jhw5-g48p": "<=1.1.0-rc-3"
   },
-  "eivindfjeldstad-dot": {
-    "SNYK-JS-EIVINDFJELDSTADDOT-564434": "<=0.0.1"
-  },
-  "ejs": {
-    "SNYK-JS-EJS-2803307": "<3.1.7",
-    "WS-2021-0153": "<3.1.6"
-  },
   "electorn": {
     "GHSA-38hx-3542-8fh3": "<=10.0.0"
   },
   "electron-native-notify": {
     "GHSA-j8qr-rvcv-crhv": "<=0.0.1-security"
-  },
-  "elliptic": {
-    "SNYK-JS-ELLIPTIC-511941": "<6.5.2"
   },
   "elvish": {
     "GHSA-fpv6-f8jw-rc3r": "<0.14.0"
@@ -473,23 +422,11 @@
   "eslint-config-eslint": {
     "GHSA-pv55-r6j3-wp94": "5.0.2"
   },
-  "eslint-scope": {
-    "SNYK-JS-ESLINTSCOPE-11120": "3.7.2"
-  },
-  "esm": {
-    "SNYK-JS-ESM-72880": "<3.1.0"
-  },
-  "event-stream": {
-    "SNYK-JS-EVENTSTREAM-72638": "3.3.6"
-  },
   "evil-package": {
     "GHSA-p62r-jf56-h429": "<=0.0.2-security"
   },
   "express-laravel-passport": {
     "GHSA-v66p-w7qx-wv98": "<=1.1.2"
-  },
-  "express-validator": {
-    "SNYK-JS-EXPRESSVALIDATOR-174763": ">=4.2.1 <6.0.0"
   },
   "expressfs": {
     "GHSA-mxmj-84q8-34r7": "<=0.2.10"
@@ -518,26 +455,14 @@
   "fileview": {
     "GHSA-gvr4-7xgc-gx3w": "<=0.1.6"
   },
-  "find-process": {
-    "SNYK-JS-FINDPROCESS-1090284": "<1.4.5"
-  },
-  "flat": {
-    "SNYK-JS-FLAT-596927": "<1.6.2 || >=2.0.0 <2.0.2 || >=3.0.0 <3.0.1 || >=4.0.0 <4.1.1 || >=5.0.0 <5.0.2"
-  },
   "flat-wrap": {
     "GHSA-g7h8-p22m-2rvx": "<=1.0.2"
-  },
-  "flatmap-stream": {
-    "SNYK-JS-FLATMAPSTREAM-72637": "0.0.1-security"
   },
   "flood": {
     "GHSA-r587-7jh2-4qr3": "<3.0.0"
   },
   "fomantic-ui": {
     "GHSA-788m-pj96-7w2c": "<2.7.0"
-  },
-  "fstream": {
-    "SNYK-JS-FSTREAM-174725": "<1.0.12"
   },
   "ftp-srv": {
     "GHSA-pmw4-jgxx-pcq9": "<4.4.0"
@@ -550,9 +475,6 @@
   },
   "geddy": {
     "CVE-2015-5688": "<13.0.8"
-  },
-  "generate-password": {
-    "SNYK-JS-GENERATEPASSWORD-73498": "<1.4.1"
   },
   "geoheat": {
     "GHSA-p32g-242c-76h3": "1.3.2"
@@ -572,9 +494,6 @@
   },
   "github-jquery-widgets": {
     "GHSA-c722-pv5w-cfg2": "0.1.2"
-  },
-  "glob-parent": {
-    "SNYK-JS-GLOBPARENT-1314294": " >=6.0.0 <6.0.1"
   },
   "gm": {
     "CVE-2015-7982": "<=1.20.0"
@@ -609,22 +528,6 @@
   "gun": {
     "GHSA-886v-mm6p-4m66": "<0.2019.416"
   },
-  "handlebars": {
-    "SNYK-JS-HANDLEBARS-173692": "<4.0.14 || >=4.1.0 <4.1.2",
-    "SNYK-JS-HANDLEBARS-174183": ">=3.0.0 <3.0.7 || >=4.0.0 <4.0.14 || >=4.1.0 <4.1.2",
-    "SNYK-JS-HANDLEBARS-469063": "<3.8.0 || >=4.0.0 <4.3.0",
-    "SNYK-JS-HANDLEBARS-480388": ">=4.0.0 <4.5.5",
-    "SNYK-JS-HANDLEBARS-534478": "<3.0.8 || >=4.0.0 <4.5.3",
-    "SNYK-JS-HANDLEBARS-534988": "<3.0.8 || >=4.0.0 <4.5.3",
-    "SNYK-JS-HANDLEBARS-567742": "<4.6.0",
-    "WS-2019-0291": ">=0 <4.3.0",
-    "hackerone.com/reports/726364": "<4.6.0",
-    "npmjs.com/advisories/1300": "<4.4.5",
-    "npmjs.com/advisories/1316": "<3.0.8 || >=4.0.0 <4.5.3",
-    "npmjs.com/advisories/1324": "<3.0.8 || >=4.0.0 <4.5.3",
-    "npmjs.com/advisories/1325": "<3.0.8 || >=4.0.0 <4.5.3",
-    "npmjs.com/advisories/755": ">=4.0.0 <4.0.14 || >=4.1.0 <4.1.2"
-  },
   "hapi": {
     "CVE-2014-3742": "2.0.x || 2.1.x",
     "CVE-2014-4671A": "<6.1.0",
@@ -632,9 +535,6 @@
   },
   "haxe3": {
     "npm:haxe3:20161202": "3.1.3"
-  },
-  "helmet-csp": {
-    "SNYK-JS-HELMETCSP-469436": ">=1.2.2 <2.9.2"
   },
   "highcharts-export-server": {
     "GHSA-hfwx-c7q6-g54c": "<=2.0.30"
@@ -651,9 +551,6 @@
   "html-janitor": {
     "npm:html-janitor:20180123-1": "<=2.0.4"
   },
-  "html-parse-stringify": {
-    "SNYK-JS-ANSIREGEX-1583908": "<2.0.1"
-  },
   "html-pdf-chrome": {
     "GHSA-5p98-wpc9-g498": "<=0.8.0"
   },
@@ -663,32 +560,11 @@
   "htmr": {
     "GHSA-f8rq-m28h-8hxj": "<0.8.7"
   },
-  "http-auth": {
-    "SNYK-JS-HTTPAUTH-471683": "<3.2.4"
-  },
-  "http-proxy": {
-    "SNYK-JS-HTTPPROXY-569139": "<1.18.1",
-    "www.npmjs.com/advisories/1486": "<1.18.1"
-  },
   "http-proxy-agent": {
     "npm:http-proxy-agent:20180406": "<2.1.0"
   },
-  "https-proxy-agent": {
-    "SNYK-JS-HTTPSPROXYAGENT-469131": "<2.2.3",
-    "npm:https-proxy-agent:20180402": "<2.2.0"
-  },
   "https-signature": {
     "npm:http-signature:20150122": "<1.0.0"
-  },
-  "i": {
-    "SNYK-JS-I-1726768": "<0.3.7"
-  },
-  "i18next": {
-    "SNYK-JS-I18NEXT-1065979": "<19.8.5",
-    "SNYK-JS-I18NEXT-575536": "<19.5.5"
-  },
-  "ibm_db": {
-    "SNYK-JS-IBMDB-459762": "<2.6.0"
   },
   "ids-enterprise": {
     "GHSA-hpfq-8wx8-cgqw": "<4.18.2"
@@ -699,9 +575,6 @@
   "iie-viz": {
     "GHSA-jf55-rgpx-p6rx": "1.0.4"
   },
-  "ioredis": {
-    "SNYK-JS-IOREDIS-1567196": " <4.27.8"
-  },
   "ip": {
     "npm:ip:20170304": "<1.1.5"
   },
@@ -710,9 +583,6 @@
   },
   "is-url": {
     "npm:is-url:20180319": "<1.2.4"
-  },
-  "istanbul-reports": {
-    "SNYK-JS-ISTANBULREPORTS-2328088": "<3.1.3"
   },
   "jasmin": {
     "GHSA-9cq4-mhmr-84gm": "0.0.3"
@@ -751,37 +621,19 @@
     "/GHSA-jh67-3wqw-cvhr": "<=0.0.1-security"
   },
   "js-yaml": {
-    "CVE-2013-4660": "<2.0.5",
-    "SNYK-JS-JSYAML-173999": ">=3.0.0 <3.13.0",
-    "SNYK-JS-JSYAML-174129": "<3.13.1",
-    "npmjs.com/advisories/813": "<3.13.1"
+    "CVE-2013-4660": "<2.0.5"
   },
   "json-logic-js": {
     "GHSA-m9hw-7xfv-wqg7": "<=2.0.2"
   },
-  "json-schema": {
-    "SNYK-JS-JSONSCHEMA-1920922": "<0.4.0"
-  },
   "json-serializer": {
     "GHSA-chh2-rvhg-wqwr": "2.0.10"
-  },
-  "jsonpointer": {
-    "SNYK-JS-JSONPOINTER-1577288": "<5.0.0"
   },
   "jsrender": {
     "CVE-2016-3942": "<=0.9.73"
   },
-  "jsrsasign": {
-    "SNYK-JS-JSRSASIGN-561755": "<8.0.13"
-  },
   "jws": {
     "npm:jws:20160726": "<3.0.0"
-  },
-  "jwt-simple": {
-    "SNYK-JS-JWTSIMPLE-174523": "<0.5.3"
-  },
-  "karma": {
-    "SNYK-JS-KARMA-2395349": "<6.3.14"
   },
   "keycloak-js": {
     "GHSA-mw35-24gh-f82w": ">=2.5 <3.1.0"
@@ -825,30 +677,11 @@
   "localeval": {
     "GHSA-mmqv-m45h-q2hp": ">=0.0.0 <15.3.0"
   },
-  "locutus": {
-    "SNYK-JS-LOCUTUS-1009836": "<2.0.15"
-  },
-  "lodash": {
-    "SNYK-JS-LODASH-567746": "<4.17.16",
-    "SNYK-JS-LODASH-590103": "<4.17.20",
-    "SNYK-JS-LODASH-608086": "<4.17.17",
-    "SNYK-JS-LODASH-73639": "<4.17.11"
-  },
   "lodash.defaultsdeep": {
     "GHSA-h5mp-5q4p-ggf5": "<4.6.1"
   },
-  "lodash.merge": {
-    "SNYK-JS-LODASHMERGE-173732": "<4.6.2",
-    "SNYK-JS-LODASHMERGE-173733": "<4.6.2"
-  },
   "lodash.mergewith": {
     "GHSA-779f-wgxg-qr8f": "<4.6.2"
-  },
-  "lodash.set": {
-    "SNYK-JS-LODASHSET-1320032": "<=4.3.2"
-  },
-  "lodash.template": {
-    "SNYK-JS-LODASHTEMPLATE-1088054": "<=4.5.0"
   },
   "loopback": {
     "GHSA-724c-6vrf-99rq": "<=2.41.0 || >=3.0.0 <=3.25.0"
@@ -868,15 +701,9 @@
   "markdown-it-katex": {
     "GHSA-5ff8-jcf9-fw62": "<=2.0.3"
   },
-  "markdown-to-jsx": {
-    "SNYK-JS-MARKDOWNTOJSX-570059": "<6.11.4"
-  },
   "marked": {
     "CVE-2014-1850": "<=0.3.0",
-    "CVE-2015-1370": "<=0.3.2",
-    "SNYK-JS-MARKED-174116": ">=0.1.3 <0.6.2",
-    "npm:marked:20170815": "<0.3.9",
-    "npm:marked:20180225": "<0.3.18"
+    "CVE-2015-1370": "<=0.3.2"
   },
   "marky-markdown": {
     "GHSA-pxmp-fwjc-4x7q": "<=12.0.0"
@@ -918,9 +745,6 @@
   "mobile-icon-resizer": {
     "npm:mobile-icon-resizer:20160408": "<0.4.3"
   },
-  "mocha": {
-    "SNYK-JS-MOCHA-561476": "<6.0.0"
-  },
   "modlibrary": {
     "GHSA-94m7-w873-6wwf": "0.1.1"
   },
@@ -949,17 +773,11 @@
     "npm:mysql:20140514": ">=2.0.0 <2.3.0",
     "npm:mysql:20170317": "<2.14.0"
   },
-  "mysql2": {
-    "SNYK-JS-MYSQL2-536208": "<1.0.0-rc.1"
-  },
   "next-auth": {
     "GHSA-pg53-56cg-4m8q": "<3.3.0"
   },
   "nextcloud-vue-collections": {
     "GHSA-whv6-rj84-2vh2": "<0.4.2"
-  },
-  "ngx-bootstrap": {
-    "SNYK-JS-NGXBOOTSTRAP-174319": "<=7.1.0"
   },
   "ngx-context-menu": {
     "GHSA-xwg3-gjxh-c8pm": "0.0.26"
@@ -991,9 +809,7 @@
   },
   "node-sass": {
     "CVE-2018-11698": "<3.6.0",
-    "CVE-2019-6283": "<=6.0.1",
-    "SNYK-JS-NODESASS-540996": "<3.6.0",
-    "SNYK-JS-NODESASS-542662": ">=3.3.0 <4.13.1"
+    "CVE-2019-6283": "<=6.0.1"
   },
   "node-static": {
     "GHSA-8r4g-cg4m-x23c": "<=0.7.11"
@@ -1022,9 +838,6 @@
   "npm-groovy-lint": {
     "GHSA-qc22-qwm9-j8rx": "<9.1.0"
   },
-  "npm-registry-fetch": {
-    "SNYK-JS-NPMREGISTRYFETCH-575432": "<4.0.5 || >=5.0.0 <8.1.1"
-  },
   "npm-user-validate": {
     "GHSA-xgh6-85xh-479p": "<1.0.1"
   },
@@ -1033,9 +846,6 @@
   },
   "ntfserver": {
     "npm:ntfserver:20170101": "<=0.0.6"
-  },
-  "nunjucks": {
-    "SNYK-JS-NUNJUCKS-1079083": "<3.2.3"
   },
   "nwmatcher": {
     "npm:nwmatcher:20180305": "<1.4.4"
@@ -1046,10 +856,6 @@
   "office-converter": {
     "GHSA-9p64-h5q4-phpm": "<=1.0.2"
   },
-  "open": {
-    "SNYK-JS-OPEN-174041": "<6.0.0",
-    "npm:open:20180512": "<6.0.0"
-  },
   "openwhisk": {
     "CWE-201": "<3.2.1"
   },
@@ -1058,9 +864,6 @@
   },
   "parse": {
     "GHSA-wvh7-5p38-2qfc": "<2.10.0"
-  },
-  "parse-link-header": {
-    "SNYK-JS-PARSELINKHEADER-1582783": "<2.0.0"
   },
   "parsel": {
     "GHSA-wqgx-4q47-j2w5": "<=0.3.0"
@@ -1104,23 +907,11 @@
   "priest-runner": {
     "GHSA-9px9-f7jw-fwhj": "<=0.3.12"
   },
-  "primeng": {
-    "SNYK-JS-PRIMENG-537902": "<9.0.0-rc.3"
-  },
   "prince": {
     "npm:prince:20161201": "<1.4.5"
   },
-  "prompts": {
-    "SNYK-JS-PROMPTS-1729737": "<2.4.2"
-  },
   "pullit": {
     "GHSA-8px5-63x9-5c7p": "<1.4.0"
-  },
-  "pupa": {
-    "SNYK-JS-PUPA-174563": "<2.0.0"
-  },
-  "puppeteer": {
-    "SNYK-JS-PUPPETEER-174321": "<1.13.0"
   },
   "put": {
     "GHSA-v6gv-fg46-h89j": "<=0.0.6"
@@ -1145,9 +936,6 @@
   },
   "rails-session-decoder": {
     "GHSA-44vf-8ffm-v2qh": "<=1.1.0"
-  },
-  "rc": {
-    "SNYK-JS-RC-1911120": ">1.2.8"
   },
   "rc-calendar-jhorst": {
     "GHSA-4c87-gg2q-fc6m": "8.4.3"
@@ -1233,12 +1021,6 @@
   "semantic-ui-search": {
     "GHSA-p9vv-3945-x93h": "<=2.3.3"
   },
-  "semver": {
-    "SNYK-JS-SEMVERREGEX-1047770": "<3.1.2"
-  },
-  "semver-regex": {
-    "SNYK-JS-SEMVERREGEX-1047770": "<3.1.2"
-  },
   "sequelize": {
     "CVE-2015-1369": "<=2.0.0-rc7"
   },
@@ -1247,12 +1029,6 @@
   },
   "serve-static": {
     "CVE-2015-1164": "<1.6.5 || >=1.7.0 <1.7.2"
-  },
-  "serverless-offline": {
-    "SNYK-JS-SERVERLESSOFFLINE-1540299": "<=8.2.0"
-  },
-  "shelljs": {
-    "SNYK-JS-SHELLJS-2332187": "<0.8.5"
   },
   "simple-alipay": {
     "GHSA-3wh2-2pp3-2823": "1.0.1"
@@ -1308,12 +1084,6 @@
   "stringstream": {
     "npm:stringstream:20180511": "<0.0.6"
   },
-  "subtext": {
-    "SNYK-JS-SUBTEXT-467257": "<=6.0.12",
-    "www.npmjs.com/advisories/1168": "<=6.0.12",
-    "www.npmjs.com/advisories/1478": ">=4.1.0",
-    "www.npmjs.com/advisories/1479": "<=6.0.12"
-  },
   "superagent": {
     "npm:superagent:20181108": "<3.8.1",
     "npmjs.com/advisories/479": "<3.7.0"
@@ -1335,9 +1105,6 @@
   },
   "systeminformation": {
     "GHSA-2m8v-572m-ff2v": "<5.3.1"
-  },
-  "tar": {
-    "SNYK-JS-TAR-1536758": "<4.4.16 || >=5.0.0 <5.0.8 || >=6.0.0 <6.1.4"
   },
   "terriajs-server": {
     "GHSA-p72p-rjr2-r439": "<2.7.4"
@@ -1381,23 +1148,11 @@
   "ungit": {
     "CVE-2015-4130": "<=0.8.4"
   },
-  "unset-value": {
-    "SNYK-JS-UNSETVALUE-2400660": "<2.0.1"
-  },
   "untitled-model": {
     "GHSA-hq8g-qq57-5275": "<=1.0.5"
   },
   "uploader-plugin": {
     "GHSA-fx6f-fpfv-5hmc": "1.0.2"
-  },
-  "url-parse": {
-    "SNYK-JS-URLPARSE-1078283": "<1.5.0"
-  },
-  "useragent": {
-    "SNYK-JS-USERAGENT-174737": "<=2.3.0"
-  },
-  "validator": {
-    "SNYK-JS-VALIDATOR-1090599": "<13.6.0"
   },
   "value-censorship": {
     "GHSA-xrr6-6ww3-f3qm": "<=2.0.0"
@@ -1410,10 +1165,6 @@
   },
   "wangeditor": {
     "GHSA-g7mw-5cq6-fv82": "<=4.7.15"
-  },
-  "webpack-dev-server": {
-    "SNYK-JS-WEBPACKDEVSERVER-72405": "<3.1.11",
-    "npmjs.com/advisories/725": ">=2.0.0 <2.11.4 || >=3.0.0 <3.1.11"
   },
   "websocket-driver": {
     "npm:websocket-driver:20131012": " <0.3.1"
@@ -1433,9 +1184,6 @@
   },
   "wxchangba": {
     "GHSA-j6v9-xgvh-f796": "<=1.0.3"
-  },
-  "xlsx": {
-    "SNYK-JS-XLSX-585898": "<0.16.0"
   },
   "xml-crypto": {
     "GHSA-c27r-x354-4m68": "<=1.5.3"
