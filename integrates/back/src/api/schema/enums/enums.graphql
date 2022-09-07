@@ -679,6 +679,8 @@ enum VulnerabilityTreatment {
 
 "Protocol to use in URLRoots enum definition"
 enum URLProtocol {
+  "FILE"
+  FILE
   "HTTP"
   HTTP
   "HTTPS"

@@ -1669,3 +1669,9 @@ class InvalidRootType(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The type of the root is invalid"
         super(InvalidRootType, self).__init__(msg)
+
+
+class FileNotFound(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The file has not been found"
+        super(FileNotFound, self).__init__(msg)

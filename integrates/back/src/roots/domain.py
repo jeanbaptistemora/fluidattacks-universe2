@@ -17,6 +17,7 @@ from context import (
     FI_AWS_REGION_NAME,
 )
 from custom_exceptions import (
+    FileNotFound,
     HasVulns,
     InvalidField,
     InvalidParameter,
@@ -418,6 +419,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     if not url_attributes.host or url_attributes.scheme not in {
         "http",
         "https",
+        "file",
     }:
         raise InvalidParameter()
 
@@ -430,6 +432,13 @@ async def add_url_root(  # pylint: disable=too-many-locals
     protocol: str = url_attributes.scheme.upper()
 
     group: Group = await loaders.group.load(group_name)
+    if protocol == "FILE":
+        fragment = None
+        query = None
+        port = "0"
+        if host not in {file.file_name for file in group.files or []}:
+            raise FileNotFound()
+
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
