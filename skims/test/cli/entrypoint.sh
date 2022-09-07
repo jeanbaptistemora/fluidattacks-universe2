@@ -33,9 +33,6 @@ function main {
       INTEGRATES_API_ENDPOINT="https://127.0.0.1:8001/api"
     fi \
     && output="$(mktemp)" \
-    && assert skims expected-code-date --finding-code F117 --group jessup --namespace services |& tee "${output}" \
-    && assert grep -HnP '^(0|1622\d+)$' "${output}" \
-    && assert grep -HnP 'Success' "${output}" \
     && assert skims language --group jessup |& tee "${output}" \
     && assert grep -HnP '^EN$' "${output}" \
     && assert grep -HnP 'Success' "${output}"

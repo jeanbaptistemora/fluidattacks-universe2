@@ -11,10 +11,6 @@ from config import (
 from contextlib import (
     suppress,
 )
-from core.persist import (
-    persist,
-    verify_permissions,
-)
 from core.result import (
     get_sarif,
 )
@@ -282,14 +278,6 @@ def notify_findings_as_sarif(
         json.dump(result, writer)
 
 
-async def persist_to_integrates(
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
-) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
-    group = CTX.config.group
-    log_blocking("info", f"Results will be sync to group: {group}")
-    return await persist(group=group, stores=stores)
-
-
 async def notify_start(job_id: str, root: Optional[str] = None) -> None:
     await do_start_skims_execution(
         root=root or CTX.config.namespace,
@@ -361,32 +349,19 @@ async def main(
         integrates_access = False
         if group and token:
             create_session(token)
-            integrates_access = await verify_permissions(group=group)
+            integrates_access = True
 
-        persisted_results = {}
         batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
         if integrates_access and batch_job_id:
             await notify_start(batch_job_id)
 
-        stores = await execute_skims()
+        await execute_skims()
 
-        if integrates_access:
-            persisted_results = await persist_to_integrates(stores)
-        else:
-            log_blocking(
-                "info",
-                (
-                    "In case you want to persist results to Integrates "
-                    "please make sure you set the --token and --group flag "
-                    "in the CLI"
-                ),
-            )
-
-        success = all(persisted_results.values())
+        success = True
 
         if integrates_access and batch_job_id:
-            await notify_end(batch_job_id, persisted_results)
+            await notify_end(batch_job_id, {})
 
         return success
     finally:
@@ -405,7 +380,7 @@ async def execute_set_of_configs(
     integrates_access = False
     if group and token:
         create_session(token)
-        integrates_access = await verify_permissions(group=group)
+        integrates_access = True
 
     batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 

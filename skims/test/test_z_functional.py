@@ -2,13 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from aioextensions import (
-    collect,
-)
-from batch import (
-    BatchProcessing,
-    main as batch_main,
-)
 from cli import (
     cli,
 )
@@ -18,31 +11,17 @@ from contextlib import (
 )
 import csv
 from integrates.dal import (
-    do_delete_finding,
-    get_finding_consult,
-    get_finding_current_release_status,
-    get_finding_vulnerabilities,
-    get_group_findings,
     get_group_roots,
 )
 import io
 from itertools import (
     zip_longest,
 )
-import json
 from model import (
-    core_model,
     cvss3_model,
 )
 import os
 import pytest
-from pytest_mock import (
-    MockerFixture,
-)
-import re
-from state.ephemeral import (
-    EphemeralStore,
-)
 from typing import (
     Callable,
     Dict,
@@ -55,9 +34,6 @@ from typing import (
 from utils.logs import (
     configure,
 )
-from zone import (
-    t,
-)
 
 
 def _default_snippet_filter(snippet: str) -> str:
@@ -67,13 +43,13 @@ def _default_snippet_filter(snippet: str) -> str:
 def skims(*args: str) -> Tuple[int, str, str]:
     out_buffer, err_buffer = io.StringIO(), io.StringIO()
 
+    code: int = 0
     with redirect_stdout(out_buffer), redirect_stderr(err_buffer):
         try:
             configure()
             cli.main(args=list(args), prog_name="skims")
         except SystemExit as exc:  # NOSONAR
-            code: int = exc.code
-
+            code = exc.code
     try:
         return code, out_buffer.getvalue(), err_buffer.getvalue()
     finally:
@@ -176,63 +152,6 @@ def test_find_score_data() -> None:
     )
 
 
-async def get_group_data(
-    group: str,
-) -> Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]]:
-    """Return a set of (finding, release_status, num_open, num_closed)."""
-    titles_to_finding: Dict[str, core_model.FindingEnum] = {
-        t(finding.value.title): finding for finding in core_model.FindingEnum
-    }
-
-    findings = await get_group_findings(group=group)
-    findings_statuses: Tuple[
-        core_model.FindingReleaseStatusEnum, ...
-    ] = await collect(
-        [
-            get_finding_current_release_status(
-                finding_id=finding.identifier,
-            )
-            for finding in findings
-        ]
-    )
-    findings_vulns: Tuple[EphemeralStore, ...] = await collect(
-        [
-            get_finding_vulnerabilities(
-                finding=titles_to_finding[finding.title],
-                finding_id=finding.identifier,
-            )
-            for finding in findings
-        ]
-    )
-
-    findings_vulns_summary: List[List[Tuple[str, str]]] = []
-    for vulnerabilities in findings_vulns:
-        findings_vulns_summary.append([])
-        for vulnerability in vulnerabilities.iterate():
-            if vulnerability.state is core_model.VulnerabilityStateEnum.OPEN:
-                findings_vulns_summary[-1].append(
-                    (
-                        vulnerability.what_on_integrates,
-                        vulnerability.where,
-                    )
-                )
-
-    result: Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]] = set(
-        (
-            titles_to_finding[finding.title].name,
-            status.name,
-            tuple(sorted(finding_vulns_summary)),
-        )
-        for finding, status, finding_vulns_summary in zip(
-            findings,
-            findings_statuses,
-            findings_vulns_summary,
-        )
-    )
-
-    return result
-
-
 @pytest.mark.skims_test_group("unittesting")
 def test_help() -> None:
     code, stdout, stderr = skims("--help")
@@ -255,22 +174,6 @@ def test_config_with_extra_parameters() -> None:
     code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 1
     assert "Some keys were not recognized: unrecognized_key" in stdout, stdout
-    assert not stderr, stderr
-
-
-@pytest.mark.skims_test_group("functional")
-def test_bad_integrates_api_token(test_group: str) -> None:
-    suite: str = "nothing_to_do"
-    code, stdout, stderr = skims(
-        "scan",
-        "--token",
-        "123",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 1
-    assert "StopRetrying: Invalid API token" in stdout, stdout
     assert not stderr, stderr
 
 
@@ -453,230 +356,6 @@ def _run_no_group(
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
-def test_should_execute_a_reattack(test_group: str) -> None:
-    # Test should execute a reattack
-    suite: str = "integrates5"
-    code, stdout, stderr = skims(
-        "--debug",
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_reattack_comments_open_and_closed_vulnerability(
-    test_group: str,
-) -> None:
-    # A reattack request was executed, a finding consult was found
-    # that report open vulnerabilities
-    finding_id = "4edcc6fb-2139-415d-80e2-f758d39c7eb7"
-    has_finding = False
-
-    findings = await get_group_findings(group=test_group)
-    for finding in findings:
-        if finding.identifier == finding_id:
-            has_finding = True
-
-    open_vulns_comment = (
-        r"^A reattack request was executed on\s"
-        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\sat\s"
-        + r"[0-9]{2}\:[0-9]{2})\.\n"
-        + r"Reported vulnerabilities are still open in commit\s+"
-        + r"([a-zA-Z0-9]{40})\: \n"
-        + r"   - skims/test/data/lib_path/f099/"
-        + r"tfm_unencrypted_buckets.tf:\n"
-        + r"     Non-compliant code: >  1 |"
-        + r"resource \"aws_s3_bucket\" \"unencrypted_bucket_1\" \{$"
-    )
-
-    closed_vulns_comment = (
-        r"^Reattack request was executed on\s"
-        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\sat\s"
-        + r"[0-9]{2}\:[0-9]{2})\.\s\n"
-        + r"Reported vulnerabilities were solved in commit\s+"
-        + r"([a-zA-Z0-9]{40})\: \n"
-        + r"  - skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf\s\n$"
-    )
-
-    assert has_finding
-
-    finding_consult = await get_finding_consult(finding_id=finding_id)
-
-    comment_1 = finding_consult[0].get("content")
-    comment_2 = finding_consult[1].get("content")
-
-    assert comment_1 is not None
-    assert comment_2 is not None
-    assert re.search(closed_vulns_comment, comment_1) or re.search(
-        closed_vulns_comment, comment_2
-    )
-    assert re.search(open_vulns_comment, comment_1) or re.search(
-        open_vulns_comment, comment_2
-    )
-
-
-@pytest.mark.skip
-@pytest.mark.skims_test_group("functionall")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_rebase_change_line_2(test_group: str) -> None:
-
-    titles_to_finding: Dict[str, core_model.FindingEnum] = {
-        t(finding.value.title): finding for finding in core_model.FindingEnum
-    }
-
-    findings = await get_group_findings(group=test_group)
-
-    for finding in findings:
-        if finding.title.startswith("109"):
-            title = finding.title
-            finding_id = finding.identifier
-
-    vulns_before_rebase: EphemeralStore = await get_finding_vulnerabilities(
-        finding=titles_to_finding[title],
-        finding_id=finding_id,
-    )
-
-    vulns_before_rebase_zr: EphemeralStore = await get_finding_vulnerabilities(
-        finding=titles_to_finding[title],
-        finding_id=finding_id,
-        get_zr=True,
-    )
-    assert any(
-        (
-            vuln.integrates_metadata
-            and vuln.integrates_metadata.uuid
-            == "226fe320-8986-4c94-8305-76d773bbeded"
-        )
-        for vuln in vulns_before_rebase_zr.iterate()
-    )
-    assert (
-        vulns_before_rebase.length() == 0
-        and vulns_before_rebase_zr.length() == 1
-    )
-
-    for item in vulns_before_rebase_zr.iterate():
-        if (
-            item.integrates_metadata
-            and item.integrates_metadata.uuid
-            == "226fe320-8986-4c94-8305-76d773bbeded"
-        ):
-            assert item.where == "1"
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
-@pytest.mark.usefixtures("mock_pull_git_repo_commits_for_zr")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_rebase_change_line_3(
-    test_group: str, mocker: MockerFixture
-) -> None:
-    mocker.patch(
-        "batch.get_action",
-        return_value=BatchProcessing(
-            key="test",
-            action_name="execute-machine",
-            entity=test_group,
-            subject="skims@fluidattacks.com",
-            time="test",
-            additional_info=json.dumps(
-                {
-                    "roots": ["dynamic_namespace_3"],
-                    "checks": ["F109"],
-                }
-            ),
-            queue="unlimited_spot",
-        ),
-    )
-    mocker.patch("batch.set_running", return_value=None)
-    mocker.patch("batch.delete_action", return_value=None)
-    titles_to_finding: Dict[str, core_model.FindingEnum] = {
-        t(finding.value.title): finding for finding in core_model.FindingEnum
-    }
-
-    findings = await get_group_findings(group=test_group)
-
-    for finding in findings:
-        if finding.title.startswith("109"):
-            title = finding.title
-            finding_id = finding.identifier
-
-    await batch_main(action_dynamo_pk="test")
-
-    vulns_after_rebase: EphemeralStore = await get_finding_vulnerabilities(
-        finding=titles_to_finding[title],
-        finding_id=finding_id,
-    )
-    vulns_after_rebase_zr: EphemeralStore = await get_finding_vulnerabilities(
-        finding=titles_to_finding[title],
-        finding_id=finding_id,
-        get_zr=True,
-    )
-    # Check that F109 is zero risk
-    assert (
-        vulns_after_rebase.length() == 1
-        and vulns_after_rebase_zr.length() == 2
-    )
-    assert any(
-        (
-            vuln.integrates_metadata
-            and vuln.integrates_metadata.uuid
-            == "226fe320-8986-4c94-8305-76d773bbeded"
-        )
-        for vuln in vulns_after_rebase_zr.iterate()
-    )
-
-    for item in vulns_after_rebase_zr.iterate():
-        if (
-            item.integrates_metadata
-            and item.integrates_metadata.uuid
-            == "226fe320-8986-4c94-8305-76d773bbeded"
-        ):
-            assert item.where == "10"
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
-async def test_integrates_group_is_pristine_run(
-    test_group: str,
-) -> None:
-    findings = await get_group_findings(group=test_group)
-    findings_deleted = await collect(
-        [
-            do_delete_finding(finding_id=finding.identifier)
-            for finding in findings
-        ]
-    )
-
-    assert all(findings_deleted)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_integrates_group_is_pristine_check(
-    test_group: str,
-) -> None:
-    # No findings should exist because we just reset the environment
-    assert await get_group_data(test_group) == set()
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
 async def test_integrates_group_has_required_roots(
     test_group: str,
 ) -> None:
@@ -688,275 +367,3 @@ async def test_integrates_group_has_required_roots(
         nickname in roots_nicknames
         for nickname in ["dynamic_namespace_1", "dynamic_namespace_2"]
     )
-
-
-@pytest.mark.skims_test_group("functional")
-def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
-    suite: str = "nothing_to_do"
-    code, stdout, stderr = skims(
-        "--debug",
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_should_report_nothing_to_integrates_verify(
-    test_group: str,
-) -> None:
-    # No findings should be created, there is nothing to do !
-    assert await get_group_data(test_group) == set()
-
-
-@pytest.mark.skims_test_group("functional")
-def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
-    suite: str = "integrates1"
-    code, stdout, stderr = skims(
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert "[INFO] Files to be tested:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-    check_that_csv_results_match(suite)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_should_report_vulns_to_namespace_verify(
-    test_group: str,
-) -> None:
-    # The following findings must be met
-    assert await get_group_data(test_group) == {
-        # Finding, status, open vulnerabilities
-        (
-            "F133",
-            "SUBMITTED",
-            (
-                (
-                    "https://localhost:4446 (dynamic_namespace_1)",
-                    "server refuses connections with PFS support in TLSv1.0",
-                ),
-                (
-                    "https://localhost:4446 (dynamic_namespace_1)",
-                    "server refuses connections with PFS support in TLSv1.1",
-                ),
-            ),
-        ),
-        (
-            "F117",
-            "APPROVED",
-            (
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/.project",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/MyJar.class",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/MyJar.jar",
-                    "0",
-                ),
-            ),
-        ),
-    }
-
-
-@pytest.mark.skims_test_group("functional")
-def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
-    suite: str = "integrates2"
-    code, stdout, stderr = skims(
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert "[INFO] Files to be tested:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-    check_that_csv_results_match(suite)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_should_report_vulns_to_namespace2_verify(
-    test_group: str,
-) -> None:
-    # The following findings must be met
-    assert await get_group_data(test_group) == {
-        # Finding, status, open vulnerabilities
-        (
-            "F133",
-            "SUBMITTED",
-            (
-                (
-                    "https://localhost:4446 (dynamic_namespace_2)",
-                    "server refuses connections with PFS support in TLSv1.0",
-                ),
-                (
-                    "https://localhost:4446 (dynamic_namespace_2)",
-                    "server refuses connections with PFS support in TLSv1.1",
-                ),
-            ),
-        ),
-        (
-            "F117",
-            "APPROVED",
-            (
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/.project",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/MyJar.class",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_1/skims/test/"
-                    "data/lib_path/f117/MyJar.jar",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/.project",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/MyJar.class",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/MyJar.jar",
-                    "0",
-                ),
-            ),
-        ),
-    }
-
-
-@pytest.mark.skims_test_group("functional")
-def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
-    suite: str = "integrates3"
-    code, stdout, stderr = skims(
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-    check_that_csv_results_match(suite)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_should_close_vulns_to_namespace_verify(
-    test_group: str,
-) -> None:
-    # The following findings must be met
-    assert await get_group_data(test_group) == {
-        # Finding, status, open vulnerabilities
-        (
-            "F133",
-            "SUBMITTED",
-            (
-                (
-                    "https://localhost:4446 (dynamic_namespace_2)",
-                    "server refuses connections with PFS support in TLSv1.0",
-                ),
-                (
-                    "https://localhost:4446 (dynamic_namespace_2)",
-                    "server refuses connections with PFS support in TLSv1.1",
-                ),
-            ),
-        ),
-        (
-            "F117",
-            "APPROVED",
-            (
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/.project",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/MyJar.class",
-                    "0",
-                ),
-                (
-                    "dynamic_namespace_2/skims/test/"
-                    "data/lib_path/f117/MyJar.jar",
-                    "0",
-                ),
-            ),
-        ),
-    }
-
-
-@pytest.mark.skims_test_group("functional")
-def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
-    suite: str = "integrates4"
-    code, stdout, stderr = skims(
-        "scan",
-        "--group",
-        test_group,
-        get_suite_config(suite),
-    )
-    assert code == 0
-    assert "[INFO] Startup work dir is:" in stdout
-    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
-    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
-    assert "[INFO] Success: True" in stdout
-    assert not stderr, stderr
-    check_that_csv_results_match(suite)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_should_close_vulns_on_namespace2_verify(
-    test_group: str,
-) -> None:
-    # Skims should persist the null state, closing everything on Integrates
-    assert await get_group_data(test_group) == {
-        # Finding, status, open vulnerabilities
-        ("F133", "SUBMITTED", ()),
-        ("F117", "APPROVED", ()),
-    }
