@@ -133,6 +133,12 @@ sorts_extension:
   variables:
     GIT_DEPTH: 20
 
+lint_reuse:
+  <<: [*makes4, *common_in_dev_branch]
+  stage: lint-code
+  script:
+    - m . /common/utils/lint-reuse
+
 /reviews:
   <<: [*makes4, *common_in_mrs]
   stage: merge-request
