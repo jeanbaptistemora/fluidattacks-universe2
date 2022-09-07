@@ -6,6 +6,9 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from db_model.subscriptions.enums import (
+    SubscriptionFrequency,
+)
 from db_model.subscriptions.types import (
     Subscription,
 )
@@ -46,7 +49,9 @@ def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
     ]
 
 
-async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
+async def get_all_subscriptions(
+    *, frequency: SubscriptionFrequency
+) -> tuple[Subscription, ...]:
     frequency_period = frequency_to_period(frequency=frequency)
     results = await dynamodb_ops.query(
         query_attrs=dict(

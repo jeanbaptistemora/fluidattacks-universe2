@@ -19,7 +19,7 @@ import os
 import pytest
 from subscriptions.dal import (
     add,
-    get_all_subsriptions,
+    get_all_subscriptions,
 )
 from subscriptions.domain import (
     _translate_entity,
@@ -58,7 +58,9 @@ async def test_update() -> None:
     await add(subscription=test_data_1)
     await add(subscription=test_data_2)
 
-    assert await get_all_subsriptions(frequency="HOURLY") == (
+    assert await get_all_subscriptions(
+        frequency=SubscriptionFrequency.HOURLY
+    ) == (
         Subscription(
             email="integratesmanager@gmail.com",
             entity=SubscriptionEntity.GROUP,
@@ -66,7 +68,9 @@ async def test_update() -> None:
             subject="unittesting",
         ),
     )
-    assert await get_all_subsriptions(frequency="DAILY") == (
+    assert await get_all_subscriptions(
+        frequency=SubscriptionFrequency.DAILY
+    ) == (
         Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
@@ -74,7 +78,9 @@ async def test_update() -> None:
             subject="unittesting",
         ),
     )
-    assert await get_all_subsriptions(frequency="WEEKLY") == (
+    assert await get_all_subscriptions(
+        frequency=SubscriptionFrequency.WEEKLY
+    ) == (
         Subscription(
             email="test_user_email@test.com",
             entity=SubscriptionEntity.ORGANIZATION,
@@ -82,7 +88,9 @@ async def test_update() -> None:
             subject="test_report_subject",
         ),
     )
-    assert await get_all_subsriptions(frequency="MONTHLY") == (
+    assert await get_all_subscriptions(
+        frequency=SubscriptionFrequency.MONTHLY
+    ) == (
         Subscription(
             email="test_user_email2@test.com",
             entity=SubscriptionEntity.GROUP,

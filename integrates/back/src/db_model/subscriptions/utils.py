@@ -27,6 +27,6 @@ def format_subscriptions(item: Item) -> Subscription:
     return Subscription(
         email=item["email"],
         entity=SubscriptionEntity[item["entity"]],
-        frequency=SubscriptionFrequency(item["frequency"]),
+        frequency=SubscriptionFrequency[item["frequency"]],
         subject=item["subject"],
     )

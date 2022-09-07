@@ -12,7 +12,6 @@ import authz
 import base64
 from custom_exceptions import (
     SnapshotNotFound,
-    UnableToProcessSubscription,
     UnableToSendMail,
 )
 from dataloaders import (
@@ -127,8 +126,10 @@ async def can_subscribe_user_to_entity_report(
     return success
 
 
-async def get_all_subscriptions(*, frequency: str) -> tuple[Subscription, ...]:
-    return await subscriptions_dal.get_all_subsriptions(frequency=frequency)
+async def get_all_subscriptions(
+    *, frequency: SubscriptionFrequency
+) -> tuple[Subscription, ...]:
+    return await subscriptions_dal.get_all_subscriptions(frequency=frequency)
 
 
 @retry_on_exceptions(
@@ -338,14 +339,8 @@ async def trigger_subscriptions_analytics() -> None:
     # Daily:   Monday to Friday @ 10:00 UTC (5:00 GMT-5)
     # Weekly:  Mondays @ 10:00 UTC (5:00 GMT-5)
     # Monthly: First of month @ 10:00 UTC (5:00 GMT-5)
-    frequency: str = str(sys.argv[2]).upper()
-    if frequency not in {"DAILY", "HOURLY", "MONTHLY", "WEEKLY"}:
-        LOGGER.error(
-            "Wrong parameters for trigger", extra={"extra": {"args": sys.argv}}
-        )
-        raise UnableToProcessSubscription()
-
-    subscriptions = list(await get_all_subscriptions(frequency=frequency))
+    frequency = SubscriptionFrequency[str(sys.argv[2]).upper()]
+    subscriptions = await get_all_subscriptions(frequency=frequency)
     LOGGER.info(
         "- subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": frequency}},

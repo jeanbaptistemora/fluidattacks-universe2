@@ -6,6 +6,9 @@ from .constants import (
     ALL_SUBSCRIPTIONS_INDEX_METADATA,
     SUBSCRIPTIONS_PREFIX,
 )
+from .enums import (
+    SubscriptionFrequency,
+)
 from .types import (
     Subscription,
 )
@@ -55,10 +58,15 @@ async def _get_stakeholder_subscriptions(
     return tuple(format_subscriptions(item) for item in response.items)
 
 
-async def get_all_subsriptions(*, frequency: str) -> tuple[Subscription, ...]:
+async def get_all_subscriptions(
+    *, frequency: SubscriptionFrequency
+) -> tuple[Subscription, ...]:
     primary_key = keys.build_key(
         facet=ALL_SUBSCRIPTIONS_INDEX_METADATA,
-        values={"all": "all", "frequency": frequency.lower()},
+        values={
+            "all": "all",
+            "frequency": frequency.lower(),
+        },
     )
     index = TABLE.indexes["gsi_2"]
     key_structure = index.primary_key
