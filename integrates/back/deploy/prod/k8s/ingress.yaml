@@ -1,4 +1,7 @@
 ---
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
