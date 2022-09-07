@@ -6,11 +6,8 @@
 """
 Populate the draft rejection info in the respective finding historic states
 
-Execution Time:
-Finalization Time:
-
-Execution Time:
-Finalization Time:
+Execution Time:    2022-09-06 at 16:23:16 UTC-5
+Finalization Time: 2022-09-06 at 16:25:30 UTC-5
 """
 from aioextensions import (
     collect,
@@ -83,6 +80,11 @@ class RejectionHelper(NamedTuple):
     reasons: set[DraftRejectionReason]
     rejected_by: str
     submitted_by: str
+
+
+class BlankHelper(NamedTuple):
+    old_state: FindingState
+    rejection: RejectionHelper
 
 
 def resolve_reviewer(raw_reviewer: str, date: datetime) -> str:
@@ -185,15 +187,10 @@ async def update_finding_state(
             & Attr("status").eq(FindingStateStatus.REJECTED.value)
             & Attr("modified_date").eq(old_state.modified_date)
             & Attr("rejection").not_exists(),
-            item={
-                key_structure.partition_key: state_key.partition_key,
-                key_structure.sort_key: state_key.sort_key,
-                **new_state_item,
-            },
+            item=new_state_item,
             key=state_key,
             table=TABLE,
         )
-        LOGGER.info("Successfully updated a state")
     except ConditionalCheckFailedException as ex:
         LOGGER.error("Tried to update %s", new_state_item)
         raise FindingNotFound() from ex
@@ -224,6 +221,53 @@ def filter_rejections_by_day(
     return tuple(filtered_list)
 
 
+async def handle_blanks(
+    loaders: Dataloaders,
+    finding_id: str,
+) -> None:
+    historic_states: tuple[
+        FindingState, ...
+    ] = await loaders.finding_historic_state.load(finding_id)
+    leftover_states: list[FindingState] = list(
+        filter(
+            lambda state: state.status == FindingStateStatus.SUBMITTED
+            or (
+                state.status == FindingStateStatus.REJECTED
+                and state.rejection is None
+            ),
+            historic_states,
+        )
+    )
+
+    leftover_pairs: list[tuple[FindingState, FindingState]] = []
+    for position, state in enumerate(leftover_states):
+        if state.status == FindingStateStatus.REJECTED:
+            submission = next(
+                sub_state
+                for sub_state in leftover_states[position:]
+                if sub_state.status == FindingStateStatus.SUBMITTED
+            )
+            leftover_pairs.append((state, submission))
+
+    placeholders: tuple[BlankHelper, ...] = tuple(
+        BlankHelper(
+            old_state=leftover_state,
+            rejection=RejectionHelper(
+                finding_id=finding_id,
+                raw_date=date_utils.get_datetime_from_iso_str(
+                    leftover_state.modified_date
+                ),
+                reasons={DraftRejectionReason.OTHER},
+                rejected_by=leftover_state.modified_by,
+                submitted_by=submission.modified_by,
+            ),
+        )
+        for leftover_state, submission in leftover_pairs
+    )
+    for old_state, rejection_helper in placeholders:
+        await update_finding_state(old_state, rejection_helper)
+
+
 async def handle_finding(
     loaders: Dataloaders,
     finding_id: str,
@@ -249,24 +293,6 @@ async def handle_finding(
         day_rejections: tuple[RejectionHelper, ...] = filter_rejections_by_day(
             rejections, current_date
         )
-        if FILL_BLANKS and len(day_states) > len(day_rejections):
-            diff: int = len(day_states) - len(day_rejections)
-            placeholders = tuple(
-                RejectionHelper(
-                    finding_id=finding_id,
-                    raw_date=date_utils.get_datetime_from_iso_str(
-                        leftover_state.modified_date
-                    ),
-                    reasons={DraftRejectionReason.OTHER},
-                    rejected_by=leftover_state.modified_by,
-                    submitted_by="",
-                )
-                for leftover_state in day_states[-diff:]
-            )
-            day_rejections += placeholders
-        # LOGGER.info("Current date: %s", current_date)
-        # LOGGER.info("Day states: %s", day_states)
-        # LOGGER.info("Day rejections: %s\n", day_rejections)
         for old_state, rejection_helper in zip(day_states, day_rejections):
             await update_finding_state(old_state, rejection_helper)
 
@@ -290,19 +316,32 @@ async def handle_group(
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
 
-    await collect(
-        tuple(
-            handle_finding(
-                loaders=loaders,
-                finding_id=finding.id,
-                rejections=rejections[finding.id],
-                group_name=group_name,
-            )
-            for finding in all_findings
-            if finding.id in rejections
-        ),
-        workers=20,
-    )
+    if FILL_BLANKS:
+        await collect(
+            tuple(
+                handle_blanks(
+                    loaders=loaders,
+                    finding_id=finding.id,
+                )
+                for finding in all_findings
+            ),
+            workers=20,
+        )
+    else:
+        await collect(
+            tuple(
+                handle_finding(
+                    loaders=loaders,
+                    finding_id=finding.id,
+                    rejections=rejections[finding.id],
+                    group_name=group_name,
+                )
+                for finding in all_findings
+                if finding.id in rejections
+            ),
+            workers=20,
+        )
+    LOGGER.info("Migrated group %s", group_name)
 
 
 async def main() -> None:
