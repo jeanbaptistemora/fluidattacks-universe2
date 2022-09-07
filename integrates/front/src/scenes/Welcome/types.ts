@@ -7,17 +7,6 @@
 interface IEnrollment {
   enrolled: boolean;
 }
-interface IGetStakeholderWelcomeResult {
-  me: {
-    organizations: {
-      groups: {
-        name: string;
-      }[];
-      name: string;
-    }[];
-    userEmail: string;
-  };
-}
 
 interface IGetStakeholderEnrollmentResult {
   me: {
@@ -27,8 +16,4 @@ interface IGetStakeholderEnrollmentResult {
   };
 }
 
-export type {
-  IGetStakeholderEnrollmentResult,
-  IGetStakeholderWelcomeResult,
-  IEnrollment,
-};
+export type { IGetStakeholderEnrollmentResult, IEnrollment };

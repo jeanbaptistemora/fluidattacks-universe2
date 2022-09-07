@@ -7,7 +7,7 @@
 /* eslint-disable prefer-promise-reject-errors, no-async-promise-executor */
 import { Buffer } from "buffer";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -21,7 +21,9 @@ import { AddRoot } from "./components/AddRoot";
 import { Sidebar } from "./components/Sidebar";
 import { Standby } from "./components/Standby";
 import { Container, DashboardContent, FormContent } from "./styles";
+import { isPersonalEmail } from "./utils";
 
+import { Announce } from "components/Announce";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import {
@@ -34,9 +36,11 @@ import {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
+  GET_STAKEHOLDER_GROUPS,
 } from "scenes/Autoenrollment/queries";
 import type {
   IAddOrganizationResult,
+  IGetStakeholderGroupsResult,
   IOrgAttr,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
@@ -44,15 +48,7 @@ import { GET_STAKEHOLDER_ENROLLMENT } from "scenes/Welcome/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-interface IAutoenrollmentProps {
-  group?: string;
-  organization?: string;
-}
-
-const Autoenrollment: React.FC<IAutoenrollmentProps> = (
-  props: Readonly<IAutoenrollmentProps>
-): JSX.Element => {
-  const { group = "", organization = "" } = props;
+const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   useEffect((): void => {
@@ -95,17 +91,48 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
 
   const [organizationValues, setOrganizationValues] = useState<IOrgAttr>({
     groupDescription: "",
-    groupName: group,
-    organizationName: organization,
+    groupName: "",
+    organizationName: "",
     reportLanguage: "",
     terms: [],
   });
 
   const [successMutation, setSuccessMutation] = useState({
-    group: group !== "",
-    organization: organization !== "",
+    group: false,
+    organization: false,
     repository: false,
   });
+
+  const [hasPersonalEmail, setHasPersonalEmail] = useState<boolean | undefined>(
+    undefined
+  );
+
+  const { data } = useQuery<IGetStakeholderGroupsResult>(
+    GET_STAKEHOLDER_GROUPS,
+    {
+      onCompleted: async ({ me }): Promise<void> => {
+        const organization = me.organizations[0]?.name || "";
+        const group = me.organizations[0]?.groups[0]?.name || "";
+
+        setOrganizationValues({
+          ...organizationValues,
+          groupName: group,
+          organizationName: organization,
+        });
+        setSuccessMutation({
+          ...successMutation,
+          group: group !== "",
+          organization: organization !== "",
+        });
+        setHasPersonalEmail(await isPersonalEmail(me.userEmail));
+      },
+      onError: (error): void => {
+        error.graphQLErrors.forEach(({ message }): void => {
+          Logger.error("An error occurred loading stakeholder groups", message);
+        });
+      },
+    }
+  );
 
   const setSuccessValues = useCallback(
     (groupValue: boolean, orgValue: boolean, repoValue: boolean): void => {
@@ -381,6 +408,14 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
 
   function asmRedirect(): void {
     location.replace(asmLocation);
+  }
+
+  if (data === undefined || hasPersonalEmail === undefined) {
+    return <div />;
+  }
+
+  if (hasPersonalEmail) {
+    return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
 
   return (

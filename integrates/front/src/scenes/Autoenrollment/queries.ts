@@ -80,6 +80,20 @@ const ADD_ORGANIZATION = gql`
   }
 `;
 
+const GET_STAKEHOLDER_GROUPS = gql`
+  query GetStakeholderGroups {
+    me {
+      organizations {
+        groups {
+          name
+        }
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
 const VALIDATE_GIT_ACCESS = gql`
   mutation ValidateGitAccess(
     $branch: String!
@@ -97,5 +111,6 @@ export {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
+  GET_STAKEHOLDER_GROUPS,
   VALIDATE_GIT_ACCESS,
 };

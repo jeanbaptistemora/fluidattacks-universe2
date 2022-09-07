@@ -27,6 +27,18 @@ interface ICheckGitAccessResult {
   };
 }
 
+interface IGetStakeholderGroupsResult {
+  me: {
+    organizations: {
+      groups: {
+        name: string;
+      }[];
+      name: string;
+    }[];
+    userEmail: string;
+  };
+}
+
 interface IRootAttr {
   branch: string;
   credentials: {
@@ -56,6 +68,7 @@ export type {
   IAddOrganizationResult,
   IAlertMessages,
   ICheckGitAccessResult,
+  IGetStakeholderGroupsResult,
   IOrgAttr,
   IRootAttr,
 };
