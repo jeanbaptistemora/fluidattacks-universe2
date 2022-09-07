@@ -20,12 +20,16 @@ from custom_exceptions import (
     HasVulns,
     InvalidField,
     InvalidParameter,
+    InvalidRootEnvironmentType,
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
     RequiredCredentials,
     RootEnvironmentUrlNotFound,
     RootNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from datetime import (
     datetime,
@@ -1632,7 +1636,7 @@ async def _add_secrets_aws(environment_id: str) -> None:
 
 
 async def add_root_environment_url(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     root_id: str,
     url: str,
@@ -1645,9 +1649,16 @@ async def add_root_environment_url(  # pylint: disable=too-many-arguments
         if cloud_type:
             _cloud_type = RootEnvironmentCloud[cloud_type]
     except KeyError as exc:
-        raise InvalidField("url_type") from exc
+        raise InvalidField("urlType") from exc
 
-    await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
+    if (
+        isinstance(root, (URLRoot, IPRoot))
+        and _url_type is not RootEnvironmentUrlType.APK
+    ):
+        raise InvalidRootEnvironmentType()
+    if isinstance(root, (URLRoot, IPRoot)) and cloud_type is not None:
+        raise InvalidField("cloudType")
     environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),
