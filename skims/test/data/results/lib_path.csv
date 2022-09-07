@@ -16251,6 +16251,174 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   54 |         ]
      ^ Col 0
 ",cloudformation.cfn_iam_has_privileges_over_iam
+F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   1 | ---
+   2 | version: '3.9'  # optional since v1.27.0
+   3 | services:
+>  4 |   web:
+   5 |     build: .
+   6 |     ports:
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,22,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+> 22 |   db:
+  23 |     image: postgres:${POSTGRES_VERSION}
+  24 |     environment:
+  25 |       - API_PASSWORD=pass
+  26 | volumes:
+  27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+> 18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+  22 |   db:
+  23 |     image: postgres:${POSTGRES_VERSION}
+  24 |     environment:
+  25 |       - API_PASSWORD=pass
+  26 | volumes:
+  27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   webmvc:
+   6 |     image: eshop/webmvc
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+  19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+> 19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+  22 |       - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+  23 |     read_only: true
+  24 |     expose:
+  25 |       - '80'
+  26 |     ports:
+  27 |       - 5101:80
+  28 |     extra_hosts:
+  29 |       - CESARDLSURFBOOK:10.0.75.1
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   webmvc:
+   6 |     image: eshop/webmvc
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+  19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+> 19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+  22 |       - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+  23 |     expose:
+  24 |       - '80'
+  25 |     ports:
+  26 |       - 5101:80
+  27 |     extra_hosts:
+  28 |       - CESARDLSURFBOOK:10.0.75.1
+  29 |     depends_on:
+     ^ Col 0
+",docker.docker_compose_whitout_user
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,41,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
   31 |           - Action:
   32 |               - s3:DeleteObject

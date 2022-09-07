@@ -3337,6 +3337,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DOCKER_COMPOSE_WHITOUR_USER = MethodInfo(
+        file_name="docker",
+        name="docker_compose_whitout_user",
+        module="lib_path",
+        finding=FindingEnum.F266,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     K8S_CHECK_ADD_CAPABILITY = MethodInfo(
         file_name="kubernetes",
         name="k8s_check_add_capability",
