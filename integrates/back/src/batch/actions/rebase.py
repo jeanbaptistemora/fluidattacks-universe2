@@ -118,7 +118,7 @@ async def _get_vulnerabilities_to_rebase(
         for vulns in findings_vulns
         for vuln in vulns
         if vuln.root_id == git_root.id
-        # and vuln.commit is not None
+        and vuln.commit is not None
         and vuln.type == VulnerabilityType.LINES
     )
     return vulnerabilities
@@ -261,18 +261,19 @@ async def rebase(*, item: BatchProcessing) -> None:
                     repo_path,
                 ]
             )
-            await download_repo(group_name, git_root, tmpdir)
-            repo = Repo(
-                repo_path,
-                search_parent_directories=True,
-            )
-            repo.git.reset("--hard", "HEAD")
-            os.chdir(repo_path)
-            await rebase_root(dataloaders, group_name, repo, git_root)
-            await delete_action(
-                action_name=item.action_name,
-                additional_info=item.additional_info,
-                entity=item.entity,
-                subject=item.subject,
-                time=item.time,
-            )
+            downloaded = await download_repo(group_name, git_root, tmpdir)
+            if downloaded:
+                repo = Repo(
+                    repo_path,
+                    search_parent_directories=True,
+                )
+                repo.git.reset("--hard", "HEAD")
+                os.chdir(repo_path)
+                await rebase_root(dataloaders, group_name, repo, git_root)
+                await delete_action(
+                    action_name=item.action_name,
+                    additional_info=item.additional_info,
+                    entity=item.entity,
+                    subject=item.subject,
+                    time=item.time,
+                )

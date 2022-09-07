@@ -119,10 +119,11 @@ async def download_repo(
     group_name: str,
     git_root: GitRoot,
     path_to_extract: str,
-) -> None:
+) -> bool:
     download_url = await get_download_url(group_name, git_root.state.nickname)
     if not download_url:
-        return
+        LOGGER.error("can not find download url")
+        return False
     with tempfile.TemporaryDirectory() as tmpdir:
         tar_path = f"{tmpdir}/{git_root.state.nickname}.tar.gz"
         urlretrieve(download_url, tar_path)  # nosec
@@ -131,3 +132,4 @@ async def download_repo(
             _delete_out_of_scope_files(
                 git_root.state.gitignore, f"{tmpdir}/{git_root.state.nickname}"
             )
+            return True
