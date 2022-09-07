@@ -135,6 +135,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             </Col>
             <Col lg={100} md={100} sm={100}>
               <Select
+                id={"reportLanguage"}
                 label={t("autoenrollment.reportLanguage")}
                 name={"reportLanguage"}
                 tooltip={t("autoenrollment.reportLanguageTip")}

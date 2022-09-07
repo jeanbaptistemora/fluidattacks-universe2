@@ -269,7 +269,7 @@ export const enTranslations: ResourceKey = {
     minimumWidth: "ARM is only available on desktops",
   },
   autoenrollment: {
-    acceptTerms: "I read the",
+    acceptTerms: "By signing up, you agree with Fluid Attacks'",
     and: "and",
     branch: {
       label: "Branch",
@@ -312,7 +312,7 @@ export const enTranslations: ResourceKey = {
     },
     groupDescription: {
       label: "Description of the group",
-      placeholder: "New group description example",
+      placeholder: "Group description",
     },
     groupName: {
       label: "Group name ",
@@ -340,7 +340,7 @@ export const enTranslations: ResourceKey = {
       tooltip: "Name that will be assigned to your new organization",
     },
     privacyPolicy: "Privacy policy",
-    proceed: "Start your free trial now",
+    proceed: "Start Free Trial",
     reportLanguage: "Report language ",
     reportLanguageTip:
       "Select the language of your preference to report vulnerabilities",
