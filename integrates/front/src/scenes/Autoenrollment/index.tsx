@@ -12,9 +12,8 @@ import type { ApolloError, FetchResult } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
@@ -47,6 +46,8 @@ import type {
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
+type TEnrollPages = "organization" | "repository" | "standBy";
+
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
@@ -54,6 +55,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     mixpanel.track("AutoenrollmentWelcome");
   }, []);
 
+  const [page, setPage] = useState<TEnrollPages>("repository");
   const [rootMessages, setRootMessages] = useState({
     message: "",
     type: "success",
@@ -63,11 +65,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     type: "success",
   });
 
-  const { push } = useHistory();
   const goToOrg = useCallback((): void => {
     setOrgMessages({ message: "", type: "success" });
-    push("/autoenrollment/organization");
-  }, [push]);
+    setPage("organization");
+  }, [setPage]);
 
   const [asmLocation, setAsmLocation] = useState("/logout");
 
@@ -342,7 +343,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             setAsmLocation(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
-            push("/autoenrollment/standby");
+            setPage("standBy");
           } else {
             mixpanel.track("AutoenrollSubmit", {
               addGroup: true,
@@ -352,7 +353,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               organization: values.organizationName.toLowerCase(),
               url: url.trim(),
             });
-            push("/autoenrollment/repository");
+            setPage("repository");
             setRootMessages({
               message: t("autoenrollment.messages.error.repository"),
               type: "error",
@@ -393,10 +394,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       addGitRoot,
       addGroup,
       addOrganization,
-      push,
       repository,
       setAsmLocation,
       setOrganizationValues,
+      setPage,
       setSuccessValues,
       successMutation,
       t,
@@ -416,80 +417,79 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
 
+  const pages: Record<TEnrollPages, JSX.Element> = {
+    organization: (
+      <Fragment>
+        <Text mb={1} mt={5} ta={"center"}>
+          {t("autoenrollment.step2")}
+        </Text>
+        <Text fw={7} mb={1} size={4} ta={"center"}>
+          {t("autoenrollment.setupOrganization")}
+        </Text>
+        <Text mb={1} ta={"center"}>
+          {t("autoenrollment.aboutToStart")}
+        </Text>
+        <Row justify={"center"}>
+          <Col lg={40} md={60} sm={90}>
+            <FormContent>
+              <AddOrganization
+                isSubmitting={isSubmitting}
+                onSubmit={handleSubmit}
+                orgMessages={orgMessages}
+                orgValues={organizationValues}
+                setShowSubmitAlert={setShowSubmitAlert}
+                showSubmitAlert={showSubmitAlert}
+                successMutation={successMutation}
+              />
+            </FormContent>
+          </Col>
+        </Row>
+      </Fragment>
+    ),
+    repository: (
+      <Fragment>
+        <Text mb={1} mt={5} ta={"center"}>
+          {t("autoenrollment.step1")}
+        </Text>
+        <Text fw={7} mb={1} size={4} ta={"center"}>
+          {t("autoenrollment.addRepository")}
+        </Text>
+        <Text mb={1} ta={"center"}>
+          {t("autoenrollment.canAddMore")}
+        </Text>
+        <Row justify={"center"}>
+          <Col lg={40} md={60} sm={90}>
+            <FormContent>
+              <AddRoot
+                initialValues={repository}
+                onCompleted={goToOrg}
+                rootMessages={rootMessages}
+                setRepositoryValues={setRepository}
+                setRootMessages={setRootMessages}
+              />
+            </FormContent>
+          </Col>
+        </Row>
+      </Fragment>
+    ),
+    standBy: (
+      <Row justify={"center"}>
+        <Col lg={30} md={50} sm={70}>
+          <FormContent>
+            <Standby onClose={asmRedirect}>
+              <h2>{t("autoenrollment.standby.title")}</h2>
+              <p>{t("autoenrollment.standby.subtitle")}</p>
+            </Standby>
+          </FormContent>
+        </Col>
+      </Row>
+    ),
+  };
+
   return (
     <Container>
-      <React.Fragment>
-        <Sidebar />
-        <DashboardContent id={"dashboard"}>
-          <Switch>
-            <Route exact={true} path={"/autoenrollment/organization"}>
-              <Text mb={1} mt={5} ta={"center"}>
-                {t("autoenrollment.step2")}
-              </Text>
-              <Text fw={7} mb={1} size={4} ta={"center"}>
-                {t("autoenrollment.setupOrganization")}
-              </Text>
-              <Text mb={1} ta={"center"}>
-                {t("autoenrollment.aboutToStart")}
-              </Text>
-              <Row justify={"center"}>
-                <Col lg={40} md={60} sm={90}>
-                  <FormContent>
-                    <AddOrganization
-                      isSubmitting={isSubmitting}
-                      onSubmit={handleSubmit}
-                      orgMessages={orgMessages}
-                      orgValues={organizationValues}
-                      setShowSubmitAlert={setShowSubmitAlert}
-                      showSubmitAlert={showSubmitAlert}
-                      successMutation={successMutation}
-                    />
-                  </FormContent>
-                </Col>
-              </Row>
-            </Route>
-            <Route exact={true} path={"/autoenrollment/repository"}>
-              <Text mb={1} mt={5} ta={"center"}>
-                {t("autoenrollment.step1")}
-              </Text>
-              <Text fw={7} mb={1} size={4} ta={"center"}>
-                {t("autoenrollment.addRepository")}
-              </Text>
-              <Text mb={1} ta={"center"}>
-                {t("autoenrollment.canAddMore")}
-              </Text>
-              <Row justify={"center"}>
-                <Col lg={40} md={60} sm={90}>
-                  <FormContent>
-                    <AddRoot
-                      initialValues={repository}
-                      onCompleted={goToOrg}
-                      rootMessages={rootMessages}
-                      setRepositoryValues={setRepository}
-                      setRootMessages={setRootMessages}
-                    />
-                  </FormContent>
-                </Col>
-              </Row>
-            </Route>
-            <Route exact={true} path={"/autoenrollment/standby"}>
-              <Col lg={100} md={100} sm={100}>
-                <Row justify={"center"}>
-                  <Col lg={30} md={50} sm={70}>
-                    <FormContent>
-                      <Standby onClose={asmRedirect}>
-                        <h2>{t("autoenrollment.standby.title")}</h2>
-                        <p>{t("autoenrollment.standby.subtitle")}</p>
-                      </Standby>
-                    </FormContent>
-                  </Col>
-                </Row>
-              </Col>
-            </Route>
-            <Redirect to={"/autoenrollment/repository"} />
-          </Switch>
-        </DashboardContent>
-      </React.Fragment>
+      <Sidebar />
+      <DashboardContent id={"dashboard"}>{pages[page]}</DashboardContent>
     </Container>
   );
 };
