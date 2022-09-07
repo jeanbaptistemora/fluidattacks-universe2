@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 MOCK_DATE = "2000-01-01T18:18:18.123Z"
 mock_proj = {
     "project": {

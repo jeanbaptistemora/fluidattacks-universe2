@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
 fetchNixpkgs: projectPath: observesIndex: let
   nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";

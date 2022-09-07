@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 function main {
   local repo="${1}"             # fusion/xxx
   local date="${2}"             # 2021-08-01

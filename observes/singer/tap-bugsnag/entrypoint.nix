@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
 fetchNixpkgs: projectPath: observesIndex: let
   python_version = "python310";
   system = "x86_64-linux";
