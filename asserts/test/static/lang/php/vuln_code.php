@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
 <?php
 // decode three byte unicode characters
 $string = preg_replace( "/([\340-\357])([\200-\277])([\200-\277])/e",

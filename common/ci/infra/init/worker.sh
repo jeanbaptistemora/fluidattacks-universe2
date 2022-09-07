@@ -1,5 +1,9 @@
 #! /bin/sh
 
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # Make disk gpt and create partitions
 parted /dev/nvme1n1 --script -- mklabel gpt
 parted -a optimal /dev/nvme1n1 mkpart primary 0% 65%

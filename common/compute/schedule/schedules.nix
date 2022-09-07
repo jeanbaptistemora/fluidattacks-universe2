@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
 # Schedule expressions:
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 {

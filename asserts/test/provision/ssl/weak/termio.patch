@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 diff -urN openssl-1.0.1e.orig/crypto/ui/ui_openssl.c openssl-1.0.1e/crypto/ui/ui_openssl.c
 --- openssl-1.0.1e.orig/crypto/ui/ui_openssl.c	2013-02-11 10:26:04.000000000 -0500
 +++ openssl-1.0.1e/crypto/ui/ui_openssl.c	2018-11-15 12:35:25.062067753 -0500

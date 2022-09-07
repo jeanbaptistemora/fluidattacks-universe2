@@ -1,5 +1,9 @@
 #! /bin/sh
 
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # Download worker init script so runner can pass it to docker machine
 mkdir -p /etc/gitlab-runner/init
 wget \

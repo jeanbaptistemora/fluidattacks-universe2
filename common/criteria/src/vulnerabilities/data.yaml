@@ -38368,7 +38368,7 @@
       Acceder a una función que puede cerrar la aplicación es una vía
       para ataques de denegación de servicio (DoS).
     impact: >
-      - Denegar temporal o permanentemente el acceso al recurso 
+      - Denegar temporal o permanentemente el acceso al recurso
        de la aplicación.
     recommendation: >
       Delegar las funciones de apagado solo a accesos privilegiados

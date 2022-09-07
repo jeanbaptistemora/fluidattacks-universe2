@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 resource "github_actions_secret" "secrets" {
   for_each        = var.secrets
   repository      = github_repository.repo.name

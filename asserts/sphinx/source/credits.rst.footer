@@ -8,10 +8,10 @@ but retain moral rights.
 Copyright
 ---------
 
-© 2001-2020 Fluid Attacks by Fluidsignal Group
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 
 -------
 License
 -------
 
-Mozilla Public License Version 2.0
+SPDX-License-Identifier: MPL-2.0

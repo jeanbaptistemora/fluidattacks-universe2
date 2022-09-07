@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 resource "aws_iam_saml_provider" "main" {
   name                   = "vpn"
   saml_metadata_document = <<-EOL

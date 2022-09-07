@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 data "http" "alb-policy" {
   url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/45f9e9d89e359bf0988d74b6240ca821823110bb/docs/install/iam_policy.json"
 }

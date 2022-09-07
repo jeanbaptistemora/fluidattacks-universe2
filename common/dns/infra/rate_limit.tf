@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 resource "cloudflare_rate_limit" "integrates_production_api" {
   zone_id             = cloudflare_zone.fluidattacks_com.id
   threshold           = 200

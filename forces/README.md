@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
 [![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
 
 You can use forces on any operating system using docker.

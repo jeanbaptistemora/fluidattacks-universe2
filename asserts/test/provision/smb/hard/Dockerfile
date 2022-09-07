@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 FROM registry.gitlab.com/fluidattacks/product/asserts/smb:weak
 
 ENV FLAVOR hard
@@ -7,4 +11,3 @@ EXPOSE 139/tcp 445/tcp 135/udp 139/tcp
 COPY etc_samba_smb.conf-hard /etc/samba/smb.conf
 
 CMD /usr/sbin/smbd -FS --no-process-group
-

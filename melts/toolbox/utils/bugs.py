@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 import bugsnag
 from bugsnag_client import (
     add_batch_metadata as bugsnag_add_batch_metadata,

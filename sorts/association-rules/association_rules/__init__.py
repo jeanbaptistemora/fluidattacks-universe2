@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from mlxtend.frequent_patterns import (  # type: ignore[import]
     apriori,
     association_rules,
