@@ -17,8 +17,8 @@ function main {
     event_historic_state
     event_metadata
     finding_approval
-    finding_creation
     finding_comment
+    finding_creation
     finding_historic_state
     finding_historic_verification
     finding_id
@@ -28,7 +28,6 @@ function main {
     finding_unreliable_indicators
     finding_verification
     forces_execution
-    root_secret
     git_environment_secret
     git_root_environment_url
     git_root_historic_cloning
@@ -36,8 +35,8 @@ function main {
     git_root_metadata
     group_access
     group_comment
-    group_historic_state
     group_historic_policies
+    group_historic_state
     group_metadata
     group_unreliable_indicators
     ip_root_historic_state
@@ -48,8 +47,10 @@ function main {
     organization_historic_state
     organization_metadata
     portfolio_metadata
+    root_secret
     root_services_toe_lines
     stakeholder_metadata
+    stakeholder_subscription
     toe_input_metadata
     toe_lines_metadata
     url_root_historic_state
