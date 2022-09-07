@@ -16,11 +16,11 @@
 
   pycheck_override = python_pkgs: (import ./pkg_override.nix) (x: (x ? name && x.name == "pytest-check-hook")) python_pkgs.pytestCheckHook;
   pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
-  filelock_override = python_pkgs: pkg_override ["filelock"] python_pkgs.filelock;
+  jsonschema_override = python_pkgs: pkg_override ["jsonschema"] python_pkgs.jsonschema;
   overrides = map pkgs_overrides [
     pycheck_override
     pytz_override
-    filelock_override
+    jsonschema_override
   ];
 
   # layers
@@ -28,10 +28,7 @@
     python_pkgs
     // {
       pytz = import ./pytz {inherit lib python_pkgs;};
-      filelock = python_pkgs.filelock.overridePythonAttrs (
-        # TODO: only skip tests that relies on env
-        _: {doCheck = false;}
-      );
+      jsonschema = import ./jsonschema {inherit lib python_pkgs;};
     };
 
   layer_2 = python_pkgs:
