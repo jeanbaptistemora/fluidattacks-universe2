@@ -32,7 +32,7 @@ from itertools import (
 )
 from subscriptions.domain import (
     get_subscriptions_to_entity_report,
-    subscribe_user_to_entity_report,
+    subscribe,
 )
 import time
 
@@ -64,11 +64,11 @@ async def main() -> None:
     ]
 
     await collect(
-        subscribe_user_to_entity_report(
-            event_frequency="DAILY",
-            report_entity="DIGEST",
-            report_subject="ALL_GROUPS",
-            user_email=user,
+        subscribe(
+            frequency="DAILY",
+            entity="DIGEST",
+            subject="ALL_GROUPS",
+            email=user,
         )
         for user in to_subscribe
     )

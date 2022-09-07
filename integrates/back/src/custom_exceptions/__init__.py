@@ -53,6 +53,10 @@ class ErrorLoadingStakeholderSubscriptions(_SingleMessageException):
     msg: str = "Unable to read subscriptions data"
 
 
+class ErrorSubscribingStakeholder(_SingleMessageException):
+    msg: str = "Unable to subscribe stakeholder"
+
+
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 

@@ -208,7 +208,7 @@ async def handle_authz_claims(
         ):
             raise PermissionError("Access denied")
     elif params.entity == "portfolio":
-        if not await tags_domain.has_user_access(
+        if not await tags_domain.has_access(
             loaders=loaders, email=email, subject=subject
         ):
             raise PermissionError("Access denied")

@@ -50,7 +50,8 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    reports,
+    reports as reports_utils,
+    subscriptions as subscriptions_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -75,15 +76,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def _translate_entity(entity: str) -> str:
-    translation = {
-        "organization": "org",
-    }
-    if entity in translation:
-        return translation[entity]
-    return entity
-
-
 async def can_subscribe(
     *,
     loaders: Dataloaders,
@@ -106,14 +98,14 @@ async def can_subscribe(
             organization_id=subject,
         )
     elif entity == SubscriptionEntity.PORTFOLIO:
-        success = await tags_domain.has_user_access(
+        success = await tags_domain.has_access(
             loaders=loaders,
             email=email,
             subject=subject,
         )
     else:
         LOGGER.error(
-            "- Invalid entity or subject",
+            "Invalid entity or subject",
             extra={
                 "extra": {
                     "entity": entity,
@@ -137,7 +129,7 @@ async def get_all_subscriptions(
     max_attempts=3,
     sleep_seconds=1.0,
 )
-async def _send_analytics_report(
+async def _send_mail_analytics(
     *,
     frequency: SubscriptionFrequency,
     entity: SubscriptionEntity,
@@ -164,7 +156,7 @@ async def _send_analytics_report(
         return
 
     try:
-        image_url: str = await reports.expose_bytes_as_url(
+        image_url: str = await reports_utils.expose_bytes_as_url(
             content=base64.b64decode(
                 await analytics_domain.get_graphics_report(
                     entity=entity.lower(),
@@ -204,53 +196,46 @@ async def _send_analytics_report(
         report_entity=entity,
         report_subject=subject.lower(),
         report_subject_title=subject.title(),
-        report_entity_percent=quote_plus(_translate_entity(entity)),
+        report_entity_percent=quote_plus(
+            subscriptions_utils.translate_entity(entity)
+        ),
         report_subject_percent=quote_plus(subject.lower()),
     )
     LOGGER.info(
-        "- analytics email sent to user",
+        "Analytics email sent",
         extra={"extra": dict(email=email)},
     )
 
 
-async def subscribe_user_to_entity_report(
+async def subscribe(
     *,
-    event_frequency: str,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
+    frequency: SubscriptionFrequency,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
 ) -> None:
-    if event_frequency.lower() == "never":
+    if frequency == SubscriptionFrequency.NEVER:
         await unsubscribe(
-            entity=SubscriptionEntity[report_entity],
-            subject=report_subject,
-            email=user_email,
+            entity=entity,
+            subject=subject,
+            email=email,
         )
-    else:
-        subscription = Subscription(
-            email=user_email,
-            entity=SubscriptionEntity[report_entity],
-            frequency=SubscriptionFrequency[event_frequency],
-            subject=report_subject,
+        return
+
+    await subscriptions_dal.add(
+        subscription=Subscription(
+            email=email,
+            entity=entity,
+            frequency=frequency,
+            subject=subject,
         )
-        await subscriptions_dal.add(subscription=subscription)
-        await _send_analytics_report(
-            frequency=SubscriptionFrequency[event_frequency],
-            entity=SubscriptionEntity[report_entity],
-            subject=report_subject,
-            email=user_email,
-        )
-        LOGGER.info(
-            "User subscribed correctly",
-            extra={
-                "extra": {
-                    "frequency": event_frequency,
-                    "entity": report_entity,
-                    "subject": report_subject,
-                    "user": user_email,
-                }
-            },
-        )
+    )
+    await _send_mail_analytics(
+        frequency=frequency,
+        entity=entity,
+        subject=subject,
+        email=email,
+    )
 
 
 async def unsubscribe(
@@ -293,12 +278,12 @@ async def _process_subscription(
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER.warning(
-            "- stakeholder without access, unsubscribed",
+            "Stakeholder without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
         )
         return
     try:
-        await _send_analytics_report(
+        await _send_mail_analytics(
             frequency=subscription.frequency,
             entity=subscription.entity,
             subject=subscription.subject,
@@ -317,7 +302,7 @@ async def trigger_subscriptions_analytics() -> None:
     frequency = SubscriptionFrequency[str(sys.argv[2]).upper()]
     subscriptions = await get_all_subscriptions(frequency=frequency)
     LOGGER.info(
-        "- subscriptions loaded",
+        "Subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )
     await collect(

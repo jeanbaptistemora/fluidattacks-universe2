@@ -71,11 +71,11 @@ async def main() -> None:
 
     if PROD:
         await collect(
-            subs_domain.subscribe_user_to_entity_report(
-                event_frequency="DAILY",
-                report_entity="COMMENTS",
-                report_subject="ALL_GROUPS",
-                user_email=user,
+            subs_domain.subscribe(
+                frequency="DAILY",
+                entity="COMMENTS",
+                subject="ALL_GROUPS",
+                email=user,
             )
             for user in fluid_users
         )

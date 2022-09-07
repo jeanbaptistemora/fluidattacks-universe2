@@ -15,14 +15,14 @@ from db_model.subscriptions.enums import (
 from db_model.subscriptions.types import (
     Subscription,
 )
+from newutils.subscriptions import (
+    translate_entity,
+)
 import os
 import pytest
 from subscriptions.dal import (
     add,
     get_all_subscriptions,
-)
-from subscriptions.domain import (
-    _translate_entity,
 )
 
 pytestmark = [
@@ -35,10 +35,12 @@ def test_image_path() -> None:
 
 
 def test_translate_entity() -> None:
-    entity_in = "organization"
-    assert _translate_entity(entity=entity_in) == "org"
-    entity_not = "test"
-    assert _translate_entity(entity=entity_not) == entity_not
+    entity_org = SubscriptionEntity.ORGANIZATION
+    assert translate_entity(entity=entity_org) == "org"
+    entity_group = SubscriptionEntity.GROUP
+    assert translate_entity(entity=entity_group) == "group"
+    entity_portfolio = SubscriptionEntity.PORTFOLIO
+    assert translate_entity(entity=entity_portfolio) == "portfolio"
 
 
 @pytest.mark.changes_db

@@ -51,3 +51,12 @@ def format_subscription(item: Item) -> Subscription:
         ],
         subject=item["sk"]["subject"],
     )
+
+
+def translate_entity(entity: SubscriptionEntity) -> str:
+    translation = {
+        SubscriptionEntity.ORGANIZATION: "org",
+    }
+    if entity in translation:
+        return translation[entity]
+    return entity.lower()

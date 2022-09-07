@@ -62,7 +62,7 @@ async def filter_allowed_tags(
     return tags
 
 
-async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
+async def has_access(loaders: Any, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
         organization: Organization = await loaders.organization.load(org_id)
