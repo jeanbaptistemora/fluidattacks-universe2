@@ -71,10 +71,6 @@ in {
             gitlabExtra = gitlabDeployInfra;
           }
           {
-            output = "/skims/deploy/prod";
-            gitlabExtra = gitlabDeployInfra;
-          }
-          {
             output = "/lintPython/dirOfModules/skims";
             gitlabExtra = gitlabLint;
           }
