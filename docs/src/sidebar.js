@@ -479,6 +479,7 @@ const Development = [
   'development/dynamodb-patterns',
   'development/graphql-api',
   'development/writing-code-suggestions',
+  'development/licencing-and-copyright',
   'development/analytics-conventions',
   'development/melts',
 ]
