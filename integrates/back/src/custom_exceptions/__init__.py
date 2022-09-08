@@ -574,6 +574,15 @@ class InvalidDateFormat(CustomBaseException):
         super(InvalidDateFormat, self).__init__(msg)
 
 
+class InvalidDraftConsult(CustomBaseException):
+    """Exception to halt consults made in drafts"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Consults are not allowed in Drafts"
+        super(InvalidDraftConsult, self).__init__(msg)
+
+
 class InvalidExpirationTime(CustomBaseException):
     """Exception to control valid expiration time."""
 

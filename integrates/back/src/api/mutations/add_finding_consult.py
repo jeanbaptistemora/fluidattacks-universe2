@@ -12,6 +12,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    InvalidDraftConsult,
     PermissionDenied,
 )
 from db_model.finding_comments.enums import (
@@ -100,6 +101,9 @@ async def _add_finding_consult(
     group_name: str = finding.group_name
     is_finding_released = bool(finding.approval)
     content = parameters["content"]
+    if param_type == "consult" and not is_finding_released:
+        raise InvalidDraftConsult()
+
     comment_id = str(round(time() * 1000))
     current_time = datetime_utils.get_as_utc_iso_format(
         datetime_utils.get_now()
