@@ -111,7 +111,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
     ]
 
     return Benchmarking(
-        is_valid=number_of_reattacks >= 0,
+        is_valid=number_of_reattacks > 10,
         subject=group.lower(),
         mttr=values[-1] if len(values) > 0 else Decimal("0.0"),
         number_of_reattacks=number_of_reattacks,
