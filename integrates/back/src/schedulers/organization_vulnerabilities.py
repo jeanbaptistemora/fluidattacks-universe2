@@ -12,9 +12,6 @@ from aiohttp.client_exceptions import (
     ClientPayloadError,
     ServerTimeoutError,
 )
-from analytics.domain import (
-    is_decimal,
-)
 from botocore.exceptions import (
     ClientError,
     ConnectTimeoutError,
@@ -54,6 +51,9 @@ from findings.domain.core import (
 )
 import logging
 import logging.config
+from newutils import (
+    analytics as analytics_utils,
+)
 from newutils.datetime import (
     get_as_str,
     get_now,
@@ -227,7 +227,7 @@ async def get_data(
         sorted(
             rows,
             key=lambda row: float(str(row[severity_column]))
-            if is_decimal(str(row[severity_column]))
+            if analytics_utils.is_decimal(str(row[severity_column]))
             else float("0.0"),
             reverse=True,
         )

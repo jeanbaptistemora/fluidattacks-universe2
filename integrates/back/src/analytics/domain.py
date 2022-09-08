@@ -17,9 +17,6 @@ from ariadne import (
 import authz
 import base64
 import botocore.exceptions
-from contextlib import (
-    suppress,
-)
 import csv
 from custom_exceptions import (
     DocumentNotFound,
@@ -29,20 +26,14 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from decimal import (
-    Decimal,
-    InvalidOperation,
-)
 from decorators import (
     retry_on_exceptions,
-)
-from functools import (
-    partial,
 )
 import json
 import logging
 import logging.config
 from newutils import (
+    analytics as analytics_utils,
     templates as templates_utils,
     token as token_utils,
     validations,
@@ -54,9 +45,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import os
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
-)
 from settings import (
     LOGGING,
 )
@@ -106,30 +94,6 @@ async def get_document(
     entity: str,
     subject: str,
 ) -> object:
-    response: object = await redis_get_or_set_entity_attr(
-        partial(
-            get_document_no_cache,
-            document_name=document_name,
-            document_type=document_type,
-            entity=entity,
-            subject=subject,
-        ),
-        entity="analytics",
-        attr="document",
-        ttl=3600,
-        id=f"{document_name}-{document_type}-{entity}-{subject}",
-    )
-
-    return response
-
-
-async def get_document_no_cache(
-    *,
-    document_name: str,
-    document_type: str,
-    entity: str,
-    subject: str,
-) -> object:
     document: str = await analytics_dal.get_document(
         os.path.join(
             convert_camel_case_to_snake(document_type),
@@ -141,28 +105,12 @@ async def get_document_no_cache(
     return json.loads(document)
 
 
-async def get_graphics_report(
-    *,
-    entity: str,
-    subject: str,
-) -> bytes:
-    response: bytes = await redis_get_or_set_entity_attr(
-        partial(get_graphics_report_no_cache, entity=entity, subject=subject),
-        entity="analytics",
-        attr="graphics_report",
-        ttl=3600,
-        id=f"{entity}-{subject}",
-    )
-
-    return response
-
-
 @retry_on_exceptions(
     exceptions=(botocore.exceptions.ClientError,),
     max_attempts=3,
     sleep_seconds=float("0.5"),
 )
-async def get_graphics_report_no_cache(
+async def get_graphics_report(
     *,
     entity: str,
     subject: str,
@@ -170,6 +118,7 @@ async def get_graphics_report_no_cache(
     document: bytes = await analytics_dal.get_snapshot(
         f"reports/{entity}:{safe_encode(subject.lower())}.png",
     )
+
     return base64.b64encode(document)
 
 
@@ -252,19 +201,6 @@ async def handle_graphic_request(request: Request) -> Response:
     return response
 
 
-def is_decimal(num: str) -> bool:
-    try:
-        Decimal(num)
-        return True
-    except InvalidOperation:
-
-        with suppress(InvalidOperation):
-            Decimal(num[:-1])
-            return True
-
-        return False
-
-
 async def handle_graphic_csv_request(request: Request) -> Response:
     try:
         params: GraphicsCsvParameters = handle_graphics_csv_request_parameters(
@@ -292,7 +228,10 @@ async def handle_graphic_csv_request(request: Request) -> Response:
         reader = csv.reader(document.split("\n"), delimiter=",")
         for row in reader:
             validations.validate_sanitized_csv_input(
-                *["" if is_decimal(field) else str(field) for field in row]
+                *[
+                    "" if analytics_utils.is_decimal(field) else str(field)
+                    for field in row
+                ]
             )
         return Response(document, media_type="text/csv")
 
