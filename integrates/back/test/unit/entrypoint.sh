@@ -27,7 +27,7 @@ function main {
     && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && pytest -m 'not changes_db' "${pytest_args[@]}" back/test/unit/src \
-    && pytest -m 'changes_db' "${pytest_args[@]}" back/test/unit/src \
+    && pytest -m 'changes_db' --cov-append "${pytest_args[@]}" back/test/unit/src \
     && popd \
     || return 1
 }
