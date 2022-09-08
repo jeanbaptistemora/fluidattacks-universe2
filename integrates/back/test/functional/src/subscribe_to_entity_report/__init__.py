@@ -11,35 +11,67 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
-async def get_result(
+async def put_mutation(
     *,
-    user: str,
-    org_id: str,
-) -> Dict[str, Any]:
-    frecuency: str = "MONTHLY"
-    entity: str = "ORGANIZATION"
-    query: str = f"""
-        mutation {{
+    entity: str,
+    email: str,
+    frequency: str,
+    subject: str,
+) -> dict[str, Any]:
+    query: str = """
+        mutation SubscribeToEntityReport(
+            $frequency: Frequency!
+            $reportEntity: SubscriptionReportEntity!
+            $reportSubject: String!
+        ) {
             subscribeToEntityReport(
-                frequency: {frecuency},
-                reportEntity: {entity},
-                reportSubject: "{org_id}"
-
-
-            ) {{
+                frequency: $frequency
+                reportEntity: $reportEntity
+                reportSubject: $reportSubject
+            ) {
                 success
-            }}
-        }}
+            }
+        }
     """
-    data: Dict[str, str] = {
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "frequency": frequency,
+            "reportEntity": entity,
+            "reportSubject": subject,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=email,
+        context=get_new_context(),
+    )
+
+
+async def get_query(
+    *,
+    email: str,
+) -> dict[str, Any]:
+    query: str = """
+        query SubscriptionsToEntityReport {
+            me {
+                subscriptionsToEntityReport {
+                    entity
+                    frequency
+                    subject
+                }
+                userEmail
+            }
+        }
+    """
+    data: dict[str, Any] = {
         "query": query,
     }
     return await get_graphql_result(
         data,
-        stakeholder=user,
+        stakeholder=email,
         context=get_new_context(),
     )

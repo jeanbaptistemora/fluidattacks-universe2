@@ -3,23 +3,14 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from . import (
-    get_result,
-)
-from dataloaders import (
-    get_new_context,
+    get_query,
+    put_mutation,
 )
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
     SubscriptionFrequency,
 )
-from db_model.subscriptions.types import (
-    Subscription,
-)
 import pytest
-from typing import (
-    Any,
-    Dict,
-)
 
 
 @pytest.mark.asyncio
@@ -41,17 +32,59 @@ from typing import (
 )
 async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
     assert populate
-    organization: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result(
-        user=email,
-        org_id=organization,
+    organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
+    result_mutation = await put_mutation(
+        entity=SubscriptionEntity.ORGANIZATION,
+        email=email,
+        frequency=SubscriptionFrequency.MONTHLY,
+        subject=organization_id,
     )
-    assert "errors" not in result
-    assert result["data"]["subscribeToEntityReport"]["success"]
-    loaders = get_new_context()
-    subscription: tuple[
-        Subscription, ...
-    ] = await loaders.stakeholder_subscriptions.load(email)
-    assert subscription[-1].email == email
-    assert subscription[-1].frequency == SubscriptionFrequency.MONTHLY
-    assert subscription[-1].entity == SubscriptionEntity.ORGANIZATION
+    assert "errors" not in result_mutation
+    assert result_mutation["data"]["subscribeToEntityReport"]["success"]
+
+    group_name = "group1"
+    result_mutation = await put_mutation(
+        entity=SubscriptionEntity.GROUP,
+        email=email,
+        frequency=SubscriptionFrequency.WEEKLY,
+        subject=group_name,
+    )
+    assert "errors" not in result_mutation
+    assert result_mutation["data"]["subscribeToEntityReport"]["success"]
+
+    expected_subscriptions: list[dict[str, str]] = [
+        {
+            "entity": "GROUP",
+            "frequency": "WEEKLY",
+            "subject": group_name,
+        },
+        {
+            "entity": "ORGANIZATION",
+            "frequency": "MONTHLY",
+            "subject": organization_id,
+        },
+    ]
+    result_query = await get_query(
+        email=email,
+    )
+    assert (
+        result_query["data"]["me"]["subscriptionsToEntityReport"]
+        == expected_subscriptions
+    )
+
+    result_mutation = await put_mutation(
+        entity=SubscriptionEntity.GROUP,
+        email=email,
+        frequency=SubscriptionFrequency.NEVER,
+        subject=group_name,
+    )
+    assert "errors" not in result_mutation
+    assert result_mutation["data"]["subscribeToEntityReport"]["success"]
+
+    result_query = await get_query(
+        email=email,
+    )
+    assert (
+        result_query["data"]["me"]["subscriptionsToEntityReport"]
+        == expected_subscriptions[-1:]
+    )
