@@ -1,7 +1,9 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
+from contextlib import (
+    suppress,
+)
 from dast.aws.types import (
     Location,
 )
@@ -215,31 +217,36 @@ async def full_access_policies(
             pol_access = list(policy_names["Document"]["Statement"])
 
             for index, item in enumerate(pol_access):
-                if (
-                    item["Effect"] == "Allow"
-                    and item["Action"] == "*"
-                    and item["Resource"] == "*"
-                ):
-                    locations = [
-                        *[
-                            Location(
-                                access_patterns=(
-                                    f"/Document/Statement/{index}/Effect",
-                                    f"/Document/Statement/{index}/Action",
-                                    f"/Document/Statement/{index}/Resource",
-                                ),
-                                arn=(f"{policy['Arn']}"),
-                                values=(
-                                    pol_access[index]["Effect"],
-                                    pol_access[index]["Action"],
-                                    pol_access[index]["Resource"],
-                                ),
-                                description=t(
-                                    "src.lib_path.f031_aws.permissive_policy"
-                                ),
-                            )
-                        ],
-                    ]
+                with suppress(KeyError):
+                    if (
+                        item["Effect"] == "Allow"
+                        and item["Action"] == "*"
+                        and item["Resource"] == "*"
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        f"/Document/Statement/{index}/Effect",
+                                        f"/Document/Statement/{index}/Action",
+                                        (
+                                            f"/Document/Statement/{index}"
+                                            "/Resource"
+                                        ),
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=(
+                                        pol_access[index]["Effect"],
+                                        pol_access[index]["Action"],
+                                        pol_access[index]["Resource"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path."
+                                        "f031_aws.permissive_policy"
+                                    ),
+                                )
+                            ],
+                        ]
 
             vulns = (
                 *vulns,
@@ -291,36 +298,40 @@ async def open_passrole(
             pol_access = list(policy_names["Document"]["Statement"])
 
             for index, item in enumerate(pol_access):
-                if isinstance(item["Action"], str):
-                    action = [item["Action"]]
-                else:
-                    action = item["Action"]
+                with suppress(KeyError):
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
+                    else:
+                        action = item["Action"]
 
-                if (
-                    item["Effect"] == "Allow"
-                    and any(map(_match_iam_passrole, action))
-                    and item["Resource"] == "*"
-                ):
-                    locations = [
-                        *[
-                            Location(
-                                access_patterns=(
-                                    f"/Document/Statement/{index}/Effect",
-                                    f"/Document/Statement/{index}/Action",
-                                    f"/Document/Statement/{index}/Resource",
-                                ),
-                                arn=(f"{policy['Arn']}"),
-                                values=(
-                                    pol_access[index]["Effect"],
-                                    pol_access[index]["Action"],
-                                    pol_access[index]["Resource"],
-                                ),
-                                description=t(
-                                    "src.lib_path.f031_aws.open_passrole"
-                                ),
-                            )
-                        ],
-                    ]
+                    if (
+                        item["Effect"] == "Allow"
+                        and any(map(_match_iam_passrole, action))
+                        and item["Resource"] == "*"
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        f"/Document/Statement/{index}/Effect",
+                                        f"/Document/Statement/{index}/Action",
+                                        (
+                                            f"/Document/Statement/{index}"
+                                            "/Resource"
+                                        ),
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=(
+                                        pol_access[index]["Effect"],
+                                        pol_access[index]["Action"],
+                                        pol_access[index]["Resource"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path.f031_aws.open_passrole"
+                                    ),
+                                )
+                            ],
+                        ]
 
             vulns = (
                 *vulns,
@@ -376,34 +387,39 @@ async def permissive_policy(
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
-                if isinstance(item["Action"], str):
-                    action = [item["Action"]]
-                else:
-                    action = item["Action"]
+                with suppress(KeyError):
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
+                    else:
+                        action = item["Action"]
 
-                if (
-                    item["Effect"] == "Allow"
-                    and any(map(_is_action_permissive, action))
-                    and item["Resource"] == "*"
-                ):
-                    locations = [
-                        *[
-                            Location(
-                                access_patterns=(
-                                    f"/Document/Statement/{index}/Action",
-                                    f"/Document/Statement/{index}/Resource",
-                                ),
-                                arn=(f"{policy['Arn']}"),
-                                values=(
-                                    pol_access[index]["Action"],
-                                    pol_access[index]["Resource"],
-                                ),
-                                description=t(
-                                    "src.lib_path.f031_aws.permissive_policy"
-                                ),
-                            )
-                        ],
-                    ]
+                    if (
+                        item["Effect"] == "Allow"
+                        and any(map(_is_action_permissive, action))
+                        and item["Resource"] == "*"
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        f"/Document/Statement/{index}/Action",
+                                        (
+                                            f"/Document/Statement/{index}"
+                                            "/Resource"
+                                        ),
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=(
+                                        pol_access[index]["Action"],
+                                        pol_access[index]["Resource"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path."
+                                        "f031_aws.permissive_policy"
+                                    ),
+                                )
+                            ],
+                        ]
 
             vulns = (
                 *vulns,
@@ -443,29 +459,30 @@ async def full_access_to_ssm(
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
-                if isinstance(item["Action"], str):
-                    action = [item["Action"]]
-                else:
-                    action = item["Action"]
+                with suppress(KeyError):
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
+                    else:
+                        action = item["Action"]
 
-                if item["Effect"] == "Allow" and any(
-                    map(lambda act: act == "ssm:*", action)
-                ):
-                    locations = [
-                        *[
-                            Location(
-                                access_patterns=(
-                                    f"/Document/Statement/{index}/Action",
-                                ),
-                                arn=(f"{policy['Arn']}"),
-                                values=(pol_access[index]["Action"],),
-                                description=t(
-                                    "src.lib_path."
-                                    "f031.iam_has_full_access_to_ssm"
-                                ),
-                            )
-                        ],
-                    ]
+                    if item["Effect"] == "Allow" and any(
+                        map(lambda act: act == "ssm:*", action)
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        f"/Document/Statement/{index}/Action",
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=(pol_access[index]["Action"],),
+                                    description=t(
+                                        "src.lib_path."
+                                        "f031.iam_has_full_access_to_ssm"
+                                    ),
+                                )
+                            ],
+                        ]
 
             vulns = (
                 *vulns,
