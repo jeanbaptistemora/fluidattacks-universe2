@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from lib_root.utilities.javascript import (
-    yield_method_invocation,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -16,15 +13,21 @@ import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from typing import (
     Set,
     Tuple,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
+from utils import (
+    graph as g,
+)
+from utils.string import (
+    split_on_last_dot as split_last,
 )
 
 
@@ -61,46 +64,42 @@ def client_storage(
         {"nombre", "usuario"},
         {"mail", "user"},
     )
+    items = {"getItem", "setItem"}
+    method = core_model.MethodsEnum.JS_CLIENT_STORAGE
+    storage = {"localStorage", "sessionStorage"}
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for (
-            shard,
-            syntax_steps,
-            invocation_step,
-            step_index,
-        ) in yield_method_invocation(graph_db):
-            method = invocation_step.method
-            if method not in {
-                "localStorage.setItem",
-                "localStorage.getItem",
-                "sessionStorage.setItem",
-                "sessionStorage.getItem",
-            }:
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
-            dependencies = get_dependencies(step_index, syntax_steps)
-            store_key = dependencies[0]
-
-            key_str = ""
-            if store_key.type == "SyntaxStepLiteral":
-                key_str = store_key.value
-            elif store_key.type == "SyntaxStepMemberAccessExpression":
-                key_str = node_to_str(shard.graph, store_key.meta.n_id)
-            elif store_key.type == "SyntaxStepSymbolLookup":
-                key_str = store_key.symbol
-            key_str = key_str.lower()
-
-            if _could_be_boolean(key_str):
-                continue
-            if any(
-                all(smell in key_str for smell in smells)
-                for smells in conditions
+            for nid in g.filter_nodes(
+                graph,
+                graph.nodes,
+                predicate=g.pred_has_labels(label_type="CallExpression"),
             ):
-                yield shard, invocation_step.meta.n_id
+                func, item = split_last(graph.nodes[nid].get("function_name"))
+                if func not in storage or item not in items:
+                    continue
+                opc_nid = g.adj_ast(graph, g.adj_ast(graph, nid)[0])
+                test_nid = opc_nid[0] if item == "getItem" else opc_nid[1]
+                for path in get_backward_paths(graph, test_nid):
+                    evaluation = evaluate(method, graph, path, test_nid)
+                    if evaluation:
+                        if any(
+                            all(smell in key_str.lower() for smell in smells)
+                            and not _could_be_boolean(key_str.lower())
+                            for key_str in evaluation.triggers
+                            for smells in conditions
+                        ):
+                            yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f085.client_storage.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.JS_CLIENT_STORAGE,
+        method=method,
     )

@@ -23,6 +23,9 @@ from symbolic_eval.f042.literal import (
 from symbolic_eval.f052.literal import (
     evaluate as evaluate_literal_f052,
 )
+from symbolic_eval.f085.literal import (
+    evaluate as evaluate_literal_f085,
+)
 from symbolic_eval.f091.literal import (
     evaluate as evaluate_literal_f091,
 )
@@ -51,6 +54,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F035: evaluate_literal_f035,
     FindingEnum.F042: evaluate_literal_f042,
     FindingEnum.F052: evaluate_literal_f052,
+    FindingEnum.F085: evaluate_literal_f085,
     FindingEnum.F091: evaluate_literal_f091,
     FindingEnum.F134: evaluate_literal_f134,
     FindingEnum.F211: evaluate_literal_f211,
