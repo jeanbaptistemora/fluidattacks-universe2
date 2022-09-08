@@ -150,6 +150,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 <Graphic
                   bsHeight={320}
                   className={"g1"}
+                  documentName={"exposureBenchmarkingCvssf"}
+                  documentType={"barChart"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"barChart"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.barChart.exposureBenchmarkingCvssf")}
+                />
+              </Col100>
+            </RowCenter>
+            <RowCenter>
+              <Col100>
+                <Graphic
+                  bsHeight={320}
+                  className={"g1"}
                   documentName={"riskOverTimeCvssf"}
                   documentType={"stackedBarChart"}
                   entity={entity}
