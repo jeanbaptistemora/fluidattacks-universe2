@@ -221,12 +221,13 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
         timeout,
     )
     add_repo.click()
-    close_tour = utils.wait_for_aria_label(
-        driver,
-        "button",
-        "Skip",
-        "button",
-        timeout,
+    close_tour = utils.wait_for_aria_label_by_parent(
+        driver=driver,
+        parent_id="react-joyride-step-0",
+        parent_element="div",
+        element="button",
+        text="Skip",
+        timeout=timeout,
     )
     close_tour.click()
     add_repo.click()

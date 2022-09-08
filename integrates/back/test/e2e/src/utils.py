@@ -56,13 +56,33 @@ def wait_for_text(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
 
 
 def wait_for_aria_label(
-    driver: WebDriver, element: str, text: str, role: str, timeout: int
+    driver: WebDriver, element: str, text: str, timeout: int
 ) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
         ec.visibility_of_element_located(
             (
                 By.XPATH,
-                f"//{element}[@aria-label='{text}' and @role='{role}']",
+                f"//{element}[@aria-label='{text}']",
+            )
+        )
+    )
+
+
+def wait_for_aria_label_by_parent(
+    *,
+    driver: WebDriver,
+    parent_id: str,
+    parent_element: str,
+    element: str,
+    text: str,
+    timeout: int,
+) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until(
+        ec.visibility_of_element_located(
+            (
+                By.XPATH,
+                f"//{parent_element}[@id='{parent_id}']"
+                + f"//{element}[@aria-label='{text}']",
             )
         )
     )
