@@ -34,7 +34,7 @@ CLIENT = OpenSearch(
 )
 
 
-def process(records: tuple[Record, ...]) -> None:
+def _process(records: tuple[Record, ...], index: str) -> None:
     """Replicates the item on AWS OpenSearch"""
     chunk_size = 100
 
@@ -47,7 +47,7 @@ def process(records: tuple[Record, ...]) -> None:
             )
             action = {
                 action_name: {
-                    "_index": "vulnerabilities",
+                    "_index": index,
                     "_id": "#".join([record.pk, record.sk]),
                 }
             }
@@ -57,3 +57,11 @@ def process(records: tuple[Record, ...]) -> None:
                 body.append(record.item)
 
         CLIENT.bulk(body=body)
+
+
+def process_vulns(records: tuple[Record, ...]) -> None:
+    _process(records, "vulnerabilities")
+
+
+def process_findings(records: tuple[Record, ...]) -> None:
+    _process(records, "findings")

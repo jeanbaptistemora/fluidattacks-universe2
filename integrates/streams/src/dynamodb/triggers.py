@@ -17,6 +17,7 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_filter=(
             lambda record: record.pk.startswith("VULN#")
             and record.sk.startswith("FIN#")
+            and record.event_name == EventName.INSERT
         ),
         records_processor=webhooks.process,
     ),
@@ -25,8 +26,15 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_filter=(
             lambda record: record.pk.startswith("VULN#")
             and record.sk.startswith("FIN#")
-            and record.event_name == EventName.INSERT
         ),
-        records_processor=opensearch.process,
+        records_processor=opensearch.process_vulns,
+    ),
+    Trigger(
+        batch_size=100,
+        records_filter=(
+            lambda record: record.pk.startswith("FIN#")
+            and record.sk.startswith("GROUP#")
+        ),
+        records_processor=opensearch.process_findings,
     ),
 )
