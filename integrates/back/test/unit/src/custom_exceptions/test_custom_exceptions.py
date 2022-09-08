@@ -232,7 +232,7 @@ async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidAcceptanceDays):
-        assert await validate_treatment_change(
+        await validate_treatment_change(
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
@@ -259,7 +259,7 @@ async def test_validate_acceptance_severity() -> None:
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidAcceptanceSeverity):
-        assert await validate_treatment_change(
+        await validate_treatment_change(
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
@@ -313,7 +313,7 @@ async def test_validate_number_acceptances() -> None:
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidNumberAcceptances):
-        assert await validate_treatment_change(
+        await validate_treatment_change(
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,

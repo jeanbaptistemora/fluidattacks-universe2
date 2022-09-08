@@ -41,9 +41,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -62,7 +59,7 @@ from vulnerabilities import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerability_id: str,
@@ -76,7 +73,7 @@ async def mutate(
         group_name: str = finding.group_name
         severity_score = findings_domain.get_severity_score(finding.severity)
 
-        success: bool = await vulns_domain.update_vulnerabilities_treatment(
+        await vulns_domain.update_vulnerabilities_treatment(
             loaders=loaders,
             finding_id=finding_id,
             updated_values=parameters,
@@ -85,50 +82,43 @@ async def mutate(
             vulnerability_id=vulnerability_id,
             group_name=group_name,
         )
-        if success:
-            await redis_del_by_deps(
-                "update_vulnerabilities_treatment",
-                finding_id=finding_id,
-                group_name=group_name,
-            )
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.update_vulnerabilities_treatment,
-                finding_ids=[finding_id],
-                vulnerability_ids=[vulnerability_id],
-            )
-            logs_utils.cloudwatch_log(
-                info.context,
-                "Security: Vulnerabilities treatment successfully updated in "
-                f"finding {finding_id}",
-            )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.update_vulnerabilities_treatment,
+            finding_ids=[finding_id],
+            vulnerability_ids=[vulnerability_id],
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            "Security: Vulnerabilities treatment successfully updated in "
+            f"finding {finding_id}",
+        )
 
-            justification: str = parameters["justification"]
-            assigned: str = parameters.get("assigned", "")
-
-            if (
-                parameters.get("treatment")
-                == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-            ):
-                await vulns_domain.send_treatment_report_mail(
-                    loaders=loaders,
-                    modified_by=user_email,
-                    justification=justification,
-                    vulnerability_id=vulnerability_id,
-                )
-
-            # Clearing cache
-            loaders.finding_vulnerabilities_all.clear(finding_id)
-
-            await vulns_domain.send_treatment_change_mail(
+        justification: str = parameters["justification"]
+        assigned: str = parameters.get("assigned", "")
+        if (
+            parameters.get("treatment")
+            == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        ):
+            await vulns_domain.send_treatment_report_mail(
                 loaders=loaders,
-                assigned=assigned,
-                finding_id=finding_id,
-                finding_title=finding.title,
-                group_name=group_name,
-                justification=justification,
-                min_date=datetime.now(timezone.utc) - timedelta(days=1),
                 modified_by=user_email,
+                justification=justification,
+                vulnerability_id=vulnerability_id,
             )
+
+        # Clearing cache
+        loaders.finding_vulnerabilities_all.clear(finding_id)
+
+        await vulns_domain.send_treatment_change_mail(
+            loaders=loaders,
+            assigned=assigned,
+            finding_id=finding_id,
+            finding_title=finding.title,
+            group_name=group_name,
+            justification=justification,
+            min_date=datetime.now(timezone.utc) - timedelta(days=1),
+            modified_by=user_email,
+        )
 
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
@@ -138,4 +128,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)

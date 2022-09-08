@@ -4,7 +4,6 @@
 
 from aioextensions import (
     collect,
-    in_thread,
     schedule,
 )
 import authz
@@ -71,8 +70,6 @@ from newutils.vulnerabilities import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
 )
 from vulnerabilities.domain.core import (
@@ -86,9 +83,8 @@ from vulnerabilities.domain.utils import (
 )
 
 
-def _validate_acceptance_date(values: Dict[str, str]) -> bool:
+def _validate_acceptance_date(values: dict[str, str]) -> None:
     """Check that the date set to temporarily accept a vuln is logical."""
-    valid: bool = True
     if values["treatment"] == "ACCEPTED":
         if values.get("acceptance_date"):
             today = datetime_utils.get_now_as_str()
@@ -99,21 +95,17 @@ def _validate_acceptance_date(values: Dict[str, str]) -> bool:
                 raise InvalidDateFormat()
         else:
             raise InvalidDateFormat()
-    return valid
 
 
 async def _validate_acceptance_days(
-    loaders: Any, values: Dict[str, str], group_name: str
-) -> bool:
+    loaders: Any, values: dict[str, str], group_name: str
+) -> None:
     """
     Check that the date during which the finding will be temporarily accepted
     complies with organization settings.
     """
-    valid: bool = True
-    is_valid_acceptance_date = await in_thread(
-        _validate_acceptance_date, values
-    )
-    if values.get("treatment") == "ACCEPTED" and is_valid_acceptance_date:
+    _validate_acceptance_date(values)
+    if values.get("treatment") == "ACCEPTED":
         today = datetime_utils.get_now()
         acceptance_date = datetime_utils.get_from_str(
             values["acceptance_date"]
@@ -131,17 +123,15 @@ async def _validate_acceptance_days(
                 "Chosen date is either in the past or exceeds "
                 "the maximum number of days allowed by the defined policy"
             )
-    return valid
 
 
 async def _validate_acceptance_severity(
-    loaders: Any, values: Dict[str, str], severity: float, group_name: str
-) -> bool:
+    loaders: Any, values: dict[str, str], severity: float, group_name: str
+) -> None:
     """
     Check that the severity of the finding to temporaryly accept is inside
     the range set by the defined policy.
     """
-    valid: bool = True
     if values.get("treatment") == "ACCEPTED":
         group: Group = await loaders.group.load(group_name)
         min_value: Decimal = await get_group_min_acceptance_severity(
@@ -158,20 +148,18 @@ async def _validate_acceptance_severity(
             <= max_value
         ):
             raise InvalidAcceptanceSeverity(str(severity))
-    return valid
 
 
 async def _validate_number_acceptances(
     loaders: Any,
-    values: Dict[str, str],
+    values: dict[str, str],
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     group_name: str,
-) -> bool:
+) -> None:
     """
     Check that a finding to temporarily accept does not exceed the maximum
     number of acceptances the organization set.
     """
-    valid: bool = True
     if values["treatment"] == "ACCEPTED":
         group: Group = await loaders.group.load(group_name)
         max_acceptances = await get_group_max_number_acceptances(
@@ -190,7 +178,6 @@ async def _validate_number_acceptances(
             raise InvalidNumberAcceptances(
                 str(current_acceptances) if current_acceptances else "-"
             )
-    return valid
 
 
 async def validate_treatment_change(
@@ -199,38 +186,31 @@ async def validate_treatment_change(
     group_name: str,
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     loaders: Any,
-    values: Dict[str, str],
-) -> bool:
-    validate_acceptance_days_coroutine = _validate_acceptance_days(
-        loaders, values, group_name
-    )
-    validate_acceptance_severity_coroutine = _validate_acceptance_severity(
-        loaders, values, finding_severity, group_name
-    )
-    validate_number_acceptances_coroutine = _validate_number_acceptances(
-        loaders,
-        values,
-        historic_treatment,
-        group_name,
-    )
-    return all(
-        await collect(
-            [
-                validate_acceptance_days_coroutine,
-                validate_acceptance_severity_coroutine,
-                validate_number_acceptances_coroutine,
-            ]
-        )
+    values: dict[str, str],
+) -> None:
+    await collect(
+        [
+            _validate_acceptance_days(loaders, values, group_name),
+            _validate_acceptance_severity(
+                loaders, values, finding_severity, group_name
+            ),
+            _validate_number_acceptances(
+                loaders,
+                values,
+                historic_treatment,
+                group_name,
+            ),
+        ]
     )
 
 
 async def add_vulnerability_treatment(
     *,
     finding_id: str,
-    updated_values: Dict[str, str],
+    updated_values: dict[str, str],
     vuln: Vulnerability,
     user_email: str,
-) -> bool:
+) -> None:
     new_status = VulnerabilityTreatmentStatus[
         updated_values["treatment"].replace(" ", "_").upper()
     ]
@@ -255,7 +235,6 @@ async def add_vulnerability_treatment(
         vulnerability_id=vuln.id,
         treatment=treatment_to_add,
     )
-    return True
 
 
 def get_treatment_change(
@@ -368,10 +347,10 @@ async def _handle_vulnerability_acceptance(
 async def handle_vulnerabilities_acceptance(
     *,
     loaders: Any,
-    accepted_vulns: List[str],
+    accepted_vulns: list[str],
     finding_id: str,
     justification: str,
-    rejected_vulns: List[str],
+    rejected_vulns: list[str],
     user_email: str,
 ) -> None:
     validations.validate_field_length(justification, 10000)
@@ -515,7 +494,7 @@ async def send_treatment_report_mail(
 
 async def get_managers_by_size(
     loaders: Any, group_name: str, list_size: int
-) -> List[str]:
+) -> list[str]:
     """Returns a list of managers with an specific length for the array"""
     managers = list(
         islice(
@@ -530,12 +509,12 @@ async def update_vulnerabilities_treatment(
     *,
     loaders: Any,
     finding_id: str,
-    updated_values: Dict[str, str],
+    updated_values: dict[str, str],
     finding_severity: float,
     user_email: str,
     vulnerability_id: str,
     group_name: str,
-) -> bool:
+) -> None:
     if "assigned" not in updated_values:
         updated_values["assigned"] = user_email
 
@@ -585,16 +564,14 @@ async def update_vulnerabilities_treatment(
     historic_treatment = await loaders.vulnerability_historic_treatment.load(
         vulnerability.id
     )
-    if not await validate_treatment_change(
+    await validate_treatment_change(
         finding_severity=finding_severity,
         group_name=group_name,
         historic_treatment=historic_treatment,
         loaders=loaders,
         values=updated_values,
-    ):
-        return False
-
-    return await add_vulnerability_treatment(
+    )
+    await add_vulnerability_treatment(
         finding_id=finding_id,
         updated_values=updated_values,
         vuln=vulnerability,
@@ -605,7 +582,7 @@ async def update_vulnerabilities_treatment(
 async def validate_and_send_notification_request(
     loaders: Any,
     finding: Finding,
-    vulnerabilities: List[str],
+    vulnerabilities: list[str],
 ) -> bool:
     # Validate finding with vulns in group
     finding_vulns: tuple[
