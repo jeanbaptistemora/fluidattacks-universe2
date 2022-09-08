@@ -72,8 +72,8 @@ const SubscribeIndex: React.FC<IQueryData> = ({
                 }
                 style={{
                   border: "0",
-                  height: "500px",
-                  width: "99%",
+                  height: "700px",
+                  width: "100%",
                 }}
                 title={"Suscription form"}
               />
