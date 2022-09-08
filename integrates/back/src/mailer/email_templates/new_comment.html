@@ -21,7 +21,12 @@ SPDX-License-Identifier: MPL-2.0
         A comment
         {%- endif %}
         {%- if comment_type != 'group' %}
-        on type of vulnerability <strong>{{ finding_name }}</strong>
+        {%- if comment_type == 'event' %}
+        in
+        {%- else %}
+        on type of vulnerability
+        {%- endif %}
+        <strong>{{ finding_name }}</strong>
         {%- endif %}
         has been
         {% if parent == '0' %} made {% else %} replied {% endif %} by
