@@ -6704,4 +6704,65 @@ siglite:
     SL_78:
       title: Are applications used to transmit, process or store scoped data?
       link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_79:
+      title: Is a web site supported, hosted or maintained that has access to scoped
+        systems and data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_81:
+      title: Is HTTPS enabled for all web pages used as part of the scoped service?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_85:
+      title: Operating system and application logs relevant to supporting incident
+        investigation protected against modification, deletion, and/or inappropriate
+        access?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_88:
+      title: Is development, test, and staging environment separate from the production
+        environment?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_89:
+      title: Is there a formal Software Development Life Cycle (SDLC) process?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_90:
+      title: Are change control procedures required for all changes to the production
+        environment?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_98:
+      title: Are mobile applications that access scoped systems and data developed?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_110:
+      title: Are there any dependencies on critical third party service providers?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_131:
+      title: Are end user devices used for transmitting, processing or storing scoped
+        data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_142:
+      title: Is there a mobile device management solution in place?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_148:
+      title: Is there a process that requires security approval to allow external
+        networks to connect to the company network, and enforces the least privilege
+        necessary?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_151:
+      title: Are wireless networking devices connected to networks containing scoped
+        systems and data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_154:
+      title: Do agreements with third parties who have access or potential access
+        to scoped data, address confidentiality, audit, security, and privacy, including
+        but not limited to incident response, monitoring, data sharing and secure
+        disposal of scoped data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_160:
+      title: Do agreements with third parties who have access or potential access
+        to scoped data, address confidentiality, audit, security, and privacy, including
+        but not limited to incident response, monitoring, data sharing and secure
+        disposal of scoped data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_162:
+      title: Is there an anti-malware program that has been approved by management,
+        communicated to appropriate constituents and an owner to maintain?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
   metadata: {}
