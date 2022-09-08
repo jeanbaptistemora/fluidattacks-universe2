@@ -55,9 +55,6 @@ from newutils.utils import (
 from organizations import (
     domain as orgs_domain,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -66,7 +63,7 @@ LOGGER = logging.getLogger(__name__)
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **parameters: dict
+    _: None, info: GraphQLResolveInfo, **parameters: dict
 ) -> GrantStakeholderAccessPayload:
     loaders: Dataloaders = info.context.loaders
     organization_id = str(parameters.get("organization_id"))
@@ -132,10 +129,6 @@ async def mutate(
         )
         raise InvalidRoleProvided(role=stakeholder_role)
 
-    await redis_del_by_deps(
-        "grant_stakeholder_organization_access",
-        organization_id=organization_id,
-    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Stakeholder {stakeholder_email} was granted access "

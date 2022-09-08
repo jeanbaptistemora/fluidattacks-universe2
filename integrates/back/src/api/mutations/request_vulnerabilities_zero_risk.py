@@ -38,12 +38,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
-from typing import (
-    List,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -62,16 +56,16 @@ from vulnerabilities import (
     enforce_group_level_auth_async,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    vulnerabilities: List[str],
+    vulnerabilities: list[str],
 ) -> SimplePayload:
     try:
         loaders: Dataloaders = info.context.loaders
         user_info = await token_utils.get_jwt_content(info.context)
-        success = await vulns_domain.request_vulnerabilities_zero_risk(
+        await vulns_domain.request_vulnerabilities_zero_risk(
             loaders=loaders,
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,
@@ -82,7 +76,7 @@ async def mutate(
         reattack_just = "Reattack cancelled due to zero risk request"
         treatment_just = "Treatment change cancelled due to zero risk request"
         finding_vulns_loader = loaders.finding_vulnerabilities_all
-        vulns_info: List[Vulnerability] = [
+        vulns_info: list[Vulnerability] = [
             vuln
             for vuln in await finding_vulns_loader.load(finding_id)
             if vuln.id in vulnerabilities
@@ -106,47 +100,41 @@ async def mutate(
                 == VulnerabilityAcceptanceStatus.SUBMITTED
             )
         ]
-        if success:
-            if reattacked_vulns:
-                loaders.finding_vulnerabilities_all.clear(finding_id)
-                for vuln_id in vulnerabilities:
-                    loaders.vulnerability.clear(vuln_id)
-                await findings_domain.verify_vulnerabilities(
-                    context=info.context,
-                    finding_id=finding_id,
-                    user_info=user_info,
-                    justification=reattack_just,
-                    open_vulns_ids=reattacked_vulns,
-                    closed_vulns_ids=[],
-                    vulns_to_close_from_file=[],
-                    loaders=loaders,
-                )
-            if treatment_changed_vulns:
-                loaders.finding_vulnerabilities_all.clear(finding_id)
-                for vuln_id in vulnerabilities:
-                    loaders.vulnerability.clear(vuln_id)
-                await vulns_domain.handle_vulnerabilities_acceptance(
-                    loaders=loaders,
-                    accepted_vulns=[],
-                    finding_id=finding_id,
-                    justification=treatment_just,
-                    rejected_vulns=treatment_changed_vulns,
-                    user_email=email,
-                )
-            await redis_del_by_deps(
-                "request_vulnerabilities_zero_risk",
+        if reattacked_vulns:
+            loaders.finding_vulnerabilities_all.clear(finding_id)
+            for vuln_id in vulnerabilities:
+                loaders.vulnerability.clear(vuln_id)
+            await findings_domain.verify_vulnerabilities(
+                context=info.context,
                 finding_id=finding_id,
+                user_info=user_info,
+                justification=reattack_just,
+                open_vulns_ids=reattacked_vulns,
+                closed_vulns_ids=[],
+                vulns_to_close_from_file=[],
+                loaders=loaders,
             )
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.request_vulnerabilities_zero_risk,
-                finding_ids=[finding_id],
-                vulnerability_ids=vulnerabilities,
+        if treatment_changed_vulns:
+            loaders.finding_vulnerabilities_all.clear(finding_id)
+            for vuln_id in vulnerabilities:
+                loaders.vulnerability.clear(vuln_id)
+            await vulns_domain.handle_vulnerabilities_acceptance(
+                loaders=loaders,
+                accepted_vulns=[],
+                finding_id=finding_id,
+                justification=treatment_just,
+                rejected_vulns=treatment_changed_vulns,
+                user_email=email,
             )
-            logs_utils.cloudwatch_log(
-                info.context,
-                "Security: Requested a zero risk vuln in finding "
-                f"{finding_id}",
-            )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.request_vulnerabilities_zero_risk,
+            finding_ids=[finding_id],
+            vulnerability_ids=vulnerabilities,
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            "Security: Requested a zero risk vuln in finding " f"{finding_id}",
+        )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
@@ -154,4 +142,5 @@ async def mutate(
             f"{finding_id}",
         )
         raise
-    return SimplePayload(success=success)
+
+    return SimplePayload(success=True)

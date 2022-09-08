@@ -46,9 +46,6 @@ from newutils.utils import (
 from organizations import (
     domain as orgs_domain,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from typing import (
     Any,
 )
@@ -64,7 +61,7 @@ LOGGER = logging.getLogger(__name__)
     enforce_organization_level_auth_async,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **parameters: Any
+    _: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> UpdateStakeholderPayload:
     loaders: Dataloaders = info.context.loaders
     organization_id: str = str(parameters.get("organization_id"))
@@ -104,9 +101,6 @@ async def mutate(
     except StakeholderNotInOrganization as ex:
         raise StakeholderNotFound() from ex
 
-    await redis_del_by_deps(
-        "update_organization_stakeholder", organization_id=organization_id
-    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Stakeholder {requester_email} modified "

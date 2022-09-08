@@ -611,7 +611,7 @@ async def request_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: dict[str, Any],
     justification: str,
-) -> bool:
+) -> None:
     vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
@@ -660,7 +660,6 @@ async def request_vulnerabilities_zero_risk(
         requester_email=str(user_email),
         vulnerabilities=vulnerabilities,
     )
-    return True
 
 
 def get_updated_manager_mail_content(

@@ -44,9 +44,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from typing import (
     Any,
 )
@@ -60,7 +57,7 @@ from typing import (
 )
 @turn_args_into_kwargs
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     comments: str,
     group_name: str,
@@ -117,7 +114,6 @@ async def mutate(
         )
         raise
 
-    await redis_del_by_deps("update_group", group_name=group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Updated group {group_name} successfully",
