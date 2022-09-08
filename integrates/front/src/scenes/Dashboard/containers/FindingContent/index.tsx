@@ -366,17 +366,19 @@ const FindingContent: React.FC = (): JSX.Element => {
                       {t("searchFindings.tabMachine.tabTitle")}
                     </Tab>
                   </Can>
-                  <Have I={"has_squad"}>
-                    <Can do={"api_resolvers_finding_consulting_resolve"}>
-                      <Tab
-                        id={"commentItem"}
-                        link={`${url}/consulting`}
-                        tooltip={t("searchFindings.tabComments.tooltip")}
-                      >
-                        {t("searchFindings.tabComments.tabTitle")}
-                      </Tab>
-                    </Can>
-                  </Have>
+                  {isDraft ? undefined : (
+                    <Have I={"has_squad"}>
+                      <Can do={"api_resolvers_finding_consulting_resolve"}>
+                        <Tab
+                          id={"commentItem"}
+                          link={`${url}/consulting`}
+                          tooltip={t("searchFindings.tabComments.tooltip")}
+                        >
+                          {t("searchFindings.tabComments.tabTitle")}
+                        </Tab>
+                      </Can>
+                    </Have>
+                  )}
                   <Can do={"api_resolvers_finding_observations_resolve"}>
                     <Tab
                       id={"observationsItem"}
