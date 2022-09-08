@@ -186,7 +186,7 @@
     size = "nano";
     awsRole = "prod_integrates";
     attempts = 1;
-    timeout = 14400;
+    timeout = 16200;
     parallel = 1;
 
     environment = [
