@@ -59,29 +59,6 @@ async def test_request_event_verification(
 @pytest.mark.parametrize(
     ["email", "event_id", "comments"],
     [
-        ["vulnerability_manager@gmail.com", "418900973", "comment test"],
-        ["reviewer@gmail.com", "418900974", "comment test"],
-    ],
-)
-async def test_request_event_verification_access_denied(
-    populate: bool,
-    email: str,
-    event_id: str,
-    comments: str,
-) -> None:
-    assert populate
-    result: dict[str, Any] = await get_result(
-        user=email, event_id=event_id, comments=comments
-    )
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("request_event_verification")
-@pytest.mark.parametrize(
-    ["email", "event_id", "comments"],
-    [
         ["admin@gmail.com", "418900974", "comment test"],
     ],
 )
