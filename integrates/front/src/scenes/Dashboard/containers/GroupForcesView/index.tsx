@@ -126,8 +126,15 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       header: t("group.forces.kind.title"),
     },
     {
-      accessorKey: "gitRepo",
+      accessorFn: (row: IExecution): string => {
+        if (row.gitRepo === "unable to retrieve") {
+          return "all roots";
+        }
+
+        return row.gitRepo;
+      },
       header: t("group.forces.gitRepo"),
+      id: "gitRepo",
     },
     {
       accessorKey: "executionId",
