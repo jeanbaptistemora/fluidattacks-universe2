@@ -9,6 +9,12 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.colors import (
+    RISK,
+)
+from charts.generators.bar_chart.exposure_benchmarking_cvssf import (
+    format_max_value,
+)
 from charts.generators.bar_chart.exposure_trends_by_categories import (
     get_categories,
     get_data_vulnerabilities,
@@ -188,34 +194,44 @@ def format_data(
     categories: list[str],
 ) -> dict:
 
+    data_axes: list[dict] = [
+        dict(
+            axis=category,
+            value=Decimal(data.value[category]).quantize(Decimal("0.1")),
+        )
+        for category in categories
+    ]
+    average_axes: list[dict] = [
+        dict(
+            axis=category,
+            value=Decimal(average[category]).quantize(Decimal("0.1")),
+        )
+        for category in categories
+    ]
+
     return dict(
         legend="Vulnerabilities categories",
         data=[
             dict(
+                axes=data_axes,
+                color=RISK.neutral,
                 name=data_name,
-                axes=[
-                    {
-                        "axis": category,
-                        "value": Decimal(data.value[category]).quantize(
-                            Decimal("0.1")
-                        ),
-                    }
-                    for category in categories
-                ],
             ),
             dict(
+                axes=average_axes,
+                color=RISK.agressive,
                 name=average_name,
-                axes=[
-                    {
-                        "axis": category,
-                        "value": Decimal(average[category]).quantize(
-                            Decimal("0.1")
-                        ),
-                    }
-                    for category in categories
-                ],
             ),
         ],
+        categories=categories,
+        maxValue=format_max_value(
+            tuple(
+                [
+                    *[value["value"] for value in data_axes],
+                    *[value["value"] for value in average_axes],
+                ]
+            )
+        ),
     )
 
 
@@ -273,7 +289,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                 loaders=loaders,
             ),
             categories=unique_categories,
-            average_name="Average groups",
+            average_name="Average group",
             average=get_average_entities(
                 entities=get_subjects(
                     all_subjects=all_groups_data,
@@ -299,7 +315,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                 groups=org_groups,
                 loaders=loaders,
             ),
-            average_name="Average organizations",
+            average_name="Average organization",
             average=get_average_entities(
                 entities=get_subjects(
                     all_subjects=all_organizations_data,
@@ -327,7 +343,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                     groups=tuple(group_names),
                     loaders=loaders,
                 ),
-                average_name="Average organizations",
+                average_name="Average organization",
                 average=get_average_entities(
                     entities=get_subjects(
                         all_subjects=all_organizations_data,

@@ -88,7 +88,7 @@ def test_org_analytics(
     )
     assert utils.wait_for_id(
         driver,
-        "root",
+        "legend",
         timeout,
     )
 
@@ -100,7 +100,7 @@ def test_org_analytics(
     )
     assert utils.wait_for_id(
         driver,
-        "root",
+        "legend",
         timeout,
     )
 
@@ -112,7 +112,7 @@ def test_org_analytics(
     )
     assert utils.wait_for_id(
         driver,
-        "root",
+        "legend",
         timeout,
     )
 

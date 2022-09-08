@@ -264,6 +264,7 @@ def handle_graphic_request_parameters(
         "barChart",
         "c3",
         "heatMapChart",
+        "radarChart",
         "stackedBarChart",
         "textBox",
     }
