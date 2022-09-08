@@ -39,6 +39,8 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 _T = TypeVar("_T")
+_S = TypeVar("_S")
+_F = TypeVar("_F")
 
 
 class MaxRetriesReached(Exception):
@@ -46,11 +48,11 @@ class MaxRetriesReached(Exception):
 
 
 def retry_cmd(
-    cmd: Cmd[ResultE[_T]], max_retries: int, delay_fx: Callable[[int], float]
-) -> Cmd[_T]:
-    def _delay_fx(retry_num: int) -> Cmd[ResultE[_T]]:
-        err = Exception("delay execution")
-
+    cmd: Cmd[Result[_S, _F]],
+    max_retries: int,
+    delay_fx: Callable[[int], float],
+) -> Cmd[Result[_S, MaxRetriesReached]]:
+    def _delay_fx(err: _F, retry_num: int) -> Cmd[Result[_S, _F]]:
         def _action() -> None:
             if retry_num <= max_retries:
                 LOG.info("retry #%2s waiting...", retry_num)
@@ -58,10 +60,17 @@ def retry_cmd(
 
         return Cmd.from_cmd(_action).map(lambda _: Result.failure(err))
 
-    cmds = (
-        from_range(range(0, max_retries + 1))
-        .map(lambda i: from_flist((cmd, _delay_fx(i + 1))))
-        .transform(lambda i: chain(i))
+    def _cmd_with_delay(
+        index: int, result: Result[_S, _F]
+    ) -> Cmd[Result[_S, _F]]:
+        return (
+            result.map(lambda _: Cmd.from_cmd(lambda: result))
+            .alt(lambda e: _delay_fx(e, index + 1))
+            .to_union()
+        )
+
+    cmds = from_range(range(0, max_retries + 1)).map(
+        lambda i: cmd.bind(lambda r: _cmd_with_delay(i, r))
     )
     return (
         from_piter(cmds)
@@ -69,11 +78,9 @@ def retry_cmd(
             lambda x: x.map(lambda _: True).alt(lambda _: False).to_union()
         )
         .map(
-            lambda x: x.to_result()
+            lambda x: x.map(lambda r: r.unwrap())
+            .to_result()
             .alt(lambda _: MaxRetriesReached(max_retries))
-            .alt(raise_exception)
-            .unwrap()
-            .unwrap()
         )
     )
 

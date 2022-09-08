@@ -13,6 +13,10 @@ from fa_purity import (
     FrozenList,
     JsonObj,
     Maybe,
+    Result,
+)
+from fa_purity.json.errors.invalid_type import (
+    InvalidType,
 )
 from fa_purity.json.factory import (
     from_any,
@@ -29,6 +33,13 @@ from fa_purity.utils import (
 )
 import logging
 import requests
+from requests.exceptions import (
+    HTTPError,
+)
+from typing import (
+    NoReturn,
+    Union,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -42,6 +53,10 @@ class Credentials:
         return "masked api_key"
 
 
+class UnexpectedServerResponse(Exception):
+    pass
+
+
 @dataclass(frozen=True)
 class RawClient:
     _auth: Credentials
@@ -53,10 +68,16 @@ class RawClient:
 
     def _unhandled_get(
         self, endpoint: str, params: JsonObj
-    ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
-        def _action() -> FrozenList[JsonObj] | JsonObj:
+    ) -> Cmd[
+        Result[
+            JsonObj | FrozenList[JsonObj], HTTPError | UnexpectedServerResponse
+        ]
+    ]:
+        def _action() -> Result[
+            JsonObj | FrozenList[JsonObj], HTTPError | UnexpectedServerResponse
+        ]:
             target = self._full_endpoint(endpoint)
-            LOG.info("API call: %s\nparams = %s", target, params)
+            LOG.info("API call (get): %s\nparams = %s", target, params)
             response = requests.get(
                 target,
                 headers={  # type: ignore[misc]
@@ -66,18 +87,42 @@ class RawClient:
                 params=to_raw(params),  # type: ignore[misc]
             )
             _union: UnionFactory[JsonObj, FrozenList[JsonObj]] = UnionFactory()
-            response.raise_for_status()
-            raw = response.json()  # type: ignore[misc]
-            result = json_list(raw).map(_union.inr).lash(lambda _: from_any(raw).map(_union.inl))  # type: ignore[misc]
-            return result.unwrap()
+            try:
+                response.raise_for_status()
+                raw = response.json()  # type: ignore[misc]
+                result = json_list(raw).map(_union.inr).lash(lambda _: from_any(raw).map(_union.inl))  # type: ignore[misc]
+                return result.alt(
+                    lambda e: UnexpectedServerResponse(f"error: {str(e)}; raw response: {str(raw)}")  # type: ignore[misc]
+                )
+            except HTTPError as err:  # type: ignore[misc]
+                return Result.failure(err)
 
         return Cmd.from_cmd(_action)
+
+    def _handler(
+        self,
+        item: Result[
+            JsonObj | FrozenList[JsonObj], HTTPError | UnexpectedServerResponse
+        ],
+    ) -> Result[JsonObj | FrozenList[JsonObj], HTTPError]:
+        def _handled_errors(
+            error: HTTPError | UnexpectedServerResponse,
+        ) -> HTTPError | NoReturn:
+            if isinstance(error, UnexpectedServerResponse):
+                raise error
+            if error.errno in (429,) or error.errno in range(500, 600):
+                return error
+            raise error
+
+        return item.alt(_handled_errors)
 
     def get(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
-        handled = _retry.api_handler(self._unhandled_get(endpoint, params))
-        return _retry.retry_cmd(handled, self._max_retries, lambda i: i ^ 2)
+        handled = self._unhandled_get(endpoint, params).map(self._handler)
+        return _retry.retry_cmd(
+            handled, self._max_retries, lambda i: i ^ 2
+        ).map(lambda r: r.alt(raise_exception).unwrap())
 
     def get_list(
         self, endpoint: str, params: JsonObj
