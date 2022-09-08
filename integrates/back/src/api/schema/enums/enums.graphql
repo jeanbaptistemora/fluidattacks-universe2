@@ -239,8 +239,26 @@ enum EventAccessibility {
 
 "Reasons to close an event enum definition"
 enum SolveEventReason {
+  "Access granted"
+  ACCESS_GRANTED
   "Affected resource removed from scope"
   AFFECTED_RESOURCE_REMOVED_FROM_SCOPE
+  "Cloned successfully"
+  CLONED_SUCCESSFULLY
+  "Credentials are working now"
+  CREDENTIALS_ARE_WORKING_NOW
+  "Data updated"
+  DATA_UPDATED
+  "Environment is working now"
+  ENVIRONMENT_IS_WORKING_NOW
+  "Installer is working now"
+  INSTALLER_IS_WORKING_NOW
+  "Is ok to resume"
+  IS_OK_TO_RESUME
+  "New credentials provided"
+  NEW_CREDENTIALS_PROVIDED
+  "New environment provided"
+  NEW_ENVIRONMENT_PROVIDED
   "Other"
   OTHER
   "Permission Denied"
