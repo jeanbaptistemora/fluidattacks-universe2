@@ -6776,3 +6776,18 @@ siglite:
         communicated to appropriate constituents and an owner to maintain?
       link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
   metadata: {}
+sigcore:
+  title: SIG Core
+  en:
+    summary: >
+      ...
+  es:
+    summary: __empty__
+  definitions:
+    A_4_1_8:
+      title: Risk assessment and treatment
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    B_1:
+      title: Security policy
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+  metadata: {}
