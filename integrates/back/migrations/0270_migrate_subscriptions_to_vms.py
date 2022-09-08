@@ -6,6 +6,8 @@
 """
 Migrate subscriptions to "integrates_vms" table.
 
+Execution Time:    2022-09-08 at 03:25:45 UTC
+Finalization Time: 2022-09-08 at 03:25:47 UTC
 """
 
 from aioextensions import (
