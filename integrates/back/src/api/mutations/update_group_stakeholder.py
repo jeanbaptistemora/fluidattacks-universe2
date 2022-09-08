@@ -13,6 +13,7 @@ from authz.validations import (
     validate_role_fluid_reqs,
 )
 from custom_exceptions import (
+    InvalidRoleProvided,
     StakeholderNotFound,
 )
 from dataloaders import (
@@ -45,15 +46,8 @@ from newutils import (
 from newutils.utils import (
     map_roles,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from stakeholders import (
     domain as stakeholders_domain,
-)
-from typing import (
-    Any,
-    Dict,
 )
 
 # Constants
@@ -62,7 +56,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def _update_stakeholder(
     info: GraphQLResolveInfo,
-    updated_data: Dict[str, str],
+    updated_data: dict[str, str],
     group: Group,
 ) -> None:
     loaders: Dataloaders = info.context.loaders
@@ -99,18 +93,22 @@ async def _update_stakeholder(
     require_asm,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     **updated_data: str,
 ) -> UpdateStakeholderPayload:
     group_name: str = updated_data["group_name"].lower()
     modified_role: str = map_roles(updated_data["role"])
     modified_email: str = updated_data["email"]
-
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
 
     loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group.load(group_name)
+    authz.validate_fluidattacks_staff_on_group(
+        group, modified_email, modified_role
+    )
+
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
             loaders=loaders,
@@ -118,15 +116,7 @@ async def mutate(
             requester_email=user_email,
         )
     )
-
-    group: Group = await loaders.group.load(group_name)
-    authz.validate_fluidattacks_staff_on_group(
-        group, modified_email, modified_role
-    )
-
-    if modified_role in allowed_roles_to_grant:
-        await _update_stakeholder(info, updated_data, group)
-    else:
+    if modified_role not in allowed_roles_to_grant:
         LOGGER.error(
             "Invalid role provided",
             extra={
@@ -137,8 +127,9 @@ async def mutate(
                 }
             },
         )
+        raise InvalidRoleProvided(role=modified_role)
 
-    await redis_del_by_deps("update_group_stakeholder", group_name=group_name)
+    await _update_stakeholder(info, updated_data, group)
     msg = (
         f"Security: Modified stakeholder data: {modified_email} "
         f"in {group_name} group successfully"

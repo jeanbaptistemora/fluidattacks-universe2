@@ -8,31 +8,34 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_group_stakeholder")
 @pytest.mark.parametrize(
-    ["email"],
+    ["granting_email", "modified_email", "modified_role"],
     [
-        ["admin@gmail.com"],
-        ["user_manager@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
+        ["admin@gmail.com", "user@gmail.com", "VULNERABILITY_MANAGER"],
+        ["user_manager@gmail.com", "user@gmail.com", "USER_MANAGER"],
+        ["customer_manager@fluidattacks.com", "user@gmail.com", "USER"],
     ],
 )
-async def test_update_group_stakeholder(populate: bool, email: str) -> None:
+async def test_update_group_stakeholder(
+    populate: bool,
+    granting_email: str,
+    modified_email: str,
+    modified_role: str,
+) -> None:
     assert populate
     group_name: str = "group1"
     stakeholder_responsibility: str = "Test"
-    stakeholder_role: str = "ADMIN"
-    result: Dict[str, Any] = await get_result(
-        user=email,
-        stakeholder=email,
+    result: dict[str, Any] = await get_result(
+        granting_email=granting_email,
         group=group_name,
+        modified_email=modified_email,
+        modified_role=modified_role,
         responsibility=stakeholder_responsibility,
-        role=stakeholder_role,
     )
     assert "errors" not in result
     assert "success" in result["data"]["updateGroupStakeholder"]
@@ -57,13 +60,13 @@ async def test_update_group_stakeholder_fail(
     assert populate
     group_name: str = "group1"
     stakeholder_responsibility: str = "Test"
-    stakeholder_role: str = "ADMIN"
-    result: Dict[str, Any] = await get_result(
-        user=email,
-        stakeholder=email,
+    stakeholder_role: str = "USER"
+    result: dict[str, Any] = await get_result(
+        granting_email=email,
         group=group_name,
+        modified_email=email,
+        modified_role=stakeholder_role,
         responsibility=stakeholder_responsibility,
-        role=stakeholder_role,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
