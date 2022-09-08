@@ -149,7 +149,7 @@ def _get_shard_records(
 def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
     """Retrieves the records from the shard and triggers processing"""
     shard_iterator = _get_shard_iterator(stream_arn, shard_id)
-    batches: dict[Trigger, list] = defaultdict(list)
+    batches: dict[Trigger, list[Record]] = defaultdict(list)
 
     for records in _get_shard_records(shard_id, shard_iterator):
         for trigger in TRIGGERS:
@@ -159,9 +159,14 @@ def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
             batches[trigger].extend(matching_records)
 
             if len(batches[trigger]) >= trigger.batch_size:
-                batch: list[Record] = batches[trigger][: trigger.batch_size]
+                batch = batches[trigger][: trigger.batch_size]
                 trigger.records_processor(tuple(batch))
                 batches[trigger] = batches[trigger][trigger.batch_size :]
+
+    LOGGER.info("%s flushing", shard_id)
+    for trigger in TRIGGERS:
+        if batch := batches[trigger]:
+            trigger.records_processor(tuple(batch))
 
 
 def consume() -> None:
