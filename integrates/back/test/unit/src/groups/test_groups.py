@@ -6,10 +6,14 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.groups.types import (
+    GroupTreatmentSummary,
+)
 from groups.domain import (
     get_closed_vulnerabilities,
     get_open_findings,
     get_open_vulnerabilities,
+    get_treatment_summary,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
     validate_group_tags,
@@ -67,3 +71,16 @@ async def test_get_open_findings() -> None:
     expected_output = 5
     open_findings = await get_open_findings(get_new_context(), group_name)
     assert open_findings == expected_output
+
+
+async def test_get_treatment_summary() -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    test_data = await get_treatment_summary(loaders, group_name)
+    expected_output = GroupTreatmentSummary(
+        accepted=2,
+        accepted_undefined=1,
+        in_progress=1,
+        new=25,
+    )
+    assert test_data == expected_output

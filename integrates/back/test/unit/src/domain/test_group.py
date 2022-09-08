@@ -36,7 +36,6 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
-    GroupTreatmentSummary,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -69,7 +68,6 @@ from groups.domain import (
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
-    get_treatment_summary,
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
     set_pending_deletion_date,
@@ -290,19 +288,6 @@ async def test_get_mean_remediate_non_treated_cvssf(
         )
     )
     assert mttr_no_treated_cvssf == expected_output
-
-
-async def test_get_treatment_summary() -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    test_data = await get_treatment_summary(loaders, group_name)
-    expected_output = GroupTreatmentSummary(
-        accepted=2,
-        accepted_undefined=1,
-        in_progress=1,
-        new=25,
-    )
-    assert test_data == expected_output
 
 
 async def test_list_comments() -> None:
