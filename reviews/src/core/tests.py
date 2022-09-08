@@ -71,7 +71,7 @@ def first_pipeline_successful(*, data: TestData) -> bool:
             log(
                 err_log,
                 "Pipeline: %s\n" "Has status: %s\n",
-                first.web_url,
+                first.url,
                 first.status,
             )
     return success or not should_fail
