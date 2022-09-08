@@ -1,7 +1,7 @@
 ---
 id: supply-chain-levels-for-software-artifacts
-title: Supply chain Levels for Software Artifacts
-sidebar_label: Supply chain Levels for Software Artifacts
+title: Supply Chain Levels for Software Artifacts
+sidebar_label: Supply Chain Levels for Software Artifacts
 slug: /about/security/integrity/supply-chain-levels-for-software-artifacts
 ---
 
