@@ -38,6 +38,16 @@ def branch() -> str:
 
 
 @pytest.fixture(autouse=True, scope="session")
+def jwt_secret() -> str:
+    return os.environ["JWT_SECRET"]
+
+
+@pytest.fixture(autouse=True, scope="session")
+def jwt_encryption_key() -> str:
+    return os.environ["JWT_ENCRYPTION_KEY"]
+
+
+@pytest.fixture(autouse=True, scope="session")
 def is_ci() -> bool:
     return bool(os.environ.get("CI", False))
 
