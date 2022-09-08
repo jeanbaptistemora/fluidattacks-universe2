@@ -63,10 +63,11 @@ SPDX-License-Identifier: MPL-2.0
     <div class="body-title">
       <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
         <img
-        alt="Banner custom icon"
-        class="title-icon"
-        src="{{ icon_url }}">
-        {{ caller() }}
+          alt="Banner custom icon"
+          class="title-icon"
+          src="{{ icon_url }}"
+        >
+        {{- caller() }}
       </p>
     </div>
 {%- endmacro %}
@@ -99,16 +100,20 @@ SPDX-License-Identifier: MPL-2.0
 {%- endmacro %}
 
 {# Bulleted text area for findings #}
-{%+ macro findings_area(list) %}
-<div class="w-80 text-area">
-  <ul>
-  {% for finding in list %}
-    <li>
-      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        {{ finding['group'] }} - {{ finding['finding_name'] }}
-      </a>
-    </li>
-  {% endfor %}
-  <ul>
-</div>
-{% endmacro %}
+{%- macro findings_area(list) %}
+      <div class="w-80 text-area">
+        <ul>
+        {%- for finding in list %}
+          <li>
+            <a href="{{ finding['finding_url'] }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #ff3435;"
+            >
+              {{ finding['group'] }} - {{ finding['finding_name'] }}
+            </a>
+          </li>
+        {%- endfor %}
+        <ul>
+      </div>
+{%- endmacro %}

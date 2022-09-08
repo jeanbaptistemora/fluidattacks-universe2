@@ -71,7 +71,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     type_fmt = "consulting" if type_ == CommentType.COMMENT else "observation"
     email_context: dict[str, Any] = {
         "comment": comment_data.content.splitlines(),
-        "comment_type": type_,
+        "comment_type": type_fmt,
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"
             f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
