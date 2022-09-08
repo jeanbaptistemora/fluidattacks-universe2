@@ -8,6 +8,9 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Optional,
+)
 
 
 def build_member_access_node(
@@ -15,6 +18,7 @@ def build_member_access_node(
     member: str,
     expression: str,
     expression_id: NId,
+    member_id: Optional[NId] = None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -23,6 +27,13 @@ def build_member_access_node(
         expression_id=expression_id,
         label_type="MemberAccess",
     )
+
+    if member_id:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(member_id)),
+            label_ast="AST",
+        )
 
     args.syntax_graph.add_edge(
         args.n_id,

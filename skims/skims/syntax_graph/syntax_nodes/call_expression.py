@@ -8,16 +8,29 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Optional,
+)
 
 
 def build_call_expression_node(
-    args: SyntaxGraphArgs, fn_name: str, args_id: NId
+    args: SyntaxGraphArgs,
+    fn_name: str,
+    function_id: Optional[NId],
+    args_id: NId,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         function_name=fn_name,
         label_type="CallExpression",
     )
+
+    if function_id:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(function_id)),
+            label_ast="AST",
+        )
 
     args.syntax_graph.add_edge(
         args.n_id,

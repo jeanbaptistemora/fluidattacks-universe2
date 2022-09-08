@@ -32,6 +32,7 @@ from syntax_graph.syntax_readers.common import (
     switch_case as common_switch_case,
     switch_default as common_switch_default,
     switch_statement as common_switch_statement,
+    this as common_this,
     throw_statement as common_throw_statement,
     unary_expression as common_unary_expression,
     update_expression as common_update_expression,
@@ -299,6 +300,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "switch_statement",
         },
         syntax_reader=common_switch_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "this",
+        },
+        syntax_reader=common_this.reader,
     ),
     Dispatcher(
         applicable_types={

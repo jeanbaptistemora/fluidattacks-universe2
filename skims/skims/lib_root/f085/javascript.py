@@ -26,9 +26,6 @@ from typing import (
 from utils import (
     graph as g,
 )
-from utils.string import (
-    split_on_last_dot as split_last,
-)
 
 
 def _could_be_boolean(key: str) -> bool:
@@ -64,9 +61,13 @@ def client_storage(
         {"nombre", "usuario"},
         {"mail", "user"},
     )
-    items = {"getItem", "setItem"}
     method = core_model.MethodsEnum.JS_CLIENT_STORAGE
-    storage = {"localStorage", "sessionStorage"}
+    danger_names = {
+        "localStorage.getItem",
+        "localStorage.setItem",
+        "sessionStorage.getItem",
+        "sessionStorage.setItem",
+    }
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards_by_language(
@@ -81,21 +82,33 @@ def client_storage(
                 graph.nodes,
                 predicate=g.pred_has_labels(label_type="CallExpression"),
             ):
-                func, item = split_last(graph.nodes[nid].get("function_name"))
-                if func not in storage or item not in items:
+                f_name = graph.nodes[nid]["function_name"]
+                al_id = g.match_ast(graph, nid, "ArgumentList").get(
+                    "ArgumentList"
+                )
+                if f_name not in danger_names or not al_id:
                     continue
-                opc_nid = g.adj_ast(graph, g.adj_ast(graph, nid)[0])
-                test_nid = opc_nid[0] if item == "getItem" else opc_nid[1]
-                for path in get_backward_paths(graph, test_nid):
-                    evaluation = evaluate(method, graph, path, test_nid)
-                    if evaluation:
-                        if any(
-                            all(smell in key_str.lower() for smell in smells)
-                            and not _could_be_boolean(key_str.lower())
-                            for key_str in evaluation.triggers
-                            for smells in conditions
-                        ):
-                            yield shard, nid
+
+                opc_nid = g.match_ast(graph, al_id)
+
+                if "getItem" in f_name.split("."):
+                    test_node = opc_nid.get("__0__")
+                else:
+                    test_node = opc_nid.get("__1__")
+
+                if not test_node:
+                    continue
+
+                for path in get_backward_paths(graph, test_node):
+                    if (
+                        evaluation := evaluate(method, graph, path, test_node)
+                    ) and any(
+                        all(smell in key_str.lower() for smell in smells)
+                        and not _could_be_boolean(key_str.lower())
+                        for key_str in evaluation.triggers
+                        for smells in conditions
+                    ):
+                        yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f085.client_storage.description",

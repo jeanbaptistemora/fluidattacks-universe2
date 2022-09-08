@@ -29,7 +29,9 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "ArgumentList",
             "BinaryOperation",
+            "CallExpression",
             "DeclarationBlock",
             "File",
             "ForStatement",
@@ -63,7 +65,6 @@ DISPATCHERS: Dispatchers = (
             "Assignment",
             "Break",
             "BlocklessMethodDeclaration",
-            "CallExpression",
             "CatchClause",
             "CatchDeclaration",
             "Continue",
@@ -76,7 +77,9 @@ DISPATCHERS: Dispatchers = (
             "FunctionBody",
             "LexicalDeclaration",
             "Literal",
+            "MemberAccess",
             "MethodInvocation",
+            "Object",
             "ObjectCreation",
             "PostfixUnaryExpression",
             "Resource",

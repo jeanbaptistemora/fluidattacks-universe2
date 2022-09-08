@@ -19,6 +19,11 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     call_node = args.ast_graph.nodes[args.n_id]
     function_id = call_node["label_field_function"]
-    args_id = call_node["label_field_arguments"]
     fn_name = node_to_str(args.ast_graph, function_id)
-    return build_call_expression_node(args, fn_name, args_id)
+
+    func_type = args.ast_graph.nodes[function_id]["label_type"]
+    if func_type not in {"member_expression", "call_expression"}:
+        function_id = None
+
+    args_id = call_node["label_field_arguments"]
+    return build_call_expression_node(args, fn_name, function_id, args_id)
