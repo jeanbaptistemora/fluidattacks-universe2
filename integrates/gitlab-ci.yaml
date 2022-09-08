@@ -123,7 +123,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/lint/schema:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
