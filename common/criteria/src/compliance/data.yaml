@@ -6640,3 +6640,18 @@ osamm:
       title: Mandate communication of security information and validate artifacts
       link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
   metadata: {}
+siglite:
+  title: SIG Lite
+  en:
+    summary: >
+      ...
+  es:
+    summary: __empty__
+  definitions:
+    SL_18:
+      title: Are there regular privacy risk assessments conducted?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_23:
+      title: Are encryption tools managed and maintained for Scoped Data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+  metadata: {}
