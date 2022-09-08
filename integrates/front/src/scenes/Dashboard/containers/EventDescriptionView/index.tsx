@@ -61,9 +61,36 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     "api_mutations_update_event_solving_reason_mutate"
   );
 
-  const solvingReason: Record<string, string> = {
+  const solvingReasons: Record<string, string> = {
+    ACCESS_GRANTED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.accessGranted"
+    ),
     AFFECTED_RESOURCE_REMOVED_FROM_SCOPE: t(
       "searchFindings.tabSeverity.common.deactivation.reason.removedFromScope"
+    ),
+    CLONED_SUCCESSFULLY: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.clonedSuccessfully"
+    ),
+    CREDENTIALS_ARE_WORKING_NOW: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.credentialsAreWorkingNow"
+    ),
+    DATA_UPDATED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.dataUpdated"
+    ),
+    ENVIRONMENT_IS_WORKING_NOW: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.environmentIsWorkingNow"
+    ),
+    INSTALLER_IS_WORKING_NOW: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.installerIsWorkingNow"
+    ),
+    IS_OK_TO_RESUME: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.isOkToResume"
+    ),
+    NEW_CREDENTIALS_PROVIDED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.newCredentialsProvided"
+    ),
+    NEW_ENVIRONMENT_PROVIDED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.newEnvironmentProvided"
     ),
     OTHER: t("searchFindings.tabSeverity.common.deactivation.reason.other"),
     PERMISSION_DENIED: t(
@@ -71,9 +98,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     ),
     PERMISSION_GRANTED: t(
       "searchFindings.tabSeverity.common.deactivation.reason.permissionGranted"
-    ),
-    PROBLEM_SOLVED: t(
-      "searchFindings.tabSeverity.common.deactivation.reason.problemSolved"
     ),
     SUPPLIES_WERE_GIVEN: t(
       "searchFindings.tabSeverity.common.deactivation.reason.suppliesWereGiven"
@@ -84,6 +108,67 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     TOE_WILL_REMAIN_UNCHANGED: t(
       "searchFindings.tabSeverity.common.deactivation.reason.toeUnchanged"
     ),
+  };
+  const allSolvingReasons: Record<string, string> = {
+    ...solvingReasons,
+    PROBLEM_SOLVED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.problemSolved"
+    ),
+  };
+  const solutionReasonByEventType: Record<string, string[]> = {
+    AUTHORIZATION_SPECIAL_ATTACK: ["PERMISSION_DENIED", "PERMISSION_GRANTED"],
+    CLIENT_CANCELS_PROJECT_MILESTONE: ["OTHER"],
+    CLIENT_EXPLICITLY_SUSPENDS_PROJECT: [
+      "IS_OK_TO_RESUME",
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "OTHER",
+    ],
+    CLONING_ISSUES: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "CLONED_SUCCESSFULLY",
+    ],
+    CREDENTIAL_ISSUES: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "CREDENTIALS_ARE_WORKING_NOW",
+      "NEW_CREDENTIALS_PROVIDED",
+    ],
+    DATA_UPDATE_REQUIRED: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "DATA_UPDATED",
+      "OTHER",
+    ],
+    ENVIRONMENT_ISSUES: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "ENVIRONMENT_IS_WORKING_NOW",
+      "NEW_ENVIRONMENT_PROVIDED",
+    ],
+    INSTALLER_ISSUES: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "INSTALLER_IS_WORKING_NOW",
+      "OTHER",
+    ],
+    MISSING_SUPPLIES: [
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "SUPPLIES_WERE_GIVEN",
+      "OTHER",
+    ],
+    NETWORK_ACCESS_ISSUES: [
+      "PERMISSION_GRANTED",
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "OTHER",
+    ],
+    OTHER: ["OTHER"],
+    REMOTE_ACCESS_ISSUES: [
+      "ACCESS_GRANTED",
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "OTHER",
+    ],
+    TOE_DIFFERS_APPROVED: ["TOE_CHANGE_APPROVED", "TOE_WILL_REMAIN_UNCHANGED"],
+    VPN_ISSUES: [
+      "ACCESS_GRANTED",
+      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE",
+      "OTHER",
+    ],
   };
 
   // State management
@@ -385,28 +470,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         validate={composeValidators([required])}
                       >
                         <option value={""} />
-                        <option value={"PERMISSION_GRANTED"}>
-                          {solvingReason.PERMISSION_GRANTED}
-                        </option>
-                        <option value={"PERMISSION_DENIED"}>
-                          {solvingReason.PERMISSION_DENIED}
-                        </option>
-                        <option value={"AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"}>
-                          {solvingReason.AFFECTED_RESOURCE_REMOVED_FROM_SCOPE}
-                        </option>
-                        <option value={"SUPPLIES_WERE_GIVEN"}>
-                          {solvingReason.SUPPLIES_WERE_GIVEN}
-                        </option>
-                        <option value={"TOE_CHANGE_APPROVED"}>
-                          {solvingReason.TOE_CHANGE_APPROVED}
-                        </option>
-                        <option value={"TOE_WILL_REMAIN_UNCHANGED"}>
-                          {solvingReason.TOE_WILL_REMAIN_UNCHANGED}
-                        </option>
-                        <option value={"PROBLEM_SOLVED"}>
-                          {solvingReason.PROBLEM_SOLVED}
-                        </option>
-                        <option value={"OTHER"}>{solvingReason.OTHER}</option>
+                        {_.map(
+                          solutionReasonByEventType[data.event.eventType],
+                          (reasonValue: string): JSX.Element => (
+                            <option value={reasonValue}>
+                              {solvingReasons[reasonValue]}
+                            </option>
+                          )
+                        )}
                       </Field>
                     </FormGroup>
                     {values.reason === "OTHER" ? (
@@ -449,278 +520,280 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           onSubmit={handleDescriptionSubmit}
           validationSchema={editValidations}
         >
-          {({ values, dirty }): React.ReactNode => (
-            <Form id={"editEvent"}>
-              <div>
+          {({ values, dirty, setFieldValue }): React.ReactNode => {
+            if (
+              canUpdateEventSolvingReason &&
+              !_.isNull(values.solvingReason) &&
+              !_.isEmpty(values.solvingReason) &&
+              !_.isEmpty(values.eventType) &&
+              !solutionReasonByEventType[values.eventType].includes(
+                values.solvingReason
+              )
+            ) {
+              setFieldValue("solvingReason", "");
+            }
+
+            return (
+              <Form id={"editEvent"}>
                 <div>
-                  <ActionButtons
-                    eventStatus={values.eventStatus}
-                    isDirtyForm={dirty}
-                    isEditing={isEditing}
-                    onEdit={toggleEdit}
-                    openRejectSolutionModal={openRejectSolutionModal}
-                    openSolvingModal={openSolvingModal}
-                  />
-                  <br />
-                  {isEditing && canUpdateEvent ? (
-                    <Row>
-                      <Col50>
-                        <Row>
-                          <EditableFieldTitle50>
-                            <ControlLabel>
-                              <b>{t("searchFindings.tabEvents.type")} </b>
-                            </ControlLabel>
-                          </EditableFieldTitle50>
-                          <Col50>
-                            <Field
-                              component={FormikDropdown}
-                              name={"eventType"}
-                              validate={required}
-                            >
-                              <option value={""} />
-                              <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
-                                {t(
-                                  castEventType("AUTHORIZATION_SPECIAL_ATTACK")
-                                )}
-                              </option>
-                              <option
-                                value={"CLIENT_EXPLICITLY_SUSPENDS_PROJECT"}
-                              >
-                                {t(
-                                  castEventType(
-                                    "CLIENT_EXPLICITLY_SUSPENDS_PROJECT"
-                                  )
-                                )}
-                              </option>
-                              <option value={"CLONING_ISSUES"}>
-                                {t(castEventType("CLONING_ISSUES"))}
-                              </option>
-                              <option value={"CREDENTIAL_ISSUES"}>
-                                {t(castEventType("CREDENTIAL_ISSUES"))}
-                              </option>
-                              <option value={"DATA_UPDATE_REQUIRED"}>
-                                {t(castEventType("DATA_UPDATE_REQUIRED"))}
-                              </option>
-                              <option value={"ENVIRONMENT_ISSUES"}>
-                                {t(castEventType("ENVIRONMENT_ISSUES"))}
-                              </option>
-                              <option value={"INSTALLER_ISSUES"}>
-                                {t(castEventType("INSTALLER_ISSUES"))}
-                              </option>
-                              <option value={"MISSING_SUPPLIES"}>
-                                {t(castEventType("MISSING_SUPPLIES"))}
-                              </option>
-                              <option value={"NETWORK_ACCESS_ISSUES"}>
-                                {t(castEventType("NETWORK_ACCESS_ISSUES"))}
-                              </option>
-                              <option value={"OTHER"}>
-                                {t(castEventType("OTHER"))}
-                              </option>
-                              <option value={"REMOTE_ACCESS_ISSUES"}>
-                                {t(castEventType("REMOTE_ACCESS_ISSUES"))}
-                              </option>
-                              <option value={"TOE_DIFFERS_APPROVED"}>
-                                {t(castEventType("TOE_DIFFERS_APPROVED"))}
-                              </option>
-                              <option value={"VPN_ISSUES"}>
-                                {t(castEventType("VPN_ISSUES"))}
-                              </option>
-                            </Field>
-                          </Col50>
-                        </Row>
-                      </Col50>
-                    </Row>
-                  ) : undefined}
-                  <Row>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={data.event.detail}
-                        label={t("searchFindings.tabEvents.description")}
-                        name={"detail"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={data.event.client}
-                        label={t("searchFindings.tabEvents.client")}
-                        name={"client"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                  </Row>
-                  <Row>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={data.event.hacker}
-                        label={t("searchFindings.tabEvents.hacker")}
-                        name={"hacker"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={
-                          _.isEmpty(data.event.affectedReattacks)
-                            ? "0"
-                            : String(data.event.affectedReattacks.length)
-                        }
-                        label={t("searchFindings.tabEvents.affectedReattacks")}
-                        name={"affectedReattacks"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                  </Row>
-                  {data.event.eventStatus === "SOLVED" ? (
-                    isEditing ? (
-                      canUpdateEventSolvingReason ? (
-                        <Row>
-                          <Col50>
-                            <Row>
-                              <EditableFieldTitle50>
-                                <ControlLabel>
-                                  <b>
-                                    {t(
-                                      "searchFindings.tabEvents.solvingReason"
-                                    )}{" "}
-                                  </b>
-                                </ControlLabel>
-                              </EditableFieldTitle50>
-                              <Col50>
-                                <Field
-                                  component={FormikDropdown}
-                                  name={"solvingReason"}
-                                  validate={composeValidators([required])}
-                                >
-                                  <option value={""} />
-                                  <option value={"PERMISSION_GRANTED"}>
-                                    {solvingReason.PERMISSION_GRANTED}
-                                  </option>
-                                  <option value={"PERMISSION_DENIED"}>
-                                    {solvingReason.PERMISSION_DENIED}
-                                  </option>
-                                  <option
-                                    value={
-                                      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"
-                                    }
-                                  >
-                                    {
-                                      solvingReason.AFFECTED_RESOURCE_REMOVED_FROM_SCOPE
-                                    }
-                                  </option>
-                                  <option value={"SUPPLIES_WERE_GIVEN"}>
-                                    {solvingReason.SUPPLIES_WERE_GIVEN}
-                                  </option>
-                                  <option value={"TOE_CHANGE_APPROVED"}>
-                                    {solvingReason.TOE_CHANGE_APPROVED}
-                                  </option>
-                                  <option value={"TOE_WILL_REMAIN_UNCHANGED"}>
-                                    {solvingReason.TOE_WILL_REMAIN_UNCHANGED}
-                                  </option>
-                                  <option value={"PROBLEM_SOLVED"}>
-                                    {solvingReason.PROBLEM_SOLVED}
-                                  </option>
-                                  <option value={"OTHER"}>
-                                    {solvingReason.OTHER}
-                                  </option>
-                                </Field>
-                                {values.solvingReason === "OTHER" ? (
-                                  <Fragment>
-                                    <br />
-                                    <EditableField
-                                      component={FormikText}
-                                      currentValue={
-                                        _.isNil(data.event.otherSolvingReason)
-                                          ? ""
-                                          : data.event.otherSolvingReason
-                                      }
-                                      label={t(
-                                        "searchFindings.tabSeverity.common.deactivation.other"
-                                      )}
-                                      name={"otherSolvingReason"}
-                                      renderAsEditable={isEditing}
-                                      type={"text"}
-                                    />
-                                  </Fragment>
-                                ) : undefined}
-                              </Col50>
-                            </Row>
-                          </Col50>
-                        </Row>
-                      ) : undefined
-                    ) : (
+                  <div>
+                    <ActionButtons
+                      eventStatus={values.eventStatus}
+                      isDirtyForm={dirty}
+                      isEditing={isEditing}
+                      onEdit={toggleEdit}
+                      openRejectSolutionModal={openRejectSolutionModal}
+                      openSolvingModal={openSolvingModal}
+                    />
+                    <br />
+                    {isEditing && canUpdateEvent ? (
                       <Row>
-                        {data.event.solvingReason === "OTHER" ? (
-                          <Col50>
-                            <EditableField
-                              alignField={"horizontalWide"}
-                              component={FormikText}
-                              currentValue={
-                                _.isNil(data.event.otherSolvingReason)
-                                  ? "-"
-                                  : _.capitalize(data.event.otherSolvingReason)
-                              }
-                              label={t(
-                                "searchFindings.tabEvents.solvingReason"
-                              )}
-                              name={"otherSolvingReason"}
-                              renderAsEditable={false}
-                              type={"text"}
-                            />
-                          </Col50>
-                        ) : (
-                          <Col50>
-                            <EditableField
-                              alignField={"horizontalWide"}
-                              component={FormikText}
-                              currentValue={
-                                _.isNil(data.event.solvingReason)
-                                  ? "-"
-                                  : solvingReason[data.event.solvingReason]
-                              }
-                              label={t(
-                                "searchFindings.tabEvents.solvingReason"
-                              )}
-                              name={"solvingReason"}
-                              renderAsEditable={false}
-                              type={"text"}
-                            />
-                          </Col50>
-                        )}
                         <Col50>
-                          <EditableField
-                            alignField={"horizontalWide"}
-                            component={FormikText}
-                            currentValue={
-                              _.isNil(data.event.closingDate)
-                                ? "-"
-                                : data.event.closingDate
-                            }
-                            label={t("searchFindings.tabEvents.dateClosed")}
-                            name={"dateClosed"}
-                            renderAsEditable={false}
-                            type={"text"}
-                          />
+                          <Row>
+                            <EditableFieldTitle50>
+                              <ControlLabel>
+                                <b>{t("searchFindings.tabEvents.type")} </b>
+                              </ControlLabel>
+                            </EditableFieldTitle50>
+                            <Col50>
+                              <Field
+                                component={FormikDropdown}
+                                name={"eventType"}
+                                validate={required}
+                              >
+                                <option value={""} />
+                                <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
+                                  {t(
+                                    castEventType(
+                                      "AUTHORIZATION_SPECIAL_ATTACK"
+                                    )
+                                  )}
+                                </option>
+                                <option
+                                  value={"CLIENT_EXPLICITLY_SUSPENDS_PROJECT"}
+                                >
+                                  {t(
+                                    castEventType(
+                                      "CLIENT_EXPLICITLY_SUSPENDS_PROJECT"
+                                    )
+                                  )}
+                                </option>
+                                <option value={"CLONING_ISSUES"}>
+                                  {t(castEventType("CLONING_ISSUES"))}
+                                </option>
+                                <option value={"CREDENTIAL_ISSUES"}>
+                                  {t(castEventType("CREDENTIAL_ISSUES"))}
+                                </option>
+                                <option value={"DATA_UPDATE_REQUIRED"}>
+                                  {t(castEventType("DATA_UPDATE_REQUIRED"))}
+                                </option>
+                                <option value={"ENVIRONMENT_ISSUES"}>
+                                  {t(castEventType("ENVIRONMENT_ISSUES"))}
+                                </option>
+                                <option value={"INSTALLER_ISSUES"}>
+                                  {t(castEventType("INSTALLER_ISSUES"))}
+                                </option>
+                                <option value={"MISSING_SUPPLIES"}>
+                                  {t(castEventType("MISSING_SUPPLIES"))}
+                                </option>
+                                <option value={"NETWORK_ACCESS_ISSUES"}>
+                                  {t(castEventType("NETWORK_ACCESS_ISSUES"))}
+                                </option>
+                                <option value={"OTHER"}>
+                                  {t(castEventType("OTHER"))}
+                                </option>
+                                <option value={"REMOTE_ACCESS_ISSUES"}>
+                                  {t(castEventType("REMOTE_ACCESS_ISSUES"))}
+                                </option>
+                                <option value={"TOE_DIFFERS_APPROVED"}>
+                                  {t(castEventType("TOE_DIFFERS_APPROVED"))}
+                                </option>
+                                <option value={"VPN_ISSUES"}>
+                                  {t(castEventType("VPN_ISSUES"))}
+                                </option>
+                              </Field>
+                            </Col50>
+                          </Row>
                         </Col50>
                       </Row>
-                    )
-                  ) : undefined}
+                    ) : undefined}
+                    <Row>
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={data.event.detail}
+                          label={t("searchFindings.tabEvents.description")}
+                          name={"detail"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={data.event.client}
+                          label={t("searchFindings.tabEvents.client")}
+                          name={"client"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                    </Row>
+                    <Row>
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={data.event.hacker}
+                          label={t("searchFindings.tabEvents.hacker")}
+                          name={"hacker"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={
+                            _.isEmpty(data.event.affectedReattacks)
+                              ? "0"
+                              : String(data.event.affectedReattacks.length)
+                          }
+                          label={t(
+                            "searchFindings.tabEvents.affectedReattacks"
+                          )}
+                          name={"affectedReattacks"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                    </Row>
+                    {data.event.eventStatus === "SOLVED" ? (
+                      isEditing ? (
+                        canUpdateEventSolvingReason ? (
+                          <Row>
+                            <Col50>
+                              <Row>
+                                <EditableFieldTitle50>
+                                  <ControlLabel>
+                                    <b>
+                                      {t(
+                                        "searchFindings.tabEvents.solvingReason"
+                                      )}{" "}
+                                    </b>
+                                  </ControlLabel>
+                                </EditableFieldTitle50>
+                                <Col50>
+                                  <Field
+                                    component={FormikDropdown}
+                                    name={"solvingReason"}
+                                    validate={composeValidators([required])}
+                                  >
+                                    <option value={""} />
+                                    {_.map(
+                                      solutionReasonByEventType[
+                                        values.eventType
+                                      ],
+                                      (reasonValue: string): JSX.Element => (
+                                        <option value={reasonValue}>
+                                          {solvingReasons[reasonValue]}
+                                        </option>
+                                      )
+                                    )}
+                                  </Field>
+                                  {values.solvingReason === "OTHER" ? (
+                                    <Fragment>
+                                      <br />
+                                      <EditableField
+                                        component={FormikText}
+                                        currentValue={
+                                          _.isNil(data.event.otherSolvingReason)
+                                            ? ""
+                                            : data.event.otherSolvingReason
+                                        }
+                                        label={t(
+                                          "searchFindings.tabSeverity.common.deactivation.other"
+                                        )}
+                                        name={"otherSolvingReason"}
+                                        renderAsEditable={isEditing}
+                                        type={"text"}
+                                      />
+                                    </Fragment>
+                                  ) : undefined}
+                                </Col50>
+                              </Row>
+                            </Col50>
+                          </Row>
+                        ) : undefined
+                      ) : (
+                        <Row>
+                          {data.event.solvingReason === "OTHER" ? (
+                            <Col50>
+                              <EditableField
+                                alignField={"horizontalWide"}
+                                component={FormikText}
+                                currentValue={
+                                  _.isNil(data.event.otherSolvingReason)
+                                    ? "-"
+                                    : _.capitalize(
+                                        data.event.otherSolvingReason
+                                      )
+                                }
+                                label={t(
+                                  "searchFindings.tabEvents.solvingReason"
+                                )}
+                                name={"otherSolvingReason"}
+                                renderAsEditable={false}
+                                type={"text"}
+                              />
+                            </Col50>
+                          ) : (
+                            <Col50>
+                              <EditableField
+                                alignField={"horizontalWide"}
+                                component={FormikText}
+                                currentValue={
+                                  _.isNil(data.event.solvingReason)
+                                    ? "-"
+                                    : allSolvingReasons[
+                                        data.event.solvingReason
+                                      ]
+                                }
+                                label={t(
+                                  "searchFindings.tabEvents.solvingReason"
+                                )}
+                                name={"solvingReason"}
+                                renderAsEditable={false}
+                                type={"text"}
+                              />
+                            </Col50>
+                          )}
+                          <Col50>
+                            <EditableField
+                              alignField={"horizontalWide"}
+                              component={FormikText}
+                              currentValue={
+                                _.isNil(data.event.closingDate)
+                                  ? "-"
+                                  : data.event.closingDate
+                              }
+                              label={t("searchFindings.tabEvents.dateClosed")}
+                              name={"dateClosed"}
+                              renderAsEditable={false}
+                              type={"text"}
+                            />
+                          </Col50>
+                        </Row>
+                      )
+                    ) : undefined}
+                  </div>
                 </div>
-              </div>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </React.Fragment>
     </React.StrictMode>

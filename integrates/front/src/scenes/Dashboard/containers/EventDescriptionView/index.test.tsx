@@ -152,10 +152,7 @@ describe("eventDescriptionView", (): void => {
       {
         request: {
           query: UPDATE_EVENT_MUTATION,
-          variables: {
-            eventId: "413372600",
-            eventType: "MISSING_SUPPLIES",
-          },
+          variables: { eventId: "413372600", eventType: "CREDENTIAL_ISSUES" },
         },
         result: {
           data: {
@@ -185,19 +182,37 @@ describe("eventDescriptionView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
+
     await waitFor((): void => {
       expect(screen.getByText("Something happened")).toBeInTheDocument();
-      expect(
-        screen.queryByText("searchFindings.tabEvents.dateClosed")
-      ).toBeInTheDocument();
+      expect(screen.queryByText("Reason test")).toBeInTheDocument();
     });
     userEvent.click(screen.getByText("group.events.description.edit.text"));
     userEvent.selectOptions(
       screen.getByRole("combobox", {
         name: "eventType",
       }),
-      ["MISSING_SUPPLIES"]
+      [""]
     );
+    userEvent.selectOptions(
+      screen.getByRole("combobox", {
+        name: "eventType",
+      }),
+      ["CREDENTIAL_ISSUES"]
+    );
+    userEvent.selectOptions(
+      screen.getByRole("combobox", {
+        name: "eventType",
+      }),
+      ["CREDENTIAL_ISSUES"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", {
+          name: "group.events.description.save.text",
+        })
+      ).not.toBeDisabled();
+    });
     userEvent.click(
       screen.getByRole("button", { name: "group.events.description.save.text" })
     );
