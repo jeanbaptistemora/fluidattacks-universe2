@@ -17,8 +17,11 @@ from model.core_model import (
     Vulnerability,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShard,
+    GraphShardMetadataLanguage,
+    GraphShardNodes,
     SyntaxStepMethodInvocation,
     SyntaxSteps,
 )
@@ -33,12 +36,19 @@ from sast_transformations.danger_nodes.utils import (
     append_label_input,
     mark_methods_sink,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
 from typing import (
     Iterator,
 )
 from utils.crypto import (
     insecure_elliptic_curve,
 )
+import utils.graph as g
 from utils.languages.javascript import (
     is_cipher_vulnerable as javascript_cipher_vulnerable,
 )
@@ -48,6 +58,14 @@ from utils.string import (
     split_on_first_dot,
     split_on_last_dot,
 )
+
+
+def is_insecure_hash_argument(graph: Graph, param: str) -> bool:
+    method = MethodsEnum.JS_INSECURE_HASH
+    for path in get_backward_paths(graph, param):
+        if evaluation := evaluate(method, graph, path, param):
+            return evaluation.danger
+    return False
 
 
 def _test_native_cipher(
@@ -145,42 +163,40 @@ def javascript_insecure_hash(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def find_vulns() -> Iterator[Vulnerability]:
-        for (
-            shard,
-            syntax_steps,
-            invocation_step,
-            index,
-        ) in yield_method_invocation(graph_db):
-            danger_methods = {"createHash"}
-            var, method_name = split_on_last_dot(invocation_step.method)
-            if method_name not in danger_methods and var not in danger_methods:
+    danger_methods = complete_attrs_on_set({"crypto.createHash"})
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
                 continue
-
-            dependencies = get_dependencies(index, syntax_steps)
-            algorithm = dependencies[-1]
-            if (
-                algorithm.type == "SyntaxStepLiteral"
-                and (algorithm_value := algorithm.value)
-                and any(
-                    alg in algorithm_value.lower()
-                    for alg in (
-                        "md2",
-                        "md4",
-                        "md5",
-                        "sha1",
-                        "sha-1",
-                    )
-                )
+            graph = shard.syntax_graph
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="CallExpression"),
             ):
-                yield from get_vulnerabilities_from_n_ids(
-                    desc_key=("src.lib_path.f052.insecure_cipher.description"),
-                    desc_params=dict(lang="JavaScript"),
-                    graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-                    method=MethodsEnum.JS_INSECURE_HASH,
-                )
+                if graph.nodes[n_id]["function_name"] not in danger_methods:
+                    continue
 
-    return tuple(find_vulns())
+                if (
+                    (
+                        al_id := g.match_ast(graph, n_id, "ArgumentList").get(
+                            "ArgumentList"
+                        )
+                    )
+                    and (test_node := g.match_ast(graph, al_id).get("__0__"))
+                    and is_insecure_hash_argument(graph, test_node)
+                ):
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=MethodsEnum.JS_INSECURE_HASH,
+    )
 
 
 def javascript_insecure_cipher(
