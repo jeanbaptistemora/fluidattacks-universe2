@@ -6644,7 +6644,17 @@ siglite:
   title: SIG Lite
   en:
     summary: >
-      ...
+      The Standardized Information Gathering
+      (Questionnaire) (SIG) Lite is a repository
+      of third-party information
+      security and privacy questions,
+      indexed to multiple regulations
+      and control frameworks,
+      curated by Shared Assessments.
+      SIG Lite takes the high-level concepts
+      and questions from the larger SIG assessments,
+      distilling them down to a few questions.
+      The version used in this section is SIG Lite 2019.
   es:
     summary: __empty__
   definitions:
