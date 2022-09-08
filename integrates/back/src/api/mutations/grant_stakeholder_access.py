@@ -10,6 +10,7 @@ from ariadne import (
 )
 import authz
 from custom_exceptions import (
+    InvalidRoleProvided,
     StakeholderHasGroupAccess,
 )
 from dataloaders import (
@@ -46,12 +47,6 @@ from newutils import (
 from newutils.utils import (
     map_roles,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
-from typing import (
-    Any,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -64,7 +59,7 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     role: str,
@@ -96,17 +91,7 @@ async def mutate(
             requester_email=user_email,
         )
     )
-
-    if new_user_role in allowed_roles_to_grant:
-        await groups_domain.invite_to_group(
-            loaders=loaders,
-            email=new_user_email,
-            responsibility=new_user_responsibility,
-            role=new_user_role,
-            group_name=group_name,
-            modified_by=user_email,
-        )
-    else:
+    if new_user_role not in allowed_roles_to_grant:
         LOGGER.error(
             "Invalid role provided",
             extra={
@@ -117,10 +102,15 @@ async def mutate(
                 }
             },
         )
+        raise InvalidRoleProvided(role=new_user_role)
 
-    await redis_del_by_deps(
-        "grant_stakeholder_access",
+    await groups_domain.invite_to_group(
+        loaders=loaders,
+        email=new_user_email,
+        responsibility=new_user_responsibility,
+        role=new_user_role,
         group_name=group_name,
+        modified_by=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,

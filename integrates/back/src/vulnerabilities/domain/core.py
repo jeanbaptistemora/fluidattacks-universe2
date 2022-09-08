@@ -88,11 +88,7 @@ from typing import (
     Any,
     cast,
     Counter,
-    Dict,
-    List,
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 from vulnerabilities.types import (
@@ -149,11 +145,11 @@ async def _send_to_redshift(
 async def confirm_vulnerabilities_zero_risk(
     *,
     loaders: Any,
-    vuln_ids: Set[str],
+    vuln_ids: set[str],
     finding_id: str,
-    user_info: Dict[str, Any],
+    user_info: dict[str, Any],
     justification: str,
-) -> bool:
+) -> None:
     vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
@@ -195,12 +191,11 @@ async def confirm_vulnerabilities_zero_risk(
         )
         for vuln in vulnerabilities
     )
-    return True
 
 
 async def add_tags(
     vulnerability: Vulnerability,
-    tags: List[str],
+    tags: list[str],
 ) -> None:
     if not tags:
         return
@@ -231,7 +226,7 @@ async def _remove_tag(
     vulnerability: Vulnerability,
     tag_to_remove: str,
 ) -> None:
-    tags: Optional[List[str]] = vulnerability.tags
+    tags: Optional[list[str]] = vulnerability.tags
     if tags and tag_to_remove in tags:
         tags.remove(tag_to_remove)
         await vulns_model.update_metadata(
@@ -246,7 +241,7 @@ async def _remove_tag(
 async def remove_vulnerability_tags(
     *,
     loaders: Any,
-    vuln_ids: Set[str],
+    vuln_ids: set[str],
     finding_id: str,
     tag_to_remove: str,
 ) -> None:
@@ -308,9 +303,9 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
 async def get_by_finding_and_vuln_ids(
     loaders: Any,
     finding_id: str,
-    vuln_ids: Set[str],
-) -> Tuple[Vulnerability, ...]:
-    finding_vulns: Tuple[
+    vuln_ids: set[str],
+) -> tuple[Vulnerability, ...]:
+    finding_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding_id)
     filtered_vulns = tuple(
@@ -331,13 +326,13 @@ async def get_grouped_vulnerabilities_info(
     ports_vulnerabilities = vulnerabilities_by_type["ports_vulnerabilities"]
     lines_vulnerabilities = vulnerabilities_by_type["lines_vulnerabilities"]
     inputs_vulnerabilities = vulnerabilities_by_type["inputs_vulnerabilities"]
-    grouped_ports_vulnerabilities: Tuple[
+    grouped_ports_vulnerabilities: tuple[
         GroupedVulnerabilitiesInfo, ...
     ] = tuple()
-    grouped_inputs_vulnerabilities: Tuple[
+    grouped_inputs_vulnerabilities: tuple[
         GroupedVulnerabilitiesInfo, ...
     ] = tuple()
-    grouped_lines_vulnerabilities: Tuple[
+    grouped_lines_vulnerabilities: tuple[
         GroupedVulnerabilitiesInfo, ...
     ] = tuple()
     where = "-"
@@ -404,8 +399,8 @@ async def get_grouped_vulnerabilities_info(
 async def get_open_vulnerabilities_specific_by_type(
     loaders: Any,
     finding_id: str,
-) -> Dict[str, Tuple[Vulnerability, ...]]:
-    vulns: Tuple[
+) -> dict[str, tuple[Vulnerability, ...]]:
+    vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
@@ -432,7 +427,7 @@ async def get_open_vulnerabilities_specific_by_type(
 
 
 def get_treatments_count(
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
 ) -> Treatments:
     treatment_counter = Counter(
         vuln.treatment.status
@@ -453,7 +448,7 @@ def get_treatments_count(
 
 
 def get_verifications_count(
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
 ) -> Verifications:
     treatment_counter = Counter(
         vuln.verification.status
@@ -469,8 +464,8 @@ def get_verifications_count(
 
 
 def group_vulnerabilities(
-    vulnerabilities: Tuple[Vulnerability, ...]
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...]
+) -> tuple[Vulnerability, ...]:
     """Group vulnerabilities by specific field."""
     vuln_types = (
         VulnerabilityType.LINES,
@@ -481,8 +476,8 @@ def group_vulnerabilities(
         VulnerabilityStateStatus.OPEN,
         VulnerabilityStateStatus.CLOSED,
     )
-    total_vulnerabilities: Dict[str, Dict[str, List[Vulnerability]]] = {}
-    result_vulns: List[Vulnerability] = []
+    total_vulnerabilities: dict[str, dict[str, list[Vulnerability]]] = {}
+    result_vulns: list[Vulnerability] = []
     for vuln_type in vuln_types:
         total_vulnerabilities[vuln_type] = {}
         for vuln_state in vuln_states:
@@ -527,9 +522,9 @@ async def mask_vulnerability(
 async def reject_vulnerabilities_zero_risk(
     *,
     loaders: Any,
-    vuln_ids: Set[str],
+    vuln_ids: set[str],
     finding_id: str,
-    user_info: Dict[str, Any],
+    user_info: dict[str, Any],
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
@@ -612,9 +607,9 @@ async def request_hold(event_id: str, vulnerability: Vulnerability) -> bool:
 async def request_vulnerabilities_zero_risk(
     *,
     loaders: Any,
-    vuln_ids: Set[str],
+    vuln_ids: set[str],
     finding_id: str,
-    user_info: Dict[str, Any],
+    user_info: dict[str, Any],
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
@@ -669,7 +664,7 @@ async def request_vulnerabilities_zero_risk(
 
 
 def get_updated_manager_mail_content(
-    vulnerabilities: Dict[str, List[Dict[str, Union[str, ToolItem]]]]
+    vulnerabilities: dict[str, list[dict[str, Union[str, ToolItem]]]]
 ) -> str:
     mail_content = ""
     for vuln_type in ["ports", "lines", "inputs"]:
@@ -694,7 +689,7 @@ async def should_send_update_treatment(
     group_name: str,
     justification: str,
     treatment: str,
-    updated_vulns: Tuple[Vulnerability, ...],
+    updated_vulns: tuple[Vulnerability, ...],
     modified_by: str,
 ) -> None:
     translations: dict[str, str] = {
@@ -730,11 +725,11 @@ async def update_historics_dates(
 ) -> None:
     """Set all state and treatment dates to finding's approval date."""
     loaders.vulnerability_historic_state.clear(vulnerability_id)
-    historic_state: Tuple[
+    historic_state: tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
     historic_state = cast(
-        Tuple[VulnerabilityState, VulnerabilityState],
+        tuple[VulnerabilityState, VulnerabilityState],
         vulns_model.utils.adjust_historic_dates(
             tuple(
                 state._replace(modified_date=modified_date)
@@ -750,11 +745,11 @@ async def update_historics_dates(
     )
 
     loaders.vulnerability_historic_treatment.clear(vulnerability_id)
-    historic_treatment: Tuple[
+    historic_treatment: tuple[
         VulnerabilityTreatment, ...
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
     historic_treatment = cast(
-        Tuple[VulnerabilityTreatment, VulnerabilityTreatment],
+        tuple[VulnerabilityTreatment, VulnerabilityTreatment],
         vulns_model.utils.adjust_historic_dates(
             tuple(
                 treatment._replace(modified_date=modified_date)
@@ -777,7 +772,7 @@ async def update_metadata(
     finding_id: str,
     bug_tracking_system_url: Optional[str],
     custom_severity: Optional[int],
-    tags_to_append: Optional[List[str]],
+    tags_to_append: Optional[list[str]],
 ) -> None:
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
@@ -878,14 +873,14 @@ async def verify(
     *,
     loaders: Any,
     modified_date: str,
-    closed_vulns_ids: List[str],
-    vulns_to_close_from_file: List[Vulnerability],
+    closed_vulns_ids: list[str],
+    vulns_to_close_from_file: list[Vulnerability],
     context: Optional[Any] = None,
 ) -> bool:
     for vuln_id in closed_vulns_ids:
         loaders.vulnerability.clear(vuln_id)
 
-    list_closed_vulns: List[
+    list_closed_vulns: list[
         Vulnerability
     ] = await loaders.vulnerability.load_many(sorted(closed_vulns_ids))
     if context:
@@ -987,7 +982,7 @@ async def get_reattack_requester(
     loaders: Any,
     vuln: Vulnerability,
 ) -> Optional[str]:
-    historic_verification: Tuple[
+    historic_verification: tuple[
         FindingVerification, ...
     ] = await loaders.finding_historic_verification.load(vuln.finding_id)
     reversed_historic_verification = tuple(reversed(historic_verification))
@@ -1010,7 +1005,7 @@ async def get_last_requested_reattack_date(
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
         return vuln.verification.modified_date
-    historic: Tuple[
+    historic: tuple[
         VulnerabilityVerification, ...
     ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return next(
@@ -1032,7 +1027,7 @@ async def get_last_reattack_date(
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
         return vuln.verification.modified_date
-    historic: Tuple[
+    historic: tuple[
         VulnerabilityVerification, ...
     ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return next(
@@ -1049,7 +1044,7 @@ async def get_report_date(
     loaders: Any,
     vuln: Vulnerability,
 ) -> str:
-    historic: Tuple[
+    historic: tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vuln.id)
     return historic[0].modified_date
