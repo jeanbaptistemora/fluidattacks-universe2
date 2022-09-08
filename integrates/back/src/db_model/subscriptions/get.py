@@ -24,9 +24,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    ErrorLoadingStakeholderSubscriptions,
-)
 from db_model import (
     TABLE,
 )
@@ -55,6 +52,7 @@ async def _get_stakeholder_subscriptions(
         facets=(TABLE.facets["stakeholder_subscription"],),
         table=TABLE,
     )
+
     return tuple(format_subscriptions(item) for item in response.items)
 
 
@@ -79,9 +77,6 @@ async def get_all_subscriptions(
         table=TABLE,
         index=index,
     )
-
-    if not response.items:
-        raise ErrorLoadingStakeholderSubscriptions()
 
     return tuple(format_subscriptions(item) for item in response.items)
 

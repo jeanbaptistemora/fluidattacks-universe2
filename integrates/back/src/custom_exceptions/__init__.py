@@ -49,10 +49,6 @@ class ErrorLoadingStakeholders(_SingleMessageException):
     msg: str = "Unable to read stakeholders data"
 
 
-class ErrorLoadingStakeholderSubscriptions(_SingleMessageException):
-    msg: str = "Unable to read subscriptions data"
-
-
 class ErrorSubscribingStakeholder(_SingleMessageException):
     msg: str = "Unable to subscribe stakeholder"
 

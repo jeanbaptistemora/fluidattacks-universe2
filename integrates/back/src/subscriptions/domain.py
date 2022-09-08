@@ -18,6 +18,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    subscriptions as subscriptions_model,
+)
 from db_model.enums import (
     Notification,
 )
@@ -58,9 +61,6 @@ from organizations import (
 )
 from settings import (
     LOGGING,
-)
-from subscriptions import (
-    dal as subscriptions_dal,
 )
 import sys
 from tags import (
@@ -121,7 +121,7 @@ async def can_subscribe(
 async def get_all_subscriptions(
     *, frequency: SubscriptionFrequency
 ) -> tuple[Subscription, ...]:
-    return await subscriptions_dal.get_all_subscriptions(frequency=frequency)
+    return await subscriptions_model.get_all_subscriptions(frequency=frequency)
 
 
 @retry_on_exceptions(
@@ -222,7 +222,7 @@ async def subscribe(
         )
         return
 
-    await subscriptions_dal.add(
+    await subscriptions_model.add(
         subscription=Subscription(
             email=email,
             entity=entity,
@@ -244,7 +244,7 @@ async def unsubscribe(
     subject: str,
     email: str,
 ) -> None:
-    await subscriptions_dal.remove(
+    await subscriptions_model.remove(
         entity=entity,
         subject=subject,
         email=email,

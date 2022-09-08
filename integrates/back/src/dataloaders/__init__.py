@@ -5,9 +5,6 @@
 from collections import (
     defaultdict,
 )
-from dataloaders.stakeholder_subscriptions import (
-    StakeholderSubscriptionsLoader,
-)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -80,6 +77,9 @@ from db_model.roots.get import (
 from db_model.stakeholders.get import (
     StakeholderLoader,
     StakeholderWithFallbackLoader,
+)
+from db_model.subscriptions.get import (
+    StakeholderSubscriptionsLoader,
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,

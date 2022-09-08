@@ -8,6 +8,10 @@ from context import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.subscriptions import (
+    add,
+    get_all_subscriptions,
+)
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
     SubscriptionFrequency,
@@ -20,10 +24,6 @@ from newutils.subscriptions import (
 )
 import os
 import pytest
-from subscriptions.dal import (
-    add,
-    get_all_subscriptions,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -94,16 +94,16 @@ async def test_update() -> None:
         frequency=SubscriptionFrequency.MONTHLY
     ) == (
         Subscription(
-            email="test_user_email2@test.com",
-            entity=SubscriptionEntity.GROUP,
-            frequency=SubscriptionFrequency.MONTHLY,
-            subject="test_report_subject2",
-        ),
-        Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.MONTHLY,
             subject="oneshottest",
+        ),
+        Subscription(
+            email="test_user_email2@test.com",
+            entity=SubscriptionEntity.GROUP,
+            frequency=SubscriptionFrequency.MONTHLY,
+            subject="test_report_subject2",
         ),
     )
 
