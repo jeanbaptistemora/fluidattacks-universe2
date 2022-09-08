@@ -8,35 +8,55 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import header, go_to_button %}
 
 {% block layout %}
-  <div class="container">
-    {{ header(
-      'Congratulations!',
-      'You have started using the Machine Plan free trial.'
-    ) }}
-    <div class="main-content">
-      <p>Hi {{ name }},</p>
-      <p>
-        You can keep an eye on our ARM platform from now on.
-        Check it for reports of vulnerabilities we identify in your software
-        to start acting on them.
-      </p>
-      <p>
-        Remember that the duration of this free trial is 21 days.
-        But at any time, you can become a Fluid Attacks client and further
-        enhance the security of your apps.
-      </p>
-      <p class="mb2">
-        Questions? Don't hesitate to contact us at
-        <a href="mailto:help@fluidattacks.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #ff3435;"
-        >
-          help@fluidattacks.com</a>.
-      </p>
-      <p>Best Regards,</p>
-      <p>Fluid Attacks Team</p>
-    </div>
-    {% include 'layouts/components/footer.html' %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>Welcome to Fluid Attacks, {{ name }}</p>
+    <p>
+      Thanks for signing up. We’re delighted to have you onboard!
+      You’re now part of hundreds of people continuously hacking their
+      applications and systems with Fluid Attacks.
+    </p>
+    <p>
+      In this free trial active until {{ expires_date }},
+      you’ll enjoy all the features of our Continuous Hacking Machine Plan.
+      Shortly, you’ll be able to review the first vulnerabilities found
+      in your applications.
+    </p>
+    <p>
+      In the meantime, we invite you to explore
+      our Attack Resistance Management (ARM) Platform.
+      Click on the links below to get more out of your free trial:
+    </p>
+    <ul class="big-list-icon">
+      <li>
+        <a href="{{ stakeholders_link }}" rel="noopener noreferrer" target="_blank">
+          Invite co-workers to your group
+        </a>
+      </li>
+      <li>
+        <a href="{{ scope_link }}" rel="noopener noreferrer" target="_blank">
+          Add more code repositories
+        </a>
+      </li>
+      <li>
+        <a href="{{ policies_link }}" rel="noopener noreferrer" target="_blank">
+          Set vulnerability policies
+        </a>
+      </li>
+    </ul>
+    <p class="mb2">
+      <strong>Questions or comments?</strong> You can always contact us at
+      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>.
+    </p>
+    <p>We hope you enjoy your 21-day Free Trial!</p>
+    <p>
+      <strong>Fluid Attacks Team</strong>
+    </p>
   </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
 {% endblock %}

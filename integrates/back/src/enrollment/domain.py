@@ -25,6 +25,9 @@ from decorators import (
 from enum import (
     Enum,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 import logging
 import logging.config
 from mailchimp_transactional.api_client import (
@@ -104,16 +107,13 @@ async def add_enrollment(
         )
     )
 
-    mail_to = [user_email]
-    email_context: dict[str, Any] = {
-        "email": user_email,
-        "empty_notification_notice": True,
-        "enrolled_date": datetime_utils.convert_from_iso_str(
-            datetime_utils.get_iso_date()
-        ),
-        "enrolled_name": full_name,
-    }
-    schedule(mail_free_trial_start(loaders, mail_to, email_context))
+    group_name = await group_access_domain.get_stakeholder_groups_names(
+        loaders, user_email, True
+    )
+
+    schedule(
+        mail_free_trial_start(loaders, user_email, full_name, group_name[0])
+    )
 
 
 async def update_metadata(

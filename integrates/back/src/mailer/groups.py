@@ -51,14 +51,35 @@ from typing import (
 
 
 async def send_mail_free_trial_start(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: str, full_name: str, group_name: str
 ) -> None:
+    first_name = full_name.split(" ")[0]
+    org_name = await get_organization_name(loaders, group_name)
+    context = {
+        "email": email_to,
+        "empty_notification_notice": True,
+        "enrolled_date": datetime_utils.get_now(),
+        "enrolled_name": full_name,
+        "expires_date": datetime_utils.get_as_str(
+            datetime_utils.get_now_plus_delta(days=21)
+        ),
+        "policies_link": f"{BASE_URL}/orgs/{org_name}/policies",
+        "scope_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"
+        ),
+        "stakeholders_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/stakeholders"
+        ),
+    }
     await send_mails_async(
         loaders,
-        email_to=email_to,
+        email_to=[email_to],
         context=context,
         tags=[],
-        subject="[ARM] Congratulations! You started your 21-days free-trial",
+        subject=(
+            f"[{first_name}] Continuous Hacking just started "
+            "on your applications"
+        ),
         template_name="free_trial",
     )
     await send_mails_async(
