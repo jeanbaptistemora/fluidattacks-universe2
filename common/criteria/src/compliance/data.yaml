@@ -6652,6 +6652,56 @@ siglite:
       title: Are there regular privacy risk assessments conducted?
       link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
     SL_23:
+      title: Is there an information security policy that has been approved by management
+        and an owner to maintain and review the policy?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_30:
       title: Are encryption tools managed and maintained for Scoped Data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_31:
+      title: Are clients provided with the ability to generate a unique encryption
+        key?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_34:
+      title: Are clients provided with the ability to rotate their encryption key
+        on a scheduled basis?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_33:
+      title: Are staff able to access client Scoped Data in an unencrypted state?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_45:
+      title: Termination or change of status process?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_46:
+      title: Are background checks performed for Service Provider Contractors and
+        Subcontractors?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_65:
+      title: s there a process to ensure clients are notified prior to changes being
+        made which may impact their service?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_70:
+      title: Are individual IDs required for user authentication to applications,
+        operating systems, databases and network devices?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_71:
+      title: Are passwords used?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_72:
+      title: Is there a password policy for systems that transmit, process or store
+        data that has been approved by management on all platforms?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_73:
+      title: Is remote access permitted?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_75:
+      title: Is two factor authentication required to access the production environment
+        containing scoped data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_76:
+      title: Are staff able to access client scoped data?
+      link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
+    SL_78:
+      title: Are applications used to transmit, process or store scoped data?
       link: https://www.walkme.com/wp-content/uploads/2021/07/WalkMe-SIG-Lite-MAR2019-9-.xlsm
   metadata: {}
