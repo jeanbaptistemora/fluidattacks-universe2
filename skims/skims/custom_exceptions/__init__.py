@@ -24,6 +24,16 @@ class AdvisoryAlreadyCreated(_SingleMessageException):
     msg: str = "This advisory has already been created, use 'update' instead"
 
 
+class AdvisoryDoesNotExist(_SingleMessageException):
+    msg: str = "This advisory does not exists, use 'create' instead"
+
+
+class AdvisoryNotModified(_SingleMessageException):
+    msg: str = (
+        "There are no changes in the advisory (severity or vulnerable_version)"
+    )
+
+
 class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
@@ -31,7 +41,7 @@ class UnavailabilityError(_SingleMessageException):
 class InvalidActionParameter(_SingleMessageException):
     msg: str = (
         "Invalid/Missing parameter. "
-        "Insert a valid action (add | update | delete)"
+        "Insert a valid action (add | update | remove)"
     )
 
 
@@ -47,14 +57,14 @@ class InvalidPatchItem(_SingleMessageException):
     msg: str = (
         "Invalid item, "
         "if 'add/update' then all attributes except 'source' are required, "
-        "if 'update' then 'created_at' attribute is required, "
         "if 'delete' then 'vulnerable_version', 'severity' are not required"
     )
 
 
 class InvalidSeverity(_SingleMessageException):
     msg: str = (
-        "Invalid 'severity' format, please check metrics for incorrect values"
+        "Invalid 'severity' format, "
+        "please check metrics (CVSS v3.*) for incorrect values"
     )
 
 

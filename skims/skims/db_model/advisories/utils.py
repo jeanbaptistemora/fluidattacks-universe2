@@ -62,7 +62,11 @@ def _check_severity(advisory: Advisory) -> bool:
     if len(severity_elems) != 9:
         return False
     cvss, ver = severity_elems[0].split(":")
-    if cvss != "CVSS" or not ver.replace(".", "", 1).isdigit():
+    if (
+        cvss != "CVSS"
+        or not ver.replace(".", "", 1).isdigit()
+        or not ver.startswith("3")
+    ):
         return False
     for index, (key, values) in enumerate(CVSS_BASE_METRICS.items(), 1):
         metric, value = severity_elems[index].split(":")
