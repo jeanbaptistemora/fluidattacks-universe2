@@ -17,6 +17,7 @@ interface IGroupData {
   hasSquad: boolean;
   name: string;
   plan: string;
+  responsible: string;
   subscription: string;
   userRole: string;
 }

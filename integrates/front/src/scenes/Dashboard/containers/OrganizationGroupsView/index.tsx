@@ -121,12 +121,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               ).length
             } need(s) attention`
           : "None";
+      const responsible: string = "Responsible person";
 
       return {
         ...group,
         description,
         eventFormat,
         plan,
+        responsible,
       };
     });
 
@@ -171,6 +173,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       },
       enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.events.text"),
+    },
+    {
+      accessorKey: "responsible",
+      header: "Responsible",
     },
   ];
 
