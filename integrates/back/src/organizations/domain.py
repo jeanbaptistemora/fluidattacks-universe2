@@ -381,7 +381,12 @@ async def add_organization(
     )
     await orgs_model.add(organization=organization)
     if email:
-        await add_stakeholder(loaders, organization.id, email, "user_manager")
+        user_role: str = (
+            "customer_manager"
+            if stakeholders_domain.is_fluid_staff(email)
+            else "user_manager"
+        )
+        await add_stakeholder(loaders, organization.id, email, user_role)
     return organization
 
 
