@@ -714,9 +714,3 @@ enum GitEnvironmentCloud {
   "URl"
   URL
 }
-
-"Ip Environment types"
-enum IpEnvironmentUrlType {
-  "APK"
-  APK
-}

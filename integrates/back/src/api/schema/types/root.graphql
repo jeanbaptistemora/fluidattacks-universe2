@@ -98,18 +98,6 @@ type GitRoot implements IRoot {
   vulnerabilities: [Vulnerability!]
 }
 
-"Ip Root environment url definition"
-type IpEnvironmentUrl implements EnvironmentUrl {
-  "Date of creation"
-  createdAt: DateTime
-  "GitRoot environment url"
-  id: String!
-  "Environment url"
-  url: String!
-  "Environment url type"
-  urlType: IpEnvironmentUrlType!
-}
-
 "IP Root type definition"
 type IPRoot implements IRoot {
   "IP address of the environment to test"
