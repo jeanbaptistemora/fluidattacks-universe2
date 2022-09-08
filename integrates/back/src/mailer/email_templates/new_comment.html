@@ -8,31 +8,39 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_news, go_to_button, text_area %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_news('Consulting') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        {{ user_email }}
-      </a> has
-      {% if parent == '0' %} made {% else %} replied to {% endif %}
-      {% if comment_type == 'observation' %} an observation on type of vulnerability
-      {% else %} a comment on{% endif %}
-      {% if comment_type != 'group' %} <strong>{{ finding_name }}</strong> of {% endif %}
-      group <strong>{{ group }}</strong>:
-    </p>
-    {{ text_area(comment) }}
-    <p></p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    {% if not has_machine or has_squad %} {{ go_to_button('Go to comment', comment_url, 'primary-button') }} {% endif %}
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_news('Consulting') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        {%- if comment_type == 'observation' %}
+        An observation
+        {%- else %}
+        A comment
+        {%- endif %}
+        {%- if comment_type != 'group' %}
+        on type of vulnerability <strong>{{ finding_name }}</strong>
+        {%- endif %}
+        has been
+        {% if parent == '0' %} made {% else %} replied {% endif %} by
+        <a href="mailto:{{ user_email }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ user_email -}}
+        </a>
+        in the group <strong>{{ group -}}</strong>:
+      </p>
+      {{ text_area(comment) }}
+      <p></p>
+      <p>Regards,<br>
+        Fluid Attacks Team</p>
+      {% if not has_machine or has_squad %} {{ go_to_button('Go to comment', comment_url, 'primary-button') }} {% endif %}
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
