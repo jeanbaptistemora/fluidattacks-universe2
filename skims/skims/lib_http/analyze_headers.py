@@ -536,18 +536,21 @@ def _query_dns(
 
     resolution = resolver.Resolver()
     record_type = "TXT"
-    resource_records = list(
-        map(
-            lambda r: r.strings,
-            resolution.resolve(domain, record_type, lifetime=timeout),
+    try:
+        resource_records = list(
+            map(
+                lambda r: r.strings,
+                resolution.resolve(domain, record_type, lifetime=timeout),
+            )
         )
-    )
-    _resource_record = [
-        resource_record[0][:0].join(resource_record)
-        for resource_record in resource_records
-        if resource_record
-    ]
-    records = [r.decode() for r in _resource_record]
+        _resource_record = [
+            resource_record[0][:0].join(resource_record)
+            for resource_record in resource_records
+            if resource_record
+        ]
+        records = [r.decode() for r in _resource_record]
+    except resolver.NXDOMAIN:
+        records = []
     return records
 
 
@@ -555,14 +558,18 @@ def _check_spf_record(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
     domain: str
+    records: list[str]
     validator: bool = False
 
     domain = ctx.url_ctx.get_base_domain()
-    for record in _query_dns(domain):
-        if "v=spf1" in record:
-            validator = True
-    if not validator:
-        locations.append("check_spf_record.missing")
+    records = _query_dns(domain)
+    if len(records) != 0:
+        for record_iterator in records:
+            if "v=spf1" in record_iterator:
+                validator = True
+                break
+        if not validator:
+            locations.append("check_spf_record.missing")
 
     return _create_vulns(
         locations=locations,
