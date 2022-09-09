@@ -7,7 +7,7 @@ codename: walker
 product: Nativefier 49.0.1
 date: 2022-09-08 20:30 COT
 cveid: CVE-2022-1959
-severity: 6.1
+severity: 8.8
 description: Nativefier 49.0.1  -  RCE via malicious URI schemes
 keywords: Fluid Attacks, Security, Vulnerabilities, Nativefier
 banner: advisories-bg
