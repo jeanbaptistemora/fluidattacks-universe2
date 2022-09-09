@@ -126,22 +126,22 @@ function render(dataDocument, baseHeight, baseWidth) {
     .style('fill-opacity', polygonOpacity)
     .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
-  const tooltip = svg.append('text')
+  const tooltip = d3.select('#legend')
+    .append('div')
     .attr('class', 'tooltip')
-    .attr('x', '0')
-    .attr('y', '0')
-    .attr('font-size', '12px')
-    .style('display', 'none')
-    .attr('text-anchor', 'middle')
-    .attr('dy', '0.4em')
-    .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
+    .style('opacity', '0')
+    .style('position', 'absolute')
+    .style('width', '180px')
+    .style('pointer-events', 'none')
+    .style('border-radius', '0')
+    .attr('font-size', '11px');
 
   svg.selectAll('.radarPolygonLine')
     .data(dataAxes)
     .enter().append('g')
     .attr('class', 'radarPolygonLine')
     .selectAll('.circleEdge')
-    .data((d, i) => d.map((t) => ({ ...t, 'index': i })))
+    .data((datum, index) => datum.map((axes) => ({ ...axes, index })))
     .enter()
     .append('circle')
     .attr('class', 'circleEdge')
@@ -150,17 +150,32 @@ function render(dataDocument, baseHeight, baseWidth) {
     .attr('cy', (datum, index) => rScale(datum.value) * Math.sin((anglePortion * index) - halfPi))
     .style('fill', (datum) => colorScale(datum.index))
     .style('pointer-events', 'all')
-    .on('mouseover', (datum, index) => {
+    .on('mouseover', (datum) => {
       tooltip
-        .attr('x', rScale(datum.value) * Math.cos((anglePortion * index) - halfPi))
-        .attr('y', (rScale(datum.value) * Math.sin((anglePortion * index) - halfPi)) - marginTopLegend)
         .transition()
-        .style('display', 'block')
-        .text(`${ datum.axis } ${ datum.value }`);
+        .duration('200')
+        .style('opacity', '0.99');
+      tooltip
+        .html(`
+        <div class="c3-tooltip-container" style="position: absolute;">
+          <table class="c3-tooltip">
+            <tbody>
+              <tr><th colspan="2">${ datum.axis }</th></tr>
+              <tr><td class="value">
+                <span style="background-color:${ colorScale(datum.index) }"></span>${ datum.value }</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `)
+        .style('left', `${ d3.event.pageX }px`)
+        .style('top', `${ d3.event.pageY - marginLeftLegend }px`);
     })
     .on('mouseout', () => {
-      tooltip.transition()
-        .style('display', 'none').text('');
+      tooltip
+        .transition()
+        .duration('400')
+        .style('opacity', '0');
     })
     .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
