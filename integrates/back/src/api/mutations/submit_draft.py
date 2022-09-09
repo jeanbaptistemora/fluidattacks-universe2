@@ -39,9 +39,6 @@ from newutils import (
     requests as requests_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -53,7 +50,7 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str
+    _: None, info: GraphQLResolveInfo, finding_id: str
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding
@@ -64,10 +61,6 @@ async def mutate(
             finding_id,
             user_email,
             requests_utils.get_source_new(info.context),
-        )
-        redis_del_by_deps_soon(
-            "submit_draft",
-            finding_id=finding_id,
         )
         finding: Finding = await finding_loader.load(finding_id)
         schedule(
@@ -88,4 +81,5 @@ async def mutate(
             info.context, f"Security: Attempted to submit draft {finding_id}"
         )
         raise
+
     return SimplePayload(success=True)

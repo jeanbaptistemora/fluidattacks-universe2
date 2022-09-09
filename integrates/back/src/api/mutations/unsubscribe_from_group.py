@@ -11,9 +11,6 @@ from ariadne import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -29,9 +26,6 @@ from groups import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
 )
 
 
@@ -51,13 +45,6 @@ async def mutate(
         loaders=loaders,
         group_name=group_name,
         email=stakeholder_email,
-    )
-    group: Group = await loaders.group.load(group_name)
-    group_org_id = group.organization_id
-    redis_del_by_deps_soon(
-        "unsubscribe_from_group",
-        group_name=group_name,
-        organization_id=group_org_id,
     )
     msg = (
         f"Security: Unsubscribed stakeholder: {stakeholder_email} "

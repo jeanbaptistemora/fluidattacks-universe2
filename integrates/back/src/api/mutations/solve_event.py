@@ -8,14 +8,8 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from dataloaders import (
-    Dataloaders,
-)
 from db_model.events.enums import (
     EventSolutionReason,
-)
-from db_model.events.types import (
-    Event,
 )
 from decorators import (
     concurrent_decorators,
@@ -32,9 +26,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
 )
 from typing import (
     Any,
@@ -54,7 +45,7 @@ from unreliable_indicators.operations import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     event_id: str,
     reason: str,
@@ -67,11 +58,6 @@ async def mutate(
         info, event_id, hacker_email, EventSolutionReason[reason], other
     )
 
-    loaders: Dataloaders = info.context.loaders
-    loaders.event.clear(event_id)
-    event: Event = await loaders.event.load(event_id)
-    group_name = event.group_name
-    redis_del_by_deps_soon("solve_event", group_name=group_name)
     logs_utils.cloudwatch_log(
         info.context, f"Security: Solved event {event_id} successfully"
     )

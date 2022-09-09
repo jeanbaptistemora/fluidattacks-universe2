@@ -40,9 +40,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -53,7 +50,7 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
@@ -69,11 +66,6 @@ async def mutate(
             finding_id,
             state_justification,
             user_email,
-        )
-        redis_del_by_deps_soon(
-            "remove_finding",
-            finding_id=finding_id,
-            group_name=finding.group_name,
         )
         schedule(
             findings_mail.send_mail_remove_finding(
@@ -94,4 +86,5 @@ async def mutate(
             info.context, f"Security: Attempted to remove finding {finding_id}"
         )
         raise
+
     return SimplePayload(success=True)

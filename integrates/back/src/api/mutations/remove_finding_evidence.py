@@ -27,9 +27,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -40,15 +37,11 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, evidence_id: str, finding_id: str
+    _: None, info: GraphQLResolveInfo, evidence_id: str, finding_id: str
 ) -> SimpleFindingPayload:
     try:
         await findings_domain.remove_evidence(
             info.context.loaders, evidence_id, finding_id
-        )
-        redis_del_by_deps_soon(
-            "remove_finding_evidence",
-            finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
@@ -63,4 +56,5 @@ async def mutate(
     finding_loader = info.context.loaders.finding
     finding_loader.clear(finding_id)
     finding = await finding_loader.load(finding_id)
+
     return SimpleFindingPayload(finding=finding, success=True)

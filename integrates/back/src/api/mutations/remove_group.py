@@ -47,12 +47,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -62,7 +56,7 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     reason: str,
@@ -108,7 +102,6 @@ async def mutate(
         )
         raise
 
-    redis_del_by_deps_soon("remove_group", group_name=group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Removed group {group_name} successfully",

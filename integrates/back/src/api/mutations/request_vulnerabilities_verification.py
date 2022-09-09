@@ -31,13 +31,6 @@ from newutils import (
     token as token_utils,
     validations,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
-from typing import (
-    Any,
-    List,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -56,11 +49,11 @@ from unreliable_indicators.operations import (
     require_finding_access,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    vulnerabilities: List[str],
+    vulnerabilities: list[str],
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
@@ -84,10 +77,6 @@ async def mutate(
             justification,
             set(vulnerabilities),
         )
-        redis_del_by_deps_soon(
-            "request_vulnerabilities_verification",
-            finding_id=finding_id,
-        )
         await update_unreliable_indicators_by_deps(
             EntityDependency.request_vulnerabilities_verification,
             finding_ids=[finding_id],
@@ -104,4 +93,5 @@ async def mutate(
             f"{finding_id}",
         )
         raise
+
     return SimplePayloadType(success=True)

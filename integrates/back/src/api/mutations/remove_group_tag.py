@@ -26,21 +26,10 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
-import logging
-import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
-from typing import (
-    Any,
-)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
 
 
 @convert_kwargs_to_snake_case
@@ -48,7 +37,7 @@ LOGGER = logging.getLogger(__name__)
     require_login, enforce_group_level_auth_async, require_asm
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     tag: str,
@@ -66,7 +55,6 @@ async def mutate(
             tag_to_remove=tag,
             user_email=user_email,
         )
-        redis_del_by_deps_soon("remove_group_tag", group_name=group_name)
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Removed tag from {group_name} group successfully",
@@ -80,4 +68,5 @@ async def mutate(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
+
     return SimpleGroupPayload(success=True, group=group)

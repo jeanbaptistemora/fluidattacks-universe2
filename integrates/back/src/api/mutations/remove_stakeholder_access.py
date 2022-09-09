@@ -24,9 +24,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -45,10 +42,6 @@ async def mutate(
     requester_email = user_data["user_email"]
     await groups_domain.remove_user(
         info.context.loaders, group_name, user_email, requester_email
-    )
-    redis_del_by_deps_soon(
-        "remove_stakeholder_access",
-        group_name=group_name,
     )
     msg = (
         f"Security: Removed stakeholder: {user_email} from {group_name} "
