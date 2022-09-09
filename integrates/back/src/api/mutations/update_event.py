@@ -11,7 +11,11 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.enums import (
+    EventSolutionReason,
     EventType,
 )
 from db_model.events.types import (
@@ -34,9 +38,11 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -53,17 +59,34 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     try:
+        loaders: Dataloaders = info.context.loaders
+        user_info = await token_utils.get_jwt_content(info.context)
+        stakeholder_email = user_info["user_email"]
         event_type = (
             EventType[kwargs["event_type"]]
             if kwargs.get("event_type")
             else None
         )
-        event: Event = await info.context.loaders.event.load(event_id)
-        await events_domain.update_event(
-            loaders=info.context.loaders,
-            event_id=event_id,
-            attributes=EventAttributesToUpdate(event_type=event_type),
+        solving_reason = (
+            EventSolutionReason[kwargs["solving_reason"]]
+            if kwargs.get("solving_reason")
+            else None
         )
+        other_solving_reason: Optional[str] = kwargs.get(
+            "other_solving_reason"
+        )
+        event: Event = await loaders.event.load(event_id)
+        await events_domain.update_event(
+            loaders=loaders,
+            event_id=event_id,
+            stakeholder_email=stakeholder_email,
+            attributes=EventAttributesToUpdate(
+                event_type=event_type,
+                other_solving_reason=other_solving_reason,
+                solving_reason=solving_reason,
+            ),
+        )
+
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Update an event in {event.group_name} group"

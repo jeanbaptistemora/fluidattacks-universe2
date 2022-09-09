@@ -398,7 +398,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     """Solves an Event, can either return two empty dicts or
     the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
     and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
     other_reason: str = other if other else ""
@@ -573,22 +573,58 @@ async def request_verification(  # pylint: disable=too-many-arguments
 
 
 async def update_event(
-    loaders: Any,
+    loaders: Dataloaders,
     event_id: str,
+    stakeholder_email: str,
     attributes: EventAttributesToUpdate,
 ) -> None:
     event: Event = await loaders.event.load(event_id)
+    solving_reason = attributes.solving_reason or event.state.reason
+    other_solving_reason = (
+        attributes.other_solving_reason or event.state.other
+        if solving_reason == EventSolutionReason.OTHER
+        else None
+    )
     if all(attribute is None for attribute in attributes):
         raise RequiredFieldToBeUpdate()
 
     if attributes.event_type:
         events_validations.validate_type(attributes.event_type)
-    event_type = attributes.event_type or event.type
-    await events_model.update_metadata(
-        event_id=event.id,
-        group_name=event.group_name,
-        metadata=EventMetadataToUpdate(type=event_type),
-    )
+
+    if (
+        solving_reason == EventSolutionReason.OTHER
+        and not other_solving_reason
+    ):
+        raise InvalidParameter("otherSolvingReason")
+
+    if (
+        solving_reason is not None
+        and event.state.status != EventStateStatus.SOLVED
+    ):
+        raise EventHasNotBeenSolved()
+
+    if attributes.event_type:
+        await events_model.update_metadata(
+            event_id=event.id,
+            group_name=event.group_name,
+            metadata=EventMetadataToUpdate(type=attributes.event_type),
+        )
+
+    if (
+        attributes.solving_reason != event.state.reason
+        or attributes.other_solving_reason != event.state.other
+    ):
+        await events_model.update_state(
+            current_value=event,
+            group_name=event.group_name,
+            state=EventState(
+                modified_by=stakeholder_email,
+                modified_date=datetime_utils.get_iso_date(),
+                other=other_solving_reason,
+                reason=solving_reason,
+                status=event.state.status,
+            ),
+        )
 
 
 async def update_evidence(
@@ -635,13 +671,12 @@ async def update_evidence(
 
 
 async def update_solving_reason(
-    info: GraphQLResolveInfo,
+    loaders: Dataloaders,
     event_id: str,
     stakeholder_email: str,
     reason: EventSolutionReason,
     other: Optional[str],
 ) -> None:
-    loaders = info.context.loaders
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
     if reason == EventSolutionReason.OTHER and not other:
