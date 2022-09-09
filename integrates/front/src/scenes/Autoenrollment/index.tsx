@@ -9,7 +9,6 @@ import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
-import { faMessage } from "@fortawesome/free-solid-svg-icons";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -24,7 +23,6 @@ import { Container, DashboardContent } from "./styles";
 import { isPersonalEmail } from "./utils";
 
 import { Announce } from "components/Announce";
-import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
@@ -48,7 +46,6 @@ import type {
 } from "scenes/Autoenrollment/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { toggleZendesk } from "utils/widgets";
 
 type TEnrollPages = "organization" | "repository" | "standBy";
 
@@ -421,8 +418,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
 
-  toggleZendesk();
-
   const pages: Record<TEnrollPages, JSX.Element> = {
     organization: (
       <Fragment>
@@ -498,14 +493,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   return (
     <Container>
       <Sidebar />
-      <DashboardContent id={"dashboard"}>
-        {pages[page]}
-        <div className={"absolute bottom-0 ma3 right-0"}>
-          <Button icon={faMessage} onClick={toggleZendesk} variant={"primary"}>
-            {"Chat"}
-          </Button>
-        </div>
-      </DashboardContent>
+      <DashboardContent id={"dashboard"}>{pages[page]}</DashboardContent>
     </Container>
   );
 };
