@@ -41,12 +41,12 @@ from typing import (
 
 async def create_session_token(user: Dict[str, str]) -> str:
     jti = token_utils.calculate_hash_token()["jti"]
-    user_email = user["username"]
+    user_email = user["email"]
     jwt_token: str = token_utils.new_encoded_jwt(
         dict(
             user_email=user_email,
-            first_name=user["first_name"],
-            last_name=user["last_name"],
+            first_name=user.get("given_name", ""),
+            last_name=user.get("family_name", ""),
             exp=datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
             sub="starlette_session",
             jti=jti,

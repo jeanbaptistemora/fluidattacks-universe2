@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=import-error, useless-suppression
+# pylint: disable=import-error, useless-suppression, too-many-arguments
 from model import (
     Credentials,
 )
@@ -67,9 +67,13 @@ def test_org_analytics(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter Analytics
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
@@ -123,9 +127,13 @@ def test_org_groups(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Add group
     group_name = "akame"
@@ -169,9 +177,13 @@ def test_org_stakeholder(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     driver.get(f"{asm_endpoint}/orgs/okada/stakeholders")
     utils.wait_for_text(
@@ -187,9 +199,13 @@ def test_org_portfolios(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter portfolio
     driver.get(f"{asm_endpoint}/orgs/okada/portfolios")

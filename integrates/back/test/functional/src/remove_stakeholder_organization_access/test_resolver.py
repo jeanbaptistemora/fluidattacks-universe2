@@ -7,9 +7,6 @@ from . import (
     get_result,
     put_access_token,
 )
-from custom_exceptions import (
-    ExpiredToken,
-)
 from datetime import (
     datetime,
     timedelta,
@@ -75,9 +72,7 @@ async def test_remove_stakeholder_organization_remaining_access(
     )
     if no_access_remaining:
         assert "errors" in second_result_query
-        assert second_result_query["errors"][0]["message"] == str(
-            ExpiredToken()
-        )
+        assert second_result_query["errors"][0]["message"] == "Login required"
     else:
         assert "errors" not in second_result_query
         assert (

@@ -13,6 +13,7 @@ from asyncio import (
 import authz
 import contextlib
 from custom_exceptions import (
+    ExpiredToken,
     FindingNotFound,
     InvalidAuthorization,
     InvalidPositiveArgument,
@@ -62,6 +63,7 @@ from organizations import (
 )
 from settings import (
     DEBUG,
+    JWT_COOKIE_NAME,
     LOGGING,
 )
 from stakeholders import (
@@ -125,12 +127,13 @@ def authenticate_session(func: TFun) -> TFun:
     @functools.wraps(func)
     async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
-        if (
-            "username" not in request.session
-            or request.session["username"] is None
-        ):
-            return templates_utils.unauthorized(request)
-        return await func(*args, **kwargs)
+        try:
+            await token_utils.get_jwt_content(request)
+            return await func(*args, **kwargs)
+        except (ExpiredToken, InvalidAuthorization):
+            response = templates_utils.unauthorized(request)
+            response.delete_cookie(key=JWT_COOKIE_NAME)
+            return response
 
     return cast(TFun, authenticate_and_call)
 

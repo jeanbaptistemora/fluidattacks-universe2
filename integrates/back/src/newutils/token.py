@@ -155,9 +155,6 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
         header_token = context.headers.get("Authorization")
         token = header_token.split()[1] if header_token else cookie_token
 
-        if context.session.get("username"):
-            await sessions_dal.check_jwt_token_validity(context)
-
         if not token:
             raise InvalidAuthorization()
 
@@ -165,12 +162,14 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
             content = decode_jwt(token, api=True)
         else:
             content = decode_jwt(token)
+            email = content["user_email"]
             if content.get("sub") == "starlette_session":
+                await sessions_dal.check_jwt_token_validity(context, email)
                 try:
                     session_jti: str = await redis_get_entity_attr(
                         entity="session",
                         attr="jti",
-                        email=content["user_email"],
+                        email=email,
                     )
                     if session_jti != content["jti"]:
                         raise ExpiredToken()

@@ -4,9 +4,6 @@
 
 # Starlette app init file
 
-from . import (
-    utils,
-)
 from .middleware import (
     CustomRequestMiddleware,
 )
@@ -89,6 +86,7 @@ import logging.config
 from newutils import (
     analytics,
     templates,
+    token as token_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -158,17 +156,14 @@ LOGGER = logging.getLogger(__name__)
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
     """View for authenticated users."""
-    email = request.session.get("username")
+    user_info = await token_utils.get_jwt_content(request)
+    email = user_info["user_email"]
     try:
-        if email:
-            if FI_ENVIRONMENT == "production":
-                await stakeholders_domain.check_session_web_validity(request)
-            response = templates.main_app(request)
-            jwt_token = await utils.create_session_token(request.session)
-            utils.set_token_in_response(response, jwt_token)
-        else:
-            response = templates.unauthorized(request)
-            response.delete_cookie(key=JWT_COOKIE_NAME)
+        if FI_ENVIRONMENT == "production":
+            await stakeholders_domain.check_session_web_validity(
+                request, email
+            )
+        response = templates.main_app(request)
     except (ExpiredToken, SecureAccessException):
         response = await logout(request)
     return response
@@ -340,14 +335,16 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
 
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session."""
-    if "username" in request.session:
-        user_email = request.session["username"]
-        await sessions_dal.remove_session_key(user_email, "web")
-        await sessions_dal.remove_session_key(user_email, "jwt")
-        await redis_del_entity_attr(
-            entity="session", attr="jti", email=user_email
-        )
-        await analytics.mixpanel_track(user_email, "Logout")
+    try:
+        user_info = await token_utils.get_jwt_content(request)
+    except (ExpiredToken, InvalidAuthorization):
+        return templates.unauthorized(request)
+
+    user_email = user_info["user_email"]
+    await sessions_dal.remove_session_key(user_email, "web")
+    await sessions_dal.remove_session_key(user_email, "jwt")
+    await redis_del_entity_attr(entity="session", attr="jti", email=user_email)
+    await analytics.mixpanel_track(user_email, "Logout")
 
     request.session.clear()
     response = RedirectResponse("/")

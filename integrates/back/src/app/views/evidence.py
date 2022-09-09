@@ -29,6 +29,7 @@ from magic import (
 from newutils import (
     files as files_utils,
     logs as logs_utils,
+    token as token_utils,
     utils,
 )
 from s3.operations import (
@@ -39,7 +40,6 @@ from starlette.requests import (
     Request,
 )
 from starlette.responses import (
-    HTMLResponse,
     JSONResponse,
     Response,
 )
@@ -66,16 +66,8 @@ async def enforce_group_level_role(
     *allowed_roles: Sequence[str],
 ) -> Response:
     response = None
-    email = request.session.get("username")
-    if not email:
-        return HTMLResponse(
-            "<script> "
-            "var getUrl=window.location.href.split("
-            "`${window.location.host}/`); "
-            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/"; '
-            "</script>"
-        )
+    user_info = await token_utils.get_jwt_content(request)
+    email = user_info["user_email"]
     requester_role = await authz.get_group_level_role(loaders, email, group)
     if requester_role not in allowed_roles:
         response = Response("Access denied")
@@ -84,6 +76,8 @@ async def enforce_group_level_role(
 
 
 async def get_evidence(request: Request) -> Response:
+    user_info = await token_utils.get_jwt_content(request)
+    email = user_info["user_email"]
     loaders: Dataloaders = get_new_context()
     group_name = request.path_params["group_name"]
     finding_id = request.path_params["finding_id"]
@@ -108,13 +102,12 @@ async def get_evidence(request: Request) -> Response:
     if error is not None:
         return error
 
-    username = request.session["username"]
     if (
         evidence_type in ["drafts", "findings", "vulns"]
-        and await has_access_to_finding(loaders, username, finding_id)
+        and await has_access_to_finding(loaders, email, finding_id)
     ) or (
         evidence_type == "events"
-        and await has_access_to_event(loaders, username, finding_id)
+        and await has_access_to_event(loaders, email, finding_id)
     ):
         if file_id is None:
             return Response("Error - Unsent image ID", media_type="text/html")

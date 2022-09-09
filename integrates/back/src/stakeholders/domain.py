@@ -113,8 +113,7 @@ async def add_push_token(loaders: Any, email: str, push_token: str) -> None:
         )
 
 
-async def check_session_web_validity(request: Request) -> None:
-    email: str = request.session["username"]
+async def check_session_web_validity(request: Request, email: str) -> None:
     session_key: str = request.session["session_key"]
     attr: str = "web"
 

@@ -66,10 +66,11 @@ async def authz_azure(request: Request) -> HTMLResponse:
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     email = user.get("email", user.get("upn", "")).lower()
+    response = RedirectResponse(url="/home")
     await handle_user(
-        request, {**user, "email": email, "given_name": user["name"]}
+        request, response, {**user, "email": email, "given_name": user["name"]}
     )
-    return RedirectResponse(url="/home")
+    return response
 
 
 @retry_on_exceptions(
@@ -85,8 +86,9 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
-    await handle_user(request, user)
-    return RedirectResponse(url="/home")
+    response = RedirectResponse(url="/home")
+    await handle_user(request, response, user)
+    return response
 
 
 @retry_on_exceptions(
@@ -102,8 +104,9 @@ async def authz_google(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
-    await handle_user(request, user)
-    return RedirectResponse(url="/home")
+    response = RedirectResponse(url="/home")
+    await handle_user(request, response, user)
+    return response
 
 
 async def do_azure_login(request: Request) -> Response:
@@ -129,13 +132,13 @@ async def do_google_login(request: Request) -> Response:
     return await google.authorize_redirect(request, redirect_uri)
 
 
-async def handle_user(request: Request, user: Dict[str, str]) -> Request:
+async def handle_user(
+    request: Request, response: HTMLResponse, user: Dict[str, str]
+) -> None:
+    email = user["email"]
     session_key = str(uuid.uuid4())
-
-    request.session["username"] = user["email"]
-    request.session["first_name"] = user.get("given_name", "")
-    request.session["last_name"] = user.get("family_name", "")
     request.session["session_key"] = session_key
-
-    await sessions_dal.create_session_web(request)
+    jwt_token = await utils.create_session_token(user)
+    utils.set_token_in_response(response, jwt_token)
+    await sessions_dal.create_session_web(request, email)
     await log_stakeholder_in(get_new_context(), user)

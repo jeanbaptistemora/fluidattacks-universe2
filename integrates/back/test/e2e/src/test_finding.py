@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=import-error, useless-suppression
+# pylint: disable=import-error, useless-suppression, too-many-arguments
 from model import (
     Credentials,
 )
@@ -20,9 +20,13 @@ def test_finding_description(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
@@ -90,10 +94,13 @@ def test_finding_comments(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
@@ -150,10 +157,13 @@ def test_finding_evidence(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
@@ -182,9 +192,13 @@ def test_finding_severity(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
@@ -214,10 +228,13 @@ def test_finding_tracking(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
@@ -246,10 +263,13 @@ def test_finding_reattack(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
@@ -358,10 +378,13 @@ def test_finding_vulnerabilities(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(

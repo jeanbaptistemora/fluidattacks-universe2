@@ -3,13 +3,10 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=import-error, useless-suppression
-from base64 import (
-    b64encode,
+from datetime import (
+    datetime,
+    timedelta,
 )
-from itsdangerous import (
-    TimestampSigner,
-)
-import json
 from model import (
     Credentials,
 )
@@ -28,8 +25,9 @@ from selenium.webdriver.support import (
 from selenium.webdriver.support.ui import (
     WebDriverWait,
 )
-from uuid import (
-    uuid4 as uuid,
+from session_token import (
+    calculate_hash_token,
+    new_encoded_jwt,
 )
 
 
@@ -125,27 +123,30 @@ def rand_name(prefix: str) -> str:
 
 
 def login(
-    driver: WebDriver, asm_endpoint: str, credentials: Credentials
+    driver: WebDriver,
+    asm_endpoint: str,
+    credentials: Credentials,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     driver.get(asm_endpoint)
-    signer = TimestampSigner(credentials.key)
-
-    session_cookie = signer.sign(
-        b64encode(
-            json.dumps(
-                {
-                    "username": credentials.user,
-                    "first_name": "",
-                    "last_name": "",
-                    "session_key": uuid().hex,
-                }
-            ).encode()
-        )
-    ).decode()
+    jti = calculate_hash_token()["jti"]
+    jwt_token: str = new_encoded_jwt(
+        dict(
+            user_email=credentials.user,
+            first_name="",
+            last_name="",
+            exp=datetime.utcnow() + timedelta(seconds=86400),
+            sub="test_e2e_session",
+            jti=jti,
+        ),
+        jwt_encryption_key,
+        jwt_secret,
+    )
 
     driver.add_cookie(
         {
-            "name": "session",
-            "value": session_cookie,
+            "name": "integrates_session",
+            "value": jwt_token,
         }
     )

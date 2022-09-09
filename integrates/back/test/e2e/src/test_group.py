@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=import-error, useless-suppression
+# pylint: disable=import-error, useless-suppression, too-many-arguments
 from model import (
     Credentials,
 )
@@ -23,9 +23,13 @@ def test_group_consulting(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter group consulting
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/consulting")
@@ -49,10 +53,13 @@ def test_group_reports(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
-
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
     # Enter reports
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     reports = utils.wait_for_id(
@@ -79,9 +86,13 @@ def test_group_events(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter event
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/events")
@@ -103,6 +114,8 @@ def test_group_analytics(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     expected_charts: Tuple[str, ...] = tuple(
         (
@@ -145,7 +158,9 @@ def test_group_analytics(
         )
     )
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter Analytics
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/analytics")
@@ -163,9 +178,13 @@ def test_group_forces(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter execution summary
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/devsecops")
@@ -182,14 +201,18 @@ def test_group_stakeholder(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/stakeholders")
     utils.wait_for_text(
         driver,
-        "integratesuser2@gmail.com",
+        "continuoushacking@gmail.com",
         timeout,
     )
     assert "Stakeholder email" in driver.page_source
@@ -208,9 +231,13 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Add repo
     repo_url: str = "https://gitlab.com/fluidattacks/universe"
@@ -295,9 +322,13 @@ def test_group_scope_environments(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Show all columns
     driver.execute_script('localStorage.setItem("rootTableSet", "{}")')
@@ -355,9 +386,13 @@ def test_group_scope_files(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter Scope
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
@@ -373,9 +408,13 @@ def test_group_scope_portfolio(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Add tag
     tag_name: str = utils.rand_name("test-portfolio")

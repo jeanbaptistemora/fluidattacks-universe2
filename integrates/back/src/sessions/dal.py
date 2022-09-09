@@ -34,8 +34,7 @@ async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
     await redis_cmd("setex", key, time, json.dumps(value))
 
 
-async def check_jwt_token_validity(request: Request) -> None:
-    email: str = request.session["username"]
+async def check_jwt_token_validity(request: Request, email: str) -> None:
     attr: str = "jwt"
     try:
         if await get_session_key(email, attr):
@@ -51,8 +50,7 @@ async def check_jwt_token_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def create_session_web(request: Request) -> bool:
-    email: str = request.session["username"]
+async def create_session_web(request: Request, email: str) -> bool:
     session_key: str = request.session["session_key"]
 
     # Check if there is a session already

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=import-error, useless-suppression
+# pylint: disable=import-error, useless-suppression, too-many-arguments
 from model import (
     Credentials,
 )
@@ -29,9 +29,13 @@ def test_others_dashboard(
     credentials: Credentials,
     asm_endpoint: str,
     timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
 ) -> None:
     # Login
-    utils.login(driver, asm_endpoint, credentials)
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
 
     # Enter dashboard
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
