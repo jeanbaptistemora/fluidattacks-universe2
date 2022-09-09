@@ -144,8 +144,8 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "CLIENT_EXPLICITLY_SUSPENDS_PROJECT": (
             "The client suspends the project"
         ),
-        "CLONING_ISSUES": "Repository cloning issues",
-        "CREDENTIAL_ISSUES": "Repository credentials issues",
+        "CLONING_ISSUES": "Cloning issues",
+        "CREDENTIAL_ISSUES": "Credentials issues",
         "DATA_UPDATE_REQUIRED": "Request user modification/workflow update",
         "ENVIRONMENT_ISSUES": "Environment issues",
         "INSTALLER_ISSUES": "Installer issues",
