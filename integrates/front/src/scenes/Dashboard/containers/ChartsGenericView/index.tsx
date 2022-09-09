@@ -229,7 +229,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                       generatorType={"radarChart"}
                       reportMode={reportMode}
                       subject={subject}
-                      title={t("Radar")}
+                      title={t("analytics.radarChart.exposureByCategories")}
                     />
                   </Col>
                   <Col lg={33} md={33} sm={33}>

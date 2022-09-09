@@ -161,9 +161,10 @@ function render(dataDocument, baseHeight, baseWidth) {
           <table class="c3-tooltip" style="opacity: 0.99">
             <tbody>
               <tr><th>${ datum.axis }</th></tr>
-              <tr><td class="value">
-                <span style="background-color:${ colorScale(datum.index) }"></span>${ datum.value }</td>
-              </tr>
+              <tr><td>
+                <span style="background-color:${ colorScale(datum.index) }"></span>
+                Exposure: ${ datum.value }
+              </td></tr>
             </tbody>
           </table>
       `)
