@@ -4,10 +4,12 @@
 
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
+    comment as common_comment,
     execution_block as common_execution_block,
     identifier as common_identifier,
     library_name as common_library_name,
     number_literal as common_number_literal,
+    operator as common_operator,
     parameter_list as common_parameter_list,
     program as common_program,
     reserved_word as common_reserved_word,
@@ -59,17 +61,23 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "block",
-            "extension_body",
-        },
-        syntax_reader=common_execution_block.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "false",
             "true",
         },
         syntax_reader=common_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "documentation_comment",
+        },
+        syntax_reader=common_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "block",
+            "extension_body",
+        },
+        syntax_reader=common_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -79,6 +87,7 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "additive_expression",
             "expression_statement",
         },
         syntax_reader=dart_expression_statement.reader,
@@ -130,6 +139,13 @@ DART_DISPATCHERS: Dispatchers = (
             "method_signature",
         },
         syntax_reader=dart_method_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "additive_operator",
+            "equality_operator",
+        },
+        syntax_reader=common_operator.reader,
     ),
     Dispatcher(
         applicable_types={
