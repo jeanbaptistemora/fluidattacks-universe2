@@ -193,7 +193,7 @@ async def _send_mail_analytics(
         frequency_title=frequency.title(),
         frequency_lower=frequency.lower(),
         image_src=image_url,
-        report_entity=entity,
+        report_entity=entity.value.lower(),
         report_subject=subject.lower(),
         report_subject_title=subject.title(),
         report_entity_percent=quote_plus(

@@ -8,46 +8,50 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group, go_to_button, analytics_image, charts_report_button %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Analytics Report') }}
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Analytics Report') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        Below, you will find the Analytics report for the
+        {{ report_entity }} <strong>{{ report_subject }}</strong>,
+        sent as part of your {{ frequency_lower }} subscription.
+        This report will be available for two days.
+      </p>
+      <p></p>
+      {{ analytics_image(image_src, 1200) }}
+      <br />
+      <p>
+        You are receiving this email because you are subscribed to {{ frequency_title }}
+        report in {{ report_subject_title }}.
+        If you require this information you can find it directly on the ARM.
+        You can modify the notifications frequency or disable them by visiting this
+        <a
+          href="{{ live_report_url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          link</a>.
+      </p>
+      <p></p>
+      <p>Regards,<br>
+        Fluid Attacks Team</p>
+        <table aria-label="Report Type" style="margin: auto;">
+          <tr>
+            <th scope="col">
+              {{ charts_report_button('Download', image_src, 'primary-button') }}
+            </th>
+            <th scope="col">
+              {{ charts_report_button('Live', live_report_url, 'secondary-button') }}
+            </th>
+          </tr>
+        </table>
+      <br />
+    </div>
 
-  <div class="main-content">
-    <p>Hi {{ name }},</p>
-    <p>
-      Below, you will find the Analytics report for the organization
-      {{ report_entity }} <strong>{{ report_subject }}</strong>,
-      sent as part of your {{ frequency_lower }} subscription.
-      This report will be available for two days.
-    </p>
-    <p></p>
-    {{ analytics_image(image_src, 1200) }}
-    <br />
-    <p>
-      You are receiving this email because you are subscribed to {{ frequency_title }}
-      report in {{ report_subject_title }}.
-      If you require this information you can find it directly on the ARM.
-      You can modify the notifications frequency or disable them by visiting this
-      <a href="{{ live_report_url }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        link</a>.
-    </p>
-    <p></p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-      <table aria-label="Report Type" style="margin: auto;">
-        <tr>
-          <th scope="col">
-            {{ charts_report_button('Download', image_src, 'primary-button') }}
-          </th>
-          <th scope="col">
-            {{ charts_report_button('Live', live_report_url, 'secondary-button') }}
-          </th>
-        </tr>
-      </table>
-    <br />
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
