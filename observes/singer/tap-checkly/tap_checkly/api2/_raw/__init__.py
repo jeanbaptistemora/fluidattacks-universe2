@@ -120,7 +120,7 @@ class RawClient:
         self, endpoint: str, params: JsonObj
     ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
         handled = self._unhandled_get(endpoint, params).map(self._handler)
-        return _retry.retry_cmd(
+        return _retry.retry_with_delay(
             handled, self._max_retries, lambda i: i ^ 2
         ).map(lambda r: r.alt(raise_exception).unwrap())
 
