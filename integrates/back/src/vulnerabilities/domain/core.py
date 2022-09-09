@@ -264,7 +264,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     user_email: str,
     source: Source,
     include_closed_vuln: bool = False,
-) -> bool:
+) -> None:
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
@@ -297,7 +297,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
             vulnerability=vulnerability,
         )
     await vulns_model.remove(vulnerability_id=vulnerability_id)
-    return True
 
 
 async def get_by_finding_and_vuln_ids(

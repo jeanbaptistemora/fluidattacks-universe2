@@ -42,9 +42,6 @@ from newutils import (
     token as token_utils,
     validations as validations_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 import time
 from typing import (
     Any,
@@ -79,7 +76,7 @@ async def send_group_consult_mail(
     require_squad,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
+    _: None, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> AddConsultPayload:
     loaders: Dataloaders = info.context.loaders
     validations_utils.validate_fields([parameters["content"]])
@@ -105,7 +102,6 @@ async def mutate(
     await group_comments_domain.add_comment(
         loaders, group_name, user_email, comment_data
     )
-    redis_del_by_deps_soon("add_group_consult", group_name=group_name)
     if content.strip() not in {"#external", "#internal"}:
         schedule(
             send_group_consult_mail(

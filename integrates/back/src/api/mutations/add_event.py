@@ -25,9 +25,6 @@ from newutils import (
     token as token_utils,
     validations,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -44,7 +41,7 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     image: Optional[UploadFile] = None,
@@ -75,6 +72,5 @@ async def mutate(
         info.context,
         f"Security: Added a new event in {group_name} group successfully",
     )
-    redis_del_by_deps_soon("add_event", group_name=group_name)
 
     return AddEventPayload(event_id=event_id, success=True)

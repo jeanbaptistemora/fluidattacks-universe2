@@ -33,9 +33,6 @@ from newutils.datetime import (
     get_as_utc_iso_format,
     get_now,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from time import (
     time,
 )
@@ -51,7 +48,7 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     content: str,
     event_id: str,
@@ -76,9 +73,6 @@ async def mutate(
     await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent_comment
     )
-
-    redis_del_by_deps_soon("add_event_consult", event_id=event_id)
-
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Added comment to event {event_id} successfully",

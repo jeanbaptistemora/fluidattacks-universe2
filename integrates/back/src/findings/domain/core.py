@@ -245,25 +245,23 @@ async def remove_vulnerabilities(
     finding_id: str,
     justification: StateRemovalJustification,
     user_email: str,
-) -> bool:
+) -> None:
     finding_vulns_loader = context.loaders.finding_vulnerabilities
     vulnerabilities: Tuple[Vulnerability] = await finding_vulns_loader.load(
         finding_id
     )
     source = requests_utils.get_source_new(context)
-    return all(
-        await collect(
-            vulns_domain.remove_vulnerability(
-                context.loaders,
-                finding_id,
-                vuln.id,
-                justification,
-                user_email,
-                source,
-                include_closed_vuln=True,
-            )
-            for vuln in vulnerabilities
+    await collect(
+        vulns_domain.remove_vulnerability(
+            context.loaders,
+            finding_id,
+            vuln.id,
+            justification,
+            user_email,
+            source,
+            include_closed_vuln=True,
         )
+        for vuln in vulnerabilities
     )
 
 

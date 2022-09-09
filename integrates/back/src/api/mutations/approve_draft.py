@@ -55,12 +55,8 @@ from newutils import (
 from newutils.datetime import (
     convert_from_iso_str,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from typing import (
     Any,
-    Tuple,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -80,12 +76,12 @@ from unreliable_indicators.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str
+    _: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
         loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)
-        vulnerabilities: Tuple[
+        vulnerabilities: tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities_all.load(finding_id)
         severity_score: Decimal = findings_domain.get_severity_score(
@@ -95,7 +91,7 @@ async def mutate(
             severity_score
         )
         group_name = finding.group_name
-        group_findings: Tuple[
+        group_findings: tuple[
             Finding, ...
         ] = await loaders.group_findings.load(group_name)
         user_info = await token_utils.get_jwt_content(info.context)
@@ -105,11 +101,6 @@ async def mutate(
             finding_id,
             user_email,
             requests_utils.get_source_new(info.context),
-        )
-        redis_del_by_deps_soon(
-            "approve_draft",
-            finding_id=finding_id,
-            group_name=group_name,
         )
         logs_utils.cloudwatch_log(
             info.context,
@@ -148,12 +139,12 @@ async def mutate(
                     severity_level=severity_level,
                 )
             )
-
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context, f"Security: Attempted to approve draft {finding_id}"
         )
         raise
+
     return ApproveDraftPayload(
         release_date=convert_from_iso_str(approval_date), success=True
     )

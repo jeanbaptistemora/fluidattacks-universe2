@@ -36,9 +36,6 @@ from decorators import (
 from group_access import (
     domain as group_access_domain,
 )
-from groups.domain import (
-    get_groups_by_stakeholder,
-)
 from jose import (
     JWTError,
 )
@@ -64,9 +61,6 @@ from newutils.validations import (
 )
 from organizations import (
     domain as orgs_domain,
-)
-from redis_cluster.operations import (
-    redis_del_by_deps,
 )
 from sessions.dal import (
     remove_session_key,
@@ -122,16 +116,6 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    await collect(
-        tuple(
-            redis_del_by_deps(
-                "remove_stakeholder_organization_access",
-                organization_id=organization_id,
-            )
-            for organization_id in organizations_ids
-        )
-    )
-
     active, inactive = await collect(
         [
             group_access_domain.get_stakeholder_groups_names(
@@ -166,16 +150,6 @@ async def complete_deletion(*, loaders: Dataloaders, email: str) -> None:
             remove_session_key(email, "web"),
             remove_session_key(email, "jwt"),
         ]
-    )
-    stakeholder_groups = await get_groups_by_stakeholder(loaders, email)
-    await collect(
-        tuple(
-            redis_del_by_deps(
-                "remove_stakeholder_access",
-                group_name=group_name,
-            )
-            for group_name in stakeholder_groups
-        )
     )
 
 

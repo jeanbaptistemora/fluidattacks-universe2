@@ -51,9 +51,6 @@ from newutils import (
     token as token_utils,
     validations as validations_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from time import (
     time,
 )
@@ -131,7 +128,6 @@ async def _add_finding_consult(
         )
         raise GraphQLError("Access denied") from None
 
-    redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
     if content.strip() not in {"#external", "#internal"}:
         schedule(
             send_finding_consult_mail(
@@ -159,7 +155,7 @@ async def _add_finding_consult(
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayload:
     comment_id = await _add_finding_consult(info, **parameters)
     return AddConsultPayload(success=True, comment_id=comment_id)

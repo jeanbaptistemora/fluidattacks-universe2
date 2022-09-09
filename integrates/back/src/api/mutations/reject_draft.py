@@ -50,9 +50,6 @@ from newutils import (
     requests as requests_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from typing import (
     Optional,
 )
@@ -67,7 +64,7 @@ from typing import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     reasons: list[str],
@@ -85,10 +82,6 @@ async def mutate(
             reasons={DraftRejectionReason[reason] for reason in reasons},
             other=other_reason.strip() if other_reason else None,
             reviewer_email=user_info["user_email"],
-        )
-        redis_del_by_deps_soon(
-            "reject_draft",
-            finding_id=finding_id,
         )
         stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
             rejection.rejected_by
@@ -117,4 +110,5 @@ async def mutate(
             info.context, f"Security: Attempted to reject draft {finding_id}"
         )
         raise
+
     return SimplePayload(success=True)

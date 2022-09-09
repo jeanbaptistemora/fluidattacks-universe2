@@ -30,12 +30,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -43,7 +37,7 @@ from typing import (
     require_login, enforce_group_level_auth_async, require_asm
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     tags: list[str],
@@ -74,13 +68,11 @@ async def mutate(
         tags_to_add=set(tags),
         user_email=user_email,
     )
-
-    loaders.group.clear(group_name)
-    redis_del_by_deps_soon("add_group_tags", group_name=group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Tags added to {group_name} group successfully",
     )
 
+    loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
     return SimpleGroupPayload(success=True, group=group)
