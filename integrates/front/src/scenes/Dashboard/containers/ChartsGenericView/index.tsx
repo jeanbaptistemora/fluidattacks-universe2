@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import { Col100, Col33, Col50 } from "./components/ChartCols";
 
+import { Col, Row as RowLeft } from "components/Layout";
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
@@ -215,6 +216,61 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               </Col100>
             </RowCenter>
             <RowCenter>
+              <Col100>
+                <RowLeft align={"start"} justify={"start"}>
+                  <Col lg={66} md={66} sm={66}>
+                    <Graphic
+                      bsHeight={320}
+                      className={"g1"}
+                      documentName={"exposureByCategories"}
+                      documentType={"radarChart"}
+                      entity={entity}
+                      generatorName={"generic"}
+                      generatorType={"radarChart"}
+                      reportMode={reportMode}
+                      subject={subject}
+                      title={t("Radar")}
+                    />
+                  </Col>
+                  <Col lg={33} md={33} sm={33}>
+                    <div
+                      className={"ph3 justify-between flex flex-column"}
+                      style={{ height: 402 }}
+                    >
+                      <Graphic
+                        bsHeight={80}
+                        className={"g3"}
+                        documentName={"totalFindings"}
+                        documentType={"textBox"}
+                        entity={entity}
+                        generatorName={"generic"}
+                        generatorType={"textBox"}
+                        infoLink={`${graphInfoLink}common#total-types`}
+                        reportMode={reportMode}
+                        subject={subject}
+                        title={t("analytics.textBox.totalTypes.title")}
+                      />
+                      <Graphic
+                        bsHeight={80}
+                        className={`g3 ${styles.verticalWrapper}`}
+                        documentName={"totalVulnerabilities"}
+                        documentType={"textBox"}
+                        entity={entity}
+                        generatorName={"generic"}
+                        generatorType={"textBox"}
+                        infoLink={`${graphInfoLink}common#total-vulnerabilities`}
+                        reportMode={reportMode}
+                        subject={subject}
+                        title={t(
+                          "analytics.textBox.totalVulnerabilities.title"
+                        )}
+                      />
+                    </div>
+                  </Col>
+                </RowLeft>
+              </Col100>
+            </RowCenter>
+            <RowCenter>
               <Col50>
                 <Graphic
                   bsHeight={160}
@@ -251,21 +307,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
-                  documentName={"totalFindings"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"generic"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#total-types`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={t("analytics.textBox.totalTypes.title")}
-                />
-              </Col33>
-              <Col33>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
                   documentName={"daysUntilZeroExposition"}
                   documentType={"textBox"}
                   entity={entity}
@@ -294,23 +335,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   )}
                 />
               </Col33>
-            </RowCenter>
-            <RowCenter>
-              <Col33>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
-                  documentName={"findingsBeingReattacked"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"generic"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#vulnerabilities-being-re-attacked`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={t("analytics.textBox.findingsBeingReattacked.title")}
-                />
-              </Col33>
               <Col33>
                 <Graphic
                   bsHeight={80}
@@ -324,21 +348,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   reportMode={reportMode}
                   subject={subject}
                   title={t("analytics.textBox.daysSinceLastRemediation.title")}
-                />
-              </Col33>
-              <Col33>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
-                  documentName={"totalVulnerabilities"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"generic"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#total-vulnerabilities`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={t("analytics.textBox.totalVulnerabilities.title")}
                 />
               </Col33>
             </RowCenter>
@@ -403,6 +412,21 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   reportMode={reportMode}
                   subject={subject}
                   title={t("analytics.textBox.meanTimeToReattack.title")}
+                />
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"findingsBeingReattacked"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-being-re-attacked`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.findingsBeingReattacked.title")}
                 />
               </Col33>
             </Row>
