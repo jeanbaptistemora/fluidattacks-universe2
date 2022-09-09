@@ -7022,18 +7022,150 @@ sigcore:
       title: Compliance
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
     M_1_2:
-      title: Compliance
+      title: End user device security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
     M_1_5:
-      title: Compliance
+      title: End user device security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
     M_1_10:
-      title: Compliance
+      title: End user device security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
     M_1_14:
-      title: Compliance
+      title: End user device security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
     M_1_25:
-      title: Compliance
+      title: End user device security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_3:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_4:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_7:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_9:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_11:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_12:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_13:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_15_4:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    N_1_15_5:
+      title: Network security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_1_3_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_1_5_3:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_2:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_2_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_2_4:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_3_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_3_3:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_4_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_5_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_5_3:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_6:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_7_1:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_8_2:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    P_8_5:
+      title: Privacy
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_2:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_2_1:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_2_2:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_2_4:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_2_5:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_4:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_4_2:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_6_1:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_6_2:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_8_1:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_8:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_9:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_11:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_12:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_13:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_15:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_16:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_18:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_20:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_9_27:
+      title: Server security
+      link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+    U_1_10_5:
+      title: Server security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
   metadata: {}
