@@ -134,6 +134,7 @@ function render(dataDocument, baseHeight, baseWidth) {
     .style('width', '180px')
     .style('pointer-events', 'none')
     .style('border-radius', '0')
+    .style('z-index', '10')
     .attr('font-size', '11px');
 
   svg.selectAll('.radarPolygonLine')
@@ -157,16 +158,14 @@ function render(dataDocument, baseHeight, baseWidth) {
         .style('opacity', '0.99');
       tooltip
         .html(`
-        <div class="c3-tooltip-container" style="position: absolute;">
-          <table class="c3-tooltip">
+          <table class="c3-tooltip" style="opacity: 0.99">
             <tbody>
-              <tr><th colspan="2">${ datum.axis }</th></tr>
+              <tr><th>${ datum.axis }</th></tr>
               <tr><td class="value">
                 <span style="background-color:${ colorScale(datum.index) }"></span>${ datum.value }</td>
               </tr>
             </tbody>
           </table>
-        </div>
       `)
         .style('left', `${ d3.event.pageX }px`)
         .style('top', `${ d3.event.pageY - marginLeftLegend }px`);
