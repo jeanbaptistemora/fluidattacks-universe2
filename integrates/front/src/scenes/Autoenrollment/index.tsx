@@ -20,11 +20,12 @@ import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
 import { Sidebar } from "./components/Sidebar";
 import { Standby } from "./components/Standby";
-import { Container, DashboardContent, FormContent } from "./styles";
+import { Container, DashboardContent } from "./styles";
 import { isPersonalEmail } from "./utils";
 
 import { Announce } from "components/Announce";
 import { Button } from "components/Button";
+import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import {
@@ -425,18 +426,18 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const pages: Record<TEnrollPages, JSX.Element> = {
     organization: (
       <Fragment>
-        <Text mb={1} mt={5} ta={"center"}>
+        <Text bright={0} mb={1} mt={5} ta={"center"} tone={"red"}>
           {t("autoenrollment.step2")}
         </Text>
         <Text fw={7} mb={1} size={4} ta={"center"}>
           {t("autoenrollment.setupOrganization")}
         </Text>
-        <Text mb={1} ta={"center"}>
+        <Text mb={4} ta={"center"}>
           {t("autoenrollment.aboutToStart")}
         </Text>
         <Row justify={"center"}>
           <Col lg={40} md={60} sm={90}>
-            <FormContent>
+            <Card>
               <AddOrganization
                 isSubmitting={isSubmitting}
                 onSubmit={handleSubmit}
@@ -446,25 +447,25 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 showSubmitAlert={showSubmitAlert}
                 successMutation={successMutation}
               />
-            </FormContent>
+            </Card>
           </Col>
         </Row>
       </Fragment>
     ),
     repository: (
       <Fragment>
-        <Text mb={1} mt={5} ta={"center"}>
+        <Text bright={0} mb={1} mt={5} ta={"center"} tone={"red"}>
           {t("autoenrollment.step1")}
         </Text>
         <Text fw={7} mb={1} size={4} ta={"center"}>
           {t("autoenrollment.addRepository")}
         </Text>
-        <Text mb={1} ta={"center"}>
+        <Text mb={4} ta={"center"}>
           {t("autoenrollment.canAddMore")}
         </Text>
         <Row justify={"center"}>
           <Col lg={40} md={60} sm={90}>
-            <FormContent>
+            <Card>
               <AddRoot
                 initialValues={repository}
                 onCompleted={goToOrg}
@@ -472,20 +473,23 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 setRepositoryValues={setRepository}
                 setRootMessages={setRootMessages}
               />
-            </FormContent>
+            </Card>
           </Col>
         </Row>
       </Fragment>
     ),
     standBy: (
       <Row justify={"center"}>
+        <div className={"pb4"} />
         <Col lg={30} md={50} sm={70}>
-          <FormContent>
+          <Card>
             <Standby onClose={asmRedirect}>
-              <h2>{t("autoenrollment.standby.title")}</h2>
-              <p>{t("autoenrollment.standby.subtitle")}</p>
+              <Text fw={7} mb={2} size={4} ta={"center"}>
+                {t("autoenrollment.standby.title")}
+              </Text>
+              <Text ta={"center"}>{t("autoenrollment.standby.subtitle")}</Text>
             </Standby>
-          </FormContent>
+          </Card>
         </Col>
       </Row>
     ),

@@ -5,8 +5,8 @@
  */
 
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import type { FC, ReactNode } from "react";
+import React, { Fragment } from "react";
 
 import { Button } from "components/Button";
 import { Lottie } from "components/Icon";
@@ -14,33 +14,34 @@ import { Col, Row } from "components/Layout";
 import scan from "resources/scan.json";
 
 interface IStandbyProps {
-  children: React.ReactNode;
+  children: ReactNode;
   onClose?: () => void;
 }
 
-const Standby: React.FC<IStandbyProps> = (
+const Standby: FC<IStandbyProps> = (
   props: Readonly<IStandbyProps>
 ): JSX.Element => {
   const { children, onClose = (): void => undefined } = props;
 
   return (
-    <Row>
-      <Col>
-        <Row justify={"end"}>
-          <Col>
-            <Button id={"close-standby"} onClick={onClose} size={"sm"}>
-              <FontAwesomeIcon icon={faClose} />
-            </Button>
-          </Col>
-        </Row>
-        <div className={"flex justify-center"}>
-          <Lottie animationData={scan} size={150} />
-        </div>
-        <Row justify={"center"}>
-          <Col>{children}</Col>
-        </Row>
-      </Col>
-    </Row>
+    <Fragment>
+      <Row justify={"end"}>
+        <Col>
+          <Button
+            icon={faClose}
+            id={"close-standby"}
+            onClick={onClose}
+            size={"sm"}
+          />
+        </Col>
+      </Row>
+      <div className={"flex justify-center"}>
+        <Lottie animationData={scan} size={150} />
+      </div>
+      <Row justify={"center"}>
+        <Col>{children}</Col>
+      </Row>
+    </Fragment>
   );
 };
 

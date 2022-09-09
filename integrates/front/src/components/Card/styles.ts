@@ -17,7 +17,7 @@ const CardBox = styled.div.attrs({
   ${({ float = false, onClick }): string => `
   background-color: #f4f4f6;
   border-radius: 4px;
-  padding: 20px;
+  padding: 24px;
   transition: all 0.3s ease;
 
   ${

@@ -16,7 +16,7 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Input, Select, TextArea } from "components/Input";
-import { Col, Row } from "components/Layout";
+import { Col, Hr, Row } from "components/Layout";
 import { Text } from "components/Text";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
 import { regExps } from "utils/validations";
@@ -149,12 +149,13 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               </Alert>
             ) : undefined}
           </Row>
-          <div className={"flex justify-start mv2"}>
+          <div className={"flex justify-start mv3"}>
             <Button disabled={isSubmitting} type={"submit"} variant={"primary"}>
               {t("autoenrollment.proceed")}
             </Button>
           </div>
-          <Text>
+          <Hr mv={16} />
+          <Text bright={9}>
             {t("autoenrollment.acceptTerms")}
             <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
               {t("autoenrollment.termsOfService")}

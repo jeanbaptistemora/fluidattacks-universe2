@@ -30,13 +30,4 @@ const DashboardContent = styled.div.attrs({
   scrollbar-width: none;
 `;
 
-const FormContent = styled.div.attrs({
-  className: "col-1",
-})`
-  margin: 16px 0 0;
-  padding: 24px 24px 24.2px;
-  border-radius: 6px;
-  background-color: #f4f4f6;
-`;
-
-export { Container, DashboardContent, FormContent };
+export { Container, DashboardContent };

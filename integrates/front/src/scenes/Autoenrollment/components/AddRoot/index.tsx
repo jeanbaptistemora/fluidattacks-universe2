@@ -288,7 +288,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   </Alert>
                 )}
               </Row>
-              <div className={"flex justify-start mt2"}>
+              <div className={"flex justify-start mt3"}>
                 <Button onClick={handleAccess} variant={"primary"}>
                   {t("autoenrollment.next")}
                 </Button>
