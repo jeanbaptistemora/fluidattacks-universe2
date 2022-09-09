@@ -8,19 +8,19 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Inactivity Alert') }}
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Inactivity Alert') }}
+    <div class="main-content">
+      <p>Hey {{ name }}!</p>
+      <p>
+        Three weeks have passed since you last used the ARM.
+        Sign in now and see what's new!
+      </p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+    </div>
 
-  <div class="main-content">
-    <p>Hey {{ name }}!</p>
-    <p>
-      Three weeks have passed since you last used the ARM. Sign in now and see what's new!
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
