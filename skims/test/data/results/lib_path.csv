@@ -36532,30 +36532,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2
   25 | )
      ^ Col 0
 ",maven.maven_sbt
-F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (com.newrelic.agent.java:newrelic-agent v6.3.0) [NR21-03],61,937,skims,011. Use of software with known vulnerabilities,Use of com.newrelic.agent.java:newrelic-agent at version 6.3.0 with ['NR21-03'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
-   51 |     </dependency>
-   52 |     <dependency>
-   53 |       <groupId>com.nimbusds</groupId>
-   54 |       <artifactId>oauth2-oidc-sdk</artifactId>
-   55 |       <version>6.5</version>
-   56 |       <scope>test</scope>
-   57 |     </dependency>
-   58 |     <dependency>
-   59 |       <groupId>com.newrelic.agent.java</groupId>
-   60 |       <artifactId>newrelic-agent</artifactId>
->  61 |       <version>6.3.0</version>
-   62 |       <scope>test</scope>
-   63 |     </dependency>
-   64 |     <dependency>
-   65 |       <groupId>org.springframework</groupId>
-   66 |       <artifactId>spring-web</artifactId>
-   67 |       <version>5.3.2</version>
-   68 |       <scope>test</scope>
-   69 |     </dependency>
-   70 |     <dependency>
-   71 |       <groupId>org.springframework</groupId>
-      ^ Col 0
-",maven.maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (com.nimbusds:oauth2-oidc-sdk v6.5) [SNYK-JAVA-COMNIMBUSDS-1243767],55,937,skims,011. Use of software with known vulnerabilities,Use of com.nimbusds:oauth2-oidc-sdk at version 6.5 with ['SNYK-JAVA-COMNIMBUSDS-1243767'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
    45 |     </dependency>
    46 |     <dependency>

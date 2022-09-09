@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from itertools import (
-    chain,
-)
 from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
@@ -19,11 +16,9 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShard,
     GraphShardMetadataLanguage,
     GraphShardNodes,
-    SyntaxStepMethodInvocation,
-    SyntaxSteps,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -44,18 +39,19 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterator,
+    Optional,
+    Tuple,
 )
 from utils.crypto import (
     insecure_elliptic_curve,
+    is_vulnerable_cipher,
 )
 import utils.graph as g
 from utils.languages.javascript import (
     is_cipher_vulnerable as javascript_cipher_vulnerable,
 )
 from utils.string import (
-    build_attr_paths,
     complete_attrs_on_set,
-    split_on_first_dot,
     split_on_last_dot,
 )
 
@@ -68,95 +64,51 @@ def is_insecure_hash_argument(graph: Graph, param: str) -> bool:
     return False
 
 
-def _test_native_cipher(
-    # pylint: disable=too-many-arguments
-    shard_db: ShardDb,
-    graph_db: GraphDB,
-    shard: GraphShard,
-    syntax_steps: SyntaxSteps,
-    step_index: int,
-    invocation_step: SyntaxStepMethodInvocation,
-) -> Iterator[Vulnerability]:
+def is_insecure_native_cipher(graph: Graph, param: Optional[NId]) -> bool:
     method = MethodsEnum.JS_INSECURE_CIPHER
-    finding = method.value.finding
+    if not param:
+        return False
 
-    _, method_name = split_on_last_dot(invocation_step.method)
-    if method_name not in {"createCipheriv", "createDecipheriv"}:
-        return
-    dependencies = get_dependencies(step_index, syntax_steps)
-    algorithm = dependencies[-1]
-    if (
-        algorithm.type == "SyntaxStepLiteral"
-        and (algorithm_value := algorithm.value)
-        and javascript_cipher_vulnerable(algorithm_value)
-    ):
-        yield from get_vulnerabilities_from_n_ids(
-            desc_key=("src.lib_path.f052.insecure_cipher.description"),
-            desc_params=dict(lang="JavaScript"),
-            graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-            method=method,
-        )
-    elif algorithm.type == "SyntaxStepSymbolLookup":
-        append_label_input(shard.graph, "1", finding)
-        mark_methods_sink(
-            finding,
-            shard.graph,
-            shard.syntax,
-            {"createCipheriv", "createDecipheriv"},
-        )
-        yield from shard_n_id_query(
-            shard_db,
-            graph_db,
-            shard,
-            n_id="1",
-            method=method,
-        )
-    else:
-        return
+    for path in get_backward_paths(graph, param):
+        if evaluation := evaluate(method, graph, path, param):
+            eval_str = "".join(list(evaluation.triggers))
+            return javascript_cipher_vulnerable(eval_str)
+    return False
 
 
-def _test_crypto_js(
-    shard_db: ShardDb,
-    graph_db: GraphDB,
-    shard: GraphShard,
-    invocation_step: SyntaxStepMethodInvocation,
-) -> Iterator[Vulnerability]:
+def get_obj_triggers(graph: Graph, pair: str) -> str:
     method = MethodsEnum.JS_INSECURE_CIPHER
-    finding = method.value.finding
+    test_node = graph.nodes[pair]["value_id"]
+    for path in get_backward_paths(graph, test_node):
+        if evaluation := evaluate(method, graph, path, test_node):
+            return "".join(list(evaluation.triggers))
+    return ""
 
-    _methods = [
-        ("crypto-js", "DES.encrypt"),
-        ("crypto-js", "RC4.encrypt"),
-    ]
-    methods = set(chain.from_iterable(build_attr_paths(*m) for m in _methods))
-    _, method_name = split_on_first_dot(invocation_step.method)
-    if method_name in methods:
-        yield from get_vulnerabilities_from_n_ids(
-            desc_key=("src.lib_path.f052.insecure_cipher.description"),
-            desc_params=dict(lang="JavaScript"),
-            graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-            method=method,
-        )
-    elif method_name in complete_attrs_on_set(
-        {
-            "crypto-js.AES.encrypt",
-            "crypto-js.RSA.encrypt",
-        }
-    ):
-        append_label_input(shard.graph, "1", finding)
-        mark_methods_sink(
-            finding,
-            shard.graph,
-            shard.syntax,
-            {"encrypt"},
-        )
-        yield from shard_n_id_query(
-            shard_db,
-            graph_db,
-            shard,
-            n_id="1",
-            method=method,
-        )
+
+def is_insecure_crypto(graph: Graph, obj_id: Optional[NId], algo: str) -> bool:
+    if not obj_id or graph.nodes[obj_id]["label_type"] != "Object":
+        return False
+    algo = algo.lower()
+    mode = ""
+    padding = None
+
+    obj_configs = g.match_ast_group_d(graph, obj_id, "Pair")
+    for nid in obj_configs:
+        key = graph.nodes[nid].get("key_id")
+        key_identifier = graph.nodes[key].get("symbol").lower()
+        if key_identifier == "mode":
+            mode = get_obj_triggers(graph, nid)
+        elif key_identifier == "padding":
+            padding = get_obj_triggers(graph, nid)
+
+    return is_vulnerable_cipher(algo, mode, padding)
+
+
+def _get_function_names(f_names: str) -> Tuple[str, str]:
+    name_l = f_names.split(".")
+    if len(name_l) < 2:
+        return "", name_l[-1]
+    return name_l[-2], name_l[-1]
 
 
 def javascript_insecure_hash(
@@ -200,32 +152,53 @@ def javascript_insecure_hash(
 
 
 def javascript_insecure_cipher(
-    shard_db: ShardDb,
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def find_vulns() -> Iterator[Vulnerability]:
-        for (
-            shard,
-            syntax_steps,
-            invocation_step,
-            index,
-        ) in yield_method_invocation(graph_db):
-            yield from _test_native_cipher(
-                shard_db,
-                graph_db,
-                shard,
-                syntax_steps,
-                index,
-                invocation_step,
-            )
-            yield from _test_crypto_js(
-                shard_db,
-                graph_db,
-                shard,
-                invocation_step,
-            )
+    native_ciphers = {"createCipheriv", "createDecipheriv"}
+    crypto1 = {"DES", "RC4"}
+    crypto2 = {"AES", "RSA"}
 
-    return tuple(find_vulns())
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="CallExpression"),
+            ):
+                f_name = graph.nodes[n_id]["function_name"]
+                algo, crypt = _get_function_names(f_name)
+                al_id = g.match_ast(graph, n_id, "ArgumentList").get(
+                    "ArgumentList"
+                )
+                if not al_id:
+                    continue
+
+                call_al = g.match_ast(graph, al_id)
+                is_insecure = False
+                if crypt in native_ciphers:
+                    test_node = call_al.get("__0__")
+                    is_insecure = is_insecure_native_cipher(graph, test_node)
+                elif algo in crypto1 and crypt == "encrypt":
+                    is_insecure = True
+                elif algo in crypto2 and crypt == "encrypt":
+                    test_node = call_al.get("__2__")
+                    is_insecure = is_insecure_crypto(graph, test_node, algo)
+
+                if is_insecure:
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=MethodsEnum.JS_INSECURE_CIPHER,
+    )
 
 
 def javascript_insecure_key(
