@@ -500,11 +500,8 @@ export const enTranslations: ResourceKey = {
         alerts: {
           editEvent: {
             eventNotFound: "The event has not been found",
-            success: "Event description has been updated",
-          },
-          editSolvingReason: {
             nonSolvedEvent: "The event has not been solved",
-            success: "Solving reason has been updated",
+            success: "Event description has been updated",
           },
           rejectSolution: {
             nonRequestedVerification:

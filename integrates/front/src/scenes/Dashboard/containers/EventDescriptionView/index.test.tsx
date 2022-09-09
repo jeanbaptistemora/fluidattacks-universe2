@@ -17,7 +17,6 @@ import {
   GET_EVENT_DESCRIPTION,
   REJECT_EVENT_SOLUTION_MUTATION,
   UPDATE_EVENT_MUTATION,
-  UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgSuccess } from "utils/notifications";
@@ -152,7 +151,12 @@ describe("eventDescriptionView", (): void => {
       {
         request: {
           query: UPDATE_EVENT_MUTATION,
-          variables: { eventId: "413372600", eventType: "CREDENTIAL_ISSUES" },
+          variables: {
+            eventId: "413372600",
+            eventType: "CREDENTIAL_ISSUES",
+            otherSolvingReason: undefined,
+            solvingReason: "CREDENTIALS_ARE_WORKING_NOW",
+          },
         },
         result: {
           data: {
@@ -202,9 +206,9 @@ describe("eventDescriptionView", (): void => {
     );
     userEvent.selectOptions(
       screen.getByRole("combobox", {
-        name: "eventType",
+        name: "solvingReason",
       }),
-      ["CREDENTIAL_ISSUES"]
+      ["CREDENTIALS_ARE_WORKING_NOW"]
     );
     await waitFor((): void => {
       expect(
@@ -219,95 +223,6 @@ describe("eventDescriptionView", (): void => {
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "group.events.description.alerts.editEvent.success",
-        "groupAlerts.updatedTitle"
-      );
-    });
-  });
-
-  it("should update event solving reason", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const mockedQueries: readonly MockedResponse[] = [
-      {
-        request: {
-          query: GET_EVENT_DESCRIPTION,
-          variables: { eventId: "413372600" },
-        },
-        result: {
-          data: {
-            event: {
-              affectedReattacks: [],
-              client: "Test",
-              closingDate: "2022-08-09 13:37:00",
-              detail: "Something happened",
-              eventStatus: "SOLVED",
-              eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-              hacker: "unittest@fluidattacks.com",
-              id: "413372600",
-              otherSolvingReason: "Reason test",
-              solvingReason: "OTHER",
-            },
-          },
-        },
-      },
-    ];
-    const mockedMutations: MockedResponse[] = [
-      {
-        request: {
-          query: UPDATE_EVENT_SOLVING_REASON_MUTATION,
-          variables: {
-            eventId: "413372600",
-            other: undefined,
-            reason: "PERMISSION_GRANTED",
-          },
-        },
-        result: {
-          data: {
-            updateEventSolvingReason: {
-              success: true,
-            },
-          },
-        },
-      },
-    ];
-
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_update_event_solving_reason_mutate" },
-    ]);
-    render(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mockedQueries, ...mockedMutations]}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={EventDescriptionView}
-              path={"/:groupName/events/:eventId/description"}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await waitFor((): void => {
-      expect(screen.getByText("Something happened")).toBeInTheDocument();
-      expect(
-        screen.queryByText("searchFindings.tabEvents.dateClosed")
-      ).toBeInTheDocument();
-    });
-    userEvent.click(screen.getByText("group.events.description.edit.text"));
-    userEvent.selectOptions(
-      screen.getByRole("combobox", {
-        name: "solvingReason",
-      }),
-      ["PERMISSION_GRANTED"]
-    );
-    userEvent.click(
-      screen.getByRole("button", { name: "group.events.description.save.text" })
-    );
-    await waitFor((): void => {
-      expect(msgSuccess).toHaveBeenCalledWith(
-        "group.events.description.alerts.editSolvingReason.success",
         "groupAlerts.updatedTitle"
       );
     });

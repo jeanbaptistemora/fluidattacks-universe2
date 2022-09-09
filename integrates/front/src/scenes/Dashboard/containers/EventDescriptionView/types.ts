@@ -43,17 +43,10 @@ interface IUpdateEventAttr {
   };
 }
 
-interface IUpdateEventSolvingReasonAttr {
-  updateEventSolvingReason: {
-    success: boolean;
-  };
-}
-
 export type {
   IAffectedReattacks,
   IEventDescriptionData,
   IDescriptionFormValues,
   IRejectEventSolutionResultAttr,
   IUpdateEventAttr,
-  IUpdateEventSolvingReasonAttr,
 };

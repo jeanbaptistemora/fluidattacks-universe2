@@ -22,7 +22,6 @@ import type {
   IEventDescriptionData,
   IRejectEventSolutionResultAttr,
   IUpdateEventAttr,
-  IUpdateEventSolvingReasonAttr,
 } from "./types";
 
 import { Modal, ModalConfirm } from "components/Modal";
@@ -33,7 +32,6 @@ import {
   REJECT_EVENT_SOLUTION_MUTATION,
   SOLVE_EVENT_MUTATION,
   UPDATE_EVENT_MUTATION,
-  UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
   Col100,
@@ -56,9 +54,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateEvent: boolean = permissions.can(
     "api_mutations_update_event_mutate"
-  );
-  const canUpdateEventSolvingReason: boolean = permissions.can(
-    "api_mutations_update_event_solving_reason_mutate"
   );
 
   const solvingReasons: Record<string, string> = {
@@ -297,9 +292,12 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         switch (message) {
           case "Exception - Event not found":
             msgError(
-              t(
-                `group.events.description.alerts.editSolvingReason.eventNotFound`
-              )
+              t(`group.events.description.alerts.editEvent.eventNotFound`)
+            );
+            break;
+          case "Exception - The event has not been solved":
+            msgError(
+              t(`group.events.description.alerts.editEvent.nonSolvedEvent`)
             );
             break;
           default:
@@ -310,41 +308,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     },
     refetchQueries: [GET_EVENT_DESCRIPTION],
   });
-
-  const [updateEventSolvingReason] = useMutation(
-    UPDATE_EVENT_SOLVING_REASON_MUTATION,
-    {
-      onCompleted: (mtResult: IUpdateEventSolvingReasonAttr): void => {
-        if (mtResult.updateEventSolvingReason.success) {
-          msgSuccess(
-            t("group.events.description.alerts.editSolvingReason.success"),
-            t("groupAlerts.updatedTitle")
-          );
-          setIsEditing(false);
-        }
-      },
-      onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - The event has not been solved":
-              msgError(
-                t(
-                  `group.events.description.alerts.editSolvingReason.nonSolvedEvent`
-                )
-              );
-              break;
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred updating the event solving reason",
-                error
-              );
-          }
-        });
-      },
-      refetchQueries: [GET_EVENT_DESCRIPTION],
-    }
-  );
 
   const handleRejectSolution: (values: Record<string, unknown>) => void =
     useCallback(
@@ -384,30 +347,17 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             : undefined;
 
         if (!_.isUndefined(data)) {
-          if (data.event.eventType !== values.eventType) {
-            void updateEvent({
-              variables: {
-                eventId,
-                eventType: values.eventType,
-              },
-            });
-          }
-          if (
-            data.event.solvingReason !== values.solvingReason ||
-            (!_.isUndefined(otherSolvingReason) &&
-              data.event.otherSolvingReason !== otherSolvingReason)
-          ) {
-            void updateEventSolvingReason({
-              variables: {
-                eventId,
-                other: otherSolvingReason,
-                reason: values.solvingReason,
-              },
-            });
-          }
+          void updateEvent({
+            variables: {
+              eventId,
+              eventType: values.eventType,
+              otherSolvingReason,
+              solvingReason: values.solvingReason,
+            },
+          });
         }
       },
-      [data, eventId, updateEvent, updateEventSolvingReason]
+      [data, eventId, updateEvent]
     );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -522,7 +472,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         >
           {({ values, dirty, setFieldValue }): React.ReactNode => {
             if (
-              canUpdateEventSolvingReason &&
               !_.isNull(values.solvingReason) &&
               !_.isEmpty(values.solvingReason) &&
               !_.isEmpty(values.eventType) &&
@@ -673,7 +622,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </Row>
                     {data.event.eventStatus === "SOLVED" ? (
                       isEditing ? (
-                        canUpdateEventSolvingReason ? (
+                        canUpdateEvent ? (
                           <Row>
                             <Col50>
                               <Row>

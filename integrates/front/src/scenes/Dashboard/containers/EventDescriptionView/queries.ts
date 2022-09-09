@@ -49,23 +49,17 @@ const SOLVE_EVENT_MUTATION: DocumentNode = gql`
 `;
 
 const UPDATE_EVENT_MUTATION: DocumentNode = gql`
-  mutation UpdateEventMutation($eventId: String!, $eventType: EventType) {
-    updateEvent(eventId: $eventId, eventType: $eventType) {
-      success
-    }
-  }
-`;
-
-const UPDATE_EVENT_SOLVING_REASON_MUTATION: DocumentNode = gql`
-  mutation UpdateEventSolvingReasonMutation(
+  mutation UpdateEventMutation(
     $eventId: String!
-    $other: String
-    $reason: SolveEventReason!
+    $eventType: EventType
+    $otherSolvingReason: String
+    $solvingReason: SolveEventReason
   ) {
-    updateEventSolvingReason(
+    updateEvent(
       eventId: $eventId
-      reason: $reason
-      other: $other
+      eventType: $eventType
+      otherSolvingReason: $otherSolvingReason
+      solvingReason: $solvingReason
     ) {
       success
     }
@@ -77,5 +71,4 @@ export {
   REJECT_EVENT_SOLUTION_MUTATION,
   SOLVE_EVENT_MUTATION,
   UPDATE_EVENT_MUTATION,
-  UPDATE_EVENT_SOLVING_REASON_MUTATION,
 };
