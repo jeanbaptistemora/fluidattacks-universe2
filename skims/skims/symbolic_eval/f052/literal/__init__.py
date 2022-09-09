@@ -18,6 +18,7 @@ from symbolic_eval.f052.literal.java import (
 from symbolic_eval.f052.literal.javascript import (
     js_insecure_cipher,
     js_insecure_hash,
+    js_insecure_key,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -37,6 +38,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_CIPHER: java_insecure_cipher,
     MethodsEnum.JS_INSECURE_HASH: js_insecure_hash,
     MethodsEnum.JS_INSECURE_CIPHER: js_insecure_cipher,
+    MethodsEnum.JS_INSECURE_KEY: js_insecure_key,
 }
 
 

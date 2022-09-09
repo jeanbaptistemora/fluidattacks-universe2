@@ -36,3 +36,15 @@ def js_insecure_cipher(
             args.triggers.add(curr_value + member_str)
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def js_insecure_key(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    args.evaluation[args.n_id] = False
+    if args.graph.nodes[args.n_id]["value_type"] in {"string", "number"}:
+        value = args.graph.nodes[args.n_id]["value"].replace('"', "")
+        args.triggers.clear()
+        args.triggers.add(value)
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
