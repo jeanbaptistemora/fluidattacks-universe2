@@ -37,14 +37,15 @@ function main() {
             --root-nickname "${root}" \
             --checks "${checks}" \
             --working-dir "groups/${group_name}/fusion/${root}" \
+            --api-token "${INTEGRATES_API_TOKEN}" \
           && aws s3 cp \
             --recursive \
             "groups/${group_name}/fusion/${root}/execution_configs/" \
             s3://skims.data/configs \
           && find "groups/${group_name}/fusion/${root}/execution_configs/" \
             -name "*.yaml" \
-          | while IFS=$'\n' read -r file_config; do
-            skims scan "groups/${group_name}/fusion/${root}/execution_configs/${file_config}"
+          | while read -r file_config; do
+            skims scan "${file_config}"
           done \
           && aws s3 cp \
             --recursive \

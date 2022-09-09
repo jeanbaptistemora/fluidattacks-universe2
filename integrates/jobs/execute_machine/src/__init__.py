@@ -2,9 +2,23 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 import argparse
+from contextlib import (
+    suppress,
+)
 import json
+import logging
 import os
 import re
+import requests
+from requests.exceptions import (
+    ConnectionError,
+    ConnectTimeout,
+    HTTPError,
+    Timeout,
+)
+from retry import (
+    retry,
+)
 import subprocess
 from typing import (
     Any,
@@ -12,8 +26,16 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     Union,
+)
+from urllib3 import (
+    exceptions,
+)
+from urllib3.util.url import (
+    parse_url,
+    Url,
 )
 import uuid
 import yaml  # type: ignore
@@ -126,6 +148,92 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
 ]
 
 
+@retry(
+    (TypeError, ConnectionError, ConnectTimeout, Timeout, HTTPError),
+    tries=5,
+    delay=2,
+)
+def _request_asm(
+    payload: Dict[str, Any],
+    token: str,
+) -> Optional[Dict[str, Any]]:
+    result: Optional[Dict[str, Any]] = None
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    with requests.session() as session:
+        response = session.post(
+            "https://app.fluidattacks.com/api",
+            data=json.dumps(payload),
+            headers=headers,
+        )
+        if response.status_code == 200:
+            result = response.json()
+
+    return result
+
+
+def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
+    result: Optional[List[Dict[str, Any]]] = None
+    query = """
+        query MachineGetGroupRoots(
+            $groupName: String!
+        ) {
+            group(groupName: $groupName) {
+                roots {
+                    ... on GitRoot {
+                        environmentUrls
+                        gitEnvironmentUrls {
+                          url
+                          id
+                          secrets {
+                            value
+                            key
+                          }
+                          urlType
+                        }
+                        nickname
+                        url
+                        id
+                        gitignore
+                    }
+                }
+            }
+        }
+    """
+    payload = {"query": query, "variables": {"groupName": group_name}}
+
+    response = _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["group"]["roots"]
+    else:
+        logging.error("Failed to fetch root info for group %s", group_name)
+
+    return result
+
+
+def get_group_language(token: str, group_name: str) -> Optional[str]:
+    result: Optional[str] = None
+    query = """
+        query MachineGetGroupLanguage($groupName: String!) {
+            group(groupName: $groupName) {
+                language
+            }
+        }
+    """
+    payload = {"query": query, "variables": {"groupName": group_name}}
+
+    response = _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["group"]["language"]
+    else:
+        print(response)
+        logging.error("Failed to fetch root info for group %s", group_name)
+
+    return result
+
+
 def get_repo_head_hash(path: str) -> str:
     with subprocess.Popen(["git", "rev-parse", "HEAD"], cwd=path) as executor:
         _stdout, _ = executor.communicate()
@@ -191,11 +299,45 @@ def is_additional_path(dirs: List[str], files: List[str]) -> bool:
     return False
 
 
+def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
+    urls: Set[str] = set()
+    urls.update(scopes)
+
+    for scope in scopes:
+        # FP: switch the type of protocol
+        for from_, to_ in (
+            ("http://", "https://"),  # NOSONAR
+            ("https://", "http://"),  # NOSONAR
+        ):
+            if scope.startswith(from_):
+                urls.add(scope.replace(from_, to_, 1))
+
+    return sorted(urls)
+
+
+def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
+    targets: List[Tuple[str, str]] = []
+    parsed_urls: Set[Url] = set()
+    for url in urls:
+        with suppress(ValueError, exceptions.HTTPError):
+            parsed_urls = {*parsed_urls, parse_url(url)}
+    for parsed_url in parsed_urls:
+        if parsed_url.port is None:
+            if (parsed_url.host, "443") not in targets:
+                targets.append((parsed_url.host, "443"))
+        else:
+            if (parsed_url.host, str(parsed_url.port)) not in targets:
+                targets.append((parsed_url.host, str(parsed_url.port)))
+    targets.sort(key=lambda x: x[0])
+
+    return targets
+
+
 def generate_configs(
     *,
     group_name: str,
-    namespace: str,
     checks: Tuple[str, ...],
+    token: str,
     language: str = "EN",
     working_dir: str = ".",
 ) -> List[Dict[str, Any]]:
@@ -207,20 +349,31 @@ def generate_configs(
         if is_additional_path(dirs, files):
             additional_paths.append(current_dir.replace(f"{working_dir}/", ""))
     commit = ""
+    git_root = next(
+        (
+            root
+            for root in get_roots(token, group_name) or []
+            if root["nickname"]
+        ),
+        None,
+    )
+    if not git_root:
+        return []
     all_configs = [
         generate_config(
             group_name=group_name,
-            git_root=namespace,
+            git_root=git_root,
             checks=checks,
             language=language,
             working_dir=working_dir,
             exclude=tuple(additional_paths),
+            is_main=True,
             commit=commit,
         ),
         *(
             generate_config(
                 group_name=group_name,
-                git_root=namespace,
+                git_root=git_root,
                 checks=checks,
                 language=language,
                 working_dir=working_dir,
@@ -245,23 +398,67 @@ def generate_configs(
     return all_configs
 
 
-def generate_config(
+def generate_config(  # pylint: disable=too-many-locals
     *,
     group_name: str,
-    git_root: str,
+    git_root: Dict[str, Any],
     checks: Tuple[str, ...],
     commit: str,
     language: str = "EN",
     include: Tuple[str, ...] = (),
     exclude: Tuple[str, ...] = (),
     working_dir: str = ".",
+    is_main: bool = True,
 ) -> Dict[str, Any]:
+    namespace = git_root["nickname"]
     execution_id = (
         f"{group_name}"
         f'_{os.environ.get("AWS_BATCH_JOB_ID", uuid.uuid4().hex)}'
-        f"_{git_root}"
+        f"_{namespace}"
         f"_{uuid.uuid4().hex[:8]}"
     )
+
+    scopes: Set[str] = set()
+    urls: List[str] = []
+    ssl_targets: List[Tuple[str, str]] = []
+    dast_config: Optional[Dict[str, Any]] = None
+    if is_main:
+        scopes = git_root["environmentUrls"]
+        urls = get_urls_from_scopes(scopes)
+        ssl_targets = get_ssl_targets(urls)
+        secrets = {
+            secret["key"]: secret["value"]
+            for environment_url in git_root["gitEnvironmentUrls"]
+            if environment_url["urlType"] == "CLOUD"  # type: ignore
+            for secret in environment_url["secrets"]
+        }
+        dast_config = {
+            "aws_credentials": (
+                [
+                    {
+                        "access_key_id": secrets["AWS_ACCESS_KEY_ID"],
+                        "secret_access_key": secrets["AWS_SECRET_ACCESS_KEY"],
+                    }
+                ]
+                if (
+                    "AWS_ACCESS_KEY_ID" in secrets
+                    and "AWS_SECRET_ACCESS_KEY" in secrets
+                )
+                else []
+            ),
+            "http": {
+                "include": urls,
+            },
+            "ssl": {
+                "include": [
+                    {
+                        "host": host,
+                        "port": port,
+                    }
+                    for host, port in ssl_targets
+                ],
+            },
+        }
     return {
         "apk": {
             "exclude": [],
@@ -269,9 +466,9 @@ def generate_config(
         },
         "checks": list(checks),
         "commit": commit,
-        "dast": None,
+        "dast": dast_config,
         "language": language,
-        "namespace": git_root,
+        "namespace": namespace,
         "output": {
             "file_path": os.path.abspath(
                 f"{working_dir}/execution_results/{execution_id}.sarif"
@@ -286,6 +483,7 @@ def generate_config(
                     (
                         "glob(**/.git)",
                         *exclude,
+                        *(git_root["gitignore"] if git_root else []),
                     )
                 )
             ),
@@ -309,14 +507,15 @@ def main() -> None:
     parser.add_argument("--root-nickname", type=str, required=True)
     parser.add_argument("--checks", type=str, required=True)
     parser.add_argument("--working-dir", type=str, required=True, default=".")
+    parser.add_argument("--api-token", type=str, required=True)
     args = parser.parse_args()
 
     configs = generate_configs(
         group_name=args.group_name,
-        namespace=args.root_nickname,
         checks=json.loads(args.checks),
-        language=args.language,
+        language=get_group_language(args.api_token, args.group_name) or "EN",
         working_dir=args.working_dir,
+        token=args.api_token,
     )
     os.makedirs(f"{args.working_dir}/execution_configs", exist_ok=True)
     os.makedirs(f"{args.working_dir}/execution_results", exist_ok=True)

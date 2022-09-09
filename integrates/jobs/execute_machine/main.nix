@@ -17,6 +17,7 @@ makeScript {
     bin = [
       (makePythonVersion "3.9")
       inputs.nixpkgs.jq
+      inputs.nixpkgs.findutils
     ];
     source = [
       outputs."/skims/config/runtime"
