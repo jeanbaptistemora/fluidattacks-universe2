@@ -482,14 +482,6 @@ const Development = [
   'development/licencing-and-copyright',
   'development/analytics-conventions',
   'development/melts',
-  {
-    type: 'category',
-    label: 'Makes',
-    items: [
-      'development/makes/introduction',
-      'development/makes/supply-chain-levels-for-software-artifacts',
-    ]
-  },
 ]
 
 const Machine = [
