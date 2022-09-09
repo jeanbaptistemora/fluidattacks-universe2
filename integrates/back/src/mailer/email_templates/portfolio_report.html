@@ -8,29 +8,48 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Portfolio Alert') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      Portfolios have been
-      {% if is_added %}added to{% else %}deleted from{% endif %} the group
-      <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>
-      as {{ user_role }}.
-    </p>
-    <p>
-      <strong>Portfolios:</strong> {{ portfolios }}.<br>
-      <strong>Date:</strong> {{ report_date }}.
-      <br>
-    </p>
-    <p></p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Portfolio Alert') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        Portfolios have been
+        {%- if is_added %}
+        added by
+        <strong>
+          <a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible }}
+          </a>
+        </strong>
+        to the group <strong>{{ group_name -}}</strong>
+        {%- else %}
+        deleted from the group <strong>{{ group_name }}</strong> by
+        <strong>
+          <a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a></strong>
+        {%- endif -%}:
+      </p>
+      <p>
+        <strong>Date:</strong> {{ report_date }}<br>
+        <strong>Portfolios:</strong> {{ portfolios }}<br>
+      </p>
+      <p></p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}

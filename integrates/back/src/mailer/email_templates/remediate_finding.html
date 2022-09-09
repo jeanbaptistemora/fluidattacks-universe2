@@ -8,31 +8,40 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_finding('Vulnerability Remediated') }}
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_finding('Vulnerability Remediated') }}
 
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
-        {{ user_email }}
-      </a>
-      has told us that one vulnerability of the type
-      <strong>{{ finding_name }}</strong>, of group <strong>{{ group }}</strong>,
-      was remediated.
-    </p>
-    <p>
-      The solution applied was:
-    </p>
-    {{ text_area(solution_description) }}
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    {{ go_to_button('Go to type of vulnerability', finding_url, 'primary-button') }}
-    <br />
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        A vulnerability in the group <strong>{{ group }}</strong>
+        has been remediated according to
+        <strong><a
+            href="mailto:{{ user_email }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ user_email -}}
+        </a></strong>:
+      </p>
+      <p>
+        <strong>Type of vulnerability:</strong> {{ finding_name }} <br>
+        <strong>solution applied:</strong>
+        {%- for line in solution_description %}
+        {{ line }}<br>
+        {%- endfor %}
+      </p>
+      <p></p>
+      <p>Regards,<br>
+        Fluid Attacks Team
+      </p>
+      {{ go_to_button('Go to type of vulnerability', finding_url, 'primary-button') }}
+      <br />
+    </div>
+
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
