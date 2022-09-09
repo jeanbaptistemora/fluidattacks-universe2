@@ -13,11 +13,20 @@ import logging.config
 from settings import (
     LOGGING,
 )
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    Generator,
+    Optional,
+)
 from zenpy import (
     Zenpy,
 )
 from zenpy.lib.api_objects import (
+    Comment,
     Ticket,
+    TicketAudit,
     User,
 )
 from zenpy.lib.exception import (
@@ -36,20 +45,33 @@ def create_ticket(
     subject: str,
     description: str,
     requester_email: str,
+    attachments: Optional[tuple[UploadFile, ...]] = None,
 ) -> bool:
     success: bool = False
     try:
         with zendesk() as api:
-            api.tickets.create(
-                Ticket(
-                    subject=subject,
-                    description=description,
-                    requester=User(
-                        name=requester_email,
-                        email=requester_email,
-                    ),
-                )
+            ticket = Ticket(
+                subject=subject,
+                description=description,
+                requester=User(
+                    name=requester_email,
+                    email=requester_email,
+                ),
             )
+            ticket_audit: TicketAudit = api.tickets.create(ticket)
+            created_ticket: Ticket = ticket_audit.ticket
+
+            if attachments:
+                uploads = tuple(
+                    api.attachments.upload(attachment.file).token
+                    for attachment in attachments
+                )
+                created_ticket.comment = Comment(
+                    body="Attachments",
+                    uploads=uploads,
+                )
+                api.tickets.update(created_ticket)
+
     except ZenpyException as exception:
         LOGGER.exception(exception, extra=dict(extra=locals()))
     else:
@@ -68,7 +90,7 @@ def create_ticket(
 
 
 @contextlib.contextmanager
-def zendesk() -> Zenpy:
+def zendesk() -> Generator[Zenpy, None, None]:
     try:
         yield Zenpy(
             email=FI_ZENDESK_EMAIL,
