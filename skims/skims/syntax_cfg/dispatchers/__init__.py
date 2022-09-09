@@ -79,6 +79,7 @@ DISPATCHERS: Dispatchers = (
             "Literal",
             "MemberAccess",
             "MethodInvocation",
+            "MethodSignature",
             "Object",
             "ObjectCreation",
             "PostfixUnaryExpression",

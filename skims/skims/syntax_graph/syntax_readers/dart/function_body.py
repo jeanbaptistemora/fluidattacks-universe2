@@ -18,4 +18,16 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = adj_ast(args.ast_graph, args.n_id)
-    return build_function_body_node(args, iter(c_ids))
+    invalid_childs = {
+        "=>",
+        ";",
+    }
+    graph = args.ast_graph
+    return build_function_body_node(
+        args,
+        c_ids=(
+            _id
+            for _id in c_ids
+            if graph.nodes[_id]["label_type"] not in invalid_childs
+        ),
+    )

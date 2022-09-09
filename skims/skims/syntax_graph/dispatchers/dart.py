@@ -10,6 +10,7 @@ from syntax_graph.syntax_readers.common import (
     number_literal as common_number_literal,
     parameter_list as common_parameter_list,
     program as common_program,
+    reserved_word as common_reserved_word,
     string_literal as common_string_literal,
 )
 from syntax_graph.syntax_readers.dart import (
@@ -20,7 +21,9 @@ from syntax_graph.syntax_readers.dart import (
     extension_declaration as dart_extension_declaration,
     function_body as dart_function_body,
     function_signature as dart_function_signature,
+    getter_signature as dart_getter_signature,
     import_or_export as dart_import_or_export,
+    method_signature as dart_method_signature,
     selector as dart_selector,
     type_identifier as dart_type_identifier,
 )
@@ -100,6 +103,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "getter_signature",
+        },
+        syntax_reader=dart_getter_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
         },
         syntax_reader=common_identifier.reader,
@@ -118,6 +127,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "method_signature",
+        },
+        syntax_reader=dart_method_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "formal_parameter_list",
         },
         syntax_reader=common_parameter_list.reader,
@@ -127,6 +142,12 @@ DART_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=common_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "get",
+        },
+        syntax_reader=common_reserved_word.reader,
     ),
     Dispatcher(
         applicable_types={
