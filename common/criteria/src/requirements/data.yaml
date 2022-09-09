@@ -95,6 +95,7 @@
     - sig.H_3_1_16
     - sig.I_1_11
     - sig.M_1_5
+    - sig.U_1_2_4
   metadata: {}
 '024':
   en:
@@ -787,6 +788,7 @@
     - nist800115.3_5
     - swiftcsc.1_2
     - pci.2_2_7
+    - sig.U_1_9_20
   metadata: {}
 '034':
   en:
@@ -1543,6 +1545,7 @@
     - pci.2_2_6
     - sig.I_1_3_2
     - sig.I_3_2_1
+    - sig.U_1_2
   metadata: {}
 '072':
   en:
@@ -1744,6 +1747,7 @@
     - sig.L_11_1
     - sig.M_1_10
     - sig.M_1_14
+    - sig.U_1_4
   metadata: {}
 '077':
   en:
@@ -1988,6 +1992,8 @@
     - pci.10_3_2
     - siglite.SL_85
     - sig.M_1_14
+    - sig.U_1_4_2
+    - sig.U_1_9_9
   metadata: {}
 '083':
   en:
@@ -2482,6 +2488,8 @@
     - sig.H_6_1
     - sig.I_1_18_3
     - sig.I_3_2_10
+    - sig.P_8_2
+    - sig.U_1_6_1
   metadata: {}
 '096':
   en:
@@ -2705,6 +2713,7 @@
   references:
     - cis.9_7
     - iec62443.RDF-5_3
+    - sig.U_1_10_5
   metadata: {}
 '117':
   en:
@@ -3059,6 +3068,7 @@
     - pci.3_5_1
     - sig.H_3_3
     - sig.H_3_3_1
+    - sig.U_1_9_16
   metadata: {}
 '128':
   en:
@@ -3162,6 +3172,7 @@
     - siglite.SL_72
     - sig.H_3_1_14
     - sig.H_3_1_15
+    - sig.U_1_9_12
   metadata: {}
 '131':
   en:
@@ -3314,6 +3325,7 @@
     - pci.8_3_6
     - siglite.SL_72
     - sig.H_3_1_6
+    - sig.U_1_9_11
   metadata: {}
 '134':
   en:
@@ -3429,6 +3441,7 @@
     - owaspmasvs.V4_5
     - nist800171.5_9
     - sig.H_3_1_8
+    - sig.U_1_9_13
   metadata: {}
 '137':
   en:
@@ -3644,6 +3657,7 @@
     - asvs.2_5_6
     - asvs.2_8_1
     - pci.8_3_5
+    - sig.U_1_9_13
   metadata: {}
 '141':
   en:
@@ -3765,6 +3779,8 @@
     - bsafss.CF_1-4
     - cwe25.276
     - pci.2_2_2
+    - sig.N_1_13
+    - sig.U_1_2_5
   metadata: {}
 '143':
   en:
@@ -3799,6 +3815,7 @@
     - nist800171.5_1
     - pci.8_2_1
     - sig.H_2
+    - sig.U_1_9_18
   metadata: {}
 '144':
   en:
@@ -5016,6 +5033,7 @@
     - owaspscp.13
     - sig.I_3_2_5
     - sig.M_1_2
+    - sig.U_1_2_1
   metadata: {}
 '168':
   en:
@@ -6021,6 +6039,7 @@
     - sig.D_4_4_4
     - sig.D_6_1
     - sig.H_3_2
+    - sig.U_1_8_1
   metadata: {}
 '183':
   en:
@@ -6103,6 +6122,7 @@
     - pci.3_2_1
     - pci.9_4_7
     - sig.I_1_19_2
+    - sig.P_1_3_1
   metadata: {}
 '184':
   en:
@@ -6344,6 +6364,7 @@
     - pci.7_2_5
     - siglite.SL_148
     - sig.H_1_2
+    - sig.U_1_2_2
   metadata: {}
 '189':
   en:
@@ -6429,6 +6450,7 @@
     - owasprisks.P16
     - asvs.8_3_3
     - siglite.SL_154
+    - sig.P_1_5_3
   metadata: {}
 '205':
   en:
@@ -7684,6 +7706,7 @@
     - pci.9_2_3
     - pci.11_2_1
     - siglite.SL_151
+    - sig.N_1_4
   metadata: {}
 '250':
   en:
@@ -7729,6 +7752,7 @@
     - issaf.L_4_3
     - ptes.5_2_2_1
     - c2m2.9_2_c
+    - sig.N_1_4
   metadata: {}
 '251':
   en:
@@ -7799,6 +7823,7 @@
     - ptes.6_7_6_1
     - c2m2.9_5_e
     - pci.2_3_2
+    - sig.N_1_12
   metadata: {}
 '253':
   en:
@@ -7937,6 +7962,7 @@
     - pci.1_4_2
     - pci.9_2_2
     - sig.I_3_2_5_1
+    - sig.N_1_11
   metadata: {}
 '257':
   en:
@@ -8021,6 +8047,7 @@
     - issaf.G_14
     - ptes.7_3_1_5
     - c2m2.9_2_g
+    - sig.N_1_3
   metadata: {}
 '259':
   en:
@@ -8060,6 +8087,7 @@
     - pci.1_3_2
     - siglite.SL_88
     - sig.D_9_2
+    - sig.N_1_7
   metadata: {}
 '260':
   en:
@@ -8832,6 +8860,7 @@
     - pci.3_4_1
     - sig.H_3_4
     - sig.I_1_19_3
+    - sig.P_5_3
   metadata: {}
 '301':
   en:
@@ -9130,6 +9159,7 @@
     - owasprisks.P10
     - owasprisks.P17
     - siglite.SL_154
+    - sig.P_3_1
   metadata: {}
 '311':
   en:
@@ -9264,6 +9294,7 @@
     - lgpd.18_IX
     - lgpd.60
     - owasprisks.P4
+    - sig.P_6
   metadata: {}
 '313':
   en:
@@ -9407,6 +9438,8 @@
     - owasprisks.P15
     - pci.3_3_1
     - sig.D_4_4
+    - sig.P_2
+    - sig.P_2_4
   metadata: {}
 '315':
   en:
@@ -9537,6 +9570,11 @@
     - siglite.SL_98
     - siglite.SL_154
     - sig.D_4_4
+    - sig.P_2_1
+    - sig.P_3_3
+    - sig.P_4_1
+    - sig.P_7_1
+    - sig.P_8_5
   metadata: {}
 '316':
   en:
@@ -9599,6 +9637,7 @@
     - lgpd.18_III
     - lgpd.20
     - owasprisks.P9
+    - sig.P_6
   metadata: {}
 '317':
   en:
@@ -9666,6 +9705,7 @@
     - owasprisks.P6
     - owasprisks.P9
     - asvs.8_3_2
+    - sig.P_6
   metadata: {}
 '318':
   en:
@@ -10040,6 +10080,7 @@
     - nist800171.3_6
     - nist800115.3_2
     - asvs.7_1_4
+    - sig.U_1_4
   metadata: {}
 '323':
   en:
@@ -10424,6 +10465,9 @@
     - pci.8_4_3
     - sig.H_2_14
     - sig.H_4_2
+    - sig.N_1_15_5
+    - sig.U_1_6_2
+    - sig.U_1_9_27
   metadata: {}
 '329':
   en:
@@ -11169,6 +11213,8 @@
     - siglite.SL_160
     - sig.D_6_1
     - sig.H_4_1
+    - sig.N_1_15_4
+    - sig.U_1_9_15
   metadata: {}
 '339':
   en:
@@ -11373,6 +11419,7 @@
     - nistssdf.PW_9_1
     - owaspscp.7
     - pci.7_3_3
+    - sig.N_1_9
   metadata: {}
 '342':
   en:
@@ -12436,6 +12483,7 @@
     - pci.3_2_1
     - pci.3_3_3
     - pci.6_5_6
+    - sig.P_5_1
   metadata: {}
 '361':
   en:
@@ -13089,6 +13137,7 @@
     - c2m2.2_1_j
     - c2m2.5_2_d
     - siglite.SL_85
+    - sig.U_1_4
   metadata: {}
 '377':
   en:
@@ -13198,6 +13247,7 @@
     - osamm.OE_3
     - asvs.1_7_2
     - sig.M_1_14
+    - sig.U_1_9_8
   metadata: {}
 '379':
   en:
