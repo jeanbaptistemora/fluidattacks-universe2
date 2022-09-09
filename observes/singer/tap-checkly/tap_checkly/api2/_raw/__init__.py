@@ -10,13 +10,11 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     FrozenList,
     JsonObj,
     Maybe,
     Result,
-)
-from fa_purity.json.errors.invalid_type import (
-    InvalidType,
 )
 from fa_purity.json.factory import (
     from_any,
@@ -38,10 +36,11 @@ from requests.exceptions import (
 )
 from typing import (
     NoReturn,
-    Union,
+    TypeVar,
 )
 
 LOG = logging.getLogger(__name__)
+_T = TypeVar("_T")
 
 
 @dataclass(frozen=True)
@@ -66,7 +65,7 @@ class RawClient:
     def _full_endpoint(self, endpoint: str) -> str:
         return self._api_url + endpoint
 
-    def _unhandled_get(
+    def _raw_get(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[
         Result[
@@ -116,19 +115,60 @@ class RawClient:
 
         return item.alt(_handled_errors)
 
+    def _server_error_handler(
+        self, retry: int, result: Result[_T, HTTPError]
+    ) -> Result[_T | None, HTTPError]:
+        _union: UnionFactory[_T, None] = UnionFactory()
+        return result.map(_union.inl).lash(
+            lambda e: Result.success(None)
+            if retry >= 4 and e.errno in range(500, 600)
+            else Result.failure(e)
+        )
+
     def get(
         self, endpoint: str, params: JsonObj
-    ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
-        handled = self._unhandled_get(endpoint, params).map(self._handler)
-        return _retry.retry_with_delay(
-            handled, self._max_retries, lambda i: i ^ 2
+    ) -> Cmd[JsonObj | FrozenList[JsonObj] | None]:
+        _union: UnionFactory[
+            JsonObj | FrozenList[JsonObj], None
+        ] = UnionFactory()
+        handled = (
+            self._raw_get(endpoint, params)
+            .map(self._handler)
+            .map(lambda r: r.map(_union.inl))
+        )
+
+        def _retry_cmd(
+            retry: int,
+            result: Result[JsonObj | FrozenList[JsonObj] | None, HTTPError],
+        ) -> Cmd[Result[JsonObj | FrozenList[JsonObj] | None, HTTPError]]:
+            _delay = _retry.delay(
+                retry, result, self._max_retries, lambda i: i ^ 2
+            )
+
+            def _to_result(
+                item: JsonObj | FrozenList[JsonObj] | None,
+            ) -> Result[JsonObj | FrozenList[JsonObj] | None, HTTPError]:
+                return Result.success(item)
+
+            if endpoint.startswith("/v1/check-results"):
+                return (
+                    self._server_error_handler(retry, result)
+                    .map(lambda x: Cmd.from_cmd(lambda: _to_result(x)))
+                    .value_or(_delay)
+                )
+            return _delay
+
+        return _retry.retry_cmd(
+            handled, lambda i, r: _retry_cmd(i, r), self._max_retries
         ).map(lambda r: r.alt(raise_exception).unwrap())
 
     def get_list(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[FrozenList[JsonObj]]:
+        empty: FrozenList[JsonObj] = tuple()
         return (
             self.get(endpoint, params)
+            .map(lambda x: empty if x is None else x)
             .map(
                 lambda x: Maybe.from_optional(
                     x if isinstance(x, tuple) else None
@@ -142,8 +182,10 @@ class RawClient:
         )
 
     def get_item(self, endpoint: str, params: JsonObj) -> Cmd[JsonObj]:
+        empty: JsonObj = FrozenDict({})
         return (
             self.get(endpoint, params)
+            .map(lambda x: empty if x is None else x)
             .map(
                 lambda x: Maybe.from_optional(
                     x if not isinstance(x, tuple) else None
