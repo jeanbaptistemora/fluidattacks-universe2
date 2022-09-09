@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
 from custom_exceptions import (
     UnableToSendMail,
 )
@@ -63,7 +67,7 @@ async def send_abandoned_trial_notification() -> None:
             )
             and delta_hours in INACTIVE_HOURS
         ):
-            await groups_mail.send_abandoned_trial_notification(
+            await mail_abandoned_trial_notification(
                 loaders, stakeholder.email, delta_hours == 1
             )
 
