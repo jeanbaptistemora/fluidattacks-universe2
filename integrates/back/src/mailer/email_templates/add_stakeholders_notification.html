@@ -1,0 +1,48 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>{{ name }},</p>
+    <p>
+      You can add members of your team and co-workers so they also benefit from
+      Fluid Attacks' Continuous Hacking Machine Plan. Your group Stakeholders can
+      review vulnerabilities reported and perform other actions based on their
+      <a href="https://docs.fluidattacks.com/machine/web/groups/roles" rel="noopener noreferrer" target="_blank">role</a>.
+      You can assign users in the group to remediate specific vulnerabilities.
+    </p>
+    <div>
+      <img alt="add stakeholder gif" class="w-100"
+        src="https://res.cloudinary.com/fluid-attacks/image/upload/v1662679671/notifications/add-stakeholders/add-stakeholders.gif"
+        style="display:block;">
+    </div>
+    <p class="mt1">
+      Once you add them, they’ll receive an email where they can confirm
+      their access to our <strong>Attacks Resistance Management (ARM) Platform.</strong>
+    </p>
+    {{ go_to_button('Go to stakeholders', '{{ stakeholders_link }}', 'primary-button') }}
+    <p class="mt1">
+      To know more, visit our documentation
+      <a href="https://docs.fluidattacks.com" rel="noopener noreferrer" target="_blank">here</a>.
+    </p>
+    <p>
+      <strong>Questions or comments?</strong> You can always contact us at
+      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+    </p>
+    <p>We love having you!</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
