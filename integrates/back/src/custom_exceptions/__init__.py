@@ -1675,3 +1675,9 @@ class FileNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The file has not been found"
         super(FileNotFound, self).__init__(msg)
+
+
+class InvalidEventSolvingReason(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The solving reason is not valid for the event type"
+        super(InvalidEventSolvingReason, self).__init__(msg)

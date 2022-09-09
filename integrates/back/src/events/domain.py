@@ -24,6 +24,7 @@ from custom_exceptions import (
     EventVerificationNotRequested,
     InvalidCommentParent,
     InvalidDate,
+    InvalidEventSolvingReason,
     InvalidFileSize,
     InvalidFileType,
     InvalidParameter,
@@ -90,6 +91,7 @@ from event_comments import (
 from events.constants import (
     FILE_EVIDENCE_IDS,
     IMAGE_EVIDENCE_IDS,
+    SOLUTION_REASON_BY_EVENT_TYPE,
 )
 from events.types import (
     EventAttributesToUpdate,
@@ -406,6 +408,9 @@ async def solve_event(  # pylint: disable=too-many-locals
     if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
 
+    if reason not in SOLUTION_REASON_BY_EVENT_TYPE[event.type]:
+        raise InvalidEventSolvingReason()
+
     affected_reattacks: tuple[
         Vulnerability, ...
     ] = await loaders.event_vulnerabilities_loader.load((event_id))
@@ -585,6 +590,7 @@ async def update_event(
         if solving_reason == EventSolutionReason.OTHER
         else None
     )
+    event_type = attributes.event_type or event.type
     if all(attribute is None for attribute in attributes):
         raise RequiredFieldToBeUpdate()
 
@@ -602,6 +608,12 @@ async def update_event(
         and event.state.status != EventStateStatus.SOLVED
     ):
         raise EventHasNotBeenSolved()
+
+    if (
+        event.state.status == EventStateStatus.SOLVED
+        and solving_reason not in SOLUTION_REASON_BY_EVENT_TYPE[event_type]
+    ):
+        raise InvalidEventSolvingReason()
 
     if attributes.event_type:
         await events_model.update_metadata(
@@ -687,6 +699,9 @@ async def update_solving_reason(
 
     if event.state.status != EventStateStatus.SOLVED:
         raise EventHasNotBeenSolved()
+
+    if reason not in SOLUTION_REASON_BY_EVENT_TYPE[event.type]:
+        raise InvalidEventSolvingReason()
 
     await events_model.update_state(
         current_value=event,

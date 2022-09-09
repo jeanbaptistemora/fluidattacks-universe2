@@ -19,12 +19,16 @@ async def get_result(
     user: str,
     event_id: str,
     event_type: str,
+    solving_reason: str,
+    other_solving_reason: str,
 ) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             updateEvent(
                 eventId: "{event_id}"
                 eventType: {event_type}
+                solvingReason: {solving_reason}
+                otherSolvingReason: "{other_solving_reason}"
             ) {{
                 success
             }}

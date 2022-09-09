@@ -28,10 +28,30 @@ from typing import (
 @pytest.mark.parametrize(
     ["email", "event_id", "reason", "other"],
     [
-        ["admin@gmail.com", "418900971", "PROBLEM_SOLVED", None],
-        ["hacker@gmail.com", "418900972", "PERMISSION_DENIED", None],
-        ["reattacker@gmail.com", "418900973", "SUPPLIES_WERE_GIVEN", None],
-        ["resourcer@gmail.com", "418900974", "TOE_CHANGE_APPROVED", None],
+        [
+            "admin@gmail.com",
+            "418900971",
+            "OTHER",
+            "Reason test",
+        ],
+        [
+            "hacker@gmail.com",
+            "418900972",
+            "OTHER",
+            "Reason test",
+        ],
+        [
+            "reattacker@gmail.com",
+            "418900973",
+            "OTHER",
+            "Reason test",
+        ],
+        [
+            "resourcer@gmail.com",
+            "418900974",
+            "OTHER",
+            "Reason test",
+        ],
         [
             "customer_manager@fluidattacks.com",
             "418900975",
