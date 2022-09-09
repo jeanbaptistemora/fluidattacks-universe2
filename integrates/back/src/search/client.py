@@ -25,6 +25,7 @@ from contextlib import (
 from opensearchpy import (
     AIOHttpConnection,
     AsyncOpenSearch,
+    JSONSerializer,
 )
 from opensearchpy.helpers.signer import (
     OPENSEARCH_SERVICE,
@@ -86,6 +87,13 @@ class AsyncAWSConnection(AIOHttpConnection):
         )
 
 
+class SetEncoder(JSONSerializer):
+    def default(self, data: Any) -> JSONSerializer:
+        if isinstance(data, set):
+            return list(data)
+        return JSONSerializer.default(self, data)
+
+
 SESSION = Session()
 CLIENT_OPTIONS = {
     "aws_credentials": SESSION.get_credentials(),
@@ -95,6 +103,7 @@ CLIENT_OPTIONS = {
     "http_compress": False,
     "use_ssl": FI_ENVIRONMENT == "production",
     "verify_certs": FI_ENVIRONMENT == "production",
+    "serializer": SetEncoder(),
 }
 CONTEXT_STACK = None
 CLIENT = None

@@ -13,6 +13,9 @@ from dynamodb.types import (
     EventName,
     Record,
 )
+from dynamodb.utils import (
+    SetEncoder,
+)
 from more_itertools import (
     chunked,
 )
@@ -31,6 +34,7 @@ CLIENT = OpenSearch(
     timeout=100,
     use_ssl=FI_ENVIRONMENT == "prod",
     verify_certs=FI_ENVIRONMENT == "prod",
+    serializer=SetEncoder(),
 )
 
 

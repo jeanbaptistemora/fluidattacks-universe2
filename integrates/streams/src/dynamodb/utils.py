@@ -9,9 +9,19 @@ from dynamodb.types import (
     EventName,
     Record,
 )
+from opensearchpy import (
+    JSONSerializer,
+)
 from typing import (
     Any,
 )
+
+
+class SetEncoder(JSONSerializer):
+    def default(self, data: Any) -> JSONSerializer:
+        if isinstance(data, set):
+            return list(data)
+        return JSONSerializer.default(self, data)
 
 
 def deserialize_dynamodb_json(item: dict[str, Any]) -> dict[str, Any]:
