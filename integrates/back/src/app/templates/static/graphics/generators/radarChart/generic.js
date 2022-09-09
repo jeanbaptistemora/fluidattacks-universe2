@@ -50,7 +50,7 @@ function render(dataDocument, baseHeight, baseWidth) {
       .style('stroke', 'black')
       .style('stroke-opacity', '0.5')
       .style('stroke-width', '0.35px')
-      .attr('transform', `translate(${ adjustedHalfWidth - separation }, ${ adjustedHalfHeight - separation })`);
+      .attr('transform', `translate(${ adjustedHalfWidth - separation }, ${ radius - separation })`);
 
     svg.selectAll('.portion')
       .data([ 1 ])
@@ -59,7 +59,7 @@ function render(dataDocument, baseHeight, baseWidth) {
       .attr('x', separation * (1 - Math.sin(anglePortion)))
       .attr('y', separation * (1 - Math.cos(anglePortion)))
       .attr('font-size', '11px')
-      .attr('transform', `translate(${ adjustedHalfWidth - separation }, ${ adjustedHalfHeight - separation })`)
+      .attr('transform', `translate(${ adjustedHalfWidth - separation }, ${ radius - separation })`)
       .attr('fill', 'gray')
       .text(d3.format('.1f')(indexLevel * maxValue / numberOfBackgroundPolygons));
   });
@@ -82,18 +82,19 @@ function render(dataDocument, baseHeight, baseWidth) {
     .attr('class', 'line')
     .style('stroke', 'black')
     .style('stroke-width', '.4px')
-    .attr('transform', `translate(${ adjustedHalfWidth },${ adjustedHalfHeight })`);
+    .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
+  const minX = Math.min(adjustedHalfWidth, baseHeight / 2);
   function getPositionX(index) {
     const positionX = 40;
-    const x = adjustedHalfWidth * (1 - (distanceFromAxes * Math.sin(index * anglePortion)));
+    const x = minX * (1 - (distanceFromAxes * Math.sin(index * anglePortion)));
     const left = (positionX * Math.sin(index * anglePortion));
     return x - left;
   }
 
   function getPositionY(index) {
     const positionY = 20;
-    const y = adjustedHalfHeight * (1 - Math.cos(index * anglePortion));
+    const y = radius * (1 - Math.cos(index * anglePortion));
     const top = (positionY * Math.cos(index * anglePortion));
     return y - top;
   }
@@ -107,7 +108,8 @@ function render(dataDocument, baseHeight, baseWidth) {
     .attr('dy', '1.5em')
     .attr('transform', 'translate(0, -10)')
     .attr('x', (_datum, index) => getPositionX(index))
-    .attr('y', (_datum, index) => getPositionY(index));
+    .attr('y', (_datum, index) => getPositionY(index))
+    .attr('transform', `translate(${ adjustedHalfWidth - minX }, -10)`);
 
   const radarLine = d3.radialLine()
     .curve(d3.curveLinearClosed)
@@ -122,7 +124,7 @@ function render(dataDocument, baseHeight, baseWidth) {
     .attr('d', (datum) => radarLine(datum))
     .style('fill', (_datum, i) => colorScale(i))
     .style('fill-opacity', polygonOpacity)
-    .attr('transform', `translate(${ adjustedHalfWidth },${ adjustedHalfHeight })`);
+    .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
   const tooltip = svg.append('text')
     .attr('class', 'tooltip')
@@ -132,7 +134,7 @@ function render(dataDocument, baseHeight, baseWidth) {
     .style('display', 'none')
     .attr('text-anchor', 'middle')
     .attr('dy', '0.4em')
-    .attr('transform', `translate(${ adjustedHalfWidth },${ adjustedHalfHeight })`);
+    .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
   svg.selectAll('.radarPolygonLine')
     .data(dataAxes)
@@ -160,7 +162,7 @@ function render(dataDocument, baseHeight, baseWidth) {
       tooltip.transition()
         .style('display', 'none').text('');
     })
-    .attr('transform', `translate(${ adjustedHalfWidth },${ adjustedHalfHeight })`);
+    .attr('transform', `translate(${ adjustedHalfWidth },${ radius })`);
 
 
   const svgLegend = d3.select('#legend')
@@ -201,7 +203,7 @@ function render(dataDocument, baseHeight, baseWidth) {
     .append('text')
     .attr('x', adjustedWidth + marginLeftLegend)
     .attr('y', (_datum, index) => (index * paddingTop) + marginLeftLegend - marginTopLegend)
-    .attr('font-size', '11px')
+    .attr('font-size', '10px')
     .attr('fill', '#333')
     .text((d) => d);
 }
