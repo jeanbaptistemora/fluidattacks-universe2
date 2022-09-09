@@ -43,9 +43,6 @@ from newutils import (
 from organizations_finding_policies import (
     domain as policies_domain,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from typing import (
     Any,
 )
@@ -68,7 +65,7 @@ from vulnerability_files import (
     require_asm,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
     try:
         finding_id = kwargs["finding_id"]
@@ -97,11 +94,6 @@ async def mutate(
             )
         else:
             raise InvalidFileType()
-        await redis_del_by_deps(
-            "upload_file",
-            finding_id=finding_id,
-            group_name=finding.group_name,
-        )
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
             finding_ids=[finding_id],

@@ -48,16 +48,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 from uuid import (
@@ -82,7 +75,7 @@ async def get_finding_policy(
 
 async def get_finding_policies(
     *, org_name: str
-) -> Tuple[OrgFindingPolicyItem, ...]:
+) -> tuple[OrgFindingPolicyItem, ...]:
     return await get_organization_finding_policies(org_name=org_name)
 
 
@@ -108,7 +101,7 @@ async def add_finding_policy(
     *,
     finding_name: str,
     org_name: str,
-    tags: Union[Set[str], Dict],
+    tags: Union[set[str], dict],
     user_email: str,
 ) -> None:
     await validate_finding_name(finding_name)
@@ -209,19 +202,19 @@ async def update_finding_policy_in_groups(
     *,
     loaders: Any,
     finding_name: str,
-    group_names: List[str],
+    group_names: list[str],
     status: str,
     user_email: str,
-    tags: Set[str],
-) -> Tuple[List[str], List[str]]:
-    group_drafts: Tuple[
-        Tuple[Finding, ...], ...
+    tags: set[str],
+) -> tuple[list[str], list[str]]:
+    group_drafts: tuple[
+        tuple[Finding, ...], ...
     ] = await loaders.group_drafts.load_many(group_names)
-    group_findings: Tuple[
-        Tuple[Finding, ...], ...
+    group_findings: tuple[
+        tuple[Finding, ...], ...
     ] = await loaders.group_findings.load_many(group_names)
     findings = tuple(chain.from_iterable(group_drafts + group_findings))
-    findings_ids: List[str] = [
+    findings_ids: list[str] = [
         finding.id
         for finding in findings
         if finding_name.lower().endswith(finding.title.lower())
@@ -229,14 +222,13 @@ async def update_finding_policy_in_groups(
 
     if not findings_ids:
         return [], []
-    vulns: Tuple[
+    vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         findings_ids
     )
 
     await _apply_finding_policy(
-        findings_ids=findings_ids,
         vulns=vulns,
         status=status,
         user_email=user_email,
@@ -246,11 +238,10 @@ async def update_finding_policy_in_groups(
 
 
 async def _apply_finding_policy(
-    findings_ids: List[str],
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
     status: str,
     user_email: str,
-    tags: Set[str],
+    tags: set[str],
 ) -> None:
     current_day: str = datetime_utils.get_iso_date()
     if status not in {"APPROVED", "INACTIVE"}:
@@ -269,7 +260,6 @@ async def _apply_finding_policy(
                 ),
             )
         )
-
     if status == "INACTIVE":
         await _add_new_treatment(
             current_day=current_day,
@@ -277,21 +267,11 @@ async def _apply_finding_policy(
             user_email=user_email,
         )
 
-    await collect(
-        [
-            redis_del_by_deps(
-                "update_vulnerability_treatment", finding_id=finding_id
-            )
-            for finding_id in findings_ids
-        ],
-        workers=20,
-    )
-
 
 async def _add_accepted_treatment(
     *,
     current_day: str,
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
     user_email: str,
 ) -> None:
     vulns_to_update = [
@@ -336,8 +316,8 @@ async def _add_accepted_treatment(
 
 async def _add_tags_to_vulnerabilities(
     *,
-    vulns: Tuple[Vulnerability, ...],
-    tags: Set[str],
+    vulns: tuple[Vulnerability, ...],
+    tags: set[str],
 ) -> None:
     if not tags:
         return
@@ -353,7 +333,7 @@ async def _add_tags_to_vulnerabilities(
 async def _add_new_treatment(
     *,
     current_day: str,
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
     user_email: str,
 ) -> None:
     vulns_to_update = [
@@ -380,7 +360,7 @@ async def _add_new_treatment(
     )
 
 
-async def get_org_policies(*, org_name: str) -> Tuple[OrgFindingPolicy, ...]:
+async def get_org_policies(*, org_name: str) -> tuple[OrgFindingPolicy, ...]:
     finding_policies = await get_organization_finding_policies(
         org_name=org_name
     )

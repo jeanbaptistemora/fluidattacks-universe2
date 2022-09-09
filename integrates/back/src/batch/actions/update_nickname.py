@@ -43,9 +43,6 @@ import logging.config
 from operator import (
     attrgetter,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from settings import (
     LOGGING,
 )
@@ -60,16 +57,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _update_indicators(*, finding_id: str, group_name: str) -> None:
-    await redis_del_by_deps(
-        "upload_file", finding_id=finding_id, group_name=group_name
-    )
-    await update_unreliable_indicators_by_deps(
-        EntityDependency.update_nickname,
-        finding_ids=[finding_id],
-    )
 
 
 async def _process_vuln(
@@ -158,9 +145,9 @@ async def _process_finding(
         },
     )
     try:
-        await _update_indicators(
-            finding_id=finding_id,
-            group_name=group_name,
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.update_nickname,
+            finding_ids=[finding_id],
         )
     except FindingNotFound as ex:
         LOGGER.exception(

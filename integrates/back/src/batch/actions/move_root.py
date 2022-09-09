@@ -87,9 +87,6 @@ from mailer.common import (
 from operator import (
     attrgetter,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from settings import (
     LOGGING,
 )
@@ -107,9 +104,6 @@ from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
-from typing import (
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -125,19 +119,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _update_indicators(
-    finding_id: str, group_name: str, vuln_ids: Tuple[str, ...]
-) -> None:
-    await redis_del_by_deps(
-        "upload_file", finding_id=finding_id, group_name=group_name
-    )
-    await update_unreliable_indicators_by_deps(
-        EntityDependency.move_root,
-        finding_ids=[finding_id],
-        vulnerability_ids=list(vuln_ids),
-    )
 
 
 async def _process_vuln(
@@ -240,7 +221,7 @@ async def _process_finding(
     target_group_name: str,
     target_root_id: str,
     source_finding_id: str,
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
     item_subject: str,
 ) -> None:
     LOGGER.info(
@@ -256,7 +237,7 @@ async def _process_finding(
         },
     )
     source_finding: Finding = await loaders.finding.load(source_finding_id)
-    target_group_findings: Tuple[
+    target_group_findings: tuple[
         Finding, ...
     ] = await loaders.group_findings.load(target_group_name)
     target_finding = next(
@@ -358,13 +339,15 @@ async def _process_finding(
     )
     await collect(
         (
-            _update_indicators(
-                source_finding_id,
-                source_group_name,
-                tuple(vuln.id for vuln in vulns),
+            update_unreliable_indicators_by_deps(
+                EntityDependency.move_root,
+                finding_ids=[source_finding_id],
+                vulnerability_ids=[vuln.id for vuln in vulns],
             ),
-            _update_indicators(
-                target_finding_id, target_group_name, target_vuln_ids
+            update_unreliable_indicators_by_deps(
+                EntityDependency.move_root,
+                finding_ids=[target_finding_id],
+                vulnerability_ids=target_vuln_ids,
             ),
         )
     )
@@ -510,7 +493,7 @@ async def move_root(*, item: BatchProcessing) -> None:
 
     LOGGER.info("Moving root", extra={"extra": info})
     root: Root = await loaders.root.load((source_group_name, source_root_id))
-    root_vulnerabilities: Tuple[
+    root_vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.root_vulnerabilities.load(root.id)
     vulns_by_finding = itertools.groupby(
