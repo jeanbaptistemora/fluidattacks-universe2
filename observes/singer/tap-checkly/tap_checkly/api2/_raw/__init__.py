@@ -109,7 +109,8 @@ class RawClient:
         ) -> HTTPError | NoReturn:
             if isinstance(error, UnexpectedServerResponse):
                 raise error
-            if error.errno in (429,) or error.errno in range(500, 600):
+            err_code: int = error.response.status_code  # type: ignore[misc]
+            if err_code in (429,) or err_code in range(500, 600):
                 return error
             raise error
 
@@ -119,11 +120,15 @@ class RawClient:
         self, retry: int, result: Result[_T, HTTPError]
     ) -> Result[_T | None, HTTPError]:
         _union: UnionFactory[_T, None] = UnionFactory()
-        return result.map(_union.inl).lash(
-            lambda e: Result.success(None)
-            if retry >= 4 and e.errno in range(500, 600)
-            else Result.failure(e)
-        )
+
+        def _handler(error: HTTPError) -> Result[_T | None, HTTPError]:
+            err_code: int = error.response.status_code  # type: ignore[misc]
+            threshold = round(self._max_retries * 0.4)
+            if retry >= threshold and err_code in range(500, 600):
+                return Result.success(None)
+            return Result.failure(error)
+
+        return result.map(_union.inl).lash(_handler)
 
     def get(
         self, endpoint: str, params: JsonObj
