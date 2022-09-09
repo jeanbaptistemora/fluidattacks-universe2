@@ -60,20 +60,22 @@ module "cluster" {
   # Auth
   manage_aws_auth_configmap = true
   aws_auth_accounts         = [data.aws_caller_identity.main.account_id]
-  aws_auth_users = [
-    for user in local.cluster_users : {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"
-      username = user
-      groups   = ["system:masters"]
-    }
-  ]
-  aws_auth_roles = [
-    for user in local.cluster_users : {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
-      username = user
-      groups   = ["system:masters"]
-    }
-  ]
+  aws_auth_roles = concat(
+    [
+      for admin in local.cluster_admins : {
+        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${admin}"
+        username = admin
+        groups   = ["system:masters"]
+      }
+    ],
+    [
+      for user in local.cluster_users : {
+        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
+        username = user
+        groups   = ["system:masters"]
+      }
+    ],
+  )
 
   tags = {
     "Name"                   = "common-kubernetes"
