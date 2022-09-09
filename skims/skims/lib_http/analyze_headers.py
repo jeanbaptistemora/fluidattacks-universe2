@@ -6,9 +6,9 @@ from __future__ import (
     annotations,
 )
 
-import dns
-import dns.exception
-import dns.resolver
+from dns import (
+    resolver,
+)
 from http_headers import (
     as_string,
     content_security_policy,
@@ -534,12 +534,12 @@ def _query_dns(
     timeout: float = 2.0,
 ) -> list:
 
-    resolver = dns.resolver.Resolver()
+    resolution = resolver.Resolver()
     record_type = "TXT"
     resource_records = list(
         map(
             lambda r: r.strings,
-            resolver.resolve(domain, record_type, lifetime=timeout),
+            resolution.resolve(domain, record_type, lifetime=timeout),
         )
     )
     _resource_record = [
