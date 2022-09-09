@@ -130,7 +130,7 @@ you assume the risk that comes
 with their being allowed into
 production.
 
-![List Types Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537791/docs/web/organizations/policies_list_types_vuln.png)
+![List Types Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1662751969/docs/web/organizations/policies_permanent_acceptance.png)
 
 Any team member can make the
 approval request.
