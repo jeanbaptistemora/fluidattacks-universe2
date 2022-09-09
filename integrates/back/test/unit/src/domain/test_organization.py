@@ -14,7 +14,6 @@ from custom_exceptions import (
     InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidSeverity,
-    InvalidUserProvided,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
     StakeholderNotInOrganization,
@@ -60,33 +59,6 @@ from typing import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@pytest.mark.changes_db
-async def test_add_customer_manager_fail() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    user = "org_testgroupmanager2@gmail.com"
-    assert not await orgs_domain.has_access(loaders, org_id, user)
-
-    try:
-        await orgs_domain.add_stakeholder(
-            loaders, org_id, user, "customer_manager"
-        )
-    except InvalidUserProvided as ex:
-        assert (
-            str(ex)
-            == "Exception - This role can only be granted to Fluid Attacks "
-            "users"
-        )
-
-    loaders = get_new_context()
-    group_names = await orgs_domain.get_group_names(loaders, org_id)
-    groups_users = await collect(
-        group_access_domain.get_group_stakeholders_emails(loaders, group)
-        for group in group_names
-    )
-    assert all(user not in group_users for group_users in groups_users)
 
 
 @pytest.mark.changes_db
