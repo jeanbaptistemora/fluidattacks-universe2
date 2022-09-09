@@ -167,21 +167,20 @@ async def remove_file_evidence(file_name: str) -> None:
 
 
 async def add_comment(
-    info: GraphQLResolveInfo,
-    user_email: str,
+    loaders: Dataloaders,
     comment_data: EventComment,
+    email: str,
     event_id: str,
     parent_comment: str,
 ) -> None:
     parent_comment = str(parent_comment)
     content = comment_data.content
-    loaders = info.context.loaders
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
     validations.validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
-        loaders, content, user_email, group_name, parent_comment
+        loaders, content, email, group_name, parent_comment
     )
     if parent_comment != "0":
         event_comments: tuple[
@@ -198,11 +197,11 @@ async def add_comment(
                 comment_data=comment_data,
                 event_id=event_id,
                 recipients=await get_stakeholders_subscribed_to_consult(
-                    loaders=info.context.loaders,
+                    loaders=loaders,
                     group_name=event.group_name,
                     comment_type="event",
                 ),
-                user_mail=user_email,
+                user_mail=email,
                 group_name=event.group_name,
             )
         )
@@ -490,8 +489,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     return ({}, {})
 
 
-async def reject_solution(  # pylint: disable=too-many-arguments
-    info: GraphQLResolveInfo,
+async def reject_solution(
     loaders: Dataloaders,
     event_id: str,
     comments: str,
@@ -508,8 +506,7 @@ async def reject_solution(  # pylint: disable=too-many-arguments
         event.state.comment_id if event.state.comment_id else "0"
     )
     await add_comment(
-        info=info,
-        user_email=stakeholder_email,
+        loaders=loaders,
         comment_data=EventComment(
             event_id=event.id,
             parent_id=parent_comment_id,
@@ -519,6 +516,7 @@ async def reject_solution(  # pylint: disable=too-many-arguments
             email=stakeholder_email,
             full_name=stakeholder_full_name,
         ),
+        email=stakeholder_email,
         event_id=event.id,
         parent_comment=parent_comment_id,
     )
@@ -534,8 +532,7 @@ async def reject_solution(  # pylint: disable=too-many-arguments
     )
 
 
-async def request_verification(  # pylint: disable=too-many-arguments
-    info: GraphQLResolveInfo,
+async def request_verification(
     loaders: Dataloaders,
     event_id: str,
     comments: str,
@@ -551,8 +548,7 @@ async def request_verification(  # pylint: disable=too-many-arguments
 
     comment_id: str = str(round(time() * 1000))
     await add_comment(
-        info=info,
-        user_email=stakeholder_email,
+        loaders=loaders,
         comment_data=EventComment(
             event_id=event.id,
             parent_id="0",
@@ -562,6 +558,7 @@ async def request_verification(  # pylint: disable=too-many-arguments
             email=stakeholder_email,
             full_name=stakeholder_full_name,
         ),
+        email=stakeholder_email,
         event_id=event.id,
         parent_comment="0",
     )

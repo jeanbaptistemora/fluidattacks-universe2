@@ -36,9 +36,6 @@ from newutils.datetime import (
 from time import (
     time,
 )
-from typing import (
-    Dict,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -57,9 +54,9 @@ async def mutate(
     validations.validate_fields([content])
 
     comment_id: str = str(round(time() * 1000))
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     today = get_as_utc_iso_format(get_now())
-    user_email = str(user_info["user_email"])
+    email = str(user_info["user_email"])
 
     comment_data = EventComment(
         event_id=event_id,
@@ -67,11 +64,11 @@ async def mutate(
         creation_date=today,
         content=content,
         id=comment_id,
-        email=user_email,
+        email=email,
         full_name=stakeholders_utils.get_full_name(user_info),
     )
     await events_domain.add_comment(
-        info, user_email, comment_data, event_id, parent_comment
+        info.context.loaders, comment_data, email, event_id, parent_comment
     )
     logs_utils.cloudwatch_log(
         info.context,

@@ -142,8 +142,6 @@ async def test_add_comment() -> None:
     comment_id = str(round(time() * 1000))
     parent_comment = "0"
     today = datetime_utils.get_as_str(datetime_utils.get_now())
-    request = await create_dummy_session("unittest@fluidattacks.com")
-    info = create_dummy_info(request)
     comment_data = EventComment(
         event_id=event_id,
         parent_id=parent_comment,
@@ -154,7 +152,7 @@ async def test_add_comment() -> None:
         full_name="integrates manager",
     )
     await events_domain.add_comment(
-        info, user_email, comment_data, event_id, parent_comment
+        get_new_context(), comment_data, user_email, event_id, parent_comment
     )
     loaders = get_new_context()
     event_comments: tuple[
@@ -174,9 +172,9 @@ async def test_add_comment() -> None:
         full_name="integrates manager",
     )
     await events_domain.add_comment(
-        info,
-        user_email,
+        get_new_context(),
         new_comment_data,
+        user_email,
         event_id,
         parent_comment=str(comment_id),
     )
@@ -195,9 +193,9 @@ async def test_add_comment() -> None:
             id=str(round(time() * 1000)),
         )
         assert await events_domain.add_comment(
-            info,
-            user_email,
+            get_new_context(),
             inv_comment_data,
+            user_email,
             event_id,
             parent_comment=str(int(comment_id) + 1),
         )
@@ -301,8 +299,6 @@ async def test_mask_event() -> None:
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_as_str(datetime_utils.get_now())
-    request = await create_dummy_session("unittest@fluidattacks.com")
-    info = create_dummy_info(request)
     comment_data = EventComment(
         event_id=event_id,
         parent_id=parent_comment,
@@ -313,9 +309,9 @@ async def test_mask_event() -> None:
         full_name="unit test",
     )
     await events_domain.add_comment(
-        info,
-        "integratesmanager@gmail.com",
+        loaders,
         comment_data,
+        "integratesmanager@gmail.com",
         event_id,
         parent_comment,
     )

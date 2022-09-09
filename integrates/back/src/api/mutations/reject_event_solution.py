@@ -25,12 +25,8 @@ from newutils import (
     stakeholders as stakeholders_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -41,17 +37,16 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     comments: str,
     event_id: str,
     **_kwargs: Any,
 ) -> SimplePayload:
-    stakeholder_info: Dict[str, str] = await token_utils.get_jwt_content(
+    stakeholder_info: dict[str, str] = await token_utils.get_jwt_content(
         info.context
     )
     await events_domain.reject_solution(
-        info,
         loaders=info.context.loaders,
         event_id=event_id,
         comments=comments,
@@ -60,8 +55,6 @@ async def mutate(
             stakeholder_info
         ),
     )
-
-    redis_del_by_deps_soon("reject_event_solution", event_id=event_id)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Rejected solution in event {event_id} successfully",

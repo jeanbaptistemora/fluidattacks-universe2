@@ -525,7 +525,7 @@ async def reject_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: dict[str, Any],
     justification: str,
-) -> bool:
+) -> None:
     vulns_utils.validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
@@ -567,7 +567,6 @@ async def reject_vulnerabilities_zero_risk(
         )
         for vuln in vulnerabilities
     )
-    return True
 
 
 async def request_verification(vulnerability: Vulnerability) -> bool:
