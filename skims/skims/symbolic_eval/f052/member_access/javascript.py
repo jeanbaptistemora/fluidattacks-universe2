@@ -14,12 +14,13 @@ def js_insecure_cipher(
     args.evaluation[args.n_id] = False
     node = args.graph.nodes[args.n_id]
     memb = node["member"].split(".")[-1].lower()
-    expr = node["expression"]
-    if memb == "mode":
-        args.triggers.clear()
-        args.triggers.add(expr)
-    elif memb == "pad":
-        args.triggers.clear()
-        args.triggers.add(expr)
+    expr = node["expression"].replace(".", "")
+    if memb in {"mode", "pad"}:
+        if len(args.triggers) == 0:
+            args.triggers.add(expr)
+        else:
+            curr_value = next(iter(args.triggers))
+            args.triggers.clear()
+            args.triggers.add(curr_value + "." + expr)
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

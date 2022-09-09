@@ -30,7 +30,6 @@ from symbolic_eval.utils import (
 )
 from typing import (
     List,
-    Optional,
     Tuple,
 )
 from utils.crypto import (
@@ -69,22 +68,20 @@ def get_eval_triggers(
     return [""]
 
 
-def is_insecure_crypto(graph: Graph, obj_id: Optional[NId], algo: str) -> bool:
-    if not obj_id or graph.nodes[obj_id]["label_type"] != "Object":
-        return False
+def is_insecure_crypto(graph: Graph, obj_id: NId, algo: str) -> bool:
     method = MethodsEnum.JS_INSECURE_CIPHER
+    triggers = "".join(get_eval_triggers(graph, obj_id, method))
+    options = triggers.split(".")
+
     algo = algo.lower()
     mode = ""
     padding = None
-    obj_configs = g.match_ast_group_d(graph, obj_id, "Pair")
-    for nid in obj_configs:
-        key = graph.nodes[nid].get("key_id")
-        key_identifier = graph.nodes[key].get("symbol").lower()
-        test_node = graph.nodes[nid]["value_id"]
-        if key_identifier == "mode":
-            mode = "".join(get_eval_triggers(graph, test_node, method))
-        elif key_identifier == "padding":
-            padding = "".join(get_eval_triggers(graph, test_node, method))
+
+    if "mode" in options and len(options) > options.index("mode"):
+        mode = options[options.index("mode") + 1]
+
+    if "padding" in options and len(options) > options.index("padding"):
+        padding = options[options.index("padding") + 1]
 
     return is_vulnerable_cipher(algo, mode, padding)
 
@@ -181,8 +178,11 @@ def javascript_insecure_cipher(
                     is_insecure = javascript_cipher_vulnerable(value)
                 elif algo in crypto1 and crypt == "encrypt":
                     is_insecure = True
-                elif algo in crypto2 and crypt == "encrypt":
-                    test_node = call_al.get("__2__")
+                elif (
+                    algo in crypto2
+                    and crypt == "encrypt"
+                    and (test_node := call_al.get("__2__"))
+                ):
                     is_insecure = is_insecure_crypto(graph, test_node, algo)
 
                 if is_insecure:

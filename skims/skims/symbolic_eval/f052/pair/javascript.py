@@ -8,6 +8,28 @@ from symbolic_eval.types import (
 )
 
 
+def js_insecure_cipher(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    args.evaluation[args.n_id] = False
+    pair_node = args.graph.nodes[args.n_id]
+    key = pair_node["key_id"]
+    value = pair_node["value_id"]
+    if (symbol := args.graph.nodes[key].get("symbol")) and symbol in {
+        "mode",
+        "padding",
+    }:
+        if len(args.triggers) == 0:
+            args.triggers.add(symbol)
+        else:
+            curr_value = next(iter(args.triggers))
+            args.triggers.clear()
+            args.triggers.add(curr_value + "." + symbol)
+        args.generic(args.fork_n_id(value))
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
 def js_insecure_key(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:

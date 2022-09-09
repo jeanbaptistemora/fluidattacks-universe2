@@ -6,6 +6,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f052.pair.javascript import (
+    js_insecure_cipher,
     js_insecure_key,
 )
 from symbolic_eval.types import (
@@ -18,6 +19,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+    MethodsEnum.JS_INSECURE_CIPHER: js_insecure_cipher,
     MethodsEnum.JS_INSECURE_KEY: js_insecure_key,
 }
 
