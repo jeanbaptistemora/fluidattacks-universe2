@@ -25,11 +25,11 @@ const Label: FC<ILabelProps> = ({
   required = false,
   tooltip,
 }: Readonly<ILabelProps>): JSX.Element => (
-  <label htmlFor={htmlFor}>
+  <label className={"db mb1"} htmlFor={htmlFor}>
     {required ? (
       <FontAwesomeIcon color={"#bf0b1a"} icon={faAsterisk} size={"xs"} />
     ) : undefined}
-    <Text disp={"inline"} mb={1} ml={required ? 1 : 0} mr={1}>
+    <Text disp={"inline"} ml={required ? 1 : 0} mr={1}>
       {children}
     </Text>
     {tooltip === undefined || htmlFor === undefined ? undefined : (
