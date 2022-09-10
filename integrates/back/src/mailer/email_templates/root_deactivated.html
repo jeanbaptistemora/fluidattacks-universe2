@@ -8,29 +8,46 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Root Deactivated') }}
+  <div class="container">
+    {% include 'layouts/components/dark_logo_header.html' %}
+    {% include 'layouts/components/arm_banner.html' -%}
+    {{ banner_group('Root Deactivated') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        The root with the nickname <strong>{{ root_nickname }}</strong>
+        from the group <strong>{{ group }}</strong> has been deactivated by
+        <strong><a
+          href="mailto:{{ responsible }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ responsible -}}
+        </a></strong>:
+      </p>
+      <p>
+        <strong>Reason:</strong> {{ reason }}<br>
+        <strong>Age:</strong> {{ root_age }} days<br>
+        <strong>Last activation by:</strong>
+        <a
+          href="mailto:{{ activated_by }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ activated_by }}
+        </a><br>
+        <strong>Last status:</strong> {{ last_root_state }}<br>
+        <strong>Last cloning date:</strong> {{ last_clone_date }}<br>
+        <strong>{{ sast_vulns }}</strong> SAST and
+        <strong>{{ dast_vulns }}</strong>
+        DAST vulnerabilities have been closed as a result.
+      </p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+      <br />
+    </div>
 
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      The root with the nickname <strong>{{ root_nickname }}</strong>
-      from the group <strong>{{ group }}</strong> has been deactivated
-      by <strong>{{ responsible }}</strong> as {{ user_role }}.<br><br>
-      <strong>Reason:</strong> {{ reason }}.<br>
-      <strong>Age:</strong> {{ root_age }} days.<br>
-      <strong>Last activated by:</strong> {{ activated_by }}.<br>
-      <strong>Last clone state:</strong> {{ last_root_state }}.<br>
-      <strong>Last clone date:</strong> {{ last_clone_date }}.<br>
-      <strong>Vulnerabilities closed:</strong> {{ sast_vulns + dast_vulns }}
-      ({{ sast_vulns }} SAST + {{ dast_vulns }} DAST).
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-    <br />
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}

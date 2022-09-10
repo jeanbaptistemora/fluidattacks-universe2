@@ -287,11 +287,11 @@ async def send_mail_updated_root(
     modified_date: str,
 ) -> None:
     key_format: Dict[str, str] = {
-        "branch": "Long Term Branch",
-        "environment": "Pair Environment",
+        "branch": "Long term branch",
+        "environment": "Pair environment",
         "gitignore": "Exclusions",
         "url": "URL",
-        "includes_health_check": "Health check",
+        "includes_health_check": "Health Check",
     }
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
@@ -544,7 +544,7 @@ async def send_mail_updated_services(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=(f"[ARM] Group edited: {group_name}"),
+        subject=(f"[ARM] Group edited: [{group_name}]"),
         template_name="updated_services",
     )
 
