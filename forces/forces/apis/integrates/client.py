@@ -38,10 +38,11 @@ from typing import (
 
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
+LOCAL_ENDPOINT = "https://127.0.0.1:8001/api"
 ENDPOINT: str = (
     "https://app.fluidattacks.com/api"
     if guess_environment() == "production"
-    else (os.environ.get("API_ENDPOINT") or "https://127.0.0.1:8001/api")
+    else (os.environ.get("API_ENDPOINT") or LOCAL_ENDPOINT)
 )
 TVar = TypeVar("TVar")
 
@@ -59,7 +60,6 @@ class ApiError(Exception):
 @contextlib.asynccontextmanager
 async def session(
     api_token: str = "",
-    endpoint_url: str = ENDPOINT,
     **kwargs: str,
 ) -> AsyncIterator[GraphQLClient]:
     """Returns an Async GraphQL Client."""
@@ -69,14 +69,17 @@ async def session(
         api_token = api_token or get_api_token()
         async with aiohttp.ClientSession(
             connector=aiohttp.TCPConnector(
-                verify_ssl=False,
+                # A local integrates uses self-signed certificates,
+                # but other than that the certificate should be valid,
+                # particularly in production.
+                verify_ssl=(ENDPOINT != LOCAL_ENDPOINT),
             ),
             headers={
                 "authorization": f"Bearer {api_token}",
                 **kwargs,
             },
         ) as client_session:
-            client = GraphQLClient(endpoint_url, session=client_session)
+            client = GraphQLClient(ENDPOINT, session=client_session)
             token: Token[Any] = SESSION.set(client)
             try:
                 yield SESSION.get()
