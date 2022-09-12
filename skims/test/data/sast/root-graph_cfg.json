@@ -79712,6 +79712,50 @@
           "1078": {
             "1079": {
               "label_ast": "AST"
+            },
+            "1081": {
+              "label_ast": "AST"
+            }
+          },
+          "1081": {
+            "1084": {
+              "label_ast": "AST"
+            }
+          },
+          "1084": {
+            "1086": {
+              "label_ast": "AST"
+            }
+          },
+          "1086": {
+            "1088": {
+              "label_ast": "AST"
+            },
+            "1105": {
+              "label_ast": "AST"
+            }
+          },
+          "1088": {
+            "1089": {
+              "label_ast": "AST"
+            },
+            "1093": {
+              "label_ast": "AST"
+            }
+          },
+          "1093": {
+            "1096": {
+              "label_ast": "AST"
+            }
+          },
+          "1096": {
+            "1098": {
+              "label_ast": "AST"
+            }
+          },
+          "1098": {
+            "1100": {
+              "label_ast": "AST"
             }
           },
           "11": {
@@ -79727,6 +79771,10 @@
           "1117": {
             "1118": {
               "label_ast": "AST"
+            },
+            "1125": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1118": {
@@ -79737,8 +79785,46 @@
               "label_ast": "AST"
             }
           },
+          "1125": {
+            "1127": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "1134": {
+              "label_ast": "AST"
+            }
+          },
+          "1127": {
+            "1132": {
+              "label_ast": "AST"
+            },
+            "1134": {
+              "label_cfg": "CFG"
+            }
+          },
           "113": {
             "118": {
+              "label_ast": "AST"
+            }
+          },
+          "1134": {
+            "1136": {
+              "label_ast": "AST"
+            }
+          },
+          "1136": {
+            "1137": {
+              "label_ast": "AST"
+            },
+            "1142": {
+              "label_ast": "AST"
+            }
+          },
+          "1137": {
+            "1138": {
+              "label_ast": "AST"
+            },
+            "1140": {
               "label_ast": "AST"
             }
           },
@@ -80114,6 +80200,9 @@
           "18": {
             "19": {
               "label_ast": "AST"
+            },
+            "21": {
+              "label_ast": "AST"
             }
           },
           "184": {
@@ -80169,6 +80258,11 @@
               "label_ast": "AST"
             },
             "208": {
+              "label_ast": "AST"
+            }
+          },
+          "21": {
+            "24": {
               "label_ast": "AST"
             }
           },
@@ -80231,6 +80325,11 @@
               "label_cfg": "CFG"
             }
           },
+          "24": {
+            "26": {
+              "label_ast": "AST"
+            }
+          },
           "240": {
             "241": {
               "label_ast": "AST"
@@ -80279,6 +80378,14 @@
               "label_cfg": "CFG"
             }
           },
+          "26": {
+            "28": {
+              "label_ast": "AST"
+            },
+            "45": {
+              "label_ast": "AST"
+            }
+          },
           "261": {
             "262": {
               "label_ast": "AST"
@@ -80305,6 +80412,14 @@
           },
           "277": {
             "282": {
+              "label_ast": "AST"
+            }
+          },
+          "28": {
+            "29": {
+              "label_ast": "AST"
+            },
+            "33": {
               "label_ast": "AST"
             }
           },
@@ -80407,6 +80522,11 @@
               "label_ast": "AST"
             }
           },
+          "33": {
+            "36": {
+              "label_ast": "AST"
+            }
+          },
           "336": {
             "341": {
               "label_ast": "AST"
@@ -80457,6 +80577,11 @@
               "label_ast": "AST"
             }
           },
+          "36": {
+            "38": {
+              "label_ast": "AST"
+            }
+          },
           "366": {
             "367": {
               "label_ast": "AST"
@@ -80478,6 +80603,11 @@
               "label_ast": "AST"
             },
             "375": {
+              "label_ast": "AST"
+            }
+          },
+          "38": {
+            "40": {
               "label_ast": "AST"
             }
           },
@@ -81803,6 +81933,7 @@
             "label_type": "Comment"
           },
           "1024": {
+            "arguments_id": "1026",
             "function_name": "logMyErrors",
             "label_type": "CallExpression"
           },
@@ -81900,15 +82031,58 @@
           },
           "1078": {
             "block_id": "1081",
-            "label_type": "BlocklessMethodDeclaration"
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "1079"
           },
           "1079": {
             "label_type": "SymbolLookup",
             "symbol": "resolve"
           },
+          "1081": {
+            "label_type": "StatementBlock"
+          },
+          "1084": {
+            "arguments_id": "1086",
+            "function_name": "setTimeout",
+            "label_type": "CallExpression"
+          },
+          "1086": {
+            "label_type": "ArgumentList"
+          },
+          "1088": {
+            "block_id": "1093",
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "1089"
+          },
+          "1089": {
+            "label_type": "ParameterList"
+          },
+          "1093": {
+            "label_type": "StatementBlock"
+          },
+          "1096": {
+            "arguments_id": "1098",
+            "function_name": "resolve",
+            "label_type": "CallExpression"
+          },
+          "1098": {
+            "label_type": "ArgumentList"
+          },
           "11": {
             "label_type": "Return",
             "value_id": "13"
+          },
+          "1100": {
+            "label_type": "Literal",
+            "value": "'resolved'",
+            "value_type": "string"
+          },
+          "1105": {
+            "label_type": "Literal",
+            "value": "3000",
+            "value_type": "number"
           },
           "111": {
             "label_type": "Literal",
@@ -81925,7 +82099,9 @@
           },
           "1117": {
             "block_id": "1125",
-            "label_type": "BlocklessMethodDeclaration"
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "1118"
           },
           "1118": {
             "label_type": "ParameterList"
@@ -81938,10 +82114,51 @@
             "label_type": "SymbolLookup",
             "symbol": "b"
           },
+          "1125": {
+            "label_type": "StatementBlock"
+          },
+          "1127": {
+            "label_type": "VariableDeclaration",
+            "value_id": "1132",
+            "variable": "chuck"
+          },
           "113": {
             "label_type": "VariableDeclaration",
             "value_id": "118",
             "variable": "y"
+          },
+          "1132": {
+            "label_type": "Literal",
+            "value": "42",
+            "value_type": "number"
+          },
+          "1134": {
+            "label_type": "Return",
+            "value_id": "1136"
+          },
+          "1136": {
+            "label_type": "BinaryOperation",
+            "left_id": "1137",
+            "operator": "+",
+            "right_id": "1142"
+          },
+          "1137": {
+            "label_type": "BinaryOperation",
+            "left_id": "1138",
+            "operator": "+",
+            "right_id": "1140"
+          },
+          "1138": {
+            "label_type": "SymbolLookup",
+            "symbol": "a"
+          },
+          "1140": {
+            "label_type": "SymbolLookup",
+            "symbol": "b"
+          },
+          "1142": {
+            "label_type": "SymbolLookup",
+            "symbol": "chuck"
           },
           "1145": {
             "label_type": "VariableDeclaration",
@@ -81949,6 +82166,7 @@
             "variable": "express"
           },
           "1150": {
+            "arguments_id": "1152",
             "function_name": "require",
             "label_type": "CallExpression"
           },
@@ -81966,6 +82184,8 @@
             "variable": "router"
           },
           "1162": {
+            "arguments_id": "1167",
+            "expression_id": "1163",
             "function_name": "express.Router",
             "label_type": "CallExpression"
           },
@@ -81987,6 +82207,8 @@
             "label_type": "ArgumentList"
           },
           "1172": {
+            "arguments_id": "1177",
+            "expression_id": "1173",
             "function_name": "router.get",
             "label_type": "CallExpression"
           },
@@ -82076,6 +82298,8 @@
             "value_type": "string"
           },
           "1208": {
+            "arguments_id": "1213",
+            "expression_id": "1209",
             "function_name": "res.render",
             "label_type": "CallExpression"
           },
@@ -82119,6 +82343,8 @@
             "value_type": "string"
           },
           "1230": {
+            "arguments_id": "1242",
+            "expression_id": "1231",
             "function_name": "express.Router().call",
             "label_type": "CallExpression"
           },
@@ -82129,6 +82355,8 @@
             "member": "express.Router()"
           },
           "1232": {
+            "arguments_id": "1237",
+            "expression_id": "1233",
             "function_name": "express.Router",
             "label_type": "CallExpression"
           },
@@ -82167,6 +82395,8 @@
             "value_type": "string"
           },
           "1247": {
+            "arguments_id": "1252",
+            "expression_id": "1248",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82201,6 +82431,7 @@
             "label_type": "StatementBlock"
           },
           "1265": {
+            "arguments_id": "1267",
             "function_name": "require",
             "label_type": "CallExpression"
           },
@@ -82274,6 +82505,7 @@
             "variable": "promise"
           },
           "1383": {
+            "arguments_id": "1386",
             "function_name": "import",
             "label_type": "CallExpression"
           },
@@ -82291,6 +82523,8 @@
             "value_type": "number"
           },
           "144": {
+            "arguments_id": "149",
+            "expression_id": "145",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82324,6 +82558,8 @@
             "label_type": "Comment"
           },
           "156": {
+            "arguments_id": "161",
+            "expression_id": "157",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82381,7 +82617,9 @@
           },
           "18": {
             "block_id": "21",
-            "label_type": "BlocklessMethodDeclaration"
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "19"
           },
           "180": {
             "label_type": "SymbolLookup",
@@ -82454,7 +82692,12 @@
             "value": "1",
             "value_type": "number"
           },
+          "21": {
+            "label_type": "StatementBlock"
+          },
           "212": {
+            "arguments_id": "217",
+            "expression_id": "213",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82515,6 +82758,11 @@
           "237": {
             "label_type": "StatementBlock"
           },
+          "24": {
+            "arguments_id": "26",
+            "function_name": "setTimeout",
+            "label_type": "CallExpression"
+          },
           "240": {
             "label_type": "Assignment",
             "operator": null,
@@ -82550,6 +82798,8 @@
             "symbol": "width"
           },
           "254": {
+            "arguments_id": "259",
+            "expression_id": "255",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82568,6 +82818,9 @@
             "symbol": "log"
           },
           "259": {
+            "label_type": "ArgumentList"
+          },
+          "26": {
             "label_type": "ArgumentList"
           },
           "261": {
@@ -82615,6 +82868,12 @@
             "value_id": "282",
             "variable": "number"
           },
+          "28": {
+            "block_id": "33",
+            "label_type": "MethodDeclaration",
+            "name": null,
+            "parameters_id": "29"
+          },
           "282": {
             "label_type": "Literal",
             "value": "42",
@@ -82632,6 +82891,9 @@
             "operator": null,
             "value_id": "292",
             "variable_id": "290"
+          },
+          "29": {
+            "label_type": "ParameterList"
           },
           "290": {
             "label_type": "SymbolLookup",
@@ -82659,6 +82921,8 @@
             "label_type": "StatementBlock"
           },
           "303": {
+            "arguments_id": "308",
+            "expression_id": "304",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82692,6 +82956,8 @@
             "label_type": "Comment"
           },
           "317": {
+            "arguments_id": "322",
+            "expression_id": "318",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82728,6 +82994,9 @@
             "label_type": "VariableDeclaration",
             "value_id": "334",
             "variable": "result"
+          },
+          "33": {
+            "label_type": "StatementBlock"
           },
           "334": {
             "label_type": "Literal",
@@ -82787,6 +83056,11 @@
             "label_type": "SymbolLookup",
             "symbol": "i"
           },
+          "36": {
+            "arguments_id": "38",
+            "function_name": "resolve",
+            "label_type": "CallExpression"
+          },
           "360": {
             "label_type": "Literal",
             "value": "' '",
@@ -82832,7 +83106,12 @@
             "comment": "// Despite i == 0 this will still loop as it starts off without the test",
             "label_type": "Comment"
           },
+          "38": {
+            "label_type": "ArgumentList"
+          },
           "380": {
+            "arguments_id": "385",
+            "expression_id": "381",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -82874,6 +83153,11 @@
             "label_type": "SymbolLookup",
             "symbol": "stream"
           },
+          "40": {
+            "label_type": "Literal",
+            "value": "'resolved'",
+            "value_type": "string"
+          },
           "400": {
             "label_type": "StatementBlock"
           },
@@ -82883,6 +83167,8 @@
             "variable": "reader"
           },
           "407": {
+            "arguments_id": "412",
+            "expression_id": "408",
             "function_name": "stream.getReader",
             "label_type": "CallExpression"
           },
@@ -82932,6 +83218,8 @@
             "label_type": "AwaitExpression"
           },
           "440": {
+            "arguments_id": "445",
+            "expression_id": "441",
             "function_name": "reader.read",
             "label_type": "CallExpression"
           },
@@ -82957,6 +83245,11 @@
             "label_type": "If",
             "true_id": "455"
           },
+          "45": {
+            "label_type": "Literal",
+            "value": "2000",
+            "value_type": "number"
+          },
           "453": {
             "label_type": "SymbolLookup",
             "symbol": "done"
@@ -82979,6 +83272,8 @@
             "label_type": "StatementBlock"
           },
           "473": {
+            "arguments_id": "478",
+            "expression_id": "474",
             "function_name": "reader.releaseLock",
             "label_type": "CallExpression"
           },
@@ -83029,6 +83324,7 @@
             "label_type": "AwaitExpression"
           },
           "502": {
+            "arguments_id": "504",
             "function_name": "fetch",
             "label_type": "CallExpression"
           },
@@ -83058,7 +83354,9 @@
             "label_type": "Comment"
           },
           "518": {
-            "label_type": "ForStatement"
+            "iterable_item_id": "525",
+            "label_type": "ForEachStatement",
+            "variable_id": "523"
           },
           "52": {
             "block_id": "59",
@@ -83070,6 +83368,7 @@
             "symbol": "chunk"
           },
           "525": {
+            "arguments_id": "527",
             "function_name": "streamAsyncIterable",
             "label_type": "CallExpression"
           },
@@ -83122,6 +83421,8 @@
             "symbol": "length"
           },
           "549": {
+            "arguments_id": "554",
+            "expression_id": "550",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83160,6 +83461,7 @@
             "symbol": "responseSize"
           },
           "566": {
+            "arguments_id": "568",
             "function_name": "getResponseSize",
             "label_type": "CallExpression"
           },
@@ -83278,6 +83580,8 @@
             "symbol": "ColoredTriangle"
           },
           "62": {
+            "arguments_id": "67",
+            "expression_id": "63",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83313,7 +83617,9 @@
             "label_type": "ArgumentList"
           },
           "636": {
-            "label_type": "ForStatement"
+            "iterable_item_id": "642",
+            "label_type": "ForEachStatement",
+            "variable_id": "640"
           },
           "64": {
             "label_type": "SymbolLookup",
@@ -83336,6 +83642,8 @@
             "true_id": "660"
           },
           "650": {
+            "arguments_id": "655",
+            "expression_id": "651",
             "function_name": "obj.hasOwnProperty",
             "label_type": "CallExpression"
           },
@@ -83368,6 +83676,8 @@
             "label_type": "StatementBlock"
           },
           "663": {
+            "arguments_id": "668",
+            "expression_id": "664",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83437,7 +83747,9 @@
             "value_type": "string"
           },
           "692": {
-            "label_type": "ForStatement"
+            "iterable_item_id": "698",
+            "label_type": "ForEachStatement",
+            "variable_id": "696"
           },
           "696": {
             "label_type": "SymbolLookup",
@@ -83466,6 +83778,8 @@
             "value_type": "number"
           },
           "709": {
+            "arguments_id": "714",
+            "expression_id": "710",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83540,6 +83854,8 @@
             "label_type": "StatementBlock"
           },
           "744": {
+            "arguments_id": "749",
+            "expression_id": "745",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83639,6 +83955,7 @@
             "label_type": "ElseClause"
           },
           "79": {
+            "arguments_id": "81",
             "function_name": "resolveAfter2Seconds",
             "label_type": "CallExpression"
           },
@@ -83669,6 +83986,8 @@
             "symbol": "result"
           },
           "806": {
+            "arguments_id": "811",
+            "expression_id": "807",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83693,6 +84012,7 @@
             "label_type": "ArgumentList"
           },
           "813": {
+            "arguments_id": "815",
             "function_name": "testNum",
             "label_type": "CallExpression"
           },
@@ -83743,6 +84063,8 @@
             "value": "'Oranges'"
           },
           "845": {
+            "arguments_id": "850",
+            "expression_id": "846",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83773,10 +84095,14 @@
             "value": "'Apples'"
           },
           "86": {
+            "arguments_id": "91",
+            "expression_id": "87",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
           "863": {
+            "arguments_id": "868",
+            "expression_id": "864",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83817,6 +84143,8 @@
             "symbol": "console"
           },
           "881": {
+            "arguments_id": "886",
+            "expression_id": "882",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83847,6 +84175,8 @@
             "value": "'Cherries'"
           },
           "899": {
+            "arguments_id": "904",
+            "expression_id": "900",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83891,6 +84221,8 @@
             "value": "'Papayas'"
           },
           "921": {
+            "arguments_id": "926",
+            "expression_id": "922",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83924,6 +84256,8 @@
             "label_type": "SwitchDefault"
           },
           "938": {
+            "arguments_id": "943",
+            "expression_id": "939",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -83971,6 +84305,8 @@
             "value_type": "string"
           },
           "956": {
+            "arguments_id": "961",
+            "expression_id": "957",
             "function_name": "console.log",
             "label_type": "CallExpression"
           },
@@ -84044,6 +84380,7 @@
             "value_type": "number"
           },
           "99": {
+            "arguments_id": "101",
             "function_name": "asyncCall",
             "label_type": "CallExpression"
           },

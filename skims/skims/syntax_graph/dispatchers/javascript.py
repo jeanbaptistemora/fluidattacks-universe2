@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.common import (
     if_statement as common_if_statement,
     method_declaration as common_method_declaration,
     new_expression as common_new_expression,
+    null_literal as common_null_literal,
     number_literal as common_number_literal,
     pair as common_pair,
     parameter_list as common_parameter_list,
@@ -44,6 +45,7 @@ from syntax_graph.syntax_readers.javascript import (
     assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
     catch_clause as javascript_catch_clause,
+    for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
     import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
@@ -190,8 +192,13 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "for_statement",
             "for_in_statement",
+        },
+        syntax_reader=javascript_for_each_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "for_statement",
         },
         syntax_reader=javascript_for_statement.reader,
     ),
@@ -221,6 +228,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "number",
         },
         syntax_reader=common_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "null",
+        },
+        syntax_reader=common_null_literal.reader,
     ),
     Dispatcher(
         applicable_types={

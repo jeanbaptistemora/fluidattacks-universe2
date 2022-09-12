@@ -22,10 +22,12 @@ def build_call_expression_node(
     args.syntax_graph.add_node(
         args.n_id,
         function_name=fn_name,
+        arguments_id=args_id,
         label_type="CallExpression",
     )
 
     if function_id:
+        args.syntax_graph.nodes[args.n_id]["expression_id"] = function_id
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(function_id)),

@@ -35,6 +35,7 @@ DISPATCHERS: Dispatchers = (
             "DeclarationBlock",
             "File",
             "ForStatement",
+            "ForEachStatement",
             "EnhancedForStatement",
             "PackageDeclaration",
             "TryStatement",
