@@ -1182,6 +1182,33 @@
       "Management:Type" = "product";
     };
   };
+  observes_etl_matomo = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/matomo"
+    ];
+
+    schedule_expression = "cron(0 9 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_observes";
+    attempts = 2;
+    timeout = 18000;
+    parallel = 1;
+
+    environment = [
+      "CI_PROJECT_ID"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "observes_etl_matomo";
+      "Management:Area" = "cost";
+      "Management:Product" = "observes";
+      "Management:Type" = "product";
+    };
+  };
   observes_etl_mixpanel = {
     enabled = true;
     command = [
