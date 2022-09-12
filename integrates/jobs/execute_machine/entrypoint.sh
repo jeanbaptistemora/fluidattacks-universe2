@@ -31,9 +31,8 @@ function main() {
           && if [ ! -d "groups/${group_name}/fusion/${root}/" ]; then
             continue
           fi \
-          && python3 __argScript__ \
+          && python3 __argScript__ generate-configs \
             --group-name "${group_name}" \
-            --language="EN" \
             --root-nickname "${root}" \
             --checks "${checks}" \
             --working-dir "groups/${group_name}/fusion/${root}" \
@@ -45,12 +44,29 @@ function main() {
           && find "groups/${group_name}/fusion/${root}/execution_configs/" \
             -name "*.yaml" \
           | while read -r file_config; do
-            skims scan "${file_config}"
+            pushd "groups/${group_name}/fusion/${root}" \
+              && current_commit="$(git rev-parse HEAD)" \
+              && popd \
+              && python3 __argScript__ start-execution \
+                --group-name "${group_name}" \
+                --root-nickname "${root}" \
+                --api-token "${INTEGRATES_API_TOKEN}" \
+                --commit-hash "${current_commit}" \
+              && skims scan "${file_config}" \
+              && filename="$(basename "${file_config}")" \
+              && execution_id="${filename%.*}" \
+              && execution_result="groups/${group_name}/fusion/${root}/execution_results/${execution_id}.sarif" \
+              && if test -f "${execution_result}"; then
+                aws s3 cp "${execution_result}" s3://skims.data/results/ \
+                  && aws sqs send-message \
+                    --queue-url "https://sqs.us-east-1.amazonaws.com/205810638802/skims-report-queue" \
+                    --message-body "{\"execution_id\": \"${execution_id}\", \"task\": \"process-skims-result\"}"
+              fi
           done \
-          && aws s3 cp \
-            --recursive \
-            "groups/${group_name}/fusion/${root}/execution_results/" \
-            s3://skims.data/results/
+          && python3 __argScript__ start-execution \
+            --group-name "${group_name}" \
+            --root-nickname "${root}" \
+            --api-token "${INTEGRATES_API_TOKEN}"
       done
 }
 

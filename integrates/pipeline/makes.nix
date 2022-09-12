@@ -559,6 +559,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/integratesJobsExecuteMachine";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintPython/module/integratesBackMigrations";
             gitlabExtra = gitlabLint;
           }
