@@ -36,9 +36,7 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
             id
             vulnerabilitiesToReattack {
                 id
-                historicVerification {
-                    status, date
-                }
+                lastVerificationDate
             }
         }
     """
@@ -112,8 +110,8 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             finding["vulnerabilities"] = list(
                 sorted(
                     finding["vulnerabilitiesToReattack"],
-                    key=lambda x: x["historicVerification"][-1]["date"]
-                    if x["historicVerification"]
+                    key=lambda x: x["lastVerificationDate"]
+                    if x["lastVerificationDate"]
                     else "2000-01-01 00:00:00",
                 )
             )
@@ -134,8 +132,8 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             oldest_vuln_dif = relativedelta(
                 dt.now(),
                 dt.strptime(
-                    oldest_vulnerability["historicVerification"][-1]["date"]
-                    if oldest_vulnerability["historicVerification"]
+                    oldest_vulnerability["lastVerificationDate"]
+                    if oldest_vulnerability["lastVerificationDate"]
                     else "2000-01-01 00:00:00",
                     graphql_date_format,
                 ),
