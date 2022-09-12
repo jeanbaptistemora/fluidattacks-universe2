@@ -46,10 +46,14 @@ from newutils import (
 from notifications import (
     dal as notifications_dal,
 )
+from starlette.datastructures import (
+    UploadFile,
+)
 from typing import (
     Any,
     cast,
     Dict,
+    Optional,
     Union,
 )
 
@@ -448,6 +452,43 @@ async def request_groups_upgrade(
             You are receiving this email because you have requested an upgrade
             to the Squad plan for the following groups:
             {organizations_message}
+            If you require any further information,
+            do not hesitate to contact us.
+        """,
+        requester_email=user_email,
+    )
+
+
+async def request_other_payment_methods(
+    *,
+    business_legal_name: str,
+    city: str,
+    country: str,
+    efactura_email: str,
+    rut: Optional[UploadFile],
+    tax_id: Optional[UploadFile],
+    user_email: str,
+) -> None:
+    attachments = tuple(
+        attachment for attachment in (rut, tax_id) if attachment is not None
+    )
+    efactura_text = (
+        f"- Email (e-factura): {efactura_email}" if efactura_email else ""
+    )
+
+    await in_thread(
+        notifications_dal.create_ticket,
+        attachments=attachments,
+        subject="[ARM] Other payment methods requested",
+        description=f"""
+            You are receiving this email because you have requested other
+            payment methods.
+
+            - Business legal name: {business_legal_name}
+            - Country: {country}
+            - City: {city}
+            {efactura_text}
+
             If you require any further information,
             do not hesitate to contact us.
         """,

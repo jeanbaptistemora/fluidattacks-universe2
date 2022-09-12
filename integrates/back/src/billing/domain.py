@@ -58,6 +58,9 @@ from newutils import (
     files as files_utils,
     validations,
 )
+from notifications import (
+    domain as notifications_domain,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -567,13 +570,12 @@ async def create_payment_method(
     tax_id: Optional[UploadFile] = None,
 ) -> bool:
     """Create a payment method and associate it to the customer"""
-    validate_legal_document(rut, tax_id)
+    await validate_legal_document(rut, tax_id)
     # Create customer if it does not exist
     customer = await create_billing_customer(org, user_email)
 
     # create other payment methods
     if card_number == "":
-        org._replace(billing_customer=customer.id)
         if business_name is not None:
             validations.validate_field_length(business_name, 60)
             validations.validate_fields([business_name])
@@ -611,6 +613,15 @@ async def create_payment_method(
             ),
             organization_id=org.id,
             organization_name=org.name,
+        )
+        await notifications_domain.request_other_payment_methods(
+            business_legal_name=business_name,
+            city=city,
+            country=country,
+            efactura_email=email,
+            rut=rut,
+            tax_id=tax_id,
+            user_email=user_email,
         )
         return await update_documents(
             org=org,
