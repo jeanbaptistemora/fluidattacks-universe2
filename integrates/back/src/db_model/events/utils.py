@@ -84,6 +84,8 @@ def format_event(item: Item) -> Event:
         else None,
         client=item["client"],
         context=item.get("context"),
+        created_by=item.get("created_by"),
+        created_date=item.get("created_date"),
         description=item["description"],
         event_date=item["event_date"],
         evidences=format_evidences(item["evidences"]),
