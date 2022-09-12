@@ -48,7 +48,7 @@ locals {
 }
 
 data "aws_iam_role" "main" {
-  for_each = toset(local.users)
+  for_each = toset(concat(local.admins, local.users))
 
   name = each.key
 }
@@ -70,10 +70,9 @@ resource "kubernetes_role" "main" {
   }
 
   rule {
-    api_groups     = ["*"]
-    resources      = ["*"]
-    resource_names = ["*"]
-    verbs          = ["*"]
+    api_groups = ["*"]
+    resources  = ["*"]
+    verbs      = ["*"]
   }
 }
 
@@ -89,5 +88,26 @@ resource "kubernetes_service_account" "main" {
     annotations = {
       "eks.amazonaws.com/role-arn" = data.aws_iam_role.main[each.key].arn
     }
+  }
+}
+
+resource "kubernetes_role_binding" "main" {
+  for_each = toset(local.users)
+
+  metadata {
+    name      = replace(each.key, "_", "-")
+    namespace = kubernetes_namespace.main[each.key].metadata[0].name
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.main[each.key].metadata[0].name
+  }
+
+  subject {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Group"
+    name      = each.key
   }
 }
