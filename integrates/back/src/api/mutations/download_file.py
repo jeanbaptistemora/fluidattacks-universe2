@@ -8,6 +8,9 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorDownloadingFile,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -39,9 +42,8 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
+    _: None, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> DownloadFilePayload:
-    success = False
     file_info = parameters["files_data"]
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
@@ -59,7 +61,6 @@ async def mutate(
             Group=group_name.upper(),
             FileName=parameters["files_data"],
         )
-        success = True
     else:
         logs_utils.cloudwatch_log(
             info.context,
@@ -69,5 +70,6 @@ async def mutate(
         LOGGER.error(
             "Couldn't generate signed URL", extra={"extra": parameters}
         )
+        raise ErrorDownloadingFile()
 
-    return DownloadFilePayload(success=success, url=str(signed_url))
+    return DownloadFilePayload(success=True, url=str(signed_url))

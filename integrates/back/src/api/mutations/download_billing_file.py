@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# None
-
-
 from api.mutations import (
     DownloadFilePayload,
 )
@@ -13,6 +10,9 @@ from ariadne.utils import (
 )
 from billing import (
     domain as billing_domain,
+)
+from custom_exceptions import (
+    ErrorDownloadingFile,
 )
 from db_model.organizations.types import (
     Organization,
@@ -39,7 +39,7 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     payment_method_id: str,
     file_name: str,
@@ -48,7 +48,6 @@ async def mutate(
     org: Organization = await info.context.loaders.organization.load(
         kwargs["organization_id"],
     )
-    success = False
     signed_url = await billing_domain.get_document_link(
         org, payment_method_id, file_name
     )
@@ -58,11 +57,12 @@ async def mutate(
             f"Security: Downloaded file in payment method {payment_method_id}"
             + "successfully",
         )
-        success = True
     else:
         logs_utils.cloudwatch_log(
             info.context,
             "Security: Attempted to download file in payment method"
-            + "{payment_method_id}",
+            + f"{payment_method_id}",
         )
-    return DownloadFilePayload(success=success, url=signed_url)
+        raise ErrorDownloadingFile()
+
+    return DownloadFilePayload(success=True, url=signed_url)

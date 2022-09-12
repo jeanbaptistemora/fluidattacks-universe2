@@ -41,6 +41,10 @@ class ExecutionAlreadyCreated(_SingleMessageException):
     msg: str = "This execution has already exists"
 
 
+class ErrorDownloadingFile(_SingleMessageException):
+    msg: str = "Unable to download the requested file"
+
+
 class ErrorLoadingOrganizations(_SingleMessageException):
     msg: str = "Unable to read organizations data"
 

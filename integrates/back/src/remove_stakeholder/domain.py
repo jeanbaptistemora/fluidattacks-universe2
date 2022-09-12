@@ -199,34 +199,30 @@ async def confirm_deletion_mail(
     *,
     loaders: Dataloaders,
     email: str,
-) -> bool:
+) -> None:
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
     url_token = new_encoded_jwt(
         {
             "user_email": email,
         },
     )
-    if validate_email_address(email):
-        await group_access_model.update_metadata(
-            email=email,
-            group_name="confirm_deletion",
-            metadata=GroupAccessMetadataToUpdate(
-                expiration_time=expiration_time,
-                confirm_deletion=GroupConfirmDeletion(
-                    is_used=False,
-                    url_token=url_token,
-                ),
+    validate_email_address(email)
+    await group_access_model.update_metadata(
+        email=email,
+        group_name="confirm_deletion",
+        metadata=GroupAccessMetadataToUpdate(
+            expiration_time=expiration_time,
+            confirm_deletion=GroupConfirmDeletion(
+                is_used=False,
+                url_token=url_token,
             ),
-        )
-        confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
-        mail_to = [email]
-        email_context: dict[str, Any] = {
-            "email": email,
-            "confirm_deletion_url": confirm_access_url,
-            "empty_notification_notice": True,
-        }
-        schedule(mail_confirm_deletion(loaders, mail_to, email_context))
-
-        return True
-
-    return False
+        ),
+    )
+    confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
+    mail_to = [email]
+    email_context: dict[str, Any] = {
+        "email": email,
+        "confirm_deletion_url": confirm_access_url,
+        "empty_notification_notice": True,
+    }
+    schedule(mail_confirm_deletion(loaders, mail_to, email_context))
