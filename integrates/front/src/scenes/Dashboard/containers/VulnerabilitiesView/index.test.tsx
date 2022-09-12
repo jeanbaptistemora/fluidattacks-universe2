@@ -48,7 +48,6 @@ describe("VulnerabilitiesView", (): void => {
       variables: {
         findingId: "422286126",
         first: 100,
-        state: "OPEN",
       },
     },
     result: {
@@ -370,7 +369,10 @@ describe("VulnerabilitiesView", (): void => {
     await waitFor((): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(totalButtons);
     });
-    userEvent.click(screen.queryAllByRole("checkbox")[2]);
+
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "https://example.com/tests" })
+    );
 
     expect(
       screen.queryByText(
@@ -382,11 +384,14 @@ describe("VulnerabilitiesView", (): void => {
     ).toBeInTheDocument();
 
     userEvent.click(
-      screen.getByText("searchFindings.tabDescription.requestVerify.text")
+      screen.getByRole("button", {
+        name: "searchFindings.tabDescription.requestVerify.text",
+      })
     );
+
     await waitFor((): void => {
       expect(
-        screen.queryByText(
+        screen.getByText(
           "searchFindings.tabDescription.remediationModal.titleRequest"
         )
       ).toBeInTheDocument();
@@ -444,7 +449,9 @@ describe("VulnerabilitiesView", (): void => {
     expect(
       screen.queryByText("searchFindings.tabVuln.buttons.edit")
     ).toBeInTheDocument();
-    expect(screen.queryAllByRole("checkbox")[2]).not.toBeDisabled();
+    expect(
+      screen.getByRole("checkbox", { name: "https://example.com/tests" })
+    ).not.toBeDisabled();
     expect(
       screen.queryByText(
         "searchFindings.tabDescription.remediationModal.titleObservations"
@@ -455,15 +462,22 @@ describe("VulnerabilitiesView", (): void => {
       screen.getByText("searchFindings.tabDescription.markVerified.text")
     );
     await waitFor((): void => {
-      expect(screen.queryAllByRole("checkbox")[2]).toBeDisabled();
+      expect(
+        screen.getByRole("checkbox", { name: "https://example.com/tests" })
+      ).toBeDisabled();
     });
 
     expect(
       screen.queryByText("searchFindings.tabVuln.buttons.edit")
     ).not.toBeInTheDocument();
-    expect(screen.queryAllByRole("checkbox")[1]).not.toBeDisabled();
 
-    userEvent.click(screen.queryAllByRole("checkbox")[1]);
+    expect(
+      screen.getByRole("checkbox", { name: "https://example.com/inputs" })
+    ).not.toBeDisabled();
+
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "https://example.com/inputs" })
+    );
     userEvent.click(
       screen.getByText("searchFindings.tabDescription.markVerified.text")
     );

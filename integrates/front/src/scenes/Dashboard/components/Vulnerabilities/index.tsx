@@ -6,6 +6,15 @@
 
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  InitialTableState,
+  PaginationState,
+  Row,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -17,22 +26,21 @@ import React, {
   useRef,
   useState,
 } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
+import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import { statusFormatter } from "./Formatter";
 import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  onSelectVariousVulnerabilitiesHelper,
   setNonSelectable,
 } from "./helpers";
 import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
-import { Table } from "components/Table";
-import { deleteFormatter } from "components/Table/formatters";
-import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
+import { Table } from "components/TableNew";
+import { deleteFormatter } from "components/TableNew/formatters/deleteFormatter";
+import type { ICellHelper } from "components/TableNew/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
   IVulnComponentProps,
@@ -43,9 +51,9 @@ import {
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
-  getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks/useStoredState";
 
 function usePreviousProps(value: boolean): boolean {
   const ref = useRef(false);
@@ -60,9 +68,6 @@ function usePreviousProps(value: boolean): boolean {
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
   changePermissions,
-  clearFiltersButton,
-  customFilters,
-  customSearch,
   extraButtons,
   findingState,
   hideSelectVulnerability,
@@ -90,7 +95,30 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canRemoveVulns: boolean =
     permissions.can("api_mutations_remove_vulnerability_mutate") &&
     attributes.can("can_report_vulnerabilities");
-
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "vulnerabilitiesTable-columnFilters",
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("vulnerabilitiesTable-visibilityState", {
+      Asignees: false,
+      Locations: false,
+      Treatment: false,
+      description: false,
+      reattack: false,
+      releaseDate: false,
+    });
+  const [pagination, setPagination] = useStoredState<PaginationState>(
+    "vulnerabilitiesTable-pagination",
+    {
+      pageIndex: 0,
+      pageSize: 10,
+    }
+  );
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "vulnerabilitiesTable-sortingState",
+    []
+  );
   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
     IVulnRowAttr[]
   >([]);
@@ -103,15 +131,19 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const previousIsVerifyingRequest = usePreviousProps(isVerifyingRequest);
 
   function openAdditionalInfoModal(
-    _0: React.FormEvent,
-    vulnerability: IVulnRowAttr
-  ): void {
-    if (changePermissions !== undefined) {
-      changePermissions(vulnerability.groupName);
-    }
-    setCurrentRow(vulnerability);
-    mixpanel.track("ViewVulnerability", { groupName: vulnerability.groupName });
-    setIsAdditionalInfoOpen(true);
+    rowInfo: Row<IVulnRowAttr>
+  ): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      if (changePermissions !== undefined) {
+        changePermissions(rowInfo.original.groupName);
+      }
+      setCurrentRow(rowInfo.original);
+      mixpanel.track("ViewVulnerability", {
+        groupName: rowInfo.original.groupName,
+      });
+      setIsAdditionalInfoOpen(true);
+      event.stopPropagation();
+    };
   }
   const closeAdditionalInfoModal: () => void = useCallback((): void => {
     setIsAdditionalInfoOpen(false);
@@ -124,11 +156,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     onRemoveVulnResultHelper(removeVulnResult, t);
     setIsDeleteVulnOpen(false);
   }
-  function handleDeleteVulnerability(
-    vulnInfo: Record<string, string> | undefined
-  ): void {
+  function handleDeleteVulnerability(vulnInfo: IVulnRowAttr | undefined): void {
     handleDeleteVulnerabilityHelper(
-      vulnInfo,
+      vulnInfo as unknown as Record<string, string>,
       setVulnerabilityId,
       setIsDeleteVulnOpen,
       setCurrentRow,
@@ -205,46 +235,15 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     previousIsVerifyingRequest,
   ]);
 
-  function onSelectVariousVulnerabilities(
-    isSelect: boolean,
-    vulnerabilitiesSelected: IVulnRowAttr[]
-  ): string[] {
-    return onSelectVariousVulnerabilitiesHelper(
-      isSelect,
-      vulnerabilitiesSelected,
-      selectedVulnerabilities,
-      setSelectedVulnerabilities
-    );
-  }
-
-  function onSelectOneVulnerability(
-    vulnerability: IVulnRowAttr,
-    isSelect: boolean
-  ): boolean {
-    onSelectVariousVulnerabilities(isSelect, [vulnerability]);
-
-    return true;
-  }
-
-  const selectionMode: ISelectRowProps = {
-    clickToSelect: false,
-    hideSelectColumn:
-      hideSelectVulnerability === true || findingState === "closed",
-    mode: "checkbox",
-    nonSelectable: setNonSelectable(
+  function enabledRows(row: Row<IVulnRowAttr>): boolean {
+    const temp = setNonSelectable(
       vulnerabilities,
       isRequestingReattack,
       isVerifyingRequest,
       nonValidOnReattackVulnerabilities
-    ),
-    onSelect: onSelectOneVulnerability,
-    onSelectAll: onSelectVariousVulnerabilities,
-    selected: getVulnerabilitiesIndex(selectedVulnerabilities, vulnerabilities),
-  };
+    );
 
-  function onSortVulns(dataField: string, order: SortOrder): void {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("vulnerabilitiesSort", JSON.stringify(newSorted));
+    return !temp.includes(row.index);
   }
 
   const findingId: string = useMemo(
@@ -256,76 +255,105 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     [currentRow]
   );
 
-  const headers: IHeaderConfig[] = [
+  const columns: ColumnDef<IVulnRowAttr>[] = [
     {
-      dataField: "where",
+      accessorKey: "where",
+      enableColumnFilter: false,
       header: t("searchFindings.tabVuln.vulnTable.where"),
-      onSort: onSortVulns,
     },
     {
-      dataField: "specific",
+      accessorKey: "specific",
+      enableColumnFilter: false,
       header: t("searchFindings.tabVuln.vulnTable.specific"),
-      onSort: onSortVulns,
     },
     {
-      dataField: "currentState",
-      formatter: statusFormatter,
+      accessorKey: "currentState",
+      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: t("searchFindings.tabVuln.vulnTable.status"),
-      onSort: onSortVulns,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "reportDate",
+      accessorKey: "reportDate",
       header: t("searchFindings.tabVuln.vulnTable.reportDate"),
-      onSort: onSortVulns,
+      meta: { filterType: "dateRange" },
     },
     {
-      dataField: "verification",
+      accessorKey: "verification",
       header: t("searchFindings.tabVuln.vulnTable.reattack"),
-      onSort: onSortVulns,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "treatment",
+      accessorKey: "treatment",
       header: t("searchFindings.tabVuln.vulnTable.treatment"),
-      onSort: onSortVulns,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "tag",
+      accessorKey: "tag",
       header: t("searchFindings.tabVuln.vulnTable.tags"),
-      onSort: onSortVulns,
     },
-  ];
-  const deleteHeader: IHeaderConfig[] = [
     {
-      dataField: "id",
-      deleteFunction: handleDeleteVulnerability,
-      formatter: deleteFormatter,
-      header: t("searchFindings.tabDescription.action"),
-      visible: canRemoveVulns,
-      width: "60px",
+      accessorFn: (row: IVulnRowAttr): string => {
+        return row.treatment === "ACCEPTED_UNDEFINED" &&
+          row.treatmentAcceptanceStatus !== "APPROVED"
+          ? "Pending"
+          : "Accepted";
+      },
+      header: "Treatment Acceptance",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatmentAssigned",
+      header: "Asignees",
+      meta: { filterType: "select" },
     },
   ];
-  const sortPreference = sessionStorage.getItem("vulnerabilitiesSort");
+
+  const initialstate: InitialTableState = {
+    columnVisibility: {
+      "Treatment Acceptance": false,
+      treatmentAssigned: false,
+    },
+  };
+
+  const deleteColumn: ColumnDef<IVulnRowAttr>[] = [
+    {
+      accessorKey: "id",
+      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
+        deleteFormatter(cell.row.original, handleDeleteVulnerability),
+      enableColumnFilter: false,
+      header: t("searchFindings.tabDescription.action"),
+    },
+  ];
 
   return (
     <React.StrictMode>
       <Table
-        clearFiltersButton={clearFiltersButton}
-        customFilters={customFilters}
-        customSearch={customSearch}
-        dataset={formatVulnerabilities(vulnerabilities)}
-        defaultSorted={
-          sortPreference === null ? undefined : JSON.parse(sortPreference)
-        }
-        exportCsv={false}
-        extraButtonsRight={
+        columnFilterSetter={setColumnFilters}
+        columnFilterState={columnFilters}
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
+        columns={[...columns, ...(canRemoveVulns ? deleteColumn : [])]}
+        data={formatVulnerabilities(vulnerabilities)}
+        enableColumnFilters={true}
+        enableRowSelection={enabledRows}
+        extraButtons={
           <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
         }
-        headers={[...headers, ...(canRemoveVulns ? deleteHeader : [])]}
         id={"vulnerabilitiesTable"}
-        pageSize={10}
-        rowEvents={{ onClick: openAdditionalInfoModal }}
-        search={false}
-        selectionMode={isFindingReleased ? selectionMode : undefined}
+        initState={initialstate}
+        onRowClick={openAdditionalInfoModal}
+        paginationSetter={setPagination}
+        paginationState={pagination}
+        rowSelectionSetter={
+          isFindingReleased &&
+          !(hideSelectVulnerability === true || findingState === "closed")
+            ? setSelectedVulnerabilities
+            : undefined
+        }
+        rowSelectionState={selectedVulnerabilities}
+        sortingSetter={setSorting}
+        sortingState={sorting}
       />
       <DeleteVulnerabilityModal
         findingId={findingId}

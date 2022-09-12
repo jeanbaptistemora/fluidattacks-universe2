@@ -232,7 +232,7 @@ describe("VulnComponent", (): void => {
     expect(
       screen.queryByText("searchFindings.tabDescription.editVuln")
     ).not.toBeInTheDocument();
-    expect(screen.queryAllByRole("button")).toHaveLength(0);
+    expect(screen.queryAllByRole("button")).toHaveLength(1);
     expect(screen.queryAllByRole("checkbox")).toHaveLength(0);
     expect(handleRefetchData).not.toHaveBeenCalled();
   });

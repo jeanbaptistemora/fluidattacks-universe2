@@ -287,21 +287,21 @@ def test_finding_reattack(
     )
     filter_button.click()
     status_filter = Select(
-        utils.wait_for_id(
+        utils.wait_for_name(
             driver,
-            "select.searchFindings.tabVuln.statusTooltip.id",
+            "currentState",
             timeout,
         )
     )
 
     # Reattack all vulnerabilities
-    status_filter.select_by_visible_text("Open")
+    status_filter.select_by_visible_text("open")
     start_reattack = utils.wait_for_id(
         driver,
         "start-reattack",
         timeout,
     )
-    status_filter.select_by_visible_text("--All options--")
+    status_filter.select_by_visible_text("All")
     assert utils.wait_for_text(
         driver,
         "192.168.1.19",
@@ -314,12 +314,6 @@ def test_finding_reattack(
     )
     start_reattack.click()
 
-    # hide closed vulnerabilities
-    assert utils.wait_for_hide_text(
-        driver,
-        "192.168.1.20",
-        timeout,
-    )
     assert utils.wait_for_text(
         driver,
         "192.168.1.19",
@@ -454,12 +448,14 @@ def test_finding_vulnerabilities(
         "vulnerabilities-edit",
         timeout,
     )
-    edit_vulns.click()
+
     checkboxes = driver.find_elements_by_css_selector(
         "#vulnerabilitiesTable input[type='checkbox']"
     )
+
     for checkbox in checkboxes:
         if not checkbox.is_selected():
             checkbox.click()
-    assert "test/data/lib_path/f060/csharp.cs" in driver.page_source
+
     edit_vulns.click()
+    assert "test/data/lib_path/f060/csharp.cs" in driver.page_source
