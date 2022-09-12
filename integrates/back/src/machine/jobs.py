@@ -103,15 +103,6 @@ class JobArguments(NamedTuple):
     root_nickname: str
 
 
-def parse_name(name: str) -> JobArguments:
-    tokens = name.split("-", maxsplit=3)
-    return JobArguments(
-        finding_code=tokens[2],
-        group_name=tokens[1],
-        root_nickname=tokens[3],
-    )
-
-
 def _get_priority_suffix(urgent: bool) -> str:
     return "soon" if urgent else "later"
 
