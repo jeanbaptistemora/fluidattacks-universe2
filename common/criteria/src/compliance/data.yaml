@@ -458,10 +458,25 @@ cwe:
       a measuring stick for security tools,
       and as a baseline for weakness identification,
       mitigation and prevention efforts.
-      The version used in this section is CWE List v4.5.
+      The version used in this section is CWE List v4.8.
   es:
     summary: __empty__
   definitions:
+    '5':
+      title: Data transmission without encryption
+      link: https://cwe.mitre.org/data/definitions/5.html
+    '6':
+      title: Misconfiguration - Insufficient session-ID length
+      link: https://cwe.mitre.org/data/definitions/6.html
+    '11':
+      title: Creating bebug binary
+      link: https://cwe.mitre.org/data/definitions/11.html
+    '13':
+      title: Misconfiguration - Password in configuration file
+      link: https://cwe.mitre.org/data/definitions/13.html
+    '15':
+      title: External control of system or configuration setting
+      link: https://cwe.mitre.org/data/definitions/15.html
     '20':
       title: Improper input validation
       link: https://cwe.mitre.org/data/definitions/20.html
@@ -496,6 +511,13 @@ cwe:
     '89':
       title: Improper neutralization of special elements used in an SQL command ("SQL
         injection")
+      link: https://cwe.mitre.org/data/definitions/89.html
+    '90':
+      title: Improper neutralization of special elements used in an LDAP query ('LDAP
+        Injection')
+      link: https://cwe.mitre.org/data/definitions/89.html
+    '91':
+      title: XML injection
       link: https://cwe.mitre.org/data/definitions/89.html
     '94':
       title: Improper control of generation of code ("code injection")

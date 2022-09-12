@@ -242,6 +242,7 @@
     - owaspmasvs.V8_11
     - nist800171.1_19
     - asvs.1_8_2
+    - cwe.13
   metadata: {}
 '027':
   en:
@@ -399,6 +400,7 @@
     - cwe.352
     - cwe.614
     - cwe.1004
+    - cwe.79
     - nist80063.7_1_1
     - owasp10.A2
     - owasp10.A3
@@ -534,6 +536,7 @@
     - owaspmasvs.V4_2
     - nist800171.5_5
     - asvs.3_3_1
+    - cwe.6
   metadata: {}
 '031':
   en:
@@ -698,6 +701,7 @@
     - ptes.7_4_4_2
     - owaspscp.3
     - owaspmasvs.V6_2
+    - cwe.6
   metadata: {}
 '033':
   en:
@@ -996,7 +1000,6 @@
     - cwe.23
     - cwe.36
     - cwe.73
-    - cwe.98
     - cwe.641
     - owasp10.A2
     - owasp10.A3
@@ -1546,6 +1549,7 @@
     - sig.I_1_3_2
     - sig.I_3_2_1
     - sig.U_1_2
+    - cwe.15
   metadata: {}
 '072':
   en:
@@ -1857,6 +1861,7 @@
     - owaspmasvs.V7_2
     - owaspmasvs.V8_2
     - asvs.14_3_2
+    - cwe.11
   metadata: {}
 '079':
   en:
@@ -4652,6 +4657,7 @@
     - capec.131
     - cis.16_1
     - cwe.120
+    - cwe.74
     - owasp10.A6
     - agile.9
     - certj.MET03-J
@@ -4782,8 +4788,6 @@
     - capec.240
     - capec.242
     - capec.248
-    - cwe.20
-    - cwe.79
     - cwe.116
     - cwe.117
     - cwe.173
@@ -4975,7 +4979,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.20
     - owaspm10.M7
     - agile.9
     - certj.MSC04-J
@@ -5346,6 +5349,12 @@
     - cwe.602
     - cwe.643
     - cwe.943
+    - cwe.22
+    - cwe.36
+    - cwe.90
+    - cwe.91
+    - cwe.95
+    - cwe.98
     - owasp10.A3
     - owaspm10.M2
     - agile.9
@@ -6265,6 +6274,7 @@
     - sig.D_4_4_2
     - sig.H_3_2
     - sig.H_3_3
+    - cwe.13
   metadata: {}
 '186':
   en:
@@ -8452,6 +8462,8 @@
     - cwe.285
     - cwe.287
     - cwe.306
+    - cwe.78
+    - cwe.98
     - eprivacy.4_1a
     - nist80053.IA-2
     - owasp10.A1
@@ -8560,6 +8572,8 @@
     - cwe.284
     - cwe.602
     - cwe.749
+    - cwe.78
+    - cwe.98
     - owasp10.A1
     - owasp10.A4
     - owasp10.A5
@@ -9929,6 +9943,10 @@
     - asvs.8_1_3
     - asvs.12_3_1
     - siglite.SL_131
+    - cwe.15
+    - cwe.22
+    - cwe.36
+    - cwe.73
   metadata: {}
 '321':
   en:
@@ -9984,7 +10002,6 @@
     - capec.153
     - capec.248
     - capec.586
-    - cwe.94
     - cwe.95
     - cwe.502
     - owasp10.A3
@@ -11034,6 +11051,7 @@
     - asvs.9_1_1
     - asvs.9_1_3
     - sig.I_3_2_4_1
+    - cwe.5
   metadata: {}
 '337':
   en:
@@ -11477,7 +11495,6 @@
     - capec.32
     - capec.137
     - capec.153
-    - cwe.20
     - cwe.233
     - cwe.235
     - cwe.915
@@ -11505,6 +11522,7 @@
     - asvs.5_1_3
     - asvs.12_3_1
     - sig.I_3_4_6
+    - cwe.22
   metadata: {}
 '343':
   en:
@@ -11560,6 +11578,7 @@
     - gdpr.R40
     - iso27001.18_1_4
     - pci.6_4_1
+    - cwe.36
   metadata: {}
 '344':
   en:
@@ -11613,8 +11632,6 @@
     - capec.19
     - capec.242
     - capec.248
-    - cwe.20
-    - cwe.94
     - cwe.95
     - owasp10.A3
     - agile.9
@@ -12977,7 +12994,6 @@
     oneshot: true
   references:
     - capec.94
-    - cwe.94
     - cwe.297
     - cwe.300
     - owasp10.A7
