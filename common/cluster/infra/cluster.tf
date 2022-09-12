@@ -62,14 +62,14 @@ module "cluster" {
   aws_auth_accounts         = [data.aws_caller_identity.main.account_id]
   aws_auth_roles = concat(
     [
-      for admin in local.cluster_admins : {
+      for admin in local.admins : {
         rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${admin}"
         username = admin
         groups   = ["system:masters"]
       }
     ],
     [
-      for user in local.cluster_users : {
+      for user in local.users : {
         rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
         username = user
         groups   = ["system:masters"]

@@ -3,8 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 locals {
-  cluster_admins = ["prod_common"]
-  cluster_name   = "common"
+  cluster_name = "common"
   cluster_security_groups = {
     master = {
       egress_nodes_all = {
@@ -43,10 +42,6 @@ locals {
       }
     }
   }
-  cluster_users = [
-    "dev",
-    "prod_integrates",
-  ]
 }
 
 data "aws_caller_identity" "main" {}
