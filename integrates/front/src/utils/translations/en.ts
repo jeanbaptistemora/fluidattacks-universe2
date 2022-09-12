@@ -125,9 +125,6 @@ export const enTranslations: ResourceKey = {
         title: "Vulnerabilities treatment",
       },
     },
-    radarChart: {
-      exposureByCategories: "Exposure by Categories",
-    },
     sections: {
       extras: {
         download: "Download",
