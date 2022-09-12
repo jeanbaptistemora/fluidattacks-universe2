@@ -6780,7 +6780,23 @@ sig:
   title: SIG Core
   en:
     summary: >
-      ...
+      The Standardized Information Gathering
+      (Questionnaire) (SIG) Lite is a repository
+      of third-party information
+      security and privacy questions,
+      indexed to multiple regulations
+      and control frameworks,
+      curated by Shared Assessments.
+      The SIG gathers pertinent information
+      to determine how security risks are
+      managed across a spectrum of
+      18 risk control areas,
+      or domains,
+      within a service provider's environment.
+      It was developed to enable a service
+      provider to compile complete information
+      about these risk domains in one document.
+      The version used in this section is SIG 2019.
   es:
     summary: __empty__
   definitions:
