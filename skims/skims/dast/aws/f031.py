@@ -496,10 +496,100 @@ async def full_access_to_ssm(
     return vulns
 
 
+async def negative_statement(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    policies = response.get("Policies", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", [])
+            pol_access = list(policy_names["Document"]["Statement"])
+            for index, item in enumerate(pol_access):
+                with suppress(KeyError):
+                    if isinstance(item["NotAction"], str):
+                        action = [item["NotAction"]]
+                    else:
+                        action = item["NotAction"]
+
+                    if item["Effect"] == "Allow" and not _is_action_permissive(
+                        action
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        (
+                                            "/Document/Statement"
+                                            f"/{index}/NotAction"
+                                        ),
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=pol_access[index]["NotAction"],
+                                    description=t(
+                                        "src.lib_path."
+                                        "f031.iam_has_full_access_to_ssm"
+                                    ),
+                                )
+                            ],
+                        ]
+
+                    if (
+                        item["Effect"] == "Allow"
+                        and not item["NotResource"] == "*"
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        (
+                                            "/Document/Statement"
+                                            f"/{index}/NotResource"
+                                        ),
+                                    ),
+                                    arn=(f"{policy['Arn']}"),
+                                    values=pol_access[index]["NotResource"],
+                                    description=t(
+                                        "src.lib_path."
+                                        "f031_aws.negative_statement"
+                                    ),
+                                )
+                            ],
+                        ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_NEGATIVE_STATEMENT),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    negative_statement,
     full_access_to_ssm,
     permissive_policy,
     admin_policy_attached,
