@@ -530,6 +530,12 @@ cwe:
       title: Improper control of filename for include/require statement in PHP program
         ("PHP remote file inclusion")
       link: https://cwe.mitre.org/data/definitions/98.html
+    '112':
+      title: Missing XML validation
+      link: https://cwe.mitre.org/data/definitions/112.html
+    '114':
+      title: Process control
+      link: https://cwe.mitre.org/data/definitions/114.html
     '116':
       title: Improper encoding or escaping of output
       link: https://cwe.mitre.org/data/definitions/116.html
@@ -539,6 +545,9 @@ cwe:
     '120':
       title: Buffer copy without checking size of input ("classic buffer overflow")
       link: https://cwe.mitre.org/data/definitions/120.html
+    '130':
+      title: Buffer copy without checking size of input ("classic buffer overflow")
+      link: https://cwe.mitre.org/data/definitions/130.html
     '134':
       title: Use of externally-controlled format string
       link: https://cwe.mitre.org/data/definitions/134.html
@@ -548,15 +557,15 @@ cwe:
     '147':
       title: Improper neutralization of input terminators
       link: https://cwe.mitre.org/data/definitions/147.html
-    '159':
-      title: Improper handling of invalid use of special elements
-      link: https://cwe.mitre.org/data/definitions/159.html
+    '150':
+      title: Improper neutralization of escape, meta, or control sequences
+      link: https://cwe.mitre.org/data/definitions/150.html
+    '170':
+      title: Improper null termination
+      link: https://cwe.mitre.org/data/definitions/170.html
     '173':
       title: Improper handling of alternate encoding
       link: https://cwe.mitre.org/data/definitions/173.html
-    '176':
-      title: Improper handling of unicode encoding
-      link: https://cwe.mitre.org/data/definitions/176.html
     '190':
       title: Integer overflow or wraparound
       link: https://cwe.mitre.org/data/definitions/190.html
@@ -566,9 +575,6 @@ cwe:
     '203':
       title: Observable discrepancy
       link: https://cwe.mitre.org/data/definitions/203.html
-    '204':
-      title: Observable response discrepancy
-      link: https://cwe.mitre.org/data/definitions/204.html
     '208':
       title: Observable timing discrepancy
       link: https://cwe.mitre.org/data/definitions/208.html
@@ -581,12 +587,12 @@ cwe:
     '212':
       title: Improper removal of sensitive information before storage or transfer
       link: https://cwe.mitre.org/data/definitions/212.html
-    '213':
-      title: Exposure of sensitive information due to incompatible policies
-      link: https://cwe.mitre.org/data/definitions/213.html
     '219':
       title: Storage of file with sensitive data under web root
       link: https://cwe.mitre.org/data/definitions/219.html
+    '221':
+      title: Information loss or omission
+      link: https://cwe.mitre.org/data/definitions/221.html
     '223':
       title: Omission of security-relevant information
       link: https://cwe.mitre.org/data/definitions/223.html
@@ -604,6 +610,9 @@ cwe:
       link: https://cwe.mitre.org/data/definitions/250.html
     '256':
       title: Plaintext storage of a password
+      link: https://cwe.mitre.org/data/definitions/256.html
+    '257':
+      title: Storing passwords in a recoverable format
       link: https://cwe.mitre.org/data/definitions/256.html
     '259':
       title: Use of hard-coded password
