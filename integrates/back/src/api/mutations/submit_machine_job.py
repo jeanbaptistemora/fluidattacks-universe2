@@ -11,8 +11,13 @@ from ariadne.utils import (
 from botocore.exceptions import (
     ClientError,
 )
-from contextlib import (
-    suppress,
+from custom_exceptions import (
+    ErrorSubmittingJob,
+    FindingNotFound,
+    RootNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
@@ -34,9 +39,7 @@ from machine.jobs import (
     queue_job_new,
 )
 from typing import (
-    List,
     Optional,
-    Set,
 )
 
 
@@ -50,40 +53,38 @@ async def mutate(
     _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    root_nicknames: List[str],
+    root_nicknames: list[str],
 ) -> SimplePayloadMessage:
-    finding_loader = info.context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    loaders: Dataloaders = info.context.loaders
+    finding: Finding = await loaders.finding.load(finding_id)
     group_name: str = finding.group_name
     finding_title: str = finding.title
-    _root_nicknames: Set[str] = {
+    _root_nicknames: set[str] = {
         root.state.nickname
-        for root in await info.context.loaders.group_roots.load(group_name)
+        for root in await loaders.group_roots.load(group_name)
         if isinstance(root, GitRoot)
     }
     if not root_nicknames:
-        return SimplePayloadMessage(
-            success=False, message="GitRoot does not exists"
-        )
+        raise RootNotFound()
 
     finding_code: Optional[str] = get_finding_code_from_title(finding_title)
-
     if finding_code is None:
-        return SimplePayloadMessage(
-            success=False, message="The finding cannot be found"
-        )
-    success = False
-    with suppress(ClientError):
+        raise FindingNotFound()
+
+    try:
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
         queued_job = await queue_job_new(
-            dataloaders=info.context.loaders,
+            dataloaders=loaders,
             finding_codes=[finding_code],
             group_name=group_name,
             roots=list(roots_to_execute),
         )
-        if queued_job is not None:
-            success = queued_job.success
+        if queued_job is None or not queued_job.success:
+            raise ErrorSubmittingJob()
+    except ClientError as ex:
+        raise ErrorSubmittingJob() from ex
+
     return SimplePayloadMessage(
-        success=success,
+        success=True,
         message="",
     )

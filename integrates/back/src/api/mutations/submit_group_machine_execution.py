@@ -11,8 +11,8 @@ from ariadne.utils import (
 from botocore.exceptions import (
     ClientError,
 )
-from contextlib import (
-    suppress,
+from custom_exceptions import (
+    ErrorSubmittingJob,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -33,10 +33,6 @@ from machine.jobs import (
     FINDINGS,
     queue_job_new,
 )
-from typing import (
-    List,
-    Set,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -49,16 +45,15 @@ async def mutate(
     _: None,
     info: GraphQLResolveInfo,
     group_name: str,
-    root_nicknames: List[str],
+    root_nicknames: list[str],
 ) -> SimplePayloadMessage:
-    _root_nicknames: Set[str] = {
+    _root_nicknames: set[str] = {
         root.state.nickname
         for root in await info.context.loaders.group_roots.load(group_name)
         if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     }
 
-    success = False
-    with suppress(ClientError):
+    try:
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
         queued_job = await queue_job_new(
             dataloaders=info.context.loaders,
@@ -66,9 +61,12 @@ async def mutate(
             group_name=group_name,
             roots=list(roots_to_execute),
         )
-        if queued_job is not None:
-            success = queued_job.success
+        if queued_job is None or not queued_job.success:
+            raise ErrorSubmittingJob()
+    except ClientError as ex:
+        raise ErrorSubmittingJob() from ex
+
     return SimplePayloadMessage(
-        success=success,
+        success=True,
         message="",
     )

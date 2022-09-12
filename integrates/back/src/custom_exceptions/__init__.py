@@ -53,6 +53,10 @@ class ErrorLoadingStakeholders(_SingleMessageException):
     msg: str = "Unable to read stakeholders data"
 
 
+class ErrorSubmittingJob(_SingleMessageException):
+    msg: str = "Unable to queue machine execution or job"
+
+
 class ErrorSubscribingStakeholder(_SingleMessageException):
     msg: str = "Unable to subscribe stakeholder"
 
