@@ -70,9 +70,7 @@ async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
 
 @contextlib.asynccontextmanager
 async def http_session() -> AsyncIterator[aiohttp.ClientSession]:
-    connector = aiohttp.TCPConnector(
-        ssl=False,
-    )
+    connector = aiohttp.TCPConnector()
     cookie_jar = aiohttp.CookieJar(
         unsafe=True,
     )
