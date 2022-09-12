@@ -615,6 +615,9 @@ async def put_action_to_batch(
         command_name = f"/{product_name}/batch"
         if action_name == "clone_roots":
             command_name = "/integrates/jobs/clone_roots"
+        if action_name == "execute-machine":
+            command_name = "/integrates/jobs/execute_machine"
+
         async with aioboto3.Session().client(**OPTIONS) as batch:
             return (
                 await batch.submit_job(

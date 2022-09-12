@@ -651,7 +651,7 @@ def start_execution(
         start_date=datetime.now().isoformat(),
         commit_hash=commit_hash,
     )
-    if result:
+    if not result:
         print(f"Failed to start {job_id}")
 
 

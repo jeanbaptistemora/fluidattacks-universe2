@@ -7,6 +7,7 @@ closure:
   decorator: 5.1.1
   idna: '3.3'
   py: 1.11.0
+  pyyaml: '6.0'
   requests: 2.28.1
   retry2: 0.9.3
   types-requests: 2.28.0
@@ -55,6 +56,24 @@ links:
   - name: py-1.11.0.tar.gz
     sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
     url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
+  - name: PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 16s47q0nc3rrw8rjp8y6zm1wgs49i2qckj2g0k5kjsc2cmyr6p85
+    url: https://files.pythonhosted.org/packages/f5/6f/b8b4515346af7c33d3b07cd8ca8ea0700ca72e8d7a750b2b87ac0268ca4e/PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: PyYAML-6.0-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 0x61lyvvyxn3g97inyr7156abgnggfsw94hgmbgqpys9dymyl776
+    url: https://files.pythonhosted.org/packages/67/d4/b95266228a25ef5bd70984c08b4efce2c035a4baa5ccafa827b266e3dc36/PyYAML-6.0-cp39-cp39-macosx_11_0_arm64.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 00q8aiqzqz9xjx28aqafp36j7acjr5gp62c99s5b5lafvsg86zfn
+    url: https://files.pythonhosted.org/packages/21/67/b42191239c5650c9e419c4a08a7a022bbf1abf55b0391c380a72c3af5462/PyYAML-6.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 1lvkvj034w5g3gjxjcaqjswmi2zfz742nyimswvs06i7xw8w9a6b
+    url: https://files.pythonhosted.org/packages/77/da/e845437ffe0dffae4e7562faf23a4f264d886431c5d2a2816c853288dc8e/PyYAML-6.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 1h3fnk46bi462hll1299zjwdxa3v6g1h1xcs3p6ylq9b4mbphlj0
+    url: https://files.pythonhosted.org/packages/12/fc/a4d5a7554e0067677823f7265cb3ae22aed8a238560b5133b58cda252dad/PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: PyYAML-6.0.tar.gz
+    sha256: 18imkjacvpxfgg1lbpraqywx3j7hr5dv99d242byqvrh2jf53yv8
+    url: https://files.pythonhosted.org/packages/36/2b/61d51a2c4f25ef062ae3f74576b01638bebad5e045f747ff12643df63844/PyYAML-6.0.tar.gz
   - name: requests-2.28.1-py3-none-any.whl
     sha256: 0jakwryf077k46wbs525hrkxlyg4prpq6hdc199ganrnl6hs5vwg
     url: https://files.pythonhosted.org/packages/ca/91/6d9b8ccacd0412c08820f72cebaa4f0c0441b5cda699c90f618b6f8a1b42/requests-2.28.1-py3-none-any.whl
