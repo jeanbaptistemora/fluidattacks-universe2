@@ -135,18 +135,6 @@ async def test_remove_organization() -> None:
     assert org.state.pending_deletion_date is None
 
 
-async def test_get_group_names() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"  # NOSONAR
-    groups = await orgs_domain.get_group_names(loaders, org_id)
-    assert len(groups) == 3
-    assert sorted(groups) == [
-        "continuoustesting",
-        "oneshottest",
-        "unittesting",
-    ]
-
-
 async def test_get_id_by_name() -> None:
     org_name = "okada"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -154,10 +142,6 @@ async def test_get_id_by_name() -> None:
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
     assert org_id == expected_org_id
-
-    with pytest.raises(OrganizationNotFound):
-        new_loader: Dataloaders = get_new_context()
-        await new_loader.organization.load("madeup-org")
 
 
 async def test_get_name_by_id() -> None:
@@ -167,10 +151,6 @@ async def test_get_name_by_id() -> None:
     organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
     assert org_name == expected_org_name
-
-    with pytest.raises(OrganizationNotFound):
-        new_loader: Dataloaders = get_new_context()
-        await new_loader.organization.load("ORG#madeup-id")
 
 
 async def test_get_id_for_group() -> None:
@@ -223,62 +203,6 @@ async def test_get_stakeholder_organizations() -> None:
         )
         == ()  # NOSONAR
     )
-
-
-async def test_get_org_stakeholders() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
-    org_stakeholders_emails = sorted(
-        [stakeholder.email for stakeholder in org_stakeholders]
-    )
-
-    expected_emails = [
-        "continuoushack2@gmail.com",
-        "continuoushacking@gmail.com",
-        "customer_manager@fluidattacks.com",
-        "forces.unittesting@fluidattacks.com",
-        "integrateshacker@fluidattacks.com",
-        "integratesmanager@fluidattacks.com",
-        "integratesmanager@gmail.com",
-        "integratesreattacker@fluidattacks.com",
-        "integratesresourcer@fluidattacks.com",
-        "integratesreviewer@fluidattacks.com",
-        "integratesserviceforces@fluidattacks.com",
-        "integratesuser2@fluidattacks.com",
-        "integratesuser2@gmail.com",
-        "integratesuser@gmail.com",
-        "unittest2@fluidattacks.com",
-        "vulnmanager@gmail.com",
-    ]
-    assert len(org_stakeholders_emails) == 17
-    for email in expected_emails:
-        assert email in org_stakeholders_emails
-
-    second_stakeholders_emails = sorted(
-        await orgs_domain.get_stakeholders_emails(loaders, org_id)
-    )
-    assert len(second_stakeholders_emails) == 17
-    for email in expected_emails:
-        assert email in second_stakeholders_emails
-
-
-async def test_has_group() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    existing_group = "unittesting"
-    non_existent_group = "madeupgroup"
-    assert await orgs_domain.has_group(loaders, org_id, existing_group)
-    assert not await orgs_domain.has_group(loaders, org_id, non_existent_group)
-
-
-async def test_has_user_access() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    existing_user = "integratesmanager@gmail.com"
-    non_existent_user = "madeupuser@gmail.com"
-    assert await orgs_domain.has_access(loaders, org_id, existing_user)
-    assert not await orgs_domain.has_access(loaders, org_id, non_existent_user)
 
 
 @pytest.mark.changes_db

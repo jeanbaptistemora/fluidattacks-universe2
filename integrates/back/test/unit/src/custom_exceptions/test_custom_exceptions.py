@@ -20,6 +20,7 @@ from custom_exceptions import (
     InvalidPushToken,
     InvalidRange,
     InvalidSchema,
+    OrganizationNotFound,
     RepeatedValues,
     StakeholderNotFound,
     UnavailabilityError,
@@ -349,6 +350,15 @@ async def test_validate_file_schema_invalid() -> None:
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
         await validate_file_schema(file_url, info)
+
+
+async def test_organization_not_found() -> None:
+    with pytest.raises(OrganizationNotFound):
+        loaders: Dataloaders = get_new_context()
+        await loaders.organization.load("madeup-org")
+    with pytest.raises(OrganizationNotFound):
+        new_loader: Dataloaders = get_new_context()
+        await new_loader.organization.load("ORG#madeup-id")
 
 
 async def test_validate_tags() -> None:
