@@ -8,6 +8,7 @@ from ariadne.utils import (
 from custom_exceptions import (
     DocumentNotFound,
     RequiredNewPhoneNumber,
+    RequiredVerificationCode,
 )
 from dataloaders import (
     Dataloaders,
@@ -33,6 +34,7 @@ from newutils import (
 )
 from newutils.token import (
     get_jwt_content,
+    is_api_token,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -53,7 +55,7 @@ from verify.operations import (
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    verification_code: Optional[str],
+    verification_code: Optional[str] = None,
     **_kwargs: None,
 ) -> str:
     logs_utils.cloudwatch_log(
@@ -61,21 +63,26 @@ async def resolve(
         "Security: Attempted to get vulnerabilities for organization"
         f": {parent.id} at {datetime_utils.get_now()}",
     )
-    if parent.vulnerabilities_url is None:
-        raise DocumentNotFound()
 
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    user_phone: Optional[StakeholderPhone] = stakeholder.phone
-    if not user_phone:
-        raise RequiredNewPhoneNumber()
+    if not is_api_token(user_info):
+        user_email: str = user_info["user_email"]
+        stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+        user_phone: Optional[StakeholderPhone] = stakeholder.phone
+        if not user_phone:
+            raise RequiredNewPhoneNumber()
 
-    await check_verification(
-        phone_number=get_international_format_phone_number(user_phone),
-        code=verification_code or "",
-    )
+        if not verification_code:
+            raise RequiredVerificationCode()
+
+        await check_verification(
+            phone_number=get_international_format_phone_number(user_phone),
+            code=verification_code,
+        )
+
+    if parent.vulnerabilities_url is None:
+        raise DocumentNotFound()
 
     logs_utils.cloudwatch_log(
         info.context,

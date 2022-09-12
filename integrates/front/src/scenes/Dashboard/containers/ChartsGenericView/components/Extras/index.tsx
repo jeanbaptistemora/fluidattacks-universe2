@@ -107,6 +107,9 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
           case "Exception - Document not found":
             msgError(t("analytics.sections.extras.vulnerabilitiesUrl.error"));
             break;
+          case "Exception - The verification code is required":
+            msgError(t("profile.mobileModal.alerts.requiredVerificationCode"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.error(
