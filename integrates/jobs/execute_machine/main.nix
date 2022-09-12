@@ -4,7 +4,6 @@
 {
   outputs,
   makeScript,
-  inputs,
   makePythonVersion,
   ...
 }:
@@ -16,10 +15,9 @@ makeScript {
   searchPaths = {
     bin = [
       (makePythonVersion "3.9")
-      inputs.nixpkgs.jq
-      inputs.nixpkgs.findutils
     ];
     source = [
+      outputs."/integrates/jobs/execute_machine/env"
       outputs."/skims/config/runtime"
       outputs."/melts/config/runtime"
       outputs."/common/utils/aws"

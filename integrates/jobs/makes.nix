@@ -20,6 +20,18 @@
         python = "3.8";
         src = "/integrates/jobs/clone_roots/src";
       };
+      integratesJobsExecuteMachine = {
+        searchPaths = {
+          source = [
+            outputs."/integrates/jobs/execute_machine/env"
+          ];
+          pythonMypy = [
+            (projectPath "/integrates/jobs/execute_machine/src")
+          ];
+        };
+        python = "3.9";
+        src = "/integrates/jobs/execute_machine/src";
+      };
     };
   };
 }

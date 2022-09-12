@@ -9,14 +9,13 @@ import json
 import logging
 import os
 import re
-import requests
-from requests.exceptions import (
-    ConnectionError,
+import requests  # type: ignore
+from requests.exceptions import (  # type: ignore
     ConnectTimeout,
     HTTPError,
     Timeout,
 )
-from retry import (
+from retry import (  # type: ignore
     retry,
 )
 import subprocess
@@ -429,7 +428,7 @@ def generate_config(  # pylint: disable=too-many-locals
         secrets = {
             secret["key"]: secret["value"]
             for environment_url in git_root["gitEnvironmentUrls"]
-            if environment_url["urlType"] == "CLOUD"  # type: ignore
+            if environment_url["urlType"] == "CLOUD"
             for secret in environment_url["secrets"]
         }
         dast_config = {
@@ -453,7 +452,7 @@ def generate_config(  # pylint: disable=too-many-locals
                 "include": [
                     {
                         "host": host,
-                        "port": port,
+                        "port": int(port),
                     }
                     for host, port in ssl_targets
                 ],
