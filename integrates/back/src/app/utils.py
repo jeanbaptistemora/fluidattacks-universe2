@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from .views.types import (
+    UserAccessInfo,
+)
 from authlib.integrations.starlette_client import (
     OAuth,
     OAuthError,
@@ -39,14 +42,14 @@ from typing import (
 )
 
 
-async def create_session_token(user: Dict[str, str]) -> str:
+async def create_session_token(user: UserAccessInfo) -> str:
     jti = token_utils.calculate_hash_token()["jti"]
-    user_email = user["email"]
+    user_email = user.user_email
     jwt_token: str = token_utils.new_encoded_jwt(
         dict(
             user_email=user_email,
-            first_name=user.get("given_name", ""),
-            last_name=user.get("family_name", ""),
+            first_name=user.first_name,
+            last_name=user.last_name,
             exp=datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
             sub="starlette_session",
             jti=jti,

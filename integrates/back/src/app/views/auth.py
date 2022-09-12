@@ -4,8 +4,11 @@
 
 # Starlette authz-related views/functions
 
-from api.mutations.sign_in import (
-    log_stakeholder_in,
+from .types import (
+    UserAccessInfo,
+)
+from .utils import (
+    format_user_access_info,
 )
 from app import (
     utils,
@@ -17,7 +20,16 @@ from authlib.integrations.starlette_client import (
     OAuthError,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model import (
+    stakeholders as stakeholders_model,
+)
+from db_model.stakeholders.types import (
+    NotificationsPreferences,
+    Stakeholder,
+    StakeholderMetadataToUpdate,
 )
 from decorators import (
     retry_on_exceptions,
@@ -28,13 +40,21 @@ from httpx import (
 import logging
 import logging.config
 from newutils import (
+    analytics,
+    datetime as datetime_utils,
     templates as templates_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from sessions import (
     dal as sessions_dal,
 )
 from settings.auth import (
     OAUTH,
+)
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 from starlette.requests import (
     Request,
@@ -135,10 +155,70 @@ async def do_google_login(request: Request) -> Response:
 async def handle_user(
     request: Request, response: HTMLResponse, user: Dict[str, str]
 ) -> None:
-    email = user["email"]
+    user_info: UserAccessInfo = format_user_access_info(user)
     session_key = str(uuid.uuid4())
     request.session["session_key"] = session_key
-    jwt_token = await utils.create_session_token(user)
+    jwt_token = await utils.create_session_token(user_info)
     utils.set_token_in_response(response, jwt_token)
-    await sessions_dal.create_session_web(request, email)
-    await log_stakeholder_in(get_new_context(), user)
+    await sessions_dal.create_session_web(request, user_info.user_email)
+    await log_stakeholder_in(get_new_context(), user_info)
+
+
+async def autoenroll_stakeholder(
+    email: str,
+    first_name: str,
+    last_name: str,
+) -> None:
+    await orgs_domain.add_without_group(
+        email=email,
+        role="user",
+        is_register_after_complete=True,
+    )
+    today = datetime_utils.get_iso_date()
+    await stakeholders_model.update_metadata(
+        email=email,
+        metadata=StakeholderMetadataToUpdate(
+            first_name=first_name,
+            last_login_date=today,
+            last_name=last_name,
+            registration_date=today,
+            notifications_preferences=NotificationsPreferences(
+                email=[
+                    "ACCESS_GRANTED",
+                    "AGENT_TOKEN",
+                    "CHARTS_REPORT",
+                    "EVENT_REPORT",
+                    "FILE_UPDATE",
+                    "GROUP_INFORMATION",
+                    "GROUP_REPORT",
+                    "NEW_COMMENT",
+                    "NEW_DRAFT",
+                    "PORTFOLIO_UPDATE",
+                    "REMEDIATE_FINDING",
+                    "REMINDER_NOTIFICATION",
+                    "ROOT_UPDATE",
+                    "SERVICE_UPDATE",
+                    "UNSUBSCRIPTION_ALERT",
+                    "UPDATED_TREATMENT",
+                    "VULNERABILITY_ASSIGNED",
+                    "VULNERABILITY_REPORT",
+                ]
+            ),
+        ),
+    )
+
+
+async def log_stakeholder_in(
+    loaders: Dataloaders, stakeholder: UserAccessInfo
+) -> None:
+    email = stakeholder.user_email.lower()
+    if await stakeholders_domain.exists(loaders, email):
+        stakeholder_in_db: Stakeholder = await loaders.stakeholder.load(email)
+        if not stakeholder_in_db.is_registered:
+            await stakeholders_domain.register(email)
+        await stakeholders_domain.update_last_login(email)
+    else:
+        first_name = stakeholder.first_name[:29]
+        last_name = stakeholder.last_name[:29]
+        await analytics.mixpanel_track(email, "Register")
+        await autoenroll_stakeholder(email, first_name, last_name)

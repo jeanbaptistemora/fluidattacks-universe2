@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from api.mutations.sign_in import (
+from app.views.auth import (
     autoenroll_stakeholder,
 )
 from dataloaders import (

@@ -12,17 +12,6 @@ from ariadne import (
 from authlib.integrations.starlette_client import (
     OAuthError,
 )
-from dataloaders import (
-    Dataloaders,
-)
-from db_model import (
-    stakeholders as stakeholders_model,
-)
-from db_model.stakeholders.types import (
-    NotificationsPreferences,
-    Stakeholder,
-    StakeholderMetadataToUpdate,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -40,9 +29,6 @@ from newutils import (
     datetime as datetime_utils,
     token as token_helper,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from settings import (
     MOBILE_SESSION_AGE,
 )
@@ -51,9 +37,6 @@ from settings.auth import (
     GOOGLE_ARGS,
     OAUTH,
 )
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 from typing import (
     Any,
     Optional,
@@ -61,50 +44,6 @@ from typing import (
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def autoenroll_stakeholder(
-    email: str,
-    first_name: str,
-    last_name: str,
-) -> None:
-    await orgs_domain.add_without_group(
-        email=email,
-        role="user",
-        is_register_after_complete=True,
-    )
-    today = datetime_utils.get_iso_date()
-    await stakeholders_model.update_metadata(
-        email=email,
-        metadata=StakeholderMetadataToUpdate(
-            first_name=first_name,
-            last_login_date=today,
-            last_name=last_name,
-            registration_date=today,
-            notifications_preferences=NotificationsPreferences(
-                email=[
-                    "ACCESS_GRANTED",
-                    "AGENT_TOKEN",
-                    "CHARTS_REPORT",
-                    "EVENT_REPORT",
-                    "FILE_UPDATE",
-                    "GROUP_INFORMATION",
-                    "GROUP_REPORT",
-                    "NEW_COMMENT",
-                    "NEW_DRAFT",
-                    "PORTFOLIO_UPDATE",
-                    "REMEDIATE_FINDING",
-                    "REMINDER_NOTIFICATION",
-                    "ROOT_UPDATE",
-                    "SERVICE_UPDATE",
-                    "UNSUBSCRIPTION_ALERT",
-                    "UPDATED_TREATMENT",
-                    "VULNERABILITY_ASSIGNED",
-                    "VULNERABILITY_REPORT",
-                ]
-            ),
-        ),
-    )
 
 
 @retry_on_exceptions(
@@ -174,14 +113,12 @@ async def get_provider_user_info(
 
 @convert_kwargs_to_snake_case
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, auth_token: str, provider: str
+    _: Any, _info: GraphQLResolveInfo, auth_token: str, provider: str
 ) -> SignInPayload:
     session_jwt = ""
     success = False
-    loaders: Dataloaders = info.context.loaders
     user = await get_provider_user_info(provider, auth_token)
     if user:
-        await log_stakeholder_in(loaders=loaders, stakeholder=user)
         email = user["email"].lower()
         session_jwt = token_helper.new_encoded_jwt(
             {
@@ -200,19 +137,3 @@ async def mutate(
         LOGGER.exception("Mobile login failed", extra={"extra": locals()})
 
     return SignInPayload(session_jwt=session_jwt, success=success)
-
-
-async def log_stakeholder_in(
-    loaders: Dataloaders, stakeholder: dict[str, str]
-) -> None:
-    email = stakeholder["email"].lower()
-    if await stakeholders_domain.exists(loaders, email):
-        stakeholder_in_db: Stakeholder = await loaders.stakeholder.load(email)
-        if not stakeholder_in_db.is_registered:
-            await stakeholders_domain.register(email)
-        await stakeholders_domain.update_last_login(email)
-    else:
-        first_name = stakeholder.get("given_name", "")[:29]
-        last_name = stakeholder.get("family_name", "")[:29]
-        await analytics.mixpanel_track(email, "Register")
-        await autoenroll_stakeholder(email, first_name, last_name)

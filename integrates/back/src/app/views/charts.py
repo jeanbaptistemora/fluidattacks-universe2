@@ -9,6 +9,9 @@ from analytics import (
 from app import (
     utils,
 )
+from app.views.types import (
+    UserAccessInfo,
+)
 from newutils import (
     token as token_utils,
 )
@@ -35,10 +38,10 @@ async def graphics_for_entity(entity: str, request: Request) -> Response:
         request=request,
     )
     jwt_token = await utils.create_session_token(
-        dict(
-            email=request_data["user_email"],
+        UserAccessInfo(
             first_name=request_data["first_name"],
             last_name=request_data["last_name"],
+            user_email=request_data["user_email"],
         )
     )
     utils.set_token_in_response(response, jwt_token)

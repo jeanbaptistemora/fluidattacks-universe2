@@ -3,8 +3,11 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=protected-access, import-error
-from api.mutations.sign_in import (
+from app.views.auth import (
     log_stakeholder_in,
+)
+from app.views.types import (
+    UserAccessInfo,
 )
 from back.test.unit.src.utils import (
     create_dummy_session,
@@ -356,7 +359,12 @@ async def test_create_user() -> None:
     )
 
     time.sleep(1)
-    await log_stakeholder_in(loaders=loaders, stakeholder={"email": email})
+    await log_stakeholder_in(
+        loaders=loaders,
+        stakeholder=UserAccessInfo(
+            first_name="First_Name", last_name="Last_Name", user_email=email
+        ),
+    )
     new_loader: Dataloaders = get_new_context()
     new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
     user_last_login_date = datetime_utils.get_datetime_from_iso_str(
