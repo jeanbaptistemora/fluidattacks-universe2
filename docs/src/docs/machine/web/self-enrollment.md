@@ -28,7 +28,7 @@ Start free trial button.
 Click on it to access the
 free trial landing page.
 
-![Fluid Attacks Homepage](https://res.cloudinary.com/fluid-attacks/image/upload/v1657304596/docs/web/enrollment/fluid_home_page.png)
+![Fluid Attacks Homepage](https://res.cloudinary.com/fluid-attacks/image/upload/v1663009959/docs/web/enrollment/home_page_fluid.png)
 
 The landing page states that
 self-enrollment is for a 21-day
@@ -38,7 +38,7 @@ this plan’s benefits.
 To proceed,
 click on Start your Machine Plan.
 
-![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1657304596/docs/web/enrollment/landing_page.png)
+![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/page_landing.png)
 
 You will be taken to the
 official website of our
@@ -52,7 +52,7 @@ and only one user per organization
 is allowed to complete the free
 trial registration.
 
-![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_login.png)
+![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/login_enrollment.png)
 
 Having logged in,
 you will see a window where
@@ -62,7 +62,7 @@ you want us to assess.
 Once you have filled out the fields,
 click on the Check access button.
 
-![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_repository.png)
+![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/enrollment_repo.png)
 
 If the details you
 provided are valid,
@@ -71,7 +71,7 @@ You will see a new window asking you to create your
 [organization](/machine/web/creating-organization)
 and [group](/machine/web/groups).
 
-![Create Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_creating.png)
+![Create Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010105/docs/web/enrollment/enrollment_create.png)
 
 After providing the
 requested information,
