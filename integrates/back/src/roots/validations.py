@@ -283,7 +283,7 @@ def validate_url_root_component(root: Root, component: str) -> None:
             raise InvalidUrl()
         url_with_port = (
             f"{root.state.host}:{root.state.port}"
-            if root.state.port
+            if root.state.port and root.state.protocol != "FILE"
             else root.state.host
         )
 
