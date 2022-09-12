@@ -12,7 +12,6 @@ from ._core import (
     CheckResultId,
     CheckResultObj,
     CheckRunId,
-    RolledCheckResult,
     TimingPhases,
     Timings,
 )
@@ -25,7 +24,6 @@ __all__ = [
     "CheckResultId",
     "CheckResultObj",
     "CheckRunId",
-    "RolledCheckResult",
     "TimingPhases",
     "Timings",
 ]

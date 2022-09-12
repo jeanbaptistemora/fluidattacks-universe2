@@ -7,7 +7,6 @@ from . import (
 )
 from ._core import (
     CheckResultObj,
-    RolledCheckResult,
 )
 from .time_range import (
     date_ranges_dsc,
@@ -109,33 +108,6 @@ class CheckResultClient:
         return (
             self._date_ranges()
             .map(lambda d: self._list_all(d, self._list_per_date_range))
-            .transform(lambda x: from_piter(x))
-            .transform(lambda x: until_empty(x))
-            .bind(lambda s: s)
-        )
-
-    def _list_rolled_results(
-        self,
-        page: int,
-        date_range: DateRange,
-    ) -> Cmd[FrozenList[RolledCheckResult]]:
-        # temp support: this endpoint is deprecated
-        return self._client.get_list(
-            "/v1/check-results-rolled-up/" + self._check.id_str,
-            from_prim_dict(
-                {
-                    "limit": self._per_page,
-                    "page": page,
-                    "from": str(int(datetime.timestamp(date_range.from_date))),
-                    "to": str(int(datetime.timestamp(date_range.to_date))),
-                }
-            ),
-        ).map(lambda l: tuple(map(_decode.rolled_from_raw, l)))
-
-    def list_all_rolled(self) -> Stream[RolledCheckResult]:
-        return (
-            self._date_ranges()
-            .map(lambda d: self._list_all(d, self._list_rolled_results))
             .transform(lambda x: from_piter(x))
             .transform(lambda x: until_empty(x))
             .bind(lambda s: s)

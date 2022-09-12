@@ -78,15 +78,4 @@ class CheckResult:
     stopped_at: datetime
 
 
-@dataclass(frozen=True)
-class RolledCheckResult:
-    # run_location & hour make a composite id key
-    run_location: str
-    error_count: int
-    failure_count: int
-    results_count: int
-    hour: datetime
-    response_times: FrozenList[int]
-
-
 CheckResultObj = IndexedObj[CheckResultId, CheckResult]

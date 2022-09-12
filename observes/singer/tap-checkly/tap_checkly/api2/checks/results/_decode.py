@@ -9,7 +9,6 @@ from ._core import (
     CheckResultId,
     CheckResultObj,
     CheckRunId,
-    RolledCheckResult,
     TimingPhases,
     Timings,
 )
@@ -182,14 +181,3 @@ def from_raw_result(raw: JsonObj) -> CheckResult:
 def from_raw_obj(raw: JsonObj) -> CheckResultObj:
     _id = Unfolder(raw["id"]).to_primitive(str).map(CheckResultId).unwrap()
     return IndexedObj(_id, from_raw_result(raw))
-
-
-def rolled_from_raw(raw: JsonObj) -> RolledCheckResult:
-    return RolledCheckResult(
-        Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
-        Unfolder(raw["errorCount"]).to_primitive(int).unwrap(),
-        Unfolder(raw["failureCount"]).to_primitive(int).unwrap(),
-        Unfolder(raw["resultsCount"]).to_primitive(int).unwrap(),
-        Unfolder(raw["hour"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["responseTimes"]).to_list_of(int).unwrap(),
-    )
