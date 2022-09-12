@@ -37,12 +37,20 @@ from vulnerabilities import (
 )
 
 
+def sanitize(specific: str) -> str:
+    if "-1" in specific or "-" in specific:
+        sanitized = specific.replace("-", "_")
+        sanitized = sanitized.replace(" _1", " (-1)")
+        return sanitized
+    return specific
+
+
 def _build_where(location: Location) -> str:
     if len(location.access_patterns) == 1:
-        return f"{location.access_patterns[0]}: {location.values[0]}"
+        return sanitize(f"{location.access_patterns[0]}: {location.values[0]}")
     return "; ".join(
         [
-            f'{path.split("/")[-1]}: {location.values[index_path]}'
+            sanitize(f'{path.split("/")[-1]}: {location.values[index_path]}')
             for index_path, path in enumerate(location.access_patterns)
         ]
     )

@@ -37034,7 +37034,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    95 |       <artifactId>mockito-core</artifactId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-web v3.0.3.RELEASE) [CVE-2010-3700, CVE-2011-2732, CVE-2021-22112, GHSA-gq28-h5vg-8prx, SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497]",37,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-web at version 3.0.3.RELEASE with ['CVE-2010-3700', 'CVE-2011-2732', 'CVE-2021-22112', 'GHSA-gq28-h5vg-8prx', 'SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-web v3.0.3.RELEASE) [CVE-2021-22112, GHSA-gq28-h5vg-8prx, SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497]",37,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-web at version 3.0.3.RELEASE with ['CVE-2021-22112', 'GHSA-gq28-h5vg-8prx', 'SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    27 |     </dependency>
    28 |     <dependency>
    29 |       <groupId>io.netty</groupId>
