@@ -1,34 +1,4 @@
 {
-  "org.http4s:blaze-core_2.11": {
-    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
-  },
-  "org.http4s:blaze-core_2.12": {
-    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
-  },
-  "org.http4s:blaze-core_2.13": {
-    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
-  },
-  "org.http4s:http4s-async-http-client_2.12": {
-    "GHSA-8hxh-r6f7-jf45": "<=0.21.7"
-  },
-  "org.http4s:http4s-async-http-client_2.13": {
-    "GHSA-8hxh-r6f7-jf45": "<=0.21.7"
-  },
-  "org.http4s:http4s-blaze-server_2.12": {
-    "GHSA-xhv5-w9c5-2r2w": "<0.21.17"
-  },
-  "org.http4s:http4s-blaze-server_2.13": {
-    "GHSA-xhv5-w9c5-2r2w": "<0.21.17"
-  },
-  "org.http4s:http4s-core_2.12": {
-    "GHSA-xhv5-w9c5-2r2w": ">=0 <0.21.17"
-  },
-  "org.jboss.cache:jbosscache-core": {
-    "CVE-2012-0034": "3.2.8.ga"
-  },
-  "org.jboss.jbossas:jboss-as-jmx-remoting": {
-    "CVE-2014-3518": ">=0 <=6.0.0.20100216-m2"
-  },
   "org.jboss.mod_cluster:mod-cluster": {
     "CVE-2012-1154": "1.1.3.final"
   },
