@@ -8,38 +8,45 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Information Updated') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      The information has been modified to the group <strong>{{ group_name }}</strong>
-      by <strong>{{ responsible }}</strong> as {{ user_role }}.<br/>
-      Here are the details of the group:
-    </p>
-    <p>
-      <strong>Date:</strong> {{ report_date }}.<br>
-      {% for key, value in group_changes.items() %}
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Information Updated') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        Information in the group <strong>{{ group_name }}</strong>
+        has been modified by
+        <strong><a
+          href="mailto:{{ responsible }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ responsible -}}
+        </a></strong>:
+      </p>
+      <p>
+        <strong>Date:</strong> {{ report_date }}<br>
+        {%- for key, value in group_changes.items() %}
         <strong>{{ key }}:</strong>
-        {% if value["from"] == value["to"] %}
-          {{ value["to"] }}.
-        {% else %}
-          {% if key in ["Sprint Length"] %}
+        {%- if value["from"] == value["to"] %}
+        {{ value["to"] -}}
+        {%- else %}
+          <i>from</i>
+          {%- if key in ["Sprint Length"] %}
             {{ value["from"].split()[0] }}
-          {% else %}
+          {%- else %}
             {{ value["from"] }}
-          {% endif %}
-          <u>to</u> {{ value["to"] }}.
-        {% endif %}
+          {%- endif %}
+          <i>to</i> {{ value["to"] }}
+        {%- endif %}
         <br>
-      {% endfor %}
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-  </div>
+        {%- endfor %}
+      </p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+    </div>
 
-  {% include 'layouts/components/footer.html' %}
-</div>
+    {% include 'layouts/components/footer.html' %}
+  </div>
 {% endblock %}

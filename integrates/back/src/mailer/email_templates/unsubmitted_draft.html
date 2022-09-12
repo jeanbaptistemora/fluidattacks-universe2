@@ -8,49 +8,36 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_finding, go_to_button %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_finding('Draft Rejected') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      <a
-        href="mailto:{{ reviewer_mail }}"
-        target="_blank" rel="noopener noreferrer"
-        style="color: #ff3435;">
-        {{ reviewer_mail }}
-      </a>
-      has rejected the draft <strong>{{ draft_title }}</strong>
-      of group <strong>{{ group }}</strong>, reported by
-      <a
-        href="mailto:{{ analyst_mail }}"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="color: #ff3435;">
-        {{ analyst_mail }}
-      </a> as {{ user_role }}. The given {% if multiple_reasons %} reasons were:
-        {% else %} reason was: {% endif %}
-      {% for reason, explanation in reasons.items() %}
-      <div class="row">
-        <div class="column left" style="width: 20%; text-align: center;">
-          <strong>{{ reason }}:</strong>
-        </div>
-        <div class="column right" style="width: 80%; text-align: center;">
-          {{ explanation }}
-        </div>
-      </div>
-      {% endfor %}
-      <br>
-      Therefore, the draft's status has changed to not-submitted.
-    </p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    {{ go_to_button('Go to draft', draft_url, 'primary-button') }}
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_finding('Draft Rejected') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        Draft <strong>{{ draft_title }}</strong>
+        for the group <strong>{{ group }}</strong>, submitted by
+        <strong><a
+          href="mailto:{{ analyst_mail }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;">
+          {{ analyst_mail -}}
+        </a></strong>
+        has been rejected by
+        <strong><a
+          href="mailto:{{ reviewer_mail }}"
+          target="_blank" rel="noopener noreferrer"
+          style="color: #ff3435;">
+          {{ reviewer_mail -}}
+        </a></strong>.
+        Therefore, its status has changed to not submitted.
+      </p>
+      <p>Regards,<br>
+        Fluid Attacks Team</p>
+      {{ go_to_button('Go to draft', draft_url, 'primary-button') }}
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
