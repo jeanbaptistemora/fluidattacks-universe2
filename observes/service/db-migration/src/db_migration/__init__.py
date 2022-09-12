@@ -51,6 +51,7 @@ EPHEMERAL_SCHEMAS = frozenset(
         "delighted",
         "formstack",
         "mailchimp",
+        "matomo",
         "mixpanel_integrates",
         "timedoctor",
     ]

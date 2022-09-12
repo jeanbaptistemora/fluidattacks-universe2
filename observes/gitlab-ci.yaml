@@ -262,6 +262,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/lintPython/imports/observesTapMatomo:
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/imports/observesTapMatomo
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/imports/observesTapMixpanel:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
@@ -674,6 +696,28 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
     - m . /lintPython/module/observesTapMailchimpTests
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/lintPython/module/observesTapMatomo:
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/module/observesTapMatomo
   stage: lint-code
   tags:
     - small

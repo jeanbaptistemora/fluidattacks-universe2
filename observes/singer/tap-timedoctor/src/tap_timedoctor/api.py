@@ -45,7 +45,7 @@ def retry_on_errors(func: Callable) -> Callable:
         for _ in range(10):
             (status_code, response) = func(*args, **kwargs)
             if status_code != 200:
-                print("INFO: Retrying due to API error...")
+                logs.log_error("INFO: Retrying due to API error...")
                 time.sleep(5.0)
             else:
                 break

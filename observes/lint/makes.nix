@@ -86,6 +86,10 @@ in {
         config = "${inputs.observesIndex.tap.mailchimp.src}/setup.imports.cfg";
         src = inputs.observesIndex.tap.mailchimp.root;
       };
+      observesTapMatomo = {
+        config = "${inputs.observesIndex.tap.matomo.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.matomo.root;
+      };
       observesTapMixpanel = {
         config = "${inputs.observesIndex.tap.mixpanel.src}/setup.imports.cfg";
         src = inputs.observesIndex.tap.mixpanel.root;
@@ -235,6 +239,13 @@ in {
         ];
         python = "3.8";
         src = inputs.observesIndex.tap.mailchimp.tests;
+      };
+      observesTapMatomo = {
+        searchPaths.source = [
+          outputs."${inputs.observesIndex.tap.matomo.env.runtime}"
+        ];
+        python = "3.8";
+        src = inputs.observesIndex.tap.matomo.src;
       };
       observesTapMixpanel = {
         searchPaths.source = [

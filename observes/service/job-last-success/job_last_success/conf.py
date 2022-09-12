@@ -14,6 +14,7 @@ SINGLE_JOBS = frozenset(
         "delighted",
         "formstack",
         "mailchimp",
+        "matomo",
         "mixpanel_integrates",
         "timedoctor_backup",
         "timedoctor_etl",

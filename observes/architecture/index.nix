@@ -95,6 +95,7 @@ in {
     json = standard_1 "${singerPath}/tap-json";
     mailchimp = standard_1 "${singerPath}/tap-mailchimp";
     mandrill = standard_3 "${singerPath}/tap-mandrill";
+    matomo = standard_1 "${singerPath}/tap-matomo";
     mixpanel = standard_1 "${singerPath}/tap-mixpanel";
     timedoctor = standard_1 "${singerPath}/tap-timedoctor";
     zoho_analytics = standard_1 "${singerPath}/tap-zoho-analytics";
