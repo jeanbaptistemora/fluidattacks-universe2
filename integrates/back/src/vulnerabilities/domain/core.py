@@ -873,7 +873,7 @@ async def verify(
     closed_vulns_ids: list[str],
     vulns_to_close_from_file: list[Vulnerability],
     context: Optional[Any] = None,
-) -> bool:
+) -> None:
     for vuln_id in closed_vulns_ids:
         loaders.vulnerability.clear(vuln_id)
 
@@ -887,42 +887,40 @@ async def verify(
     else:
         source = Source.MACHINE
         modified_by = "machine@fluidattacks.com"
-    return all(
-        await collect(
-            update_metadata_and_state(
-                vulnerability=vuln_to_close,
-                new_metadata=VulnerabilityMetadataToUpdate(
-                    commit=(
-                        close_item.commit
-                        if close_item
-                        and close_item.type == VulnerabilityType.LINES
-                        else None
-                    ),
-                    stream=(
-                        close_item.stream
-                        if close_item
-                        and close_item.type == VulnerabilityType.INPUTS
-                        else None
-                    ),
-                ),
-                new_state=VulnerabilityState(
-                    modified_by=modified_by,
-                    modified_date=modified_date,
-                    source=source,
-                    status=VulnerabilityStateStatus.CLOSED,
-                    tool=close_item.state.tool
+    await collect(
+        update_metadata_and_state(
+            vulnerability=vuln_to_close,
+            new_metadata=VulnerabilityMetadataToUpdate(
+                commit=(
+                    close_item.commit
                     if close_item
-                    else vuln_to_close.state.tool,
+                    and close_item.type == VulnerabilityType.LINES
+                    else None
                 ),
-            )
-            for vuln_to_close, close_item in zip_longest(
-                list_closed_vulns, vulns_to_close_from_file, fillvalue=None
-            )
+                stream=(
+                    close_item.stream
+                    if close_item
+                    and close_item.type == VulnerabilityType.INPUTS
+                    else None
+                ),
+            ),
+            new_state=VulnerabilityState(
+                modified_by=modified_by,
+                modified_date=modified_date,
+                source=source,
+                status=VulnerabilityStateStatus.CLOSED,
+                tool=close_item.state.tool
+                if close_item
+                else vuln_to_close.state.tool,
+            ),
+        )
+        for vuln_to_close, close_item in zip_longest(
+            list_closed_vulns, vulns_to_close_from_file, fillvalue=None
         )
     )
 
 
-async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
+async def verify_vulnerability(vulnerability: Vulnerability) -> None:
     await vulns_model.update_historic_entry(
         current_value=vulnerability,
         finding_id=vulnerability.finding_id,
@@ -932,7 +930,6 @@ async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
             status=VulnerabilityVerificationStatus.VERIFIED,
         ),
     )
-    return True
 
 
 async def close_by_exclusion(

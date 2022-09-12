@@ -425,7 +425,7 @@ async def test_verify_vulnerabilities() -> None:
     justification = "Vuln verified"
     open_vulns_ids = ["587c40de-09a0-4d85-a9f9-eaa46aa895d7"]
     closed_vulns_ids: List[str] = []
-    test_data = await verify_vulnerabilities(
+    await verify_vulnerabilities(
         context=info.context,
         finding_id=finding_id,
         user_info=user_info,
@@ -435,9 +435,6 @@ async def test_verify_vulnerabilities() -> None:
         vulns_to_close_from_file=[],
         loaders=info.context.loaders,
     )
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
     loaders = get_new_context()
     finding_commets: list[
         FindingComment

@@ -38,9 +38,6 @@ from newutils import (
     logs as logs_utils,
     validations,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from typing import (
     Any,
 )
@@ -55,7 +52,7 @@ from typing import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
+    _: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimpleFindingPayload:
     try:
         finding_loader = info.context.loaders.finding
@@ -79,10 +76,6 @@ async def mutate(
         await findings_domain.update_description(
             info.context.loaders, finding_id, description
         )
-        redis_del_by_deps_soon(
-            "update_finding_description",
-            finding_id=finding_id,
-        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Updated description in finding "
@@ -98,4 +91,5 @@ async def mutate(
 
     finding_loader.clear(finding_id)
     finding = await finding_loader.load(finding_id)
+
     return SimpleFindingPayload(finding=finding, success=True)

@@ -820,7 +820,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     loaders: Any,
     is_reattack_open: Optional[bool] = None,
     is_closing_event: bool = False,
-) -> bool:
+) -> None:
     # All vulns must be open before verifying them
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
@@ -885,30 +885,24 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     if is_reattack_open is None:
         await comments_domain.add(comment_data)
     # Modify the verification state to mark all passed vulns as verified
-    success = all(
-        await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
+    await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
+    # Open vulns that remain open are not modified in the DB
+    # Open vulns that were closed must be persisted to the DB as closed
+    await vulns_domain.verify(
+        context=context,
+        loaders=loaders,
+        modified_date=today,
+        closed_vulns_ids=closed_vulns_ids,
+        vulns_to_close_from_file=vulns_to_close_from_file,
     )
-    if success:
-        # Open vulns that remain open are not modified in the DB
-        # Open vulns that were closed must be persisted to the DB as closed
-        success = await vulns_domain.verify(
-            context=context,
-            loaders=loaders,
-            modified_date=today,
-            closed_vulns_ids=closed_vulns_ids,
-            vulns_to_close_from_file=vulns_to_close_from_file,
-        )
-        if success and closed_vulns_ids:
-            schedule(
-                send_closed_vulnerabilities_report(
-                    loaders=loaders,
-                    finding_id=finding_id,
-                    closed_vulnerabilities_id=closed_vulns_ids,
-                )
+    if closed_vulns_ids:
+        schedule(
+            send_closed_vulnerabilities_report(
+                loaders=loaders,
+                finding_id=finding_id,
+                closed_vulnerabilities_id=closed_vulns_ids,
             )
-    else:
-        LOGGER.error("An error occurred verifying")
-    return success
+        )
 
 
 async def get_oldest_no_treatment(

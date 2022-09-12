@@ -44,9 +44,6 @@ from newutils import (
     logs as logs_utils,
     validations,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from typing import (
     Any,
     Union,
@@ -61,7 +58,7 @@ from typing import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
+    _: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimpleFindingPayload:
     try:
         kwargs["id"] = finding_id
@@ -153,11 +150,6 @@ async def mutate(
         await findings_domain.update_severity(
             info.context.loaders, finding_id, severity
         )
-        redis_del_by_deps_soon(
-            "update_severity",
-            finding_id=finding_id,
-            group_name=finding.group_name,
-        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Updated severity in finding {finding_id} successfully",
@@ -171,4 +163,5 @@ async def mutate(
 
     finding_loader.clear(finding_id)
     finding = await finding_loader.load(finding_id)
+
     return SimpleFindingPayload(finding=finding, success=True)

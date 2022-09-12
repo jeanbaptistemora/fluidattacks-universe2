@@ -11,9 +11,6 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -33,13 +30,6 @@ from newutils import (
     token as token_utils,
     validations,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
-from typing import (
-    Any,
-    List,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -57,16 +47,14 @@ from unreliable_indicators.operations import (
     require_finding_access,
 )
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    open_vulnerabilities: List[str],
-    closed_vulnerabilities: List[str],
+    open_vulnerabilities: list[str],
+    closed_vulnerabilities: list[str],
 ) -> SimplePayloadType:
     try:
-        finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
         # Validate justification length and vet characters in it
         validations.validate_field_length(
@@ -81,7 +69,7 @@ async def mutate(
         )
         validations.validate_fields([justification])
 
-        success = await findings_domain.verify_vulnerabilities(
+        await findings_domain.verify_vulnerabilities(
             context=info.context,
             finding_id=finding_id,
             user_info=user_info,
@@ -91,22 +79,15 @@ async def mutate(
             vulns_to_close_from_file=[],
             loaders=info.context.loaders,
         )
-        if success:
-            redis_del_by_deps_soon(
-                "verify_vulnerabilities_request",
-                finding_id=finding.id,
-                group_name=finding.group_name,
-            )
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.verify_vulnerabilities_request,
-                finding_ids=[finding_id],
-                vulnerability_ids=open_vulnerabilities
-                + closed_vulnerabilities,
-            )
-            logs_utils.cloudwatch_log(
-                info.context,
-                f"Security: Verify vuln verification in finding {finding_id}",
-            )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.verify_vulnerabilities_request,
+            finding_ids=[finding_id],
+            vulnerability_ids=open_vulnerabilities + closed_vulnerabilities,
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"Security: Verify vuln verification in finding {finding_id}",
+        )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
@@ -114,4 +95,5 @@ async def mutate(
             f"{finding_id}",
         )
         raise
-    return SimplePayloadType(success=success)
+
+    return SimplePayloadType(success=True)

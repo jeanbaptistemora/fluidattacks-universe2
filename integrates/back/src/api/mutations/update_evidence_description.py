@@ -27,9 +27,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -40,7 +37,7 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     evidence_id: str,
@@ -49,10 +46,6 @@ async def mutate(
     try:
         await findings_domain.update_evidence_description(
             info.context.loaders, finding_id, evidence_id, description
-        )
-        redis_del_by_deps_soon(
-            "update_evidence_description",
-            finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
@@ -70,4 +63,5 @@ async def mutate(
             ),
         )
         raise
+
     return SimplePayload(success=True)
