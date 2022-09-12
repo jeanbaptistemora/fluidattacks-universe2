@@ -100,7 +100,6 @@ async def test_finding() -> None:
         "remediated": False,
         "verification": None,
         "historicVerification": [],
-        "historicZeroRisk": [],
         "currentState": "open",
         "hacker": "unittest@fluidattacks.com",
         "source": "asm",
@@ -211,10 +210,6 @@ async def test_finding() -> None:
             remediated
             verification
             historicVerification {
-              date
-              status
-            }
-            historicZeroRisk {
               date
               status
             }
