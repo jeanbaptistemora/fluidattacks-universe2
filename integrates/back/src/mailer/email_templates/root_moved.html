@@ -8,26 +8,22 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Root Moved') }}
-
-  <div class="main-content">
-    <p>Good news!</p>
-    <p>
-      You recently moved the root <strong>{{ nickname }}</strong>
-      from group <strong>{{ group }}</strong>
-      to group <strong>{{ target }}</strong>.
-    </p>
-    <p>
-      The vulnerabilities previously reported to it were also moved
-      successfully.
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Root Moved') }}
+    <div class="main-content">
+      <p>Good news!</p>
+      <p>
+        You recently successfully moved the root <strong>{{ nickname }}</strong>
+        from the group <strong>{{ group }}</strong>
+        to the group <strong>{{ target }}</strong>.
+        The vulnerabilities previously reported to this root were also moved
+        successfully.
+      </p>
+      <p>Regards,<br>Fluid Attacks Team</p>
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}

@@ -8,27 +8,37 @@ SPDX-License-Identifier: MPL-2.0
 {% from 'layouts/components/forms.html' import banner_group, go_to_button, text_area %}
 
 {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Treatment Expiration Alert') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      The temporary acceptance period of the following vulnerabilities of the type <strong>{{ finding }}</strong>,
-      in group <strong>{{ group }}</strong>, is close to its end:<br><br>
-      {% for key, value in locations.items() %}
-        - {{ key }} ({{ value["vuln_count"] }}
-        {% if value["vuln_count"] == 1 %}vulnerability{% else %}vulnerabilities{% endif %}).<br>
-      {% endfor %}
-    </p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    {{ go_to_button('View Vulnerability', finding_link, 'primary-button') }}
-    <br />
+  <div class="container">
+{% include 'layouts/components/dark_logo_header.html' %}
+{% include 'layouts/components/arm_banner.html' -%}
+{{ banner_group('Treatment Expiration Alert') }}
+    <div class="main-content">
+      <p>Hi {{ name }},</p>
+      <p>
+        The temporary acceptance period for the
+        following vulnerabilities in the group <strong>{{ group }}</strong>
+        is about to end:
+      </p>
+      <p>
+        <strong>Type or vulnerability:</strong> {{ finding }}<br>
+        <strong>Vulnerabilities:</strong>
+        <ul>
+        {%- for key, value in locations.items() %}
+          <li>{{ key }} ({{ value["vuln_count"] }}
+          {%- if value["vuln_count"] == 1 %}
+          vulnerability
+          {%- else %}
+          vulnerabilities
+          {%- endif %})
+          </li>
+        {%- endfor %}
+        </ul>
+      </p>
+      <p>Regards,<br>
+        Fluid Attacks Team</p>
+      {{ go_to_button('View Vulnerability', finding_link, 'primary-button') }}
+      <br />
+    </div>
+    {% include 'layouts/components/footer.html' %}
   </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
 {% endblock %}
