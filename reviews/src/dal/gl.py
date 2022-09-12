@@ -47,7 +47,7 @@ def get_pull_request(*, project: Project, pull_request_id: str) -> PullRequest:
     return PullRequest(
         type="gitlab",
         title=raw.title,
-        state=raw.state,
+        state=partial(get_state, pull_request=raw),
         author=raw.author,
         id=raw.id,
         deltas=get_deltas(gql_session=project.gql, pull_request_id=raw.id),
@@ -59,6 +59,10 @@ def get_pull_request(*, project: Project, pull_request_id: str) -> PullRequest:
         raw=raw,
         url=raw.web_url,
     )
+
+
+def get_state(*, pull_request: MergeRequest) -> str:
+    return pull_request.state
 
 
 def get_deltas(*, gql_session: Client, pull_request_id: str) -> int:

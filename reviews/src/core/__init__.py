@@ -39,7 +39,7 @@ def run_tests_gitlab(
     config: Dynaconf,
     pull_request: PullRequest,
 ) -> bool:
-    success = True
+    success: bool = True
 
     log("info", "Reviewing PR: %s", pull_request.url)
     if not tests.skip_ci(pull_request):
@@ -58,7 +58,7 @@ def run_tests_gitlab(
             if (
                 not success
                 and args["close_pr"]
-                and pull_request.state not in ("closed", "merged")
+                and pull_request.state() not in ("closed", "merged")
             ):
                 gl.close_pr(pull_request=pull_request)
                 log("error", "Merge Request closed by: %s", name)

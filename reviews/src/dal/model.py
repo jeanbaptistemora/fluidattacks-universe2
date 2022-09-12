@@ -36,7 +36,7 @@ class PullRequest(NamedTuple):
     pipelines: Callable[[], list[Pipeline]]
     raw: MergeRequest
     source_branch: str
-    state: str
+    state: Callable[[], str]
     target_branch: str
     title: str
     type: str
