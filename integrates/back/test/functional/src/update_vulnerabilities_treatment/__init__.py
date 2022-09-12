@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ..utils import (
+# pylint: disable=import-error
+from back.test.functional.src.utils import (
     get_graphql_result,
 )
 from dataloaders import (
@@ -72,10 +73,6 @@ async def get_vulnerability(
                     assigned
                     date
                     treatment
-                }
-                historicVerification{
-                    date
-                    status
                 }
                 id
             }

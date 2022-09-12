@@ -99,7 +99,6 @@ async def test_finding() -> None:
         "severity": None,
         "remediated": False,
         "verification": None,
-        "historicVerification": [],
         "currentState": "open",
         "hacker": "unittest@fluidattacks.com",
         "source": "asm",
@@ -209,10 +208,6 @@ async def test_finding() -> None:
             severity
             remediated
             verification
-            historicVerification {
-              date
-              status
-            }
             currentState
             hacker
             source
