@@ -22,7 +22,6 @@ from contextlib import (
 from custom_exceptions import (
     InvalidCommentParent,
     MachineCanNotOperate,
-    NotVerificationRequested,
     PermissionDenied,
     VulnNotFound,
 )
@@ -652,13 +651,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         creation_date=current_time,
     )
     await comments_domain.add(comment_data)
-    success = all(
-        await collect(map(vulns_domain.request_verification, vulnerabilities))
-    )
-    if not success:
-        LOGGER.error("An error occurred remediating")
-        raise NotVerificationRequested()
-
+    await collect(map(vulns_domain.request_verification, vulnerabilities))
     if any(not check_hold(vuln) for vuln in vulnerabilities):
         schedule(
             findings_mail.send_mail_remediate_finding(

@@ -28,7 +28,6 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
     InvalidParameter,
-    NoHoldRequested,
     RequiredFieldToBeUpdate,
     VulnNotFound,
 )
@@ -789,11 +788,8 @@ async def request_vulnerabilities_hold(
         finding_id=finding.id,
         verification=verification,
     )
-    success = all(
-        await collect(
-            vulns_domain.request_hold(event_id, vuln)
-            for vuln in vulnerabilities
-        )
+    await collect(
+        vulns_domain.request_hold(event_id, vuln) for vuln in vulnerabilities
     )
     comment_data = FindingComment(
         finding_id=finding_id,
@@ -808,9 +804,6 @@ async def request_vulnerabilities_hold(
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
     )
     await finding_comments_domain.add(comment_data)
-    if not success:
-        LOGGER.error("An error occurred requesting hold")
-        raise NoHoldRequested()
 
 
 async def get_unsolved_events_by_root(

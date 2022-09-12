@@ -569,7 +569,7 @@ async def reject_vulnerabilities_zero_risk(
     )
 
 
-async def request_verification(vulnerability: Vulnerability) -> bool:
+async def request_verification(vulnerability: Vulnerability) -> None:
     await vulns_model.update_historic_entry(
         current_value=vulnerability,
         finding_id=vulnerability.finding_id,
@@ -579,10 +579,9 @@ async def request_verification(vulnerability: Vulnerability) -> bool:
             status=VulnerabilityVerificationStatus.REQUESTED,
         ),
     )
-    return True
 
 
-async def request_hold(event_id: str, vulnerability: Vulnerability) -> bool:
+async def request_hold(event_id: str, vulnerability: Vulnerability) -> None:
     verification = VulnerabilityVerification(
         event_id=event_id,
         modified_date=datetime_utils.get_iso_date(),
@@ -599,7 +598,6 @@ async def request_hold(event_id: str, vulnerability: Vulnerability) -> bool:
         entry=verification,
         vulnerability_id=vulnerability.id,
     )
-    return True
 
 
 async def request_vulnerabilities_zero_risk(
