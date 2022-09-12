@@ -2,72 +2,52 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  lib,
-  pkgs,
+  nixpkgs,
   python_version,
 }: let
-  _python_pkgs = pkgs."${python_version}Packages";
-  fa-purity = typing_ext_override pkgs.fa-purity."${python_version}".pkg;
-  aioextensions = _python_pkgs.aioextensions.overridePythonAttrs (
-    old: rec {
-      version = "20.11.1621472";
-      src = lib.fetchPypi {
-        inherit version;
-        pname = old.pname;
-        sha256 = "q/sqJ1kPILBICBkubJxfkymGVsATVGhQxFBbUHCozII=";
-      };
-    }
-  );
-  python_pkgs =
-    _python_pkgs
-    // {
-      typing-extensions = lib.buildPythonPackage rec {
-        pname = "typing_extensions";
-        format = "pyproject";
-        version = "4.2.0";
-        src = lib.fetchPypi {
-          inherit pname version;
-          sha256 = "8cJGVaDaDRtn8H4XpeayoQWJTmgkuSCWN4uzZo7wI3Y=";
-        };
-        nativeBuildInputs = [_python_pkgs.flit-core];
-      };
-    };
-  pkg_override = is_pkg: new_pkg: let
-    override = x:
-      if x ? overridePythonAttrs && is_pkg x
-      then new_pkg
-      else pkg_override is_pkg new_pkg x;
+  lib = {
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
+  };
+  # overrides
+  pkg_override = names: (import ./pkg_override.nix) (x: (x ? overridePythonAttrs && builtins.elem x.pname names));
+  pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
+
+  pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  purity_override = python_pkgs: pkg_override ["fa_purity"] python_pkgs.fa-purity;
+  overrides = map pkgs_overrides [
+    pytz_override
+    purity_override
+  ];
+
+  # layers
+  layer_1 = python_pkgs: let
+    common_in = {inherit lib python_pkgs;};
   in
-    pkg:
-      if pkg ? overridePythonAttrs
-      then
-        pkg.overridePythonAttrs (
-          old: {
-            nativeBuildInputs = map override (old.nativeBuildInputs or []);
-            propagatedBuildInputs = map override (old.propagatedBuildInputs or []);
-          }
-        )
-      else pkg;
-  typing_ext_override = pkg_override (x: (x.pname == "typing-extensions" || x.pname == "typing_extensions")) python_pkgs.typing-extensions;
-  purity_override = pkg_override (x: (x.pname == "fa_purity")) fa-purity;
-  type_and_purity_override = x: purity_override (typing_ext_override x);
-in
-  python_pkgs
-  // {
-    inherit aioextensions fa-purity;
-    aiohttp = typing_ext_override python_pkgs.aiohttp;
-    asgiref = typing_ext_override python_pkgs.asgiref;
-    fa-singer-io = type_and_purity_override pkgs.fa-singer-io."${python_version}".pkg;
-    import-linter = import ./import-linter {
-      inherit lib python_pkgs;
+    python_pkgs
+    // {
+      pytz = import ./pytz common_in;
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
+      import-linter = import ./import-linter common_in;
+      legacy-paginator = nixpkgs.legacy-paginator."${python_version}".pkg;
+      legacy-singer-io = nixpkgs.legacy-singer-io."${python_version}".pkg;
+      mypy-boto3-s3 = import ./boto3/s3-stubs.nix common_in;
+      types-boto3 = import ./boto3/stubs.nix common_in;
+      types-cachetools = import ./cachetools/stubs.nix {inherit lib;};
+      types-click = import ./click/stubs.nix {inherit lib;};
+      types-python-dateutil = import ./dateutil/stubs.nix {inherit lib;};
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
-    legacy-paginator = type_and_purity_override pkgs.legacy-paginator."${python_version}".pkg;
-    legacy-postgres-client = type_and_purity_override pkgs.legacy-postgres-client."${python_version}".pkg;
-    legacy-singer-io = type_and_purity_override pkgs.legacy-singer-io."${python_version}".pkg;
-    mypy = typing_ext_override python_pkgs.mypy;
-    mypy-boto3-s3 = import ./boto3/s3-stubs.nix lib python_pkgs;
-    types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
-    types-cachetools = import ./cachetools/stubs.nix lib;
-    types-click = import ./click/stubs.nix lib;
-    types-python-dateutil = import ./dateutil/stubs.nix lib;
-  }
+
+  # integrate all
+  compose = let
+    apply = x: f: f x;
+  in
+    functions: val: builtins.foldl' apply val functions;
+  final_pkgs = compose ([layer_1] ++ overrides) (nixpkgs."${python_version}Packages");
+in {
+  inherit lib;
+  python_pkgs = final_pkgs;
+}

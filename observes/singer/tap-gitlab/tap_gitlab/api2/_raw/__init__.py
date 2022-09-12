@@ -74,7 +74,7 @@ class RawClient:
             LOG.info("API call: %s\nparams = %s", target, params)
             response = requests.get(
                 target,
-                headers={  # type: ignore[misc]
+                headers={
                     "Private-Token": self._auth.api_key,
                 },
                 params=to_raw(params),  # type: ignore[misc]

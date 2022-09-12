@@ -6,6 +6,9 @@ from __future__ import (
     annotations,
 )
 
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
 import logging
 from paginator.pages import (
     PageId,
@@ -37,8 +40,8 @@ from typing import (
     NamedTuple,
     Optional,
 )
-from utils_logger.v2 import (
-    DEBUG,
+from utils_logger_2.env import (
+    observes_debug,
 )
 
 LOG = logging.getLogger(__name__)
@@ -83,7 +86,7 @@ class PageClient(NamedTuple):
             _params["per_page"] = page.per_page
         LOG.debug("GET\n\tendpoint: %s\n\tparams: %s", endpoint, _params)
         response = self.raw_client.get(endpoint, _params)
-        if DEBUG:
+        if unsafe_unwrap(observes_debug()):
             items = unsafe_perform_io(response).json()
             LOG.debug(
                 "%s, #items=%s, json: %s",

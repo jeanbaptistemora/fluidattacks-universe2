@@ -16,6 +16,7 @@ from paginator.pages import (
     Limits,
 )
 
+__version__ = "1.0.0"
 __all__ = [
     "AllPages",
     "PageId",

@@ -16,7 +16,7 @@
     six
   ];
   dev_deps = [
-    python_pkgs.poetry
+    python_pkgs.flit-core
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata;

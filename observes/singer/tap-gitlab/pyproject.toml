@@ -2,40 +2,42 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-[tool.poetry]
+[project]
 name = "tap_gitlab"
-version = "1.0.0"
+authors = [
+    {name = "Product Team", email = "development@fluidattacks.com"},
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "boto3 >=1.17.104, <2.0.0",
+    "cachetools >=5.0.0, <6.0.0",
+    "click >=8.0.1, <9.0.0",
+    "fa-purity >=1.23.0, <2.0.0",
+    "fa-singer-io >=1.4.0, <2.0.0",
+    "more-itertools >=8.8.0, <9.0.0",
+    "mypy-boto3-s3 >=1.23.0, <2.0.0",
+    "paginator >=1.0.0, <2.0.0",
+    "python-dateutil >=2.8.1, <3.0.0",
+    "pytz >=2021.1, <2022.0",
+    "requests >=2.25.1, <3.0.0",
+    "returns >=0.16.0, <1.0.0",
+    "singer-io >=1.0.0, <2.0.0",
+    "types-cachetools >=5.0.1, <6.0.0",
+    "types-boto3 >=1.0.2, <2.0.0",
+    "types-requests >=2.26.0, <3.0.0",
+    "types-pytz >=2021.3.0, <2022.0.0",
+    "types-python-dateutil >=2.8.16, <3.0.0",
+    "utils-logger-2 >=1.0.0, <2.0.0",
+]
 description = "Gitlab Tap"
-authors = ["Product Team <development@fluidattacks.com>"]
+dynamic = ["version"]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-aioextensions = "^20.8.2087641"
-aiohttp = "^3.8.1"
-asgiref = "^3.2.10"
-boto3 = "^1.17.104"
-cachetools = "^5.0.0"
-click = "^8.0.1"
-fa-purity = "^1.18.1"
-fa-singer-io = "^1.2.0"
-more-itertools = "^8.8.0"
-mypy-boto3-s3 = "^1.23.0"
-paginator = "^1.0.0"
-postgres-client = "^1.0.0"
-python-dateutil = "^2.8.1"
-pytz = "^2021.1"
-requests = "^2.25.1"
-returns = ">=0.16.0 <1.0.0"
-singer-io = "^1.0.0"
-types-cachetools = "^5.0.1"
-types-boto3= "^1.0.2"
-types-requests = "^2.26.0"
-types-pytz = "^2021.3.0"
-types-python-dateutil = "^2.8.16"
-
-[tool.poetry.scripts]
+[project.scripts]
 tap-gitlab = 'tap_gitlab.cli:main'
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
