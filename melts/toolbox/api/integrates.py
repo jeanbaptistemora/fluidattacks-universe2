@@ -68,7 +68,7 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
         variables: Optional[Dict[str, Any]] = None,
         operation: Optional[str] = None,
     ) -> aiohttp.ClientResponse:
-        connector = aiohttp.TCPConnector(verify_ssl=False)
+        connector = aiohttp.TCPConnector()
         timeout = aiohttp.ClientTimeout(
             total=None,
             connect=None,
