@@ -29,9 +29,6 @@ from db_model.group_access.types import (
 from groups import (
     domain as groups_domain,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from remove_stakeholder.domain import (
     complete_deletion,
     get_confirm_deletion,
@@ -83,10 +80,6 @@ async def reject_register(
 ) -> bool:
     loaders = get_new_context()
     group_access = await loaders.group_access.load((group_name, email))
-    redis_del_by_deps_soon(
-        "reject_access",
-        group_name=group_name,
-    )
     await groups_domain.reject_register_for_group_invitation(
         get_new_context(), group_access
     )

@@ -122,9 +122,6 @@ from organizations_finding_policies import (
 import os
 import pytz  # type: ignore
 import random
-from redis_cluster.operations import (
-    redis_del_by_deps_soon,
-)
 from settings.various import (
     TIME_ZONE,
 )
@@ -774,9 +771,6 @@ async def add_reattack_justification(
                     email="machine@fluidttacks.com",
                 )
             )
-
-    # Require so the new comments are loaded in the next visit
-    redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
 
 
 async def upload_evidences(

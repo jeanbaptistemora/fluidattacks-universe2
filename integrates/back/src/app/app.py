@@ -92,7 +92,6 @@ from organizations import (
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
-    redis_del_by_deps_soon,
     redis_del_entity_attr,
 )
 from remove_stakeholder import (
@@ -278,10 +277,6 @@ async def reject_access(request: Request) -> HTMLResponse:
             await groups_domain.reject_register_for_group_invitation(
                 loaders, group_access
             )
-            redis_del_by_deps_soon(
-                "reject_access",
-                group_name=group_access.group_name,
-            )
             response = await templates.reject_invitation(
                 request, group_access.group_name
             )
@@ -312,11 +307,6 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
             )
             organization: Organization = await loaders.organization.load(
                 organization_access.organization_id
-            )
-            organization_id: str = organization_access.organization_id
-            redis_del_by_deps_soon(
-                "reject_access_organization",
-                organization_id=organization_id,
             )
             response = await templates.reject_invitation(
                 request, organization.name
