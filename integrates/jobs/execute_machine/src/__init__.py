@@ -256,7 +256,6 @@ def do_start_execution(
     result = _request_asm(payload=payload, token=token)
 
     with suppress(AttributeError, KeyError, TypeError):
-        print(result)
         return result["data"]["startMachineExecution"]["success"]
 
     return False
@@ -323,7 +322,6 @@ def get_group_language(token: str, group_name: str) -> Optional[str]:
     if response is not None:
         result = response["data"]["group"]["language"]
     else:
-        print(response)
         logging.error("Failed to fetch root info for group %s", group_name)
 
     return result
@@ -653,9 +651,8 @@ def start_execution(
         start_date=datetime.now().isoformat(),
         commit_hash=commit_hash,
     )
-    print(result)
     if result:
-        print(f"Success started {job_id}")
+        print(f"Failed to start {job_id}")
 
 
 @cli.command()
@@ -669,7 +666,7 @@ def finish_execution(
     api_token: str,
     job_id: str,
 ) -> None:
-    do_finish_execution(
+    result = do_finish_execution(
         token=api_token,
         root=root_nickname,
         group_name=group_name,
@@ -677,6 +674,8 @@ def finish_execution(
         end_date=datetime.now().isoformat(),
         findings_executed=tuple(),
     )
+    if not result:
+        print(f"Failed to finish {job_id}")
 
 
 if __name__ == "__main__":

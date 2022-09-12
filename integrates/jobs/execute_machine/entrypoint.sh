@@ -8,10 +8,15 @@ function main() {
   local dynamo_item
   local group_name
   local checks
+  local dynamo_key
 
-  dynamo_item="$(aws dynamodb get-item \
-    --table-name "fi_async_processing" \
-    --key "{\"pk\":{\"S\": \"${2}\"}}")" \
+  aws_login "prod_integrates" "3600" \
+    && ensure_gitlab_env_vars \
+      INTEGRATES_API_TOKEN \
+    && dynamo_key="{\"pk\":{\"S\": \"${2}\"}}" \
+      dynamo_item="$(aws dynamodb get-item \
+        --table-name "fi_async_processing" \
+        --key "${dynamo_key}")" \
     && group_name="$(echo "${dynamo_item}" \
       | jq '.Item.entity.S' -r)" \
     && checks="$(echo "${dynamo_item}" \
@@ -63,11 +68,14 @@ function main() {
                     --message-body "{\"execution_id\": \"${execution_id}\", \"task\": \"process-skims-result\"}"
               fi
           done \
-          && python3 __argScript__ start-execution \
+          && python3 __argScript__ finish-execution \
             --group-name "${group_name}" \
             --root-nickname "${root}" \
             --api-token "${INTEGRATES_API_TOKEN}"
-      done
+      done \
+    && aws dynamodb delete-item \
+      --table-name "fi_async_processing" \
+      --key "${dynamo_key}"
 }
 
 main "${@}"
