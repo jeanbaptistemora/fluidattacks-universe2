@@ -47,6 +47,14 @@ REPOSITORIES: List[Tuple[Callable[[Advisories, str], None], str]] = [
 ]
 
 
+def fix_advisory(advisory: Advisory) -> Advisory:
+    versions = advisory.vulnerable_version.split(" || ")
+    if ">=0" in versions and len(versions) > 1:
+        fixed_vers = [ver for ver in versions if ver != ">=0"]
+        return advisory._replace(vulnerable_version=" || ".join(fixed_vers))
+    return advisory
+
+
 def clone_repo(url: str) -> Optional[str]:
     # pylint: disable=consider-using-with
     tmp_dirname = TemporaryDirectory().name
@@ -75,7 +83,7 @@ async def update_sca() -> None:
     # adding to table
     log_blocking("info", "Adding advisories to skima_sca table")
     for advisory in advisories:
-        await advisories_model.add(advisory=advisory)
+        await advisories_model.add(advisory=fix_advisory(advisory))
 
 
 async def main() -> None:
