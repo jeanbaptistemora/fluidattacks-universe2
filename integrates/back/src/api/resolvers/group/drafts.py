@@ -2,11 +2,15 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from dataloaders import (
-    Dataloaders,
+from db_model.findings.enums import (
+    FindingStateStatus,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.findings.utils import (
+    filter_non_state_status_findings,
+    format_finding,
 )
 from db_model.groups.types import (
     Group,
@@ -19,6 +23,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from search.operations import (
+    search,
+)
 
 
 @concurrent_decorators(
@@ -27,10 +34,24 @@ from graphql.type.definition import (
 )
 async def resolve(
     parent: Group,
-    info: GraphQLResolveInfo,
+    _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[Finding, ...]:
-    loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    drafts: tuple[Finding, ...] = await loaders.group_drafts.load(group_name)
-    return drafts
+    results = await search(
+        exact_filters={"group_name": group_name},
+        index="findings",
+        limit=50,
+    )
+    findings: tuple[Finding, ...] = tuple(
+        format_finding(finding) for finding in results.items
+    )
+    return tuple(
+        filter_non_state_status_findings(
+            findings,
+            {
+                FindingStateStatus.APPROVED,
+                FindingStateStatus.DELETED,
+            },
+        )
+    )

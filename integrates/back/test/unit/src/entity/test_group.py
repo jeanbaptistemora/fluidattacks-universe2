@@ -69,10 +69,6 @@ async def test_group() -> None:
           consulting {
             content
           }
-          drafts {
-            age
-            openVulnerabilities
-          }
           events {
             hacker
             detail
@@ -156,8 +152,6 @@ async def test_group() -> None:
     )
     assert result["data"]["group"]["disambiguation"] == "Disambiguation test"
     assert result["data"]["group"]["groupContext"] == "Group context test"
-    assert len(result["data"]["group"]["drafts"]) == 2
-    assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
     assert len(result["data"]["group"]["events"]) == 6
     assert (
         result["data"]["group"]["consulting"][0]["content"]
