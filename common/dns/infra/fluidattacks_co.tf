@@ -57,6 +57,78 @@ resource "cloudflare_record" "fluidattacks_co_main" {
   proxied = true
 }
 
+# MX Records
+
+resource "cloudflare_record" "fluidattacks_co_google_1" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  name     = cloudflare_zone.fluidattacks_co.zone
+  type     = "MX"
+  value    = "aspmx.l.google.com"
+  ttl      = 1
+  proxied  = false
+  priority = 1
+}
+
+resource "cloudflare_record" "fluidattacks_co_google_2" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  name     = cloudflare_zone.fluidattacks_co.zone
+  type     = "MX"
+  value    = "alt1.aspmx.l.google.com"
+  ttl      = 1
+  proxied  = false
+  priority = 5
+}
+
+resource "cloudflare_record" "fluidattacks_co_google_3" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  name     = cloudflare_zone.fluidattacks_co.zone
+  type     = "MX"
+  value    = "alt2.aspmx.l.google.com"
+  ttl      = 1
+  proxied  = false
+  priority = 5
+}
+
+resource "cloudflare_record" "fluidattacks_co_google_4" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  name     = cloudflare_zone.fluidattacks_co.zone
+  type     = "MX"
+  value    = "alt3.aspmx.l.google.com"
+  ttl      = 1
+  proxied  = false
+  priority = 10
+}
+
+resource "cloudflare_record" "fluidattacks_co_google_5" {
+  zone_id  = cloudflare_zone.fluidattacks_co.id
+  name     = cloudflare_zone.fluidattacks_co.zone
+  type     = "MX"
+  value    = "alt4.aspmx.l.google.com"
+  ttl      = 1
+  proxied  = false
+  priority = 10
+}
+
+# TXT Records
+
+resource "cloudflare_record" "fluidattacks_co_spf_allowed" {
+  zone_id = cloudflare_zone.fluidattacks_co.id
+  name    = cloudflare_zone.fluidattacks_co.zone
+  type    = "TXT"
+  value   = "v=spf1 include:_spf.google.com -all"
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "fluidattacks_co_verify_google" {
+  zone_id = cloudflare_zone.fluidattacks_co.id
+  name    = cloudflare_zone.fluidattacks_co.zone
+  type    = "TXT"
+  value   = "google-site-verification=O1DzXi3E6LIG3nOgpYkkLDU6rELFVMDoO-HPYllLXPw"
+  ttl     = 1
+  proxied = false
+}
+
 # Page Rules
 
 resource "cloudflare_page_rule" "fluidattacks_co_to_fluidattacks_com" {
