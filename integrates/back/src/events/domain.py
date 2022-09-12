@@ -232,8 +232,11 @@ async def add_event(
         raise InvalidDate()
 
     group: Group = await loaders.group.load(group_name)
+    created_date = datetime_utils.get_iso_date()
     event = Event(
         client=group.organization_id,
+        created_by=hacker_email,
+        created_date=created_date,
         description=kwargs["detail"],
         event_date=datetime_utils.get_as_utc_iso_format(event_date),
         evidences=EventEvidences(),
@@ -254,7 +257,7 @@ async def add_event(
         group_name=group_name,
         state=EventState(
             modified_by=hacker_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=created_date,
             status=EventStateStatus.CREATED,
         ),
     )

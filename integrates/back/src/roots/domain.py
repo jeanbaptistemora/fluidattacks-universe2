@@ -291,6 +291,8 @@ async def add_git_root(  # pylint: disable=too-many-locals
             reason="root created",
             status=GitCloningStatus("UNKNOWN"),
         ),
+        created_by=user_email,
+        created_date=modified_date,
         group_name=group_name,
         id=root_id,
         organization_name=organization_name,
@@ -374,6 +376,8 @@ async def add_ip_root(
 
     modified_date = datetime_utils.get_iso_date()
     root = IPRoot(
+        created_by=user_email,
+        created_date=modified_date,
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,
@@ -468,6 +472,8 @@ async def add_url_root(  # pylint: disable=too-many-locals
 
     modified_date = datetime_utils.get_iso_date()
     root = URLRoot(
+        created_by=user_email,
+        created_date=modified_date,
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,
