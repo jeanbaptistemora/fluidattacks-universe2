@@ -1,9 +1,12 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-import argparse
+import click
 from contextlib import (
     suppress,
+)
+from datetime import (
+    datetime,
 )
 import json
 import logging
@@ -212,6 +215,99 @@ def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
     return result
 
 
+def do_start_execution(
+    *,
+    token: str,
+    root: str,
+    group_name: str,
+    job_id: str,
+    start_date: str,
+    commit_hash: str,
+) -> bool:
+    query = """
+            mutation SkimsDoStartMachineExecution(
+                $root: String!
+                $group_name: String!
+                $job_id: ID!
+                $start_date: DateTime!
+                $commit_hash: String!
+            ) {
+                startMachineExecution(
+                    rootNickname: $root,
+                    groupName: $group_name,
+                    jobId: $job_id,
+                    startedAt: $start_date,
+                    gitCommit: $commit_hash
+                ) {
+                    success
+                }
+            }
+        """
+    payload = {
+        "query": query,
+        "variables": dict(
+            root=root,
+            group_name=group_name,
+            job_id=job_id,
+            start_date=start_date,
+            commit_hash=commit_hash,
+        ),
+    }
+    result = _request_asm(payload=payload, token=token)
+
+    with suppress(AttributeError, KeyError, TypeError):
+        print(result)
+        return result["data"]["startMachineExecution"]["success"]
+
+    return False
+
+
+def do_finish_execution(
+    *,
+    token: str,
+    root: str,
+    group_name: str,
+    job_id: str,
+    end_date: str,
+    findings_executed: Tuple[Dict[str, Union[int, str]], ...],
+) -> bool:
+    query = """
+            mutation SkimsDoFinishMachineExecution(
+                $root: String!
+                $group_name: String!
+                $job_id: ID!
+                $end_date: DateTime!
+                $findings_executed: [MachineFindingResultInput]
+            ) {
+                finishMachineExecution(
+                    rootNickname: $root,
+                    groupName: $group_name,
+                    jobId: $job_id,
+                    stoppedAt: $end_date,
+                    findingsExecuted: $findings_executed
+                ) {
+                    success
+                }
+            }
+        """
+    payload = {
+        "query": query,
+        "variables": dict(
+            root=root,
+            group_name=group_name,
+            job_id=job_id,
+            end_date=end_date,
+            findings_executed=findings_executed,
+        ),
+    }
+    result = _request_asm(payload=payload, token=token)
+
+    with suppress(AttributeError, KeyError, TypeError):
+        return result["data"]["finishMachineExecution"]["success"]
+
+    return False
+
+
 def get_group_language(token: str, group_name: str) -> Optional[str]:
     result: Optional[str] = None
     query = """
@@ -332,9 +428,10 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
     return targets
 
 
-def generate_configs(
+def generate_config_files(
     *,
     group_name: str,
+    root_nickname: str,
     checks: Tuple[str, ...],
     token: str,
     language: str = "EN",
@@ -352,7 +449,7 @@ def generate_configs(
         (
             root
             for root in get_roots(token, group_name) or []
-            if root["nickname"]
+            if root["nickname"] == root_nickname
         ),
         None,
     )
@@ -493,37 +590,40 @@ def generate_config(  # pylint: disable=too-many-locals
     }
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Execute machine for a root")
-    parser.add_argument("--group-name", type=str, required=True)
-    parser.add_argument(
-        "--language",
-        type=str,
-        required=False,
-        default="EN",
-        choices=["EN", "ES"],
-    )
-    parser.add_argument("--root-nickname", type=str, required=True)
-    parser.add_argument("--checks", type=str, required=True)
-    parser.add_argument("--working-dir", type=str, required=True, default=".")
-    parser.add_argument("--api-token", type=str, required=True)
-    args = parser.parse_args()
+@click.group(invoke_without_command=True)
+@click.pass_context
+def cli(ctx: Any) -> None:  # pylint: disable=unused-argument
+    pass
 
-    configs = generate_configs(
-        group_name=args.group_name,
-        checks=json.loads(args.checks),
-        language=get_group_language(args.api_token, args.group_name) or "EN",
-        working_dir=args.working_dir,
-        token=args.api_token,
+
+@cli.command()
+@click.option("--group-name", required=True)
+@click.option("--root-nickname", required=True)
+@click.option("--api-token", required=True)
+@click.option("--checks", required=True)
+@click.option("--working-dir", required=True, type=click.Path(), default=".")
+def generate_configs(
+    group_name: str,
+    root_nickname: str,
+    api_token: str,
+    checks: str,
+    working_dir: str,
+) -> None:
+    configs = generate_config_files(
+        group_name=group_name,
+        root_nickname=root_nickname,
+        checks=json.loads(checks),
+        language=get_group_language(api_token, group_name) or "EN",
+        working_dir=working_dir,
+        token=api_token,
     )
-    os.makedirs(f"{args.working_dir}/execution_configs", exist_ok=True)
-    os.makedirs(f"{args.working_dir}/execution_results", exist_ok=True)
-    print(os.getcwd())
-    print(len(configs))
+    os.makedirs(f"{working_dir}/execution_configs", exist_ok=True)
+    os.makedirs(f"{working_dir}/execution_results", exist_ok=True)
+
     for config in configs:
         with open(
             (
-                f"{args.working_dir}/execution_configs"
+                f"{working_dir}/execution_configs"
                 f"/{config['execution_id']}.yaml"
             ),
             "w",
@@ -532,5 +632,52 @@ def main() -> None:
             yaml.safe_dump(config, handler)
 
 
+@cli.command()
+@click.option("--group-name", required=True)
+@click.option("--root-nickname", required=True)
+@click.option("--api-token", required=True)
+@click.option("--commit-hash", required=True)
+@click.option("--job-id", required=True, envvar="AWS_BATCH_JOB_ID")
+def start_execution(
+    group_name: str,
+    root_nickname: str,
+    api_token: str,
+    job_id: str,
+    commit_hash: str,
+) -> None:
+    result = do_start_execution(
+        token=api_token,
+        root=root_nickname,
+        group_name=group_name,
+        job_id=job_id,
+        start_date=datetime.now().isoformat(),
+        commit_hash=commit_hash,
+    )
+    print(result)
+    if result:
+        print(f"Success started {job_id}")
+
+
+@cli.command()
+@click.option("--group-name", required=True)
+@click.option("--root-nickname", required=True)
+@click.option("--api-token", required=True)
+@click.option("--job-id", required=True, envvar="AWS_BATCH_JOB_ID")
+def finish_execution(
+    group_name: str,
+    root_nickname: str,
+    api_token: str,
+    job_id: str,
+) -> None:
+    do_finish_execution(
+        token=api_token,
+        root=root_nickname,
+        group_name=group_name,
+        job_id=job_id,
+        end_date=datetime.now().isoformat(),
+        findings_executed=tuple(),
+    )
+
+
 if __name__ == "__main__":
-    main()
+    cli()  # pylint: disable=no-value-for-parameter

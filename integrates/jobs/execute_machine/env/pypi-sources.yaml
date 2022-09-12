@@ -2,6 +2,8 @@
 closure:
   certifi: 2022.6.15.1
   charset-normalizer: 2.1.1
+  click: 8.1.3
+  colorama: 0.4.5
   decorator: 5.1.1
   idna: '3.3'
   py: 1.11.0
@@ -23,6 +25,18 @@ links:
   - name: charset-normalizer-2.1.1.tar.gz
     sha256: 0ifqklz88rkfbv6556avid0qp26f96adpc0zz3b6jzslgin02gas
     url: https://files.pythonhosted.org/packages/a1/34/44964211e5410b051e4b8d2869c470ae8a68ae274953b1c7de6d98bbcf94/charset-normalizer-2.1.1.tar.gz
+  - name: click-8.1.3-py3-none-any.whl
+    sha256: 0j6vn6ayxq1bqs1v64r90sarg05hj6rxj4w29vs0k9hmrcrq2kdv
+    url: https://files.pythonhosted.org/packages/c2/f1/df59e28c642d583f7dacffb1e0965d0e00b218e0186d7858ac5233dce840/click-8.1.3-py3-none-any.whl
+  - name: click-8.1.3.tar.gz
+    sha256: 13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn
+    url: https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz
+  - name: colorama-0.4.5-py2.py3-none-any.whl
+    sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
+    url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
+  - name: colorama-0.4.5.tar.gz
+    sha256: 195pcxlhp4qz8pq496kvw6k7vdd056j8mffr76k8h2f59wrv9ip6
+    url: https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz
   - name: decorator-5.1.1-py3-none-any.whl
     sha256: 11kisc16y8lmka9khfvnm4gzwaa7x6n5lg4i4lr45p5r01czihxq
     url: https://files.pythonhosted.org/packages/d5/50/83c593b07763e1161326b3b8c6686f0f4b0f24d5526546bee538c89837d6/decorator-5.1.1-py3-none-any.whl
