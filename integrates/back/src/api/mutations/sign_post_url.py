@@ -8,6 +8,9 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorUploadingFileS3,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -40,9 +43,8 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
+    _: None, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> SignPostUrlsPayload:
-    success = False
     files_data = parameters["files_data"]
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
@@ -64,7 +66,6 @@ async def mutate(
             Group=group_name.upper(),
             FileName=parameters["files_data"],
         )
-        success = True
     else:
         LOGGER.error(
             "Couldn't generate signed URL", extra={"extra": parameters}
@@ -74,9 +75,10 @@ async def mutate(
             f"Security: Attempted to add resource files "
             f"from {group_name} group",
         )
+        raise ErrorUploadingFileS3()
 
     return SignPostUrlsPayload(
-        success=success,
+        success=True,
         url={
             **signed_url,
             "fields": {

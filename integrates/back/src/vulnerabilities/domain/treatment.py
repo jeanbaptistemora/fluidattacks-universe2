@@ -583,7 +583,7 @@ async def validate_and_send_notification_request(
     loaders: Any,
     finding: Finding,
     vulnerabilities: list[str],
-) -> bool:
+) -> None:
     # Validate finding with vulns in group
     finding_vulns: tuple[
         Vulnerability, ...
@@ -639,4 +639,3 @@ async def validate_and_send_notification_request(
             finding_title=finding.title,
             where=where_str,
         )
-    return True

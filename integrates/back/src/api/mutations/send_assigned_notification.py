@@ -11,6 +11,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -26,9 +29,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
-from typing import (
-    List,
-)
 from vulnerabilities.domain.treatment import (
     validate_and_send_notification_request,
 )
@@ -41,29 +41,28 @@ from vulnerabilities.domain.treatment import (
     require_asm,
 )
 async def mutate(
-    _parent: None,
+    _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    vulnerabilities: List[str],
-    **_parameters: str,
+    vulnerabilities: list[str],
+    **_kwargs: None,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     try:
-        finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
-        success: bool = await validate_and_send_notification_request(
-            loaders=info.context.loaders,
+        finding: Finding = await loaders.finding.load(finding_id)
+        await validate_and_send_notification_request(
+            loaders=loaders,
             finding=finding,
             vulnerabilities=vulnerabilities,
         )
-        if success:
-            logs_utils.cloudwatch_log(
-                info.context,
-                (
-                    "Security: Notifications pertaining to a change in "
-                    f"treatment of vulns in finding {finding_id} have "
-                    "been successfully sent"
-                ),
-            )
+        logs_utils.cloudwatch_log(
+            info.context,
+            (
+                "Security: Notifications pertaining to a change in "
+                f"treatment of vulns in finding {finding_id} have "
+                "been successfully sent"
+            ),
+        )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
@@ -72,4 +71,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)
