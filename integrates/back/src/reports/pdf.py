@@ -31,6 +31,7 @@ from db_model.roots.types import (
     IPRootState,
     Root,
     RootEnvironmentUrl,
+    RootEnvironmentUrlType,
     URLRoot,
     URLRootState,
 )
@@ -182,12 +183,26 @@ Context = TypedDict(
 )
 
 
+def _format_url(root_url: RootEnvironmentUrl) -> str:
+    if root_url.url_type == RootEnvironmentUrlType.URL:
+        return root_url.url
+
+    url = ""
+    if root_url.url_type:
+        url += f"{root_url.url_type.value}: "
+    if root_url.cloud_name:
+        url += f"{root_url.cloud_name.value}: "
+    url += root_url.url
+
+    return url
+
+
 async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
     urls: tuple[
         RootEnvironmentUrl, ...
     ] = await loaders.root_environment_urls.load((root_id))
 
-    return tuple(url.url for url in urls)
+    return tuple(_format_url(url) for url in urls)
 
 
 async def format_scope(loaders: Dataloaders, group_name: str) -> dict:
