@@ -30,7 +30,7 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=opensearch.process_vulns,
     ),
     Trigger(
-        batch_size=100,
+        batch_size=1,
         records_filter=(
             lambda record: record.pk.startswith("FIN#")
             and record.sk.startswith("GROUP#")
