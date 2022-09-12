@@ -5,6 +5,9 @@
 # pylint: disable=invalid-name
 """
 Populate the creation attributes for the events
+
+Execution Time:    2022-09-12 at 20:57:58 UTC
+Finalization Time: 2022-09-12 at 20:58:21 UTC
 """
 from aioextensions import (
     collect,
@@ -93,7 +96,7 @@ async def get_group_events(
     group_name: str,
 ) -> tuple[Event, ...]:
     events = await loaders.group_events.load(
-        GroupEventsRequest(group_name=group_name, is_solved=True)
+        GroupEventsRequest(group_name=group_name)
     )
     return events
 
