@@ -104,6 +104,8 @@ class GitRoot(NamedTuple):
     organization_name: str
     state: GitRootState
     type: Literal[RootType.GIT]
+    created_by: Optional[str] = None
+    created_date: Optional[str] = None
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
@@ -126,6 +128,8 @@ class IPRoot(NamedTuple):
     organization_name: str
     state: IPRootState
     type: Literal[RootType.IP]
+    created_by: Optional[str] = None
+    created_date: Optional[str] = None
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
@@ -151,6 +155,8 @@ class URLRoot(NamedTuple):
     organization_name: str
     state: URLRootState
     type: Literal[RootType.URL]
+    created_by: Optional[str] = None
+    created_date: Optional[str] = None
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
