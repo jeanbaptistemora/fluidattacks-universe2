@@ -1,4 +1,4 @@
 ---
-lib_http.analyze_headers.check_spf_record.missing:
-  en: Missing spf record in the DNS
-  es: Registro spf ausente en el DNS
+lib_http.analyze_headers.check_dns_records.missing_dmarc:
+  en: Missing DMARC record in the DNS
+  es: Registro DMARC ausente en el DNS

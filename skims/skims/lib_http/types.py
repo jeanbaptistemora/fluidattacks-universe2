@@ -35,4 +35,6 @@ class URLContext(NamedTuple):
         base_domain = urlsplit(self.url).netloc
         if base_domain.startswith("www."):
             base_domain = base_domain.replace("www.", "", 1)
+        if base_domain.startswith("www3."):
+            base_domain = base_domain.replace("www3.", "", 1)
         return base_domain

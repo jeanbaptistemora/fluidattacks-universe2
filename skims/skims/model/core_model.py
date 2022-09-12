@@ -2149,9 +2149,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_RESTREPO,
         technique=TechniqueEnum.DAST,
     )
-    CHECK_SPF_RECORD = MethodInfo(
+    CHECK_DNS_RECORDS = MethodInfo(
         file_name="analyze_headers",
-        name="check_spf_record",
+        name="check_dns_records",
         module="lib_http",
         finding=FindingEnum.F182,
         developer=DeveloperEnum.JULIAN_GOMEZ,

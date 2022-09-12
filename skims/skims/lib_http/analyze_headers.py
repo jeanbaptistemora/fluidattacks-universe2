@@ -6,7 +6,11 @@ from __future__ import (
     annotations,
 )
 
+from contextlib import (
+    suppress,
+)
 from dns import (
+    exception,
     resolver,
 )
 from http_headers import (
@@ -537,45 +541,46 @@ def _query_dns(
     resolution = resolver.Resolver()
     record_type = "TXT"
     try:
-        resource_records = list(
-            map(
-                lambda r: r.strings,
-                resolution.resolve(domain, record_type, lifetime=timeout),
+        resolution.resolve(domain, record_type, lifetime=timeout)
+        try:
+            resource_records = list(
+                map(
+                    lambda r: r.strings,
+                    resolution.resolve(
+                        "_dmarc." + domain, record_type, lifetime=timeout
+                    ),
+                )
             )
-        )
-        _resource_record = [
-            resource_record[0][:0].join(resource_record)
-            for resource_record in resource_records
-            if resource_record
-        ]
-        records = [r.decode() for r in _resource_record]
-    except resolver.NXDOMAIN:
-        records = []
+            _resource_record = [
+                resource_record[0][:0].join(resource_record)
+                for resource_record in resource_records
+                if resource_record
+            ]
+            records = [r.decode() for r in _resource_record]
+        except resolver.NXDOMAIN:
+            records = []
+    except exception.DNSException as exc:
+        raise exc
     return records
 
 
-def _check_spf_record(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+def _check_dns_records(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
     domain: str
     records: list[str]
-    validator: bool = False
 
     domain = ctx.url_ctx.get_base_domain()
-    records = _query_dns(domain)
-    if len(records) != 0:
-        for record_iterator in records:
-            if "v=spf1" in record_iterator:
-                validator = True
-                break
-        if not validator:
-            locations.append("check_spf_record.missing")
+    with suppress(exception.DNSException):
+        records = _query_dns(domain)
+        if len(records) == 0:
+            locations.append("check_dns_records.missing_dmarc")
 
     return _create_vulns(
         locations=locations,
         header=header,
         ctx=ctx,
-        method=core_model.MethodsEnum.CHECK_SPF_RECORD,
+        method=core_model.MethodsEnum.CHECK_DNS_RECORDS,
     )
 
 
