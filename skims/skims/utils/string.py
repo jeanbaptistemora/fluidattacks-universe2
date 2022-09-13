@@ -2,21 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from PIL import (
-    Image,
-    ImageDraw,
-    ImageFont,
-)
 from ctx import (
-    FLUID_WATERMARK,
-    ROBOTO_FONT,
     STATE_FOLDER_DEBUG,
 )
 from io import (
     BytesIO,
-)
-from itertools import (
-    repeat,
 )
 from more_itertools import (
     chunked,
@@ -33,24 +23,11 @@ from typing import (
     Set,
     Tuple,
 )
-from utils.image import (
-    clarify_blocking,
-)
 from utils.logs import (
     log_blocking,
 )
 
 # Constants
-DUMMY_IMG: Image = Image.new("RGB", (0, 0))
-DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
-FONT: ImageFont = ImageFont.truetype(
-    font=ROBOTO_FONT,
-    size=18,
-)
-WATERMARK: Image = clarify_blocking(
-    image=Image.open(FLUID_WATERMARK),
-    ratio=0.15,
-)
 SNIPPETS_CONTEXT: int = 10
 SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
@@ -166,65 +143,6 @@ def make_snippet(
             lines.append((0, f"  {' ':>{loc_width}} ^ Col {viewport_left}"))
 
     return "\n".join(map(itemgetter(1), lines))
-
-
-def boxify(
-    *,
-    width_to_height_ratio: int = 3,
-    string: str,
-) -> str:
-    lines: List[str] = string.splitlines()
-
-    width, height = max(map(len, lines + [""])), len(lines)
-
-    missing_height: int = width // width_to_height_ratio - height
-
-    filling: List[str] = list(repeat("", missing_height // 2))
-
-    return "\n".join(filling + lines + filling)
-
-
-def to_png(*, string: str, margin: int = 25) -> BytesIO:
-    # Make this image rectangular
-    string = boxify(string=string)
-
-    # This is the number of pixes needed to draw this text, may be big
-    size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=FONT)
-    size = (
-        size[0] + 2 * margin,
-        size[1] + 2 * margin,
-    )
-    watermark_size: Tuple[int, int] = (
-        size[0] // 2,
-        WATERMARK.size[1] * size[0] // WATERMARK.size[0] // 2,
-    )
-    watermark_position: Tuple[int, int] = (
-        (size[0] - watermark_size[0]) // 2,
-        (size[1] - watermark_size[1]) // 2,
-    )
-
-    # Create an image with the right size to fit the snippet
-    #  and resize it to a common resolution
-    img: Image = Image.new("RGB", size, (0xFF, 0xFF, 0xFF))
-
-    drawing: ImageDraw = ImageDraw.Draw(img)
-    drawing.multiline_text(
-        xy=(margin, margin),
-        text=string,
-        fill=(0x33, 0x33, 0x33),
-        font=FONT,
-    )
-
-    watermark = WATERMARK.resize(watermark_size)
-    img.paste(watermark, watermark_position, watermark)
-
-    stream: BytesIO = BytesIO()
-
-    img.save(stream, format="PNG")
-
-    stream.seek(0)
-
-    return stream
 
 
 def get_debug_path(path: str) -> str:

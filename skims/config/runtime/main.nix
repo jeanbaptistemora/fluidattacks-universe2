@@ -55,7 +55,6 @@ in
             __argSrcSkimsStatic__ = projectPath "/skims/static";
             __argSrcSkimsToolsSemverMatch__ =
               outputs."/skims/config/runtime/tools/semver-match";
-            __argSrcSkimsVendor__ = projectPath "/skims/vendor";
             __argSkimsDbDesign__ = projectPath "/skims/arch/database-design.json";
           };
           name = "skims-config-context-file";
@@ -66,13 +65,10 @@ in
             export SKIMS_CIPHER_SUITES_PATH='__argSrcSkimsStatic__/cryptography/cipher_suites.csv'
             export SKIMS_CRITERIA_REQUIREMENTS='__argCriteriaRequirements__'
             export SKIMS_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__'
-            export SKIMS_FLUID_WATERMARK='__argSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
             export SKIMS_LEGAL='__argSkimsLegal__'
-            export SKIMS_ROBOTO_FONT='__argSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
             export SKIMS_STATIC='__argSrcSkimsStatic__'
             export SKIMS_TOOLS_SEMVER_MATCH='__argSrcSkimsToolsSemverMatch__/bin/semver-match'
             export SKIMS_TREE_SITTER_PARSERS='__argSrcTreeSitterParsers__'
-            export SKIMS_VENDOR='__argSrcSkimsVendor__'
             export SKIMS_DB_MODEL_PATH='__argSkimsDbDesign__'
           '';
         })

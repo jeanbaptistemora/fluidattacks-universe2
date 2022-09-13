@@ -39,13 +39,10 @@ def _get_artifact(env_var: str) -> str:
 CIPHER_SUITES_PATH: str = _get_artifact("SKIMS_CIPHER_SUITES_PATH")
 CRITERIA_REQUIREMENTS: str = _get_artifact("SKIMS_CRITERIA_REQUIREMENTS")
 CRITERIA_VULNERABILITIES: str = _get_artifact("SKIMS_CRITERIA_VULNERABILITIES")
-FLUID_WATERMARK = _get_artifact("SKIMS_FLUID_WATERMARK")
 LEGAL = _get_artifact("SKIMS_LEGAL")
-ROBOTO_FONT = _get_artifact("SKIMS_ROBOTO_FONT")
 STATIC = _get_artifact("SKIMS_STATIC")
 TOOLS_SEMVER_MATCH = _get_artifact("SKIMS_TOOLS_SEMVER_MATCH")
 TREE_SITTER_PARSERS = _get_artifact("SKIMS_TREE_SITTER_PARSERS")
-VENDOR = _get_artifact("SKIMS_VENDOR")
 
 DB_MODEL_PATH = _get_artifact("SKIMS_DB_MODEL_PATH")
 # not secrets but must be environment vars

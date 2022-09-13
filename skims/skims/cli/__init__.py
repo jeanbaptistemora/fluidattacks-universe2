@@ -88,20 +88,6 @@ GROUP = partial(
     help="Integrates group to which results will be persisted.",
     show_envvar=True,
 )
-NAMESPACE = partial(
-    click.option,
-    "--namespace",
-    envvar="INTEGRATES_NAMESPACE",
-    help="Integrates namespace.",
-    show_envvar=True,
-)
-TOKEN = partial(
-    click.option,
-    "--token",
-    envvar="INTEGRATES_API_TOKEN",
-    help="Integrates API token.",
-    show_envvar=True,
-)
 
 
 @click.group(

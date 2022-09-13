@@ -5,28 +5,21 @@ closure:
   aiodataloader: 0.2.0
   aioextensions: 20.11.1621472
   aiofiles: 0.6.0
-  aiogqlc: 2.0.0b1
   aiohttp: 3.7.4
   aioitertools: 0.10.0
-  amqp: 5.1.1
   androguard: 3.3.5
   appnope: 0.1.3
   asn1crypto: 1.4.0
   async-timeout: 3.0.1
   attrs: 22.1.0
   beautifulsoup4: 4.9.3
-  billiard: 3.6.4.0
   boto3: 1.21.21
   botocore: 1.24.21
   bracex: 2.3.post1
-  celery: 5.2.7
   certifi: 2022.6.15.1
   cfn-flip: 1.2.3
   chardet: 3.0.4
   click: 8.1.3
-  click-didyoumean: 0.3.0
-  click-plugins: 1.1.1
-  click-repl: 0.2.0
   colorama: 0.4.5
   confuse: 1.4.0
   cycler: 0.11.0
@@ -50,7 +43,6 @@ closure:
   json-parser: 1.2.0
   json-source-map: 1.0.3
   kiwisolver: 1.4.4
-  kombu: 5.2.4
   lark-parser: 0.7.8
   lxml: 4.7.1
   matplotlib: 3.5.3
@@ -60,7 +52,7 @@ closure:
   mypy-extensions: 0.4.3
   networkx: 2.5.1
   ntplib: 0.4.0
-  numpy: 1.23.2
+  numpy: 1.23.3
   oyaml: '1.0'
   packaging: '21.3'
   pathspec: 0.8.1
@@ -101,15 +93,13 @@ closure:
   soupsieve: 2.2.1
   tlslite-ng: 0.8.0-alpha41
   tomli: 2.0.1
-  traitlets: 5.3.0
+  traitlets: 5.4.0
   tree-sitter: 0.19.0
   types-setuptools: 65.3.0
   typing-extensions: 4.3.0
   unidiff: 0.6.0
   urllib3: 1.26.12
-  uvloop: 0.15.2
   viewstate: 0.4.3
-  vine: 5.0.0
   virtualenv: 20.15.0
   watchtower: 2.0.1
   wcmatch: '8.4'
@@ -141,12 +131,6 @@ links:
   - name: aiofiles-0.6.0.tar.gz
     sha256: 14m01kjxm2j7zyljjj6xlhlgygcsriymbx730gc5jp9xglaina70
     url: https://files.pythonhosted.org/packages/77/47/19e5951cc6ed771669906d2946b3deac32a35a9a155f730be49d8fa73dc9/aiofiles-0.6.0.tar.gz
-  - name: aiogqlc-2.0.0b1-py3-none-any.whl
-    sha256: 1nkk0ivqq0b4ca1ain96546svwq96hh9195kwyk0gmg2lxh8hav2
-    url: https://files.pythonhosted.org/packages/b5/a3/b429e84bfe8a8b6375d50a5a24955fba71e1c04352c9feb1e5dccf284b71/aiogqlc-2.0.0b1-py3-none-any.whl
-  - name: aiogqlc-2.0.0b1.tar.gz
-    sha256: 1yd2rshj6cm6y023rwhksyl42jzqxmv8dfcfcl2959snk3bchzk5
-    url: https://files.pythonhosted.org/packages/44/a6/9fa4b8396a57dc0f7adfa70d3903812f80ad0b780ca63694b636c6af88dd/aiogqlc-2.0.0b1.tar.gz
   - name: aiohttp-3.7.4-cp38-cp38-macosx_10_14_x86_64.whl
     sha256: 1hn5nrs9qp5pcpnpkdjanr0zzi48rp0hmgan7vp0x8iisbyxn6sc
     url: https://files.pythonhosted.org/packages/e7/47/c51482f55465e7e6ee1d9eb8e43324a33246347ea5059ccb8879f01e9ee2/aiohttp-3.7.4-cp38-cp38-macosx_10_14_x86_64.whl
@@ -177,12 +161,6 @@ links:
   - name: aioitertools-0.10.0.tar.gz
     sha256: 080lbb2cpy7q60xq72ykw13mh4lg17gx71q7hjhcaqnl0d51s7bx
     url: https://files.pythonhosted.org/packages/c2/9c/36180745f894257a50b1473fa348daf996b959d66f5985bbc868e44ef3ee/aioitertools-0.10.0.tar.gz
-  - name: amqp-5.1.1-py3-none-any.whl
-    sha256: 0n9kshszf855wdx1mgfbf94v9b8fjg1xhd0rd7ksd3rxqb95c2bg
-    url: https://files.pythonhosted.org/packages/de/a3/e7b3b9d34239bae066df135060e225929d639731050c920fdc740d6b7897/amqp-5.1.1-py3-none-any.whl
-  - name: amqp-5.1.1.tar.gz
-    sha256: 1qmmffiy48nady7is8529vxcyqbq88v5zgawqr3fk4q8rkz166rc
-    url: https://files.pythonhosted.org/packages/cb/e7/bcaab89065e17915a28247fa5d4f582ca107b4544e2b1aba92d32f794a0f/amqp-5.1.1.tar.gz
   - name: androguard-3.3.5-py3-none-any.whl
     sha256: 1nfxmg6v1ixm0jbh4vw4c31vr2spw1wjr3jzadkb8p1wzhjybb9q
     url: https://files.pythonhosted.org/packages/43/ca/09deda747e28903e742768918480083682799abbe31c5e1ba5dbe7eeaf4b/androguard-3.3.5-py3-none-any.whl
@@ -219,12 +197,6 @@ links:
   - name: beautifulsoup4-4.9.3.tar.gz
     sha256: 09gbd49mwz86k572r1231x2rdp82p42zlnw0bz9b9mfi58r9wwl4
     url: https://files.pythonhosted.org/packages/6b/c3/d31704ae558dcca862e4ee8e8388f357af6c9d9acb0cad4ba0fbbd350d9a/beautifulsoup4-4.9.3.tar.gz
-  - name: billiard-3.6.4.0-py3-none-any.whl
-    sha256: 0nw7bbyqlqgq5ikqpyp7bnc7sqblzyy0jj8wfmf4vax6iykkw447
-    url: https://files.pythonhosted.org/packages/2b/89/0c43de91d4e52eaa7bd748771d417f6ac9e51e66b2f61928c2151bf65878/billiard-3.6.4.0-py3-none-any.whl
-  - name: billiard-3.6.4.0.tar.gz
-    sha256: 0ismj2p8c66ykpss94rs0bfra5agxxmljz8r3gaq79r8valfb799
-    url: https://files.pythonhosted.org/packages/92/91/40de1901da8ec9eeb7c6a22143ba5d55d8aaa790761ca31342cedcd5c793/billiard-3.6.4.0.tar.gz
   - name: boto3-1.21.21-py3-none-any.whl
     sha256: 0acczygx3fjdr8m8imirbx3v5r75f4yj4dvjcsyjg0z3ig62z8wg
     url: https://files.pythonhosted.org/packages/73/39/675ac00ff916571c56d9075c30b7efa2d504e3cad87c2f86c52873e990ba/boto3-1.21.21-py3-none-any.whl
@@ -243,12 +215,6 @@ links:
   - name: bracex-2.3.post1.tar.gz
     sha256: 14qnsxpwb9h3zw0pjqbaw2adm794rfzalav9q3gd61ndnb43zcp7
     url: https://files.pythonhosted.org/packages/b3/96/d53e290ddf6215cfb24f93449a1835eff566f79a1f332cf046a978df0c9e/bracex-2.3.post1.tar.gz
-  - name: celery-5.2.7-py3-none-any.whl
-    sha256: 050f5hq7bl9lcdnd7rgxgapkkzcivazbcmv2grqdcn6d4302110k
-    url: https://files.pythonhosted.org/packages/1d/99/21fe9d1829cab4fc77d18f89d0c4cbcfe754e95f8b8f4af64fe4997c442f/celery-5.2.7-py3-none-any.whl
-  - name: celery-5.2.7.tar.gz
-    sha256: 0vccjlakjm966gpfhjs47ni16573cahggs419w08l3yk6hlxiyzs
-    url: https://files.pythonhosted.org/packages/ce/21/41a0028f6d610987c0839250357c1a00f351790b8a448c2eb323caa719ac/celery-5.2.7.tar.gz
   - name: certifi-2022.6.15.1-py3-none-any.whl
     sha256: 1q49md33wylg1y8ssmlhzx41hqf6hbxf8i39wr08f5kzib8xmnj3
     url: https://files.pythonhosted.org/packages/ac/80/e0df41f336f21d35befa4ff15348eb3e8b2483e131922e8427223b52e688/certifi-2022.6.15.1-py3-none-any.whl
@@ -270,21 +236,6 @@ links:
   - name: click-8.1.3.tar.gz
     sha256: 13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn
     url: https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz
-  - name: click_didyoumean-0.3.0-py3-none-any.whl
-    sha256: 0rq6gkvvyib1i9v39d49aqyjvbcys5x5dagm1ny0cgyyl73kswd0
-    url: https://files.pythonhosted.org/packages/ad/36/4599267417fc78b587b1588e0647a468c60b36c02bb723d450d050738fa8/click_didyoumean-0.3.0-py3-none-any.whl
-  - name: click-didyoumean-0.3.0.tar.gz
-    sha256: 0dc0xrmqbw0idpx843ahzzvivmvx3fcfsm3k54lnssyra7cg117i
-    url: https://files.pythonhosted.org/packages/2f/a7/822fbc659be70dcb75a91fb91fec718b653326697d0e9907f4f90114b34f/click-didyoumean-0.3.0.tar.gz
-  - name: click_plugins-1.1.1-py2.py3-none-any.whl
-    sha256: 1j4zi013raj2nh35r0fwlp6ivr238hyn5qc1zmbm0br2sc3209jx
-    url: https://files.pythonhosted.org/packages/e9/da/824b92d9942f4e472702488857914bdd50f73021efea15b4cad9aca8ecef/click_plugins-1.1.1-py2.py3-none-any.whl
-  - name: click-plugins-1.1.1.tar.gz
-    sha256: 0jr6bxj67vg988vkm6nz8jj98v9lg46bn49lkhak3n598jbrkas6
-    url: https://files.pythonhosted.org/packages/5f/1d/45434f64ed749540af821fd7e42b8e4d23ac04b1eda7c26613288d6cd8a8/click-plugins-1.1.1.tar.gz
-  - name: click-repl-0.2.0.tar.gz
-    sha256: 1n6gv8hd363xjnv69g3iwl9pnk06rfs401br2091bxjvfj6zc4nd
-    url: https://files.pythonhosted.org/packages/60/30/11d3f09eff5ae3627bca79563855035e8d241444520500a3c7914eae6a74/click-repl-0.2.0.tar.gz
   - name: colorama-0.4.5-py2.py3-none-any.whl
     sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
     url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
@@ -435,12 +386,6 @@ links:
   - name: kiwisolver-1.4.4.tar.gz
     sha256: 0mg96grl8ixjip1bm09bgfazzw0jphqzx8mldvja396bkx8rf6fl
     url: https://files.pythonhosted.org/packages/5f/5c/272a7dd49a1914f35cd8d6d9f386defa8b047f6fbd06badd6b77b3ba24e7/kiwisolver-1.4.4.tar.gz
-  - name: kombu-5.2.4-py3-none-any.whl
-    sha256: 19314gymk6n8vj386ai3xbipjq3mgxxm7xfjy2y1fd1x54j3n8cb
-    url: https://files.pythonhosted.org/packages/d9/f3/62d12dd7ebad710319f0877c1c33bca379fc7d28069daae890fa2fa444c8/kombu-5.2.4-py3-none-any.whl
-  - name: kombu-5.2.4.tar.gz
-    sha256: 044ng79gj04668kf5fmy7fjkw8302xyapskkn65ym52zfbpf7kip
-    url: https://files.pythonhosted.org/packages/e1/9e/3811be7d86ac3be6d1a1f5098f95b1d8e2519c12c537719c7e13c8a12800/kombu-5.2.4.tar.gz
   - name: lark-parser-0.7.8.tar.gz
     sha256: 19103j8amnlzw5f23gi6dr2pwfwzbd2a96iifkpb4vvy2nxmw896
     url: https://files.pythonhosted.org/packages/34/b8/aa7d6cf2d5efdd2fcd85cf39b33584fe12a0f7086ed451176ceb7fb510eb/lark-parser-0.7.8.tar.gz
@@ -561,21 +506,21 @@ links:
   - name: ntplib-0.4.0.tar.gz
     sha256: 0rv2j1vb2xjii9idgsdcyqyk9irl56hgqpm9mq9m4mf2z2sqz7c9
     url: https://files.pythonhosted.org/packages/b4/14/6b018fb602602d9f6cc7485cbad7c1be3a85d25cea18c233854f05284aed/ntplib-0.4.0.tar.gz
-  - name: numpy-1.23.2-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 13sghixgn7js6yy0y9aczcn77blaklb0b8cia8qwh7ilsk25d74h
-    url: https://files.pythonhosted.org/packages/fc/90/fa2ca0f2fcabbfd970e1e78f820d8639683c36525e1c89d9bd20e69230a7/numpy-1.23.2-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: numpy-1.23.2-cp38-cp38-macosx_11_0_arm64.whl
-    sha256: 0hlqri0k3g8vzlw5xin8rc87ix7kfgczgyf25i49wir18wfg0iw2
-    url: https://files.pythonhosted.org/packages/9f/de/e59ba2debde8bd3ef09f48222ad008c7ec8f21d5aef154869f08bbf487b8/numpy-1.23.2-cp38-cp38-macosx_11_0_arm64.whl
-  - name: numpy-1.23.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 0582yx6is8xcjd0pycf3w6hiy9jnq1pfzd2r8vwx7p6ahy57mfdq
-    url: https://files.pythonhosted.org/packages/30/1c/729be6462c939a75f6e484ced255ce6ef4dbba1354b56928123c588deb48/numpy-1.23.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.23.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 0rmfavav9lp8l61fz3i6pmriwxy1xcpyhqsmxq0qagafwb57qnxx
-    url: https://files.pythonhosted.org/packages/2c/5b/ba2f6d662dfc0c8c9927c05faf2e722a7a7f417ad4665800f819174b818f/numpy-1.23.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: numpy-1.23.2.tar.gz
-    sha256: 00bx3idjwhmzkdawg2dx1bp0316ig37jfx0dm82bvyv1hbj013dp
-    url: https://files.pythonhosted.org/packages/f4/66/17b8e95770478436bf968353c89683ce6f9e14d92e0d4fb3111c09ba18d2/numpy-1.23.2.tar.gz
+  - name: numpy-1.23.3-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1ikc5a0s0m55mnnwgrprjyd6xj8ihk8b3kqbn1wbangk2nj8svmw
+    url: https://files.pythonhosted.org/packages/e5/0e/c76c8cd19fa0477742e553471373e69f4aeb228b3b18aaac305a66cd5f5b/numpy-1.23.3-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: numpy-1.23.3-cp38-cp38-macosx_11_0_arm64.whl
+    sha256: 0kdcjpkv76xjqm9igxmjd95cmw62xq9frfa965zm9k8axrv37m12
+    url: https://files.pythonhosted.org/packages/3b/93/e613ce34c908f3228fa181241ae9505c42a72ffc630af9e5173c2f26f406/numpy-1.23.3-cp38-cp38-macosx_11_0_arm64.whl
+  - name: numpy-1.23.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 0q0lzi49n7q2463i3vqahhz0s25k0j7w04hbbvcdrzz56kv06i56
+    url: https://files.pythonhosted.org/packages/24/3e/fbbef2c3a04ed1d237fe4711146f111631d02f5155c1dbeb713005787cf5/numpy-1.23.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.23.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0zn68zm128kkfma3gq24ihfqy8caniw82x5hrnz08i3pwnmx7ngg
+    url: https://files.pythonhosted.org/packages/d6/e2/bed33bdbf513cd6d3fcb4377792ef1b8aad941da542a191e1e2a98c6621f/numpy-1.23.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.23.3.tar.gz
+    sha256: 1kgn1b0n1yli1m7x1llki5fvki5gb0s6z9ha4h5bwlhxrp04kgsi
+    url: https://files.pythonhosted.org/packages/0a/88/f4f0c7a982efdf7bf22f283acf6009b29a9cc5835b684a49f8d3a4adb22f/numpy-1.23.3.tar.gz
   - name: oyaml-1.0-py2.py3-none-any.whl
     sha256: 08v32lnj8icd2l54ifs6bl3xl74jsri1kr0w7m9ja97vnx3qfdrs
     url: https://files.pythonhosted.org/packages/37/aa/111610d8bf5b1bb7a295a048fc648cec346347a8b0be5881defd2d1b4a52/oyaml-1.0-py2.py3-none-any.whl
@@ -825,12 +770,12 @@ links:
   - name: tomli-2.0.1.tar.gz
     sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
     url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
-  - name: traitlets-5.3.0-py3-none-any.whl
-    sha256: 0yhw3na6y47wki5pfjb951aha8pn1q9cmf0d20rmjqsr2sb1iyk5
-    url: https://files.pythonhosted.org/packages/83/a9/1059771062cb80901c34a4dea020e76269412e69300b4ba12e3356865ad8/traitlets-5.3.0-py3-none-any.whl
-  - name: traitlets-5.3.0.tar.gz
-    sha256: 1qpq4jhvyad1aaxbl5kihwfjlsk2lskv5cfqhz0qxahpy3wz3f8b
-    url: https://files.pythonhosted.org/packages/b2/ed/3c842dbe5a8f0f1ebf3f5b74fc1a46601ed2dfe0a2d256c8488d387b14dd/traitlets-5.3.0.tar.gz
+  - name: traitlets-5.4.0-py3-none-any.whl
+    sha256: 1j6nwvs8lh5hp8hmw6d625591iqgscp5xbz2a20x94v04g43qrlk
+    url: https://files.pythonhosted.org/packages/7d/28/8f4757d68ee7c46e0733dda81595f1bd107fda7bc0c6a577912387e87d86/traitlets-5.4.0-py3-none-any.whl
+  - name: traitlets-5.4.0.tar.gz
+    sha256: 0fgc7xhxj0gqy0rphkpqh2hf6dk8lmp79wch8gz94597br1lwb1z
+    url: https://files.pythonhosted.org/packages/a2/4d/1f59a77fba6e8e9feea7a168652030564089d66c06492ba5670e73b0e078/traitlets-5.4.0.tar.gz
   - name: tree_sitter-0.19.0-cp38-cp38-macosx_10_14_x86_64.whl
     sha256: 0ci1pf6rl830q0xxhy500wyjxlv919iyr7dmq6pd8fcn17z0bz83
     url: https://files.pythonhosted.org/packages/a0/55/744420ee41cf1ebc6db82f8e5dff663e5d9bad7c2801973fd161436d2949/tree_sitter-0.19.0-cp38-cp38-macosx_10_14_x86_64.whl
@@ -861,30 +806,12 @@ links:
   - name: urllib3-1.26.12.tar.gz
     sha256: 0km7yj8vmv6qvm3psx37qsvsickd77gyhsijzjbpk6764gs6ra9z
     url: https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz
-  - name: uvloop-0.15.2-cp38-cp38-macosx_10_14_x86_64.whl
-    sha256: 0z5gyxbda0jd9pjzih162azsg3rmvi0qr80rmljv8hayflbnzrch
-    url: https://files.pythonhosted.org/packages/03/e1/94fc3d54e61eef1a802dbeb88a444203b26a84a7f21ceb4f76ce2a5f180c/uvloop-0.15.2-cp38-cp38-macosx_10_14_x86_64.whl
-  - name: uvloop-0.15.2-cp38-cp38-manylinux2010_x86_64.whl
-    sha256: 0ivsdz22kakijsq7hcc82v8h97igqvn22v3h5m1w3kplll8rpqvs
-    url: https://files.pythonhosted.org/packages/ed/01/6f5cd7e246d09f7d184406d69d02c3c059cfe559f923ab0617498382e66b/uvloop-0.15.2-cp38-cp38-manylinux2010_x86_64.whl
-  - name: uvloop-0.15.2-cp38-cp38-manylinux2014_aarch64.whl
-    sha256: 0z0wnvzkma1gn0hw3m2cnj8sbqslgzzkb55wpnw3z04mjz4ihlml
-    url: https://files.pythonhosted.org/packages/7f/7c/c8193e59f6021c87eb8d51606e1c164fd42d29cacfe2abc40e08c968d3e0/uvloop-0.15.2-cp38-cp38-manylinux2014_aarch64.whl
-  - name: uvloop-0.15.2.tar.gz
-    sha256: 00ffgd2ar8h3ch6w8r8jganhpdb3xmifvzp8vma4x0vhi9565c1b
-    url: https://files.pythonhosted.org/packages/44/6e/0cb292e4e6ee1382e2ede458f90c94b4f990b261f738403ac45cb8183bc2/uvloop-0.15.2.tar.gz
   - name: viewstate-0.4.3-py2.py3-none-any.whl
     sha256: 05a9yldadv1rxgla6hg40l4qhlbclgvvvmiyml18xi47swhlzdq5
     url: https://files.pythonhosted.org/packages/22/22/c2a301dd3d5618dc528c3b87963a19e8d0e9ad25553c2d1a7fc0700008e4/viewstate-0.4.3-py2.py3-none-any.whl
   - name: viewstate-0.4.3.tar.gz
     sha256: 1p5p5cp76m04klp7awyx8knqrd5sklgl9lvqirrbsdvkkig2fsl5
     url: https://files.pythonhosted.org/packages/db/94/9eff01728b53fcfde51f7c5b17866d61a1b85fe8b6478e21facab4b42f18/viewstate-0.4.3.tar.gz
-  - name: vine-5.0.0-py2.py3-none-any.whl
-    sha256: 0c7vnwa3aklibgfdwfz1rk537p807219ri17a0895vbndymwx7ac
-    url: https://files.pythonhosted.org/packages/8d/61/a7badb48186919a9fd7cf0ef427cab6d16e0ed474035c36fa64ddd72bfa2/vine-5.0.0-py2.py3-none-any.whl
-  - name: vine-5.0.0.tar.gz
-    sha256: 0zk3pm0g7s4qfn0gk28lfmsyplvisaxi6826cgpq5njkm4j1cfvx
-    url: https://files.pythonhosted.org/packages/66/b2/8954108816865edf2b1e0d24f3c2c11dfd7232f795bcf1e4164fb8ee5e15/vine-5.0.0.tar.gz
   - name: virtualenv-20.15.0-py2.py3-none-any.whl
     sha256: 0dhky1jzipwq6lmpx3hs3yay5xn8xj730zl9k7q258xqwm6wwk40
     url: https://files.pythonhosted.org/packages/0a/d7/8f8f84aa834d9afde02055b6d11e0a0f2f35435b2ccf1a1aca4cf9046105/virtualenv-20.15.0-py2.py3-none-any.whl

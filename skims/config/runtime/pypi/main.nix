@@ -12,13 +12,9 @@ makePythonPypiEnvironment rec {
     bin = [
       inputs.nixpkgs.curl
       inputs.nixpkgs.gcc
-      inputs.nixpkgs.gnutar
-      inputs.nixpkgs.gzip
-      inputs.nixpkgs.python38Packages.pycurl
     ];
     pythonPackage38 = [
       inputs.nixpkgs.python38Packages.pygraphviz
-      inputs.nixpkgs.python38Packages.pycurl
     ];
   };
   searchPathsRuntime = searchPathsBuild;
