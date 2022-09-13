@@ -81,11 +81,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                     <Checkbox
                       id={reason}
                       key={`reasons.${reason}`}
-                      label={
-                        <Label required={false}>
-                          {t(`group.drafts.reject.${reason.toLowerCase()}`)}
-                        </Label>
-                      }
+                      label={t(`group.drafts.reject.${reason.toLowerCase()}`)}
                       name={"reasons"}
                       tooltip={explanation}
                       value={reason}
