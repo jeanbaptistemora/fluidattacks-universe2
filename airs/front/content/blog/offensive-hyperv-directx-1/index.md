@@ -430,3 +430,7 @@ In the next article, we will see that most of the `dxgkrnl`
 commands are not stateless and some of them depends on
 creating certain kernel objects first. We will also see how
 to leverage this architecture using an offensive approach.
+
+If you want to follow this series
+and receive our next blog posts,
+don't hesitate to [subscribe to our weekly newsletter](../../subscription/).
