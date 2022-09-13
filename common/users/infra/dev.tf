@@ -231,14 +231,11 @@ module "dev_aws" {
       },
       Action = "sts:AssumeRoleWithWebIdentity",
       Condition = {
-        StringEquals = {
-          join(
-            ":",
-            [
-              replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-              "sub",
-            ]
-          ) : "system:serviceaccount:development:dev"
+        "ForAnyValue:StringEquals" = {
+          "${replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")}:sub" : [
+            "system:serviceaccount:development:dev",
+            "system:serviceaccount:dev:dev",
+          ]
         },
       },
     },

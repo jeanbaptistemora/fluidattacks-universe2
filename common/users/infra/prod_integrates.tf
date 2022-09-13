@@ -317,14 +317,11 @@ module "prod_integrates_aws" {
       },
       Action = "sts:AssumeRoleWithWebIdentity",
       Condition = {
-        StringEquals = {
-          join(
-            ":",
-            [
-              replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-              "sub",
-            ]
-          ) : "system:serviceaccount:production:prod-integrates"
+        "ForAnyValue:StringEquals" = {
+          "${replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")}:sub" : [
+            "system:serviceaccount:production:prod-integrates",
+            "system:serviceaccount:prod-integrates:prod-integrates",
+          ]
         },
       },
     },
