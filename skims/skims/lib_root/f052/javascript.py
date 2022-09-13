@@ -29,6 +29,7 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Iterator,
     List,
     Tuple,
 )
@@ -54,36 +55,47 @@ def split_function_name(f_names: str) -> Tuple[str, str]:
 
 def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
-        if evaluation := evaluate(method, graph, path, n_id):
-            return evaluation.danger
+        if (
+            evaluation := evaluate(method, graph, path, n_id)
+        ) and evaluation.danger:
+            return True
     return False
 
 
 def get_eval_triggers(
     graph: Graph, n_id: str, method: MethodsEnum
-) -> List[str]:
+) -> Iterator[List[str]]:
     for path in get_backward_paths(graph, n_id):
-        if evaluation := evaluate(method, graph, path, n_id):
-            return list(evaluation.triggers)
-    return [""]
+        if (
+            evaluation := evaluate(method, graph, path, n_id)
+        ) and evaluation.triggers != set():
+            yield list(evaluation.triggers)
+
+
+def is_insecure_cipher(graph: Graph, obj_id: NId) -> bool:
+    method = MethodsEnum.JS_INSECURE_CIPHER
+    for triggers in get_eval_triggers(graph, obj_id, method):
+        cipher_value = "".join(triggers)
+        if javascript_cipher_vulnerable(cipher_value):
+            return True
+    return False
 
 
 def is_insecure_crypto(graph: Graph, obj_id: NId, algo: str) -> bool:
     method = MethodsEnum.JS_INSECURE_CIPHER
-    triggers = "".join(get_eval_triggers(graph, obj_id, method))
-    options = triggers.split(".")
-
     algo = algo.lower()
     mode = ""
     padding = None
+    for triggers in get_eval_triggers(graph, obj_id, method):
+        options = "".join(triggers).split(".")
+        if "mode" in options and len(options) > options.index("mode"):
+            mode = options[options.index("mode") + 1]
+        if "padding" in options and len(options) > options.index("padding"):
+            padding = options[options.index("padding") + 1]
 
-    if "mode" in options and len(options) > options.index("mode"):
-        mode = options[options.index("mode") + 1]
-
-    if "padding" in options and len(options) > options.index("padding"):
-        padding = options[options.index("padding") + 1]
-
-    return is_vulnerable_cipher(algo, mode, padding)
+        if is_vulnerable_cipher(algo, mode, padding):
+            return True
+    return False
 
 
 def is_insecure_key(algo: str, key: str) -> bool:
@@ -94,6 +106,26 @@ def is_insecure_key(algo: str, key: str) -> bool:
         return value < 2048
     if algo == "ec":
         return insecure_elliptic_curve(key)
+    return False
+
+
+def is_insecure_curve(graph: Graph, obj_id: NId) -> bool:
+    method = MethodsEnum.JS_INSECURE_KEY
+    for triggers in get_eval_triggers(graph, obj_id, method):
+        curve_value = "".join(triggers)
+        if insecure_elliptic_curve(curve_value):
+            return True
+    return False
+
+
+def is_insecure_options(graph: Graph, algo_id: NId, options_id: NId) -> bool:
+    method = MethodsEnum.JS_INSECURE_KEY
+    for algo_trig in get_eval_triggers(graph, algo_id, method):
+        algo = "".join(algo_trig)
+        for opt_trig in get_eval_triggers(graph, options_id, method):
+            key = "".join(opt_trig)
+            if is_insecure_key(algo, key):
+                return True
     return False
 
 
@@ -172,10 +204,7 @@ def javascript_insecure_cipher(
                 if crypt in native_ciphers and (
                     test_node := call_al.get("__0__")
                 ):
-                    value = "".join(
-                        get_eval_triggers(graph, test_node, method)
-                    )
-                    is_insecure = javascript_cipher_vulnerable(value)
+                    is_insecure = is_insecure_cipher(graph, test_node)
                 elif algo in crypto1 and crypt == "encrypt":
                     is_insecure = True
                 elif (
@@ -200,7 +229,6 @@ def javascript_insecure_key(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_INSECURE_KEY
     function1 = {"createECDH"}
     function2 = {"generateKeyPair"}
 
@@ -229,16 +257,11 @@ def javascript_insecure_key(
                 options_node = call_al.get("__1__")
                 is_insecure = False
                 if key in function1 and algo_node:
-                    value = "".join(
-                        get_eval_triggers(graph, algo_node, method)
-                    )
-                    is_insecure = insecure_elliptic_curve(value)
+                    is_insecure = is_insecure_curve(graph, algo_node)
                 elif key in function2 and algo_node and options_node:
-                    algo = "".join(get_eval_triggers(graph, algo_node, method))
-                    key = "".join(
-                        get_eval_triggers(graph, options_node, method)
+                    is_insecure = is_insecure_options(
+                        graph, algo_node, options_node
                     )
-                    is_insecure = is_insecure_key(algo, key)
 
                 if is_insecure:
                     yield shard, n_id
