@@ -2,12 +2,25 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=import-error
 from . import (
     get_result,
+    get_vulnerabilities_url,
+)
+from back.test.functional.src.remove_stakeholder_access import (
+    get_access_token,
+)
+from custom_exceptions import (
+    RequiredVerificationCode,
+)
+from datetime import (
+    datetime,
+    timedelta,
 )
 import pytest
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -145,3 +158,81 @@ async def test_get_organization_default_values(
     assert sorted(stakeholders) == org_stakeholders
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("organization")
+@pytest.mark.parametrize(
+    ("email", "verification_code"),
+    (
+        ("admin@gmail.com", None),
+        ("admin@gmail.com", "123123"),
+    ),
+)
+async def test_get_org_vulnerabilities_url(
+    populate: bool, email: str, verification_code: Optional[str]
+) -> None:
+    assert populate
+    org_id: str = "ORG#8a7c8089-92df-49ec-8c8b-ee83e4ff3256"
+    result: dict[str, Any] = await get_vulnerabilities_url(
+        user=email,
+        org_id=org_id,
+        verification_code=verification_code,
+        session_jwt=None,
+    )
+    if verification_code:
+        assert "errors" not in result
+        assert (
+            result["data"]["organization"]["vulnerabilitiesUrl"]
+            == "https://test.com"
+        )
+    else:
+        assert "errors" in result
+        assert result["errors"][0]["message"] == str(
+            RequiredVerificationCode()
+        )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("organization")
+@pytest.mark.parametrize(
+    ("email", "verification_code"),
+    (("admin@gmail.com", None),),
+)
+async def test_get_org_vulnerabilities_url_api(
+    populate: bool, email: str, verification_code: Optional[str]
+) -> None:
+    assert populate
+    org_id: str = "ORG#8a7c8089-92df-49ec-8c8b-ee83e4ff3256"
+    result_1: dict[str, Any] = await get_vulnerabilities_url(
+        user=email,
+        org_id=org_id,
+        verification_code=verification_code,
+        session_jwt=None,
+    )
+    assert "errors" in result_1
+    assert result_1["errors"][0]["message"] == str(RequiredVerificationCode())
+
+    ts_expiration_time: int = int(
+        (datetime.utcnow() + timedelta(weeks=8)).timestamp()
+    )
+    result_jwt = await get_access_token(
+        user=email,
+        expiration_time=ts_expiration_time,
+    )
+    assert "errors" not in result_jwt
+    assert result_jwt["data"]["updateAccessToken"]["success"]
+
+    session_jwt: str = result_jwt["data"]["updateAccessToken"]["sessionJwt"]
+    result_2: dict[str, Any] = await get_vulnerabilities_url(
+        user=email,
+        org_id=org_id,
+        verification_code=verification_code,
+        session_jwt=session_jwt,
+    )
+
+    assert "errors" not in result_2
+    assert (
+        result_2["data"]["organization"]["vulnerabilitiesUrl"]
+        == "https://test.com"
+    )

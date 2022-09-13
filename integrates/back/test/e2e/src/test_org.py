@@ -121,6 +121,37 @@ def test_org_analytics(
         timeout,
     )
 
+    driver.get(
+        f"{asm_endpoint}/graphics-for-organization?reportMode=true&"
+        "bgChange=true&organization=ORG%2333c08ebd-2068-47e7-9673-e1aa03dc9448"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
+    driver.get(
+        f"{asm_endpoint}/graphics-for-group?reportMode=true&"
+        "bgChange=true&group=unittesting"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
+    driver.get(
+        f"{asm_endpoint}/graphics-for-portfolio?reportMode=true&"
+        "bgChange=true&portfolio=ORG%2338eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+        "PORTFOLIO%23test-groups"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
 
 def test_org_groups(
     driver: WebDriver,

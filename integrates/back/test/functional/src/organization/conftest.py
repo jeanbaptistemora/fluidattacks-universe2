@@ -124,6 +124,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2019-11-22T20:07:57+00:00",
                         status=OrganizationStateStatus.ACTIVE,
                     ),
+                    vulnerabilities_url="https://test.com",
                 ),
             },
         ],
