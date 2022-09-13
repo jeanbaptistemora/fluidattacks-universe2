@@ -232,3 +232,6 @@ And that's our top 10.
 Of course,
 you can go to whichever conference best suits your skills and needs.
 We just hope that you find our selection useful\!
+
+If you want to receive our next blog posts,
+don't hesitate to [subscribe to our weekly newsletter](../../subscription/).
