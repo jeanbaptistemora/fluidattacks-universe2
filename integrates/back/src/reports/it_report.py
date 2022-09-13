@@ -144,7 +144,8 @@ class ITReport:
         EMPTY for _ in range(len(vulnerability) + 1)
     ]
 
-    def __init__(  # pylint: disable=too-many-arguments, too-many-locals
+    # pylint: disable=too-many-arguments, too-many-locals
+    def __init__(  # NOSONAR
         self,
         data: tuple[Finding, ...],
         group_name: str,

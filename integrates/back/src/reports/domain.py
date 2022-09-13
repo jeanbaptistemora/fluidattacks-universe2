@@ -37,7 +37,7 @@ from typing import (
 )
 
 
-async def get_group_report_url(  # pylint: disable=too-many-locals
+async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
     *,
     report_type: str,
     group_name: str,

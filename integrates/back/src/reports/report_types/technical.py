@@ -172,7 +172,7 @@ async def generate_pdf_file(
     return report_filename
 
 
-async def generate_xls_file(  # pylint: disable=too-many-locals
+async def generate_xls_file(  # NOSONAR # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],

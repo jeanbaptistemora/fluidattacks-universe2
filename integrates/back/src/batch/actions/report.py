@@ -68,7 +68,7 @@ upload_report_file = retry_on_exceptions(
 )(upload_report)
 
 
-async def get_report(  # pylint: disable=too-many-locals
+async def get_report(  # NOSONAR # pylint: disable=too-many-locals
     *,
     item: BatchProcessing,
     report_type: str,
@@ -124,7 +124,7 @@ async def get_report(  # pylint: disable=too-many-locals
             os.unlink(report_file_name)
 
 
-async def send_report(  # pylint: disable=too-many-locals
+async def send_report(  # NOSONAR # pylint: disable=too-many-locals
     *,
     item: BatchProcessing,
     report_type: str,
