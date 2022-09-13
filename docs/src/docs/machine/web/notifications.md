@@ -112,7 +112,7 @@ calendar days to confirm,
 after which the invitation
 will expire.
 
-![Access Granted](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/not_access_granted.png)
+![Access Granted](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083296/docs/web/notifications/notif_access_granted.png)
 
 ### Consulting
 
@@ -130,7 +130,7 @@ a button that says **Go to comment**,
 which will lead you to the
 comment on the ARM upon clicking it.
 
-![Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_consulting.png)
+![Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083772/docs/web/notifications/consulting.png)
 
 ### Root updates (root added)
 
@@ -220,7 +220,7 @@ characteristics of reported
 vulnerabilities and your
 remediation practices.
 
-![Analytics Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_analytics_report.png)
+![Analytics Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083596/docs/web/notifications/analytics_report.png)
 
 ### Report available
 
@@ -287,7 +287,7 @@ When you click on it,
 it will send you to the
 report of the event on the ARM.
 
-![Event Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_event_alert.png)
+![Event Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1663084464/docs/web/notifications/event_alert.png)
 
 ### Policies update
 
@@ -348,7 +348,7 @@ agent to implement in the pipeline.
 It will be sent by email or
 SMS to the User Manager role.
 
-![Agent Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1658770255/docs/web/notifications/notif_dev_agent_token.png)
+![Agent Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083990/docs/web/notifications/devsecops_agent_token.png)
 
 ### Updated group information
 
@@ -425,7 +425,7 @@ This notification will arrive
 when a user decides to delete
 the ARM account.
 
-![Confirm Deletion](https://res.cloudinary.com/fluid-attacks/image/upload/v1660837177/docs/web/notifications/notif_deletion.png)
+![Confirm Deletion](https://res.cloudinary.com/fluid-attacks/image/upload/v1663084183/docs/web/notifications/confirm_deletion.png)
 
 ### API Deprecation Notice
 
@@ -435,7 +435,7 @@ reminding them which fields of
 the API token will be deleted
 in the following month.
 
-![Deprecation Notice](https://res.cloudinary.com/fluid-attacks/image/upload/v1660848761/docs/web/notifications/notif_deprecation_notice.png)
+![Deprecation Notice](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083676/docs/web/notifications/api_deprecation_notice.png)
 
 ### Free trial start
 
@@ -503,7 +503,7 @@ When you click on it,
 it will direct you
 to the draft.
 
-![Draft Rejected](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005443/docs/web/notifications/notif_draft_rejected.png)
+![Draft Rejected](https://res.cloudinary.com/fluid-attacks/image/upload/v1663084261/docs/web/notifications/draft_rejected.png)
 
 ### Vulnerability updates (vulnerability remediated)
 
