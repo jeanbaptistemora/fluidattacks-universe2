@@ -215,7 +215,11 @@ def test_group_stakeholder(
         "continuoushacking@gmail.com",
         timeout,
     )
-    assert "Stakeholder email" in driver.page_source
+    assert utils.wait_for_text(
+        driver,
+        "Stakeholder email",
+        timeout,
+    )
 
     driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/stakeholders")
     utils.wait_for_text(

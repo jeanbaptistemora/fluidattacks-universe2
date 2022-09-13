@@ -1874,6 +1874,7 @@ export const enTranslations: ResourceKey = {
           vulnerabilityGracePeriod:
             "Maximum acceptance days should be a positive integer",
         },
+        externalTooltip: "Go to information about policy",
         findings: {
           action: "Action",
           addPolicies: {
@@ -1949,7 +1950,7 @@ export const enTranslations: ResourceKey = {
         policy: "Policy",
         recommended: {
           acceptanceSeverityRange: "Recommended value: 0.0 - 0.0",
-          maxAcceptanceDays: "Recommended value: 0.0",
+          maxAcceptanceDays: "Recommended value: 0",
           maxAcceptanceSeverity: "Recommended value: 0.0",
           maxNumberAcceptances: "Recommended value: 0",
           minAcceptanceSeverity: "Recommended value: 0.0",

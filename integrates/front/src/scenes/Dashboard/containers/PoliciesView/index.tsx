@@ -4,8 +4,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint-disable react/forbid-component-props */
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
@@ -13,11 +16,13 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
+import { ExternalLink } from "components/ExternalLink";
 import { Label } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
+import styles from "scenes/Dashboard/containers/PoliciesView/index.css";
 import type { IPolicies } from "scenes/Dashboard/containers/PoliciesView/types";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -31,6 +36,8 @@ import {
 } from "utils/validations";
 
 const translationStart = "organization.tabs.policies.";
+const policiesUrl =
+  "https://docs.fluidattacks.com/machine/web/organization/policies";
 
 const Policies: React.FC<IPolicies> = ({
   handleSubmit,
@@ -96,127 +103,223 @@ const Policies: React.FC<IPolicies> = ({
           <Row>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Label
-                  htmlFor={"maxAcceptanceDays"}
-                  tooltip={t(
-                    `${translationStart}recommended.maxAcceptanceDays`
-                  )}
-                >
+                <Label htmlFor={"maxAcceptanceDays"}>
                   {t(`${translationStart}policies.maxAcceptanceDays`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#maximum-number-of-calendar-days-a-finding-can-be-temporarily-accepted`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"maxAcceptanceDays-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
                 </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"maxAcceptanceDays"}
-                  type={"text"}
-                  validate={composeValidators([isZeroOrPositive, numeric])}
-                />
-              </Card>
-            </Col>
-            <Col lg={33} md={50} sm={100}>
-              <Card>
-                <Label
-                  htmlFor={"maxNumberAcceptances"}
-                  tooltip={t(
-                    `${translationStart}recommended.maxNumberAcceptances`
-                  )}
+                <Tooltip
+                  disp={"inline"}
+                  id={"maxAcceptanceDays-tooltip"}
+                  place={"bottom"}
+                  tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
                 >
-                  {t(`${translationStart}policies.maxNumberAcceptances`)}
-                </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"maxNumberAcceptances"}
-                  type={"text"}
-                  validate={composeValidators([isZeroOrPositive, numeric])}
-                />
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"maxAcceptanceDays"}
+                    type={"text"}
+                    validate={composeValidators([isZeroOrPositive, numeric])}
+                  />
+                </Tooltip>
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Label
-                  htmlFor={"vulnerabilityGracePeriod"}
-                  tooltip={t(
+                <Label htmlFor={"maxNumberAcceptances"}>
+                  {t(`${translationStart}policies.maxNumberAcceptances`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#maximum-number-of-times-a-finding-can-be-accepted`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"maxNumberAcceptances-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
+                </Label>
+                <Tooltip
+                  disp={"inline"}
+                  id={"maxNumberAcceptances-tooltip"}
+                  place={"bottom"}
+                  tip={t(`${translationStart}recommended.maxNumberAcceptances`)}
+                >
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"maxNumberAcceptances"}
+                    type={"text"}
+                    validate={composeValidators([isZeroOrPositive, numeric])}
+                  />
+                </Tooltip>
+              </Card>
+            </Col>
+            <Col lg={33} md={50} sm={100}>
+              <Card>
+                <Label htmlFor={"vulnerabilityGracePeriod"}>
+                  {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#grace-period-where-newly-reported-vulnerabilities-wont-break-the-build`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"vulnerabilityGracePeriod-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
+                </Label>
+                <Tooltip
+                  disp={"inline"}
+                  id={"vulnerabilityGracePeriod-tooltip"}
+                  place={"bottom"}
+                  tip={t(
                     `${translationStart}recommended.vulnerabilityGracePeriod`
                   )}
                 >
-                  {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
-                </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"vulnerabilityGracePeriod"}
-                  type={"text"}
-                  validate={composeValidators([isZeroOrPositive, numeric])}
-                />
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"vulnerabilityGracePeriod"}
+                    type={"text"}
+                    validate={composeValidators([isZeroOrPositive, numeric])}
+                  />
+                </Tooltip>
               </Card>
             </Col>
           </Row>
           <Row>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Label
-                  htmlFor={"minAcceptanceSeverity"}
-                  tooltip={t(
+                <Label htmlFor={"minAcceptanceSeverity"}>
+                  {t(`${translationStart}policies.minAcceptanceSeverity`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#temporal-acceptance-minimum-cvss-31-score-allowed-for-assignment`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"minAcceptanceSeverity-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
+                </Label>
+                <Tooltip
+                  disp={"inline"}
+                  id={"minAcceptanceSeverity-tooltip"}
+                  place={"bottom"}
+                  tip={t(
                     `${translationStart}recommended.minAcceptanceSeverity`
                   )}
                 >
-                  {t(`${translationStart}policies.minAcceptanceSeverity`)}
-                </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"minAcceptanceSeverity"}
-                  type={"text"}
-                  validate={composeValidators([
-                    isFloatOrInteger,
-                    numberBetween(minSeverity, maxSeverity),
-                  ])}
-                />
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"minAcceptanceSeverity"}
+                    type={"text"}
+                    validate={composeValidators([
+                      isFloatOrInteger,
+                      numberBetween(minSeverity, maxSeverity),
+                    ])}
+                  />
+                </Tooltip>
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Label
-                  htmlFor={"maxAcceptanceSeverity"}
-                  tooltip={t(
+                <Label htmlFor={"maxAcceptanceSeverity"}>
+                  {t(`${translationStart}policies.maxAcceptanceSeverity`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#temporal-acceptance-maximum-cvss-31-score-allowed-for-assignment`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"maxAcceptanceSeverity-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
+                </Label>
+                <Tooltip
+                  disp={"inline"}
+                  id={"maxAcceptanceSeverity-tooltip"}
+                  place={"bottom"}
+                  tip={t(
                     `${translationStart}recommended.maxAcceptanceSeverity`
                   )}
                 >
-                  {t(`${translationStart}policies.maxAcceptanceSeverity`)}
-                </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"maxAcceptanceSeverity"}
-                  type={"text"}
-                  validate={composeValidators([
-                    isFloatOrInteger,
-                    numberBetween(minSeverity, maxSeverity),
-                  ])}
-                />
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"maxAcceptanceSeverity"}
+                    type={"text"}
+                    validate={composeValidators([
+                      isFloatOrInteger,
+                      numberBetween(minSeverity, maxSeverity),
+                    ])}
+                  />
+                </Tooltip>
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Label
-                  htmlFor={"minBreakingSeverity"}
-                  tooltip={t(
-                    `${translationStart}recommended.minBreakingSeverity`
-                  )}
-                >
+                <Label htmlFor={"minBreakingSeverity"}>
                   {t(`${translationStart}policies.minBreakingSeverity`)}
+                  <ExternalLink
+                    className={`${styles["link-to-policies-docs"]} f7`}
+                    href={`${policiesUrl}#minimum-cvss-31-score-of-an-open-vulnerability-for-devsecops`}
+                  >
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"minBreakingSeverity-tooltip"}
+                      place={"bottom"}
+                      tip={t(`${translationStart}externalTooltip`)}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Tooltip>
+                  </ExternalLink>
                 </Label>
-                <Field
-                  component={FormikText}
-                  disabled={permissions.cannot(permission)}
-                  name={"minBreakingSeverity"}
-                  type={"text"}
-                  validate={composeValidators([
-                    isFloatOrInteger,
-                    numberBetween(minSeverity, maxSeverity),
-                  ])}
-                />
+                <Tooltip
+                  disp={"inline"}
+                  id={"minBreakingSeverity-tooltip"}
+                  place={"bottom"}
+                  tip={t(`${translationStart}recommended.minBreakingSeverity`)}
+                >
+                  <Field
+                    component={FormikText}
+                    disabled={permissions.cannot(permission)}
+                    name={"minBreakingSeverity"}
+                    type={"text"}
+                    validate={composeValidators([
+                      isFloatOrInteger,
+                      numberBetween(minSeverity, maxSeverity),
+                    ])}
+                  />
+                </Tooltip>
               </Card>
             </Col>
           </Row>
