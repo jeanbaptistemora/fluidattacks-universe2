@@ -7,14 +7,14 @@ slug: /development/stack/aws
 
 ## Rationale
 
-[AWS][AWS] is our main [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
+[AWS][aws] is our main [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
 cloud provider.
 The main reasons why we chose it
 over other alternatives
 are the following:
 
 - It provides a highly granular approach to [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service),
-  offering over [one hundred independent services][AWS]
+  offering over [one hundred independent services][aws]
   that range from [quantum computing](https://aws.amazon.com/braket)
   to [servers for videogames](https://aws.amazon.com/gamelift).
 - It has a fully granular
@@ -40,15 +40,14 @@ that did not exist at the time we migrated to the cloud.
 Its service catalog is much smaller,
 which means less flexibility.
 
-> **Note:**
-> [Microsoft Azure](https://azure.microsoft.com/en-us/)
+> **Note:** > [Microsoft Azure](https://azure.microsoft.com/en-us/)
 > is another alternative
 > that did not exist at the time we migrated to the cloud.
 > A review is pending.
 
 ## Usage
 
-We use the following [AWS][AWS] services:
+We use the following [AWS][aws] services:
 
 - **Identity and access management:** [IAM](/development/stack/aws/iam/)
 - **Cost management:** [Cost Management](/development/stack/aws/cost-management/)

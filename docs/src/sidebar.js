@@ -374,7 +374,7 @@ const Development = [
     label: 'Setup',
     items: [
       'development/setup/introduction',
-      'development/setup/dependencies',
+      'development/setup/terminal',
       'development/setup/editor',
       'development/setup/environment',
     ]

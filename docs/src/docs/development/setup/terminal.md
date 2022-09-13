@@ -1,0 +1,112 @@
+---
+id: terminal
+title: Terminal
+sidebar_label: Terminal
+slug: /development/setup/terminal
+---
+
+We'll configure the terminal first.
+Once the terminal is configured,
+all of the applications you open from it
+will inherit the development environment
+and credentials.
+
+At this point you should have Nix and Makes
+already installed in your system,
+so we won't go into those details.
+
+For maximum compatibility,
+we suggest you use [GNU Bash](https://www.gnu.org/software/bash/)
+as the command interpreter of your terminal.
+
+Please follow the following steps:
+
+1. Install [direnv](https://direnv.net/).
+1. Add `export DIRENV_WARN_TIMEOUT=1h` to your `~/.bashrc`.
+1. Clone the
+   [universe repository](https://gitlab.com/fluidattacks/universe)
+   into the path of your preference.
+1. Change directory to the universe repository:
+
+   ```bash
+   $ cd $universe
+   $
+   ```
+
+1. Add the following variables to your `~/.bashrc`
+   or to a file at `$universe/.envrc.config`:
+
+   ```bash
+   export OKTA_EMAIL=<username>@fluidattacks.com
+   export OKTA_PASS=<your-password>
+   ```
+
+1. Pick the AWS role you want to load AWS credentials for.
+   The options may change depending on your assigned permissions:
+
+   ```bash
+   Select AWS Role:
+   Account: fluidsignal (205810638802)
+     [ 1 ] dev
+     [ 2 ] prod_airs
+     [ 3 ] prod_docs
+     [ 4 ] prod_forces
+     [ 5 ] prod_integrates
+     [ 6 ] prod_melts
+     [ 7 ] prod_observes
+     [ 8 ] prod_skims
+     [ 9 ] prod_sorts
+   Selection: <type a number here>
+   ```
+
+   - If you see an authentication error,
+     make sure your email and password are correct.
+   - If you see the following error:
+
+     ```
+     Error: Status Code: 404
+     Error: Summary: Not Found: Resource not found: me (Session)
+     ERROR: SAMLResponse tag was not found!
+     ```
+
+     Please remove your [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
+     configuration directory by running:
+
+     ```bash
+     $ rm -rf ~/.aws-okta-processor/
+     $
+     ```
+
+     And then try again.
+     This error happens when
+     [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
+     tries to reuse a cached expired session.
+
+1. Pick the Development environment you want to load:
+
+   ```text
+   Select the development environment you want to load:
+
+   Once the environment has finished loading,
+   please close your code editor if it is open,
+   and then open it by invoking it from this terminal.
+
+   You can reload the environment at any moment with: $ direnv allow
+
+   1) none        3) integratesBack  5) skims
+   2) forces      4) melts
+   Selection: <type a number here>
+   ```
+
+1. AWS commands run from this terminal
+   will be authenticated to AWS now.
+
+   If you need to get the value of the secrets explicitly,
+   you can echo any of the AWS variables exported,
+   namely:
+   _AWS_ACCESS_KEY_ID_,
+   _AWS_SECRET_ACCESS_KEY_,
+   _AWS_SESSION_TOKEN_, and
+   _AWS_DEFAULT_REGION_.
+
+[aws]: https://aws.amazon.com/
