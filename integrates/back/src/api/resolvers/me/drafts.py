@@ -2,17 +2,20 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from dataloaders import (
-    Dataloaders,
-)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.findings.utils import (
+    format_finding,
 )
 from decorators import (
     require_login,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from search.operations import (
+    search,
 )
 from typing import (
     Any,
@@ -22,10 +25,19 @@ from typing import (
 @require_login
 async def resolve(
     parent: dict[str, Any],
-    info: GraphQLResolveInfo,
+    _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[Finding, ...]:
-    loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
-    drafts: tuple[Finding, ...] = await loaders.me_drafts.load(user_email)
-    return drafts
+
+    results = await search(
+        should_filters=[
+            {"state.status": "CREATED"},
+            {"state.status": "REJECTED"},
+            {"state.status": "SUBMITTED"},
+        ],
+        must_filters=[{"analyst_email": user_email}],
+        index="findings",
+        limit=25,
+    )
+    return tuple(format_finding(finding) for finding in results.items)

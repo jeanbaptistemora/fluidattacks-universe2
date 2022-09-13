@@ -32,7 +32,6 @@ from typing import (
         "permissions",
         "phone",
         "groups_length",
-        "drafts",
         "assigned",
         "enrollment",
     ),
@@ -47,7 +46,6 @@ from typing import (
                 "nationalNumber": "1111111111",
             },
             2,
-            [{"id": "3c475384-834c-47b0-ac71-a41a022e401c"}],
             [],
             {
                 "enrolled": True,
@@ -70,7 +68,6 @@ from typing import (
                 "nationalNumber": "2029182132",
             },
             1,
-            [],
             [{"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b"}],
             {
                 "enrolled": True,
@@ -93,7 +90,6 @@ from typing import (
                 "nationalNumber": "77777777777777",
             },
             1,
-            [],
             [{"id": "de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad"}],
             {
                 "enrolled": False,
@@ -116,7 +112,6 @@ from typing import (
                 "nationalNumber": "1111111111111",
             },
             1,
-            [],
             [{"id": "be09edb7-cd5c-47ed-bee4-97c645acdce8"}],
             {
                 "enrolled": False,
@@ -140,7 +135,6 @@ from typing import (
             },
             2,
             [],
-            [],
             {
                 "enrolled": False,
                 "trial": {
@@ -162,7 +156,6 @@ from typing import (
                 "nationalNumber": "4444444444444",
             },
             1,
-            [],
             [],
             {
                 "enrolled": False,
@@ -186,7 +179,6 @@ from typing import (
             },
             1,
             [],
-            [],
             {
                 "enrolled": False,
                 "trial": {
@@ -209,7 +201,6 @@ from typing import (
             },
             2,
             [],
-            [],
             {
                 "enrolled": False,
                 "trial": {
@@ -227,7 +218,6 @@ from typing import (
             3,
             None,
             1,
-            [],
             [],
             {
                 "enrolled": False,
@@ -251,7 +241,6 @@ from typing import (
             },
             1,
             [],
-            [],
             {
                 "enrolled": False,
                 "trial": {
@@ -272,7 +261,6 @@ async def test_get_me(
     permissions: int,
     phone: dict[str, str],
     groups_length: int,
-    drafts: list[dict[str, str]],
     assigned: list[dict[str, str]],
     enrollment: dict[str, Any],
 ) -> None:
@@ -286,7 +274,6 @@ async def test_get_me(
     assert "errors" not in result
     assert '{"hasAccessToken": false' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
-    assert result["data"]["me"]["drafts"] == drafts
     assert result["data"]["me"]["enrollment"] == enrollment
     assert result["data"]["me"]["vulnerabilitiesAssigned"] == assigned
     assert not result["data"]["me"]["hasMobileApp"]

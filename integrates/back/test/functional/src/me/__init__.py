@@ -23,9 +23,6 @@ async def get_result(
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
-            drafts{{
-                id
-            }}
             enrollment {{
                 enrolled
                 trial{{
