@@ -10,6 +10,7 @@ from dataloaders import (
 )
 from db_model.forces.types import (
     ForcesExecution,
+    ForcesExecutionRequest,
 )
 import pytest
 from typing import (
@@ -38,7 +39,7 @@ async def test_add_forces_execution(populate: bool, email: str) -> None:
     execution: str = "18c1e735a73243f2ab1ee0757041f80e"
     loaders = get_new_context()
     force_execution: ForcesExecution = await loaders.forces_execution.load(
-        (group, execution)
+        ForcesExecutionRequest(group_name=group, execution_id=execution)
     )
     assert force_execution.id == execution
     assert force_execution.branch == "master"

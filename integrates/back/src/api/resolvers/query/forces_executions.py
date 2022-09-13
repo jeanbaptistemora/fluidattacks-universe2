@@ -10,6 +10,7 @@ from dataloaders import (
 )
 from db_model.forces.types import (
     ForcesExecution,
+    GroupForcesExecutionsRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -39,14 +40,15 @@ async def resolve(
 ) -> dict[str, Any]:
     group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
-
-    executions_typed: tuple[
+    executions: tuple[
         ForcesExecution, ...
-    ] = await loaders.forces_executions.load((group_name, 100))
-    executions = [
-        format_forces_to_resolve(execution) for execution in executions_typed
+    ] = await loaders.group_forces_executions.load(
+        GroupForcesExecutionsRequest(group_name=group_name, limit=100)
+    )
+    executions_formatted = [
+        format_forces_to_resolve(execution) for execution in executions
     ]
     return {
-        "executions": executions,
+        "executions": executions_formatted,
         "group_name": group_name,
     }

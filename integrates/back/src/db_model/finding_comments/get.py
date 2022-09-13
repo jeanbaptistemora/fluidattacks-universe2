@@ -40,7 +40,6 @@ async def _get_comments(
         facet=TABLE.facets["finding_comment"],
         values={"finding_id": finding_id},
     )
-
     key_structure = TABLE.primary_key
     if comment_type == CommentType.COMMENT:
         filter_expression = Attr("comment_type").eq("COMMENT") | Attr(
@@ -60,6 +59,7 @@ async def _get_comments(
         index=TABLE.indexes["inverted_index"],
         table=TABLE,
     )
+
     return tuple(format_finding_comments(item) for item in response.items)
 
 

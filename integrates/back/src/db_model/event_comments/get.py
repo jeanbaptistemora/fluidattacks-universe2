@@ -34,7 +34,6 @@ async def _get_comments(*, event_id: str) -> tuple[EventComment, ...]:
         facet=TABLE.facets["event_comment"],
         values={"event_id": event_id},
     )
-
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(

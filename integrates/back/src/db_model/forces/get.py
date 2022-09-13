@@ -23,6 +23,8 @@ from db_model import (
 )
 from db_model.forces.types import (
     ForcesExecution,
+    ForcesExecutionRequest,
+    GroupForcesExecutionsRequest,
 )
 from db_model.forces.utils import (
     format_forces_execution,
@@ -31,19 +33,16 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Optional,
-)
 
 
-async def _get_executions(
-    *, group_name: str, limit: Optional[int] = None
+async def _get_group_executions(
+    *, request: GroupForcesExecutionsRequest
 ) -> tuple[ForcesExecution, ...]:
-    if limit is None:
+    if request.limit is None:
         paginate = False
         primary_key = keys.build_key(
             facet=TABLE.facets["forces_execution"],
-            values={"name": group_name},
+            values={"name": request.group_name},
         )
         index = TABLE.indexes["inverted_index"]
         key_structure = TABLE.primary_key
@@ -58,7 +57,7 @@ async def _get_executions(
         primary_key = keys.build_key(
             facet=facet,
             values={
-                "name": group_name,
+                "name": request.group_name,
             },
         )
         index = TABLE.indexes["gsi_2"]
@@ -70,55 +69,55 @@ async def _get_executions(
         paginate=paginate,
         condition_expression=condition_expression,
         facets=(TABLE.facets["forces_execution"],),
-        limit=limit,
+        limit=request.limit,
         table=TABLE,
         index=index,
     )
     return tuple(format_forces_execution(item) for item in response.items)
 
 
-async def _get_execution(
-    *, group_name: str, execution_id: str
-) -> ForcesExecution:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["forces_execution"],
-        values={"name": group_name, "id": execution_id},
+async def _get_executions(
+    *, requests: Iterable[ForcesExecutionRequest]
+) -> tuple[ForcesExecution, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["forces_execution"],
+            values={"name": request.group_name, "id": request.execution_id},
+        )
+        for request in requests
     )
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    item = await operations.get_item(
-        facets=(TABLE.facets["forces_execution"],),
-        key=primary_key,
-        table=TABLE,
-    )
-    if not item:
-        raise ExecutionNotFound()
+    if len(items) == len(requests):
+        response = {
+            (execution.group_name, execution.id): execution
+            for execution in tuple(
+                format_forces_execution(item) for item in items
+            )
+        }
+        return tuple(
+            response[(request.group_name, request.execution_id)]
+            for request in requests
+        )
 
-    return format_forces_execution(item)
+    raise ExecutionNotFound()
 
 
 class ForcesExecutionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, forces_keys: Iterable[tuple[str, str]]
+        self, requests: Iterable[ForcesExecutionRequest]
     ) -> tuple[ForcesExecution, ...]:
-        return await collect(
-            tuple(
-                _get_execution(
-                    group_name=group_name, execution_id=execution_id
-                )
-                for group_name, execution_id in forces_keys
-            )
-        )
+        return await _get_executions(requests=requests)
 
 
-class ForcesExecutionsLoader(DataLoader):
+class GroupForcesExecutionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, forces_keys: Iterable[tuple[str, Optional[int]]]
+        self, requests: Iterable[GroupForcesExecutionsRequest]
     ) -> tuple[tuple[ForcesExecution, ...], ...]:
         return await collect(
             tuple(
-                _get_executions(group_name=group_name, limit=limit)
-                for group_name, limit in forces_keys
+                _get_group_executions(request=request) for request in requests
             )
         )

@@ -48,3 +48,13 @@ class ForcesExecution(NamedTuple):
     vulnerabilities: ExecutionVulnerabilities
     grace_period: Optional[int] = 0
     severity_threshold: Optional[Decimal] = Decimal("0.0")
+
+
+class ForcesExecutionRequest(NamedTuple):
+    execution_id: str
+    group_name: str
+
+
+class GroupForcesExecutionsRequest(NamedTuple):
+    group_name: str
+    limit: Optional[int] = None

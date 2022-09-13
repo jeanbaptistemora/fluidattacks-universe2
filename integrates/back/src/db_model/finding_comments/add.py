@@ -28,18 +28,16 @@ from dynamodb.exceptions import (
 
 async def add(*, finding_comment: FindingComment) -> None:
     key_structure = TABLE.primary_key
-
-    finding_comment_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["finding_comment"],
         values={
             "id": finding_comment.id,
             "finding_id": finding_comment.finding_id,
         },
     )
-
-    finding_comment_item = {
-        key_structure.partition_key: finding_comment_key.partition_key,
-        key_structure.sort_key: finding_comment_key.sort_key,
+    item = {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         **format_finding_comment_item(finding_comment),
     }
 
@@ -48,7 +46,7 @@ async def add(*, finding_comment: FindingComment) -> None:
         await operations.put_item(
             condition_expression=condition_expression,
             facet=TABLE.facets["finding_comment"],
-            item=finding_comment_item,
+            item=item,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:

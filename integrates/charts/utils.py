@@ -11,6 +11,7 @@ from dataloaders import (
 )
 from db_model.forces.types import (
     ForcesExecution,
+    GroupForcesExecutionsRequest,
 )
 from db_model.groups.enums import (
     GroupSubscriptionType,
@@ -65,7 +66,9 @@ async def get_all_time_forces_executions(
     loaders = get_new_context()
     executions: tuple[
         ForcesExecution, ...
-    ] = await loaders.forces_executions.load((group_name, None))
+    ] = await loaders.group_forces_executions.load(
+        GroupForcesExecutionsRequest(group_name=group_name)
+    )
 
     return executions
 

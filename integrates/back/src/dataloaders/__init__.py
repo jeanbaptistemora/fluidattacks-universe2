@@ -35,7 +35,7 @@ from db_model.findings.get import (
 )
 from db_model.forces.get import (
     ForcesExecutionLoader,
-    ForcesExecutionsLoader,
+    GroupForcesExecutionsLoader,
 )
 from db_model.group_access.get import (
     GroupAccessLoader,
@@ -143,7 +143,6 @@ class Dataloaders(NamedTuple):
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
     forces_execution: ForcesExecutionLoader
-    forces_executions: ForcesExecutionsLoader
     root_environment_urls: RootEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
@@ -152,6 +151,7 @@ class Dataloaders(NamedTuple):
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_events: GroupEventsLoader
     group_findings: GroupFindingsLoader
+    group_forces_executions: GroupForcesExecutionsLoader
     group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
     group_toe_inputs: GroupToeInputsLoader
@@ -276,7 +276,6 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         forces_execution=ForcesExecutionLoader(),
-        forces_executions=ForcesExecutionsLoader(),
         root_environment_urls=RootEnvironmentUrlsLoader(),
         group=group_loader,
         group_access=group_access_loader,
@@ -285,6 +284,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=group_events_loader,
         group_findings=group_findings_loader,
+        group_forces_executions=GroupForcesExecutionsLoader(),
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
         group_toe_inputs=GroupToeInputsLoader(),

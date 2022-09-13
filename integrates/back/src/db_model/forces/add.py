@@ -32,15 +32,13 @@ from dynamodb.exceptions import (
 async def add(*, forces_execution: ForcesExecution) -> None:
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
-
-    forces_execution_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["forces_execution"],
         values={
             "id": forces_execution.id,
             "name": forces_execution.group_name,
         },
     )
-
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
@@ -48,21 +46,19 @@ async def add(*, forces_execution: ForcesExecution) -> None:
             "name": forces_execution.group_name,
         },
     )
-
-    forces_execution_item = {
-        key_structure.partition_key: forces_execution_key.partition_key,
-        key_structure.sort_key: forces_execution_key.sort_key,
+    item = {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         **format_forces_item(forces_execution),
     }
-
     condition_expression = Attr(key_structure.partition_key).not_exists()
     try:
         await operations.put_item(
             condition_expression=condition_expression,
             facet=TABLE.facets["forces_execution"],
-            item=forces_execution_item,
+            item=item,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
