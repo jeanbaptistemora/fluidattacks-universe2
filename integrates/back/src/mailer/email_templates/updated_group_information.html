@@ -33,13 +33,13 @@ SPDX-License-Identifier: MPL-2.0
         {%- if value["from"] == value["to"] %}
         {{ value["to"] -}}
         {%- else %}
-          <i>from</i>
+          <em>from</em>
           {%- if key in ["Sprint Length"] %}
             {{ value["from"].split()[0] }}
           {%- else %}
             {{ value["from"] }}
           {%- endif %}
-          <i>to</i> {{ value["to"] }}
+          <em>to</em> {{ value["to"] }}
         {%- endif %}
         <br>
         {%- endfor %}

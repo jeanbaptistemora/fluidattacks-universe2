@@ -39,7 +39,7 @@ SPDX-License-Identifier: MPL-2.0
           {%- if key in ["url", "gitignore"]%}
             <div class="row">
               <div class="column left">
-                <i>from</i>
+                <em>from</em>
               </div>
               <div class="column right">
                 {%- if key == "url" %}
@@ -58,7 +58,7 @@ SPDX-License-Identifier: MPL-2.0
             </div>
             <div class="row" style="margin-bottom:1rem !important;">
               <div class="column left">
-                <i>to</i>
+                <em>to</em>
               </div>
               <div class="column right">
                 {%- if key == "url" %}
@@ -76,7 +76,7 @@ SPDX-License-Identifier: MPL-2.0
               </div>
             </div>
           {%- else %}
-          <i>from</i> {{ old_state[key] }} <i>to</i> {{ value }}<br>
+          <em>from</em> {{ old_state[key] }} <em>to</em> {{ value }}<br>
           {%- endif %}
         {%- endfor %}
       </div>
