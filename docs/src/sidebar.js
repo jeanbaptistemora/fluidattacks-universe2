@@ -38,6 +38,7 @@ const About = [
         items: [
           'about/security/transparency/information-security-responsibility',
           'about/security/transparency/open-source',
+          'about/security/transparency/hacking-our-technology',
           'about/security/transparency/public-incidents',
           'about/security/transparency/data-leakage-policy',
           'about/security/transparency/help-channel',
@@ -50,7 +51,6 @@ const About = [
         items: [
           'about/security/confidentiality/encryption-rest',
           'about/security/confidentiality/encryption-transit',
-          'about/security/confidentiality/hacking-our-technology',
           'about/security/confidentiality/personnel-nda',
           'about/security/confidentiality/hire-directly',
           'about/security/confidentiality/formatting-data',
