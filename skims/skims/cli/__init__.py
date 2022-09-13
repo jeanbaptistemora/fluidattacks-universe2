@@ -34,7 +34,6 @@ from utils.env import (
     guess_environment,
 )
 from utils.function import (
-    shield,
     shield_blocking,
 )
 from utils.logs import (
@@ -126,30 +125,12 @@ def cli(
         set_level(logging.DEBUG)
 
 
-@cli.command(help="Get a group's language.", name="language")
-@GROUP(required=True)
-@TOKEN(required=True)
-def cli_language(
-    group: str,
-    token: str,
-) -> None:
-    success: bool = run(
-        cli_language_wrapped(
-            group=group,
-            token=token,
-        )
-    )
-    sys.exit(0 if success else 1)
-
-
 @cli.command(help="Perform vulnerability detection.", name="scan")
 @CONFIG()
 @GROUP()
-@TOKEN()
 def cli_scan(
     config: str,
     group: Optional[str],
-    token: Optional[str],
 ) -> None:
     CTX.config = None
 
@@ -157,7 +138,6 @@ def cli_scan(
     success: bool = cli_scan_wrapped(
         config=config,
         group=group,
-        token=token,
     )
 
     log_blocking("info", "Success: %s", success)
@@ -172,29 +152,10 @@ def cli_scan(
     sys.exit(0 if success else 1)
 
 
-@shield(on_error_return=False)
-async def cli_language_wrapped(
-    group: str,
-    token: str,
-) -> bool:
-    import core.language
-
-    initialize_bugsnag()
-    add_bugsnag_data(
-        group=group,
-        token=token,
-    )
-    return await core.language.main(
-        group=group,
-        token=token,
-    )
-
-
 @shield_blocking(on_error_return=False)
 def cli_scan_wrapped(
     config: str,
     group: Optional[str],
-    token: Optional[str],
 ) -> bool:
     import core.scan
 
@@ -202,13 +163,11 @@ def cli_scan_wrapped(
     add_bugsnag_data(
         config=config,
         group=group or "",
-        token="set" if token else "",
     )
     success: bool = run(
         core.scan.main(
             config=config,
             group=group,
-            token=token,
         )
     )
 

@@ -13,10 +13,6 @@ from git import (
 from glob import (
     iglob,
 )
-from integrates.graphql import (
-    create_session,
-    end_session,
-)
 from itertools import (
     chain,
 )
@@ -106,17 +102,6 @@ def test_group() -> Iterator[str]:
 @pytest.fixture(autouse=True, scope="session")
 def test_integrates_api_token() -> Iterator[str]:
     yield os.environ["INTEGRATES_API_TOKEN"]
-
-
-@pytest.fixture(scope="function")
-def test_integrates_session(
-    test_integrates_api_token: str,  # pylint: disable=redefined-outer-name
-) -> Iterator[None]:
-    token = create_session(api_token=test_integrates_api_token)
-    try:
-        yield
-    finally:
-        end_session(token)
 
 
 @pytest.fixture(autouse=True, scope="session")

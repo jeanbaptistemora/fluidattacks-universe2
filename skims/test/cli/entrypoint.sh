@@ -13,7 +13,6 @@ function assert {
 }
 
 function main {
-  local output
   export INTEGRATES_API_ENDPOINT
   export INTEGRATES_API_TOKEN
 
@@ -31,11 +30,7 @@ function main {
       INTEGRATES_API_ENDPOINT="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
     else
       INTEGRATES_API_ENDPOINT="https://127.0.0.1:8001/api"
-    fi \
-    && output="$(mktemp)" \
-    && assert skims language --group jessup |& tee "${output}" \
-    && assert grep -HnP '^EN$' "${output}" \
-    && assert grep -HnP 'Success' "${output}"
+    fi
 }
 
 main "${@}"

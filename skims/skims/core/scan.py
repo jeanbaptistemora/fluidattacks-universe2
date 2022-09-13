@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import aioboto3
-import boto3
 from config import (
     dump_to_yaml,
     load,
@@ -24,16 +23,6 @@ from custom_exceptions import (
 )
 from dast.aws.analyze import (
     analyze as analyze_dast_aws,
-)
-from datetime import (
-    datetime,
-)
-from integrates.domain import (
-    do_finish_skims_execution,
-    do_start_skims_execution,
-)
-from integrates.graphql import (
-    create_session,
 )
 import json
 from lib_apk.analyze import (
@@ -61,7 +50,6 @@ from state.ephemeral import (
 import tempfile
 from typing import (
     Dict,
-    List,
     Optional,
     Union,
 )
@@ -71,7 +59,6 @@ from utils.bugs import (
 from utils.logs import (
     configure as configure_logs,
     log_blocking,
-    log_to_remote,
     log_to_remote_blocking,
 )
 from utils.repositories import (
@@ -80,22 +67,6 @@ from utils.repositories import (
 from zone import (
     t,
 )
-
-
-async def _upload_csv_result(
-    stores: Dict[core_model.FindingEnum, EphemeralStore]
-) -> None:
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
-        notify_findings_as_csv(stores, file_path)
-        with open(file_path, "rb") as reader:
-            session = aioboto3.Session()
-            async with session.client("s3") as s3_client:
-                await s3_client.upload_fileobj(
-                    reader,
-                    "skims.data",
-                    f"results/{CTX.config.execution_id}.csv",
-                )
 
 
 async def upload_sarif_result(
@@ -115,24 +86,6 @@ async def upload_sarif_result(
                     "skims.data",
                     f"results/{CTX.config.execution_id}.sarif",
                 )
-
-
-async def queue_upload_vulns(execution_id: str) -> None:
-    session = boto3.Session()
-    client = session.client("sqs")
-    broker_url = session.client("sqs").get_queue_url(
-        QueueName="skims-report-queue"
-    )["QueueUrl"]
-    client.send_message(
-        QueueUrl=broker_url,
-        MessageBody=json.dumps(
-            {
-                "execution_id": execution_id,
-                "task": "process-skims-result",
-                "eta": datetime.now().isoformat(),
-            }
-        ),
-    )
 
 
 async def execute_skims(
@@ -164,10 +117,6 @@ async def execute_skims(
         for aws_cred in config.dast.aws_credentials:
             if aws_cred:
                 await analyze_dast_aws(credentials=aws_cred, stores=stores)
-    if config.execution_id:
-        await _upload_csv_result(stores)
-        await upload_sarif_result(config, stores)
-        await queue_upload_vulns(config.execution_id)
     report_results(config=config, stores=stores)
 
     return stores
@@ -278,50 +227,9 @@ def notify_findings_as_sarif(
         json.dump(result, writer)
 
 
-async def notify_start(job_id: str, root: Optional[str] = None) -> None:
-    await do_start_skims_execution(
-        root=root or CTX.config.namespace,
-        group_name=CTX.config.group,
-        job_id=job_id,
-        start_date=datetime.utcnow(),
-        commit_hash=CTX.config.commit
-        or get_repo_head_hash(CTX.config.working_dir),
-    )
-
-
-async def notify_end(
-    job_id: str,
-    persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
-    config: Optional[core_model.SkimsConfig] = None,
-) -> None:
-    config = config or CTX.config
-    await do_finish_skims_execution(
-        root=config.namespace,
-        group_name=config.group or "",
-        job_id=job_id,
-        end_date=datetime.utcnow(),
-        findings_executed=tuple(
-            {
-                "finding": finding.name,
-                "open": get_ephemeral_store().length(),
-                "modified": (
-                    p_result.diff_result.length()
-                    if finding in persisted_results
-                    and (p_result := persisted_results[finding])
-                    and p_result.diff_result
-                    else 0
-                ),
-            }
-            for finding in core_model.FindingEnum
-            if finding in config.checks
-        ),
-    )
-
-
 async def main(
     config: Union[str, core_model.SkimsConfig],
     group: Optional[str],
-    token: Optional[str],
 ) -> bool:
     try:
         # FP: The function referred to is from another product (reviews)
@@ -346,82 +254,12 @@ async def main(
 
         os.chdir(CTX.config.working_dir)
 
-        integrates_access = False
-        if group and token:
-            create_session(token)
-            integrates_access = True
-
-        batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
-
-        if integrates_access and batch_job_id:
-            await notify_start(batch_job_id)
-
         await execute_skims()
 
         success = True
-
-        if integrates_access and batch_job_id:
-            await notify_end(batch_job_id, {})
 
         return success
     finally:
         if CTX and CTX.config and CTX.config.start_dir:
             os.chdir(CTX.config.start_dir)
             reset_ephemeral_state()
-
-
-async def execute_set_of_configs(
-    configs: List[core_model.SkimsConfig],
-    group: Optional[str],
-    token: Optional[str],
-) -> bool:
-    configure_logs()
-    reset_ephemeral_state()
-    integrates_access = False
-    if group and token:
-        create_session(token)
-        integrates_access = True
-
-    batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
-
-    success = True
-
-    for index, current_config in enumerate(configs):
-        CTX.config = current_config
-        stores = {
-            finding: get_ephemeral_store()
-            for finding in core_model.FindingEnum
-        }
-
-        add_bugsnag_data(namespace=CTX.config.namespace)
-        if integrates_access and batch_job_id:
-            await notify_start(batch_job_id, root=current_config.namespace)
-        else:
-            await log_to_remote(
-                severity="warning",
-                msg="Unable to notify the start of the execution",
-                job_id=batch_job_id or "",
-                integrates_access=str(integrates_access),
-                namespace=current_config.namespace,
-            )
-
-        log_blocking("info", f"Executing config {index+1}: {len(configs)}")
-        log_blocking("info", f"Namespace: {CTX.config.namespace}/")
-        log_blocking("info", f"Startup work dir is: {CTX.config.start_dir}")
-        log_blocking("info", f"Moving work dir to: {CTX.config.working_dir}")
-
-        os.chdir(CTX.config.working_dir)
-
-        await execute_skims(stores)
-        if batch_job_id and integrates_access:
-            await notify_end(
-                batch_job_id,
-                config=current_config,
-                persisted_results={
-                    finding: core_model.PersistResult(success=True)
-                    for finding in stores.keys()
-                },
-            )
-
-    reset_ephemeral_state()
-    return success

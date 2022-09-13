@@ -10,9 +10,6 @@ from contextlib import (
     redirect_stdout,
 )
 import csv
-from integrates.dal import (
-    get_group_roots,
-)
 import io
 from itertools import (
     zip_longest,
@@ -27,7 +24,6 @@ from typing import (
     Dict,
     Iterable,
     List,
-    Set,
     Text,
     Tuple,
 )
@@ -351,19 +347,3 @@ def _run_no_group(
     # and are reproducible
     code, stdout, stderr = skims("scan", get_suite_config(suite))
     check_that_csv_results_match(suite, snippet_filter=snippet_filter)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_integrates_group_has_required_roots(
-    test_group: str,
-) -> None:
-    group_res = await get_group_roots(group=test_group)
-    assert len(group_res) > 0
-
-    roots_nicknames: Set[str] = {result.nickname for result in group_res}
-    assert all(
-        nickname in roots_nicknames
-        for nickname in ["dynamic_namespace_1", "dynamic_namespace_2"]
-    )
