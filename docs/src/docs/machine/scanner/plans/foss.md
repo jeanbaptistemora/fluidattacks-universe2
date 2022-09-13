@@ -108,7 +108,9 @@ namespace: repository
 # Optional:
 #   Yes
 # Example:
-output: /path/to/results.csv
+output:
+  file_path: /path/to/results.csv
+  format: CSV
 
 # Description:
 #   Working directory, normally used as the path to the repository.
