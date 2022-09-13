@@ -39,6 +39,7 @@ import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
 import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
 import { deleteFormatter } from "components/TableNew/formatters/deleteFormatter";
 import type { ICellHelper } from "components/TableNew/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
@@ -275,6 +276,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
     {
       accessorKey: "reportDate",
+      filterFn: filterDate,
       header: t("searchFindings.tabVuln.vulnTable.reportDate"),
       meta: { filterType: "dateRange" },
     },
