@@ -18,9 +18,34 @@ the [ability to give](/criteria/requirements/035)
 the [minimum required permissions](/criteria/requirements/186)
 to other members of their team.
 
-Some of the available roles are hacker,
-admin, releaser, escaper,
-user and project manager.
+To protect the
+information of each group,
+which is the source code
+and its vulnerabilities,
+authorization is based on the
+[Role-Based Access Control (RBAC)](https://auth0.com/docs/manage-users/access-control/rbac)
+model,
+which will give access to the data
+through Roles and division of the
+projects (Groups).
+
+The people with the roles
+(**User Manager & Customer Manager**)
+can define which team members
+will have access to the different
+groups and roles.
+These can be divided into three levels:
+
+- Role at Organization level.
+- Role at Group level.
+
+Remember that all users using the
+[Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+can execute actions given
+according to each role,
+if you want to see the
+actions we invite you to enter
+[here](/machine/web/groups/roles/#roles-table).
 
 ## Requirements
 
