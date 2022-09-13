@@ -376,7 +376,6 @@ const Development = [
       'development/setup/introduction',
       'development/setup/terminal',
       'development/setup/editor',
-      'development/setup/environment',
     ]
   },
   {

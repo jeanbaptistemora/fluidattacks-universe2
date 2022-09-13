@@ -109,4 +109,28 @@ Please follow the following steps:
    _AWS_SESSION_TOKEN_, and
    _AWS_DEFAULT_REGION_.
 
+1. (optional) Some tools are used occasionally,
+   so they are not part of the development environment,
+   for instance: `kubectl`, `jq`, `awscli`, among others.
+
+   If you require any extra tools,
+   you can search them [here](https://search.nixos.org/packages)
+   and install them with Nix.
+   If you happen to use them very frequently,
+   you can add them to the development environment.
+
+At this point,
+you can open a new terminal,
+and all of the applications you open
+by calling them from this terminal
+will inherit the development environment
+and credentials.
+This works because every command
+that you execute on the terminal
+(like `awscli`, `kubectl`, or your code editor)
+is spawned as a child process,
+and environment variables like _PATH_, _AWS\_\*_, among others,
+are inherited by the child process
+from the parent process.
+
 [aws]: https://aws.amazon.com/
