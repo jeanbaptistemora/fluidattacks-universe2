@@ -67,7 +67,6 @@
     - capec.227
     - cis.4_3
     - cwe.404
-    - cwe.613
     - hipaa.164_312_a_2_iii
     - nist80053.AC-2_2
     - nist80053.AC-12
@@ -326,7 +325,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.613
     - nist80063.7_1
     - owasp10.A7
     - fedramp.AC-2_5
@@ -400,6 +398,7 @@
     - cwe.1004
     - cwe.79
     - cwe.539
+    - cwe.1275
     - nist80063.7_1_1
     - owasp10.A2
     - owasp10.A3
@@ -593,7 +592,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.613
     - nist80063.7_1
     - owasp10.A7
     - owaspm10.M6
@@ -997,7 +995,6 @@
     - cwe.23
     - cwe.36
     - cwe.73
-    - cwe.641
     - owasp10.A2
     - owasp10.A3
     - owaspm10.M8
@@ -1289,7 +1286,6 @@
     - capec.38
     - capec.154
     - capec.176
-    - cwe.778
     - owasp10.A9
     - owaspm10.M2
     - nist.PR_DS-6
@@ -1370,7 +1366,6 @@
     - capec.154
     - capec.175
     - capec.242
-    - cwe.829
     - cwe.830
     - owasp10.A3
     - owasp10.A5
@@ -1592,6 +1587,7 @@
     - capec.130
     - cwe.400
     - cwe.770
+    - cwe.1325
     - gdpr.32_1c
     - agile.11
     - sans25.400
@@ -1892,7 +1888,6 @@
     oneshot: true
   references:
     - cis.8_5
-    - cwe.778
     - owasp10.A9
     - soc2.P6_2
     - soc2.P6_3
@@ -2046,6 +2041,7 @@
     oneshot: true
   references:
     - cwe.532
+    - cwe.1295
     - eprivacy.4_1a
     - owasp10.A2
     - owasp10.A3
@@ -3149,6 +3145,7 @@
     - cis.5_3
     - cwe.263
     - cwe.521
+    - cwe.640
     - nerccip.007-6_R5_6
     - mitre.M1027
     - mitre.M1036
@@ -3258,6 +3255,7 @@
     - capec.560
     - cwe.521
     - cwe.522
+    - cwe.640
     - nerccip.007-6_R5_5
     - nist80063.5_1_1_2
     - owasp10.A7
@@ -3300,6 +3298,7 @@
     - capec.560
     - cwe.521
     - cwe.522
+    - cwe.640
     - nerccip.007-6_R5_5
     - owasp10.A7
     - mitre.M1027
@@ -3599,6 +3598,7 @@
     - asvs.2_2_6
     - pci.8_3_6
     - cwe.522
+    - cwe.640
   metadata: {}
 '140':
   en:
@@ -3645,7 +3645,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.613
     - nist80063.5_1_4_2
     - owasp10.A7
     - sans25.287
@@ -3687,7 +3686,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.613
     - owasp10.A7
     - mitre.M1036
     - padss.3_1_11
@@ -4647,6 +4645,8 @@
     - cis.16_1
     - cwe.74
     - cwe.400
+    - cwe.710
+    - cwe.1325
     - owasp10.A6
     - agile.9
     - certj.MET03-J
@@ -4987,6 +4987,7 @@
     - siglite.SL_89
     - sig.I_2_1
     - cwe.400
+    - cwe.1325
   metadata: {}
 '167':
   en:
@@ -5134,6 +5135,7 @@
     squad: true
     oneshot: true
   references:
+    - cwe.1041
     - cwe.1085
     - misrac.2_4
     - mitre.M1013
@@ -5336,9 +5338,7 @@
     - cwe.94
     - cwe.138
     - cwe.147
-    - cwe.602
     - cwe.643
-    - cwe.943
     - cwe.22
     - cwe.36
     - cwe.90
@@ -5351,6 +5351,11 @@
     - cwe.290
     - cwe.400
     - cwe.444
+    - cwe.611
+    - cwe.918
+    - cwe.1284
+    - cwe.1287
+    - cwe.1325
     - owasp10.A3
     - owaspm10.M2
     - agile.9
@@ -7417,6 +7422,7 @@
     - owaspmasvs.V2_7
     - nist800171.1_17
     - asvs.14_1_5
+    - cwe.1262
   metadata: {}
 '236':
   en:
@@ -7579,7 +7585,6 @@
   references:
     - cwe.257
     - cwe.345
-    - cwe.602
     - cwe.620
     - cwe.640
     - owasp10.A7
@@ -7818,6 +7823,7 @@
     - c2m2.9_5_e
     - pci.2_3_2
     - sig.N_1_12
+    - cwe.1262
   metadata: {}
 '253':
   en:
@@ -8341,6 +8347,7 @@
     - capec.115
     - cwe.287
     - cwe.306
+    - cwe.603
     - iso27001.9_4_2
     - nerccip.003-8_3_2
     - nerccip.005-5_R1_4
@@ -8557,6 +8564,7 @@
     - cwe.114
     - cwe.444
     - cwe.548
+    - cwe.693
     - owasp10.A1
     - owasp10.A4
     - owasp10.A5
@@ -9005,7 +9013,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.829
     - owasp10.A8
     - nist.ID_BE-4
     - agile.1
@@ -9822,6 +9829,7 @@
     - capec.151
     - cwe.287
     - cwe.306
+    - cwe.862
     - owasp10.A7
     - owaspm10.M4
     - nydfs.500_12
@@ -10200,7 +10208,6 @@
   references:
     - capec.161
     - cwe.601
-    - cwe.602
     - cwe.918
     - cwe.1022
     - iso27001.14_1_3
@@ -10327,7 +10334,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.693
     - owaspm10.M8
     - nist.PR_PT-2
     - mitre.M1034
@@ -10337,6 +10343,7 @@
     - iso27002.7_9
     - iso27002.8_26
     - issaf.S_5_8
+    - cwe.693
   metadata: {}
 '327':
   en:
@@ -10729,6 +10736,7 @@
     - capec.16
     - capec.560
     - cwe.521
+    - cwe.640
     - nist80063.5_1_1_2
     - owasp10.A7
     - mitre.M1027
@@ -10922,7 +10930,6 @@
     oneshot: true
   references:
     - cwe.294
-    - cwe.613
     - nist80063.5_1_3_2
     - owasp10.A7
     - owaspm10.M4
@@ -10998,7 +11005,6 @@
     - capec.216
     - capec.272
     - capec.594
-    - cwe.757
     - owasp10.A2
     - owaspm10.M3
     - nist.PR_PT-4
@@ -11620,6 +11626,7 @@
     - capec.242
     - capec.248
     - cwe.95
+    - cwe.915
     - owasp10.A3
     - agile.9
     - mitre.M1013
@@ -11911,6 +11918,7 @@
     - capec.43
     - capec.153
     - cwe.116
+    - cwe.838
     - owasp10.A4
     - owaspm10.M1
     - owaspm10.M7
@@ -12099,6 +12107,7 @@
     oneshot: true
   references:
     - cwe.693
+    - cwe.1192
     - cwe.1233
     - owasp10.A5
     - agile.3
@@ -12134,6 +12143,7 @@
   references:
     - cis.7_3
     - cwe.367
+    - cwe.830
     - owasp10.A5
     - owasp10.A6
     - agile.3
@@ -12180,7 +12190,6 @@
     oneshot: true
   references:
     - cwe.693
-    - cwe.757
     - nist.PR_DS-6
     - agile.3
     - mitre.M1033
@@ -12476,6 +12485,7 @@
     - sig.P_5_1
     - cwe.212
     - cwe.226
+    - cwe.1272
   metadata: {}
 '361':
   en:
@@ -12846,7 +12856,6 @@
     squad: true
     oneshot: true
   references:
-    - cwe.613
     - nist80053.AC-12
     - owasp10.A7
     - padss.5_2_10
@@ -12883,6 +12892,7 @@
     - hitrust.10_g
     - iso27002.8_24
     - iec62443.DC-4_3
+    - cwe.780
   metadata: {}
 '371':
   en:
@@ -13150,7 +13160,6 @@
     oneshot: true
   references:
     - cis.8_5
-    - cwe.778
     - iso27001.12_4_1
     - owasp10.A9
     - nist.PR_PT-1
@@ -13203,7 +13212,6 @@
     oneshot: true
   references:
     - cis.8_5
-    - cwe.778
     - iso27001.12_4_1
     - owasp10.A9
     - nist.PR_PT-1

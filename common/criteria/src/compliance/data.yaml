@@ -852,6 +852,9 @@ cwe:
     '602':
       title: Client-side enforcement of server-side security
       link: https://cwe.mitre.org/data/definitions/602.html
+    '603':
+      title: Use of client-side authentication
+      link: https://cwe.mitre.org/data/definitions/603.html
     '611':
       title: Improper restriction of XML External Entity reference
       link: https://cwe.mitre.org/data/definitions/611.html
@@ -873,9 +876,6 @@ cwe:
     '640':
       title: Weak password recovery mechanism for forgotten password
       link: https://cwe.mitre.org/data/definitions/640.html
-    '641':
-      title: Improper restriction of names for files and other resources
-      link: https://cwe.mitre.org/data/definitions/641.html
     '642':
       title: External control of critical state data
       link: https://cwe.mitre.org/data/definitions/642.html
@@ -906,9 +906,6 @@ cwe:
     '749':
       title: Exposed dangerous method or function
       link: https://cwe.mitre.org/data/definitions/749.html
-    '757':
-      title: Selection of less-secure algorithm during negotiation ("algorithm downgrade")
-      link: https://cwe.mitre.org/data/definitions/757.html
     '759':
       title: Use of a one-way hash without a salt
       link: https://cwe.mitre.org/data/definitions/759.html
@@ -924,6 +921,9 @@ cwe:
     '779':
       title: Logging of excessive data
       link: https://cwe.mitre.org/data/definitions/779.html
+    '780':
+      title: Use of RSA algorithm without OAEP
+      link: https://cwe.mitre.org/data/definitions/780.html
     '798':
       title: Use of hard-coded credentials
       link: https://cwe.mitre.org/data/definitions/798.html
@@ -933,12 +933,15 @@ cwe:
     '804':
       title: Guessable CAPTCHA
       link: https://cwe.mitre.org/data/definitions/804.html
-    '829':
-      title: Inclusion of functionality from untrusted control sphere
-      link: https://cwe.mitre.org/data/definitions/829.html
     '830':
       title: Inclusion of web functionality from an untrusted source
       link: https://cwe.mitre.org/data/definitions/830.html
+    '838':
+      title: Inappropriate encoding for output context
+      link: https://cwe.mitre.org/data/definitions/838.html
+    '862':
+      title: Missing authorization
+      link: https://cwe.mitre.org/data/definitions/862.html
     '915':
       title: Improperly controlled modification of dynamically-determined object attributes
       link: https://cwe.mitre.org/data/definitions/915.html
@@ -954,9 +957,6 @@ cwe:
     '923':
       title: Improper restriction of communication channel to intended endpoints
       link: https://cwe.mitre.org/data/definitions/923.html
-    '943':
-      title: Improper neutralization of special elements in data query logic
-      link: https://cwe.mitre.org/data/definitions/943.html
     '1004':
       title: Sensitive cookie without 'HttpOnly' flag
       link: https://cwe.mitre.org/data/definitions/1004.html
@@ -966,6 +966,9 @@ cwe:
     '1022':
       title: Use of web link to untrusted target with window.opener access
       link: https://cwe.mitre.org/data/definitions/1022.html
+    '1041':
+      title: Use of redundant code
+      link: https://cwe.mitre.org/data/definitions/1041.html
     '1085':
       title: Invokable control element with excessive volume of commented-out code
       link: https://cwe.mitre.org/data/definitions/1085.html
@@ -975,6 +978,9 @@ cwe:
     '1121':
       title: Excessive McCabe cyclomatic complexity
       link: https://cwe.mitre.org/data/definitions/1121.html
+    '1192':
+      title: System-on-Chip (SoC) using components without unique identifiers
+      link: https://cwe.mitre.org/data/definitions/1192.html
     '1204':
       title: Generation of weak initialization vector (IV)
       link: https://cwe.mitre.org/data/definitions/1204.html
@@ -984,9 +990,30 @@ cwe:
     '1233':
       title: Improper hardware lock protection for security sensitive controls
       link: https://cwe.mitre.org/data/definitions/1233.html
+    '1262':
+      title: Improper access control for register interface
+      link: https://cwe.mitre.org/data/definitions/1262.html
     '1269':
       title: Product released in non-release configuration
       link: https://cwe.mitre.org/data/definitions/1269.html
+    '1272':
+      title: Sensitive information uncleared before debug/power state transition
+      link: https://cwe.mitre.org/data/definitions/1272.html
+    '1275':
+      title: Sensitive cookie with improper sameSite attribute
+      link: https://cwe.mitre.org/data/definitions/1275.html
+    '1284':
+      title: Improper validation of specified quantity in input
+      link: https://cwe.mitre.org/data/definitions/1284.html
+    '1287':
+      title: Improper validation of specified type of input
+      link: https://cwe.mitre.org/data/definitions/1287.html
+    '1295':
+      title: Debug messages revealing unnecessary information
+      link: https://cwe.mitre.org/data/definitions/1295.html
+    '1325':
+      title: Improperly controlled sequential memory allocation
+      link: https://cwe.mitre.org/data/definitions/1325.html
   metadata: {}
 eprivacy:
   title: ePrivacy Directive
