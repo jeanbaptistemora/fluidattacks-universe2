@@ -269,21 +269,17 @@ class Queries:
                     threat
                     title
                     vulnerabilities @include(if: $withVulns) {
-                        historicState @include(if: $withVulns) {
-                            date
-                            hacker
-                            source
-                            state
-                        }
-                        historicTreatment {
-                            date
-                            treatment
-                            user
-                        }
-                        id @include(if: $withVulns)
-                        vulnerabilityType @include(if: $withVulns)
-                        where @include(if: $withVulns)
-                        specific @include(if: $withVulns)
+                        lastStateDate
+                        currentState
+                        hacker
+                        source
+                        lastTreatmentDate
+                        treatment
+                        treatmentUser
+                        id
+                        vulnerabilityType
+                        where
+                        specific
                     }
                 }
             }
