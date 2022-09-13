@@ -4,6 +4,7 @@
 
 from syntax_graph.syntax_readers.common import (
     array as common_array,
+    assignment_expression as common_assignment_expression,
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
     break_statement as common_break_statement,
@@ -42,7 +43,6 @@ from syntax_graph.syntax_readers.common import (
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
-    assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
     catch_clause as javascript_catch_clause,
     for_each_statement as javascript_for_each_statement,
@@ -84,7 +84,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "assignment_expression",
             "augmented_assignment_expression",
         },
-        syntax_reader=javascript_assignment_expression.reader,
+        syntax_reader=common_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={

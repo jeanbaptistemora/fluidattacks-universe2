@@ -840,7 +840,7 @@ def get_brother_node(
     childs = adj_ast(graph, parent)
     if filtered_types := [
         id
-        for id in filter(lambda item: item > n_id, childs)
+        for id in childs[childs.index(n_id) + 1 :]
         if graph.nodes[id]["label_type"] == label_type
     ]:
         return filtered_types.pop(0)

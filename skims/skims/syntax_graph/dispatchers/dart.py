@@ -3,8 +3,10 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.common import (
+    assignment_expression as common_assignment_expression,
     boolean_literal as common_boolean_literal,
     comment as common_comment,
+    conditional_expression as common_conditional_expression,
     execution_block as common_execution_block,
     identifier as common_identifier,
     library_name as common_library_name,
@@ -14,6 +16,7 @@ from syntax_graph.syntax_readers.common import (
     program as common_program,
     reserved_word as common_reserved_word,
     string_literal as common_string_literal,
+    this as common_this,
 )
 from syntax_graph.syntax_readers.dart import (
     argument as dart_argument,
@@ -61,6 +64,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "assignment_expression",
+        },
+        syntax_reader=common_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "false",
             "true",
         },
@@ -68,6 +77,13 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "conditional_expression",
+        },
+        syntax_reader=common_conditional_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "comment",
             "documentation_comment",
         },
         syntax_reader=common_comment.reader,
@@ -88,6 +104,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "additive_expression",
+            "equality_expression",
             "expression_statement",
         },
         syntax_reader=dart_expression_statement.reader,
@@ -170,6 +187,12 @@ DART_DISPATCHERS: Dispatchers = (
             "selector",
         },
         syntax_reader=dart_selector.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "this",
+        },
+        syntax_reader=common_this.reader,
     ),
     Dispatcher(
         applicable_types={

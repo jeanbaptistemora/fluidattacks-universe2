@@ -4,6 +4,7 @@
 
 from syntax_graph.syntax_readers.common import (
     array as common_array,
+    assignment_expression as common_assignment_expression,
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
     break_statement as common_break_statement,
@@ -47,7 +48,6 @@ from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
-    assignment_expression as java_assignment_expression,
     cast_expression as java_cast_expression,
     dimensions_expr as java_dimensions_expr,
     element_value_pair as java_element_value_pair,
@@ -117,7 +117,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "assignment_expression",
         },
-        syntax_reader=java_assignment_expression.reader,
+        syntax_reader=common_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
