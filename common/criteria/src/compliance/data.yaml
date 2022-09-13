@@ -738,6 +738,9 @@ cwe:
     '367':
       title: Time-of-check time-of-use (TOCTOU) race condition
       link: https://cwe.mitre.org/data/definitions/367.html
+    '377':
+      title: Insecure temporary file
+      link: https://cwe.mitre.org/data/definitions/377.html
     '384':
       title: Session fixation
       link: https://cwe.mitre.org/data/definitions/384.html
@@ -768,9 +771,9 @@ cwe:
     '444':
       title: Inconsistent interpretation of HTTP requests ("HTTP request smuggling")
       link: https://cwe.mitre.org/data/definitions/444.html
-    '451':
-      title: User interface (UI) misrepresentation of critical information
-      link: https://cwe.mitre.org/data/definitions/451.html
+    '453':
+      title: Insecure default variable initialization
+      link: https://cwe.mitre.org/data/definitions/453.html
     '456':
       title: Missing initialization of a variable
       link: https://cwe.mitre.org/data/definitions/456.html
@@ -783,9 +786,6 @@ cwe:
     '474':
       title: Use of function with inconsistent implementations
       link: https://cwe.mitre.org/data/definitions/474.html
-    '478':
-      title: Missing default case in switch statement
-      link: https://cwe.mitre.org/data/definitions/478.html
     '494':
       title: Download of code without integrity check
       link: https://cwe.mitre.org/data/definitions/494.html
@@ -807,6 +807,9 @@ cwe:
     '511':
       title: Logic/Time bomb
       link: https://cwe.mitre.org/data/definitions/511.html
+    '512':
+      title: Spyware
+      link: https://cwe.mitre.org/data/definitions/512.html
     '521':
       title: Weak password requirements
       link: https://cwe.mitre.org/data/definitions/521.html
@@ -825,18 +828,18 @@ cwe:
     '532':
       title: Insertion of sensitive information into log file
       link: https://cwe.mitre.org/data/definitions/532.html
+    '539':
+      title: Use of persistent cookies containing sensitive information
+      link: https://cwe.mitre.org/data/definitions/539.html
     '540':
       title: Inclusion of sensitive information in source code
       link: https://cwe.mitre.org/data/definitions/540.html
-    '544':
-      title: Missing standardized error handling mechanism
-      link: https://cwe.mitre.org/data/definitions/544.html
     '548':
       title: Exposure of information through directory listing
       link: https://cwe.mitre.org/data/definitions/548.html
-    '552':
-      title: Files or directories accessible to external parties
-      link: https://cwe.mitre.org/data/definitions/552.html
+    '549':
+      title: Missing password field masking
+      link: https://cwe.mitre.org/data/definitions/549.html
     '561':
       title: Dead code
       link: https://cwe.mitre.org/data/definitions/561.html
