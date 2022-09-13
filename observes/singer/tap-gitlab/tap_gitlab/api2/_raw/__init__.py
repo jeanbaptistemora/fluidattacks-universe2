@@ -71,7 +71,9 @@ class RawClient:
     ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
         def _action() -> FrozenList[JsonObj] | JsonObj:
             target = self._full_endpoint(endpoint)
-            LOG.info("API call: %s\nparams = %s", target, params)
+            LOG.info(
+                "API call: %s\nmethod=%s\nparams = %s", target, "get", params
+            )
             response = requests.get(
                 target,
                 headers={
@@ -114,3 +116,17 @@ class RawClient:
             .alt(raise_exception)
             .unwrap()
         )
+
+    def post(self, endpoint: str) -> Cmd[None]:
+        def _action() -> None:
+            target = self._full_endpoint(endpoint)
+            LOG.info("API call: %s\nmethod=%s", target, "post")
+            response = requests.post(
+                target,
+                headers={
+                    "Private-Token": self._auth.api_key,
+                },
+            )
+            response.raise_for_status()
+
+        return Cmd.from_cmd(_action)

@@ -9,6 +9,9 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from tap_gitlab.api2._utils import (
+    int_to_str,
+)
 from urllib.parse import (
     quote,
     unquote,
@@ -37,3 +40,8 @@ class ProjectId:
         if isinstance(self.inner.proj_id, str):
             return unquote(self.inner.proj_id)
         return self.inner.proj_id
+
+    def to_str(self) -> str:
+        if isinstance(self.raw, int):
+            return int_to_str(self.raw)
+        return self.raw
