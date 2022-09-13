@@ -35,9 +35,21 @@ async def resolve(
     after = kwargs.get("after")
     first = kwargs.get("first", 10)
     query = kwargs.get("search")
+
+    must_filters = []
+    if treatment := kwargs.get("treatment"):
+        must_filters.append({"treatment.status": str(treatment).upper()})
+
+    if state := kwargs.get("stateStatus"):
+        must_filters.append({"state.status": str(state).upper()})
+
+    if verification := kwargs.get("verificationStatus"):
+        must_filters.append({"verification.status": str(verification).upper()})
+
     results = await search(
         after=after,
         exact_filters={"group_name": parent.name},
+        must_filters=must_filters,
         index="vulnerabilities",
         limit=first,
         query=query,
