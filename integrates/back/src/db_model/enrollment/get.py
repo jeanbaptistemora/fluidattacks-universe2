@@ -12,9 +12,6 @@ from .utils import (
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (
-    collect,
-)
 from db_model import (
     TABLE,
 )
@@ -22,53 +19,49 @@ from dynamodb import (
     keys,
     operations,
 )
-from itertools import (
-    chain,
-)
 from typing import (
     Iterable,
-    Tuple,
 )
 
 
-async def get_enrollment(*, email: str) -> Enrollment:
-    email = email.lower().strip()
-    primary_key = keys.build_key(
-        facet=TABLE.facets["enrollment_metadata"],
-        values={"email": email},
+async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
+    emails = tuple(email.lower().strip() for email in emails)
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["enrollment_metadata"],
+            values={"email": email},
+        )
+        for email in emails
     )
-    item = await operations.get_item(
-        facets=(TABLE.facets["enrollment_metadata"],),
-        key=primary_key,
-        table=TABLE,
-    )
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if not item:
-        return Enrollment(
-            email=email,
-            enrolled=False,
-            trial=Trial(
-                completed=False,
-                extension_date="",
-                extension_days=0,
-                start_date="",
+    enrollments: list[Enrollment] = []
+    for email in emails:
+        enrollment: Enrollment = next(
+            (
+                format_enrollment(item)
+                for item in items
+                if item.get("email") == email
+            ),
+            Enrollment(  # Fallback for this entity
+                email=email,
+                enrolled=False,
+                trial=Trial(
+                    completed=False,
+                    extension_date="",
+                    extension_days=0,
+                    start_date="",
+                ),
             ),
         )
+        enrollments.append(enrollment)
 
-    return format_enrollment(item)
+    return tuple(enrollments)
 
 
 class EnrollmentLoader(DataLoader):
-    async def load_many_chained(
-        self, emails: Iterable[str]
-    ) -> Tuple[Enrollment, ...]:
-        unchained_data = await self.load_many(emails)
-        return tuple(chain.from_iterable(unchained_data))
-
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, emails: Tuple[str, ...]
-    ) -> Tuple[Enrollment, ...]:
-        return await collect(
-            tuple(get_enrollment(email=email) for email in emails)
-        )
+        self, emails: Iterable[str]
+    ) -> tuple[Enrollment, ...]:
+        return await _get_enrollments(emails=tuple(emails))
