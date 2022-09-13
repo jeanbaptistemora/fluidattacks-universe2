@@ -16,4 +16,4 @@ class JobId:
     item_id: str
 
     def __str__(self) -> str:
-        return f"JobId({self.proj.proj_id}, {self.item_id})"
+        return f"JobId({self.proj.raw}, {self.item_id})"

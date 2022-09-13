@@ -85,7 +85,7 @@ class IssueClient:
     _filter: Optional[IssueFilter]
     _per_page: int = 100
 
-    def _project_issues_page(
+    def project_issues_page(
         self,
         project: ProjectId,
         page: Page,
@@ -104,7 +104,7 @@ class IssueClient:
         return (
             infinite_range(1, 1)
             .map(lambda i: Page.new_page(i, self._per_page).unwrap())
-            .map(lambda p: self._project_issues_page(project, p))
+            .map(lambda p: self.project_issues_page(project, p))
             .transform(lambda x: from_piter(x))
             .map(
                 lambda l: Maybe.from_optional(l if l else None).map(

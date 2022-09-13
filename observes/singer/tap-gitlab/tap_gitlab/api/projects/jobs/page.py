@@ -112,7 +112,7 @@ def list_jobs(
     page: PageId[int],
     scopes: List[Scope],
 ) -> IO[Maybe[JobsPage]]:
-    url = "/projects/{}/jobs".format(str(proj.proj_id))
+    url = "/projects/{}/jobs".format(str(proj.raw))
     params = {"scope[]": [scope.value for scope in scopes]} if scopes else {}
     response = client.get(url, params, page)
     return (

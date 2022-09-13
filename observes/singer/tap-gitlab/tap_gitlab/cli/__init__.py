@@ -7,10 +7,10 @@ from ._streams import (
     Streams,
 )
 import click
-import re
-from returns.maybe import (
+from fa_purity import (
     Maybe,
 )
+import re
 from tap_gitlab import (
     cleaner,
     executor,

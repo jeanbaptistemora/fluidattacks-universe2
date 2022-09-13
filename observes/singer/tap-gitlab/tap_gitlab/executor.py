@@ -5,13 +5,10 @@
 # pylint: skip-file
 
 import boto3
-import logging
-from returns.curry import (
-    partial,
-)
-from returns.maybe import (
+from fa_purity import (
     Maybe,
 )
+import logging
 from singer_io.factory import (
     emit,
 )
@@ -98,7 +95,7 @@ def defautl_stream(
     updater = StateUpdater(client.project(_project))
     _state = (
         state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
-        .map(partial(state_migration_01, client.project(_project)))
+        .map(lambda s: state_migration_01(client.project(_project), s))
         .map(updater.update_state)
         .or_else_call(lambda: default_etl_state(client, _project))
     )

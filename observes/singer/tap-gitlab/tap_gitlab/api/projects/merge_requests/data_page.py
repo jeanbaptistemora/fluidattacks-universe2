@@ -131,7 +131,7 @@ def list_mrs(
     page: PageId[int],
     options: Options,
 ) -> IO[Maybe[MrsPage]]:
-    url = "/projects/{}/merge_requests".format(str(proj.proj_id))
+    url = "/projects/{}/merge_requests".format(str(proj.raw))
     params = options.to_dict() if options else {}
     response = client.get(url, params, page)
     return (

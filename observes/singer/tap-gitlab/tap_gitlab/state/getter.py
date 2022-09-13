@@ -6,11 +6,10 @@
 from dataclasses import (
     dataclass,
 )
-import json
-from returns.maybe import (
+from fa_purity import (
     Maybe,
-    Nothing,
 )
+import json
 from tap_gitlab.state._objs import (
     EtlState,
 )
@@ -43,4 +42,4 @@ class StateGetter:
                 temp.seek(0)
                 raw = json.load(temp)
                 return Maybe.from_value(self.decoder.decode_etl_state(raw))
-        return Nothing
+        return Maybe.empty()
