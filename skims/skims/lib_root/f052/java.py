@@ -60,8 +60,10 @@ def is_insecure_key_argument(triggers: Set[str], check: str) -> bool:
 def is_insecure_hash_argument(graph: Graph, param: str) -> bool:
     method = MethodsEnum.JAVA_INSECURE_HASH
     for path in get_backward_paths(graph, param):
-        if evaluation := evaluate(method, graph, path, param):
-            return evaluation.danger
+        if (
+            evaluation := evaluate(method, graph, path, param)
+        ) and evaluation.danger:
+            return True
     return False
 
 
@@ -76,12 +78,14 @@ def is_insecure_cipher_argument(graph: Graph, param: str, check: str) -> bool:
         "dtlsv1.3",
     }
     for path in get_backward_paths(graph, param):
-        if evaluation := evaluate(method, graph, path, param):
-            eval_str = "".join(list(evaluation.triggers))
-            if check == "CR":
-                return java_cipher_vulnerable(eval_str)
-            if check == "SSL":
-                return not eval_str.lower() in ssl_safe_methods
+        if (
+            evaluation := evaluate(method, graph, path, param)
+        ) and evaluation.triggers != set():
+            cipher = "".join(list(evaluation.triggers)).lower()
+            if (check == "CR" and java_cipher_vulnerable(cipher)) or (
+                check == "SSL" and cipher not in ssl_safe_methods
+            ):
+                return True
     return False
 
 

@@ -15,6 +15,7 @@ from symbolic_eval.cases import (
     binary_operation,
     element_access,
     execution_block,
+    field_declaration,
     if_statement,
     interpolated_string_expression,
     lambda_expression,
@@ -56,6 +57,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "ElementAccess": element_access.evaluate,
     "ElementValuePair": named_argument.evaluate,
     "ExecutionBlock": execution_block.evaluate,
+    "FieldDeclaration": field_declaration.evaluate,
     "If": if_statement.evaluate,
     "InterpolatedStringExpression": interpolated_string_expression.evaluate,
     "LambdaExpression": lambda_expression.evaluate,
@@ -73,6 +75,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "SymbolLookup": symbol_lookup.evaluate,
     "TypeOf": type_of.evaluate,
     "VariableDeclaration": variable_declaration.evaluate,
+    "VariableDeclarator": variable_declaration.evaluate,
 }
 
 

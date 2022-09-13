@@ -39,10 +39,11 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     refs_exec_order = reversed(refs_search_order)
 
     args.evaluation[symbol_id] = False
+    def_types = {"Parameter", "FieldDeclaration"}
 
     for ref_id in refs_exec_order:
-        if args.graph.nodes[ref_id]["label_type"] == "Parameter":
-            # Evaluate the parameter if it defines the symbol
+        if args.graph.nodes[ref_id]["label_type"] in def_types:
+            # Evaluate the node if it defines the symbol
             args.generic(args.fork_n_id(ref_id))
         elif ref_id in args.path:
             cfg_id = g.lookup_first_cfg_parent(args.graph, ref_id)

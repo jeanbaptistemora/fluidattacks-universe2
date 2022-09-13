@@ -21162,6 +21162,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,12,3
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_cipher.java,"
+   1 | mport javax.net.ssl.SSLContext;
+   2 | mport javax.net.ssl.SSLSession;
+   3 |
+   4 | Component
+   5 | ublic class SslInsecure {
+   6 | private static final String SSL=""SSL"";
+   7 | public void SslVerification(boolean disable) {
+   8 |  try {
+>  9 |   SSLContext unsafecontext = SSLContext.getInstance(SSL);
+  10 |  } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  11 |      //Do something
+  12 |  }
+  13 | }
+  14 |
+  15 |
+  16 | Component
+  17 | ublic class SslSecure {
+  18 | private static final String SSL=""TLSv1.2"";
+  19 | public void SslVerification(boolean disable) {
+  20 |  try {
+  21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
+     ^ Col 1
+",java.java_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
   15 |    };
   16 |
