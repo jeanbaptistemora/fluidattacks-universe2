@@ -6,11 +6,11 @@
 /**/.minio.sys
 /**/.terraform
 /**/__pycache__
+/.envrc.config
 /.DB
 /.Cache
 /.Storage
 /out
 /result*
 /state
-/TEMP_FD
 integrates/codecov

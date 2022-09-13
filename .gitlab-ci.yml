@@ -133,7 +133,7 @@ sorts_extension:
   variables:
     GIT_DEPTH: 20
 
-lint_reuse:
+/common/utils/lint-reuse:
   <<: [*makes4, *common_in_dev_branch]
   stage: lint-code
   script:
@@ -176,5 +176,5 @@ common_sonarcloud_check:
     - sonar-scanner
   variables:
     SONAR_HOST_URL: https://sonarcloud.io/
-    SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar    # Defines the location of the analysis task cache
+    SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar  # Defines the location of the analysis task cache
     GIT_DEPTH: '0'  # Tells git to fetch all the branches of the project, required by the analysis task

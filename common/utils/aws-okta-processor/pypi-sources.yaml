@@ -1,0 +1,117 @@
+---
+closure:
+  aws-okta-processor: 1.7.1
+  beautifulsoup4: 4.11.1
+  boto3: 1.24.71
+  botocore: 1.27.71
+  bs4: 0.0.1
+  certifi: 2022.6.15.1
+  charset-normalizer: 2.1.1
+  contextlib2: 21.6.0
+  docopt: 0.6.2
+  idna: '3.3'
+  jmespath: 1.0.1
+  python-dateutil: 2.8.2
+  requests: 2.28.1
+  s3transfer: 0.6.0
+  six: 1.16.0
+  soupsieve: 2.3.2.post1
+  urllib3: 1.26.12
+links:
+  - name: aws_okta_processor-1.7.1-py2.py3-none-any.whl
+    sha256: 07zbsy3d13z7pl91vz3fq6s2sk5rby930flxb1m3v2iv2ac25h4l
+    url: https://files.pythonhosted.org/packages/b9/dd/de1516c73d116e7261c580c168d41aa38fe8d151f22ccc27bc3d3ea6c3aa/aws_okta_processor-1.7.1-py2.py3-none-any.whl
+  - name: aws_okta_processor-1.7.1.tar.gz
+    sha256: 08h7v1zmwri34cgbnrqzdqrllr2ppqvbws8jn0jdbhzfv2mpl4qj
+    url: https://files.pythonhosted.org/packages/81/f1/9e3f304a8f3c71e84d8119c187712c6c24ca2676243c26502ed29909535e/aws_okta_processor-1.7.1.tar.gz
+  - name: beautifulsoup4-4.11.1-py3-none-any.whl
+    sha256: 0c4d96lxi0005va52f9vkg7i8c6mdiw0sbzhjkmzydjskz9c7maq
+    url: https://files.pythonhosted.org/packages/9c/d8/909c4089dbe4ade9f9705f143c9f13f065049a9d5e7d34c828aefdd0a97c/beautifulsoup4-4.11.1-py3-none-any.whl
+  - name: beautifulsoup4-4.11.1.tar.gz
+    sha256: 14v68cpfzckfz63n9hnbsm271jvzvxscyijz83mhha7gcmdsb6md
+    url: https://files.pythonhosted.org/packages/e8/b0/cd2b968000577ec5ce6c741a54d846dfa402372369b8b6861720aa9ecea7/beautifulsoup4-4.11.1.tar.gz
+  - name: boto3-1.24.71-py3-none-any.whl
+    sha256: 074w87lykaimmmy92rlj2af8dh6j8sb0v0mi4jj02iygrnqplbf8
+    url: https://files.pythonhosted.org/packages/ea/e1/c527ba0fd91d3b6159f3898c791ab937257b3544e7057d4085d93f0dd286/boto3-1.24.71-py3-none-any.whl
+  - name: boto3-1.24.71.tar.gz
+    sha256: 0wnfrhwlnf6yqyz4ycw98bg0jnwqg7p680kfv1hjfb9n1zf5br8f
+    url: https://files.pythonhosted.org/packages/72/63/baebfcb18a2ff05b26b6603fd73f262ce5155c1cbc9adb7f00240ad82dd9/boto3-1.24.71.tar.gz
+  - name: botocore-1.27.71-py3-none-any.whl
+    sha256: 0yhhvqs10x14prasbkac30cbd2b71czxa978gpcgkd2ygqkwd1kb
+    url: https://files.pythonhosted.org/packages/df/99/e051928cf9d34eefcfe2c73427ae78bbeba43abb9b73f069e58b660f4563/botocore-1.27.71-py3-none-any.whl
+  - name: botocore-1.27.71.tar.gz
+    sha256: 04y6sdwmhsi2di90sd9nfsqw9gmv4mjcv2pg4rf3mnv8wy54xp4i
+    url: https://files.pythonhosted.org/packages/d5/20/458287e7879f8a1fbe50076370b1487a3a3e6b1299543cfdf706f27a9edf/botocore-1.27.71.tar.gz
+  - name: bs4-0.0.1.tar.gz
+    sha256: 0fnxhql23ql6q5n64xjknx3sc3fm4vgpbw0z99p0qp6cswgymv1n
+    url: https://files.pythonhosted.org/packages/10/ed/7e8b97591f6f456174139ec089c769f89a94a1a4025fe967691de971f314/bs4-0.0.1.tar.gz
+  - name: certifi-2022.6.15.1-py3-none-any.whl
+    sha256: 1q49md33wylg1y8ssmlhzx41hqf6hbxf8i39wr08f5kzib8xmnj3
+    url: https://files.pythonhosted.org/packages/ac/80/e0df41f336f21d35befa4ff15348eb3e8b2483e131922e8427223b52e688/certifi-2022.6.15.1-py3-none-any.whl
+  - name: certifi-2022.6.15.1.tar.gz
+    sha256: 1yvkkr7pwqzv96114p2pd3rakqqpb0d56cv6ywvn3nhr14wcvzfg
+    url: https://files.pythonhosted.org/packages/90/c2/4e37394b66e7211ad120f216fc2e8b38d4f43b89c8100dd3917c9da9bfc6/certifi-2022.6.15.1.tar.gz
+  - name: charset_normalizer-2.1.1-py3-none-any.whl
+    sha256: 17z2zvkvalb66i5hasshq0grsma8afs6hb1mi7yrl9qi35fsgsc3
+    url: https://files.pythonhosted.org/packages/db/51/a507c856293ab05cdc1db77ff4bc1268ddd39f29e7dc4919aa497f0adbec/charset_normalizer-2.1.1-py3-none-any.whl
+  - name: charset-normalizer-2.1.1.tar.gz
+    sha256: 0ifqklz88rkfbv6556avid0qp26f96adpc0zz3b6jzslgin02gas
+    url: https://files.pythonhosted.org/packages/a1/34/44964211e5410b051e4b8d2869c470ae8a68ae274953b1c7de6d98bbcf94/charset-normalizer-2.1.1.tar.gz
+  - name: contextlib2-21.6.0-py2.py3-none-any.whl
+    sha256: 07s7l3bsw4xlql2q9qwc7rd9l4xnfmxn4xy9ysx3mlmgcr2bdg9z
+    url: https://files.pythonhosted.org/packages/76/56/6d6872f79d14c0cb02f1646cbb4592eef935857c0951a105874b7b62a0c3/contextlib2-21.6.0-py2.py3-none-any.whl
+  - name: contextlib2-21.6.0.tar.gz
+    sha256: 0s98x0g7x0p3rqqbfyr1padm1wqyqlxh5ng8nzhnin813pz2n7mb
+    url: https://files.pythonhosted.org/packages/c7/13/37ea7805ae3057992e96ecb1cffa2fa35c2ef4498543b846f90dd2348d8f/contextlib2-21.6.0.tar.gz
+  - name: docopt-0.6.2.tar.gz
+    sha256: 14f4hn6d1j4b99svwbaji8n2zj58qicyz19mm0x6pmhb50jsics9
+    url: https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz
+  - name: idna-3.3-py3-none-any.whl
+    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
+    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
+  - name: idna-3.3.tar.gz
+    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
+    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: jmespath-1.0.1-py3-none-any.whl
+    sha256: 10194nk0641vz2kpy442dsgdv44ia43zksrf6f4apg5mf76f9qh2
+    url: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
+  - name: jmespath-1.0.1.tar.gz
+    sha256: 1gpdc1f0q5c9scmbw1l9g40jjfk3pxwg91ayvn7xbvvddlh1n9lh
+    url: https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz
+  - name: python_dateutil-2.8.2-py2.py3-none-any.whl
+    sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
+    url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.2.tar.gz
+    sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
+    url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
+  - name: requests-2.28.1-py3-none-any.whl
+    sha256: 0jakwryf077k46wbs525hrkxlyg4prpq6hdc199ganrnl6hs5vwg
+    url: https://files.pythonhosted.org/packages/ca/91/6d9b8ccacd0412c08820f72cebaa4f0c0441b5cda699c90f618b6f8a1b42/requests-2.28.1-py3-none-any.whl
+  - name: requests-2.28.1.tar.gz
+    sha256: 10vrr7bijzrypvms3g2sgz8vya7f9ymmcv423ikampgy0aqrjmbw
+    url: https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz
+  - name: s3transfer-0.6.0-py3-none-any.whl
+    sha256: 1kayip95pym87m33l4s7fq5h8aa4kb11ynpjnkqn2px1yds6n5q6
+    url: https://files.pythonhosted.org/packages/5e/c6/af903b5fab3f9b5b1e883f49a770066314c6dcceb589cf938d48c89556c1/s3transfer-0.6.0-py3-none-any.whl
+  - name: s3transfer-0.6.0.tar.gz
+    sha256: 0iy98b51l33b0dpqgmvx24drh9sqag2hz87l3dbcq8zmcqw7vl1f
+    url: https://files.pythonhosted.org/packages/e1/eb/e57c93d5cd5edf8c1d124c831ef916601540db70acd96fa21fe60cef1365/s3transfer-0.6.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: soupsieve-2.3.2.post1-py3-none-any.whl
+    sha256: 0nf7nw8llxrv1b42hdl6jpmgmb8sz3jid0fhxfql4jh8qz9h699v
+    url: https://files.pythonhosted.org/packages/16/e3/4ad79882b92617e3a4a0df1960d6bce08edfb637737ac5c3f3ba29022e25/soupsieve-2.3.2.post1-py3-none-any.whl
+  - name: soupsieve-2.3.2.post1.tar.gz
+    sha256: 03gklc9cypyyairk1bs4cpw4phbqy0chwyk6jpi3vhx27lxqjlzw
+    url: https://files.pythonhosted.org/packages/f3/03/bac179d539362319b4779a00764e95f7542f4920084163db6b0fd4742d38/soupsieve-2.3.2.post1.tar.gz
+  - name: urllib3-1.26.12-py2.py3-none-any.whl
+    sha256: 15z9xsfhxg94ypa1r7907cg91rsg2hsvnzv3d83gp2jsin3xsc5r
+    url: https://files.pythonhosted.org/packages/6f/de/5be2e3eed8426f871b170663333a0f627fc2924cc386cd41be065e7ea870/urllib3-1.26.12-py2.py3-none-any.whl
+  - name: urllib3-1.26.12.tar.gz
+    sha256: 0km7yj8vmv6qvm3psx37qsvsickd77gyhsijzjbpk6764gs6ra9z
+    url: https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz
+python: '3.10'
