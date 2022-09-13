@@ -99,7 +99,7 @@ Team of `Fluid Attacks`.
 
 ## References
 
-**Vendor page** <https://github.com/getgridea/gridea>
+**Vendor page** <https://github.com/Zettlr/Zettlr>
 
 ## Timeline
 
