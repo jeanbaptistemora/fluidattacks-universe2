@@ -57,7 +57,7 @@ function main() {
                 --root-nickname "${root}" \
                 --api-token "${INTEGRATES_API_TOKEN}" \
                 --commit-hash "${current_commit}" \
-              && skims scan "${file_config}" \
+              && skims scan --group "${group_name}" "${file_config}" \
               && filename="$(basename "${file_config}")" \
               && execution_id="${filename%.*}" \
               && execution_result="groups/${group_name}/fusion/${root}/execution_results/${execution_id}.sarif" \
@@ -65,13 +65,13 @@ function main() {
                 aws s3 cp "${execution_result}" s3://skims.data/results/ \
                   && aws sqs send-message \
                     --queue-url "https://sqs.us-east-1.amazonaws.com/205810638802/skims-report-queue" \
-                    --message-body "{\"execution_id\": \"${execution_id}\", \"task\": \"process-skims-result\"}"
+                    --message-body "{\"execution_id\": \"${execution_id}\", \"task\": \"process-skims-result\"}" \
+                  && python3 __argScript__ finish-execution \
+                    --group-name "${group_name}" \
+                    --root-nickname "${root}" \
+                    --api-token "${INTEGRATES_API_TOKEN}"
               fi
-          done \
-          && python3 __argScript__ finish-execution \
-            --group-name "${group_name}" \
-            --root-nickname "${root}" \
-            --api-token "${INTEGRATES_API_TOKEN}"
+          done
       done \
     && aws dynamodb delete-item \
       --table-name "fi_async_processing" \
