@@ -25,7 +25,7 @@ spec:
     spec:
       serviceAccountName: prod-integrates
       nodeSelector:
-        worker_group: production
+        worker_group: prod_integrates
       containers:
         - name: back
           image: ghcr.io/fluidattacks/makes:22.09
@@ -41,7 +41,7 @@ spec:
               value: '1'
           resources:
             # Ensure your request and limit fits in the node:
-            #   kubectl get node --selector=worker_group=production
+            #   kubectl get node --selector=worker_group=prod_integrates
             #   kubectl describe node <node>
             #
             # You can have 1 pod per node, or 2, or 3, etc..

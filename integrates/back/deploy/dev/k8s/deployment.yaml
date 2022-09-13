@@ -21,7 +21,7 @@ spec:
     spec:
       serviceAccountName: dev
       nodeSelector:
-        worker_group: development
+        worker_group: dev
       containers:
         - name: back
           image: ghcr.io/fluidattacks/makes:22.09
