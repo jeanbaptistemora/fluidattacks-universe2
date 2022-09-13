@@ -206,7 +206,7 @@ async def send_support_channels_notification(
         context={},
         tags=[],
         subject=(
-            f"[{fname}],  Need help with Continuous Hacking? "
+            f"[{fname}], Need help with Continuous Hacking? "
             "Use our support channels."
         ),
         template_name="support_channels_notification",
