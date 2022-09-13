@@ -25,10 +25,6 @@ resource "kubernetes_service_account" "main_old" {
 
 locals {
   accounts = {
-    dev = {
-      namespace = "development"
-      role      = "dev"
-    }
     prod-integrates = {
       namespace = "production"
       role      = "prod_integrates"

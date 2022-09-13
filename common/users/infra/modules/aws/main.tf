@@ -19,3 +19,7 @@ variable "tags" {}
 variable "assume_role_policy" {
   default = []
 }
+
+data "aws_eks_cluster" "common" {
+  name = "common"
+}

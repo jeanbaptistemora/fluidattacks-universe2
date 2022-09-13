@@ -19,6 +19,20 @@ module "cluster" {
     vpc_security_group_ids = [data.aws_security_group.cloudflare.id]
   }
   eks_managed_node_groups = {
+    dev = {
+      max_size = 100
+
+      instance_types = [
+        "m5.xlarge",
+        "m5a.xlarge",
+        "m5d.xlarge",
+        "m5ad.xlarge",
+      ]
+
+      labels = {
+        worker_group = "dev"
+      }
+    }
     development = {
       max_size = 100
 
@@ -47,6 +61,20 @@ module "cluster" {
         worker_group = "production"
       }
     }
+    prod_integrates = {
+      max_size = 120
+
+      instance_types = [
+        "m5.large",
+        "m5a.large",
+        "m5d.large",
+        "m5ad.large",
+      ]
+
+      labels = {
+        worker_group = "prod_integrates"
+      }
+    }
   }
 
   # Network
@@ -63,14 +91,14 @@ module "cluster" {
   aws_auth_roles = concat(
     [
       for admin in local.admins : {
-        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${admin}"
+        rolearn  = data.aws_iam_role.main[admin].arn
         username = admin
         groups   = ["system:masters"]
       }
     ],
     [
       for user in local.users : {
-        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
+        rolearn  = data.aws_iam_role.main[user].arn
         username = user
         groups   = ["system:masters"]
       }

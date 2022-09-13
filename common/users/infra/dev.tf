@@ -205,7 +205,7 @@ module "dev_aws" {
 
   assume_role_policy = [
     {
-      Sid    = "commonCi",
+      Sid    = "ciAccessDev",
       Effect = "Allow",
       Principal = {
         Federated = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:oidc-provider/gitlab.com",
@@ -214,28 +214,6 @@ module "dev_aws" {
       Condition = {
         StringLike = {
           "gitlab.com:sub" : "project_path:fluidattacks/universe:ref_type:branch:ref:*"
-        },
-      },
-    },
-    {
-      Sid    = "commonCluster",
-      Effect = "Allow",
-      Principal = {
-        Federated = join(
-          "/",
-          [
-            "arn:aws:iam::205810638802:oidc-provider",
-            replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-          ]
-        )
-      },
-      Action = "sts:AssumeRoleWithWebIdentity",
-      Condition = {
-        "ForAnyValue:StringEquals" = {
-          "${replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")}:sub" : [
-            "system:serviceaccount:development:dev",
-            "system:serviceaccount:dev:dev",
-          ]
         },
       },
     },
