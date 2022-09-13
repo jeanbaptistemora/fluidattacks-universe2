@@ -129,9 +129,6 @@
   "angular-location-update": {
     "GHSA-53jx-4wwh-gcqj": "0.0.3"
   },
-  "anywhere": {
-    "npm:anywhere:20180226": "<1.5.0"
-  },
   "apollo-server": {
     "GHSA-qm7x-rc44-rrqw": ">=2.0.0 <2.25.3 || >=3.0.0 <3.4.1",
     "GHSA-w42g-7vfc-xf37": "<2.14.2"
@@ -184,9 +181,6 @@
   "atompm": {
     "GHSA-v86x-f47q-f7f4": "<0.8.2"
   },
-  "augustine": {
-    "npm:augustine:20180123": "<=0.2.3"
-  },
   "aurelia-framework": {
     "GHSA-m6j2-v3gq-45r5": "<1.4.1"
   },
@@ -205,17 +199,8 @@
   "bin-links": {
     "GHSA-v45m-2wcp-gg98": "<1.1.6"
   },
-  "bitty": {
-    "npm:bitty:20161014": "<=0.2.10"
-  },
-  "bl": {
-    "npm:bl:20160119": "<0.9.5 || >=1.0.0 <1.0.1"
-  },
   "bleach": {
     "CVE-2014-8881": ">=0.0.0-alpha"
-  },
-  "boom": {
-    "npm:boom:20130209": "<0.3.0"
   },
   "bootbox": {
     "GHSA-87mg-h5r3-hw88": "<=5.5.2"
@@ -226,14 +211,8 @@
   "bootstrap-select": {
     "GHSA-9r7h-6639-v5mw": "<1.13.6"
   },
-  "bootstrap-tagsinput": {
-    "npm:bootstrap-tagsinput:20160720": "<=0.7.1"
-  },
   "bootstrap-vue": {
     "GHSA-c7pp-x73h-4m2v": "<=2.0.0-rc.11"
-  },
-  "botbait": {
-    "npm:botbait:20170917": "0.0.1-security"
   },
   "bpmn-js-properties-panel": {
     "GHSA-vpj4-89q8-rh38": "<0.31.0"
@@ -250,32 +229,11 @@
   "byte": {
     "GHSA-xm7f-x4wx-wmgv": "<1.4.1"
   },
-  "byucslabsix": {
-    "npm:byucslabsix:20170525": "<=0.0.5"
-  },
-  "c3": {
-    "npm:c3:20160817": "<0.4.11"
-  },
-  "caolilinode": {
-    "npm:caolilinode:20170617": "<=1.0.0"
-  },
   "chartkick": {
     "GHSA-5pm8-492c-92p5": ">=3.1.0 <=3.1.3"
   },
-  "cheerio": {
-    "npm:cheerio:20120311": "<=0.8.3"
-  },
-  "chownr": {
-    "npm:chownr:20180731": "<1.1.0"
-  },
   "cicada-render": {
     "GHSA-5pm8-492c-92p5": ">=3.1.0 <=3.1.3"
-  },
-  "city-weather-abe": {
-    "npm:city-weather-abe:20170521": "<=0.1.1"
-  },
-  "clean-css": {
-    "npm:clean-css:20180306": "<4.1.11"
   },
   "cloudcmd": {
     "GHSA-m8fw-534v-xm85": "<9.1.6"
@@ -286,26 +244,11 @@
   "cocos-utils": {
     "GHSA-rffp-mc78-wjf7": "<=1.0.0"
   },
-  "cofee-script": {
-    "npm:cofee-script:20171006": "<=0.0.1-security"
-  },
-  "cofeescript": {
-    "npm:cofeescript:20171006": "<=0.0.1-security"
-  },
-  "coffe-script": {
-    "npm:coffe-script:20171006": "<=0.0.1-security"
-  },
   "coffee-project": {
     "GHSA-3fv6-q5xv-fhpw": "1.7.5"
   },
-  "coffescript": {
-    "npm:coffescript:20171006": "<=0.0.1-security"
-  },
   "command-exists": {
     "GHSA-cff4-rrq6-h78w": "<1.2.4"
-  },
-  "concat-stream": {
-    "npm:concat-stream:20160901": "<1.3.2 || >=1.4.0 <1.4.11 || >=1.5.0 <1.5.2 "
   },
   "concat-with-sourcemaps": {
     "GHSA-2xv3-h762-ccxv": ">=1.0.0 <1.0.6"
@@ -316,33 +259,14 @@
   "console-feed": {
     "GHSA-g9wg-wq4f-2x5w": "<2.8.10"
   },
-  "constantinople": {
-    "npm:constantinople:20180421": "<3.1.1"
-  },
-  "content-type-parser": {
-    "npm:content-type-parser:20170905": "<=1.0.2"
-  },
-  "crumb": {
-    "npm:crumb:20140801": "<3.0.0",
-    "npm:crumb:20150213": "<4.0.2"
-  },
   "cryptiles": {
     "npmjs.com/advisories/720": ">=3.1.0 <3.1.3 || >=4.0.0 <4.1.2"
-  },
-  "crypto-browserify": {
-    "npm:crypto-browserify:20140722": "<2.1.11"
   },
   "css_transform_step": {
     "GHSA-4rx9-58m7-gr8w": "1.0.6"
   },
   "css_transform_support": {
     "GHSA-45cp-hpc9-8347": "1.0.2"
-  },
-  "dalek-browser-chrome-canary": {
-    "npm:dalek-browser-chrome-canary:20161219": "<=0.0.10-2014-03-24-17-36-27"
-  },
-  "dalek-browser-ie-canary": {
-    "npm:dalek-browser-ie-canary:20170101": "<=0.0.4-2014-04-04-12-11-49"
   },
   "datatables": {
     "CVE-2015-6584": "<1.10.10"
@@ -374,9 +298,6 @@
   "dictum.js": {
     "GHSA-j5jc-jf8f-86q7": "1.0.5"
   },
-  "diff": {
-    "npm:diff:20180305": ">=3.0.0 <3.5.0"
-  },
   "discord-fix": {
     "GHSA-qv2g-99x4-45x6": "<=0.0.1-security"
   },
@@ -407,17 +328,11 @@
   "ember-power-timepicker": {
     "GHSA-28f8-hqmc-7ph8": "1.0.8"
   },
-  "emojione": {
-    "npm:emojione:20160725": "<=1.3.0"
-  },
   "entitlements": {
     "GHSA-g8vp-6hv4-m67c": "<1.3.0"
   },
   "epubjs": {
     "GHSA-c6rp-xvqv-mwmf": "<0.3.89"
-  },
-  "eslint": {
-    "npm:eslint:20180222": ">=1.4.0 <4.18.2"
   },
   "eslint-config-eslint": {
     "GHSA-pv55-r6j3-wp94": "5.0.2"
@@ -434,9 +349,6 @@
   "eye.js": {
     "GHSA-mgv2-57vj-99xc": "1.2.0"
   },
-  "ezseed-transmission": {
-    "npm:ezseed-transmission:20160729": ">=0.0.10 <=0.0.14"
-  },
   "f-serv": {
     "GHSA-vx5w-cxch-wwc9": "<=0.2.0"
   },
@@ -445,9 +357,6 @@
   },
   "faye": {
     "GHSA-qpg4-4w7w-2mq5": ">0.5.0 <1.0.4 || >=1.1.0 <1.1.3 || >=1.2.0 <1.2.5"
-  },
-  "featurebook": {
-    "npm:featurebook:20180115": "<=0.0.32"
   },
   "file-static-server": {
     "GHSA-qjfh-xc44-rm9x": "<=1.0.2"
@@ -467,9 +376,6 @@
   "ftp-srv": {
     "GHSA-pmw4-jgxx-pcq9": "<4.4.0"
   },
-  "fuelux": {
-    "npm:fuelux:20160725": "<3.15.7"
-  },
   "fury-adapter-swagger": {
     "CVE-2016-1000249": ">=0.2.0 <=0.9.6"
   },
@@ -482,15 +388,8 @@
   "get-setter": {
     "GHSA-ch82-gqh6-9xj9": "<=0.0.0"
   },
-  "getcookies": {
-    "npm:getcookies:20180502": "0.0.1-security"
-  },
   "getsetdeep": {
     "GHSA-8j49-49jq-vwcq": "<=4.18.0"
-  },
-  "gifsicle": {
-    "CVE-2017-18120": "1.90",
-    "npm:gifsicle:20170810": "<1.90"
   },
   "github-jquery-widgets": {
     "GHSA-c722-pv5w-cfg2": "0.1.2"
@@ -533,23 +432,11 @@
     "CVE-2014-4671A": "<6.1.0",
     "www.npmjs.com/advisories/1481": "<=18.1.0"
   },
-  "haxe3": {
-    "npm:haxe3:20161202": "3.1.3"
-  },
   "highcharts-export-server": {
     "GHSA-hfwx-c7q6-g54c": "<=2.0.30"
   },
   "highlight.js": {
     "GHSA-7wwv-vh3v-89cq": ">=9.0.0 <10.4.1"
-  },
-  "hoek": {
-    "npm:hoek:20180212": "<4.2.1 || >=5.0.0 <5.0.3"
-  },
-  "hooka-tools": {
-    "npm:hooka-tools:20171025": "0.0.1-security"
-  },
-  "html-janitor": {
-    "npm:html-janitor:20180123-1": "<=2.0.4"
   },
   "html-pdf-chrome": {
     "GHSA-5p98-wpc9-g498": "<=0.8.0"
@@ -560,12 +447,6 @@
   "htmr": {
     "GHSA-f8rq-m28h-8hxj": "<0.8.7"
   },
-  "http-proxy-agent": {
-    "npm:http-proxy-agent:20180406": "<2.1.0"
-  },
-  "https-signature": {
-    "npm:http-signature:20150122": "<1.0.0"
-  },
   "ids-enterprise": {
     "GHSA-hpfq-8wx8-cgqw": "<4.18.2"
   },
@@ -575,20 +456,8 @@
   "iie-viz": {
     "GHSA-jf55-rgpx-p6rx": "1.0.4"
   },
-  "ip": {
-    "npm:ip:20170304": "<1.1.5"
-  },
-  "is-my-json-valid": {
-    "npm:is-my-json-valid:20180214": "<1.4.1 || >=2.0.0 <2.17.2"
-  },
-  "is-url": {
-    "npm:is-url:20180319": "<1.2.4"
-  },
   "jasmin": {
     "GHSA-9cq4-mhmr-84gm": "0.0.3"
-  },
-  "jasmine-core": {
-    "npm:jasmine-core:20180216": "<3.1.0"
   },
   "jekyll-for-github-projects": {
     "GHSA-j5qg-46p9-w2rp": "0.2.12"
@@ -632,29 +501,17 @@
   "jsrender": {
     "CVE-2016-3942": "<=0.9.73"
   },
-  "jws": {
-    "npm:jws:20160726": "<3.0.0"
-  },
   "keycloak-js": {
     "GHSA-mw35-24gh-f82w": ">=2.5 <3.1.0"
   },
   "kraken-api": {
     "GHSA-fgfj-rj24-mj7q": "0.1.8"
   },
-  "lactate": {
-    "npm:lactate:20180123": "<=0.13.12"
-  },
   "larvitbase-www": {
     "GHSA-88h9-fc6v-jcw7": "<=0.8.5"
   },
-  "ldapauth": {
-    "npm:ldapauth:20150918": "<=2.2.4"
-  },
   "leaflet-gpx": {
     "GHSA-gjc9-932x-c59p": "1.0.1"
-  },
-  "libp2p-secio": {
-    "npm:libp2p-secio:20180115": "<0.9.0"
   },
   "libubx": {
     "GHSA-m7xv-7p93-g6q8": "1.0.3"
@@ -664,9 +521,6 @@
   },
   "lighter-vm": {
     "GHSA-c3hq-7mxh-mqxf": "<=1.0.0"
-  },
-  "limbus-buildgen": {
-    "npm:limbus-buildgen:20161202": "<0.1.1"
   },
   "loadyaml": {
     "GHSA-mfc2-93pr-jf92": "<=1.0.2"
@@ -714,9 +568,6 @@
   "md-data-table": {
     "GHSA-hgr5-82rc-p936": "<=2.2.0"
   },
-  "mem": {
-    "npm:mem:20180117": "<4.0.0"
-  },
   "merge-objects": {
     "GHSA-992f-wf4w-x36v": "<=1.0.5"
   },
@@ -742,9 +593,6 @@
   "mithril": {
     "GHSA-c3px-v9c7-m734": "<1.1.7 || >=2.0.0 <2.0.2"
   },
-  "mobile-icon-resizer": {
-    "npm:mobile-icon-resizer:20160408": "<0.4.3"
-  },
   "modlibrary": {
     "GHSA-94m7-w873-6wwf": "0.1.1"
   },
@@ -754,24 +602,11 @@
   "mongodb-query-parser": {
     "GHSA-97mg-3cr6-3x4c": "<2.0.0"
   },
-  "mongoose": {
-    "snyk.io/vuln/npm:mongoose:20150925": ">=4.0.0 <4.1.10"
-  },
-  "mqtt": {
-    "npm:mqtt:20160817": "<1.0.0"
-  },
   "mrk.js": {
     "GHSA-hpr5-wp7c-hh5q": "<2.0.1"
   },
-  "ms": {
-    "npm:ms:20170412": ">=0.7.1 <2.0.0"
-  },
   "mx-nested-menu": {
     "GHSA-48hw-37g6-3gw4": "0.1.30"
-  },
-  "mysql": {
-    "npm:mysql:20140514": ">=2.0.0 <2.3.0",
-    "npm:mysql:20170317": "<2.14.0"
   },
   "next-auth": {
     "GHSA-pg53-56cg-4m8q": "<3.3.0"
@@ -790,9 +625,6 @@
   },
   "nhouston": {
     "CVE-2014-8883": ">=0.0.0-a"
-  },
-  "njwt": {
-    "npm:njwt:20180614": "<1.0.0"
   },
   "nobelprizeparser": {
     "GHSA-4wv4-mgfq-598v": "<1.0.2"
@@ -823,9 +655,6 @@
   "nodebb": {
     "GHSA-hr66-c8pg-5mg7": "<0"
   },
-  "nodeload-nmickuli": {
-    "npm:nodeload-nmickuli:20170418": "<=1.0.3"
-  },
   "notevil": {
     "GHSA-9gxr-rhx6-4jgv": "<1.3.3"
   },
@@ -843,12 +672,6 @@
   },
   "npmconf": {
     "GHSA-57cf-349j-352g": "<2.1.3"
-  },
-  "ntfserver": {
-    "npm:ntfserver:20170101": "<=0.0.6"
-  },
-  "nwmatcher": {
-    "npm:nwmatcher:20180305": "<1.4.4"
   },
   "oauth-validator": {
     "GHSA-cxcf-78mr-wpg7": "1.0.2"
@@ -883,17 +706,11 @@
   "pitboss-ng": {
     "GHSA-3gpc-w23c-w59w": "<2.0.0"
   },
-  "pivottable": {
-    "npm:pivottable:20160817": ">=1.4.0 <2.0.0"
-  },
   "plotter": {
     "GHSA-65xx-c85x-wg76": "<=0.5.0"
   },
   "pm-controls": {
     "GHSA-84qj-9qf2-q92r": "1.1.8"
-  },
-  "poco": {
-    "npm:poco:20170102": "0.0.1 || 1.5.4"
   },
   "ponse": {
     "GHSA-wfhx-6pcm-7m55": "<2.0.2"
@@ -907,9 +724,6 @@
   "priest-runner": {
     "GHSA-9px9-f7jw-fwhj": "<=0.3.12"
   },
-  "prince": {
-    "npm:prince:20161201": "<1.4.5"
-  },
   "pullit": {
     "GHSA-8px5-63x9-5c7p": "<1.4.0"
   },
@@ -919,14 +733,8 @@
   "pyramid-proportion": {
     "GHSA-v6vv-hhqc-6hh2": "1.0.5"
   },
-  "q-io": {
-    "npm:q-io:20180212": "<1.13.5"
-  },
   "qs": {
     "CVE-2014-7191": "<=0.10.18"
-  },
-  "querystringify": {
-    "npm:querystringify:20180419": "<2.0.0"
   },
   "radic-util": {
     "GHSA-8qh7-xw58-3ww7": "1.0.2"
@@ -943,14 +751,8 @@
   "react-dates-sc": {
     "GHSA-5645-gc7h-98h8": "0.3.0"
   },
-  "react-dom": {
-    "npm:react-dom:20180802": ">=16.0.0 <16.0.1 || >=16.1.0 <16.1.2 || >=16.2.0 <16.2.1 || >=16.3.0 <16.3.3 || >=16.4.0 <16.4.2"
-  },
   "react-marked-markdown": {
     "GHSA-m7qm-r2r5-f77q": "<=1.4.6"
-  },
-  "react-native-meteor-oauth": {
-    "npm:react-native-meteor-oauth:20170414": "0.1.0"
   },
   "react-oauth-flow": {
     "GHSA-65m9-m259-7jqw": "<=1.2.0"
@@ -964,14 +766,8 @@
   "rebber": {
     "GHSA-2c83-wfv3-q25f": "<5.2.1"
   },
-  "redis-commander": {
-    "npm:redis-commander:20180109": " <0.5.0"
-  },
   "reggae": {
     "GHSA-q9wr-gcjc-hq52": "<=0.0.2"
-  },
-  "rendr": {
-    "npm:rendr:20160311": "<1.1.4"
   },
   "renovate": {
     "GHSA-36rh-ggpr-j3gj": ">=19.180.0 <23.25.1"
@@ -987,9 +783,6 @@
   },
   "restify-swagger-jsdoc": {
     "GHSA-gvff-25cc-4f66": "<3.2.1"
-  },
-  "roslib-socketio": {
-    "npm:roslib-socketio:20170102": "0.11.0"
   },
   "s3asy": {
     "GHSA-3wjm-33mw-h388": "0.4.8"
@@ -1023,9 +816,6 @@
   },
   "sequelize": {
     "CVE-2015-1369": "<=2.0.0-rc7"
-  },
-  "serve-here": {
-    "npm:serve-here:20171225": "<=3.2.0"
   },
   "serve-static": {
     "CVE-2015-1164": "<1.6.5 || >=1.7.0 <1.7.2"
@@ -1081,13 +871,6 @@
   "stream-combine": {
     "GHSA-w6xj-45gv-fw35": "=2.0.2"
   },
-  "stringstream": {
-    "npm:stringstream:20180511": "<0.0.6"
-  },
-  "superagent": {
-    "npm:superagent:20181108": "<3.8.1",
-    "npmjs.com/advisories/479": "<3.7.0"
-  },
   "superstatic": {
     "GHSA-wm77-q74p-5763": "<5.0.2"
   },
@@ -1115,9 +898,6 @@
   "tomato": {
     "CVE-2013-7379": "<=0.0.5"
   },
-  "tough-cookie": {
-    "npm:tough-cookie:20170905": "<2.3.3"
-  },
   "traceroute": {
     "GHSA-rjvj-673q-4hfw": "<=1.0.0"
   },
@@ -1127,20 +907,8 @@
   "treekill": {
     "hackerone.com/reports/703415": "<1.0.0"
   },
-  "tunnel-agent": {
-    "npm:tunnel-agent:20170305": "<0.6.0"
-  },
   "type-graphql": {
     "GHSA-xf64-2f9p-6pqq": "<0.17.6"
-  },
-  "ua-parser": {
-    "npm:ua-parser-js:20171012": "<0.7.26"
-  },
-  "ua-parser-js": {
-    "npm:ua-parser-js:20180227": "<0.7.18"
-  },
-  "underscore.string": {
-    "npm:underscore.string:20170908": ">2.4.0 <=3.3.5"
   },
   "unflatten": {
     "GHSA-6fh5-8wq8-w3wr": "<=1.0.4"
@@ -1166,21 +934,8 @@
   "wangeditor": {
     "GHSA-g7mw-5cq6-fv82": "<=4.7.15"
   },
-  "websocket-driver": {
-    "npm:websocket-driver:20131012": " <0.3.1"
-  },
-  "wenluhong1": {
-    "npm:wenluhong1": "1.0.0"
-  },
-  "whatwg-mimetype": {
-    "npm:whatwg-mimetype:20170907": "<2.0.0"
-  },
   "wizard-syncronizer": {
     "GHSA-wgw3-gf4p-62xc": "<=0.0.1"
-  },
-  "ws": {
-    "npm:ws:20160920": "<1.1.2",
-    "npm:ws:20171108": "<1.1.5 || >=2.0.0 <3.3.1"
   },
   "wxchangba": {
     "GHSA-j6v9-xgvh-f796": "<=1.0.3"
@@ -1193,12 +948,6 @@
   },
   "xoc": {
     "GHSA-54cr-gv8w-8324": "1.0.7"
-  },
-  "yar": {
-    "npm:yar:20140616": "<2.2.0"
-  },
-  "yjmyjmyjm": {
-    "npm:yjmyjmyjm:20170617": "1.0.0"
   },
   "yui": {
     "CVE-2013-4939": "=3.10.2 || >=3.0.0 <3.10.0"
