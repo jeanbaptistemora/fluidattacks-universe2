@@ -40,7 +40,9 @@ that did not exist at the time we migrated to the cloud.
 Its service catalog is much smaller,
 which means less flexibility.
 
-> **Note:** > [Microsoft Azure](https://azure.microsoft.com/en-us/)
+> **Note:**
+>
+> [Microsoft Azure](https://azure.microsoft.com/en-us/)
 > is another alternative
 > that did not exist at the time we migrated to the cloud.
 > A review is pending.
@@ -76,86 +78,3 @@ We use the following [AWS][aws] services:
 You can access the AWS Console
 by entering the AWS - Production application
 through [Okta](/development/stack/okta).
-
-### Get development keys
-
-Developers can use [Okta](/development/stack/okta)
-to get development AWS credentials.
-Follow these steps
-to generate a key pair:
-
-1. Install `awscli` and `aws-okta-processor`.
-
-    ```bash
-    nix-env -i awscli
-    pip install aws-okta-processor
-    ```
-
-1. Add the following function
-   in your shell profile (`~/.bashrc`):
-
-    ```bash
-    function okta-login {
-      local role="${1:-<default-role>}" # Set the default role you use the most
-      local args=(
-        authenticate
-        --user "<user-email>"
-        --pass "<user-password>"
-        --organization "fluidattacks.okta.com"
-        --role "arn:aws:iam::205810638802:role/${role}"
-        --application "https://fluidattacks.okta.com/home/amazon_aws/0oa9ahz3rfx1SpStS357/272"
-        --silent
-        --duration 32400
-        --environment
-        --no-aws-cache
-      ) # Flags required for aws-okta-processor
-
-      eval $(aws-okta-processor "${args[@]}") \
-        && export AWS_DEFAULT_REGION="us-east-1"
-    }
-    ```
-
-    Be sure to replace the parameters.
-        - `<user-email>`: Okta Email.
-        - `<user-password>`: Okta Password.
-        - `<default-role>`: Use `dev` or another role.
-
-1. Source your profile.
-
-    ```bash
-    source ~/.profile
-    ```
-
-1. To get the credentials,
-   execute the following:
-
-    ```bash
-    okta-login # To use the default role
-    ```
-
-    ```bash
-    okta-login `<role>` # To use a specific role
-    ```
-
-1. If you see the following error:
-
-    ```
-    Error: Status Code: 404
-    Error: Summary: Not Found: Resource not found: me (Session)
-    ERROR: SAMLResponse tag was not found!
-    ```
-
-    Please remove your [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
-    configuration directory by running:
-
-    ```bash
-    $ rm -rf ~/.aws-okta-processor/
-    ```
-
-    And then try again.
-
-    This error happens when
-    [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
-    tries to reuse a cached expired session.
-
-[AWS]: https://aws.amazon.com/

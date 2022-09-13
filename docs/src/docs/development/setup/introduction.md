@@ -6,13 +6,17 @@ slug: /development/setup
 ---
 
 This section will guide you through setting up
+a terminal
+with AWS credentials
+and a code editor
+in an automated way
+every time you enter
+your local checkout
+of the Universe repository.
 
-- the Bash shell (terminal) and
-- the code editor.
+After this section you will be able to develop with:
 
-In order to start developing a product X with
-
-- code auto-completion;
-- go-to-definition functionality;
-- required dependencies in the host;
+- code auto-completion,
+- go-to-definition functionality,
+- required dependencies in the host,
 - automatic formatters, etc.

@@ -22,6 +22,8 @@ you can run
 `$ nix-env -i $tool_name`.
 This will install such a tool.
 For example: `$ nix-env -i awscli`.
+You can search all available packages at
+<https://search.nixos.org/packages>.
 
 ## Opening the environment
 
