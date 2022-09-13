@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -34,10 +34,12 @@ import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
+  SEND_VULNERABILITY_NOTIFICATION,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type {
   IGetFindingAndGroupInfo,
   IModalConfig,
+  ISendNotificationResultAttr,
   IVulnerabilitiesConnection,
   IVulnerabilityEdge,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
@@ -47,7 +49,7 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 export const VulnsView: React.FC = (): JSX.Element => {
   const { findingId, groupName } = useParams<{
@@ -197,6 +199,36 @@ export const VulnsView: React.FC = (): JSX.Element => {
       (vulnerabilityEdge: IVulnerabilityEdge): IVulnRowAttr =>
         vulnerabilityEdge.node
     );
+
+  const [sendNotification] = useMutation<ISendNotificationResultAttr>(
+    SEND_VULNERABILITY_NOTIFICATION,
+    {
+      onCompleted: (result: ISendNotificationResultAttr): void => {
+        if (result.sendVulnerabilityNotification.success) {
+          msgSuccess(
+            t("searchFindings.tabDescription.notify.emailNotificationText"),
+            t("searchFindings.tabDescription.notify.emailNotificationTitle")
+          );
+        }
+      },
+      onError: (updateError: ApolloError): void => {
+        updateError.graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(
+            t("searchFindings.tabDescription.notify.emailNotificationError")
+          );
+          Logger.warning("An error occurred sending the notification", error);
+        });
+      },
+    }
+  );
+  async function handleSendNotification(): Promise<void> {
+    await sendNotification({
+      variables: {
+        findingId,
+      },
+    });
+    setIsNotify(false);
+  }
 
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
@@ -392,7 +424,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           >
             <ModalConfirm
               onCancel={handleCloseNotifyModal}
-              onConfirm={handleCloseNotifyModal}
+              onConfirm={handleSendNotification}
               txtCancel={t("searchFindings.notifyModal.cancel")}
               txtConfirm={t("searchFindings.notifyModal.notify")}
             />

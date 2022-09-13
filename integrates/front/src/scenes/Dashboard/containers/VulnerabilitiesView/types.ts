@@ -67,6 +67,12 @@ interface IVulnerabilitiesConnection {
   };
 }
 
+interface ISendNotificationResultAttr {
+  sendVulnerabilityNotification: {
+    success: boolean;
+  };
+}
+
 export type {
   IFindingAttr,
   IGetFindingVulnInfoAttr,
@@ -75,6 +81,7 @@ export type {
   IFindingInfoAttr,
   IFindingVulnsAtrr,
   IModalConfig,
+  ISendNotificationResultAttr,
   IVulnerabilitiesAttr,
   IVulnerabilityEdge,
   IVulnerabilitiesConnection,

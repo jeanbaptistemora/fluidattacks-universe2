@@ -2549,8 +2549,13 @@ export const enTranslations: ResourceKey = {
         emailNotificationTitle: "Notification Status",
       },
       notify: {
+        emailNotificationError:
+          "There was an error sending the vulnerability notification email",
+        emailNotificationText:
+          "vulnerability notification email sent successfully",
+        emailNotificationTitle: "Notification Status",
         text: "Notify",
-        tooltip: "Send reported finding notification",
+        tooltip: "Send finding notification",
       },
       old: "Old",
       path: "Path",
