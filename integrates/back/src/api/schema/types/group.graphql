@@ -160,6 +160,18 @@ type Group {
     first: Int
     "Search query for vulnerability attributes"
     search: String
+    "Min severity value for vulnerability"
+    minSeverity: String
+    "Max severity value for vulnerability"
+    maxSeverity: String
+    "Vulnerability status"
+    stateStatus: String
+    "Treatment status for vulnerability"
+    treatment: String
+    "Type of vulnerability"
+    type: String
+    "Reattack verification status for vulnerability"
+    verificationStatus: String
   ): VulnerabilitiesConnection!
   """
   Grace period in days where newly reported vulnerabilities won't break the
