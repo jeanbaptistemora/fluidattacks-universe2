@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint react/jsx-no-bind:0 */
 /* eslint react/forbid-component-props: 0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
 import React from "react";
 
@@ -18,6 +20,15 @@ import { translate } from "../../../utils/translations/translate";
 import { Paragraph, Title } from "../../Texts";
 
 const Banner: React.FC = (): JSX.Element => {
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "cta-free-trial-click",
+      category: "product-overview",
+    });
+  };
+
   return (
     <Container>
       <CardContainer>
@@ -33,7 +44,7 @@ const Banner: React.FC = (): JSX.Element => {
         >
           {translate.t("plansPage.portrait.paragraph")}
         </Paragraph>
-        <Link to={"/free-trial/"}>
+        <Link onClick={matomoFreeTrialEvent} to={"/free-trial/"}>
           <NewRegularRedButton className={"mh2 mv3"}>
             {translate.t("productOverview.mainButton1")}
           </NewRegularRedButton>

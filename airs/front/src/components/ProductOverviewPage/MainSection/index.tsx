@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint react/jsx-no-bind:0 */
 /* eslint react/forbid-component-props: 0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
 import React from "react";
 
@@ -31,6 +33,15 @@ interface IProps {
 const MainSection: React.FC<IProps> = ({
   description,
 }: IProps): JSX.Element => {
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "main-free-trial-click",
+      category: "product-overview",
+    });
+  };
+
   return (
     <Container>
       <MainTextContainer>
@@ -39,7 +50,7 @@ const MainSection: React.FC<IProps> = ({
         </Title>
         <ProductParagraph>{description}</ProductParagraph>
         <FlexCenterItemsContainer className={"flex-wrap"}>
-          <Link to={"/free-trial/"}>
+          <Link onClick={matomoFreeTrialEvent} to={"/free-trial/"}>
             <NewRegularRedButton className={"mh2 mv3"}>
               {translate.t("productOverview.mainButton1")}
             </NewRegularRedButton>

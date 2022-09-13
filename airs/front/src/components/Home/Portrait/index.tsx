@@ -38,6 +38,10 @@ const Portrait: React.FC = (): JSX.Element => {
     trackEvent({ action: "product-overview-click", category: "home" });
   };
 
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({ action: "free-trial-click", category: "home" });
+  };
+
   const [play, setPlay] = useState(false);
 
   const [overButton, setOverButton] = useState(false);
@@ -102,7 +106,11 @@ const Portrait: React.FC = (): JSX.Element => {
             {"Accurate automation + AI prioritization + Expert intelligence"}
           </Title>
           <div className={"cf mt4"}>
-            <Link className={"no-underline"} to={"/free-trial/"}>
+            <Link
+              className={"no-underline"}
+              onClick={matomoFreeTrialEvent}
+              to={"/free-trial/"}
+            >
               <NewRegularRedButton
                 className={"mb0-ns mb3 fl mh1 w-auto-ns w-100"}
               >
