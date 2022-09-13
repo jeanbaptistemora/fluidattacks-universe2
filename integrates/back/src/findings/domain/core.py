@@ -624,9 +624,20 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
                 )
     comment_id = str(round(time() * 1000))
     user_email: str = user_info["user_email"]
+    requester_email: str = user_info["user_email"]
+    if is_closing_event:
+        requester_email = (
+            vulnerabilities[
+                0
+            ].unreliable_indicators.unreliable_last_reattack_requester
+            or await vulns_domain.get_reattack_requester(
+                loaders, vulnerabilities[0]
+            )
+            or requester_email
+        )
     verification = FindingVerification(
         comment_id=comment_id,
-        modified_by=user_email,
+        modified_by=requester_email,
         modified_date=datetime_utils.get_iso_date(),
         status=FindingVerificationStatus.REQUESTED,
         vulnerability_ids=vulnerability_ids,
