@@ -8,4 +8,4 @@ from tap_gitlab import (
 
 
 def test_placeholder() -> None:
-    assert 1 == 1
+    assert 1
