@@ -5,7 +5,7 @@
 # shellcheck shell=bash
 
 function main {
-  local namespace='development'
+  local namespace='dev'
 
   : \
     && aws_login "dev" "3600" \

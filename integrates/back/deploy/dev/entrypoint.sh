@@ -5,7 +5,7 @@
 # shellcheck shell=bash
 
 function hpa_replicas {
-  local namespace='development'
+  local namespace='dev'
   local name="integrates-${CI_COMMIT_REF_NAME}"
   local replicas
 

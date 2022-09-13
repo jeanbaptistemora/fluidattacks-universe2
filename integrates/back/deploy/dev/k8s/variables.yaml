@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: integrates-${CI_COMMIT_REF_NAME}
-  namespace: development
+  namespace: dev
 type: Opaque
 data:
   CACHIX_AUTH_TOKEN: ${B64_CACHIX_AUTH_TOKEN}

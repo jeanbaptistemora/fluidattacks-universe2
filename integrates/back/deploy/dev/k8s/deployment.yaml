@@ -6,7 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: integrates-${CI_COMMIT_REF_NAME}
-  namespace: development
+  namespace: dev
 spec:
   replicas: ${REPLICAS}
   selector:
