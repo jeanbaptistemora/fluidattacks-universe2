@@ -26,7 +26,7 @@ function main {
       aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-          -n "development" \
+          -n "dev" \
           --timeout="15m"
     fi \
     && sops_export_vars __argSecretsFile__ "INTEGRATES_FORCES_API_TOKEN" \

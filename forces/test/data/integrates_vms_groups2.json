@@ -15,6 +15,12 @@
           "name": {
             "S": "herrin"
           },
+          "created_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "created_date": {
+            "S": "2020-07-22T21:34:33+00:00"
+          },
           "description": {
             "S": "Project for testing forces"
           },
