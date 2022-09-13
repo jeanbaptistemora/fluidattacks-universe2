@@ -11,11 +11,13 @@
  *like index.tsx or this one
  */
 /* eslint react/no-danger:0 */
+/* eslint react/jsx-no-bind:0 */
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
@@ -50,6 +52,15 @@ const SolutionIndex: React.FC<IQueryData> = ({
 
   const { description, image, keywords, slug, solution, title } =
     data.markdownRemark.frontmatter;
+
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "float-free-trial-click",
+      category: "solution",
+    });
+  };
 
   return (
     <React.Fragment>
@@ -104,6 +115,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
             <FloatingButton
               bgColor={"#2e2e38"}
               color={"#fff"}
+              matomoEvent={matomoFreeTrialEvent}
               text={"Start free trial"}
               to={"/free-trial/"}
               yPosition={"50%"}

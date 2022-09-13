@@ -13,6 +13,7 @@ import { FloatButton } from "./styledComponents";
 interface IFloatingButton {
   bgColor: string;
   color: string;
+  matomoEvent: () => void;
   text: string;
   to: string;
   yPosition: string;
@@ -21,12 +22,13 @@ interface IFloatingButton {
 const FloatingButton: React.FC<IFloatingButton> = ({
   bgColor,
   color,
+  matomoEvent,
   text,
   to,
   yPosition,
 }: IFloatingButton): JSX.Element => {
   return (
-    <Link className={"no-underline"} to={to}>
+    <Link className={"no-underline"} onClick={matomoEvent} to={to}>
       <FloatButton bgColor={bgColor} color={color} yPosition={yPosition}>
         {text}
       </FloatButton>

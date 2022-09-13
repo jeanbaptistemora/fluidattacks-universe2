@@ -11,6 +11,7 @@
  *like index.tsx or this one
  */
 /* eslint react/no-danger:0 */
+/* eslint react/jsx-no-bind:0 */
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
@@ -18,6 +19,7 @@
 /* eslint @typescript-eslint/no-unsafe-member-access: 0*/
 /* eslint @typescript-eslint/no-unsafe-call: 0*/
 /* eslint @typescript-eslint/no-explicit-any: 0*/
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link, graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
@@ -85,6 +87,15 @@ const BlogsIndex: React.FC<IQueryData> = ({
   } = data.markdownRemark.frontmatter;
   const taglist: string[] = tags.split(", ");
   const fDate = utc(date.toLocaleString()).format("LL");
+
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "float-free-trial-click",
+      category: "blog",
+    });
+  };
 
   return (
     <React.Fragment>
@@ -174,6 +185,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
             <FloatingButton
               bgColor={"#2e2e38"}
               color={"#fff"}
+              matomoEvent={matomoFreeTrialEvent}
               text={"Start free trial"}
               to={"/free-trial/"}
               yPosition={"50%"}
