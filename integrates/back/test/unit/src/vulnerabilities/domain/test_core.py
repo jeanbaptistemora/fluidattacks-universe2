@@ -64,6 +64,8 @@ pytestmark = [
             {
                 "ports_vulnerabilities": (
                     Vulnerability(
+                        created_by="unittest@fluidattacks.com",
+                        created_date="2019-04-08T00:45:15+00:00",
                         finding_id="988493279",
                         group_name="unittesting",
                         hacker_email="unittest@fluidattacks.com",
@@ -131,6 +133,8 @@ pytestmark = [
                 "ports_vulnerabilities": (),
                 "lines_vulnerabilities": (
                     Vulnerability(
+                        created_by="unittest@fluidattacks.com",
+                        created_date="2020-01-03T17:46:10+00:00",
                         finding_id="422286126",
                         group_name="unittesting",
                         hacker_email="unittest@fluidattacks.com",
