@@ -3,7 +3,13 @@ import java.io.File;
 public class Test {
     public static void main(String[] args){
         try {
+        // Non compliant
         System.out.println(File.createTempFile("xxx", null));
+        } catch (Exception e) {}
+
+        try {
+        // Compliant
+        System.out.println(File.createTempFile("xxx", attrs="xxx"));
         } catch (Exception e) {}
     }
 }

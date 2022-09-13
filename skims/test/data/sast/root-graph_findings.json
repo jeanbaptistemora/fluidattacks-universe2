@@ -1956,6 +1956,10 @@
       "graph": {
         "edges": {
           "1": {
+            "104": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
             "2": {
               "label_ast": "AST",
               "label_index": "0"
@@ -1963,13 +1967,13 @@
             "6": {
               "label_ast": "AST",
               "label_index": "1"
-            },
-            "64": {
-              "label_ast": "AST",
-              "label_index": "2"
             }
           },
           "11": {
+            "103": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
             "12": {
               "label_ast": "AST",
               "label_index": "0"
@@ -1977,10 +1981,6 @@
             "13": {
               "label_ast": "AST",
               "label_index": "1"
-            },
-            "63": {
-              "label_ast": "AST",
-              "label_index": "2"
             }
           },
           "13": {
@@ -2056,6 +2056,10 @@
             }
           },
           "25": {
+            "102": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
             "26": {
               "label_ast": "AST",
               "label_index": "0"
@@ -2066,7 +2070,7 @@
               "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
-            "62": {
+            "63": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -2082,7 +2086,7 @@
               "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
-            "51": {
+            "52": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_maybe": "cfg_maybe",
@@ -2096,147 +2100,145 @@
             },
             "31": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
-            "50": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "31": {
             "32": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
-              "label_index": "0"
+              "label_index": "2"
             },
-            "49": {
+            "51": {
               "label_ast": "AST",
-              "label_index": "1"
+              "label_index": "3"
             }
           },
           "32": {
             "33": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "34": {
+            "50": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "33": {
+            "34": {
+              "label_ast": "AST",
+              "label_index": "0"
             },
             "35": {
               "label_ast": "AST",
-              "label_index": "2"
+              "label_index": "1"
             },
             "36": {
               "label_ast": "AST",
+              "label_index": "2"
+            },
+            "37": {
+              "label_ast": "AST",
               "label_index": "3"
+            },
+            "63": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
-          "36": {
-            "37": {
+          "37": {
+            "38": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "38": {
+            "39": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "48": {
+            "49": {
               "label_ast": "AST",
               "label_index": "2"
             }
           },
-          "38": {
-            "39": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
+          "39": {
             "40": {
               "label_ast": "AST",
-              "label_index": "1"
+              "label_index": "0"
             },
             "41": {
               "label_ast": "AST",
-              "label_index": "2"
+              "label_index": "1"
             },
             "42": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "43": {
               "label_ast": "AST",
               "label_index": "3"
             }
           },
-          "42": {
-            "43": {
+          "43": {
+            "44": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "44": {
+            "45": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "45": {
+            "46": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "46": {
+            "47": {
               "label_ast": "AST",
               "label_index": "3"
             },
-            "47": {
+            "48": {
               "label_ast": "AST",
               "label_index": "4"
             }
           },
-          "51": {
-            "52": {
+          "52": {
+            "53": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "53": {
+            "54": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "54": {
+            "55": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "58": {
+            "59": {
               "label_ast": "AST",
               "label_index": "3"
             },
-            "59": {
+            "60": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "4"
-            }
-          },
-          "54": {
-            "55": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "57": {
-              "label_ast": "AST",
-              "label_index": "1"
             }
           },
           "55": {
             "56": {
               "label_ast": "AST",
               "label_index": "0"
-            }
-          },
-          "59": {
-            "60": {
-              "label_ast": "AST",
-              "label_index": "0"
             },
-            "61": {
+            "58": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "56": {
+            "57": {
+              "label_ast": "AST",
+              "label_index": "0"
             }
           },
           "6": {
@@ -2257,10 +2259,210 @@
               "label_index": "1"
             }
           },
+          "60": {
+            "61": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "63": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "63": {
+            "64": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
+              "label_index": "2"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "67": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "68": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "2"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "68": {
+            "69": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "69": {
+            "70": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "71": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "72": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "73": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
           "7": {
             "8": {
               "label_ast": "AST",
               "label_index": "0"
+            }
+          },
+          "73": {
+            "74": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "75": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "88": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "79": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "79": {
+            "80": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "82": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "83": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "87": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "86": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "91": {
+            "92": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "93": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "94": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "94": {
+            "95": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "97": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "95": {
+            "96": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "99": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "101": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           }
         },
@@ -2275,6 +2477,36 @@
             "label_l": 3,
             "label_text": "Test",
             "label_type": "identifier"
+          },
+          "100": {
+            "label_c": 31,
+            "label_l": 13,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "101": {
+            "label_c": 32,
+            "label_l": 13,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "102": {
+            "label_c": 5,
+            "label_l": 14,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "103": {
+            "label_c": 1,
+            "label_l": 15,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "104": {
+            "label_c": 1,
+            "label_l": 17,
+            "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_type": "comment"
           },
           "11": {
             "label_c": 19,
@@ -2409,58 +2641,58 @@
           "31": {
             "label_c": 9,
             "label_l": 6,
-            "label_type": "expression_statement"
+            "label_text": "// Non compliant",
+            "label_type": "comment"
           },
           "32": {
             "label_c": 9,
-            "label_field_arguments": "36",
-            "label_field_name": "35",
-            "label_field_object": "33",
-            "label_l": 6,
-            "label_type": "method_invocation"
+            "label_l": 7,
+            "label_type": "expression_statement"
           },
           "33": {
             "label_c": 9,
-            "label_l": 6,
+            "label_field_arguments": "37",
+            "label_field_name": "36",
+            "label_field_object": "34",
+            "label_l": 7,
+            "label_type": "method_invocation"
+          },
+          "34": {
+            "label_c": 9,
+            "label_l": 7,
             "label_text": "System.out",
             "label_type": "field_access"
           },
-          "34": {
+          "35": {
             "label_c": 19,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": ".",
             "label_type": "."
           },
-          "35": {
+          "36": {
             "label_c": 20,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": "println",
             "label_type": "identifier"
           },
-          "36": {
-            "label_c": 27,
-            "label_l": 6,
-            "label_type": "argument_list"
-          },
           "37": {
             "label_c": 27,
-            "label_l": 6,
+            "label_l": 7,
+            "label_type": "argument_list"
+          },
+          "38": {
+            "label_c": 27,
+            "label_l": 7,
             "label_text": "(",
             "label_type": "("
           },
-          "38": {
-            "label_c": 28,
-            "label_field_arguments": "42",
-            "label_field_name": "41",
-            "label_field_object": "39",
-            "label_l": 6,
-            "label_type": "method_invocation"
-          },
           "39": {
             "label_c": 28,
-            "label_l": 6,
-            "label_text": "File",
-            "label_type": "identifier"
+            "label_field_arguments": "43",
+            "label_field_name": "42",
+            "label_field_object": "40",
+            "label_l": 7,
+            "label_type": "method_invocation"
           },
           "4": {
             "label_c": 8,
@@ -2469,63 +2701,63 @@
             "label_type": "scoped_identifier"
           },
           "40": {
+            "label_c": 28,
+            "label_l": 7,
+            "label_text": "File",
+            "label_type": "identifier"
+          },
+          "41": {
             "label_c": 32,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": ".",
             "label_type": "."
           },
-          "41": {
+          "42": {
             "label_c": 33,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": "createTempFile",
             "label_type": "identifier"
           },
-          "42": {
-            "label_c": 47,
-            "label_l": 6,
-            "label_type": "argument_list"
-          },
           "43": {
             "label_c": 47,
-            "label_l": 6,
+            "label_l": 7,
+            "label_type": "argument_list"
+          },
+          "44": {
+            "label_c": 47,
+            "label_l": 7,
             "label_text": "(",
             "label_type": "("
           },
-          "44": {
+          "45": {
             "label_c": 48,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": "\"xxx\"",
             "label_type": "string_literal"
           },
-          "45": {
+          "46": {
             "label_c": 53,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": ",",
             "label_type": ","
           },
-          "46": {
+          "47": {
             "label_c": 55,
-            "label_l": 6,
+            "label_l": 7,
             "label_text": "null",
             "label_type": "null_literal"
           },
-          "47": {
-            "label_c": 59,
-            "label_l": 6,
-            "label_text": ")",
-            "label_type": ")"
-          },
           "48": {
-            "label_c": 60,
-            "label_l": 6,
+            "label_c": 59,
+            "label_l": 7,
             "label_text": ")",
             "label_type": ")"
           },
           "49": {
-            "label_c": 61,
-            "label_l": 6,
-            "label_text": ";",
-            "label_type": ";"
+            "label_c": 60,
+            "label_l": 7,
+            "label_text": ")",
+            "label_type": ")"
           },
           "5": {
             "label_c": 20,
@@ -2534,62 +2766,63 @@
             "label_type": ";"
           },
           "50": {
-            "label_c": 9,
+            "label_c": 61,
             "label_l": 7,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "51": {
+            "label_c": 9,
+            "label_l": 8,
             "label_text": "}",
             "label_type": "}"
           },
-          "51": {
-            "label_c": 11,
-            "label_field_body": "59",
-            "label_l": 7,
-            "label_type": "catch_clause"
-          },
           "52": {
             "label_c": 11,
-            "label_l": 7,
+            "label_field_body": "60",
+            "label_l": 8,
+            "label_type": "catch_clause"
+          },
+          "53": {
+            "label_c": 11,
+            "label_l": 8,
             "label_text": "catch",
             "label_type": "catch"
           },
-          "53": {
+          "54": {
             "label_c": 17,
-            "label_l": 7,
+            "label_l": 8,
             "label_text": "(",
             "label_type": "("
           },
-          "54": {
-            "label_c": 18,
-            "label_field_name": "57",
-            "label_l": 7,
-            "label_type": "catch_formal_parameter"
-          },
           "55": {
             "label_c": 18,
-            "label_l": 7,
-            "label_type": "catch_type"
+            "label_field_name": "58",
+            "label_l": 8,
+            "label_type": "catch_formal_parameter"
           },
           "56": {
             "label_c": 18,
-            "label_l": 7,
+            "label_l": 8,
+            "label_type": "catch_type"
+          },
+          "57": {
+            "label_c": 18,
+            "label_l": 8,
             "label_text": "Exception",
             "label_type": "type_identifier"
           },
-          "57": {
+          "58": {
             "label_c": 28,
-            "label_l": 7,
+            "label_l": 8,
             "label_text": "e",
             "label_type": "identifier"
           },
-          "58": {
+          "59": {
             "label_c": 29,
-            "label_l": 7,
+            "label_l": 8,
             "label_text": ")",
             "label_type": ")"
-          },
-          "59": {
-            "label_c": 31,
-            "label_l": 7,
-            "label_type": "block"
           },
           "6": {
             "label_c": 1,
@@ -2600,38 +2833,127 @@
           },
           "60": {
             "label_c": 31,
-            "label_l": 7,
+            "label_l": 8,
+            "label_type": "block"
+          },
+          "61": {
+            "label_c": 31,
+            "label_l": 8,
             "label_text": "{",
             "label_type": "{"
           },
-          "61": {
-            "label_c": 32,
-            "label_l": 7,
-            "label_text": "}",
-            "label_type": "}"
-          },
           "62": {
-            "label_c": 5,
+            "label_c": 32,
             "label_l": 8,
             "label_text": "}",
             "label_type": "}"
           },
           "63": {
-            "label_c": 1,
-            "label_l": 9,
-            "label_text": "}",
-            "label_type": "}"
+            "label_c": 9,
+            "label_field_body": "65",
+            "label_l": 10,
+            "label_type": "try_statement"
           },
           "64": {
-            "label_c": 1,
+            "label_c": 9,
+            "label_l": 10,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "65": {
+            "label_c": 13,
+            "label_l": 10,
+            "label_type": "block"
+          },
+          "66": {
+            "label_c": 13,
+            "label_l": 10,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "67": {
+            "label_c": 9,
             "label_l": 11,
-            "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_text": "// Compliant",
             "label_type": "comment"
+          },
+          "68": {
+            "label_c": 9,
+            "label_l": 12,
+            "label_type": "expression_statement"
+          },
+          "69": {
+            "label_c": 9,
+            "label_field_arguments": "73",
+            "label_field_name": "72",
+            "label_field_object": "70",
+            "label_l": 12,
+            "label_type": "method_invocation"
           },
           "7": {
             "label_c": 1,
             "label_l": 3,
             "label_type": "modifiers"
+          },
+          "70": {
+            "label_c": 9,
+            "label_l": 12,
+            "label_text": "System.out",
+            "label_type": "field_access"
+          },
+          "71": {
+            "label_c": 19,
+            "label_l": 12,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "72": {
+            "label_c": 20,
+            "label_l": 12,
+            "label_text": "println",
+            "label_type": "identifier"
+          },
+          "73": {
+            "label_c": 27,
+            "label_l": 12,
+            "label_type": "argument_list"
+          },
+          "74": {
+            "label_c": 27,
+            "label_l": 12,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "75": {
+            "label_c": 28,
+            "label_field_arguments": "79",
+            "label_field_name": "78",
+            "label_field_object": "76",
+            "label_l": 12,
+            "label_type": "method_invocation"
+          },
+          "76": {
+            "label_c": 28,
+            "label_l": 12,
+            "label_text": "File",
+            "label_type": "identifier"
+          },
+          "77": {
+            "label_c": 32,
+            "label_l": 12,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "78": {
+            "label_c": 33,
+            "label_l": 12,
+            "label_text": "createTempFile",
+            "label_type": "identifier"
+          },
+          "79": {
+            "label_c": 47,
+            "label_l": 12,
+            "label_type": "argument_list"
           },
           "8": {
             "label_c": 1,
@@ -2639,11 +2961,131 @@
             "label_text": "public",
             "label_type": "public"
           },
+          "80": {
+            "label_c": 47,
+            "label_l": 12,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "81": {
+            "label_c": 48,
+            "label_l": 12,
+            "label_text": "\"xxx\"",
+            "label_type": "string_literal"
+          },
+          "82": {
+            "label_c": 53,
+            "label_l": 12,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "83": {
+            "label_c": 55,
+            "label_field_left": "84",
+            "label_field_operator": "85",
+            "label_field_right": "86",
+            "label_l": 12,
+            "label_type": "assignment_expression"
+          },
+          "84": {
+            "label_c": 55,
+            "label_l": 12,
+            "label_text": "attrs",
+            "label_type": "identifier"
+          },
+          "85": {
+            "label_c": 60,
+            "label_l": 12,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "86": {
+            "label_c": 61,
+            "label_l": 12,
+            "label_text": "\"xxx\"",
+            "label_type": "string_literal"
+          },
+          "87": {
+            "label_c": 66,
+            "label_l": 12,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "88": {
+            "label_c": 67,
+            "label_l": 12,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "89": {
+            "label_c": 68,
+            "label_l": 12,
+            "label_text": ";",
+            "label_type": ";"
+          },
           "9": {
             "label_c": 8,
             "label_l": 3,
             "label_text": "class",
             "label_type": "class"
+          },
+          "90": {
+            "label_c": 9,
+            "label_l": 13,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "91": {
+            "label_c": 11,
+            "label_field_body": "99",
+            "label_l": 13,
+            "label_type": "catch_clause"
+          },
+          "92": {
+            "label_c": 11,
+            "label_l": 13,
+            "label_text": "catch",
+            "label_type": "catch"
+          },
+          "93": {
+            "label_c": 17,
+            "label_l": 13,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "94": {
+            "label_c": 18,
+            "label_field_name": "97",
+            "label_l": 13,
+            "label_type": "catch_formal_parameter"
+          },
+          "95": {
+            "label_c": 18,
+            "label_l": 13,
+            "label_type": "catch_type"
+          },
+          "96": {
+            "label_c": 18,
+            "label_l": 13,
+            "label_text": "Exception",
+            "label_type": "type_identifier"
+          },
+          "97": {
+            "label_c": 28,
+            "label_l": 13,
+            "label_text": "e",
+            "label_type": "identifier"
+          },
+          "98": {
+            "label_c": 29,
+            "label_l": 13,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "99": {
+            "label_c": 31,
+            "label_l": 13,
+            "label_type": "block"
           }
         }
       },
@@ -2738,23 +3180,23 @@
             "type": "SyntaxStepNoOp"
           }
         ],
-        "31": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "31",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
         "32": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "44",
+              "n_id": "32",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "33": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "45",
               "value": null
             },
             "type": "SyntaxStepLiteral",
@@ -2765,7 +3207,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "46",
+              "n_id": "47",
               "value": null
             },
             "type": "SyntaxStepLiteral",
@@ -2779,7 +3221,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "38",
+              "n_id": "39",
               "value": null
             },
             "method": "File.createTempFile",
@@ -2793,7 +3235,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "32",
+              "n_id": "33",
               "value": null
             },
             "method": "System.out.println",
@@ -2801,25 +3243,145 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
-        "51": [
+        "52": [
           {
             "catch_type": "Exception",
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "56",
+              "n_id": "57",
               "value": null
             },
             "type": "SyntaxStepCatchClause",
             "var": "e"
           }
         ],
-        "59": [
+        "60": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "59",
+              "n_id": "60",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "63": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "63",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "65": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "65",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "68": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "68",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "69": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "81",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "86",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxx",
+            "value_type": "string"
+          },
+          {
+            "attribute": "",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "83",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "attrs"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "75",
+              "value": null
+            },
+            "method": "File.createTempFile",
+            "return_type": null,
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "69",
+              "value": null
+            },
+            "method": "System.out.println",
+            "return_type": null,
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "91": [
+          {
+            "catch_type": "Exception",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "96",
+              "value": null
+            },
+            "type": "SyntaxStepCatchClause",
+            "var": "e"
+          }
+        ],
+        "99": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "99",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2829,15 +3391,15 @@
       "syntax_graph": {
         "edges": {
           "1": {
+            "104": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
             "2": {
               "label_ast": "AST",
               "label_cfg": "CFG"
             },
             "6": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
-            "64": {
               "label_ast": "AST",
               "label_cfg": "CFG"
             }
@@ -2869,6 +3431,9 @@
             "27": {
               "label_ast": "AST",
               "label_cfg": "CFG"
+            },
+            "63": {
+              "label_ast": "AST"
             }
           },
           "27": {
@@ -2876,67 +3441,81 @@
               "label_ast": "AST",
               "label_cfg": "CFG"
             },
-            "51": {
+            "52": {
               "label_ast": "AST",
               "label_cfg": "CFG"
             }
           },
           "29": {
-            "32": {
+            "31": {
               "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "33": {
+              "label_ast": "AST"
+            }
+          },
+          "31": {
+            "33": {
               "label_cfg": "CFG"
             }
           },
-          "32": {
-            "33": {
-              "label_ast": "AST"
-            },
-            "35": {
+          "33": {
+            "34": {
               "label_ast": "AST"
             },
             "36": {
               "label_ast": "AST"
-            }
-          },
-          "36": {
-            "38": {
-              "label_ast": "AST"
-            }
-          },
-          "38": {
-            "39": {
+            },
+            "37": {
               "label_ast": "AST"
             },
-            "41": {
+            "63": {
+              "label_cfg": "CFG"
+            }
+          },
+          "37": {
+            "39": {
+              "label_ast": "AST"
+            }
+          },
+          "39": {
+            "40": {
               "label_ast": "AST"
             },
             "42": {
               "label_ast": "AST"
+            },
+            "43": {
+              "label_ast": "AST"
             }
           },
-          "42": {
-            "44": {
+          "43": {
+            "45": {
               "label_ast": "AST"
             },
-            "46": {
+            "47": {
               "label_ast": "AST"
             }
           },
-          "51": {
-            "54": {
-              "label_ast": "AST"
-            },
-            "59": {
-              "label_ast": "AST"
-            }
-          },
-          "54": {
+          "52": {
             "55": {
               "label_ast": "AST"
+            },
+            "60": {
+              "label_ast": "AST"
+            },
+            "63": {
+              "label_cfg": "CFG"
             }
           },
           "55": {
             "56": {
+              "label_ast": "AST"
+            }
+          },
+          "56": {
+            "57": {
               "label_ast": "AST"
             }
           },
@@ -2945,11 +3524,100 @@
               "label_ast": "AST",
               "label_cfg": "CFG"
             }
+          },
+          "63": {
+            "65": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "65": {
+            "67": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "69": {
+              "label_ast": "AST"
+            }
+          },
+          "67": {
+            "69": {
+              "label_cfg": "CFG"
+            }
+          },
+          "69": {
+            "70": {
+              "label_ast": "AST"
+            },
+            "72": {
+              "label_ast": "AST"
+            },
+            "73": {
+              "label_ast": "AST"
+            }
+          },
+          "73": {
+            "75": {
+              "label_ast": "AST"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST"
+            },
+            "78": {
+              "label_ast": "AST"
+            },
+            "79": {
+              "label_ast": "AST"
+            }
+          },
+          "79": {
+            "81": {
+              "label_ast": "AST"
+            },
+            "83": {
+              "label_ast": "AST"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            }
+          },
+          "91": {
+            "94": {
+              "label_ast": "AST"
+            },
+            "99": {
+              "label_ast": "AST"
+            }
+          },
+          "94": {
+            "95": {
+              "label_ast": "AST"
+            }
+          },
+          "95": {
+            "96": {
+              "label_ast": "AST"
+            }
           }
         },
         "nodes": {
           "1": {
             "label_type": "File"
+          },
+          "104": {
+            "comment": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_type": "Comment"
           },
           "11": {
             "label_type": "ClassBody"
@@ -2987,78 +3655,163 @@
           "29": {
             "label_type": "ExecutionBlock"
           },
-          "32": {
-            "arguments_id": "36",
-            "expression": "println",
-            "expression_id": "35",
-            "label_type": "MethodInvocation",
-            "object_id": "33"
+          "31": {
+            "comment": "// Non compliant",
+            "label_type": "Comment"
           },
           "33": {
+            "arguments_id": "37",
+            "expression": "println",
+            "expression_id": "36",
+            "label_type": "MethodInvocation",
+            "object_id": "34"
+          },
+          "34": {
             "field_text": "System.out",
             "label_type": "FieldAccess"
           },
-          "35": {
+          "36": {
             "label_type": "SymbolLookup",
             "symbol": "println"
           },
-          "36": {
+          "37": {
             "label_type": "ArgumentList"
           },
-          "38": {
-            "arguments_id": "42",
-            "expression": "createTempFile",
-            "expression_id": "41",
-            "label_type": "MethodInvocation",
-            "object_id": "39"
-          },
           "39": {
+            "arguments_id": "43",
+            "expression": "createTempFile",
+            "expression_id": "42",
+            "label_type": "MethodInvocation",
+            "object_id": "40"
+          },
+          "40": {
             "label_type": "SymbolLookup",
             "symbol": "File"
           },
-          "41": {
+          "42": {
             "label_type": "SymbolLookup",
             "symbol": "createTempFile"
           },
-          "42": {
+          "43": {
             "label_type": "ArgumentList"
           },
-          "44": {
+          "45": {
             "label_type": "Literal",
             "value": "\"xxx\"",
             "value_type": "string"
           },
-          "46": {
+          "47": {
             "label_type": "Literal",
             "value": "null",
             "value_type": "null"
           },
-          "51": {
-            "block_id": "59",
+          "52": {
+            "block_id": "60",
             "label_type": "CatchClause"
           },
-          "54": {
+          "55": {
             "label_type": "CatchParameter",
             "variable_name": "e"
           },
-          "55": {
+          "56": {
             "label_type": "CatchType"
           },
-          "56": {
+          "57": {
             "label_type": "SymbolLookup",
             "symbol": "Exception"
-          },
-          "59": {
-            "label_type": "ExecutionBlock"
           },
           "6": {
             "block_id": "11",
             "label_type": "Class",
             "name": "Test"
           },
-          "64": {
-            "comment": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+          "60": {
+            "label_type": "ExecutionBlock"
+          },
+          "63": {
+            "block_id": "65",
+            "label_type": "TryStatement"
+          },
+          "65": {
+            "label_type": "ExecutionBlock"
+          },
+          "67": {
+            "comment": "// Compliant",
             "label_type": "Comment"
+          },
+          "69": {
+            "arguments_id": "73",
+            "expression": "println",
+            "expression_id": "72",
+            "label_type": "MethodInvocation",
+            "object_id": "70"
+          },
+          "70": {
+            "field_text": "System.out",
+            "label_type": "FieldAccess"
+          },
+          "72": {
+            "label_type": "SymbolLookup",
+            "symbol": "println"
+          },
+          "73": {
+            "label_type": "ArgumentList"
+          },
+          "75": {
+            "arguments_id": "79",
+            "expression": "createTempFile",
+            "expression_id": "78",
+            "label_type": "MethodInvocation",
+            "object_id": "76"
+          },
+          "76": {
+            "label_type": "SymbolLookup",
+            "symbol": "File"
+          },
+          "78": {
+            "label_type": "SymbolLookup",
+            "symbol": "createTempFile"
+          },
+          "79": {
+            "label_type": "ArgumentList"
+          },
+          "81": {
+            "label_type": "Literal",
+            "value": "\"xxx\"",
+            "value_type": "string"
+          },
+          "83": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "86",
+            "variable_id": "84"
+          },
+          "84": {
+            "label_type": "SymbolLookup",
+            "symbol": "attrs"
+          },
+          "86": {
+            "label_type": "Literal",
+            "value": "\"xxx\"",
+            "value_type": "string"
+          },
+          "91": {
+            "block_id": "99",
+            "label_type": "CatchClause"
+          },
+          "94": {
+            "label_type": "CatchParameter",
+            "variable_name": "e"
+          },
+          "95": {
+            "label_type": "CatchType"
+          },
+          "96": {
+            "label_type": "SymbolLookup",
+            "symbol": "Exception"
+          },
+          "99": {
+            "label_type": "ExecutionBlock"
           }
         }
       }

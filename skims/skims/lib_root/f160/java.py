@@ -15,6 +15,15 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
+from utils import (
+    graph as g,
+)
 from utils.string import (
     complete_attrs_on_set,
 )
@@ -35,10 +44,14 @@ def java_file_create_temp_file(
                 continue
             graph = shard.syntax_graph
 
-            for method_id in search_method_invocation_naive(
-                graph, danger_methods
-            ):
-                yield shard, method_id
+            for n_id in search_method_invocation_naive(graph, danger_methods):
+                if (al_id := graph.nodes[n_id].get("arguments_id")) and (
+                    test_nid := g.match_ast(graph, al_id).get("__1__")
+                ):
+                    for path in get_backward_paths(graph, test_nid):
+                        evaluation = evaluate(method, graph, path, test_nid)
+                        if evaluation and evaluation.danger:
+                            yield shard, n_id
 
     translation_key = (
         "src.lib_path.f160.java_file_create_temp_file.description"
