@@ -402,21 +402,6 @@ async def add_organization(
     return organization
 
 
-async def get_or_add(
-    loaders: Any, organization_name: str, email: str = ""
-) -> Organization:
-    if not await exists(loaders, organization_name):
-        return await add_organization(loaders, organization_name, email)
-
-    organization: Organization = await loaders.organization.load(
-        organization_name
-    )
-    if email and not await has_access(loaders, organization.id, email):
-        await add_stakeholder(loaders, organization.id, email, "user_manager")
-
-    return organization
-
-
 async def get_stakeholder_role(
     loaders: Any,
     email: str,

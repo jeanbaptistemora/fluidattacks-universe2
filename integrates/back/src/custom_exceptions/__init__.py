@@ -1270,12 +1270,6 @@ class MachineCanNotOperate(CustomBaseException):
         super(MachineCanNotOperate, self).__init__(msg)
 
 
-class HasActiveRoots(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - This group has active roots"
-        super(HasActiveRoots, self).__init__(msg)
-
-
 class InactiveRoot(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The root is not active"

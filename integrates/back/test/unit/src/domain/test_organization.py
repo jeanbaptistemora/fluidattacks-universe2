@@ -165,21 +165,6 @@ async def test_get_id_for_group() -> None:
         await loaders.group.load("madeup-group")
 
 
-@pytest.mark.changes_db
-async def test_get_or_create() -> None:
-    loaders: Dataloaders = get_new_context()
-    ex_org_name = "okada"
-    email = "unittest@fluidattacks.com"
-    not_ex_org_name = "neworg"
-    existing_org = await orgs_domain.get_or_add(loaders, ex_org_name, email)
-    assert isinstance(existing_org, Organization)
-    assert existing_org.id == "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    not_existent_org = await orgs_domain.get_or_add(
-        loaders, not_ex_org_name, email
-    )
-    assert not_existent_org
-
-
 async def test_get_stakeholder_organizations() -> None:
     loaders: Dataloaders = get_new_context()
     stakeholder_email = "integratesmanager@gmail.com"

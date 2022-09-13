@@ -28,7 +28,6 @@ from custom_exceptions import (
     BillingSubscriptionSameActive,
     ErrorUpdatingGroup,
     GroupNotFound,
-    HasActiveRoots,
     InvalidAcceptanceSeverityRange,
     InvalidGroupName,
     InvalidGroupServicesConfig,
@@ -96,12 +95,6 @@ from db_model.groups.types import (
 )
 from db_model.organizations.types import (
     Organization,
-)
-from db_model.roots.enums import (
-    RootStatus,
-)
-from db_model.roots.types import (
-    Root,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -462,15 +455,6 @@ async def remove_group(
             status=GroupStateStatus.DELETED,
         ),
     )
-
-
-async def validate_open_roots(loaders: Any, group_name: str) -> None:
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
-    if next(
-        (root for root in roots if root.state.status == RootStatus.ACTIVE),
-        None,
-    ):
-        raise HasActiveRoots()
 
 
 async def update_group_managed(
