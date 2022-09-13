@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint react/jsx-no-bind:0 */
 /* eslint react/forbid-component-props: 0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
 import React from "react";
 
@@ -30,6 +32,15 @@ const PlanCard: React.FC<IPlansCard> = ({
   items,
   title,
 }: IPlansCard): JSX.Element => {
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "card-free-trial-click",
+      category: "plans",
+    });
+  };
+
   return (
     <div className={"mh3"}>
       {isMachine ? (
@@ -51,7 +62,7 @@ const PlanCard: React.FC<IPlansCard> = ({
             {description}
           </Paragraph>
           {isMachine ? (
-            <Link to={"/free-trial"}>
+            <Link onClick={matomoFreeTrialEvent} to={"/free-trial"}>
               <NewRegularRedButton className={"mv4 w-100"}>
                 {"Start free trial"}
               </NewRegularRedButton>

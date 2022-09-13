@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint react/jsx-no-bind:0 */
 /* eslint react/forbid-component-props: 0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
 import React from "react";
 
@@ -25,6 +27,15 @@ import { CloudImage } from "../../CloudImage";
 import { Paragraph, Title } from "../../Texts";
 
 const Portrait: React.FC = (): JSX.Element => {
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "cta-free-trial-click",
+      category: "plans",
+    });
+  };
+
   return (
     <Container>
       <PortraitContainer>
@@ -49,7 +60,7 @@ const Portrait: React.FC = (): JSX.Element => {
             {translate.t("plansPage.portrait.paragraph")}
           </Paragraph>
           <FlexCenterItemsContainer className={"flex-wrap"}>
-            <Link to={"/free-trial/"}>
+            <Link onClick={matomoFreeTrialEvent} to={"/free-trial/"}>
               <NewRegularRedButton className={"mh2 mv3"}>
                 {"Start free trial"}
               </NewRegularRedButton>
