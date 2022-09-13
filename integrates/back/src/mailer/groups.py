@@ -195,6 +195,24 @@ async def send_add_repositories_notification(
     )
 
 
+async def send_support_channels_notification(
+    loaders: Any,
+    email_to: str,
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context={},
+        tags=[],
+        subject=(
+            f"[{fname}],  Need help with Continuous Hacking? "
+            "Use our support channels."
+        ),
+        template_name="support_channels_notification",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:

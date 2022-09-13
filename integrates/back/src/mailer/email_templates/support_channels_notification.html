@@ -1,0 +1,69 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p><strong>{{ name }}</strong>,</p>
+    <p>
+      We have several support channels you can use whenever you need help
+      or you want to make a suggestion.
+    </p>
+    <div>
+      <img alt="support channels gif" class="w-100"
+        src="https://res.cloudinary.com/fluid-attacks/image/upload/v1663085023/notifications/support-channels/support-channels.gif"
+        style="display:block;">
+    </div>
+    <p class="mt1">
+      <strong>Live chat:</strong><br/>
+      Use this channel whenever you have a question about any feature
+      of our ARM Platform or need help on its use,
+      and you’d need support right away. You can find Live Chat
+      in the bottom-right of the ARM platform or in the option provided
+      in the help button, to the top-right.
+    </p>
+    <p>
+      <strong>Email support:</strong><br/>
+      You can contact us at <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+      any time and for any reason.
+      This channel is a ticket support system to follow up all requests
+      from our customers. Anyone can send us a concern or request,
+      and our engineers will get back  within the next 24 hours.
+    </p>
+    {{ go_to_button('Go to ARM Platform', 'https://app.fluidattacks.com/', 'primary-button') }}
+    <p class="mt1">
+      To know more about live chat, click
+      <a href="https://docs.fluidattacks.com/machine/web/support/live-chat" rel="noopener noreferrer" target="_blank">here</a>.
+      To know more about email support, click
+      <a href="https://docs.fluidattacks.com/about/security/transparency/help-channel" rel="noopener noreferrer" target="_blank">here</a>.
+    </p>
+    <p>
+      We do have two more support channels:
+      <strong>
+        <a href="https://docs.fluidattacks.com/squad/support/talk-hacker" rel="noopener noreferrer" target="_blank">Talk to a Hacker</a>
+      </strong>
+      and
+      <strong>
+        <a href="https://docs.fluidattacks.com/squad/consulting" rel="noopener noreferrer" target="_blank">Consulting</a>
+      </strong>
+      tabs.
+      These two channels are available in our Squad Plan!
+      <a href="https://fluidattacks.com/plans/" rel="noopener noreferrer" target="_blank">Click here</a>
+      to know more about this plan.
+    </p>
+    <p>Keep adding value to your business with Continuous Hacking!</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
