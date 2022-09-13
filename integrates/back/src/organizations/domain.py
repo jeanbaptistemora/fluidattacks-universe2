@@ -27,6 +27,10 @@ from custom_exceptions import (
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
     StakeholderNotInOrganization,
+    TrialRestriction,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model import (
     credentials as credentials_model,
@@ -358,12 +362,20 @@ async def exists(loaders: Any, organization_name: str) -> bool:
 
 
 async def add_organization(
-    loaders: Any, organization_name: str, email: str
+    loaders: Dataloaders, organization_name: str, email: str
 ) -> Organization:
     if await exists(loaders, organization_name):
         raise InvalidOrganization("Name taken")
     if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
         raise InvalidOrganization("Invalid name")
+
+    enrollment: Enrollment = await loaders.enrollment.load(email)
+    trial = enrollment.trial
+    is_old = trial.completed and not trial.start_date
+    if not is_old and await loaders.stakeholder_organizations_access.load(
+        email
+    ):
+        raise TrialRestriction()
 
     modified_date = datetime_utils.get_iso_date()
     organization = Organization(

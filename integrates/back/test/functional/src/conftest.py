@@ -8,6 +8,10 @@ import asyncio
 from asyncio import (
     AbstractEventLoop,
 )
+from db_model.enrollment.types import (
+    Enrollment,
+    Trial,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -229,6 +233,28 @@ def generic_data(  # pylint: disable=too-many-locals
             "R359": "R359. Avoid using generic exceptions.",
         },
         "db_data": {
+            "enrollments": (
+                Enrollment(
+                    email="admin@gmail.com",
+                    enrolled=True,
+                    trial=Trial(
+                        completed=True,
+                        extension_date="",
+                        extension_days=0,
+                        start_date="",
+                    ),
+                ),
+                Enrollment(
+                    email="admin@fluidattacks.com",
+                    enrolled=True,
+                    trial=Trial(
+                        completed=True,
+                        extension_date="",
+                        extension_days=0,
+                        start_date="",
+                    ),
+                ),
+            ),
             "stakeholders": [
                 Stakeholder(
                     email=admin_email,

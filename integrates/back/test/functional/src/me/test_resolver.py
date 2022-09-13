@@ -50,9 +50,9 @@ from typing import (
             [{"id": "3c475384-834c-47b0-ac71-a41a022e401c"}],
             [],
             {
-                "enrolled": False,
+                "enrolled": True,
                 "trial": {
-                    "completed": False,
+                    "completed": True,
                     "extensionDate": "",
                     "extensionDays": 0,
                     "startDate": "",

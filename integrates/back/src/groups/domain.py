@@ -37,6 +37,10 @@ from custom_exceptions import (
     InvalidParameter,
     RepeatedValues,
     StakeholderNotInOrganization,
+    TrialRestriction,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from datetime import (
     date,
@@ -277,9 +281,24 @@ async def reject_register_for_group_invitation(
     )
 
 
+async def _is_trial(
+    loaders: Dataloaders, user_email: str, organization: Organization
+) -> bool:
+    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    trial = enrollment.trial
+    is_old = trial.completed and not enrollment.trial.start_date
+    has_payment_method = trial.completed and organization.payment_methods
+    if is_old or has_payment_method:
+        return False
+
+    if await loaders.organization_groups.load(organization.id):
+        raise TrialRestriction()
+    return True
+
+
 async def add_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     description: str,
     group_name: str,
     organization_name: str,
@@ -308,13 +327,17 @@ async def add_group(
     organization: Organization = await loaders.organization.load(
         organization_name
     )
-    organization_id = organization.id
-    if not await orgs_domain.has_access(loaders, organization_id, user_email):
-        raise StakeholderNotInOrganization(organization_id)
+    if not await orgs_domain.has_access(loaders, organization.id, user_email):
+        raise StakeholderNotInOrganization(organization.id)
 
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
+    managed = (
+        GroupManaged.TRIAL
+        if await _is_trial(loaders, user_email, organization)
+        else GroupManaged.MANAGED
+    )
     await groups_model.add(
         group=Group(
             created_by=user_email,
@@ -325,7 +348,7 @@ async def add_group(
             state=GroupState(
                 has_machine=has_machine,
                 has_squad=has_squad,
-                managed=GroupManaged("TRIAL"),
+                managed=managed,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 service=service,
@@ -333,14 +356,14 @@ async def add_group(
                 tier=tier,
                 type=subscription,
             ),
-            organization_id=organization_id,
+            organization_id=organization.id,
             sprint_duration=1,
             sprint_start_date=get_min_iso_date(
                 datetime.fromisoformat(datetime_utils.get_iso_date())
             ).isoformat(),
         )
     )
-    await orgs_domain.add_group_access(loaders, organization_id, group_name)
+    await orgs_domain.add_group_access(loaders, organization.id, group_name)
 
     # Admins are not granted access to the group
     # they are omnipresent

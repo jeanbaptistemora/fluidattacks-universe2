@@ -1680,3 +1680,9 @@ class InvalidEventSolvingReason(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The solving reason is not valid for the event type"
         super(InvalidEventSolvingReason, self).__init__(msg)
+
+
+class TrialRestriction(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The action is not allowed during the free trial"
+        super(TrialRestriction, self).__init__(msg)

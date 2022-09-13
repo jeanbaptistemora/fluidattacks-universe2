@@ -16,6 +16,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -159,6 +162,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         const city = "";
         const rut = undefined;
         const taxId = undefined;
+        mixpanel.track("AddPaymentMethod", { method: "TC" });
         await addPaymentMethod({
           variables: {
             businessName,
@@ -211,6 +215,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         const makeDefault = false;
         const rut = handleFileListUpload(rutList);
         const taxId = handleFileListUpload(taxIdList);
+        mixpanel.track("AddPaymentMethod", { method: "Wired" });
         await addPaymentMethod({
           variables: {
             businessName,
