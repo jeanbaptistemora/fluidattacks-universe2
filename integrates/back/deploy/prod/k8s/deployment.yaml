@@ -6,7 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: integrates-${NAME}
-  namespace: production
+  namespace: prod-integrates
 spec:
   replicas: ${REPLICAS}
   selector:
@@ -47,8 +47,8 @@ spec:
             # You can have 1 pod per node, or 2, or 3, etc..
             #
             # Debug if pods were actually able to use the node:
-            #   kubectl get pod -n production
-            #   kubectl describe pod -n production <pod>
+            #   kubectl get pod -n prod-integrates
+            #   kubectl describe pod -n prod-integrates <pod>
             requests:
               cpu: 1000m
               memory: 6000Mi

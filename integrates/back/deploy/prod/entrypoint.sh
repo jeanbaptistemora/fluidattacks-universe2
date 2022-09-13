@@ -5,7 +5,7 @@
 # shellcheck shell=bash
 
 function hpa_replicas {
-  local namespace="production"
+  local namespace="prod-integrates"
   local name="integrates-trunk"
   local replicas
 
@@ -57,7 +57,7 @@ function rollout {
   echo '[INFO] Rolling out update' \
     && kubectl rollout status \
       "deploy/integrates-${name}" \
-      -n 'production' \
+      -n 'prod-integrates' \
       --timeout="30m"
 }
 

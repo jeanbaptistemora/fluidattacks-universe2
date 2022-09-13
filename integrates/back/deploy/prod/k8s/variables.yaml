@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: integrates-${NAME}
-  namespace: production
+  namespace: prod-integrates
 type: Opaque
 data:
   CACHIX_AUTH_TOKEN: ${B64_CACHIX_AUTH_TOKEN}
