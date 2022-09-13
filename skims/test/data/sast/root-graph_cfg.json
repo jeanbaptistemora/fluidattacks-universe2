@@ -81471,9 +81471,7 @@
           },
           "789": {
             "791": {
-              "label_ast": "AST"
-            },
-            "800": {
+              "label_ast": "AST",
               "label_cfg": "CFG"
             }
           },
@@ -81484,7 +81482,8 @@
           },
           "791": {
             "794": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "794": {
@@ -81493,6 +81492,9 @@
             },
             "797": {
               "label_ast": "AST"
+            },
+            "800": {
+              "label_cfg": "CFG"
             }
           },
           "800": {
@@ -83952,6 +83954,7 @@
             "value_type": "string"
           },
           "789": {
+            "block_id": "791",
             "label_type": "ElseClause"
           },
           "79": {

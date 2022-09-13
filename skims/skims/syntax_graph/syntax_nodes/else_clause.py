@@ -16,6 +16,7 @@ def build_else_clause_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
+        block_id=child,
         label_type="ElseClause",
     )
 
