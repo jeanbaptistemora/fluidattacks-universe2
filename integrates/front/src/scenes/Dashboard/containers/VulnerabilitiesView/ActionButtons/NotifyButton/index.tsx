@@ -31,7 +31,7 @@ const NotifyButton: React.FC<INotifyButtonProps> = ({
 
   return (
     <React.StrictMode>
-      {shouldRenderNotifyBtn ? (
+      {shouldRenderNotifyBtn && (
         <Tooltip
           disp={"inline-block"}
           id={"searchFindings.tabDescription.notify.tooltip.id"}
@@ -49,7 +49,7 @@ const NotifyButton: React.FC<INotifyButtonProps> = ({
             </React.Fragment>
           </Button>
         </Tooltip>
-      ) : undefined}
+      )}
     </React.StrictMode>
   );
 };

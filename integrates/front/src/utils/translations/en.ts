@@ -2366,6 +2366,11 @@ export const enTranslations: ResourceKey = {
       voice: "Voice",
       whatsapp: "Whatsapp",
     },
+    notifyModal: {
+      body: "Do you want to send an email notification for this vulnerability",
+      cancel: "Cancel",
+      notify: "Notify",
+    },
     repositoriesTable: {
       state: "State",
     },

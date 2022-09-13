@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 import { EditButton } from "./EditButton";
 import { HandleAcceptanceButton } from "./HandleAcceptanceButton";
+import { NotifyButton } from "./NotifyButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { VerifyVulnerabilitiesButton } from "./VerifyVulnerabilitiesButton";
 
@@ -28,6 +29,7 @@ interface IActionButtonsProps {
   isVerifying: boolean;
   state: "closed" | "open";
   onEdit: () => void;
+  onNotify: () => void;
   onRequestReattack: () => void;
   onVerify: () => void;
   openHandleAcceptance: () => void;
@@ -46,6 +48,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isVerifying,
   state,
   onEdit,
+  onNotify,
   onRequestReattack,
   onVerify,
   openHandleAcceptance,
@@ -72,6 +75,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
+      {state === "open" && (
+        <NotifyButton
+          isDisabled={false}
+          isFindingReleased={isFindingReleased}
+          onNotify={onNotify}
+        />
+      )}
       <Have I={"can_report_vulnerabilities"}>
         <VerifyVulnerabilitiesButton
           areVulnsSelected={areVulnsSelected}

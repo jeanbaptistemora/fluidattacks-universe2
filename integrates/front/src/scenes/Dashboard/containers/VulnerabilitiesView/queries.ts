@@ -99,9 +99,18 @@ const GET_FINDING_ZR_VULNS: DocumentNode = gql`
   ${VULNS_FRAGMENT}
 `;
 
+const SEND_VULNERABILITY_NOTIFICATION: DocumentNode = gql`
+  mutation SendVulnerabilityNotification($findingId: String!) {
+    sendVulnerabilityNotification(findingId: $findingId) {
+      success
+    }
+  }
+`;
+
 export {
   VULNS_FRAGMENT,
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
+  SEND_VULNERABILITY_NOTIFICATION,
 };

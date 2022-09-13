@@ -14,7 +14,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { Modal } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities/helpers";
@@ -93,6 +93,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
   function handleCloseUpdateModal(): void {
     setIsEditing(false);
+  }
+  const [isNotify, setIsNotify] = useState(false);
+  function toggleNotify(): void {
+    setIsNotify(!isNotify);
+  }
+  function handleCloseNotifyModal(): void {
+    setIsNotify(false);
   }
   const [isRequestingVerify, setIsRequestingVerify] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -319,6 +326,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     isVerified={data.finding.verified}
                     isVerifying={isVerifying}
                     onEdit={toggleEdit}
+                    onNotify={toggleNotify}
                     onRequestReattack={toggleRequestVerify}
                     onVerify={toggleVerify}
                     openHandleAcceptance={toggleHandleAcceptanceModal}
@@ -339,7 +347,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             {setColumn()}
           </div>
         </div>
-        {isOpen ? (
+        {isOpen && (
           <UpdateVerificationModal
             clearSelected={_.get(remediationModal, "clearSelected")}
             handleCloseModal={closeRemediationModal}
@@ -350,8 +358,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
             setVerifyState={toggleVerify}
             vulns={remediationModal.selectedVulnerabilities}
           />
-        ) : undefined}
-        {isHandleAcceptanceModalOpen ? (
+        )}
+        {isHandleAcceptanceModalOpen && (
           <HandleAcceptanceModal
             findingId={findingId}
             groupName={groupName}
@@ -359,8 +367,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
             refetchData={refetchVulnsData}
             vulns={vulnerabilities}
           />
-        ) : undefined}
-        {isEditing ? (
+        )}
+        {isEditing && (
           <Modal
             onClose={handleCloseUpdateModal}
             open={isEditing}
@@ -375,7 +383,21 @@ export const VulnsView: React.FC = (): JSX.Element => {
               vulnerabilities={remediationModal.selectedVulnerabilities}
             />
           </Modal>
-        ) : undefined}
+        )}
+        {isNotify && (
+          <Modal
+            onClose={handleCloseNotifyModal}
+            open={isNotify}
+            title={t("searchFindings.notifyModal.body")}
+          >
+            <ModalConfirm
+              onCancel={handleCloseNotifyModal}
+              onConfirm={handleCloseNotifyModal}
+              txtCancel={t("searchFindings.notifyModal.cancel")}
+              txtConfirm={t("searchFindings.notifyModal.notify")}
+            />
+          </Modal>
+        )}
       </React.Fragment>
     </React.StrictMode>
   );
