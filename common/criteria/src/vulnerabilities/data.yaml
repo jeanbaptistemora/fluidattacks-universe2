@@ -1678,7 +1678,7 @@
       Actualizar el protocolo TLS a la versión
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
-      Atacante sin autorización desde red adjacente.
+      Atacante sin autorización desde red adyacente.
   category: Collect Information
   examples:
     non_compliant: |
@@ -13324,7 +13324,7 @@
       of request data, such as url params
       or request headers, this data is not
       properly validated and can lead to
-      python statements being injected to
+      statements being injected to
       execute commands on the server.
     impact: >
       - Execute commands on the server.
@@ -13344,7 +13344,7 @@
       parámetros en la url o cabeceras en la
       solicitud, estos datos no son correctamente
       validados y puede llevar a que se inyecten
-      sentencias de python para ejecutar comandos
+      sentencias para ejecutar comandos
       en el servidor.
     impact: >
       - Ejecutar comandos en el servidor.
@@ -22018,8 +22018,8 @@
       privileges_required: L
       user_interaction: N
       scope: U
-      confidentiality: N
-      integrity: L
+      confidentiality: L
+      integrity: N
       availability: N
     temporal:
       exploit_code_maturity: X
