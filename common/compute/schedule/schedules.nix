@@ -87,6 +87,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_add_repositories_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.add_repositories_notification.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "add_repositories_notification";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   integrates_add_stakeholders_notification = {
     enabled = true;
     command = [
