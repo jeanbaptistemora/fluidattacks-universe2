@@ -1014,6 +1014,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_support_channels_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.support_channels_notification.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "support_channels_notification";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   integrates_temporal_treatment_report = {
     enabled = true;
     command = [
