@@ -23,6 +23,16 @@ to ensure that
 [no known vulnerabilities](/criteria/requirements/155)
 are released to production.
 
+Additionally,
+we run [a bug bounty program](https://www.openbugbounty.org/bugbounty/fluidattacks/)
+to ensure the highest security
+and privacy of our websites.
+Everyone is eligible to participate in the bug bounty program,
+and people is encouraged to find
+and responsibly report vulnerabilities
+through a monetary award
+based on the impact of the vulnerability.
+
 ## Requirements
 
 - [155. Application free of malicious code](/criteria/requirements/155)
