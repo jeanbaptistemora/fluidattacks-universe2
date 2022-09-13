@@ -23,7 +23,7 @@ go to the top-right corner of the
 ARM and click on the question
 mark icon.
 
-![Icon Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1657123646/docs/web/support/section_livechat_option.png)
+![Icon Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1663079208/docs/web/support/livechat_option.png)
 
 A pop-up window will appear
 where you will find Live chat
@@ -31,7 +31,7 @@ next to our other support options.
 Here is how it is shown to
 Machine Plan customers:
 
-![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1657123646/docs/web/support/pop_up_window.png)
+![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1663079208/docs/web/support/popup_window.png)
 
 After you click on Live Chat,
 a chat box will appear in the
