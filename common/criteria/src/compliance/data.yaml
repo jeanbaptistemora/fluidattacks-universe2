@@ -620,6 +620,9 @@ cwe:
     '263':
       title: Password aging with long expiration
       link: https://cwe.mitre.org/data/definitions/263.html
+    '266':
+      title: Incorrect privilege assignment
+      link: https://cwe.mitre.org/data/definitions/266.html
     '267':
       title: Privilege defined with unsafe actions
       link: https://cwe.mitre.org/data/definitions/267.html
@@ -659,9 +662,6 @@ cwe:
     '299':
       title: Improper check for certificate revocation
       link: https://cwe.mitre.org/data/definitions/299.html
-    '300':
-      title: Channel accessible by non-endpoint
-      link: https://cwe.mitre.org/data/definitions/300.html
     '306':
       title: Missing authentication for critical function
       link: https://cwe.mitre.org/data/definitions/306.html
@@ -695,27 +695,18 @@ cwe:
     '327':
       title: Use of a broken or risky cryptographic algorithm
       link: https://cwe.mitre.org/data/definitions/327.html
+    '328':
+      title: Use of weak hash
+      link: https://cwe.mitre.org/data/definitions/328.html
     '330':
       title: Use of insufficiently random values
       link: https://cwe.mitre.org/data/definitions/330.html
     '331':
       title: Insufficient entropy
       link: https://cwe.mitre.org/data/definitions/331.html
-    '332':
-      title: Insufficient entropy in PRNG
-      link: https://cwe.mitre.org/data/definitions/332.html
-    '333':
-      title: Improper handling of insufficient entropy in TRNG
-      link: https://cwe.mitre.org/data/definitions/333.html
     '334':
       title: Small space of random values
       link: https://cwe.mitre.org/data/definitions/334.html
-    '335':
-      title: Incorrect usage of seeds in pseudo-random number generator (PRNG)
-      link: https://cwe.mitre.org/data/definitions/335.html
-    '338':
-      title: Use of cryptographically weak pseudo-random number generator (PRNG)
-      link: https://cwe.mitre.org/data/definitions/338.html
     '340':
       title: Generation of predictable numbers or identifiers
       link: https://cwe.mitre.org/data/definitions/340.html
