@@ -8,14 +8,10 @@ from __future__ import (
     annotations,
 )
 
-from datetime import (
-    datetime,
-)
 from enum import (
     Enum,
 )
 from typing import (
-    Any,
     Dict,
     List,
     NamedTuple,
@@ -31,11 +27,6 @@ class Platform(Enum):
     MAVEN: str = "MAVEN"
     NUGET: str = "NUGET"
     GEM: str = "GEM"
-
-
-class Grammar(Enum):
-    JAVA9: str = "Java9"
-    SCALA: str = "Scala"
 
 
 class DependenciesTypeEnum(Enum):
@@ -105,16 +96,6 @@ class ExecutionQueue(Enum):
     xss = ExecutionQueueConfig(
         availability=AvailabilityEnum.ALWAYS, name="xss"
     )
-
-
-if len(ExecutionQueue) > 20:
-    # We can have at most 20 items in this Enum
-    # Each item in this Enum represents 2 queues:
-    #   Soon (urgent): used for re-attacks
-    #   Later (non-urgent): is used for periodic executions
-    # Batch has a limit of 50 queues, 10 for other products
-    # https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html
-    raise AssertionError("We can't allocate so many queues")
 
 
 class FindingMetadata(NamedTuple):
@@ -1034,35 +1015,6 @@ FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
 }
 
 
-class FindingEvidenceIDEnum(Enum):
-    ANIMATION: str = "ANIMATION"
-    EVIDENCE1: str = "EVIDENCE1"
-    EVIDENCE2: str = "EVIDENCE2"
-    EVIDENCE3: str = "EVIDENCE3"
-    EVIDENCE4: str = "EVIDENCE4"
-    EVIDENCE5: str = "EVIDENCE5"
-    EXPLOIT: str = "EXPLOIT"
-    EXPLOITATION: str = "EXPLOITATION"
-    RECORDS: str = "RECORDS"
-
-
-class FindingEvidenceDescriptionIDEnum(Enum):
-    EVIDENCE1: str = "EVIDENCE1"
-    EVIDENCE2: str = "EVIDENCE2"
-    EVIDENCE3: str = "EVIDENCE3"
-    EVIDENCE4: str = "EVIDENCE4"
-    EVIDENCE5: str = "EVIDENCE5"
-
-
-class FindingReleaseStatusEnum(Enum):
-    APPROVED: str = "APPROVED"
-    CREATED: str = "CREATED"
-    DELETED: str = "DELETED"
-    MASKED: str = "MASKED"
-    REJECTED: str = "REJECTED"
-    SUBMITTED: str = "SUBMITTED"
-
-
 class VulnerabilityStateEnum(Enum):
     OPEN: str = "open"
     CLOSED: str = "closed"
@@ -1074,42 +1026,9 @@ class VulnerabilityKindEnum(Enum):
     PORTS: str = "ports"
 
 
-class VulnerabilitySourceEnum(Enum):
-    INTEGRATES: str = "integrates"
-    SKIMS: str = "skims"
-
-
-class VulnerabilityVerificationStateEnum(Enum):
-    MASKED: str = "MASKED"
-    ON_HOLD: str = "ON_HOLD"
-    REQUESTED: str = "REQUESTED"
-    VERIFIED: str = "VERIFIED"
-
-
-class VulnerabilityVerification(NamedTuple):
-    date: datetime
-    state: VulnerabilityVerificationStateEnum
-
-
 class GrammarMatch(NamedTuple):
     start_column: int
     start_line: int
-
-
-class IntegratesVulnerabilityMetadata(NamedTuple):
-    commit_hash: Optional[str] = None
-    source: Optional[VulnerabilitySourceEnum] = None
-    verification: Optional[VulnerabilityVerification] = None
-    uuid: Optional[str] = None
-
-
-class NVDVulnerability(NamedTuple):
-    code: str
-    cvss: str
-    description: str
-    product: str
-    url: str
-    version: str
 
 
 class SkimsAPKConfig(NamedTuple):
@@ -1182,37 +1101,6 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     technique: TechniqueEnum
 
 
-class IntegratesVulnerabilitiesTool(NamedTuple):
-    name: str = "machine"
-    impact: str = "direct"
-
-
-class IntegratesVulnerabilitiesLines(NamedTuple):
-    commit_hash: str
-    line: str
-    path: str
-    repo_nickname: str
-    state: VulnerabilityStateEnum
-    skims_method: Optional[str]
-    skims_technique: Optional[str]
-    developer: Optional[str]
-    source: Optional[str] = "machine"
-    tool: IntegratesVulnerabilitiesTool = IntegratesVulnerabilitiesTool()
-
-
-class IntegratesVulnerabilitiesInputs(NamedTuple):
-    field: str
-    repo_nickname: str
-    state: VulnerabilityStateEnum
-    stream: str
-    url: str
-    skims_method: Optional[str]
-    skims_technique: Optional[str]
-    developer: Optional[str]
-    source: Optional[str] = "machine"
-    tool: IntegratesVulnerabilitiesTool = IntegratesVulnerabilitiesTool()
-
-
 class Vulnerability(NamedTuple):
     finding: FindingEnum
     kind: VulnerabilityKindEnum
@@ -1222,7 +1110,6 @@ class Vulnerability(NamedTuple):
     namespace: str
     stream: Optional[str] = "skims"
 
-    integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None
 
     @property
@@ -1279,14 +1166,6 @@ class Vulnerability(NamedTuple):
 
 
 Vulnerabilities = Tuple[Vulnerability, ...]
-
-
-class PersistResult(NamedTuple):
-    success: bool
-    diff_result: Optional[Any] = None
-
-    def __bool__(self) -> bool:
-        return self.success
 
 
 class DeveloperEnum(Enum):
