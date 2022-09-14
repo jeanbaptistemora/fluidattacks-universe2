@@ -77,6 +77,16 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "type": "specific_file",
     },
     {
+        "name": "makes.nix",
+        "description": "makes root dir",
+        "type": "specific_file",
+    },
+    {
+        "name": "main.nix",
+        "description": "nix root dir",
+        "type": "specific_file",
+    },
+    {
         "name": "build.gradle",
         "requires": [
             {"name": "directory", "values": ["src"], "optional": True}
@@ -660,11 +670,13 @@ def start_execution(
 @click.option("--root-nickname", required=True)
 @click.option("--api-token", required=True)
 @click.option("--job-id", required=True, envvar="AWS_BATCH_JOB_ID")
+@click.option("--checks", required=True)
 def finish_execution(
     group_name: str,
     root_nickname: str,
     api_token: str,
     job_id: str,
+    checks: str,
 ) -> None:
     result = do_finish_execution(
         token=api_token,
@@ -672,7 +684,14 @@ def finish_execution(
         group_name=group_name,
         job_id=job_id,
         end_date=datetime.now().isoformat(),
-        findings_executed=tuple(),
+        findings_executed=tuple(
+            {
+                "finding": item,
+                "modified": 0,
+                "open": 0,
+            }
+            for item in json.loads(checks)
+        ),
     )
     if not result:
         print(f"Failed to finish {job_id}")

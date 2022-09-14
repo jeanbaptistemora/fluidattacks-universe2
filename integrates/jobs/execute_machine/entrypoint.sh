@@ -69,7 +69,8 @@ function main() {
                   && python3 __argScript__ finish-execution \
                     --group-name "${group_name}" \
                     --root-nickname "${root}" \
-                    --api-token "${INTEGRATES_API_TOKEN}"
+                    --api-token "${INTEGRATES_API_TOKEN}" \
+                    --checks "${checks}"
               fi
           done
       done \
