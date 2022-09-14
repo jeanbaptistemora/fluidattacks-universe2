@@ -6,6 +6,9 @@
 from model import (
     Credentials,
 )
+from selenium.common.exceptions import (
+    TimeoutException,
+)
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
@@ -176,16 +179,19 @@ def test_org_groups(
         timeout,
     )
     add_group.click()
-    close_tour = utils.wait_for_aria_label_by_parent(
-        driver=driver,
-        parent_id="react-joyride-step-0",
-        parent_element="div",
-        element="button",
-        text="Skip",
-        timeout=timeout,
-    )
-    close_tour.click()
-    add_group.click()
+    try:
+        close_tour = utils.wait_for_aria_label_by_parent(
+            driver=driver,
+            parent_id="react-joyride-step-0",
+            parent_element="div",
+            element="button",
+            text="Skip",
+            timeout=timeout,
+        )
+        close_tour.click()
+        add_group.click()
+    except TimeoutException:
+        pass
     name = utils.wait_for_id(driver, "add-group-name", timeout)
     name.send_keys(group_name)
     description = utils.wait_for_id(driver, "add-group-description", timeout)
