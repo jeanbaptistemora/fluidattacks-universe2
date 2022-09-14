@@ -1250,6 +1250,8 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_group_mutate",
             "front_can_edit_credentials_secrets_in_bulk",
             "front_can_use_groups_searchbar",
+            "front_can_retrieve_todo_drafts",
+            "front_can_retrieve_todo_reattacks",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],
