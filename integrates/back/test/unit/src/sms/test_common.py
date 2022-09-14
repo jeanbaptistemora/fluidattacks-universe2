@@ -33,5 +33,5 @@ async def test_send_sms_notification() -> None:
                 phone_number=test_phone_number,
                 message_body=test_message,
             )
-        assert mock_twilio.called is True
-        assert mock_result is None
+    assert mock_twilio.called is True
+    assert mock_result is None

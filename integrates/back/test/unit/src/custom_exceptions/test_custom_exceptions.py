@@ -23,6 +23,7 @@ from custom_exceptions import (
     OrganizationNotFound,
     RepeatedValues,
     StakeholderNotFound,
+    UnableToSendSms,
     UnavailabilityError,
     VulnNotFound,
 )
@@ -69,11 +70,20 @@ import pytest
 from s3 import (
     operations as s3_ops,
 )
+from sms.common import (
+    send_sms_notification,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
 from starlette.datastructures import (
     UploadFile,
+)
+from twilio.base.exceptions import (
+    TwilioRestException,
+)
+from unittest import (
+    mock,
 )
 import uuid
 from vulnerabilities.domain import (
@@ -379,6 +389,21 @@ async def test_remove_stakeholder() -> None:
     loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await loaders.stakeholder.load(email)
+
+
+async def test_exception_unable_to_send_sms() -> None:
+    status = 500
+    uri = "/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json"
+    test_phone_number = "12345678"
+    test_message = "This is a test message"
+    with mock.patch("sms.common.FI_ENVIRONMENT", "production"):
+        with mock.patch("sms.common.client.messages.create") as mock_twilio:
+            mock_twilio.side_effect = TwilioRestException(status, uri)
+            with pytest.raises(UnableToSendSms):
+                await send_sms_notification(
+                    phone_number=test_phone_number,
+                    message_body=test_message,
+                )
 
 
 async def test_exception_unavailability_error() -> None:
