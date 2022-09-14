@@ -84,8 +84,8 @@ def format_event(item: Item) -> Event:
         else None,
         client=item["client"],
         context=item.get("context"),
-        created_by=item.get("created_by"),
-        created_date=item.get("created_date"),
+        created_by=item["created_by"],
+        created_date=item["created_date"],
         description=item["description"],
         event_date=item["event_date"],
         evidences=format_evidences(item["evidences"]),
@@ -113,6 +113,8 @@ def format_event(item: Item) -> Event:
 def format_event_item(event: Event) -> Item:
     return {
         "client": event.client,
+        "created_by": event.created_by,
+        "created_date": event.created_date,
         "description": event.description,
         "event_date": event.event_date,
         "evidences": json.loads(json.dumps(event.evidences)),

@@ -45,6 +45,8 @@ class EventUnreliableIndicators(NamedTuple):
 
 class Event(NamedTuple):
     client: str
+    created_by: str
+    created_date: str
     description: str
     event_date: str
     evidences: EventEvidences
@@ -60,8 +62,6 @@ class Event(NamedTuple):
         EventActionsBeforeBlocking
     ] = None  # Deprecated
     context: Optional[str] = None  # Deprecated
-    created_by: Optional[str] = None
-    created_date: Optional[str] = None
     root_id: Optional[str] = None
     unreliable_indicators: EventUnreliableIndicators = (
         EventUnreliableIndicators()
