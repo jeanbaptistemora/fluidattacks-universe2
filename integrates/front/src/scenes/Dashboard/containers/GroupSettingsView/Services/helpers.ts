@@ -21,6 +21,11 @@ const handleEditGroupDataError = ({ graphQLErrors }: ApolloError): void => {
       msgError(
         translate.t("searchFindings.servicesTable.errors.invalidManaged")
       );
+    } else if (
+      error.message ===
+      "Exception - The action is not allowed during the free trial"
+    ) {
+      msgError(translate.t("searchFindings.servicesTable.errors.trial"));
     } else {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred editing group services", error);

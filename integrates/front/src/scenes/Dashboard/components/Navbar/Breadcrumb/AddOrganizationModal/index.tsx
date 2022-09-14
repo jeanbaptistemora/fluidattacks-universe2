@@ -58,6 +58,11 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
             msgError(t(`${tPath}invalidName`));
           } else if (message === "Name taken") {
             msgError(t(`${tPath}nameTaken`));
+          } else if (
+            message ===
+            "Exception - The action is not allowed during the free trial"
+          ) {
+            msgError(t(`${tPath}trial`));
           } else {
             msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(

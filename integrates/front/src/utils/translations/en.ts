@@ -1847,6 +1847,7 @@ export const enTranslations: ResourceKey = {
             yes: "Yes",
           },
           titleSuccess: "Success",
+          trial: "You can only have one group during the free trial",
           type: {
             continuous: "Continuous Hacking",
             oneShot: "One-Shot Hacking",
@@ -2409,6 +2410,7 @@ export const enTranslations: ResourceKey = {
         organizationNotExists: "Target organization does not exist",
         squadOnlyIfContinuous:
           "Squad is only available in groups of type Continuous-Hacking",
+        trial: "You can only have the machine service during the free trial",
         userNotInOrganization:
           "User is not a member of the target organization",
       },
@@ -3460,6 +3462,7 @@ export const enTranslations: ResourceKey = {
         success: "Organization {{name}} created successfully",
         successTitle: "Success",
         title: "New organization",
+        trial: "You can only have one organization during the free trial",
       },
       text: "New Org...",
       tooltip: "Create new organization",

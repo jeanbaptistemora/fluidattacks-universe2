@@ -14,6 +14,9 @@ import { translate } from "utils/translations/translate";
 const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
+      case "Exception - The action is not allowed during the free trial":
+        msgError(translate.t("organization.tabs.groups.newGroup.trial"));
+        break;
       case "Exception - Error invalid group name":
         msgError(translate.t("organization.tabs.groups.newGroup.invalidName"));
         break;
