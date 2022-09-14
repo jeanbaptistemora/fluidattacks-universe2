@@ -143,7 +143,7 @@ fields validated to make a root.
 The role that will receive
 this notification is User Manager.
 
-![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1660854661/docs/web/notifications/notif_root_added.png)
+![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173706/docs/web/notifications/root_added.png)
 
 ### Root updates (root moved)
 
@@ -162,7 +162,7 @@ The message includes which
 root was moved,
 where from and where to.
 
-![Root Moved](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_root_moved.png)
+![Root Moved](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173783/docs/web/notifications/root_moved.png)
 
 ### Root updates (root deactivated)
 
@@ -186,7 +186,7 @@ the closed vulnerabilities
 that were found with SAST
 and DAST.
 
-![Root Deactivated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_root_deactivated.png)
+![Root Deactivated](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173744/docs/web/notifications/root_deactivated.png)
 
 ### Updated root
 
@@ -198,7 +198,7 @@ is changed will be notified.
 The role that receives this
 email is the User Manager.
 
-![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1660859135/docs/web/notifications/notif_updated_root.png)
+![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174050/docs/web/notifications/root_updated.png)
 
 ### Analytics report
 
@@ -318,7 +318,7 @@ before the end of the time set
 for the temporary acceptance
 of a vulnerability.
 
-![Treatment Expiration Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1657719383/docs/web/notifications/notif_treat_exp_alert.png)
+![Treatment Expiration Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174161/docs/web/notifications/treatmt_exp_alert.png)
 
 ### Treatment report
 
@@ -447,7 +447,7 @@ when the user completes the
 process of creating the repository,
 the organization and the group.
 
-![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1660849148/docs/web/notifications/notif_free_trial.png)
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174095/docs/web/notifications/free_start_trial.png)
 
 ### Missing registered environments
 
@@ -460,7 +460,7 @@ which will be generated when
 no environments have been
 registered in a group.
 
-![Missing Environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1660860459/docs/web/notifications/notif_missing_env.png)
+![Missing Environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173395/docs/web/notifications/missing_reg_environmt.png)
 
 ## Notifications exclusive to Fluid Attacks staff
 
@@ -480,7 +480,7 @@ you will receive an email
 telling you when a draft
 is submitted for revision.
 
-![New Draft](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_new_draft.png)
+![New Draft](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173446/docs/web/notifications/new_draft.png)
 
 ### Draft updates (draft rejected)
 
@@ -528,7 +528,7 @@ a button that says
 which will lead you to the
 type of vulnerability in question.
 
-![Vulnerability Remediated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vuln_remediated.png)
+![Vulnerability Remediated](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174233/docs/web/notifications/vulnerability_remediated.png)
 
 ### Vulnerability updates (pending to verify)
 
@@ -544,7 +544,7 @@ generated and sent by
 on weekdays at 5:30 AM and
 4:30 PM (GMT-5).
 
-![Pending To Verify](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_pendent_verify.png)
+![Pending To Verify](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173622/docs/web/notifications/pending_verify.png)
 
 ### Vulnerability updates (type of vulnerability deleted)
 
@@ -563,4 +563,4 @@ the name of the type
 of vulnerability,
 the ID and the justification.
 
-![Vulnerability Deleted](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vuln_deleted.png)
+![Vulnerability Deleted](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174276/docs/web/notifications/vul_type_deleted.png)
