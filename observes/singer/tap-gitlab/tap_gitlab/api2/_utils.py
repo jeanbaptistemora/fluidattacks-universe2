@@ -73,9 +73,24 @@ class JsonDecodeUtils:
         base = self.get(key).map(lambda j: Unfolder(j)).map(transform)
         return merge_maybe_result(base)
 
+    def get_str(self, key: str) -> ResultE[Maybe[str]]:
+        return self.get_generic(
+            key, lambda u: u.to_primitive(str).alt(Exception)
+        )
+
+    def get_float(self, key: str) -> ResultE[Maybe[float]]:
+        return self.get_generic(
+            key, lambda u: u.to_primitive(float).alt(Exception)
+        )
+
     def require_str(self, key: str) -> ResultE[str]:
         return self.require_generic(
             key, lambda u: u.to_primitive(str).alt(Exception)
+        )
+
+    def require_float(self, key: str) -> ResultE[float]:
+        return self.require_generic(
+            key, lambda u: u.to_primitive(float).alt(Exception)
         )
 
     def require_int(self, key: str) -> ResultE[int]:

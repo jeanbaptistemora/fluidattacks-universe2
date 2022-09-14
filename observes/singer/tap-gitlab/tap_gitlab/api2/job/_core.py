@@ -34,21 +34,36 @@ class Commit:
 
 
 @dataclass(frozen=True)
-class Job:
-    commit: Commit
-    allow_failure: bool
+class JobDates:
     created_at: datetime
     started_at: Maybe[datetime]
     finished_at: Maybe[datetime]
+
+
+@dataclass(frozen=True)
+class JobConf:
+    allow_failure: bool
     tag_list: FrozenList[str]
     ref_branch: str
     runner: Maybe[str]
     stage: str
+
+
+@dataclass(frozen=True)
+class JobResultStatus:
     status: str
     failure_reason: Maybe[str]
     duration: Maybe[Decimal]
     queued_duration: Maybe[Decimal]
     user_id: int
+
+
+@dataclass(frozen=True)
+class Job:
+    commit: Commit
+    dates: JobDates
+    conf: JobConf
+    result: JobResultStatus
 
 
 @dataclass(frozen=True)

@@ -5,13 +5,19 @@
 from ._core import (
     Commit,
     Job,
+    JobConf,
+    JobDates,
     JobId,
     JobObj,
+    JobResultStatus,
 )
 
 __all__ = [
     "JobObj",
     "JobId",
     "Job",
+    "JobDates",
+    "JobConf",
+    "JobResultStatus",
     "Commit",
 ]
