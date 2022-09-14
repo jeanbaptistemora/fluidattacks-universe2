@@ -279,13 +279,11 @@ async def _is_trial(
 ) -> bool:
     enrollment: Enrollment = await loaders.enrollment.load(user_email)
     trial = enrollment.trial
-    is_old = trial.completed and not enrollment.trial.start_date
+    is_old = trial.completed and not trial.start_date
     has_payment_method = trial.completed and organization.payment_methods
+
     if is_old or has_payment_method:
         return False
-
-    if await loaders.organization_groups.load(organization.id):
-        raise TrialRestriction()
     return True
 
 
@@ -326,11 +324,19 @@ async def add_group(
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    managed = (
-        GroupManaged.TRIAL
-        if await _is_trial(loaders, user_email, organization)
-        else GroupManaged.MANAGED
-    )
+    if await _is_trial(loaders, user_email, organization):
+        managed = GroupManaged.TRIAL
+        if (
+            await loaders.organization_groups.load(organization.id)
+            or has_squad
+            or not has_machine
+            or service != GroupService.WHITE
+            or subscription != GroupSubscriptionType.CONTINUOUS
+        ):
+            raise TrialRestriction()
+    else:
+        managed = GroupManaged.MANAGED
+
     await groups_model.add(
         group=Group(
             created_by=user_email,
@@ -545,7 +551,7 @@ async def update_group_payment_id(
 
 async def update_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comments: str,
     group_name: str,
     has_asm: bool,
@@ -566,6 +572,17 @@ async def update_group(
     )
 
     group: Group = await loaders.group.load(group_name)
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    if await _is_trial(loaders, user_email, organization) and (
+        has_squad
+        or not has_machine
+        or service != GroupService.WHITE
+        or subscription != GroupSubscriptionType.CONTINUOUS
+    ):
+        raise TrialRestriction()
+
     if service != group.state.service:
         await deactivate_all_roots(
             loaders=loaders,

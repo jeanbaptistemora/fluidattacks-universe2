@@ -609,7 +609,7 @@ async def test_update_group_attrs(
         service=service,
         subscription=subscription,
         tier=tier,
-        user_email="test@test.test",
+        user_email="integratesmanager@fluidattacks.com",
     )
 
 
