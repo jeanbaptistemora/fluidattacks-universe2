@@ -30,9 +30,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     parameter = graph.nodes[args.n_id]
     type_id = parameter.get("label_field_type")
-    identifier_id = parameter["label_field_name"]
 
-    variable = node_to_str(graph, identifier_id)
+    variable = (
+        node_to_str(graph, identifier_id)
+        if (identifier_id := parameter.get("label_field_name"))
+        else None
+    )
     variable_type = None if type_id is None else node_to_str(graph, type_id)
     modifiers_id = match_ast_d(graph, args.n_id, "modifiers")
 

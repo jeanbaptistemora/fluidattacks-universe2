@@ -15,17 +15,21 @@ from typing import (
 
 def build_parameter_node(
     args: SyntaxGraphArgs,
-    variable: str,
+    variable: Optional[str],
     variable_type: Optional[str],
     modifier: Optional[str],
 ) -> NId:
 
     args.syntax_graph.add_node(
         args.n_id,
-        variable=variable,
-        variable_type=variable_type,
         label_type="Parameter",
     )
+
+    if variable:
+        args.syntax_graph.nodes[args.n_id]["variable"] = variable
+
+    if variable_type:
+        args.syntax_graph.nodes[args.n_id]["variable_type"] = variable_type
 
     if modifier:
         args.syntax_graph.add_edge(

@@ -10,8 +10,10 @@ from syntax_graph.syntax_readers.common import (
     execution_block as common_execution_block,
     identifier as common_identifier,
     library_name as common_library_name,
+    method_declaration as common_method_declaration,
     number_literal as common_number_literal,
     operator as common_operator,
+    parameter as common_parameter,
     parameter_list as common_parameter_list,
     program as common_program,
     reserved_word as common_reserved_word,
@@ -22,6 +24,7 @@ from syntax_graph.syntax_readers.dart import (
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
+    declaration_block as dart_declaration_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
     function_body as dart_function_body,
@@ -31,6 +34,7 @@ from syntax_graph.syntax_readers.dart import (
     method_signature as dart_method_signature,
     selector as dart_selector,
     type_identifier as dart_type_identifier,
+    variable_declaration as dart_variable_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -87,6 +91,12 @@ DART_DISPATCHERS: Dispatchers = (
             "documentation_comment",
         },
         syntax_reader=common_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "declaration",
+        },
+        syntax_reader=dart_declaration_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -153,6 +163,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "constructor_signature",
+        },
+        syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "method_signature",
         },
         syntax_reader=dart_method_signature.reader,
@@ -163,6 +179,12 @@ DART_DISPATCHERS: Dispatchers = (
             "equality_operator",
         },
         syntax_reader=common_operator.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameter",
+        },
+        syntax_reader=common_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -205,5 +227,11 @@ DART_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "local_variable_declaration",
+        },
+        syntax_reader=dart_variable_declaration.reader,
     ),
 )

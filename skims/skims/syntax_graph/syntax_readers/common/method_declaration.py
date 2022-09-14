@@ -5,9 +5,6 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.blockless_method_declaration import (
-    build_blockless_method_declaration_node,
-)
 from syntax_graph.syntax_nodes.method_declaration import (
     build_method_declaration_node,
 )
@@ -45,10 +42,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "modifiers_id": modifiers_id,
         "parameters_id": parameters_id,
     }
-
-    if not block_id:
-        return build_blockless_method_declaration_node(
-            args, name, children_nid
-        )
 
     return build_method_declaration_node(args, name, block_id, children_nid)

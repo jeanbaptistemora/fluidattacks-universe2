@@ -17,13 +17,12 @@ from typing import (
 def build_method_declaration_node(
     args: SyntaxGraphArgs,
     name: Optional[NId],
-    block_id: NId,
+    block_id: Optional[NId],
     children: Dict[str, Optional[NId]],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         name=name,
-        block_id=block_id,
         label_type="MethodDeclaration",
     )
 
@@ -39,10 +38,13 @@ def build_method_declaration_node(
                 label_ast="AST",
             )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(block_id)),
-        label_ast="AST",
-    )
+    if block_id:
+        args.syntax_graph.nodes[args.n_id]["block_id"] = block_id
+
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(block_id)),
+            label_ast="AST",
+        )
 
     return args.n_id
