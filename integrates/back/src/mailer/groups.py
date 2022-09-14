@@ -213,6 +213,26 @@ async def send_support_channels_notification(
     )
 
 
+async def send_analytics_notification(
+    loaders: Any, email_to: str, group_name: str
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    org_name = await get_organization_name(loaders, group_name)
+    context = {
+        "payment_link": f"{BASE_URL}/orgs/{org_name}/analytics",
+    }
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context=context,
+        tags=[],
+        subject=(
+            f"[{fname}], check your Continuous Hacking numbers: Analytics."
+        ),
+        template_name="analytics_notification",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
