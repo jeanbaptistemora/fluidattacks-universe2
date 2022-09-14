@@ -60,21 +60,21 @@ class StrFile:
     @staticmethod
     def new(content: PureIter[str]) -> Cmd[StrFile]:
         def _action() -> StrFile:
-            file = NamedTemporaryFile("w", delete=False)
-            file.writelines(content)
-            file.close()
-            return StrFile(_StrFile(file.name))
+            file_object = NamedTemporaryFile("w", delete=False)
+            file_object.writelines(content)
+            file_object.close()
+            return StrFile(_StrFile(file_object.name))
 
         return Cmd.from_cmd(_action)
 
     @staticmethod
     def save(content: Stream[str]) -> Cmd[StrFile]:
         def _action(act: CmdUnwrapper) -> StrFile:
-            file = NamedTemporaryFile("w", delete=False)
-            LOG.debug("Saving stream into %s", file.name)
-            file.writelines(act.unwrap(content.unsafe_to_iter()))
-            file.close()
-            return StrFile(_StrFile(file.name))
+            file_object = NamedTemporaryFile("w", delete=False)
+            LOG.debug("Saving stream into %s", file_object.name)
+            file_object.writelines(act.unwrap(content.unsafe_to_iter()))
+            file_object.close()
+            return StrFile(_StrFile(file_object.name))
 
         return new_cmd(_action)
 

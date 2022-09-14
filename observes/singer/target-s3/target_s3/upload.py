@@ -33,7 +33,7 @@ class S3FileUploader:
     _prefix: str
 
     def upload_to_s3(self, group: RecordGroup) -> Cmd[None]:
-        file = save(group)
+        file_object = save(group)
         file_key = self._prefix + group.schema.stream + ".csv"
         msg = _utils.log_cmd(
             lambda: LOG.info(
@@ -50,7 +50,7 @@ class S3FileUploader:
             ),
             None,
         )
-        return file.bind(
+        return file_object.bind(
             lambda f: f.over_binary(
                 lambda f: msg
                 + Cmd.from_cmd(

@@ -70,10 +70,10 @@ class TempReadOnlyFile:
     @staticmethod
     def new(content: PureIter[str]) -> Cmd[TempReadOnlyFile]:
         def _action() -> TempReadOnlyFile:
-            file = NamedTemporaryFile("w", delete=False)
-            file.writelines(content)
-            file.close()
-            return TempReadOnlyFile(_TempReadOnlyFile(file.name))
+            file_object = NamedTemporaryFile("w", delete=False)
+            file_object.writelines(content)
+            file_object.close()
+            return TempReadOnlyFile(_TempReadOnlyFile(file_object.name))
 
         return Cmd.from_cmd(_action)
 
@@ -86,21 +86,21 @@ class TempReadOnlyFile:
         """
 
         def _action(act: CmdUnwrapper) -> TempReadOnlyFile:
-            file = NamedTemporaryFile("w", delete=False)
-            act.unwrap(write_cmd(file))
-            file.close()
-            return TempReadOnlyFile(_TempReadOnlyFile(file.name))
+            file_object = NamedTemporaryFile("w", delete=False)
+            act.unwrap(write_cmd(file_object))
+            file_object.close()
+            return TempReadOnlyFile(_TempReadOnlyFile(file_object.name))
 
         return new_cmd(_action)
 
     @staticmethod
     def save(content: Stream[str]) -> Cmd[TempReadOnlyFile]:
         def _action(act: CmdUnwrapper) -> TempReadOnlyFile:
-            file = NamedTemporaryFile("w", delete=False)
-            LOG.debug("Saving stream into %s", file.name)
-            file.writelines(act.unwrap(content.unsafe_to_iter()))
-            file.close()
-            return TempReadOnlyFile(_TempReadOnlyFile(file.name))
+            file_object = NamedTemporaryFile("w", delete=False)
+            LOG.debug("Saving stream into %s", file_object.name)
+            file_object.writelines(act.unwrap(content.unsafe_to_iter()))
+            file_object.close()
+            return TempReadOnlyFile(_TempReadOnlyFile(file_object.name))
 
         return new_cmd(_action)
 

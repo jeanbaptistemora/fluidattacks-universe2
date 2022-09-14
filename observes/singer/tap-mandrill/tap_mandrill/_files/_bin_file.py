@@ -66,11 +66,11 @@ class BinFile:
     @staticmethod
     def save(content: Stream[bytes]) -> Cmd[BinFile]:
         def _action(act: CmdUnwrapper) -> BinFile:
-            file = NamedTemporaryFile("wb", delete=False)
-            LOG.debug("Saving bin file into %s", file.name)
-            file.writelines(act.unwrap(content.unsafe_to_iter()))
-            file.close()
-            return BinFile(_BinFile(file.name))
+            file_object = NamedTemporaryFile("wb", delete=False)
+            LOG.debug("Saving bin file into %s", file_object.name)
+            file_object.writelines(act.unwrap(content.unsafe_to_iter()))
+            file_object.close()
+            return BinFile(_BinFile(file_object.name))
 
         return new_cmd(_action)
 
