@@ -38,3 +38,8 @@ class GroupAccessMetadataToUpdate(NamedTuple):
     invitation: Optional[GroupInvitation] = None
     responsibility: Optional[str] = None
     role: Optional[str] = None
+
+
+class GroupAccessRequest(NamedTuple):
+    email: str
+    group_name: str

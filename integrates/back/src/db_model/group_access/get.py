@@ -4,6 +4,7 @@
 
 from .types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from .utils import (
     format_group_access,
@@ -33,28 +34,39 @@ from typing import (
 
 
 async def _get_group_access(
-    *,
-    email: str,
-    group_name: str,
-) -> GroupAccess:
-    email = email.lower().strip()
-    group_name = group_name.lower().strip()
-    primary_key = keys.build_key(
-        facet=TABLE.facets["group_access"],
-        values={
-            "email": email,
-            "name": group_name,
-        },
+    *, requests: tuple[GroupAccessRequest, ...]
+) -> tuple[GroupAccess, ...]:
+    requests = tuple(
+        request._replace(
+            group_name=request.group_name.lower().strip(),
+            email=request.email.lower().strip(),
+        )
+        for request in requests
     )
-    item = await operations.get_item(
-        facets=(TABLE.facets["group_access"],),
-        key=primary_key,
-        table=TABLE,
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["group_access"],
+            values={
+                "email": request.email,
+                "name": request.group_name,
+            },
+        )
+        for request in requests
     )
-    if not item:
-        raise StakeholderNotInGroup()
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    return format_group_access(item)
+    if len(items) == len(requests):
+        response = {
+            GroupAccessRequest(
+                group_name=group_access.group_name, email=group_access.email
+            ): group_access
+            for group_access in tuple(
+                format_group_access(item) for item in items
+            )
+        }
+        return tuple(response[request] for request in requests)
+
+    raise StakeholderNotInGroup()
 
 
 async def _get_group_stakeholders_access(
@@ -88,7 +100,10 @@ async def _get_group_stakeholders_access(
     for item in response.items:
         access = format_group_access(item)
         access_list.append(access)
-        access_dataloader.prime((group_name, access.email), access)
+        access_dataloader.prime(
+            GroupAccessRequest(group_name=group_name, email=access.email),
+            access,
+        )
 
     return tuple(access_list)
 
@@ -120,7 +135,10 @@ async def _get_stakeholder_groups_access(
     for item in response.items:
         access = format_group_access(item)
         access_list.append(access)
-        access_dataloader.prime((access.group_name, email), access)
+        access_dataloader.prime(
+            GroupAccessRequest(group_name=access.group_name, email=email),
+            access,
+        )
 
     return tuple(access_list)
 
@@ -128,14 +146,9 @@ async def _get_stakeholder_groups_access(
 class GroupAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, access_keys: Iterable[tuple[str, str]]
+        self, requests: Iterable[GroupAccessRequest]
     ) -> tuple[GroupAccess, ...]:
-        return await collect(
-            tuple(
-                _get_group_access(email=email, group_name=group_name)
-                for group_name, email in access_keys
-            )
-        )
+        return await _get_group_access(requests=tuple(requests))
 
 
 class GroupStakeholdersAccessLoader(DataLoader):

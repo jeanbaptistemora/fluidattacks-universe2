@@ -18,6 +18,7 @@ from dataloaders import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -75,7 +76,7 @@ async def mutate(
 
     if await exists(loaders, group_name, new_user_email):
         group_access: GroupAccess = await loaders.group_access.load(
-            (group_name, new_user_email)
+            GroupAccessRequest(group_name=group_name, email=new_user_email)
         )
         # Stakeholder has already accepted the invitation
         if group_access.has_access:

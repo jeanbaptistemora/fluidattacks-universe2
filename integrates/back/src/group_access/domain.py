@@ -40,6 +40,7 @@ from db_model.group_access.enums import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessRequest,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -94,7 +95,9 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
     except (JWTError, KeyError) as ex:
         raise InvalidAuthorization() from ex
 
-    return await loaders.group_access.load((group_name, email))
+    return await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
 
 
 async def get_reattackers(
@@ -281,7 +284,9 @@ async def get_stakeholders_email_by_roles(
 
 async def exists(loaders: Any, group_name: str, email: str) -> bool:
     try:
-        await loaders.group_access.load((group_name, email))
+        await loaders.group_access.load(
+            GroupAccessRequest(group_name=group_name, email=email)
+        )
         return True
     except StakeholderNotInGroup:
         return False
@@ -369,7 +374,9 @@ async def get_stakeholder_role(
     if not await exists(loaders, group_name, email):
         group_access = GroupAccess(email=email, group_name=group_name)
     else:
-        group_access = await loaders.group_access.load((group_name, email))
+        group_access = await loaders.group_access.load(
+            GroupAccessRequest(group_name=group_name, email=email)
+        )
     group_invitation_state = format_invitation_state(
         invitation=group_access.invitation,
         is_registered=is_registered,

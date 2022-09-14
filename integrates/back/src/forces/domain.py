@@ -13,6 +13,7 @@ from db_model.forces.types import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from db_model.groups.types import (
     GroupMetadataToUpdate,
@@ -121,7 +122,7 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
 
     # Give permissions directly, no confirmation required
     group_access: GroupAccess = await loaders.group_access.load(
-        (group_name, user_email)
+        GroupAccessRequest(group_name=group_name, email=user_email)
     )
     await groups_domain.complete_register_for_group_invitation(
         loaders=info.context.loaders,

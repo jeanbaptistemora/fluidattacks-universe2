@@ -90,15 +90,14 @@ async def _get_executions(
 
     if len(items) == len(requests):
         response = {
-            (execution.group_name, execution.id): execution
+            ForcesExecutionRequest(
+                group_name=execution.group_name, execution_id=execution.id
+            ): execution
             for execution in tuple(
                 format_forces_execution(item) for item in items
             )
         }
-        return tuple(
-            response[(request.group_name, request.execution_id)]
-            for request in requests
-        )
+        return tuple(response[request] for request in requests)
 
     raise ExecutionNotFound()
 

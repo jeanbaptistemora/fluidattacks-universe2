@@ -26,6 +26,7 @@ from db_model import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessRequest,
 )
 from db_model.groups.enums import (
     GroupService,
@@ -118,7 +119,7 @@ async def get_group_level_role(
     # Admins are granted access to all groups
     with suppress(StakeholderNotInGroup):
         group_access: GroupAccess = await loaders.group_access.load(
-            (group_name, email)
+            GroupAccessRequest(group_name=group_name, email=email)
         )
         if group_access.role:
             group_role = group_access.role
@@ -258,7 +259,7 @@ async def revoke_group_level_role(
 ) -> None:
     with suppress(StakeholderNotInGroup):
         group_access: GroupAccess = await loaders.group_access.load(
-            (group_name, email)
+            GroupAccessRequest(group_name=group_name, email=email)
         )
         if group_access.role:
             await group_access_model.update_metadata(

@@ -21,6 +21,7 @@ from dataloaders import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from db_model.groups.types import (
     Group,
@@ -67,7 +68,7 @@ async def _update_stakeholder(
         raise StakeholderNotFound()
 
     group_access: GroupAccess = await loaders.group_access.load(
-        (group.name, modified_email)
+        GroupAccessRequest(group_name=group.name, email=modified_email)
     )
     # Validate role requirements before changing anything
     validate_role_fluid_reqs(modified_email, modified_role)

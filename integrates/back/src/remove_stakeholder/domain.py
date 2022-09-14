@@ -22,6 +22,7 @@ from db_model import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessRequest,
     GroupConfirmDeletion,
 )
 from db_model.organization_access.types import (
@@ -170,7 +171,7 @@ async def get_email_from_url_token(
         return ""
 
     access_with_deletion: GroupAccess = await loaders.group_access.load(
-        ("confirm_deletion", email)
+        GroupAccessRequest(group_name="confirm_deletion", email=email)
     )
     if (
         access_with_deletion.confirm_deletion
@@ -188,7 +189,7 @@ async def get_confirm_deletion(
 ) -> Optional[GroupAccess]:
     if await group_access_domain.exists(loaders, "confirm_deletion", email):
         confirm_deletion = await loaders.group_access.load(
-            ("confirm_deletion", email)
+            GroupAccessRequest(group_name="confirm_deletion", email=email)
         )
 
         return confirm_deletion

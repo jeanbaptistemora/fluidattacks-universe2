@@ -7,6 +7,7 @@ from dataloaders import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -47,7 +48,7 @@ async def resolve(
         group_name = request_store["group_name"]
         if await exists(loaders, group_name, parent.email):
             group_access: GroupAccess = await loaders.group_access.load(
-                (group_name, parent.email)
+                GroupAccessRequest(group_name=group_name, email=parent.email)
             )
         else:
             group_access = GroupAccess(

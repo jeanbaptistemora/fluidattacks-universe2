@@ -25,6 +25,7 @@ from dataloaders import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessRequest,
 )
 from groups import (
     domain as groups_domain,
@@ -46,7 +47,7 @@ async def complete_register(
 ) -> None:
     loaders: Dataloaders = get_new_context()
     group_access: GroupAccess = await loaders.group_access.load(
-        (group_name, email)
+        GroupAccessRequest(group_name=group_name, email=email)
     )
     await groups_domain.complete_register_for_group_invitation(
         loaders, group_access
@@ -79,7 +80,9 @@ async def reject_register(
     group_name: str,
 ) -> bool:
     loaders = get_new_context()
-    group_access = await loaders.group_access.load((group_name, email))
+    group_access = await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
     await groups_domain.reject_register_for_group_invitation(
         get_new_context(), group_access
     )
