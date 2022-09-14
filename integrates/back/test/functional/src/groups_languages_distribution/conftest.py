@@ -62,7 +62,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     created_date="2022-09-12T19:00:00-05:00",
                     description="Test group",
                     language=GroupLanguage.EN,
-                    name="group1",
+                    name="test_group_1",
                     organization_id="c4fc4bde-93fa-44d1-981b-9ce16c5435e8",
                     state=GroupState(
                         has_machine=True,
@@ -85,7 +85,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     id="c4fc4bde-93fa-44d1-981b-9ce16c5435e8",
-                    name="organization1",
+                    name="test_organization_1",
                     policies=Policies(
                         max_acceptance_days=15,
                         modified_by="user_manager@domain.com",
@@ -108,9 +108,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
-                    group_name="group1",
+                    group_name="test_group_1",
                     id="2851c4f5-fa0a-4a41-991e-8ad2c36aead9",
-                    organization_name="organization1",
+                    organization_name="test_organization_1",
                     state=GitRootState(
                         branch="master",
                         environment="production",

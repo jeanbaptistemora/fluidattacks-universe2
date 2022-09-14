@@ -53,6 +53,7 @@
     ["grant_stakeholder_access"]
     ["grant_stakeholder_organization_access"]
     ["group"]
+    ["groups_languages_distribution"]
     ["groups_with_forces"]
     ["handle_vulnerabilities_acceptance"]
     ["invalidate_access_token"]

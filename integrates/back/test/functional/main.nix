@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
+  inputs,
   makePythonPypiEnvironment,
   makeScript,
   outputs,
@@ -20,6 +21,7 @@ in
     };
     searchPaths = {
       bin = [
+        inputs.nixpkgs.tokei
         outputs."/integrates/batch"
         outputs."/integrates/cache"
         outputs."/integrates/db"
