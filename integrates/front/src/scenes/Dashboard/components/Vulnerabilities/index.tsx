@@ -10,7 +10,6 @@ import type {
   ColumnDef,
   ColumnFiltersState,
   InitialTableState,
-  PaginationState,
   Row,
   SortingState,
   VisibilityState,
@@ -109,13 +108,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       reattack: false,
       releaseDate: false,
     });
-  const [pagination, setPagination] = useStoredState<PaginationState>(
-    "vulnerabilitiesTable-pagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
-  );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "vulnerabilitiesTable-sortingState",
     []
@@ -345,8 +337,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         id={"vulnerabilitiesTable"}
         initState={initialstate}
         onRowClick={openAdditionalInfoModal}
-        paginationSetter={setPagination}
-        paginationState={pagination}
         rowSelectionSetter={
           isFindingReleased &&
           !(hideSelectVulnerability === true || findingState === "closed")
