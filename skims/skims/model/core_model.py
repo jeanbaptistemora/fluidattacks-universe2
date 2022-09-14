@@ -30,6 +30,7 @@ class Platform(Enum):
     NPM: str = "NPM"
     MAVEN: str = "MAVEN"
     NUGET: str = "NUGET"
+    GEM: str = "GEM"
 
 
 class Grammar(Enum):
@@ -1296,6 +1297,7 @@ class DeveloperEnum(Enum):
     DIEGO_RESTREPO: str = "drestrepo@fluidattacks.com"
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
     JUAN_RESTREPO: str = "jrestrepo@fluidattacks.com"
+    LEWIS_CONTRERAS: str = "lcontreras@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
     JULIAN_GOMEZ: str = "ugomez@fluidattacks.com"
 
@@ -1459,6 +1461,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F009,
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    GEM_GEMFILE = MethodInfo(
+        file_name="gem",
+        name="gem_gemfile",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
     )
     MAVEN_POM_XML = MethodInfo(
         file_name="maven",
