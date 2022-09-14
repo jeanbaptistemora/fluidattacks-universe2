@@ -28,12 +28,6 @@ from db_model.findings.types import (
 from db_model.group_comments.types import (
     GroupComment,
 )
-from db_model.groups.enums import (
-    GroupService,
-    GroupStateUpdationJustification,
-    GroupSubscriptionType,
-    GroupTier,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -62,8 +56,6 @@ from group_comments.domain import (
     get_comments,
 )
 from groups.domain import (
-    add_group,
-    get_groups_by_stakeholder,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
@@ -71,7 +63,6 @@ from groups.domain import (
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
     set_pending_deletion_date,
-    update_group,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -82,9 +73,6 @@ from newutils.datetime import (
 )
 from newutils.group_comments import (
     format_group_consulting_resolve,
-)
-from newutils.groups import (
-    filter_active_groups,
 )
 from newutils.vulnerabilities import (
     get_closing_date,
@@ -539,80 +527,6 @@ async def test_get_mean_remediate_severity_low_cvssf(
     assert mean_remediate_low_severity == expected_output
 
 
-@pytest.mark.changes_db
-async def test_create_group_not_user_admin() -> None:
-    user_email = "integratesuser@gmail.com"
-    user_role = "user_manager"
-    await add_group(
-        loaders=get_new_context(),
-        description="This is a new group",
-        group_name="newavailablename",
-        has_machine=True,
-        has_squad=True,
-        organization_name="okada",
-        service=GroupService.WHITE,
-        subscription=GroupSubscriptionType.CONTINUOUS,
-        user_email=user_email,
-        user_role=user_role,
-    )
-
-
-@pytest.mark.changes_db
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "service",
-        "subscription",
-        "has_machine",
-        "has_squad",
-        "has_asm",
-        "tier",
-    ],
-    [
-        [
-            "unittesting",
-            GroupService.WHITE,
-            GroupSubscriptionType.CONTINUOUS,
-            True,
-            True,
-            True,
-            GroupTier.SQUAD,
-        ],
-        [
-            "oneshottest",
-            GroupService.BLACK,
-            GroupSubscriptionType.ONESHOT,
-            False,
-            False,
-            True,
-            GroupTier.ONESHOT,
-        ],
-    ],  # pylint: disable=too-many-arguments
-)
-async def test_update_group_attrs(
-    group_name: str,
-    service: GroupService,
-    subscription: GroupSubscriptionType,
-    has_machine: bool,
-    has_squad: bool,
-    has_asm: bool,
-    tier: GroupTier,
-) -> None:
-    await update_group(
-        loaders=get_new_context(),
-        comments="",
-        group_name=group_name,
-        justification=GroupStateUpdationJustification.NONE,
-        has_asm=has_asm,
-        has_machine=has_machine,
-        has_squad=has_squad,
-        service=service,
-        subscription=subscription,
-        tier=tier,
-        user_email="integratesmanager@fluidattacks.com",
-    )
-
-
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
@@ -621,40 +535,6 @@ async def test_get_pending_verification_findings() -> None:
     assert findings[0].title == "038. Business information leak"
     assert findings[0].id == "436992569"
     assert findings[0].group_name == "unittesting"
-
-
-async def test_get_groups_by_user() -> None:
-    loaders: Dataloaders = get_new_context()
-    expected_groups = [
-        "asgard",
-        "barranquilla",
-        "gotham",
-        "metropolis",
-        "oneshottest",
-        "monteria",
-        "unittesting",
-    ]
-    user_groups_names = await get_groups_by_stakeholder(
-        loaders, "integratesmanager@gmail.com"
-    )
-    groups: tuple[Group, ...] = await loaders.group.load_many(
-        user_groups_names
-    )
-    groups_filtered = filter_active_groups(groups)
-    assert sorted([group.name for group in groups_filtered]) == sorted(
-        expected_groups
-    )
-
-    expected_org_groups = ["oneshottest", "unittesting"]
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    user_org_groups_names = await get_groups_by_stakeholder(
-        loaders, "integratesmanager@gmail.com", organization_id=org_id
-    )
-    groups = await loaders.group.load_many(user_org_groups_names)
-    groups_filtered = filter_active_groups(groups)
-    assert sorted([group.name for group in groups_filtered]) == sorted(
-        expected_org_groups
-    )
 
 
 @pytest.mark.changes_db
