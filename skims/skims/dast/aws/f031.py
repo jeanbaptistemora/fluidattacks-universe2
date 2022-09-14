@@ -214,18 +214,15 @@ async def full_access_policies(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = (
-                [policy_names["Document"]["Statement"]]
-                if isinstance(policy_names["Document"]["Statement"], str)
-                else policy_names["Document"]["Statement"]
-            )
+            pol_access = list(policy_names["Document"]["Statement"])
 
             for index, item in enumerate(pol_access):
+                policy_statement: Dict[str, Any] = dict(item)
                 with suppress(KeyError):
                     if (
-                        item["Effect"] == "Allow"
-                        and item["Action"] == "*"
-                        and item["Resource"] == "*"
+                        policy_statement["Effect"] == "Allow"
+                        and policy_statement["Action"] == "*"
+                        and policy_statement["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -299,23 +296,19 @@ async def open_passrole(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = (
-                [policy_names["Document"]["Statement"]]
-                if isinstance(policy_names["Document"]["Statement"], str)
-                else policy_names["Document"]["Statement"]
-            )
-
+            pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
+                policy_statement: Dict[str, Any] = dict(item)
                 with suppress(KeyError):
-                    if isinstance(item["Action"], str):
-                        action = [item["Action"]]
+                    if isinstance(policy_statement["Action"], str):
+                        action = [policy_statement["Action"]]
                     else:
-                        action = item["Action"]
+                        action = policy_statement["Action"]
 
                     if (
-                        item["Effect"] == "Allow"
+                        policy_statement["Effect"] == "Allow"
                         and any(map(_match_iam_passrole, action))
-                        and item["Resource"] == "*"
+                        and policy_statement["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -393,22 +386,19 @@ async def permissive_policy(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = (
-                [policy_names["Document"]["Statement"]]
-                if isinstance(policy_names["Document"]["Statement"], str)
-                else policy_names["Document"]["Statement"]
-            )
+            pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
+                policy_statement: Dict[str, Any] = dict(item)
                 with suppress(KeyError):
-                    if isinstance(item["Action"], str):
-                        action = [item["Action"]]
+                    if isinstance(policy_statement["Action"], str):
+                        action = [policy_statement["Action"]]
                     else:
-                        action = item["Action"]
+                        action = policy_statement["Action"]
 
                     if (
-                        item["Effect"] == "Allow"
+                        policy_statement["Effect"] == "Allow"
                         and any(map(_is_action_permissive, action))
-                        and item["Resource"] == "*"
+                        and policy_statement["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -469,19 +459,16 @@ async def full_access_to_ssm(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = (
-                [policy_names["Document"]["Statement"]]
-                if isinstance(policy_names["Document"]["Statement"], str)
-                else policy_names["Document"]["Statement"]
-            )
+            pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
+                policy_statement: Dict[str, Any] = dict(item)
                 with suppress(KeyError):
-                    if isinstance(item["Action"], str):
-                        action = [item["Action"]]
+                    if isinstance(policy_statement["Action"], str):
+                        action = [policy_statement["Action"]]
                     else:
-                        action = item["Action"]
+                        action = policy_statement["Action"]
 
-                    if item["Effect"] == "Allow" and any(
+                    if policy_statement["Effect"] == "Allow" and any(
                         map(lambda act: act == "ssm:*", action)
                     ):
                         locations = [
@@ -536,21 +523,19 @@ async def negative_statement(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = (
-                [policy_names["Document"]["Statement"]]
-                if isinstance(policy_names["Document"]["Statement"], str)
-                else policy_names["Document"]["Statement"]
-            )
+            print(list(policy_names["Document"]["Statement"]))
+            pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
+                policy_statement: Dict[str, Any] = dict(item)
                 with suppress(KeyError):
-                    if isinstance(item["NotAction"], str):
-                        action = [item["NotAction"]]
+                    if isinstance(policy_statement["NotAction"], str):
+                        action = [policy_statement["NotAction"]]
                     else:
-                        action = item["NotAction"]
+                        action = policy_statement["NotAction"]
 
-                    if item["Effect"] == "Allow" and not _is_action_permissive(
-                        action
-                    ):
+                    if policy_statement[
+                        "Effect"
+                    ] == "Allow" and not _is_action_permissive(action):
                         locations = [
                             *[
                                 Location(
@@ -571,8 +556,8 @@ async def negative_statement(
                         ]
 
                     if (
-                        item["Effect"] == "Allow"
-                        and not item["NotResource"] == "*"
+                        policy_statement["Effect"] == "Allow"
+                        and not policy_statement["NotResource"] == "*"
                     ):
                         locations = [
                             *[
