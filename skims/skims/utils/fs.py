@@ -263,8 +263,8 @@ def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
     nv_paths: Set[str] = set()
 
     for path in paths:
-        _, file = os.path.split(path)
-        file_name, file_extension = os.path.splitext(file)
+        _, file_info = os.path.split(path)
+        file_name, file_extension = os.path.splitext(file_info)
         file_extension = file_extension[1:]
 
         if (

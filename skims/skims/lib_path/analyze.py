@@ -201,8 +201,8 @@ def analyze_one_path(  # noqa: MC0001
         path, size=MAX_READ
     )
 
-    _, file = split(path)
-    file_name, file_extension = splitext(file)
+    _, file_info = split(path)
+    file_name, file_extension = splitext(file_info)
     file_extension = file_extension[1:]
 
     result: Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]] = {}
