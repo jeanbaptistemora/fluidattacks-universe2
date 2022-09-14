@@ -6,6 +6,7 @@
 
 function main {
   local RANDOM_DIR
+  local success=true
   source __argExtraSrcs__/template extra_srcs
 
   RANDOM_DIR="$(mktemp -d)" \
@@ -15,7 +16,7 @@ function main {
       copy "${extra_srcs[$extra_src]}" "${extra_src}"
     done \
     && pushd __project__/skims \
-    && pytest \
+    && if ! pytest \
       --cov= \
       --cov-branch \
       --cov-report=term \
@@ -27,10 +28,16 @@ function main {
       --exitfirst \
       --showlocals \
       --show-capture=no \
-      -vvv \
+      -vvv; then
+      success=false
+    fi \
     && popd \
     && popd \
-    && copy "${RANDOM_DIR}/__project__/skims/.coverage" skims/.coverage.__argCategory__
+    && copy "${RANDOM_DIR}/__project__/skims/.coverage" skims/.coverage.__argCategory__ \
+    && if test "${success}" = false; then
+      copy "${STATE}" .
+      return 1
+    fi
 }
 
 main "${@}"
