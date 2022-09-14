@@ -523,7 +523,6 @@ async def negative_statement(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            print(list(policy_names["Document"]["Statement"]))
             pol_access = list(policy_names["Document"]["Statement"])
             for index, item in enumerate(pol_access):
                 policy_statement: Dict[str, Any] = dict(item)
