@@ -164,12 +164,12 @@ def is_valid_group(  # pylint: disable=unused-argument
 
 @contextlib.contextmanager
 def output_block(*, indent: int = 2) -> Iterator[None]:
-    buffer = io.StringIO()
-    with contextlib.redirect_stdout(buffer), contextlib.redirect_stderr(
-        buffer
+    buffer_object = io.StringIO()
+    with contextlib.redirect_stdout(buffer_object), contextlib.redirect_stderr(
+        buffer_object
     ):
         yield
-    print(textwrap.indent(buffer.getvalue(), " " * indent))
+    print(textwrap.indent(buffer_object.getvalue(), " " * indent))
 
 
 def guess_date_from_str(
