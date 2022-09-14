@@ -12,7 +12,8 @@ const SideBarBox = styled.div.attrs({
   background-color: #2e2e38;
   color: #c7c7d1;
   display: inline-block;
-  min-width: 120px;
+  min-width: 150px;
+  padding: 12px 0;
 
   > div > hr:not(:first-child) {
     display: none;

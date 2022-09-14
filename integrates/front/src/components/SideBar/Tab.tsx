@@ -17,6 +17,7 @@ import styled from "styled-components";
 import { SideBarHr } from "./styles";
 
 interface ISideBarTabProps extends Pick<NavLinkProps, "children" | "to"> {
+  disabled?: boolean;
   icon?: IconProp;
   subTabs?: ReactNode[];
 }
@@ -30,8 +31,14 @@ const SideBarLink = styled(NavLink).attrs({
   padding: 10px 20px;
   transition: all 0.3s;
 
-  :hover {
-    color: #e9e9ed;
+  &[aria-disabled="true"] {
+    opacity: 0.5;
+  }
+
+  :not([aria-disabled="true"]) {
+    :hover {
+      color: #e9e9ed;
+    }
   }
 
   &.active {
@@ -42,12 +49,13 @@ const SideBarLink = styled(NavLink).attrs({
 
 const SideBarTab: FC<ISideBarTabProps> = ({
   children,
+  disabled,
   icon,
   subTabs,
   to,
 }: Readonly<ISideBarTabProps>): JSX.Element => (
   <Fragment>
-    <SideBarLink to={to}>
+    <SideBarLink aria-disabled={disabled} to={to}>
       {icon === undefined ? undefined : (
         <FontAwesomeIcon
           className={children === undefined ? undefined : "mr2"}

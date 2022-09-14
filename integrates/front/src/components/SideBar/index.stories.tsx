@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { SideBar, SideBarTab } from ".";
 
@@ -34,17 +35,19 @@ const subTabs = [
 
 const Default: Story = (): JSX.Element => (
   <div className={"vh-50 pl5"}>
-    <SideBar initial={"/home"}>
-      <SideBarTab icon={faHome} subTabs={subTabs} to={"/home"}>
-        {"Home"}
-      </SideBarTab>
-      <SideBarTab icon={faChartColumn} to={"/analytics"}>
-        {"Analytics"}
-      </SideBarTab>
-      <SideBarTab icon={faBell} to={"/alerts"}>
-        {"Alerts"}
-      </SideBarTab>
-    </SideBar>
+    <MemoryRouter initialEntries={["/home"]}>
+      <SideBar>
+        <SideBarTab icon={faHome} subTabs={subTabs} to={"/home"}>
+          {"Home"}
+        </SideBarTab>
+        <SideBarTab icon={faChartColumn} to={"/analytics"}>
+          {"Analytics"}
+        </SideBarTab>
+        <SideBarTab icon={faBell} to={"/alerts"}>
+          {"Alerts"}
+        </SideBarTab>
+      </SideBar>
+    </MemoryRouter>
   </div>
 );
 
