@@ -8,6 +8,9 @@ Populate the creation attributes for the events
 
 Execution Time:    2022-09-12 at 20:57:58 UTC
 Finalization Time: 2022-09-12 at 20:58:21 UTC
+
+Execution Time:    2022-09-14 at 16:32:29 UTC
+Finalization Time: 2022-09-14 at 16:32:52 UTC
 """
 from aioextensions import (
     collect,
@@ -129,10 +132,11 @@ async def main() -> None:  # noqa: MC0001
             )
         )
     )
-    await collect(
-        tuple(process_event(loaders, event) for event in all_events),
-        workers=100,
-    )
+    print(len(all_events))
+    # await collect(
+    #     tuple(process_event(loaders, event) for event in all_events),
+    #     workers=100,
+    # )
 
 
 if __name__ == "__main__":
