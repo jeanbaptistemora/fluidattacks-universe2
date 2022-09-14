@@ -310,28 +310,6 @@ module "prod_integrates_aws" {
   name   = "prod_integrates"
   policy = local.prod_integrates.policies.aws
 
-  assume_role_policy = [
-    {
-      Sid    = "commonClusterAssumePolicy",
-      Effect = "Allow",
-      Principal = {
-        Federated = join(
-          "/",
-          [
-            "arn:aws:iam::205810638802:oidc-provider",
-            replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-          ]
-        )
-      },
-      Action = "sts:AssumeRoleWithWebIdentity",
-      Condition = {
-        StringEquals = {
-          "${replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")}:sub" : "system:serviceaccount:production:prod-integrates"
-        },
-      },
-    },
-  ]
-
   tags = {
     "Name"               = "prod_integrates"
     "Management:Area"    = "cost"

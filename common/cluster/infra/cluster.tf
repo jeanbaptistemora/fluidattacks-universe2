@@ -33,34 +33,6 @@ module "cluster" {
         worker_group = "dev"
       }
     }
-    development = {
-      max_size = 100
-
-      instance_types = [
-        "m5.xlarge",
-        "m5a.xlarge",
-        "m5d.xlarge",
-        "m5ad.xlarge",
-      ]
-
-      labels = {
-        worker_group = "development"
-      }
-    }
-    production = {
-      max_size = 120
-
-      instance_types = [
-        "m5.large",
-        "m5a.large",
-        "m5d.large",
-        "m5ad.large",
-      ]
-
-      labels = {
-        worker_group = "production"
-      }
-    }
     prod_integrates = {
       max_size = 120
 
@@ -100,19 +72,18 @@ module "cluster" {
       for user in local.users : {
         rolearn  = data.aws_iam_role.main[user].arn
         username = user
-        groups   = ["system:masters"]
+        groups   = distinct(["dev", user])
       }
     ],
   )
 
   tags = {
-    "Name"                   = "common-kubernetes"
-    "Environment"            = "production"
-    "GithubRepo"             = "terraform-aws-eks"
-    "GithubOrg"              = "terraform-aws-modules"
-    "karpenter.sh/discovery" = local.cluster_name
-    "Management:Area"        = "cost"
-    "Management:Product"     = "common"
-    "Management:Type"        = "product"
+    "Name"               = "common-kubernetes"
+    "Environment"        = "production"
+    "GithubRepo"         = "terraform-aws-eks"
+    "GithubOrg"          = "terraform-aws-modules"
+    "Management:Area"    = "cost"
+    "Management:Product" = "common"
+    "Management:Type"    = "product"
   }
 }

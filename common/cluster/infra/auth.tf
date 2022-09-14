@@ -2,34 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-resource "kubernetes_namespace" "production" {
-  metadata {
-    name = "production"
-  }
-}
-
-resource "kubernetes_service_account" "main_old" {
-  for_each = local.accounts
-
-  automount_service_account_token = true
-
-  metadata {
-    name      = replace(each.key, "_", "-")
-    namespace = each.value.namespace
-
-    annotations = {
-      "eks.amazonaws.com/role-arn" = "arn:aws:iam::205810638802:role/${each.value.role}"
-    }
-  }
-}
-
 locals {
-  accounts = {
-    prod-integrates = {
-      namespace = "production"
-      role      = "prod_integrates"
-    }
-  }
   admins = ["prod_common"]
   users = [
     "dev",
@@ -51,21 +24,6 @@ resource "kubernetes_namespace" "main" {
   }
 }
 
-resource "kubernetes_role" "main" {
-  for_each = toset(local.users)
-
-  metadata {
-    name      = replace(each.key, "_", "-")
-    namespace = kubernetes_namespace.main[each.key].metadata[0].name
-  }
-
-  rule {
-    api_groups = ["*"]
-    resources  = ["*"]
-    verbs      = ["*"]
-  }
-}
-
 resource "kubernetes_service_account" "main" {
   for_each = toset(local.users)
 
@@ -81,6 +39,48 @@ resource "kubernetes_service_account" "main" {
   }
 }
 
+resource "kubernetes_role" "main" {
+  for_each = toset(local.users)
+
+  metadata {
+    name      = replace(each.key, "_", "-")
+    namespace = kubernetes_namespace.main[each.key].metadata[0].name
+  }
+
+  rule {
+    api_groups = ["*"]
+    resources  = ["*"]
+    verbs      = ["*"]
+  }
+}
+
+resource "kubernetes_cluster_role" "main" {
+  for_each = toset(local.users)
+
+  metadata {
+    name = replace(each.key, "_", "-")
+  }
+
+  rule {
+    api_groups = ["", "rbac.authorization.k8s.io"]
+    resources = [
+      "clusterrolebindings",
+      "clusterroles",
+      "configmaps",
+      "namespaces",
+      "rolebindings",
+      "roles",
+      "serviceaccounts",
+    ]
+    verbs = ["get"]
+  }
+  rule {
+    api_groups = [""]
+    resources  = ["secrets"]
+    verbs      = ["list"]
+  }
+}
+
 resource "kubernetes_role_binding" "main" {
   for_each = toset(local.users)
 
@@ -93,6 +93,26 @@ resource "kubernetes_role_binding" "main" {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
     name      = kubernetes_role.main[each.key].metadata[0].name
+  }
+
+  subject {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Group"
+    name      = each.key
+  }
+}
+
+resource "kubernetes_cluster_role_binding" "example" {
+  for_each = toset(local.users)
+
+  metadata {
+    name = replace(each.key, "_", "-")
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = kubernetes_cluster_role.main[each.key].metadata[0].name
   }
 
   subject {
