@@ -1,0 +1,20 @@
+{
+  "AllowedHosts": "*",
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "Default": "Information",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+    "Enrich": [
+      "FromLogContext",
+      "WithMachineName"
+    ],
+    "Properties": {
+      "Application": "MultipleLogFilesSample"
+    }
+  }
+}
