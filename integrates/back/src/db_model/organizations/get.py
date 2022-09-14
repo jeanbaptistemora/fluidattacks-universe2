@@ -126,14 +126,19 @@ async def _get_organization(*, organization_key: str) -> Organization:
 
 
 class OrganizationLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_keys: Iterable[str]
     ) -> tuple[Organization, ...]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
-        return await collect(
+        organizations: tuple[Organization, ...] = await collect(
             tuple(
                 _get_organization(organization_key=key)
                 for key in organization_keys
             )
         )
+        for organization in organizations:
+            self.prime(organization.id, organization)
+            self.prime(organization.name, organization)
+
+        return organizations
