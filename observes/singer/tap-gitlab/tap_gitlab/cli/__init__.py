@@ -7,13 +7,26 @@ from ._streams import (
     Streams,
 )
 import click
+from datetime import (
+    timedelta,
+)
 from fa_purity import (
+    Cmd,
     Maybe,
 )
 import re
 from tap_gitlab import (
     cleaner,
     executor,
+)
+from tap_gitlab.api2 import (
+    Credentials as Credentials2,
+)
+from tap_gitlab.api2.project import (
+    ProjectId,
+)
+from tap_gitlab.api2.project.jobs import (
+    JobClient,
 )
 from tap_gitlab.api.auth import (
     Credentials,
@@ -88,11 +101,18 @@ def stream(
 @click.command()
 @click.option("--api-key", type=str, required=True)
 @click.option("--project", type=str, required=True)
+@click.option("--threshold", type=int, default=1, help="in days")
 @click.option("--dry-run", is_flag=True)
-def clean_stuck_jobs(api_key: str, project: str, dry_run: bool) -> None:
+def clean_stuck_jobs(
+    api_key: str, project: str, days: int, dry_run: bool
+) -> NoReturn:
     # utility to find and cancel stuck jobs
-    creds = Credentials(api_key)
-    cleaner.clean(creds, project, dry_run)
+    creds = Credentials2(api_key)
+    client = JobClient.new(creds, ProjectId.from_name(project))
+    cmd: Cmd[None] = cleaner.clean_stuck_jobs(
+        client, timedelta(days=days), dry_run
+    )
+    cmd.compute()
 
 
 @click.command("stream")

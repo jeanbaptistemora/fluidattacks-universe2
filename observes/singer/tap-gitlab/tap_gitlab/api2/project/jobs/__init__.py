@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2022 "Fluid Attacks <development@fluidattacks.com>"
 #
 # SPDX-License-Identifier: MPL-2.0
+from __future__ import (
+    annotations,
+)
 
 from ._decode import (
     decode_job_id,
@@ -14,24 +17,13 @@ from fa_purity import (
     FrozenList,
     JsonObj,
     JsonValue,
-    Maybe,
     Stream,
 )
 from fa_purity.frozen import (
     freeze,
 )
-from fa_purity.pure_iter.factory import (
-    from_flist,
-    infinite_range,
-)
-from fa_purity.stream.factory import (
-    from_piter,
-)
-from fa_purity.stream.transform import (
-    chain,
-    until_empty,
-)
 from tap_gitlab.api2._raw import (
+    Credentials,
     RawClient,
 )
 from tap_gitlab.api2._raw.page import (
@@ -52,19 +44,20 @@ from tap_gitlab.api2.project import (
     ProjectId,
 )
 from typing import (
-    Callable,
     Dict,
     FrozenSet,
-    TypeVar,
 )
-
-_T = TypeVar("_T")
 
 
 @dataclass(frozen=True)
 class JobClient:
     _client: RawClient
     _proj: ProjectId
+
+    @staticmethod
+    def new(creds: Credentials, proj: ProjectId) -> JobClient:
+        raw = RawClient(creds)
+        return JobClient(raw, proj)
 
     def _raw_jobs_page(
         self, page: Page, scopes: FrozenSet[JobStatus]

@@ -2,99 +2,49 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from collections import (
-    deque,
-)
 from datetime import (
     datetime,
     timedelta,
     timezone,
 )
-from dateutil.parser import (
-    isoparse,
+from fa_purity import (
+    Cmd,
+)
+from fa_purity.stream.transform import (
+    consume,
 )
 import logging
-from paginator.pages import (
-    PageId,
-)
-from returns.curry import (
-    partial,
-)
-from returns.io import (
-    IO,
-)
-from returns.maybe import (
-    Maybe,
-)
-from singer_io.common import (
-    JSON,
-)
-from tap_gitlab.api.auth import (
-    Credentials,
-)
-from tap_gitlab.api.client import (
-    ApiClient,
-)
-from tap_gitlab.api.projects import (
-    ProjectApi,
-)
-from tap_gitlab.api.projects.ids import (
-    ProjectId,
-)
-from tap_gitlab.api.projects.jobs import (
-    JobManager,
-)
-from tap_gitlab.api.projects.jobs.objs import (
+from tap_gitlab.api2.job import (
+    Job,
     JobId,
+    JobStatus,
 )
-from tap_gitlab.api.projects.jobs.page import (
-    JobsPage,
-    Scope,
+from tap_gitlab.api2.project.jobs import (
+    JobClient,
 )
 
 LOG = logging.getLogger(__name__)
 NOW = datetime.now(timezone.utc)
-# how old a job should be for considering it stuck
-THRESHOLD = timedelta(days=1)
 
 
-def _json_to_job(proj: ProjectId, raw: JSON) -> Maybe[JobId]:
-    diff = NOW - isoparse(raw["created_at"])
-    job = JobId(proj, str(raw["id"]))
-    LOG.debug("%s with diff: %s", job, diff)
-    if diff > THRESHOLD:
-        return Maybe.from_value(job)
-    return Maybe.empty
+def clean_stuck_jobs(
+    client: JobClient, threshold: timedelta, dry_run: bool
+) -> Cmd[None]:
+    # threshold: how old a job should be for considering it stuck
+    def is_stuck(job: Job) -> bool:
+        diff = NOW - job.dates.created_at
+        return diff > threshold
 
+    def mock_cancel(job_id: JobId) -> Cmd[None]:
+        return Cmd.from_cmd(lambda: LOG.info("%s will be cancelled"))
 
-def _clean_stuck_jobs(data: JobsPage, manager: JobManager) -> IO[None]:
-    matched_jobs = (
-        m
-        for m in map(
-            lambda m: m.value_or(None),
-            map(partial(_json_to_job, data.proj), data.data),
-        )
-        if m is not None
+    status = frozenset(
+        [JobStatus.created, JobStatus.pending, JobStatus.running]
     )
-    cancel_actions = map(manager.cancel, matched_jobs)
-    deque(cancel_actions, maxlen=0)
-    return IO(None)
-
-
-def clean_stuck_jobs(api: ProjectApi, manager: JobManager) -> IO[None]:
-    pages = api.jobs([Scope.created, Scope.pending, Scope.running]).list_all(
-        PageId(1, 100)
+    stuck_jobs = client.job_stream(100, status).filter(
+        lambda j: is_stuck(j.job)
     )
-    pages.map(
-        lambda p: [_clean_stuck_jobs(j, manager) for j in deque(p, maxlen=10)]
+    cancel_cmd = client.cancel if dry_run else mock_cancel
+    return stuck_jobs.map(lambda j: cancel_cmd(j.job_id)).transform(
+        lambda s: consume(s)
     )
-    return IO(None)
-
-
-def clean(creds: Credentials, proj: str, dry_run: bool) -> IO[None]:
-    if dry_run:
-        LOG.info("Dry run enabled!")
-    client = ApiClient(creds)
-    manager = JobManager(client.client, dry_run)
-    proj_api = client.project(ProjectId.from_name(proj))
-    return clean_stuck_jobs(proj_api, manager)
