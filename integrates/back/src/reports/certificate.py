@@ -210,7 +210,7 @@ class CertificateCreator(CreatorPdf):
         remediation_table = make_remediation_table(context_findings, words)
         group: Group = await loaders.group.load(group_name)
         group_creation_date: datetime = get_datetime_from_iso_str(
-            await groups_domain.get_creation_date(loaders, group_name)
+            group.created_date
         )
         oldest_vuln_date: Optional[
             datetime

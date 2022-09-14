@@ -27,9 +27,6 @@ from db_model.stakeholders.types import (
 from group_access import (
     domain as group_access_domain,
 )
-from groups.domain import (
-    get_creation_date,
-)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -97,8 +94,8 @@ async def _send_mail_report(
 async def missing_environment_alert() -> None:
     loaders: Dataloaders = get_new_context()
     active_groups = await orgs_domain.get_all_active_groups(loaders)
-    group_names = tuple(
-        group.name
+    groups = tuple(
+        group
         for group in active_groups
         if (
             group.state.has_machine
@@ -111,28 +108,28 @@ async def missing_environment_alert() -> None:
     )
 
     if FI_ENVIRONMENT == "production":
-        group_names = tuple(
+        groups = tuple(
             group
-            for group in group_names
-            if group not in FI_TEST_PROJECTS.split(",")
+            for group in groups
+            if group.name not in FI_TEST_PROJECTS.split(",")
         )
 
-    if group_names:
-        for group in group_names:
+    if groups:
+        for group in groups:
             creation_date: date = datetime_utils.get_date_from_iso_str(
-                await get_creation_date(loaders, group)
+                group.created_date
             )
             group_date_delta: int = (
                 datetime_utils.get_now().date() - creation_date
             ).days
-            has_env: bool = await has_environment(loaders, group)
+            has_env: bool = await has_environment(loaders, group.name)
             if (
                 not has_env
                 and group_date_delta > 0
                 and (group_date_delta % 30 == 0 or group_date_delta == 7)
             ):
                 await _send_mail_report(
-                    loaders, group, (group_date_delta // 7)
+                    loaders, group.name, (group_date_delta // 7)
                 )
     else:
         LOGGER.info("- environment alert NOT sent")

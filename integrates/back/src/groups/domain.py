@@ -1650,16 +1650,6 @@ async def request_upgrade(
     )
 
 
-async def get_creation_date(
-    loaders: Any,
-    group_name: str,
-) -> str:
-    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
-        group_name
-    )
-    return historic[0].modified_date
-
-
 async def filter_groups_with_org(
     loaders: Any, group_names: tuple[str, ...]
 ) -> tuple[str, ...]:
