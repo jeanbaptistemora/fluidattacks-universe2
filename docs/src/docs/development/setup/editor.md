@@ -16,22 +16,33 @@ Now install some useful extensions.
 
 ```bash
 extensions=(
-  bbenoist.nix
-  CoenraadS.bracket-pair-colorizer
+  4ops.terraform
+  bbenoist.Nix
+  bierner.markdown-mermaid
   coolbear.systemd-unit-file
+  daohong-emilio.yash
   eamodio.gitlens
+  GrapeCity.gc-excelviewer
   hashicorp.terraform
   haskell.haskell
   jkillian.custom-local-formatters
   justusadam.language-haskell
+  kamadorueda.alejandra
   mads-hartmann.bash-ide-vscode
+  mattn.Lisp
   ms-python.python
   ms-python.vscode-pylance
   ms-toolsai.jupyter
-  ms-toolsai.jupyter-keymap
+  ms-toolsai.jupyter-renderers
+  ms-vscode-remote.remote-ssh
+  ms-vscode.cpptools
+  njpwerner.autodocstring
+  redhat.java
+  rust-lang.rust-analyzer
   shardulm94.trailing-spaces
   streetsidesoftware.code-spell-checker
   tamasfe.even-better-toml
+  usernamehw.errorlens
 )
 for extension in "${extensions[@]}"; do
   code --force --install-extension "${extension}"
@@ -63,7 +74,7 @@ These configurations are suggested; you can add the ones you want:
 
 ```json
 {
-  "editor.rulers": [ 80 ],
+  "editor.rulers": [80],
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true
@@ -76,20 +87,16 @@ You can configure automatic code formatters like this:
 {
   "customLocalFormatters.formatters": [
     {
-      "command": "nixpkgs-fmt",
-      "languages": [ "nix" ]
-    },
-    {
       "command": "/path/to/my/python/formatter/script",
-      "languages": [ "python" ]
+      "languages": ["python"]
     },
     {
       "command": "shfmt -bn -ci -i 2 -s -sr -",
-      "languages": [ "shellscript" ]
+      "languages": ["shellscript"]
     },
     {
       "command": "terraform fmt",
-      "languages": [ "tf" ]
+      "languages": ["tf"]
     }
   ]
 }
