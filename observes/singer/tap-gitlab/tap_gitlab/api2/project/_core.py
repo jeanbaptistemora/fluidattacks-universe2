@@ -11,6 +11,7 @@ from dataclasses import (
 )
 from tap_gitlab.api2._utils import (
     int_to_str,
+    str_to_int,
 )
 from urllib.parse import (
     quote,
@@ -34,6 +35,13 @@ class ProjectId:
     @classmethod
     def from_num(cls, proj_id: int) -> ProjectId:
         return ProjectId(_ProjectId(proj_id))
+
+    @classmethod
+    def from_raw_str(cls, proj: str) -> ProjectId:
+        _proj = str_to_int(proj).value_or(proj)
+        if isinstance(_proj, int):
+            return cls.from_num(_proj)
+        return cls.from_name(_proj)
 
     @property
     def raw(self) -> str | int:

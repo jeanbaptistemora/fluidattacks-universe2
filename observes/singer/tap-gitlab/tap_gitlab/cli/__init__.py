@@ -104,13 +104,13 @@ def stream(
 @click.option("--threshold", type=int, default=1, help="in days")
 @click.option("--dry-run", is_flag=True)
 def clean_stuck_jobs(
-    api_key: str, project: str, days: int, dry_run: bool
+    api_key: str, project: str, threshold: int, dry_run: bool
 ) -> NoReturn:
     # utility to find and cancel stuck jobs
     creds = Credentials2(api_key)
-    client = JobClient.new(creds, ProjectId.from_name(project))
+    client = JobClient.new(creds, ProjectId.from_raw_str(project))
     cmd: Cmd[None] = cleaner.clean_stuck_jobs(
-        client, timedelta(days=days), dry_run
+        client, timedelta(days=threshold), dry_run
     )
     cmd.compute()
 

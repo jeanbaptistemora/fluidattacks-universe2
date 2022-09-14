@@ -34,6 +34,13 @@ def int_to_str(num: int) -> str:
     return str(num)
 
 
+def str_to_int(raw: str) -> ResultE[int]:
+    try:
+        return Result.success(int(raw))
+    except ValueError as err:
+        return Result.failure(err)
+
+
 def str_to_datetime(raw: str) -> ResultE[datetime]:
     try:
         return Result.success(isoparse(raw))
