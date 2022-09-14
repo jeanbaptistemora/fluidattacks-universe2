@@ -11,6 +11,9 @@ from datetime import (
 from decimal import (
     Decimal,
 )
+from enum import (
+    Enum,
+)
 from fa_purity import (
     FrozenList,
     Maybe,
@@ -47,6 +50,17 @@ class JobConf:
     ref_branch: str
     runner: Maybe[str]
     stage: str
+
+
+class JobStatus(Enum):
+    created = "created"
+    pending = "pending"
+    running = "running"
+    failed = "failed"
+    success = "success"
+    canceled = "canceled"
+    skipped = "skipped"
+    manual = "manual"
 
 
 @dataclass(frozen=True)

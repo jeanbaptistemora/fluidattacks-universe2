@@ -125,10 +125,12 @@ def _decode_job(data: JsonObj) -> ResultE[Job]:
     )
 
 
+def decode_job_id(data: JsonObj) -> ResultE[JobId]:
+    return JsonDecodeUtils(data).require_int("id").map(JobId)
+
+
 def decode_job_obj(data: JsonObj) -> ResultE[JobObj]:
-    _data = JsonDecodeUtils(data)
-    return (
-        _data.require_int("id")
-        .map(JobId)
-        .bind(lambda jid: _decode_job(data).map(lambda j: JobObj(jid, j)))
+    _id = decode_job_id(data)
+    return _id.bind(
+        lambda jid: _decode_job(data).map(lambda j: JobObj(jid, j))
     )

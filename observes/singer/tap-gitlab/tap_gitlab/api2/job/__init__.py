@@ -10,6 +10,7 @@ from ._core import (
     JobId,
     JobObj,
     JobResultStatus,
+    JobStatus,
 )
 
 __all__ = [
@@ -19,5 +20,6 @@ __all__ = [
     "JobDates",
     "JobConf",
     "JobResultStatus",
+    "JobStatus",
     "Commit",
 ]
