@@ -13,6 +13,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    match_ast,
     match_ast_d,
 )
 from utils.graph.text_nodes import (
@@ -27,4 +28,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
             f"Bad import expression handling in {args.n_id}"
         )
     import_text = node_to_str(args.ast_graph, c_id)
+    if match_ast(args.ast_graph, args.n_id, "asterisk").get("asterisk"):
+        import_text += ".*"
     return build_import_statement_node(args, import_text)
