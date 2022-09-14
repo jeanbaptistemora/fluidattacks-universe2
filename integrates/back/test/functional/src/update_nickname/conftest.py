@@ -143,6 +143,8 @@ async def populate() -> bool:
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
+                    created_by="admin@gmail.com",
+                    created_date="2022-02-09T14:58:10+00:00",
                     group_name="group123",
                     id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     organization_name="org123",

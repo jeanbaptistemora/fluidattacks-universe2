@@ -784,6 +784,8 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     )
 
     return GitRoot(
+        created_by=root.created_by,
+        created_date=root.created_date,
         cloning=root.cloning,
         group_name=root.group_name,
         id=root.id,

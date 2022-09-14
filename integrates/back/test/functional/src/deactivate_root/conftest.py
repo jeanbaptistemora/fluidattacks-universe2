@@ -74,6 +74,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group1",
                     id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     organization_name="orgtest",
@@ -103,6 +105,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "root": IPRoot(
+                    created_by=test_email,
+                    created_date=test_date,
                     group_name="group2",
                     id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                     organization_name="orgtest",
@@ -122,6 +126,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "root": URLRoot(
+                    created_by=test_email,
+                    created_date=test_date,
                     group_name="group2",
                     id="eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
                     organization_name="orgtest",
@@ -148,6 +154,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group2",
                     id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
                     organization_name="orgtest",
@@ -177,6 +185,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group1",
                     id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
                     organization_name="orgtest",
@@ -197,6 +207,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "root": URLRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group1",
                     id="bd4e5e66-da26-4274-87ed-17de7c3bc2f1",
                     organization_name="orgtest",
