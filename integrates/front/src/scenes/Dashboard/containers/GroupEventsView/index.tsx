@@ -10,13 +10,21 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faCheck, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  Row,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useEffect, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
+import React, { useCallback, useState } from "react";
+import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
@@ -32,12 +40,10 @@ import {
   handleRequestHoldError,
   handleRequestHoldsHelper,
 } from "./helpers";
-import { selectOptionType } from "./selectOptions";
 import type {
   IAddEventResultAttr,
   IEventData,
   IEventsDataset,
-  IFilterSet,
   IRequestEventVerificationResultAttr,
 } from "./types";
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
@@ -47,13 +53,9 @@ import { handleUpdateEvidenceError } from "../EventEvidenceView/helpers";
 import { UPDATE_EVIDENCE_MUTATION } from "../EventEvidenceView/queries";
 import type { IUpdateEventEvidenceResultAttr } from "../EventEvidenceView/types";
 import { Button } from "components/Button";
-import { Table } from "components/Table";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import {
-  filterDateRange,
-  filterSearchText,
-  filterSelect,
-} from "components/Table/utils";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import { Table } from "components/TableNew/index";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import { handleRequestVerificationError } from "scenes/Dashboard/components/UpdateVerificationModal/helpers";
@@ -67,13 +69,11 @@ import {
 import {
   formatEvents,
   formatReattacks,
-  getEventIndex,
   getNonSelectableEventIndexToRequestVerification,
-  onSelectSeveralEventsHelper,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { castEventStatus, castEventType } from "utils/formatHelpers";
+import { castEventStatus } from "utils/formatHelpers";
 import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -92,126 +92,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "api_mutations_request_event_verification_mutate"
   );
 
-  const [optionType, setOptionType] = useState(selectOptionType);
-
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("groupEventsFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterGroupEventsTable, setFilterGroupEventsTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupEventsSet",
-      {
-        closingDateRange: { max: "", min: "" },
-        dateRange: { max: "", min: "" },
-        status: "",
-        type: "",
-      },
-      localStorage
-    );
-
-  const [columnItems, setColumnItems] = useStoredState<Record<string, boolean>>(
-    "eventsTableSet",
-    {
-      closingDate: true,
-      detail: true,
-      eventDate: true,
-      eventStatus: true,
-      eventType: true,
-      id: true,
-      "root.nickname": true,
-    },
-    localStorage
-  );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("eventSort", JSON.stringify(newSorted));
-  };
-
-  const handleColumnToggle: (columnName: string) => void = useCallback(
-    (columnName: string): void => {
-      if (
-        Object.values(columnItems).filter((val: boolean): boolean => val)
-          .length === 1 &&
-        columnItems[columnName]
-      ) {
-        // eslint-disable-next-line no-alert
-        alert(t("validations.columns"));
-        setColumnItems({
-          ...columnItems,
-          [columnName]: true,
-        });
-      } else {
-        setColumnItems({
-          ...columnItems,
-          [columnName]: !columnItems[columnName],
-        });
-      }
-    },
-    [columnItems, setColumnItems, t]
-  );
-
-  const tableHeaders: IHeaderConfig[] = [
-    {
-      dataField: "id",
-      header: t("searchFindings.tabEvents.id"),
-      onSort: onSortState,
-      visible: columnItems.id,
-      wrapped: true,
-    },
-    {
-      dataField: "root.nickname",
-      header: t("searchFindings.tabEvents.root"),
-      onSort: onSortState,
-      visible: columnItems["root.nickname"],
-      wrapped: true,
-    },
-    {
-      dataField: "eventDate",
-      header: t("searchFindings.tabEvents.date"),
-      onSort: onSortState,
-      visible: columnItems.eventDate,
-      wrapped: true,
-    },
-    {
-      dataField: "detail",
-      header: t("searchFindings.tabEvents.description"),
-      onSort: onSortState,
-      visible: columnItems.detail,
-      wrapped: true,
-    },
-    {
-      dataField: "eventType",
-      header: t("searchFindings.tabEvents.type"),
-      onSort: onSortState,
-      visible: columnItems.eventType,
-      wrapped: true,
-    },
-    {
-      dataField: "eventStatus",
-      formatter: statusFormatter,
-      header: t("searchFindings.tabEvents.status"),
-      onSort: onSortState,
-      visible: columnItems.eventStatus,
-      wrapped: true,
-    },
-    {
-      dataField: "closingDate",
-      header: t("searchFindings.tabEvents.dateClosed"),
-      onSort: onSortState,
-      visible: columnItems.closingDate,
-      wrapped: true,
-    },
-  ];
-
   const handleQryErrors: (error: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -220,17 +100,94 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       msgError(t("groupAlerts.errorTextsad"));
     });
   };
+  const { data, refetch } = useQuery<IEventsDataset>(GET_EVENTS, {
+    onError: handleQryErrors,
+    variables: { groupName },
+  });
+  const allEvents = data === undefined ? [] : data.group.events;
+  const dataset = formatEvents(allEvents);
+  const hasOpenEvents = dataset.some(
+    (event: IEventData): boolean => event.eventStatus.toUpperCase() !== "SOLVED"
+  );
 
-  const goToEvent: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ): void => {
-    mixpanel.track("ReadEvent");
-    push(`${url}/${rowInfo.id}/description`);
-  };
+  const columns: ColumnDef<IEventData>[] = [
+    {
+      accessorKey: "id",
+      header: t("searchFindings.tabEvents.id"),
+    },
+    {
+      accessorFn: (row: IEventData): string | undefined => row.root?.nickname,
+      header: String(t("searchFindings.tabEvents.root")),
+    },
+    {
+      accessorKey: "eventDate",
+      filterFn: filterDate,
+      header: t("searchFindings.tabEvents.date"),
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorKey: "detail",
+      header: t("searchFindings.tabEvents.description"),
+    },
+    {
+      accessorKey: "eventType",
+      header: t("searchFindings.tabEvents.type"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "eventStatus",
+      cell: (cell: ICellHelper<IEventData>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      header: t("searchFindings.tabEvents.status"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "closingDate",
+      filterFn: filterDate,
+      header: t("searchFindings.tabEvents.dateClosed"),
+      meta: { filterType: "dateRange" },
+    },
+  ];
+
+  const [columnFilters, columnFiltersSetter] =
+    useStoredState<ColumnFiltersState>("tblEvents-columnFilters", []);
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("tblEvents-visibilityState", {
+      Asignees: false,
+      Locations: false,
+      Treatment: false,
+      description: false,
+      reattack: false,
+      releaseDate: false,
+    });
+  const [pagination, setpagination] = useStoredState<PaginationState>(
+    "tblEvents-pagination",
+    {
+      pageIndex: 0,
+      pageSize: 10,
+    }
+  );
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblEvents-sortingState",
+    []
+  );
+
+  function enabledRows(row: Row<IEventData>): boolean {
+    const indexes = getNonSelectableEventIndexToRequestVerification(dataset);
+    const nonselectables = indexes.map(
+      (index: number): IEventData => dataset[index]
+    );
+
+    return !nonselectables.includes(row.original);
+  }
+
+  function goToEventz(rowInfo: Row<IEventData>): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      mixpanel.track("ReadEvent");
+      push(`${url}/${rowInfo.original.id}/description`);
+      event.preventDefault();
+    };
+  }
 
   // State Management
   const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
@@ -289,11 +246,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const closeOpenMode: () => void = useCallback((): void => {
     closeRequestVerificationMode();
   }, [closeRequestVerificationMode]);
-
-  const { data, refetch } = useQuery<IEventsDataset>(GET_EVENTS, {
-    onError: handleQryErrors,
-    variables: { groupName },
-  });
 
   const { data: findingsData, refetch: refetchReattacks } =
     useQuery<IFindingsQuery>(GET_VERIFIED_FINDING_INFO, {
@@ -497,211 +449,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     [t, closeOpenMode, refetch, requestVerification, selectedEvents]
   );
 
-  useEffect((): void => {
-    if (!_.isUndefined(data)) {
-      const eventOptions: string[] = Array.from(
-        new Set(
-          data.group.events.map(
-            (event: { eventType: string }): string => event.eventType
-          )
-        )
-      );
-      const transEventOptions = eventOptions.map((option: string): string =>
-        translate.t(castEventType(option))
-      );
-      const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
-        _.includes(transEventOptions, value)
-      );
-      setOptionType(filterOptions);
-    }
-  }, [data]);
-
-  const allEvents = data === undefined ? [] : data.group.events;
-  const dataset = formatEvents(allEvents);
-  const hasOpenEvents = dataset.some(
-    (event: IEventData): boolean => event.eventStatus.toUpperCase() !== "SOLVED"
-  );
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchTextResult = filterSearchText(dataset, searchTextFilter);
-
-  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        status: event.target.value,
-      })
-    );
-  }
-  const filterStatusResult = filterSelect(
-    dataset,
-    filterGroupEventsTable.status,
-    "eventStatus"
-  );
-
-  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        type: event.target.value,
-      })
-    );
-  }
-  const filterTypeResult = filterSelect(
-    dataset,
-    filterGroupEventsTable.type,
-    "eventType"
-  );
-
-  function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        dateRange: { ...value.dateRange, max: event.currentTarget.value },
-      })
-    );
-  }
-  function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        dateRange: { ...value.dateRange, min: event.currentTarget.value },
-      })
-    );
-  }
-  const filterDateRangeResult = filterDateRange(
-    dataset,
-    filterGroupEventsTable.dateRange,
-    "eventDate"
-  );
-
-  function onClosingDateMaxChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        closingDateRange: {
-          ...value.closingDateRange,
-          max: event.currentTarget.value,
-        },
-      })
-    );
-  }
-  function onClosingDateMinChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        closingDateRange: {
-          ...value.closingDateRange,
-          min: event.currentTarget.value,
-        },
-      })
-    );
-  }
-  const filterClosingDateRangeResult = filterDateRange(
-    dataset,
-    filterGroupEventsTable.closingDateRange,
-    "closingDate"
-  );
-
-  function clearFilters(): void {
-    setFilterGroupEventsTable(
-      (): IFilterSet => ({
-        closingDateRange: { max: "", min: "" },
-        dateRange: { max: "", min: "" },
-        status: "",
-        type: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultDataset = _.intersection(
-    filterSearchTextResult,
-    filterStatusResult,
-    filterTypeResult,
-    filterDateRangeResult,
-    filterClosingDateRangeResult
-  );
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: "",
-      placeholder: "Date (range)",
-      rangeProps: {
-        defaultValue: filterGroupEventsTable.dateRange,
-        onChangeMax: onDateMaxChange,
-        onChangeMin: onDateMinChange,
-      },
-      tooltipId: "group.events.filtersTooltips.date.id",
-      tooltipMessage: "group.events.filtersTooltips.date",
-      type: "dateRange",
-    },
-    {
-      defaultValue: filterGroupEventsTable.type,
-      onChangeSelect: onTypeChange,
-      placeholder: "Type",
-      selectOptions: optionType,
-      tooltipId: "group.events.filtersTooltips.type.id",
-      tooltipMessage: "group.events.filtersTooltips.type",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupEventsTable.status,
-      onChangeSelect: onStatusChange,
-      placeholder: "Status",
-      selectOptions: {
-        [t(castEventStatus("VERIFICATION_REQUESTED"))]: "Pending",
-        [t(castEventStatus("CREATED"))]: "Unsolved",
-        [t(castEventStatus("SOLVED"))]: "Solved",
-      },
-      tooltipId: "group.events.filtersTooltips.status.id",
-      tooltipMessage: "group.events.filtersTooltips.status",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: "Closing date (range)",
-      rangeProps: {
-        defaultValue: filterGroupEventsTable.closingDateRange,
-        onChangeMax: onClosingDateMaxChange,
-        onChangeMin: onClosingDateMinChange,
-      },
-      tooltipId: "group.events.filtersTooltips.dateClosed.id",
-      tooltipMessage: "group.events.filtersTooltips.dateClosed",
-      type: "dateRange",
-    },
-  ];
-
-  function onSelectSeveralEvents(
-    isSelect: boolean,
-    eventsSelected: IEventData[]
-  ): string[] {
-    return onSelectSeveralEventsHelper(
-      isSelect,
-      eventsSelected,
-      selectedEvents,
-      setSelectedEvents
-    );
-  }
-  function onSelectOneEvent(event: IEventData, isSelect: boolean): boolean {
-    onSelectSeveralEvents(isSelect, [event]);
-
-    return true;
-  }
   const isOpenMode = isOpenRequestVerificationMode;
 
   return (
@@ -737,27 +484,17 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         tip={t("searchFindings.tabEvents.tableAdvice")}
       >
         <Table
-          clearFiltersButton={clearFilters}
+          columnFilterSetter={columnFiltersSetter}
+          columnFilterState={columnFilters}
           columnToggle={true}
-          customFilters={{
-            customFiltersProps,
-            isCustomFilterEnabled,
-            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-            resultSize: {
-              current: resultDataset.length,
-              total: dataset.length,
-            },
-          }}
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={resultDataset}
-          defaultSorted={JSON.parse(
-            _.get(sessionStorage, "eventSort", "{}") as string
-          )}
+          columnVisibilitySetter={setColumnVisibility}
+          columnVisibilityState={columnVisibility}
+          columns={columns}
+          data={dataset}
+          enableColumnFilters={true}
+          enableRowSelection={
+            isOpenRequestVerificationMode ? enabledRows : undefined
+          }
           exportCsv={true}
           extraButtons={
             <React.Fragment>
@@ -828,23 +565,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
               ) : undefined}
             </React.Fragment>
           }
-          headers={tableHeaders}
           id={"tblEvents"}
-          onColumnToggle={handleColumnToggle}
-          pageSize={10}
-          rowEvents={{ onClick: goToEvent }}
-          search={false}
-          selectionMode={{
-            clickToSelect: false,
-            hideSelectColumn: !canRequestVerification,
-            mode: "checkbox",
-            nonSelectable: isOpenRequestVerificationMode
-              ? getNonSelectableEventIndexToRequestVerification(resultDataset)
-              : undefined,
-            onSelect: onSelectOneEvent,
-            onSelectAll: onSelectSeveralEvents,
-            selected: getEventIndex(selectedEvents, resultDataset),
-          }}
+          onRowClick={goToEventz}
+          paginationSetter={setpagination}
+          paginationState={pagination}
+          rowSelectionSetter={
+            canRequestVerification ? setSelectedEvents : undefined
+          }
+          rowSelectionState={selectedEvents}
+          sortingSetter={setSorting}
+          sortingState={sorting}
         />
       </Tooltip>
     </React.Fragment>
