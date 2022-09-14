@@ -203,7 +203,7 @@ locals {
           Sid    = "cloudMachineLogs"
           Effect = "Allow"
           Action = [
-            "cloudwatch:*",
+            "logs:*",
           ]
           Resource = ["arn:aws:logs:${var.region}:${data.aws_caller_identity.main.account_id}:log-group:skims:log-stream:*"]
         },
