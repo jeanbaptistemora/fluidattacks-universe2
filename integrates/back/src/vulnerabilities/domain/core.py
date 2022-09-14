@@ -715,6 +715,7 @@ async def should_send_update_treatment(
 async def update_historics_dates(
     *,
     loaders: Any,
+    finding_id: str,
     vulnerability_id: str,
     modified_date: str,
 ) -> None:
@@ -737,6 +738,13 @@ async def update_historics_dates(
     await vulns_model.update_historic(
         current_value=vulnerability,
         historic=historic_state,
+    )
+    await vulns_model.update_metadata(
+        finding_id=finding_id,
+        metadata=VulnerabilityMetadataToUpdate(
+            created_date=historic_state[0].modified_date
+        ),
+        vulnerability_id=vulnerability_id,
     )
 
     loaders.vulnerability_historic_treatment.clear(vulnerability_id)

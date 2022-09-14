@@ -27,6 +27,9 @@ from db_model.findings.types import (
     Finding,
     FindingState,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -100,13 +103,17 @@ async def approve_draft(
             ),
         )
     )
+    finding_vulnerabilities: tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
     await collect(
         vulns_domain.update_historics_dates(
             loaders=loaders,
+            finding_id=finding_id,
             vulnerability_id=vuln.id,
             modified_date=approval_date,
         )
-        for vuln in await loaders.finding_vulnerabilities_all.load(finding_id)
+        for vuln in finding_vulnerabilities
     )
     return approval_date
 
