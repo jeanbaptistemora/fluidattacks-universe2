@@ -30,19 +30,11 @@ async def resolve(
             (parent.id)
         )
         last_complete_execution = next(
-            (
-                execution
-                for execution in machine_executions
-                if len(execution.findings_executed) > 1
-            ),
+            (execution for execution in machine_executions),
             None,
         )
         last_specific_execution = next(
-            (
-                execution
-                for execution in machine_executions
-                if len(execution.findings_executed) == 1
-            ),
+            (execution for execution in machine_executions),
             None,
         )
         last_machine_executions = LastMachineExecutions(
