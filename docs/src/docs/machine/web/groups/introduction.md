@@ -41,4 +41,4 @@ your groups are the following:
 - [Stakeholders](/machine/web/groups/stakeholders)
 - [Authors](/machine/web/groups/authors)
 - [Scope](/machine/web/groups/scope)
-- Surface
+- [Surface](/machine/web/groups/surface)
