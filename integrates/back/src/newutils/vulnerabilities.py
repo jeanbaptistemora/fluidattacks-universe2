@@ -658,6 +658,7 @@ async def validate_requested_verification(
             if (
                 isinstance(root, GitRoot)
                 and root.cloning.commit == vulnerability.commit
+                and root.state.credential_id is None
             ):
                 raise OutdatedRepository()
 
