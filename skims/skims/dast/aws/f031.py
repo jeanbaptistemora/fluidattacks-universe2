@@ -214,7 +214,11 @@ async def full_access_policies(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = list(policy_names["Document"]["Statement"])
+            pol_access = (
+                [policy_names["Document"]["Statement"]]
+                if isinstance(policy_names["Document"]["Statement"], str)
+                else policy_names["Document"]["Statement"]
+            )
 
             for index, item in enumerate(pol_access):
                 with suppress(KeyError):
@@ -295,7 +299,11 @@ async def open_passrole(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = list(policy_names["Document"]["Statement"])
+            pol_access = (
+                [policy_names["Document"]["Statement"]]
+                if isinstance(policy_names["Document"]["Statement"], str)
+                else policy_names["Document"]["Statement"]
+            )
 
             for index, item in enumerate(pol_access):
                 with suppress(KeyError):
@@ -385,7 +393,11 @@ async def permissive_policy(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = list(policy_names["Document"]["Statement"])
+            pol_access = (
+                [policy_names["Document"]["Statement"]]
+                if isinstance(policy_names["Document"]["Statement"], str)
+                else policy_names["Document"]["Statement"]
+            )
             for index, item in enumerate(pol_access):
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
@@ -457,7 +469,11 @@ async def full_access_to_ssm(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = list(policy_names["Document"]["Statement"])
+            pol_access = (
+                [policy_names["Document"]["Statement"]]
+                if isinstance(policy_names["Document"]["Statement"], str)
+                else policy_names["Document"]["Statement"]
+            )
             for index, item in enumerate(pol_access):
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
@@ -520,7 +536,11 @@ async def negative_statement(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = list(policy_names["Document"]["Statement"])
+            pol_access = (
+                [policy_names["Document"]["Statement"]]
+                if isinstance(policy_names["Document"]["Statement"], str)
+                else policy_names["Document"]["Statement"]
+            )
             for index, item in enumerate(pol_access):
                 with suppress(KeyError):
                     if isinstance(item["NotAction"], str):
