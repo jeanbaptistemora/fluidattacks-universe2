@@ -55,12 +55,27 @@ in {
       manifest = "/common/secrets/prod.yaml";
     };
   };
+  secretsForKubernetesConfigFromAws = {
+    commonCluster = {
+      cluster = "common";
+      region = "us-east-1";
+    };
+  };
   secretsForTerraformFromEnv = {
     commonCluster = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
       kubeConfig = "KUBECONFIG";
+    };
+  };
+  secureKubernetesWithRbacPolice = {
+    commonCluster = {
+      severity = "Low";
+      setup = [
+        outputs."/secretsForAwsFromGitlab/prodCommon"
+        outputs."/secretsForKubernetesConfigFromAws/commonCluster"
+      ];
     };
   };
   testTerraform = {
