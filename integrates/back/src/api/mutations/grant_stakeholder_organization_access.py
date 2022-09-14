@@ -26,6 +26,7 @@ from db_model.organization_access.enums import (
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
+    OrganizationAccessRequest,
 )
 from db_model.organizations.types import (
     Organization,
@@ -80,7 +81,9 @@ async def mutate(
     with suppress(StakeholderNotInOrganization):
         organization_access: OrganizationAccess = (
             await loaders.organization_access.load(
-                (organization_id, stakeholder_email)
+                OrganizationAccessRequest(
+                    organization_id=organization_id, email=stakeholder_email
+                )
             )
         )
         if organization_access.has_access:

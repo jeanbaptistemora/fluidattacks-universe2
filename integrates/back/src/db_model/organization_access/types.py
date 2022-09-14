@@ -28,3 +28,8 @@ class OrganizationAccessMetadataToUpdate(NamedTuple):
     has_access: Optional[bool] = None
     invitation: Optional[OrganizationInvitation] = None
     role: Optional[str] = None
+
+
+class OrganizationAccessRequest(NamedTuple):
+    email: str
+    organization_id: str

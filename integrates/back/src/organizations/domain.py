@@ -66,6 +66,7 @@ from db_model.organization_access.enums import (
 from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
+    OrganizationAccessRequest,
     OrganizationInvitation,
 )
 from db_model.organizations.enums import (
@@ -308,7 +309,9 @@ async def get_access_by_url_token(
         raise InvalidAuthorization() from ex
 
     return await loaders.organization_access.load(
-        (organization_id, user_email)
+        OrganizationAccessRequest(
+            organization_id=organization_id, email=user_email
+        )
     )
 
 
@@ -409,7 +412,7 @@ async def get_stakeholder_role(
     organization_id: str,
 ) -> str:
     org_access: OrganizationAccess = await loaders.organization_access.load(
-        (organization_id, email)
+        OrganizationAccessRequest(organization_id=organization_id, email=email)
     )
     invitation_state = format_invitation_state(
         org_access.invitation, is_registered
@@ -463,7 +466,11 @@ async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
         return True
 
     try:
-        await loaders.organization_access.load((organization_id, email))
+        await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=email
+            )
+        )
         return True
     except StakeholderNotInOrganization:
         return False

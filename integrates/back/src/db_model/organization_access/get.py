@@ -4,6 +4,7 @@
 
 from .types import (
     OrganizationAccess,
+    OrganizationAccessRequest,
 )
 from .utils import (
     format_organization_access,
@@ -36,27 +37,36 @@ from typing import (
 
 
 async def _get_organization_access(
-    *,
-    email: str,
-    organization_id: str,
-) -> OrganizationAccess:
-    email = email.lower().strip()
-    primary_key = keys.build_key(
-        facet=TABLE.facets["organization_access"],
-        values={
-            "email": email,
-            "id": remove_org_id_prefix(organization_id),
-        },
+    *, requests: tuple[OrganizationAccessRequest, ...]
+) -> tuple[OrganizationAccess, ...]:
+    requests = tuple(
+        request._replace(email=request.email.lower().strip())
+        for request in requests
     )
-    item = await operations.get_item(
-        facets=(TABLE.facets["organization_access"],),
-        key=primary_key,
-        table=TABLE,
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["organization_access"],
+            values={
+                "email": request.email,
+                "id": remove_org_id_prefix(request.organization_id),
+            },
+        )
+        for request in requests
     )
-    if not item:
-        raise StakeholderNotInOrganization()
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    return format_organization_access(item)
+    if len(items) == len(requests):
+        response = {
+            OrganizationAccessRequest(
+                organization_id=access.organization_id, email=access.email
+            ): access
+            for access in tuple(
+                format_organization_access(item) for item in items
+            )
+        }
+        return tuple(response[request] for request in requests)
+
+    raise StakeholderNotInOrganization()
 
 
 async def _get_organization_stakeholders_access(
@@ -89,7 +99,12 @@ async def _get_organization_stakeholders_access(
     for item in response.items:
         access = format_organization_access(item)
         access_list.append(access)
-        access_dataloader.prime((organization_id, access.email), access)
+        access_dataloader.prime(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=access.email
+            ),
+            access,
+        )
 
     return tuple(access_list)
 
@@ -121,7 +136,12 @@ async def _get_stakeholder_organizations_access(
     for item in response.items:
         access = format_organization_access(item)
         access_list.append(access)
-        access_dataloader.prime((access.organization_id, email), access)
+        access_dataloader.prime(
+            OrganizationAccessRequest(
+                organization_id=access.organization_id, email=email
+            ),
+            access,
+        )
 
     return tuple(access_list)
 
@@ -129,16 +149,9 @@ async def _get_stakeholder_organizations_access(
 class OrganizationAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, access_keys: Iterable[tuple[str, str]]
+        self, requests: Iterable[OrganizationAccessRequest]
     ) -> tuple[OrganizationAccess, ...]:
-        return await collect(
-            tuple(
-                _get_organization_access(
-                    email=email, organization_id=organization_id
-                )
-                for organization_id, email in access_keys
-            )
-        )
+        return await _get_organization_access(requests=tuple(requests))
 
 
 class OrganizationStakeholdersAccessLoader(DataLoader):

@@ -18,6 +18,7 @@ from db_model.organization_access.enums import (
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
+    OrganizationAccessRequest,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -79,7 +80,9 @@ async def resolve(
         organization_id = request_store["organization_id"]
         org_access: OrganizationAccess = (
             await loaders.organization_access.load(
-                (organization_id, parent.email)
+                OrganizationAccessRequest(
+                    organization_id=organization_id, email=parent.email
+                )
             )
         )
         org_invitation_state = format_org_invitation_state(

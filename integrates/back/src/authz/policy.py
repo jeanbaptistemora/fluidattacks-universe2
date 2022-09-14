@@ -39,6 +39,7 @@ from db_model.groups.types import (
 from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
+    OrganizationAccessRequest,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -163,7 +164,11 @@ async def get_organization_level_role(
     # Admins are granted access to all organizations
     with suppress(StakeholderNotInOrganization):
         org_access: OrganizationAccess = (
-            await loaders.organization_access.load((organization_id, email))
+            await loaders.organization_access.load(
+                OrganizationAccessRequest(
+                    organization_id=organization_id, email=email
+                )
+            )
         )
         if org_access.role:
             organization_role = org_access.role
@@ -274,7 +279,11 @@ async def revoke_organization_level_role(
 ) -> None:
     with suppress(StakeholderNotInOrganization):
         org_access: OrganizationAccess = (
-            await loaders.organization_access.load((organization_id, email))
+            await loaders.organization_access.load(
+                OrganizationAccessRequest(
+                    organization_id=organization_id, email=email
+                )
+            )
         )
         if org_access.role:
             await organization_access_model.update_metadata(
