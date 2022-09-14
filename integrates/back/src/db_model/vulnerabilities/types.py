@@ -79,6 +79,8 @@ class VulnerabilityZeroRisk(NamedTuple):
 
 
 class Vulnerability(NamedTuple):
+    created_by: str
+    created_date: str
     finding_id: str
     group_name: str
     hacker_email: str
@@ -89,8 +91,6 @@ class Vulnerability(NamedTuple):
     where: str
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
-    created_by: Optional[str] = None
-    created_date: Optional[str] = None
     custom_severity: Optional[int] = None
     developer: Optional[str] = None
     event_id: Optional[str] = None

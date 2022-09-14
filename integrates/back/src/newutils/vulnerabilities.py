@@ -438,6 +438,8 @@ def group_specific(
         )
         grouped_vulns.append(
             Vulnerability(
+                created_by=group[0].created_by,
+                created_date=group[0].created_date,
                 finding_id=group[0].finding_id,
                 group_name=group[0].group_name,
                 hacker_email=group[0].hacker_email,

@@ -251,6 +251,8 @@ async def test_group_vulnerabilities() -> None:
     test_data = group_vulnerabilities(vulns)
     expected_output = (
         Vulnerability(
+            created_by="unittest@fluidattacks.com",
+            created_date="2020-01-03T17:46:10+00:00",
             finding_id="422286126",
             group_name="unittesting",
             hacker_email="unittest@fluidattacks.com",
@@ -271,6 +273,8 @@ async def test_group_vulnerabilities() -> None:
             commit="ea871ee",
         ),
         Vulnerability(
+            created_by="test@unittesting.com",
+            created_date="2020-09-09T21:01:26+00:00",
             finding_id="422286126",
             group_name="unittesting",
             hacker_email="test@unittesting.com",

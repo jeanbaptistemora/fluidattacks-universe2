@@ -119,6 +119,8 @@ def test_range_to_list() -> None:
 def test_sort_vulnerabilities() -> None:
     vulns = tuple(
         Vulnerability(
+            created_by="test@test.com",
+            created_date="2018-04-08T00:45:11+00:00",
             finding_id="",
             group_name="",
             hacker_email="",
@@ -141,6 +143,8 @@ def test_sort_vulnerabilities() -> None:
     )
     expected_output = tuple(
         Vulnerability(
+            created_by="test@test.com",
+            created_date="2018-04-08T00:45:11+00:00",
             finding_id="",
             group_name="",
             hacker_email="",
