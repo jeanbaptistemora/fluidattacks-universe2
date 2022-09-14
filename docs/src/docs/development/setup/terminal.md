@@ -22,7 +22,13 @@ as the command interpreter of your terminal.
 Please follow the following steps:
 
 1. Install [direnv](https://direnv.net/).
-1. Add `export DIRENV_WARN_TIMEOUT=1h` to your `~/.bashrc`.
+1. Add the following to the end of your `~/.bashrc`:
+
+   ```bash
+   export DIRENV_WARN_TIMEOUT=1h
+   source <(direnv hook bash)
+   ```
+
 1. Clone the
    [universe repository](https://gitlab.com/fluidattacks/universe)
    into the path of your preference.
