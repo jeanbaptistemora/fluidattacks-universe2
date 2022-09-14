@@ -127,13 +127,13 @@ async def update_evidence(
     loaders: Any,
     finding_id: str,
     evidence_id: str,
-    file: UploadFile,
+    file_object: UploadFile,
     description: Optional[str] = None,
 ) -> None:
-    await validate_evidence(evidence_id, file)
+    await validate_evidence(evidence_id, file_object)
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
-    mime_type = await files_utils.get_uploaded_file_mime(file)
+    mime_type = await files_utils.get_uploaded_file_mime(file_object)
     try:
         extension = {
             "image/gif": ".gif",
@@ -158,11 +158,11 @@ async def update_evidence(
                 finding.group_name, finding.id, old_filename
             )
             if old_records:
-                file = await finding_utils.append_records_to_file(
-                    cast(List[Dict[str, str]], old_records), file
+                file_object = await finding_utils.append_records_to_file(
+                    cast(List[Dict[str, str]], old_records), file_object
                 )
 
-    await findings_storage.save_evidence(file, full_name)
+    await findings_storage.save_evidence(file_object, full_name)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )

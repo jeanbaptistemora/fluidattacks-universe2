@@ -46,11 +46,11 @@ async def mutate(
     _: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
     try:
-        file: UploadFile = kwargs["file"]
+        file_object: UploadFile = kwargs["file"]
         finding_id: str = kwargs["finding_id"]
         evidence_id: str = kwargs["evidence_id"]
         await findings_domain.update_evidence(
-            info.context.loaders, finding_id, evidence_id, file
+            info.context.loaders, finding_id, evidence_id, file_object
         )
         logs_utils.cloudwatch_log(
             info.context,

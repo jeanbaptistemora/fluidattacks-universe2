@@ -330,16 +330,16 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
 
     stream.seek(0)
 
-    file = UploadFile(
+    file_object = UploadFile(
         filename="evidence",
         content_type="image/png",
         file=SpooledTemporaryFile(  # pylint: disable=consider-using-with
             mode="wb"
         ),
     )
-    await file.write(stream.read())
-    await file.seek(0)
-    return file
+    await file_object.write(stream.read())
+    await file_object.seek(0)
+    return file_object
 
 
 async def _create_draft(

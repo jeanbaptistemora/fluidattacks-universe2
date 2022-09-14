@@ -42,20 +42,20 @@ async def assert_uploaded_file_mime(
 
 
 async def get_file_size(file_object: UploadFile) -> int:
-    file = file_object.file
+    file_info = file_object.file
 
     # Needed while upstream starlette implements a size method
     # pylint: disable=protected-access
     if file_object._in_memory:
-        current_position = file.tell()
-        file.seek(0, os.SEEK_END)
-        size = file.tell()
-        file.seek(current_position)
+        current_position = file_info.tell()
+        file_info.seek(0, os.SEEK_END)
+        size = file_info.tell()
+        file_info.seek(current_position)
     else:
-        current_position = await run_in_threadpool(file.tell)
-        await run_in_threadpool(file.seek, 0, os.SEEK_END)
-        size = await run_in_threadpool(file.tell)
-        await run_in_threadpool(file.seek, current_position)
+        current_position = await run_in_threadpool(file_info.tell)
+        await run_in_threadpool(file_info.seek, 0, os.SEEK_END)
+        size = await run_in_threadpool(file_info.tell)
+        await run_in_threadpool(file_info.seek, current_position)
     return size
 
 

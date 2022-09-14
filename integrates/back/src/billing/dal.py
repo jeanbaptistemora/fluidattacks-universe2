@@ -64,19 +64,21 @@ async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
     month: str = date.strftime("%m")
     # The day is also available after 2019-09 in case it's needed
 
-    buffer = io.BytesIO()
+    billing_buffer = io.BytesIO()
 
     key: str = os.path.join("bills", year, month, f"{group}.csv")
     client = await get_s3_resource()
 
     try:
-        await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
+        await client.download_fileobj(
+            SERVICES_DATA_BUCKET, key, billing_buffer
+        )
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     else:
-        buffer.seek(0)
+        billing_buffer.seek(0)
 
-    return buffer
+    return billing_buffer
 
 
 async def _pay_squad_authors_to_date(
@@ -498,8 +500,10 @@ async def get_authors_data(
         "commit": ["commit", "sha1"],
         "repository": ["repository"],
     }
-    buffer: io.BytesIO = await _get_billing_buffer(date=date, group=group)
-    buffer_str: io.StringIO = io.StringIO(buffer.read().decode())
+    buffer_object: io.BytesIO = await _get_billing_buffer(
+        date=date, group=group
+    )
+    buffer_str: io.StringIO = io.StringIO(buffer_object.read().decode())
 
     return [
         {
