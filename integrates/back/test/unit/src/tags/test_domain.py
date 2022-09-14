@@ -8,6 +8,7 @@ from dataloaders import (
 )
 from db_model.portfolios.types import (
     Portfolio,
+    PortfolioRequest,
     PortfolioUnreliableIndicators,
 )
 from decimal import (
@@ -27,7 +28,7 @@ pytestmark = [
 async def test_update() -> None:
     loaders: Dataloaders = get_new_context()
     original: Portfolio = await loaders.portfolio.load(
-        ("okada", "test-groups")
+        PortfolioRequest(organization_name="okada", portfolio_id="test-groups")
     )
     # company, tag, data
     test_1 = Portfolio(
@@ -53,7 +54,9 @@ async def test_update() -> None:
 
     await tags_domain.update(portfolio=test_1)
     loaders = get_new_context()
-    updated: Portfolio = await loaders.portfolio.load(("okada", "test-groups"))
+    updated: Portfolio = await loaders.portfolio.load(
+        PortfolioRequest(organization_name="okada", portfolio_id="test-groups")
+    )
     assert updated.unreliable_indicators.mean_remediate_critical_severity == (
         Decimal("1.5")
     )

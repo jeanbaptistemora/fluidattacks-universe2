@@ -4,6 +4,7 @@
 
 from .types import (
     Portfolio,
+    PortfolioRequest,
 )
 from .utils import (
     format_portfolio,
@@ -33,8 +34,11 @@ from typing import (
 
 
 async def _get_organization_portfolios(
+    *,
     organization_name: str,
+    portfolio_dataloader: DataLoader,
 ) -> tuple[Portfolio, ...]:
+    organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["portfolio_metadata"],
         values={"name": organization_name},
@@ -54,56 +58,78 @@ async def _get_organization_portfolios(
         index=index,
     )
 
-    return tuple(format_portfolio(item) for item in response.items)
+    portfolio_list: list[Portfolio] = []
+    for item in response.items:
+        portfolio = format_portfolio(item)
+        portfolio_list.append(portfolio)
+        portfolio_dataloader.prime(
+            PortfolioRequest(
+                organization_name=portfolio.organization_name,
+                portfolio_id=portfolio.id,
+            ),
+            portfolio,
+        )
+
+    return tuple(portfolio_list)
 
 
-async def _get_portfolio(
-    *,
-    organization_name: str,
-    portfolio_id: str,
-) -> Portfolio:
-    organization_name = organization_name.lower().strip()
-    primary_key = keys.build_key(
-        facet=TABLE.facets["portfolio_metadata"],
-        values={
-            "id": portfolio_id,
-            "name": organization_name,
-        },
+async def _get_portfolios(
+    *, requests: tuple[PortfolioRequest, ...]
+) -> tuple[Portfolio, ...]:
+    requests = tuple(
+        request._replace(
+            organization_name=request.organization_name.lower().strip()
+        )
+        for request in requests
     )
-    item = await operations.get_item(
-        facets=(TABLE.facets["portfolio_metadata"],),
-        key=primary_key,
-        table=TABLE,
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["portfolio_metadata"],
+            values={
+                "id": request.portfolio_id,
+                "name": request.organization_name,
+            },
+        )
+        for request in requests
     )
-    if not item:
-        raise PortfolioNotFound.new()
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    return format_portfolio(item)
+    if len(items) == len(requests):
+        response = {
+            PortfolioRequest(
+                organization_name=portfolio.organization_name,
+                portfolio_id=portfolio.id,
+            ): portfolio
+            for portfolio in tuple(format_portfolio(item) for item in items)
+        }
+        return tuple(response[request] for request in requests)
+
+    raise PortfolioNotFound()
 
 
 class OrganizationPortfoliosLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_names: Iterable[str]
     ) -> tuple[tuple[Portfolio, ...], ...]:
         return await collect(
-            tuple(map(_get_organization_portfolios, organization_names))
+            tuple(
+                _get_organization_portfolios(
+                    organization_name=organization_name,
+                    portfolio_dataloader=self.dataloader,
+                )
+                for organization_name in organization_names
+            )
         )
 
 
 class PortfolioLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self,
-        portfolio_keys: Iterable[tuple[str, str]],
+        self, requests: Iterable[PortfolioRequest]
     ) -> tuple[Portfolio, ...]:
-        # This loaders receives a tuple with (organization_name, portfolio_id)
-        return await collect(
-            tuple(
-                _get_portfolio(
-                    organization_name=organization_name,
-                    portfolio_id=portfolio_id,
-                )
-                for organization_name, portfolio_id in portfolio_keys
-            )
-        )
+        return await _get_portfolios(requests=tuple(requests))

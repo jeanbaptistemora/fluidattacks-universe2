@@ -249,6 +249,10 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     stakeholder_organizations_access_loader = (
         StakeholderOrganizationsAccessLoader(organization_access_loader)
     )
+    portfolio_loader = PortfolioLoader()
+    organization_portfolios_loader = OrganizationPortfoliosLoader(
+        portfolio_loader
+    )
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -296,13 +300,13 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         organization=OrganizationLoader(),
         organization_access=organization_access_loader,
         organization_groups=organization_groups_loader,
-        organization_portfolios=OrganizationPortfoliosLoader(),
+        organization_portfolios=organization_portfolios_loader,
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders_access=(
             organization_stakeholders_access_loader
         ),
-        portfolio=PortfolioLoader(),
+        portfolio=portfolio_loader,
         root=RootLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),

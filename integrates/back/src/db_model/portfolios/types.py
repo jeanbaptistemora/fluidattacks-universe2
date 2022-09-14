@@ -27,3 +27,8 @@ class Portfolio(NamedTuple):
     groups: set[str]
     organization_name: str
     unreliable_indicators: PortfolioUnreliableIndicators
+
+
+class PortfolioRequest(NamedTuple):
+    organization_name: str
+    portfolio_id: str

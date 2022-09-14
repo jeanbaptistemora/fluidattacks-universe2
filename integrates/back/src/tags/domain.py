@@ -23,6 +23,7 @@ from db_model.organizations.types import (
 )
 from db_model.portfolios.types import (
     Portfolio,
+    PortfolioRequest,
 )
 from organizations import (
     domain as orgs_domain,
@@ -68,7 +69,9 @@ async def has_access(loaders: Any, email: str, subject: str) -> bool:
         organization: Organization = await loaders.organization.load(org_id)
         organization_name = organization.name
         portfolio_info: Portfolio = await loaders.portfolio.load(
-            (organization_name, portfolio)
+            PortfolioRequest(
+                organization_name=organization_name, portfolio_id=portfolio
+            )
         )
         portfolio_groups: list[str] = list(portfolio_info.groups)
         org_access, group_access = await collect(
@@ -95,7 +98,9 @@ async def is_tag_allowed(
 ) -> bool:
     try:
         org_tag: Portfolio = await loaders.portfolio.load(
-            (organization_name, tag)
+            PortfolioRequest(
+                organization_name=organization_name, portfolio_id=tag
+            )
         )
     except PortfolioNotFound:
         return False

@@ -19,6 +19,7 @@ from db_model.organizations.types import (
 )
 from db_model.portfolios.types import (
     Portfolio,
+    PortfolioRequest,
 )
 from decorators import (
     require_login,
@@ -85,6 +86,8 @@ async def resolve(
         raise TagNotFound()
 
     portfolio: Portfolio = await loaders.portfolio.load(
-        (organization.name, tag_name)
+        PortfolioRequest(
+            organization_name=organization.name, portfolio_id=tag_name
+        )
     )
     return portfolio
