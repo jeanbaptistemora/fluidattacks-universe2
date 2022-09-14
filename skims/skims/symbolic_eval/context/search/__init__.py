@@ -8,8 +8,10 @@ from model.graph_model import (
 )
 from symbolic_eval.context.search import (
     assignment,
+    call_expression,
     class_body,
     declaration_block,
+    for_each,
     if_statement,
     method_declaration,
     method_invocation,
@@ -31,7 +33,9 @@ from typing import (
 
 SEARCHERS: Dict[str, Searcher] = {
     "DeclarationBlock": declaration_block.search,
+    "CallExpression": call_expression.search,
     "ClassBody": class_body.search,
+    "ForEachStatement": for_each.search,
     "If": if_statement.search,
     "MethodDeclaration": method_declaration.search,
     "MethodInvocation": method_invocation.search,

@@ -34,7 +34,12 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     symbol_id = args.n_id
     symbol = args.graph.nodes[args.n_id]["symbol"]
-    path = get_lookup_path(args.graph, args.path, symbol_id)
+
+    try:
+        path = get_lookup_path(args.graph, args.path, symbol_id)
+    except ValueError:
+        path = []
+
     refs_search_order = list(search_until_def(args.graph, path, symbol))
     refs_exec_order = reversed(refs_search_order)
 
