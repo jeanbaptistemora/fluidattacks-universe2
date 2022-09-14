@@ -2555,7 +2555,7 @@ export const enTranslations: ResourceKey = {
           "vulnerability notification email sent successfully",
         emailNotificationTitle: "Notification Status",
         text: "Notify",
-        tooltip: "Send finding notification",
+        tooltip: "Report the finding to stakeholders in an email notification",
       },
       old: "Old",
       path: "Path",
