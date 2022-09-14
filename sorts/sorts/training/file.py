@@ -123,16 +123,18 @@ def get_safe_files(
                 break
 
             if attacked_files:
-                file: str = random.choice(attacked_files)
+                file_name: str = random.choice(attacked_files)
                 file_extension: str = (
-                    os.path.splitext(file)[1].strip(".").lower()
+                    os.path.splitext(file_name)[1].strip(".").lower()
                 )
                 if (
-                    file not in vuln_files
-                    and file not in safe_files
-                    and (file in composites or file_extension in extensions)
+                    file_name not in vuln_files
+                    and file_name not in safe_files
+                    and (
+                        file_name in composites or file_extension in extensions
+                    )
                 ):
-                    safe_files.add(file)
+                    safe_files.add(file_name)
                     retries = 0
             retries += 1
         log(

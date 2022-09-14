@@ -46,7 +46,9 @@ def get_bad_repos(fusion_path: str) -> List[str]:
     ]
 
 
-def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
+def get_log_file_metrics(
+    logs_dir: str, repo: str, file_info: str
+) -> GitMetrics:
     """Read the log file and extract the author, hash, date and diff"""
     git_metrics: GitMetrics = GitMetrics(
         author_email=[], commit_hash=[], date_iso_format=[], stats=[]
@@ -81,17 +83,17 @@ def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
                     )
                     if match:
                         path_info: Dict[str, str] = match.groupdict()
-                        if file == (
+                        if file_info == (
                             f'{path_info["pre_path"]}{path_info["new_name"]}'
                             f'{path_info["post_path"]}'
                         ):
                             changed_name = True
-                            file = (
+                            file_info = (
                                 f'{path_info["pre_path"]}'
                                 f'{path_info["old_name"]}'
                                 f'{path_info["post_path"]}'
                             )
-                if file in line or changed_name:
+                if file_info in line or changed_name:
                     git_metrics["author_email"].append(author)
                     git_metrics["commit_hash"].append(commit)
                     git_metrics["date_iso_format"].append(date)
