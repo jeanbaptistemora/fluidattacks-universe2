@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=too-many-lines
+
 from aiodataloader import (
     DataLoader,
 )
@@ -590,9 +592,15 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id,
         vulnerability_ids,
     )
-    vulnerabilities = tuple(
-        vulns_utils.validate_requested_verification(vuln, is_closing_event)
-        for vuln in vulnerabilities
+    vulnerabilities = await collect(
+        tuple(
+            (
+                vulns_utils.validate_requested_verification(
+                    loaders, vuln, is_closing_event
+                )
+            )
+            for vuln in vulnerabilities
+        )
     )
     vulnerabilities = tuple(
         vulns_utils.validate_closed(vuln) for vuln in vulnerabilities

@@ -1445,6 +1445,12 @@ class InvalidGitCredentials(CustomBaseException):
         super(InvalidGitCredentials, self).__init__(msg)
 
 
+class OutdatedRepository(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = "Exception - The git repository is outdated"
+        super(OutdatedRepository, self).__init__(msg)
+
+
 class EmptyHistoric(CustomBaseException):
     """Exception to control the historic is not empty"""
 

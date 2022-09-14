@@ -16,6 +16,7 @@ from custom_exceptions import (
     InvalidRange,
     NotVerificationRequested,
     NotZeroRiskRequested,
+    OutdatedRepository,
     RootNotFound,
     VulnAlreadyClosed,
 )
@@ -27,6 +28,7 @@ from db_model.enums import (
     Source,
 )
 from db_model.roots.types import (
+    GitRoot,
     Root,
 )
 from db_model.vulnerabilities.enums import (
@@ -628,7 +630,8 @@ def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
     return vulnerability
 
 
-def validate_requested_verification(
+async def validate_requested_verification(
+    loaders: Any,
     vulnerability: Vulnerability,
     is_closing_event: bool = False,
 ) -> Vulnerability:
@@ -647,6 +650,17 @@ def validate_requested_verification(
         == VulnerabilityVerificationStatus.ON_HOLD
     ):
         raise AlreadyRequested()
+    if vulnerability.type == VulnerabilityType.LINES and vulnerability.root_id:
+        with suppress(RootNotFound):
+            root: GitRoot = await loaders.root.load(
+                (vulnerability.group_name, vulnerability.root_id)
+            )
+            if (
+                isinstance(root, GitRoot)
+                and root.cloning.commit == vulnerability.commit
+            ):
+                raise OutdatedRepository()
+
     return vulnerability
 
 
