@@ -45,6 +45,7 @@
     "mixpanel-browser": "2.45.0",
     "moment": "2.29.2",
     "react": "17.0.2",
+    "react-ansi": "3.0.2",
     "react-bootstrap-table-next": "4.0.3",
     "react-bootstrap-table2-filter": "1.3.3",
     "react-bootstrap-table2-paginator": "2.1.2",
