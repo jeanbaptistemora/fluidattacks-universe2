@@ -59,7 +59,7 @@ SPDX-License-Identifier: MPL-2.0
 {% endmacro %}
 
 {# Generic red banner #}
-{%- macro banner(icon_url) %}
+{% macro banner(icon_url) %}
     <div class="body-title">
       <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
         <img
@@ -67,10 +67,10 @@ SPDX-License-Identifier: MPL-2.0
           class="title-icon"
           src="{{ icon_url }}"
         >
-        {{- caller() }}
+        {{ caller() }}
       </p>
     </div>
-{%- endmacro %}
+{% endmacro %}
 
 {# Custom banner with news icon #}
 {% macro banner_news(text) %}
@@ -91,19 +91,19 @@ SPDX-License-Identifier: MPL-2.0
 {% endmacro %}
 
 {# Custom banner with group icon #}
-{%- macro banner_group(text) %}
-  {%- call banner(
+{% macro banner_group(text) %}
+  {% call banner(
     'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/group.png',
     ) %}
     {{ text }}
   {% endcall %}
-{%- endmacro %}
+{% endmacro %}
 
 {# Bulleted text area for findings #}
-{%- macro findings_area(list) %}
+{% macro findings_area(list) %}
       <div class="w-80 text-area">
         <ul>
-        {%- for finding in list %}
+        {% for finding in list %}
           <li>
             <a href="{{ finding['finding_url'] }}"
               target="_blank"
@@ -113,7 +113,7 @@ SPDX-License-Identifier: MPL-2.0
               {{ finding['group'] }} - {{ finding['finding_name'] }}
             </a>
           </li>
-        {%- endfor %}
+        {% endfor %}
         <ul>
       </div>
-{%- endmacro %}
+{% endmacro %}

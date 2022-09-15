@@ -10,7 +10,7 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_group('Treatment Expiration Alert') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
@@ -23,15 +23,15 @@ SPDX-License-Identifier: MPL-2.0
         <strong>Type or vulnerability:</strong> {{ finding }}<br>
         <strong>Vulnerabilities:</strong>
         <ul>
-        {%- for key, value in locations.items() %}
+        {% for key, value in locations.items() %}
           <li>{{ key }} ({{ value["vuln_count"] }}
-          {%- if value["vuln_count"] == 1 %}
+          {% if value["vuln_count"] == 1 %}
           vulnerability
-          {%- else %}
+          {% else %}
           vulnerabilities
-          {%- endif %})
+          {% endif %})
           </li>
-        {%- endfor %}
+        {% endfor %}
         </ul>
       </p>
       <p>Regards,<br>

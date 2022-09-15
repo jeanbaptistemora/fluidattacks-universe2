@@ -10,7 +10,7 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_group('Progress Report') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
@@ -44,10 +44,10 @@ SPDX-License-Identifier: MPL-2.0
         </ul>
       </p>
       <p>
-        {%- if groups %}
+        {% if groups %}
         <strong>Groups details:</strong><br />
         <ul>
-          {%- for group, fields in groups.items() %}
+          {% for group, fields in groups.items() %}
           <li>
             <strong>{{ group }}:</strong>
             ({{ fields["subscription"] }})
@@ -58,9 +58,9 @@ SPDX-License-Identifier: MPL-2.0
             {{ fields["draft_created"] }} drafts,
             {{ fields["released"] }} released.<br />
           </li>
-          {%- endfor %}
+          {% endfor %}
         </ul>
-      {%- endif %}
+      {% endif %}
       </p>
       <p>Regards,<br />Fluid Attacks Team</p>
     </div>

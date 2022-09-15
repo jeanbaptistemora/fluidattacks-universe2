@@ -10,7 +10,7 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_finding('Pending to Verify') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
@@ -18,7 +18,7 @@ SPDX-License-Identifier: MPL-2.0
         You have pending reattacks for the following types of
         vulnerabilities:
       </p>
-      {{- findings_area(findings) }}
+      {{ findings_area(findings) }}
       <p></p>
       <p>Regards,<br>
         Fluid Attacks Team</p>

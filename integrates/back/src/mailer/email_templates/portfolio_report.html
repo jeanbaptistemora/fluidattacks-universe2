@@ -10,13 +10,13 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_group('Portfolio Alert') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
       <p>
         Portfolios have been
-        {%- if is_added %}
+        {% if is_added %}
         added by
         <strong>
           <a
@@ -28,8 +28,8 @@ SPDX-License-Identifier: MPL-2.0
             {{ responsible }}
           </a>
         </strong>
-        to the group <strong>{{ group_name -}}</strong>
-        {%- else %}
+        to the group <strong>{{ group_name }}</strong>
+        {% else %}
         deleted from the group <strong>{{ group_name }}</strong> by
         <strong>
           <a
@@ -40,7 +40,7 @@ SPDX-License-Identifier: MPL-2.0
           >
             {{ responsible -}}
           </a></strong>
-        {%- endif -%}:
+        {% endif %}:
       </p>
       <p>
         <strong>Date:</strong> {{ report_date }}<br>

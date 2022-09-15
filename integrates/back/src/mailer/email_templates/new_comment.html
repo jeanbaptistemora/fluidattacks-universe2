@@ -10,24 +10,24 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_news('Consulting') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
       <p>
-        {%- if comment_type == 'observation' %}
+        {% if comment_type == 'observation' %}
         An observation
-        {%- else %}
+        {% else %}
         A comment
-        {%- endif %}
-        {%- if comment_type != 'group' %}
-        {%- if comment_type == 'event' %}
+        {% endif %}
+        {% if comment_type != 'group' %}
+        {% if comment_type == 'event' %}
         in
-        {%- else %}
+        {% else %}
         on type of vulnerability
-        {%- endif %}
+        {% endif %}
         <strong>{{ finding_name }}</strong>
-        {%- endif %}
+        {% endif %}
         has been
         {% if parent == '0' %} made {% else %} replied {% endif %} by
         <a href="mailto:{{ user_email }}"
@@ -35,9 +35,9 @@ SPDX-License-Identifier: MPL-2.0
           rel="noopener noreferrer"
           style="color: #ff3435;"
         >
-          {{ user_email -}}
+          {{ user_email }}
         </a>
-        in the group <strong>{{ group -}}</strong>:
+        in the group <strong>{{ group }}</strong>:
       </p>
       {{ text_area(comment) }}
       <p></p>

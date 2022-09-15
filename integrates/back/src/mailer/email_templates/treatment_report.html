@@ -22,14 +22,14 @@ SPDX-License-Identifier: MPL-2.0
       </strong>
       {{ approve_state }}
       {% if responsible %} by
-        <strong>
-          <a
-            href="mailto:{{ responsible }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="color: #ff3435;"
-          >
-            {{ responsible }}</a></strong>{% endif %}:
+        <strong><a
+          href="mailto:{{ responsible }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #ff3435;"
+        >
+          {{ responsible -}}
+        </a></strong>{% endif %}:
     </p>
     <p style="margin-bottom: 0px;">
       <strong>Date:</strong> {{ date }}<br>

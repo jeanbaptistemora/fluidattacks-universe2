@@ -30,12 +30,12 @@ SPDX-License-Identifier: MPL-2.0
       Please confirm your access and check vulnerabilities in:
     </p>
     <p>
-      {%- if group_description %}
+      {% if group_description %}
         <strong>Group:</strong> {{ group }}<br>
         <strong>Description:</strong> {{ group_description }}
-      {%- else %}
+      {% else %}
         <strong>Organization:</strong> {{ group }}
-      {%- endif %}
+      {% endif %}
     </p>
     <p>
       This invitation is valid for seven calendar days from now.

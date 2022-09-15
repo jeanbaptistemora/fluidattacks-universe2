@@ -74,18 +74,18 @@ async def send_reminder_notification() -> None:
         )
     ]
 
-    inactive_stakeholders_email = [
+    inactive_stakeholders_email = {
         stakeholder.email
         for stakeholder in inactive_stakeholders
         if Notification.REMINDER_NOTIFICATION
         in stakeholder.notifications_preferences.email
-    ]
+    }
 
     if inactive_stakeholders_email:
         await groups_mail.send_mail_reminder(
             loaders=loaders,
             context={},
-            email_to=inactive_stakeholders_email,
+            email_to=list(inactive_stakeholders_email),
         )
     else:
         LOGGER.info("- reminder notification NOT sent")

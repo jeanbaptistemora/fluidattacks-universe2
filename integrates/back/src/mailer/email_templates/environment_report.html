@@ -10,7 +10,7 @@ SPDX-License-Identifier: MPL-2.0
 {% block layout %}
   <div class="container">
 {% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' -%}
+{% include 'layouts/components/arm_banner.html' %}
 {{ banner_group('Environment Alert') }}
     <div class="main-content">
       <p>Hi {{ name }},</p>
@@ -29,15 +29,15 @@ SPDX-License-Identifier: MPL-2.0
       <p>
         <strong>Date:</strong> {{ report_date }}<br>
         <strong>Git root:</strong> {{ git_root }}<br>
-        {%- if urls_deleted and reason %}
+        {% if urls_deleted and reason %}
         <strong>Reason:</strong> {{ reason }}.<br>
-        {%- endif %}
+        {% endif %}
       </p>
       <p>
-        {%- if urls_added %}
+        {% if urls_added %}
         <strong>URLs added:</strong>
         <ul>
-          {%- for url_added in urls_added %}
+          {% for url_added in urls_added %}
           <li>
             <a href="{{ url_added }}"
               target="_blank"
@@ -47,15 +47,15 @@ SPDX-License-Identifier: MPL-2.0
               {{ url_added }}
             </a>
           </li>
-          {%- endfor %}
+          {% endfor %}
         </ul>
-        {%- endif %}
+        {% endif %}
       </p>
       <p>
-        {%- if urls_deleted %}
+        {% if urls_deleted %}
         <strong>URLs deleted:</strong>
         <ul>
-          {%- for url_deleted in urls_deleted %}
+          {% for url_deleted in urls_deleted %}
             <li>
               <a href="{{ url_deleted }}"
                 target="_blank"
@@ -65,9 +65,9 @@ SPDX-License-Identifier: MPL-2.0
                 {{ url_deleted }}
               </a>
             </li>
-          {%- endfor %}
+          {% endfor %}
         </ul>
-        {%- endif %}
+        {% endif %}
       </p>
       <p></p>
       <p>Regards,<br>Fluid Attacks Team</p>

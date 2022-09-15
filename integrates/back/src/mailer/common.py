@@ -64,7 +64,10 @@ GENERAL_TAG: list[str] = ["general"]
 LOGGER_ERRORS = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 TEMPLATES = Environment(
-    loader=FileSystemLoader(FI_EMAIL_TEMPLATES), autoescape=True
+    autoescape=True,
+    loader=FileSystemLoader(FI_EMAIL_TEMPLATES),
+    lstrip_blocks=True,
+    trim_blocks=True,
 )
 VERIFY_TAG: list[str] = ["verify"]
 
