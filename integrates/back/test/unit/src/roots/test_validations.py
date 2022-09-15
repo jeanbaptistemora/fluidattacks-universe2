@@ -86,14 +86,20 @@ async def test_validate_component() -> None:
         await validate_component(loaders, ip_root, "127.0.0.1/test")
 
 
-def test_validate_fields() -> None:
+@pytest.mark.parametrize(
+    "fields",
+    [
+        ["valid", " =invalid"],
+        ["=testfield", "testfield2"],
+        ["testfield", "testfiel`d"],
+        ["testfield", "<testfield2"],
+    ],
+)
+def test_validate_fields(fields: list) -> None:
     assert not bool(validate_fields(["valid%", " valid="]))
     assert not bool(validate_fields(["testfield", "testfield2"]))
     with pytest.raises(InvalidChar):
-        assert validate_fields(["valid", " =invalid"])
-        assert validate_fields(["=testfield", "testfield2"])
-        assert validate_fields(["testfield", "testfiel`d"])
-        assert validate_fields(["testfield", "<testfield2"])
+        assert validate_fields(fields)
 
 
 def test_validate_field_length() -> None:
