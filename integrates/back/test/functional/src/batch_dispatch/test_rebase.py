@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from batch.actions import (
-    rebase,
-)
 from batch.enums import (
     Action,
 )
 from batch.types import (
     BatchProcessing,
+)
+from batch_dispatch import (
+    rebase,
 )
 from dataloaders import (
     Dataloaders,
@@ -30,7 +30,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch")
+@pytest.mark.resolver_test_group("batch_dispatch")
 async def test_clone_roots_real_ssh(
     generic_data: Dict[str, Any],
 ) -> None:

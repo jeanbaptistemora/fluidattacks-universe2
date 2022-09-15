@@ -24,7 +24,7 @@ function main {
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \
-    && python3 -m back.src.batch.dispatch "${@:2}" \
+    && python3 -m back.src.batch_dispatch.dispatch "${@:2}" \
     && popd \
     && if test "${env}" == 'test'; then
       rm -rf integrates

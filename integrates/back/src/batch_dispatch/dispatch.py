@@ -5,40 +5,40 @@
 from aioextensions import (
     run,
 )
-from batch.actions.clone_roots import (
-    clone_roots,
-)
-from batch.actions.handle_finding_policy import (
-    handle_finding_policy,
-)
-from batch.actions.move_root import (
-    move_root,
-)
-from batch.actions.rebase import (
-    rebase,
-)
-from batch.actions.refresh_toe_inputs import (
-    refresh_toe_inputs,
-)
-from batch.actions.refresh_toe_lines import (
-    refresh_toe_lines,
-)
-from batch.actions.remove_group_resources import (
-    remove_group_resources,
-)
-from batch.actions.remove_roots import (
-    remove_roots,
-)
-from batch.actions.report import (
-    report,
-)
-from batch.actions.update_nickname import (
-    update_nickname,
-)
 from batch.dal import (
     delete_action,
     get_action,
     update_action_to_dynamodb,
+)
+from batch_dispatch.clone_roots import (
+    clone_roots,
+)
+from batch_dispatch.handle_finding_policy import (
+    handle_finding_policy,
+)
+from batch_dispatch.move_root import (
+    move_root,
+)
+from batch_dispatch.rebase import (
+    rebase,
+)
+from batch_dispatch.refresh_toe_inputs import (
+    refresh_toe_inputs,
+)
+from batch_dispatch.refresh_toe_lines import (
+    refresh_toe_lines,
+)
+from batch_dispatch.remove_group_resources import (
+    remove_group_resources,
+)
+from batch_dispatch.remove_roots import (
+    remove_roots,
+)
+from batch_dispatch.report import (
+    report,
+)
+from batch_dispatch.update_nickname import (
+    update_nickname,
 )
 from dynamodb.resource import (
     dynamo_shutdown,

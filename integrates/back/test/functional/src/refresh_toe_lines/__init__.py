@@ -10,10 +10,8 @@ from back.test.functional.src.utils import (
     get_batch_job,
     get_graphql_result,
 )
-from batch import (
+from batch_dispatch import (
     dispatch,
-)
-from batch.actions import (
     refresh_toe_lines,
 )
 from dataloaders import (

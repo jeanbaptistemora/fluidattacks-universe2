@@ -8,7 +8,7 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch.actions import (
+from batch_dispatch import (
     clone_roots,
 )
 from dataloaders import (

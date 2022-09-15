@@ -9,11 +9,11 @@ from . import (
 from batch import (
     dal as batch_dal,
 )
-from batch.actions import (
-    update_nickname,
-)
 from batch.enums import (
     Action,
+)
+from batch_dispatch import (
+    update_nickname,
 )
 from dataloaders import (
     Dataloaders,

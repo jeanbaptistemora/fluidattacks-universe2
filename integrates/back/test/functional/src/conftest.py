@@ -175,6 +175,7 @@ TEST_GROUPS: set[str] = {
     "verify_vulnerabilities_request",
     "vulnerability",
     "batch",
+    "batch_dispatch",
 }
 
 

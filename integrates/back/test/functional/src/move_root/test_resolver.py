@@ -9,11 +9,11 @@ from back.test.functional.src.utils import (
 from batch import (
     dal as batch_dal,
 )
-from batch.actions import (
-    move_root,
-)
 from batch.enums import (
     Action,
+)
+from batch_dispatch import (
+    move_root,
 )
 from custom_exceptions import (
     InvalidParameter,

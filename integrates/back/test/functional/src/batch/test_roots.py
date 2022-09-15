@@ -3,9 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=import-error
-from batch.actions import (
-    clone_roots,
-)
 from batch.dal import (
     delete_action,
 )
@@ -14,6 +11,9 @@ from batch.enums import (
 )
 from batch.types import (
     BatchProcessing,
+)
+from batch_dispatch import (
+    clone_roots,
 )
 from custom_exceptions import (
     CredentialNotFound,

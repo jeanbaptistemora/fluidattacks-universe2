@@ -8,15 +8,15 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch.actions import (
-    clone_roots,
-)
 from batch.dal import (
     put_action,
 )
 from batch.enums import (
     Action,
     Product,
+)
+from batch_dispatch import (
+    clone_roots,
 )
 from dataloaders import (
     Dataloaders,

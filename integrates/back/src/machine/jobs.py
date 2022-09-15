@@ -227,7 +227,7 @@ async def _queue_sync_git_roots(
     force: bool = False,
     queue_with_vpn: bool = False,
 ) -> Optional[PutActionResult]:
-    from batch.actions import (  # pylint: disable=import-outside-toplevel
+    from batch_dispatch import (  # pylint: disable=import-outside-toplevel
         clone_roots,
     )
 

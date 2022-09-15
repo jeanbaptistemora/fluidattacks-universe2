@@ -40,6 +40,7 @@
     ["add_url_root"]
     ["approve_draft"]
     ["batch"]
+    ["batch_dispatch"]
     ["confirm_vulnerabilities_zero_risk"]
     ["deactivate_root"]
     ["delete_obsolete_groups"]

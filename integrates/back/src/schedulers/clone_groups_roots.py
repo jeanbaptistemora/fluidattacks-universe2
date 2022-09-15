@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from batch.actions import (
+from batch_dispatch import (
     clone_roots,
 )
 from custom_exceptions import (

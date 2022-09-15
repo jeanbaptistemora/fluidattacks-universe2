@@ -12,11 +12,13 @@ from back.test.functional.src.utils import (
 )
 from batch import (
     dal as batch_dal,
-    dispatch,
 )
 from batch.enums import (
     Action,
     Product,
+)
+from batch_dispatch import (
+    dispatch,
 )
 from dataloaders import (
     get_new_context,

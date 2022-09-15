@@ -7,7 +7,7 @@ from aioextensions import (
     run,
 )
 import asyncio
-from batch.actions.refresh_toe_lines import (
+from batch_dispatch.refresh_toe_lines import (
     pull_repositories,
 )
 from custom_exceptions import (
