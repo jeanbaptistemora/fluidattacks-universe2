@@ -37,7 +37,6 @@ from typing import (
     Callable,
     Dict,
     Iterable,
-    Iterator,
     List,
     Optional,
     Set,
@@ -407,31 +406,3 @@ def resolve_paths(
     exclude: Tuple[str, ...],
 ) -> Tuple[Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]:
     return split_by_upgradable_and_veriable(list_paths(include, exclude))
-
-
-def _iter_full_paths(path: str) -> Iterator[str]:
-    """Recursively yield full paths to files for a given starting path."""
-    if os.path.isfile(path):
-        yield path
-    elif os.path.exists(path):
-        for entry in os.scandir(path):
-            full_path = entry.path
-            if entry.is_dir(follow_symlinks=False):
-                yield f"{entry.path}/"
-                yield from _iter_full_paths(full_path)
-            else:
-                yield full_path
-
-
-def iter_rel_paths(starting_path: str) -> Iterator[str]:
-    """Recursively yield relative paths to files for a given starting path."""
-    yield from (
-        path.replace(starting_path, "")[1:]
-        for path in _iter_full_paths(starting_path)
-    )
-
-
-def transform_glob(pattern: str) -> str:
-    if pattern.startswith("glob(") and pattern.endswith(")"):
-        return pattern[5:-1]
-    return pattern

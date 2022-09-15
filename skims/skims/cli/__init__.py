@@ -15,9 +15,6 @@ from functools import (
     partial,
 )
 import logging
-from model import (
-    core_model,
-)
 import sys
 import textwrap
 from time import (
@@ -55,32 +52,7 @@ CONFIG = partial(
         resolve_path=True,
     ),
 )
-REPO = partial(
-    click.argument,
-    "repository",
-    type=click.Path(
-        allow_dash=False,
-        dir_okay=True,
-        exists=True,
-        file_okay=False,
-        readable=True,
-        resolve_path=True,
-    ),
-)
 
-FINDING_CODE = partial(
-    click.option,
-    "--finding-code",
-    help=f"One of: {', '.join(core_model.FindingEnum.__members__)}.",
-    metavar="CODE",
-    show_choices=False,
-    type=click.Choice(tuple(core_model.FindingEnum.__members__)),
-)
-FINDING_TITLE = partial(
-    click.option,
-    "--finding-title",
-    help="Finding title.",
-)
 GROUP = partial(
     click.option,
     "--group",

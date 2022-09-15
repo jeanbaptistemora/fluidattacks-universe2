@@ -2,12 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import aioextensions
 from asyncio import (
     sleep,
-)
-from asyncio.tasks import (
-    wait_for,
 )
 from ctx import (
     TOOLS_SEMVER_MATCH,
@@ -256,42 +252,3 @@ def shield_blocking(
         return cast(TFun, wrapper)
 
     return decorator
-
-
-def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
-    if RATE_LIMIT_ENABLED:
-        return aioextensions.rate_limited(
-            max_calls=1,
-            max_calls_period=60.0 / rpm,
-            min_seconds_between_calls=60.0 / rpm,
-        )
-
-    return lambda x: x
-
-
-def pipe(value: Any, *functions: Callable[..., Any]) -> Any:
-    for function in functions:
-        value = function(value)
-
-    return value
-
-
-def time_limited(
-    *,
-    seconds: Optional[int] = None,
-) -> Callable[[TFun], TFun]:
-    def decorator(function: TFun) -> TFun:
-        @functools.wraps(function)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            return await wait_for(
-                function(*args, **kwargs),
-                timeout=seconds,
-            )
-
-        return cast(TFun, wrapper)
-
-    return decorator
-
-
-# Constants
-TIMEOUT_1MIN: Callable[[TFun], TFun] = time_limited(seconds=60)
