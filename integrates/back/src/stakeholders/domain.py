@@ -296,6 +296,8 @@ async def update_invited_stakeholder(
             group_name=group.name,
             metadata=GroupAccessMetadataToUpdate(
                 invitation=new_invitation,
+                responsibility=responsibility,
+                role=role,
             ),
         )
 

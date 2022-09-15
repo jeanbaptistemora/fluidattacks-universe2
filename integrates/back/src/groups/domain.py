@@ -1012,6 +1012,8 @@ async def invite_to_group(
                 expiration_time=expiration_time,
                 has_access=False,
                 invitation=invitation,
+                responsibility=responsibility,
+                role=role,
             ),
         )
     else:
@@ -1022,6 +1024,8 @@ async def invite_to_group(
                 expiration_time=expiration_time,
                 has_access=False,
                 invitation=invitation,
+                responsibility=responsibility,
+                role=role,
             ),
         )
     confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
