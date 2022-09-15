@@ -9,6 +9,9 @@
           "pk_2": {
             "S": "ORG#okada"
           },
+          "created_date": {
+            "S": "2021-01-08T19:41:58+00:00"
+          },
           "pk": {
             "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
           },
@@ -57,6 +60,9 @@
           },
           "type": {
             "S": "Git"
+          },
+          "created_by": {
+            "S": "drestrepo@fluidattacks.com"
           },
           "cloning": {
             "M": {
