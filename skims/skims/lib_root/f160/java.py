@@ -21,12 +21,31 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterator,
+    Set,
+)
 from utils import (
     graph as g,
 )
 from utils.string import (
     complete_attrs_on_set,
+    split_on_last_dot as split_last,
 )
+
+
+def validate_import(graph: graph_model.Graph, check: str) -> Iterator[str]:
+    for node in g.filter_nodes(
+        graph, graph.nodes, predicate=g.pred_has_labels(label_type="Import")
+    ):
+        form, _ = split_last(graph.nodes[node].get("expression"))
+        yield form + "." + check
+
+
+def is_secure(options: Iterator[str], pattern: Set[str]) -> bool:
+    if any(library in pattern for library in options):
+        return True
+    return False
 
 
 def java_file_create_temp_file(
@@ -34,6 +53,7 @@ def java_file_create_temp_file(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
+    lib = {"java.nio.file.Files.createTempFile"}
     method = core_model.MethodsEnum.JAVA_CREATE_TEMP_FILE
 
     def n_ids() -> graph_model.GraphShardNodes:
@@ -45,13 +65,26 @@ def java_file_create_temp_file(
             graph = shard.syntax_graph
 
             for n_id in search_method_invocation_naive(graph, danger_methods):
-                if (al_id := graph.nodes[n_id].get("arguments_id")) and (
-                    test_nid := g.match_ast(graph, al_id).get("__1__")
+                exp = graph.nodes[n_id].get("expression")
+                imp_check = ""
+                insecure = False
+                if obj := graph.nodes[n_id].get("object_id"):
+                    imp_check = graph.nodes[obj].get("symbol") + "." + exp
+                else:
+                    imp_check = exp
+                lib_safe = is_secure(validate_import(graph, imp_check), lib)
+
+                if lib_safe and (
+                    (al_id := graph.nodes[n_id].get("arguments_id"))
+                    and (test_nid := g.match_ast(graph, al_id).get("__1__"))
                 ):
                     for path in get_backward_paths(graph, test_nid):
                         evaluation = evaluate(method, graph, path, test_nid)
                         if evaluation and evaluation.danger:
-                            yield shard, n_id
+                            insecure = True
+
+                if insecure or not lib_safe:
+                    yield shard, n_id
 
     translation_key = (
         "src.lib_path.f160.java_file_create_temp_file.description"

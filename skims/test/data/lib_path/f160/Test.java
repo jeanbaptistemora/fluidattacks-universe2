@@ -1,14 +1,25 @@
 import java.io.File;
+import java.nio.file.Files.*;
 
 public class Test {
     public static void main(String[] args){
         try {
-        // Non compliant
+        // Insecure
+        System.out.println(createTempFile("xxx", null));
+        } catch (Exception e) {}
+
+        try {
+        // Secure
+        System.out.println(createTempFile("xxx", attrs="xxx"));
+        } catch (Exception e) {}
+
+        try {
+        // Insecure
         System.out.println(File.createTempFile("xxx", null));
         } catch (Exception e) {}
 
         try {
-        // Compliant
+        // Insecure
         System.out.println(File.createTempFile("xxx", attrs="xxx"));
         } catch (Exception e) {}
     }

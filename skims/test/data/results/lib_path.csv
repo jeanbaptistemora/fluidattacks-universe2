@@ -24860,28 +24860,76 @@ F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file
   19 | }
      ^ Col 0
 ",c_sharp.c_sharp_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,7,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
    1 | import java.io.File;
-   2 |
-   3 | public class Test {
-   4 |     public static void main(String[] args){
-   5 |         try {
-   6 |         // Non compliant
->  7 |         System.out.println(File.createTempFile(""xxx"", null));
-   8 |         } catch (Exception e) {}
-   9 |
-  10 |         try {
-  11 |         // Compliant
-  12 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
-  13 |         } catch (Exception e) {}
-  14 |     }
-  15 | }
-  16 |
-  17 | /*
-  18 |  * $ ls -al $(javac Test.java && java Test)
-  19 |  *
-  20 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
-  21 |  *
+   2 | import java.nio.file.Files.*;
+   3 |
+   4 | public class Test {
+   5 |     public static void main(String[] args){
+   6 |         try {
+   7 |         // Insecure
+>  8 |         System.out.println(createTempFile(""xxx"", null));
+   9 |         } catch (Exception e) {}
+  10 |
+  11 |         try {
+  12 |         // Secure
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+  18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+     ^ Col 0
+",java.java_file_create_temp_file
+F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+   8 |         System.out.println(createTempFile(""xxx"", null));
+   9 |         } catch (Exception e) {}
+  10 |
+  11 |         try {
+  12 |         // Secure
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+> 18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+  22 |         // Insecure
+  23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
+  24 |         } catch (Exception e) {}
+  25 |     }
+  26 | }
+  27 |
+  28 | /*
+     ^ Col 0
+",java.java_file_create_temp_file
+F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,23,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+  18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+  22 |         // Insecure
+> 23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
+  24 |         } catch (Exception e) {}
+  25 |     }
+  26 | }
+  27 |
+  28 | /*
+  29 |  * $ ls -al $(javac Test.java && java Test)
+  30 |  *
+  31 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+  32 |  *
+  33 |  */
      ^ Col 0
 ",java.java_file_create_temp_file
 F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,21,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
