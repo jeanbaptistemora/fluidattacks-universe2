@@ -5616,7 +5616,854 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "12": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "8": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "104": {
+            "107": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "129": {
+              "label_ast": "AST"
+            },
+            "138": {
+              "label_ast": "AST"
+            },
+            "146": {
+              "label_ast": "AST"
+            }
+          },
+          "107": {
+            "117": {
+              "label_ast": "AST"
+            },
+            "129": {
+              "label_cfg": "CFG"
+            }
+          },
+          "117": {
+            "118": {
+              "label_ast": "AST"
+            },
+            "122": {
+              "label_ast": "AST"
+            }
+          },
+          "118": {
+            "119": {
+              "label_ast": "AST"
+            }
+          },
+          "122": {
+            "125": {
+              "label_ast": "AST"
+            }
+          },
+          "129": {
+            "135": {
+              "label_ast": "AST"
+            },
+            "138": {
+              "label_cfg": "CFG"
+            }
+          },
+          "138": {
+            "144": {
+              "label_ast": "AST"
+            },
+            "146": {
+              "label_cfg": "CFG"
+            }
+          },
+          "146": {
+            "148": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "289": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "326": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "148": {
+            "150": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "150": {
+            "153": {
+              "label_ast": "AST"
+            }
+          },
+          "153": {
+            "159": {
+              "label_ast": "AST"
+            }
+          },
+          "159": {
+            "160": {
+              "label_ast": "AST"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST"
+            }
+          },
+          "289": {
+            "291": {
+              "label_ast": "AST"
+            },
+            "296": {
+              "label_ast": "AST"
+            }
+          },
+          "291": {
+            "293": {
+              "label_ast": "AST"
+            },
+            "294": {
+              "label_ast": "AST"
+            }
+          },
+          "296": {
+            "299": {
+              "label_ast": "AST"
+            }
+          },
+          "299": {
+            "300": {
+              "label_ast": "AST"
+            },
+            "307": {
+              "label_ast": "AST"
+            }
+          },
+          "300": {
+            "301": {
+              "label_ast": "AST"
+            }
+          },
+          "301": {
+            "302": {
+              "label_ast": "AST"
+            }
+          },
+          "307": {
+            "310": {
+              "label_ast": "AST"
+            },
+            "319": {
+              "label_ast": "AST"
+            },
+            "322": {
+              "label_ast": "AST"
+            }
+          },
+          "310": {
+            "311": {
+              "label_ast": "AST"
+            }
+          },
+          "311": {
+            "312": {
+              "label_ast": "AST"
+            }
+          },
+          "326": {
+            "327": {
+              "label_ast": "AST"
+            },
+            "328": {
+              "label_ast": "AST"
+            }
+          },
+          "328": {
+            "330": {
+              "label_ast": "AST"
+            }
+          },
+          "330": {
+            "332": {
+              "label_ast": "AST"
+            },
+            "356": {
+              "label_ast": "AST"
+            }
+          },
+          "332": {
+            "334": {
+              "label_ast": "AST"
+            }
+          },
+          "334": {
+            "337": {
+              "label_ast": "AST"
+            },
+            "342": {
+              "label_ast": "AST"
+            }
+          },
+          "337": {
+            "338": {
+              "label_ast": "AST"
+            },
+            "340": {
+              "label_ast": "AST"
+            }
+          },
+          "342": {
+            "345": {
+              "label_ast": "AST"
+            }
+          },
+          "345": {
+            "346": {
+              "label_ast": "AST"
+            }
+          },
+          "346": {
+            "347": {
+              "label_ast": "AST"
+            }
+          },
+          "356": {
+            "358": {
+              "label_ast": "AST"
+            },
+            "363": {
+              "label_ast": "AST"
+            }
+          },
+          "358": {
+            "360": {
+              "label_ast": "AST"
+            },
+            "361": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "42": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "363": {
+            "366": {
+              "label_ast": "AST"
+            }
+          },
+          "366": {
+            "367": {
+              "label_ast": "AST"
+            },
+            "374": {
+              "label_ast": "AST"
+            }
+          },
+          "367": {
+            "368": {
+              "label_ast": "AST"
+            }
+          },
+          "368": {
+            "369": {
+              "label_ast": "AST"
+            }
+          },
+          "374": {
+            "377": {
+              "label_ast": "AST"
+            },
+            "386": {
+              "label_ast": "AST"
+            },
+            "389": {
+              "label_ast": "AST"
+            }
+          },
+          "377": {
+            "378": {
+              "label_ast": "AST"
+            }
+          },
+          "378": {
+            "379": {
+              "label_ast": "AST"
+            }
+          },
+          "42": {
+            "44": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "44": {
+            "50": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "50": {
+            "52": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "52": {
+            "59": {
+              "label_ast": "AST"
+            },
+            "69": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "59": {
+            "61": {
+              "label_ast": "AST"
+            },
+            "65": {
+              "label_ast": "AST"
+            }
+          },
+          "69": {
+            "72": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "77": {
+              "label_ast": "AST"
+            },
+            "79": {
+              "label_ast": "AST"
+            },
+            "96": {
+              "label_ast": "AST"
+            }
+          },
+          "72": {
+            "77": {
+              "label_cfg": "CFG"
+            }
+          },
+          "77": {
+            "79": {
+              "label_cfg": "CFG"
+            }
+          },
+          "79": {
+            "80": {
+              "label_ast": "AST"
+            },
+            "82": {
+              "label_ast": "AST"
+            },
+            "96": {
+              "label_cfg": "CFG"
+            }
+          },
+          "82": {
+            "83": {
+              "label_ast": "AST"
+            },
+            "90": {
+              "label_ast": "AST"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST"
+            }
+          },
+          "84": {
+            "85": {
+              "label_ast": "AST"
+            }
+          },
+          "90": {
+            "93": {
+              "label_ast": "AST"
+            }
+          },
+          "96": {
+            "104": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "99": {
+              "label_ast": "AST"
+            }
+          },
+          "99": {
+            "100": {
+              "label_ast": "AST"
+            },
+            "102": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "100": {
+            "label_type": "SymbolLookup",
+            "symbol": "data"
+          },
+          "102": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "104": {
+            "label_type": "ExecutionBlock"
+          },
+          "107": {
+            "label_type": "VariableDeclaration",
+            "value_id": "117",
+            "variable": "names",
+            "variable_type": "string[]"
+          },
+          "117": {
+            "arguments_id": "122",
+            "expression": "data.Split",
+            "expression_id": "118",
+            "label_type": "MethodInvocation"
+          },
+          "118": {
+            "expression": "data",
+            "expression_id": "119",
+            "label_type": "MemberAccess",
+            "member": "Split"
+          },
+          "119": {
+            "label_type": "SymbolLookup",
+            "symbol": "data"
+          },
+          "12": {
+            "expression": "System.Data.SqlClient",
+            "label_type": "Import"
+          },
+          "122": {
+            "label_type": "ArgumentList"
+          },
+          "125": {
+            "label_type": "Literal",
+            "value": "'-'",
+            "value_type": "string"
+          },
+          "129": {
+            "label_type": "VariableDeclaration",
+            "value_id": "135",
+            "variable": "successCount",
+            "variable_type": "int"
+          },
+          "135": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "138": {
+            "label_type": "VariableDeclaration",
+            "value_id": "144",
+            "variable": "badSqlCommand",
+            "variable_type": "SqlCommand"
+          },
+          "144": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "146": {
+            "block_id": "148",
+            "label_type": "TryStatement"
+          },
+          "148": {
+            "label_type": "ExecutionBlock"
+          },
+          "150": {
+            "declaration_id": "153",
+            "label_type": "UsingStatement"
+          },
+          "153": {
+            "label_type": "VariableDeclaration",
+            "value_id": "159",
+            "variable": "dbConnection",
+            "variable_type": "SqlConnection"
+          },
+          "159": {
+            "expression": "IO.GetDBConnection",
+            "expression_id": "160",
+            "label_type": "MethodInvocation"
+          },
+          "160": {
+            "expression": "IO",
+            "expression_id": "161",
+            "label_type": "MemberAccess",
+            "member": "GetDBConnection"
+          },
+          "161": {
+            "label_type": "SymbolLookup",
+            "symbol": "IO"
+          },
+          "2": {
+            "comment": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs\nLabel Definition File: CWE89_SQL_Injection__Web.label.xml\nTemplate File: sources-sinks-01.tmpl.cs\n*/",
+            "label_type": "Comment"
+          },
+          "22": {
+            "expression": "System.Data",
+            "label_type": "Import"
+          },
+          "289": {
+            "block_id": "296",
+            "label_type": "CatchClause"
+          },
+          "29": {
+            "expression": "System.Web",
+            "label_type": "Import"
+          },
+          "291": {
+            "label_type": "CatchDeclaration"
+          },
+          "293": {
+            "label_type": "SymbolLookup",
+            "symbol": "SqlException"
+          },
+          "294": {
+            "label_type": "SymbolLookup",
+            "symbol": "exceptSql"
+          },
+          "296": {
+            "label_type": "ExecutionBlock"
+          },
+          "299": {
+            "arguments_id": "307",
+            "expression": "IO.Logger.Log",
+            "expression_id": "300",
+            "label_type": "MethodInvocation"
+          },
+          "3": {
+            "comment": "/*\n* @description\n* CWE: 89 SQL Injection\n* BadSource: Params_Get_Web Read data from a querystring using Params.Get()\n* GoodSource: A hardcoded string\n* Sinks: CommandText\n*    GoodSink: Use prepared statement and concatenate CommandText (properly)\n*    BadSink : data concatenated into SQL statement used in CommandText, which could result in SQL Injection\n* Flow Variant: 01 Baseline\n*\n* */",
+            "label_type": "Comment"
+          },
+          "300": {
+            "expression": "IO.Logger",
+            "expression_id": "301",
+            "label_type": "MemberAccess",
+            "member": "Log"
+          },
+          "301": {
+            "expression": "IO",
+            "expression_id": "302",
+            "label_type": "MemberAccess",
+            "member": "Logger"
+          },
+          "302": {
+            "label_type": "SymbolLookup",
+            "symbol": "IO"
+          },
+          "307": {
+            "label_type": "ArgumentList"
+          },
+          "310": {
+            "expression": "NLog.LogLevel",
+            "expression_id": "311",
+            "label_type": "MemberAccess",
+            "member": "Warn"
+          },
+          "311": {
+            "expression": "NLog",
+            "expression_id": "312",
+            "label_type": "MemberAccess",
+            "member": "LogLevel"
+          },
+          "312": {
+            "label_type": "SymbolLookup",
+            "symbol": "NLog"
+          },
+          "319": {
+            "label_type": "Literal",
+            "value": "\"Error getting database connection\"",
+            "value_type": "string"
+          },
+          "322": {
+            "label_type": "SymbolLookup",
+            "symbol": "exceptSql"
+          },
+          "326": {
+            "label_type": "MissingNode",
+            "node_type": "finally_clause"
+          },
+          "327": {
+            "label_type": "MissingNode",
+            "node_type": "finally"
+          },
+          "328": {
+            "label_type": "ExecutionBlock"
+          },
+          "330": {
+            "block_id": "332",
+            "label_type": "TryStatement"
+          },
+          "332": {
+            "label_type": "ExecutionBlock"
+          },
+          "334": {
+            "condition_id": "337",
+            "label_type": "If",
+            "true_id": "342"
+          },
+          "337": {
+            "label_type": "BinaryOperation",
+            "left_id": "338",
+            "operator": "!=",
+            "right_id": "340"
+          },
+          "338": {
+            "label_type": "SymbolLookup",
+            "symbol": "badSqlCommand"
+          },
+          "340": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "342": {
+            "label_type": "ExecutionBlock"
+          },
+          "345": {
+            "expression": "badSqlCommand.Dispose",
+            "expression_id": "346",
+            "label_type": "MethodInvocation"
+          },
+          "346": {
+            "expression": "badSqlCommand",
+            "expression_id": "347",
+            "label_type": "MemberAccess",
+            "member": "Dispose"
+          },
+          "347": {
+            "label_type": "SymbolLookup",
+            "symbol": "badSqlCommand"
+          },
+          "356": {
+            "block_id": "363",
+            "label_type": "CatchClause"
+          },
+          "358": {
+            "label_type": "CatchDeclaration"
+          },
+          "36": {
+            "block_id": "42",
+            "label_type": "Namespace",
+            "name": "testcases.CWE89_SQL_Injection"
+          },
+          "360": {
+            "label_type": "SymbolLookup",
+            "symbol": "SqlException"
+          },
+          "361": {
+            "label_type": "SymbolLookup",
+            "symbol": "exceptSql"
+          },
+          "363": {
+            "label_type": "ExecutionBlock"
+          },
+          "366": {
+            "arguments_id": "374",
+            "expression": "IO.Logger.Log",
+            "expression_id": "367",
+            "label_type": "MethodInvocation"
+          },
+          "367": {
+            "expression": "IO.Logger",
+            "expression_id": "368",
+            "label_type": "MemberAccess",
+            "member": "Log"
+          },
+          "368": {
+            "expression": "IO",
+            "expression_id": "369",
+            "label_type": "MemberAccess",
+            "member": "Logger"
+          },
+          "369": {
+            "label_type": "SymbolLookup",
+            "symbol": "IO"
+          },
+          "374": {
+            "label_type": "ArgumentList"
+          },
+          "377": {
+            "expression": "NLog.LogLevel",
+            "expression_id": "378",
+            "label_type": "MemberAccess",
+            "member": "Warn"
+          },
+          "378": {
+            "expression": "NLog",
+            "expression_id": "379",
+            "label_type": "MemberAccess",
+            "member": "LogLevel"
+          },
+          "379": {
+            "label_type": "SymbolLookup",
+            "symbol": "NLog"
+          },
+          "386": {
+            "label_type": "Literal",
+            "value": "\"Error disposing SqlCommand\"",
+            "value_type": "string"
+          },
+          "389": {
+            "label_type": "SymbolLookup",
+            "symbol": "exceptSql"
+          },
+          "4": {
+            "expression": "TestCaseSupport",
+            "label_type": "Import"
+          },
+          "42": {
+            "label_type": "DeclarationBlock"
+          },
+          "44": {
+            "block_id": "50",
+            "label_type": "Class",
+            "name": "CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01"
+          },
+          "50": {
+            "label_type": "DeclarationBlock"
+          },
+          "52": {
+            "block_id": "69",
+            "label_type": "MethodDeclaration",
+            "name": "Bad",
+            "parameters_id": "59"
+          },
+          "59": {
+            "label_type": "ParameterList"
+          },
+          "61": {
+            "label_type": "Parameter",
+            "variable": "req",
+            "variable_type": "HttpRequest"
+          },
+          "65": {
+            "label_type": "Parameter",
+            "variable": "resp",
+            "variable_type": "HttpResponse"
+          },
+          "69": {
+            "label_type": "ExecutionBlock"
+          },
+          "72": {
+            "label_type": "VariableDeclaration",
+            "variable": "data",
+            "variable_type": "string"
+          },
+          "77": {
+            "comment": "/* POTENTIAL FLAW: Read data from a querystring using Params.Get */",
+            "label_type": "Comment"
+          },
+          "79": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "82",
+            "variable_id": "80"
+          },
+          "8": {
+            "expression": "System",
+            "label_type": "Import"
+          },
+          "80": {
+            "label_type": "SymbolLookup",
+            "symbol": "data"
+          },
+          "82": {
+            "arguments_id": "90",
+            "expression": "req.Params.Get",
+            "expression_id": "83",
+            "label_type": "MethodInvocation"
+          },
+          "83": {
+            "expression": "req.Params",
+            "expression_id": "84",
+            "label_type": "MemberAccess",
+            "member": "Get"
+          },
+          "84": {
+            "expression": "req",
+            "expression_id": "85",
+            "label_type": "MemberAccess",
+            "member": "Params"
+          },
+          "85": {
+            "label_type": "SymbolLookup",
+            "symbol": "req"
+          },
+          "90": {
+            "label_type": "ArgumentList"
+          },
+          "93": {
+            "label_type": "Literal",
+            "value": "\"name\"",
+            "value_type": "string"
+          },
+          "96": {
+            "condition_id": "99",
+            "label_type": "If",
+            "true_id": "104"
+          },
+          "99": {
+            "label_type": "BinaryOperation",
+            "left_id": "100",
+            "operator": "!=",
+            "right_id": "102"
+          }
+        }
+      }
     },
     {
       "graph": {

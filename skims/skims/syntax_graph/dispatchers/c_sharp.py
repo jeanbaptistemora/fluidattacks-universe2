@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     element_access_expression as c_sharp_element_access_expression,
     element_binding_expression as c_sharp_element_binding_expression,
     field_declaration as c_sharp_field_declaration,
+    file_scoped_namespace_declaration as c_sharp_file_scoped_namespace_decla,
     for_each_statement as c_sharp_for_each_statement,
     for_statemente as c_sharp_for_statement,
     global_statement as c_sharp_global_statement,
@@ -255,6 +256,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "field_declaration",
         },
         syntax_reader=c_sharp_field_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "file_scoped_namespace_declaration",
+        },
+        syntax_reader=c_sharp_file_scoped_namespace_decla.reader,
     ),
     Dispatcher(
         applicable_types={
