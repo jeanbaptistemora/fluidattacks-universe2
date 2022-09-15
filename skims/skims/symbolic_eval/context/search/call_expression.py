@@ -13,4 +13,4 @@ from typing import (
 
 def search(args: SearchArgs) -> Iterator[SearchResult]:
     if args.symbol in args.graph.nodes[args.n_id]["function_name"].split("."):
-        yield True, args.n_id
+        yield False, args.n_id
