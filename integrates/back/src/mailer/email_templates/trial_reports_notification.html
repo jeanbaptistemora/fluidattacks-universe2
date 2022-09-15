@@ -1,0 +1,51 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>{{ name }},</p>
+    <p>
+      Organizations need flexibility with vulnerabilities’ data.
+      In our ARM Platform, you can download several reports
+      giving you exactly this.
+    </p>
+    <p>
+      For instance: you can download a technical report, in XLSX format,
+      where you can define what to download,
+      instead of downloading everything (which is the default option)
+    </p>
+    <div>
+      <img alt="add stakeholder gif" class="w-100"
+        src="https://res.cloudinary.com/fluid-attacks/image/upload/v1663271799/notifications/trial-reports/reports-improved.gif"
+        style="display:block;">
+    </div>
+    <p class="mt1">
+      Bear in mind that you need to register your mobile phone number
+      to download the reports.
+    </p>
+    {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
+    <p class="mt1">
+      To know more, visit our documentation
+      <a href="https://docs.fluidattacks.com" rel="noopener noreferrer" target="_blank">here</a>.
+    </p>
+    <p>
+      <strong>Questions or comments?</strong> You can always contact us at
+      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+    </p>
+    <p>Thanks for trying Continuous Hacking!</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
