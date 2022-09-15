@@ -185,6 +185,7 @@ for each role.
 |Receive notifications|X   |X                    |X           |
 |Request reattack     |X   |X                    |X           |
 |View vulnerabilities |X   |X                    |X           |
+|Vulnerabilities download |    |                 |X           |
 
 ## Internal roles
 
