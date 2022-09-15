@@ -1349,6 +1349,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    GEM_GEMFILE_LOCK = MethodInfo(
+        file_name="gem",
+        name="gem_gemfile_lock",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     MAVEN_POM_XML = MethodInfo(
         file_name="maven",
         name="maven_pom_xml",
