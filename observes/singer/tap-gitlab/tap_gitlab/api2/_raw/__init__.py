@@ -1,35 +1,37 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+from __future__ import (
+    annotations,
+)
 
 from . import (
     _retry,
+)
+from ._http import (
+    HttpClient,
+    UnexpectedServerResponse,
 )
 from dataclasses import (
     dataclass,
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     FrozenList,
     JsonObj,
-    Maybe,
-)
-from fa_purity.json.factory import (
-    from_any,
-    json_list,
-)
-from fa_purity.json.transform import (
-    to_raw,
-)
-from fa_purity.union import (
-    UnionFactory,
+    JsonValue,
+    Result,
 )
 from fa_purity.utils import (
     raise_exception,
 )
 import logging
-import requests
+from requests.exceptions import (
+    HTTPError,
+)
 from typing import (
+    NoReturn,
     TypeVar,
 )
 
@@ -59,74 +61,95 @@ class UnexpectedType(Exception):
 
 @dataclass(frozen=True)
 class RawClient:
-    _auth: Credentials
-    _max_retries: int = 150
-    _api_url: str = "https://gitlab.com/api/v4"
+    _creds: Credentials
+    _client: HttpClient
+    _max_retries: int
 
-    def _full_endpoint(self, endpoint: str) -> str:
-        return self._api_url + endpoint
+    @staticmethod
+    def new(creds: Credentials) -> RawClient:
+        return RawClient(
+            creds,
+            HttpClient("https://gitlab.com/api/v4"),
+            150,
+        )
 
-    def _unhandled_get(
-        self, endpoint: str, params: JsonObj
-    ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
-        def _action() -> FrozenList[JsonObj] | JsonObj:
-            target = self._full_endpoint(endpoint)
-            LOG.info(
-                "API call: %s\nmethod=%s\nparams = %s", target, "get", params
-            )
-            response = requests.get(
-                target,
-                headers={
-                    "Private-Token": self._auth.api_key,
-                },
-                params=to_raw(params),  # type: ignore[misc]
-            )
-            _union: UnionFactory[JsonObj, FrozenList[JsonObj]] = UnionFactory()
-            response.raise_for_status()
-            raw = response.json()  # type: ignore[misc]
-            result = json_list(raw).map(_union.inr).lash(lambda _: from_any(raw).map(_union.inl))  # type: ignore[misc]
-            return result.unwrap()
+    @staticmethod
+    def _handler(
+        item: Result[
+            JsonObj | FrozenList[JsonObj], HTTPError | UnexpectedServerResponse
+        ],
+    ) -> Result[JsonObj | FrozenList[JsonObj], HTTPError]:
+        def _handled_errors(
+            error: HTTPError | UnexpectedServerResponse,
+        ) -> HTTPError | NoReturn:
+            if isinstance(error, UnexpectedServerResponse):
+                raise error
+            err_code: int = error.response.status_code  # type: ignore[misc]
+            if err_code in (500, 502):
+                return error
+            raise error
 
-        return Cmd.from_cmd(_action)
+        return item.alt(_handled_errors)
+
+    @property
+    def _headers(self) -> JsonObj:
+        return FrozenDict({"Private-Token": JsonValue(self._creds.api_key)})
 
     def get(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
-        handled = _retry.api_handler(self._unhandled_get(endpoint, params))
-        return _retry.retry_cmd(handled, self._max_retries, lambda i: i ^ 2)
+        handled = self._client.get(endpoint, self._headers, params).map(
+            self._handler
+        )
+        return _retry.retry_cmd(
+            handled,
+            lambda i, r: _retry.delay_if_fail(i, r, i ^ 2),
+            self._max_retries,
+        ).map(lambda r: r.alt(raise_exception).unwrap())
 
     def get_list(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[FrozenList[JsonObj]]:
-        return self.get(endpoint, params).map(
-            lambda x: Maybe.from_optional(x if isinstance(x, tuple) else None)
-            .to_result()
-            .alt(lambda _: UnexpectedType(x, "FrozenList"))
-            .alt(raise_exception)
-            .unwrap()
-        )
+        def assert_flist(
+            item: JsonObj | FrozenList[JsonObj],
+        ) -> FrozenList[JsonObj]:
+            if isinstance(item, tuple):
+                return item
+            raise TypeError("Expected a FrozenList")
+
+        return self.get(endpoint, params).map(assert_flist)
 
     def get_item(self, endpoint: str, params: JsonObj) -> Cmd[JsonObj]:
-        return self.get(endpoint, params).map(
-            lambda x: Maybe.from_optional(
-                x if not isinstance(x, tuple) else None
-            )
-            .to_result()
-            .alt(lambda _: UnexpectedType(x, "JsonObj"))
-            .alt(raise_exception)
-            .unwrap()
-        )
+        def assert_json(item: JsonObj | FrozenList[JsonObj]) -> JsonObj:
+            if not isinstance(item, tuple):
+                return item
+            raise TypeError("Expected a FrozenList")
+
+        return self.get(endpoint, params).map(assert_json)
+
+    @staticmethod
+    def post_handler(item: Result[None, HTTPError]) -> Result[None, HTTPError]:
+        def _handled_errors(
+            error: HTTPError,
+        ) -> HTTPError | NoReturn:
+            err_code: int = error.response.status_code  # type: ignore[misc]
+            if err_code in (409, 500, 502):
+                return error
+            raise error
+
+        return item.alt(_handled_errors)
 
     def post(self, endpoint: str) -> Cmd[None]:
-        def _action() -> None:
-            target = self._full_endpoint(endpoint)
-            LOG.info("API call: %s\nmethod=%s", target, "post")
-            response = requests.post(
-                target,
-                headers={
-                    "Private-Token": self._auth.api_key,
-                },
-            )
-            response.raise_for_status()
+        handled = self._client.post(endpoint, self._headers).map(
+            lambda x: self.post_handler(x)
+        )
+        _max_retries: int = 10
 
-        return Cmd.from_cmd(_action)
+        def _next(
+            retry: int, result: Result[None, HTTPError]
+        ) -> Cmd[Result[None, HTTPError]]:
+            return _retry.delay_if_fail(retry, result, retry ^ 2)
+
+        return _retry.retry_cmd(handled, _next, _max_retries).map(
+            lambda r: r.alt(raise_exception).unwrap()
+        )

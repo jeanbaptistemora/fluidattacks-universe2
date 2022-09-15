@@ -24,6 +24,12 @@ from fa_purity.json.value.transform import (
 from fa_purity.union import (
     UnionFactory,
 )
+from fa_purity.utils import (
+    raise_exception,
+)
+from logging import (
+    Logger,
+)
 from typing import (
     Callable,
     TypeVar,
@@ -32,6 +38,11 @@ from typing import (
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _F = TypeVar("_F")
+
+
+def raise_and_log(log: Logger, err: Exception, at_input: str) -> None:
+    log.error("Error at input %s", at_input)
+    raise_exception(err)
 
 
 def int_to_str(num: int) -> str:

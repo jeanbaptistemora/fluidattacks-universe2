@@ -67,7 +67,7 @@ class JobClient:
 
     @staticmethod
     def new(creds: Credentials, proj: ProjectId) -> JobClient:
-        raw = RawClient(creds)
+        raw = RawClient.new(creds)
         return JobClient(raw, proj)
 
     def _raw_jobs_page(

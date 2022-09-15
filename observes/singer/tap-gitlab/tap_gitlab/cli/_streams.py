@@ -35,7 +35,7 @@ class Streams(Enum):
 def project_stream(api_key: str, project: str, stream: str) -> Cmd[None]:
     _stream = Streams(stream.upper())
     _project = ProjectId.from_name(project)
-    raw = RawClient(Credentials(api_key))
+    raw = RawClient.new(Credentials(api_key))
     streamer = Streamer(sys.stdout)
     if _stream is Streams.ISSUES:
         return streamer.issues(IssueClient(raw, None), _project)
