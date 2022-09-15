@@ -533,6 +533,30 @@ class InvalidSpacesField(CustomBaseException):
         super(InvalidSpacesField, self).__init__(msg)
 
 
+class MachineCouldNotBeQueued(CustomBaseException):
+    """Exception to handle when a Machine job cannot be queued"""
+
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - Machine execution could not be queued. "
+            "Either the group has the service disabled "
+            "or the roots specified are invalid"
+        )
+        super(MachineCouldNotBeQueued, self).__init__(msg)
+
+
+class MachineExecutionAlreadySubmitted(CustomBaseException):
+    """Exception to handle when a Machine job cannot be queued
+    due to an existing one"""
+
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - There is already a Machine execution queued "
+            "with the same parameters"
+        )
+        super(MachineExecutionAlreadySubmitted, self).__init__(msg)
+
+
 class RepeatedComment(CustomBaseException):
     """Exception to prevent repeated values"""
 

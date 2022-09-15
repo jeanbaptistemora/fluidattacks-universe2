@@ -14,6 +14,8 @@ from botocore.exceptions import (
 from custom_exceptions import (
     ErrorSubmittingJob,
     FindingNotFound,
+    MachineCouldNotBeQueued,
+    MachineExecutionAlreadySubmitted,
     RootNotFound,
 )
 from dataloaders import (
@@ -79,8 +81,10 @@ async def mutate(
             group_name=group_name,
             roots=list(roots_to_execute),
         )
-        if queued_job is None or not queued_job.success:
-            raise ErrorSubmittingJob()
+        if queued_job is None:
+            raise MachineCouldNotBeQueued()
+        if not queued_job.success:
+            raise MachineExecutionAlreadySubmitted()
     except ClientError as ex:
         raise ErrorSubmittingJob() from ex
 

@@ -129,7 +129,9 @@ async def _request_asm(
             "https://app.fluidattacks.com/api", data=json.dumps(payload)
         ) as response:
             if response.status == 200:
-                result = await response.json()
+                parsed_response = await response.json()
+                if "errors" not in parsed_response:
+                    result = parsed_response
 
     return result
 

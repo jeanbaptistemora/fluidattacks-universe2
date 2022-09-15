@@ -887,6 +887,8 @@ export const enTranslations: ResourceKey = {
       },
     },
     machine: {
+      alreadyQueued:
+        "There is already a Machine execution queued with the same parameters",
       date: {
         create: "Queue date",
         duration: "Duration",

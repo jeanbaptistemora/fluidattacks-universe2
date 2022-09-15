@@ -729,25 +729,6 @@ async def put_action(  # pylint: disable=too-many-locals
         additional_info=additional_info,
         queue=queue,
     )
-    if (
-        (dynamodb_pk is not None)
-        and (current_action := await get_action(action_dynamo_pk=dynamodb_pk))
-        and (not current_action.running)
-    ):
-        LOGGER.info(
-            "There is a job that is still in queue for %s, it will be updated",
-            entity,
-        )
-        success = await update_action_to_dynamodb(
-            key=dynamodb_pk,
-            additional_info=additional_info,
-            batch_job_id=current_action.batch_job_id,
-        )
-        return PutActionResult(
-            success=success,
-            batch_job_id=current_action.batch_job_id,
-            dynamo_pk=dynamodb_pk,
-        )
 
     possible_key = dynamodb_pk or generate_key_to_dynamod(
         action_name=action.value,

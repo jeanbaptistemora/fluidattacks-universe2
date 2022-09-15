@@ -127,6 +127,9 @@ const MachineView: React.FC = (): JSX.Element => {
         case "Exception - Access denied or credential not found":
           msgError(translate.t("group.scope.git.sync.noCredentials"));
           break;
+        case "Exception - There is already a Machine execution queued with the same parameters":
+          msgError(translate.t("group.machine.alreadyQueued"));
+          break;
         default:
           Logger.warning("An error occurred submitting job", error);
           msgError(translate.t("groupAlerts.errorTextsad"));
