@@ -8,11 +8,10 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
+import ReactAnsi from "react-ansi";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
-import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
@@ -351,14 +350,7 @@ const Execution: React.FC<IExecution> = (
               />
             </Route>
             <Route path={"/log"}>
-              <SyntaxHighlighter
-                language={"text"}
-                // eslint-disable-next-line react/forbid-component-props
-                style={monokaiSublime}
-                wrapLines={true}
-              >
-                {execution.log}
-              </SyntaxHighlighter>
+              <ReactAnsi autoScroll={true} log={execution.log as string} />
             </Route>
           </Switch>
         </TabContent>
