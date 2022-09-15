@@ -40,7 +40,7 @@ LOG_FILE: ContextVar[IO[Any]] = ContextVar(
 )
 # Console interface to show logs and special spinner symbols on stdout
 CONSOLE_INTERFACE = Console(
-    log_path=False, log_time=False, markup=True, width=80
+    force_terminal=True, log_path=False, log_time=False, markup=True, width=80
 )
 # Logging interface to get around the Rich library writing limitations
 LOGGING_INTERFACE = Console(
