@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=too-many-lines
-
 from aiodataloader import (
     DataLoader,
 )
@@ -213,8 +211,8 @@ async def remove_finding(
         group_name=finding.group_name,
         state=new_state,
     )
-    schedule(
-        remove_vulnerabilities(context, finding_id, justification, user_email)
+    await remove_vulnerabilities(
+        context, finding_id, justification, user_email
     )
     file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
