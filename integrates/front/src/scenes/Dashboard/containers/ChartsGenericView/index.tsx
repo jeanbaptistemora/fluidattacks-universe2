@@ -207,6 +207,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   entity={entity}
                   generatorName={"generic"}
                   generatorType={"barChart"}
+                  infoLink={`${graphInfoLink}common#exposure-trends-by-categories`}
                   reportMode={reportMode}
                   shouldDisplayAll={false}
                   subject={subject}
