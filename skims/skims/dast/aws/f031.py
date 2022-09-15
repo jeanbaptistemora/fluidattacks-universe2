@@ -224,6 +224,7 @@ async def full_access_policies(
             policy_statements = pol_access.get("Statement", [])
 
             for index, item in enumerate(policy_statements):
+                item = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if (
                         item["Effect"] == "Allow"
@@ -310,6 +311,7 @@ async def open_passrole(
             policy_statements = pol_access.get("Statement", [])
 
             for index, item in enumerate(policy_statements):
+                item = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
                         action = [item["Action"]]
@@ -405,6 +407,7 @@ async def permissive_policy(
             policy_statements = pol_access.get("Statement", [])
 
             for index, item in enumerate(policy_statements):
+                item = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
                         action = [item["Action"]]
@@ -483,6 +486,7 @@ async def full_access_to_ssm(
             policy_statements = pol_access.get("Statement", [])
 
             for index, item in enumerate(policy_statements):
+                item = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
                         action = [item["Action"]]
@@ -554,6 +558,7 @@ async def negative_statement(
             policy_statements = pol_access.get("Statement", [])
 
             for index, item in enumerate(policy_statements):
+                item = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(item["NotAction"], str):
                         action = [item["NotAction"]]
