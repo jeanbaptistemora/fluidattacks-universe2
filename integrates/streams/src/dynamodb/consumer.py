@@ -25,6 +25,7 @@ from dynamodb.utils import (
     format_record,
 )
 import logging
+import signal
 from threading import (
     Thread,
 )
@@ -127,9 +128,6 @@ def _get_shard_records(
                 yield records
 
                 processed_records += len(records)
-                sequence_number = records[-1].sequence_number
-
-                save_checkpoint(shard_id, sequence_number)
                 sleep(1)
             else:
                 sleep(10)
@@ -150,23 +148,45 @@ def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
     """Retrieves the records from the shard and triggers processing"""
     shard_iterator = _get_shard_iterator(stream_arn, shard_id)
     batches: dict[Trigger, list[Record]] = defaultdict(list)
+    shutdown_requested = False
 
-    for records in _get_shard_records(shard_id, shard_iterator):
+    def _process(records: tuple[Record, ...]) -> None:
         for trigger in TRIGGERS:
-            matching_records = (
+            matching_records = tuple(
                 record for record in records if trigger.records_filter(record)
             )
-            batches[trigger].extend(matching_records)
 
+            if trigger.batch_size == 0:
+                trigger.records_processor(matching_records)
+                continue
+
+            batches[trigger].extend(matching_records)
             if len(batches[trigger]) >= trigger.batch_size:
                 batch = batches[trigger][: trigger.batch_size]
                 trigger.records_processor(tuple(batch))
                 batches[trigger] = batches[trigger][trigger.batch_size :]
 
-    LOGGER.info("%s flushing", shard_id)
-    for trigger in TRIGGERS:
-        if batch := batches[trigger]:
-            trigger.records_processor(tuple(batch))
+    def _shutdown(*_: Any) -> None:
+        nonlocal shutdown_requested
+        shutdown_requested = True
+
+        LOGGER.info("%s flushing", shard_id)
+        for trigger in TRIGGERS:
+            if batch := batches[trigger]:
+                trigger.records_processor(tuple(batch))
+        LOGGER.info("%s shutdown gracefully", shard_id)
+
+    signal.signal(signal.SIGINT, _shutdown)
+    signal.signal(signal.SIGTERM, _shutdown)
+
+    for records in _get_shard_records(shard_id, shard_iterator):
+        if shutdown_requested:
+            break
+
+        _process(records)
+        save_checkpoint(shard_id, records[-1].sequence_number)
+
+    _shutdown()
 
 
 def consume() -> None:
