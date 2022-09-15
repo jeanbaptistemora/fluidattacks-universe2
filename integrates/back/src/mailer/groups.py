@@ -219,7 +219,7 @@ async def send_analytics_notification(
     fname = await get_recipient_first_name(loaders, email_to)
     org_name = await get_organization_name(loaders, group_name)
     context = {
-        "payment_link": f"{BASE_URL}/orgs/{org_name}/analytics",
+        "analytics_link": f"{BASE_URL}/orgs/{org_name}/analytics",
     }
     await send_mails_async(
         loaders,
@@ -230,6 +230,26 @@ async def send_analytics_notification(
             f"[{fname}], check your Continuous Hacking numbers: Analytics."
         ),
         template_name="analytics_notification",
+    )
+
+
+async def send_devsecops_agent_notification(
+    loaders: Any, email_to: str, group_name: str
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    org_name = await get_organization_name(loaders, group_name)
+    context = {
+        "devsecops_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/devsecops"
+        ),
+    }
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context=context,
+        tags=[],
+        subject=(f"[{fname}], remediate faster with our DevSecOps Agent!"),
+        template_name="devsecops_agent_notification",
     )
 
 
