@@ -200,11 +200,6 @@ ENTITIES = {
                     EntityDependency.request_vulnerabilities_verification,
                 }
             ),
-            EntityAttr.report_date: dict(
-                dependencies={
-                    EntityDependency.approve_draft,
-                }
-            ),
             EntityAttr.treatment_changes: dict(
                 dependencies={
                     EntityDependency.handle_vulnerabilities_acceptance,
