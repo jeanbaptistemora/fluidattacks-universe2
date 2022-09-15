@@ -8,6 +8,7 @@ from back.test.unit.src.utils import (
     create_dummy_session,
 )
 from custom_exceptions import (
+    CouldNotVerifyStakeholder,
     ErrorUploadingFileS3,
     EventNotFound,
     FindingNamePolicyNotFound,
@@ -86,6 +87,9 @@ from unittest import (
     mock,
 )
 import uuid
+from verify.operations import (
+    check_verification,
+)
 from vulnerabilities.domain import (
     send_treatment_report_mail,
     validate_treatment_change,
@@ -98,6 +102,13 @@ import yaml  # type: ignore
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+async def test_exception_could_not_verify_stake_holder() -> None:
+    test_code = "US"
+    with pytest.raises(CouldNotVerifyStakeholder):
+        with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
+            await check_verification(phone_number="", code=test_code)
 
 
 async def test_exception_error_uploading_file_s3() -> None:

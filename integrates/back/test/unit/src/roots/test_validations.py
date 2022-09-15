@@ -81,7 +81,7 @@ async def test_validate_component() -> None:
             loaders, git_root, "https://app.invalid.com/test"
         )
         await validate_component(
-            loaders, url_root, "https://app.fluidattacks.com:443"
+            loaders, url_root, "https://app.fluidattacks.com:440"
         )
         await validate_component(loaders, ip_root, "127.0.0.1/test")
 
@@ -92,7 +92,7 @@ def test_validate_fields() -> None:
     with pytest.raises(InvalidChar):
         assert validate_fields(["valid", " =invalid"])
         assert validate_fields(["=testfield", "testfield2"])
-        assert validate_fields(["testfield", "testfiel'd"])
+        assert validate_fields(["testfield", "testfiel`d"])
         assert validate_fields(["testfield", "<testfield2"])
 
 
