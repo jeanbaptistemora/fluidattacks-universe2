@@ -737,10 +737,7 @@ def get_first_week_dates(
 ) -> tuple[str, str]:
     """Get first week vulnerabilities."""
     first_date = min(
-        datetime.fromisoformat(
-            vuln.unreliable_indicators.unreliable_report_date
-        )
-        for vuln in vulns
+        datetime.fromisoformat(vuln.created_date) for vuln in vulns
     )
     if min_date:
         first_date = min_date
@@ -928,7 +925,7 @@ def get_found_vulnerabilities(
             cvssf=found.cvssf
             + (vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
-    report_date = vulnerability.unreliable_indicators.unreliable_report_date
+    report_date = vulnerability.created_date
     if first_day <= report_date <= last_day:
         found = VulnerabilityStatusByTimeRange(
             vulnerabilities=found.vulnerabilities + 1,

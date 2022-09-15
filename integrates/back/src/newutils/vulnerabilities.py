@@ -289,7 +289,7 @@ def get_opening_date(
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
     opening_date: datetype = datetime_utils.get_date_from_iso_str(
-        vuln.unreliable_indicators.unreliable_report_date
+        vuln.created_date
     )
     if min_date and min_date > opening_date:
         return None
@@ -414,12 +414,7 @@ def get_report_dates(
     vulns: Tuple[Vulnerability, ...],
 ) -> Tuple[datetime, ...]:
     """Get report dates for vulnerabilities."""
-    return tuple(
-        datetime.fromisoformat(
-            vuln.unreliable_indicators.unreliable_report_date
-        )
-        for vuln in vulns
-    )
+    return tuple(datetime.fromisoformat(vuln.created_date) for vuln in vulns)
 
 
 def group_specific(

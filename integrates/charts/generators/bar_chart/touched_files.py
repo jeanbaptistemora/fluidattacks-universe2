@@ -80,9 +80,7 @@ async def get_data_one_group(
         tuple(
             format_where(vulnerability.where)
             for vulnerability in vulnerabilities
-            if get_datetime_from_iso_str(
-                vulnerability.unreliable_indicators.unreliable_report_date
-            )
+            if get_datetime_from_iso_str(vulnerability.created_date)
             > date_minus_delta
             and vulnerability.type == VulnerabilityType.LINES
             and vulnerability.state.status == VulnerabilityStateStatus.OPEN

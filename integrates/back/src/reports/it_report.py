@@ -835,8 +835,7 @@ class ITReport:
         self.set_row_height()
 
     def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
-        indicators = vuln.unreliable_indicators
-        vuln_date = datetime.fromisoformat(indicators.unreliable_report_date)
+        vuln_date = datetime.fromisoformat(vuln.created_date)
         limit_date = datetime_utils.get_now()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln.state.status == VulnerabilityStateStatus.CLOSED:

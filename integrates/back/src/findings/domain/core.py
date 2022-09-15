@@ -704,9 +704,7 @@ async def send_closed_vulnerabilities_report(
     vulns_closed_props: dict[str, Any] = {}
 
     for vuln in closed_vulnerabilities:
-        report_date = datetime_utils.get_date_from_iso_str(
-            vuln.unreliable_indicators.unreliable_report_date
-        )
+        report_date = datetime_utils.get_date_from_iso_str(vuln.created_date)
         days_open = (datetime_utils.get_now().date() - report_date).days
         reattack_requester = (
             vuln.unreliable_indicators.unreliable_last_reattack_requester
