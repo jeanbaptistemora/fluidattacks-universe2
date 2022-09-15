@@ -145,6 +145,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_analytics_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.analytics_notification.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "analytics_notification";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   integrates_clean_ephemerals = {
     enabled = true;
     command = [
