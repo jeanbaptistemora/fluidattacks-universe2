@@ -80,7 +80,9 @@ def _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
     secrets_iterator: Iterator[Union[AWSSecretsManagerSecret, Node]],
 ) -> Iterator[Union[AWSSecretsManagerSecret, Node]]:
     for secret in secrets_iterator:
-        gen_secret_str = get_node_by_keys(secret, ["GenerateSecretString"])
+        gen_secret_str = get_node_by_keys(
+            secret, ["GenerateSecretString"]  # type: ignore
+        )
         if isinstance(gen_secret_str, Node):
             exclude_chars = gen_secret_str.raw.get("ExcludeCharacters", "")
             password_length = gen_secret_str.raw.get("PasswordLength", 32)

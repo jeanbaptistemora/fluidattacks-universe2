@@ -35,7 +35,7 @@ def _cfn_content_over_http_iterate_vulnerabilities(
     distributions_iterator: Iterator[Union[Any, Node]]
 ) -> Iterator[Union[Any, Node]]:
     for dist in distributions_iterator:
-        dist_config = dist.inner["DistributionConfig"]
+        dist_config = dist.inner["DistributionConfig"]  # type: ignore
         if isinstance(dist_config, Node):
             if "DefaultCacheBehavior" in dist_config.inner:
                 def_cache_beh = dist_config.inner["DefaultCacheBehavior"]

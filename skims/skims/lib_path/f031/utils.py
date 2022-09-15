@@ -37,7 +37,10 @@ def _is_s3_action_writeable(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
         "Write",
     ]
     for action in actions_list:
-        if any(action.startswith(f"s3:{atw}") for atw in action_start_with):
+        if any(
+            action.startswith(f"s3:{atw}")  # type: ignore
+            for atw in action_start_with
+        ):
             return True
     return False
 

@@ -20,7 +20,7 @@ from syntax_graph.syntax_readers.common import (
     string_literal as common_string_literal,
     this as common_this,
 )
-from syntax_graph.syntax_readers.dart import (
+from syntax_graph.syntax_readers.dart import (  # type: ignore
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,

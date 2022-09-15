@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from frozendict import (  # type: ignore
+from frozendict import (
     frozendict,
 )
 from lib_path.common import (

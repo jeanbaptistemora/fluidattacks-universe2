@@ -114,7 +114,7 @@ def log_to_remote_blocking(
 ) -> None:
     meta_data.update(BUGS_META)
     bugsnag.notify(
-        Exception(msg) if isinstance(msg, str) else msg,
+        Exception(msg) if isinstance(msg, str) else msg,  # type: ignore
         meta_data=dict(meta_data),
         severity=severity,
     )

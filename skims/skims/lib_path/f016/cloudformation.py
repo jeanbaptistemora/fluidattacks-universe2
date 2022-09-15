@@ -45,7 +45,7 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
 ) -> Iterator[Union[Any, Node]]:
 
     for dist in distributions_iterator:
-        dist_config = dist.inner["DistributionConfig"]
+        dist_config = dist.inner["DistributionConfig"]  # type: ignore
         if isinstance(dist_config, Node):
             min_prot_ver = get_node_by_keys(
                 dist_config, ["ViewerCertificate", "MinimumProtocolVersion"]

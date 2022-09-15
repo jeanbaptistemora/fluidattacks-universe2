@@ -9,7 +9,7 @@ from typing import (
     Dict,
     NamedTuple,
 )
-import yaml  # type: ignore
+import yaml
 
 
 class ValueToAdd(NamedTuple):

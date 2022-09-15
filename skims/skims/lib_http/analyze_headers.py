@@ -58,7 +58,7 @@ from zone import (
 
 
 class HeaderCheckCtx(NamedTuple):
-    headers_parsed: MultiDict[str, Header]
+    headers_parsed: MultiDict[str, Header]  # type: ignore
     url_ctx: URLContext
 
 
@@ -505,7 +505,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 
 def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
-    headers_parsed: MultiDict[str, Header] = MultiDict(
+    headers_parsed: MultiDict[str, Header] = MultiDict(  # type: ignore
         [
             (type(header_parsed).__name__, header_parsed)
             for header_raw_name, header_raw_value in reversed(

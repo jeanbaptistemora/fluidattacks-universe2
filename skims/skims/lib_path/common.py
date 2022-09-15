@@ -16,7 +16,7 @@ from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
 )
-from frozendict import (  # type: ignore
+from frozendict import (
     frozendict,
 )
 from ipaddress import (
@@ -454,7 +454,9 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
     # or "dependencies" for prod dependencies
     enumerated_tree: Dict[str, Dict[str, Any]] = {}
     yarn_content = get_file_content_block(path_yarn)
-    windower: Iterator[Tuple[Tuple[int, str], Tuple[int, str]]] = windowed(
+    windower: Iterator[
+        Tuple[Tuple[int, str], Tuple[int, str]]
+    ] = windowed(  # type: ignore
         fillvalue="",
         n=2,
         seq=tuple(enumerate(yarn_content.splitlines(), start=1)),

@@ -98,7 +98,7 @@ async def execute_skims(
     :raises MemoryError: If not enough memory can be allocated by the runtime
     :raises SystemExit: If any critical error occurs
     """
-    CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())
+    CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())  # type: ignore
 
     stores = stores or {
         finding: get_ephemeral_store() for finding in core_model.FindingEnum

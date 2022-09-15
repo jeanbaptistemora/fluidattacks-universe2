@@ -309,7 +309,7 @@ def get_possible_syntax_steps_from_path(
                 shard=shard,
                 syntax_steps=syntax_steps,
                 n_id=n_id,
-                n_id_next=n_id_next,
+                n_id_next=n_id_next,  # type: ignore
                 current_instance=current_instance,
             )
         except ImpossiblePath:
@@ -366,7 +366,7 @@ def get_possible_syntax_steps_from_path_str_multiple_files(
                 shard=shard,
                 syntax_steps=syntax_steps,
                 n_id=n_id,
-                n_id_next=n_id_next,
+                n_id_next=n_id_next,  # type: ignore
                 current_instance=None,
             )
         except ImpossiblePath:

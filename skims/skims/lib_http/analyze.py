@@ -100,7 +100,7 @@ async def get_url(
     *,
     ntp_offset: Optional[float],
 ) -> Optional[URLContext]:
-    async with create_session() as session:
+    async with create_session() as session:  # type: ignore
         if response := await request(session, "GET", url):
             url = str(response.url)  # Update with the redirected URL
 
@@ -119,7 +119,7 @@ async def get_url(
                         "Host": "fluidattacks.com",
                     },
                 ),
-                headers_raw=response.headers,
+                headers_raw=response.headers,  # type: ignore
                 is_html=is_html(content, soup),
                 soup=soup,
                 timestamp_ntp=(

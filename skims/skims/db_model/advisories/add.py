@@ -26,7 +26,7 @@ from dynamodb import (
     keys,
     operations,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 from utils.logs import (
     log_blocking,
 )

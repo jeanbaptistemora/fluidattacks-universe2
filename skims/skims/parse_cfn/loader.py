@@ -13,7 +13,7 @@ from cfn_tools.yaml_loader import (
 from contextlib import (
     suppress,
 )
-from frozendict import (  # type: ignore
+from frozendict import (
     frozendict,
 )
 from metaloaders.cloudformation import (
@@ -42,7 +42,7 @@ from typing import (
 from utils.logs import (
     log_exception,
 )
-import yaml  # type: ignore
+import yaml
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors

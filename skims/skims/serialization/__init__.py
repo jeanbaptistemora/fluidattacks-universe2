@@ -121,7 +121,7 @@ def _side_effects() -> None:
     ):
         safe_pickle.register_enum(factory)
 
-    for factory in (
+    for factory in (  # type: ignore
         core_model.ExecutionQueueConfig,
         core_model.FindingMetadata,
         core_model.SkimsVulnerabilityMetadata,
@@ -168,7 +168,7 @@ def _side_effects() -> None:
     ):
         safe_pickle.register_namedtuple(factory)
 
-    for factory in (graph_model.SyntaxStepMeta,):
+    for factory in (graph_model.SyntaxStepMeta,):  # type: ignore
         safe_pickle.register_dataclass(factory)
 
     for factory, dumper, loader in (
@@ -177,7 +177,7 @@ def _side_effects() -> None:
         (LarkTree, _dump_lark_tree, _load_lark_tree),
         (ListToken, safe_pickle.tuple_dump, safe_pickle.list_load),
     ):
-        safe_pickle.register(factory, dumper, loader)
+        safe_pickle.register(factory, dumper, loader)  # type: ignore
 
 
 # Side effects

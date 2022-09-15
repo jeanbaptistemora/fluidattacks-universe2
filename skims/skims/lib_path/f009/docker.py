@@ -74,7 +74,7 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
             and value
             and not (value.startswith("${") and value.endswith("}"))
         ):
-            yield env_var
+            yield env_var  # type: ignore
 
 
 def docker_compose_env_secrets(

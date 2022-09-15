@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from frozendict import (  # type: ignore
+from frozendict import (
     frozendict,
 )
 from lib_path.common import (
@@ -120,7 +120,7 @@ def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
         except FileNotFoundError:
             windower: Iterator[
                 Tuple[Tuple[int, str], Tuple[int, str]],
-            ] = windowed(
+            ] = windowed(  # type: ignore
                 fillvalue="",
                 n=2,
                 seq=tuple(enumerate(content.splitlines(), start=1)),

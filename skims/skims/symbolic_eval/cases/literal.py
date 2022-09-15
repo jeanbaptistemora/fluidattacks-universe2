@@ -38,7 +38,7 @@ from symbolic_eval.f160.literal import (
 from symbolic_eval.f211.literal import (
     evaluate as evaluate_literal_f211,
 )
-from symbolic_eval.f239.literal import (
+from symbolic_eval.f239.literal import (  # type: ignore
     evaluate as evaluate_literal_f239,
 )
 from symbolic_eval.types import (

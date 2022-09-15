@@ -10,7 +10,7 @@ import re
 from typing import (
     List,
 )
-import yaml  # type: ignore
+import yaml
 
 # constants
 BASE = "/data/gitlab/gitlab-org/advisories-community"

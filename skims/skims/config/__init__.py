@@ -18,7 +18,7 @@ from typing import (
 from utils.logs import (
     log_blocking,
 )
-import yaml  # type: ignore
+import yaml
 
 
 def load_checks(config: Any) -> Set[core_model.FindingEnum]:

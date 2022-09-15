@@ -23,14 +23,18 @@
         searchPaths.source = [
           outputs."/skims/config/runtime"
           outputs."/skims/env/development"
+          outputs."/skims/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/skims/skims";
       };
       skimsSca = {
         searchPaths.source = [
           outputs."/skims/config/runtime"
+          outputs."/skims/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/skims/sca/update";
       };

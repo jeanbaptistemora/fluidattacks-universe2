@@ -51,7 +51,7 @@ def create_venv_install_requirements(filename: str) -> str:
 
 
 def _get_name(dependencies: requirements.requirement.Requirement) -> str:
-    return dependencies.name
+    return dependencies.name  # type: ignore
 
 
 def pip_incomplete_dependencies_list(

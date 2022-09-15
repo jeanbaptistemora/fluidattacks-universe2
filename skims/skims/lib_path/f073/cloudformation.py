@@ -34,7 +34,9 @@ def _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
     rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
-        publicy_acc = get_node_by_keys(rds_res, ["PubliclyAccessible"])
+        publicy_acc = get_node_by_keys(
+            rds_res, ["PubliclyAccessible"]  # type: ignore
+        )
         if isinstance(publicy_acc, Node) and publicy_acc.raw in TRUE_OPTIONS:
             yield publicy_acc
 

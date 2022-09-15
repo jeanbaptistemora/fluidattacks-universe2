@@ -35,7 +35,9 @@ def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
     rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
-        ret_period = get_node_by_keys(rds_res, ["BackupRetentionPeriod"])
+        ret_period = get_node_by_keys(
+            rds_res, ["BackupRetentionPeriod"]  # type: ignore
+        )
         if isinstance(ret_period, Node) and ret_period.raw in (0, "0"):
             yield ret_period
 

@@ -169,7 +169,7 @@ def shield(
                         msg=(exc_type, exc_value, exc_taceback),
                         severity="error",
                         function_id=function_id,
-                        retry=number,
+                        retry=number,  # type: ignore
                     )
 
                     msg: str = "Function: %s, %s: %s\n%s"
@@ -226,7 +226,7 @@ def shield_blocking(
                         msg=(exc_type, exc_value, exc_taceback),
                         severity="error",
                         function_id=function_id,
-                        retry=number,
+                        retry=number,  # type: ignore
                     )
 
                     msg: str = "Function: %s, %s: %s\n%s"

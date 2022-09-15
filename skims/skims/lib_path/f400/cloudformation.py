@@ -113,7 +113,7 @@ def _cfn_ec2_monitoring_disabled_iterate_vulnerabilities(
     for res in res_iterator:
         monitoring = res.inner.get("Monitoring")
         if monitoring is None:
-            yield AWSCTrail(
+            yield AWSCTrail(  # type: ignore
                 column=res.start_column,
                 data=res.data,
                 line=get_line_by_extension(res.start_line, file_ext),

@@ -8,7 +8,7 @@ from typing import (
     Dict,
     Pattern,
 )
-import yaml  # type: ignore
+import yaml
 
 RE_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
 URL_ADVISORIES_COMMUNITY: str = (

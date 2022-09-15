@@ -37,7 +37,7 @@ def is_header_content_type_missing(content: str, path: str) -> Vulnerabilities:
         tk_type = CaselessKeyword("type")
         prs_cont_typ = tk_content + Literal("-") + tk_type
 
-        tk_type = SkipTo(Literal("/"), include=True)
+        tk_type = SkipTo(Literal("/"), include=True)  # type: ignore
         tk_subtype = Optional(SkipTo(Literal(";"), include=True))
         prs_mime = tk_type + tk_subtype
 

@@ -18,7 +18,7 @@ from typing import (
 # https://manpages.debian.org/getrusage(2)
 
 # Constants
-_MEMORY_SEMAPHORE: BoundedSemaphore = None
+_MEMORY_SEMAPHORE: BoundedSemaphore = None  # type: ignore
 
 
 def get_max_memory_usage() -> float:

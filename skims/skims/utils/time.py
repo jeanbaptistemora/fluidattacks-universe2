@@ -6,7 +6,7 @@ from datetime import (
     datetime,
     timezone,
 )
-import pytz  # type: ignore
+import pytz
 
 TIME_ZONE = "America/Bogota"
 DEFAULT_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"

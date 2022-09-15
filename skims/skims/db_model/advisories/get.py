@@ -57,7 +57,10 @@ class AdvisoriesLoader(DataLoader):
     ) -> Tuple[Advisory, ...]:
         return await collect(
             tuple(
-                _get_advisories(platform=platform, package_name=package_name)
+                _get_advisories(  # type: ignore
+                    platform=platform,
+                    package_name=package_name,
+                )
                 for platform, package_name in ad_keys
             )
         )

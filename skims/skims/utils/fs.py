@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import aiofiles  # type: ignore
+import aiofiles
 from concurrent.futures import (
     ThreadPoolExecutor,
 )

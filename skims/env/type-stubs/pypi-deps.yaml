@@ -1,0 +1,6 @@
+---
+types-aiofiles: '*'
+types-pytz: '*'
+types-PyYAML: '*'
+types-requests: '*'
+types-simplejson: '*'

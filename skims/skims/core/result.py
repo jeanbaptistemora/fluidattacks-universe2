@@ -28,7 +28,7 @@ from utils.repositories import (
     get_repo_head_hash,
     get_repo_remote,
 )
-import yaml  # type: ignore
+import yaml
 
 
 def simplify_sarif(obj: Any) -> Any:

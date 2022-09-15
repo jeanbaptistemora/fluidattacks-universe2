@@ -47,7 +47,7 @@ class SnippetViewport(NamedTuple):
 
 def _chunked(line: str, chunk_size: int) -> Iterator[str]:
     if line:
-        yield from chunked(line, n=chunk_size)
+        yield from chunked(line, n=chunk_size)  # type: ignore
     else:
         yield ""
 

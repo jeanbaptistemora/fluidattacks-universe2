@@ -231,7 +231,7 @@ def _check_assume_role_policies(
             ) if isinstance(not_actions.raw, List) else not_actions
 
         if not_princ := stmt.inner.get("NotPrincipal"):
-            yield AWSIamManagedPolicy(
+            yield AWSIamManagedPolicy(  # type: ignore
                 column=not_princ.start_column,
                 data=not_princ.data,
                 line=get_line_by_extension(not_princ.start_line, file_ext),

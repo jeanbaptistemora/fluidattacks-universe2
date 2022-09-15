@@ -44,7 +44,7 @@ from symbolic_eval.f107.member_access import (
 from symbolic_eval.f211.member_access import (
     evaluate as evaluate_member_access_f211,
 )
-from symbolic_eval.f239.member_access import (
+from symbolic_eval.f239.member_access import (  # type: ignore
     evaluate as evaluate_member_access_f239,
 )
 from symbolic_eval.f320.member_access import (

@@ -6,7 +6,7 @@ import aiohttp
 from contextlib import (
     asynccontextmanager,
 )
-import requests  # type: ignore
+import requests
 from typing import (
     Any,
     Dict,
@@ -27,8 +27,11 @@ RETRY = shield(
 )
 
 
-@asynccontextmanager
-async def create_session(*args: Any, **kwargs: Any) -> aiohttp.ClientSession:
+@asynccontextmanager  # type: ignore
+async def create_session(  # type: ignore
+    *args: Any,
+    **kwargs: Any,
+) -> aiohttp.ClientSession:
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(
             # The server might be timing out the connection
