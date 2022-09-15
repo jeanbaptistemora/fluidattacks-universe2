@@ -36,7 +36,7 @@ def clean_stuck_jobs(
         return diff > threshold
 
     def mock_cancel(job_id: JobId) -> Cmd[None]:
-        return Cmd.from_cmd(lambda: LOG.info("%s will be cancelled"))
+        return Cmd.from_cmd(lambda: LOG.info("%s will be cancelled", job_id))
 
     status = frozenset(
         [JobStatus.created, JobStatus.pending, JobStatus.running]
@@ -44,7 +44,7 @@ def clean_stuck_jobs(
     stuck_jobs = client.job_stream(100, status).filter(
         lambda j: is_stuck(j.job)
     )
-    cancel_cmd = client.cancel if dry_run else mock_cancel
+    cancel_cmd = mock_cancel if dry_run else client.cancel
     return stuck_jobs.map(lambda j: cancel_cmd(j.job_id)).transform(
         lambda s: consume(s)
     )

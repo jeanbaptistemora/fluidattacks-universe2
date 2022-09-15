@@ -48,7 +48,6 @@ class JobConf:
     allow_failure: bool
     tag_list: FrozenList[str]
     ref_branch: str
-    runner: Maybe[str]
     stage: str
 
 

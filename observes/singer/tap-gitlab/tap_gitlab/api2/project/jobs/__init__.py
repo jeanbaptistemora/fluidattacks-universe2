@@ -22,6 +22,10 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
+from fa_purity.utils import (
+    raise_exception,
+)
+import logging
 from tap_gitlab.api2._raw import (
     Credentials,
     RawClient,
@@ -47,6 +51,13 @@ from typing import (
     Dict,
     FrozenSet,
 )
+
+LOG = logging.getLogger(__name__)
+
+
+def raise_and_log(err: Exception, at_input: str) -> None:
+    LOG.error("Error at input %s", at_input)
+    raise_exception(err)
 
 
 @dataclass(frozen=True)
@@ -78,7 +89,12 @@ class JobClient:
         self, page: Page, scopes: FrozenSet[JobStatus]
     ) -> Cmd[FrozenList[JobObj]]:
         return self._raw_jobs_page(page, scopes).map(
-            lambda js: tuple(decode_job_obj(j).unwrap() for j in js)
+            lambda js: tuple(
+                decode_job_obj(j)
+                .alt(lambda e: raise_and_log(e, str(j)))
+                .unwrap()
+                for j in js
+            )
         )
 
     def job_stream(
