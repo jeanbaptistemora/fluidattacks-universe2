@@ -588,6 +588,7 @@ CHECKS: Dict[
     core_model.FindingEnum,
     List[Callable[[HeaderCheckCtx], core_model.Vulnerabilities]],
 ] = {
+    core_model.FindingEnum.F182: [_check_dns_records],
     core_model.FindingEnum.F015: [_www_authenticate],
     core_model.FindingEnum.F023: [_location],
     core_model.FindingEnum.F128: [_set_cookie_httponly],

@@ -15,6 +15,7 @@
   "instance_references",
   "lib_apk",
   "lib_http",
+  "lib_http_2",
   "lib_path",
   "lib_ssl",
   "nist_c_sharp",

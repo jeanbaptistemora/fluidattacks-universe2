@@ -179,6 +179,12 @@ def test_lib_apk() -> None:
     _run_no_group("lib_apk")
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("lib_http_2")
+def test_lib_http_2() -> None:
+    _run_no_group("lib_http_2")
+
+
 @pytest.mark.flaky(reruns=3)  # The outcome depends on third party servers
 @pytest.mark.skims_test_group("lib_http")
 @pytest.mark.usefixtures("test_mocks_http")

@@ -1,0 +1,12 @@
+---
+checks:
+  - F182
+dast:
+  http:
+    include:
+      - http://fluidattacks.com
+language: EN
+namespace: namespace
+output:
+  file_path: skims/test/outputs/lib_http_2.csv
+  format: CSV
