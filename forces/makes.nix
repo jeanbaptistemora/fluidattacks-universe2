@@ -57,7 +57,9 @@
       forces = {
         searchPaths.source = [
           outputs."/forces/config/runtime"
+          outputs."/forces/config/typing-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/forces/forces";
       };
