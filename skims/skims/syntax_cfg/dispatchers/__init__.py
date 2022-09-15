@@ -85,6 +85,7 @@ DISPATCHERS: Dispatchers = (
             "Object",
             "ObjectCreation",
             "PostfixUnaryExpression",
+            "PropertyDeclaration",
             "Resource",
             "SwitchCase",
             "SwitchDefault",

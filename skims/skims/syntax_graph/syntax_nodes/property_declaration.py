@@ -10,13 +10,14 @@ from syntax_graph.types import (
 )
 from typing import (
     List,
+    Optional,
 )
 
 
 def build_property_declaration_node(
     args: SyntaxGraphArgs,
-    var_type: str,
-    identifier: str,
+    var_type: Optional[str],
+    identifier: Optional[str],
     accessors: List[NId],
 ) -> NId:
     args.syntax_graph.add_node(

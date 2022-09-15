@@ -108,6 +108,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "array_creation_expression",
+            "implicit_array_creation_expression",
         },
         syntax_reader=c_sharp_array_creation_expression.reader,
     ),
@@ -424,6 +425,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "character_literal",
             "string_literal",
             "verbatim_string_literal",
+            "predefined_type",
         },
         syntax_reader=common_string_literal.reader,
     ),
