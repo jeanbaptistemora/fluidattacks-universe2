@@ -586,7 +586,7 @@ async def negative_statement(
 
                     if (
                         item["Effect"] == "Allow"
-                        and not item["NotResource"] == "*"
+                        and item["NotResource"] != "*"
                     ):
                         locations = [
                             *[
