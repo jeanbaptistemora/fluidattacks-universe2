@@ -879,6 +879,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
             "see_group_services_info",
+            "api_resolvers_group_drafts_resolve",
+            "api_resolvers_finding_hacker_resolve",
         },
         tags={
             *GROUP_LEVEL_ROLES["user"]["tags"],
