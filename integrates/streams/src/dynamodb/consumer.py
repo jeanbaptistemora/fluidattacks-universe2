@@ -27,6 +27,7 @@ from dynamodb.utils import (
 import logging
 import signal
 from threading import (
+    Event,
     Thread,
 )
 from time import (
@@ -124,9 +125,9 @@ def _get_shard_records(
                 format_record(record) for record in response["Records"]
             )
 
-            if records:
-                yield records
+            yield records
 
+            if records:
                 processed_records += len(records)
                 sleep(1)
             else:
@@ -144,13 +145,20 @@ def _get_shard_records(
     LOGGER.info("%s processed %s records", shard_id, processed_records)
 
 
-def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
+def _consume_shard_records(
+    shard_id: str,
+    stream_arn: str,
+    shutdown_event: Event,
+) -> None:
     """Retrieves the records from the shard and triggers processing"""
     shard_iterator = _get_shard_iterator(stream_arn, shard_id)
     batches: dict[Trigger, list[Record]] = defaultdict(list)
-    shutdown_requested = False
 
-    def _process(records: tuple[Record, ...]) -> None:
+    for records in _get_shard_records(shard_id, shard_iterator):
+        if shutdown_event.is_set():
+            LOGGER.info("%s shutting down", shard_id)
+            break
+
         for trigger in TRIGGERS:
             matching_records = tuple(
                 record for record in records if trigger.records_filter(record)
@@ -166,49 +174,42 @@ def _consume_shard_records(shard_id: str, stream_arn: str) -> None:
                 trigger.records_processor(tuple(batch))
                 batches[trigger] = batches[trigger][trigger.batch_size :]
 
-    def _shutdown(*_: Any) -> None:
-        nonlocal shutdown_requested
-        shutdown_requested = True
-
-        LOGGER.info("%s flushing", shard_id)
-        for trigger in TRIGGERS:
-            if batch := batches[trigger]:
-                trigger.records_processor(tuple(batch))
-        LOGGER.info("%s shutdown gracefully", shard_id)
-
-    signal.signal(signal.SIGINT, _shutdown)
-    signal.signal(signal.SIGTERM, _shutdown)
-
-    for records in _get_shard_records(shard_id, shard_iterator):
-        if shutdown_requested:
-            break
-
-        _process(records)
         save_checkpoint(shard_id, records[-1].sequence_number)
 
-    _shutdown()
+    for trigger in TRIGGERS:
+        if batch := batches[trigger]:
+            trigger.records_processor(tuple(batch))
+    LOGGER.info("%s shutdown gracefully", shard_id)
 
 
 def consume() -> None:
     """Consumes the DynamoDB stream"""
     stream_arn = _get_stream_arn(TABLE_NAME)
     workers: list[Thread] = []
+    shutdown_event = Event()
 
     for shards in _get_stream_shards(stream_arn):
         for shard in shards:
-            shard_id = shard["ShardId"]
+            shard_id: str = shard["ShardId"]
             is_closed = "EndingSequenceNumber" in shard["SequenceNumberRange"]
 
             if is_closed:
                 remove_checkpoint(shard_id)
             else:
                 worker = Thread(
-                    args=(shard_id, stream_arn),
+                    args=(shard_id, stream_arn, shutdown_event),
                     daemon=True,
+                    name=shard_id,
                     target=_consume_shard_records,
                 )
                 workers.append(worker)
                 worker.start()
+
+    def _shutdown(*_: Any) -> None:
+        shutdown_event.set()
+
+    signal.signal(signal.SIGINT, _shutdown)
+    signal.signal(signal.SIGTERM, _shutdown)
 
     LOGGER.info("Running with %s workers", len(workers))
 

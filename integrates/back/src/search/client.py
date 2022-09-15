@@ -101,9 +101,12 @@ CLIENT_OPTIONS = {
     "connection_class": AsyncAWSConnection,
     "hosts": [FI_AWS_OPENSEARCH_HOST],
     "http_compress": False,
+    "max_retries": 10,
+    "retry_on_status": (429, 502, 503, 504),
+    "retry_on_timeout": True,
+    "serializer": SetEncoder(),
     "use_ssl": FI_ENVIRONMENT == "production",
     "verify_certs": FI_ENVIRONMENT == "production",
-    "serializer": SetEncoder(),
 }
 CONTEXT_STACK = None
 CLIENT = None

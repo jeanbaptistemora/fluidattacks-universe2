@@ -123,7 +123,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
     ] = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(process_finding(finding) for finding in group_findings),
-        workers=5,
+        workers=1,
     )
 
 
@@ -131,6 +131,9 @@ async def main() -> None:
     loaders = get_new_context()
     active_group_names = sorted(await get_all_active_group_names(loaders))
     await search_startup()
+    client = await get_client()
+    await client.indices.delete(index="vulnerabilities")
+    await client.indices.create(index="vulnerabilities")
     await collect(
         tuple(
             process_group(loaders, group_name)

@@ -110,6 +110,9 @@ async def main() -> None:
     loaders = get_new_context()
     active_group_names = sorted(await get_all_active_group_names(loaders))
     await search_startup()
+    client = await get_client()
+    await client.indices.delete(index="findings")
+    await client.indices.create(index="findings")
     await collect(
         tuple(process_group(group_name) for group_name in active_group_names),
         workers=2,
