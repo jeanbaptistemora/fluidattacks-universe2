@@ -13,10 +13,20 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
     $first: Int
     $groupName: String!
     $search: String
+    $treatment: String
+    $stateStatus: String
+    $verificationStatus: String
   ) {
     group(groupName: $groupName) {
       name
-      vulnerabilities(after: $after, first: $first, search: $search) {
+      vulnerabilities(
+        after: $after
+        first: $first
+        search: $search
+        treatment: $treatment
+        stateStatus: $stateStatus
+        verificationStatus: $verificationStatus
+      ) {
         edges {
           node {
             currentState
