@@ -26,6 +26,8 @@ def parse_line(in_line: str) -> Dict[str, Any]:
             .replace("]", "")
             .strip()
         )
+        if stripped_column.startswith("github: "):
+            continue
         column_list.append(stripped_column)
 
     dep = Dependency()
