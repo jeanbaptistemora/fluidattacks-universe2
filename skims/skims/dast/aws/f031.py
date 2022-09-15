@@ -215,18 +215,20 @@ async def full_access_policies(
                     "VersionId": str(policy["DefaultVersionId"]),
                 },
             )
-            policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = ast.literal_eval(
-                str(policy_names["Document"]["Statement"])
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = (
+                ast.literal_eval(str(policy_names["Document"]))
+                if policy_names
+                else {}
             )
+            policy_statements = pol_access.get("Statement", [])
 
-            for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
+            for index, item in enumerate(policy_statements):
                 with suppress(KeyError):
                     if (
-                        policy_statement["Effect"] == "Allow"
-                        and policy_statement["Action"] == "*"
-                        and policy_statement["Resource"] == "*"
+                        item["Effect"] == "Allow"
+                        and item["Action"] == "*"
+                        and item["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -241,9 +243,9 @@ async def full_access_policies(
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
-                                        pol_access[index]["Effect"],
-                                        pol_access[index]["Action"],
-                                        pol_access[index]["Resource"],
+                                        policy_statements[index]["Effect"],
+                                        policy_statements[index]["Action"],
+                                        policy_statements[index]["Resource"],
                                     ),
                                     description=t(
                                         "src.lib_path."
@@ -299,22 +301,25 @@ async def open_passrole(
                     "VersionId": str(policy["DefaultVersionId"]),
                 },
             )
-            policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = ast.literal_eval(
-                str(policy_names["Document"]["Statement"])
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = (
+                ast.literal_eval(str(policy_names["Document"]))
+                if policy_names
+                else {}
             )
-            for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
+            policy_statements = pol_access.get("Statement", [])
+
+            for index, item in enumerate(policy_statements):
                 with suppress(KeyError):
-                    if isinstance(policy_statement["Action"], str):
-                        action = [policy_statement["Action"]]
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
                     else:
-                        action = policy_statement["Action"]
+                        action = item["Action"]
 
                     if (
-                        policy_statement["Effect"] == "Allow"
+                        item["Effect"] == "Allow"
                         and any(map(_match_iam_passrole, action))
-                        and policy_statement["Resource"] == "*"
+                        and item["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -329,9 +334,9 @@ async def open_passrole(
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
-                                        pol_access[index]["Effect"],
-                                        pol_access[index]["Action"],
-                                        pol_access[index]["Resource"],
+                                        policy_statements[index]["Effect"],
+                                        policy_statements[index]["Action"],
+                                        policy_statements[index]["Resource"],
                                     ),
                                     description=t(
                                         "src.lib_path.f031_aws.open_passrole"
@@ -391,22 +396,25 @@ async def permissive_policy(
                     "VersionId": str(policy["DefaultVersionId"]),
                 },
             )
-            policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = ast.literal_eval(
-                str(policy_names["Document"]["Statement"])
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = (
+                ast.literal_eval(str(policy_names["Document"]))
+                if policy_names
+                else {}
             )
-            for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
+            policy_statements = pol_access.get("Statement", [])
+
+            for index, item in enumerate(policy_statements):
                 with suppress(KeyError):
-                    if isinstance(policy_statement["Action"], str):
-                        action = [policy_statement["Action"]]
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
                     else:
-                        action = policy_statement["Action"]
+                        action = item["Action"]
 
                     if (
-                        policy_statement["Effect"] == "Allow"
+                        item["Effect"] == "Allow"
                         and any(map(_is_action_permissive, action))
-                        and policy_statement["Resource"] == "*"
+                        and item["Resource"] == "*"
                     ):
                         locations = [
                             *[
@@ -420,8 +428,8 @@ async def permissive_policy(
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
-                                        pol_access[index]["Action"],
-                                        pol_access[index]["Resource"],
+                                        policy_statements[index]["Action"],
+                                        policy_statements[index]["Resource"],
                                     ),
                                     description=t(
                                         "src.lib_path."
@@ -466,19 +474,22 @@ async def full_access_to_ssm(
                     "VersionId": str(policy["DefaultVersionId"]),
                 },
             )
-            policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = ast.literal_eval(
-                str(policy_names["Document"]["Statement"])
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = (
+                ast.literal_eval(str(policy_names["Document"]))
+                if policy_names
+                else {}
             )
-            for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
-                with suppress(KeyError):
-                    if isinstance(policy_statement["Action"], str):
-                        action = [policy_statement["Action"]]
-                    else:
-                        action = policy_statement["Action"]
+            policy_statements = pol_access.get("Statement", [])
 
-                    if policy_statement["Effect"] == "Allow" and any(
+            for index, item in enumerate(policy_statements):
+                with suppress(KeyError):
+                    if isinstance(item["Action"], str):
+                        action = [item["Action"]]
+                    else:
+                        action = item["Action"]
+
+                    if item["Effect"] == "Allow" and any(
                         map(lambda act: act == "ssm:*", action)
                     ):
                         locations = [
@@ -488,7 +499,9 @@ async def full_access_to_ssm(
                                         f"/Document/Statement/{index}/Action",
                                     ),
                                     arn=(f"{policy['Arn']}"),
-                                    values=(pol_access[index]["Action"],),
+                                    values=(
+                                        policy_statements[index]["Action"],
+                                    ),
                                     description=t(
                                         "src.lib_path."
                                         "f031.iam_has_full_access_to_ssm"
@@ -532,21 +545,24 @@ async def negative_statement(
                     "VersionId": str(policy["DefaultVersionId"]),
                 },
             )
-            policy_names = pol_ver.get("PolicyVersion", [])
-            pol_access = ast.literal_eval(
-                str(policy_names["Document"]["Statement"])
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = (
+                ast.literal_eval(str(policy_names["Document"]))
+                if policy_names
+                else {}
             )
-            for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
-                with suppress(KeyError):
-                    if isinstance(policy_statement["NotAction"], str):
-                        action = [policy_statement["NotAction"]]
-                    else:
-                        action = policy_statement["NotAction"]
+            policy_statements = pol_access.get("Statement", [])
 
-                    if policy_statement[
-                        "Effect"
-                    ] == "Allow" and not _is_action_permissive(action):
+            for index, item in enumerate(policy_statements):
+                with suppress(KeyError):
+                    if isinstance(item["NotAction"], str):
+                        action = [item["NotAction"]]
+                    else:
+                        action = item["NotAction"]
+
+                    if item["Effect"] == "Allow" and not _is_action_permissive(
+                        action
+                    ):
                         locations = [
                             *[
                                 Location(
@@ -557,7 +573,9 @@ async def negative_statement(
                                         ),
                                     ),
                                     arn=(f"{policy['Arn']}"),
-                                    values=pol_access[index]["NotAction"],
+                                    values=policy_statements[index][
+                                        "NotAction"
+                                    ],
                                     description=t(
                                         "src.lib_path."
                                         "f031.iam_has_full_access_to_ssm"
@@ -567,8 +585,8 @@ async def negative_statement(
                         ]
 
                     if (
-                        policy_statement["Effect"] == "Allow"
-                        and not policy_statement["NotResource"] == "*"
+                        item["Effect"] == "Allow"
+                        and not item["NotResource"] == "*"
                     ):
                         locations = [
                             *[
@@ -580,7 +598,9 @@ async def negative_statement(
                                         ),
                                     ),
                                     arn=(f"{policy['Arn']}"),
-                                    values=pol_access[index]["NotResource"],
+                                    values=policy_statements[index][
+                                        "NotResource"
+                                    ],
                                     description=t(
                                         "src.lib_path."
                                         "f031_aws.negative_statement"
