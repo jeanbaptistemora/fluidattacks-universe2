@@ -217,11 +217,11 @@ async def full_access_policies(
             )
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = ast.literal_eval(
-                policy_names["Document"]["Statement"]
+                str(policy_names["Document"]["Statement"])
             )
 
             for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(item)
+                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if (
                         policy_statement["Effect"] == "Allow"
@@ -301,10 +301,10 @@ async def open_passrole(
             )
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = ast.literal_eval(
-                policy_names["Document"]["Statement"]
+                str(policy_names["Document"]["Statement"])
             )
             for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(item)
+                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(policy_statement["Action"], str):
                         action = [policy_statement["Action"]]
@@ -393,10 +393,10 @@ async def permissive_policy(
             )
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = ast.literal_eval(
-                policy_names["Document"]["Statement"]
+                str(policy_names["Document"]["Statement"])
             )
             for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(item)
+                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(policy_statement["Action"], str):
                         action = [policy_statement["Action"]]
@@ -468,10 +468,10 @@ async def full_access_to_ssm(
             )
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = ast.literal_eval(
-                policy_names["Document"]["Statement"]
+                str(policy_names["Document"]["Statement"])
             )
             for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(item)
+                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(policy_statement["Action"], str):
                         action = [policy_statement["Action"]]
@@ -534,10 +534,10 @@ async def negative_statement(
             )
             policy_names = pol_ver.get("PolicyVersion", [])
             pol_access = ast.literal_eval(
-                policy_names["Document"]["Statement"]
+                str(policy_names["Document"]["Statement"])
             )
             for index, item in enumerate(pol_access):
-                policy_statement: Dict[str, Any] = ast.literal_eval(item)
+                policy_statement: Dict[str, Any] = ast.literal_eval(str(item))
                 with suppress(KeyError):
                     if isinstance(policy_statement["NotAction"], str):
                         action = [policy_statement["NotAction"]]
