@@ -60,16 +60,16 @@ SPDX-License-Identifier: MPL-2.0
 
 {# Generic red banner #}
 {% macro banner(icon_url) %}
-    <div class="body-title">
-      <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
-        <img
-          alt="Banner custom icon"
-          class="title-icon"
-          src="{{ icon_url }}"
-        >
-        {{ caller() }}
-      </p>
-    </div>
+      <div class="body-title">
+        <p style="text-align: center; margin-bottom: 0; font-weight: bold;">
+          <img
+            alt="Banner custom icon"
+            class="title-icon"
+            src="{{ icon_url }}"
+          >
+          {{ caller() }}
+        </p>
+      </div>
 {% endmacro %}
 
 {# Custom banner with news icon #}
@@ -95,7 +95,7 @@ SPDX-License-Identifier: MPL-2.0
   {% call banner(
     'https://res.cloudinary.com/fluid-attacks/image/upload/v1661810652/airs/icons/group.png',
     ) %}
-    {{ text }}
+    {{- text -}}
   {% endcall %}
 {% endmacro %}
 

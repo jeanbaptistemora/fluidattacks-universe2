@@ -5,66 +5,65 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group %}
+  {% from 'layouts/components/forms.html' import banner_group %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Progress Report') }}
+      <div class="main-content">
+        <p>Hi {{ responsible }},</p>
+        <p>Below is a short report of your progress over the previous day:</p>
+        <p>
+          <strong>Hacking details:</strong><br />
+          <ul>
+            <li>
+              <strong>Enumerated:</strong> {{ count_var_report["enumerated"]["count"] }} inputs.
+              ({{ count_var_report["enumerated"]["variation"] }})<br />
+            </li>
+            <li>
+              <strong>Verified:</strong> {{ count_var_report["verified"]["count"] }} inputs,
+              {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
+              ({{ count_var_report["verified"]["variation"] }})<br />
+            </li>
+            <li>
+              <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
+              ({{ count_var_report["reattacked"]["variation"] }})<br />
+            </li>
+            <li>
+              <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities total.
+              (oldest: {{ oldest_draft["submit_age"] }}/{{ oldest_draft["age"] }} days,
+              max: {{ oldest_draft["max_cvss"] }} severity)<br />
+            </li>
+            <li>
+              <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
+              ({{ count_var_report["released"]["variation"] }},
+              max: {{ max_cvss }} severity)
+            </li>
+          </ul>
+        </p>
+        <p>
+          {% if groups %}
+          <strong>Groups details:</strong><br />
+          <ul>
+            {% for group, fields in groups.items() %}
+            <li>
+              <strong>{{ group }}:</strong>
+              ({{ fields["subscription"] }})
+              {{ fields["enumerated"] }} inputs enumerated,
+              {{ fields["verified"] }} inputs verified,
+              {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
+              {{ fields["reattacked"] }} reattacked,
+              {{ fields["draft_created"] }} drafts,
+              {{ fields["released"] }} released.<br />
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </p>
+        <p>Regards,<br />Fluid Attacks Team</p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-{% block layout %}
-  <div class="container">
-{% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' %}
-{{ banner_group('Progress Report') }}
-    <div class="main-content">
-      <p>Hi {{ name }},</p>
-      <p>Below is a short report of your progress over the previous day:</p>
-      <p>
-        <strong>Hacking details:</strong><br />
-        <ul>
-          <li>
-            <strong>Enumerated:</strong> {{ count_var_report["enumerated"]["count"] }} inputs.
-            ({{ count_var_report["enumerated"]["variation"] }})<br />
-          </li>
-          <li>
-            <strong>Verified:</strong> {{ count_var_report["verified"]["count"] }} inputs,
-            {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
-            ({{ count_var_report["verified"]["variation"] }})<br />
-          </li>
-          <li>
-            <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
-            ({{ count_var_report["reattacked"]["variation"] }})<br />
-          </li>
-          <li>
-            <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities total.
-            (oldest: {{ oldest_draft["submit_age"] }}/{{ oldest_draft["age"] }} days,
-            max: {{ oldest_draft["max_cvss"] }} severity)<br />
-          </li>
-          <li>
-            <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
-            ({{ count_var_report["released"]["variation"] }},
-            max: {{ max_cvss }} severity)
-          </li>
-        </ul>
-      </p>
-      <p>
-        {% if groups %}
-        <strong>Groups details:</strong><br />
-        <ul>
-          {% for group, fields in groups.items() %}
-          <li>
-            <strong>{{ group }}:</strong>
-            ({{ fields["subscription"] }})
-            {{ fields["enumerated"] }} inputs enumerated,
-            {{ fields["verified"] }} inputs verified,
-            {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
-            {{ fields["reattacked"] }} reattacked,
-            {{ fields["draft_created"] }} drafts,
-            {{ fields["released"] }} released.<br />
-          </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      </p>
-      <p>Regards,<br />Fluid Attacks Team</p>
     </div>
-
-    {% include 'layouts/components/footer.html' %}
-  </div>
-{% endblock %}
+  {% endblock %}
