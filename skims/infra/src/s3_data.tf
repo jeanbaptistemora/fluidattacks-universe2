@@ -14,14 +14,42 @@ resource "aws_s3_bucket" "skims_data" {
   }
 }
 
+resource "aws_s3_bucket" "skims_sca" {
+  bucket = "skims.sca"
+
+  tags = {
+    "Name"               = "skims.sca"
+    "Management:Area"    = "cost"
+    "Management:Product" = "skims"
+    "Management:Type"    = "product"
+    "Access"             = "public-read"
+  }
+}
+
 resource "aws_s3_bucket_acl" "skims_data" {
   bucket = aws_s3_bucket.skims_data.id
 
   acl = "private"
 }
 
+resource "aws_s3_bucket_acl" "skims_sca" {
+  bucket = aws_s3_bucket.skims_sca.id
+
+  acl = "public-read"
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "skims_data" {
   bucket = aws_s3_bucket.skims_data.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "skims_sca" {
+  bucket = aws_s3_bucket.skims_sca.id
 
   rule {
     apply_server_side_encryption_by_default {
