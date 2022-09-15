@@ -17,6 +17,7 @@ interface ITodoDraftAttr {
 
 interface ITodoGroupAttr {
   drafts: ITodoDraftAttr[];
+  managed: string;
 }
 
 interface ITodoOrganizationAttr {

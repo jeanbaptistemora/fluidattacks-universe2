@@ -15,6 +15,7 @@ export const GET_TODO_DRAFTS: DocumentNode = gql`
         name
         groups {
           name
+          managed
           drafts {
             currentState
             groupName

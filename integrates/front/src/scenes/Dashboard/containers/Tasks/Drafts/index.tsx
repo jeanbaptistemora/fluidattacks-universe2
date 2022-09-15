@@ -126,8 +126,8 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
               org.name === "imamura"
                 ? []
                 : _.flatten(
-                    org.groups.map(
-                      (group: ITodoGroupAttr): ITodoDraftAttr[] => group.drafts
+                    org.groups.map((group: ITodoGroupAttr): ITodoDraftAttr[] =>
+                      group.managed === "UNDER_REVIEW" ? [] : group.drafts
                     )
                   )
           )
