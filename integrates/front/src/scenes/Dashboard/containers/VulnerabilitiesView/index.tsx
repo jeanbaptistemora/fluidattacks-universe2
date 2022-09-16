@@ -373,7 +373,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}
                 refetchData={refetchVulnsData}
-                vulnerabilities={vulnerabilities}
+                vulnerabilities={filterZeroRisk(vulnerabilities)}
               />
             </div>
             {setColumn()}
