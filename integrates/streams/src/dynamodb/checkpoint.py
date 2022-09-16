@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from dynamodb.context import (
+    FI_ENVIRONMENT,
+)
 from dynamodb.resource import (
     TABLE_RESOURCE,
 )
@@ -33,6 +36,9 @@ def remove_checkpoint(shard_id: str) -> None:
 
 def save_checkpoint(shard_id: str, last_sequence_number: str) -> None:
     """Saves a checkpoint in the database"""
+    if FI_ENVIRONMENT != "prod":
+        return
+
     TABLE_RESOURCE.put_item(
         Item={
             **_get_checkpoint_key(shard_id),

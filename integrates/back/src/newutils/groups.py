@@ -7,6 +7,7 @@ from db_model.constants import (
     DEFAULT_MIN_SEVERITY,
 )
 from db_model.groups.enums import (
+    GroupManaged,
     GroupStateStatus,
 )
 from db_model.groups.types import (
@@ -29,6 +30,7 @@ def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
         group
         for group in groups
         if group.state.status == GroupStateStatus.ACTIVE
+        and group.state.managed != GroupManaged.UNDER_REVIEW
     )
 
 

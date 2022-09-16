@@ -31,10 +31,12 @@ CLIENT = OpenSearch(
     hosts=[FI_AWS_OPENSEARCH_HOST],
     http_auth=AWSV4SignerAuth(CREDENTIALS, SESSION.region_name),
     http_compress=True,
-    timeout=100,
+    max_retries=10,
+    retry_on_status=(429, 502, 503, 504),
+    retry_on_timeout=True,
+    serializer=SetEncoder(),
     use_ssl=FI_ENVIRONMENT == "prod",
     verify_certs=FI_ENVIRONMENT == "prod",
-    serializer=SetEncoder(),
 )
 
 

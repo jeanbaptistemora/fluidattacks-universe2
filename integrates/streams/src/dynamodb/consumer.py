@@ -146,13 +146,13 @@ def _consume_shard_records(
     batches: dict[Trigger, list[Record]] = defaultdict(list)
 
     for records in _get_shard_records(shard_id, shard_iterator):
-        if not records:
-            sleep(10)
-            continue
-
         if shutdown_event.is_set():
             LOGGER.info("%s shutting down", shard_id)
             break
+
+        if not records:
+            sleep(10)
+            continue
 
         for trigger in TRIGGERS:
             matching_records = tuple(
