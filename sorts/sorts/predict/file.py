@@ -6,6 +6,9 @@ from concurrent.futures import (
     ThreadPoolExecutor,
 )
 import csv
+from integrates.typing import (
+    ToeLines,
+)
 import os
 import pandas as pd
 from pandas import (
@@ -19,7 +22,6 @@ from sorts.features.file import (
 )
 from sorts.integrates.dal import (
     get_toe_lines_sorts,
-    ToeLines,
     update_toe_lines_sorts,
 )
 from sorts.utils.logs import (
@@ -78,19 +80,20 @@ def get_toes_to_update(
         )
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
         for toe_lines in group_toe_lines:
+            sorts_risk_level = toe_lines.sorts_risk_level
             if (
                 toe_lines.filename == predicted_file_filename
                 and predicted_file_prob
                 not in range(
-                    toe_lines.sorts_risk_level - pred_range_lim,
-                    toe_lines.sorts_risk_level + pred_range_lim,
+                    sorts_risk_level - pred_range_lim,  # type: ignore
+                    sorts_risk_level + pred_range_lim,  # type: ignore
                 )
             ):
                 toes_to_update.append(
-                    ToeLines(
+                    ToeLines(  # type: ignore
                         filename=predicted_file_filename,
                         root_nickname=predicted_nickname,
-                        sorts_risk_level=predicted_file_prob,
+                        sorts_risk_level=predicted_file_prob,  # type: ignore
                     )
                 )
                 break
@@ -99,7 +102,9 @@ def get_toes_to_update(
 
 
 def update_integrates_toes(group_name: str, csv_name: str) -> None:
-    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(group_name)
+    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(
+        group_name  # type: ignore
+    )
     with open(csv_name, "r", encoding="utf8") as csv_file:
         reader = csv.DictReader(csv_file)
         toes_to_update = get_toes_to_update(group_toe_lines, reader)
@@ -110,7 +115,7 @@ def update_integrates_toes(group_name: str, csv_name: str) -> None:
                     group_name,
                     toe_lines.root_nickname,
                     toe_lines.filename,
-                    toe_lines.sorts_risk_level,
+                    toe_lines.sorts_risk_level,  # type: ignore
                 )
         log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
 

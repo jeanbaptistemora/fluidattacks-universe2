@@ -19,7 +19,7 @@ from pandas import (
     DataFrame,
 )
 import pytest
-import pytz  # type: ignore
+import pytz
 from typing import (
     List,
 )

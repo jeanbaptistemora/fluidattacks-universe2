@@ -5,9 +5,11 @@
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
-from integrates.dal import (  # type: ignore
+from integrates.dal import (
     get_finding_ids,
     get_vulnerabilities,
+)
+from integrates.typing import (
     Vulnerability,
     VulnerabilityKindEnum,
 )
@@ -75,7 +77,7 @@ def get_vulnerable_lines(group: str) -> List[str]:
         for finding_vulnerabilities in executor.map(
             get_vulnerabilities, finding_ids
         ):
-            vulnerabilities.extend(finding_vulnerabilities)
+            vulnerabilities.extend(finding_vulnerabilities)  # type: ignore
 
     return [
         vuln.where

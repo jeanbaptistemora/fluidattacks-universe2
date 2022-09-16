@@ -95,8 +95,8 @@ def execute_sorts(
             msg=f"Success: {success}",
             subscription=subscription,
             time=f"Finished after {execution_time:.2f} seconds",
-            get_file_data=get_file_data,
-            association_rules=association_rules,
+            get_file_data=get_file_data,  # type: ignore
+            association_rules=association_rules,  # type: ignore
             user=user_email,
         )
         redshift.insert(
@@ -110,7 +110,7 @@ def execute_sorts(
             user_email,
             "sorts_execution",
             subscription=subscription,
-            get_file_data=get_file_data,
+            get_file_data=get_file_data,  # type: ignore
         )
     else:
         log(

@@ -4,10 +4,12 @@
 
 from integrates.dal import (
     get_toe_lines_sorts,
-    ToeLines,
 )
 from integrates.domain import (
     get_vulnerable_files,
+)
+from integrates.typing import (
+    ToeLines,
 )
 import os
 import pandas as pd
@@ -90,7 +92,9 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
 
 def get_attacked_files(group: str) -> List[str]:
     """Gets the filenames of a group that have been completely attacked"""
-    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(group)
+    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(
+        group  # type: ignore
+    )
 
     return [
         f"{file.root_nickname}/{file.filename}"

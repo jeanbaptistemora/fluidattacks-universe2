@@ -9,6 +9,8 @@ from integrates.dal import (
     get_finding_ids,
     get_vulnerabilities,
     update_toe_lines_suggestions,
+)
+from integrates.typing import (
     Vulnerability,
     VulnerabilityKindEnum,
 )
@@ -40,7 +42,7 @@ def get_vulnerable_lines(group: str) -> List:
         for finding_vulnerabilities in executor.map(
             get_vulnerabilities, finding_ids
         ):
-            vulnerabilities.extend(finding_vulnerabilities)
+            vulnerabilities.extend(finding_vulnerabilities)  # type: ignore
 
     return [
         [vuln.where, vuln.title]
@@ -85,9 +87,9 @@ def associate_vulns_to_files(
                 executor.submit(
                     update_toe_lines_suggestions,
                     group_name,
-                    file_info["rootNickname"],
-                    file_info["filename"],
-                    file_info["sortsSuggestions"],
+                    file_info["rootNickname"],  # type: ignore
+                    file_info["filename"],  # type: ignore
+                    file_info["sortsSuggestions"],  # type: ignore
                 )
     log("info", f"ToeLines's sortsSuggestions for {group_name} updated")
 

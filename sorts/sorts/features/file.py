@@ -17,7 +17,7 @@ from pandas import (
     DataFrame,
     Series,
 )
-import pytz  # type: ignore
+import pytz
 from sorts.constants import (
     FERNET,
 )
@@ -160,10 +160,8 @@ def get_num_lines(file_path: str) -> int:
     result: int = 0
     try:
         with open(file_path, "rb") as file:
-            bufgen = iter(
-                partial(file.raw.read, 1024 * 1024), b""  # type: ignore
-            )
-            result = sum(buf.count(b"\n") for buf in bufgen)
+            bufgen = iter(partial(file.raw.read, 1024 * 1024), b"")
+            result = sum(buf.count(b"\n") for buf in bufgen)  # type: ignore
     except FileNotFoundError:
         log("warning", "File %s not found", file_path)
 

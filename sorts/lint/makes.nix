@@ -8,7 +8,9 @@
         searchPaths.source = [
           outputs."/sorts/config/development"
           outputs."/sorts/config/runtime"
+          outputs."/sorts/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/sorts/sorts";
       };
@@ -24,7 +26,9 @@
         searchPaths.source = [
           outputs."/sorts/config/development"
           outputs."/sorts/config/runtime"
+          outputs."/sorts/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/sorts/test";
       };
@@ -32,7 +36,9 @@
         searchPaths.source = [
           outputs."/sorts/config/development"
           outputs."/sorts/config/runtime"
+          outputs."/sorts/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/sorts/training";
       };
