@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 resource "checkly_check" "integrates_web" {
-  name                      = "ASM"
+  name                      = "ARM"
   type                      = "BROWSER"
   activated                 = true
   frequency                 = 10
