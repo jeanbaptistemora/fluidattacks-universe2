@@ -19,7 +19,7 @@ from typing import (
 SCROLL_TIME = "10m"
 
 
-async def search(
+async def search(  # pylint: disable=too-many-locals
     *,
     exact_filters: Optional[dict[str, Any]] = None,
     index: str,
@@ -28,6 +28,7 @@ async def search(
     query: Optional[str] = None,
     should_filters: Optional[list[dict[str, Any]]] = None,
     must_filters: Optional[list[dict[str, Any]]] = None,
+    range_filters: Optional[dict[str, Any]] = None,
 ) -> SearchResponse:
     """
     Searches for items matching both the user input (full-text)
@@ -40,6 +41,7 @@ async def search(
 
     full_and_filters = []
     full_or_filters = []
+    query_range = []
 
     if must_filters:
         full_and_filters = [
@@ -54,6 +56,10 @@ async def search(
             for attrs in should_filters
             for key, value in attrs.items()
         ]
+
+    if range_filters:
+        query_range = [{"range": range_filters}]
+
     full_text_queries = [{"multi_match": {"query": query}}] if query else []
     term_queries = (
         [{"term": {key: value}} for key, value in exact_filters.items()]
@@ -66,6 +72,7 @@ async def search(
                 "must": [
                     *full_and_filters,
                     *full_text_queries,
+                    *query_range,
                     *term_queries,
                 ],
                 "should": [
