@@ -5,28 +5,27 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group%}
+  {% from 'layouts/components/forms.html' import banner_group%}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('New Enrolled User!') }}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('New Enrolled User!') }}
+      <div class="main-content">
+        <p>Good news!</p>
+        <p>
+          A new user has enrolled to ARM.
+        </p>
+        <p>
+          <strong>User name:</strong> {{ enrolled_name }}</br>
+          <strong>User email:</strong> {{ email }}</br>
+          <strong>Enroll date:</strong> {{ enrolled_date }}</br>
+        </p>
+        <p>Best Regards,</p>
+        <p>Fluid Attacks Team</p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>Good news!</p>
-    <p>
-      A new user has enrolled to ARM.
-    </p>
-    <p>
-      <strong>User name:</strong> {{ enrolled_name }}</br>
-      <strong>User email:</strong> {{ email }}</br>
-      <strong>Enroll date:</strong> {{ enrolled_date }}</br>
-    </p>
-    <p>Best Regards,</p>
-    <p>Fluid Attacks Team</p>
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}

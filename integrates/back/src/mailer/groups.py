@@ -87,7 +87,7 @@ async def send_mail_free_trial_start(
         email_to=[FI_MAIL_PRODUCTION],
         context=context,
         tags=[],
-        subject="[ARM] New enrolled user",
+        subject=f"[ARM] New enrolled user [{email_to}]",
         template_name="new_enrolled",
     )
 
