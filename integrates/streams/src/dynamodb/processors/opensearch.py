@@ -57,8 +57,8 @@ def _process(records: tuple[Record, ...], index: str) -> None:
             }
             body.append(action)
 
-            if action_name == "index" and record.item:
-                body.append(record.item)
+            if action_name == "index" and record.new_image:
+                body.append(record.new_image)
 
         CLIENT.bulk(body=body)
 

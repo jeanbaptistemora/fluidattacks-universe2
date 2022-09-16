@@ -21,7 +21,8 @@ class EventName(str, Enum):
 
 class Record(NamedTuple):
     event_name: EventName
-    item: Optional[dict[str, Any]]
+    new_image: Optional[dict[str, Any]]
+    old_image: Optional[dict[str, Any]]
     pk: str
     sequence_number: str
     sk: str

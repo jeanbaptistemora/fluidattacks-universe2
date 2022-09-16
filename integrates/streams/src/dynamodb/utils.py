@@ -41,9 +41,14 @@ def format_record(record: dict[str, Any]) -> Record:
     """
     return Record(
         event_name=EventName[record["eventName"]],
-        item=(
+        new_image=(
             deserialize_dynamodb_json(record["dynamodb"]["NewImage"])
             if "NewImage" in record["dynamodb"]
+            else None
+        ),
+        old_image=(
+            deserialize_dynamodb_json(record["dynamodb"]["OldImage"])
+            if "OldImage" in record["dynamodb"]
             else None
         ),
         pk=record["dynamodb"]["Keys"]["pk"]["S"],

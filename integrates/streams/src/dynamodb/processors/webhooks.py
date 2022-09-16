@@ -17,7 +17,9 @@ import requests  # type: ignore
 
 def process(records: tuple[Record, ...]) -> None:
     """Notifies external integrations"""
-    items_to_notify = tuple(record.item for record in records if record.item)
+    items_to_notify = tuple(
+        record.new_image for record in records if record.new_image
+    )
     items_by_group = itertools.groupby(
         sorted(items_to_notify, key=itemgetter("group_name")),
         key=itemgetter("group_name"),
