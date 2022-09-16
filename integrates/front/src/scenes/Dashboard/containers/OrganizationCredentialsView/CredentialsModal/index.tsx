@@ -66,6 +66,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             case "Exception - Field cannot fill with blank characters":
               msgError(t("validations.invalidSpaceField"));
               break;
+            case "Exception - Password should start with a letter":
+              msgError(t("validations.credentialsModal.startWithLetter"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);

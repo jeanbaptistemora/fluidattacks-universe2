@@ -115,6 +115,7 @@ from newutils.organization_access import (
 from newutils.validations import (
     validate_email_address,
     validate_space_field,
+    validate_start_letter,
 )
 from organizations import (
     utils as orgs_utils,
@@ -160,6 +161,7 @@ async def add_credentials(
         password: str = attributes.password or ""
         validate_space_field(user)
         validate_space_field(password)
+        validate_start_letter(password)
         secret = HttpsSecret(
             user=user,
             password=password,

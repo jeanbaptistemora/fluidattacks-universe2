@@ -11,6 +11,7 @@ import type { TypedSchema } from "yup/lib/util/types";
 import type { IFormValues } from "./types";
 
 import { translate } from "utils/translations/translate";
+import { regExps } from "utils/validations";
 
 const validateSchema = (): InferType<TypedSchema> =>
   lazy(
@@ -61,7 +62,19 @@ const validateSchema = (): InferType<TypedSchema> =>
             is: (newSecrets: boolean, type: string): boolean =>
               newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
             otherwise: string(),
-            then: string().required(translate.t("validations.required")),
+            then: string()
+              .required(translate.t("validations.required"))
+              .test(
+                "startWithLetter",
+                translate.t("validations.credentialsModal.startWithLetter"),
+                (value: string | undefined): boolean => {
+                  if (value === undefined || value === "") {
+                    return false;
+                  }
+
+                  return regExps.alphabetic.test(value[0]);
+                }
+              ),
           })
           .test(
             "hasValidValue",

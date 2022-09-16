@@ -15,6 +15,7 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
+    InvalidReportFilter,
     InvalidSeverityUpdateValues,
     InvalidSpacesField,
     NumberOutOfRange,
@@ -371,3 +372,8 @@ def validate_int_range(
     else:
         if not lower_bound < value < upper_bound:
             raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+
+
+def validate_start_letter(value: str) -> None:
+    if not value[0].isalpha():
+        raise InvalidReportFilter("Password should start with a letter")
