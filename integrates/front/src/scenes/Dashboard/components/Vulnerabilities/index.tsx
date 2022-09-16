@@ -31,7 +31,6 @@ import { statusFormatter } from "./Formatter";
 import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  setNonSelectable,
 } from "./helpers";
 import { AdditionalInformation } from "./VulnerabilityModal";
 
@@ -221,14 +220,24 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   ]);
 
   function enabledRows(row: Row<IVulnRowAttr>): boolean {
-    const temp = setNonSelectable(
-      vulnerabilities,
-      isRequestingReattack,
-      isVerifyingRequest,
-      nonValidOnReattackVulnerabilities
-    );
+    if (row.original.currentState === "closed") {
+      return false;
+    }
+    if (
+      isRequestingReattack &&
+      (row.original.verification?.toLowerCase() === "requested" ||
+        row.original.verification?.toLowerCase() === "on_hold")
+    ) {
+      return false;
+    }
+    if (
+      isVerifyingRequest &&
+      row.original.verification?.toLowerCase() !== "requested"
+    ) {
+      return false;
+    }
 
-    return !temp.includes(row.index);
+    return true;
   }
 
   const findingId: string = useMemo(
