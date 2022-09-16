@@ -43,7 +43,7 @@ async def test_get_event(populate: bool, email: str) -> None:
             "created": "2019/05/28 15:09:37",
         }
     ]
-    assert result["data"]["event"]["detail"] == "ASM unit test"
+    assert result["data"]["event"]["detail"] == "ARM unit test"
     assert result["data"]["event"]["eventDate"] == "2018-06-27 07:00:00"
     assert result["data"]["event"]["eventStatus"] == "CREATED"
     assert result["data"]["event"]["eventType"] == "OTHER"

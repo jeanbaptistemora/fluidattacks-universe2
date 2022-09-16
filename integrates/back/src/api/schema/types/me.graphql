@@ -33,7 +33,7 @@ type Me {
   permissions: [String!]
   "Stakeholder's phone information"
   phone: Phone
-  "If true, the legal notice modal won't appear after every ASM login"
+  "If true, the legal notice modal won't appear after every ARM login"
   remember: Boolean!
   "Gets the user-level role of the current stakeholder/user"
   role: String!

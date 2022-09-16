@@ -6,13 +6,13 @@
 type Stakeholder {
   "Email address"
   email: String
-  "Datetime of the first login to ASM"
+  "Datetime of the first login to ARM"
   firstLogin: String
   "Groups the stakeholder has access to"
   groups: [Group]
   "Current invitation state"
   invitationState: InvitationState
-  "Datetime of the latest login to ASM"
+  "Datetime of the latest login to ARM"
   lastLogin: String
   "Responsibility"
   responsibility: String

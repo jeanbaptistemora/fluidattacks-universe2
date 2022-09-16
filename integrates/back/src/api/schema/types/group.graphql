@@ -31,7 +31,7 @@ type Group {
   consulting: [Consult!]
   "Credentials associated to the group"
   credentials: [Credentials!]
-  "Removal date of the group from ASM if applicable"
+  "Removal date of the group from ARM if applicable"
   deletionDate: String
   "Brief description to identify the group"
   description: String
@@ -53,7 +53,7 @@ type Group {
   forcesToken: String
   "How to access the group ToE"
   groupContext: String
-  "State of ASM services. Either true or the Group will be deleted soon"
+  "State of ARM services. Either true or the Group will be deleted soon"
   hasAsm: Boolean
   "State of the CI/CD agent Forces"
   hasForces: Boolean

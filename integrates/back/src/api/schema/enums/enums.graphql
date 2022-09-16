@@ -157,7 +157,7 @@ enum BillingSubscriptionType {
 enum CallerOrigin {
   "The request came from the API"
   API
-  "The request came from the ASM Frontend"
+  "The request came from the ARM Frontend"
   FRONT
 }
 

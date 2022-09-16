@@ -6,7 +6,7 @@
 type Mutation {
   "Whether to keep showing the legal notice modal or not"
   acceptLegal(
-    "If set to true, ASM will stop showing the legal notice upon a new login"
+    "If set to true, ARM will stop showing the legal notice upon a new login"
     remember: Boolean
   ): SimplePayload!
 
@@ -367,7 +367,7 @@ type Mutation {
     taxId: Upload
   ): SimplePayload!
 
-  "Authenticates an user from the mobile ASM app"
+  "Authenticates an user from the mobile ARM app"
   addPushToken("Expo login token to be added" token: String!): SimplePayload
     @deprecated(
       reason: """
@@ -389,7 +389,7 @@ type Mutation {
     value: String!
   ): SimplePayload!
 
-  "Adds a new Stakeholder to the default ASM organization"
+  "Adds a new Stakeholder to the default ARM organization"
   addStakeholder(
     "Email address of the new stakeholder"
     email: String!
@@ -397,7 +397,7 @@ type Mutation {
     role: StakeholderRole!
   ): AddStakeholderPayload!
 
-  "Adds a new Toe input to the ASM group"
+  "Adds a new Toe input to the ARM group"
   addToeInput(
     "Input URL or PATH"
     component: String!
@@ -409,7 +409,7 @@ type Mutation {
     rootId: String!
   ): SimplePayload!
 
-  "Adds a new Toe lines to the ASM group"
+  "Adds a new Toe lines to the ARM group"
   addToeLines(
     "Name of the group"
     groupName: String!
@@ -678,7 +678,7 @@ type Mutation {
   ): SimplePayload!
 
   """
-  Removes/deletes a group from ASM. Once successful this action cannot be
+  Removes/deletes a group from ARM. Once successful this action cannot be
   undone
   """
   removeGroup(
@@ -714,7 +714,7 @@ type Mutation {
     rootId: ID!
   ): SimplePayload!
 
-  "Removes/deletes your access to ASM"
+  "Removes/deletes your access to ARM"
   removeStakeholder: SimplePayload!
 
   "Removes a stakeholder's access from a Group"
@@ -1080,7 +1080,7 @@ type Mutation {
     "Name of the group to be updated"
     groupName: String!
     """
-    Whether to keep using ASM services. Caution: Setting this to False
+    Whether to keep using ARM services. Caution: Setting this to False
     **will** remove the group from it!
     """
     hasAsm: Boolean!

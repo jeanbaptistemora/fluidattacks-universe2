@@ -5,7 +5,7 @@
 # pylint: disable=invalid-name
 """
 This migration aims to reset the acceptance of the legal notice
-for every ASM user as a result of the changes in our legal terms
+for every ARM user as a result of the changes in our legal terms
 
 Execution Time:    2021-07-06 at 18:23:57 UTC-05
 Finalization Time: 2021-07-06 at 18:35:28 UTC-05

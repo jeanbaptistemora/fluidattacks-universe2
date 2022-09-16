@@ -347,7 +347,7 @@ async def test_update_group_good(  # type: ignore
         "tier",
     ],
     [
-        # Configuration error, Squad requires ASM
+        # Configuration error, Squad requires ARM
         [
             "",
             "ONESHOTTEST",

@@ -37,7 +37,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
                     created_date="2018-06-27T12:00:00+00:00",
-                    description="ASM unit test1",
+                    description="ARM unit test1",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
@@ -74,7 +74,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
                     created_date="2018-06-27T12:00:00+00:00",
-                    description="ASM unit test2",
+                    description="ARM unit test2",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
                     evidences=EventEvidences(
