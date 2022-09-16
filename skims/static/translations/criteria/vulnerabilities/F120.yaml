@@ -1,0 +1,4 @@
+---
+src.lib_path.f120.pip_incomplete_dependencies_list:
+  en: The dependency is not explicitly declared in your requirements.txt
+  es: La dependencia no se declara explícitamente en el archivo requirements.txt

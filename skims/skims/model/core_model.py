@@ -2640,7 +2640,7 @@ class MethodsEnum(Enum):
         file_name="python",
         name="pip_incomplete_dependencies_list",
         module="lib_path",
-        finding=FindingEnum.F079,
+        finding=FindingEnum.F120,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
