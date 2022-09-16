@@ -9,7 +9,6 @@ import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  InitialTableState,
   Row,
   SortingState,
   VisibilityState,
@@ -100,14 +99,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     []
   );
   const [columnVisibility, setColumnVisibility] =
-    useStoredState<VisibilityState>("vulnerabilitiesTable-visibilityState", {
-      Asignees: false,
-      Locations: false,
-      Treatment: false,
-      description: false,
-      reattack: false,
-      releaseDate: false,
-    });
+    useStoredState<VisibilityState>("vulnerabilitiesTable-visibilityState", {});
   const [sorting, setSorting] = useStoredState<SortingState>(
     "vulnerabilitiesTable-sortingState",
     []
@@ -287,12 +279,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       header: t("searchFindings.tabVuln.vulnTable.tags"),
     },
     {
-      accessorFn: (row: IVulnRowAttr): string => {
-        return row.treatment === "ACCEPTED_UNDEFINED" &&
-          row.treatmentAcceptanceStatus !== "APPROVED"
-          ? "Pending"
-          : "Accepted";
-      },
+      accessorKey: "treatmentAcceptanceStatus",
       header: "Treatment Acceptance",
       meta: { filterType: "select" },
     },
@@ -302,13 +289,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       meta: { filterType: "select" },
     },
   ];
-
-  const initialstate: InitialTableState = {
-    columnVisibility: {
-      "Treatment Acceptance": false,
-      treatmentAssigned: false,
-    },
-  };
 
   const deleteColumn: ColumnDef<IVulnRowAttr>[] = [
     {
@@ -335,7 +315,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
         }
         id={"vulnerabilitiesTable"}
-        initState={initialstate}
         onRowClick={openAdditionalInfoModal}
         rowSelectionSetter={
           isFindingReleased &&
