@@ -17,5 +17,7 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = match_ast_group_d(args.ast_graph, args.n_id, "argument")
+    c_ids = match_ast_group_d(
+        args.ast_graph, args.n_id, "argument"
+    ) or match_ast_group_d(args.ast_graph, args.n_id, "attribute_argument")
     return build_argument_list_node(args, iter(c_ids))

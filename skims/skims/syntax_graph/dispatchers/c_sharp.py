@@ -58,6 +58,7 @@ from syntax_graph.syntax_readers.common import (
     do_statement as common_do_statement,
     execution_block as common_execution_block,
     expression_statement as common_expression_statement,
+    finally_clause as common_finally_clause,
     identifier as common_identifier,
     if_statement as common_if_statement,
     interpolation as common_interpolation,
@@ -97,12 +98,14 @@ CSHARP_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "argument",
+            "attribute_argument",
         },
         syntax_reader=c_sharp_argument.reader,
     ),
     Dispatcher(
         applicable_types={
             "argument_list",
+            "attribute_argument_list",
         },
         syntax_reader=c_sharp_argument_list.reader,
     ),
@@ -262,6 +265,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "file_scoped_namespace_declaration",
         },
         syntax_reader=c_sharp_file_scoped_namespace_decla.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=common_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -18,9 +18,13 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    children = match_ast(args.ast_graph, args.n_id, "identifier")
-    if identifier := children.get("identifier"):
-        attr_name = args.ast_graph.nodes[identifier].get("label_text")
-        return build_attribute_node(args, attr_name)
+    children = match_ast(
+        args.ast_graph, args.n_id, "identifier", "attribute_argument_list"
+    )
+    identifier = children.get("identifier")
+    attr_list = children.get("attribute_argument_list")
+    if not identifier:
+        raise MissingCaseHandling(f"Bad attribute handling in {args.n_id}")
 
-    raise MissingCaseHandling(f"Bad attribute handling in {args.n_id}")
+    attr_name = args.ast_graph.nodes[identifier].get("label_text")
+    return build_attribute_node(args, attr_name, attr_list)
