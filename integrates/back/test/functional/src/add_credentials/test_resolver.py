@@ -180,6 +180,19 @@ async def test_add_credentials_fail(
         == "Exception - Password should include at least one number"
     )
 
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5", type="HTTPS", user="usertest", password="TT1L"
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Password should include lowercase characters"
+    )
+
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_credentials")

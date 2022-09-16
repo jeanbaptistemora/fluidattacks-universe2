@@ -384,3 +384,10 @@ def validate_include_number(value: str) -> None:
         raise InvalidReportFilter(
             "Password should include at least one number"
         )
+
+
+def validate_include_lowercase(value: str) -> None:
+    if not any(val.islower() for val in value):
+        raise InvalidReportFilter(
+            "Password should include lowercase characters"
+        )

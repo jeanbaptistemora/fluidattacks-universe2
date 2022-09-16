@@ -72,6 +72,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             case "Exception - Password should include at least one number":
               msgError(t("validations.credentialsModal.includeNumber"));
               break;
+            case "Exception - Password should include lowercase characters":
+              msgError(t("validations.credentialsModal.includeLowercase"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);

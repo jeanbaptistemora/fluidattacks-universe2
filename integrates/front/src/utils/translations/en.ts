@@ -3677,6 +3677,7 @@ export const enTranslations: ResourceKey = {
     columns: "At least 1 column must be shown",
     commitHash: "The commit hash is invalid",
     credentialsModal: {
+      includeLowercase: "Should include lowercase characters",
       includeNumber: "Should include at least one number",
       startWithLetter: "Should start with a letter",
     },

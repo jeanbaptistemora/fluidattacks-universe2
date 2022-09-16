@@ -86,6 +86,18 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                   return regex.test(value);
                 }
+              )
+              .test(
+                "includeLowercase",
+                translate.t("validations.credentialsModal.includeLowercase"),
+                (value: string | undefined): boolean => {
+                  if (value === undefined || value === "") {
+                    return false;
+                  }
+                  const regex = /[a-z]/u;
+
+                  return regex.test(value);
+                }
               ),
           })
           .test(
