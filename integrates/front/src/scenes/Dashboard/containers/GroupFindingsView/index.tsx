@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  PaginationState,
   Row,
   SortingState,
   VisibilityState,
@@ -81,13 +80,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       reattack: false,
       releaseDate: false,
     });
-  const [pagination, setpagination] = useStoredState<PaginationState>(
-    "tblFindings-pagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
-  );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblFindings-sortingState",
     []
@@ -361,8 +353,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }
         id={"tblFindings"}
         onRowClick={goToFinding}
-        paginationSetter={setpagination}
-        paginationState={pagination}
         rowSelectionSetter={
           permissions.can("api_mutations_remove_finding_mutate")
             ? setSelectedFindings

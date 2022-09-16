@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  PaginationState,
   Row,
   SortingState,
   VisibilityState,
@@ -160,13 +159,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       reattack: false,
       releaseDate: false,
     });
-  const [pagination, setpagination] = useStoredState<PaginationState>(
-    "tblEvents-pagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
-  );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblEvents-sortingState",
     []
@@ -567,8 +559,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           }
           id={"tblEvents"}
           onRowClick={goToEventz}
-          paginationSetter={setpagination}
-          paginationState={pagination}
           rowSelectionSetter={
             canRequestVerification ? setSelectedEvents : undefined
           }

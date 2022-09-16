@@ -9,7 +9,6 @@ import type { ApolloError } from "@apollo/client";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  PaginationState,
   Row,
   SortingState,
 } from "@tanstack/react-table";
@@ -78,13 +77,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblForcesExecutionsSorting",
     []
-  );
-  const [pagination, setPagination] = useStoredState<PaginationState>(
-    "tblForcesExecutionsPagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
   );
 
   const toTitleCase: (str: string) => string = (str: string): string =>
@@ -233,8 +225,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         exportCsv={true}
         id={"tblForcesExecutions"}
         onRowClick={openSeeExecutionDetailsModal}
-        paginationSetter={setPagination}
-        paginationState={pagination}
         sortingSetter={setSorting}
         sortingState={sorting}
       />
