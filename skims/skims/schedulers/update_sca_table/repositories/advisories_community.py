@@ -24,6 +24,7 @@ PLATFORMS = {
     "nuget": "nuget",
     "npm": "npm",
     "pypi": "pip",
+    "gem": "gem",
 }
 ALLOWED_RANGES = ("=", "<", ">", ">=", "<=")
 
@@ -48,7 +49,7 @@ def format_range(unformatted_range: str) -> str:
     return f"{min_operator}{min_r} {max_operator}{max_r}"
 
 
-def fix_npm_range(unformatted_range: str) -> str:
+def fix_npm_gem_range(unformatted_range: str) -> str:
     return unformatted_range.replace("||", " || ")
 
 
@@ -68,7 +69,7 @@ def _format_ranges(platform: str, range_str: str) -> str:
         return " || ".join(str_ranges)
     if platform == "pypi":
         return fix_pip_range(range_str)
-    return fix_npm_range(range_str)  # npm
+    return fix_npm_gem_range(range_str)  # npm or gem
 
 
 def format_ranges(platform: str, range_str: str) -> str:
