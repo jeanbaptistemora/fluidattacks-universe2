@@ -60,7 +60,7 @@ resource "aws_dynamodb_table" "integrates_vms" {
   hash_key         = "pk"
   range_key        = "sk"
   stream_enabled   = true
-  stream_view_type = "NEW_IMAGE"
+  stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
     name = "pk"
