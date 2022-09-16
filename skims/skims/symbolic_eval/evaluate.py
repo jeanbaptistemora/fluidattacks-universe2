@@ -11,6 +11,7 @@ from model.graph_model import (
 )
 from symbolic_eval.cases import (
     argument_list,
+    array_initializer,
     assignment,
     binary_operation,
     call_expression,
@@ -26,6 +27,7 @@ from symbolic_eval.cases import (
     method_declaration,
     method_invocation,
     named_argument,
+    new_expression,
     object_creation,
     object_node,
     pair,
@@ -54,6 +56,7 @@ from utils import (
 
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
+    "ArrayInitializer": array_initializer.evaluate,
     "Assignment": assignment.evaluate,
     "BinaryOperation": binary_operation.evaluate,
     "CallExpression": call_expression.evaluate,
@@ -66,6 +69,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "InterpolatedStringExpression": interpolated_string_expression.evaluate,
     "LambdaExpression": lambda_expression.evaluate,
     "Literal": literal.evaluate,
+    "NewExpression": new_expression.evaluate,
     "MemberAccess": member_access.evaluate,
     "MethodDeclaration": method_declaration.evaluate,
     "MethodInvocation": method_invocation.evaluate,

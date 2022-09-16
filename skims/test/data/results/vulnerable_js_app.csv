@@ -1803,8 +1803,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,310,skims,052.
   21 |       res.send(publicKey);
      ^ Col 0
 ",javascript.javascript_insecure_key
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test148.js","
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test148.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
@@ -1817,22 +1816,46 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034.
   10 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test148.js","
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test149.js,12,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test149.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
-   4 | router.get(""/test148"", function (req, res) {
-   5 |   let key = Math.random().toString();
->  6 |   res.cookie(""rememberKey"", key);
-   7 |   res.json({ ok: true });
-   8 | });
-   9 |
-  10 | export default router;
+   4 | router.get(""/test149"", function (req, res) {
+   5 |   let a = true;
+   6 |   let key = """";
+   7 |   if (a) {
+   8 |     key = ""secureValue"";
+   9 |   } else {
+  10 |     key = Math.random().toString();
+  11 |   }
+> 12 |   res.cookie(""rememberKey"", key);
+  13 |   res.json({ ok: true });
+  14 | });
+  15 |
+  16 | export default router;
      ^ Col 0
-",query.query_f034
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test151.js","
+",javascript.javascript_weak_random
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test150.js,13,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test150.js,"
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | import { randomInt } from ""crypto"";
+   4 |
+   5 | router.get(""/test150"", function (req, res) {
+   6 |   let a = true;
+   7 |   let key = """";
+   8 |   if (a) {
+   9 |     key = randomInt(0, 10000000).toString();
+  10 |   } else {
+  11 |     key = Math.random().toString();
+  12 |   }
+> 13 |   res.cookie(""rememberKey"", key);
+  14 |   res.json({ ok: true });
+  15 | });
+  16 |
+  17 | export default router;
+     ^ Col 0
+",javascript.javascript_weak_random
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test151.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { randomInt } from ""crypto"";
@@ -1852,29 +1875,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034
   17 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test151.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | import { randomInt } from ""crypto"";
-   4 |
-   5 | router.get(""/test151"", function (req, res) {
-   6 |   let a = false;
-   7 |   let key = """";
-   8 |   if (a) {
-   9 |     key = randomInt(0, 10000000).toString();
-  10 |   } else {
-  11 |     key = (Math.random() * 100).toString();
-  12 |   }
-> 13 |   res.cookie(""rememberKey"", key);
-  14 |   res.json({ ok: true });
-  15 | });
-  16 |
-  17 | export default router;
-     ^ Col 0
-",query.query_f034
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test152.js","
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test152.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
@@ -1894,29 +1895,31 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034
   17 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test152.js","
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test153.js,17,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test153.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
-   4 | router.get(""/test152"", function (req, res) {
+   4 | router.get(""/test153"", function (req, res) {
    5 |   let key = """";
-   6 |   var map64 = {
-   7 |     keyA: ""a_Value"",
-   8 |     keyB: ""safe"",
-   9 |     keyC: ""c_value"",
-  10 |   };
-  11 |   map64[""keyB""] = Math.random().toString();
-  12 |   key = map64.keyB;
-> 13 |   res.cookie(""rememberKey"", key);
-  14 |   res.json({ ok: true });
-  15 | });
+   6 |   var data = [""safe""];
+   7 |   data.push(""safe"");
+   8 |   data.push(Math.random().toString());
+   9 |   data[3] = ""safe"";
+  10 |   data.pop();
+  11 |   data.pop();
+  12 |
+  13 |   for (var currentKey of data) {
+  14 |     key = key.concat(currentKey);
+  15 |   }
   16 |
-  17 | export default router;
+> 17 |   res.cookie(""rememberKey"", key);
+  18 |   res.json({ ok: true });
+  19 | });
+  20 |
+  21 | export default router;
      ^ Col 0
-",query.query_f034
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test154.js","
+",javascript.javascript_weak_random
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test154.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
@@ -1939,32 +1942,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034
   20 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test154.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 |
-   4 | router.get(""/test154"", function (req, res) {
-   5 |   let key = """";
-   6 |   var data = [""safe""];
-   7 |   data.push(""safe"");
-   8 |   data.push(Math.random().toString());
-   9 |   data[3] = ""safe"";
-  10 |   data.pop();
-  11 |
-  12 |   for (var currentKey of data) {
-  13 |     key = key.concat(currentKey);
-  14 |   }
-  15 |
-> 16 |   res.cookie(""rememberKey"", key);
-  17 |   res.json({ ok: true });
-  18 | });
-  19 |
-  20 | export default router;
-     ^ Col 0
-",query.query_f034
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test155.js","
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in VULNERABLE_JS_APP/server/routes/testcases/test155.js,"
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 |
@@ -1978,21 +1956,6 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034.
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in VULNERABLE_JS_APP/server/routes/testcases/test155.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 |
-   4 | router.get(""/test155"", function (req, res) {
-   5 |   var data = [""safe"", Math.random().toString()];
-   6 |
->  7 |   res.cookie(""rememberKey"", data[1]);
-   8 |   res.json({ ok: true });
-   9 | });
-  10 |
-  11 | export default router;
-     ^ Col 0
-",query.query_f034
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test097.js","
    1 | import { Router } from ""express"";
