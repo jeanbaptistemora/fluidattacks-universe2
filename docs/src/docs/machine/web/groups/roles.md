@@ -160,6 +160,13 @@ edit or remove users.
   all the information available
   about all the vulnerabilities
   that the project has.
+- **ORG vulnerabilities download:**
+  Download your organization's
+  vulnerabilities
+  (including all vulnerability statuses)
+  in a .CSV file.
+  For more information,
+  click [here](/machine/web/vulnerabilities-download/)
 
 ## Roles table
 
@@ -185,7 +192,7 @@ for each role.
 |Receive notifications|X   |X                    |X           |
 |Request reattack     |X   |X                    |X           |
 |View vulnerabilities |X   |X                    |X           |
-|Vulnerabilities download |    |                 |X           |
+|ORG vulnerabilities download |    |             |X           |
 
 ## Internal roles
 
