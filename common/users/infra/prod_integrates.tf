@@ -74,6 +74,16 @@ locals {
           ]
         },
         {
+          Sid    = "s3ReadFluid"
+          Effect = "Allow"
+          Action = [
+            "s3:ListBucket",
+          ]
+          Resource = [
+            "arn:aws:s3:::fluidattacks.com",
+          ]
+        },
+        {
           Sid    = "s3Write"
           Effect = "Allow"
           Action = ["*"]
@@ -121,6 +131,15 @@ locals {
             "logs:List*",
           ]
           Resource = ["*"]
+        },
+        {
+          Sid    = "logsWriteMachine"
+          Effect = "Allow"
+          Action = ["*"]
+          Resource = [
+            "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:log-group:skims",
+            "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:log-group:skims:log-stream:*",
+          ]
         },
         {
           Sid    = "logsWrite"
@@ -259,7 +278,9 @@ locals {
             "sqs:ChangeMessageVisibility",
             "sqs:DeleteMessage",
             "sqs:GetQueueUrl",
+            "sqs:PurgeQueue",
             "sqs:ReceiveMessage",
+            "sqs:SendMessage",
           ]
           Resource = [
             "arn:aws:sqs:us-east-1:205810638802:skims-*",
