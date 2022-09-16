@@ -4,10 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import {
-  faBell,
   faChartColumn,
-  faCog,
-  faFileLines,
   faHome,
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
@@ -42,22 +39,22 @@ const DashboardSideBar: FC = (): JSX.Element => {
       <SideBarTab icon={faChartColumn} to={`/orgs/${org}/analytics`}>
         {"Analytics"}
       </SideBarTab>
-      <SideBarTab disabled={true} icon={faBell} to={`/orgs/${org}/alerts`}>
+      {/* <SideBarTab disabled={true} icon={faBell} to={`/orgs/${org}/alerts`}>
         {"Alerts"}
-      </SideBarTab>
+      </SideBarTab> */}
       <SideBarTab icon={faShield} to={`/orgs/${org}/policies`}>
         {"Policies"}
       </SideBarTab>
-      <SideBarTab
+      {/* <SideBarTab
         disabled={true}
         icon={faFileLines}
         to={`/orgs/${org}/compliance`}
       >
         {"Compliance"}
-      </SideBarTab>
-      <SideBarTab disabled={true} icon={faCog} to={`/orgs/${org}/settings`}>
+      </SideBarTab> */}
+      {/* <SideBarTab disabled={true} icon={faCog} to={`/orgs/${org}/settings`}>
         {"Settings"}
-      </SideBarTab>
+      </SideBarTab> */}
     </SideBar>
   ) : (
     <Sidebar />
