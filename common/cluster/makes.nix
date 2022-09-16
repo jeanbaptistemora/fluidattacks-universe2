@@ -66,7 +66,6 @@ in {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
-      kubeConfig = "KUBECONFIG";
     };
   };
   secureKubernetesWithRbacPolice = {

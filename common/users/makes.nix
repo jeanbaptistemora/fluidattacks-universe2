@@ -2,19 +2,12 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {outputs, ...}: {
-  secretsForTerraformFromEnv = {
-    commonUsers = {
-      gitlab_token = "UNIVERSE_API_TOKEN";
-      gitlab_token_services = "SERVICES_API_TOKEN";
-    };
-  };
   deployTerraform = {
     modules = {
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
-          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";
         version = "1.0";
@@ -27,7 +20,6 @@
         setup = [
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";
         version = "1.0";
@@ -40,7 +32,6 @@
         setup = [
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";
         version = "1.0";
