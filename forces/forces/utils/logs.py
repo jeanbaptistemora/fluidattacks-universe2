@@ -10,6 +10,9 @@ import bugsnag
 from contextvars import (
     ContextVar,
 )
+from enum import (
+    Enum,
+)
 from forces.utils.bugs import (
     META as BUGS_META,
 )
@@ -34,6 +37,13 @@ from typing import (
     Union,
 )
 
+
+class LogInterface(Enum):
+    ALL = "ALL"
+    CONSOLE = "CONSOLE"
+    LOGGER = "LOGGER"
+
+
 # Private constants, text mode required for Rich logging
 LOG_FILE: ContextVar[IO[Any]] = ContextVar(
     "log_file", default=tempfile.NamedTemporaryFile(mode="w+t")
@@ -44,7 +54,12 @@ CONSOLE_INTERFACE = Console(
 )
 # Logging interface to get around the Rich library writing limitations
 LOGGING_INTERFACE = Console(
-    log_path=False, log_time=False, markup=True, width=80, file=LOG_FILE.get()
+    force_terminal=True,
+    file=LOG_FILE.get(),
+    log_path=False,
+    log_time=False,
+    markup=True,
+    width=80,
 )
 
 _FORMAT: str = "%(message)s"
@@ -79,11 +94,23 @@ async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
 
 
-def rich_log(rich_msg: Union[Table, Text, str]) -> None:
-    """Writes to the specified console interfaces to have both stdout and log
+def rich_log(
+    rich_msg: Union[Table, Text, str], log_to: LogInterface = LogInterface.ALL
+) -> None:
+    """Writes to the specified console interfaces to have either stdout and log
     output"""
-    LOGGING_INTERFACE.log(rich_msg)
-    CONSOLE_INTERFACE.log(rich_msg)
+    if log_to == LogInterface.CONSOLE:
+        CONSOLE_INTERFACE.log(rich_msg)
+    elif log_to == LogInterface.LOGGER:
+        LOGGING_INTERFACE.log(rich_msg)
+    else:
+        CONSOLE_INTERFACE.log(rich_msg)
+        LOGGING_INTERFACE.log(rich_msg)
+
+
+def log_banner(banner: str) -> None:
+    """Special method to log the banner shown in ARM logs"""
+    LOGGING_INTERFACE.rule(banner)
 
 
 async def log_to_remote(

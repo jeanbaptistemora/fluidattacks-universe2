@@ -73,8 +73,7 @@ async def set_forces_exit_code(
                         "warning",
                         (
                             "Found an open vulnerability with a severity of "
-                            f"{severity} >= {config.breaking_severity} "
-                            f"reported {time_diff.days} day(s) ago"
+                            f"{severity} reported {time_diff.days} day(s) ago"
                         ),
                     )
                     return 1

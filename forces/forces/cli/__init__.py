@@ -19,6 +19,8 @@ from forces.utils.function import (
 )
 from forces.utils.logs import (
     log,
+    log_banner,
+    LogInterface,
     rich_log,
 )
 from forces.utils.model import (
@@ -73,21 +75,19 @@ async def validate_severity(severity: Optional[float]) -> bool:
 
 
 def show_banner() -> None:
-    """Show forces banner."""
-    # The name and motto may come with closing markup tags from other parts of
-    # the banner, this is done to avoid the wrath of the linter, but if any
-    # modifications are needed, just paste them back and refac away
-    name = (
+    """Show forces banner"""
+    name: str = (
         "[white on white]|[/][bold red on white]››[/][white on white]|[/]"
         "[bold white on red]› [/][italic bold red] Fluid [white]Attacks[/][/]"
     )
-    motto = "[italic bold white] We [red]hack[/] your software[/]"
-    header: str = textwrap.dedent(
-        rf"""
-         [red on red]   __   [/]
-         [red on red]  [/]{name}
-         [red on red]  [/][white on white]|__|[/][white on red]  [/]{motto}
-         [red on red]        [/]
+    motto: str = "[italic bold white] We [red]hack[/] your software[/]"
+    logo: str = f"""
+    [red on red]   __   [/]
+    [red on red]  [/]{name}
+    [red on red]  [/][white on white]|__|[/][white on red]  [/]{motto}
+    [red on red]        [/]"""
+    console_header: str = textwrap.dedent(
+        r"""
         [bright_green]
               ____            _____           ____
              / __ \___ _   __/ ___/___  _____/ __ \____  _____
@@ -97,7 +97,10 @@ def show_banner() -> None:
                                                /_/[/]
         """
     )
-    rich_log(header)
+    log_header: str = "[bold green]D E V S E C O P S[/]"
+    rich_log(logo)
+    rich_log(rich_msg=console_header, log_to=LogInterface.CONSOLE)
+    log_banner(log_header)
 
 
 @click.command(name="forces")
@@ -198,10 +201,10 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     strictness = "strict" if strict else "lax"
     await log(
         "info",
-        f"Running DevSecOps agent in [bright_yellow]{strictness}[/] mode",
+        f"Running the DevSecOps agent in [bright_yellow]{strictness}[/] mode",
     )
     await log(
-        "info", f"Running DevSecOps agent in [bright_yellow]{kind}[/] kind"
+        "info", f"Running the DevSecOps agent in [bright_yellow]{kind}[/] kind"
     )
     if repo_name:
         await log(
