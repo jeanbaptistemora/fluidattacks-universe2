@@ -13,6 +13,9 @@ from asyncio.tasks import (
     sleep,
 )
 import authz
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_REGION_NAME,
 )
@@ -89,6 +92,7 @@ import hashlib
 from itertools import (
     groupby,
 )
+import logging
 from mailer import (
     groups as groups_mail,
 )
@@ -141,6 +145,8 @@ from urllib.parse import (
 from uuid import (
     uuid4,
 )
+
+LOGGER = logging.getLogger(__name__)
 
 
 async def _notify_health_check(
@@ -1762,13 +1768,26 @@ async def finish_machine_execution(
 ) -> bool:
     stop_date = kwargs.pop("stopped_at").astimezone(pytz.timezone(TIME_ZONE))
 
-    return await roots_model.finish_machine_execution(
-        root_id,
-        job_id,
-        stopped_at=datetime_utils.get_as_str(stop_date),
-        findings_executed=kwargs.pop("findings_executed", []),
-        status=kwargs.pop("status", "SUCCESS"),
-    )
+    try:
+        await roots_model.finish_machine_execution(
+            root_id,
+            job_id,
+            stopped_at=datetime_utils.get_as_str(stop_date),
+            findings_executed=kwargs.pop("findings_executed", []),
+            status=kwargs.pop("status", "SUCCESS"),
+        )
+    except ClientError:
+        LOGGER.warning(
+            "Failed to finish machine execution",
+            extra={
+                "extra": {
+                    "root_id": root_id,
+                    "job_id": job_id,
+                }
+            },
+        )
+        return False
+    return True
 
 
 async def is_in_s3(group_name: str, root_nickname: str) -> tuple[str, bool]:
@@ -1790,9 +1809,22 @@ async def start_machine_execution(
 ) -> bool:
     started_at = kwargs.pop("started_at").astimezone(pytz.timezone(TIME_ZONE))
 
-    return await roots_model.start_machine_execution(
-        root_id,
-        job_id,
-        started_at=datetime_utils.get_as_str(started_at),
-        git_commit=kwargs.pop("git_commit", None),
-    )
+    try:
+        await roots_model.start_machine_execution(
+            root_id,
+            job_id,
+            started_at=datetime_utils.get_as_str(started_at),
+            git_commit=kwargs.pop("git_commit", None),
+        )
+    except ClientError:
+        LOGGER.warning(
+            "Failed to start machine execution",
+            extra={
+                "extra": {
+                    "root_id": root_id,
+                    "job_id": job_id,
+                }
+            },
+        )
+        return False
+    return True

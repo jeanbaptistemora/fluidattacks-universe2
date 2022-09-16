@@ -8,12 +8,8 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-import botocore
 from context import (
     FI_ENVIRONMENT,
-)
-from contextlib import (
-    suppress,
 )
 from custom_exceptions import (
     IndicatorAlreadyUpdated,
@@ -222,27 +218,23 @@ async def finish_machine_execution(
     stopped_at: str,
     findings_executed: List[MachineFindingResult],
     status: str,
-) -> bool:
+) -> None:
     key_structure = TABLE.primary_key
     machine_execution_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, "job_id": job_id},
     )
 
-    with suppress(botocore.exceptions.ClientError):
-        await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists(),
-            item={
-                "stopped_at": stopped_at,
-                "findings_executed": findings_executed,
-                "status": status,
-            },
-            key=machine_execution_key,
-            table=TABLE,
-        )
-        return True
-
-    return False
+    await operations.update_item(
+        condition_expression=Attr(key_structure.partition_key).exists(),
+        item={
+            "stopped_at": stopped_at,
+            "findings_executed": findings_executed,
+            "status": status,
+        },
+        key=machine_execution_key,
+        table=TABLE,
+    )
 
 
 async def start_machine_execution(
@@ -250,27 +242,23 @@ async def start_machine_execution(
     job_id: str,
     started_at: str,
     git_commit: Optional[str] = None,
-) -> bool:
+) -> None:
     key_structure = TABLE.primary_key
     machine_execution_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, "job_id": job_id},
     )
 
-    with suppress(botocore.exceptions.ClientError):
-        await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists(),
-            item={
-                "started_at": started_at,
-                "git_commit": git_commit,
-                "status": "RUNNING",
-            },
-            key=machine_execution_key,
-            table=TABLE,
-        )
-        return True
-
-    return False
+    await operations.update_item(
+        condition_expression=Attr(key_structure.partition_key).exists(),
+        item={
+            "started_at": started_at,
+            "git_commit": git_commit,
+            "status": "RUNNING",
+        },
+        key=machine_execution_key,
+        table=TABLE,
+    )
 
 
 async def remove_secret(root_id: str, secret_key: str) -> None:
