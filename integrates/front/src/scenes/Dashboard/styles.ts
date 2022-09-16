@@ -7,7 +7,7 @@
 import styled from "styled-components";
 
 const DashboardContainer = styled.div.attrs({
-  className: "flex flex-row h-100",
+  className: "flex flex-column h-100",
 })`
   background-color: #e9e9ed;
   color: #2e2e38;
@@ -15,13 +15,11 @@ const DashboardContainer = styled.div.attrs({
   font-size: 16px;
 `;
 
-const DashboardContent = styled.div.attrs({
+const DashboardContent = styled.main.attrs({
   className: "flex flex-auto flex-column",
 })`
   overflow-y: auto;
-  padding-bottom: 72px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 4px 24px 72px 24px;
 
   ::-webkit-scrollbar {
     width: 8px;
@@ -37,8 +35,4 @@ const DashboardContent = styled.div.attrs({
   }
 `;
 
-const DashboardHeader = styled.header.attrs({
-  className: "top-0 z-5",
-})``;
-
-export { DashboardContainer, DashboardContent, DashboardHeader };
+export { DashboardContainer, DashboardContent };

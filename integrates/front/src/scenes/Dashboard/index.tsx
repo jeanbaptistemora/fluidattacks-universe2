@@ -9,22 +9,24 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import {
-  DashboardContainer,
-  DashboardContent,
-  DashboardHeader,
-} from "./styles";
+import { DashboardSideBar } from "./SideBar";
+import { DashboardContainer, DashboardContent } from "./styles";
 
 import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
-import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
@@ -74,7 +76,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
     return isLogin || isGoogleLogin;
   }, []);
-
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
@@ -195,19 +196,21 @@ export const Dashboard: React.FC = (): JSX.Element => {
     <DashboardContainer>
       <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
       {isLegalModalOpen ? undefined : (
-        <React.Fragment>
+        <Fragment>
           <ConcurrentSessionNotice
             onClick={handleConcurrent}
             open={isCtSessionModalOpen}
           />
           {isCtSessionModalOpen ? undefined : (
-            <React.Fragment>
-              <Sidebar />
-              <DashboardContent id={"dashboard"}>
-                <DashboardHeader>
-                  <Navbar userRole={userRole} />
-                </DashboardHeader>
-                <main>
+            <Fragment>
+              <Navbar userRole={userRole} />
+              <div className={"flex flex-auto flex-row"}>
+                <Switch>
+                  <Route path={"/orgs/:org/"}>
+                    <DashboardSideBar />
+                  </Route>
+                </Switch>
+                <DashboardContent id={"dashboard"}>
                   <Switch>
                     <Route exact={true} path={"/home"}>
                       <HomeView />
@@ -251,8 +254,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
                     </Route>
                     <Redirect to={"/home"} />
                   </Switch>
-                </main>
-              </DashboardContent>
+                </DashboardContent>
+              </div>
               <ScrollUpButton />
               <Modal
                 open={idleWarning}
@@ -264,9 +267,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
                   txtConfirm={translate.t("validations.inactiveSessionDismiss")}
                 />
               </Modal>
-            </React.Fragment>
+            </Fragment>
           )}
-        </React.Fragment>
+        </Fragment>
       )}
     </DashboardContainer>
   );

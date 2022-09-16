@@ -7,13 +7,11 @@
 import styled from "styled-components";
 
 const NavbarContainer = styled.nav.attrs({
-  className: "flex flex-wrap",
+  className: "flex flex-wrap top-0 z-5",
 })`
   background-color: #f4f4f6;
   border: 1px solid #d2d2da;
-  border-radius: 4px;
-  margin: 4px 0;
-  padding: 8px 12px;
+  padding: 4px 12px;
 `;
 
 const NavbarHeader = styled.div.attrs({
