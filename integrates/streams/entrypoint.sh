@@ -7,6 +7,10 @@ function export_secrets {
   local env="${1}"
   local secrets=(
     AWS_OPENSEARCH_HOST
+    AWS_REDSHIFT_DBNAME
+    AWS_REDSHIFT_HOST
+    AWS_REDSHIFT_PASSWORD
+    AWS_REDSHIFT_USER
     DYNAMODB_HOST
     DYNAMODB_PORT
     GOOGLE_CHAT_WEBOOK_URL
