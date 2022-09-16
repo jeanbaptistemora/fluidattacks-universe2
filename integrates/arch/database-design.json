@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 13, 2022, 04:46 PM",
+    "DateLastModified": "Sep 16, 2022, 10:36 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -20200,9 +20200,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2020-01-03T17:46:10+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "1"
                   }
@@ -20310,9 +20307,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2020-09-09T21:01:26+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "1"
@@ -20438,9 +20432,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T13:17:41+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -20550,9 +20541,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -20654,9 +20642,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -20779,9 +20764,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -20887,9 +20869,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -20989,9 +20968,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21090,9 +21066,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -21199,9 +21172,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T22:00:56+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21301,9 +21271,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21392,9 +21359,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T20:37:59+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -21485,9 +21449,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T16:03:21+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21576,9 +21537,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -21669,9 +21627,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T13:59:20+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21760,9 +21715,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T15:00:03+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -21853,9 +21805,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -21944,9 +21893,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-16T21:01:24+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22037,9 +21983,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -22128,9 +22071,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22221,9 +22161,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -22312,9 +22249,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22405,9 +22339,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -22496,9 +22427,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T15:53:05+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22589,9 +22517,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -22680,9 +22605,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22773,9 +22695,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T20:19:17+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -22864,9 +22783,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-08-30T14:30:13+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -22957,9 +22873,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-16T20:02:17+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -23048,9 +22961,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:03:05+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -23141,9 +23051,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2018-11-27T19:54:08+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -23233,9 +23140,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2020-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -23324,9 +23228,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -23429,9 +23330,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "2"
                   }
@@ -23533,9 +23431,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-01-15T15:43:39+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "1"
                   }
@@ -23624,9 +23519,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-01-15T16:04:14+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -23722,9 +23614,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-01-16T13:47:07+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -23856,9 +23745,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-01-16T13:47:07+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "1"
                   }
@@ -23986,9 +23872,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-01-15T16:04:14+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "1"
                   }
@@ -24115,9 +23998,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-01-15T15:43:39+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "1"
                   }
@@ -24236,9 +24116,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -24354,9 +24231,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-04-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -24456,9 +24330,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-04-12T13:45:48+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
@@ -24553,9 +24424,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "100.0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-12-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -24668,9 +24536,6 @@
                   "unreliable_efficacy": {
                     "N": "0"
                   },
-                  "unreliable_report_date": {
-                    "S": "2019-04-08T00:45:15+00:00"
-                  },
                   "unreliable_treatment_changes": {
                     "N": "2"
                   }
@@ -24781,9 +24646,6 @@
                   },
                   "unreliable_efficacy": {
                     "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-04-08T00:45:15+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "1"
