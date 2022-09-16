@@ -133,10 +133,10 @@ async def main() -> None:  # noqa: MC0001
         )
     )
     print(len(all_events))
-    # await collect(
-    #     tuple(process_event(loaders, event) for event in all_events),
-    #     workers=100,
-    # )
+    await collect(
+        tuple(process_event(loaders, event) for event in all_events),
+        workers=100,
+    )
 
 
 if __name__ == "__main__":
