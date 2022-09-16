@@ -7,13 +7,13 @@ from gemfileparser import (
     GemfileParser,
 )
 from typing import (
-    Any,
     Dict,
 )
 
 
-def parse_line(in_line: str) -> Dict[str, Any]:
-    line = in_line.split(",")
+def parse_line(in_line: str, gem_file: str) -> Dict[str, str]:
+    separator = "," if gem_file == "Gemfile" else " "
+    line = in_line.split(separator)
     column_list = []
     for column in line:
         stripped_column = (
@@ -35,9 +35,6 @@ def parse_line(in_line: str) -> Dict[str, Any]:
         for criteria, criteria_regex in GemfileParser.gemfile_regexes.items():
             match = criteria_regex.match(column)
             if match:
-                if criteria == "requirement":
-                    dep.requirement.append(match.group(criteria))
-                else:
-                    setattr(dep, criteria, match.group(criteria))
+                setattr(dep, criteria, match.group(criteria))
                 break
     return dep.to_dict()
