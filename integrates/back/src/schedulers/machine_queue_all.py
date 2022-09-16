@@ -22,6 +22,9 @@ from db_model.groups.types import (
 from db_model.roots.enums import (
     RootStatus,
 )
+from db_model.roots.types import (
+    GitRoot,
+)
 from machine.availability import (
     is_check_available,
 )
@@ -40,6 +43,7 @@ from schedulers.common import (
 from typing import (
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -91,12 +95,13 @@ async def _roots_by_group(
             group_name=group.name,
             roots=[],
         )
+    all_roots: Tuple[GitRoot] = await loaders.group_roots.load(group.name)
     return RootsByGroup(
         group_name=group.name,
         roots=[
             root.state.nickname
-            for root in await loaders.group_roots.load(group.name)
-            if root.state.status == RootStatus.ACTIVE
+            for root in all_roots
+            if root.state.status == RootStatus.ACTIVE and root.cloning.commit
         ],
     )
 
