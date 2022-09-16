@@ -5,22 +5,26 @@
 # shellcheck shell=bash
 
 function main {
+  local coverage_target=85.00
   local coverage_args=(
     --omit="back/migrations/*"
     --ignore-errors
   )
 
   : \
-    && aws_login "dev" "3600" \
     && pushd integrates \
     && coverage run --data-file='.coverage.back.src' --source='back/src' "$(mktemp)" \
     && coverage combine \
-    && coverage report "${coverage_args[@]}" \
+    && coverage report \
+      --fail-under="${coverage_target}" \
+      --precision=2 \
+      "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
     && coverage xml "${coverage_args[@]}" \
-    && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
     && if test "${CI_COMMIT_REF_NAME}" = trunk; then
-      codecov -B integrates -C "${CI_COMMIT_SHA}" -F integrates
+      aws_login "dev" "3600" \
+        && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
+        && codecov -B integrates -C "${CI_COMMIT_SHA}" -F integrates
     fi \
     && popd \
     || return 1
