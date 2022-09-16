@@ -11321,8 +11321,10 @@
     description: >
       The application
       does not make explicit
-      the version of the libraries
-      on which it depends.
+      the whole dependency tree
+      it requires
+      (direct and indirect third-party libraries)
+      and their respective version.
     impact: >
       - Accept a range of versions
       can cause a version of a dependency
@@ -11333,6 +11335,13 @@
       - Install a dependency
       containing a known vulnerability
       and being unaware of it.
+
+      - Explicitly declare
+      all indirect dependencies
+      pinned to a specific version
+      to avoid unknown upgrades
+      that include security issues
+      or may break the application
 
       - Use a dependency version that is
       not compatible with the application.
@@ -11351,9 +11360,10 @@
   es:
     title: Improper dependency pinning
     description: >
-      En el código fuente
-      no se declara la versión específica
-      aceptada de algunas dependencias.
+      La aplicación no hace explícito
+      todo el árbol de dependencias que requiere
+      (bibliotecas de terceros directas e indirectas)
+      y su respectiva versión.
     impact: >
       - Aceptar un rango de versiones
       puede ocasionar
@@ -11365,6 +11375,14 @@
       - Instalar una dependencia que
       contenga una vulnerabilidad conocida
       y no tener conocimiento de ello.
+
+      - Declare explícitamente
+      todas las dependencias indirectas
+      ancladas a una versión específica
+      para evitar actualizaciones
+      desconocidas que incluyan problemas
+      de seguridad o puedan dañar
+      la aplicación.
 
       - Usar una versión de la dependencia
       que no sea compatible con la aplicación.
