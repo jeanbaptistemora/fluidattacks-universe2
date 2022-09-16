@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
-
+/* eslint-disable react/forbid-component-props */
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
@@ -12,7 +12,7 @@ import type {
   MouseEventHandler,
   ReactNode,
 } from "react";
-import React, { Fragment } from "react";
+import React from "react";
 
 import { ButtonGroup } from "./ButtonGroup";
 import type { IStyledButtonProps } from "./styles";
@@ -57,10 +57,10 @@ const Button: FC<IButtonProps> = ({
       variant={variant}
     >
       {icon === undefined ? undefined : (
-        <Fragment>
-          <FontAwesomeIcon icon={icon} />
-          {children === undefined ? undefined : <Fragment>&nbsp;</Fragment>}
-        </Fragment>
+        <FontAwesomeIcon
+          className={children === undefined ? undefined : "mr2"}
+          icon={icon}
+        />
       )}
       {children}
     </StyledButton>

@@ -26,6 +26,7 @@ const DropdownContainer = styled.div<IDropdownContainerProps>`
   background-color: ${({ bgColor }): string => bgColor};
   border: 1px solid #c7c7d1;
   border-radius: 4px;
+  color: #121216;
   display: none;
   position: absolute;
   top: 100%;

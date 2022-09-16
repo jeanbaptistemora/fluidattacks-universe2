@@ -19,6 +19,9 @@ const NavBox = styled.nav.attrs({
 
 const NavHeader = styled.div``;
 
-const NavMenu = styled.div``;
+const NavMenu = styled.div`
+  align-items: center;
+  display: flex;
+`;
 
 export { NavBox, NavHeader, NavMenu };

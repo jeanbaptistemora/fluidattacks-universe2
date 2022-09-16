@@ -108,6 +108,7 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     display: ${disp};
     font-weight: 400;
     padding: ${pv}px ${ph}px;
+    text-align: start;
     text-decoration: none;
     transition: all 0.3s ease;
     width: ${disp === "block" ? "100%" : "auto"};

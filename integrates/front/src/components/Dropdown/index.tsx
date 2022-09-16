@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
-
 import React from "react";
+import type { FC, ReactNode } from "react";
 
 import type { IDropdownContainerProps } from "./styles";
 import { DropdownContainer, Wrapper } from "./styles";
@@ -13,15 +13,15 @@ import type { IContainerProps } from "components/Container";
 import { Container } from "components/Container";
 
 interface IDropdownProps extends Partial<IDropdownContainerProps> {
-  button: React.ReactNode;
-  children: React.ReactNode;
+  button: ReactNode;
+  children: ReactNode;
   id?: string;
   maxHeight?: IContainerProps["maxHeight"];
   minWidth?: IContainerProps["minWidth"];
   padding?: IContainerProps["padding"];
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({
+const Dropdown: FC<IDropdownProps> = ({
   align = "center",
   bgColor = "#f4f4f6",
   button,
