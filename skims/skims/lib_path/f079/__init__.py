@@ -8,9 +8,6 @@ from lib_path.common import (
 from lib_path.f079.generic import (
     non_upgradeable_deps,
 )
-from lib_path.f079.python import (
-    pip_incomplete_dependencies_list,
-)
 from model.core_model import (
     Vulnerabilities,
 )
@@ -21,24 +18,14 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_pip_incomplete_dependencies_list(
-    content: str, path: str
-) -> Vulnerabilities:
-    return pip_incomplete_dependencies_list(content=content, path=path)
-
-
-@SHIELD_BLOCKING
 def run_non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
     return non_upgradeable_deps(path=path, raw_content=raw_content)
 
 
 @SHIELD_BLOCKING
-def analyze(  # pylint: disable=too-many-arguments
+def analyze(
     path: str,
     raw_content_generator: Callable[[], bytes],
-    content_generator: Callable[[], str],
-    file_extension: str,
-    file_name: str,
     unique_nu_paths: str,
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
@@ -48,12 +35,6 @@ def analyze(  # pylint: disable=too-many-arguments
         results = (
             *results,
             run_non_upgradeable_deps(path, raw_content_generator()),
-        )
-
-    if (file_name, file_extension) == ("requirements", "txt"):
-        results = (
-            *results,
-            run_pip_incomplete_dependencies_list(content_generator(), path),
         )
 
     return results
