@@ -118,7 +118,7 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-import pytz  # type: ignore
+import pytz
 import random
 from s3 import (
     operations as s3_ops,

@@ -37,4 +37,4 @@ def variables_check(context_value: Any) -> ValidationRule:
                             )
                         )
 
-    return VariableValidation
+    return VariableValidation  # type: ignore

@@ -27,7 +27,7 @@ def parse_datetime_value(value: Any) -> Any:
     return value
 
 
-@DATETIME_SCALAR.literal_parser
+@DATETIME_SCALAR.literal_parser  # type: ignore
 def parse_datetime_literal(ast: Any) -> Any:
     value = str(ast.value) if ast.value else ast.value
     return parse_datetime_value(value)

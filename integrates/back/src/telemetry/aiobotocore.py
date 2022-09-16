@@ -9,11 +9,11 @@ from aiobotocore import (
 from botocore.exceptions import (
     ClientError,
 )
-from opentelemetry import (
+from opentelemetry import (  # type: ignore
     context,
     trace,
 )
-from opentelemetry.instrumentation.botocore import (
+from opentelemetry.instrumentation.botocore import (  # type: ignore
     _apply_response_attributes,
     _determine_call_context,
     _find_extension,
@@ -24,7 +24,7 @@ from opentelemetry.instrumentation.botocore import (
 from opentelemetry.instrumentation.utils import (
     unwrap,
 )
-from opentelemetry.semconv.trace import (
+from opentelemetry.semconv.trace import (  # type: ignore
     SpanAttributes,
 )
 from typing import (

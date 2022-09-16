@@ -19,10 +19,10 @@ from graphql import (
 from graphql.pyutils import (
     is_awaitable,
 )
-from opentelemetry import (
+from opentelemetry import (  # type: ignore
     trace,
 )
-from opentelemetry.attributes import (
+from opentelemetry.attributes import (  # type: ignore
     _VALID_ATTR_VALUE_TYPES,
 )
 from typing import (

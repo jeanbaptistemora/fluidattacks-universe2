@@ -44,7 +44,7 @@ async def graphics_for_entity(entity: str, request: Request) -> Response:
             user_email=request_data["user_email"],
         )
     )
-    utils.set_token_in_response(response, jwt_token)
+    utils.set_token_in_response(response, jwt_token)  # type: ignore
     return response
 
 

@@ -261,7 +261,7 @@ async def main() -> None:
                     )
                     for repo in clone_repos
                 ),
-                workers=os.cpu_count(),
+                workers=os.cpu_count(),  # type: ignore
             )
             roots_language_distribution: Dict[str, Dict[str, int]] = dict(
                 zip(clone_repos, languages_distribution)

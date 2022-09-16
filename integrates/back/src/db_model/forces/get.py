@@ -8,7 +8,7 @@ from .constants import (
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (
+from aioextensions import (  # type: ignore
     collect,
     Iterable,
 )

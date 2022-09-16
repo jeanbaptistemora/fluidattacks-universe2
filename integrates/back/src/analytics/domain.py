@@ -373,7 +373,7 @@ async def handle_graphics_report_request(
         LOGGER.exception(ex, extra=dict(extra=locals()))
         response = templates_utils.graphic_error(request)
     else:
-        response = Response(report, media_type="image/png")
+        response = Response(report, media_type="image/png")  # type: ignore
 
     return response
 

@@ -1301,9 +1301,9 @@ async def remove_user(
         group.name
         for group in await loaders.organization_groups.load(organization_id)
     )
-    user_org_groups_names = set(user_groups_names).intersection(
-        org_groups_names
-    )
+    user_org_groups_names = set(
+        user_groups_names  # type: ignore
+    ).intersection(org_groups_names)
     user_org_groups: tuple[Group, ...] = await loaders.group.load_many(
         user_org_groups_names
     )

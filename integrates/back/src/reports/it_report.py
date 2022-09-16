@@ -342,8 +342,11 @@ class ITReport:
         findings_ids = tuple(finding.id for finding in data)
         findings_vulnerabilities: tuple[Vulnerability, ...]
         findings_verifications: tuple[tuple[FindingVerification], ...]
-        findings_vulnerabilities, findings_verifications = await collect(
-            (
+        (
+            findings_vulnerabilities,
+            findings_verifications,
+        ) = await collect(  # type: ignore
+            (  # type: ignore
                 self._get_findings_vulnerabilities(findings_ids),
                 self._get_findings_historics_verifications(findings_ids),
             )
@@ -742,7 +745,7 @@ class ITReport:
         tuple[VulnerabilityTreatment, ...],
         tuple[VulnerabilityVerification, ...],
     ]:
-        return await collect(
+        return await collect(  # type: ignore
             (
                 self._get_historic_treatment(vuln.id),
                 self._get_historic_verification(vuln.id),

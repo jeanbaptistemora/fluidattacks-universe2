@@ -23,7 +23,7 @@ def parse_jsonstring_value(value: str) -> Any:
     return json.loads(value)
 
 
-@JSON_STRING_SCALAR.literal_parser
+@JSON_STRING_SCALAR.literal_parser  # type: ignore
 def parse_jsonstring_literal(ast: Any) -> Any:
     value = str(ast.value)
     return json.loads(value)

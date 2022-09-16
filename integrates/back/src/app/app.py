@@ -340,7 +340,7 @@ async def logout(request: Request) -> HTMLResponse:
     response = RedirectResponse("/")
     response.delete_cookie(key=JWT_COOKIE_NAME)
     response.headers["Clear-Site-Data"] = '"executionContexts", "cache"'
-    return response
+    return response  # type: ignore
 
 
 async def not_found(request: Request, ex: Exception) -> HTMLResponse:
@@ -361,7 +361,7 @@ API_EXTENSIONS = (OpenTelemetryExtension,)
 def get_validation_rules(
     context_value: Any, _document: DocumentNode, _data: Any
 ) -> tuple[ValidationRule, ...]:
-    return (
+    return (  # type: ignore
         QueryBreadthValidation,
         QueryDepthValidation,
         validate_characters(context_value),

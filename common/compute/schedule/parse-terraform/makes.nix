@@ -6,6 +6,7 @@
     modules = {
       commonComputeScheduleParseTerraform = {
         python = "3.9";
+        mypyVersion = "0.971";
         src = "/common/compute/schedule/parse-terraform/src";
       };
     };

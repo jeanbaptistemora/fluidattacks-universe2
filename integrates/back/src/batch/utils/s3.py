@@ -83,7 +83,7 @@ async def upload_cloned_repo_to_s3_tar(
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                response["url"],
+                response["url"],  # type: ignore
                 data=data,
             ) as upload_response:
                 if upload_response.status not in {200, 204}:

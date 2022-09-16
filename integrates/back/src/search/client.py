@@ -59,7 +59,8 @@ class AsyncAWSConnection(AIOHttpConnection):
             self.aws_region,
         )
 
-    async def perform_request(  # pylint: disable=too-many-arguments
+    # pylint: disable-next=too-many-arguments
+    async def perform_request(  # type: ignore
         self,
         method: str,
         url: str,
@@ -82,7 +83,7 @@ class AsyncAWSConnection(AIOHttpConnection):
         signed_headers = dict(aws_request.headers.items())
         all_headers = {**headers_, **signed_headers}
 
-        return await super().perform_request(
+        return await super().perform_request(  # type: ignore
             method, url, params, body, timeout, ignore, all_headers
         )
 
@@ -90,7 +91,7 @@ class AsyncAWSConnection(AIOHttpConnection):
 class SetEncoder(JSONSerializer):
     def default(self, data: Any) -> JSONSerializer:
         if isinstance(data, set):
-            return list(data)
+            return list(data)  # type: ignore
         return JSONSerializer.default(self, data)
 
 
@@ -131,4 +132,4 @@ async def get_client() -> AsyncOpenSearch:
     if CLIENT is None:
         await search_startup()
 
-    return CLIENT
+    return CLIENT  # type: ignore

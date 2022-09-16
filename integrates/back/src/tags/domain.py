@@ -86,7 +86,7 @@ async def has_access(loaders: Any, email: str, subject: str) -> bool:
                 ),
             )
         )
-        return org_access and any(group_access.values())
+        return org_access and any(group_access.values())  # type: ignore
     raise ValueError("Invalid subject")
 
 

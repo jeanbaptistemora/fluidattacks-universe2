@@ -46,7 +46,7 @@ from newutils import (
     token as token_utils,
     validations as validations_utils,
 )
-import pytz  # type: ignore
+import pytz
 from settings import (
     TIME_ZONE,
 )

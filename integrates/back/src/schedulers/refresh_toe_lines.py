@@ -27,7 +27,7 @@ from organizations import (
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
-    results: list[PutActionResult] = await collect(
+    results: list[PutActionResult] = await collect(  # type: ignore
         put_action(
             action=Action.REFRESH_TOE_LINES,
             additional_info="*",

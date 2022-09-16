@@ -56,7 +56,7 @@ def get_due_date(definition: str, field: str, reason: str) -> datetime:
 def _get_deprecation_reason(directives: list[DirectiveNode]) -> Optional[str]:
     return next(
         (
-            directive.arguments[0].value.value
+            directive.arguments[0].value.value  # type: ignore
             for directive in directives
             if directive.name.value == "deprecated"
         ),
@@ -73,18 +73,20 @@ def _search_directives(
     if isinstance(definition, EnumTypeDefinitionNode):
         fields = definition.values
     elif isinstance(definition, ObjectTypeDefinitionNode):
-        fields = definition.fields
+        fields = definition.fields  # type: ignore
     elif isinstance(definition, InputObjectTypeDefinitionNode):
-        fields = definition.fields
+        fields = definition.fields  # type: ignore
     # Custom directives do not have fields, but they have arguments
     # Might be a good idea to rethink the control flow a little
     elif isinstance(definition, DirectiveDefinitionNode):
-        fields = definition.arguments
+        fields = definition.arguments  # type: ignore
     else:
-        fields = []
+        fields = []  # type: ignore
 
     for field in fields:
-        deprecation_reason = _get_deprecation_reason(field.directives)
+        deprecation_reason = _get_deprecation_reason(
+            field.directives  # type: ignore
+        )
         if deprecation_reason:
             deprecations.setdefault(definition.name.value, []).append(
                 ApiDeprecation(
@@ -100,7 +102,7 @@ def _search_directives(
                 )
             )
         if has_arguments:
-            for argument in field.arguments:
+            for argument in field.arguments:  # type: ignore
                 arg_deprecation = _get_deprecation_reason(argument.directives)
                 if arg_deprecation:
                     deprecations.setdefault(definition.name.value, []).append(

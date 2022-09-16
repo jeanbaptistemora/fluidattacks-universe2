@@ -73,7 +73,7 @@ def hook_early_validations() -> None:
     arrive upstream.
     """
     ariadne_graphql = sys.modules["ariadne.graphql"]
-    original_parse = ariadne_graphql.parse_query  # type: ignore
+    original_parse = ariadne_graphql.parse_query
 
     def before_parse(query: str) -> DocumentNode:
         validate_directives(query)

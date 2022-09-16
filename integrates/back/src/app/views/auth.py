@@ -88,9 +88,11 @@ async def authz_azure(request: Request) -> HTMLResponse:
     email = user.get("email", user.get("upn", "")).lower()
     response = RedirectResponse(url="/home")
     await handle_user(
-        request, response, {**user, "email": email, "given_name": user["name"]}
+        request,
+        response,  # type: ignore
+        {**user, "email": email, "given_name": user["name"]},
     )
-    return response
+    return response  # type: ignore
 
 
 @retry_on_exceptions(
@@ -107,8 +109,8 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
         return templates_utils.unauthorized(request)
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
     response = RedirectResponse(url="/home")
-    await handle_user(request, response, user)
-    return response
+    await handle_user(request, response, user)  # type: ignore
+    return response  # type: ignore
 
 
 @retry_on_exceptions(
@@ -125,8 +127,8 @@ async def authz_google(request: Request) -> HTMLResponse:
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     response = RedirectResponse(url="/home")
-    await handle_user(request, response, user)
-    return response
+    await handle_user(request, response, user)  # type: ignore
+    return response  # type: ignore
 
 
 async def do_azure_login(request: Request) -> Response:

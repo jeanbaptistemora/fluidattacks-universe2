@@ -138,7 +138,8 @@ class MeDraftsLoader(DataLoader):
     ) -> tuple[Finding, ...]:
         return await collect(
             tuple(
-                _get_me_drafts(user_email=user_email) for user_email in emails
+                _get_me_drafts(user_email=user_email)  # type: ignore
+                for user_email in emails
             )
         )
 
@@ -238,7 +239,9 @@ class FindingHistoricVerificationLoader(DataLoader):
         self, finding_ids: Iterable[str]
     ) -> tuple[tuple[FindingVerification], ...]:
         return await collect(
-            tuple(map(_get_historic_verification, finding_ids)),
+            tuple(
+                map(_get_historic_verification, finding_ids)  # type: ignore
+            ),
             workers=32,
         )
 
@@ -271,4 +274,11 @@ class FindingHistoricStateLoader(DataLoader):
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
     ) -> tuple[tuple[FindingState], ...]:
-        return await collect(tuple(map(_get_historic_state, finding_ids)))
+        return await collect(
+            tuple(
+                map(
+                    _get_historic_state,  # type: ignore
+                    finding_ids,
+                )
+            )
+        )

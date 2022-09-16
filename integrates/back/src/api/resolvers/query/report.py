@@ -69,7 +69,7 @@ from organizations.domain import (
     validate_max_acceptance_severity,
     validate_min_acceptance_severity,
 )
-import pytz  # type: ignore
+import pytz
 from settings import (
     TIME_ZONE,
 )

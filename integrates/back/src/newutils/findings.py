@@ -29,7 +29,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
@@ -44,11 +43,9 @@ async def append_records_to_file(
     values = [list(v) for v in [record.values() for record in records]]
     new_file_records = await new_file.read()
     await new_file.seek(0)
-    new_file_header = (
-        cast(bytes, new_file_records).decode("utf-8").split("\n")[0]
-    )
-    new_file_records = r"\n".join(
-        cast(bytes, new_file_records).decode("utf-8").split("\n")[1:]
+    new_file_header = new_file_records.decode("utf-8").split("\n")[0]
+    new_file_records = r"\n".join(  # type: ignore
+        new_file_records.decode("utf-8").split("\n")[1:]
     )
     records_str = ""
     for record in values:

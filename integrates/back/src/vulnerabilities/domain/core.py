@@ -895,7 +895,7 @@ async def verify(
         modified_by = "machine@fluidattacks.com"
     await collect(
         update_metadata_and_state(
-            vulnerability=vuln_to_close,
+            vulnerability=vuln_to_close,  # type: ignore
             new_metadata=VulnerabilityMetadataToUpdate(
                 commit=(
                     close_item.commit
@@ -917,7 +917,7 @@ async def verify(
                 status=VulnerabilityStateStatus.CLOSED,
                 tool=close_item.state.tool
                 if close_item
-                else vuln_to_close.state.tool,
+                else vuln_to_close.state.tool,  # type: ignore
             ),
         )
         for vuln_to_close, close_item in zip_longest(

@@ -127,7 +127,7 @@ async def main() -> None:
             for prefix in response.get("CommonPrefixes", [])
         ]
     findings = [key for key in FINDINGS.keys() if _is_check_available(key)]
-    _groups_roots: list[RootsByGroup] = await collect(
+    _groups_roots: list[RootsByGroup] = await collect(  # type: ignore
         [
             _roots_by_group(loaders, group)
             for group in await loaders.group.load_many(group_names)

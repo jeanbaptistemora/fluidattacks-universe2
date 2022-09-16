@@ -55,7 +55,7 @@ def set_load(*args: Serialized) -> Set[Any]:
 
 
 # Side effects
-safe_pickle.register(set, set_dump, set_load)
+safe_pickle.register(set, set_dump, set_load)  # type: ignore
 safe_pickle.register_enum(FindingSorts)
 safe_pickle.register_enum(FindingStateStatus)
 safe_pickle.register_enum(FindingStatus)

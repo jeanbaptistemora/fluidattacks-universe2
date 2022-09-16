@@ -120,7 +120,7 @@ from organizations_finding_policies import (
     domain as policies_domain,
 )
 import os
-import pytz  # type: ignore
+import pytz
 import random
 from settings.various import (
     TIME_ZONE,
@@ -333,9 +333,8 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
     file_object = UploadFile(
         filename="evidence",
         content_type="image/png",
-        file=SpooledTemporaryFile(  # pylint: disable=consider-using-with
-            mode="wb"
-        ),
+        # pylint: disable-next=consider-using-with
+        file=SpooledTemporaryFile(mode="wb"),  # type: ignore
     )
     await file_object.write(stream.read())
     await file_object.seek(0)

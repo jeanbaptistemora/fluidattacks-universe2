@@ -65,6 +65,6 @@ async def resolve(
     )
 
     return findings_domain.get_tracking_vulnerabilities(
-        vulns_state=vulns_state,
+        vulns_state=vulns_state,  # type: ignore
         vulns_treatment=vulns_treatment,
     )

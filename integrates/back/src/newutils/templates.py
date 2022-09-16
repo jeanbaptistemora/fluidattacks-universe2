@@ -25,19 +25,19 @@ TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
 def error401(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="HTTP401.html", context={"request": request}
     )
 
 
 def error500(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="HTTP500.html", context={"request": request}
     )
 
 
 def graphic_error(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="graphic-error.html",
         context=dict(
             request=request,
@@ -49,7 +49,7 @@ def graphic_error(request: Request) -> HTMLResponse:
 
 def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
     entity_title = entity.title()
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="graphics-for-entity.html",
         context=dict(
             request=request,
@@ -78,7 +78,7 @@ def graphic_view(  # pylint: disable=too-many-arguments
     generator_type: str,
     generator_name: str,
 ) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="graphic.html",
         context=dict(
             request=request,
@@ -102,7 +102,7 @@ def graphic_view(  # pylint: disable=too-many-arguments
 def invalid_invitation(
     request: Request, error: str, entity_name: str = ""
 ) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="invalid_invitation.html",
         context={
             "error": error,
@@ -113,7 +113,7 @@ def invalid_invitation(
 
 
 def login(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="login.html",
         context={
             "request": request,
@@ -128,7 +128,7 @@ def login(request: Request) -> HTMLResponse:
 
 
 def main_app(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="app.html",
         context={
             "request": request,
@@ -143,7 +143,7 @@ def main_app(request: Request) -> HTMLResponse:
 
 
 def unauthorized(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="unauthorized.html",
         context={
             "request": request,
@@ -153,7 +153,7 @@ def unauthorized(request: Request) -> HTMLResponse:
 
 
 async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="valid_invitation.html",
         context={
             "entity_name": entity_name,
@@ -163,7 +163,7 @@ async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
 
 
 async def confirm_deletion(*, request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="valid_delete_confirmation.html",
         context={
             "request": request,
@@ -176,7 +176,7 @@ def invalid_confirm_deletion(
     request: Request,
     error: str,
 ) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="invalid_delete_confirmation.html",
         context={
             "error": error,
@@ -188,7 +188,7 @@ def invalid_confirm_deletion(
 async def reject_invitation(
     request: Request, entity_name: str
 ) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="reject_invitation.html",
         context={
             "entity_name": entity_name,

@@ -12,7 +12,7 @@ from datetime import (
 from dateutil.relativedelta import (  # type: ignore
     relativedelta,
 )
-import pytz  # type: ignore
+import pytz
 from settings import (
     TIME_ZONE,
 )

@@ -34,4 +34,4 @@ def validate_characters(context_value: Any) -> ValidationRule:
                     GraphQLError("Exception - Max characters exceeded")
                 )
 
-    return CharactersThresholdValidation
+    return CharactersThresholdValidation  # type: ignore

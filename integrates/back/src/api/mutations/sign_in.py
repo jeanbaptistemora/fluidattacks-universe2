@@ -77,7 +77,8 @@ async def get_provider_user_info(
 
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            userinfo_endpoint, headers={"Authorization": f"Bearer {token}"}
+            userinfo_endpoint,  # type: ignore
+            headers={"Authorization": f"Bearer {token}"},
         ) as user:
             if user.status != 200:
                 return None
@@ -94,7 +95,9 @@ async def get_provider_user_info(
                             iter(
                                 [
                                     email.get("email", "")
-                                    for email in emails.get("values", "")
+                                    for email in emails.get(  # type: ignore
+                                        "values", ""
+                                    )
                                     if email.get("is_primary")
                                 ]
                             ),

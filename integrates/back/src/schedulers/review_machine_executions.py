@@ -81,7 +81,9 @@ async def main() -> None:
             )
         )
 
-        jobs_description = await describe_jobs(*[job["jobId"] for job in jobs])
+        jobs_description = await describe_jobs(
+            *[job["jobId"] for job in jobs]  # type: ignore
+        )
         logs = await collect(
             [
                 get_log_streams(

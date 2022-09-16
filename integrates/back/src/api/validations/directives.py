@@ -21,7 +21,7 @@ def validate_directives(query: str) -> None:
     """
 
     class DirectivesParser(Parser):
-        def parse_directives(self, is_const: bool) -> None:
+        def parse_directives(self, is_const: bool) -> None:  # type: ignore
             directives = 0
 
             while self.peek(TokenKind.AT):

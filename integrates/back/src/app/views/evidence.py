@@ -72,7 +72,7 @@ async def enforce_group_level_role(
     if requester_role not in allowed_roles:
         response = Response("Access denied")
         response.status_code = 403
-    return response
+    return response  # type: ignore
 
 
 async def get_evidence(request: Request) -> Response:

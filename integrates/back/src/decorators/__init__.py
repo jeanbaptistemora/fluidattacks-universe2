@@ -181,7 +181,7 @@ def concurrent_decorators(
                 # to avoid an ugly traceback, also because if one failed
                 # there is no purpose in letting the remaining ones run
                 for task in tasks:
-                    task.cancel()
+                    task.cancel()  # type: ignore
 
             # If everything succeed let's call the decorated function
             if success and all(success):

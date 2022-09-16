@@ -111,7 +111,7 @@ from organizations import (
     utils as orgs_utils,
     validations as orgs_validations,
 )
-import pytz  # type: ignore
+import pytz
 import re
 from roots import (
     utils as roots_utils,
@@ -997,7 +997,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         )
 
     if validate_error_message(message):
-        send_mail_root_cloning_failed(
+        send_mail_root_cloning_failed(  # type: ignore
             loaders=loaders,
             group_name=group_name,
             modified_date=modified_date,

@@ -1,23 +1,17 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-{
-  outputs,
-  projectPath,
-  ...
-}: {
+{outputs, ...}: {
   lintPython = {
     dirsOfModules = {
       integrates = {
         searchPaths = {
-          pythonMypy = [
-            (projectPath "/integrates/back/src")
-          ];
           source = [
             outputs."/integrates/back/env/pypi/runtime"
             outputs."/integrates/back/env/pypi/unit-tests"
           ];
         };
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/src";
       };
