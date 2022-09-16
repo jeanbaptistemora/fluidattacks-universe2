@@ -36,7 +36,7 @@ from typing import (
             "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(
-                name="cred2", type="HTTPS", user="user test", password="test"
+                name="cred2", type="HTTPS", user="user test", password="t3st"
             ),
         ],
         [
@@ -152,6 +152,32 @@ async def test_add_credentials_fail(
     assert (
         result["errors"][0]["message"]
         == "Exception - Field cannot fill with blank characters"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5", type="HTTPS", user="usertest", password="124"
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Password should start with a letter"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5", type="HTTPS", user="usertest", password="ttr"
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Password should include at least one number"
     )
 
 

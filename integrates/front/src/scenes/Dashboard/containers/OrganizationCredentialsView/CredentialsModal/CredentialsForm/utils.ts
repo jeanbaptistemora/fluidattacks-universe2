@@ -74,6 +74,18 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                   return regExps.alphabetic.test(value[0]);
                 }
+              )
+              .test(
+                "includeNumber",
+                translate.t("validations.credentialsModal.includeNumber"),
+                (value: string | undefined): boolean => {
+                  if (value === undefined || value === "") {
+                    return false;
+                  }
+                  const regex = /\d/u;
+
+                  return regex.test(value);
+                }
               ),
           })
           .test(

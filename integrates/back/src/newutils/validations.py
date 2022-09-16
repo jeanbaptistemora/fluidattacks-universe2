@@ -377,3 +377,10 @@ def validate_int_range(
 def validate_start_letter(value: str) -> None:
     if not value[0].isalpha():
         raise InvalidReportFilter("Password should start with a letter")
+
+
+def validate_include_number(value: str) -> None:
+    if not re.search(r"\d", value):
+        raise InvalidReportFilter(
+            "Password should include at least one number"
+        )

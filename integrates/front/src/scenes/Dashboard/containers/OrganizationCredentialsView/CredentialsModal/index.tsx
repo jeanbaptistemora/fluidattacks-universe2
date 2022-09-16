@@ -69,6 +69,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             case "Exception - Password should start with a letter":
               msgError(t("validations.credentialsModal.startWithLetter"));
               break;
+            case "Exception - Password should include at least one number":
+              msgError(t("validations.credentialsModal.includeNumber"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);
