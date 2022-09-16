@@ -60,11 +60,11 @@ const sizes: Record<TSize, ISize> = {
 
 const variants: Record<TVariant, IVariant> = {
   ghost: {
-    bgColor: "#dddde300",
-    bgColorHover: "#dddde3",
-    borderColor: "#dddde300",
-    color: "#5c5c70",
-    colorHover: "#121216",
+    bgColor: "#80808000",
+    bgColorHover: "#80808040",
+    borderColor: "#80808000",
+    color: "inherit",
+    colorHover: "inherit",
   },
   primary: {
     bgColor: "#bf0b1a",

@@ -19,12 +19,11 @@ const ExternalLink = styled.a.attrs<ExternalLinkProps>({
   target: "_blank",
 })`
   border-radius: 4px;
-  color: #5c5c70;
+  color: inherit;
   padding: 6px;
   text-decoration: underline;
   :hover {
-    background-color: #dddde3;
-    color: #121216;
+    background-color: #80808040;
   }
 `;
 
