@@ -326,7 +326,6 @@ async def populate() -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
                     ),
                     where="192.168.1.20",

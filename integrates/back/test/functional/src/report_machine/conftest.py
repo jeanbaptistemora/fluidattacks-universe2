@@ -295,7 +295,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                     ),
@@ -328,7 +327,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                     ),
@@ -361,7 +359,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                     ),
@@ -394,7 +391,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                     ),

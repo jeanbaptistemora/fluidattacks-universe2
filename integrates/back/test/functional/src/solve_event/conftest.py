@@ -396,7 +396,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2022-09-01T00:45:11+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                         unreliable_last_reattack_requester="test2@gmail.com",

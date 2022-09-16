@@ -112,9 +112,6 @@ pytestmark = [
                                 unreliable_last_reattack_requester=None,
                                 unreliable_last_requested_reattack_date=None,
                                 unreliable_reattack_cycles=0,
-                                unreliable_report_date=(
-                                    "2019-04-08T00:45:15+00:00"
-                                ),
                                 unreliable_source=Source.ASM,
                                 unreliable_treatment_changes=2,
                             )
@@ -175,9 +172,6 @@ pytestmark = [
                                 unreliable_last_reattack_requester=None,
                                 unreliable_last_requested_reattack_date=None,
                                 unreliable_reattack_cycles=0,
-                                unreliable_report_date=(
-                                    "2020-01-03T17:46:10+00:00"
-                                ),
                                 unreliable_source=Source.ASM,
                                 unreliable_treatment_changes=1,
                             )

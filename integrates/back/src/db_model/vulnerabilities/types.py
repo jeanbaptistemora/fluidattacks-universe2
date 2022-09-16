@@ -55,7 +55,6 @@ class VulnerabilityTreatment(NamedTuple):
 
 
 class VulnerabilityUnreliableIndicators(NamedTuple):
-    unreliable_report_date: str = ""
     unreliable_source: Source = Source.ASM
     unreliable_efficacy: Optional[Decimal] = None
     unreliable_last_reattack_date: Optional[str] = None
@@ -156,7 +155,6 @@ class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_last_reattack_requester: Optional[str] = None
     unreliable_last_requested_reattack_date: Optional[str] = None
     unreliable_reattack_cycles: Optional[int] = None
-    unreliable_report_date: Optional[str] = None
     unreliable_source: Optional[Source] = None
     unreliable_treatment_changes: Optional[int] = None
 

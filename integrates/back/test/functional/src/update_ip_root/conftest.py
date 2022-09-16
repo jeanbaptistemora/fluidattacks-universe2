@@ -185,7 +185,6 @@ async def populate() -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
                     ),
                     where="test/data/lib_path/f060/csharp.cs",
@@ -210,7 +209,6 @@ async def populate() -> bool:
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2019-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
                     ),
                     where="test/data/lib_path/f050/csharp.cs",
@@ -233,7 +231,6 @@ async def populate() -> bool:
                         status=VulnerabilityStateStatus.OPEN,
                     ),
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:14+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),

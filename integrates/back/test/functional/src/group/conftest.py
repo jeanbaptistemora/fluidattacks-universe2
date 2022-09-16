@@ -530,7 +530,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:13+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
@@ -564,7 +563,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
@@ -599,7 +597,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
@@ -636,7 +633,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:16+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),

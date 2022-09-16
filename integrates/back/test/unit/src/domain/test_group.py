@@ -131,7 +131,6 @@ async def test_get_vuln_closing_date() -> None:
         ),
         type=VulnerabilityType.INPUTS,
         unreliable_indicators=VulnerabilityUnreliableIndicators(
-            unreliable_report_date="2019-01-08T21:01:26+00:00",
             unreliable_source=Source.ASM,
         ),
         where="https://example.com",
@@ -177,7 +176,6 @@ async def test_get_vuln_opening_date() -> None:
             status=VulnerabilityStateStatus.OPEN,
         ),
         unreliable_indicators=VulnerabilityUnreliableIndicators(
-            unreliable_report_date="2019-01-08T21:01:26+00:00",
             unreliable_source=Source.ASM,
             unreliable_treatment_changes=0,
         ),

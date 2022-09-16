@@ -134,7 +134,6 @@ def test_sort_vulnerabilities() -> None:
             ),
             type=VulnerabilityType.INPUTS,
             unreliable_indicators=VulnerabilityUnreliableIndicators(
-                unreliable_report_date="2018-04-08T00:45:11+00:00",
                 unreliable_source=Source.ASM,
             ),
             where=where,
@@ -158,7 +157,6 @@ def test_sort_vulnerabilities() -> None:
             ),
             type=VulnerabilityType.INPUTS,
             unreliable_indicators=VulnerabilityUnreliableIndicators(
-                unreliable_report_date="2018-04-08T00:45:11+00:00",
                 unreliable_source=Source.ASM,
             ),
             where=where,
