@@ -423,6 +423,14 @@
       "title": "117. Unverifiable files"
     }
   },
+  "F120": {
+    "EN": {
+      "title": "120. Improper dependency pinning"
+    },
+    "ES": {
+      "title": "120. Improper dependency pinning"
+    }
+  },
   "F127": {
     "EN": {
       "title": "127. Lack of data validation - Type confusion"

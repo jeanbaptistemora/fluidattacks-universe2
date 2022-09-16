@@ -107,7 +107,8 @@
     "availability": "ALWAYS",
     "findings": [
       "F079",
-      "F117"
+      "F117",
+      "F120"
     ]
   },
   "skims_http": {
