@@ -37190,6 +37190,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    77 |       <groupId>junit</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (puma v5.1.0) [CVE-2022-24790],16,937,skims,011. Use of software with known vulnerabilities,Use of puma at version 5.1.0 with ['CVE-2022-24790'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+   6 |       unf (>= 0.0.5, < 1.0.0)
+   7 |     http-accept (= 1.7.0)
+   8 |     http-cookie (1.0.4)
+   9 |       domain_name (~> 0.5)
+  10 |     json (= 2.5.1)
+  11 |     method_source (1.0.0)
+  12 |     mime-types (3.3.1)
+  13 |       mime-types-data (~> 3.2015)
+  14 |     mime-types-data (3.2021.0704)
+  15 |     netrc (0.11.0)
+> 16 |     puma (5.1.0)
+  17 |     rest-client (2.1.0)
+  18 |       http-accept (>= 1.7.0, < 2.0)
+  19 |       http-cookie (>= 1.0.2, < 2.0)
+  20 |       mime-types (>= 1.16, < 4.0)
+  21 |       netrc (~> 0.8)
+  22 |     unf (0.1.4)
+  23 |       unf_ext
+  24 |     unf_ext (0.0.7.7)
+  25 |     yaml (0.1.1)
+  26 |
+     ^ Col 0
+",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1) [CVE-2020-7737, GHSA-6m85-wvcr-pgw3]",375,937,skims,011. Use of software with known vulnerabilities,"Use of safetydance at version 0.7.1 with ['CVE-2020-7737', 'GHSA-6m85-wvcr-pgw3'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   365 | safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   366 |   version ""5.2.1""
