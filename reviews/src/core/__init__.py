@@ -73,14 +73,14 @@ def run(config_path: str) -> bool:
 
     if config["platform"] in "gitlab":
         verify_required_vars(["CI_MERGE_REQUEST_IID"])
-        project: GitlabProject = gl.get_project(
+        project: GitlabProject = gl.get_project(  # type: ignore
             url=config["endpoint_url"],
             token=str(os.environ.get("REVIEWS_TOKEN")),
             project_id=config["project_id"],
         )
         pull_request_id: str = str(os.environ.get("CI_MERGE_REQUEST_IID"))
         pull_request: PullRequest = gl.get_pull_request(
-            project=project, pull_request_id=pull_request_id
+            project=project, pull_request_id=pull_request_id  # type: ignore
         )
 
         success = run_tests_gitlab(

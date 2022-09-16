@@ -41,7 +41,7 @@ def get_project(*, url: str, token: str, project_id: str) -> Project:
 
 
 def get_pull_request(*, project: Project, pull_request_id: str) -> PullRequest:
-    raw: MergeRequest = project.rest.mergerequests.get(
+    raw: MergeRequest = project.rest.mergerequests.get(  # type: ignore
         pull_request_id, lazy=False
     )
     return PullRequest(
@@ -66,7 +66,7 @@ def get_state(*, pull_request: MergeRequest) -> str:
 
 
 def get_deltas(*, gql_session: Client, pull_request_id: str) -> int:
-    query: str = gql(
+    query: str = gql(  # type: ignore
         """
         query getDeltas ($id: MergeRequestID!){
             mergeRequest(id: $id) {
@@ -77,7 +77,7 @@ def get_deltas(*, gql_session: Client, pull_request_id: str) -> int:
         }
         """
     )
-    result: dict[str, Any] = gql_session.execute(
+    result: dict[str, Any] = gql_session.execute(  # type: ignore
         query,
         variable_values={"id": f"gid://gitlab/MergeRequest/{pull_request_id}"},
     )
