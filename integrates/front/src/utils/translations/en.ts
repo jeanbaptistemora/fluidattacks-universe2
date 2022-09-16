@@ -390,6 +390,11 @@ export const enTranslations: ResourceKey = {
       cancel: "Cancel",
       confirm: "Confirm",
     },
+    navBar: {
+      help: "Help",
+      news: "News",
+      toDos: "To-do",
+    },
   },
   configuration: {
     close: "Close",
