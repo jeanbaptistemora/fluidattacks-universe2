@@ -7,6 +7,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
+    NumberOutOfRange,
     UnsanitizedInputFound,
 )
 from db_model.groups.types import (
@@ -20,6 +21,7 @@ from newutils.validations import (
     validate_file_exists,
     validate_file_name,
     validate_group_name,
+    validate_int_range,
     validate_sanitized_csv_input,
 )
 import pytest
@@ -108,6 +110,20 @@ def test_validate_group_name() -> None:
     assert not bool(validate_group_name("test"))
     with pytest.raises(InvalidField):
         assert validate_group_name("=test2@")
+
+
+@pytest.mark.parametrize(
+    "value, lower_bound, upper_bound, inclusive",
+    [
+        (10, 11, 12, True),
+        (10, 11, 12, False),
+    ],
+)
+def test_validate_int_range(
+    value: int, lower_bound: int, upper_bound: int, inclusive: bool
+) -> None:
+    with pytest.raises(NumberOutOfRange):
+        assert validate_int_range(value, lower_bound, upper_bound, inclusive)
 
 
 @pytest.mark.parametrize(
