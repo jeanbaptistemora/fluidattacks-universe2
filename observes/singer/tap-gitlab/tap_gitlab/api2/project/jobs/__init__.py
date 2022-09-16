@@ -98,9 +98,9 @@ class JobClient:
         )
 
     def job_stream(
-        self, per_page: int, scopes: FrozenSet[JobStatus]
+        self, start_page: int, per_page: int, scopes: FrozenSet[JobStatus]
     ) -> Stream[JobObj]:
-        return GenericStream(per_page).generic_page_stream(
+        return GenericStream(start_page, per_page).generic_page_stream(
             lambda p: self.jobs_page(p, scopes), GenericStream._is_empty
         )
 
@@ -112,9 +112,9 @@ class JobClient:
         )
 
     def job_id_stream(
-        self, per_page: int, scopes: FrozenSet[JobStatus]
+        self, start_page: int, per_page: int, scopes: FrozenSet[JobStatus]
     ) -> Stream[JobId]:
-        return GenericStream(per_page).generic_page_stream(
+        return GenericStream(start_page, per_page).generic_page_stream(
             lambda p: self.jobs_ids_page(p, scopes), GenericStream._is_empty
         )
 

@@ -35,7 +35,8 @@ _T = TypeVar("_T")
 
 @dataclass(frozen=True)
 class GenericStream:
-    per_page: int
+    _start_page: int
+    _per_page: int
 
     def generic_stream(
         self,
@@ -43,8 +44,8 @@ class GenericStream:
         is_empty: Callable[[_T], Maybe[_T]],
     ) -> Stream[_T]:
         return (
-            infinite_range(1, 1)
-            .map(lambda i: Page.new_page(i, self.per_page).unwrap())
+            infinite_range(self._start_page, 1)
+            .map(lambda i: Page.new_page(i, self._per_page).unwrap())
             .map(get_page)
             .transform(lambda x: from_piter(x))
             .map(is_empty)

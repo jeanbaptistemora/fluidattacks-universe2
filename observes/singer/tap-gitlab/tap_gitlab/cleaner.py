@@ -16,7 +16,7 @@ from fa_purity.stream.transform import (
 import logging
 from tap_gitlab.api2.job import (
     Job,
-    JobId,
+    JobObj,
     JobStatus,
 )
 from tap_gitlab.api2.project.jobs import (
@@ -28,23 +28,30 @@ NOW = datetime.now(timezone.utc)
 
 
 def clean_stuck_jobs(
-    client: JobClient, threshold: timedelta, dry_run: bool
+    client: JobClient, start_page: int, threshold: timedelta, dry_run: bool
 ) -> Cmd[None]:
     # threshold: how old a job should be for considering it stuck
     def is_stuck(job: Job) -> bool:
         diff = NOW - job.dates.created_at
         return diff > threshold
 
-    def mock_cancel(job_id: JobId) -> Cmd[None]:
-        return Cmd.from_cmd(lambda: LOG.info("%s will be cancelled", job_id))
-
     status = frozenset(
         [JobStatus.created, JobStatus.pending, JobStatus.running]
     )
-    stuck_jobs = client.job_stream(100, status).filter(
+    stuck_jobs = client.job_stream(start_page, 100, status).filter(
         lambda j: is_stuck(j.job)
     )
-    cancel_cmd = mock_cancel if dry_run else client.cancel
-    return stuck_jobs.map(lambda j: cancel_cmd(j.job_id)).transform(
+
+    def cancel_cmd(job: JobObj) -> Cmd[None]:
+        diff = NOW - job.job.dates.created_at
+        if dry_run:
+            return Cmd.from_cmd(
+                lambda: LOG.info(
+                    "%s will be cancelled. diff=%s", job.job_id, diff
+                )
+            )
+        return client.cancel(job.job_id)
+
+    return stuck_jobs.map(lambda j: cancel_cmd(j)).transform(
         lambda s: consume(s)
     )
