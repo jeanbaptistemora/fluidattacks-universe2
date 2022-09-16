@@ -116,7 +116,6 @@ def _get_shard_records(
 ) -> Iterator[tuple[Record, ...]]:
     """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
-    processed_records = 0
 
     while True:
         try:
@@ -127,22 +126,14 @@ def _get_shard_records(
 
             yield records
 
-            if records:
-                processed_records += len(records)
-                sleep(1)
-            else:
-                sleep(10)
-
             current_iterator = response.get("NextShardIterator")
 
             if current_iterator is None:
-                LOGGER.warning("Shard closed, moving on")
+                LOGGER.warning("%s closed, moving on", shard_id)
                 break
         except CLIENT.exceptions.ExpiredIteratorException:
-            LOGGER.warning("Iterator expired, moving on")
+            LOGGER.warning("%s expired, moving on", shard_iterator)
             break
-
-    LOGGER.info("%s processed %s records", shard_id, processed_records)
 
 
 def _consume_shard_records(
@@ -155,6 +146,10 @@ def _consume_shard_records(
     batches: dict[Trigger, list[Record]] = defaultdict(list)
 
     for records in _get_shard_records(shard_id, shard_iterator):
+        if not records:
+            sleep(10)
+            continue
+
         if shutdown_event.is_set():
             LOGGER.info("%s shutting down", shard_id)
             break
