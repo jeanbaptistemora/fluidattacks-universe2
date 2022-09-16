@@ -3,19 +3,12 @@
 # SPDX-License-Identifier: MPL-2.0
 {
   inputs,
-  libGit,
   makeScript,
-  makeTemplate,
   outputs,
   projectPath,
   toBashMap,
   ...
-}: let
-  categories = [
-    "functional"
-    "cli"
-  ];
-in {
+}: {
   outputs = builtins.listToAttrs (builtins.map
     (category: {
       name = "/testPython/skims@${category}";
@@ -39,6 +32,7 @@ in {
         entrypoint = ./entrypoint.sh;
         searchPaths = {
           bin = [
+            inputs.nixpkgs.gnugrep
             outputs."/common/utils/wait"
             outputs."/common/utils/kill/port"
             outputs."/common/utils/kill/tree"
@@ -47,26 +41,9 @@ in {
             outputs."/skims/test/mocks/ssl/unsafe"
           ];
           source = [
+            outputs."/common/utils/aws"
             outputs."/skims/config/runtime"
             outputs."/skims/env/development"
-            (makeTemplate {
-              name = "extra";
-              searchPaths = {
-                source = [
-                  libGit
-                  outputs."/common/utils/sops"
-                  outputs."/common/utils/aws"
-                ];
-                bin = [
-                  inputs.nixpkgs.kubectl
-                ];
-              };
-              replace = {
-                __argSecretsFile__ = projectPath "/skims/secrets/dev.yaml";
-                __argIsFunctionalTest__ = builtins.elem category categories;
-              };
-              template = ./template.sh;
-            })
           ];
         };
       };

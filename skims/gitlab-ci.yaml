@@ -167,7 +167,6 @@
     - /testPython/skims@benchmark_weakrand
     - /testPython/skims@benchmark_xpathi
     - /testPython/skims@benchmark_xss
-    - /testPython/skims@functional
     - /testPython/skims@instance_references
     - /testPython/skims@lib_apk
     - /testPython/skims@lib_http
@@ -194,28 +193,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /skims/coverage
-  stage: post-deploy
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/skims/test/cli:
-  image: ghcr.io/fluidattacks/makes:22.09
-  interruptible: true
-  needs:
-    - /integrates/back/deploy/dev
-  resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /skims/test/cli
   stage: post-deploy
   tags:
     - small
@@ -525,36 +502,6 @@
   script:
     - m . /testPython/skims@benchmark_xss
   stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/testPython/skims@functional:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
-  interruptible: true
-  needs:
-    - /integrates/back/deploy/dev
-  resource_group: $CI_COMMIT_REF_NAME-$CI_JOB_NAME
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /testPython/skims@functional
-  stage: post-deploy
   tags:
     - small
   variables:

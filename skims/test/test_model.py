@@ -8,6 +8,7 @@ from model import (
 )
 import os
 import pytest
+import subprocess
 from typing import (
     List,
 )
@@ -107,8 +108,43 @@ def test_model_core_model_from_integrates() -> None:
     )
 
 
-def _get_findings_title(locale: core_model.LocalesEnum) -> List[str]:
-    return [
-        t(finding.value.title, locale=locale)
-        for finding in core_model.FindingEnum
+def _has_method_correct_information(method: core_model.MethodsEnum) -> bool:
+    found: bool = False
+    method_info: core_model.MethodInfo = method.value
+    module_path: str = os.path.join(
+        os.getcwd(), f"skims/skims/{method_info.module}"
+    )
+    file_options: List[str] = [
+        os.path.join(
+            method_info.module, method_info.file_name
+        ),  # lib_http/analyze_headers
+        os.path.join(
+            method_info.module,
+            method_info.finding.name.lower(),
+            method_info.file_name,
+        ),  # lib_path/f001/java
+        os.path.join(
+            method_info.module,
+            method_info.file_name,
+            method_info.finding.name.lower(),
+        ),  # dast/aws/f001
     ]
+    with subprocess.Popen(
+        ["grep", "-lr", method.name, module_path], stdout=subprocess.PIPE
+    ) as proc:
+        stdout, _ = proc.communicate()
+        if proc.returncode == 0:
+            result = stdout.decode().strip("\n")
+            found = any(
+                result.split(".", maxsplit=1)[0].endswith(option)
+                for option in file_options
+            )
+
+    return found
+
+
+@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.xfail
+def test_methods_model() -> None:
+    for method in core_model.MethodsEnum:
+        assert _has_method_correct_information(method)

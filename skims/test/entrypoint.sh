@@ -16,6 +16,7 @@ function main {
       copy "${extra_srcs[$extra_src]}" "${extra_src}"
     done \
     && pushd __project__/skims \
+    && aws_login "dev" "3600" \
     && if ! pytest \
       --cov= \
       --cov-branch \

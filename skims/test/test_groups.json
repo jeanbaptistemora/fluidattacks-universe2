@@ -11,7 +11,6 @@
   "benchmark_weakrand",
   "benchmark_xpathi",
   "benchmark_xss",
-  "functional",
   "instance_references",
   "lib_apk",
   "lib_http",

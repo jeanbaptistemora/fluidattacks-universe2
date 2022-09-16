@@ -64,7 +64,6 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates|forces)/

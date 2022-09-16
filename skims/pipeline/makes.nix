@@ -47,22 +47,11 @@
     stage = "test-code";
     tags = ["small"];
   };
-  gitlabTestFuntional = {
-    rules = gitlabOnlyDevAndTrunk;
-    stage = "post-deploy";
-    tags = ["small"];
-    resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
-    needs = ["/integrates/back/deploy/dev"];
-  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
     tags = ["small"];
   };
-  categoriesIntegrates = [
-    "functional"
-    "cli"
-  ];
 in {
   pipelines = {
     skims = {
@@ -102,11 +91,7 @@ in {
               then 0
               else 1;
             gitlabExtra =
-              (
-                if builtins.elem category categoriesIntegrates
-                then gitlabTestFuntional
-                else gitlabTest
-              )
+              gitlabTest
               // {
                 after_script = ["cp ~/.makes/provenance-* ."];
                 artifacts = {
@@ -132,10 +117,6 @@ in {
                   inputs.skimsTestPythonCategoriesCI;
                 stage = "post-deploy";
               };
-          }
-          {
-            output = "/skims/test/cli";
-            gitlabExtra = gitlabTestFuntional;
           }
           {
             output = "/testTerraform/skims";
