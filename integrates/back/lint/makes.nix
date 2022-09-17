@@ -9,6 +9,7 @@
           source = [
             outputs."/integrates/back/env/pypi/runtime"
             outputs."/integrates/back/env/pypi/unit-tests"
+            outputs."/integrates/back/env/pypi/type-stubs"
           ];
         };
         mypyVersion = "0.971";

@@ -15,7 +15,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 
 
 @require_asm

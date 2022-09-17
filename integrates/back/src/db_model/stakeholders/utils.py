@@ -16,7 +16,7 @@ from .types import (
 from dynamodb.types import (
     Item,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 from typing import (
     Optional,
 )

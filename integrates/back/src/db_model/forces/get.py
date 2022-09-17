@@ -8,9 +8,8 @@ from .constants import (
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (  # type: ignore
+from aioextensions import (
     collect,
-    Iterable,
 )
 from boto3.dynamodb.conditions import (
     Key,
@@ -32,6 +31,9 @@ from db_model.forces.utils import (
 from dynamodb import (
     keys,
     operations,
+)
+from typing import (
+    Iterable,
 )
 
 
@@ -88,7 +90,7 @@ async def _get_executions(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
+    if len(items) == len(requests):  # type: ignore
         response = {
             ForcesExecutionRequest(
                 group_name=execution.group_name, execution_id=execution.id

@@ -35,7 +35,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 
 
 async def update_metadata(

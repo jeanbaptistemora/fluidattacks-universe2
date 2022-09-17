@@ -20,7 +20,7 @@ from db_model.events.enums import (
 from dynamodb.types import (
     Item,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 
 
 def format_evidences(evidences: Item) -> EventEvidences:

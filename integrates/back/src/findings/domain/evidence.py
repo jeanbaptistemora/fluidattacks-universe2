@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from backports import (  # type: ignore
+from backports import (
     csv,
 )
 from custom_exceptions import (

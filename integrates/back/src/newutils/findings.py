@@ -33,7 +33,7 @@ from typing import (
     List,
     Optional,
 )
-import yaml  # type: ignore
+import yaml
 
 
 async def append_records_to_file(

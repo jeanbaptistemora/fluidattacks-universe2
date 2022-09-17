@@ -44,7 +44,7 @@ from newutils import (
 from settings import (
     LOGGING,
 )
-from simplejson.errors import (  # type: ignore
+from simplejson.errors import (
     JSONDecodeError,
 )
 from stakeholders import (

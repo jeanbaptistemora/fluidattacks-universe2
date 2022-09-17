@@ -9,7 +9,7 @@ from datetime import (
     timedelta,
     timezone,
 )
-from dateutil.relativedelta import (  # type: ignore
+from dateutil.relativedelta import (
     relativedelta,
 )
 import pytz

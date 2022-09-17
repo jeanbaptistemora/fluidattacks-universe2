@@ -23,7 +23,7 @@ from db_model.types import (
 from dynamodb.types import (
     Item,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 
 
 def add_org_id_prefix(organization_id: str) -> str:

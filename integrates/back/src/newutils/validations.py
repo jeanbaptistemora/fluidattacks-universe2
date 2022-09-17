@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import bleach  # type: ignore
+import bleach
 from custom_exceptions import (
     DuplicateDraftFound,
     ErrorFileNameAlreadyExists,

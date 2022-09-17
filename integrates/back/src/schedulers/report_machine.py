@@ -168,8 +168,8 @@ from vulnerabilities.domain.utils import (
 from vulnerability_files.domain import (
     map_vulnerabilities_to_dynamo,
 )
-import yaml  # type: ignore
-from yaml.reader import (  # type: ignore
+import yaml
+from yaml.reader import (
     ReaderError,
 )
 

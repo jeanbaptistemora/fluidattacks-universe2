@@ -21,7 +21,7 @@ from dynamodb import (
     keys,
     operations,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 
 
 async def add(*, group: Group) -> None:

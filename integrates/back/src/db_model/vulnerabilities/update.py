@@ -51,7 +51,7 @@ from dynamodb.exceptions import (
     ValidationException,
 )
 import logging
-import simplejson as json  # type: ignore
+import simplejson as json
 from typing import (
     Optional,
 )

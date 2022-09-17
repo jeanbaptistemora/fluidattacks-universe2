@@ -40,7 +40,7 @@ from logging import (
 import logging.config
 import os
 import re
-import requests  # type: ignore
+import requests
 from typing import (
     Any,
     Literal,

@@ -44,7 +44,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 from typing import (
     List,
     Optional,

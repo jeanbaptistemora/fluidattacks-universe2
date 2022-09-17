@@ -36,7 +36,7 @@ from roots.validations import (
     validate_active_root,
     validate_git_root,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 from toe.lines.validations import (
     validate_loc,
     validate_modified_date,

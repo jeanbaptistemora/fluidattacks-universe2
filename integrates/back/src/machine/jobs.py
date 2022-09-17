@@ -28,7 +28,7 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     parse as date_parse,
 )
 from db_model.groups.types import (
