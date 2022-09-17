@@ -23,7 +23,9 @@ from db_model.forces.types import (
 async def generate_one(group: str) -> dict:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(group)
+    ] = await utils.get_all_time_forces_executions(
+        group
+    )  # type: ignore
 
     executions_in_strict_mode = tuple(
         execution

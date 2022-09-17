@@ -9,7 +9,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -125,7 +125,9 @@ async def generate_all() -> None:
         async for org_id, org_name, _ in iterate_organizations_and_groups():
             for portfolio, groups in await get_portfolios_groups(org_name):
                 document = format_document(
-                    document=await get_many_groups_document(groups, days),
+                    document=await get_many_groups_document(
+                        groups, days  # type: ignore
+                    ),
                     y_label=y_label,
                     tick_format=False,
                 )

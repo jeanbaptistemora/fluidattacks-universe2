@@ -20,7 +20,7 @@ from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -438,13 +438,17 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         workers=32,
     )
 
-    best_cvssf = get_best_organization(organizations=all_organizations_data)
-    worst_cvssf = get_worst_organization(organizations=all_organizations_data)
+    best_cvssf = get_best_organization(
+        organizations=all_organizations_data  # type: ignore
+    )
+    worst_cvssf = get_worst_organization(
+        organizations=all_organizations_data  # type: ignore
+    )
     best_portfolio_cvssf = get_best_organization(
-        organizations=all_portfolios_data
+        organizations=all_portfolios_data  # type: ignore
     )
     worst_portfolio_cvssf = get_worst_organization(
-        organizations=all_portfolios_data
+        organizations=all_portfolios_data  # type: ignore
     )
 
     header: str = "Categories"

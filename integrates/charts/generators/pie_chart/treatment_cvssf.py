@@ -81,7 +81,7 @@ async def get_data_one_group(group: str) -> Treatment:
         if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
             treatment.update(
                 {
-                    status: Decimal(
+                    status: Decimal(  # type: ignore
                         finding_cvssf[vulnerability.finding_id]
                     ).quantize(Decimal("0.001"))
                 }

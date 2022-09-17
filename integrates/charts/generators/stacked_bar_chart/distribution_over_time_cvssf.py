@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -82,7 +82,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=get_min_date_unformatted(accepted["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 
@@ -102,7 +106,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=translate_date(accepted["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 
@@ -122,7 +130,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=get_min_date_formatted(accepted["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 

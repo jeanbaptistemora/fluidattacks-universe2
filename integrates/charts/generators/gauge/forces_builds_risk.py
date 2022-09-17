@@ -29,7 +29,9 @@ from newutils.validations import (
 async def generate_one(*, group: str) -> dict:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(group)
+    ] = await utils.get_all_time_forces_executions(
+        group
+    )  # type: ignore
 
     executions_in_strict_mode: tuple[ForcesExecution, ...] = tuple(
         execution
@@ -65,7 +67,7 @@ async def generate_one(*, group: str) -> dict:
     successful_executions_in_strict_mode = tuple(
         execution
         for execution in executions_in_strict_mode
-        if execution.exit_code == 0
+        if execution.exit_code == 0  # type: ignore
     )
 
     return {

@@ -15,7 +15,7 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.bar_chart import (
+from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
@@ -105,7 +105,10 @@ def format_data(data: list[PortfoliosGroupsInfo]) -> dict:
         data=dict(
             columns=[
                 ["Open exposure"]
-                + [utils.format_cvssf_log(group.value) for group in data],
+                + [
+                    utils.format_cvssf_log(group.value)  # type: ignore
+                    for group in data
+                ],
             ],
             colors={
                 "Open exposure": RISK.more_agressive,

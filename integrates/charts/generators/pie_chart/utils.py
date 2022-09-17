@@ -5,7 +5,7 @@
 from charts.colors import (
     RISK,
 )
-from charts.generators.pie_chart import (
+from charts.generators.pie_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.utils import (

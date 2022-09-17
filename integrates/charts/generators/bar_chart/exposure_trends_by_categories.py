@@ -15,7 +15,7 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.bar_chart import (
+from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
@@ -214,7 +214,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             columns=[
                 ["Exposure"]
                 + [
-                    format_cvssf_log_adjusted(category.value)
+                    format_cvssf_log_adjusted(category.value)  # type: ignore
                     for category in categories_trend
                 ],
             ],

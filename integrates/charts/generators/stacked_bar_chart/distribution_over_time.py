@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -82,7 +82,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=translate_date(accepted["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 
@@ -102,7 +106,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=get_min_date_unformatted(closed["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 
@@ -122,7 +130,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     closed=closed["y"],
                     opened=opened["y"],
                     date=get_min_date_formatted(closed["x"]),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=(
+                        opened["y"]  # type: ignore
+                        + closed["y"]
+                        + accepted["y"]
+                    ),
                 )
             )
 
@@ -228,7 +240,9 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_distribution_document(
-                document=await get_many_groups_document(groups, loaders),
+                document=await get_many_groups_document(
+                    groups, loaders  # type: ignore
+                ),
                 y_label=y_label,
             )
             utils.json_dump(

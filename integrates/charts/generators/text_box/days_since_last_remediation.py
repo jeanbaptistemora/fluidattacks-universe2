@@ -34,7 +34,10 @@ async def generate_one(group: str) -> Decimal:
         await loaders.group_unreliable_indicators.load(group)
     )
 
-    return group_indicators.last_closed_vulnerability_days or Decimal("0.0")
+    return (
+        group_indicators.last_closed_vulnerability_days  # type: ignore
+        or Decimal("0.0")
+    )
 
 
 async def get_many_groups(groups: Tuple[str, ...]) -> Decimal:
@@ -48,8 +51,9 @@ def format_data(last_closing_date: Decimal) -> dict:
 
 
 def format_csv_data(last_closing_date: Decimal) -> dict:
-    return utils.CsvData(
-        headers=["Days since last remediation"], rows=[[last_closing_date]]
+    return utils.CsvData(  # type: ignore
+        headers=["Days since last remediation"],
+        rows=[[last_closing_date]],  # type: ignore
     )
 
 
@@ -61,7 +65,9 @@ async def generate_all() -> None:
             document=format_data(last_closing_date=last_closing_date),
             entity="group",
             subject=group,
-            csv_document=format_csv_data(last_closing_date=last_closing_date),
+            csv_document=format_csv_data(
+                last_closing_date=last_closing_date  # type: ignore
+            ),
         )
 
     async for org_id, _, org_groups in (
@@ -72,7 +78,9 @@ async def generate_all() -> None:
             document=format_data(last_closing_date=last_closing_date),
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(last_closing_date=last_closing_date),
+            csv_document=format_csv_data(
+                last_closing_date=last_closing_date  # type: ignore
+            ),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
@@ -82,7 +90,7 @@ async def generate_all() -> None:
                 document=format_data(last_closing_date=last_closing_date),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(
+                csv_document=format_csv_data(  # type: ignore
                     last_closing_date=last_closing_date
                 ),
             )

@@ -181,10 +181,10 @@ async def get_totals_by_week(
     sprint: bool = False,
 ) -> tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
-        had_state_by_then(
+        had_state_by_then(  # type: ignore
             last_day=last_day,
             state=VulnerabilityStateStatus.OPEN,
-            vulnerabilities=chunked_vulnerabilities,
+            vulnerabilities=chunked_vulnerabilities,  # type: ignore
             findings_cvssf=findings_cvssf,
             sprint=sprint,
         )
@@ -192,10 +192,10 @@ async def get_totals_by_week(
     )
 
     closed_vulnerabilities = sum(
-        had_state_by_then(
+        had_state_by_then(  # type: ignore
             last_day=last_day,
             state=VulnerabilityStateStatus.CLOSED,
-            vulnerabilities=chunked_vulnerabilities,
+            vulnerabilities=chunked_vulnerabilities,  # type: ignore
             findings_cvssf=findings_cvssf,
             sprint=sprint,
         )
@@ -226,7 +226,7 @@ async def generate_one(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in findings)
+        tuple(finding.id for finding in findings)  # type: ignore
     )
 
     opened_current_sprint, closed_current_sprint = await get_totals_by_week(

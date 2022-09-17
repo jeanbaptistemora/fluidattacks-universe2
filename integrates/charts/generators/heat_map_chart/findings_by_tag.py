@@ -9,7 +9,7 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from charts.generators.heat_map_chart import (
+from charts.generators.heat_map_chart import (  # type: ignore
     format_csv_data,
 )
 from dataloaders import (

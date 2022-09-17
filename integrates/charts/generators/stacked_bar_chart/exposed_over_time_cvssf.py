@@ -15,7 +15,7 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -111,10 +111,10 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],
-                    medium=medium["y"],
-                    high=high["y"],
-                    critical=critical["y"],
+                    low=low["y"],  # type: ignore
+                    medium=medium["y"],  # type: ignore
+                    high=high["y"],  # type: ignore
+                    critical=critical["y"],  # type: ignore
                     data_date=translate_date(low["x"]),
                 )
             )
@@ -133,10 +133,10 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_monthly.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],
-                    medium=medium["y"],
-                    high=high["y"],
-                    critical=critical["y"],
+                    low=low["y"],  # type: ignore
+                    medium=medium["y"],  # type: ignore
+                    high=high["y"],  # type: ignore
+                    critical=critical["y"],  # type: ignore
                     data_date=get_min_date_unformatted(low["x"]),
                 )
             )
@@ -155,10 +155,10 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_yearly.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],
-                    medium=medium["y"],
-                    high=high["y"],
-                    critical=critical["y"],
+                    low=low["y"],  # type: ignore
+                    medium=medium["y"],  # type: ignore
+                    high=high["y"],  # type: ignore
+                    critical=critical["y"],  # type: ignore
                     data_date=get_min_date_formatted(low["x"]),
                 )
             )

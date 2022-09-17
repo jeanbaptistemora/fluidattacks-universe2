@@ -60,7 +60,7 @@ async def get_data_one_group(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in group_findings)
+        tuple(finding.id for finding in group_findings)  # type: ignore
     )
 
     vulnerabilities_excluding_permanently_accepted: tuple[str, ...] = tuple(
@@ -73,7 +73,7 @@ async def get_data_one_group(
         VulnerabilityVerification, ...
     ] = await collect(
         tuple(
-            get_historic_verification(loaders, vulnerability)
+            get_historic_verification(loaders, vulnerability)  # type: ignore
             for vulnerability in vulnerabilities_excluding_permanently_accepted
         ),
         workers=32,

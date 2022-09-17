@@ -9,7 +9,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -64,7 +64,7 @@ async def get_data_one_group(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in group_findings)
+        tuple(finding.id for finding in group_findings)  # type: ignore
     )
     finding_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
@@ -115,13 +115,15 @@ def format_assigned(
         status.update({vulnerability.state.status: cvssf})
         if (
             vulnerability.state.status == VulnerabilityStateStatus.OPEN
-            and vulnerability.treatment.status
+            and vulnerability.treatment.status  # type: ignore
             in {
                 VulnerabilityTreatmentStatus.ACCEPTED,
                 VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             }
         ):
-            treatment.update({vulnerability.treatment.status: cvssf})
+            treatment.update(
+                {vulnerability.treatment.status: cvssf}  # type: ignore
+            )
 
     remaining_open: Decimal = Decimal(
         status[VulnerabilityStateStatus.OPEN]

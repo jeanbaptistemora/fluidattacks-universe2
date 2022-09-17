@@ -12,7 +12,7 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.bar_chart import (
+from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.bar_chart.mttr_benchmarking_cvssf import (

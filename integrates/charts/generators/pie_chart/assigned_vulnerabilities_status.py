@@ -12,7 +12,7 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.pie_chart import (
+from charts.generators.pie_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.utils import (
@@ -49,7 +49,7 @@ async def get_data_one_group(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in findings)
+        tuple(finding.id for finding in findings)  # type: ignore
     )
 
     return Counter(

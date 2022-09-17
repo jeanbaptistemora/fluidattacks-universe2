@@ -12,7 +12,7 @@ from async_lru import (
 from charts.colors import (
     TREATMENT,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -62,27 +62,31 @@ async def get_data_one_group(group: str) -> Counter[str]:
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await context.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in group_findings)
+        tuple(finding.id for finding in group_findings)  # type: ignore
     )
 
     temporarily = Counter(
         [
-            f"{vuln.treatment.modified_by}/{TreatmentStatus.ACCEPTED}"
+            f"{vuln.treatment.modified_by}/"  # type: ignore
+            f"{TreatmentStatus.ACCEPTED}"
             for vuln in vulnerabilities
-            if vuln.treatment.status == TreatmentStatus.ACCEPTED
+            if vuln.treatment.status  # type: ignore
+            == TreatmentStatus.ACCEPTED
             and vuln.state.status == StateStatus.OPEN
         ]
     )
     permanently = Counter(
         [
             (
-                f"{vuln.treatment.modified_by}"
+                f"{vuln.treatment.modified_by}"  # type: ignore
                 "/"
                 f"{TreatmentStatus.ACCEPTED_UNDEFINED}"
             )
             for vuln in vulnerabilities
-            if vuln.treatment.status == TreatmentStatus.ACCEPTED_UNDEFINED
-            and vuln.treatment.acceptance_status == AcceptanceStatus.APPROVED
+            if vuln.treatment.status  # type: ignore
+            == TreatmentStatus.ACCEPTED_UNDEFINED
+            and vuln.treatment.acceptance_status  # type: ignore
+            == AcceptanceStatus.APPROVED
             and vuln.state.status == StateStatus.OPEN
         ]
     )

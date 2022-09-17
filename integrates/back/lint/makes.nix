@@ -22,7 +22,7 @@
           outputs."/integrates/back/charts/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        # mypyVersion = "0.971";
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/charts/generators";
       };

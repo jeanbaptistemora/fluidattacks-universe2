@@ -96,7 +96,7 @@ async def generate_all() -> None:
         ):
             document = format_data(
                 undefined_count=await get_undefined_count_many_groups(
-                    loaders, group_names
+                    loaders, group_names  # type: ignore
                 ),
             )
             utils.json_dump(

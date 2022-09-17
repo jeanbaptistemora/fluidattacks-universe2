@@ -20,7 +20,9 @@ from db_model.forces.types import (
 async def generate_one(group: str) -> ForcesReport:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(group)
+    ] = await utils.get_all_time_forces_executions(
+        group
+    )  # type: ignore
     unique_executions = set(
         f"{execution.repo}{execution.branch}" for execution in executions
     )

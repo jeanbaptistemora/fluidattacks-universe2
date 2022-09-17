@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -59,7 +59,7 @@ async def get_data_one_group(group: str) -> dict[str, List[Vulnerability]]:
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        finding_ids
+        finding_ids  # type: ignore
     )
 
     for vulnerability in vulnerabilities:
@@ -92,10 +92,10 @@ def format_assigned(
     )
 
     treatment: Counter[str] = Counter(
-        vulnerability.treatment.status
+        vulnerability.treatment.status  # type: ignore
         for vulnerability in vulnerabilities
         if vulnerability.state.status == VulnerabilityStateStatus.OPEN
-        and vulnerability.treatment.status
+        and vulnerability.treatment.status  # type: ignore
         in {
             VulnerabilityTreatmentStatus.ACCEPTED,
             VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,

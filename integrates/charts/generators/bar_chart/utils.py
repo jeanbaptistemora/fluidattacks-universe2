@@ -302,7 +302,7 @@ async def get_oldest_open_age(
 ) -> Decimal:
     oldest_open_age: Tuple[int, ...] = await collect(
         tuple(
-            _get_oldest_open_age(group=group, loaders=loaders)
+            _get_oldest_open_age(group=group, loaders=loaders)  # type: ignore
             for group in groups
         ),
         workers=24,

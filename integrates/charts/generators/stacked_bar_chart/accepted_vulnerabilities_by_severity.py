@@ -13,7 +13,7 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (

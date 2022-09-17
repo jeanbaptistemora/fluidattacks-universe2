@@ -13,7 +13,7 @@ from charts.generators.pie_chart.availability import (
     EventsAvailability,
     get_data_one_group,
 )
-from charts.generators.stacked_bar_chart import (
+from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (

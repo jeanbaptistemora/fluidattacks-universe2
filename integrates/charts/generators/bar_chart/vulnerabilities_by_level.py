@@ -45,7 +45,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
 
     return Counter(
         [
-            vulnerability.custom_severity
+            vulnerability.custom_severity  # type: ignore
             for vulnerability in vulnerabilities
             if vulnerability.custom_severity is not None
             and vulnerability.custom_severity >= 0

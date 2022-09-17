@@ -114,7 +114,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Severity:
 async def get_data_many_groups(
     groups: List[str], loaders: Dataloaders
 ) -> Severity:
-    groups_data: List[Severity] = await collect(
+    groups_data: List[Severity] = await collect(  # type: ignore
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 

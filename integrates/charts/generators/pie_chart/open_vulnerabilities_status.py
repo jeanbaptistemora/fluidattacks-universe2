@@ -9,7 +9,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.pie_chart import (
+from charts.generators.pie_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.pie_chart.utils import (
