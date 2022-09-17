@@ -6,13 +6,6 @@ from __future__ import (
     annotations,
 )
 
-from contextlib import (
-    suppress,
-)
-from dns import (
-    exception,
-    resolver,
-)
 from http_headers import (
     as_string,
     content_security_policy,
@@ -533,62 +526,10 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     )
 
 
-def _query_dns(
-    domain: str,
-    timeout: float = 2.0,
-) -> list:
-
-    resolution = resolver.Resolver()
-    record_type = "TXT"
-    try:
-        resolution.resolve(domain, record_type, lifetime=timeout)
-        try:
-            resource_records = list(
-                map(
-                    lambda r: r.strings,
-                    resolution.resolve(
-                        "_dmarc." + domain, record_type, lifetime=timeout
-                    ),
-                )
-            )
-            _resource_record = [
-                resource_record[0][:0].join(resource_record)
-                for resource_record in resource_records
-                if resource_record
-            ]
-            records = [r.decode() for r in _resource_record]
-        except resolver.NXDOMAIN:
-            records = []
-    except exception.DNSException as exc:
-        raise exc
-    return records
-
-
-def _check_dns_records(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
-    header: Optional[Header] = None
-    domain: str
-    records: list[str]
-
-    domain = ctx.url_ctx.get_base_domain()
-    with suppress(exception.DNSException):
-        records = _query_dns(domain)
-        if len(records) == 0:
-            locations.append("check_dns_records.missing_dmarc")
-
-    return _create_vulns(
-        locations=locations,
-        header=header,
-        ctx=ctx,
-        method=core_model.MethodsEnum.CHECK_DNS_RECORDS,
-    )
-
-
 CHECKS: Dict[
     core_model.FindingEnum,
     List[Callable[[HeaderCheckCtx], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F182: [_check_dns_records],
     core_model.FindingEnum.F015: [_www_authenticate],
     core_model.FindingEnum.F023: [_location],
     core_model.FindingEnum.F128: [_set_cookie_httponly],

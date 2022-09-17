@@ -18,6 +18,7 @@ from html_ import (
 )
 from lib_http import (
     analyze_content,
+    analyze_dns,
     analyze_headers,
 )
 from lib_http.types import (
@@ -70,6 +71,7 @@ CHECKS: Tuple[
     ...,
 ] = (
     (analyze_content.get_check_ctx, analyze_content.CHECKS),
+    (analyze_dns.get_check_ctx, analyze_dns.CHECKS),
     (analyze_headers.get_check_ctx, analyze_headers.CHECKS),
 )
 

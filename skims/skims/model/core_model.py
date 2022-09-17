@@ -2165,7 +2165,7 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.DAST,
     )
     CHECK_DNS_RECORDS = MethodInfo(
-        file_name="analyze_headers",
+        file_name="analyze_dns",
         name="check_dns_records",
         module="lib_http",
         finding=FindingEnum.F182,
