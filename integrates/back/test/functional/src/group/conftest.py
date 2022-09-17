@@ -26,7 +26,7 @@ from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (
+from db_model.findings.types import (  # type: ignore
     Finding,
     Finding31Severity,
     FindingEvidence,
@@ -422,7 +422,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url=(
+                            url=(  # type: ignore
                                 "group1-3c475384-834c-47b0-ac71-",
                                 "a41a022e401c-animation",
                             ),

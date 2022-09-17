@@ -130,7 +130,7 @@ async def test_solve_event() -> None:
             info=info,
             event_id="538745942",
             hacker_email="unittesting@fluidattacks.com",
-            reason=None,
+            reason=None,  # type: ignore
             other=None,
         )
 
@@ -192,7 +192,7 @@ async def test_add_comment() -> None:
             parent_id=str(int(comment_id) + 1),
             id=str(round(time() * 1000)),
         )
-        assert await events_domain.add_comment(
+        assert await events_domain.add_comment(  # type: ignore
             get_new_context(),
             inv_comment_data,
             user_email,
@@ -223,7 +223,7 @@ async def test_update_evidence() -> None:
     loaders.event.clear(event_id)
     event_updated: Event = await loaders.event.load(event_id)
     assert (
-        event_updated.evidences.file_1.file_name
+        event_updated.evidences.file_1.file_name  # type: ignore
         == "oneshottest_418900978_evidence_file_1.csv"
     )
 

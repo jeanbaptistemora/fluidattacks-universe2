@@ -15,7 +15,7 @@ from dataloaders import (
 from findings.domain import (
     approve_draft,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest
@@ -33,13 +33,13 @@ pytestmark = [
 async def test_approve_draft() -> None:
     finding_id = "475041513"
     user_email = "unittest@fluidattacks.com"
-    context: Response = await create_dummy_session(user_email)
-    loaders: Dataloaders = context.loaders
+    context: Response = await create_dummy_session(user_email)  # type: ignore
+    loaders: Dataloaders = context.loaders  # type: ignore
     historic_state_loader = loaders.vulnerability_historic_state
     historic_treatment_loader = loaders.vulnerability_historic_treatment
 
     approval_date = await approve_draft(
-        context.loaders,
+        context.loaders,  # type: ignore
         finding_id,
         user_email,
         requests_utils.get_source_new(context),

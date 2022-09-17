@@ -14,7 +14,7 @@ from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (
+from db_model.findings.types import (  # type: ignore
     Finding,
     Finding31Severity,
     FindingEvidence,
@@ -96,7 +96,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         nickname="nickname",
                         other=None,
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                         url="https://gitlab.com/fluidattacks/universe",
                     ),
                     type=RootType.GIT,
@@ -118,7 +118,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         other=None,
                         port="8080",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.IP,
                 ),
@@ -141,7 +141,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.URL,
                 ),
@@ -176,7 +176,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         nickname="nickname",
                         other=None,
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                         url="https://gitlab.com/fluidattacks/repo",
                     ),
                     type=RootType.GIT,
@@ -199,7 +199,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         other=None,
                         port="8080",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.IP,
                 ),
@@ -222,7 +222,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.URL,
                 ),

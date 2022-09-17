@@ -20,7 +20,9 @@
         searchPaths.source = [
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/charts/pypi"
+          outputs."/integrates/back/env/pypi/type-stubs"
         ];
+        # mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/charts/generators";
       };
@@ -35,14 +37,18 @@
       integratesBackDeployPermissionsMatrix = {
         searchPaths.source = [
           outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/env/pypi/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
         searchPaths.source = [
           outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/env/pypi/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/migrations";
       };
@@ -50,14 +56,18 @@
         searchPaths.source = [
           outputs."/integrates/back/env/pypi/unit-tests"
           outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/env/pypi/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/test";
       };
       integratesBackTestE2e = {
         searchPaths.source = [
           outputs."/integrates/web/e2e/pypi"
+          outputs."/integrates/back/env/pypi/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/test/e2e/src";
       };

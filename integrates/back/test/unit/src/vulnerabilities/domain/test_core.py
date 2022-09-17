@@ -15,7 +15,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityToolImpact,
     VulnerabilityType,
 )
-from db_model.vulnerabilities.types import (
+from db_model.vulnerabilities.types import (  # type: ignore
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTool,
@@ -26,7 +26,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from newutils.datetime import (
@@ -192,7 +192,7 @@ async def test_get_open_vulnerabilities_specific_by_type(
     results = await get_open_vulnerabilities_specific_by_type(
         loaders, finding_id
     )
-    assert results == expected
+    assert results == expected  # type: ignore
 
 
 async def test_get_reattack_requester() -> None:

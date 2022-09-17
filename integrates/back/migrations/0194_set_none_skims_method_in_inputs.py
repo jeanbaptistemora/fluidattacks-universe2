@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -52,7 +53,7 @@ from typing import (
     Optional,
     Tuple,
 )
-import yaml  # type: ignore
+import yaml
 
 logging.config.dictConfig(LOGGING)
 

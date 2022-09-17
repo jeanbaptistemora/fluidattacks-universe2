@@ -10,7 +10,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.findings.enums import (
-    FindingVerificationStatus,
+    FindingVerificationStatus as FVStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -63,9 +63,9 @@ async def test_request_verification_vuln(
 
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.verification.status == FindingVerificationStatus.REQUESTED
+    assert finding.verification.status == FVStatus.REQUESTED  # type: ignore
     vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert (
-        vulnerability.verification.status
+        vulnerability.verification.status  # type: ignore
         == VulnerabilityVerificationStatus.REQUESTED
     )

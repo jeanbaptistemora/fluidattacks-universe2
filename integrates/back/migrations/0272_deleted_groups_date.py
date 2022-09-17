@@ -39,7 +39,7 @@ from organizations.domain import (
 from settings import (
     LOGGING,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 import time
 
 logging.config.dictConfig(LOGGING)

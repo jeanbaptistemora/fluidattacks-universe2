@@ -68,7 +68,7 @@ async def confirm_deletion(
             url_token=access_with_deletion.confirm_deletion.url_token,
         )
     if user_email == email:
-        return await complete_deletion(
+        return await complete_deletion(  # type: ignore
             loaders=get_new_context(), email=user_email
         )
 
@@ -109,8 +109,9 @@ async def get_graphql_result(
 ) -> dict[str, Any]:
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)
-    request = apply_context_attrs(
-        request, loaders=context if context else get_new_context()
+    request = apply_context_attrs(  # type: ignore
+        request,  # type: ignore
+        loaders=context if context else get_new_context(),
     )
     _, result = await graphql(SCHEMA, data, context_value=request)
 

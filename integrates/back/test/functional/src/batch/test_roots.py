@@ -61,13 +61,13 @@ async def test_queue_sync_git_roots_real_ssh_ok(
     result = await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),
+        roots=(root_1,),  # type: ignore
         group_name="group1",
     )
-    assert result.success
+    assert result.success  # type: ignore
     # restore db state
-    if result.dynamo_pk:
-        await delete_action(dynamodb_pk=result.dynamo_pk)
+    if result.dynamo_pk:  # type: ignore
+        await delete_action(dynamodb_pk=result.dynamo_pk)  # type: ignore
 
 
 @pytest.mark.asyncio
@@ -86,13 +86,13 @@ async def test_queue_sync_git_roots_real_https_ok(
     result = await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),
+        roots=(root_1,),  # type: ignore
         group_name="group1",
     )
-    assert result.success
+    assert result.success  # type: ignore
     # restore db state
-    if result.dynamo_pk:
-        await delete_action(dynamodb_pk=result.dynamo_pk)
+    if result.dynamo_pk:  # type: ignore
+        await delete_action(dynamodb_pk=result.dynamo_pk)  # type: ignore
 
 
 @pytest.mark.asyncio
@@ -120,7 +120,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
     result = await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),
+        roots=(root_1,),  # type: ignore
         group_name="group1",
     )
     assert result is None
@@ -151,7 +151,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
     result = await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),
+        roots=(root_1,),  # type: ignore
         group_name="group1",
     )
     assert result is None
@@ -192,7 +192,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
         await clone_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
-            roots=(root_1,),
+            roots=(root_1,),  # type: ignore
             group_name="group1",
         )
 
@@ -214,7 +214,7 @@ async def test_queue_sync_git_roots_no_creds(
         await clone_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
-            roots=(root_1,),
+            roots=(root_1,),  # type: ignore
             group_name="group1",
         )
 

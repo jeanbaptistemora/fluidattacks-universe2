@@ -55,7 +55,7 @@ async def test_add_push_token(populate: bool, email: str) -> None:
 
     loaders = get_new_context()
     stakeholder = await loaders.stakeholder.load(email)
-    assert token in stakeholder.push_tokens
+    assert token in stakeholder.push_tokens  # type: ignore
 
 
 @pytest.mark.asyncio

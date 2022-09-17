@@ -17,7 +17,7 @@ from aioextensions import (
     run,
 )
 import os
-from roots import (
+from roots import (  # type: ignore
     dal as roots_dal,
 )
 from typing import (

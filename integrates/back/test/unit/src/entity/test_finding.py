@@ -27,7 +27,7 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from groups.domain import (
@@ -55,7 +55,9 @@ async def _get_result(
 ) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=user)
-    request = apply_context_attrs(request, loaders or get_new_context())
+    request = apply_context_attrs(
+        request, loaders or get_new_context()  # type: ignore
+    )
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 

@@ -9,7 +9,7 @@ from . import (
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest

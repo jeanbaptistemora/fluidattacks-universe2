@@ -19,7 +19,7 @@ from groups import (
     dal as groups_dal,
 )
 import os
-from roots import (
+from roots import (  # type: ignore
     dal as roots_dal,
 )
 import time

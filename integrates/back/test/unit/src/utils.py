@@ -18,7 +18,7 @@ from newutils import (
 from redis_cluster.operations import (
     redis_set_entity_attr,
 )
-from requests import (  # type: ignore
+from requests import (
     Request,
 )
 from settings import (
@@ -35,7 +35,7 @@ def create_dummy_simple_session(
     username: str = "unittest",
 ) -> Request:
     request = Request("GET", "/")
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     setattr(
         request,
         "session",
@@ -66,14 +66,14 @@ async def create_dummy_session(
         await redis_set_entity_attr(
             entity="session",
             attr="jti",
-            email=payload["user_email"],
+            email=payload["user_email"],  # type: ignore
             value=payload["jti"],
             ttl=SESSION_COOKIE_AGE,
         )
         await redis_set_entity_attr(
             entity="session",
             attr="jwt",
-            email=payload["user_email"],
+            email=payload["user_email"],  # type: ignore
             value=token,
             ttl=SESSION_COOKIE_AGE,
         )
@@ -83,16 +83,16 @@ async def create_dummy_session(
 
 def create_dummy_info(request: Request) -> GraphQLResolveInfo:
     return GraphQLResolveInfo(
-        field_name=None,
-        field_nodes=None,
-        return_type=None,
-        parent_type=None,
-        path=None,
-        schema=None,
-        fragments=None,
+        field_name=None,  # type: ignore
+        field_nodes=None,  # type: ignore
+        return_type=None,  # type: ignore
+        parent_type=None,  # type: ignore
+        path=None,  # type: ignore
+        schema=None,  # type: ignore
+        fragments=None,  # type: ignore
         root_value=None,
-        operation=None,
-        variable_values=None,
+        operation=None,  # type: ignore
+        variable_values=None,  # type: ignore
         context=request,
-        is_awaitable=None,
+        is_awaitable=None,  # type: ignore
     )

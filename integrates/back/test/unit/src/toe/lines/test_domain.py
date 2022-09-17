@@ -12,7 +12,7 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest

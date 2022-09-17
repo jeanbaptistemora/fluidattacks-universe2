@@ -35,7 +35,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     repo="Repository",
                     grace_period=0,
                     kind="dynamic",
-                    severity_threshold=0.0,
+                    severity_threshold=0.0,  # type: ignore
                     strictness="strict",
                     vulnerabilities=ExecutionVulnerabilities(
                         num_of_accepted_vulnerabilities=1,

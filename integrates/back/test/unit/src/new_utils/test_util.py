@@ -46,7 +46,7 @@ from organizations import (
 )
 import os
 import pytest
-import pytz  # type: ignore
+import pytz
 from redis_cluster.operations import (
     redis_del_entity_attr,
     redis_set_entity_attr,
@@ -161,14 +161,14 @@ async def test_get_jwt_content() -> None:
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=payload["jti"],
         ttl=SESSION_COOKIE_AGE,
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=token,
         ttl=SESSION_COOKIE_AGE,
     )
@@ -193,12 +193,12 @@ async def test_valid_token() -> None:
     token = token_utils.new_encoded_jwt(payload)
     request.cookies[JWT_COOKIE_NAME] = token
     await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE
+        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE  # type: ignore
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=token,
         ttl=SESSION_COOKIE_AGE,
     )
@@ -224,12 +224,12 @@ async def test_valid_api_token() -> None:
     token = token_utils.new_encoded_jwt(payload, api=True)
     request.cookies[JWT_COOKIE_NAME] = token
     await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE
+        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE  # type: ignore
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=token,
         ttl=SESSION_COOKIE_AGE,
     )
@@ -257,7 +257,7 @@ async def test_expired_token() -> None:
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=payload["jti"],
         ttl=5,
     )
@@ -297,12 +297,14 @@ async def test_revoked_token() -> None:
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],
+        email=payload["user_email"],  # type: ignore
         value=payload["jti"],
         ttl=SESSION_COOKIE_AGE,
     )
     await redis_del_entity_attr(
-        entity="session", attr="jti", email=payload["user_email"]
+        entity="session",
+        attr="jti",
+        email=payload["user_email"],  # type: ignore
     )
     with pytest.raises(ExpiredToken):
         assert await token_utils.get_jwt_content(request)
@@ -319,11 +321,11 @@ def test_replace_all() -> None:
 def test_list_to_dict() -> None:
     keys = ["item", "item2", "item3"]
     values = ["hi", "this is a", "item"]
-    test_data = utils.list_to_dict(keys, values)
+    test_data = utils.list_to_dict(keys, values)  # type: ignore
     expected_output = {"item": "hi", "item2": "this is a", "item3": "item"}
-    second_test_data = utils.list_to_dict(keys[0:2], values)
+    second_test_data = utils.list_to_dict(keys[0:2], values)  # type: ignore
     second_expected_output = {"item": "hi", "item2": "this is a", 2: "item"}
-    third_test_data = utils.list_to_dict(keys, values[0:2])
+    third_test_data = utils.list_to_dict(keys, values[0:2])  # type: ignore
     third_expected_output = {"item": "hi", "item2": "this is a", "item3": ""}
     assert test_data == expected_output
     assert second_test_data == second_expected_output
@@ -354,7 +356,9 @@ async def test_create_user() -> None:
     user_info: Stakeholder = await loaders.stakeholder.load(email)
     assert user_info.is_registered
     assert (
-        datetime_utils.get_datetime_from_iso_str(user_info.last_login_date)
+        datetime_utils.get_datetime_from_iso_str(
+            user_info.last_login_date  # type: ignore
+        )
         < now
     )
 
@@ -368,7 +372,7 @@ async def test_create_user() -> None:
     new_loader: Dataloaders = get_new_context()
     new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
     user_last_login_date = datetime_utils.get_datetime_from_iso_str(
-        new_user_info.last_login_date
+        new_user_info.last_login_date  # type: ignore
     )
     assert user_last_login_date > now
 

@@ -36,7 +36,7 @@ async def test_get_contry_code() -> None:
 async def test_check_verification() -> None:
     test_phone_number = "12345678"
     test_code = "US"
-    test_result = await check_verification(
+    test_result = await check_verification(  # type: ignore
         phone_number=test_phone_number, code=test_code
     )
     assert test_result is None
@@ -48,7 +48,9 @@ async def test_check_verification() -> None:
 @pytest.mark.skip(reason="Test should mock the Twilio response")
 async def test_start_verification() -> None:
     test_phone_number = "12345678"
-    test_result = await start_verification(phone_number=test_phone_number)
+    test_result = await start_verification(
+        phone_number=test_phone_number  # type: ignore
+    )
     print(test_result)
     assert test_result is None
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
@@ -58,7 +60,7 @@ async def test_start_verification() -> None:
 @pytest.mark.skip(reason="Test should mock the Twilio response")
 async def test_validate_mobile() -> None:
     test_phone_number = "12345678"
-    test_result = await validate_mobile(test_phone_number)
+    test_result = await validate_mobile(test_phone_number)  # type: ignore
     print(test_result)
     assert test_result is None
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):

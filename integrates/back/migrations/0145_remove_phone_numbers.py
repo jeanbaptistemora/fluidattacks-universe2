@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -55,7 +56,7 @@ async def update(email: str, data: Dict[str, None]) -> bool:
     set_expression = ""
     remove_expression = ""
     expression_names = {}
-    expression_values = {}  # type: ignore
+    expression_values = {}
     for attr, value in data.items():
         if value is None:
             remove_expression += f"#{attr}, "

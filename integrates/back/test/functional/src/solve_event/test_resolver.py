@@ -22,7 +22,7 @@ from db_model.finding_comments.types import (
     FindingComment,
 )
 from db_model.findings.enums import (
-    FindingVerificationStatus,
+    FindingVerificationStatus as FinVStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -109,10 +109,10 @@ async def test_solve_event_on_hold(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
     assert event.state.status == EventStateStatus.CREATED
-    assert finding.verification.status == FindingVerificationStatus.ON_HOLD
-    assert finding.verification.modified_by == email
+    assert finding.verification.status == FinVStatus.ON_HOLD  # type: ignore
+    assert finding.verification.modified_by == email  # type: ignore
     assert (
-        vulnerability.verification.status
+        vulnerability.verification.status  # type: ignore
         == VulnerabilityVerificationStatus.ON_HOLD
     )
 
@@ -136,15 +136,15 @@ async def test_solve_event_on_hold(
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
     assert any(solve_consult in consult.content for consult in consults)
-    assert finding.verification.status == FindingVerificationStatus.REQUESTED
-    assert finding.verification.modified_by != email
-    assert finding.verification.modified_by == requester
+    assert finding.verification.status == FinVStatus.REQUESTED  # type: ignore
+    assert finding.verification.modified_by != email  # type: ignore
+    assert finding.verification.modified_by == requester  # type: ignore
     assert (
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         == requester
     )
     assert (
-        vulnerability.verification.status
+        vulnerability.verification.status  # type: ignore
         == VulnerabilityVerificationStatus.REQUESTED
     )
     assert any(email in consult.email for consult in consults)

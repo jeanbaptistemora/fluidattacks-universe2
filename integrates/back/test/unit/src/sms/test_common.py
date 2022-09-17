@@ -19,7 +19,7 @@ pytestmark = [
 async def test_send_sms_notification() -> None:
     test_phone_number = "12345678"
     test_message = "This is a test message"
-    test_result = await send_sms_notification(
+    test_result = await send_sms_notification(  # type: ignore
         phone_number=test_phone_number,
         message_body=test_message,
     )
@@ -29,7 +29,7 @@ async def test_send_sms_notification() -> None:
     with mock.patch("sms.common.FI_ENVIRONMENT", "production"):
         with mock.patch("sms.common.client.messages.create") as mock_twilio:
             mock_twilio.return_value = expected_sid
-            mock_result = await send_sms_notification(
+            mock_result = await send_sms_notification(  # type: ignore
                 phone_number=test_phone_number,
                 message_body=test_message,
             )

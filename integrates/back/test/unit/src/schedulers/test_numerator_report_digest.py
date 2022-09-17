@@ -29,10 +29,10 @@ def test_get_percent() -> None:
     assert get_percent(0, 10) == "+0%"
     assert get_percent(10, 0) == "-"
     # FP: local testing
-    assert get_percent("0", 10) == "-"  # NOSONAR
+    assert get_percent("0", 10) == "-"  # type: ignore  # NOSONAR
     assert get_percent(-10, 10) == "-100%"
     # FP: local testing
-    assert get_percent(0.55, 10) == "+6%"  # NOSONAR
+    assert get_percent(0.55, 10) == "+6%"  # type: ignore  # NOSONAR
     assert get_percent(2, 3) == "+67%"
     assert get_percent(3, 2) == "+150%"
     assert get_percent(-2, 3) == "-67%"
@@ -278,6 +278,6 @@ async def test_send_mail_numerator_report(
     await _send_mail_report(
         loaders=get_new_context(),
         content=content,
-        report_date="2022-07-08T06:00:00+00:00",
+        report_date="2022-07-08T06:00:00+00:00",  # type: ignore
         responsible="integratesmanager@gmail.com",
     )

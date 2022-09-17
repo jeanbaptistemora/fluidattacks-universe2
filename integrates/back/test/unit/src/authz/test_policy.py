@@ -58,7 +58,7 @@ async def test_get_group_level_role(dynamo_resource: ServiceResource) -> None:
     loaders: Dataloaders = get_new_context()
 
     def side_effect(table: str, query_attrs: dict) -> str:
-        return dynamo_resource.Table(table).query(
+        return dynamo_resource.Table(table).query(  # type: ignore
             ConsistentRead=query_attrs["ConsistentRead"],
             KeyConditionExpression=query_attrs["KeyConditionExpression"],
         )["Items"]

@@ -45,7 +45,7 @@ from decimal import (
 from findings.domain import (
     get_severity_score,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from newutils import (
@@ -229,7 +229,9 @@ def test_create_data_format_chart() -> None:
             )
         ]
     )
-    test_data = update_indicators.create_data_format_chart(registers)
+    test_data = update_indicators.create_data_format_chart(
+        registers  # type: ignore
+    )
     expected_output = [
         [{"y": 2, "x": "Sep 24 - 30, 2018"}],
         [{"y": 0, "x": "Sep 24 - 30, 2018"}],
@@ -294,7 +296,10 @@ async def test_update_group_indicators() -> None:
         accepted=2, accepted_undefined=1, in_progress=1, new=25
     )
 
-    over_time = [element[-12:] for element in test_data.remediated_over_time]
+    over_time = [
+        element[-12:]
+        for element in test_data.remediated_over_time  # type: ignore
+    ]
     found = over_time[0][-1]["y"]
     closed = over_time[1][-1]["y"]
     accepted = over_time[2][-1]["y"]

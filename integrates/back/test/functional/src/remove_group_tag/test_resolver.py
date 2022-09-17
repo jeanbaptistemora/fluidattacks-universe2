@@ -37,7 +37,7 @@ async def test_remove_group_tag(
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
-    assert tag_name in group.tags
+    assert tag_name in group.tags  # type: ignore
 
     result: dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name

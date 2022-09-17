@@ -17,7 +17,7 @@ from db_model.finding_comments.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-    VulnerabilityZeroRiskStatus,
+    VulnerabilityZeroRiskStatus as VZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -46,7 +46,7 @@ async def test_reject_vulnerabilities_zero_risk(
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
+    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED  # type: ignore
 
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
@@ -57,7 +57,7 @@ async def test_reject_vulnerabilities_zero_risk(
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REJECTED
+    assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED  # type: ignore
     zero_risk_comments: list[
         FindingComment
     ] = await loaders.finding_comments.load(

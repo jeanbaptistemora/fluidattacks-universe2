@@ -63,7 +63,7 @@ async def test_event() -> None:
     }"""
     data = {"query": query}
     request = await create_dummy_session()
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "event" in result["data"]
@@ -119,7 +119,7 @@ async def test_solve_event() -> None:
     ] = await loaders.event_vulnerabilities_loader.load("418900971")
     for reattack in reattacks_on_hold:
         assert (
-            reattack.verification.status
+            reattack.verification.status  # type: ignore
             == VulnerabilityVerificationStatus.ON_HOLD
         )
 
@@ -147,7 +147,7 @@ async def test_solve_event() -> None:
         ]
         for reattack in reattacks_requested:
             assert (
-                reattack.verification.status
+                reattack.verification.status  # type: ignore
                 == VulnerabilityVerificationStatus.REQUESTED
             )
     else:

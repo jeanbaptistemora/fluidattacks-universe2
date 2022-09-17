@@ -20,7 +20,7 @@ from db_model.finding_comments.types import (
     FindingComment,
 )
 from db_model.findings.enums import (
-    FindingVerificationStatus,
+    FindingVerificationStatus as FVStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -81,10 +81,10 @@ async def test_request_hold_vuln(
         != ""
     )
     assert (
-        vulnerability.verification.status
+        vulnerability.verification.status  # type: ignore
         == VulnerabilityVerificationStatus.REQUESTED
     )
-    assert finding.verification.modified_by != email
+    assert finding.verification.modified_by != email  # type: ignore
 
     result: Dict[str, Any] = await get_result(
         user=email, event=event_id, finding=finding_id, vulnerability=vuln_id
@@ -95,10 +95,10 @@ async def test_request_hold_vuln(
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
     vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert finding.verification.status == FindingVerificationStatus.ON_HOLD
-    assert finding.verification.modified_by == email
+    assert finding.verification.status == FVStatus.ON_HOLD  # type: ignore
+    assert finding.verification.modified_by == email  # type: ignore
     assert (
-        vulnerability.verification.status
+        vulnerability.verification.status  # type: ignore
         == VulnerabilityVerificationStatus.ON_HOLD
     )
     assert (

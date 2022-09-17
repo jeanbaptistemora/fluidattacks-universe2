@@ -118,7 +118,7 @@ async def test_finding_report() -> None:
     data_data = {"query": query_data}
     unit_data_data = {"query": unit_query_data}
     request = await create_dummy_session("integratesmanager@gmail.com")
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result_pdf = await graphql(SCHEMA, data_pdf, context_value=request)
     _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
     _, result_data = await graphql(SCHEMA, data_data, context_value=request)
@@ -159,7 +159,7 @@ async def test_finding_report() -> None:
     """
     new_data_query = {"query": new_query_data}
     new_request = await create_dummy_session("integratesmanager@gmail.com")
-    new_request = apply_context_attrs(new_request)
+    new_request = apply_context_attrs(new_request)  # type: ignore
     _, new_result_data = await graphql(
         SCHEMA, new_data_query, context_value=new_request
     )

@@ -89,7 +89,7 @@ async def test_add_group_consult_with_suppress(
     user: Stakeholder = await loaders.stakeholder.load(email)
     comment_data = GroupComment(
         group_name=group_name,
-        id=comment_id,
+        id=comment_id,  # type: ignore
         content="Test consult",
         creation_date=current_time,
         full_name=str.join(" ", [user.first_name or "", user.last_name or ""]),

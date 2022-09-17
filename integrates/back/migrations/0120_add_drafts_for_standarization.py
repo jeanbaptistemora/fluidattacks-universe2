@@ -61,7 +61,7 @@ from typing import (
     Dict,
 )
 import uuid
-import yaml  # type: ignore
+import yaml
 
 PROD: bool = True
 

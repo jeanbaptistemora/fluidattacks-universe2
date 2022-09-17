@@ -66,10 +66,12 @@ def test_validate_field_length() -> None:
     ],
 )
 def test_validate_fields(fields: list) -> None:
-    assert not bool(validate_fields(["valid%", " valid="]))
-    assert not bool(validate_fields(["testfield", "testfield2"]))
+    assert not bool(validate_fields(["valid%", " valid="]))  # type: ignore
+    assert not bool(
+        validate_fields(["testfield", "testfield2"])  # type: ignore
+    )
     with pytest.raises(InvalidChar):
-        assert validate_fields(fields)
+        assert validate_fields(fields)  # type: ignore
 
 
 def test_validate_file_exists() -> None:
@@ -95,21 +97,21 @@ def test_validate_file_exists() -> None:
         group_files=group_files,
     )
     with pytest.raises(ErrorFileNameAlreadyExists):
-        assert validate_file_exists("test2.txt", group_files)
-        assert validate_file_exists("test3.txt", group_files)
+        assert validate_file_exists("test2.txt", group_files)  # type: ignore
+        assert validate_file_exists("test3.txt", group_files)  # type: ignore
 
 
 def test_validate_file_name() -> None:
     validate_file_name("test123.py")
     with pytest.raises(InvalidChar):
-        assert validate_file_name("test.test.py")
-        assert validate_file_name("test=$invalidname!.py")
+        assert validate_file_name("test.test.py")  # type: ignore
+        assert validate_file_name("test=$invalidname!.py")  # type: ignore
 
 
 def test_validate_group_name() -> None:
-    assert not bool(validate_group_name("test"))
+    assert not bool(validate_group_name("test"))  # type: ignore
     with pytest.raises(InvalidField):
-        assert validate_group_name("=test2@")
+        assert validate_group_name("=test2@")  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -123,7 +125,9 @@ def test_validate_int_range(
     value: int, lower_bound: int, upper_bound: int, inclusive: bool
 ) -> None:
     with pytest.raises(NumberOutOfRange):
-        assert validate_int_range(value, lower_bound, upper_bound, inclusive)
+        assert validate_int_range(
+            value, lower_bound, upper_bound, inclusive  # type: ignore
+        )
 
 
 @pytest.mark.parametrize(
@@ -148,4 +152,4 @@ def test_validate_sanitized_csv_input(field: str) -> None:
         "http://localhost/bWAPP/sqli_1.php",
     )
     with pytest.raises(UnsanitizedInputFound):
-        assert validate_sanitized_csv_input(field)
+        assert validate_sanitized_csv_input(field)  # type: ignore

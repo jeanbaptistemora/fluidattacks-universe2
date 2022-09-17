@@ -12,8 +12,8 @@ import json
 import logging
 import os
 import re
-import requests  # type: ignore
-from requests.exceptions import (  # type: ignore
+import requests
+from requests.exceptions import (
     ConnectTimeout,
     HTTPError,
     Timeout,
@@ -427,10 +427,12 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
     for parsed_url in parsed_urls:
         if parsed_url.port is None:
             if (parsed_url.host, "443") not in targets:
-                targets.append((parsed_url.host, "443"))
+                targets.append((parsed_url.host, "443"))  # type: ignore
         else:
             if (parsed_url.host, str(parsed_url.port)) not in targets:
-                targets.append((parsed_url.host, str(parsed_url.port)))
+                targets.append(
+                    (parsed_url.host, str(parsed_url.port))  # type: ignore
+                )
     targets.sort(key=lambda x: x[0])
 
     return targets

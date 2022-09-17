@@ -50,7 +50,7 @@ async def _get_result_async(
 ) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=stakeholder)
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
@@ -159,7 +159,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,
+            "findingPolicyId": finding_policy.id,  # type: ignore
             "orgName": org_name,
             "status": "APPROVED",
         },
@@ -172,7 +172,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert await _run(finding_policy_id=finding_policy.id) == 0
+    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -265,7 +265,7 @@ async def test_deactivate_org_finding_policy() -> None:
     hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,
+            "findingPolicyId": finding_policy.id,  # type: ignore
             "orgName": org_name,
             "status": "APPROVED",
         },
@@ -277,7 +277,7 @@ async def test_deactivate_org_finding_policy() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert await _run(finding_policy_id=finding_policy.id) == 0
+    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -317,7 +317,7 @@ async def test_deactivate_org_finding_policy() -> None:
     deactivate_mutation_data = {
         "query": deactivate_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,
+            "findingPolicyId": finding_policy.id,  # type: ignore
             "orgName": org_name,
         },
     }
@@ -326,7 +326,7 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["deactivateOrganizationFindingPolicy"]["success"]
-    assert await _run(finding_policy_id=finding_policy.id) == 0
+    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
 
     result = await _get_result_async(
         deactivate_mutation_data, stakeholder="integratesuser2@gmail.com"
@@ -472,7 +472,7 @@ async def test_submit_organization_finding_policy() -> None:
     hande_acceptance_rejected_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,
+            "findingPolicyId": finding_policy.id,  # type: ignore
             "orgName": organization_name,
             "status": "REJECTED",
         },
@@ -501,7 +501,7 @@ async def test_submit_organization_finding_policy() -> None:
     submit_finding_policy_data = {
         "query": submit_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,
+            "findingPolicyId": finding_policy.id,  # type: ignore
             "organizationName": organization_name,
         },
     }
@@ -511,6 +511,7 @@ async def test_submit_organization_finding_policy() -> None:
     assert "errors" not in result
     assert result["data"]["submitOrganizationFindingPolicy"]["success"]
     finding_policy = await policies_domain.get_finding_policy(
-        org_name=organization_name, finding_policy_id=finding_policy.id
+        org_name=organization_name,
+        finding_policy_id=finding_policy.id,  # type: ignore
     )
     assert finding_policy.state.status == "SUBMITTED"

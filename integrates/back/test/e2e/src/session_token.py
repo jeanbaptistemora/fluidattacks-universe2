@@ -22,7 +22,7 @@ from jwcrypto.jwe import (
 from jwcrypto.jwk import (
     JWK,
 )
-import pytz  # type: ignore
+import pytz
 import secrets
 from typing import (
     Any,

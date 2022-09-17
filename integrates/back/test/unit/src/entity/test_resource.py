@@ -35,8 +35,9 @@ async def _get_result(
 ) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session("integratesmanager@gmail.com")
-    request = apply_context_attrs(
-        request, loaders=context if context else get_new_context()
+    request = apply_context_attrs(  # type: ignore
+        request,  # type: ignore
+        loaders=context if context else get_new_context(),
     )
     _, result = await graphql(SCHEMA, data, context_value=request)
 
@@ -59,7 +60,7 @@ async def test_get_resources() -> None:
     }"""
     data = {"query": query}
     request = await create_dummy_session("integratesmanager@gmail.com")
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "resources" in result["data"]

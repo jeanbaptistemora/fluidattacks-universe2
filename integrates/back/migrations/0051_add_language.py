@@ -24,7 +24,7 @@ from typing import (
     Dict,
     List,
 )
-import yaml  # type: ignore
+import yaml
 
 # Constants
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

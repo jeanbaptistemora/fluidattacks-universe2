@@ -44,7 +44,7 @@ import logging
 from settings import (
     LOGGING,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 import time
 from typing import (
     List,

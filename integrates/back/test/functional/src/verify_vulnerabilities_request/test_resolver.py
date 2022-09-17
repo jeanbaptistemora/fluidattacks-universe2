@@ -17,7 +17,7 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-    VulnerabilityVerificationStatus,
+    VulnerabilityVerificationStatus as VVerifStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -63,9 +63,7 @@ async def test_request_vulnerabilities_verification(
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert (
-        vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED
-    )
+    assert vuln.verification.status == VVerifStatus.REQUESTED  # type: ignore
 
     result: Dict[str, Any] = await get_result(
         user=email,
@@ -77,10 +75,13 @@ async def test_request_vulnerabilities_verification(
     assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
     finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.verification.status == FindingVerificationStatus.VERIFIED
-    assert vuln_id in finding.verification.vulnerability_ids
-    assert finding.verification.modified_by == email
+    assert (
+        finding.verification.status  # type: ignore
+        == FindingVerificationStatus.VERIFIED
+    )
+    assert vuln_id in finding.verification.vulnerability_ids  # type: ignore
+    assert finding.verification.modified_by == email  # type: ignore
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == new_status
-    assert vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED
+    assert vuln.verification.status == VVerifStatus.VERIFIED  # type: ignore

@@ -60,7 +60,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
     assert group.state.service == GroupService.WHITE
     assert group.state.status == GroupStateStatus.DELETED
     assert group.state.tier == GroupTier.FREE
-    for file in group.files:
+    for file in group.files:  # type: ignore
         assert file.description == MASKED
         assert file.file_name == MASKED
         assert file.modified_by == MASKED

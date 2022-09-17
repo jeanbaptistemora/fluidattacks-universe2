@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -35,7 +36,7 @@ from typing import (
     Dict,
     Set,
 )
-import yaml  # type: ignore
+import yaml
 
 
 class Context:  # pylint: disable=too-few-public-methods

@@ -18,5 +18,5 @@ def test_upload_memory_file() -> None:
     file_location = os.path.dirname(os.path.abspath(__file__))
     file_location = os.path.join(file_location, "mock/" + file_name)
     with open(file_location, "rb") as data:
-        test_file = UploadFile(data)
-        upload_memory_file(test_file, BUCKET_NAME, file_name)
+        test_file = UploadFile(data)  # type: ignore
+        upload_memory_file(test_file, BUCKET_NAME, file_name)  # type: ignore

@@ -68,7 +68,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         nickname="git_1",
                         other=None,
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                         url="https://gitlab.com/fluidattacks/universe",
                     ),
                     type=RootType.GIT,
@@ -90,7 +90,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         other=None,
                         port="8080",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.IP,
                 ),
@@ -113,7 +113,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,
+                        status=test_status,  # type: ignore
                     ),
                     type=RootType.URL,
                 ),

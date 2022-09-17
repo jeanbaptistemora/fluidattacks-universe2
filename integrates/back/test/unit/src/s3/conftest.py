@@ -26,7 +26,7 @@ def aws_credentials() -> None:
 
 
 @pytest.fixture(scope="module", autouse=True)
-def s3_mock() -> S3Client:
+def s3_mock() -> S3Client:  # type: ignore
     """Mocked S3 Fixture."""
     with mock_s3():
         s3_client = boto3.client("s3", region_name="us-east-1")

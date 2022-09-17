@@ -20,7 +20,7 @@ from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (
+from db_model.findings.types import (  # type: ignore
     Finding,
     Finding31Severity,
     FindingEvidence,

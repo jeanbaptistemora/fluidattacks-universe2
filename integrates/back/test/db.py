@@ -161,13 +161,19 @@ async def _populate_group_policies(data: dict[str, Any]) -> None:
     if data.get("policies"):
         await groups_model.update_policies(
             group_name=group.name,
-            modified_by=group.policies.modified_by,
-            modified_date=group.policies.modified_date,
+            modified_by=group.policies.modified_by,  # type: ignore
+            modified_date=group.policies.modified_date,  # type: ignore
             organization_id=group.organization_id,
             policies=PoliciesToUpdate(
-                max_acceptance_days=group.policies.max_acceptance_days,
-                max_acceptance_severity=group.policies.max_acceptance_severity,
-                max_number_acceptances=group.policies.max_number_acceptances,
+                max_acceptance_days=(
+                    group.policies.max_acceptance_days  # type: ignore
+                ),
+                max_acceptance_severity=(
+                    group.policies.max_acceptance_severity  # type: ignore
+                ),
+                max_number_acceptances=(
+                    group.policies.max_number_acceptances  # type: ignore
+                ),
             ),
         )
 

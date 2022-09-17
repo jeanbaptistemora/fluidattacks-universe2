@@ -22,7 +22,7 @@ def aws_credentials() -> None:
 
 
 @pytest.fixture(name="dynamo_resource", scope="module")
-def dynamodb() -> ServiceResource:
+def dynamodb() -> ServiceResource:  # type: ignore
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")
@@ -86,8 +86,8 @@ def create_table(dynamo_resource: ServiceResource) -> None:
 
     dynamo_resource.create_table(
         TableName=table_name,
-        KeySchema=key_schema,
-        AttributeDefinitions=attribute_definitions,
+        KeySchema=key_schema,  # type: ignore
+        AttributeDefinitions=attribute_definitions,  # type: ignore
     )
     for item in data:
         dynamo_resource.Table(table_name).put_item(Item=item)

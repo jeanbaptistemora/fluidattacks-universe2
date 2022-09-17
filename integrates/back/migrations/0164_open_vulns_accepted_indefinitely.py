@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -92,7 +93,7 @@ async def main() -> None:
         for vuln in open_vulns:
             accepted_vulns = list(
                 filter(
-                    lambda x, v=vuln: (  # type: ignore
+                    lambda x, v=vuln: (
                         x.finding_id,
                         x.where,
                         x.specific,

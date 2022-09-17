@@ -5,7 +5,7 @@
 from . import (
     get_result,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest

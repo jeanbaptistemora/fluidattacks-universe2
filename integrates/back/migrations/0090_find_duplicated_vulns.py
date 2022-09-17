@@ -16,7 +16,7 @@ import boto3
 from datetime import (
     datetime,
 )
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     parse as parse_date,
 )
 from itertools import (

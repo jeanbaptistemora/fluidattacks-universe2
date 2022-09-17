@@ -41,7 +41,7 @@ class ContextValue(NamedTuple):
 
 
 _context_value = ContextValue(
-    operation=Operation(name="", query="", variables="")
+    operation=Operation(name="", query="", variables="")  # type: ignore
 )
 
 
@@ -50,7 +50,9 @@ def test_should_allow_introspection() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(_context_value, parse(query), None),
+        get_validation_rules(
+            _context_value, parse(query), None  # type: ignore
+        ),
     )
     assert not errors
 
@@ -93,7 +95,9 @@ def test_should_validate_depth() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(_context_value, parse(query), None),
+        get_validation_rules(
+            _context_value, parse(query), None  # type: ignore
+        ),
     )
     assert errors
     assert errors[0].message == "Exception - Max query depth exceeded"
@@ -131,7 +135,9 @@ def test_should_validate_breadth() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(_context_value, parse(query), None),
+        get_validation_rules(
+            _context_value, parse(query), None  # type: ignore
+        ),
     )
     assert errors
     assert errors[0].message == "Exception - Max query breadth exceeded"
@@ -155,7 +161,7 @@ def test_should_validate_variables() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(
+        get_validation_rules(  # type: ignore
             ContextValue(
                 operation=Operation(
                     name="",
@@ -198,7 +204,7 @@ def test_should_validate_characters() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(
+        get_validation_rules(  # type: ignore
             ContextValue(
                 operation=Operation(name="", query=query, variables={})
             ),

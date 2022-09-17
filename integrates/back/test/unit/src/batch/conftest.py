@@ -22,7 +22,7 @@ def aws_credentials() -> None:
 
 
 @pytest.fixture(scope="module")
-def dynamodb() -> ServiceResource:
+def dynamodb() -> ServiceResource:  # type: ignore
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")

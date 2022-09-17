@@ -17,7 +17,7 @@ from db_model.finding_comments.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-    VulnerabilityZeroRiskStatus,
+    VulnerabilityZeroRiskStatus as VZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -66,7 +66,7 @@ async def test_request_vulnerabilities_zero_risk(
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
+    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED  # type: ignore
     zero_risk_comments: list[
         FindingComment
     ] = await loaders.finding_comments.load(

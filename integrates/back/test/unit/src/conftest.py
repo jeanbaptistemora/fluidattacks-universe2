@@ -21,7 +21,7 @@ from typing import (
     AsyncGenerator,
 )
 
-logging.config.dictConfig(LOGGING)  # type: ignore
+logging.config.dictConfig(LOGGING)
 
 
 @pytest.fixture(autouse=True, scope="session")

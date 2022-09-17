@@ -55,8 +55,8 @@ async def test_handle_vulnerabilities_acceptance(
         rejected_vulnerability_id
     )
     assert (
-        accepted_vuln.treatment.acceptance_status
-        == rejected_vuln.treatment.acceptance_status
+        accepted_vuln.treatment.acceptance_status  # type: ignore
+        == rejected_vuln.treatment.acceptance_status  # type: ignore
         == VulnerabilityAcceptanceStatus.SUBMITTED
     )
     result: Dict[str, Any] = await get_result(
@@ -73,10 +73,10 @@ async def test_handle_vulnerabilities_acceptance(
     accepted_vuln = await loaders.vulnerability.load(accepted_vulnerability_id)
     rejected_vuln = await loaders.vulnerability.load(rejected_vulnerability_id)
     assert (
-        accepted_vuln.treatment.acceptance_status
+        accepted_vuln.treatment.acceptance_status  # type: ignore
         == VulnerabilityAcceptanceStatus.APPROVED
     )
-    assert rejected_vuln.treatment.acceptance_status is None
+    assert rejected_vuln.treatment.acceptance_status is None  # type: ignore
 
 
 @pytest.mark.asyncio

@@ -26,7 +26,7 @@ from git.repo.base import (
 import json
 import logging
 import os
-import requests  # type: ignore
+import requests
 from retry import (  # type: ignore
     retry,
 )

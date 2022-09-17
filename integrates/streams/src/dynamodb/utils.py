@@ -20,7 +20,7 @@ from typing import (
 class SetEncoder(JSONSerializer):
     def default(self, data: Any) -> JSONSerializer:
         if isinstance(data, set):
-            return list(data)
+            return list(data)  # type: ignore
         return JSONSerializer.default(self, data)
 
 

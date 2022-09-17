@@ -51,7 +51,7 @@ from db_model.vulnerabilities.types import (
 from findings.domain import (
     validate_evidence,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from groups.domain import (
@@ -97,7 +97,7 @@ from vulnerabilities.domain import (
 from vulnerability_files.domain import (
     validate_file_schema,
 )
-import yaml  # type: ignore
+import yaml
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -348,7 +348,7 @@ async def test_add_push_token() -> None:
     loaders: Dataloaders = get_new_context()
     user_email = "unittest@fluidattacks.com"
     with pytest.raises(InvalidPushToken):
-        assert await stakeholders_domain.add_push_token(
+        assert await stakeholders_domain.add_push_token(  # type: ignore
             loaders, user_email, "not-a-push-token"
         )
 
@@ -370,7 +370,7 @@ async def test_validate_file_schema_invalid() -> None:
     with open(file_url, "w", encoding="utf-8") as stream:
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
-        await validate_file_schema(file_url, info)
+        await validate_file_schema(file_url, info)  # type: ignore
 
 
 async def test_organization_not_found() -> None:

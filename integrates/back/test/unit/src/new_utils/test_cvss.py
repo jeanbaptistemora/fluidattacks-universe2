@@ -35,8 +35,8 @@ def test_calculate_cvss2_basescore() -> None:
         "accessVector": 1,
     }
     cvss_basescore_test = Decimal(4.3).quantize(Decimal("0.1"))
-    severity = Finding20Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss2_basescore(severity)
+    severity = Finding20Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss2_basescore(severity)  # type: ignore
     assert cvss_basescore == cvss_basescore_test
 
 
@@ -53,9 +53,11 @@ def test_calculate_cvss2_temporal() -> None:
         "confidenceLevel": 0.95,
     }
     cvss_temporal_test = Decimal(3.7).quantize(Decimal("0.1"))
-    severity = Finding20Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss2_basescore(severity)
-    cvss_temporal = cvss_utils.get_cvss2_temporal(severity, cvss_basescore)
+    severity = Finding20Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss2_basescore(severity)  # type: ignore
+    cvss_temporal = cvss_utils.get_cvss2_temporal(
+        severity, cvss_basescore  # type: ignore
+    )
     assert cvss_temporal == cvss_temporal_test
 
 
@@ -71,8 +73,8 @@ def test_calculate_cvss3_scope_changed_basescore() -> None:
         "userInteraction": 0.85,
     }
     cvss_basescore_test = Decimal(6.4).quantize(Decimal("0.1"))
-    severity = Finding31Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)
+    severity = Finding31Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)  # type: ignore
     assert cvss_basescore == cvss_basescore_test
 
 
@@ -88,8 +90,8 @@ def test_calculate_cvss3_scope_unchanged_basescore() -> None:
         "userInteraction": 0.85,
     }
     cvss_basescore_test = Decimal(5.4).quantize(Decimal("0.1"))
-    severity = Finding31Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)
+    severity = Finding31Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)  # type: ignore
     assert cvss_basescore == cvss_basescore_test
 
 
@@ -108,9 +110,11 @@ def test_calculate_cvss3_scope_changed_temporal() -> None:
         "reportConfidence": 1,
     }
     cvss_temporal_test = Decimal(6.1).quantize(Decimal("0.1"))
-    severity = Finding31Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)
-    cvss_temporal = cvss_utils.get_cvss3_temporal(severity, cvss_basescore)
+    severity = Finding31Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)  # type: ignore
+    cvss_temporal = cvss_utils.get_cvss3_temporal(
+        severity, cvss_basescore  # type: ignore
+    )
     assert cvss_temporal == cvss_temporal_test
 
 
@@ -129,7 +133,9 @@ def test_calculate_cvss3_scope_unchanged_temporal() -> None:
         "reportConfidence": 1,
     }
     cvss_temporal_test = Decimal(5.1).quantize(Decimal("0.1"))
-    severity = Finding31Severity(**format_severity(severity))
-    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)
-    cvss_temporal = cvss_utils.get_cvss3_temporal(severity, cvss_basescore)
+    severity = Finding31Severity(**format_severity(severity))  # type: ignore
+    cvss_basescore = cvss_utils.get_cvss3_basescore(severity)  # type: ignore
+    cvss_temporal = cvss_utils.get_cvss3_temporal(
+        severity, cvss_basescore  # type: ignore
+    )
     assert cvss_temporal == cvss_temporal_test

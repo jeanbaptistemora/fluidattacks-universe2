@@ -39,7 +39,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest
@@ -64,7 +64,7 @@ async def _get_vulns(
         (
             dict(
                 commit_hash=vuln.commit,
-                repo_nickname=roots_nickname[vuln.root_id],
+                repo_nickname=roots_nickname[vuln.root_id],  # type: ignore
                 specific=vuln.specific,
                 state_status=vuln.state.status.value,
                 stream=vuln.stream,

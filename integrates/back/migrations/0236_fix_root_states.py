@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -45,7 +46,7 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-import simplejson as json  # type: ignore
+import simplejson as json
 import time
 from typing import (
     Any,

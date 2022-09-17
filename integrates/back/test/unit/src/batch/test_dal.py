@@ -168,13 +168,15 @@ data = [
 async def test_put_action_to_dynamodb(dynamodb: ServiceResource) -> None:
     def side_effect(item: dict, table: str) -> bool:
         if bool(table and item):
-            return dynamodb.Table(TABLE_NAME).put_item(Item=item)
+            return dynamodb.Table(TABLE_NAME).put_item(  # type: ignore
+                Item=item
+            )
         return False
 
     dynamodb.create_table(
         TableName=TABLE_NAME,
-        KeySchema=key_schema,
-        AttributeDefinitions=attribute_definitions,
+        KeySchema=key_schema,  # type: ignore
+        AttributeDefinitions=attribute_definitions,  # type: ignore
     )
     assert TABLE_NAME in dynamodb_backend2.tables
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 0

@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name
 """
@@ -13,7 +14,7 @@ import asyncio
 from boto3.dynamodb.conditions import (
     Key,
 )
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     parse as date_parser,
 )
 from dynamodb import (
@@ -25,7 +26,7 @@ from groups.dal import (  # pylint: disable=import-error
 from groups.domain import (
     get_many_groups,
 )
-import pytz  # type: ignore
+import pytz
 from typing import (
     Any,
     AsyncIterator,

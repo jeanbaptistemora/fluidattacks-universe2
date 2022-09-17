@@ -32,7 +32,7 @@ from db_model.findings.types import (
 from findings.domain.core import (
     get_severity_score,
 )
-from freezegun.api import (  # type: ignore
+from freezegun.api import (
     freeze_time,
 )
 import pytest

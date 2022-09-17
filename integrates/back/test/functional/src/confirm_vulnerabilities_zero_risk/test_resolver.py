@@ -46,7 +46,8 @@ async def test_confirm_vulnerabilities_zero_risk(
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
+    requested = VulnerabilityZeroRiskStatus.REQUESTED
+    assert vuln.zero_risk.status == requested  # type: ignore
 
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
@@ -57,7 +58,8 @@ async def test_confirm_vulnerabilities_zero_risk(
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.CONFIRMED
+    confirmed = VulnerabilityZeroRiskStatus.CONFIRMED
+    assert vuln.zero_risk.status == confirmed  # type: ignore
     zero_risk_comments: list[
         FindingComment
     ] = await loaders.finding_comments.load(

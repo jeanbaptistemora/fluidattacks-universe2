@@ -39,7 +39,7 @@ from typing import (
     Any,
     Dict,
 )
-import yaml  # type: ignore
+import yaml
 
 PROD: bool = True
 

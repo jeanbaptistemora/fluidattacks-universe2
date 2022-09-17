@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # pylint: disable=invalid-name,import-error
 # Formerly a draft was identified by 'not having a releaseDate' in the DB.
@@ -37,7 +38,7 @@ from aioextensions import (
 from asyncio import (
     run,
 )
-import dateutil.parser  # type: ignore
+import dateutil.parser
 from dynamodb.operations_legacy import (
     RESOURCE_OPTIONS,
 )

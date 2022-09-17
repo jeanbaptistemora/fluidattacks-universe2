@@ -23,7 +23,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from freezegun.api import (  # type: ignore
+from freezegun.api import (
     freeze_time,
 )
 import pytest

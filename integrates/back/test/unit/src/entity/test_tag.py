@@ -47,7 +47,7 @@ async def test_get_tag_query() -> None:
     """
     data = {"query": query}
     request = await create_dummy_session("integratesuser@gmail.com")
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "groups" in result["data"]["tag"]
@@ -82,7 +82,7 @@ async def test_get_tag_query_access_denied() -> None:
     data = {"query": query}
 
     request = await create_dummy_session("unittests")
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied or tag not found"

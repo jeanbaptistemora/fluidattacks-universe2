@@ -31,7 +31,7 @@ async def test_add_push_token() -> None:
 
     loaders = get_new_context()
     user_attrs: Stakeholder = await loaders.stakeholder.load(user_email)
-    assert valid_token in user_attrs.push_tokens
+    assert valid_token in user_attrs.push_tokens  # type: ignore
 
 
 async def test_exists() -> None:

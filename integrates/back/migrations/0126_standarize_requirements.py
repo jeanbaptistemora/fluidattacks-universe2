@@ -36,7 +36,7 @@ import time
 from typing import (
     Dict,
 )
-import yaml  # type: ignore
+import yaml
 
 PROD: bool = True
 

@@ -47,4 +47,7 @@ async def test_update_stakeholder_phone(
     assert result["data"]["updateStakeholderPhone"]["success"]
     loaders: Dataloaders = get_new_context()
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    assert stakeholder.phone.national_number == new_phone["nationalNumber"]
+    assert (
+        stakeholder.phone.national_number  # type: ignore
+        == new_phone["nationalNumber"]
+    )

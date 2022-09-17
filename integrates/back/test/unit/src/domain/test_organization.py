@@ -321,7 +321,7 @@ async def test_validate_negative_values() -> None:
         orgs_domain.validate_max_number_acceptances(-1)
 
     with pytest.raises(InvalidSeverity):
-        orgs_domain.validate_min_breaking_severity(-1)
+        orgs_domain.validate_min_breaking_severity(-1)  # type: ignore
 
     with pytest.raises(InvalidVulnerabilityGracePeriod):
         orgs_domain.validate_vulnerability_grace_period(-1)

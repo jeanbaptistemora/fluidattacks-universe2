@@ -9,7 +9,7 @@ from enrollment.domain import (
     EnrollmentTrialState,
     get_enrollment_trial_state,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 import pytest

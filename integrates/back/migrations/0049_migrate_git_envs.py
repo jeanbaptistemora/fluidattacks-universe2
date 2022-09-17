@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+# type: ignore
 
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
@@ -39,7 +40,7 @@ from typing import (
 from urllib.parse import (
     unquote,
 )
-import yaml  # type: ignore
+import yaml
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

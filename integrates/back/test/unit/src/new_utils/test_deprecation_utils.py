@@ -14,7 +14,7 @@ from custom_exceptions import (
 from datetime import (
     datetime,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from newutils.datetime import (

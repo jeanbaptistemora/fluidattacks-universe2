@@ -59,7 +59,7 @@ async def test_approve_draft(
     assert finding.state.status == FindingStateStatus.APPROVED
 
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    approval_date: str = finding.approval.modified_date
+    approval_date: str = finding.approval.modified_date  # type: ignore
     assert vuln.created_date == approval_date
     finding_indicators: FindingUnreliableIndicators = (
         finding.unreliable_indicators

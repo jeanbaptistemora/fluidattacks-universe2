@@ -44,7 +44,7 @@ from findings.domain import (
 from findings.types import (
     Tracking,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from newutils.datetime import (
@@ -52,7 +52,7 @@ from newutils.datetime import (
     get_now,
 )
 import pytest
-from pytz import (  # type: ignore
+from pytz import (
     timezone,
 )
 from settings import (
@@ -86,8 +86,9 @@ async def test_get_last_closed_vulnerability() -> None:
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
     assert vuln_closed_days == (actual_date - initial_date).days
-    assert last_closed_vuln.id == "242f848c-148a-4028-8e36-c7d995502590"
-    assert last_closed_vuln.finding_id == "463558592"
+    expected_id = "242f848c-148a-4028-8e36-c7d995502590"
+    assert last_closed_vuln.id == expected_id  # type: ignore
+    assert last_closed_vuln.finding_id == "463558592"  # type: ignore
 
 
 async def test_get_max_open_severity() -> None:
@@ -98,7 +99,7 @@ async def test_get_max_open_severity() -> None:
     )
     test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
-    assert test_data[1].id == "463558592"
+    assert test_data[1].id == "463558592"  # type: ignore
 
 
 async def test_get_pending_verification_findings() -> None:

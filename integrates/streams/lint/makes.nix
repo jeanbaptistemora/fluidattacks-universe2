@@ -13,6 +13,7 @@
             outputs."/integrates/streams/runtime"
           ];
         };
+        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/streams/src";
       };

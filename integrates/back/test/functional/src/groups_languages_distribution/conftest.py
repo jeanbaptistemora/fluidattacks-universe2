@@ -123,7 +123,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=RootStatus.ACTIVE,
                         url="https://domain.nickname1.git",
                     ),
-                    type=RootType.GIT.value,
+                    type=RootType.GIT.value,  # type: ignore
                 ),
             }
         ],

@@ -33,7 +33,7 @@ async def _get_result_async(
 ) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=user)
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result

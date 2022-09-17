@@ -45,7 +45,7 @@ async def test_me() -> None:
     data = {"query": query}
     user_email = "integratesuser@gmail.com"
     request = await create_dummy_session(user_email)
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(request)  # type: ignore
     _, result = await graphql(SCHEMA, data, context_value=request)
     expected_groups = ["unittesting", "oneshottest"]
     assert "me" in result["data"]

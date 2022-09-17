@@ -48,7 +48,7 @@ from findings.domain import (
     get_max_open_severity,
     get_pending_verification_findings,
 )
-from freezegun import (  # type: ignore
+from freezegun import (
     freeze_time,
 )
 from group_comments.domain import (
@@ -79,7 +79,7 @@ from newutils.vulnerabilities import (
     get_opening_date,
 )
 import pytest
-from pytz import (  # type: ignore
+from pytz import (
     timezone,
 )
 from settings import (
@@ -110,8 +110,9 @@ async def test_get_last_closed_vulnerability() -> None:
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
     assert vuln_closed_days == (actual_date - initial_date).days
-    assert last_closed_vuln.id == "242f848c-148a-4028-8e36-c7d995502590"
-    assert last_closed_vuln.finding_id == "463558592"
+    expected_id = "242f848c-148a-4028-8e36-c7d995502590"
+    assert last_closed_vuln.id == expected_id  # type: ignore
+    assert last_closed_vuln.finding_id == "463558592"  # type: ignore
 
 
 async def test_get_vuln_closing_date() -> None:
@@ -155,7 +156,7 @@ async def test_get_max_open_severity() -> None:
     )
     test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
-    assert test_data[1].id == "463558592"
+    assert test_data[1].id == "463558592"  # type: ignore
 
 
 async def test_get_vuln_opening_date() -> None:
@@ -550,7 +551,9 @@ async def test_set_pending_deletion_date() -> None:
     loaders.group.clear(group_name)
     group_updated: Group = await loaders.group.load(group_name)
     assert is_valid_format(
-        convert_from_iso_str(group_updated.state.pending_deletion_date)
+        convert_from_iso_str(
+            group_updated.state.pending_deletion_date  # type: ignore
+        )
     )
     assert group_updated.state.pending_deletion_date == test_date
     assert group_updated.state.modified_by == user_email
