@@ -393,7 +393,7 @@ export const enTranslations: ResourceKey = {
     navBar: {
       help: "Help",
       news: "News",
-      toDos: "To-do",
+      toDo: "To-do",
     },
   },
   configuration: {
