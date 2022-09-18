@@ -19,6 +19,7 @@ import React, {
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
 
+import { DashboardNavBar } from "./NavBar";
 import { DashboardSideBar } from "./SideBar";
 import { DashboardContainer, DashboardContent } from "./styles";
 
@@ -26,7 +27,6 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
-import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
@@ -203,7 +203,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
           />
           {isCtSessionModalOpen ? undefined : (
             <Fragment>
-              <Navbar userRole={userRole} />
+              <DashboardNavBar userRole={userRole} />
               <div className={"flex flex-auto flex-row"}>
                 <Switch>
                   <Route path={"/orgs/:org/"}>

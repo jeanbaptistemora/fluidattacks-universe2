@@ -173,7 +173,9 @@ const UserProfile: FC<IUserProfileProps> = ({
         </Button>
         <Link to={"/user/config"}>
           <Text>
-            <Button icon={faUserCog}>{t("navbar.notification")}</Button>
+            <Button disp={"block"} icon={faUserCog}>
+              {t("navbar.notification")}
+            </Button>
           </Text>
         </Link>
         <Button icon={faMobileAlt} onClick={openMobileModal}>
