@@ -11,8 +11,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_ORGANIZATION_ID } from "../OrganizationContent/queries";
-import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
+import { GroupContent } from ".";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("groupContent", (): void => {

@@ -21,12 +21,12 @@ import {
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
-import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupRoute/queries";
 import type {
   IGroupData,
   IGroupRoute,
 } from "scenes/Dashboard/containers/GroupRoute/types";
+import { GroupContent } from "scenes/Dashboard/group";
 import { GET_GROUP_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";

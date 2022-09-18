@@ -9,11 +9,11 @@ import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { groupContext } from "../../GroupContent/context";
-import type { IGroupContext } from "../../GroupContent/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
+import { groupContext } from "scenes/Dashboard/group/context";
+import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const InternalSurfaceButton: React.FC = (): JSX.Element => {

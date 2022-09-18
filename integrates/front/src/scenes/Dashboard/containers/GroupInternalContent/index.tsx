@@ -9,9 +9,9 @@ import { useAbility } from "@casl/react";
 import React, { useContext } from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
-import { groupContext } from "../GroupContent/context";
-import type { IGroupContext } from "../GroupContent/types";
 import { ToeContent } from "../ToeContent";
+import { groupContext } from "scenes/Dashboard/group/context";
+import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const GroupInternalContent: React.FC = (): JSX.Element => {

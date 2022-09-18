@@ -41,8 +41,8 @@ import { Input, Label, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
-import { groupContext } from "scenes/Dashboard/containers/GroupContent/context";
-import type { IGroupContext } from "scenes/Dashboard/containers/GroupContent/types";
+import { groupContext } from "scenes/Dashboard/group/context";
+import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { QuestionButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import {

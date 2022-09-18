@@ -28,15 +28,9 @@ import {
 } from "react-router-dom";
 
 import { groupContext } from "./context";
+import { GET_GROUP_EVENT_STATUS } from "./queries";
+import type { IGetEventStatus } from "./types";
 
-import { GroupInternalContent } from "../GroupInternalContent";
-import { GroupScopeView } from "../GroupScopeView";
-import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
-import type {
-  IGetOrganizationId,
-  IOrganizationPermission,
-} from "../OrganizationContent/types";
-import { ToeContent } from "../ToeContent";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { Dot } from "components/Dot";
@@ -50,16 +44,22 @@ import { HelpModal } from "scenes/Dashboard/components/Navbar/HelpModal";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
-import { GET_GROUP_EVENT_STATUS } from "scenes/Dashboard/containers/GroupContent/queries";
-import type { IGetEventStatus } from "scenes/Dashboard/containers/GroupContent/types";
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
+import { GroupInternalContent } from "scenes/Dashboard/containers/GroupInternalContent";
+import { GroupScopeView } from "scenes/Dashboard/containers/GroupScopeView";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
+import { GroupVulnerabilitiesView } from "scenes/Dashboard/containers/GroupVulnerabilitiesView";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import type {
+  IGetOrganizationId,
+  IOrganizationPermission,
+} from "scenes/Dashboard/containers/OrganizationContent/types";
+import { ToeContent } from "scenes/Dashboard/containers/ToeContent";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";

@@ -13,12 +13,12 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import type { IToeContentProps } from "./types";
 
-import { groupContext } from "../GroupContent/context";
-import type { IGroupContext } from "../GroupContent/types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLanguagesView } from "../GroupToeLanguagesView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { Tab, Tabs } from "components/Tabs";
+import { groupContext } from "scenes/Dashboard/group/context";
+import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
