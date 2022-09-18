@@ -40,7 +40,7 @@ const SideBarLink = styled(NavLink).attrs({
   }
 
   &.active {
-    border-color: #f2182a;
+    border-left-color: #f2182a;
     color: #e9e9ed;
   }
 

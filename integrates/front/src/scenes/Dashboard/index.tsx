@@ -206,9 +206,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
               <DashboardNavBar userRole={userRole} />
               <div className={"flex flex-auto flex-row"}>
                 <Switch>
-                  <Route path={"/orgs/:org/"}>
-                    <DashboardSideBar />
-                  </Route>
+                  <DashboardSideBar />
                 </Switch>
                 <DashboardContent id={"dashboard"}>
                   <Switch>

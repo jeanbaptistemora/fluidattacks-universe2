@@ -3,44 +3,28 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
-import {
-  faChartColumn,
-  faHome,
-  faShield,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import type { FC } from "react";
 import React, { useContext } from "react";
-import { Route, useParams } from "react-router-dom";
+import { Route } from "react-router-dom";
 
-import { GroupTabs } from "./GroupTabs";
+import { OrganizationTabs } from "./OrganizationTabs";
 
 import { Sidebar } from "../components/Sidebar";
-import { SideBar, SideBarSubTabs, SideBarTab } from "components/SideBar";
+import { SideBar, SideBarTab } from "components/SideBar";
 import { featurePreviewContext } from "utils/featurePreview";
 
 const DashboardSideBar: FC = (): JSX.Element => {
   const { featurePreview } = useContext(featurePreviewContext);
-  const { org } = useParams<{ org: string }>();
 
   return featurePreview ? (
     <SideBar>
       <SideBarTab icon={faHome} to={"/home"}>
         {"Home"}
       </SideBarTab>
-      <SideBarSubTabs>
-        <SideBarTab key={"groups"} to={`/orgs/${org}/groups`}>
-          {"Groups"}
-        </SideBarTab>
-        <Route key={"groupRoutes"} path={"/orgs/:org/groups/:group/"}>
-          <GroupTabs />
-        </Route>
-      </SideBarSubTabs>
-      <SideBarTab icon={faChartColumn} to={`/orgs/${org}/analytics`}>
-        {"Analytics"}
-      </SideBarTab>
-      <SideBarTab icon={faShield} to={`/orgs/${org}/policies`}>
-        {"Policies"}
-      </SideBarTab>
+      <Route path={"/orgs/:org/"}>
+        <OrganizationTabs />
+      </Route>
     </SideBar>
   ) : (
     <Sidebar />
