@@ -14,15 +14,12 @@ const SideBarBox = styled.div.attrs({
   display: inline-block;
   min-width: 150px;
   padding: 12px 0;
+`;
 
-  > div > hr:not(:first-child) {
-    display: none;
+const SideBarSubTabs = styled.div`
+  > .SideBarTab:not(:last-child)::after {
+    content: none;
   }
 `;
 
-const SideBarHr = styled.hr`
-  border-top: 1px solid #65657b;
-  margin: 2px 20px;
-`;
-
-export { SideBarBox, SideBarHr };
+export { SideBarBox, SideBarSubTabs };

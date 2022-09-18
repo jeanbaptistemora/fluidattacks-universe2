@@ -15,27 +15,26 @@ import { Route, useParams } from "react-router-dom";
 import { GroupTabs } from "./GroupTabs";
 
 import { Sidebar } from "../components/Sidebar";
-import { SideBar, SideBarTab } from "components/SideBar";
+import { SideBar, SideBarSubTabs, SideBarTab } from "components/SideBar";
 import { featurePreviewContext } from "utils/featurePreview";
 
 const DashboardSideBar: FC = (): JSX.Element => {
   const { featurePreview } = useContext(featurePreviewContext);
   const { org } = useParams<{ org: string }>();
 
-  const homeSubTabs = [
-    <SideBarTab key={"groups"} to={`/orgs/${org}/groups`}>
-      {"Groups"}
-    </SideBarTab>,
-    <Route key={"groupRoutes"} path={"/orgs/:org/groups/:group/"}>
-      <GroupTabs />
-    </Route>,
-  ];
-
   return featurePreview ? (
     <SideBar>
-      <SideBarTab icon={faHome} subTabs={homeSubTabs} to={"/home"}>
+      <SideBarTab icon={faHome} to={"/home"}>
         {"Home"}
       </SideBarTab>
+      <SideBarSubTabs>
+        <SideBarTab key={"groups"} to={`/orgs/${org}/groups`}>
+          {"Groups"}
+        </SideBarTab>
+        <Route key={"groupRoutes"} path={"/orgs/:org/groups/:group/"}>
+          <GroupTabs />
+        </Route>
+      </SideBarSubTabs>
       <SideBarTab icon={faChartColumn} to={`/orgs/${org}/analytics`}>
         {"Analytics"}
       </SideBarTab>

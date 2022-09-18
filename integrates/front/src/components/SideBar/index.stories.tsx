@@ -14,32 +14,31 @@ import type { Meta, Story } from "@storybook/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
-import { SideBar, SideBarTab } from ".";
+import { SideBar, SideBarSubTabs, SideBarTab } from ".";
 
 const config: Meta = {
   component: SideBar,
   title: "components/SideBar",
 };
 
-const subTabs = [
-  <SideBarTab key={"groups"} to={"/groups"}>
-    {"Groups"}
-  </SideBarTab>,
-  <SideBarTab key={"vulns"} to={"/vulns"}>
-    {"Vulnerabilities"}
-  </SideBarTab>,
-  <SideBarTab key={"locs"} to={"/locations"}>
-    {"Locations"}
-  </SideBarTab>,
-];
-
 const Default: Story = (): JSX.Element => (
   <div className={"vh-50 pl5"}>
     <MemoryRouter initialEntries={["/home"]}>
       <SideBar>
-        <SideBarTab icon={faHome} subTabs={subTabs} to={"/home"}>
+        <SideBarTab icon={faHome} to={"/home"}>
           {"Home"}
         </SideBarTab>
+        <SideBarSubTabs>
+          <SideBarTab key={"groups"} to={"/groups"}>
+            {"Groups"}
+          </SideBarTab>
+          <SideBarTab key={"vulns"} to={"/vulns"}>
+            {"Vulnerabilities"}
+          </SideBarTab>
+          <SideBarTab key={"locs"} to={"/locations"}>
+            {"Locations"}
+          </SideBarTab>
+        </SideBarSubTabs>
         <SideBarTab icon={faChartColumn} to={"/analytics"}>
           {"Analytics"}
         </SideBarTab>

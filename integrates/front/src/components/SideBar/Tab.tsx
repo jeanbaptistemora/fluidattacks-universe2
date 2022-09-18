@@ -8,18 +8,15 @@
 
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FC, ReactNode } from "react";
-import React, { Fragment } from "react";
+import type { FC } from "react";
+import React from "react";
 import type { NavLinkProps } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { SideBarHr } from "./styles";
-
 interface ISideBarTabProps extends Pick<NavLinkProps, "children" | "to"> {
   disabled?: boolean;
   icon?: IconProp;
-  subTabs?: ReactNode[];
 }
 
 const SideBarLink = styled(NavLink).attrs({
@@ -29,6 +26,7 @@ const SideBarLink = styled(NavLink).attrs({
   color: #c7c7d1;
   display: block;
   padding: 10px 20px;
+  position: relative;
   transition: all 0.3s;
 
   &[aria-disabled="true"] {
@@ -45,33 +43,32 @@ const SideBarLink = styled(NavLink).attrs({
     border-color: #f2182a;
     color: #e9e9ed;
   }
+
+  ::after {
+    border-bottom: 1px solid #65657b;
+    bottom: 0;
+    content: "";
+    left: 20px;
+    position: absolute;
+    width: calc(100% - 40px);
+  }
 `;
 
 const SideBarTab: FC<ISideBarTabProps> = ({
   children,
   disabled,
   icon,
-  subTabs,
   to,
 }: Readonly<ISideBarTabProps>): JSX.Element => (
-  <Fragment>
-    <SideBarLink aria-disabled={disabled} to={to}>
-      {icon === undefined ? undefined : (
-        <FontAwesomeIcon
-          className={children === undefined ? undefined : "mr2"}
-          icon={icon}
-        />
-      )}
-      {children}
-    </SideBarLink>
-    {subTabs === undefined ? undefined : (
-      <div>
-        <SideBarHr />
-        {subTabs}
-      </div>
+  <SideBarLink aria-disabled={disabled} to={to}>
+    {icon === undefined ? undefined : (
+      <FontAwesomeIcon
+        className={children === undefined ? undefined : "mr2"}
+        icon={icon}
+      />
     )}
-    <SideBarHr />
-  </Fragment>
+    {children}
+  </SideBarLink>
 );
 
 export type { ISideBarTabProps };
