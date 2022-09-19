@@ -73,7 +73,7 @@ async def get_data_one_group(group: str) -> GroupsTags:
     )
 
 
-async def get_data_many_groups(groups: list[str]) -> GroupsTags:
+async def get_data_many_groups(groups: tuple[str, ...]) -> GroupsTags:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
     all_tags = [group_data.tags for group_data in groups_data]
 
@@ -124,7 +124,7 @@ async def generate_all() -> None:
     data: GroupsTags
     header: str = "Group name"
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        data = await get_data_many_groups(list(org_groups))
+        data = await get_data_many_groups(org_groups)
         document = format_data(data=data)
         json_dump(
             document=document,

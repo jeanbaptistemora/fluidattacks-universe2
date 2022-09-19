@@ -240,9 +240,7 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_distribution_document(
-                document=await get_many_groups_document(
-                    groups, loaders  # type: ignore
-                ),
+                document=await get_many_groups_document(groups, loaders),
                 y_label=y_label,
             )
             utils.json_dump(

@@ -125,9 +125,7 @@ async def generate_all() -> None:
         async for org_id, org_name, _ in iterate_organizations_and_groups():
             for portfolio, groups in await get_portfolios_groups(org_name):
                 document = format_document(
-                    document=await get_many_groups_document(
-                        groups, days  # type: ignore
-                    ),
+                    document=await get_many_groups_document(groups, days),
                     y_label=y_label,
                     tick_format=False,
                 )

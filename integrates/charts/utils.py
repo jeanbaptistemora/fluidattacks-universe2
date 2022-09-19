@@ -41,7 +41,7 @@ from typing import (
 
 class PortfoliosGroups(NamedTuple):
     portfolio: str
-    groups: list[str]
+    groups: tuple[str, ...]
 
 
 class CsvData(NamedTuple):
@@ -66,7 +66,7 @@ async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
     return [
         PortfoliosGroups(
             portfolio=data.id,
-            groups=list(data.groups),
+            groups=tuple(data.groups),
         )
         for data in portfolios
     ]

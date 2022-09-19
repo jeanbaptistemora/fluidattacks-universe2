@@ -42,21 +42,18 @@ from decimal import (
 from typing import (
     Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> dict[str, List[Vulnerability]]:
+async def get_data_one_group(group: str) -> dict[str, list[Vulnerability]]:
     loaders: Dataloaders = get_new_context()
-    assigned: Dict[str, List[Vulnerability]] = defaultdict(list)
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    assigned: dict[str, list[Vulnerability]] = defaultdict(list)
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         finding_ids
@@ -70,12 +67,12 @@ async def get_data_one_group(group: str) -> dict[str, List[Vulnerability]]:
 
 
 async def get_data_many_groups(
-    groups: List[str],
-) -> dict[str, List[Vulnerability]]:
-    groups_data: Tuple[dict[str, List[Vulnerability]], ...] = await collect(
+    groups: tuple[str, ...],
+) -> dict[str, list[Vulnerability]]:
+    groups_data: tuple[dict[str, list[Vulnerability]], ...] = await collect(
         map(get_data_one_group, groups), workers=32
     )
-    assigned: dict[str, List[Vulnerability]] = defaultdict(list)
+    assigned: dict[str, list[Vulnerability]] = defaultdict(list)
 
     for group in groups_data:
         for user, vulnerabilities in group.items():
@@ -85,7 +82,7 @@ async def get_data_many_groups(
 
 
 def format_assigned(
-    user: str, vulnerabilities: List[Vulnerability]
+    user: str, vulnerabilities: list[Vulnerability]
 ) -> AssignedFormatted:
     status: Counter[str] = Counter(
         vulnerability.state.status for vulnerability in vulnerabilities
@@ -123,9 +120,9 @@ def format_assigned(
 
 
 def format_data(
-    assigned_data: dict[str, List[Vulnerability]], limit: int = 20
-) -> Dict[str, Any]:
-    data: Tuple[AssignedFormatted, ...] = tuple(
+    assigned_data: dict[str, list[Vulnerability]], limit: int = 20
+) -> dict[str, Any]:
+    data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user, vulnerabilities)
         for user, vulnerabilities in assigned_data.items()
     )
@@ -165,7 +162,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            assigned_data=await get_data_many_groups(list(org_groups)),
+            assigned_data=await get_data_many_groups(org_groups),
             limit=18,
         )
         utils.json_dump(

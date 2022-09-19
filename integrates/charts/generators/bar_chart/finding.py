@@ -54,7 +54,7 @@ async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
 
 
 async def get_data_many_groups(
-    groups: List[str],
+    groups: tuple[str, ...],
 ) -> List[PortfoliosGroupsInfo]:
     groups_data = await collect(map(get_data_one_group, groups), workers=16)
 
@@ -99,7 +99,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            data=await get_data_many_groups(groups=list(org_groups))
+            data=await get_data_many_groups(groups=org_groups)
         )
         utils.json_dump(
             document=document,

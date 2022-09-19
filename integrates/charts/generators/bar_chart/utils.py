@@ -719,7 +719,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
 
         async for org_id, org_name, _ in iterate_organizations_and_groups():
-            for portfolio, group_names in await get_portfolios_groups(
+            for portfolio, pgroup_names in await get_portfolios_groups(
                 org_name
             ):
                 document = format_mttr_data(
@@ -729,7 +729,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                                 organization_id=(
                                     f"{org_id}PORTFOLIO#{portfolio}"
                                 ),
-                                groups=tuple(group_names),
+                                groups=pgroup_names,
                                 loaders=loaders,
                                 get_data_one_group=get_data_one_group,
                                 min_date=min_date,

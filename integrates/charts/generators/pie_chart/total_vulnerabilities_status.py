@@ -47,7 +47,7 @@ async def get_data_group(
 
 async def get_data_groups(
     loaders: Dataloaders,
-    group_names: list[str],
+    group_names: tuple[str, ...],
 ) -> list[PortfoliosGroupsInfo]:
     groups_data = await collect(
         [get_data_group(loaders, group_name) for group_name in group_names],
@@ -65,7 +65,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            groups_data=await get_data_groups(loaders, list(org_group_names)),
+            groups_data=await get_data_groups(loaders, org_group_names),
         )
         utils.json_dump(
             document=document,

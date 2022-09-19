@@ -181,10 +181,10 @@ async def get_totals_by_week(
     sprint: bool = False,
 ) -> tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
-        had_state_by_then(  # type: ignore
+        had_state_by_then(
             last_day=last_day,
             state=VulnerabilityStateStatus.OPEN,
-            vulnerabilities=chunked_vulnerabilities,  # type: ignore
+            vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,
         )
@@ -192,10 +192,10 @@ async def get_totals_by_week(
     )
 
     closed_vulnerabilities = sum(
-        had_state_by_then(  # type: ignore
+        had_state_by_then(
             last_day=last_day,
             state=VulnerabilityStateStatus.CLOSED,
-            vulnerabilities=chunked_vulnerabilities,  # type: ignore
+            vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,
         )

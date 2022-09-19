@@ -24,7 +24,6 @@ from db_model.findings.types import (
 )
 from typing import (
     Counter,
-    List,
     Tuple,
 )
 
@@ -53,7 +52,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter[str]:
+async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sum(groups_data, Counter())
@@ -83,7 +82,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_vulnerabilities_by_data(
-            counters=await get_data_many_groups(list(org_groups)),
+            counters=await get_data_many_groups(org_groups),
             column=column,
             tick_rotation=utils.TICK_ROTATION,
             categories=number_of_categories,

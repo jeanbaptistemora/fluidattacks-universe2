@@ -382,13 +382,13 @@ async def generate() -> None:  # pylint: disable=too-many-locals
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
-        for portfolio, group_names in await get_portfolios_groups(org_name):
+        for portfolio, pgroup_names in await get_portfolios_groups(org_name):
             document = format_data(
                 data=(
                     (
                         await get_data_many_groups(
                             organization_id=f"{org_id}PORTFOLIO#{portfolio}",
-                            groups=tuple(group_names),
+                            groups=pgroup_names,
                             loaders=loaders,
                         )
                     ).mttr,

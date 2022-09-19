@@ -76,9 +76,7 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_data(
-                findings_count=await get_findings_count_many_groups(
-                    groups  # type: ignore
-                ),
+                findings_count=await get_findings_count_many_groups(groups),
             )
             utils.json_dump(
                 document=document,

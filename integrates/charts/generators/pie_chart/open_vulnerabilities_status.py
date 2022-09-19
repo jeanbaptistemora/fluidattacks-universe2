@@ -47,7 +47,7 @@ async def get_data_group(
 
 async def get_data_groups(
     loaders: Dataloaders,
-    group_names: list[str],
+    group_names: tuple[str, ...],
 ) -> list[PortfoliosGroupsInfo]:
     groups_data = await collect(
         [get_data_group(loaders, group) for group in group_names], workers=32
@@ -62,7 +62,7 @@ async def generate_all() -> None:
     headers: list[str] = ["Group name", "Open vulnerabilities"]
     async for org_id, _, org_group_names in iterate_organizations_and_groups():
         document = format_data(
-            groups_data=await get_data_groups(loaders, list(org_group_names)),
+            groups_data=await get_data_groups(loaders, org_group_names),
         )
         json_dump(
             document=document,

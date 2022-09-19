@@ -75,7 +75,7 @@ async def get_data_one_group(
 
 async def get_data_many_groups(
     loaders: Dataloaders,
-    group_names: list[str],
+    group_names: tuple[str, ...],
 ) -> list[RemediatedAccepted]:
     groups_data = await collect(
         [
@@ -214,7 +214,7 @@ async def generate_all() -> None:
     header: str = "Group name"
     async for org_id, _, org_group_names in iterate_organizations_and_groups():
         document = format_data(
-            data=await get_data_many_groups(loaders, list(org_group_names)),
+            data=await get_data_many_groups(loaders, org_group_names),
             limit=18,
         )
         json_dump(
