@@ -21,6 +21,9 @@ from charts.generators.bar_chart import (  # type: ignore
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from charts.generators.common.utils import (
+    format_cvssf_log_adjusted,
+)
 from charts.generators.gauge.severity import (
     MaxSeverity,
 )
@@ -29,7 +32,6 @@ from charts.generators.text_box.utils_vulnerabilities_remediation import (
 )
 from charts.utils import (
     format_cvssf,
-    format_cvssf_log_adjusted,
     get_cvssf,
     get_portfolios_groups,
     iterate_groups,
@@ -214,7 +216,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             columns=[
                 ["Exposure"]
                 + [
-                    format_cvssf_log_adjusted(category.value)  # type: ignore
+                    format_cvssf_log_adjusted(category.value)
                     for category in categories_trend
                 ],
             ],

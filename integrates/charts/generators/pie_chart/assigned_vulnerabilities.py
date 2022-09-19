@@ -45,11 +45,11 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
     group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    finding_ids = tuple(finding.id for finding in group_findings)
+    finding_ids = [finding.id for finding in group_findings]
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        finding_ids  # type: ignore
+        finding_ids
     )
 
     return AssignedVulnerabilities(

@@ -9,10 +9,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.forces.types import (
-    ForcesExecution,
-    GroupForcesExecutionsRequest,
-)
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
@@ -22,9 +18,6 @@ from db_model.portfolios.types import (
 from decimal import (
     Decimal,
     ROUND_FLOOR,
-)
-from frozendict import (  # type: ignore
-    frozendict,
 )
 import functools
 import json
@@ -60,23 +53,6 @@ TICK_ROTATION = 20  # rotation displayed for group name and vulnerability type
 MAX_WITH_DECIMALS = Decimal("10.0")
 
 
-async def get_all_time_forces_executions(
-    group_name: str,
-) -> ForcesExecution:
-    loaders = get_new_context()
-    executions: tuple[
-        ForcesExecution, ...
-    ] = await loaders.group_forces_executions.load(
-        GroupForcesExecutionsRequest(group_name=group_name)
-    )
-
-    return executions
-
-
-def get_finding_name(item: list[str]) -> str:
-    return item[0].split("/")[-1]
-
-
 def get_result_path(name: str) -> str:
     return os.path.join(os.environ["RESULTS_DIR"], name)
 
@@ -90,7 +66,7 @@ async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
     return [
         PortfoliosGroups(
             portfolio=data.id,
-            groups=data.groups,
+            groups=list(data.groups),
         )
         for data in portfolios
     ]
@@ -165,8 +141,6 @@ def json_encoder(obj: Any) -> Any:
 
     if obj_type == set:
         casted_obj: Any = [json_encoder(value) for value in obj]
-    elif obj_type == frozendict:
-        casted_obj = {key: json_encoder(value) for key, value in obj.items()}
     elif obj_type == Decimal:
         casted_obj = float(obj)
     else:
@@ -242,25 +216,3 @@ def format_cvssf_log(cvssf: Decimal) -> Decimal:
         )
 
     return Decimal(math.log2(cvssf))
-
-
-def format_cvssf_log_adjusted(cvssf: Decimal) -> Decimal:
-    cvssf_log: Decimal
-    if cvssf == Decimal("0.0"):
-        return cvssf.quantize(Decimal("0.1"))
-
-    if abs(cvssf) >= MAX_WITH_DECIMALS:
-        cvssf_log = Decimal(
-            math.log2(
-                abs(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
-                * Decimal("10.0")
-            )
-        )
-        return (
-            cvssf_log
-            if cvssf > Decimal("0.0")
-            else cvssf_log * Decimal("-1.0")
-        )
-
-    cvssf_log = Decimal(math.log2(abs(cvssf) * Decimal("10.0")))
-    return cvssf_log if cvssf > Decimal("0.0") else cvssf_log * Decimal("-1.0")

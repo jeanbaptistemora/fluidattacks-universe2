@@ -62,7 +62,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await context.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in group_findings)  # type: ignore
+        [finding.id for finding in group_findings]
     )
 
     temporarily = Counter(

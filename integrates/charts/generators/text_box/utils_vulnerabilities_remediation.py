@@ -226,7 +226,7 @@ async def generate_one(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in findings)  # type: ignore
+        [finding.id for finding in findings]
     )
 
     opened_current_sprint, closed_current_sprint = await get_totals_by_week(

@@ -18,8 +18,10 @@ from charts.generators.bar_chart.utils import (
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
-from charts.utils import (
+from charts.generators.common.utils import (
     get_finding_name,
+)
+from charts.utils import (
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,

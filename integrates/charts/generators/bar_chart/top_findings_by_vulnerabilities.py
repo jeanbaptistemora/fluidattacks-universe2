@@ -22,6 +22,9 @@ from charts.generators.bar_chart.utils import (
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from charts.generators.common.utils import (
+    get_finding_name,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -85,8 +88,8 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data: List[Tuple[str, int]] = counters.most_common()
     merged_data: List[List[Union[int, str]]] = []
     for axis, columns in groupby(
-        sorted(data, key=lambda x: utils.get_finding_name([x[0]])),
-        key=lambda x: utils.get_finding_name([x[0]]),
+        sorted(data, key=lambda x: get_finding_name([x[0]])),
+        key=lambda x: get_finding_name([x[0]]),
     ):
         merged_data.append([axis, sum([value for _, value in columns])])
 
@@ -121,8 +124,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
         axis=dict(
             x=dict(
                 categories=[
-                    utils.get_finding_name([str(key)])
-                    for key, _ in merged_data
+                    get_finding_name([str(key)]) for key, _ in merged_data
                 ],
                 type="category",
                 tick=dict(

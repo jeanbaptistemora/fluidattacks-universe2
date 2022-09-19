@@ -9,6 +9,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.common.utils import (
+    MAX_WITH_DECIMALS,
+)
 from charts.generators.text_box.utils import (
     format_csv_data,
 )
@@ -17,7 +20,6 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    MAX_WITH_DECIMALS,
 )
 from dataloaders import (
     Dataloaders,

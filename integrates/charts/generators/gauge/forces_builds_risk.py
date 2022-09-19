@@ -12,6 +12,9 @@ from charts.colors import (
     GRAY_JET,
     RISK,
 )
+from charts.generators.common.utils import (
+    get_all_time_forces_executions,
+)
 from contextlib import (
     suppress,
 )
@@ -29,9 +32,7 @@ from newutils.validations import (
 async def generate_one(*, group: str) -> dict:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(
-        group
-    )  # type: ignore
+    ] = await get_all_time_forces_executions(group)
 
     executions_in_strict_mode: tuple[ForcesExecution, ...] = tuple(
         execution

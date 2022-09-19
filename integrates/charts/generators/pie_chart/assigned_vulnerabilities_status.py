@@ -49,7 +49,7 @@ async def get_data_one_group(
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        tuple(finding.id for finding in findings)  # type: ignore
+        [finding.id for finding in findings]
     )
 
     return Counter(

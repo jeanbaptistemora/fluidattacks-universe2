@@ -8,6 +8,9 @@ from aioextensions import (
 from charts import (
     utils,
 )
+from charts.generators.common.utils import (
+    get_all_time_forces_executions,
+)
 from charts.generators.text_box.utils import (
     ForcesReport,
     format_csv_data,
@@ -20,9 +23,7 @@ from db_model.forces.types import (
 async def generate_one(group: str) -> ForcesReport:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(
-        group
-    )  # type: ignore
+    ] = await get_all_time_forces_executions(group)
     unique_executions = set(
         f"{execution.repo}{execution.branch}" for execution in executions
     )

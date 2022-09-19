@@ -12,6 +12,9 @@ from charts.colors import (
     GRAY_JET,
     TREATMENT,
 )
+from charts.generators.common.utils import (
+    get_all_time_forces_executions,
+)
 from charts.generators.gauge.forces_builds_risk import (
     format_csv_data,
 )
@@ -23,9 +26,7 @@ from db_model.forces.types import (
 async def generate_one(group: str) -> dict:
     executions: tuple[
         ForcesExecution, ...
-    ] = await utils.get_all_time_forces_executions(
-        group
-    )  # type: ignore
+    ] = await get_all_time_forces_executions(group)
 
     executions_in_strict_mode = tuple(
         execution
