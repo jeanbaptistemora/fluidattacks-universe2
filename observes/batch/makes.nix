@@ -1,180 +1,176 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-{outputs, ...}: let
-  sharedConfiguration = rec {
-    attempts = 5;
-    definition = "prod_observes";
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-    memory = 1800 * vcpus;
-    queue = "small";
-    setup = [outputs."/secretsForAwsFromGitlab/prodObserves"];
-    vcpus = 1;
+{
+  fromYaml,
+  projectPath,
+  outputs,
+  ...
+}: let
+  sizes_conf = fromYaml (
+    builtins.readFile (
+      projectPath "/common/compute/arch/sizes/data.yaml"
+    )
+  );
+  compute_resources = size: {
+    vcpus = sizes_conf."${size}".cpu;
+    memory = sizes_conf."${size}".memory;
+    queue = sizes_conf."${size}".queue;
   };
+  scheduled_job = {
+    attempts,
+    timeout,
+    size,
+    command,
+  }:
+    {
+      inherit attempts command;
+      attemptDurationSeconds = timeout;
+      definition = "prod_observes";
+      environment = [
+        "CACHIX_AUTH_TOKEN"
+        "UNIVERSE_API_TOKEN"
+      ];
+      setup = [outputs."/secretsForAwsFromGitlab/prodObserves"];
+    }
+    // compute_resources size;
+  clone_job = {
+    attempts,
+    timeout,
+    command,
+  }:
+    scheduled_job {
+      inherit attempts timeout command;
+      size = "nano";
+    }
+    // {
+      queue = "clone";
+    };
 in {
   computeOnAwsBatch = {
-    observesAnnounceKitEtl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 43200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/announcekit"];
-      };
+    observesAnnounceKitEtl = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 43200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/announcekit"];
+    };
 
-    observesBugsnagEtl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 43200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/bugsnag"];
-      };
+    observesBugsnagEtl = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 43200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/bugsnag"];
+    };
 
-    observesChecklyEtl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 43200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
-      };
+    observesChecklyEtl = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 43200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
+    };
 
-    observesDelightedEtl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 43200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/delighted"];
-      };
+    observesDelightedEtl = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 43200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/delighted"];
+    };
 
-    observesFormstackEtl =
-      sharedConfiguration
-      // rec {
-        attemptDurationSeconds = 14000;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
-        memory = 1800 * vcpus;
-        vcpus = 2;
-      };
+    observesFormstackEtl = scheduled_job {
+      size = "small";
+      attempts = 3;
+      timeout = 14000;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
+    };
 
-    observesGitlabEtlChallenges =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
-      };
+    observesGitlabEtlChallenges = scheduled_job {
+      size = "small";
+      attempts = 1;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
+    };
 
-    observesGitlabEtlDefault =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
-      };
+    observesGitlabEtlDefault = scheduled_job {
+      size = "small";
+      attempts = 1;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
+    };
 
-    observesGitlabEtlProduct =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
-      };
+    observesGitlabEtlProduct = scheduled_job {
+      size = "small";
+      attempts = 1;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
+    };
 
-    observesGitlabEtlServices =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
-      };
+    observesGitlabEtlServices = scheduled_job {
+      size = "small";
+      attempts = 1;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
+    };
 
-    observesMailchimpEtl =
-      sharedConfiguration
-      // {
-        attempts = 1;
-        attemptDurationSeconds = 864000;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
-      };
+    observesMailchimpEtl = scheduled_job {
+      size = "nano";
+      attempts = 1;
+      timeout = 864000;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
+    };
 
-    observesMandrillEtl =
-      sharedConfiguration
-      // {
-        attempts = 1;
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
-      };
+    observesMandrillEtl = scheduled_job {
+      size = "nano";
+      attempts = 1;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
+    };
 
-    observesCodeEtlMirror =
-      sharedConfiguration
-      // {
-        queue = "clone";
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/mirror"];
-      };
+    observesCodeEtlMirror = clone_job {
+      attempts = 3;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/mirror"];
+    };
 
-    observesCodeEtlUpload =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 28800;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
-      };
+    observesCodeEtlUpload = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 28800;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
+    };
 
-    observesCodeEtlMigration2 =
-      sharedConfiguration
-      // {
-        attempts = 1;
-        attemptDurationSeconds = 604800;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload/migration/fa-hash/v2"];
-      };
+    observesDynamoV2Etl = scheduled_job {
+      size = "nano";
+      attempts = 3;
+      timeout = 7200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
+    };
 
-    observesDynamoV2Etl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
-      };
+    observesDynamoV2EtlBig = scheduled_job {
+      size = "medium";
+      attempts = 1;
+      timeout = 172800;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
+    };
 
-    observesDynamoV2EtlBig =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 172800;
-        attempts = 1;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
-        vcpus = 4;
-        memory = 7600;
-        queue = "medium";
-      };
+    observesDynamoParallel = scheduled_job {
+      size = "large";
+      attempts = 1;
+      timeout = 259200;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
+    };
 
-    observesDynamoParallel =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 259200;
-        attempts = 1;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
-        queue = "large";
-        vcpus = 8;
-        memory = 15200;
-        parallel = 10;
-      };
+    observesDynamoPrepare = scheduled_job {
+      size = "nano";
+      attempts = 1;
+      timeout = 1800;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/prepare"];
+    };
 
-    observesDynamoPrepare =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 1800;
-        attempts = 1;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/prepare"];
-      };
-
-    observesDynamoV3EtlBig =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 172800;
-        attempts = 1;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
-        vcpus = 4;
-        memory = 7600;
-        queue = "medium";
-      };
-
-    observesDbMigration =
-      sharedConfiguration
-      // {
-        attempts = 1;
-        attemptDurationSeconds = 172800;
-        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/job/migration"];
-      };
+    observesDynamoV3EtlBig = scheduled_job {
+      size = "medium";
+      attempts = 1;
+      timeout = 172800;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
+    };
   };
 }
