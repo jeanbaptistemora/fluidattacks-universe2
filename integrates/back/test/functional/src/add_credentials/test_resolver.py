@@ -146,7 +146,13 @@ async def test_add_credentials_fail(
     result = await get_result(
         user=email,
         organization_id=organization_id,
-        credentials=dict(name="cred5", type="HTTPS", user=" ", password="124"),
+        credentials=dict(
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user=" ",
+            password="124",  # NOSONAR
+        ),
     )
     assert "errors" in result
     assert (
@@ -158,7 +164,11 @@ async def test_add_credentials_fail(
         user=email,
         organization_id=organization_id,
         credentials=dict(
-            name="cred5", type="HTTPS", user="usertest", password="124"
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user="usertest",
+            password="124",  # NOSONAR
         ),
     )
     assert "errors" in result
@@ -171,7 +181,11 @@ async def test_add_credentials_fail(
         user=email,
         organization_id=organization_id,
         credentials=dict(
-            name="cred5", type="HTTPS", user="usertest", password="ttr"
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user="usertest",
+            password="ttr",  # NOSONAR
         ),
     )
     assert "errors" in result
@@ -184,7 +198,11 @@ async def test_add_credentials_fail(
         user=email,
         organization_id=organization_id,
         credentials=dict(
-            name="cred5", type="HTTPS", user="usertest", password="TT1L"
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user="usertest",
+            password="TT1L",  # NOSONAR
         ),
     )
     assert "errors" in result
