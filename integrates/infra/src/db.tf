@@ -59,8 +59,8 @@ resource "aws_dynamodb_table" "integrates_vms" {
   billing_mode     = "PAY_PER_REQUEST"
   hash_key         = "pk"
   range_key        = "sk"
-  stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
+  stream_enabled   = false
+  stream_view_type = "NEW_IMAGE"
 
   attribute {
     name = "pk"
