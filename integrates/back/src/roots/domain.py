@@ -699,6 +699,8 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+    if not kwargs["environment"]:
+        raise InvalidParameter("environment")
 
     if kwargs.get("nickname") and kwargs.get("nickname") != nickname:
         validation_utils.validate_sanitized_csv_input(kwargs["nickname"])
