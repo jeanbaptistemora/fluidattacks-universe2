@@ -99,17 +99,14 @@ def rich_log(
 ) -> None:
     """Writes to the specified console interfaces to have either stdout and log
     output"""
-    if log_to == LogInterface.CONSOLE:
+    if log_to in [LogInterface.ALL, LogInterface.CONSOLE]:
         CONSOLE_INTERFACE.log(rich_msg)
-    elif log_to == LogInterface.LOGGER:
-        LOGGING_INTERFACE.log(rich_msg)
-    else:
-        CONSOLE_INTERFACE.log(rich_msg)
+    if log_to in [LogInterface.ALL, LogInterface.LOGGER]:
         LOGGING_INTERFACE.log(rich_msg)
 
 
 def log_banner(banner: str) -> None:
-    """Special method to log the banner shown in ARM logs"""
+    """Special method to log the banner to be shown in ARM logs"""
     LOGGING_INTERFACE.rule(banner)
 
 

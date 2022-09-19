@@ -77,19 +77,18 @@ async def validate_severity(severity: Optional[float]) -> bool:
 def show_banner() -> None:
     """Show forces banner"""
     name: str = (
-        "[white on white]|[/][bold red on white]››[/][white on white]|[/]"
-        "[bold white on red]› [/][italic bold red] Fluid [white]Attacks[/][/]"
+        "[default on red]  [/][bold default on red]››[/]"
+        "[bold red on white]› [/][italic bold red] Fluid [white]Attacks[/][/]"
     )
     motto: str = "[italic bold white] We [red]hack[/] your software[/]"
     logo: str = f"""
-    [red on red]   __   [/]
-    [red on red]  [/]{name}
-    [red on red]  [/][white on white]|__|[/][white on red]  [/]{motto}
-    [red on red]        [/]"""
+    [default on white]        [/]
+    [default on white]  [/]{name}
+    [default on white]  [/][default on red]    [/][red on white]  [/]{motto}
+    [default on white]        [/]"""
     console_header: str = textwrap.dedent(
         r"""
-        [bright_green]
-              ____            _____           ____
+        [bright_green]      ____            _____           ____
              / __ \___ _   __/ ___/___  _____/ __ \____  _____
             / / / / _ \ | / /\__ \/ _ \/ ___/ / / / __ \/ ___/
            / /_/ /  __/ |/ /___/ /  __/ /__/ /_/ / /_/ (__  )
