@@ -32,6 +32,9 @@ const handleGrantError = (grantError: ApolloError): void => {
       case "Exception - Invalid field in form":
         msgError(translate.t("validations.invalidValueInField"));
         break;
+      case "Exception - Invalid field length in form":
+        msgError(translate.t("validations.invalidFieldLength"));
+        break;
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
