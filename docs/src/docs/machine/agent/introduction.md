@@ -56,6 +56,43 @@ available for the table.
 
 ![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
 
+- **Date:**
+  Allow you
+  to set a range of dates
+  during which our DevSecOps
+  agent was executed
+  in your pipeline.
+- **Status:**
+  Filter according
+  to two possible
+  statuses: Vulnerable and Secure.
+  The **Vulnerable** status is
+  given when the agent detects
+  at least one open vulnerability.
+  The **Secure** status is given
+  when there is no open vulnerability
+  affecting the transition to production.
+- **Vulnerabilities:**
+  The total number of open
+  vulnerabilities identified
+  by the Agent during the execution.
+- **Strictness:**
+  Lets you select between
+  two applied agent modes: The
+  **Strict** mode denotes that
+  in that execution the agent
+  was set to deny the deployment
+  to production (break the build)
+  when it detected at least one
+  open vulnerability in the pipeline.
+  The **tolerant** mode denotes
+  that in that execution the
+  agent was set to only give
+  warnings when it detected
+  open vulnerabilities
+  in the pipeline,
+  allowing deployment to production.
+
 ## Export button
 
 In the DevSecOps section,
