@@ -9,9 +9,9 @@ gem "omniauth"
 gem "omniauth-oauth2"
 gem "rdoc"
 
-gem 'library', '>= 2.2.0', '< 3.0'
+gem 'devise', '>= 4.0.0', '< 4.6.2'
 
-gem 'another-library', '~> 2.2', '>= 2.2.1'
+gem 'draper', '~> 1.2', '>= 1.2.1'
 
 gem "rails-controller-testing", github: "rails/rails-controller-testing"
 

@@ -65,7 +65,7 @@ def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
                 line_gem = True
             elif not line_gem:
                 continue
-            elif line_gem and (matched := re.match(format_deps, line)):
+            elif matched := re.match(format_deps, line):
                 line = matched.group(1)
                 line = GemfileParser.preprocess(line)
                 line_items = parse_line(line, "Gemfile.lock")
