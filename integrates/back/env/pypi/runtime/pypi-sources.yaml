@@ -141,7 +141,74 @@ closure:
   wrapt: 1.14.1
   yarl: 1.8.1
   zenpy: 2.0.24
+  amqp: 5.1.1
+  billiard: 3.6.4.0
+  celery: 5.2.7
+  click-didyoumean: 0.3.0
+  click-plugins: 1.1.1
+  click-repl: 0.2.0
+  kombu: 5.2.4
+  prompt-toolkit: 3.0.31
+  vine: 5.0.0
+  wcwidth: 0.2.5
 links:
+  - name: amqp-5.1.1-py3-none-any.whl
+    sha256: 0n9kshszf855wdx1mgfbf94v9b8fjg1xhd0rd7ksd3rxqb95c2bg
+    url: https://files.pythonhosted.org/packages/de/a3/e7b3b9d34239bae066df135060e225929d639731050c920fdc740d6b7897/amqp-5.1.1-py3-none-any.whl
+  - name: amqp-5.1.1.tar.gz
+    sha256: 1qmmffiy48nady7is8529vxcyqbq88v5zgawqr3fk4q8rkz166rc
+    url: https://files.pythonhosted.org/packages/cb/e7/bcaab89065e17915a28247fa5d4f582ca107b4544e2b1aba92d32f794a0f/amqp-5.1.1.tar.gz
+  - name: billiard-3.6.4.0-py3-none-any.whl
+    sha256: 0nw7bbyqlqgq5ikqpyp7bnc7sqblzyy0jj8wfmf4vax6iykkw447
+    url: https://files.pythonhosted.org/packages/2b/89/0c43de91d4e52eaa7bd748771d417f6ac9e51e66b2f61928c2151bf65878/billiard-3.6.4.0-py3-none-any.whl
+  - name: billiard-3.6.4.0.tar.gz
+    sha256: 0ismj2p8c66ykpss94rs0bfra5agxxmljz8r3gaq79r8valfb799
+    url: https://files.pythonhosted.org/packages/92/91/40de1901da8ec9eeb7c6a22143ba5d55d8aaa790761ca31342cedcd5c793/billiard-3.6.4.0.tar.gz
+  - name: celery-5.2.7-py3-none-any.whl
+    sha256: 050f5hq7bl9lcdnd7rgxgapkkzcivazbcmv2grqdcn6d4302110k
+    url: https://files.pythonhosted.org/packages/1d/99/21fe9d1829cab4fc77d18f89d0c4cbcfe754e95f8b8f4af64fe4997c442f/celery-5.2.7-py3-none-any.whl
+  - name: celery-5.2.7.tar.gz
+    sha256: 0vccjlakjm966gpfhjs47ni16573cahggs419w08l3yk6hlxiyzs
+    url: https://files.pythonhosted.org/packages/ce/21/41a0028f6d610987c0839250357c1a00f351790b8a448c2eb323caa719ac/celery-5.2.7.tar.gz
+  - name: click_didyoumean-0.3.0-py3-none-any.whl
+    sha256: 0rq6gkvvyib1i9v39d49aqyjvbcys5x5dagm1ny0cgyyl73kswd0
+    url: https://files.pythonhosted.org/packages/ad/36/4599267417fc78b587b1588e0647a468c60b36c02bb723d450d050738fa8/click_didyoumean-0.3.0-py3-none-any.whl
+  - name: click-didyoumean-0.3.0.tar.gz
+    sha256: 0dc0xrmqbw0idpx843ahzzvivmvx3fcfsm3k54lnssyra7cg117i
+    url: https://files.pythonhosted.org/packages/2f/a7/822fbc659be70dcb75a91fb91fec718b653326697d0e9907f4f90114b34f/click-didyoumean-0.3.0.tar.gz
+  - name: click_plugins-1.1.1-py2.py3-none-any.whl
+    sha256: 1j4zi013raj2nh35r0fwlp6ivr238hyn5qc1zmbm0br2sc3209jx
+    url: https://files.pythonhosted.org/packages/e9/da/824b92d9942f4e472702488857914bdd50f73021efea15b4cad9aca8ecef/click_plugins-1.1.1-py2.py3-none-any.whl
+  - name: click-plugins-1.1.1.tar.gz
+    sha256: 0jr6bxj67vg988vkm6nz8jj98v9lg46bn49lkhak3n598jbrkas6
+    url: https://files.pythonhosted.org/packages/5f/1d/45434f64ed749540af821fd7e42b8e4d23ac04b1eda7c26613288d6cd8a8/click-plugins-1.1.1.tar.gz
+  - name: click-repl-0.2.0.tar.gz
+    sha256: 1n6gv8hd363xjnv69g3iwl9pnk06rfs401br2091bxjvfj6zc4nd
+    url: https://files.pythonhosted.org/packages/60/30/11d3f09eff5ae3627bca79563855035e8d241444520500a3c7914eae6a74/click-repl-0.2.0.tar.gz
+  - name: kombu-5.2.4-py3-none-any.whl
+    sha256: 19314gymk6n8vj386ai3xbipjq3mgxxm7xfjy2y1fd1x54j3n8cb
+    url: https://files.pythonhosted.org/packages/d9/f3/62d12dd7ebad710319f0877c1c33bca379fc7d28069daae890fa2fa444c8/kombu-5.2.4-py3-none-any.whl
+  - name: kombu-5.2.4.tar.gz
+    sha256: 044ng79gj04668kf5fmy7fjkw8302xyapskkn65ym52zfbpf7kip
+    url: https://files.pythonhosted.org/packages/e1/9e/3811be7d86ac3be6d1a1f5098f95b1d8e2519c12c537719c7e13c8a12800/kombu-5.2.4.tar.gz
+  - name: prompt_toolkit-3.0.31-py3-none-any.whl
+    sha256: 0vd9zx0kw74slz113095wp7mz3ypwnpraj5gln6grw1x2f3g75ln
+    url: https://files.pythonhosted.org/packages/26/ec/2ebddd1f0584fec4a6d4b5dc57627254070c3db310f00981bc5de03dd5ab/prompt_toolkit-3.0.31-py3-none-any.whl
+  - name: prompt_toolkit-3.0.31.tar.gz
+    sha256: 0j41m0gcphppl7vfv1y0hwkrby2d1d6liwymyqpzb1qpkln9bnls
+    url: https://files.pythonhosted.org/packages/80/76/c94cf323ca362dd7baca8d8ddf3b5fe1576848bc0156522ad581c04f8446/prompt_toolkit-3.0.31.tar.gz
+  - name: vine-5.0.0-py2.py3-none-any.whl
+    sha256: 0c7vnwa3aklibgfdwfz1rk537p807219ri17a0895vbndymwx7ac
+    url: https://files.pythonhosted.org/packages/8d/61/a7badb48186919a9fd7cf0ef427cab6d16e0ed474035c36fa64ddd72bfa2/vine-5.0.0-py2.py3-none-any.whl
+  - name: vine-5.0.0.tar.gz
+    sha256: 0zk3pm0g7s4qfn0gk28lfmsyplvisaxi6826cgpq5njkm4j1cfvx
+    url: https://files.pythonhosted.org/packages/66/b2/8954108816865edf2b1e0d24f3c2c11dfd7232f795bcf1e4164fb8ee5e15/vine-5.0.0.tar.gz
+  - name: wcwidth-0.2.5-py2.py3-none-any.whl
+    sha256: 1177pfa343r378020a85l3b16ak479qgyvh8k5719fgbkhm81d5y
+    url: https://files.pythonhosted.org/packages/59/7c/e39aca596badaf1b78e8f547c807b04dae603a433d3e7a7e04d67f2ef3e5/wcwidth-0.2.5-py2.py3-none-any.whl
+  - name: wcwidth-0.2.5.tar.gz
+    sha256: 10vc257v1r9hhmwxyxw0v79kwh81gyz4zanwggdrz4kjk2wlgmn4
+    url: https://files.pythonhosted.org/packages/89/38/459b727c381504f361832b9e5ace19966de1a235d73cdbdea91c771a1155/wcwidth-0.2.5.tar.gz
   - name: aioboto3-10.0.0-py3-none-any.whl
     sha256: 1azr3v7zn56wz8sjizab3rmy3l8kj3jyyadlbmz78b5n4rrqi358
     url: https://files.pythonhosted.org/packages/00/75/d0f860f49929e4569b53603e6f9f213777c7f8342067699d42006b9a4786/aioboto3-10.0.0-py3-none-any.whl

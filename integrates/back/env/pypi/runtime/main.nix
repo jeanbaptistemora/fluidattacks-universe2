@@ -31,6 +31,7 @@
         inputs.nixpkgs.postgresql
         inputs.nixpkgs.gnutar
         inputs.nixpkgs.gzip
+        inputs.nixpkgs.python39Packages.pycurl
       ];
     };
     withSetuptools_57_4_0 = true;
@@ -42,6 +43,7 @@ in
     searchPaths = {
       pythonPackage = [
         "${self_bugsnag}/lib/python3.9/site-packages/"
+        "${inputs.nixpkgs.python39Packages.pycurl}/lib/python3.9/site-packages/"
         (projectPath "/integrates/back/src")
         (projectPath "/integrates")
         (projectPath "/common/utils/bugsnag/client")
