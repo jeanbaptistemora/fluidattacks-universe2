@@ -116,6 +116,7 @@ from newutils.validations import (
     validate_email_address,
     validate_include_lowercase,
     validate_include_number,
+    validate_include_uppercase,
     validate_space_field,
     validate_start_letter,
 )
@@ -166,6 +167,7 @@ async def add_credentials(
         validate_start_letter(password)
         validate_include_number(password)
         validate_include_lowercase(password)
+        validate_include_uppercase(password)
         secret = HttpsSecret(
             user=user,
             password=password,

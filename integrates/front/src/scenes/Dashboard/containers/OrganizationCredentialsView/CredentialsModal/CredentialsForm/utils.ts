@@ -98,6 +98,18 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                   return regex.test(value);
                 }
+              )
+              .test(
+                "includeUppercase",
+                translate.t("validations.credentialsModal.includeUppercase"),
+                (value: string | undefined): boolean => {
+                  if (value === undefined || value === "") {
+                    return false;
+                  }
+                  const regex = /[A-Z]/u;
+
+                  return regex.test(value);
+                }
               ),
           })
           .test(

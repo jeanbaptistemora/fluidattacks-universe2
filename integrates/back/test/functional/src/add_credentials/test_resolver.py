@@ -36,7 +36,7 @@ from typing import (
             "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(
-                name="cred2", type="HTTPS", user="user test", password="t3st"
+                name="cred2", type="HTTPS", user="user test", password="t3sT"
             ),
         ],
         [
@@ -191,6 +191,19 @@ async def test_add_credentials_fail(
     assert (
         result["errors"][0]["message"]
         == "Exception - Password should include lowercase characters"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5", type="HTTPS", user="usertest", password="tt1l"
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Password should include uppercase characters"
     )
 
 

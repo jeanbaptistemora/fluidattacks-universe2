@@ -391,3 +391,10 @@ def validate_include_lowercase(value: str) -> None:
         raise InvalidReportFilter(
             "Password should include lowercase characters"
         )
+
+
+def validate_include_uppercase(value: str) -> None:
+    if not any(val.isupper() for val in value):
+        raise InvalidReportFilter(
+            "Password should include uppercase characters"
+        )

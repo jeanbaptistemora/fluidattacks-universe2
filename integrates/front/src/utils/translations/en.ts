@@ -3684,6 +3684,7 @@ export const enTranslations: ResourceKey = {
     credentialsModal: {
       includeLowercase: "Should include lowercase characters",
       includeNumber: "Should include at least one number",
+      includeUppercase: "Should include uppercase characters",
       startWithLetter: "Should start with a letter",
     },
     datetime: "The datetime format is not valid",
