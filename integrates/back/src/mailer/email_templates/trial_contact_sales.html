@@ -1,0 +1,43 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>Hello, sales team,</p>
+    <p>Below is the contact information of {{ name }}, who would like to get in touch with you:</p>
+    <ul class="big-list-icon">
+      <li>
+        <strong>Email</strong>: {{ user_email }}
+      </li>
+      <li>
+        <strong>Country</strong>: {{ user_country }}
+      </li>
+      <li>
+        <strong>Mobile phone number</strong>: {{ user_number }}
+      </li>
+      <li>
+        <strong>ARM Organization name</strong>: {{ org_name }}
+      </li>
+      <li>
+        <strong>ARM Group name</strong>: {{ group_name }}
+      </li>
+      <li>
+        <strong>Trial day</strong>: {{ trial_day }}
+      </li>
+    </ul>
+    <p>Regards,</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
