@@ -30,7 +30,7 @@ BASE_URL: str = "https://app.fluidattacks.com"
 
 def get_subs_unverified_findings(group: str = "all") -> Response:
 
-    project_info_query: str = """
+    group_info_query: str = """
         name
         findings(filters: {verified: false}) {
             id
@@ -47,7 +47,7 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
                 me {{
                     organizations {{
                         groups {{
-                            {project_info_query}
+                            {group_info_query}
                         }}
                     }}
                 }}
@@ -57,7 +57,7 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
         query = f"""
             query{{
                 group(groupName: "{group}") {{
-                    {project_info_query}
+                    {group_info_query}
                 }}
             }}
         """
@@ -79,33 +79,33 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
     graphql_date_format = "%Y-%m-%d %H:%M:%S"
 
     response = get_subs_unverified_findings(group)
-    projects_info = response.data if response.status_code == 200 else {}
+    groups_info = response.data if response.status_code == 200 else {}
 
     if group != "all":
-        projects_info = {
-            "me": {"organizations": [{"groups": [projects_info.get("group")]}]}
+        groups_info = {
+            "me": {"organizations": [{"groups": [groups_info.get("group")]}]}
         }
-    projects_info = [
+    groups_info = [
         group
-        for org in projects_info.get("me", {}).get("organizations", {})
+        for org in groups_info.get("me", {}).get("organizations", {})
         for group in org.get("groups", [])
     ]
 
     # claning empty findigs
-    projects_info = list(
+    groups_info = list(
         filter(
             lambda info: info.get("findings")
             and [
                 finding.get("vulnerabilitiesToReattack")
                 for finding in info.get("findings", [{}])
             ],
-            projects_info,
+            groups_info,
         )
     )
 
     # Filter vulnerabilities and order by date
-    for project_info in projects_info:
-        for finding in project_info["findings"]:
+    for group_info in groups_info:
+        for finding in group_info["findings"]:
             # Order vulnerabilities by date
             finding["vulnerabilities"] = list(
                 sorted(
@@ -116,18 +116,18 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
                 )
             )
 
-        project_info["findings"] = list(
+        group_info["findings"] = list(
             filter(
                 lambda finding: finding["vulnerabilities"],
-                project_info["findings"],
+                group_info["findings"],
             )
         )
 
     total_findings = 0
     total_vulnerabilities = 0
     oldest_finding = {"group": "", "date_dif": relativedelta()}
-    for project_info in projects_info:
-        for finding in project_info["findings"]:
+    for group_info in groups_info:
+        for finding in group_info["findings"]:
             oldest_vulnerability = finding["vulnerabilities"][0]
             oldest_vuln_dif = relativedelta(
                 dt.now(),
@@ -140,7 +140,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             )
             finding["vulnerability_counter"] = len(finding["vulnerabilities"])
             finding["oldest_vuln_dif"] = oldest_vuln_dif
-            finding["url"] = get_url(project_info["name"], finding["id"])
+            finding["url"] = get_url(group_info["name"], finding["id"])
 
             total_vulnerabilities += finding["vulnerability_counter"]
             if (
@@ -149,23 +149,23 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             ):
 
                 oldest_finding = {
-                    "group": project_info["name"],
+                    "group": group_info["name"],
                     "date_dif": finding["oldest_vuln_dif"],
                 }
 
-        total_findings += len(project_info["findings"])
+        total_findings += len(group_info["findings"])
 
     # cleaning findings without vulnerabilities
-    for project_info in projects_info:
-        project_info["findings"] = list(
+    for group_info in groups_info:
+        group_info["findings"] = list(
             filter(
                 lambda finding: finding["vulnerabilities"],
-                project_info["findings"],
+                group_info["findings"],
             )
         )
     # clean trash
-    projects_info = list(
-        filter(lambda project_info: project_info["findings"], projects_info)
+    groups_info = list(
+        filter(lambda project_info: project_info["findings"], groups_info)
     )
 
     summary_info = {
@@ -174,7 +174,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
         "oldest_finding": oldest_finding,
     }
 
-    return {"projects_info": projects_info, "summary_info": summary_info}
+    return {"projects_info": groups_info, "summary_info": summary_info}
 
 
 @shield()
