@@ -112,7 +112,9 @@ in {
       observesCommonPostgresClient = {
         searchPaths.source = [
           outputs."/observes/common/postgres-client/env/development"
+          outputs."/observes/common/postgres-client/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/postgres-client/src/postgres_client";
       };

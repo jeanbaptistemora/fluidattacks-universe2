@@ -58,7 +58,7 @@ def _raise(excep: Exception) -> NoReturn:
     raise excep
 
 
-def _exist(cursor: Cursor, schema: SchemaID) -> IOResultBool:  # type: ignore
+def _exist(cursor: Cursor, schema: SchemaID) -> IOResultBool:
     query = queries.exist(schema)
     cursor.execute_query(query)
     result = cursor.fetch_one().map(lambda elem: elem[0])

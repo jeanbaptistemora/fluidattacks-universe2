@@ -6,7 +6,7 @@ from __future__ import (
     annotations,
 )
 
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 import json

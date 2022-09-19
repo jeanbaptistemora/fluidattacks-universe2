@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-common-postgres-client-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       bin = [
         inputs.nixpkgs.postgresql
       ];

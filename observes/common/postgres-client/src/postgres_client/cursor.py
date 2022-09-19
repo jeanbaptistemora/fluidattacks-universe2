@@ -72,7 +72,7 @@ class Cursor(NamedTuple):
         return IO(self.db_cursor.fetchall())
 
     def fetch_many(self, limit: int) -> IO[Tuple[Tuple[Any, ...]]]:
-        return IO(tuple(self.db_cursor.fetchmany(limit)))
+        return IO(tuple(self.db_cursor.fetchmany(limit)))  # type: ignore
 
     def fetch_one(self) -> IO[Tuple[Any, ...]]:
         raw = self.db_cursor.fetchone()

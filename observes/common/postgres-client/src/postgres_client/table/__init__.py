@@ -54,7 +54,7 @@ from typing import (
 IOResultBool = IOResult[Literal[True], Literal[False]]
 
 
-def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:  # type: ignore
+def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:
     query = queries.exist(table_id)
     cursor.execute_query(query)
     result = cursor.fetch_one()
@@ -160,7 +160,7 @@ class TableFactory(Immutable):
             object.__setattr__(self, prop, val)
         return self
 
-    def exist(self, table_id: TableID) -> IOResultBool:  # type: ignore
+    def exist(self, table_id: TableID) -> IOResultBool:
         return _exist(self.cursor, table_id)
 
     def retrieve(self, table_id: TableID) -> IO[Table]:

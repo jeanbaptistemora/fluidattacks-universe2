@@ -9,7 +9,7 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 import psycopg2 as postgres
