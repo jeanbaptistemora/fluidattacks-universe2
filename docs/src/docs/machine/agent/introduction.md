@@ -45,82 +45,16 @@ and its exploitability,
 status and location,
 among others.
 
-![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1650912288/docs/machine/agent/agent_devsecops_table.png)
+![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1663616835/docs/machine/agent/agent_table.png)
 
 ## Filters
 
 In the
 **DevSecOps** section,
-five filters are available
-for the table.
-The first of them is
-**Date (range)** which
-offers two fields,
-allowing you to set a
-range of dates during
-which our DevSecOps agent
-was executed in your pipeline.
+there are seven filters
+available for the table.
 
-![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_date_range.png)
-
-The second filter
-is **Status**,
-which allows you to filter
-according to two possible
-statuses: Vulnerable and Secure.
-The **Vulnerable** status is
-given when the agent detects
-at least one open vulnerability.
-The **Secure** status is given
-when there is no open vulnerability
-affecting the transition to production.
-
-![DevSevOps Second Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_status.png)
-
-The third filter
-is **Strictness**,
-which lets you select between
-two applied agent modes: The
-**Strict** mode denotes that
-in that execution the agent
-was set to deny the deployment
-to production (break the build)
-when it detected at least one
-open vulnerability in the pipeline.
-The **tolerant** mode denotes
-that in that execution the
-agent was set to only give
-warnings when it detected
-open vulnerabilities
-in the pipeline,
-allowing deployment to production.
-
-![DevSevOps Third Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_strictness.png)
-
-The fourth filter is
-**Type**,
-in which you have three
-options: SAST,
-DAST and ALL.
-These options correspond
-to what the agent recognized
-as the techniques with which
-vulnerabilities were detected,
-ALL being with both SAST and DAST.
-
-![DevSevOps Type Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_type.png)
-
-The final filter is
-**Git repository**.
-In the corresponding field,
-you can partially or
-completely enter the name
-of one of the repositories
-evaluated by the agent.
-It will restrict the
-information in the table
-to the repositories with
-that name.
+![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
 
 ## Export button
 
