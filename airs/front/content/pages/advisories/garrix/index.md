@@ -5,13 +5,13 @@ authors: Carlos Bello
 writer: cbello
 codename: garrix
 product: Microweber 1.3.1
-date: 2022-09-09 20:30 COT
+date: 2022-09-19 09:00 COT
 cveid: CVE-2022-0698
 severity: 8.8
 description: Microweber 1.3.1  -  DOM XSS to Account Takeover
 keywords: Fluid Attacks, Security, Vulnerabilities, Microweber
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -23,8 +23,8 @@ template: advisory
 | **Code name**         | [Garrix](https://en.wikipedia.org/wiki/Martin_Garrix)  |
 | **Product**           | Microweber                                             |
 | **Affected versions** | Version 1.3.1                                          |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-09                                             |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-19                                             |
 
 ## Vulnerability
 
@@ -100,7 +100,7 @@ We have reserved the CVE-2022-0698 to refer to this issue from now on.
 
 ## Mitigation
 
-There is currently no patch available for this vulnerability.
+An updated version of Microweber is available at the vendor page.
 
 ## Credits
 
@@ -117,8 +117,8 @@ Team of `Fluid Attacks`.
 <time-lapse
   discovered="2022-09-05"
   contacted="2022-09-05"
-  replied=""
-  confirmed="2022-09-00"
-  patched=""
-  disclosure="2022-09-00">
+  replied="2022-09-05"
+  confirmed="2022-09-05"
+  patched="2022-09-19"
+  disclosure="2022-09-19">
 </time-lapse>
