@@ -20,7 +20,7 @@ function start_etl {
     && tap-gitlab stream "all" \
       --project "${project}" \
       --api-key "${token}" \
-      --max-pages 250 \
+      --max-pages 2500 \
       --state "${state}" \
     | tap-json > .singer \
     && echo '[INFO] Running target' \

@@ -84,30 +84,30 @@ in {
     };
 
     observesGitlabEtlChallenges = scheduled_job {
-      size = "small";
+      size = "medium";
       attempts = 1;
-      timeout = 7200;
+      timeout = 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
     };
 
     observesGitlabEtlDefault = scheduled_job {
-      size = "small";
+      size = "medium";
       attempts = 1;
-      timeout = 7200;
+      timeout = 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
     };
 
     observesGitlabEtlProduct = scheduled_job {
-      size = "small";
+      size = "medium";
       attempts = 1;
-      timeout = 7200;
+      timeout = 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
     };
 
     observesGitlabEtlServices = scheduled_job {
-      size = "small";
+      size = "medium";
       attempts = 1;
-      timeout = 7200;
+      timeout = 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
     };
 
