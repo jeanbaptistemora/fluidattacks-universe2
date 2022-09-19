@@ -1055,7 +1055,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/functional__forces_executions:
+/integrates/back/test/functional__forces_executions_s3:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1076,7 +1076,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'forces_executions'
+    - m . /integrates/back/test/functional 'forces_executions_s3'
   stage: test-code
   tags:
     - small
@@ -3621,7 +3621,7 @@
     - /integrates/back/test/functional__event
     - /integrates/back/test/functional__events
     - /integrates/back/test/functional__finding
-    - /integrates/back/test/functional__forces_executions
+    - /integrates/back/test/functional__forces_executions_s3
     - /integrates/back/test/functional__grant_stakeholder_access
     - /integrates/back/test/functional__grant_stakeholder_organization_access
     - /integrates/back/test/functional__group_s3

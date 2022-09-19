@@ -85,7 +85,7 @@ TEST_GROUPS: set[str] = {
     "event",
     "events",
     "finding",
-    "forces_executions",
+    "forces_executions_s3",
     "handle_vulnerabilities_acceptance",
     "grant_stakeholder_access",
     "grant_stakeholder_organization_access",

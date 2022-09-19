@@ -50,7 +50,7 @@
     ["event"]
     ["events"]
     ["finding"]
-    ["forces_executions"]
+    ["forces_executions_s3"]
     ["grant_stakeholder_access"]
     ["grant_stakeholder_organization_access"]
     ["group_s3"]

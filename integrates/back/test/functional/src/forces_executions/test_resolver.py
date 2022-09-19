@@ -12,7 +12,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.resolver_test_group("forces_executions_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -51,7 +51,7 @@ async def test_get_forces_executions(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.resolver_test_group("forces_executions_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
