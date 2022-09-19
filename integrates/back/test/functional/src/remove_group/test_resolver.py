@@ -31,7 +31,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_group")
+@pytest.mark.resolver_test_group("remove_group_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -74,7 +74,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_group")
+@pytest.mark.resolver_test_group("remove_group_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

@@ -24,7 +24,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_group")
+@pytest.mark.resolver_test_group("update_group_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -61,7 +61,7 @@ async def test_update_group(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_group")
+@pytest.mark.resolver_test_group("update_group_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

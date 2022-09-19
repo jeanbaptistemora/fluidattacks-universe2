@@ -19,7 +19,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_event_evidence")
+@pytest.mark.resolver_test_group("update_event_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -43,7 +43,7 @@ async def test_admin(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_event_evidence")
+@pytest.mark.resolver_test_group("update_event_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

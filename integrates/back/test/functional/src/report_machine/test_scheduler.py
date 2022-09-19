@@ -35,7 +35,7 @@ from unittest import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine")
+@pytest.mark.resolver_test_group("report_machine_s3")
 async def test_persist_result(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()
@@ -229,7 +229,7 @@ async def test_persist_result(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine")
+@pytest.mark.resolver_test_group("report_machine_s3")
 async def test_report_f079(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()
@@ -405,7 +405,7 @@ async def test_report_f079(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine")
+@pytest.mark.resolver_test_group("report_machine_s3")
 async def test_duplicated_reports(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()

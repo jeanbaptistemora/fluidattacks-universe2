@@ -19,7 +19,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_event_evidence")
+@pytest.mark.resolver_test_group("remove_event_evidence_s3")
 @pytest.mark.parametrize(
     ["email", "event_id"],
     [
@@ -41,7 +41,7 @@ async def test_remove_event_evidence(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_event_evidence")
+@pytest.mark.resolver_test_group("remove_event_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

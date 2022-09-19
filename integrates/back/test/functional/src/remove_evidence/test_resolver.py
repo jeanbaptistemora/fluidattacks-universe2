@@ -13,7 +13,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_evidence")
+@pytest.mark.resolver_test_group("remove_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -32,7 +32,7 @@ async def test_remove_evidence(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_evidence")
+@pytest.mark.resolver_test_group("remove_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -52,7 +52,7 @@ async def test_remove_evidence_fail_1(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_evidence")
+@pytest.mark.resolver_test_group("remove_evidence_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

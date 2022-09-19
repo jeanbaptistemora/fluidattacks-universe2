@@ -41,7 +41,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch")
+@pytest.mark.resolver_test_group("batch_dispatch_s3")
 async def test_clone_roots(
     generic_data: dict[str, Any],
     mock_tmp_repository: str,
@@ -92,7 +92,7 @@ async def test_clone_roots(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch")
+@pytest.mark.resolver_test_group("batch_dispatch_s3")
 async def test_clone_roots_failed(
     generic_data: dict[str, Any],
     mock_tmp_repository: str,
@@ -131,7 +131,7 @@ async def test_clone_roots_failed(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch")
+@pytest.mark.resolver_test_group("batch_dispatch_s3")
 async def test_clone_roots_real_https(
     generic_data: dict[str, Any],
 ) -> None:
@@ -156,7 +156,7 @@ async def test_clone_roots_real_https(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch")
+@pytest.mark.resolver_test_group("batch_dispatch_s3")
 async def test_clone_roots_real_ssh(
     generic_data: dict[str, Any],
 ) -> None:

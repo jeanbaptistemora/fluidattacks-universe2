@@ -18,7 +18,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("accept_legal")
+@pytest.mark.resolver_test_group("accept_legal_s3")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: dict[str, Any] = {

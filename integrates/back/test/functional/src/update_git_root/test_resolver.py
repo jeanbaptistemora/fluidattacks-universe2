@@ -16,7 +16,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_git_root")
+@pytest.mark.resolver_test_group("update_git_root_s3")
 @pytest.mark.parametrize(
     ["email"],
     [

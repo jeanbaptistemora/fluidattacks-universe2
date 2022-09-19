@@ -24,7 +24,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_files")
+@pytest.mark.resolver_test_group("remove_files_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -67,7 +67,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_files")
+@pytest.mark.resolver_test_group("remove_files_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -88,7 +88,7 @@ async def test_remove_files_fail_1(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("remove_files")
+@pytest.mark.resolver_test_group("remove_files_s3")
 @pytest.mark.parametrize(
     ["email"],
     [
