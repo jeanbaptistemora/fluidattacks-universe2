@@ -271,6 +271,24 @@ locals {
           Resource = ["*"]
         },
         {
+          Sid    = "sqsWrite"
+          Effect = "Allow"
+          Action = [
+            "sqs:CreateQueue",
+            "sqs:DeleteQueue",
+            "sqs:GetQueueAttributes",
+            "sqs:SetQueueAttributes",
+            "sqs:TagQueue",
+            "sqs:UntagQueue",
+            "sqs:AddPermission",
+            "sqs:RemovePermission",
+            "sqs:ListQueues",
+          ]
+          Resource = [
+            "*",
+          ]
+        },
+        {
           Sid    = "sqsAll"
           Effect = "Allow"
           Action = [
