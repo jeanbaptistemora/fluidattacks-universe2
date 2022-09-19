@@ -41,7 +41,7 @@ excluding yours.
 ![Open Exposure by Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
 
 For each of your groups, you can find out
-the severity (CVSSF) of open vulnerabilities.
+the exposure (CVSSF) of open vulnerabilities.
 
 ## How many vulnerabilities are remediated and accepted?
 
