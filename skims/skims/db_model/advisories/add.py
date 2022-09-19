@@ -27,14 +27,25 @@ from dynamodb import (
     operations,
 )
 import simplejson as json
+from typing import (
+    List,
+    Optional,
+)
 from utils.logs import (
     log_blocking,
 )
 
 
-async def add(*, advisory: Advisory, no_overwrite: bool = False) -> None:
+async def add(
+    *,
+    advisory: Advisory,
+    no_overwrite: bool = False,
+    to_storage: Optional[List[Advisory]] = None,
+) -> None:
     try:
         await _add(advisory=advisory, no_overwrite=no_overwrite)
+        if to_storage is not None:
+            to_storage.append(advisory)
     except (
         AdvisoryAlreadyCreated,
         InvalidSeverity,

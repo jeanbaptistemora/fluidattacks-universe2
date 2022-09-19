@@ -10,6 +10,9 @@ from .repositories.advisory_database import (
     get_advisory_database,
     URL_ADVISORY_DATABASE,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from db_model import (
     advisories as advisories_model,
 )
@@ -20,11 +23,20 @@ from git import (
     GitError,
     Repo,
 )
+from s3.operations import (
+    upload_object,
+)
+from s3.resource import (
+    get_s3_resource,
+    s3_shutdown,
+)
 from tempfile import (
     TemporaryDirectory,
 )
 from typing import (
+    Any,
     Callable,
+    Dict,
     List,
     Optional,
     Tuple,
@@ -68,6 +80,32 @@ def clone_repo(url: str) -> Optional[str]:
     return tmp_dirname
 
 
+async def upload_to_s3(to_storage: List[Advisory]) -> None:
+    s3_advisories: Dict[str, Any] = {}
+    for adv in to_storage:
+        if adv.package_manager not in s3_advisories:
+            s3_advisories.update({adv.package_manager: {}})
+        if adv.package_name not in s3_advisories[adv.package_manager]:
+            s3_advisories[adv.package_manager].update({adv.package_name: {}})
+        s3_advisories[adv.package_manager][adv.package_name].update(
+            {adv.associated_advisory: adv.vulnerable_version}
+        )
+    try:
+        client = await get_s3_resource()
+        for key, value in s3_advisories.items():
+            print(key)
+            await upload_object(
+                client=client,
+                bucket="skims.sca",
+                dict_object=value,
+                file_name=f"{key}.json",
+            )
+    except UnavailabilityError as ex:
+        log_blocking("error", "%s", ex.new())
+    finally:
+        await s3_shutdown()
+
+
 async def update_sca() -> None:
     # cloning repositories
     log_blocking("info", "Cloning neccesary repositories")
@@ -82,8 +120,15 @@ async def update_sca() -> None:
 
     # adding to table
     log_blocking("info", "Adding advisories to skima_sca table")
+    to_storage: List[Advisory] = []
     for advisory in advisories:
-        await advisories_model.add(advisory=fix_advisory(advisory))
+        await advisories_model.add(
+            advisory=fix_advisory(advisory), to_storage=to_storage
+        )
+
+    # adding to s3 bucket
+    log_blocking("info", "Adding advisories to skima.sca bucket")
+    await upload_to_s3(to_storage)
 
 
 async def main() -> None:

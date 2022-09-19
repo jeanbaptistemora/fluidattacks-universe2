@@ -17,9 +17,6 @@ from typing import (
     Any,
     Dict,
 )
-from utils.logs import (
-    log_blocking,
-)
 
 
 async def download_file(bucket: str, file_name: str, file_path: str) -> None:
@@ -29,17 +26,14 @@ async def download_file(bucket: str, file_name: str, file_path: str) -> None:
 
 
 async def upload_object(
-    file_name: str, dict_object: Dict[str, Any], bucket: str
+    client: Any, file_name: str, dict_object: Dict[str, Any], bucket: str
 ) -> None:
     try:
-        client = await get_s3_resource()
         await client.put_object(
             Body=json.dumps(dict_object, indent=2, sort_keys=True),
             Bucket=bucket,
             Key=file_name,
         )
+        print(f"Added file: {file_name}")
     except ClientError as ex:
-        log_blocking("error", "%s", ex)
         raise UnavailabilityError() from ex
-    finally:
-        await s3_shutdown()
