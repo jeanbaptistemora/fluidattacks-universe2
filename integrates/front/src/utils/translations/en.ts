@@ -3717,8 +3717,7 @@ export const enTranslations: ResourceKey = {
       "There is credentials with the same name in the organization",
     invalidEmailInField: "The email address inserted is not valid",
     invalidEnvironmentUrl: "The environment URL is invalid",
-    invalidFieldLength:
-      "The value inserted in one of the fields is too large or null",
+    invalidFieldLength: "The value inserted in one or more fields is invalid",
     invalidMarkdown: "Invalid or malformed markdown",
     invalidPhoneNumber: "The phone number is invalid",
     invalidSpaceField: "This field cannot contain only blankspaces",

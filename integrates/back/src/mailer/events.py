@@ -179,7 +179,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     }
 
     subject: str = (
-        f"[ARM] Event solved #[{event_id}] for [{group_name}]"
+        f"[ARM] Event #[{event_id}] was solved in [{group_name}]"
         if is_closed
         else f"[ARM] ACTION NEEDED: Your group [{group_name}] is at risk"
     )
