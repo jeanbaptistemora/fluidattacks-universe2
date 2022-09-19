@@ -7,7 +7,7 @@
 from dataclasses import (
     dataclass,
 )
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 from returns.io import (

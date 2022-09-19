@@ -71,7 +71,7 @@ def from_response(response: Response) -> Maybe[PageResult[str, List[JsonObj]]]:
 
 def extract_page(
     get_all: Callable[[], IO[Iterator[PageResult[str, _Data]]]],
-    getter: PageGetterIO[str, PageResult[str, _Data]],  # type: ignore
+    getter: PageGetterIO[str, PageResult[str, _Data]],
     page: PageOrAll[str],
 ) -> IO[Iterator[_Data]]:
     if isinstance(page, AllPages):

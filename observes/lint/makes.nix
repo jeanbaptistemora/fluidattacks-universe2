@@ -103,7 +103,9 @@ in {
       observesCommonPaginator = {
         searchPaths.source = [
           outputs."/observes/common/paginator/env/development"
+          outputs."/observes/common/paginator/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/paginator/paginator";
       };

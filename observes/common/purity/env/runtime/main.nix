@@ -13,9 +13,6 @@ in
   makeTemplate {
     name = "observes-common-purity-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

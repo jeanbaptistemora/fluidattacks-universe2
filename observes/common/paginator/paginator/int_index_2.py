@@ -13,7 +13,7 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 from paginator.pages import (
@@ -45,7 +45,7 @@ _Data = TypeVar("_Data")
 def _iter_over_async(
     ait: AsyncGenerator[_Data, None], loop: AbstractEventLoop
 ) -> Iterator[_Data]:
-    ait = ait.__aiter__()
+    ait = ait.__aiter__()  # type: ignore
 
     async def get_next() -> Tuple[bool, Optional[_Data]]:
         try:
@@ -74,7 +74,7 @@ class PageRange(NamedTuple):
 @deprecated
 def get_pages(
     page_range: PageRange,
-    getter: PageGetter[int, _Data],  # type: ignore
+    getter: PageGetter[int, _Data],
     limits: Limits = DEFAULT_LIMITS,
 ) -> Iterator[Maybe[_Data]]:
     @rate_limited(
@@ -98,7 +98,7 @@ def get_pages(
 @deprecated
 def get_until_end(
     start: PageId[int],
-    getter: PageGetter[int, _Data],  # type: ignore
+    getter: PageGetter[int, _Data],
     pages_chunk: int,
 ) -> Iterator[_Data]:
     empty_page_retrieved = False

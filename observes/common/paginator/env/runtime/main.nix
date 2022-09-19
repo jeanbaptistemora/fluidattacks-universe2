@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-common-paginator-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-announcekit-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

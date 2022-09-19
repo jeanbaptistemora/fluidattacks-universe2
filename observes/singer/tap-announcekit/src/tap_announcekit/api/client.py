@@ -88,7 +88,7 @@ class QueryFactory:
             selections(obj)  # call equivalent to unsafe_perform_io
             return obj
 
-        draft = _Query(Patch(op_obj), from_raw)
+        draft = _Query(Patch(op_obj), from_raw)  # type: ignore
         return Query(draft)
 
 

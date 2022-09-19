@@ -40,21 +40,21 @@ def mock_data_source() -> RawSource:
         list_audiences=_list_audiences,
         get_audience=_get_audience,
         list_abuse_reports=lambda x: x,  # type: ignore
-        get_abuse_report=lambda x: x,  # type: ignore
-        get_activity=lambda x: x,  # type: ignore
-        get_top_clients=lambda x: x,  # type: ignore
+        get_abuse_report=lambda x: x,
+        get_activity=lambda x: x,
+        get_top_clients=lambda x: x,
         list_members=lambda x: x,  # type: ignore
-        get_member=lambda x: x,  # type: ignore
+        get_member=lambda x: x,
         list_growth_hist=lambda x: x,  # type: ignore
-        get_growth_hist=lambda x: x,  # type: ignore
+        get_growth_hist=lambda x: x,
         list_interest_catg=lambda x: x,  # type: ignore
-        get_interest_catg=lambda x: x,  # type: ignore
-        get_audience_locations=lambda x: x,  # type: ignore
-        list_campaigns=lambda x: x,  # type: ignore
-        get_campaign=lambda x: x,  # type: ignore
-        list_feedbacks=lambda x: x,  # type: ignore
-        get_feedback=lambda x: x,  # type: ignore
-        get_checklist=lambda x: x,  # type: ignore
+        get_interest_catg=lambda x: x,
+        get_audience_locations=lambda x: x,
+        list_campaigns=lambda x: x,
+        get_campaign=lambda x: x,
+        list_feedbacks=lambda x: x,
+        get_feedback=lambda x: x,
+        get_checklist=lambda x: x,
     )
 
 

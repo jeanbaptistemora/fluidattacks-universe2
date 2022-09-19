@@ -11,7 +11,7 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 from paginator.int_index.objs import (
@@ -47,7 +47,7 @@ PageGetter = Callable[[PageId], EPage[_Data]]
 def _iter_over_async(
     ait: AsyncGenerator[_Data, None], loop: AbstractEventLoop
 ) -> Iterator[_Data]:
-    ait = ait.__aiter__()
+    ait = ait.__aiter__()  # type: ignore
 
     async def get_next() -> Tuple[bool, Optional[_Data]]:
         try:

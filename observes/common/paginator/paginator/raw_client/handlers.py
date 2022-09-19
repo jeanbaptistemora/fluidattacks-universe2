@@ -4,10 +4,10 @@
 
 # pylint: skip-file
 
-from requests.exceptions import (  # type: ignore
+from requests.exceptions import (
     HTTPError,
 )
-from requests.models import (  # type: ignore
+from requests.models import (
     Response,
 )
 from returns.curry import (
@@ -30,7 +30,7 @@ class MaxRetriesReached(Exception):
 
 
 RawResponse = IOResult[Response, HTTPError]
-RequestCall = Callable[[], RawResponse]  # type: ignore
+RequestCall = Callable[[], RawResponse]
 ErrorHandler = Callable[[int, HTTPError], HTTPError]
 
 
@@ -42,7 +42,7 @@ def insistent_call(
     retries = 0
     while retries < max_retries:
         retries = retries + 1
-        result = request().alt(partial(handler, retries))  # type: ignore
+        result = request().alt(partial(handler, retries))
         if is_successful(result):
             return result.unwrap()
     raise MaxRetriesReached()

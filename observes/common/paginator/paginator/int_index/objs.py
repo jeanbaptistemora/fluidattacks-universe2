@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from deprecated import (  # type: ignore
+from deprecated import (
     deprecated,
 )
 from paginator.pages import (
