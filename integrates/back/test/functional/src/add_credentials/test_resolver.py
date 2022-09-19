@@ -215,7 +215,11 @@ async def test_add_credentials_fail(
         user=email,
         organization_id=organization_id,
         credentials=dict(
-            name="cred5", type="HTTPS", user="usertest", password="tt1l"
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user="usertest",
+            password="tt1l",  # NOSONAR
         ),
     )
     assert "errors" in result
