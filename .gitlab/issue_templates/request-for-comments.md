@@ -59,4 +59,4 @@ without being directly part of the work? -->
 
 <!-- Template inspired on: https://github.com/NixOS/rfcs -->
 
-/label ~request-for-comments
+/label ~"request-for-comments"

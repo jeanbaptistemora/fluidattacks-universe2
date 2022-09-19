@@ -17,3 +17,5 @@ SPDX-License-Identifier: MPL-2.0
 ### User wireflow
 
 ### Prototype
+
+/label ~"arena::ux"

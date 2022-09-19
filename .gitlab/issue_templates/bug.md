@@ -14,4 +14,4 @@ SPDX-License-Identifier: MPL-2.0
 
 ### Possible fixes
 
-/label ~bug
+/label ~"type::bug"

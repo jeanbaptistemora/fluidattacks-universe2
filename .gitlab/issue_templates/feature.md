@@ -10,14 +10,14 @@ SPDX-License-Identifier: MPL-2.0
 
 ### Intended users
 
-### User experience goal
-
 ### Permissions and Security
 
 ### Proposal
+
+### Test plan
 
 ### What does success look like, and how can we measure that?
 
 ### Links / references
 
-/label ~feature
+/label ~"type::feature"
