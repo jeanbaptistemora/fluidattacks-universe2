@@ -8,27 +8,25 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import React, { useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
-import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { formatState } from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 import type {
-  IFindingFormatted,
   IGetTodoReattacks,
-  ITodoFindingToReattackAttr,
   ITodoGroupAttr,
   ITodoOrganizationAttr,
+  IVulnFormatted,
+  IVulnerabilityAttr,
+  IVulnerabilityEdges,
 } from "scenes/Dashboard/containers/Tasks/Reattacks/types";
-import { formatFindings } from "scenes/Dashboard/containers/Tasks/Reattacks/utils";
+import { formatVulns } from "scenes/Dashboard/containers/Tasks/Reattacks/utils";
 import { Logger } from "utils/logger";
 
 export const TasksReattacks: React.FC = (): JSX.Element => {
-  const { t } = useTranslation();
   const { push } = useHistory();
   const [searchTextFilter, setSearchTextFilter] = useState("");
 
@@ -42,51 +40,21 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeaderConfig[] = [
     {
-      dataField: "title",
+      dataField: "groupName",
+      header: "Group Name",
+      onSort: onSortState,
+      width: "10%",
+    },
+    {
+      dataField: "finding.title",
       header: "Type",
       onSort: onSortState,
       width: "30%",
       wrapped: true,
     },
     {
-      dataField: "age",
-      header: "Age",
-      onSort: onSortState,
-      width: "10%",
-      wrapped: true,
-    },
-    {
-      dataField: "lastVulnerability",
-      formatter: (value: number): string =>
-        t("group.findings.description.value", { count: value }),
-      header: "Last Report",
-      onSort: onSortState,
-      width: "10%",
-      wrapped: true,
-    },
-    {
-      dataField: "state",
-      formatter: formatState,
-      header: "Status",
-      onSort: onSortState,
-      width: "10%",
-      wrapped: true,
-    },
-    {
-      dataField: "severityScore",
+      dataField: "finding.severityScore",
       header: "Severity",
-      onSort: onSortState,
-      width: "10%",
-    },
-    {
-      dataField: "openVulnerabilities",
-      header: "Open Vulnerabilities",
-      onSort: onSortState,
-      width: "10%",
-    },
-    {
-      dataField: "groupName",
-      header: "Group Name",
       onSort: onSortState,
       width: "10%",
     },
@@ -111,18 +79,23 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     },
   });
 
-  const dataset: IFindingFormatted[] = formatFindings(
+  const dataset: IVulnFormatted[] = formatVulns(
     _.isUndefined(data) || _.isEmpty(data)
       ? []
       : _.flatten(
           data.me.organizations.map(
-            (org: ITodoOrganizationAttr): ITodoFindingToReattackAttr[] =>
+            (org: ITodoOrganizationAttr): IVulnerabilityAttr[] =>
               org.name === "imamura"
                 ? []
                 : _.flatten(
                     org.groups.map(
-                      (group: ITodoGroupAttr): ITodoFindingToReattackAttr[] =>
-                        group.findings
+                      (group: ITodoGroupAttr): IVulnerabilityAttr[] =>
+                        _.flatten(
+                          group.vulnerabilities.edges.map(
+                            (edge: IVulnerabilityEdges): IVulnerabilityAttr[] =>
+                              edge.node
+                          )
+                        )
                     )
                   )
           )
@@ -134,7 +107,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchTextResult: ITodoFindingToReattackAttr[] = filterSearchText(
+  const filterSearchTextResult: IVulnerabilityAttr[] = filterSearchText(
     dataset,
     searchTextFilter
   );
@@ -146,11 +119,10 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     _0: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
   ): void => {
-    const [findingSelected]: ITodoFindingToReattackAttr[] = dataset.filter(
-      (findingAttr: ITodoFindingToReattackAttr): boolean =>
-        findingAttr.id === rowInfo.id
+    const [findingSelected]: IVulnerabilityAttr[] = dataset.filter(
+      (vulnAttr: IVulnerabilityAttr): boolean => vulnAttr.id === rowInfo.id
     );
-    push(`/groups/${findingSelected.groupName}/vulns/${rowInfo.id}/locations`);
+    push(`/groups/${findingSelected.finding.id}/vulns/${rowInfo.id}/locations`);
   };
 
   return (

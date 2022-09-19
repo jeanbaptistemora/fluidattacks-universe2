@@ -34,28 +34,25 @@ describe("TodoReattacksView", (): void => {
             {
               groups: [
                 {
-                  findings: [
-                    {
-                      age: 1047,
-                      groupName: "group1",
-                      id: "436992569",
-                      lastVulnerability: 1029,
-                      openVulnerabilities: 24,
-                      severityScore: 2.7,
-                      state: "open",
-                      title: "038. Business information leak",
-                      vulnerabilitiesToReattackConnection: {
-                        edges: [
-                          {
-                            node: {
-                              lastRequestedReattackDate: "2022-07-12 16:42:53",
-                            },
+                  vulnerabilities: {
+                    edges: [
+                      {
+                        node: {
+                          finding: {
+                            id: "436992569",
+                            severityScore: 2.7,
+                            title: "038. Business information leak",
                           },
-                        ],
+                          groupName: "group1",
+
+                          id: "3fead407-5c00-43b2-9106-6d419369441f",
+                          lastRequestedReattackDate: "2022-07-12 16:42:53",
+
+                          verification: "Requested",
+                        },
                       },
-                    },
-                  ],
-                  name: "group1",
+                    ],
+                  },
                 },
               ],
               name: "orgtest",
@@ -93,15 +90,9 @@ describe("TodoReattacksView", (): void => {
     expect(screen.queryAllByRole("table")).toHaveLength(1);
 
     expect(screen.getByText("Type")).toBeInTheDocument();
-    expect(screen.getByText("Age")).toBeInTheDocument();
-    expect(screen.getByText("Last Report")).toBeInTheDocument();
-    expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
-    expect(screen.getByText("Open Vulnerabilities")).toBeInTheDocument();
     expect(screen.getByText("Group Name")).toBeInTheDocument();
     expect(screen.getByText("Reattack Date")).toBeInTheDocument();
-
-    expect(screen.getByText("Open")).toBeInTheDocument();
     expect(screen.getByText("2022-07-12 16:42:53")).toBeInTheDocument();
   });
 });

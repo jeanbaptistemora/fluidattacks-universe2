@@ -15,13 +15,22 @@ interface ITodoFindingToReattackAttr {
   severityScore: number;
   state: string;
   title: string;
-  vulnerabilitiesToReattackConnection: IVulnerabilitiesConnection;
 }
 
+interface IVulnerabilityAttr {
+  id: string;
+  lastRequestedReattackDate: string;
+  finding: ITodoFindingToReattackAttr;
+}
+
+interface IVulnerabilityEdges {
+  node: IVulnerabilityAttr[];
+}
 interface ITodoGroupAttr {
-  findings: ITodoFindingToReattackAttr[];
+  vulnerabilities: {
+    edges: IVulnerabilityEdges[];
+  };
 }
-
 interface ITodoOrganizationAttr {
   groups: ITodoGroupAttr[];
   name: string;
@@ -33,28 +42,16 @@ interface IGetTodoReattacks {
   };
 }
 
-interface IVulnerabilityAttr {
-  id: string;
-  lastRequestedReattackDate: string;
-}
-
-interface IVulnerabilityEdge {
-  node: IVulnerabilityAttr;
-}
-
-interface IVulnerabilitiesConnection {
-  edges: IVulnerabilityEdge[];
-}
-interface IFindingFormatted extends ITodoFindingToReattackAttr {
+interface IVulnFormatted extends IVulnerabilityAttr {
   oldestReattackRequestedDate: string;
 }
 
 export type {
   IGetTodoReattacks,
-  IFindingFormatted,
+  IVulnFormatted,
   ITodoFindingToReattackAttr,
   ITodoGroupAttr,
   ITodoOrganizationAttr,
   IVulnerabilityAttr,
-  IVulnerabilityEdge,
+  IVulnerabilityEdges,
 };

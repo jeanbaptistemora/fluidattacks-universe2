@@ -7,39 +7,19 @@
 import _ from "lodash";
 
 import type {
-  IFindingFormatted,
-  ITodoFindingToReattackAttr,
-  IVulnerabilityEdge,
+  IVulnFormatted,
+  IVulnerabilityAttr,
 } from "scenes/Dashboard/containers/Tasks/Reattacks/types";
 
-const getOldestRequestedReattackDate = (
-  edges: IVulnerabilityEdge[]
-): string => {
-  const vulnsDates: string[] = edges.map(
-    (vulnEdge: IVulnerabilityEdge): string =>
-      vulnEdge.node.lastRequestedReattackDate
-  );
-  const minDate = _.min(vulnsDates);
-  if (_.isUndefined(minDate)) {
-    return "-";
-  }
-
-  return minDate;
-};
-
-const formatFindings = (
-  findings: ITodoFindingToReattackAttr[]
-): IFindingFormatted[] => {
-  const formatted = findings.map(
-    (finding): IFindingFormatted => ({
-      ...finding,
-      oldestReattackRequestedDate: getOldestRequestedReattackDate(
-        finding.vulnerabilitiesToReattackConnection.edges
-      ),
+const formatVulns = (nodes: IVulnerabilityAttr[]): IVulnFormatted[] => {
+  const formatted = nodes.map(
+    (vuln): IVulnFormatted => ({
+      ...vuln,
+      oldestReattackRequestedDate: vuln.lastRequestedReattackDate,
     })
   );
 
   return _.orderBy(formatted, ["oldestReattackRequestedDate"], ["asc"]);
 };
 
-export { formatFindings };
+export { formatVulns };

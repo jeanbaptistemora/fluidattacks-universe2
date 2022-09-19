@@ -15,19 +15,21 @@ export const GET_TODO_REATTACKS: DocumentNode = gql`
         name
         groups {
           name
-          findings(filters: { verified: false }) {
-            id
-            age
-            groupName
-            lastVulnerability
-            openVulnerabilities
-            severityScore
-            state
-            title
-            vulnerabilitiesToReattackConnection {
-              edges {
-                node {
-                  lastRequestedReattackDate
+          vulnerabilities(
+            stateStatus: "OPEN"
+            verificationStatus: "REQUESTED"
+            first: 25
+          ) {
+            edges {
+              node {
+                lastRequestedReattackDate
+                groupName
+                id
+                verification
+                finding {
+                  id
+                  severityScore
+                  title
                 }
               }
             }
