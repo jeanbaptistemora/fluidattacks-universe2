@@ -92,6 +92,28 @@ available for the table.
   open vulnerabilities
   in the pipeline,
   allowing deployment to production.
+- **Type:**
+  You have three
+  options: SAST, DAST and ALL.
+  These options correspond
+  to what the agent recognized
+  as the techniques with which
+  vulnerabilities were detected,
+  ALL being with both
+  SAST and DAST.
+- **Git repository:**
+  In the corresponding field,
+  you can partially or
+  completely enter the name
+  of one of the repositories
+  evaluated by the agent.
+  It will restrict the
+  information in the table
+  to the repositories with
+  that name.
+- **Identifier:**
+  Is the Agent's
+  run identifier number.
 
 ## Export button
 
