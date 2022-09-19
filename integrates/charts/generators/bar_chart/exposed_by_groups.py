@@ -100,15 +100,14 @@ async def get_data_many_groups(
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
 
-def format_data(data: list[PortfoliosGroupsInfo]) -> dict:
+def format_data(all_data: list[PortfoliosGroupsInfo]) -> dict:
+    data = all_data[:15]
+
     return dict(
         data=dict(
             columns=[
                 ["Open exposure"]
-                + [
-                    utils.format_cvssf_log(group.value)  # type: ignore
-                    for group in data
-                ],
+                + [str(utils.format_cvssf_log(group.value)) for group in data],
             ],
             colors={
                 "Open exposure": RISK.more_agressive,
@@ -117,7 +116,7 @@ def format_data(data: list[PortfoliosGroupsInfo]) -> dict:
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         axis=dict(
             x=dict(
@@ -163,7 +162,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            data=await get_data_many_groups(
+            all_data=await get_data_many_groups(
                 groups=org_groups, loaders=loaders
             ),
         )
@@ -179,7 +178,7 @@ async def generate_all() -> None:
     ):
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_data(
-                data=await get_data_many_groups(
+                all_data=await get_data_many_groups(
                     groups=tuple(groups), loaders=loaders
                 ),
             )

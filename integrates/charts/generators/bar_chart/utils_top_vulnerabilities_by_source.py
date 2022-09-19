@@ -111,7 +111,7 @@ def format_data(
         VulnerabilityType.LINES: "Code",
         VulnerabilityType.PORTS: "Infra",
     }
-    data: List[Tuple[str, int]] = counters.most_common()[:20]
+    data: List[Tuple[str, int]] = counters.most_common()[:15]
     legend: str = f"{translations[source]} open exposure"
 
     return dict(

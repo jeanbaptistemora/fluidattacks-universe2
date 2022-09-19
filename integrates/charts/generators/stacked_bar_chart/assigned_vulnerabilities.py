@@ -120,7 +120,7 @@ def format_assigned(
 
 
 def format_data(
-    assigned_data: dict[str, list[Vulnerability]], limit: int = 20
+    assigned_data: dict[str, list[Vulnerability]], limit: int = 15
 ) -> dict[str, Any]:
     data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user, vulnerabilities)
@@ -147,10 +147,7 @@ def format_data(
 async def generate_all() -> None:
     header: str = "User"
     async for group in utils.iterate_groups():
-        document = format_data(
-            assigned_data=await get_data_one_group(group),
-            limit=18,
-        )
+        document = format_data(assigned_data=await get_data_one_group(group))
         utils.json_dump(
             document=document,
             entity="group",
@@ -162,8 +159,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            assigned_data=await get_data_many_groups(org_groups),
-            limit=18,
+            assigned_data=await get_data_many_groups(org_groups)
         )
         utils.json_dump(
             document=document,
@@ -175,8 +171,7 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_data(
-                assigned_data=await get_data_many_groups(groups),
-                limit=18,
+                assigned_data=await get_data_many_groups(groups)
             )
             utils.json_dump(
                 document=document,

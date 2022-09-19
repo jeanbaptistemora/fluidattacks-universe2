@@ -94,7 +94,7 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
     ):
         merged_data.append([axis, max([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:20]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:15]
 
     return dict(
         data=dict(

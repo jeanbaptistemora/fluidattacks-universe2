@@ -109,7 +109,7 @@ async def get_data_many_groups(
 
 
 def format_data(*, counters: Counter[str]) -> dict:
-    merged_data: list[tuple[str, int]] = counters.most_common()[:20]
+    merged_data: list[tuple[str, int]] = counters.most_common()[:15]
 
     return dict(
         data=dict(
