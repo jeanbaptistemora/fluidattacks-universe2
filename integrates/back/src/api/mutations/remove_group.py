@@ -11,13 +11,6 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch import (
-    dal as batch_dal,
-)
-from batch.enums import (
-    Action,
-    Product,
-)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -80,14 +73,6 @@ async def mutate(
             subscription=group.state.type,
             tier=GroupTier.FREE,
             user_email=requester_email,
-        )
-        await batch_dal.put_action(
-            action=Action.REMOVE_GROUP_RESOURCES,
-            entity=group_name,
-            subject=requester_email,
-            additional_info="mutation_remove_group",
-            queue="small",
-            product_name=Product.INTEGRATES,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

@@ -15,6 +15,13 @@ import authz
 from authz.validations import (
     validate_role_fluid_reqs,
 )
+from batch import (
+    dal as batch_dal,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 import bugsnag
 from collections import (
     Counter,
@@ -444,6 +451,14 @@ async def remove_group(
             group_name=group_name,
             user_email=user_email,
         )
+    await batch_dal.put_action(
+        action=Action.REMOVE_GROUP_RESOURCES,
+        entity=group_name,
+        subject=user_email,
+        additional_info="remove_group",
+        queue="small",
+        product_name=Product.INTEGRATES,
+    )
     await remove_all_users(
         loaders=loaders,
         group_name=group_name,

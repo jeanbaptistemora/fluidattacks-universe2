@@ -8,13 +8,6 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from batch import (
-    dal as batch_dal,
-)
-from batch.enums import (
-    Action,
-    Product,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -53,14 +46,6 @@ async def _remove_group(
         group_name=group_name,
         justification=GroupStateRemovalJustification.OTHER,
         user_email=user_email,
-    )
-    await batch_dal.put_action(
-        action=Action.REMOVE_GROUP_RESOURCES,
-        entity=group_name,
-        subject=user_email,
-        additional_info="obsolete_groups",
-        queue="small",
-        product_name=Product.INTEGRATES,
     )
 
 
