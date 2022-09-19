@@ -23,6 +23,7 @@ PLATFORMS = {
     "nuget": "nuget",
     "npm": "npm",
     "pypi": "pip",
+    "rubygems": "gem",
 }
 
 

@@ -37190,7 +37190,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    77 |       <groupId>junit</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (puma v5.1.0) [CVE-2022-24790],16,937,skims,011. Use of software with known vulnerabilities,Use of puma at version 5.1.0 with ['CVE-2022-24790'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (puma v5.1.0) [CVE-2021-29509, CVE-2021-41136, CVE-2022-23634, CVE-2022-24790]",16,937,skims,011. Use of software with known vulnerabilities,"Use of puma at version 5.1.0 with ['CVE-2021-29509', 'CVE-2021-41136', 'CVE-2022-23634', 'CVE-2022-24790'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    6 |       unf (>= 0.0.5, < 1.0.0)
    7 |     http-accept (= 1.7.0)
    8 |     http-cookie (1.0.4)
