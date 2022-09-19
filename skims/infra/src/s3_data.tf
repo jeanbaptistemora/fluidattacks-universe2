@@ -156,6 +156,7 @@ resource "aws_s3_bucket_versioning" "skims_sca" {
   bucket = aws_s3_bucket.skims_sca.id
 
   versioning_configuration {
-    status = "Enabled"
+    status     = "Enabled"
+    mfa_delete = "Disabled"
   }
 }
