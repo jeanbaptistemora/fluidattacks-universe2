@@ -17,7 +17,7 @@ from aioextensions import (
     collect,
     run,
 )
-from batch.utils.s3 import (
+from batch_dispatch.utils.s3 import (
     SESSION,
 )
 from more_itertools import (

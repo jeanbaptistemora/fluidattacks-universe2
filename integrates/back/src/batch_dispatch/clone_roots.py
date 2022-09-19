@@ -20,7 +20,7 @@ from batch.types import (
     CloneResult,
     PutActionResult,
 )
-from batch.utils.git_self import (
+from batch_dispatch.utils.git_self import (
     clone_root,
 )
 from custom_exceptions import (

@@ -5,7 +5,7 @@
 from batch.types import (
     CloneResult,
 )
-from batch.utils.s3 import (
+from batch_dispatch.utils.s3 import (
     upload_cloned_repo_to_s3_tar,
 )
 from custom_exceptions import (

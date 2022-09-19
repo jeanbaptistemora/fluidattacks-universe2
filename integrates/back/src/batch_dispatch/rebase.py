@@ -11,7 +11,7 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
-from batch.utils.s3 import (
+from batch_dispatch.utils.s3 import (
     download_repo,
 )
 from concurrent.futures import (
