@@ -109,5 +109,6 @@ in {
       // {
         src = "${singerPath}/target-redshift-2/target_redshift";
       };
+    snowflake = standard_3 "${singerPath}/target-snowflake";
   };
 }
