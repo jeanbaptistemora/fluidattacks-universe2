@@ -1,23 +1,43 @@
+// Source: https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api
 using System;
 
 namespace AspNet5SQLite
 {
     public class Startup
     {
-
+        // Setting an insecure cors policy attribute
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-
             var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
-
             policy.Headers.Add("*");
-            policy.Methods.Add("*");
             policy.Origins.Add("*");
             policy.SupportsCredentials = true;
 
-            services.AddCors(x => x.AddPolicy("corsGlobalPolicy", policy));
-
         }
+    }
+
+    public class Startup2
+    {
+        //Setting the insecure cors policy directly
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "corsGlobalPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins(Configuration["Origins:localdev"])
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod();
+                    });
+            });
+        }
+    }
+
+    //Enabling insecure cors policy via attribute
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class ItemsController : ApiController
+    {
+        public HttpResponseMessage GetAll() {}
     }
 }

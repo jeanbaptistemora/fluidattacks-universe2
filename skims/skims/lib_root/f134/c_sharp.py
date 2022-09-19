@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from itertools import (
+    chain,
+)
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
 )
@@ -28,7 +31,6 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
-    Iterator,
     List,
 )
 from utils import (
@@ -37,9 +39,7 @@ from utils import (
 
 
 def get_insecure_vars(graph: Graph) -> List[str]:
-    object_names = {
-        "CorsPolicyBuilder",
-    }
+    object_names = {"CorsPolicyBuilder"}
     insecure_vars = []
     for nid in g.filter_nodes(
         graph,
@@ -56,15 +56,57 @@ def get_insecure_vars(graph: Graph) -> List[str]:
     return insecure_vars
 
 
-def get_cors_vars(graph: Graph) -> Iterator[NId]:
-    for obj_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="ObjectCreation"),
+def get_node_cors_eval_result(
+    graph: Graph,
+    n_id: NId,
+    check: str = "danger",
+) -> bool:
+    method = core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if not evaluation:
+            continue
+        if check == "danger" and evaluation.danger:
+            return True
+        if check == "triggers" and evaluation.triggers == {"CorsObject"}:
+            return True
+    return False
+
+
+def is_vulnerable_policy(graph: Graph, n_id: NId) -> bool:
+    if (
+        (al_id := graph.nodes[n_id].get("arguments_id"))
+        and (al_list := g.adj_ast(graph, al_id))
+        and len(al_list) >= 2
+        and graph.nodes[al_list[1]]["label_type"] == "LambdaExpression"
     ):
-        if "CorsPolicy" in graph.nodes[obj_id].get("name").split("."):
-            invocation = g.pred_ast(graph, obj_id)[0]
-            yield graph.nodes[invocation].get("variable")
+        block_id = graph.nodes[al_list[1]]["block_id"]
+        m_id = g.match_ast(graph, block_id).get("__0__")
+        expr = graph.nodes[m_id].get("expression")
+        if "AllowAnyOrigin" in expr:
+            return True
+    return False
+
+
+def is_vulnerable_attribute(
+    graph: Graph,
+    attr_node: NId,
+) -> bool:
+    al_id = g.match_ast(graph, attr_node, "ArgumentList").get("ArgumentList")
+    if not al_id:
+        return False
+    al_list = g.adj_ast(graph, al_id)
+    for arg in al_list:
+        node = graph.nodes[arg]
+        if (
+            node["label_type"] == "NamedArgument"
+            and (var := graph.nodes[node["variable_id"]].get("symbol"))
+            and var.lower() == "origins"
+        ):
+            test_node = node["value_id"]
+            if get_node_cors_eval_result(graph, test_node):
+                return True
+    return False
 
 
 def insecure_cors(
@@ -73,9 +115,7 @@ def insecure_cors(
 ) -> core_model.Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
     danger_methods = {"AllowAnyOrigin"}
-    object_methods = {
-        "UseCors",
-    }
+    object_methods = {"UseCors"}
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
@@ -137,33 +177,43 @@ def insecure_cors_origin(
                 continue
             graph = shard.syntax_graph
 
-            cors_objects = list(get_cors_vars(graph))
-            for member in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
+            for nid in chain(
+                g.filter_nodes(
+                    graph,
+                    graph.nodes,
+                    g.pred_has_labels(label_type="MethodInvocation"),
+                ),
+                g.filter_nodes(
+                    graph,
+                    graph.nodes,
+                    g.pred_has_labels(label_type="Attribute"),
+                ),
             ):
-                expr = graph.nodes[member].get("expression")
-                memb = graph.nodes[member].get("member")
+                expr = graph.nodes[nid].get("expression")
                 if (
-                    "Origins.Add" in f"{expr}.{memb}"
-                    and (
-                        fr_member := get_first_member_syntax_graph(
-                            graph, member
-                        )
-                    )
-                    and graph.nodes[fr_member].get("label_type")
-                    == "SymbolLookup"
-                    and graph.nodes[fr_member].get("symbol") in cors_objects
+                    expr
+                    and "addpolicy" in expr.lower()
+                    and is_vulnerable_policy(graph, nid)
                 ):
-                    pred_nid = g.pred_ast(graph, member)[0]
-                    for path in get_backward_paths(graph, pred_nid):
-                        if (
-                            evaluation := evaluate(
-                                method, graph, path, pred_nid
-                            )
-                        ) and evaluation.danger:
-                            yield shard, pred_nid
+                    yield shard, nid
+                elif (
+                    expr
+                    and "origins.add" in expr.lower()
+                    and (fr_m := get_first_member_syntax_graph(graph, nid))
+                    and get_node_cors_eval_result(graph, fr_m, "triggers")
+                    and (arg_id := graph.nodes[nid].get("arguments_id"))
+                ):
+                    test_node = g.match_ast(graph, arg_id).get("__0__")
+                    if not test_node:
+                        continue
+                    if get_node_cors_eval_result(graph, test_node):
+                        yield shard, nid
+                elif (
+                    (name := graph.nodes[nid].get("name"))
+                    and name.lower() == "enablecors"
+                    and is_vulnerable_attribute(graph, nid)
+                ):
+                    yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f134.cors_policy_allows_any_origin",
