@@ -7,11 +7,12 @@ gemspec
 gem "rails", "~> 7.0.0"
 gem "omniauth"
 gem "omniauth-oauth2"
-gem "rdoc"
+gem "rdoc", "4.2.2"
+gem "mime-types", "= 3.3.1"
 
-gem 'devise', '>= 4.0.0', '< 4.6.2'
+gem "devise", ">= 4.0.0", "< 4.6.2"
 
-gem 'draper', '~> 1.2', '>= 1.2.1'
+gem "draper", "~> 1.2", ">= 1.2.1"
 
 gem "rails-controller-testing", github: "rails/rails-controller-testing"
 

@@ -26,14 +26,17 @@ from typing import (
 
 def gem_gemfile(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
+        form_req: Pattern[str] = re.compile(
+            r"^gem\s*.*,[^><~!]*(=?\s?[\d+\.?]+)"
+        )
         for line_number, line in enumerate(content.splitlines(), 1):
             if not line:
                 continue
-            if not line.startswith("gem "):
+            if not re.search(form_req, line):
                 continue
             line = GemfileParser.preprocess(line)
             line = line[3:]
-            line_items = parse_line(line, "Gemfile")
+            line_items = parse_line(line, gem_file=True)
             yield (
                 {
                     "column": 0,
@@ -68,7 +71,7 @@ def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
             elif matched := re.match(format_deps, line):
                 line = matched.group(1)
                 line = GemfileParser.preprocess(line)
-                line_items = parse_line(line, "Gemfile.lock")
+                line_items = parse_line(line, gem_file=False)
                 packg_name = line_items.get("name")
                 version = line_items.get("requirement")
                 yield (

@@ -11,8 +11,8 @@ from typing import (
 )
 
 
-def parse_line(in_line: str, gem_file: str) -> Dict[str, str]:
-    separator = "," if gem_file == "Gemfile" else " "
+def parse_line(in_line: str, gem_file: bool) -> Dict[str, str]:
+    separator = "," if gem_file else " "
     line = in_line.split(separator)
     column_list = []
     for column in line:
