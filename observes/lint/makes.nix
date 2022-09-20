@@ -194,6 +194,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.bugsnag.env.runtime}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.bugsnag.src;
       };

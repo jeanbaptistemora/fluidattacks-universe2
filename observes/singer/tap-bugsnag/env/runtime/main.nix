@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-bugsnag-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];
