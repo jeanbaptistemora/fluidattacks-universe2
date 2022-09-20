@@ -53,6 +53,9 @@ In the
 **DevSecOps** section,
 there are seven filters
 available for the table.
+You can find them on
+the right side next to
+the search bar.
 
 ![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
 
@@ -135,7 +138,7 @@ you will see a pop-up window
 that provides more detailed
 information about that execution.
 
-![Agent Executions](https://res.cloudinary.com/fluid-attacks/image/upload/v1651011570/docs/machine/agent/exec_details_window.png)
+![Agent Executions](https://res.cloudinary.com/fluid-attacks/image/upload/v1663673720/docs/machine/agent/exec_details.png)
 
 This pop-up window has
 two tabs: **Summary**
@@ -155,7 +158,7 @@ exploitability,
 status and type (according
 to the technique that detected it).
 
-![Information Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1651011570/docs/machine/agent/exec_details_summary.png)
+![Information Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1663673763/docs/machine/agent/summary.png)
 
 Clicking on the
 **Columns** button,
@@ -196,4 +199,4 @@ and how many vulnerabilities
 of that type are open,
 closed or accepted.
 
-![Execution Log](https://res.cloudinary.com/fluid-attacks/image/upload/v1651011570/docs/machine/agent/exec_details_log.png)
+![Execution Log](https://res.cloudinary.com/fluid-attacks/image/upload/v1663673819/docs/machine/agent/execution_log.png)
