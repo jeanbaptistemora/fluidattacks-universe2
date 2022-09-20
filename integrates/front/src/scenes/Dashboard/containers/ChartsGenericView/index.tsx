@@ -155,6 +155,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   entity={entity}
                   generatorName={"generic"}
                   generatorType={"barChart"}
+                  infoLink={`${graphInfoLink}common#aggregated-exposure-benchmark`}
                   reportMode={reportMode}
                   subject={subject}
                   title={t("analytics.barChart.exposureBenchmarkingCvssf")}
