@@ -6,7 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: report-machine-${NAME}
-  namespace: production
+  namespace: prod-integrates
 spec:
   replicas: 1
   selector:
