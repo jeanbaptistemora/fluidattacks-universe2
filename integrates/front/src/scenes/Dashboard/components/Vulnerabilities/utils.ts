@@ -9,6 +9,7 @@ import moment from "moment";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IGroups, IOrganizationGroups } from "scenes/Dashboard/types";
 import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
@@ -144,8 +145,12 @@ const formatVulnerabilities: (
   });
 
 const formatVulnerabilitiesTreatment: (
-  vulnerabilities: IVulnRowAttr[]
-) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
+  vulnerabilities: IVulnRowAttr[],
+  organizationsGroups: IOrganizationGroups[] | undefined
+) => IVulnRowAttr[] = (
+  vulnerabilities: IVulnRowAttr[],
+  organizationsGroups: IOrganizationGroups[] | undefined
+): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
     const lastTreatment: IHistoricTreatment = {
       acceptanceDate: _.isNull(vulnerability.treatmentAcceptanceDate)
@@ -166,10 +171,22 @@ const formatVulnerabilitiesTreatment: (
         ? ""
         : vulnerability.treatmentUser,
     };
+    const organizationName: IOrganizationGroups | undefined =
+      organizationsGroups === undefined
+        ? undefined
+        : organizationsGroups.find(
+            (orgGroup: IOrganizationGroups): boolean =>
+              orgGroup.groups.find(
+                (group: IGroups): boolean =>
+                  group.name === vulnerability.groupName
+              )?.name === vulnerability.groupName
+          );
 
     return {
       ...vulnerability,
       historicTreatment: [lastTreatment],
+      organizationName:
+        organizationName === undefined ? "" : organizationName.name,
     };
   });
 

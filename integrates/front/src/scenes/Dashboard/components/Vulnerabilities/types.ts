@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { ColumnDef } from "@tanstack/react-table";
+
 import type {
   ICustomFiltersProps,
   ICustomSearchProps,
@@ -16,6 +18,7 @@ interface IVulnRowAttr {
   externalBugTrackingSystem: string | null;
   findingId: string;
   groupName: string;
+  organizationName: string | undefined;
   historicTreatment: IHistoricTreatment[];
   id: string;
   lastTreatmentDate: string;
@@ -71,6 +74,7 @@ interface IVulnComponentProps {
   canDisplayHacker: boolean;
   clearFiltersButton?: () => void;
   changePermissions?: (groupName: string) => void;
+  columns: ColumnDef<IVulnRowAttr>[];
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
   extraButtons: JSX.Element;

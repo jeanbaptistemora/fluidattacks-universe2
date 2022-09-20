@@ -33,12 +33,14 @@ interface IUser {
 }
 
 interface IOrganizationGroups {
-  groups: {
-    name: string;
-    permissions: string[];
-    serviceAttributes: string[];
-  }[];
+  groups: IGroups[];
   name: string;
+}
+
+interface IGroups {
+  name: string;
+  permissions: string[];
+  serviceAttributes: string[];
 }
 
 interface IGetVulnsGroups {
@@ -87,6 +89,7 @@ export type {
   IGetUserOrganizationsGroups,
   IGetVulnsGroups,
   IGroupRootIdsAttr,
+  IGroups,
   IRootIdAttr,
   IOrganizationGroups,
   IUser,

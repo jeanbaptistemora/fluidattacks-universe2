@@ -8,6 +8,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -15,8 +16,11 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Modal, ModalConfirm } from "components/Modal";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/TableNew/types";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities/helpers";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
@@ -259,7 +263,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
         ...vulnerability,
         groupName,
       })
-    )
+    ),
+    undefined
   );
 
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
@@ -330,6 +335,56 @@ export const VulnsView: React.FC = (): JSX.Element => {
     );
   }
 
+  const columns: ColumnDef<IVulnRowAttr>[] = [
+    {
+      accessorKey: "where",
+      enableColumnFilter: false,
+      header: t("searchFindings.tabVuln.vulnTable.where"),
+    },
+    {
+      accessorKey: "specific",
+      enableColumnFilter: false,
+      header: t("searchFindings.tabVuln.vulnTable.specific"),
+    },
+    {
+      accessorKey: "currentState",
+      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      header: t("searchFindings.tabVuln.vulnTable.status"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "reportDate",
+      filterFn: filterDate,
+      header: t("searchFindings.tabVuln.vulnTable.reportDate"),
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorKey: "verification",
+      header: t("searchFindings.tabVuln.vulnTable.reattack"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatment",
+      header: t("searchFindings.tabVuln.vulnTable.treatment"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "tag",
+      header: t("searchFindings.tabVuln.vulnTable.tags"),
+    },
+    {
+      accessorKey: "treatmentAcceptanceStatus",
+      header: "Treatment Acceptance",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatmentAssigned",
+      header: "Asignees",
+      meta: { filterType: "select" },
+    },
+  ];
+
   function setColumn(): JSX.Element | undefined {
     return setColumnHelper(true, columnHelper);
   }
@@ -342,6 +397,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             <div>
               <VulnComponent
                 canDisplayHacker={canRetrieveHacker}
+                columns={columns}
                 extraButtons={
                   <ActionButtons
                     areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(

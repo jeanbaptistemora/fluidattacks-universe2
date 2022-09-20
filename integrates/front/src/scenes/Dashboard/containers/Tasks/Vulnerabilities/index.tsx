@@ -9,6 +9,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
 import React, {
   useCallback,
@@ -30,6 +31,7 @@ import {
   filterSelect,
   filterText,
 } from "components/Table/utils";
+import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -145,7 +147,8 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       formatVulnerabilitiesTreatment(
         meVulnerabilitiesAssigned === undefined || userData === undefined
           ? []
-          : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned
+          : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned,
+        userData === undefined ? [] : userData.me.organizations
       ),
     [meVulnerabilitiesAssigned, userData]
   );
@@ -462,6 +465,53 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     _.sortBy(vulnerabilitiesGroupNameArray, (arr): string => arr[0])
   );
 
+  const columns: ColumnDef<IVulnRowAttr>[] = [
+    {
+      accessorKey: "groupName",
+      cell: (cell): JSX.Element => {
+        const orgName =
+          cell.row.original.organizationName === undefined
+            ? ""
+            : cell.row.original.organizationName;
+        const link = `../orgs/${orgName}/groups/${cell.row.original.groupName}`;
+        const text = cell.getValue<string>();
+
+        return formatLinkHandler(link, text);
+      },
+      enableColumnFilter: false,
+      header: t("organization.tabs.groups.newGroup.name"),
+    },
+    {
+      accessorKey: "where",
+      enableColumnFilter: false,
+      header: t("searchFindings.tabVuln.vulnTable.where"),
+    },
+    {
+      accessorKey: "verification",
+      header: t("searchFindings.tabVuln.vulnTable.reattack"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatment",
+      header: t("searchFindings.tabVuln.vulnTable.treatment"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "tag",
+      header: t("searchFindings.tabVuln.vulnTable.tags"),
+    },
+    {
+      accessorKey: "treatmentAcceptanceStatus",
+      header: "Treatment Acceptance",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatmentAssigned",
+      header: "Asignees",
+      meta: { filterType: "select" },
+    },
+  ];
+
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterVulnerabilitiesTable.treatment,
@@ -627,6 +677,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
             canDisplayHacker={canRetrieveHacker}
             changePermissions={changePermissions}
             clearFiltersButton={clearFilters}
+            columns={columns}
             customFilters={{
               customFiltersProps,
               hideResults: true,

@@ -5,18 +5,64 @@
  */
 
 import { PureAbility } from "@casl/ability";
+import type { ColumnDef } from "@tanstack/react-table";
 import { render, screen, within } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
 
+import { statusFormatter } from "./Formatter";
 import type { IVulnRowAttr } from "./types";
 
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/TableNew/types";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnComponent", (): void => {
   const numberOfDaysOldThanAWeek: number = 12;
   const numberOfDays: number = 5;
+  const columns: ColumnDef<IVulnRowAttr>[] = [
+    {
+      accessorKey: "where",
+      enableColumnFilter: false,
+    },
+    {
+      accessorKey: "specific",
+      enableColumnFilter: false,
+    },
+    {
+      accessorKey: "currentState",
+      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "reportDate",
+      filterFn: filterDate,
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorKey: "verification",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatment",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "tag",
+    },
+    {
+      accessorKey: "treatmentAcceptanceStatus",
+      header: "Treatment Acceptance",
+      meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "treatmentAssigned",
+      header: "Asignees",
+      meta: { filterType: "select" },
+    },
+  ];
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_update_vulnerability_treatment_mutate" },
@@ -44,6 +90,7 @@ describe("VulnComponent", (): void => {
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
       lastTreatmentDate: "2019-07-05 09:56:40",
       lastVerificationDate: null,
+      organizationName: undefined,
       remediated: true,
       reportDate: "",
       severity: "3",
@@ -85,6 +132,7 @@ describe("VulnComponent", (): void => {
       lastVerificationDate: moment()
         .subtract(numberOfDays, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
+      organizationName: undefined,
       remediated: false,
       reportDate: "",
       severity: "1",
@@ -126,6 +174,7 @@ describe("VulnComponent", (): void => {
       lastVerificationDate: moment()
         .subtract(numberOfDaysOldThanAWeek, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
+      organizationName: undefined,
       remediated: false,
       reportDate: "",
       severity: "1",
@@ -160,6 +209,7 @@ describe("VulnComponent", (): void => {
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
           canDisplayHacker={false}
+          columns={columns}
           extraButtons={<div />}
           findingState={"open"}
           isEditing={true}
@@ -185,6 +235,7 @@ describe("VulnComponent", (): void => {
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
           canDisplayHacker={false}
+          columns={columns}
           extraButtons={<div />}
           findingState={"open"}
           isEditing={false}
@@ -215,6 +266,7 @@ describe("VulnComponent", (): void => {
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
           canDisplayHacker={false}
+          columns={columns}
           extraButtons={<div />}
           findingState={"open"}
           isEditing={true}

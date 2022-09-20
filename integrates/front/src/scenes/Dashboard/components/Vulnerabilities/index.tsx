@@ -27,7 +27,6 @@ import React, {
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
-import { statusFormatter } from "./Formatter";
 import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
@@ -36,7 +35,6 @@ import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
 import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
 import { deleteFormatter } from "components/TableNew/formatters/deleteFormatter";
 import type { ICellHelper } from "components/TableNew/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
@@ -66,6 +64,7 @@ function usePreviousProps(value: boolean): boolean {
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
   changePermissions,
+  columns,
   extraButtons,
   findingState,
   hideSelectVulnerability,
@@ -248,56 +247,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     (): string => (currentRow === undefined ? "" : currentRow.groupName),
     [currentRow]
   );
-
-  const columns: ColumnDef<IVulnRowAttr>[] = [
-    {
-      accessorKey: "where",
-      enableColumnFilter: false,
-      header: t("searchFindings.tabVuln.vulnTable.where"),
-    },
-    {
-      accessorKey: "specific",
-      enableColumnFilter: false,
-      header: t("searchFindings.tabVuln.vulnTable.specific"),
-    },
-    {
-      accessorKey: "currentState",
-      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      header: t("searchFindings.tabVuln.vulnTable.status"),
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "reportDate",
-      filterFn: filterDate,
-      header: t("searchFindings.tabVuln.vulnTable.reportDate"),
-      meta: { filterType: "dateRange" },
-    },
-    {
-      accessorKey: "verification",
-      header: t("searchFindings.tabVuln.vulnTable.reattack"),
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "treatment",
-      header: t("searchFindings.tabVuln.vulnTable.treatment"),
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "tag",
-      header: t("searchFindings.tabVuln.vulnTable.tags"),
-    },
-    {
-      accessorKey: "treatmentAcceptanceStatus",
-      header: "Treatment Acceptance",
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "treatmentAssigned",
-      header: "Asignees",
-      meta: { filterType: "select" },
-    },
-  ];
 
   const deleteColumn: ColumnDef<IVulnRowAttr>[] = [
     {

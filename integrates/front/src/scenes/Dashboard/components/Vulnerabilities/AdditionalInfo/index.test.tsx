@@ -41,6 +41,7 @@ describe("AdditionalInfo", (): void => {
     lastVerificationDate: moment()
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
+    organizationName: undefined,
     remediated: false,
     reportDate: "",
     severity: "1",
