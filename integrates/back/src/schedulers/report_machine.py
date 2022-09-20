@@ -957,13 +957,14 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 
 async def process_execution(
     execution_id: str,
-    criteria_vulns: dict[str, Any],
-    criteria_reqs: dict[str, Any],
+    criteria_vulns: Optional[dict[str, Any]] = None,
+    criteria_reqs: Optional[dict[str, Any]] = None,
     config_path: Optional[str] = None,
     sarif_path: Optional[str] = None,
 ) -> bool:
     # pylint: disable=too-many-locals
-
+    criteria_vulns = criteria_vulns or await get_vulns_file()
+    criteria_reqs = criteria_reqs or get_requirements_file()
     loaders: Dataloaders = get_new_context()
     boto3_session = aioboto3.Session()
     group_name = execution_id.split("_", maxsplit=1)[0]
