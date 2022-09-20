@@ -14,6 +14,7 @@ from db_model.groups.types import (
     GroupFile,
 )
 from newutils.validations import (
+    has_sequence,
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
@@ -153,3 +154,30 @@ def test_validate_sanitized_csv_input(field: str) -> None:
     )
     with pytest.raises(UnsanitizedInputFound):
         assert validate_sanitized_csv_input(field)  # type: ignore
+
+
+@pytest.mark.parametrize(
+    ["value", "length", "should_fail"],
+    [
+        ("a123b", 3, True),
+        ("a123b", 4, False),
+        ("a876b", 3, True),
+        ("a876b", 4, False),
+        ("aabcc", 3, True),
+        ("aabcc", 4, False),
+        ("ayxwc", 3, True),
+        ("ayxwc", 4, False),
+        ("aDEFc", 3, True),
+        ("aDEFc", 4, False),
+        ("aQPOc", 3, True),
+        ("aQPOc", 4, False),
+        ("a1221b", 3, False),
+        ("a123321b", 4, False),
+        ("a3455431b", 4, False),
+        ("a1357b", 4, False),
+        ("a9753b", 4, False),
+        ("acdefghijklabcc", 7, True),
+    ],
+)
+def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
+    assert has_sequence(value, length) == should_fail

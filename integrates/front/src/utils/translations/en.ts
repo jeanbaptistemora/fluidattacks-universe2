@@ -3685,6 +3685,7 @@ export const enTranslations: ResourceKey = {
       includeLowercase: "Should include lowercase characters",
       includeNumber: "Should include at least one number",
       includeUppercase: "Should include uppercase characters",
+      sequentialsCharacters: "Should not include sequentials characters",
       startWithLetter: "Should start with a letter",
     },
     datetime: "The datetime format is not valid",

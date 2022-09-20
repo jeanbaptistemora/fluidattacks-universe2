@@ -78,6 +78,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             case "Exception - Password should include uppercase characters":
               msgError(t("validations.credentialsModal.includeUppercase"));
               break;
+            case "Exception - Password should not include sequentials characters":
+              msgError(t("validations.credentialsModal.sequentialsCharacters"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);

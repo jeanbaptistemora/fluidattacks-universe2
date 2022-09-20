@@ -398,3 +398,62 @@ def validate_include_uppercase(value: str) -> None:
         raise InvalidReportFilter(
             "Password should include uppercase characters"
         )
+
+
+def sequence_increasing(
+    char: str, current_ord: int, sequence: list[int], is_increasing: bool
+) -> list[int]:
+    if is_increasing and str(chr(sequence[-1])).isalnum() and char.isalnum():
+        return [*sequence, current_ord]
+
+    return [current_ord]
+
+
+def sequence_decreasing(
+    char: str, current_ord: int, sequence: list[int], is_increasing: bool
+) -> list[int]:
+    if (
+        not is_increasing
+        and str(chr(sequence[-1])).isalnum()
+        and char.isalnum()
+    ):
+        return [*sequence, current_ord]
+
+    return [current_ord]
+
+
+def has_sequence(value: str, sequence_size: int = 3) -> bool:
+    if len(value) < sequence_size or sequence_size <= 0:
+        return False
+
+    sequence: list[int] = [ord(value[0])]
+    is_increasing = False
+    for char in value[1:]:
+        current_ord: int = ord(char)
+
+        if sequence[-1] + 1 == current_ord:
+            if len(sequence) == 1:
+                is_increasing = True
+            sequence = sequence_increasing(
+                char, current_ord, sequence, is_increasing
+            )
+        elif sequence[-1] - 1 == current_ord:
+            if len(sequence) == 1:
+                is_increasing = False
+            sequence = sequence_decreasing(
+                char, current_ord, sequence, is_increasing
+            )
+        else:
+            sequence = [current_ord]
+
+        if len(sequence) == sequence_size:
+            return True
+
+    return False
+
+
+def validate_sequence(value: str) -> None:
+    if has_sequence(value):
+        raise InvalidReportFilter(
+            "Password should not include sequentials characters"
+        )

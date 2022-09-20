@@ -403,7 +403,7 @@ async def test_update_portfolios_indicators() -> None:
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_delete_obsolete_orgs() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders: Dataloaders
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_ids = []
     async for organization in iterate_organizations():
