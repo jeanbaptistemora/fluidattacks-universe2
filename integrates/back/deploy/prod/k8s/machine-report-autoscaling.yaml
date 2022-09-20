@@ -5,13 +5,13 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: report-machine-${NAME}
+  name: machine-report-${NAME}
   namespace: prod-integrates
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: report-machine-${NAME}
+    name: machine-report-${NAME}
   minReplicas: 1
-  maxReplicas: 20
-  targetCPUUtilizationPercentage: 65
+  maxReplicas: 15
+  targetCPUUtilizationPercentage: 60

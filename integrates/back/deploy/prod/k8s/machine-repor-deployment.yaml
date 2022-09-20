@@ -5,13 +5,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: report-machine-${NAME}
+  name: machine-report-${NAME}
   namespace: prod-integrates
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: report-machine-${NAME}
+      app: machine-report-${NAME}
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -19,14 +19,15 @@ spec:
   template:
     metadata:
       labels:
-        app: report-machine-${NAME}
+        app: machine-report-${NAME}
         # This ensures that the resource is updated on every apply
         uuid: ${UUID}
     spec:
+      serviceAccountName: prod-integrates
       nodeSelector:
         worker_group: prod_integrates
       containers:
-        - name: report-machine
+        - name: machine-report
           image: ghcr.io/fluidattacks/makes:22.09
           imagePullPolicy: Always
           command: [sh]
@@ -38,23 +39,23 @@ spec:
               value: '1'
           resources:
             # Ensure your request and limit fits in the node:
-            #   kubectl get node --selector=worker_group=production
+            #   kubectl get node --selector=worker_group=prod_integrates
             #   kubectl describe node <node>
             #
             # You can have 1 pod per node, or 2, or 3, etc..
             #
             # Debug if pods were actually able to use the node:
-            #   kubectl get pod -n production
-            #   kubectl describe pod -n production <pod>
+            #   kubectl get pod -n prod-integrates
+            #   kubectl describe pod -n prod-integrates <pod>
             requests:
               cpu: 1000m
               memory: 6000Mi
             limits:
               cpu: 2000m
-              memory: 7000Mi
+              memory: 6500Mi
           envFrom:
             - secretRef:
-                name: report-machine-${NAME}
+                name: machine-report-${NAME}
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
