@@ -278,6 +278,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.target.redshift.env.runtime}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.target.redshift.src;
       };

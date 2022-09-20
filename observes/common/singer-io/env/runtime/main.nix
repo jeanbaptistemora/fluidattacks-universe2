@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-common-singer-io-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

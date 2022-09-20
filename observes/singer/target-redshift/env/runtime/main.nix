@@ -13,9 +13,6 @@ in
   makeTemplate {
     name = "observes-singer-target-redshift-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];
