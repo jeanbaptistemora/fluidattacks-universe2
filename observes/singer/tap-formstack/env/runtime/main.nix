@@ -13,9 +13,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-formstack-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

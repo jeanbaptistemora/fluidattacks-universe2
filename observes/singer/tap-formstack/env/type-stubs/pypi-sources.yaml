@@ -1,0 +1,25 @@
+---
+closure:
+  types-python-dateutil: 2.8.19
+  types-requests: 2.28.10
+  types-urllib3: 1.26.24
+links:
+  - name: types_python_dateutil-2.8.19-py3-none-any.whl
+    sha256: 1a3zrqmk89d3z21a4sb65a3np19k2fl1f0vzb1pgrn438wgdz132
+    url: https://files.pythonhosted.org/packages/e9/02/232ffb54d392a41b538eb060ce0a92817366c475f6f49af2d76b89812fac/types_python_dateutil-2.8.19-py3-none-any.whl
+  - name: types-python-dateutil-2.8.19.tar.gz
+    sha256: 02gkcgbvn84bni5bxd1bcq9v0c3x06dzc41vl95ylfi5qwwyplxz
+    url: https://files.pythonhosted.org/packages/0b/56/38212d626fb100026dbb79c050eb9ea24012ad562f8fd1991d25453da3d4/types-python-dateutil-2.8.19.tar.gz
+  - name: types_requests-2.28.10-py3-none-any.whl
+    sha256: 0sp1lcjmaadvhvvka7jai1dj1n8s3hpjaq9lnbr551ymbrr8bd25
+    url: https://files.pythonhosted.org/packages/07/41/5c0bf629bb4abdda40a5c6966deb36a7435c634e710381c8ad7398e13839/types_requests-2.28.10-py3-none-any.whl
+  - name: types-requests-2.28.10.tar.gz
+    sha256: 0b4zl6r5d9yymwngmwfrfadfmnl2q5ipvir66y6fbqgzl45g9n4p
+    url: https://files.pythonhosted.org/packages/e2/bb/a32688a90cb2dd3f9b4289ffbf087b8b0cb22e99afda01787c6816ed76f6/types-requests-2.28.10.tar.gz
+  - name: types_urllib3-1.26.24-py3-none-any.whl
+    sha256: 1j8mbqbvfskm4jba1fskfrhw8iz0n0cv9grva1p5glq27m81hyfg
+    url: https://files.pythonhosted.org/packages/34/ed/9c4981c4d86bbd255a664fd19fe83a287766001300f5b8384cc2a5e61cb8/types_urllib3-1.26.24-py3-none-any.whl
+  - name: types-urllib3-1.26.24.tar.gz
+    sha256: 0bzlryg45g091w1qwr649n74hdfjmlx75vlr2ssv2gnsgpmamcx1
+    url: https://files.pythonhosted.org/packages/30/0d/1e96138ffa7c85c6786c022ef92ab33cc2fb9f1dfff71186661468e1566e/types-urllib3-1.26.24.tar.gz
+python: '3.8'

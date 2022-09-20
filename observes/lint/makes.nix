@@ -221,7 +221,9 @@ in {
       observesTapFormstack = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.formstack.env.runtime}"
+          outputs."/observes/singer/tap-formstack/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.formstack.src;
       };
