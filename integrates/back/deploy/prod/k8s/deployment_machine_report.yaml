@@ -24,7 +24,7 @@ spec:
         uuid: ${UUID}
     spec:
       nodeSelector:
-        worker_group: production
+        worker_group: prod_integrates
       containers:
         - name: report-machine
           image: ghcr.io/fluidattacks/makes:22.09
