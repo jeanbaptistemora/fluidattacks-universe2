@@ -635,6 +635,34 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__add_stakeholder:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'add_stakeholder'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_toe_input:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3183,6 +3211,34 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__update_tours:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'update_tours'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_url_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3606,6 +3662,7 @@
     - /integrates/back/test/functional__add_group_tags
     - /integrates/back/test/functional__add_organization
     - /integrates/back/test/functional__add_push_token
+    - /integrates/back/test/functional__add_stakeholder
     - /integrates/back/test/functional__add_toe_input
     - /integrates/back/test/functional__add_toe_lines
     - /integrates/back/test/functional__add_url_root
@@ -3629,7 +3686,6 @@
     - /integrates/back/test/functional__groups_with_forces
     - /integrates/back/test/functional__handle_vulnerabilities_acceptance
     - /integrates/back/test/functional__invalidate_access_token
-    - /integrates/back/test/functional__me
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -3658,6 +3714,7 @@
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:
+    - /integrates/back/test/functional__me
     - /integrates/back/test/functional__move_root
     - /integrates/back/test/functional__organization
     - /integrates/back/test/functional__organization_id
@@ -3697,7 +3754,6 @@
     - /integrates/back/test/functional__toe_inputs
     - /integrates/back/test/functional__toe_lines
     - /integrates/back/test/functional__unsubscribe_from_group
-    - /integrates/back/test/functional__update_access_token
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -3726,6 +3782,7 @@
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_access_token
     - /integrates/back/test/functional__update_credentials
     - /integrates/back/test/functional__update_event
     - /integrates/back/test/functional__update_event_evidence_s3
@@ -3753,6 +3810,7 @@
     - /integrates/back/test/functional__update_toe_lines_attacked_lines
     - /integrates/back/test/functional__update_toe_lines_sorts
     - /integrates/back/test/functional__update_toe_vulnerabilities
+    - /integrates/back/test/functional__update_tours
     - /integrates/back/test/functional__update_url_root
     - /integrates/back/test/functional__update_vulnerabilities_treatment
     - /integrates/back/test/functional__update_vulnerability_commit
