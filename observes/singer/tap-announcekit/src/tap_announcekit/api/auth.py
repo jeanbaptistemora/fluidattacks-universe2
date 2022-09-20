@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import base64
-from cachetools import (  # type: ignore
+from cachetools import (
     cached,
 )
 from dataclasses import (
@@ -13,8 +13,6 @@ from os import (
     environ,
 )
 from typing import (
-    Callable,
-    cast,
     Dict,
 )
 
@@ -40,9 +38,6 @@ class Creds:
 
 
 @cached(cache={})
-def _get_creds() -> Creds:
+def get_creds() -> Creds:
     # environ returns IO type; inf. cache ensures purity
     return Creds(environ[USER_ENV_VAR], environ[PASSWD_ENV_VAR])
-
-
-get_creds = cast(Callable[[], Creds], _get_creds)

@@ -180,6 +180,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.announcekit.env.runtime}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.announcekit.src;
       };
@@ -187,6 +188,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.announcekit.env.dev}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.announcekit.tests;
       };
