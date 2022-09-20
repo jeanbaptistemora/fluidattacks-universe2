@@ -21,7 +21,6 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    var_type = None
     declarator_id = match_ast_d(
         args.ast_graph, args.n_id, "variable_declarator"
     )
@@ -34,5 +33,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
     value_id = args.ast_graph.nodes[declarator_id].get("label_field_value")
 
     return build_variable_declaration_node(
-        args, var_name, var_type, value_id, None
+        args, var_name, None, value_id, None
     )
