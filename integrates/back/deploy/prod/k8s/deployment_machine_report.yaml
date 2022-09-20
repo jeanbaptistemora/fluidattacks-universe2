@@ -1,0 +1,61 @@
+---
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report-machine-${NAME}
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: report-machine-${NAME}
+  strategy:
+    rollingUpdate:
+      maxSurge: 10%
+      maxUnavailable: 10%
+  template:
+    metadata:
+      labels:
+        app: report-machine-${NAME}
+        # This ensures that the resource is updated on every apply
+        uuid: ${UUID}
+    spec:
+      nodeSelector:
+        worker_group: production
+      containers:
+        - name: report-machine
+          image: ghcr.io/fluidattacks/makes:22.09
+          imagePullPolicy: Always
+          command: [sh]
+          args:
+            - -c
+            - m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/jobs/server
+          env:
+            - name: MAKES_K8S_COMPAT
+              value: '1'
+          resources:
+            # Ensure your request and limit fits in the node:
+            #   kubectl get node --selector=worker_group=production
+            #   kubectl describe node <node>
+            #
+            # You can have 1 pod per node, or 2, or 3, etc..
+            #
+            # Debug if pods were actually able to use the node:
+            #   kubectl get pod -n production
+            #   kubectl describe pod -n production <pod>
+            requests:
+              cpu: 1000m
+              memory: 6000Mi
+            limits:
+              cpu: 2000m
+              memory: 7000Mi
+          envFrom:
+            - secretRef:
+                name: report-machine-${NAME}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
