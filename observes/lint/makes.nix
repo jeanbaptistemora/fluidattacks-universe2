@@ -144,14 +144,18 @@ in {
       observesCommonSingerIo = {
         searchPaths.source = [
           outputs."/observes/common/singer-io/env/development"
+          outputs."/observes/common/singer-io/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/singer-io/src/singer_io";
       };
       observesCommonSingerIoTests = {
         searchPaths.source = [
           outputs."/observes/common/singer-io/env/development"
+          outputs."/observes/common/singer-io/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/singer-io/src/tests";
       };

@@ -1,0 +1,11 @@
+---
+closure:
+  types-deprecated: 1.2.9
+links:
+  - name: types_Deprecated-1.2.9-py3-none-any.whl
+    sha256: 07kcb2vy2fcxn2ghprkyq0vpxwcdii896zd5ylvyapfpw4hmdl2k
+    url: https://files.pythonhosted.org/packages/f4/29/6f08e159f115104dcaeb922793ca24046630fd2891878b9dd17334bf0913/types_Deprecated-1.2.9-py3-none-any.whl
+  - name: types-Deprecated-1.2.9.tar.gz
+    sha256: 1ymn1cwm0b9ij252myk8rns64chj423w7p4ikqsnb62h564yak70
+    url: https://files.pythonhosted.org/packages/45/2f/c0e57815699277d3ecb3cc974c4ffee0afc37a593437328766a42a525dd2/types-Deprecated-1.2.9.tar.gz
+python: '3.8'
