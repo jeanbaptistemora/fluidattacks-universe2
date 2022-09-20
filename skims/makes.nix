@@ -51,13 +51,9 @@
           outputs."/skims/config/runtime"
           outputs."/skims/env/development"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = "/skims/test";
-      };
-      skimsTestMocksHttp = {
-        searchPaths.source = [outputs."/skims/test/mocks/http/env"];
-        python = "3.8";
-        src = "/skims/test/mocks/http/src";
       };
     };
   };

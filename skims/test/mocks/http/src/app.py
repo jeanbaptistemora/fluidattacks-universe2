@@ -50,7 +50,10 @@ def home() -> Response:
                 **{arg: f"[{arg}]" for arg in rule.arguments},
             )
         )
-        urls.append(f'<a href={url}>{url}</a> {", ".join(rule.methods)}')
+        urls.append(
+            f"<a href={url}>{url}</a> "
+            + ", ".join(rule.methods)  # type: ignore
+        )
 
     content = f'<html><body>{"<br />".join(sorted(urls))}</body></html>'
 

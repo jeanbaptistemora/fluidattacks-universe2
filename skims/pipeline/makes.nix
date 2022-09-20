@@ -75,10 +75,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/skimsTestMocksHttp";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintTerraform/skims";
             gitlabExtra = gitlabLint;
           }
