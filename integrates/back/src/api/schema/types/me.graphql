@@ -33,6 +33,13 @@ type Me {
   permissions: [String!]
   "Stakeholder's phone information"
   phone: Phone
+  "Stakeholder vulns to reattack"
+  reattacks (
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+    ): VulnerabilitiesConnection!
   "If true, the legal notice modal won't appear after every ARM login"
   remember: Boolean!
   "Gets the user-level role of the current stakeholder/user"

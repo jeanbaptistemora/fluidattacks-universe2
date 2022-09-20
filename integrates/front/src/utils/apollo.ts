@@ -335,7 +335,10 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
         },
         keyFields: ["name"],
       },
-      Me: { keyFields: ["userEmail"] },
+      Me: {
+        fields: { reattacks: relayStylePagination() },
+        keyFields: ["userEmail"],
+      },
       Organization: { keyFields: ["name"] },
     },
   });

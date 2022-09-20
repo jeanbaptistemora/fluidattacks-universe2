@@ -5,7 +5,6 @@
  */
 
 import { useQuery } from "@apollo/client";
-import _ from "lodash";
 import React, { useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useHistory } from "react-router-dom";
@@ -17,13 +16,8 @@ import { filterSearchText } from "components/Table/utils";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 import type {
   IGetTodoReattacks,
-  ITodoGroupAttr,
-  ITodoOrganizationAttr,
-  IVulnFormatted,
   IVulnerabilityAttr,
-  IVulnerabilityEdges,
 } from "scenes/Dashboard/containers/Tasks/Reattacks/types";
-import { formatVulns } from "scenes/Dashboard/containers/Tasks/Reattacks/utils";
 import { Logger } from "utils/logger";
 
 export const TasksReattacks: React.FC = (): JSX.Element => {
@@ -59,7 +53,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       width: "10%",
     },
     {
-      dataField: "oldestReattackRequestedDate",
+      dataField: "lastRequestedReattackDate",
       header: "Reattack Date",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
@@ -79,28 +73,10 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     },
   });
 
-  const dataset: IVulnFormatted[] = formatVulns(
-    _.isUndefined(data) || _.isEmpty(data)
+  const dataset =
+    data === undefined
       ? []
-      : _.flatten(
-          data.me.organizations.map(
-            (org: ITodoOrganizationAttr): IVulnerabilityAttr[] =>
-              org.name === "imamura"
-                ? []
-                : _.flatten(
-                    org.groups.map(
-                      (group: ITodoGroupAttr): IVulnerabilityAttr[] =>
-                        _.flatten(
-                          group.vulnerabilities.edges.map(
-                            (edge: IVulnerabilityEdges): IVulnerabilityAttr[] =>
-                              edge.node
-                          )
-                        )
-                    )
-                  )
-          )
-        )
-  );
+      : data.me.reattacks.edges.map((edge): IVulnerabilityAttr => edge.node);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -122,7 +98,8 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     const [findingSelected]: IVulnerabilityAttr[] = dataset.filter(
       (vulnAttr: IVulnerabilityAttr): boolean => vulnAttr.id === rowInfo.id
     );
-    push(`/groups/${findingSelected.finding.id}/vulns/${rowInfo.id}/locations`);
+
+    push(`/groups/${findingSelected.groupName}/vulns/${rowInfo.id}/locations`);
   };
 
   return (

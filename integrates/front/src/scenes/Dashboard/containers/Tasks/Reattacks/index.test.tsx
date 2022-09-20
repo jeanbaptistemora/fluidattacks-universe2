@@ -30,36 +30,25 @@ describe("TodoReattacksView", (): void => {
     result: {
       data: {
         me: {
-          organizations: [
-            {
-              groups: [
-                {
-                  vulnerabilities: {
-                    edges: [
-                      {
-                        node: {
-                          finding: {
-                            id: "436992569",
-                            severityScore: 2.7,
-                            title: "038. Business information leak",
-                          },
-                          groupName: "group1",
-
-                          id: "3fead407-5c00-43b2-9106-6d419369441f",
-                          lastRequestedReattackDate: "2022-07-12 16:42:53",
-
-                          verification: "Requested",
-                        },
-                      },
-                    ],
+          reattacks: {
+            edges: [
+              {
+                node: {
+                  finding: {
+                    id: "436992569",
+                    severityScore: 2.7,
+                    title: "038. Business information leak",
                   },
+                  groupName: "group1",
+                  id: "3fead407-5c00-43b2-9106-6d419369441f",
+                  lastRequestedReattackDate: "2022-07-12 16:42:53",
+                  verification: "Requested",
                 },
-              ],
-              name: "orgtest",
-            },
-          ],
-          userEmail: "test@fluidattacks.com",
+              },
+            ],
+          },
         },
+        userEmail: "test@fluidattacks.com",
       },
     },
   };

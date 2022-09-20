@@ -14,6 +14,7 @@ from api.resolvers.me import (
     organizations,
     permissions,
     phone,
+    reattacks,
     remember,
     role,
     subscriptions_to_entity_report,
@@ -36,6 +37,7 @@ ME.set_field("isConcurrentSession", is_concurrent_session.resolve)
 ME.set_field("organizations", organizations.resolve)
 ME.set_field("permissions", permissions.resolve)
 ME.set_field("phone", phone.resolve)
+ME.set_field("reattacks", reattacks.resolve)
 ME.set_field("remember", remember.resolve)
 ME.set_field("role", role.resolve)
 ME.set_field(

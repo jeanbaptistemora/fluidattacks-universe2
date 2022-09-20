@@ -8,30 +8,20 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 export const GET_TODO_REATTACKS: DocumentNode = gql`
-  query GetTodoReattacks {
+  query GetTodoReattacksOPEN {
     me {
       userEmail
-      organizations {
-        name
-        groups {
-          name
-          vulnerabilities(
-            stateStatus: "OPEN"
-            verificationStatus: "REQUESTED"
-            first: 25
-          ) {
-            edges {
-              node {
-                lastRequestedReattackDate
-                groupName
-                id
-                verification
-                finding {
-                  id
-                  severityScore
-                  title
-                }
-              }
+      reattacks {
+        edges {
+          node {
+            lastRequestedReattackDate
+            groupName
+            id
+            verification
+            finding {
+              id
+              severityScore
+              title
             }
           }
         }
