@@ -25,6 +25,10 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    List,
+    Optional,
+)
 from utils.logs import (
     log_blocking,
 )
@@ -34,9 +38,12 @@ async def update(
     *,
     advisory: Advisory,
     checked: bool = False,
+    to_storage: Optional[List[Advisory]] = None,
 ) -> None:
     try:
         await _update(advisory=advisory, checked=checked)
+        if to_storage is not None:
+            to_storage.append(advisory)
     except (
         AdvisoryDoesNotExist,
         AdvisoryNotModified,

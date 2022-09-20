@@ -25,9 +25,16 @@ from dynamodb.resource import (
     dynamo_startup,
 )
 import json
+from s3.operations import (
+    download_advisories,
+    upload_advisories,
+)
 import sys
 from typing import (
+    Any,
+    Dict,
     Iterable,
+    List,
 )
 from utils.logs import (
     log_blocking,
@@ -61,6 +68,36 @@ def check_item(item: dict, action: str) -> Advisory:
         vulnerable_version=item.get("vulnerable_version", ""),
         severity=item.get("severity"),
     )
+
+
+def remove_from_s3(adv: Advisory, s3_advisories: Dict[str, Any]) -> None:
+    if (
+        adv.package_manager in s3_advisories
+        and adv.package_name in s3_advisories[adv.package_manager]
+        and adv.associated_advisory
+        in s3_advisories[adv.package_manager][adv.package_name]
+    ):
+        del s3_advisories[adv.package_manager][adv.package_name][
+            adv.associated_advisory
+        ]
+        if s3_advisories[adv.package_manager][adv.package_name] == {}:
+            del s3_advisories[adv.package_manager][adv.package_name]
+
+
+async def update_s3(to_storage: List[Advisory], action: str) -> None:
+    s3_advisories, s3_patch_advisories = await download_advisories()
+    if action != REMOVE:
+        await upload_advisories(to_storage, s3_advisories, is_patch=True)
+    else:
+        for adv in to_storage:
+            if adv.source == PATCH_SRC:
+                remove_from_s3(adv, s3_patch_advisories)
+            else:
+                remove_from_s3(adv, s3_advisories)
+        await upload_advisories(to_storage=[], s3_advisories=s3_advisories)
+        await upload_advisories(
+            to_storage=[], s3_advisories=s3_patch_advisories
+        )
 
 
 async def patch_sca(filename: str, action: str) -> None:
