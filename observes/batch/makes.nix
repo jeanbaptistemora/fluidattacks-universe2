@@ -34,6 +34,15 @@
       setup = [outputs."/secretsForAwsFromGitlab/prodObserves"];
     }
     // compute_resources size;
+
+  parrallel_job = parallel: let
+    parallel_conf =
+      if parallel >= 2
+      then {inherit parallel;}
+      else {};
+  in
+    job: job // parallel_conf;
+
   clone_job = {
     attempts,
     timeout,
@@ -152,12 +161,12 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
     };
 
-    observesDynamoParallel = scheduled_job {
+    observesDynamoParallel = parrallel_job 10 (scheduled_job {
       size = "large";
       attempts = 1;
       timeout = 259200;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
-    };
+    });
 
     observesDynamoPrepare = scheduled_job {
       size = "nano";
