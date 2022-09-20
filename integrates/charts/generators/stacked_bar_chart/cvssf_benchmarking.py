@@ -38,11 +38,20 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
 from findings.domain import (
     get_severity_score,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
 )
 from statistics import (
     mean,
@@ -50,10 +59,7 @@ from statistics import (
 from typing import (
     Any,
     Counter,
-    Dict,
-    List,
     NamedTuple,
-    Tuple,
 )
 
 
@@ -67,8 +73,8 @@ class OrganizationCvssfBenchmarking(NamedTuple):
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
-    finding_severity: Dict[str, Decimal] = {}
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    finding_severity: dict[str, Decimal] = {}
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_severity.update(
@@ -77,9 +83,19 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
             for finding in group_findings
         }
     )
-    vulnerabilities = (
-        await loaders.finding_vulnerabilities_nzr.load_many_chained(
-            [finding.id for finding in group_findings]
+    vulnerabilities: tuple[Vulnerability, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    loaders.finding_vulnerabilities_nzr.load_many_chained(
+                        chuncked_findings
+                    )
+                    for chuncked_findings in chunked(
+                        [finding.id for finding in group_findings], 16
+                    )
+                ),
+                workers=4,
+            )
         )
     )
 
@@ -105,14 +121,14 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_organization(
-    *, organization_id: str, groups: Tuple[str, ...], loaders: Dataloaders
+    *, organization_id: str, groups: tuple[str, ...], loaders: Dataloaders
 ) -> OrganizationCvssfBenchmarking:
     groups_data = await collect(
         tuple(
             get_group_data(group=group.lower(), loaders=loaders)
             for group in groups
         ),
-        workers=24,
+        workers=16,
     )
 
     counter: Counter[str] = sum(groups_data, Counter())
@@ -127,7 +143,7 @@ async def get_data_one_organization(
 
 
 def get_best_organization(
-    *, organizations: List[OrganizationCvssfBenchmarking]
+    *, organizations: list[OrganizationCvssfBenchmarking]
 ) -> OrganizationCvssfBenchmarking:
     if organizations:
         return max(
@@ -149,7 +165,7 @@ def get_best_organization(
 
 
 def get_worst_organization(
-    *, organizations: List[OrganizationCvssfBenchmarking]
+    *, organizations: list[OrganizationCvssfBenchmarking]
 ) -> OrganizationCvssfBenchmarking:
     if organizations:
         return min(
@@ -171,7 +187,7 @@ def get_worst_organization(
 
 
 def get_mean_organizations(
-    *, organizations: List[OrganizationCvssfBenchmarking]
+    *, organizations: list[OrganizationCvssfBenchmarking]
 ) -> OrganizationCvssfBenchmarking:
     if organizations:
         accepted = Decimal(
@@ -203,9 +219,9 @@ def get_mean_organizations(
 
 def get_valid_organizations(
     *,
-    organizations: Tuple[OrganizationCvssfBenchmarking, ...],
+    organizations: tuple[OrganizationCvssfBenchmarking, ...],
     organization_id: str,
-) -> List[OrganizationCvssfBenchmarking]:
+) -> list[OrganizationCvssfBenchmarking]:
     return [
         organization
         for organization in organizations
@@ -219,9 +235,9 @@ def format_data(
     best_cvssf: OrganizationCvssfBenchmarking,
     mean_cvssf: OrganizationCvssfBenchmarking,
     worst_cvssf: OrganizationCvssfBenchmarking,
-    categories: List[str],
-) -> Dict[str, Any]:
-    total_bar: List[Decimal] = [
+    categories: list[str],
+) -> dict[str, Any]:
+    total_bar: list[Decimal] = [
         (organization.closed + organization.accepted + organization.open)
         if organization.total > Decimal("0.0")
         else Decimal("0.1"),
@@ -231,7 +247,7 @@ def format_data(
         else Decimal("0.1"),
         worst_cvssf.closed + worst_cvssf.accepted + worst_cvssf.open,
     ]
-    percentage_values: List[List[Decimal]] = [
+    percentage_values: list[list[Decimal]] = [
         [
             organization.closed / total_bar[0],
             organization.accepted / total_bar[0],
@@ -402,8 +418,8 @@ def format_data(
 
 async def generate_all() -> None:  # pylint: disable=too-many-locals
     loaders: Dataloaders = get_new_context()
-    organizations: List[Tuple[str, Tuple[str, ...]]] = []
-    portfolios: List[Tuple[str, Tuple[str, ...]]] = []
+    organizations: list[tuple[str, tuple[str, ...]]] = []
+    portfolios: list[tuple[str, tuple[str, ...]]] = []
 
     async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
