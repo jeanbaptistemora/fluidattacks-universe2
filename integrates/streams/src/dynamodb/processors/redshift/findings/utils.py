@@ -5,14 +5,14 @@
 from datetime import (
     datetime,
 )
-from typing import (
-    Any,
+from dynamodb.types import (
+    Item,
 )
 
 
 def format_row_metadata(
-    item: dict[str, Any],
-) -> dict[str, Any]:
+    item: Item,
+) -> Item:
     return dict(
         id=item["id"],
         cvss_version=item["cvss_version"],
@@ -25,8 +25,8 @@ def format_row_metadata(
 
 
 def format_row_severity(
-    item: dict[str, Any],
-) -> dict[str, Any]:
+    item: Item,
+) -> Item:
     return {
         "id": item["id"],
         **item["severity"],
@@ -35,8 +35,8 @@ def format_row_severity(
 
 def format_row_state(
     finding_id: str,
-    state: dict[str, Any],
-) -> dict[str, Any]:
+    state: Item,
+) -> Item:
     return dict(
         id=finding_id,
         modified_by=state["modified_by"],
@@ -49,8 +49,8 @@ def format_row_state(
 
 def format_row_verification(
     finding_id: str,
-    verification: dict[str, Any],
-) -> dict[str, Any]:
+    verification: Item,
+) -> Item:
     return dict(
         id=finding_id,
         modified_date=datetime.fromisoformat(verification["modified_date"]),
@@ -62,7 +62,7 @@ def format_row_verification_vuln_ids(
     finding_id: str,
     modified_date: str,
     vulnerability_id: str,
-) -> dict[str, Any]:
+) -> Item:
     return dict(
         id=finding_id,
         modified_date=datetime.fromisoformat(modified_date),

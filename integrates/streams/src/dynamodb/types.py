@@ -12,6 +12,8 @@ from typing import (
     Optional,
 )
 
+Item = dict[str, Any]
+
 
 class EventName(str, Enum):
     INSERT = "INSERT"
@@ -21,8 +23,8 @@ class EventName(str, Enum):
 
 class Record(NamedTuple):
     event_name: EventName
-    new_image: Optional[dict[str, Any]]
-    old_image: Optional[dict[str, Any]]
+    new_image: Optional[Item]
+    old_image: Optional[Item]
     pk: str
     sequence_number: str
     sk: str

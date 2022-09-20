@@ -7,6 +7,7 @@ from boto3.dynamodb.types import (
 )
 from dynamodb.types import (
     EventName,
+    Item,
     Record,
 )
 from opensearchpy import (
@@ -24,7 +25,7 @@ class SetEncoder(JSONSerializer):
         return JSONSerializer.default(self, data)
 
 
-def deserialize_dynamodb_json(item: dict[str, Any]) -> dict[str, Any]:
+def deserialize_dynamodb_json(item: Item) -> Item:
     """Deserializes a DynamoDB JSON into a python dictionary"""
     deserializer = TypeDeserializer()
 
