@@ -5,42 +5,51 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group %}
+  {% from 'layouts/components/forms.html' import banner_group %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('Services Updated') }}
-
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      Services have been modified to the group <strong>{{ group_name }}</strong>
-      from the organization <strong>{{ org_name }}</strong>
-      by <strong>{{ responsible }}</strong> as {{ user_role }}.<br/>
-      Here are the details of the group:
-    </p>
-    <p>
-      <strong>Date:</strong> {{ report_date }}.<br>
-      {% for key, value in group_changes.items() %}
-        {% if key not in ["Name", "ARM"] %}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Services Updated') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          Services in the group <strong>{{ group_name }}</strong>
+          have been updated by
+          <strong><a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a></strong>:
+        </p>
+        <p>
+          <strong>Date:</strong> {{ report_date }}<br>
+          {% for key, value in group_changes.items() %}
+            {% if key not in ["Name", "ASM"] %}
           <strong>{{ key }}:</strong>
-          {% if key in ["Comments", "Reason"] %}
-            {{ value }}.<br>
-          {% else %}
-            {% if value["from"] == value["to"] %}
-              {{ value["to"] }}.<br>
-            {% else %}
-              {{ value["from"] }} <u>to</u> {{ value["to"] }}.<br>
+              {% if key in ["Comments", "Reason"] %}
+          {{ value }}<br>
+              {% else %}
+                {% if value["from"] == value["to"] %}
+          {{ value["to"] }}<br>
+                {% else %}
+          <em>from</em> {{ value["from"] }}
+          <em>to</em> {{ value["to"] }}<br>
+                {% endif %}
+              {% endif %}
             {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-  </div>
+          {% endfor %}
+        </p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}
