@@ -36,7 +36,7 @@ class Metrics(NamedTuple):
     @classmethod
     def new(cls, client: Client) -> IO[Metrics]:
         data = handle_rate_limit(lambda: raw.get_metrics(client), 5)
-        return data.unwrap().map(cls)  # type: ignore
+        return data.unwrap().map(cls)
 
 
 class MetricsApi(NamedTuple):

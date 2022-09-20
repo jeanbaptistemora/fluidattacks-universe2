@@ -49,7 +49,7 @@ class SurveyPage(NamedTuple):
             ),
             5,
         )
-        return data.unwrap().map(cls)  # type: ignore
+        return data.unwrap().map(cls)
 
 
 def _is_empty(iopage: IO[SurveyPage]) -> bool:

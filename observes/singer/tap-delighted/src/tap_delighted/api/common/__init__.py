@@ -36,7 +36,7 @@ def retry_request(
     retry_num: int,
     request: Callable[[], RawApiResult[DataType]],
     error: RateLimitError,
-) -> ApiResult[DataType]:  # type: ignore
+) -> ApiResult[DataType]:
     wait_time = error.retry_after
     LOG.info("Api rate limit reached. Waiting %ss", wait_time)
     time.sleep(wait_time)
@@ -47,7 +47,7 @@ def retry_request(
 def handle_rate_limit(
     request: Callable[[], RawApiResult[DataType]],
     max_retries: int,
-) -> ApiResult:  # type: ignore
+) -> ApiResult:
     retries = 0
     while retries < max_retries:
         retries = retries + 1
