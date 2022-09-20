@@ -289,4 +289,49 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
   });
+
+  it("should hide columns", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columnToggle={true}
+        columns={columns}
+        data={data}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "group.findings.tableSet.btn.text" })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("columnheader", { name: "Shirt Color" })
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByRole("button", { name: "group.findings.tableSet.btn.text" })
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText("group.findings.tableSet.modalTitle")
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getAllByRole("checkbox")).toHaveLength(4);
+
+    userEvent.click(screen.getByRole("checkbox", { name: "color" }));
+
+    expect(
+      screen.queryByRole("columnheader", { name: "Shirt Color" })
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("checkbox", { name: "color" }));
+
+    expect(
+      screen.queryByRole("columnheader", { name: "Shirt Color" })
+    ).toBeInTheDocument();
+  });
 });
