@@ -23,7 +23,7 @@ you need to do the following:
   where you will find
   the DevSecOps Agent Token section.
 
-  ![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/machine/agent/installation/devsecops_token_section_jpex40.webp)
+  ![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/dev_token_section.png)
 
   Click on the **Manage Token** button
   and a pop-up will appear
@@ -31,7 +31,7 @@ you need to do the following:
   or click on **Reveal Token**
   in case you already generated one.
 
-  ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/agent/installation/devsecops_token_modal_ivw8th.webp)
+  ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/manage_toke.pngs)
 
 1. Make sure your execution environment
   has the required dependencies:
