@@ -5732,6 +5732,10 @@
           "150": {
             "153": {
               "label_ast": "AST"
+            },
+            "168": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "153": {
@@ -5746,6 +5750,237 @@
           },
           "160": {
             "161": {
+              "label_ast": "AST"
+            }
+          },
+          "168": {
+            "171": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "180": {
+              "label_ast": "AST"
+            },
+            "189": {
+              "label_ast": "AST"
+            },
+            "238": {
+              "label_ast": "AST"
+            },
+            "255": {
+              "label_ast": "AST"
+            },
+            "261": {
+              "label_ast": "AST"
+            }
+          },
+          "171": {
+            "172": {
+              "label_ast": "AST"
+            },
+            "177": {
+              "label_ast": "AST"
+            },
+            "180": {
+              "label_cfg": "CFG"
+            }
+          },
+          "172": {
+            "173": {
+              "label_ast": "AST"
+            }
+          },
+          "180": {
+            "181": {
+              "label_ast": "AST"
+            },
+            "189": {
+              "label_cfg": "CFG"
+            }
+          },
+          "181": {
+            "182": {
+              "label_ast": "AST"
+            }
+          },
+          "189": {
+            "192": {
+              "label_ast": "AST"
+            },
+            "200": {
+              "label_ast": "AST"
+            },
+            "208": {
+              "label_ast": "AST"
+            },
+            "212": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "192": {
+            "198": {
+              "label_ast": "AST"
+            }
+          },
+          "200": {
+            "201": {
+              "label_ast": "AST"
+            },
+            "203": {
+              "label_ast": "AST"
+            }
+          },
+          "203": {
+            "204": {
+              "label_ast": "AST"
+            }
+          },
+          "208": {
+            "209": {
+              "label_ast": "AST"
+            }
+          },
+          "212": {
+            "214": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "216": {
+              "label_ast": "AST"
+            }
+          },
+          "214": {
+            "216": {
+              "label_cfg": "CFG"
+            }
+          },
+          "216": {
+            "217": {
+              "label_ast": "AST"
+            },
+            "222": {
+              "label_ast": "AST"
+            },
+            "238": {
+              "label_cfg": "CFG"
+            }
+          },
+          "217": {
+            "218": {
+              "label_ast": "AST"
+            }
+          },
+          "222": {
+            "223": {
+              "label_ast": "AST"
+            },
+            "234": {
+              "label_ast": "AST"
+            }
+          },
+          "223": {
+            "224": {
+              "label_ast": "AST"
+            },
+            "226": {
+              "label_ast": "AST"
+            }
+          },
+          "226": {
+            "227": {
+              "label_ast": "AST"
+            },
+            "228": {
+              "label_ast": "AST"
+            }
+          },
+          "228": {
+            "231": {
+              "label_ast": "AST"
+            }
+          },
+          "238": {
+            "245": {
+              "label_ast": "AST"
+            },
+            "255": {
+              "label_cfg": "CFG"
+            }
+          },
+          "245": {
+            "246": {
+              "label_ast": "AST"
+            }
+          },
+          "246": {
+            "247": {
+              "label_ast": "AST"
+            }
+          },
+          "255": {
+            "256": {
+              "label_ast": "AST"
+            },
+            "258": {
+              "label_ast": "AST"
+            },
+            "261": {
+              "label_cfg": "CFG"
+            }
+          },
+          "261": {
+            "262": {
+              "label_ast": "AST"
+            },
+            "266": {
+              "label_ast": "AST"
+            }
+          },
+          "262": {
+            "263": {
+              "label_ast": "AST"
+            }
+          },
+          "266": {
+            "269": {
+              "label_ast": "AST"
+            }
+          },
+          "269": {
+            "270": {
+              "label_ast": "AST"
+            },
+            "284": {
+              "label_ast": "AST"
+            }
+          },
+          "270": {
+            "271": {
+              "label_ast": "AST"
+            },
+            "279": {
+              "label_ast": "AST"
+            }
+          },
+          "271": {
+            "272": {
+              "label_ast": "AST"
+            },
+            "277": {
+              "label_ast": "AST"
+            }
+          },
+          "272": {
+            "273": {
+              "label_ast": "AST"
+            },
+            "275": {
+              "label_ast": "AST"
+            }
+          },
+          "279": {
+            "280": {
               "label_ast": "AST"
             }
           },
@@ -6121,6 +6356,7 @@
             "label_type": "ExecutionBlock"
           },
           "150": {
+            "block_id": "168",
             "declaration_id": "153",
             "label_type": "UsingStatement"
           },
@@ -6145,13 +6381,262 @@
             "label_type": "SymbolLookup",
             "symbol": "IO"
           },
+          "168": {
+            "label_type": "ExecutionBlock"
+          },
+          "171": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "177",
+            "variable_id": "172"
+          },
+          "172": {
+            "expression": "badSqlCommand",
+            "expression_id": "173",
+            "label_type": "MemberAccess",
+            "member": "Connection"
+          },
+          "173": {
+            "label_type": "SymbolLookup",
+            "symbol": "badSqlCommand"
+          },
+          "177": {
+            "label_type": "SymbolLookup",
+            "symbol": "dbConnection"
+          },
+          "180": {
+            "expression": "dbConnection.Open",
+            "expression_id": "181",
+            "label_type": "MethodInvocation"
+          },
+          "181": {
+            "expression": "dbConnection",
+            "expression_id": "182",
+            "label_type": "MemberAccess",
+            "member": "Open"
+          },
+          "182": {
+            "label_type": "SymbolLookup",
+            "symbol": "dbConnection"
+          },
+          "189": {
+            "block_id": "212",
+            "label_type": "ForStatement"
+          },
+          "192": {
+            "label_type": "VariableDeclaration",
+            "value_id": "198",
+            "variable": "i",
+            "variable_type": "int"
+          },
+          "198": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
           "2": {
             "comment": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs\nLabel Definition File: CWE89_SQL_Injection__Web.label.xml\nTemplate File: sources-sinks-01.tmpl.cs\n*/",
             "label_type": "Comment"
           },
+          "200": {
+            "label_type": "BinaryOperation",
+            "left_id": "201",
+            "operator": "<",
+            "right_id": "203"
+          },
+          "201": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "203": {
+            "expression": "names",
+            "expression_id": "204",
+            "label_type": "MemberAccess",
+            "member": "Length"
+          },
+          "204": {
+            "label_type": "SymbolLookup",
+            "symbol": "names"
+          },
+          "208": {
+            "label_type": "PostfixUnaryExpression",
+            "operator": "++"
+          },
+          "209": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "212": {
+            "label_type": "ExecutionBlock"
+          },
+          "214": {
+            "comment": "/* POTENTIAL FLAW: data concatenated into SQL statement used in CommandText, which could result in SQL Injection */",
+            "label_type": "Comment"
+          },
+          "216": {
+            "label_type": "Assignment",
+            "operator": "+=",
+            "value_id": "222",
+            "variable_id": "217"
+          },
+          "217": {
+            "expression": "badSqlCommand",
+            "expression_id": "218",
+            "label_type": "MemberAccess",
+            "member": "CommandText"
+          },
+          "218": {
+            "label_type": "SymbolLookup",
+            "symbol": "badSqlCommand"
+          },
           "22": {
             "expression": "System.Data",
             "label_type": "Import"
+          },
+          "222": {
+            "label_type": "BinaryOperation",
+            "left_id": "223",
+            "operator": "+",
+            "right_id": "234"
+          },
+          "223": {
+            "label_type": "BinaryOperation",
+            "left_id": "224",
+            "operator": "+",
+            "right_id": "226"
+          },
+          "224": {
+            "label_type": "Literal",
+            "value": "\"update users set hitcount=hitcount+1 where name='\"",
+            "value_type": "string"
+          },
+          "226": {
+            "arguments_id": "228",
+            "expression_id": "227",
+            "label_type": "ElementAccess"
+          },
+          "227": {
+            "label_type": "SymbolLookup",
+            "symbol": "names"
+          },
+          "228": {
+            "label_type": "ArgumentList"
+          },
+          "231": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "234": {
+            "label_type": "Literal",
+            "value": "\"';\"",
+            "value_type": "string"
+          },
+          "238": {
+            "label_type": "VariableDeclaration",
+            "value_id": "245",
+            "variable": "affectedRows",
+            "variable_type": "var"
+          },
+          "245": {
+            "expression": "badSqlCommand.ExecuteNonQuery",
+            "expression_id": "246",
+            "label_type": "MethodInvocation"
+          },
+          "246": {
+            "expression": "badSqlCommand",
+            "expression_id": "247",
+            "label_type": "MemberAccess",
+            "member": "ExecuteNonQuery"
+          },
+          "247": {
+            "label_type": "SymbolLookup",
+            "symbol": "badSqlCommand"
+          },
+          "255": {
+            "label_type": "Assignment",
+            "operator": "+=",
+            "value_id": "258",
+            "variable_id": "256"
+          },
+          "256": {
+            "label_type": "SymbolLookup",
+            "symbol": "successCount"
+          },
+          "258": {
+            "label_type": "SymbolLookup",
+            "symbol": "affectedRows"
+          },
+          "261": {
+            "arguments_id": "266",
+            "expression": "IO.WriteLine",
+            "expression_id": "262",
+            "label_type": "MethodInvocation"
+          },
+          "262": {
+            "expression": "IO",
+            "expression_id": "263",
+            "label_type": "MemberAccess",
+            "member": "WriteLine"
+          },
+          "263": {
+            "label_type": "SymbolLookup",
+            "symbol": "IO"
+          },
+          "266": {
+            "label_type": "ArgumentList"
+          },
+          "269": {
+            "label_type": "BinaryOperation",
+            "left_id": "270",
+            "operator": "+",
+            "right_id": "284"
+          },
+          "270": {
+            "label_type": "BinaryOperation",
+            "left_id": "271",
+            "operator": "+",
+            "right_id": "279"
+          },
+          "271": {
+            "label_type": "BinaryOperation",
+            "left_id": "272",
+            "operator": "+",
+            "right_id": "277"
+          },
+          "272": {
+            "label_type": "BinaryOperation",
+            "left_id": "273",
+            "operator": "+",
+            "right_id": "275"
+          },
+          "273": {
+            "label_type": "Literal",
+            "value": "\"Succeeded in \"",
+            "value_type": "string"
+          },
+          "275": {
+            "label_type": "SymbolLookup",
+            "symbol": "successCount"
+          },
+          "277": {
+            "label_type": "Literal",
+            "value": "\" out of \"",
+            "value_type": "string"
+          },
+          "279": {
+            "expression": "names",
+            "expression_id": "280",
+            "label_type": "MemberAccess",
+            "member": "Length"
+          },
+          "280": {
+            "label_type": "SymbolLookup",
+            "symbol": "names"
+          },
+          "284": {
+            "label_type": "Literal",
+            "value": "\" queries.\"",
+            "value_type": "string"
           },
           "289": {
             "block_id": "296",
@@ -33214,6 +33699,16 @@
               "label_cfg": "CFG"
             }
           },
+          "104": {
+            "107": {
+              "label_ast": "AST"
+            }
+          },
+          "107": {
+            "108": {
+              "label_ast": "AST"
+            }
+          },
           "12": {
             "19": {
               "label_ast": "AST",
@@ -33350,7 +33845,8 @@
             "221": {
               "label_ast": "AST"
             },
-            "294": {
+            "235": {
+              "label_ast": "AST",
               "label_cfg": "CFG"
             }
           },
@@ -33368,8 +33864,56 @@
               "label_ast": "AST"
             }
           },
+          "235": {
+            "238": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "284": {
+              "label_ast": "AST"
+            }
+          },
+          "238": {
+            "239": {
+              "label_ast": "AST"
+            },
+            "246": {
+              "label_ast": "AST"
+            },
+            "284": {
+              "label_cfg": "CFG"
+            }
+          },
+          "239": {
+            "240": {
+              "label_ast": "AST"
+            }
+          },
+          "240": {
+            "241": {
+              "label_ast": "AST"
+            }
+          },
+          "246": {
+            "249": {
+              "label_ast": "AST"
+            }
+          },
           "27": {
             "29": {
+              "label_ast": "AST"
+            }
+          },
+          "284": {
+            "285": {
+              "label_ast": "AST"
+            },
+            "294": {
+              "label_cfg": "CFG"
+            }
+          },
+          "285": {
+            "286": {
               "label_ast": "AST"
             }
           },
@@ -33468,13 +34012,31 @@
             "339": {
               "label_ast": "AST"
             },
-            "459": {
+            "353": {
+              "label_ast": "AST",
               "label_cfg": "CFG"
             }
           },
           "339": {
             "346": {
               "label_ast": "AST"
+            }
+          },
+          "353": {
+            "356": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "401": {
+              "label_ast": "AST"
+            }
+          },
+          "356": {
+            "363": {
+              "label_ast": "AST"
+            },
+            "401": {
+              "label_cfg": "CFG"
             }
           },
           "36": {
@@ -33485,11 +34047,154 @@
               "label_cfg": "CFG"
             }
           },
-          "44": {
-            "155": {
+          "363": {
+            "364": {
+              "label_ast": "AST"
+            }
+          },
+          "364": {
+            "365": {
+              "label_ast": "AST"
+            }
+          },
+          "365": {
+            "366": {
+              "label_ast": "AST"
+            },
+            "373": {
+              "label_ast": "AST"
+            }
+          },
+          "366": {
+            "367": {
+              "label_ast": "AST"
+            }
+          },
+          "367": {
+            "368": {
+              "label_ast": "AST"
+            }
+          },
+          "373": {
+            "376": {
+              "label_ast": "AST"
+            }
+          },
+          "376": {
+            "377": {
+              "label_ast": "AST"
+            }
+          },
+          "401": {
+            "404": {
+              "label_ast": "AST"
+            },
+            "409": {
+              "label_ast": "AST",
               "label_cfg": "CFG"
             },
+            "447": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "404": {
+            "405": {
+              "label_ast": "AST"
+            },
+            "407": {
+              "label_ast": "AST"
+            }
+          },
+          "409": {
+            "412": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "424": {
+              "label_ast": "AST"
+            },
+            "436": {
+              "label_ast": "AST"
+            }
+          },
+          "412": {
+            "413": {
+              "label_ast": "AST"
+            },
+            "418": {
+              "label_ast": "AST"
+            },
+            "424": {
+              "label_cfg": "CFG"
+            }
+          },
+          "413": {
+            "414": {
+              "label_ast": "AST"
+            }
+          },
+          "418": {
+            "419": {
+              "label_ast": "AST"
+            }
+          },
+          "424": {
+            "425": {
+              "label_ast": "AST"
+            },
+            "430": {
+              "label_ast": "AST"
+            },
+            "436": {
+              "label_cfg": "CFG"
+            }
+          },
+          "425": {
+            "426": {
+              "label_ast": "AST"
+            }
+          },
+          "430": {
+            "431": {
+              "label_ast": "AST"
+            }
+          },
+          "436": {
+            "437": {
+              "label_ast": "AST"
+            },
+            "459": {
+              "label_cfg": "CFG"
+            }
+          },
+          "437": {
+            "438": {
+              "label_ast": "AST"
+            }
+          },
+          "44": {
             "47": {
+              "label_ast": "AST"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "447": {
+            "449": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "449": {
+            "451": {
+              "label_ast": "AST"
+            }
+          },
+          "451": {
+            "452": {
               "label_ast": "AST"
             }
           },
@@ -33576,12 +34281,138 @@
             "502": {
               "label_ast": "AST"
             },
-            "597": {
+            "516": {
+              "label_ast": "AST",
               "label_cfg": "CFG"
             }
           },
           "502": {
             "509": {
+              "label_ast": "AST"
+            }
+          },
+          "516": {
+            "519": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "557": {
+              "label_ast": "AST"
+            },
+            "587": {
+              "label_ast": "AST"
+            }
+          },
+          "519": {
+            "526": {
+              "label_ast": "AST"
+            },
+            "557": {
+              "label_cfg": "CFG"
+            }
+          },
+          "526": {
+            "527": {
+              "label_ast": "AST"
+            }
+          },
+          "527": {
+            "528": {
+              "label_ast": "AST"
+            }
+          },
+          "528": {
+            "529": {
+              "label_ast": "AST"
+            },
+            "536": {
+              "label_ast": "AST"
+            }
+          },
+          "529": {
+            "530": {
+              "label_ast": "AST"
+            }
+          },
+          "530": {
+            "531": {
+              "label_ast": "AST"
+            }
+          },
+          "536": {
+            "539": {
+              "label_ast": "AST"
+            }
+          },
+          "539": {
+            "540": {
+              "label_ast": "AST"
+            }
+          },
+          "557": {
+            "558": {
+              "label_ast": "AST"
+            },
+            "572": {
+              "label_ast": "AST"
+            },
+            "587": {
+              "label_cfg": "CFG"
+            }
+          },
+          "558": {
+            "559": {
+              "label_ast": "AST"
+            }
+          },
+          "559": {
+            "560": {
+              "label_ast": "AST"
+            },
+            "564": {
+              "label_ast": "AST"
+            }
+          },
+          "560": {
+            "561": {
+              "label_ast": "AST"
+            }
+          },
+          "564": {
+            "567": {
+              "label_ast": "AST"
+            }
+          },
+          "572": {
+            "573": {
+              "label_ast": "AST"
+            }
+          },
+          "573": {
+            "574": {
+              "label_ast": "AST"
+            }
+          },
+          "574": {
+            "575": {
+              "label_ast": "AST"
+            }
+          },
+          "575": {
+            "576": {
+              "label_ast": "AST"
+            }
+          },
+          "587": {
+            "588": {
+              "label_ast": "AST"
+            },
+            "597": {
+              "label_cfg": "CFG"
+            }
+          },
+          "588": {
+            "589": {
               "label_ast": "AST"
             }
           },
@@ -33594,6 +34425,92 @@
             "600": {
               "label_ast": "AST"
             }
+          },
+          "61": {
+            "64": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "64": {
+            "155": {
+              "label_cfg": "CFG"
+            },
+            "65": {
+              "label_ast": "AST"
+            },
+            "67": {
+              "label_ast": "AST"
+            }
+          },
+          "67": {
+            "68": {
+              "label_ast": "AST"
+            }
+          },
+          "68": {
+            "69": {
+              "label_ast": "AST"
+            }
+          },
+          "69": {
+            "104": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "71": {
+              "label_ast": "AST"
+            }
+          },
+          "71": {
+            "72": {
+              "label_ast": "AST"
+            },
+            "88": {
+              "label_ast": "AST"
+            }
+          },
+          "72": {
+            "73": {
+              "label_ast": "AST"
+            }
+          },
+          "73": {
+            "74": {
+              "label_ast": "AST"
+            },
+            "81": {
+              "label_ast": "AST"
+            }
+          },
+          "74": {
+            "75": {
+              "label_ast": "AST"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST"
+            }
+          },
+          "81": {
+            "84": {
+              "label_ast": "AST"
+            }
+          },
+          "88": {
+            "91": {
+              "label_ast": "AST"
+            }
+          },
+          "91": {
+            "92": {
+              "label_ast": "AST"
+            }
           }
         },
         "nodes": {
@@ -33602,6 +34519,17 @@
           },
           "10": {
             "label_type": "DeclarationBlock"
+          },
+          "104": {
+            "label_type": "ArgumentList"
+          },
+          "107": {
+            "block_id": null,
+            "label_type": "LambdaExpression"
+          },
+          "108": {
+            "label_type": "SymbolLookup",
+            "symbol": "s"
           },
           "12": {
             "block_id": "19",
@@ -33733,6 +34661,7 @@
             "value_type": "string"
           },
           "218": {
+            "block_id": "235",
             "declaration_id": "221",
             "label_type": "UsingStatement"
           },
@@ -33752,8 +34681,55 @@
             "label_type": "ObjectCreation",
             "name": "SchoolDBEntities"
           },
+          "235": {
+            "label_type": "ExecutionBlock"
+          },
+          "238": {
+            "arguments_id": "246",
+            "expression": "ctx.Students.Add",
+            "expression_id": "239",
+            "label_type": "MethodInvocation"
+          },
+          "239": {
+            "expression": "ctx.Students",
+            "expression_id": "240",
+            "label_type": "MemberAccess",
+            "member": "Add"
+          },
+          "240": {
+            "expression": "ctx",
+            "expression_id": "241",
+            "label_type": "MemberAccess",
+            "member": "Students"
+          },
+          "241": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
+          "246": {
+            "label_type": "ArgumentList"
+          },
+          "249": {
+            "label_type": "ObjectCreation",
+            "name": "Student"
+          },
           "27": {
             "label_type": "ParameterList"
+          },
+          "284": {
+            "expression": "ctx.SaveChanges",
+            "expression_id": "285",
+            "label_type": "MethodInvocation"
+          },
+          "285": {
+            "expression": "ctx",
+            "expression_id": "286",
+            "label_type": "MemberAccess",
+            "member": "SaveChanges"
+          },
+          "286": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
           },
           "29": {
             "label_type": "Parameter",
@@ -33836,6 +34812,7 @@
             "value_type": "string"
           },
           "336": {
+            "block_id": "353",
             "declaration_id": "339",
             "label_type": "UsingStatement"
           },
@@ -33849,20 +34826,181 @@
             "label_type": "ObjectCreation",
             "name": "SchoolDBEntities"
           },
+          "353": {
+            "label_type": "ExecutionBlock"
+          },
+          "356": {
+            "label_type": "VariableDeclaration",
+            "value_id": "363",
+            "variable": "existingStudent",
+            "variable_type": "var"
+          },
           "36": {
             "label_type": "VariableDeclaration",
             "value_id": "42",
             "variable": "student",
             "variable_type": "StudentViewModel"
           },
+          "363": {
+            "expression": "ctx.Students.Where(s=>s.StudentID==student.Id).FirstOrDefault<Student>",
+            "expression_id": "364",
+            "label_type": "MethodInvocation"
+          },
+          "364": {
+            "expression": "ctx.Students.Where(s=>s.StudentID==student.Id)",
+            "expression_id": "365",
+            "label_type": "MemberAccess",
+            "member": "FirstOrDefault<Student>"
+          },
+          "365": {
+            "arguments_id": "373",
+            "expression": "ctx.Students.Where",
+            "expression_id": "366",
+            "label_type": "MethodInvocation"
+          },
+          "366": {
+            "expression": "ctx.Students",
+            "expression_id": "367",
+            "label_type": "MemberAccess",
+            "member": "Where"
+          },
+          "367": {
+            "expression": "ctx",
+            "expression_id": "368",
+            "label_type": "MemberAccess",
+            "member": "Students"
+          },
+          "368": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
+          "373": {
+            "label_type": "ArgumentList"
+          },
+          "376": {
+            "block_id": null,
+            "label_type": "LambdaExpression"
+          },
+          "377": {
+            "label_type": "SymbolLookup",
+            "symbol": "s"
+          },
+          "401": {
+            "condition_id": "404",
+            "false_id": "447",
+            "label_type": "If",
+            "true_id": "409"
+          },
+          "404": {
+            "label_type": "BinaryOperation",
+            "left_id": "405",
+            "operator": "!=",
+            "right_id": "407"
+          },
+          "405": {
+            "label_type": "SymbolLookup",
+            "symbol": "existingStudent"
+          },
+          "407": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "409": {
+            "label_type": "ExecutionBlock"
+          },
+          "412": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "418",
+            "variable_id": "413"
+          },
+          "413": {
+            "expression": "existingStudent",
+            "expression_id": "414",
+            "label_type": "MemberAccess",
+            "member": "FirstName"
+          },
+          "414": {
+            "label_type": "SymbolLookup",
+            "symbol": "existingStudent"
+          },
+          "418": {
+            "expression": "student",
+            "expression_id": "419",
+            "label_type": "MemberAccess",
+            "member": "FirstName"
+          },
+          "419": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
           "42": {
             "label_type": "Literal",
             "value": "null",
             "value_type": "null"
           },
+          "424": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "430",
+            "variable_id": "425"
+          },
+          "425": {
+            "expression": "existingStudent",
+            "expression_id": "426",
+            "label_type": "MemberAccess",
+            "member": "LastName"
+          },
+          "426": {
+            "label_type": "SymbolLookup",
+            "symbol": "existingStudent"
+          },
+          "430": {
+            "expression": "student",
+            "expression_id": "431",
+            "label_type": "MemberAccess",
+            "member": "LastName"
+          },
+          "431": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
+          "436": {
+            "expression": "ctx.SaveChanges",
+            "expression_id": "437",
+            "label_type": "MethodInvocation"
+          },
+          "437": {
+            "expression": "ctx",
+            "expression_id": "438",
+            "label_type": "MemberAccess",
+            "member": "SaveChanges"
+          },
+          "438": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
           "44": {
+            "block_id": "61",
             "declaration_id": "47",
             "label_type": "UsingStatement"
+          },
+          "447": {
+            "label_type": "ExecutionBlock"
+          },
+          "449": {
+            "label_type": "Return",
+            "value_id": "451"
+          },
+          "451": {
+            "expression": "NotFound",
+            "expression_id": "452",
+            "label_type": "MethodInvocation"
+          },
+          "452": {
+            "label_type": "SymbolLookup",
+            "symbol": "NotFound"
           },
           "459": {
             "label_type": "Return",
@@ -33943,6 +35081,7 @@
             "value_type": "string"
           },
           "499": {
+            "block_id": "516",
             "declaration_id": "502",
             "label_type": "UsingStatement"
           },
@@ -33956,9 +35095,140 @@
             "label_type": "ObjectCreation",
             "name": "SchoolDBEntities"
           },
+          "516": {
+            "label_type": "ExecutionBlock"
+          },
+          "519": {
+            "label_type": "VariableDeclaration",
+            "value_id": "526",
+            "variable": "student",
+            "variable_type": "var"
+          },
+          "526": {
+            "expression": "ctx.Students.Where(s=>s.StudentID==id).FirstOrDefault",
+            "expression_id": "527",
+            "label_type": "MethodInvocation"
+          },
+          "527": {
+            "expression": "ctx.Students.Where(s=>s.StudentID==id)",
+            "expression_id": "528",
+            "label_type": "MemberAccess",
+            "member": "FirstOrDefault"
+          },
+          "528": {
+            "arguments_id": "536",
+            "expression": "ctx.Students.Where",
+            "expression_id": "529",
+            "label_type": "MethodInvocation"
+          },
+          "529": {
+            "expression": "ctx.Students",
+            "expression_id": "530",
+            "label_type": "MemberAccess",
+            "member": "Where"
+          },
+          "530": {
+            "expression": "ctx",
+            "expression_id": "531",
+            "label_type": "MemberAccess",
+            "member": "Students"
+          },
+          "531": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
+          "536": {
+            "label_type": "ArgumentList"
+          },
+          "539": {
+            "block_id": null,
+            "label_type": "LambdaExpression"
+          },
           "54": {
             "label_type": "ObjectCreation",
             "name": "SchoolDBEntities"
+          },
+          "540": {
+            "label_type": "SymbolLookup",
+            "symbol": "s"
+          },
+          "557": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "572",
+            "variable_id": "558"
+          },
+          "558": {
+            "expression": "ctx.Entry(student)",
+            "expression_id": "559",
+            "label_type": "MemberAccess",
+            "member": "State"
+          },
+          "559": {
+            "arguments_id": "564",
+            "expression": "ctx.Entry",
+            "expression_id": "560",
+            "label_type": "MethodInvocation"
+          },
+          "560": {
+            "expression": "ctx",
+            "expression_id": "561",
+            "label_type": "MemberAccess",
+            "member": "Entry"
+          },
+          "561": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
+          "564": {
+            "label_type": "ArgumentList"
+          },
+          "567": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
+          "572": {
+            "expression": "System.Data.Entity.EntityState",
+            "expression_id": "573",
+            "label_type": "MemberAccess",
+            "member": "Deleted"
+          },
+          "573": {
+            "expression": "System.Data.Entity",
+            "expression_id": "574",
+            "label_type": "MemberAccess",
+            "member": "EntityState"
+          },
+          "574": {
+            "expression": "System.Data",
+            "expression_id": "575",
+            "label_type": "MemberAccess",
+            "member": "Entity"
+          },
+          "575": {
+            "expression": "System",
+            "expression_id": "576",
+            "label_type": "MemberAccess",
+            "member": "Data"
+          },
+          "576": {
+            "label_type": "SymbolLookup",
+            "symbol": "System"
+          },
+          "587": {
+            "expression": "ctx.SaveChanges",
+            "expression_id": "588",
+            "label_type": "MethodInvocation"
+          },
+          "588": {
+            "expression": "ctx",
+            "expression_id": "589",
+            "label_type": "MemberAccess",
+            "member": "SaveChanges"
+          },
+          "589": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
           },
           "597": {
             "label_type": "Return",
@@ -33972,6 +35242,95 @@
           "600": {
             "label_type": "SymbolLookup",
             "symbol": "Ok"
+          },
+          "61": {
+            "label_type": "ExecutionBlock"
+          },
+          "64": {
+            "label_type": "Assignment",
+            "operator": "=",
+            "value_id": "67",
+            "variable_id": "65"
+          },
+          "65": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
+          "67": {
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select(s=>newStudentViewModel(){Id=s.StudentID,FirstName=s.FirstName,LastName=s.LastName}).FirstOrDefault<StudentViewModel>",
+            "expression_id": "68",
+            "label_type": "MethodInvocation"
+          },
+          "68": {
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select(s=>newStudentViewModel(){Id=s.StudentID,FirstName=s.FirstName,LastName=s.LastName})",
+            "expression_id": "69",
+            "label_type": "MemberAccess",
+            "member": "FirstOrDefault<StudentViewModel>"
+          },
+          "69": {
+            "arguments_id": "104",
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id).Select",
+            "expression_id": "70",
+            "label_type": "MethodInvocation"
+          },
+          "70": {
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where(s=>s.StudentID==id)",
+            "expression_id": "71",
+            "label_type": "MemberAccess",
+            "member": "Select"
+          },
+          "71": {
+            "arguments_id": "88",
+            "expression": "ctx.Students.Include(\"StudentAddress\").Where",
+            "expression_id": "72",
+            "label_type": "MethodInvocation"
+          },
+          "72": {
+            "expression": "ctx.Students.Include(\"StudentAddress\")",
+            "expression_id": "73",
+            "label_type": "MemberAccess",
+            "member": "Where"
+          },
+          "73": {
+            "arguments_id": "81",
+            "expression": "ctx.Students.Include",
+            "expression_id": "74",
+            "label_type": "MethodInvocation"
+          },
+          "74": {
+            "expression": "ctx.Students",
+            "expression_id": "75",
+            "label_type": "MemberAccess",
+            "member": "Include"
+          },
+          "75": {
+            "expression": "ctx",
+            "expression_id": "76",
+            "label_type": "MemberAccess",
+            "member": "Students"
+          },
+          "76": {
+            "label_type": "SymbolLookup",
+            "symbol": "ctx"
+          },
+          "81": {
+            "label_type": "ArgumentList"
+          },
+          "84": {
+            "label_type": "Literal",
+            "value": "\"StudentAddress\"",
+            "value_type": "string"
+          },
+          "88": {
+            "label_type": "ArgumentList"
+          },
+          "91": {
+            "block_id": null,
+            "label_type": "LambdaExpression"
+          },
+          "92": {
+            "label_type": "SymbolLookup",
+            "symbol": "s"
           }
         }
       }

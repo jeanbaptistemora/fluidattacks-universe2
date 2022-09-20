@@ -22,7 +22,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     field_declaration as c_sharp_field_declaration,
     file_scoped_namespace_declaration as c_sharp_file_scoped_namespace_decla,
     for_each_statement as c_sharp_for_each_statement,
-    for_statemente as c_sharp_for_statement,
+    for_statement as c_sharp_for_statement,
     global_statement as c_sharp_global_statement,
     initializer_expression as c_sharp_initializer_expression,
     interface_declaration as c_sharp_interface_declaration,

@@ -13,12 +13,16 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast_d,
+    match_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    if match := match_ast_d(args.ast_graph, args.n_id, "variable_declaration"):
-        return build_using_statement_node(args, match)
-
-    raise MissingCaseHandling(f"Bad using statement handling in {args.n_id}")
+    block_id = args.ast_graph.nodes[args.n_id].get("label_field_body")
+    if not block_id:
+        raise MissingCaseHandling(
+            f"Bad using statement handling in {args.n_id}"
+        )
+    children = match_ast(args.ast_graph, args.n_id, "variable_declaration")
+    declaration_id = children.get("variable_declaration")
+    return build_using_statement_node(args, block_id, declaration_id)

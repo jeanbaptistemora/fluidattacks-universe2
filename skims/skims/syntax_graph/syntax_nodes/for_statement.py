@@ -23,6 +23,7 @@ def build_for_statement_node(
 
     args.syntax_graph.add_node(
         args.n_id,
+        block_id=body_node,
         label_type="ForStatement",
     )
 
