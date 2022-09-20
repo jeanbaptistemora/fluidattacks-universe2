@@ -77,7 +77,7 @@ def execute_many(
 ) -> None:
     if FI_ENVIRONMENT == "prod":
         with db_cursor() as cursor:
-            cursor.executemanys(sql_query, sql_vars)
+            cursor.executemany(sql_query, sql_vars)
 
 
 def execute_batch(
