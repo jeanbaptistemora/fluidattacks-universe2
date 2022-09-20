@@ -55,7 +55,7 @@ spec:
               memory: 6500Mi
           envFrom:
             - secretRef:
-                name: machine-report-${NAME}
+                name: integrates-${NAME}
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
