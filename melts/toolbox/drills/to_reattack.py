@@ -29,7 +29,7 @@ from typing import (
 BASE_URL: str = "https://app.fluidattacks.com"
 
 
-async def get_vulnerabilities_to_reattack(
+def get_vulnerabilities_to_reattack(
     finding_id: str,
 ) -> List[Dict[str, str]]:
     """
@@ -55,6 +55,10 @@ async def get_vulnerabilities_to_reattack(
                             id
                             lastVerificationDate
                         }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
                     }
                 }
             }
@@ -97,10 +101,6 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
         name
         findings(filters: {verified: false}) {
             id
-            vulnerabilitiesToReattack {
-                id
-                lastVerificationDate
-            }
         }
     """
 
@@ -142,19 +142,27 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
     graphql_date_format = "%Y-%m-%d %H:%M:%S"
 
     response = get_subs_unverified_findings(group)
-    groups_info = response.data if response.status_code == 200 else {}
+    groups_data = response.data if response.status_code == 200 else {}
 
     if group != "all":
-        groups_info = {
-            "me": {"organizations": [{"groups": [groups_info.get("group")]}]}
+        groups_data = {
+            "me": {"organizations": [{"groups": [groups_data.get("group")]}]}
         }
-    groups_info = [
-        group
-        for org in groups_info.get("me", {}).get("organizations", {})
-        for group in org.get("groups", [])
+    groups_info: List[Dict[str, Any]] = [
+        dict(group_data)
+        for org in groups_data.get("me", {}).get("organizations", {})
+        for group_data in org.get("groups", [])
     ]
 
-    # claning empty findigs
+    # Filling vulnerability info
+    for group_data in groups_info:
+        for finding in group_data["findings"]:
+            finding[
+                "vulnerabilitiesToReattack"
+            ] = get_vulnerabilities_to_reattack(finding["id"])
+
+    # cleaning empty findigs
+    print(f"Data: {groups_info}")
     groups_info = list(
         filter(
             lambda info: info.get("findings")
