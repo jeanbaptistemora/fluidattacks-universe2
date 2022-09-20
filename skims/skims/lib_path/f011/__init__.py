@@ -7,6 +7,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f011.gem import (
+    gem_gemfile,
     gem_gemfile_lock,
 )
 from lib_path.f011.maven import (
@@ -33,6 +34,11 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_gem_gemfile(content: str, path: str) -> Vulnerabilities:
+    return gem_gemfile(content=content, path=path)
 
 
 @SHIELD_BLOCKING
@@ -137,6 +143,9 @@ def analyze(  # noqa: MC0001
 
     if (file_name, file_extension) == ("requirements", "txt"):
         return (run_pip_requirements_txt(content_generator(), path),)
+
+    if file_name == "Gemfile":
+        return (run_gem_gemfile(content_generator(), path),)
 
     if (file_name, file_extension) == ("Gemfile", "lock"):
         return (run_gem_gemfile_lock(content_generator(), path),)

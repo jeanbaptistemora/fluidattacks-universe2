@@ -9,6 +9,7 @@ gem "omniauth"
 gem "omniauth-oauth2"
 gem "rdoc", "4.2.2"
 gem "mime-types", "= 3.3.1"
+gem "puma", "5.4.0"
 
 gem "devise", ">= 4.0.0", "< 4.6.2"
 
