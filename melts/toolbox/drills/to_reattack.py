@@ -23,9 +23,72 @@ from toolbox.utils.function import (
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 BASE_URL: str = "https://app.fluidattacks.com"
+
+
+async def get_vulnerabilities_to_reattack(
+    finding_id: str,
+) -> List[Dict[str, str]]:
+    """
+    Returns all vulnerabilities to reattack of a Finding.
+
+    :param ``finding_id``: Finding identifier.
+    """
+    vulnerabilities_to_reattack: List[Dict[str, str]] = []
+    query = """
+        query MeltsDoGetFindingVulnerabilities(
+            $after: String
+            $finding_id: String!
+            $first: Int
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                vulnerabilitiesToReattackConnection(
+                    after: $after,
+                    first: $first,
+                ) {
+                    edges {
+                        node {
+                            id
+                            lastVerificationDate
+                        }
+                    }
+                }
+            }
+        }
+    """
+    response: Response = api.integrates.request(
+        api_token=API_TOKEN,
+        body=query,
+        params=dict(finding_id=finding_id),
+    )
+    while True:
+        has_next_page = False
+        if response.data:
+            vulnerabilities_connection = response.data["finding"][
+                "vulnerabilitiesToReattackConnection"
+            ]
+            vulnerability_page_info = vulnerabilities_connection["pageInfo"]
+            vulnerability_edges = vulnerabilities_connection["edges"]
+            has_next_page = vulnerability_page_info["hasNextPage"]
+            end_cursor = vulnerability_page_info["endCursor"]
+            vulnerabilities_to_reattack.extend(
+                [vuln_edge["node"] for vuln_edge in vulnerability_edges]
+            )
+
+        if not has_next_page:
+            break
+
+        response = api.integrates.request(
+            api_token=API_TOKEN,
+            body=query,
+            params=dict(finding_id=finding_id, after=end_cursor),
+        )
+
+    return vulnerabilities_to_reattack
 
 
 def get_subs_unverified_findings(group: str = "all") -> Response:
