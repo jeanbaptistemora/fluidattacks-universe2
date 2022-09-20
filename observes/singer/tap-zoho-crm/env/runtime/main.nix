@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-zoho-crm-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

@@ -7,7 +7,7 @@ import logging
 from ratelimiter import (
     RateLimiter,
 )
-import requests  # type: ignore
+import requests
 from tap_zoho_crm.api.bulk.objs import (
     BulkData,
     BulkJob,

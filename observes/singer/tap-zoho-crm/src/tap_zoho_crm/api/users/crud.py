@@ -6,7 +6,7 @@ import logging
 from ratelimiter import (
     RateLimiter,
 )
-import requests  # type: ignore
+import requests
 from singer_io.singer2.json import (
     JsonEmitter,
     JsonFactory,
@@ -38,7 +38,11 @@ def get_users(
         "page": page_i.page,
         "per_page": page_i.per_page,
     }
-    response = requests.get(url=endpoint, headers=headers, params=params)
+    response = requests.get(
+        url=endpoint,
+        headers=headers,
+        params=params,  # type: ignore
+    )
     response_json = JsonFactory.from_dict(response.json())
     users = [item.to_json() for item in response_json["users"].to_list()]
     LOG.debug(

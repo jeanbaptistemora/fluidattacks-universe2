@@ -165,14 +165,18 @@ in {
       observesStreamerZohoCrm = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.zoho_crm.env.runtime}"
+          outputs."/observes/singer/tap-zoho-crm/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.zoho_crm.src;
       };
       observesStreamerZohoCrmTests = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.zoho_crm.env.dev}"
+          outputs."/observes/singer/tap-zoho-crm/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.zoho_crm.tests;
       };
