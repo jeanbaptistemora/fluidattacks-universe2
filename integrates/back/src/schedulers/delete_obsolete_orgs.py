@@ -43,6 +43,7 @@ async def _remove_group(
         group_name=group_name,
         justification=GroupStateRemovalJustification.OTHER,
         user_email=user_email,
+        validate_pending_actions=False,
     )
 
 

@@ -1710,3 +1710,9 @@ class TrialRestriction(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The action is not allowed during the free trial"
         super(TrialRestriction, self).__init__(msg)
+
+
+class GroupHasPendingActions(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The group has pending actions"
+        super(GroupHasPendingActions, self).__init__(msg)

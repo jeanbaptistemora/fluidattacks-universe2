@@ -22,6 +22,9 @@ from batch.enums import (
     Action,
     Product,
 )
+from batch.types import (
+    BatchProcessing,
+)
 import bugsnag
 from collections import (
     Counter,
@@ -34,6 +37,7 @@ from custom_exceptions import (
     AlreadyPendingDeletion,
     BillingSubscriptionSameActive,
     ErrorUpdatingGroup,
+    GroupHasPendingActions,
     GroupNotFound,
     InvalidAcceptanceSeverityRange,
     InvalidGroupName,
@@ -434,6 +438,7 @@ async def remove_group(
     group_name: str,
     justification: GroupStatusJustification,
     user_email: str,
+    validate_pending_actions: bool = True,
 ) -> None:
     """
     Update group state to DELETED and update some related resources.
@@ -450,6 +455,44 @@ async def remove_group(
             loaders=loaders,
             group_name=group_name,
             user_email=user_email,
+        )
+    if validate_pending_actions:
+        cancelable_actions = {
+            Action.EXECUTE_MACHINE.value,
+            Action.REFRESH_TOE_INPUTS.value,
+            Action.REFRESH_TOE_LINES.value,
+            Action.CLONE_ROOTS.value,
+        }
+        group_actions: list[BatchProcessing] = [
+            action
+            for action in await batch_dal.get_actions()
+            if action.entity == group_name
+        ]
+        pending_actions = [
+            action
+            for action in group_actions
+            if action.action_name not in cancelable_actions
+        ]
+        actions_to_delete = [
+            action
+            for action in group_actions
+            if action.action_name in cancelable_actions
+        ]
+        if pending_actions:
+            raise GroupHasPendingActions()
+
+        await collect(
+            [
+                batch_dal.delete_action(dynamodb_pk=action.key)
+                for action in actions_to_delete
+            ]
+        )
+        await collect(
+            [
+                batch_dal.cancel_batch_job(job_id=action.batch_job_id)
+                for action in actions_to_delete
+                if action.batch_job_id
+            ]
         )
     await batch_dal.put_action(
         action=Action.REMOVE_GROUP_RESOURCES,
