@@ -15,7 +15,7 @@ from git.exc import (
 import glob
 import json
 import os
-import requests  # type: ignore
+import requests
 import tarfile
 import tempfile
 from toolbox import (

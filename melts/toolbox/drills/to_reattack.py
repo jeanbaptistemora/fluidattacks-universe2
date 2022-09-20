@@ -5,7 +5,7 @@
 from datetime import (
     datetime as dt,
 )
-from dateutil.relativedelta import (  # type: ignore
+from dateutil.relativedelta import (
     relativedelta,
 )
 from toolbox import (
@@ -215,7 +215,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
 
             total_vulnerabilities += finding["vulnerability_counter"]
             if (
-                oldest_finding["date_dif"].days
+                oldest_finding["date_dif"].days  # type: ignore
                 < finding["oldest_vuln_dif"].days
             ):
 

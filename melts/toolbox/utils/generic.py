@@ -16,7 +16,7 @@ import contextlib
 from datetime import (
     datetime,
 )
-import dateutil.parser  # type: ignore
+import dateutil.parser
 from functools import (
     lru_cache,
 )

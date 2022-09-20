@@ -4,7 +4,7 @@
 
 import json
 import multiprocessing.pool
-from retry import (  # type: ignore
+from retry import (
     retry,
 )
 from toolbox import (

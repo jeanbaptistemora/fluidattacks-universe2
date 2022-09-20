@@ -80,7 +80,7 @@ def shield(
                         return on_error_return
 
                     log("info", "retry #%s: %s", number, function_id)
-                    sleep(sleep_between_retries)
+                    sleep(sleep_between_retries)  # type: ignore
                     return None
 
         return cast(TFun, wrapper)

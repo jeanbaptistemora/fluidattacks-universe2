@@ -320,7 +320,7 @@ def _ssh_repo_cloning(
             "FAILED",
             message,
         )
-    return Maybe.from_optional(problem).to_result().swap()
+    return Maybe.from_optional(problem).to_result().swap()  # type: ignore
 
 
 def _http_ls_remote(
@@ -420,7 +420,7 @@ def _clone_repo(
     group_name: str, root: GitRoot
 ) -> Result[None, FormatRepoProblem]:
     return (
-        _ssh_repo_cloning(group_name, root)
+        _ssh_repo_cloning(group_name, root)  # type: ignore
         if root.repo_type is RepoType.SSH
         else _http_repo_cloning(group_name, root)
     )
@@ -444,8 +444,8 @@ def _lazy_cloning(
         )
         return Result.success(LazyCloningResult.CACHED)
 
-    problem = already_in_s3(group_name, root).bind(
-        lambda b: _clone_repo(group_name, root).map(
+    problem = already_in_s3(group_name, root).bind(  # type: ignore
+        lambda b: _clone_repo(group_name, root).map(  # type: ignore
             lambda _: LazyCloningResult.UPDATED
         )
         if (not b) or force

@@ -1,0 +1,6 @@
+---
+types-python-dateutil: '*'
+types-pytz: '*'
+types-requests: '*'
+types-retry: '*'
+types-simplejson: '*'
