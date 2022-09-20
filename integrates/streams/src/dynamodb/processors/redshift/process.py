@@ -5,6 +5,7 @@
 
 from .findings import (
     insert_metadata,
+    insert_metadata_severity,
 )
 from dynamodb.types import (
     Record,
@@ -19,3 +20,4 @@ def process_finding(records: tuple[Record, ...]) -> None:
     ]
     for item in metadata_items:
         insert_metadata(item=item)
+        insert_metadata_severity(item=item)

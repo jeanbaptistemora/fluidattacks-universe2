@@ -4,8 +4,10 @@
 
 from .insert import (
     insert_metadata,
+    insert_metadata_severity,
 )
 
 __all__ = [
     "insert_metadata",
+    "insert_metadata_severity",
 ]

@@ -19,3 +19,12 @@ def format_row_metadata(
         sorts=item["sorts"],
         title=item["title"],
     )
+
+
+def format_row_severity(
+    item: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "id": item["id"],
+        **item["severity"],
+    }
