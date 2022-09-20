@@ -29,7 +29,7 @@ SPDX-License-Identifier: MPL-2.0
         <p>
           <strong>Date:</strong> {{ report_date }}<br>
           {% for key, value in group_changes.items() %}
-            {% if key not in ["Name", "ASM"] %}
+            {% if key not in ["Name", "ARM"] %}
           <strong>{{ key }}:</strong>
               {% if key in ["Comments", "Reason"] %}
           {{ value }}<br>

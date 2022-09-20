@@ -5,32 +5,49 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+  {% from 'layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_finding('Treatment Updated') }}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_finding('Treatment Updated') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          A vulnerability treatment in the group <strong>{{ group }}</strong>
+          has been updated to <strong>{{ treatment }}</strong> by
+          <strong><a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a></strong>:
+          </p>
+        <p>
+          <strong>Type of vulnerability:</strong>
+          {{ finding }}<br>
+          <strong>Assigned:</strong>
+          {{ assigned }}<br>
+          <strong>Vulnerabilities:</strong>
+          <ul>
+            {% for line in vulnerabilities %}
+            <li>
+              {{ line }}
+            </li>
+            {% endfor %}
+          <ul>
+        </p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
+        {{ go_to_button('Go to type of vulnerability', finding_link, 'primary-button') }}
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>Hello {{ name }},</p>
-    <p>
-      The treatment of the following vulnerabilities of the type <strong>{{ finding }}</strong>,
-      in group <strong>{{ group }}</strong>, has been changed by <strong>{{ responsible }}</strong>
-      as {{ user_role }} to <strong>{{ treatment }}</strong>:<br><br>
-      <strong>Assigned:</strong> {{ assigned }}.<br>
-      <strong>Justification:</strong> {{ justification }}.<br>
-      <strong>Locations:</strong><br>
-    </p>
-    {{ text_area(vulnerabilities) }}
-    <p></p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    {{ go_to_button('Go to type of vulnerability', finding_link, 'primary-button') }}
-    <br />
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}
