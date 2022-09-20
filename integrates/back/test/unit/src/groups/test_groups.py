@@ -159,7 +159,7 @@ async def test_get_groups_by_user() -> None:
         "subscription",
         "has_machine",
         "has_squad",
-        "has_asm",
+        "has_arm",
         "tier",
     ],
     [
@@ -189,7 +189,7 @@ async def test_update_group_attrs(
     subscription: GroupSubscriptionType,
     has_machine: bool,
     has_squad: bool,
-    has_asm: bool,
+    has_arm: bool,
     tier: GroupTier,
 ) -> None:
     await update_group(
@@ -197,7 +197,7 @@ async def test_update_group_attrs(
         comments="",
         group_name=group_name,
         justification=GroupStateUpdationJustification.NONE,
-        has_asm=has_asm,
+        has_arm=has_arm,
         has_machine=has_machine,
         has_squad=has_squad,
         service=service,

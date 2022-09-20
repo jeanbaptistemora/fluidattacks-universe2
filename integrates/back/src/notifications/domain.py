@@ -131,8 +131,8 @@ async def update_group(  # pylint: disable=too-many-locals
     comments: str,
     group_name: str,
     group_state: GroupState,
-    had_asm: bool,
-    has_asm: bool,
+    had_arm: bool,
+    has_arm: bool,
     has_machine: bool,
     has_squad: bool,
     reason: str,
@@ -158,9 +158,9 @@ async def update_group(  # pylint: disable=too-many-locals
             "from": str(old_service.value if old_service else "").capitalize(),
             "to": service.capitalize(),
         },
-        "ASM": {
-            "from": translations[had_asm],
-            "to": translations[has_asm],
+        "ARM": {
+            "from": translations[had_arm],
+            "to": translations[has_arm],
         },
         "Machine": {
             "from": translations[group_state.has_machine],

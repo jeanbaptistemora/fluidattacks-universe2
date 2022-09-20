@@ -66,7 +66,7 @@ async def mutate(
             comments="",
             group_name=group_name,
             justification=GroupStateRemovalJustification[reason.upper()],
-            has_asm=False,
+            has_arm=False,
             has_machine=False,
             has_squad=False,
             service=group.state.service,

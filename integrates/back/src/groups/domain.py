@@ -316,7 +316,7 @@ async def add_group(
     validate_group_services_config(
         has_machine,
         has_squad,
-        has_asm=True,
+        has_arm=True,
     )
 
     if not description.strip() or not group_name.strip():
@@ -569,7 +569,7 @@ async def update_group(
     loaders: Dataloaders,
     comments: str,
     group_name: str,
-    has_asm: bool,
+    has_arm: bool,
     has_machine: bool,
     has_squad: bool,
     justification: GroupStatusJustification,
@@ -583,7 +583,7 @@ async def update_group(
     validate_group_services_config(
         has_machine,
         has_squad,
-        has_asm,
+        has_arm,
     )
 
     group: Group = await loaders.group.load(group_name)
@@ -626,14 +626,14 @@ async def update_group(
             type=subscription,
         ),
     )
-    if has_asm:
+    if has_arm:
         await notifications_domain.update_group(
             loaders=loaders,
             comments=comments,
             group_name=group_name,
             group_state=group.state,
-            had_asm=True,
-            has_asm=has_asm,
+            had_arm=True,
+            has_arm=has_arm,
             has_machine=has_machine,
             has_squad=has_squad,
             reason=justification.value,
@@ -671,7 +671,7 @@ async def update_group_tier(
         "loaders": loaders,
         "comments": comments,
         "group_name": group_name,
-        "has_asm": True,
+        "has_arm": True,
         "has_machine": False,
         "has_squad": False,
         "justification": GroupStateUpdationJustification.OTHER,
@@ -1621,10 +1621,10 @@ async def send_mail_portfolio_report(
 def validate_group_services_config(
     has_machine: bool,
     has_squad: bool,
-    has_asm: bool,
+    has_arm: bool,
 ) -> None:
     if has_squad:
-        if not has_asm:
+        if not has_arm:
             raise InvalidGroupServicesConfig(
                 "Squad is only available when ASM is too"
             )

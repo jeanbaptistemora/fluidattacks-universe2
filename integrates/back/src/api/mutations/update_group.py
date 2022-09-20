@@ -62,7 +62,7 @@ async def mutate(
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    has_asm: bool = kwargs["has_asm"]
+    has_arm: bool = kwargs["has_asm"]
     has_machine: bool = kwargs["has_machine"]
     has_squad: bool = kwargs["has_squad"]
     subscription_type = GroupSubscriptionType[subscription.upper()]
@@ -82,7 +82,7 @@ async def mutate(
             comments=comments,
             group_name=group_name,
             justification=GroupStateUpdationJustification[reason.upper()],
-            has_asm=has_asm,
+            has_arm=has_arm,
             has_machine=has_machine,
             has_squad=has_squad,
             service=service,

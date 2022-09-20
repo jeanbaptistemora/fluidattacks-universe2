@@ -182,7 +182,7 @@ async def test_send_mail_devsecops_agent_fail(
         "subscription",
         "has_machine",
         "has_squad",
-        "has_asm",
+        "has_arm",
         "tier",
     ],
     [
@@ -212,7 +212,7 @@ async def test_update_group_attrs_fail(
     subscription: GroupSubscriptionType,
     has_machine: bool,
     has_squad: bool,
-    has_asm: bool,
+    has_arm: bool,
     tier: GroupTier,
 ) -> None:
     with pytest.raises(GroupNotFound):
@@ -221,7 +221,7 @@ async def test_update_group_attrs_fail(
             comments="",
             group_name=group_name,
             justification=GroupStateUpdationJustification.NONE,
-            has_asm=has_asm,
+            has_arm=has_arm,
             has_machine=has_machine,
             has_squad=has_squad,
             service=service,
