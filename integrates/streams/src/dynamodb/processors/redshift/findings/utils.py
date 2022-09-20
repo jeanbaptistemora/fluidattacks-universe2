@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from datetime import (
+    datetime,
+)
 from typing import (
     Any,
 )
@@ -28,3 +31,40 @@ def format_row_severity(
         "id": item["id"],
         **item["severity"],
     }
+
+
+def format_row_state(
+    finding_id: str,
+    state: dict[str, Any],
+) -> dict[str, Any]:
+    return dict(
+        id=finding_id,
+        modified_by=state["modified_by"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
+        justification=state["justification"],
+        source=state["source"],
+        status=state["status"],
+    )
+
+
+def format_row_verification(
+    finding_id: str,
+    verification: dict[str, Any],
+) -> dict[str, Any]:
+    return dict(
+        id=finding_id,
+        modified_date=datetime.fromisoformat(verification["modified_date"]),
+        status=verification["status"],
+    )
+
+
+def format_row_verification_vuln_ids(
+    finding_id: str,
+    modified_date: str,
+    vulnerability_id: str,
+) -> dict[str, Any]:
+    return dict(
+        id=finding_id,
+        modified_date=datetime.fromisoformat(modified_date),
+        vulnerability_id=vulnerability_id,
+    )

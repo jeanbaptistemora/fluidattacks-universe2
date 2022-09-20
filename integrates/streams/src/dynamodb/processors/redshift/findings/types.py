@@ -5,6 +5,9 @@
 from dataclasses import (
     dataclass,
 )
+from datetime import (
+    datetime,
+)
 from decimal import (
     Decimal,
 )
@@ -23,6 +26,17 @@ class MetadataTableRow:
     requirements: str
     sorts: str
     title: str
+
+
+@dataclass(frozen=True)
+class StateTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_by: str
+    modified_date: datetime
+    justification: str
+    source: str
+    status: str
 
 
 @dataclass(frozen=True)
@@ -71,3 +85,19 @@ class SeverityCvss31TableRow:
     report_confidence: Decimal
     severity_scope: Decimal
     user_interaction: Decimal
+
+
+@dataclass(frozen=True)
+class VerificationTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    status: str
+
+
+@dataclass(frozen=True)
+class VerificationVulnIdsTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    vulnerability_id: str
