@@ -13,9 +13,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-mailchimp-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

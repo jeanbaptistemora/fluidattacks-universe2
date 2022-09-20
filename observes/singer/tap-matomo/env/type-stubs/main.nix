@@ -3,6 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 {makePythonPypiEnvironment, ...}:
 makePythonPypiEnvironment {
-  name = "observes-common-type-stubs-env-type-stubs";
+  name = "observes-singer-tap-matomo-env-type-stubs";
   sourcesYaml = ./pypi-sources.yaml;
 }

@@ -236,6 +236,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.mailchimp.src;
       };
@@ -243,6 +244,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.mailchimp.tests;
       };
