@@ -273,6 +273,23 @@ async def send_trial_reports_notification(
     )
 
 
+async def send_upgrade_squad_notification(
+    loaders: Any,
+    email_to: str,
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context={},
+        tags=[],
+        subject=(
+            f"[{fname}], find more severe vulnerabilities with Squad Plan!"
+        ),
+        template_name="upgrade_squad_notification",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
