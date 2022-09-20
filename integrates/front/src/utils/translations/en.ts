@@ -2389,6 +2389,10 @@ export const enTranslations: ResourceKey = {
       black: "Black",
       continuous: "Continuous Hacking",
       deleteGroup: {
+        alerts: {
+          pendingActionsError:
+            "Some actions on the group have not been completed. Please try to delete the group later.",
+        },
         deleteGroup: "Delete this group",
         reason: {
           diffSectst: "Different security testing strategy",
