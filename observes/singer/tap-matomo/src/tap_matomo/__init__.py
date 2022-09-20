@@ -16,7 +16,7 @@ from datetime import (
 import functools
 import os
 import re
-import requests  # type: ignore
+import requests
 from tap_matomo import (
     logs,
 )

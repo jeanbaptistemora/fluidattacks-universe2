@@ -13,9 +13,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-matomo-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       bin = [
         inputs.nixpkgs.python38
       ];

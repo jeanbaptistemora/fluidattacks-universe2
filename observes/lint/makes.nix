@@ -249,7 +249,9 @@ in {
       observesTapMatomo = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.matomo.env.runtime}"
+          outputs."/observes/singer/tap-matomo/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.matomo.src;
       };
