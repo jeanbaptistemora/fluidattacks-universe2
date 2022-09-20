@@ -9,6 +9,9 @@ from datetime import (
     datetime,
 )
 import json
+from kombu import (
+    Connection,
+)
 import logging
 import os
 import re
@@ -697,6 +700,27 @@ def finish_execution(
     )
     if not result:
         print(f"Failed to finish {job_id}")
+
+
+@cli.command()
+@click.option(
+    "--execution-id",
+    required=True,
+)
+def submit_task(execution_id: str) -> None:
+    broker_url = "sqs://"
+    with Connection(broker_url) as conn:
+        queue = conn.SimpleQueue("celery")
+        message = {
+            "id": f"{execution_id}-{uuid.uuid4().hex[:4]}",
+            "task": "process-machine-result",
+            "args": [execution_id],
+            "kwargs": {},
+            "retries": 0,
+            "eta": datetime.now().isoformat(),
+        }
+        queue.put(message)
+        queue.close()
 
 
 if __name__ == "__main__":

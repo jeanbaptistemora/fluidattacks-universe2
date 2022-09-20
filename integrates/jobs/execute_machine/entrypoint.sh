@@ -63,9 +63,8 @@ function main() {
               && execution_result="groups/${group_name}/fusion/${root}/execution_results/${execution_id}.sarif" \
               && if test -f "${execution_result}"; then
                 aws s3 cp "${execution_result}" s3://skims.data/results/ \
-                  && aws sqs send-message \
-                    --queue-url "https://sqs.us-east-1.amazonaws.com/205810638802/skims-report-queue" \
-                    --message-body "{\"execution_id\": \"${execution_id}\", \"task\": \"process-skims-result\"}" \
+                  && python3 __argScript__ submit-task \
+                    --execution-id "${execution_id}" \
                   && python3 __argScript__ finish-execution \
                     --group-name "${group_name}" \
                     --root-nickname "${root}" \

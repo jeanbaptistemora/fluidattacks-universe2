@@ -1,25 +1,52 @@
 ---
 closure:
-  certifi: 2022.6.15.1
+  amqp: 5.1.1
+  boto3: 1.24.77
+  botocore: 1.27.77
+  certifi: 2022.9.14
   charset-normalizer: 2.1.1
   click: 8.1.3
   colorama: 0.4.5
   decorator: 5.1.1
-  idna: '3.3'
+  idna: '3.4'
+  jmespath: 1.0.1
+  kombu: 5.2.4
   py: 1.11.0
+  python-dateutil: 2.8.2
   pyyaml: '6.0'
   requests: 2.28.1
   retry2: 0.9.3
+  s3transfer: 0.6.0
+  six: 1.16.0
   types-requests: 2.28.0
   types-urllib3: 1.26.24
   urllib3: 1.26.9
+  vine: 5.0.0
 links:
-  - name: certifi-2022.6.15.1-py3-none-any.whl
-    sha256: 1q49md33wylg1y8ssmlhzx41hqf6hbxf8i39wr08f5kzib8xmnj3
-    url: https://files.pythonhosted.org/packages/ac/80/e0df41f336f21d35befa4ff15348eb3e8b2483e131922e8427223b52e688/certifi-2022.6.15.1-py3-none-any.whl
-  - name: certifi-2022.6.15.1.tar.gz
-    sha256: 1yvkkr7pwqzv96114p2pd3rakqqpb0d56cv6ywvn3nhr14wcvzfg
-    url: https://files.pythonhosted.org/packages/90/c2/4e37394b66e7211ad120f216fc2e8b38d4f43b89c8100dd3917c9da9bfc6/certifi-2022.6.15.1.tar.gz
+  - name: amqp-5.1.1-py3-none-any.whl
+    sha256: 0n9kshszf855wdx1mgfbf94v9b8fjg1xhd0rd7ksd3rxqb95c2bg
+    url: https://files.pythonhosted.org/packages/de/a3/e7b3b9d34239bae066df135060e225929d639731050c920fdc740d6b7897/amqp-5.1.1-py3-none-any.whl
+  - name: amqp-5.1.1.tar.gz
+    sha256: 1qmmffiy48nady7is8529vxcyqbq88v5zgawqr3fk4q8rkz166rc
+    url: https://files.pythonhosted.org/packages/cb/e7/bcaab89065e17915a28247fa5d4f582ca107b4544e2b1aba92d32f794a0f/amqp-5.1.1.tar.gz
+  - name: boto3-1.24.77-py3-none-any.whl
+    sha256: 0viaf3wr25m6914qcp01q2s59d51ydv4wikmzvak2in2cc1fa5pw
+    url: https://files.pythonhosted.org/packages/87/71/31244544bade6ef0a4ed2c07e4031e5390897a573aecf66395f728b1808a/boto3-1.24.77-py3-none-any.whl
+  - name: boto3-1.24.77.tar.gz
+    sha256: 06vggivdxywj0vsr82rf3pl4s94m6238lb8rkkfdcy9p63insr0n
+    url: https://files.pythonhosted.org/packages/fc/d1/af42af26e3d675db4487e5e1eb3d6456cb210909f65ad0f3020dca84ffbb/boto3-1.24.77.tar.gz
+  - name: botocore-1.27.77-py3-none-any.whl
+    sha256: 1xxaqm4mjdrjbsgh69v8k6p7l1sdnn3wl1nc0m95558v57nhk1fq
+    url: https://files.pythonhosted.org/packages/cd/37/152c1605f574e49accbd7c03f3fa013f7e180528772bd16b0e0daf354bca/botocore-1.27.77-py3-none-any.whl
+  - name: botocore-1.27.77.tar.gz
+    sha256: 0vaf9gp498zhwz4c6y7mm7kjmvvjll7f19vr9c5hhqh71nbkx93p
+    url: https://files.pythonhosted.org/packages/cf/5c/8d090a00d903d5259b0016630f82939a3b441b8e4f474d945ec4cb72a88a/botocore-1.27.77.tar.gz
+  - name: certifi-2022.9.14-py3-none-any.whl
+    sha256: 05h5gfqh9cv5nhhcdqnh1y1mdqwrys05qqhvaamc4wmbw4yk8cp2
+    url: https://files.pythonhosted.org/packages/6a/34/cd29f4dd8a23ce45f2b8ce9631ff2d4205fb74eddb412a3dc4fd1e4aa800/certifi-2022.9.14-py3-none-any.whl
+  - name: certifi-2022.9.14.tar.gz
+    sha256: 1mayclnhy5piqgy28qy50xij689v9cmpna7a3p86nbjlp62ki5rn
+    url: https://files.pythonhosted.org/packages/ca/48/88ec470f8b68319b6782ca3a0570789886ad5ca24c1af2f3771699135baa/certifi-2022.9.14.tar.gz
   - name: charset_normalizer-2.1.1-py3-none-any.whl
     sha256: 17z2zvkvalb66i5hasshq0grsma8afs6hb1mi7yrl9qi35fsgsc3
     url: https://files.pythonhosted.org/packages/db/51/a507c856293ab05cdc1db77ff4bc1268ddd39f29e7dc4919aa497f0adbec/charset_normalizer-2.1.1-py3-none-any.whl
@@ -44,18 +71,36 @@ links:
   - name: decorator-5.1.1.tar.gz
     sha256: 0c63rcx2ba3vjalan7spklplg299wbxf8d8lz5g3idin20hrcyb3
     url: https://files.pythonhosted.org/packages/66/0c/8d907af351aa16b42caae42f9d6aa37b900c67308052d10fdce809f8d952/decorator-5.1.1.tar.gz
-  - name: idna-3.3-py3-none-any.whl
-    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
-    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
-  - name: idna-3.3.tar.gz
-    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
-    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: idna-3.4-py3-none-any.whl
+    sha256: 1hn54ps4kgv2fmyvfaks38sgrvjc1cn4834sh7gadsx3x9wpxdwh
+    url: https://files.pythonhosted.org/packages/fc/34/3030de6f1370931b9dbb4dad48f6ab1015ab1d32447850b9fc94e60097be/idna-3.4-py3-none-any.whl
+  - name: idna-3.4.tar.gz
+    sha256: 1d1cs1in0lmm61sjmlach9qvyq3xm3xcb49vhclx7mzain754kw1
+    url: https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz
+  - name: jmespath-1.0.1-py3-none-any.whl
+    sha256: 10194nk0641vz2kpy442dsgdv44ia43zksrf6f4apg5mf76f9qh2
+    url: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
+  - name: jmespath-1.0.1.tar.gz
+    sha256: 1gpdc1f0q5c9scmbw1l9g40jjfk3pxwg91ayvn7xbvvddlh1n9lh
+    url: https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz
+  - name: kombu-5.2.4-py3-none-any.whl
+    sha256: 19314gymk6n8vj386ai3xbipjq3mgxxm7xfjy2y1fd1x54j3n8cb
+    url: https://files.pythonhosted.org/packages/d9/f3/62d12dd7ebad710319f0877c1c33bca379fc7d28069daae890fa2fa444c8/kombu-5.2.4-py3-none-any.whl
+  - name: kombu-5.2.4.tar.gz
+    sha256: 044ng79gj04668kf5fmy7fjkw8302xyapskkn65ym52zfbpf7kip
+    url: https://files.pythonhosted.org/packages/e1/9e/3811be7d86ac3be6d1a1f5098f95b1d8e2519c12c537719c7e13c8a12800/kombu-5.2.4.tar.gz
   - name: py-1.11.0-py2.py3-none-any.whl
     sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
     url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
   - name: py-1.11.0.tar.gz
     sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
     url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
+  - name: python_dateutil-2.8.2-py2.py3-none-any.whl
+    sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
+    url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.2.tar.gz
+    sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
+    url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
   - name: PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 16s47q0nc3rrw8rjp8y6zm1wgs49i2qckj2g0k5kjsc2cmyr6p85
     url: https://files.pythonhosted.org/packages/f5/6f/b8b4515346af7c33d3b07cd8ca8ea0700ca72e8d7a750b2b87ac0268ca4e/PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
@@ -83,6 +128,18 @@ links:
   - name: retry2-0.9.3-py2.py3-none-any.whl
     sha256: 1gambd4dh4a8iq0dz5ix50qqhjaw7a4zpwj4l8v29rrg4bk3zlns
     url: https://files.pythonhosted.org/packages/03/bb/8d2d57987d629874fb1877ccdba019a30dca6136019eca58a3e8160684e7/retry2-0.9.3-py2.py3-none-any.whl
+  - name: s3transfer-0.6.0-py3-none-any.whl
+    sha256: 1kayip95pym87m33l4s7fq5h8aa4kb11ynpjnkqn2px1yds6n5q6
+    url: https://files.pythonhosted.org/packages/5e/c6/af903b5fab3f9b5b1e883f49a770066314c6dcceb589cf938d48c89556c1/s3transfer-0.6.0-py3-none-any.whl
+  - name: s3transfer-0.6.0.tar.gz
+    sha256: 0iy98b51l33b0dpqgmvx24drh9sqag2hz87l3dbcq8zmcqw7vl1f
+    url: https://files.pythonhosted.org/packages/e1/eb/e57c93d5cd5edf8c1d124c831ef916601540db70acd96fa21fe60cef1365/s3transfer-0.6.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
   - name: types_requests-2.28.0-py3-none-any.whl
     sha256: 1as93fnb5w20yny8pn2c1ibmkgsb96vbpi867yf66psky173nf45
     url: https://files.pythonhosted.org/packages/30/e8/928544360eddf40c57ba7fcf31dcb9c10dbce752ca73e18331fecfb4b95d/types_requests-2.28.0-py3-none-any.whl
@@ -101,4 +158,10 @@ links:
   - name: urllib3-1.26.9.tar.gz
     sha256: 13j4mkk6vgix4bixfqk3fhydsl3r5f61z94ss4fmwsl0fxjg3fma
     url: https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz
+  - name: vine-5.0.0-py2.py3-none-any.whl
+    sha256: 0c7vnwa3aklibgfdwfz1rk537p807219ri17a0895vbndymwx7ac
+    url: https://files.pythonhosted.org/packages/8d/61/a7badb48186919a9fd7cf0ef427cab6d16e0ed474035c36fa64ddd72bfa2/vine-5.0.0-py2.py3-none-any.whl
+  - name: vine-5.0.0.tar.gz
+    sha256: 0zk3pm0g7s4qfn0gk28lfmsyplvisaxi6826cgpq5njkm4j1cfvx
+    url: https://files.pythonhosted.org/packages/66/b2/8954108816865edf2b1e0d24f3c2c11dfd7232f795bcf1e4164fb8ee5e15/vine-5.0.0.tar.gz
 python: '3.9'

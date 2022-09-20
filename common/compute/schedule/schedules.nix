@@ -696,7 +696,7 @@
     };
   };
   integrates_machine_report = {
-    enabled = true;
+    enabled = false;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
