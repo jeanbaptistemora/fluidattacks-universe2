@@ -31,7 +31,7 @@ you need to do the following:
   or click on **Reveal Token**
   in case you already generated one.
 
-  ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/manage_toke.pngs)
+  ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/manage_toke.png)
 
 1. Make sure your execution environment
   has the required dependencies:
