@@ -667,7 +667,7 @@ def get_updated_manager_mail_content(
         if type_vulns:
             mail_content += "\n".join(
                 [
-                    f"- {list(vuln.values())[0]} ({list(vuln.values())[1]})"
+                    f"{list(vuln.values())[0]} ({list(vuln.values())[1]})"
                     for vuln in type_vulns
                 ]
             )
@@ -688,7 +688,7 @@ async def should_send_update_treatment(
     modified_by: str,
 ) -> None:
     translations: dict[str, str] = {
-        "IN_PROGRESS": "In Progress",
+        "IN_PROGRESS": "In progress",
         "ACCEPTED": "Temporarily accepted",
     }
     if treatment in translations:
