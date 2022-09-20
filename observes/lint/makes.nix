@@ -271,6 +271,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.timedoctor.env.runtime}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.timedoctor.src;
       };
