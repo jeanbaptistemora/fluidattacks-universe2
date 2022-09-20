@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-json-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import contextlib
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     parse as date_parser,
 )
-from dateutil.parser._parser import (  # type: ignore
+from dateutil.parser._parser import (
     ParserError,
 )
 import hashlib

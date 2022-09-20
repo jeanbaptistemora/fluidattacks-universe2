@@ -228,7 +228,9 @@ in {
       observesTapJson = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.json.env.dev}"
+          outputs."/observes/singer/tap-json/env/type-stubs"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.json.src;
       };
