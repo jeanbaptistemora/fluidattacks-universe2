@@ -17,6 +17,7 @@ interface IRandomData {
   date: string;
   name: string;
   numberrange: number;
+  numbertrack: number;
 }
 
 const columns: ColumnDef<IRandomData>[] = [
@@ -40,6 +41,11 @@ const columns: ColumnDef<IRandomData>[] = [
     header: "Shirt Color",
     meta: { filterType: "select" },
   },
+  {
+    accessorKey: "numbertrack",
+    header: "Track Number",
+    meta: { filterType: "number" },
+  },
 ];
 
 const data: IRandomData[] = [
@@ -48,162 +54,189 @@ const data: IRandomData[] = [
     date: "2022-01-20",
     name: "Daria Hays",
     numberrange: 12,
+    numbertrack: 6,
   },
   {
     color: "blue",
     date: "2022-06-18",
     name: "Palmer Wilcox",
     numberrange: 12,
+    numbertrack: 2,
   },
   {
     color: "white",
     date: "2023-01-22",
     name: "Merritt Sherman",
     numberrange: 13,
+    numbertrack: 3,
   },
   {
     color: "white",
     date: "2022-08-28",
     name: "Forrest Ortiz",
     numberrange: 7,
+    numbertrack: 1,
   },
   {
     color: "red",
     date: "2023-08-19",
     name: "April Long",
     numberrange: 6,
+    numbertrack: 6,
   },
   {
     color: "red",
     date: "2022-06-20",
     name: "Desirae Bailey",
     numberrange: 9,
+    numbertrack: 2,
   },
   {
     color: "brown",
     date: "2023-03-31",
     name: "Kato Soto",
     numberrange: 11,
+    numbertrack: 2,
   },
   {
     color: "brown",
     date: "2023-07-08",
     name: "Emerald Brennan",
     numberrange: 11,
+    numbertrack: 6,
   },
   {
     color: "black",
     date: "2022-05-12",
     name: "Donovan Woods",
     numberrange: 9,
+    numbertrack: 8,
   },
   {
     color: "black",
     date: "2022-03-07",
     name: "Brandon Hernandez",
     numberrange: 6,
+    numbertrack: 0,
   },
   {
     color: "blue",
     date: "2023-08-23",
     name: "Phyllis Garrett",
     numberrange: 11,
+    numbertrack: 9,
   },
   {
     color: "blue",
     date: "2022-06-29",
     name: "Theodore Daniels",
     numberrange: 9,
+    numbertrack: 10,
   },
   {
     color: "white",
     date: "2023-08-28",
     name: "Coby Delgado",
     numberrange: 12,
+    numbertrack: 13,
   },
   {
     color: "white",
     date: "2023-06-12",
     name: "Lareina Shaffer",
     numberrange: 14,
+    numbertrack: 6,
   },
   {
     color: "red",
     date: "2023-04-16",
     name: "Arthur Richardson",
     numberrange: 12,
+    numbertrack: 1,
   },
   {
     color: "red",
     date: "2021-07-30",
     name: "Amber Morgan",
     numberrange: 8,
+    numbertrack: 3,
   },
   {
     color: "brown",
     date: "2021-01-26",
     name: "Justin Clay",
     numberrange: 10,
+    numbertrack: 3,
   },
   {
     color: "brown",
     date: "2023-04-01",
     name: "Timothy Powers",
     numberrange: 0,
+    numbertrack: 2,
   },
   {
     color: "black",
     date: "2022-03-24",
     name: "Marshall Massey",
     numberrange: 7,
+    numbertrack: 7,
   },
   {
     color: "black",
     date: "2023-05-29",
     name: "Brian Reeves",
     numberrange: 1,
+    numbertrack: 5,
   },
   {
     color: "blue",
     date: "2022-10-19",
     name: "Lesley Howard",
     numberrange: 7,
+    numbertrack: 9,
   },
   {
     color: "blue",
     date: "2022-06-24",
     name: "Ivor Delgado",
     numberrange: 1,
+    numbertrack: 0,
   },
   {
     color: "white",
     date: "2022-08-17",
     name: "Leila William",
     numberrange: 7,
+    numbertrack: 4,
   },
   {
     color: "white",
     date: "2023-05-12",
     name: "Steel Dominguez",
     numberrange: 5,
+    numbertrack: 8,
   },
   {
     color: "red",
     date: "2023-02-09",
     name: "Beau Vaughn",
     numberrange: 14,
+    numbertrack: 3,
   },
   {
     color: "red",
     date: "2022-08-04",
     name: "Mannix Bradley",
     numberrange: 15,
+    numbertrack: 4,
   },
   {
     color: "brown",
     date: "2023-07-15",
     name: "Dean Zimmerman",
     numberrange: 6,
+    numbertrack: 2,
   },
 ];
 
@@ -213,7 +246,7 @@ describe("Table", (): void => {
     expect(typeof Table).toBe("function");
   });
 
-  it("should filter table", async (): Promise<void> => {
+  it("should filter numberRange", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -230,20 +263,37 @@ describe("Table", (): void => {
 
     userEvent.click(screen.queryAllByRole("button")[0]);
 
-    fireEvent.change(screen.getByPlaceholderText("Min"), {
-      target: { value: "12" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Max"), {
-      target: { value: "15" },
-    });
+    fireEvent.change(
+      screen.queryAllByRole("spinbutton", { name: "numberrange" })[1],
+      { target: { value: "5" } }
+    );
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")).toHaveLength(9);
+      expect(screen.queryAllByRole("row")).toHaveLength(5);
     });
+
     userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
     });
+  });
+
+  it("should filter select", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(screen.getByRole("combobox", { name: "color" }), {
       target: { value: "red" },
@@ -251,6 +301,44 @@ describe("Table", (): void => {
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(7);
+    });
+
+    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+  });
+
+  it("should filter text", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    userEvent.click(screen.queryAllByRole("button")[0]);
+
+    fireEvent.change(screen.getByRole("textbox", { name: "name" }), {
+      target: { value: "Lareina Shaffer" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+
+    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
     });
   });
 
@@ -320,7 +408,7 @@ describe("Table", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("checkbox")).toHaveLength(4);
+    expect(screen.getAllByRole("checkbox")).toHaveLength(5);
 
     userEvent.click(screen.getByRole("checkbox", { name: "color" }));
 
