@@ -102,12 +102,20 @@ def translate_values(
     auto_type: bool = False,
 ) -> JsonObj:
     transform: Dict[ColumnType, Callable[[str], JsonValue]] = {
-        ColumnType.STRING: pipe(JsonValue),
-        ColumnType.NUMBER: pipe(lambda x: float(x) if x else None, JsonValue),
-        ColumnType.DATE_TIME: pipe(JsonValue),
-        ColumnType.FLOAT: pipe(lambda x: float(x) if x else None, JsonValue),
-        ColumnType.BOOL: pipe(lambda x: bool(x) if x else None, JsonValue),
-        ColumnType.INT: pipe(lambda x: int(x) if x else None, JsonValue),
+        ColumnType.STRING: pipe(JsonValue),  # type: ignore
+        ColumnType.NUMBER: pipe(  # type: ignore
+            lambda x: float(x) if x else None, JsonValue
+        ),
+        ColumnType.DATE_TIME: pipe(JsonValue),  # type: ignore
+        ColumnType.FLOAT: pipe(  # type: ignore
+            lambda x: float(x) if x else None, JsonValue
+        ),
+        ColumnType.BOOL: pipe(  # type: ignore
+            lambda x: bool(x) if x else None, JsonValue
+        ),
+        ColumnType.INT: pipe(  # type: ignore
+            lambda x: int(x) if x else None, JsonValue
+        ),
     }
 
     def cast_function(name: str, value: str) -> JsonValue:
@@ -130,20 +138,23 @@ def try_cast(cast: Callable[[str], JsonValue], data: str) -> JsonValue:
 
 def auto_cast(data: str) -> JsonValue:
     test_casts: List[Callable[[str], JsonValue]] = [
-        pipe(lambda x: str(x) if int(x) > pow(10, 12) else int(x), JsonValue),
-        pipe(
+        pipe(  # type: ignore
+            lambda x: str(x) if int(x) > pow(10, 12) else int(x),
+            JsonValue,
+        ),
+        pipe(  # type: ignore
             lambda x: float(x)
             if (x.lower() != "nan" or x == "NaN") and float(x) != float("inf")
             else None,
             JsonValue,
         ),
-        pipe(
+        pipe(  # type: ignore
             lambda x: x.lower() == "true"
             if x.lower() == "false" or x.lower() == "true"
             else None,
             JsonValue,
         ),
-        pipe(JsonValue),
+        pipe(JsonValue),  # type: ignore
     ]
     cast: Callable[
         [Callable[[str], JsonValue]], JsonValue

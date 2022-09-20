@@ -14,9 +14,6 @@ in
   makeTemplate {
     name = "observes-singer-tap-csv-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

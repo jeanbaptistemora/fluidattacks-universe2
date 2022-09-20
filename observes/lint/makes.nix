@@ -201,6 +201,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.csv.src;
       };
@@ -208,6 +209,7 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
+        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.csv.tests;
       };
