@@ -637,6 +637,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_how_improve_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.how_improve_notification.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_how_improve_notification";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   integrates_machine_queue_all = {
     enabled = true;
     command = [
