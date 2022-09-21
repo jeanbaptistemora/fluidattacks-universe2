@@ -328,12 +328,50 @@ describe("Table", (): void => {
     userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(screen.getByRole("textbox", { name: "name" }), {
-      target: { value: "Lareina Shaffer" },
+      target: { value: "lareina shaffer" },
     });
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
+
+    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+  });
+
+  it("should filter dateRange", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    userEvent.click(screen.queryAllByRole("button")[0]);
+
+    expect(
+      document.querySelectorAll(`input[name="date"]`)[0]
+    ).toBeInTheDocument();
+
+    fireEvent.change(document.querySelectorAll(`input[name="date"]`)[0], {
+      target: { value: "2023-08-01" },
+    });
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(4);
+    });
+
+    expect(screen.queryByText("April Long")).toBeInTheDocument();
+    expect(screen.queryByText("Desirae Bailey")).not.toBeInTheDocument();
 
     userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
 
