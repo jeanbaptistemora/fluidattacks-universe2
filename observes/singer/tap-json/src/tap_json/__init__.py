@@ -147,7 +147,7 @@ def stru_cast(stru: STRU, type_ref: str) -> STRU:
         return float(stru)
     if type_ref == "str":
         return str(stru)
-    raise Exception("Not supported type")
+    raise Exception(f"Not supported type: {type_ref}")
 
 
 def pt2st(ptype: str) -> JSON:
