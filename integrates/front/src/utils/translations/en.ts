@@ -246,6 +246,9 @@ export const enTranslations: ResourceKey = {
       meanTimeToReattack: {
         title: "Mean time to reattack",
       },
+      openVulnerabilities: {
+        title: "Open vulnerabilities",
+      },
       remediationCreated: {
         title: "Sprint exposure increment",
       },

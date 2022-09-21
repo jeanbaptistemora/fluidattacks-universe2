@@ -390,7 +390,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 />
               </Col33>
             </RowCenter>
-            <Row>
+            <RowCenter>
               <Col33>
                 <Graphic
                   bsHeight={80}
@@ -410,6 +410,20 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
+                  documentName={"openVulnerabilities"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.openVulnerabilities.title")}
+                />
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
                   documentName={"meanTimeToReattack"}
                   documentType={"textBox"}
                   entity={entity}
@@ -421,7 +435,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   title={t("analytics.textBox.meanTimeToReattack.title")}
                 />
               </Col33>
-            </Row>
+            </RowCenter>
             <RowCenter>
               <Col50>
                 <Graphic
