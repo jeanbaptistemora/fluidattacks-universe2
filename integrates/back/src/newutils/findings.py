@@ -97,7 +97,7 @@ async def is_valid_finding_title(
     Validates that new Draft and Finding titles conform to the standard
     format and are present in the whitelist.
     """
-    if re.match(r"^[0-9]{3}\. .+", title):
+    if re.match(r"^\d{3}\. .+", title):
         if not vulns_info:
             vulns_info = await get_vulns_file()
         try:

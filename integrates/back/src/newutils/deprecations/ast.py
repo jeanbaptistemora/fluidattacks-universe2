@@ -143,6 +143,7 @@ def _parse_schema_deprecations(
             _search_directives(definition, deprecations, has_arguments)
 
         else:
+            # pass statement for now
             pass
     return deprecations
 
