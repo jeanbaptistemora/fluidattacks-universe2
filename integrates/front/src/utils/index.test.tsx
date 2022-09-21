@@ -602,4 +602,36 @@ describe("cvss", (): void => {
 
     expect(privReq).toBe(0.68);
   });
+
+  it("Should required HIGH_SCOPE_C privileges", (): void => {
+    expect.hasAssertions();
+
+    const privReq: number = calcPrivilegesRequired("0.27", "1");
+
+    expect(privReq).toBe(0.5);
+  });
+
+  it("Should required LOW_SCOPE_U privileges", (): void => {
+    expect.hasAssertions();
+
+    const privReq: number = calcPrivilegesRequired("0.68", "0");
+
+    expect(privReq).toBe(0.62);
+  });
+
+  it("Should required HIGH_SCOPE_U privileges", (): void => {
+    expect.hasAssertions();
+
+    const privReq: number = calcPrivilegesRequired("0.5", "0");
+
+    expect(privReq).toBe(0.27);
+  });
+
+  it("Should required privReq privileges", (): void => {
+    expect.hasAssertions();
+
+    const privReq: number = calcPrivilegesRequired("1", "0");
+
+    expect(privReq).toBe(1);
+  });
 });
