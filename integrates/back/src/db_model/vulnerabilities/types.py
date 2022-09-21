@@ -120,8 +120,10 @@ class VulnerabilitiesConnection(NamedTuple):
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
+    created_by: Optional[str] = None
     created_date: Optional[str] = None
     custom_severity: Optional[str] = None
+    hacker_email: Optional[str] = None
     hash: Optional[int] = None
     skims_method: Optional[str] = None
     skims_technique: Optional[str] = None
