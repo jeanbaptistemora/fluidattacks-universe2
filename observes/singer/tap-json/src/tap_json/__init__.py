@@ -145,7 +145,7 @@ def stru_cast(stru: STRU, type_ref: str) -> STRU:
         return int(stru)
     if type_ref == "float":
         return float(stru)
-    if type_ref == "str":
+    if type_ref in ("EmptyStr", "str"):
         return str(stru)
     raise Exception(f"Not supported type: {type_ref}")
 
