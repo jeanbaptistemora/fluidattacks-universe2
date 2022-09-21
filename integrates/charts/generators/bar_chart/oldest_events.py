@@ -107,7 +107,7 @@ async def get_data_many_groups(
 def format_data(
     *, data: tuple[EventsInfo, ...], x_label: str, legend: str
 ) -> dict[str, Any]:
-    limited_data = [group for group in data if group.days > 0][:18]
+    limited_data = [group for group in data if group.days > 0][:15]
 
     return dict(
         data=dict(

@@ -148,7 +148,7 @@ def format_assigned(
 def format_data(
     *, assigned_data: dict[str, list[tuple[Vulnerability, Decimal]]]
 ) -> dict:
-    limit: int = 18
+    limit: int = 15
     data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user=user, vulnerabilities=vulnerabilities)
         for user, vulnerabilities in assigned_data.items()

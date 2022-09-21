@@ -61,7 +61,9 @@ async def get_data_many_groups(
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
 
-def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
+def format_data(all_data: List[PortfoliosGroupsInfo]) -> dict:
+    data = all_data[:15]
+
     return dict(
         data=dict(
             columns=[
@@ -99,7 +101,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_data(
-            data=await get_data_many_groups(groups=org_groups)
+            all_data=await get_data_many_groups(groups=org_groups)
         )
         utils.json_dump(
             document=document,
@@ -113,7 +115,7 @@ async def generate_all() -> None:
     ):
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_data(
-                data=await get_data_many_groups(groups=groups),
+                all_data=await get_data_many_groups(groups=groups),
             )
             utils.json_dump(
                 document=document,

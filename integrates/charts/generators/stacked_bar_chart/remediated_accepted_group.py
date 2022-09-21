@@ -215,7 +215,7 @@ async def generate_all() -> None:
     async for org_id, _, org_group_names in iterate_organizations_and_groups():
         document = format_data(
             data=await get_data_many_groups(loaders, org_group_names),
-            limit=18,
+            limit=15,
         )
         json_dump(
             document=document,
@@ -228,6 +228,7 @@ async def generate_all() -> None:
         for portfolio, group_names in await get_portfolios_groups(org_name):
             document = format_data(
                 data=await get_data_many_groups(loaders, group_names),
+                limit=15,
             )
             json_dump(
                 document=document,

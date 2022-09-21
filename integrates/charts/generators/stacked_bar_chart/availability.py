@@ -88,7 +88,7 @@ def format_availability_percentages(
 def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
     sorted_data: tuple[EventsAvailability, ...] = tuple(
         sorted(data, key=operator.attrgetter("non_available"), reverse=True)[
-            :18
+            :15
         ]
     )
     percentage_values = [
