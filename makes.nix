@@ -71,8 +71,8 @@
   ];
   inputs = {
     nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+      rev = "b42e50fe36242b1b205a7d501b7911d698218086";
+      sha256 = "0wkdgbn2pkqx3cgp1zicsq310443yr6kw6xalk228fqbavj481ni";
       overlays = [
         (_: supper: {
           # Nginx by default tries to use directories owned by root

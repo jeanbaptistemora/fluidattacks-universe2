@@ -144,11 +144,11 @@ sorts_extension:
   variables:
     GIT_DEPTH: 20
 
-/common/utils/lint-reuse:
+/common/utils/license:
   <<: [*makes4, *common_in_dev_branch]
   stage: lint-code
   script:
-    - m . /common/utils/lint-reuse
+    - m . /common/utils/license
 
 /reviews:
   <<: [*makes4, *common_in_mrs]
