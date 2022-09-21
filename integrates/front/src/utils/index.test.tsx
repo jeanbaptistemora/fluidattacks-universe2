@@ -6,6 +6,7 @@
 
 import type { ConfigurableValidator } from "revalidate";
 
+import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
 import {
   alphaNumeric,
@@ -590,5 +591,15 @@ describe("environments", (): void => {
     const environment: string = getEnvironment();
 
     expect(environment).toBe("development");
+  });
+});
+
+describe("cvss", (): void => {
+  it("Should required LOW_SCOPE_C privileges", (): void => {
+    expect.hasAssertions();
+
+    const privReq: number = calcPrivilegesRequired("0.62", "1");
+
+    expect(privReq).toBe(0.68);
   });
 });
