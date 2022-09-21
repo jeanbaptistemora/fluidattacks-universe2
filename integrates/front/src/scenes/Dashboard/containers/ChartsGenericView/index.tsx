@@ -253,6 +253,20 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
+                  documentName={"remediationRateCvssf"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.remediationRate.title")}
+                />
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
                   documentName={"totalFindings"}
                   documentType={"textBox"}
                   entity={entity}
@@ -279,6 +293,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   title={t("analytics.textBox.daysUntilZeroExposition.title")}
                 />
               </Col33>
+            </RowCenter>
+            <RowCenter>
               <Col33>
                 <Graphic
                   bsHeight={80}
@@ -296,8 +312,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   )}
                 />
               </Col33>
-            </RowCenter>
-            <RowCenter>
               <Col33>
                 <Graphic
                   bsHeight={80}
@@ -326,21 +340,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   reportMode={reportMode}
                   subject={subject}
                   title={t("analytics.textBox.daysSinceLastRemediation.title")}
-                />
-              </Col33>
-              <Col33>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
-                  documentName={"totalVulnerabilities"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"generic"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#total-vulnerabilities`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={t("analytics.textBox.totalVulnerabilities.title")}
                 />
               </Col33>
             </RowCenter>
@@ -392,6 +391,21 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               </Col33>
             </RowCenter>
             <Row>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"totalVulnerabilities"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#total-vulnerabilities`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.totalVulnerabilities.title")}
+                />
+              </Col33>
               <Col33>
                 <Graphic
                   bsHeight={80}
