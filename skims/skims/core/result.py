@@ -247,7 +247,7 @@ def _get_sarif(
                     vulnerability.skims_metadata.source_method
                     == "python.pip_incomplete_dependencies_list"
                 )
-                and (rule_id == "079")
+                and (rule_id == "120")
                 and (
                     dependency_info := _get_missing_dependency(
                         vulnerability.what
@@ -288,15 +288,16 @@ def _get_sarif(
                 taxa=[],
                 properties={
                     "kind": vulnerability.kind.value,
+                    "method_developer": (
+                        vulnerability.skims_metadata.developer
+                    ),
                     "source_method": (
                         vulnerability.skims_metadata.source_method
-                        if vulnerability.skims_metadata
-                        else ""
                     ),
                     "stream": vulnerability.stream,
-                    "technique": vulnerability.skims_metadata.technique.value
-                    if vulnerability.skims_metadata
-                    else "",
+                    "technique": (
+                        vulnerability.skims_metadata.technique.value
+                    ),
                 },
             )
 

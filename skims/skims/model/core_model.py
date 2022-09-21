@@ -1111,13 +1111,13 @@ class SkimsVulnerabilityMetadata(NamedTuple):
 class Vulnerability(NamedTuple):
     finding: FindingEnum
     kind: VulnerabilityKindEnum
+    namespace: str
+    skims_metadata: SkimsVulnerabilityMetadata
     state: VulnerabilityStateEnum
     what: str
     where: str
-    namespace: str
-    stream: Optional[str] = "skims"
 
-    skims_metadata: Optional[SkimsVulnerabilityMetadata] = None
+    stream: Optional[str] = "skims"
 
     @property
     def digest(self) -> int:
