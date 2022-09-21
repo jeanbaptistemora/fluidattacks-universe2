@@ -98,6 +98,7 @@ async def populate() -> bool:
         "organizations": (
             {
                 "organization": Organization(
+                    country="Colombia",
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="wano",
                     policies=Policies(
@@ -114,6 +115,7 @@ async def populate() -> bool:
             },
             {
                 "organization": Organization(
+                    country="Colombia",
                     id="5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
                     name="zou",
                     policies=Policies(

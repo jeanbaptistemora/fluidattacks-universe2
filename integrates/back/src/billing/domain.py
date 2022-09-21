@@ -600,6 +600,7 @@ async def create_payment_method(
             org.payment_methods.append(other_payment)
         else:
             org = Organization(
+                country=org.country,
                 id=org.id,
                 name=org.name,
                 policies=org.policies,

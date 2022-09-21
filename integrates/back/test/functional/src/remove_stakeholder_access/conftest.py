@@ -53,6 +53,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "organizations": [
             {
                 "organization": Organization(
+                    country="Colombia",
                     id="e75525d6-70a6-45ba-9f87-66c2dd2678d9",
                     name="orgtest4",
                     policies=Policies(

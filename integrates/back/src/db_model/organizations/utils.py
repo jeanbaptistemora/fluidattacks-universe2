@@ -56,6 +56,7 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
 def format_organization(item: Item) -> Organization:
     return Organization(
         billing_customer=item.get("billing_customer"),
+        country=item.get("country", ""),
         id=add_org_id_prefix(item["id"]),
         name=item["name"],
         payment_methods=format_payment_methods(

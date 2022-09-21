@@ -42,6 +42,7 @@ class OrganizationState(NamedTuple):
 
 
 class Organization(NamedTuple):
+    country: str
     id: str
     name: str
     policies: Policies

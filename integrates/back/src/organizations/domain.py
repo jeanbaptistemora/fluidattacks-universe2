@@ -392,6 +392,7 @@ async def add_organization(
 
     modified_date = datetime_utils.get_iso_date()
     organization = Organization(
+        country="",
         id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),
         policies=Policies(
