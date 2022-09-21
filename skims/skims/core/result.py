@@ -289,7 +289,7 @@ def _get_sarif(
                 properties={
                     "kind": vulnerability.kind.value,
                     "method_developer": (
-                        vulnerability.skims_metadata.developer
+                        vulnerability.skims_metadata.developer.value
                     ),
                     "source_method": (
                         vulnerability.skims_metadata.source_method
