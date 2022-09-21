@@ -210,6 +210,6 @@ async def get_root_nicknames_for_skims(
 
 def format_vulnerability_locations(where: List[str]) -> str:
     location_str: str = ""
-    for location in where:
-        location_str += f"- {location}\n"
+    for location in set(where):
+        location_str += f"{location}\n"
     return location_str

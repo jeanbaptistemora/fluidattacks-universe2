@@ -185,6 +185,7 @@ async def send_mail_assigned_vulnerability(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
+    responsible: str,
     where: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
@@ -197,6 +198,7 @@ async def send_mail_assigned_vulnerability(
             f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
             "locations"
         ),
+        "responsible": responsible,
         "where": where.splitlines(),
     }
     await send_mails_async(

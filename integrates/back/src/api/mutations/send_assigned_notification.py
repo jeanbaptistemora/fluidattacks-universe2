@@ -28,6 +28,10 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
+)
+from typing import (
+    Dict,
 )
 from vulnerabilities.domain.treatment import (
     validate_and_send_notification_request,
@@ -47,12 +51,15 @@ async def mutate(
     vulnerabilities: list[str],
     **_kwargs: None,
 ) -> SimplePayload:
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    responsible: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     try:
         finding: Finding = await loaders.finding.load(finding_id)
         await validate_and_send_notification_request(
             loaders=loaders,
             finding=finding,
+            responsible=responsible,
             vulnerabilities=vulnerabilities,
         )
         logs_utils.cloudwatch_log(

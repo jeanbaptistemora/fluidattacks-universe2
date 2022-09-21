@@ -582,6 +582,7 @@ async def update_vulnerabilities_treatment(
 async def validate_and_send_notification_request(
     loaders: Any,
     finding: Finding,
+    responsible: str,
     vulnerabilities: list[str],
 ) -> None:
     # Validate finding with vulns in group
@@ -637,5 +638,6 @@ async def validate_and_send_notification_request(
             group_name=finding.group_name,
             finding_id=finding.id,
             finding_title=finding.title,
+            responsible=responsible,
             where=where_str,
         )
