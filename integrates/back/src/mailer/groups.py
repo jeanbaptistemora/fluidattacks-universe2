@@ -316,6 +316,21 @@ async def send_trial_ending_notification(
     )
 
 
+async def send_how_improve_notification(
+    loaders: Any,
+    email_to: str,
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context={},
+        tags=[],
+        subject=(f"[{fname}], how can we improve?"),
+        template_name="how_improve_notification",
+    )
+
+
 async def send_mail_access_granted(
     loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
