@@ -246,7 +246,7 @@ describe("Table", (): void => {
     expect(typeof Table).toBe("function");
   });
 
-  it("should filter numberRange", async (): Promise<void> => {
+  it("should filter numberRange upper bound", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -269,6 +269,38 @@ describe("Table", (): void => {
     );
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(5);
+    });
+
+    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+  });
+
+  it("should filter numberRange lower bound", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    userEvent.click(screen.queryAllByRole("button")[0]);
+
+    fireEvent.change(
+      screen.queryAllByRole("spinbutton", { name: "numberrange" })[0],
+      { target: { value: "14" } }
+    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
 
     userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
@@ -342,7 +374,7 @@ describe("Table", (): void => {
     });
   });
 
-  it("should filter dateRange", async (): Promise<void> => {
+  it("should filter dateRange lower bound", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -371,6 +403,44 @@ describe("Table", (): void => {
     });
 
     expect(screen.queryByText("April Long")).toBeInTheDocument();
+    expect(screen.queryByText("Desirae Bailey")).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+  });
+
+  it("should filter dateRange upper bound", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    userEvent.click(screen.queryAllByRole("button")[0]);
+
+    expect(
+      document.querySelectorAll(`input[name="date"]`)[1]
+    ).toBeInTheDocument();
+
+    fireEvent.change(document.querySelectorAll(`input[name="date"]`)[1], {
+      target: { value: "2021-12-01" },
+    });
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(3);
+    });
+
+    expect(screen.queryByText("Amber Morgan")).toBeInTheDocument();
     expect(screen.queryByText("Desirae Bailey")).not.toBeInTheDocument();
 
     userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
