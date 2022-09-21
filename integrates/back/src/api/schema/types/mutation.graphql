@@ -320,7 +320,9 @@ type Mutation {
 
   "Adds a new Organization"
   addOrganization(
-    "Name of the new Organization. Must come from an Internal Names whitelist"
+    "Country of the new Organization"
+    country: String
+    "Name of the new Organization"
     name: String!
   ): AddOrganizationPayload!
 

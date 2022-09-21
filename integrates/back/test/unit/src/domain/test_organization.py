@@ -92,10 +92,11 @@ async def test_add_organization() -> None:
     loaders: Dataloaders = get_new_context()
     org_name = "esdeath"
     user = "org_testusermanager1@gmail.com"
+    country = "Colombia"
     with pytest.raises(OrganizationNotFound):
         await loaders.organization.load(org_name)
 
-    await orgs_domain.add_organization(loaders, org_name, user)
+    await orgs_domain.add_organization(loaders, org_name, user, country)
 
     organization: Organization = await loaders.organization.load(org_name)
     loaders = get_new_context()
@@ -106,7 +107,7 @@ async def test_add_organization() -> None:
     )
 
     with pytest.raises(InvalidOrganization):
-        await orgs_domain.add_organization(loaders, org_name, user)
+        await orgs_domain.add_organization(loaders, org_name, user, country)
 
 
 @pytest.mark.changes_db

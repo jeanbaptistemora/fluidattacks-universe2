@@ -61,7 +61,7 @@ async def test_add_organization() -> None:
     mutation_tpl = Template(
         """
         mutation {
-            addOrganization(name: "$name") {
+            addOrganization(country: "Colombia", name: "$name") {
                 organization {
                     id
                     name

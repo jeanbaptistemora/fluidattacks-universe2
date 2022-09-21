@@ -375,7 +375,7 @@ async def exists(loaders: Any, organization_name: str) -> bool:
 
 
 async def add_organization(
-    loaders: Dataloaders, organization_name: str, email: str
+    loaders: Dataloaders, organization_name: str, email: str, country: str
 ) -> Organization:
     if await exists(loaders, organization_name):
         raise InvalidOrganization("Name taken")
@@ -392,7 +392,7 @@ async def add_organization(
 
     modified_date = datetime_utils.get_iso_date()
     organization = Organization(
-        country="",
+        country=country,
         id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),
         policies=Policies(
