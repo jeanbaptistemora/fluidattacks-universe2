@@ -9,6 +9,7 @@ from celery import (
 BROKER_TRANSPORT_OPTIONS = {
     "region": "us-east-1",
     "polling_interval": 0.3,
+    "visibility_timeout": 300,
 }
 SERVER = Celery(
     "report",

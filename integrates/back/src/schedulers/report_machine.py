@@ -645,7 +645,7 @@ async def ensure_toe_inputs(
     loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
 ) -> None:
     for vuln in stream["inputs"]:
-        if vuln["state"] != "open":
+        if vuln["state"] != "open" or vuln["skims_technique"] == "APK":
             continue
         with suppress(RepeatedToeInput):
             await toe_inputs_domain.add(
