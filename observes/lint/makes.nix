@@ -105,7 +105,6 @@ in {
           outputs."/observes/common/paginator/env/development"
           outputs."/observes/common/paginator/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/paginator/paginator";
       };
@@ -114,7 +113,6 @@ in {
           outputs."/observes/common/postgres-client/env/development"
           outputs."/observes/common/postgres-client/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/postgres-client/src/postgres_client";
       };
@@ -137,7 +135,6 @@ in {
           outputs."/observes/common/postgres-client/env/development"
           outputs."/observes/common/postgres-client/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/postgres-client/src/tests";
       };
@@ -146,7 +143,6 @@ in {
           outputs."/observes/common/singer-io/env/development"
           outputs."/observes/common/singer-io/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/singer-io/src/singer_io";
       };
@@ -155,7 +151,6 @@ in {
           outputs."/observes/common/singer-io/env/development"
           outputs."/observes/common/singer-io/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/observes/common/singer-io/src/tests";
       };
@@ -171,7 +166,6 @@ in {
           outputs."${inputs.observesIndex.tap.zoho_crm.env.runtime}"
           outputs."/observes/singer/tap-zoho-crm/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.zoho_crm.src;
       };
@@ -180,7 +174,6 @@ in {
           outputs."${inputs.observesIndex.tap.zoho_crm.env.dev}"
           outputs."/observes/singer/tap-zoho-crm/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.zoho_crm.tests;
       };
@@ -188,7 +181,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.announcekit.env.runtime}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.announcekit.src;
       };
@@ -196,7 +188,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.announcekit.env.dev}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.announcekit.tests;
       };
@@ -204,7 +195,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.bugsnag.env.runtime}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.bugsnag.src;
       };
@@ -212,7 +202,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.csv.src;
       };
@@ -220,7 +209,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.csv.tests;
       };
@@ -228,7 +216,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.delighted.env.runtime}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.delighted.src;
       };
@@ -237,7 +224,6 @@ in {
           outputs."${inputs.observesIndex.tap.formstack.env.runtime}"
           outputs."/observes/singer/tap-formstack/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.formstack.src;
       };
@@ -246,7 +232,6 @@ in {
           outputs."${inputs.observesIndex.tap.json.env.dev}"
           outputs."/observes/singer/tap-json/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.json.src;
       };
@@ -254,7 +239,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.mailchimp.src;
       };
@@ -262,7 +246,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.mailchimp.tests;
       };
@@ -271,7 +254,6 @@ in {
           outputs."${inputs.observesIndex.tap.matomo.env.runtime}"
           outputs."/observes/singer/tap-matomo/env/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.matomo.src;
       };
@@ -293,7 +275,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.timedoctor.env.runtime}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.tap.timedoctor.src;
       };
@@ -301,7 +282,6 @@ in {
         searchPaths.source = [
           outputs."${inputs.observesIndex.target.redshift.env.runtime}"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = inputs.observesIndex.target.redshift.src;
       };

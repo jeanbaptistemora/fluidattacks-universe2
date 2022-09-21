@@ -12,7 +12,6 @@
             outputs."/integrates/back/env/pypi/type-stubs"
           ];
         };
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/src";
       };
@@ -22,7 +21,6 @@
           outputs."/integrates/back/charts/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/charts/generators";
       };
@@ -39,7 +37,6 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/deploy/permissions_matrix";
       };
@@ -48,7 +45,6 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/migrations";
       };
@@ -58,7 +54,6 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/test";
       };
@@ -67,7 +62,6 @@
           outputs."/integrates/web/e2e/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/back/test/e2e/src";
       };

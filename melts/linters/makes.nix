@@ -10,7 +10,6 @@
           outputs."/melts/config/runtime"
           outputs."/melts/config/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/melts/toolbox";
       };
@@ -20,7 +19,6 @@
           outputs."/melts/config/runtime"
           outputs."/melts/config/type-stubs"
         ];
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/melts/test/src";
       };

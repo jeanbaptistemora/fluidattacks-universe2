@@ -6,7 +6,6 @@
     modules = {
       commonOktaParse = {
         python = "3.9";
-        mypyVersion = "0.971";
         src = "/common/okta/parse/src";
       };
     };

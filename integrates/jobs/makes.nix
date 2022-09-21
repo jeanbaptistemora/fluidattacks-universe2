@@ -10,7 +10,6 @@
             outputs."/integrates/jobs/clone_roots/env"
           ];
         };
-        mypyVersion = "0.971";
         python = "3.8";
         src = "/integrates/jobs/clone_roots/src";
       };
@@ -20,7 +19,6 @@
             outputs."/integrates/jobs/execute_machine/env"
           ];
         };
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/integrates/jobs/execute_machine/src";
       };

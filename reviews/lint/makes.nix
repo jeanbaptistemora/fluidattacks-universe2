@@ -8,7 +8,6 @@
         searchPaths.source = [
           outputs."/reviews/runtime"
         ];
-        mypyVersion = "0.971";
         python = "3.9";
         src = "/reviews/src";
       };
