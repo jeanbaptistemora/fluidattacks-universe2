@@ -8,8 +8,8 @@ Identify and fix findings with formatting inconsistencies, due to errors
 in migrations 0238 and 0239.
 These findings were left out as migrations only ran on active groups.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-09-21 at 18:06:24 UTC
+Finalization Time: 2022-09-21 at 19:41:33 UTC
 """
 
 from aioextensions import (
@@ -33,6 +33,7 @@ from dynamodb import (
 )
 from dynamodb.types import (
     Item,
+    PrimaryKey,
 )
 from organizations.domain import (
     get_all_deleted_groups,
@@ -71,15 +72,14 @@ def _get_milestone_item(
         (
             item
             for item in milestones_items
-            if item.get("pk") == f"FIN#{finding_id}#{suffix}"
+            if item["pk"] == f"FIN#{finding_id}#{suffix}"
         ),
         None,
     )
-    if item:
-        del item["pk"]
-        del item["sk"]
 
-    return item
+    return (
+        None if not item else {k: item[k] for k in item.keys() - {"pk", "sk"}}
+    )
 
 
 async def _process_finding(
@@ -101,13 +101,13 @@ async def _process_finding(
         "state": state,
         "creation": creation,
         "unreliable_indicators": indicators,
+        "approval": approval,
+        "submission": submission,
+        "verification": verification,
     }
-    if approval:
-        item["approval"] = approval
-    if submission:
-        item["submission"] = submission
-    if verification:
-        item["verification"] = verification
+    item = {key: value for key, value in item.items() if value}
+    if not item:
+        return
 
     key_structure = TABLE.primary_key
     primary_key = keys.build_key(
@@ -118,6 +118,16 @@ async def _process_finding(
         condition_expression=Attr(key_structure.partition_key).exists(),
         item=item,
         key=primary_key,
+        table=TABLE,
+    )
+    await operations.batch_delete_item(
+        keys=tuple(
+            PrimaryKey(
+                partition_key=item["pk"],
+                sort_key=item["sk"],
+            )
+            for item in milestones_items
+        ),
         table=TABLE,
     )
 
