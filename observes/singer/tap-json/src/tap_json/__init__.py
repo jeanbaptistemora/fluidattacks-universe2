@@ -35,6 +35,7 @@ from tap_json.env import (
 from typing import (
     Any,
     Callable,
+    Dict,
     List,
     Optional,
     Union,
@@ -332,23 +333,32 @@ def dump_schema(table: str, schemas_dir: str) -> None:
     )
 
 
+def emit_record(
+    record: Dict[str, STRU], field: str, value: Any, selected_type: str
+) -> None:
+    if value == "":
+        record[f"{field}_str"] = value
+    else:
+        if selected_type == "EmptyStr":
+            record[f"{field}_str"] = stru_cast(value, selected_type)
+        else:
+            record[f"{field}_{selected_type}"] = stru_cast(
+                value, selected_type
+            )
+
+
 def dump_records(table: str, schemas_dir: str) -> None:
     pschema = json_from_file(f"{schemas_dir}/{table}")
     path = Path(RECORDS_DIR) / Path(table)
     if not path.exists():
         return None
     for precord in read(RECORDS_DIR, table, loads):
-        record = {}
+        record: Dict[str, STRU] = {}
         for field, value in precord.items():
             if field in pschema:
                 types = pschema[field]
                 selected_type = choose_type(types)
-                if value == "":
-                    record[f"{field}_str"] = value
-                else:
-                    record[f"{field}_{selected_type}"] = stru_cast(
-                        value, selected_type
-                    )
+                emit_record(record, field, value, selected_type)
             else:
                 LOG.warning(
                     "field `%s` missing in schema of table `%s`", field, table
