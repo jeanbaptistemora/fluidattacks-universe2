@@ -38,6 +38,7 @@ def remote_command_execution(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_REMOTE_COMMAND_EXECUTION
     c_sharp = GraphLanguage.CSHARP
+    danger_params = {"HttpRequest", "UserParams"}
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
@@ -65,9 +66,8 @@ def remote_command_execution(
             danger_meths.update(filter(None, methods))
             for n_id in danger_meths:
                 for path in get_backward_paths(graph, n_id):
-                    if (
-                        evaluation := evaluate(method, graph, path, n_id)
-                    ) and evaluation.danger:
+                    evaluation = evaluate(method, graph, path, n_id)
+                    if evaluation and evaluation.triggers == danger_params:
                         yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

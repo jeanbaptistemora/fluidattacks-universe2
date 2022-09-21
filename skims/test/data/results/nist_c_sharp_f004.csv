@@ -3749,3 +3749,503 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    71 |         return data;
       ^ Col 0
 ",query.query_f004
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs,55,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs","
+  45 |         {
+  46 |             /* running on Windows */
+  47 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+  48 |         }
+  49 |         else
+  50 |         {
+  51 |             /* running on non-Windows */
+  52 |             osCommand = ""/bin/ls "";
+  53 |         }
+  54 |         /* POTENTIAL FLAW: command injection */
+> 55 |         Process process = Process.Start(osCommand + data);
+  56 |         process.WaitForExit();
+  57 |     }
+  58 | #endif //omitbad
+  59 | #if (!OMITGOOD)
+  60 |     public override void Good(HttpRequest req, HttpResponse resp)
+  61 |     {
+  62 |         GoodG2B(req, resp);
+  63 |     }
+  64 |
+  65 |     /* goodG2B() - uses goodsource and badsink */
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing true to false */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (false)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing 5==5 to 5!=5 */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (5 != 5)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs,71,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs","
+   61 |         {
+   62 |             /* running on Windows */
+   63 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   64 |         }
+   65 |         else
+   66 |         {
+   67 |             /* running on non-Windows */
+   68 |             osCommand = ""/bin/ls "";
+   69 |         }
+   70 |         /* POTENTIAL FLAW: command injection */
+>  71 |         Process process = Process.Start(osCommand + data);
+   72 |         process.WaitForExit();
+   73 |     }
+   74 | #endif //omitbad
+   75 | #if (!OMITGOOD)
+   76 |     /* goodG2B1() - use goodsource and badsink by changing PRIVATE_CONST_TRUE to PRIVATE_CONST_FALSE */
+   77 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   78 |     {
+   79 |         string data;
+   80 |         if (PRIVATE_CONST_FALSE)
+   81 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs,71,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs","
+   61 |         {
+   62 |             /* running on Windows */
+   63 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   64 |         }
+   65 |         else
+   66 |         {
+   67 |             /* running on non-Windows */
+   68 |             osCommand = ""/bin/ls "";
+   69 |         }
+   70 |         /* POTENTIAL FLAW: command injection */
+>  71 |         Process process = Process.Start(osCommand + data);
+   72 |         process.WaitForExit();
+   73 |     }
+   74 | #endif //omitbad
+   75 | #if (!OMITGOOD)
+   76 |     /* goodG2B1() - use goodsource and badsink by changing privateTrue to privateFalse */
+   77 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   78 |     {
+   79 |         string data;
+   80 |         if (privateFalse)
+   81 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs","
+   60 |         {
+   61 |             /* running on Windows */
+   62 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   63 |         }
+   64 |         else
+   65 |         {
+   66 |             /* running on non-Windows */
+   67 |             osCommand = ""/bin/ls "";
+   68 |         }
+   69 |         /* POTENTIAL FLAW: command injection */
+>  70 |         Process process = Process.Start(osCommand + data);
+   71 |         process.WaitForExit();
+   72 |     }
+   73 | #endif //omitbad
+   74 | #if (!OMITGOOD)
+   75 |     /* goodG2B1() - use goodsource and badsink by changing PRIVATE_CONST_FIVE==5 to PRIVATE_CONST_FIVE!=5 */
+   76 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   77 |     {
+   78 |         string data;
+   79 |         if (PRIVATE_CONST_FIVE != 5)
+   80 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs","
+   60 |         {
+   61 |             /* running on Windows */
+   62 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   63 |         }
+   64 |         else
+   65 |         {
+   66 |             /* running on non-Windows */
+   67 |             osCommand = ""/bin/ls "";
+   68 |         }
+   69 |         /* POTENTIAL FLAW: command injection */
+>  70 |         Process process = Process.Start(osCommand + data);
+   71 |         process.WaitForExit();
+   72 |     }
+   73 | #endif //omitbad
+   74 | #if (!OMITGOOD)
+   75 |     /* goodG2B1() - use goodsource and badsink by changing privateFive==5 to privateFive!=5 */
+   76 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   77 |     {
+   78 |         string data;
+   79 |         if (privateFive != 5)
+   80 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs,78,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs","
+   68 |         {
+   69 |             /* running on Windows */
+   70 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   71 |         }
+   72 |         else
+   73 |         {
+   74 |             /* running on non-Windows */
+   75 |             osCommand = ""/bin/ls "";
+   76 |         }
+   77 |         /* POTENTIAL FLAW: command injection */
+>  78 |         Process process = Process.Start(osCommand + data);
+   79 |         process.WaitForExit();
+   80 |     }
+   81 | #endif //omitbad
+   82 | #if (!OMITGOOD)
+   83 |     /* goodG2B1() - use goodsource and badsink by changing PrivateReturnsTrue() to PrivateReturnsFalse() */
+   84 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   85 |     {
+   86 |         string data;
+   87 |         if (PrivateReturnsFalse())
+   88 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing IO.STATIC_READONLY_TRUE to IO.STATIC_READONLY_FALSE */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.STATIC_READONLY_FALSE)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing IO.staticTrue to IO.staticFalse */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.staticFalse)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing IO.StaticReturnsTrue() to IO.StaticReturnsFalse() */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.StaticReturnsFalse())
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs","
+   53 |         {
+   54 |             /* running on Windows */
+   55 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   56 |         }
+   57 |         else
+   58 |         {
+   59 |             /* running on non-Windows */
+   60 |             osCommand = ""/bin/ls "";
+   61 |         }
+   62 |         /* POTENTIAL FLAW: command injection */
+>  63 |         Process process = Process.Start(osCommand + data);
+   64 |         process.WaitForExit();
+   65 |     }
+   66 | #endif //omitbad
+   67 | #if (!OMITGOOD)
+   68 |     /* goodG2B() - use goodsource and badsink by changing the ""if"" so that
+   69 |      * both branches use the GoodSource */
+   70 |     private void GoodG2B(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.StaticReturnsTrueOrFalse())
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing IO.STATIC_READONLY_FIVE==5 to IO.STATIC_READONLY_FIVE!=5 */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.STATIC_READONLY_FIVE != 5)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs","
+   54 |         {
+   55 |             /* running on Windows */
+   56 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   57 |         }
+   58 |         else
+   59 |         {
+   60 |             /* running on non-Windows */
+   61 |             osCommand = ""/bin/ls "";
+   62 |         }
+   63 |         /* POTENTIAL FLAW: command injection */
+>  64 |         Process process = Process.Start(osCommand + data);
+   65 |         process.WaitForExit();
+   66 |     }
+   67 | #endif //omitbad
+   68 | #if (!OMITGOOD)
+   69 |     /* goodG2B1() - use goodsource and badsink by changing IO.staticFive==5 to IO.staticFive!=5 */
+   70 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   71 |     {
+   72 |         string data;
+   73 |         if (IO.staticFive != 5)
+   74 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs","
+   55 |         {
+   56 |             /* running on Windows */
+   57 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   58 |         }
+   59 |         else
+   60 |         {
+   61 |             /* running on non-Windows */
+   62 |             osCommand = ""/bin/ls "";
+   63 |         }
+   64 |         /* POTENTIAL FLAW: command injection */
+>  65 |         Process process = Process.Start(osCommand + data);
+   66 |         process.WaitForExit();
+   67 |     }
+   68 | #endif //omitbad
+   69 | #if (!OMITGOOD)
+   70 |     /* goodG2B1() - use goodsource and badsink by changing the  switch to switch(5) */
+   71 |     private void GoodG2B1(HttpRequest req, HttpResponse resp)
+   72 |     {
+   73 |         string data = null;
+   74 |         switch (5)
+   75 |         {
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs,59,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs","
+  49 |         {
+  50 |             /* running on Windows */
+  51 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+  52 |         }
+  53 |         else
+  54 |         {
+  55 |             /* running on non-Windows */
+  56 |             osCommand = ""/bin/ls "";
+  57 |         }
+  58 |         /* POTENTIAL FLAW: command injection */
+> 59 |         Process process = Process.Start(osCommand + data);
+  60 |         process.WaitForExit();
+  61 |     }
+  62 | #endif //omitbad
+  63 | #if (!OMITGOOD)
+  64 |     /* goodG2B() - use goodsource and badsink */
+  65 |     private void GoodG2B(HttpRequest req, HttpResponse resp)
+  66 |     {
+  67 |         string data;
+  68 |         while (true)
+  69 |         {
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs,57,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs","
+  47 |            {
+  48 |                /* running on Windows */
+  49 |                osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+  50 |            }
+  51 |            else
+  52 |            {
+  53 |                /* running on non-Windows */
+  54 |                osCommand = ""/bin/ls "";
+  55 |            }
+  56 |            /* POTENTIAL FLAW: command injection */
+> 57 |            Process process = Process.Start(osCommand + data);
+  58 |            process.WaitForExit();
+  59 |        }
+  60 |    }
+  61 | endif //omitbad
+  62 | if (!OMITGOOD)
+  63 |    /* goodG2B() - use goodsource and badsink by reversing the block outside the
+  64 |     * for statement with the one in the for statement */
+  65 |    private void GoodG2B(HttpRequest req, HttpResponse resp)
+  66 |    {
+  67 |        string data;
+     ^ Col 1
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs","
+   42 |         {
+   43 |             /* running on Windows */
+   44 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   45 |         }
+   46 |         else
+   47 |         {
+   48 |             /* running on non-Windows */
+   49 |             osCommand = ""/bin/ls "";
+   50 |         }
+   51 |         /* POTENTIAL FLAW: command injection */
+>  52 |         Process process = Process.Start(osCommand + data);
+   53 |         process.WaitForExit();
+   54 |     }
+   55 |
+   56 |     private string Bad_source(HttpRequest req, HttpResponse resp)
+   57 |     {
+   58 |         string data;
+   59 |         if (badPrivate)
+   60 |         {
+   61 |             data = """"; /* initialize data in case id is not in query string */
+   62 |             /* POTENTIAL FLAW: Parse id param out of the URL querystring (without using getParameter()) */
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs","
+   52 |            {
+   53 |                /* running on Windows */
+   54 |                osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   55 |            }
+   56 |            else
+   57 |            {
+   58 |                /* running on non-Windows */
+   59 |                osCommand = ""/bin/ls "";
+   60 |            }
+   61 |            /* POTENTIAL FLAW: command injection */
+>  62 |            Process process = Process.Start(osCommand + data);
+   63 |            process.WaitForExit();
+   64 |        }
+   65 |    }
+   66 | endif //omitbad
+   67 | if (!OMITGOOD)
+   68 |    public override void Good(HttpRequest req, HttpResponse resp)
+   69 |    {
+   70 |        GoodG2B(req, resp);
+   71 |    }
+   72 |
+      ^ Col 1
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs,61,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs","
+   51 |         {
+   52 |             /* running on Windows */
+   53 |             osCommand = ""c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir "";
+   54 |         }
+   55 |         else
+   56 |         {
+   57 |             /* running on non-Windows */
+   58 |             osCommand = ""/bin/ls "";
+   59 |         }
+   60 |         /* POTENTIAL FLAW: command injection */
+>  61 |         Process process = Process.Start(osCommand + data);
+   62 |         process.WaitForExit();
+   63 |     }
+   64 | #endif //omitbad
+   65 | #if (!OMITGOOD)
+   66 |     private static string GoodG2BSource(HttpRequest req, HttpResponse resp)
+   67 |     {
+   68 |         string data;
+   69 |         /* FIX: Use a hardcoded string */
+   70 |         data = ""foo"";
+   71 |         return data;
+      ^ Col 0
+",c_sharp.c_sharp_remote_command_execution

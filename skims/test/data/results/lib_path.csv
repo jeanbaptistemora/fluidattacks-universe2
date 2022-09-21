@@ -34227,6 +34227,26 @@ F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,1
   16 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+> 11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+  13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
 F371,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0,79,skims,371. DOM-Based cross-site scripting (XSS),The content-type header or character encoding is not set or is malformed. in namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,"
    1 | <!DOCTYPE html>
    2 | <html>

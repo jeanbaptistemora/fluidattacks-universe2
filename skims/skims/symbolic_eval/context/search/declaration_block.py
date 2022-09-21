@@ -16,6 +16,6 @@ from utils import (
 
 def search(args: SearchArgs) -> Iterator[SearchResult]:
     for c_id in g.adj_cfg(args.graph, args.n_id):
-        if args.symbol == args.graph.nodes[c_id]["name"]:
+        if args.symbol == args.graph.nodes[c_id].get("name"):
             yield True, c_id
             break
