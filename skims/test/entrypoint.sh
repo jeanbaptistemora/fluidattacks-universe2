@@ -5,20 +5,23 @@
 # shellcheck shell=bash
 
 function main {
-  local RANDOM_DIR
   local success=true
+  local pytest_flags=()
   source __argExtraSrcs__/template extra_srcs
 
-  RANDOM_DIR="$(mktemp -d)" \
-    && pushd "${RANDOM_DIR}" \
-    && copy __argProject__ __project__ \
+  : \
     && for extra_src in "${!extra_srcs[@]}"; do
-      copy "${extra_srcs[$extra_src]}" "${extra_src}"
+      copy "${extra_srcs[$extra_src]}" "../${extra_src}"
     done \
-    && pushd __project__/skims \
+    && pushd skims \
     && aws_login "dev" "3600" \
-    && if ! pytest \
-      --cov= \
+    && find skims -maxdepth 1 -type d -exec basename {} \; > modules.lst \
+    && while read -r module; do
+      pytest_flags+=("--cov=${module}")
+    done < modules.lst \
+    && if ! PYTHONPATH="${PWD}/skims:${PYTHONPATH}" pytest \
+      "${pytest_flags[@]}" \
+      --cov=test \
       --cov-branch \
       --cov-report=term \
       --reruns=1 \
@@ -32,9 +35,8 @@ function main {
       -vvv; then
       success=false
     fi \
+    && mv .coverage .coverage.__argCategory__ \
     && popd \
-    && popd \
-    && copy "${RANDOM_DIR}/__project__/skims/.coverage" skims/.coverage.__argCategory__ \
     && if test "${success}" = false; then
       copy "${STATE}" .
       return 1

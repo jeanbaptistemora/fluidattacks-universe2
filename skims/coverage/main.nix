@@ -15,7 +15,6 @@ makeScript {
   name = "skims-coverage";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python3Packages.coverage
       inputs.nixpkgs.findutils
       inputs.nixpkgs.git
       outputs."/common/utils/codecov"
@@ -23,6 +22,7 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
+      outputs."/skims/env/development"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 /**/*.isorted
+/**/.coverage*
 /**/.minio.sys
 /**/.terraform
 /**/__pycache__

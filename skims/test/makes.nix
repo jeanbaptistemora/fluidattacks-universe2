@@ -5,7 +5,6 @@
   inputs,
   makeScript,
   outputs,
-  projectPath,
   toBashMap,
   ...
 }: {
@@ -20,18 +19,14 @@
             "androguard" = inputs.skimsAndroguard;
             "owasp_benchmark" = inputs.skimsBenchmarkOwasp;
             "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
-            "universe" = builtins.path {
-              name = "universe";
-              path = ../..;
-            };
             "VulnerableApp" = inputs.skimsVulnerableApp;
             "vulnerable_js_app" = inputs.skimsVulnerableJsApp;
           };
-          __argProject__ = projectPath "/";
         };
         entrypoint = ./entrypoint.sh;
         searchPaths = {
           bin = [
+            inputs.nixpkgs.findutils
             inputs.nixpkgs.gnugrep
             outputs."/common/utils/wait"
             outputs."/common/utils/kill/port"
