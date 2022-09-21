@@ -1180,9 +1180,9 @@ class DeveloperEnum(Enum):
     ALEJANDRO_TRUJILLO: str = "atrujillo@fluidattacks.com"
     ANDRES_CUBEROS: str = "acuberos@fluidattacks.com"
     BRIAM_AGUDELO: str = "bagudelo@fluidattacks.com"
+    DEFAULT: str = "machine@fluidattacks.com"
     DIEGO_RESTREPO: str = "drestrepo@fluidattacks.com"
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
-    JUAN_RESTREPO: str = "jrestrepo@fluidattacks.com"
     LEWIS_CONTRERAS: str = "lcontreras@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
     JULIAN_GOMEZ: str = "ugomez@fluidattacks.com"
@@ -1265,7 +1265,7 @@ class MethodsEnum(Enum):
         name="aws_credentials",
         module="lib_path",
         finding=FindingEnum.F009,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     DOCKER_ENV_SECRETS = MethodInfo(
@@ -1321,7 +1321,7 @@ class MethodsEnum(Enum):
         name="web_config_user_pass",
         module="lib_path",
         finding=FindingEnum.F009,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     WEB_DB_CONN = MethodInfo(
@@ -1337,7 +1337,7 @@ class MethodsEnum(Enum):
         name="javascript_crypto_js_credentials",
         module="lib_root",
         finding=FindingEnum.F009,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JWT_TOKEN = MethodInfo(
@@ -1393,7 +1393,7 @@ class MethodsEnum(Enum):
         name="npm_yarn_lock",
         module="lib_path",
         finding=FindingEnum.F011,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NPM_PACKAGE_JSON = MethodInfo(
@@ -1401,7 +1401,7 @@ class MethodsEnum(Enum):
         name="npm_package_json",
         module="lib_path",
         finding=FindingEnum.F011,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NPM_PACKAGE_LOCK_JSON = MethodInfo(
@@ -1409,7 +1409,7 @@ class MethodsEnum(Enum):
         name="npm_package_lock_json",
         module="lib_path",
         finding=FindingEnum.F011,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NUGET_CSPROJ = MethodInfo(
@@ -1417,7 +1417,7 @@ class MethodsEnum(Enum):
         name="nuget_csproj",
         module="lib_path",
         finding=FindingEnum.F011,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NUGET_PACKAGES_CONFIG = MethodInfo(
@@ -1425,7 +1425,7 @@ class MethodsEnum(Enum):
         name="nuget_packages_config",
         module="lib_path",
         finding=FindingEnum.F011,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     PIP_REQUIREMENTS_TXT = MethodInfo(
@@ -2161,7 +2161,7 @@ class MethodsEnum(Enum):
         name="view_state",
         module="lib_http",
         finding=FindingEnum.F036,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     CHECK_DNS_RECORDS = MethodInfo(
@@ -2225,7 +2225,7 @@ class MethodsEnum(Enum):
         name="content_security_policy",
         module="lib_http",
         finding=FindingEnum.F043,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     UPGRADE_INSEC_REQ = MethodInfo(
@@ -2249,7 +2249,7 @@ class MethodsEnum(Enum):
         name="no_root_check",
         module="lib_apk",
         finding=FindingEnum.F048,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.APK,
     )
     JAVA_PROP_MISSING_SSL = MethodInfo(
@@ -2257,7 +2257,7 @@ class MethodsEnum(Enum):
         name="java_properties_missing_ssl",
         module="lib_path",
         finding=FindingEnum.F052,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_PROP_WEAK_CIPHER = MethodInfo(
@@ -2265,7 +2265,7 @@ class MethodsEnum(Enum):
         name="java_properties_weak_cipher_suite",
         module="lib_path",
         finding=FindingEnum.F052,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_HASH = MethodInfo(
@@ -2585,7 +2585,7 @@ class MethodsEnum(Enum):
         name="referrer_policy",
         module="lib_http",
         finding=FindingEnum.F071,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
@@ -2633,7 +2633,7 @@ class MethodsEnum(Enum):
         name="non_upgradeable_deps",
         module="lib_path",
         finding=FindingEnum.F079,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     PIP_INCOMPLETE_DEPENDENCIES_LIST = MethodInfo(
@@ -2681,7 +2681,7 @@ class MethodsEnum(Enum):
         name="sub_resource_integrity",
         module="lib_http",
         finding=FindingEnum.F086,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     QUERY_F089 = MethodInfo(
@@ -2793,7 +2793,7 @@ class MethodsEnum(Enum):
         name="apk_unsigned",
         module="lib_apk",
         finding=FindingEnum.F103,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.APK,
     )
     QUERY_F107 = MethodInfo(
@@ -2857,7 +2857,7 @@ class MethodsEnum(Enum):
         name="unverifiable_files",
         module="lib_path",
         finding=FindingEnum.F117,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F127 = MethodInfo(
@@ -2897,7 +2897,7 @@ class MethodsEnum(Enum):
         name="strict_transport_security",
         module="lib_http",
         finding=FindingEnum.F131,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     X_CONTENT_TYPE_OPTIONS = MethodInfo(
@@ -2905,7 +2905,7 @@ class MethodsEnum(Enum):
         name="x_content_type_options",
         module="lib_http",
         finding=FindingEnum.F132,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
     PFS_DISABLED = MethodInfo(
@@ -3049,7 +3049,7 @@ class MethodsEnum(Enum):
         name="no_certs_pinning",
         module="lib_apk",
         finding=FindingEnum.F207,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.APK,
     )
     CS_VULN_REGEX = MethodInfo(
@@ -3633,7 +3633,7 @@ class MethodsEnum(Enum):
         name="npm_pkg_json",
         module="lib_path",
         finding=FindingEnum.F393,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NPM_PKG_LOCK_JSON = MethodInfo(
@@ -3641,7 +3641,7 @@ class MethodsEnum(Enum):
         name="npm_pkg_lock_json",
         module="lib_path",
         finding=FindingEnum.F393,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.SCA,
     )
     NPM_YARN_LOCK_DEV = MethodInfo(
