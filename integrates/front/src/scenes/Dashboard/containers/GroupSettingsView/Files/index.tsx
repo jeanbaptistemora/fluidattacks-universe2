@@ -141,13 +141,11 @@ const Files: React.FC<IFilesProps> = ({
   const [uploadFile] = useMutation(SIGN_POST_URL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Invalid characters in filename":
-            msgError(t("searchFindings.tabResources.invalidChars"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred uploading group files", error);
+        if (error.message === "Exception - Invalid characters in filename") {
+          msgError(t("searchFindings.tabResources.invalidChars"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred uploading group files", error);
         }
       });
     },
