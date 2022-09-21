@@ -24,27 +24,15 @@ import { GET_ME_VULNERABILITIES_ASSIGNED } from "./queries";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import type { IFilterProps } from "components/Table/types";
-import {
-  filterDateRange,
-  filterSearchText,
-  filterSelect,
-  filterText,
-} from "components/Table/utils";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
-import {
-  filterTreatment,
-  filterTreatmentCurrentStatus,
-  formatVulnerabilitiesTreatment,
-} from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { formatVulnerabilitiesTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { ReattackVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/ActionsButtons/ReattackVulnerabilities/index";
 import type {
   IAction,
-  IFilterTodosSet,
   IGetMeVulnerabilitiesAssigned,
   IGroupAction,
   ITasksVulnerabilities,
@@ -59,7 +47,7 @@ import type {
 } from "scenes/Dashboard/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { useStoredState, useTabTracking } from "utils/hooks";
+import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -74,24 +62,8 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const [iscurrentOpen, setIscurrentOpen] = useState<boolean[]>([]);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [searchGroupName, setSearchGroupName] = useState("");
   const [isReattacking, setIsReattacking] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("todosLocationsCustomFilters", false);
-  const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
-    useStoredState<IFilterTodosSet>(
-      "filterTodosVulnerabilitiesSet",
-      {
-        reportDateRange: { max: "", min: "" },
-        tag: "",
-        treatment: "",
-        treatmentCurrentStatus: "",
-        verification: "",
-      },
-      localStorage
-    );
   const attributesContext: PureAbility<string> = useContext(authzGroupContext);
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
@@ -294,177 +266,6 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     await refetchVulnerabilitiesAssigned();
   }, [refetchVulnerabilitiesAssigned]);
 
-  const onSearchTextChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>): void => {
-      setSearchTextFilter(event.target.value);
-    },
-    []
-  );
-
-  const onTreatmentChange = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      event.persist();
-      setFilterVulnerabilitiesTable(
-        (value): IFilterTodosSet => ({
-          ...value,
-          treatment: event.target.value,
-        })
-      );
-    },
-    [setFilterVulnerabilitiesTable]
-  );
-
-  const onSearchGroupNameChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setSearchGroupName(event.target.value);
-  };
-
-  const onTreatmentStatusChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        treatmentCurrentStatus: event.target.value,
-      })
-    );
-  };
-
-  const onTagChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        tag: event.target.value,
-      })
-    );
-  };
-
-  const onReportDateMaxChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        reportDateRange: {
-          max: event.target.value,
-          min:
-            value.reportDateRange === undefined
-              ? ""
-              : value.reportDateRange.min,
-        },
-      })
-    );
-  };
-
-  const onReportDateMinChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        reportDateRange: {
-          max:
-            value.reportDateRange === undefined
-              ? ""
-              : value.reportDateRange.max,
-          min: event.target.value,
-        },
-      })
-    );
-  };
-
-  const onVerificationChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        verification: event.target.value,
-      })
-    );
-  };
-
-  const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
-    vulnerabilities,
-    searchTextFilter
-  );
-
-  const filterTagVulnerabilities: IVulnRowAttr[] = filterText(
-    vulnerabilities,
-    filterVulnerabilitiesTable.tag,
-    "tag"
-  );
-
-  const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
-    vulnerabilities,
-    filterVulnerabilitiesTable.treatment
-  );
-
-  const filterGroupNameVulnerabilities: IVulnRowAttr[] = filterSelect(
-    vulnerabilities,
-    searchGroupName,
-    "groupName"
-  );
-
-  const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
-    filterTreatmentCurrentStatus(
-      vulnerabilities,
-      filterVulnerabilitiesTable.treatmentCurrentStatus
-    );
-
-  const filterReportDateRangeVulnerabilities: IVulnRowAttr[] = filterDateRange(
-    vulnerabilities,
-    filterVulnerabilitiesTable.reportDateRange ?? { max: "", min: "" },
-    "reportDate"
-  );
-
-  const filterVerificationVulnerabilities: IVulnRowAttr[] = filterSelect(
-    vulnerabilities,
-    filterVulnerabilitiesTable.verification ?? "",
-    "verification"
-  );
-
-  const clearFilters = useCallback((): void => {
-    setFilterVulnerabilitiesTable(
-      (): IFilterTodosSet => ({
-        reportDateRange: { max: "", min: "" },
-        tag: "",
-        treatment: "",
-        treatmentCurrentStatus: "",
-        verification: "",
-      })
-    );
-    setSearchTextFilter("");
-    setSearchGroupName("");
-  }, [setFilterVulnerabilitiesTable]);
-
-  const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
-    filterReportDateRangeVulnerabilities,
-    filterSearchTextVulnerabilities,
-    filterTagVulnerabilities,
-    filterTreatmentVulnerabilities,
-    filterTreatmentCurrentStatusVulnerabilities,
-    filterGroupNameVulnerabilities,
-    filterVerificationVulnerabilities
-  );
-
-  const vulnerabilitiesGroupNameArray = vulnerabilities.map(
-    (vulnerability: IVulnRowAttr): string[] => [
-      vulnerability.groupName,
-      vulnerability.groupName,
-    ]
-  );
-  const groupNameOptions = Object.fromEntries(
-    _.sortBy(vulnerabilitiesGroupNameArray, (arr): string => arr[0])
-  );
-
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
       accessorKey: "groupName",
@@ -478,18 +279,35 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
 
         return formatLinkHandler(link, text);
       },
-      enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.name"),
+      meta: { filterType: "select" },
+    },
+    {
+      accessorFn: (row): string | undefined => row.finding?.title,
+      cell: (cell): JSX.Element => {
+        const orgName =
+          cell.row.original.organizationName === undefined
+            ? ""
+            : cell.row.original.organizationName;
+        const findingId =
+          cell.row.original.finding === undefined
+            ? ""
+            : cell.row.original.finding.id;
+        const link =
+          `../orgs/${orgName}/groups/${cell.row.original.groupName}` +
+          `/vulns/${findingId}/description`;
+        const text = cell.getValue<string>();
+
+        return formatLinkHandler(link, text);
+      },
+      header: t("searchFindings.tabVuln.vulnTable.vulnerabilityType.title"),
+      id: "finding-title",
+      meta: { filterType: "select" },
     },
     {
       accessorKey: "where",
       enableColumnFilter: false,
-      header: t("searchFindings.tabVuln.vulnTable.where"),
-    },
-    {
-      accessorKey: "verification",
-      header: t("searchFindings.tabVuln.vulnTable.reattack"),
-      meta: { filterType: "select" },
+      header: t("searchFindings.tabVuln.vulnTable.vulnerability"),
     },
     {
       accessorKey: "treatment",
@@ -511,87 +329,6 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       meta: { filterType: "select" },
     },
   ];
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterVulnerabilitiesTable.treatment,
-      onChangeSelect: onTreatmentChange,
-      placeholder: t("taskContainer.filters.treatment.placeholder"),
-      /* eslint-disable sort-keys */
-      selectOptions: {
-        NEW: "searchFindings.tabDescription.treatment.new",
-        IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
-        ACCEPTED: "searchFindings.tabDescription.treatment.accepted",
-        ACCEPTED_UNDEFINED:
-          "searchFindings.tabDescription.treatment.acceptedUndefined",
-      },
-      /* eslint-enable sort-keys */
-      tooltipId: "searchFindings.tabVuln.vulnTable.treatmentsTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.treatmentsTooltip",
-      type: "select",
-    },
-    {
-      defaultValue: filterVulnerabilitiesTable.treatmentCurrentStatus,
-      onChangeSelect: onTreatmentStatusChange,
-      placeholder: t("taskContainer.filters.treatmentAcceptance.placeholder"),
-      selectOptions: {
-        false: "Accepted",
-        true: "Pending",
-      },
-      tooltipId: "searchFindings.tabVuln.treatmentStatus.id",
-      tooltipMessage: "searchFindings.tabVuln.treatmentStatus",
-      type: "select",
-    },
-    {
-      defaultValue: filterVulnerabilitiesTable.tag,
-      onChangeInput: onTagChange,
-      placeholder: "searchFindings.tabVuln.searchTag",
-      tooltipId: "searchFindings.tabVuln.tagTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.tagTooltip",
-      type: "text",
-    },
-    {
-      defaultValue: searchGroupName,
-      onChangeSelect: onSearchGroupNameChange,
-      placeholder: t("taskContainer.filters.groupName.placeholder"),
-      selectOptions: groupNameOptions,
-      tooltipId: "taskContainer.filters.groupName.tooltip.id",
-      tooltipMessage: "taskContainer.filters.groupName.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: filterVulnerabilitiesTable.verification ?? "",
-      onChangeSelect: onVerificationChange,
-      placeholder: "Reattacks",
-      selectOptions: {
-        // eslint-disable-next-line camelcase
-        On_hold: "searchFindings.tabVuln.onHold",
-        Requested: "searchFindings.tabVuln.requested",
-        Verified: "searchFindings.tabVuln.verified",
-      },
-      tooltipId: "searchFindings.tabVuln.vulnTable.reattacksTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.reattacksTooltip",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: t("taskContainer.filters.dateRange.placeholder"),
-      rangeProps: {
-        defaultValue: filterVulnerabilitiesTable.reportDateRange ?? {
-          max: "",
-          min: "",
-        },
-        onChangeMax: onReportDateMaxChange,
-        onChangeMin: onReportDateMinChange,
-      },
-      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
-      type: "dateRange",
-    },
-  ];
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const toggleEdit = useCallback((): void => {
     setIscurrentOpen(
@@ -676,24 +413,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
           <VulnComponent
             canDisplayHacker={canRetrieveHacker}
             changePermissions={changePermissions}
-            clearFiltersButton={clearFilters}
             columns={columns}
-            customFilters={{
-              customFiltersProps,
-              hideResults: true,
-              isCustomFilterEnabled,
-              onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-              resultSize: {
-                current: resultVulnerabilities.length,
-                total: vulnerabilities.length,
-              },
-            }}
-            customSearch={{
-              customSearchDefault: searchTextFilter,
-              isCustomSearchEnabled: true,
-              onUpdateCustomSearch: onSearchTextChange,
-              position: "right",
-            }}
             extraButtons={
               <ButtonToolbarRow>
                 <Button
@@ -706,11 +426,11 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
                 </Button>
                 <ReattackVulnerabilities
                   areVulnerabilitiesReattacked={
-                    resultVulnerabilities.filter(
+                    vulnerabilities.filter(
                       (vuln): boolean =>
                         !vuln.remediated &&
                         filteredContinuousVulnerabilitiesOnReattackIds(
-                          resultVulnerabilities,
+                          vulnerabilities,
                           groups
                         ).includes(vuln.id)
                     ).length === 0
@@ -752,7 +472,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
             )}
             onVulnSelect={openRemediationModal}
             refetchData={refetchVulnerabilitiesAssigned}
-            vulnerabilities={resultVulnerabilities}
+            vulnerabilities={vulnerabilities}
           />
         </div>
       </div>

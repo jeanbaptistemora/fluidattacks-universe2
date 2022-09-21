@@ -18,14 +18,6 @@ interface IGroupAction {
   actions: IAction[];
 }
 
-interface IFilterTodosSet {
-  reportDateRange?: { max: string; min: string };
-  tag: string;
-  treatment: string;
-  treatmentCurrentStatus: string;
-  verification?: string;
-}
-
 interface IGetMeVulnerabilitiesAssigned {
   me: {
     vulnerabilitiesAssigned: IVulnRowAttr[];
@@ -35,7 +27,6 @@ interface IGetMeVulnerabilitiesAssigned {
 
 export type {
   IAction,
-  IFilterTodosSet,
   IGetMeVulnerabilitiesAssigned,
   IGroupAction,
   ITasksVulnerabilities,

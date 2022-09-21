@@ -13,6 +13,11 @@ const GET_ME_VULNERABILITIES_ASSIGNED: DocumentNode = gql`
   query GetMeVulnerabilitiesAssigned {
     me(callerOrigin: "FRONT") {
       vulnerabilitiesAssigned {
+        finding {
+          id
+          severityScore
+          title
+        }
         groupName
         ...vulnFields
       }

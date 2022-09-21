@@ -11,6 +11,7 @@ import type {
   ICustomSearchProps,
 } from "components/Table/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IFinding } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/types";
 
 interface IVulnRowAttr {
   currentState: "closed" | "open";
@@ -41,6 +42,7 @@ interface IVulnRowAttr {
   vulnerabilityType: string;
   where: string;
   zeroRisk: string | null;
+  finding?: IFinding;
 }
 
 interface IUploadVulnerabilitiesResultAttr {
