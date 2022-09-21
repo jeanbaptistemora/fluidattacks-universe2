@@ -507,8 +507,8 @@ def _build_vulnerabilities_stream_from_sarif(
                     f" ({repo_nickname})"
                 ),
                 "skims_method": vuln["properties"]["source_method"],
-                "skims_technique": vuln["properties"].get("technique"),
-                "developer": "",
+                "skims_technique": vuln["properties"]["technique"],
+                "developer": vuln["properties"]["method_developer"],
                 "source": "MACHINE",
             }
             for vuln in vulnerabilities
@@ -529,8 +529,8 @@ def _build_vulnerabilities_stream_from_sarif(
                 "repo_nickname": repo_nickname,
                 "state": "open",
                 "skims_method": vuln["properties"]["source_method"],
-                "skims_technique": vuln["properties"].get("technique", ""),
-                "developer": "",
+                "skims_technique": vuln["properties"]["technique"],
+                "developer": vuln["properties"]["method_developer"],
                 "source": "MACHINE",
             }
             for vuln in vulnerabilities
@@ -693,8 +693,8 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
             finding_policy=finding_policy,
             user_info={
                 "user_email": "machine@fluidattacks.com",
-                "first_name": "machine",
-                "last_name": "machine",
+                "first_name": "Machine",
+                "last_name": "Services",
             },
             raise_validation=False,
         )

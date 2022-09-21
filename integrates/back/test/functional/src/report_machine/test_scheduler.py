@@ -104,6 +104,7 @@ async def test_persist_result(populate: bool) -> None:
                                     ],
                                     "properties": {
                                         "kind": "lines",
+                                        "method_developer": "asalgado@fluidattacks.com",  # noqa
                                         "source_method": "conf_files.sensitive_key_in_json",  # noqa
                                         "stream": "skims",
                                         "technique": "BSAST",
@@ -132,6 +133,7 @@ async def test_persist_result(populate: bool) -> None:
                                     ],
                                     "properties": {
                                         "kind": "lines",
+                                        "method_developer": "asalgado@fluidattacks.com",  # noqa
                                         "source_method": "conf_files.sensitive_key_in_json",  # noqa
                                         "stream": "skims",
                                         "technique": "BSAST",
@@ -315,6 +317,7 @@ async def test_report_f079(populate: bool) -> None:
                                     ],
                                     "properties": {
                                         "kind": "lines",
+                                        "method_developer": "lsaavedra@fluidattacks.com",  # noqa
                                         "source_method": "python.pip_incomplete_dependencies_list",  # noqa
                                         "stream": "skims",
                                         "technique": "BSAST",
@@ -494,6 +497,7 @@ async def test_duplicated_reports(populate: bool) -> None:
                                     ],
                                     "properties": {
                                         "kind": "lines",
+                                        "method_developer": "acuberos@fluidattacks.com",  # noqa
                                         "source_method": "maven.maven_gradle",
                                         "stream": "skims",
                                         "technique": "SCA",
@@ -618,6 +622,7 @@ async def test_duplicated_reports(populate: bool) -> None:
                                     ],
                                     "properties": {
                                         "kind": "lines",
+                                        "method_developer": "acuberos@fluidattacks.com",  # noqa
                                         "source_method": "maven.maven_gradle",
                                         "stream": "skims",
                                         "technique": "SCA",
