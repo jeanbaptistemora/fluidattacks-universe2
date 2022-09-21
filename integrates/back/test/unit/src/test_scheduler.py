@@ -5,9 +5,6 @@
 from collections import (
     OrderedDict,
 )
-from custom_exceptions import (
-    StakeholderNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -15,11 +12,7 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.enums import (
-    GroupStateStatus,
-)
 from db_model.groups.types import (
-    Group,
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
@@ -28,9 +21,6 @@ from db_model.organizations.types import (
 )
 from db_model.portfolios.types import (
     Portfolio,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -51,16 +41,11 @@ from freezegun import (
 from newutils import (
     organizations as orgs_utils,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from organizations.domain import (
     iterate_organizations,
 )
 import pytest
 from schedulers import (
-    delete_imamura_stakeholders,
-    delete_obsolete_groups,
     delete_obsolete_orgs,
     update_indicators,
     update_portfolios,
@@ -435,78 +420,3 @@ async def test_delete_obsolete_orgs() -> None:
     test_org = await loaders.organization.load(org_name)
     org_pending_deletion_date = test_org.state.pending_deletion_date
     assert org_pending_deletion_date is None
-
-
-@pytest.mark.changes_db
-@freeze_time("2021-01-01")
-async def test_remove_imamura_stakeholders() -> None:
-    org_name = "imamura"
-    loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization.load(org_name)
-    org_id = organization.id
-    org_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await orgs_domain.get_stakeholders(loaders, org_id)
-    org_stakeholders_emails = [
-        stakeholder.email for stakeholder in org_stakeholders
-    ]
-    assert org_stakeholders_emails == [
-        "deleteimamura@fluidattacks.com",  # NOSONAR
-        "nodeleteimamura@fluidattacks.com",  # NOSONAR
-    ]
-    remove_stakeholder = await loaders.stakeholder.load(
-        "deleteimamura@fluidattacks.com"
-    )
-    remove_stakeholder_exists = bool(remove_stakeholder)
-    assert remove_stakeholder_exists
-    noremove_stakeholder = await loaders.stakeholder.load(
-        "nodeleteimamura@fluidattacks.com"
-    )
-    noremove_stakeholder_exists = bool(noremove_stakeholder)
-    assert noremove_stakeholder_exists
-
-    await delete_imamura_stakeholders.main()
-
-    loaders = get_new_context()
-    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
-    org_stakeholders_emails = [
-        stakeholder.email for stakeholder in org_stakeholders
-    ]
-    assert org_stakeholders_emails == ["nodeleteimamura@fluidattacks.com"]
-    with pytest.raises(StakeholderNotFound):
-        await loaders.stakeholder.load("deleteimamura@fluidattacks.com")
-    noremove_stakeholder = await loaders.stakeholder.load(
-        "nodeleteimamura@fluidattacks.com"
-    )
-    noremove_stakeholder_exists = bool(noremove_stakeholder)
-    assert noremove_stakeholder_exists
-
-
-@pytest.mark.changes_db
-async def test_remove_obsolete_groups() -> None:
-    loaders: Dataloaders = get_new_context()
-    test_group_name_1 = "setpendingdeletion"
-    test_group_name_2 = "deletegroup"
-    all_active_groups_names = await orgs_domain.get_all_active_group_names(
-        loaders
-    )
-    assert len(all_active_groups_names) == 14
-    assert test_group_name_1 in all_active_groups_names
-    assert test_group_name_2 in all_active_groups_names
-
-    await delete_obsolete_groups.main()
-
-    loaders = get_new_context()
-    all_active_groups_names = await orgs_domain.get_all_active_group_names(
-        loaders
-    )
-    assert len(all_active_groups_names) == 13
-    assert test_group_name_1 in all_active_groups_names
-    assert test_group_name_2 not in all_active_groups_names
-
-    test_group_1: Group = await loaders.group.load(test_group_name_1)
-    assert test_group_1.state.status == GroupStateStatus.ACTIVE
-    assert test_group_1.state.pending_deletion_date
-
-    test_group_2: Group = await loaders.group.load(test_group_name_2)
-    assert test_group_2.state.status == GroupStateStatus.DELETED

@@ -8,6 +8,7 @@ from dataloaders import (
 )
 from db_model.groups.enums import (
     GroupService,
+    GroupStateRemovalJustification,
     GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
@@ -25,11 +26,15 @@ from groups.domain import (
     get_treatment_summary,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
+    remove_group,
     update_group,
     validate_group_tags,
 )
 from newutils.groups import (
     filter_active_groups,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 import pytest
 
@@ -103,8 +108,11 @@ async def test_get_treatment_summary() -> None:
 async def test_create_group_not_user_admin() -> None:
     user_email = "integratesuser@gmail.com"
     user_role = "user_manager"
+    loaders: Dataloaders = get_new_context()
+    active_groups = await orgs_domain.get_all_active_group_names(loaders)
+    assert len(active_groups) == 15
     await add_group(
-        loaders=get_new_context(),
+        loaders=loaders,
         description="This is a new group",
         group_name="newavailablename",
         has_machine=True,
@@ -115,6 +123,20 @@ async def test_create_group_not_user_admin() -> None:
         user_email=user_email,
         user_role=user_role,
     )
+    active_groups = await orgs_domain.get_all_active_group_names(
+        loaders=get_new_context()
+    )
+    assert len(active_groups) == 16
+    await remove_group(
+        loaders=get_new_context(),
+        group_name="newavailablename",
+        justification=GroupStateRemovalJustification.OTHER,
+        user_email=user_email,
+    )
+    active_groups = await orgs_domain.get_all_active_group_names(
+        loaders=get_new_context()
+    )
+    assert len(active_groups) == 15
 
 
 async def test_get_groups_by_user() -> None:
