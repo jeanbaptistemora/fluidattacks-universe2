@@ -2780,20 +2780,12 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    QUERY_F100 = MethodInfo(
-        file_name="query",
-        name="query_f100",
-        module="sast",
-        finding=FindingEnum.F100,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     CS_INSEC_CREATE = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insec_create",
         module="lib_root",
         finding=FindingEnum.F100,
-        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     APK_UNSIGNED = MethodInfo(

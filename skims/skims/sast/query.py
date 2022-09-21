@@ -320,13 +320,6 @@ def query_f089(
     return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F089)
 
 
-def query_f100(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F100)
-
-
 def query_f107(
     shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
@@ -365,7 +358,6 @@ QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F052, query_f052),
     (core_model.FindingEnum.F063, query_f063),
     (core_model.FindingEnum.F089, query_f089),
-    (core_model.FindingEnum.F100, query_f100),
     (core_model.FindingEnum.F107, query_f107),
     (core_model.FindingEnum.F112, query_f112),
     (core_model.FindingEnum.F127, query_f127),

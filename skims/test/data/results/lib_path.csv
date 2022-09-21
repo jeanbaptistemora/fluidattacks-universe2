@@ -35293,7 +35293,7 @@ F107,lines,namespace/skims/test/data/lib_root/f107/ldap_injection.cs,11,90,skims
   14 |
      ^ Col 8
 ",c_sharp.c_sharp_ldap_injection
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain.
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | g System.Net;
    2 | g System;
@@ -35317,8 +35317,8 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Ser
   20 | }
   21 |
      ^ Col 4
-",query.query_f100
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain.
+",c_sharp.c_sharp_insec_create
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | using System.Net;
    2 | using System;
@@ -35342,7 +35342,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   20 |     }
   21 | }
      ^ Col 0
-",query.query_f100
+",c_sharp.c_sharp_insec_create
 F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,22,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
   12 |   server_side_encryption_configuration {
   13 |     rule {

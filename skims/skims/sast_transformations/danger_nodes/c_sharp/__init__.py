@@ -184,14 +184,6 @@ def mark_sinks(
             "FileName",
         },
     )
-    mark_methods_sink(
-        findings.F100,
-        graph,
-        syntax,
-        {
-            "Create",
-        },
-    )
 
 
 def mark_metadata(
