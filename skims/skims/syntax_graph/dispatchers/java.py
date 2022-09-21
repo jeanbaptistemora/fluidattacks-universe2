@@ -127,7 +127,6 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "boolean_literal",
             "true",
             "false",
         },

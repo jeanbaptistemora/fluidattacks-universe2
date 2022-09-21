@@ -13,13 +13,13 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast,
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
 
-    m_childs = match_ast(
+    childs_id = adj_ast(
         args.ast_graph,
         args.n_id,
     )
@@ -36,15 +36,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "string_literal",
     }
 
-    childs = [
+    valid_childs = [
         child
-        for child in m_childs.values()
+        for child in childs_id
         if args.ast_graph.nodes[child]["label_type"] in node_types
     ]
 
-    c_ids = list(filter(None, childs))
-
-    if len(m_childs) > 2 and not childs:
+    if len(childs_id) > 2 and not valid_childs:
         raise MissingCaseHandling(f"Bad array handling in {args.n_id}")
 
-    return build_array_node(args, c_ids)
+    return build_array_node(args, valid_childs)
