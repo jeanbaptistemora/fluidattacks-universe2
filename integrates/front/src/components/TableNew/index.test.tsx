@@ -380,6 +380,27 @@ describe("Table", (): void => {
     });
   });
 
+  it("should not render pagination", (): void => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data.slice(0, 10)}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(11);
+
+    expect(
+      screen.queryByRole("button", { name: "10" })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "1" })).not.toBeInTheDocument();
+  });
+
   it("should change pagination", async (): Promise<void> => {
     expect.hasAssertions();
 
@@ -414,6 +435,34 @@ describe("Table", (): void => {
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
+
+    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+
+    expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
+
+    userEvent.click(screen.getAllByRole("button", { name: "" })[3]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Phyllis Garrett")).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText("Daria Hays")).not.toBeInTheDocument();
+
+    userEvent.click(screen.getAllByRole("button", { name: "" })[2]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText("Phyllis Garrett")).not.toBeInTheDocument();
+
+    userEvent.click(screen.getAllByRole("button", { name: "" })[4]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Lesley Howard")).toBeInTheDocument();
+    });
+
+    expect(screen.queryAllByRole("row")).toHaveLength(8);
   });
 
   it("should hide columns", async (): Promise<void> => {
