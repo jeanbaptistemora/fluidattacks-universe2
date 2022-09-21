@@ -27,6 +27,7 @@ from contextlib import (
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
+    RepeatedToeInput,
 )
 from dataloaders import (
     Dataloaders,
@@ -550,7 +551,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "field": vuln.specific,  # noqa
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
-                "stream": vuln.stream,
+                "stream": ",".join(vuln.stream or []),
                 "url": vuln.where,
                 "skims_method": vuln.skims_method,
                 "skims_technique": vuln.skims_technique,
@@ -646,12 +647,12 @@ async def ensure_toe_inputs(
     for vuln in stream["inputs"]:
         if vuln["state"] != "open":
             continue
-        with suppress(Exception):
+        with suppress(RepeatedToeInput):
             await toe_inputs_domain.add(
                 loaders=loaders,
                 group_name=group_name,
-                component=vuln["url"],
-                entry_point=vuln["field"],
+                component=vuln["url"].split(" ")[0],
+                entry_point="",
                 attributes=ToeInputAttributesToAdd(
                     be_present=True,
                     unreliable_root_id=root_id,

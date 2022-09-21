@@ -53,6 +53,13 @@ from typing import (
     Tuple,
     Union,
 )
+from urllib3.exceptions import (
+    LocationParseError,
+)
+from urllib3.util.url import (
+    parse_url,
+    Url,
+)
 from urllib.parse import (
     ParseResult,
     unquote_plus,
@@ -120,7 +127,10 @@ def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
 
 
 def is_valid_url(url: str) -> bool:
-    url_attributes: ParseResult = urlparse(url)
+    try:
+        url_attributes: Union[Url, ParseResult] = parse_url(url)
+    except LocationParseError:
+        url_attributes = urlparse(url)
 
     return bool(url_attributes.netloc and url_attributes.scheme)
 
@@ -263,14 +273,15 @@ async def validate_git_root_component(
                 if environment_url.url.endswith("/")
                 else f"{environment_url.url}/"
             )
+            parsed_environment_url = parse_url(formatted_environment_url)
+            parsed_component = parse_url(component)
             if (
-                component == environment_url.url
-                or component.startswith(formatted_environment_url)
-                or (
-                    environment_url.cloud_name
-                    and environment_url.cloud_name.value == "AWS"
-                    and environment_url.url in component
-                )
+                parsed_component.scheme == parsed_environment_url.scheme
+                and parsed_component.host == parsed_environment_url.host
+            ) or (
+                environment_url.cloud_name
+                and environment_url.cloud_name.value == "AWS"
+                and environment_url.url in component
             ):
 
                 return
