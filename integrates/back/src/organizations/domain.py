@@ -350,10 +350,10 @@ async def get_all_deleted_groups(
     deleted_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
-        org_active_groups = list(
+        org_deleted_groups = list(
             groups_utils.filter_deleted_groups(org_groups)
         )
-        deleted_groups.extend(org_active_groups)
+        deleted_groups.extend(org_deleted_groups)
     return tuple(deleted_groups)
 
 
