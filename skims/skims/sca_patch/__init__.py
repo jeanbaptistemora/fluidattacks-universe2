@@ -10,6 +10,7 @@ from custom_exceptions import (
     InvalidPatchItem,
     InvalidPathParameter,
     InvalidScaPatchFormat,
+    UnavailabilityError,
 )
 from db_model import (
     advisories as advisories_model,
@@ -28,6 +29,10 @@ import json
 from s3.operations import (
     download_advisories,
     upload_advisories,
+)
+from s3.resource import (
+    get_s3_resource,
+    s3_shutdown,
 )
 import sys
 from typing import (
@@ -84,20 +89,50 @@ def remove_from_s3(adv: Advisory, s3_advisories: Dict[str, Any]) -> None:
             del s3_advisories[adv.package_manager][adv.package_name]
 
 
-async def update_s3(to_storage: List[Advisory], action: str) -> None:
-    s3_advisories, s3_patch_advisories = await download_advisories()
-    if action != REMOVE:
-        await upload_advisories(to_storage, s3_advisories, is_patch=True)
-    else:
-        for adv in to_storage:
-            if adv.source == PATCH_SRC:
-                remove_from_s3(adv, s3_patch_advisories)
-            else:
-                remove_from_s3(adv, s3_advisories)
-        await upload_advisories(to_storage=[], s3_advisories=s3_advisories)
-        await upload_advisories(
-            to_storage=[], s3_advisories=s3_patch_advisories
+async def update_s3(
+    to_storage: List[Advisory], action: str, needed_platforms: Iterable[str]
+) -> None:
+    try:
+        client = await get_s3_resource()
+        s3_advisories, s3_patch_advisories = await download_advisories(
+            client_arg=client,
+            dl_only_patches=action != REMOVE,
+            needed_platforms=needed_platforms,
         )
+        if action != REMOVE:
+            await upload_advisories(
+                to_storage,
+                s3_patch_advisories,
+                is_patch=True,
+                client_arg=client,
+            )
+        else:
+            for adv in to_storage:
+                if adv.source == PATCH_SRC:
+                    remove_from_s3(adv, s3_patch_advisories)
+                else:
+                    remove_from_s3(adv, s3_advisories)
+            await upload_advisories(
+                to_storage=[], s3_advisories=s3_advisories, client_arg=client
+            )
+            await upload_advisories(
+                to_storage=[],
+                s3_advisories=s3_patch_advisories,
+                is_patch=True,
+                client_arg=client,
+            )
+    except UnavailabilityError as ex:
+        log_blocking("error", "%s", ex.new())
+    finally:
+        await s3_shutdown()
+
+
+def get_platforms(to_storage: List[Advisory]) -> Iterable[str]:
+    platforms = []
+    for adv in to_storage:
+        if adv.package_manager not in platforms:
+            platforms.append(adv.package_manager)
+    return platforms
 
 
 async def patch_sca(filename: str, action: str) -> None:
@@ -109,11 +144,19 @@ async def patch_sca(filename: str, action: str) -> None:
             items: Advisories = [
                 check_item(item, action) for item in from_json
             ]
+            to_storage: List[Advisory] = []
             for adv in items:
                 if action == ADD:
-                    await advisories_model.add(advisory=adv, no_overwrite=True)
+                    await advisories_model.add(
+                        advisory=adv,
+                        no_overwrite=True,
+                        to_storage=to_storage,
+                    )
                 elif action == UPDATE:
-                    await advisories_model.update(advisory=adv)
+                    await advisories_model.update(
+                        advisory=adv,
+                        to_storage=to_storage,
+                    )
                 else:
                     await advisories_model.remove(
                         advisory_id=adv.associated_advisory,
@@ -121,6 +164,9 @@ async def patch_sca(filename: str, action: str) -> None:
                         platform=adv.package_manager,
                         source=adv.source,
                     )
+                    to_storage.append(adv)
+            needed_platforms = get_platforms(to_storage)
+            await update_s3(to_storage, action, needed_platforms)
         except (
             json.JSONDecodeError,
             InvalidPatchItem,

@@ -8,9 +8,6 @@ from botocore.exceptions import (
 from custom_exceptions import (
     UnavailabilityError,
 )
-from db_model.advisories.constants import (
-    SUPPORTED_PLATFORMS,
-)
 from db_model.advisories.types import (
     Advisory,
 )
@@ -25,6 +22,7 @@ from tempfile import (
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
     Optional,
     Tuple,
@@ -68,23 +66,29 @@ async def download_json_fileobj(
         return return_value
 
 
-async def download_advisories() -> Tuple[Dict[str, Any], Dict[str, Any]]:
+async def download_advisories(
+    needed_platforms: Iterable[str],
+    dl_only_patches: bool = False,
+    client_arg: Any = None,
+) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     try:
-        client = await get_s3_resource()
+        client = await get_s3_resource() if client_arg is None else client_arg
         s3_advisories = {}
         s3_patch_advisories = {}
         bucket_name = "skims.sca"
-        for plt in SUPPORTED_PLATFORMS:
-            dict_obj: Dict[str, Any] = await download_json_fileobj(
-                client, bucket_name, f"{plt}.json"
-            )
-            s3_advisories.update({plt: dict_obj})
+        for plt in needed_platforms:
+            if not dl_only_patches:
+                dict_obj: Dict[str, Any] = await download_json_fileobj(
+                    client, bucket_name, f"{plt}.json"
+                )
+                s3_advisories.update({plt: dict_obj})
             dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
                 client, bucket_name, f"{plt}_patch.json"
             )
             s3_patch_advisories.update({plt: dict_patch_obj})
     finally:
-        await s3_shutdown()
+        if client_arg is None:
+            await s3_shutdown()
     return s3_advisories, s3_patch_advisories
 
 
@@ -92,6 +96,7 @@ async def upload_advisories(
     to_storage: List[Advisory],
     s3_advisories: Optional[Dict[str, Any]] = None,
     is_patch: bool = False,
+    client_arg: Any = None,
 ) -> None:
     s3_advisories = {} if s3_advisories is None else s3_advisories
     for adv in to_storage:
@@ -103,7 +108,7 @@ async def upload_advisories(
             {adv.associated_advisory: adv.vulnerable_version}
         )
     try:
-        client = await get_s3_resource()
+        client = await get_s3_resource() if client_arg is None else client_arg
         for key, value in s3_advisories.items():
             await upload_object(
                 client=client,
@@ -114,4 +119,5 @@ async def upload_advisories(
     except UnavailabilityError as ex:
         log_blocking("error", "%s", ex.new())
     finally:
-        await s3_shutdown()
+        if client_arg is None:
+            await s3_shutdown()
