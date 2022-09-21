@@ -1246,6 +1246,35 @@
       "Management:Type" = "product";
     };
   };
+  integrates_upgrade_squad_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.upgrade_squad_notification.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 3600;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_upgrade_squad_notification";
+      "Management:Area" = "cost";
+      "Management:Product" = "integrates";
+      "Management:Type" = "product";
+    };
+  };
   observes_etl_code_compute_bills = {
     enabled = true;
     command = [
