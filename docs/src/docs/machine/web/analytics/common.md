@@ -66,15 +66,10 @@ within that system.
 
 ![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1652120561/docs/web/analytics/common/vulns_being_reattacked.png)
 
-Once your team has solved a vulnerability
-you can request a re-attack.
-In the re-attack process
-a hacker will replay the attack vector
-and confirm that the proposed solution
-actually shields your system.
-In case it does not,
-your team will be notified
-and the finding kept open.
+This metric shows an integer,
+which refers to the vulnerabilities
+still in the reattacked state,
+waiting for validation by Fluid Attacks.
 
 ## Days since last remediation
 
