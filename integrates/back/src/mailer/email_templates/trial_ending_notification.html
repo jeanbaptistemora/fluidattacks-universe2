@@ -1,0 +1,70 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>{{ name }},</p>
+    <p>
+      Your <strong>Continuous Hacking</strong> Machine Plan free trial ends
+      in 3 days ({{ expires_date }}).
+      We hope you have had a great experience so far,
+      and we look forward in assisting you in anything you need.
+    </p>
+    <p>
+      <strong>What happens when the trial expires?</strong>
+    </p>
+    <p>
+      The security of our users' information comes first.
+      Below, you can find what will happen to the information
+      that is in our <strong>ARM Platform</strong> after the trial ends:
+    </p>
+    <ul class="big-list-icon">
+      <li class="mb1">
+        <strong>
+          You want to subscribe to our continuous hacking solution:
+        </strong>
+        we would preserve the information in the platform.
+        To subscribe, talk to one of our sales representatives:
+      </li>
+      {{
+        go_to_button(
+        'Contact sales',
+        'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
+        'primary-button'
+         )
+      }}
+      <li class="mt1">
+        <strong>You don’t want to subscribe at the moment:</strong>
+        your information (account, groups, vulnerabilities, and more)
+        will be <u>securely removed from our <strong>ARM Platform</strong>
+        within one day</u>.
+        If you want to preserve the vulnerabilities information,
+        remember to download the reports you need.
+      </li>
+    </ul>
+    {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
+    <p class="mt1">
+      We want you to keep using our Continuous Hacking solution,
+      so you can better manage the security of your applications and systems.
+    </p>
+    <p>
+      <strong>Questions or comments?</strong> You can always contact us at
+      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+    </p>
+    <p>Enjoy Continuous Hacking!</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
