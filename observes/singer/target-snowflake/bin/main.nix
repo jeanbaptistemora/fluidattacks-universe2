@@ -10,7 +10,7 @@
 }: let
   root = projectPath inputs.observesIndex.target.snowflake.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  env = pkg.env.bin;
+  env = pkg.env.bin ./env_script.sh;
 in
   makeScript {
     name = "target-snowflake";

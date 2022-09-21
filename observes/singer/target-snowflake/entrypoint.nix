@@ -58,14 +58,31 @@ fetchNixpkgs: projectPath: observesIndex: let
         };
     };
 
+  path_filter = let
+    src = builtins.fetchGit {
+      url = "https://github.com/numtide/nix-filter";
+      rev = "3b821578685d661a10b563cba30b1861eec05748";
+    };
+  in
+    import src;
+
+  src = path_filter {
+    root = ./.;
+    include = [
+      "mypy.ini"
+      "pyproject.toml"
+      (path_filter.inDirectory "target_snowflake")
+      (path_filter.inDirectory "tests")
+    ];
+  };
+
   out = import ./. {
-    inherit python_version;
+    inherit src python_version;
     nixpkgs =
       nixpkgs
       // {
         inherit arch-lint fa-purity fa-singer-io utils-logger;
       };
-    src = ./.;
   };
 in
   out

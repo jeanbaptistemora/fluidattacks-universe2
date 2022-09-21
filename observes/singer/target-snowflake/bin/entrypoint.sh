@@ -4,4 +4,4 @@
 
 # shellcheck shell=bash
 
-target-snowflake "${@}"
+target-snowflake-env-entrypoint "${@}"

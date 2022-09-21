@@ -17,7 +17,7 @@
     inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src metadata;
+    inherit nixpkgs metadata src;
     python_pkgs = deps.python_pkgs;
     lib = deps.lib;
   };
