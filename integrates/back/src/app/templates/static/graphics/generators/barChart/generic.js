@@ -137,6 +137,18 @@ function render(dataDocument, height, width) {
   const { originalValues } = dataDocument;
 
   return c3.generate({
+    // eslint-disable-next-line id-blacklist
+    data: {
+      onmouseover: () => {
+        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      },
+      onmouseout: () => {
+        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      },
+      onclick: () => {
+        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      },
+    },
     ...dataDocument,
     tooltip: {
       ...dataDocument.tooltip,
@@ -147,6 +159,15 @@ function render(dataDocument, height, width) {
           defaultValueFormat,
           dataDocument.exposureTrendsByCategories ? () => getColor(d, originalValues) : color);
       } },
+    onrendered: () => {
+      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+    },
+    onmouseover: () => {
+      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+    },
+    onmouseout: () => {
+      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+    },
     bindto: 'div',
     padding: {
       bottom: (dataDocument.paddingRatioBottom ? dataDocument.paddingRatioBottom : defaultPaddingRatio) * height,
