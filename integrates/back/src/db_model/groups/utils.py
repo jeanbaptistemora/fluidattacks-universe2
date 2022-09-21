@@ -261,15 +261,20 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     }
 
 
-def format_state(state: Item) -> GroupState:
+def format_state_managed(managed: Union[bool, str]) -> GroupManaged:
+    if not managed:
+        return GroupManaged("NOT_MANAGED")
+    if managed is True:
+        return GroupManaged("MANAGED")
+    return GroupManaged[managed]
 
+
+def format_state(state: Item) -> GroupState:
     return GroupState(
         comments=state.get("comments"),
         has_machine=state["has_machine"],
         has_squad=state["has_squad"],
-        managed=GroupManaged(state["managed"])
-        if state["managed"]
-        else GroupManaged("NOT_MANAGED"),
+        managed=format_state_managed(state["managed"]),
         justification=format_state_justification(state.get("justification")),
         modified_by=state["modified_by"],
         modified_date=state["modified_date"],
