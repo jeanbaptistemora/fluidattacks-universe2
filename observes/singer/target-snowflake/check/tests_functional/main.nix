@@ -5,6 +5,7 @@
   fetchNixpkgs,
   inputs,
   makeScript,
+  outputs,
   projectPath,
   ...
 }: let
@@ -14,9 +15,15 @@
 in
   makeScript {
     name = "target-snowflake";
+    replace = {
+      __argSecrets__ = projectPath "/observes/secrets/prod.yaml";
+    };
     searchPaths = {
       bin = [
         env
+      ];
+      source = [
+        (outputs."/common/utils/sops")
       ];
     };
     entrypoint = ./entrypoint.sh;

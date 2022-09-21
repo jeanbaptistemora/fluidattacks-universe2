@@ -4,7 +4,7 @@
 
 # shellcheck shell=bash
 
-echo "Executing test phase" \
+echo "Executing functional tests" \
   && pytest --version \
-  && pytest ./tests \
+  && pytest --pyargs target_snowflake ./tests_functional \
   && echo "Finished test phase"
