@@ -7,16 +7,20 @@ slug: /machine/web/groups/surface
 
 The surface tab gives more information
 about the Target of Evaluation (ToE).
-This ToE is the result of repositories
-and environments specified in the
-scope roots section.
+This ToE is the result of repositories,
+environments and languages specified
+in the scope roots section.
 
-There are two sections in Surface:
+There are three sections in Surface:
 **Lines** referring to the Git Roots
-repositories and **Inputs** representing
-the environments to test, such as URLs/IPs.
+repositories,
+**Inputs** representing
+the environments to test,
+such as URLs/IPs and
+**Languages** identify the different
+languages used in your code.
 
-![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_tab.png)
+![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758714/docs/web/groups/surface/surface_section.png)
 
 ## Lines
 
@@ -28,7 +32,7 @@ filenames that compose them,
 being the ToE that the
 Hackers will validate.
 
-![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_lines.png)
+![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758818/docs/web/groups/surface/lines.png)
 
 This section shows a table providing
 the following information:
@@ -88,7 +92,7 @@ section in Environment URLs/IP,
 giving us the entry points that
 the Hackers will validate.
 
-![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_inputs.png)
+![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1663759081/docs/web/groups/surface/inputs.png)
 
 This section shows a table
 providing the following information:
@@ -125,7 +129,25 @@ your interest.
 
 ![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_inputs_filters.png)
 
-#### Export button
+## Languages
+
+Here you can see the
+languages used in your repositories.
+
+![Surface Languages](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758054/docs/web/groups/surface/surface_languages.png)
+
+This section shows a table
+providing the following information:
+
+- **Language:**
+  The specific type of language
+  detected in your inputs.
+- **Lines of Code:**
+  Total lines of code detected
+  by this language.
+- **Percentage:**
+  The percentage of its usability
+### Export button
 
 You can download the information
 in the Lines and Inputs table by
@@ -137,7 +159,7 @@ It contains the data that
 composes the tables of these
 two surface sections.
 
-#### Columns filter
+### Columns filter
 
 You can show or hide columns
 in the table by clicking on
