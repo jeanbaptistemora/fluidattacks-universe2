@@ -63,11 +63,11 @@ async def send_define_treatments_notification() -> None:
 
         if (
             enrollment.enrolled
-            and stakeholder.registration_date
+            and enrollment.trial.start_date
             and (
                 datetime_utils.get_now().date()
                 - datetime_utils.get_date_from_iso_str(
-                    stakeholder.registration_date
+                    enrollment.trial.start_date
                 )
             ).days
             == TRIAL_DAYS

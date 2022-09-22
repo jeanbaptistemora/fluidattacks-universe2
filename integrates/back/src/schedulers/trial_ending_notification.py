@@ -65,12 +65,10 @@ async def send_trial_ending_notification() -> None:
 
         if (
             enrollment.enrolled
-            and stakeholder.registration_date
+            and start_date
             and (
                 datetime_utils.get_now().date()
-                - datetime_utils.get_date_from_iso_str(
-                    stakeholder.registration_date
-                )
+                - datetime_utils.get_date_from_iso_str(start_date)
             ).days
             == TRIAL_DAYS
         ):
