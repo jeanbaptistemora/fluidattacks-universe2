@@ -47,11 +47,17 @@ in {
   };
   secretsForEnvFromSops = {
     commonClusterDev = {
-      vars = ["NEW_RELIC_LICENSE_KEY"];
+      vars = [
+        "CLUSTER_CI_USERS"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/common/secrets/dev.yaml";
     };
     commonClusterProd = {
-      vars = ["NEW_RELIC_LICENSE_KEY"];
+      vars = [
+        "CLUSTER_CI_USERS"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/common/secrets/prod.yaml";
     };
   };
@@ -63,6 +69,7 @@ in {
   };
   secretsForTerraformFromEnv = {
     commonCluster = {
+      ciUsers = "CLUSTER_CI_USERS";
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
