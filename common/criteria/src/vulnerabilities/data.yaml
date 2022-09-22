@@ -855,46 +855,116 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
-      A method that reads input data and does not properly validate the information, so an XSS attack could still be executed
+      A method that generates web content does not properly validate the client input, so an XSS attack could be executed
       ```c {3,7,15}
-      public void bad(HttpServletRequest request, HttpServletResponse response) throws Throwable{
-        String data = "";
-        Socket socket = null;
-        BufferedReader readerBuffered = null;
-        InputStreamReader readerInputStream = null;
-        try{
-          socket = new Socket("host.example.org", 39544);
-          readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
-          readerBuffered = new BufferedReader(readerInputStream);
-          data = readerBuffered.readLine();
+      public override void Bad(HttpRequest req, HttpResponse resp)
+      {
+        string data;
+        data = ""; /* Initialize data */
+        /* Read data using an outbound tcp connection */
+        {
+          try
+          {
+            /* Read data using an outbound tcp connection */
+            using (TcpClient tcpConn = new TcpClient("host.example.org", 39544))
+            {
+              /* read input from socket */
+              using (StreamReader sr = new StreamReader(tcpConn.GetStream()))
+              {
+                /* POTENTIAL FLAW: Read data using an outbound tcp connection */
+                data = sr.ReadLine();
+              }
+            }
+          }
+          catch (IOException exceptIO)
+          {
+              IO.Logger.Log(NLog.LogLevel.Warn, exceptIO, "Error with stream reading");
+          }
         }
-        catch (IOException exceptIO){
-          IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
+        if (data != null)
+        {
+          /* POTENTIAL FLAW: Display of data in web page after using Replace() to remove script tags, which will still allow XSS with strings like <scr<script>ipt> (CWE 182: Collapse of Data into Unsafe Value) */
+          resp.Write("<br>Bad(): data = " + data.Replace("(<script>)", ""));
         }
-        // Not shown: Code to close the socket...
-        if (data != null){
-          //* POTENTIAL FLAW: Display of data in web page after using replaceAll() to remove script tags,
-          // which will still allow XSS with strings like <scr<script>ipt>
-          response.getWriter().println("<br>bad(): data = " + data.replaceAll("(<script>)", ""));
+      }
+      ```
+      Java example
+      ```java
+      @WebServlet(value = "/xss-00/BenchmarkTest00013")
+      public class BenchmarkTest00013 extends HttpServlet {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+          doPost(request, response);
+        }
+
+        @Override
+        public void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+          // some code
+          response.setContentType("text/html;charset=UTF-8");
+
+          String param = "";
+          java.util.Enumeration<String> headers = request.getHeaders("Referer");
+
+          if (headers != null && headers.hasMoreElements()) {
+              param = headers.nextElement(); // just grab first element
+          }
+
+          // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+          param = java.net.URLDecoder.decode(param, "UTF-8");
+
+          response.setHeader("X-XSS-Protection", "0");
+          Object[] obj = {"a", "b"};
+          response.getWriter().format(java.util.Locale.US, param, obj);
         }
       }
       ```
     compliant: |
-      Implement correct and secure validation of input data
+      Implement hardcoded data. If not possible, ensure correct and secure validation of input data
+      C# example
       ```c {3,7,15}
-      namespace Controllers{
-        public class Calculate{
-          public static void ProcessRequest(HttpRequest req, HttpResponse res){
-            string name = req.QueryString["name"];
-            res.Write("Hello " + name);
+      public override void Good(HttpRequest req, HttpResponse resp)
+      {
+        GoodG2B(req, resp);
+      }
 
-            string value = req.QueryString["value"];
-            //Server side validation of entry data
-            if (value == null || !Regex.IsMatch(value, "^[a-zA-Z0-9]+$")){
-              throw new InvalidOperationException("Invalid value");
-            }
-            res.AddHeader("X-Header", value);
-          }
+      private void GoodG2B(HttpRequest req, HttpResponse resp)
+      {
+        string data;
+        /* FIX: Use a hardcoded string */
+        data = "Hello world";
+        if (data != null)
+        {
+          resp.Write("<br>Good(): data = " + data ""));
+        }
+      }
+      ```
+      Java example
+      ```java
+      @WebServlet(value = "/xss-00/BenchmarkTest00150")
+      public class BenchmarkTest00150 extends HttpServlet {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+          doPost(request, response);
+        }
+
+        @Override
+        public void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+          response.setContentType("text/html;charset=UTF-8");
+
+          String bar = LocalDateTime.now();
+          response.setHeader("X-XSS-Protection", "0");
+          Object[] obj = {"a", bar};
+          // Avoid using user parameters to generate web content
+          response.getWriter().printf(java.util.Locale.US, "Formatted like: %1$s and %2$s.", obj);
         }
       }
       ```
