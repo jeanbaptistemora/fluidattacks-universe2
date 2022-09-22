@@ -1,0 +1,27 @@
+---
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+apiVersion: metrics.aws/v1alpha1
+kind:
+  ExternalMetric:
+    metadata:
+      name: machine-queue-length-${NAME}
+      namespace: prod-integrates
+    spec:
+      name: machine-queue-length
+      resource:
+        resource: deployment
+      queries:
+        - id: sqs_machine_queue_length
+          metricStat:
+            metric:
+              namespace: AWS/SQS
+              metricName: ApproximateNumberOfMessagesVisible
+              dimensions:
+                - name: QueueName
+                  value: celery
+            period: 300
+            stat: Average
+            unit: Count
+          returnData: true

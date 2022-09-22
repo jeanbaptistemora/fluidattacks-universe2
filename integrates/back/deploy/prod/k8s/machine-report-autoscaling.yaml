@@ -13,5 +13,5 @@ spec:
     kind: Deployment
     name: machine-report-${NAME}
   minReplicas: 1
-  maxReplicas: 15
+  maxReplicas: 45
   targetCPUUtilizationPercentage: 60
