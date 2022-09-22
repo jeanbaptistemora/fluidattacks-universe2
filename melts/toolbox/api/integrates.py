@@ -55,6 +55,51 @@ RETRY_RELAX_SECONDS: float = 3.0
 PROXY = "http://127.0.0.1:8080" if DEBUGGING else None
 
 
+def get_paginated_fields(
+    api_token: str,
+    paginated_field: str,
+    parent_field: str,
+    params: Dict[str, str],
+    query: str,
+) -> List[Dict[str, str]]:
+    """
+    Returns all instances of a paginated field in a query as long as the
+    paginated field is a direct child of the parent field
+
+    :param ``api_token``: Integrates API token
+    :param ``paginated_field``: Name of the field to be retrieved
+    :param ``parent_field``: Name of the parent field
+    :param ``params``: Query parameters
+    :param ``query``: Base query
+    """
+    result: List[Dict[str, str]] = []
+    response: Response = request(
+        api_token=api_token,
+        body=query,
+        params=params,
+    )
+    while True:
+        has_next_page = False
+        if response.data:
+            field_connection = response.data[parent_field][paginated_field]
+            field_page_info = field_connection["pageInfo"]
+            field_edges = field_connection["edges"]
+            has_next_page = field_page_info["hasNextPage"]
+            end_cursor = field_page_info["endCursor"]
+            result.extend([vuln_edge["node"] for vuln_edge in field_edges])
+
+        if not has_next_page:
+            break
+
+        response = request(
+            api_token=api_token,
+            body=query,
+            params=dict(after=end_cursor, **params),
+        )
+
+    return result
+
+
 def get_vulnerabilities(
     api_token: str,
     finding_id: str,
