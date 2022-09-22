@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-C_SHARP_EXPRESSION = [
+C_SHARP_EXPRESSION = {
     "anonymous_method_expres",
     "anonymous_object_creation_expression",
     "array_creation_expression",
@@ -56,4 +56,32 @@ C_SHARP_EXPRESSION = [
     "type_of_expression",
     "verbatim_string_literal",
     "with_expression",
-]
+}
+
+
+C_SHARP_STATEMENT = {
+    "block",
+    "break_statement",
+    "checked_statement",
+    "continue_statement",
+    "do_statement",
+    "empty_statement",
+    "expression_statement",
+    "fixed_statement",
+    "for_each_statement",
+    "for_statement",
+    "goto_statement",
+    "if_statement",
+    "labeled_statement",
+    "local_declaration_statement",
+    "local_function_statement",
+    "lock_statement",
+    "return_statement",
+    "switch_statement",
+    "throw_statement",
+    "try_statement",
+    "unsafe_statement",
+    "using_statement",
+    "while_statement",
+    "yield_statement",
+}
