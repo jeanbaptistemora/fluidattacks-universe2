@@ -42,6 +42,7 @@ from utils.string import (
 )
 from vulnerabilities import (
     build_inputs_vuln,
+    build_lines_vuln,
     build_metadata,
 )
 import zipfile
@@ -57,6 +58,7 @@ class APKCheckCtx(NamedTuple):
 class Location(NamedTuple):
     description: str
     snippet: str
+    vuln_line: Optional[str] = None
 
 
 class Locations(NamedTuple):
@@ -66,6 +68,7 @@ class Locations(NamedTuple):
         self,
         desc: str,
         snippet: str,
+        vuln_line: Optional[str] = None,
         **desc_kwargs: Union[LocalesEnum, Any],
     ) -> None:
         self.locations.append(
@@ -75,6 +78,7 @@ class Locations(NamedTuple):
                     **desc_kwargs,
                 ),
                 snippet=snippet,
+                vuln_line=vuln_line,
             )
         )
 
@@ -90,6 +94,26 @@ def _create_vulns(
             stream="home,apk,bytecodes",
             what=ctx.apk_ctx.path,
             where=location.description,
+            metadata=build_metadata(
+                method=method,
+                description=location.description,
+                snippet=location.snippet,
+            ),
+        )
+        for location in locations.locations
+    )
+
+
+def _create_vulns_line(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    method: core_model.MethodsEnum,
+) -> core_model.Vulnerabilities:
+    return tuple(
+        build_lines_vuln(
+            method=method,
+            what=ctx.apk_ctx.path,
+            where=str(location.vuln_line),
             metadata=build_metadata(
                 method=method,
                 description=location.description,
