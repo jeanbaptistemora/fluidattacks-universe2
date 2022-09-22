@@ -129,16 +129,18 @@ def _add_android_manifest_location(
     apk_manifest: bs4.BeautifulSoup,
     desc: str,
     locations: Locations,
-    tag: bs4.Tag,
+    column: int,
+    line: int,
     **desc_kwargs: str,
 ) -> None:
     locations.append(
         desc=desc,
+        vuln_line=str(line),
         snippet=make_snippet(
             content=apk_manifest.prettify(),
             viewport=SnippetViewport(
-                column=tag.sourcepos,
-                line=tag.sourceline,
+                column=column,
+                line=line,
                 wrap=True,
             ),
         ),
@@ -175,14 +177,16 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="backups_enabled",
                 locations=locations,
-                tag=application,
+                column=application.sourcepos,
+                line=application.sourceline,
             )
         elif allows_backup == "not-set":
             _add_android_manifest_location(
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="backups_not_configured",
                 locations=locations,
-                tag=application,
+                column=0,
+                line=0,
             )
 
     return _create_vulns(
@@ -212,7 +216,8 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="debugging_enabled",
                 locations=locations,
-                tag=application,
+                column=application.sourcepos,
+                line=application.sourceline,
             )
 
     return _create_vulns(
@@ -256,7 +261,8 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 desc="exported",
                 desc_authority=authority,
                 locations=locations,
-                tag=provider,
+                column=provider.sourcepos,
+                line=provider.sourceline,
             )
         if grant_uri_permissions == "true":
             _add_android_manifest_location(
@@ -264,7 +270,8 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 desc="grants_uri_permissions",
                 desc_authority=authority,
                 locations=locations,
-                tag=provider,
+                column=provider.sourcepos,
+                line=provider.sourceline,
             )
 
     return _create_vulns(

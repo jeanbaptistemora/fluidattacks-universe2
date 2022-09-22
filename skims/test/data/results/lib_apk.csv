@@ -938,12 +938,38 @@ F055,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),applica
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
+F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
+",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
+","
+     1 | <manifest android:shareduserid=""android.uid.system"" android:shareduserlabel=""@android:010401BD"" android:versioncode=""25""
+       |  android:versionname=""7.1.2"" coreapp=""true"" package=""android"" xmlns:android=""http://schemas.android.com/apk/res/android""
+       |  xmlns:androidprv=""http://schemas.android.com/apk/prv/res/android"">
+     2 |  --&gt;
+     3 |  <uses-sdk android:minsdkversion=""25"" android:targetsdkversion=""25"">
+     4 |  </uses-sdk>
+     5 |  <eat-comment>
+     6 |  </eat-comment>
+     7 |  <protected-broadcast android:name=""android.intent.action.SCREEN_OFF"">
+     8 |  </protected-broadcast>
+     9 |  <protected-broadcast android:name=""android.intent.action.SCREEN_ON"">
+    10 |  </protected-broadcast>
+    11 |  <protected-broadcast android:name=""android.intent.action.USER_PRESENT"">
+    12 |  </protected-broadcast>
+    13 |  <protected-broadcast android:name=""android.intent.action.TIME_SET"">
+    14 |  </protected-broadcast>
+    15 |  <protected-broadcast android:name=""android.intent.action.TIME_TICK"">
+    16 |  </protected-broadcast>
+    17 |  <protected-broadcast android:name=""android.intent.action.TIMEZONE_CHANGED"">
+    18 |  </protected-broadcast>
+    19 |  <protected-broadcast android:name=""android.intent.action.DATE_CHANGED"">
+       ^ Col 0
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
     1 | <manifest android:installlocation=""0"" android:versioncode=""35"" android:versionname=""1.0.4 [BETA]"" package=""com.teleca.ja
       | mendo"" xmlns:android=""http://schemas.android.com/apk/res/android"">
->   2 |  <application android:icon=""@7F020016"" android:label=""@7F090002"" android:name=""JamendoApplication"">
+    2 |  <application android:icon=""@7F020016"" android:label=""@7F090002"" android:name=""JamendoApplication"">
     3 |   <activity android:label=""@7F090002"" android:name="".activity.HomeActivity"">
     4 |    <intent-filter>
     5 |     <action android:name=""android.intent.action.VIEW"">
@@ -963,32 +989,6 @@ F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.an
    19 |   <activity android:label=""@7F090003"" android:launchmode=""1"" android:name="".activity.PlayerActivity"">
    20 |    <intent-filter>
       ^ Col 0
-",analyze_bytecodes.apk_backups_enabled
-F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
-",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
-","
-  1615 |  <permission android:name=""android.permission.WRITE_BLOCKED_NUMBERS"" android:protectionlevel=""0x00000002"">
-  1616 |  </permission>
-  1617 |  <permission android:name=""android.permission.BIND_VR_LISTENER_SERVICE"" android:protectionlevel=""0x00000002"">
-  1618 |  </permission>
-  1619 |  <permission android:name=""android.permission.ACCESS_VR_MANAGER"" android:protectionlevel=""0x00000002"">
-  1620 |  </permission>
-  1621 |  <permission android:name=""android.permission.UPDATE_LOCK_TASK_PACKAGES"" android:protectionlevel=""0x00000802"">
-  1622 |  </permission>
-  1623 |  <permission android:name=""android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME"" android:protectionlevel=""0x00000012"">
-  1624 |  </permission>
-> 1625 |  <application android:allowclearuserdata=""false"" android:backupagent=""com.android.server.backup.SystemBackupAgent"" andro
-       | id:defaulttodeviceprotectedstorage=""true"" android:directbootaware=""true"" android:hascode=""false"" android:icon=""@android:
-       | 0108036D"" android:killafterrestore=""false"" android:label=""@android:010401BD"" android:persistent=""true"" android:process=""
-       | system"" android:supportsrtl=""true"" android:theme=""@android:0103013F"">
-  1626 |   <activity android:configchanges=""0x00000DB0"" android:documentlaunchmode=""3"" android:excludefromrecents=""true"" android:
-       | finishonclosesystemdialogs=""true"" android:name=""com.android.internal.app.ChooserActivity"" android:process="":ui"" android:
-       | relinquishtaskidentity=""true"" android:theme=""@android:01030498"">
-  1627 |    <intent-filter>
-  1628 |     <action android:name=""android.intent.action.CHOOSER"">
-  1629 |     </action>
-  1630 |     <category android:name=""android.intent.category.DEFAULT"">
-       ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
 F372,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK references HTTP (not HTTPS) resources.,650,"home,apk,bytecodes",372. Use of an insecure channel - HTTP,The given APK references HTTP (not HTTPS) resources.,"
    1 | $ python3.8
