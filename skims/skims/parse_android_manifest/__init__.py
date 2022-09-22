@@ -157,7 +157,9 @@ def _get_caseless_attr(tag: bs4.Tag, key: str, default: str) -> str:
     return default
 
 
-def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+def _apk_backups_enabled(
+    ctx: APKCheckCtx, kind: Optional[str] = None
+) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.apk_manifest is None:
@@ -189,6 +191,13 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 line=0,
             )
 
+    if kind == "lines":
+        return _create_vulns_line(
+            ctx=ctx,
+            locations=locations,
+            method=core_model.MethodsEnum.APK_BACKUPS_ENABLED,
+        )
+
     return _create_vulns(
         ctx=ctx,
         locations=locations,
@@ -196,7 +205,9 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+def _apk_debugging_enabled(
+    ctx: APKCheckCtx, kind: Optional[str] = None
+) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.apk_manifest is None:
@@ -220,6 +231,12 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 line=application.sourceline,
             )
 
+    if kind == "lines":
+        return _create_vulns_line(
+            ctx=ctx,
+            locations=locations,
+            method=core_model.MethodsEnum.APK_DEBUGGING_ENABLED,
+        )
     return _create_vulns(
         ctx=ctx,
         locations=locations,
@@ -227,7 +244,9 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+def _apk_exported_cp(
+    ctx: APKCheckCtx, kind: Optional[str] = None
+) -> core_model.Vulnerabilities:
     if ctx.apk_ctx.apk_manifest is None:
         return ()
 
@@ -274,6 +293,12 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 line=provider.sourceline,
             )
 
+    if kind == "lines":
+        return _create_vulns_line(
+            ctx=ctx,
+            locations=locations,
+            method=core_model.MethodsEnum.APK_EXPORTED_CP,
+        )
     return _create_vulns(
         ctx=ctx,
         locations=locations,
