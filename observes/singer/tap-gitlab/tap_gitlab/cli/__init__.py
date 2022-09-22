@@ -101,8 +101,8 @@ def stream(
 @click.command()
 @click.option("--api-key", type=str, required=True)
 @click.option("--project", type=str, required=True)
-@click.option("--threshold", type=int, default=1, help="in days")
-@click.option("--start-page", type=int, default=1, help="in days")
+@click.option("--threshold", type=int, default=1, help="in hours")
+@click.option("--start-page", type=int, default=1)
 @click.option("--dry-run", is_flag=True)
 def clean_stuck_jobs(
     api_key: str, project: str, threshold: int, start_page: int, dry_run: bool
@@ -111,7 +111,7 @@ def clean_stuck_jobs(
     creds = Credentials2(api_key)
     client = JobClient.new(creds, ProjectId.from_raw_str(project))
     cmd: Cmd[None] = cleaner.clean_stuck_jobs(
-        client, start_page, timedelta(days=threshold), dry_run
+        client, start_page, timedelta(hours=threshold), dry_run
     )
     cmd.compute()
 
