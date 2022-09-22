@@ -5,7 +5,7 @@
 # shellcheck shell=bash
 
 function main {
-  local coverage_target=55.00
+  local coverage_target=84.00
 
   : \
     && pushd skims \
