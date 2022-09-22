@@ -517,7 +517,7 @@ def generate_config(  # pylint: disable=too-many-locals
     include: Tuple[str, ...] = (),
     exclude: Tuple[str, ...] = (),
     working_dir: str = ".",
-    is_main: bool = True,
+    is_main: bool = False,
 ) -> Dict[str, Any]:
     namespace = git_root["nickname"]
     execution_id = (

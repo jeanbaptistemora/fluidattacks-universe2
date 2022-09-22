@@ -254,38 +254,48 @@ def _validate_aws_component(
 async def validate_git_root_component(
     loaders: Any, root: Root, component: str
 ) -> None:
-    if isinstance(root, GitRoot):
-        env_urls: list[
-            RootEnvironmentUrl
-        ] = await loaders.root_environment_urls.load(root.id)
-        env_urls = [*env_urls, *root.state.git_environment_urls]
-        if (
-            component not in [x.url for x in env_urls]
-            and not is_valid_url(component)
-            and not any(component.startswith(x.url) for x in env_urls)
-            and not _validate_aws_component(component, env_urls)
-        ):
-            raise InvalidUrl()
+    if not isinstance(root, GitRoot):
+        return
+    env_urls: list[
+        RootEnvironmentUrl
+    ] = await loaders.root_environment_urls.load(root.id)
+    env_urls = [*env_urls, *root.state.git_environment_urls]
+    if (
+        component not in [x.url for x in env_urls]
+        and not is_valid_url(component)
+        and not any(component.startswith(x.url) for x in env_urls)
+        and not _validate_aws_component(component, env_urls)
+    ):
+        raise InvalidUrl()
 
-        for environment_url in env_urls:
-            formatted_environment_url = (
-                environment_url.url
-                if environment_url.url.endswith("/")
-                else f"{environment_url.url}/"
+    for environment_url in env_urls:
+        formatted_environment_url = (
+            environment_url.url
+            if environment_url.url.endswith("/")
+            else f"{environment_url.url}/"
+        )
+        formatted_component = (
+            component if component.endswith("/") else f"{component}/"
+        )
+        parsed_environment_url = parse_url(formatted_environment_url)
+        parsed_component = parse_url(formatted_component)
+        if (
+            (  # pylint: disable=too-many-boolean-expressions
+                formatted_component.startswith(formatted_environment_url)
             )
-            parsed_environment_url = parse_url(formatted_environment_url)
-            parsed_component = parse_url(component)
-            if (
+            or (
                 parsed_component.scheme == parsed_environment_url.scheme
                 and parsed_component.host == parsed_environment_url.host
-            ) or (
+            )
+            or (
                 environment_url.cloud_name
                 and environment_url.cloud_name.value == "AWS"
                 and environment_url.url in component
-            ):
+            )
+        ):
 
-                return
-        raise InvalidRootComponent()
+            return
+    raise InvalidRootComponent()
 
 
 def validate_url_root_component(root: Root, component: str) -> None:
