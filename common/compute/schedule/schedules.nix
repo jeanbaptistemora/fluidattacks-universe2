@@ -1333,6 +1333,33 @@
       "Management:Type" = "product";
     };
   };
+  cancel_stuck_jobs = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/job/cancel-ci-jobs"
+    ];
+
+    schedule_expression = "cron(0 12-23/2 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_observes";
+    attempts = 1;
+    timeout = 7200;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "observes_etl_code_compute_bills";
+      "Management:Area" = "cost";
+      "Management:Product" = "observes";
+      "Management:Type" = "product";
+    };
+  };
   observes_etl_code_compute_bills = {
     enabled = true;
     command = [
