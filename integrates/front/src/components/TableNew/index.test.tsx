@@ -634,4 +634,22 @@ describe("Table", (): void => {
 
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(1);
   });
+
+  it("should select all checkboxes", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(<TestComponent selectionMode={"checkbox"} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+      0
+    );
+
+    userEvent.click(screen.queryAllByRole("checkbox")[0]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        11
+      );
+    });
+  });
 });
