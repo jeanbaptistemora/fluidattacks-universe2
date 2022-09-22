@@ -351,7 +351,6 @@ export const enTranslations: ResourceKey = {
       "You have been an active user",
     organizationCountry: {
       label: "Organization country",
-      placeholder: "",
       tooltip: "Country where the organization is based in",
     },
     organizationName: {

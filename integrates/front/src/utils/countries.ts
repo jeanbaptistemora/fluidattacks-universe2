@@ -23,13 +23,14 @@ interface ICountry {
   }[];
 }
 
+const DATA_URL =
+  "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json";
+
 const getCountries = async (): Promise<ICountry[]> => {
-  const url =
-    "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json";
   const errorMsg = "Couldn't fetch countries, states and cities database";
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(DATA_URL);
 
     if (response.status === 200) {
       const countries: ICountry[] = await response.json();
@@ -46,5 +47,5 @@ const getCountries = async (): Promise<ICountry[]> => {
   }
 };
 
-export { getCountries };
+export { getCountries, DATA_URL };
 export type { ICountry };

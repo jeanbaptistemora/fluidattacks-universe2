@@ -11,25 +11,25 @@ import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { object, string } from "yup";
 
-import { Input } from "components/Input";
+import { Input, Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
+import type { ICountry } from "utils/countries";
+import { getCountries } from "utils/countries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const MAX_ORG_LENGTH = 10;
 const MIN_ORG_LENGTH = 4;
-const MAX_COUNTRY_LENGTH = 56;
-const MIN_COUNTRY_LENGTH = 4;
 const tPath = "sidebar.newOrganization.modal.";
 
 const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
@@ -37,8 +37,15 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   onClose,
 }: IAddOrganizationModalProps): JSX.Element => {
   const { t } = useTranslation();
-
   const { push } = useHistory();
+  const [countries, setCountries] = useState<ICountry[]>([]);
+
+  useEffect((): void => {
+    const loadCountries = async (): Promise<void> => {
+      setCountries(await getCountries());
+    };
+    void loadCountries();
+  }, [setCountries]);
 
   // GraphQL Operations
   const [addOrganization, { loading: submitting }] = useMutation(
@@ -87,19 +94,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   }
 
   const validations = object().shape({
-    country: string()
-      .required()
-      .min(
-        MIN_COUNTRY_LENGTH,
-        t("validations.minLength", { count: MIN_COUNTRY_LENGTH })
-      )
-      .max(
-        MAX_COUNTRY_LENGTH,
-        t("validations.maxLength", { count: MAX_COUNTRY_LENGTH })
-      )
-      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
+    country: string().required(t("validations.required")),
     name: string()
-      .required()
+      .required(t("validations.required"))
       .min(
         MIN_ORG_LENGTH,
         t("validations.minLength", { count: MIN_ORG_LENGTH })
@@ -116,15 +113,31 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
     <React.StrictMode>
       <Modal onClose={onClose} open={open} title={t(`${tPath}title`)}>
         <Formik
-          enableReinitialize={true}
           initialValues={{ country: "", name: "" }}
           name={"newOrganization"}
           onSubmit={handleSubmit}
           validationSchema={validations}
         >
           <Form>
-            <Input name={"name"} placeholder={t(`${tPath}name`)} />
-            <Input name={"country"} placeholder={t(`${tPath}country`)} />
+            <Input
+              name={"name"}
+              placeholder={t(`${tPath}name`)}
+              required={true}
+            />
+            <Select
+              label={t(`${tPath}country`)}
+              name={"country"}
+              required={true}
+            >
+              <option value={""}>{""}</option>
+              {countries.map(
+                (country): JSX.Element => (
+                  <option key={country.id} value={country.name}>
+                    {country.name}
+                  </option>
+                )
+              )}
+            </Select>
             <ModalConfirm
               disabled={submitting}
               onCancel={onClose}

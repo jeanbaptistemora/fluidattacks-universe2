@@ -8,10 +8,13 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
 
-import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
-import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
+import { ADD_NEW_ORGANIZATION } from "./queries";
+
+import { AddOrganizationModal } from ".";
+import { DATA_URL } from "utils/countries";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
@@ -45,7 +48,7 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    expect(screen.getAllByRole("textbox")).toHaveLength(2);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
 
     userEvent.click(screen.getByText("components.modal.cancel"));
 
@@ -56,6 +59,13 @@ describe("Add organization modal", (): void => {
 
   it("should create an organization", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const mockedFetch: FetchMockStatic = fetch as FetchMockStatic &
+      typeof fetch;
+    mockedFetch.mock(DATA_URL, {
+      body: [{ id: "CO", name: "Colombia" }],
+      status: 200,
+    });
 
     const mocks: MockedResponse[] = [
       {
@@ -85,8 +95,14 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
+    await waitFor((): void => {
+      expect(screen.getByLabelText("country").children.length).toBeGreaterThan(
+        1
+      );
+    });
+
     userEvent.type(screen.getByLabelText("name"), "esdeath");
-    userEvent.type(screen.getByLabelText("country"), "Colombia");
+    userEvent.selectOptions(screen.getByLabelText("country"), ["Colombia"]);
 
     userEvent.click(screen.getByText("components.modal.confirm"));
 

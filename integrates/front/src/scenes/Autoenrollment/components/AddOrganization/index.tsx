@@ -7,7 +7,7 @@
 import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
@@ -19,14 +19,14 @@ import { Input, Select, TextArea } from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Text } from "components/Text";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
+import type { ICountry } from "utils/countries";
+import { getCountries } from "utils/countries";
 import { regExps } from "utils/validations";
 
 const MAX_DESCRIPTION_LENGTH = 200;
 const MAX_GROUP_LENGTH = 20;
 const MAX_ORG_LENGTH = 10;
 const MIN_ORG_LENGTH = 4;
-const MAX_COUNTRY_LENGTH = 56;
-const MIN_COUNTRY_LENGTH = 4;
 
 interface IAddOrganizationProps {
   isSubmitting: boolean;
@@ -62,6 +62,14 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   successMutation,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
+  const [countries, setCountries] = useState<ICountry[]>([]);
+
+  useEffect((): void => {
+    const loadCountries = async (): Promise<void> => {
+      setCountries(await getCountries());
+    };
+    void loadCountries();
+  }, [setCountries]);
 
   const validations = object().shape({
     groupDescription: string()
@@ -78,17 +86,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
         t("validations.maxLength", { count: MAX_GROUP_LENGTH })
       )
       .matches(regExps.alphanumeric, t("validations.alphanumeric")),
-    organizationCountry: string()
-      .required(t("validations.required"))
-      .min(
-        MIN_COUNTRY_LENGTH,
-        t("validations.minLength", { count: MIN_COUNTRY_LENGTH })
-      )
-      .max(
-        MAX_COUNTRY_LENGTH,
-        t("validations.maxLength", { count: MAX_COUNTRY_LENGTH })
-      )
-      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
+    organizationCountry: string().required(t("validations.required")),
     organizationName: string()
       .required(t("validations.required"))
       .min(
@@ -123,15 +121,21 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               />
             </Col>
             <Col lg={100} md={100} sm={100}>
-              <Input
+              <Select
                 disabled={successMutation.organization}
                 label={t("autoenrollment.organizationCountry.label")}
                 name={"organizationCountry"}
-                placeholder={t(
-                  "autoenrollment.organizationCountry.placeholder"
-                )}
                 tooltip={t("autoenrollment.organizationCountry.tooltip")}
-              />
+              >
+                <option value={""}>{""}</option>
+                {countries.map(
+                  (country): JSX.Element => (
+                    <option key={country.id} value={country.name}>
+                      {country.name}
+                    </option>
+                  )
+                )}
+              </Select>
             </Col>
             <Col lg={100} md={100} sm={100}>
               <Input
