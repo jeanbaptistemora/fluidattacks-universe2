@@ -25,6 +25,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     ),
     "target_snowflake.sql_client": (
         "connection",
+        "query",
         "_identifier",
     ),
 }
