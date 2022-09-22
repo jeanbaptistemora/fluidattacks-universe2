@@ -7,6 +7,16 @@ variable "ciUsers" {}
 locals {
   values = {
     controller = {
+      # Plugins
+      installPlugins = [
+        "configuration-as-code:1512.vb_79d418d5fc8",
+        "git:4.11.5",
+        "gitlab-plugin:1.5.35",
+        "kubernetes:3706.vdfb_d599579f3",
+        "workflow-aggregator:590.v6a_d052e5a_a_b_5",
+      ]
+
+      # Security
       JCasC = {
         securityRealm = yamlencode({
           local = {
@@ -21,6 +31,9 @@ locals {
           }
         })
       }
+
+      # Network
+      serviceType = "NodePort"
       ingress = {
         enabled    = true
         apiVersion = "extensions/v1beta1"
@@ -38,7 +51,6 @@ locals {
           "external-dns.alpha.kubernetes.io/cloudflare-proxied" = "true"
         }
       }
-      serviceType = "NodePort"
     }
   }
 }
