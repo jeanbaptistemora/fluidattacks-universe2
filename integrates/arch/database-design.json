@@ -27,6 +27,10 @@
           "AttributeType": "M"
         },
         {
+          "AttributeName": "session_token",
+          "AttributeType": "M"
+        },
+        {
           "AttributeName": "push_tokens",
           "AttributeType": "L"
         },
@@ -1007,6 +1011,16 @@
               "last_login_date": {
                 "S": "2019-10-29T18:40:37+00:00"
               },
+              "session_token": {
+                "M": {
+                  "jti": {
+                    "S": "0f98c8d494be2c9eddd973e4a861483988a1d90bb268be48dfc442d0b4cada72"
+                  },
+                  "state": {
+                    "S": "IS_VALID"
+                  }
+                }
+              },
               "tours": {
                 "M": {
                   "new_group": {
@@ -1706,6 +1720,16 @@
               },
               "sk_2": {
                 "S": "USER#integratesmanager@gmail.com"
+              },
+              "session_token": {
+                "M": {
+                  "jti": {
+                    "S": "0f98c8d494be2c9eddd973e4a861483988a1d90bb268be48dfc442d0b4cada72"
+                  },
+                  "state": {
+                    "S": "REVOKED"
+                  }
+                }
               }
             },
             {
@@ -3043,6 +3067,7 @@
           ],
           "NonKeyAttributes": [
             "access_token",
+            "session_token",
             "push_tokens",
             "registration_date",
             "last_login_date",

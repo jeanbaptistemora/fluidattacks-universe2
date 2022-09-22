@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from enum import (
+    Enum,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -17,6 +20,16 @@ class StakeholderAccessToken(NamedTuple):
     iat: int
     jti: str
     salt: str
+
+
+class StateSessionType(str, Enum):
+    IS_VALID: str = "IS_VALID"
+    REVOKED: str = "REVOKED"
+
+
+class StakeholderSessionToken(NamedTuple):
+    jti: str
+    state: StateSessionType
 
 
 class StakeholderPhone(NamedTuple):
