@@ -24,4 +24,4 @@ from parse_android_manifest.types import (
 def apk_backups_enabled(path: str) -> Vulnerabilities:
     apk_ctx: APKContext = get_apk_context(path)
     apk_check_ctx: APKCheckCtx = get_check_ctx(apk_ctx)
-    return _apk_backups_enabled(ctx=apk_check_ctx)
+    return _apk_backups_enabled(ctx=apk_check_ctx, kind="lines")
