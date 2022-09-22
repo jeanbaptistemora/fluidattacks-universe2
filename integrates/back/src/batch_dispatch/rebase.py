@@ -146,13 +146,9 @@ def _rebase_vulnerability(
         ):
             return result
     except GitError as exc:
-        LOGGER.exception(
-            exc,
-            extra=dict(
-                extra={
-                    "vuln_id": vulnerability.id,
-                }
-            ),
+        LOGGER.error(
+            "Failed to rebase vulnerability",
+            extra=dict(extra={"vuln_id": vulnerability.id, "exception": exc}),
         )
     return None
 
