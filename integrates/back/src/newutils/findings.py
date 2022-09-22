@@ -6,6 +6,9 @@ from aioextensions import (
     collect,
 )
 import aiohttp
+from context import (
+    FI_INTEGRATES_CRITERIA_REQUIREMENTS,
+)
 from custom_exceptions import (
     InvalidFileStructure,
     InvalidFindingTitle,
@@ -22,7 +25,6 @@ import io
 from newutils import (
     datetime as datetime_utils,
 )
-import os
 import re
 from starlette.datastructures import (
     UploadFile,
@@ -85,7 +87,7 @@ async def get_vulns_file() -> Dict:
 
 def get_requirements_file() -> Dict[str, Any]:
     with open(
-        os.environ["INTEGRATES_CRITERIA_REQUIREMENTS"], encoding="utf-8"
+        FI_INTEGRATES_CRITERIA_REQUIREMENTS, encoding="utf-8"
     ) as handler:
         return yaml.safe_load(handler)
 
