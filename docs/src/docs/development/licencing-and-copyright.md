@@ -37,21 +37,19 @@ so the change can be approved.
 
 ## Signing files
 
-Software needed: [Reuse Helper Tool](https://git.fsfe.org/reuse/tool).
-This tool can be installed with the next command
-`nix-env -iA nixpkgs.reuse`.
+Software needed: [Makes](https://github.com/fluidattacks/makes).
 
-We use [Reuse](https://reuse.software/) helper tool
-to `lint` the source code checking the signature
-and copyright presence for each file,
-this is made on every developer/contributor
-pipeline.
+We use an extension of the
+[Reuse Helper Tool](https://git.fsfe.org/reuse/tool)
+and Makes, which lints
+and format files automatically with the corresponding header.
 
-This also can be made individually by
-running the next command:
+This extension can be executed with
+the next command, while being at the root of
+our repository:
 
 ```bash
-  reuse lint
+  m . /common/utils/license
 ```
 
 If everything is correct you will get the
@@ -71,16 +69,19 @@ next output:
   * Files with license information: 7599 / 7599
 
   Congratulations! Your project is compliant with version 3.0 of the REUSE Specification :-)
+  [INFO] Nothing to format here! All files are licensed
 ```
 
 If you missed at least one signature
-this tool will fail, showing this kind of output:
+the extension will fail and will
+automatically format the specified files.
+This is an example of the output:
 
 ```bash
   # MISSING COPYRIGHT AND LICENSING INFORMATION
 
-  The following files have no copyright and licensing information:
-  * example.sh
+  The following files have no licensing information:
+  * common/utils/license/entrypoint.sh
 
 
   # SUMMARY
@@ -92,20 +93,13 @@ this tool will fail, showing this kind of output:
   * Unused licenses:
   * Used licenses: MPL-2.0
   * Read errors: 0
-  * Files with copyright information: 7599 / 7600
-  * Files with license information: 7599 / 7600
+  * Files with copyright information: 7814 / 7814
+  * Files with license information: 7813 / 7814
 
   Unfortunately, your project is not compliant with version 3.0 of the REUSE Specification :-(
+  [INFO] Adding License and Copyright headers to files
+  [INFO] Formatted files successfully!
 ```
-
-In that case you can sign your file/s using this
-command:
-
-```bash
-  reuse  addheader --copyright="Fluid Attacks <development@fluidattacks.com>" --license="MPL-2.0" --copyright-style spdx $filePath
-```
-
-Where `$filepath` is the relative path of the new file.
 
 More info on how to add signatures using
 the Reuse Helper Tool can be found [here](https://git.fsfe.org/reuse/tool#usage)
