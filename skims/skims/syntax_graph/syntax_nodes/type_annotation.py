@@ -10,30 +10,15 @@ from syntax_graph.types import (
 )
 from typing import (
     List,
-    Optional,
 )
 
 
-def build_variable_declarator_node(
-    args: SyntaxGraphArgs,
-    c_ids: List[NId],
-    variable_name: str,
-    value_id: Optional[NId],
-) -> NId:
+def build_type_annotation_node(args: SyntaxGraphArgs, c_ids: List[NId]) -> NId:
 
     args.syntax_graph.add_node(
         args.n_id,
-        variable_name=variable_name,
-        label_type="VariableDeclarator",
+        label_type="TypeAnnotation",
     )
-    if value_id:
-        args.syntax_graph.nodes[args.n_id]["value_id"] = value_id
-
-        args.syntax_graph.add_edge(
-            args.n_id,
-            args.generic(args.fork_n_id(value_id)),
-            label_ast="AST",
-        )
 
     for c_id in c_ids:
         args.syntax_graph.add_edge(

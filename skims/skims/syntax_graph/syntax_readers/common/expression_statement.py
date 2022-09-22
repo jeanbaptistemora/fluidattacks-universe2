@@ -19,8 +19,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, ";")
 
     if (
-        len(match) == 2 and match[";"]
-    ) or args.language == GraphShardMetadataLanguage.JAVASCRIPT:
+        (len(match) == 2 and match[";"])
+        or args.language == GraphShardMetadataLanguage.JAVASCRIPT
+        or args.language == GraphShardMetadataLanguage.TSX
+    ):
         expression_id = match["__0__"]
         return args.generic(args.fork_n_id(str(expression_id)))
 

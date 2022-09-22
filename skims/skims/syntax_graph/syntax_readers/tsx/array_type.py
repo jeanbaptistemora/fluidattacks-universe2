@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.variable_declarator import (
-    build_variable_declarator_node,
+from syntax_graph.syntax_nodes.array_type import (
+    build_array_type_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -26,18 +26,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    valid_childs = [
+    c_id = [
         child
         for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] == "type_annotation"
+        if args.ast_graph.nodes[child]["label_type"] == "predefined_type"
     ]
 
-    variable_name = node_to_str(
-        args.ast_graph, args.ast_graph.nodes[args.n_id]["label_field_name"]
-    )
+    array_type = node_to_str(args.ast_graph, c_id[0])
 
-    value_id = args.ast_graph.nodes[args.n_id].get("label_field_value")
-
-    return build_variable_declarator_node(
-        args, valid_childs, variable_name, value_id
-    )
+    return build_array_type_node(args, array_type)
