@@ -1,3 +1,14 @@
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { export1 , export2 } from "module-name";
+import { export1 , export2 as alias2 , alias3 } from "module-name";
+import defaultExport, { export1, export2 } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+var promise = import("module-name");
+
 // async function
 function resolveAfter2Seconds() {
     return new Promise(resolve => {
@@ -76,13 +87,13 @@ console.log(number);
 
 // do-while
 var result = '';
-var i = 0;
+var k = 0;
 do {
-    i += 1;
-    result += i + ' ';
+    k += 1;
+    result += k + ' ';
 }
-while (i > 0 && i < 5);
-// Despite i == 0 this will still loop as it starts off without the test
+while (k > 0 && k < 5);
+// Despite k == 0 this will still loop as it starts off without the test
 
 console.log(result);
 
@@ -217,7 +228,7 @@ try {
 }
 
 // multiple assignments in the same statement
-var x, y, z = 1;
+var x, w, z = 1;
 x = y = z = 2;
 
 // arrow functions
@@ -250,13 +261,22 @@ const {
   exec
 } = require("child_process");
 
-import defaultExport from "module-name";
-import * as name from "module-name";
-import { export1 } from "module-name";
-import { export1 as alias1 } from "module-name";
-import { export1 , export2 } from "module-name";
-import { export1 , export2 as alias2 , alias3 } from "module-name";
-import defaultExport, { export1, export2 } from "module-name";
-import defaultExport, * as name from "module-name";
-import "module-name";
-var promise = import("module-name");
+
+export let name1, name2;
+export const name3 = 1, name4 = 2;
+export function functionName() { /* … */ }
+export class ClassName { /* … */ }
+export function* generatorFunctionName() { /* … */ }
+export const { name5, name2: bar } = o;
+export const [ name6, name7 ] = array;
+
+// Export list
+export { variable1 as name9, variable2 as name10, nameN };
+export { variable1 as named };
+export { name1 as default};
+
+// Default exports
+export default function functionName() { /* … */ }
+
+// Aggregating modules
+export { import1 as name1, import2 as name2, /* …, */ nameN } from "module-name";

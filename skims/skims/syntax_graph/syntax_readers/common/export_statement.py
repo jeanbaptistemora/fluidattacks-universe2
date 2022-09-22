@@ -5,8 +5,10 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.syntax_nodes.export_statement import (
+    build_export_statement_node,
+)
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph.text_nodes import (
@@ -16,18 +18,20 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     node = args.ast_graph.nodes[args.n_id]
-    value_id = node.get("label_field_value")
+    b_types = {
+        "function_declaration",
+        "class_declaration",
+        "generator_function_declaration",
+    }
+    export_block = None
+    expression = None
+    value_id = node.get("label_field_declaration")
 
     if not value_id:
-        raise MissingCaseHandling(
-            f"Bad export statement handling in {args.n_id}"
-        )
-    expr = node_to_str(args.ast_graph, value_id)
+        expression = "ExportClause"
+    elif args.ast_graph.nodes[value_id]["label_type"] in b_types:
+        export_block = value_id
+    else:
+        expression = node_to_str(args.ast_graph, value_id)
 
-    args.syntax_graph.add_node(
-        args.n_id,
-        expression=expr,
-        label_type="Export",
-    )
-
-    return args.n_id
+    return build_export_statement_node(args, expression, export_block)

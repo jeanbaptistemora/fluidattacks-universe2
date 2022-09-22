@@ -14,7 +14,6 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
-    match_ast_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -22,12 +21,14 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_id = match_ast_d(args.ast_graph, args.n_id, "scoped_identifier")
-    if not c_id:
+    c_types = ("scoped_identifier", "identifier", "asterisk")
+    childs = match_ast(args.ast_graph, args.n_id, *c_types)
+    text_node = childs.get("scoped_identifier") or childs.get("identifier")
+    if not text_node:
         raise MissingCaseHandling(
             f"Bad import expression handling in {args.n_id}"
         )
-    import_text = node_to_str(args.ast_graph, c_id)
-    if match_ast(args.ast_graph, args.n_id, "asterisk").get("asterisk"):
+    import_text = node_to_str(args.ast_graph, text_node)
+    if childs.get("asterisk"):
         import_text += ".*"
     return build_import_statement_node(args, import_text)
