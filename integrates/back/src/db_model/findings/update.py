@@ -144,6 +144,8 @@ async def update_metadata(
             else FindingCvssVersion.V20
         )
         metadata_item["cvss_version"] = cvss_version.value
+    if "hacker_email" in metadata_item:
+        metadata_item["analyst_email"] = metadata_item.pop("hacker_email")
     condition_expression = Attr(key_structure.partition_key).exists()
     await operations.update_item(
         condition_expression=condition_expression,

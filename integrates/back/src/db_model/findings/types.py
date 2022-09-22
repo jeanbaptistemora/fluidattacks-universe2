@@ -199,6 +199,7 @@ class FindingMetadataToUpdate(NamedTuple):
     attack_vector_description: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
+    hacker_email: Optional[str] = None
     recommendation: Optional[str] = None
     severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
     sorts: Optional[FindingSorts] = None
