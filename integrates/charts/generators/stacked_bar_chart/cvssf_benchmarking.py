@@ -91,10 +91,10 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
                         chuncked_findings
                     )
                     for chuncked_findings in chunked(
-                        [finding.id for finding in group_findings], 16
+                        [finding.id for finding in group_findings], 8
                     )
                 ),
-                workers=4,
+                workers=2,
             )
         )
     )
