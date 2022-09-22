@@ -25,6 +25,8 @@ const MAX_DESCRIPTION_LENGTH = 200;
 const MAX_GROUP_LENGTH = 20;
 const MAX_ORG_LENGTH = 10;
 const MIN_ORG_LENGTH = 4;
+const MAX_COUNTRY_LENGTH = 56;
+const MIN_COUNTRY_LENGTH = 4;
 
 interface IAddOrganizationProps {
   isSubmitting: boolean;
@@ -36,6 +38,7 @@ interface IAddOrganizationProps {
   onSubmit: (values: {
     groupDescription: string;
     groupName: string;
+    organizationCountry: string;
     organizationName: string;
     reportLanguage: string;
     terms: string[];
@@ -75,6 +78,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
         t("validations.maxLength", { count: MAX_GROUP_LENGTH })
       )
       .matches(regExps.alphanumeric, t("validations.alphanumeric")),
+    organizationCountry: string()
+      .required(t("validations.required"))
+      .min(
+        MIN_COUNTRY_LENGTH,
+        t("validations.minLength", { count: MIN_COUNTRY_LENGTH })
+      )
+      .max(
+        MAX_COUNTRY_LENGTH,
+        t("validations.maxLength", { count: MAX_COUNTRY_LENGTH })
+      )
+      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
     organizationName: string()
       .required(t("validations.required"))
       .min(
@@ -106,6 +120,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 name={"organizationName"}
                 placeholder={t("autoenrollment.organizationName.placeholder")}
                 tooltip={t("autoenrollment.organizationName.tooltip")}
+              />
+            </Col>
+            <Col lg={100} md={100} sm={100}>
+              <Input
+                disabled={successMutation.organization}
+                label={t("autoenrollment.organizationCountry.label")}
+                name={"organizationCountry"}
+                placeholder={t(
+                  "autoenrollment.organizationCountry.placeholder"
+                )}
+                tooltip={t("autoenrollment.organizationCountry.tooltip")}
               />
             </Col>
             <Col lg={100} md={100} sm={100}>

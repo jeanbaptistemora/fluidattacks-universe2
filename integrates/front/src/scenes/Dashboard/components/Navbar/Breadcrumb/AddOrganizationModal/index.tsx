@@ -26,6 +26,10 @@ import type {
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
+const MAX_ORG_LENGTH = 10;
+const MIN_ORG_LENGTH = 4;
+const MAX_COUNTRY_LENGTH = 56;
+const MIN_COUNTRY_LENGTH = 4;
 const tPath = "sidebar.newOrganization.modal.";
 
 const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
@@ -75,19 +79,36 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
     }
   );
 
-  function handleSubmit(values: { name: string }): void {
+  function handleSubmit(values: { country: string; name: string }): void {
     mixpanel.track("AddOrganization");
-    void addOrganization({ variables: { name: values.name.toUpperCase() } });
+    void addOrganization({
+      variables: { country: values.country, name: values.name.toUpperCase() },
+    });
   }
 
-  const minLenth = 4;
-  const maxLength = 10;
   const validations = object().shape({
+    country: string()
+      .required()
+      .min(
+        MIN_COUNTRY_LENGTH,
+        t("validations.minLength", { count: MIN_COUNTRY_LENGTH })
+      )
+      .max(
+        MAX_COUNTRY_LENGTH,
+        t("validations.maxLength", { count: MAX_COUNTRY_LENGTH })
+      )
+      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
     name: string()
       .required()
-      .min(minLenth)
-      .max(maxLength)
-      .matches(/^[a-zA-Z]+$/u),
+      .min(
+        MIN_ORG_LENGTH,
+        t("validations.minLength", { count: MIN_ORG_LENGTH })
+      )
+      .max(
+        MAX_ORG_LENGTH,
+        t("validations.maxLength", { count: MAX_ORG_LENGTH })
+      )
+      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
   });
 
   // Render Elements
@@ -96,13 +117,14 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       <Modal onClose={onClose} open={open} title={t(`${tPath}title`)}>
         <Formik
           enableReinitialize={true}
-          initialValues={{ name: "" }}
+          initialValues={{ country: "", name: "" }}
           name={"newOrganization"}
           onSubmit={handleSubmit}
           validationSchema={validations}
         >
           <Form>
             <Input name={"name"} placeholder={t(`${tPath}name`)} />
+            <Input name={"country"} placeholder={t(`${tPath}country`)} />
             <ModalConfirm
               disabled={submitting}
               onCancel={onClose}

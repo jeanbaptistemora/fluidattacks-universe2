@@ -45,7 +45,7 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getAllByRole("textbox")).toHaveLength(2);
 
     userEvent.click(screen.getByText("components.modal.cancel"));
 
@@ -62,6 +62,7 @@ describe("Add organization modal", (): void => {
         request: {
           query: ADD_NEW_ORGANIZATION,
           variables: {
+            country: "Colombia",
             name: "ESDEATH",
           },
         },
@@ -84,9 +85,8 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    expect(screen.getByRole("textbox")).toBeInTheDocument();
-
-    userEvent.type(screen.getByRole("textbox"), "esdeath");
+    userEvent.type(screen.getByLabelText("name"), "esdeath");
+    userEvent.type(screen.getByLabelText("country"), "Colombia");
 
     userEvent.click(screen.getByText("components.modal.confirm"));
 

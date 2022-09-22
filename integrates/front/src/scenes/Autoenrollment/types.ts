@@ -59,6 +59,7 @@ interface IRootAttr {
 interface IOrgAttr {
   groupDescription: string;
   groupName: string;
+  organizationCountry: string;
   organizationName: string;
   reportLanguage: string;
   terms: string[];

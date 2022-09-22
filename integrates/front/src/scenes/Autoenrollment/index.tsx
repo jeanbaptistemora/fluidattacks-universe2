@@ -93,6 +93,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const [organizationValues, setOrganizationValues] = useState<IOrgAttr>({
     groupDescription: "",
     groupName: "",
+    organizationCountry: "",
     organizationName: "",
     reportLanguage: "",
     terms: [],
@@ -235,6 +236,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     async (values: {
       groupDescription: string;
       groupName: string;
+      organizationCountry: string;
       organizationName: string;
       reportLanguage: string;
       terms: string[];
@@ -251,7 +253,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           mixpanel.track("AddOrganization");
           const response = await timeoutPromise(
             addOrganization({
-              variables: { name: values.organizationName.toUpperCase() },
+              variables: {
+                country: values.organizationCountry,
+                name: values.organizationName.toUpperCase(),
+              },
             }),
             5000
           );

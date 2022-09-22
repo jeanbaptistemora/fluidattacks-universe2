@@ -349,6 +349,11 @@ export const enTranslations: ResourceKey = {
     notElegible:
       "You're not elegible for the free trial.\n" +
       "You have been an active user",
+    organizationCountry: {
+      label: "Organization country",
+      placeholder: "",
+      tooltip: "Country where the organization is based in",
+    },
     organizationName: {
       label: "Organization name ",
       placeholder: "My organization",
@@ -3472,6 +3477,7 @@ export const enTranslations: ResourceKey = {
   sidebar: {
     newOrganization: {
       modal: {
+        country: "Country",
         invalidName: "Name must contain only alphanumeric characters",
         name: "Organization name",
         nameTaken: "Name already taken. Please try with a new one",

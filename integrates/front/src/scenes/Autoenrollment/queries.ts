@@ -69,8 +69,8 @@ const ADD_GROUP_MUTATION = gql`
 `;
 
 const ADD_ORGANIZATION = gql`
-  mutation AddOrganization($name: String!) {
-    addOrganization(name: $name) {
+  mutation AddOrganization($country: String!, $name: String!) {
+    addOrganization(country: $country, name: $name) {
       organization {
         id
         name
