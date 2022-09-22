@@ -7,7 +7,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import React, { useState } from "react";
 
 import { Table } from "components/TableNew";
 import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
@@ -578,5 +578,60 @@ describe("Table", (): void => {
     expect(
       screen.queryByRole("columnheader", { name: "Shirt Color" })
     ).toBeInTheDocument();
+  });
+
+  interface ITestComponentProps {
+    selectionMode: "checkbox" | "radio";
+  }
+
+  const TestComponent: React.FC<ITestComponentProps> = ({
+    selectionMode,
+  }): JSX.Element => {
+    const [selectedData, setSelectedData] = useState<IRandomData[]>([]);
+
+    return (
+      <React.Fragment>
+        <p>{JSON.stringify(selectedData[0])}</p>
+        <Table
+          columns={columns}
+          data={data}
+          id={"testTable"}
+          rowSelectionSetter={setSelectedData}
+          rowSelectionState={selectedData}
+          selectionMode={selectionMode}
+        />
+      </React.Fragment>
+    );
+  };
+
+  it("should only select one when radio selection", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(<TestComponent selectionMode={"radio"} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
+
+    userEvent.click(screen.queryAllByRole("radio")[0]);
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          `{"color":"blue","date":"2022-01-20","name":"Daria Hays","numberrange":12,"numbertrack":6}`
+        )
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(1);
+
+    userEvent.click(screen.queryAllByRole("radio")[1]);
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          `{"color":"blue","date":"2022-06-18","name":"Palmer Wilcox","numberrange":12,"numbertrack":2}`
+        )
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(1);
   });
 });
