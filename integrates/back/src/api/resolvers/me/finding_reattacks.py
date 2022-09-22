@@ -29,11 +29,16 @@ async def resolve(
     **_kwargs: None,
 ) -> tuple[Finding, ...]:
 
+    not_zero_requested = {
+        "unreliable_indicators.unreliable_verification_summary.requested": 0
+    }
+
     results = await search(
         must_filters=[
             {"verification.status": "REQUESTED"},
             {"unreliable_indicators.unreliable_status": "OPEN"},
         ],
+        must_not_filters=[{"group_name": "narrabri"}, not_zero_requested],
         index="findings",
         limit=100,
     )

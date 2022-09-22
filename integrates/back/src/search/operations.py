@@ -29,6 +29,7 @@ async def search(  # pylint: disable=too-many-locals
     should_filters: Optional[list[dict[str, Any]]] = None,
     must_filters: Optional[list[dict[str, Any]]] = None,
     range_filters: Optional[dict[str, Any]] = None,
+    must_not_filters: Optional[list[dict[str, Any]]] = None,
 ) -> SearchResponse:
     """
     Searches for items matching both the user input (full-text)
@@ -38,8 +39,8 @@ async def search(  # pylint: disable=too-many-locals
     https://opensearch-project.github.io/opensearch-py/api-ref/client.html#opensearchpy.OpenSearch.search
     """
     client = await get_client()
-
     full_and_filters = []
+    full_must_not_filters = []
     full_or_filters = []
     query_range = []
 
@@ -47,6 +48,13 @@ async def search(  # pylint: disable=too-many-locals
         full_and_filters = [
             {"match": {key: {"query": value, "operator": "and"}}}
             for attrs in must_filters
+            for key, value in attrs.items()
+        ]
+
+    if must_not_filters:
+        full_must_not_filters = [
+            {"match": {key: {"query": value, "operator": "and"}}}
+            for attrs in must_not_filters
             for key, value in attrs.items()
         ]
 
@@ -78,6 +86,7 @@ async def search(  # pylint: disable=too-many-locals
                 "should": [
                     *full_or_filters,
                 ],
+                "must_not": [*full_must_not_filters],
             }
         }
     }
