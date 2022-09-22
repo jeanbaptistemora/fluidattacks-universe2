@@ -1007,6 +1007,7 @@ export const enTranslations: ResourceKey = {
             "Git repository was not accessible with the given URL and credentials",
           rootInGitignore:
             "Root name should not be included in gitignore pattern",
+          trial: "You can only have one root during the free trial",
         },
         filter: {
           exclude: "Exclusions",

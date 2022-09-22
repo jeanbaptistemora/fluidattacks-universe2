@@ -6,7 +6,7 @@
 
 import { Logger } from "utils/logger";
 
-interface ICountries {
+interface ICountry {
   currency: string;
   currency_name: string;
   emojiU: string;
@@ -23,9 +23,7 @@ interface ICountries {
   }[];
 }
 
-const countries = async (
-  setCountries: React.Dispatch<React.SetStateAction<ICountries[] | undefined>>
-): Promise<void> => {
+const getCountries = async (): Promise<ICountry[]> => {
   const url =
     "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json";
   const errorMsg = "Couldn't fetch countries, states and cities database";
@@ -34,17 +32,19 @@ const countries = async (
     const response = await fetch(url);
 
     if (response.status === 200) {
-      const countriesObj: ICountries[] = await response.json();
-      setCountries(countriesObj);
-    } else {
-      Logger.error(errorMsg, response);
-      setCountries(undefined);
+      const countries: ICountry[] = await response.json();
+
+      return countries;
     }
+    Logger.error(errorMsg, response);
+
+    return [];
   } catch (error) {
     Logger.error(errorMsg, error);
-    setCountries(undefined);
+
+    return [];
   }
 };
 
-export { countries };
-export type { ICountries };
+export { getCountries };
+export type { ICountry };

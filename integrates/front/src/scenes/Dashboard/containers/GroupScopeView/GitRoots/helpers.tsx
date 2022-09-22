@@ -363,6 +363,9 @@ const handleCreationError = (
           type: "error",
         });
         break;
+      case "Exception - The action is not allowed during the free trial":
+        msgError(translate.t("group.scope.git.errors.trial"));
+        break;
       default:
         setModalMessages({
           message: translate.t("groupAlerts.errorTextsad"),

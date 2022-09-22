@@ -15,8 +15,8 @@ import { Input, Select } from "components/Input";
 import { Gap, Hr } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
-import { countries } from "utils/countries";
-import type { ICountries } from "utils/countries";
+import { getCountries } from "utils/countries";
+import type { ICountry } from "utils/countries";
 import { FormikFileInput } from "utils/forms/fields";
 
 interface IAddOtherMethodModalProps {
@@ -46,11 +46,9 @@ export const AddOtherMethodModal = ({
     onChangeMethod("CREDIT_CARD");
   }
 
-  const [countriesData, setCountriesData] = useState<ICountries[] | undefined>(
-    undefined
-  );
-  const [states, setStates] = useState<string[] | undefined>(undefined);
-  const [cities, setCities] = useState<string[] | undefined>(undefined);
+  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [states, setStates] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
 
   const validations = object().shape({
     businessName: string()
@@ -63,10 +61,6 @@ export const AddOtherMethodModal = ({
       "isRequired",
       t("validations.required"),
       (value): boolean => {
-        if (cities === undefined) {
-          return true;
-        }
-
         return cities.length === 0 || value !== undefined;
       }
     ),
@@ -85,10 +79,6 @@ export const AddOtherMethodModal = ({
       "isRequired",
       t("validations.required"),
       (value): boolean => {
-        if (states === undefined) {
-          return true;
-        }
-
         return states.length === 0 || value !== undefined;
       }
     ),
@@ -100,13 +90,11 @@ export const AddOtherMethodModal = ({
   });
 
   useEffect((): void => {
-    async function getData(): Promise<void> {
-      await countries(setCountriesData);
-    }
-    getData().catch((): void => {
-      setCountriesData(undefined);
-    });
-  }, [setCountriesData]);
+    const loadCountries = async (): Promise<void> => {
+      setCountries(await getCountries());
+    };
+    void loadCountries();
+  }, [setCountries]);
 
   return (
     <Modal
@@ -132,10 +120,10 @@ export const AddOtherMethodModal = ({
           function changeCountry(): void {
             setFieldValue("state", "");
             setFieldValue("city", "");
-            setCities(undefined);
-            if (countriesData !== undefined && values.country !== "") {
+            setCities([]);
+            if (values.country !== "") {
               setStates(
-                countriesData
+                countries
                   .filter(
                     (country): boolean => country.name === values.country
                   )[0]
@@ -145,13 +133,9 @@ export const AddOtherMethodModal = ({
           }
           function changeState(): void {
             setFieldValue("city", "");
-            if (
-              countriesData !== undefined &&
-              values.country !== "" &&
-              values.state !== ""
-            ) {
+            if (values.country !== "" && values.state !== "") {
               setCities(
-                countriesData
+                countries
                   .filter(
                     (country): boolean => country.name === values.country
                   )[0]
@@ -186,18 +170,16 @@ export const AddOtherMethodModal = ({
                     required={true}
                   >
                     <option value={""}>{""}</option>
-                    {countriesData === undefined
-                      ? undefined
-                      : countriesData.map(
-                          (country): JSX.Element => (
-                            <option key={country.id} value={country.name}>
-                              {country.name}
-                            </option>
-                          )
-                        )}
+                    {countries.map(
+                      (country): JSX.Element => (
+                        <option key={country.id} value={country.name}>
+                          {country.name}
+                        </option>
+                      )
+                    )}
                   </Select>
                 </div>
-                {states === undefined || states.length === 0 ? undefined : (
+                {states.length === 0 ? undefined : (
                   <div
                     onClick={changeState}
                     onKeyDown={changeState}
@@ -221,7 +203,7 @@ export const AddOtherMethodModal = ({
                     </Select>
                   </div>
                 )}
-                {cities === undefined || cities.length === 0 ? undefined : (
+                {cities.length === 0 ? undefined : (
                   <Select
                     label={t(
                       "organization.tabs.billing.paymentMethods.add.otherMethods.city"

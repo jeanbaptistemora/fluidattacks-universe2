@@ -12,8 +12,8 @@ import { boolean, mixed, object, string } from "yup";
 
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { countries } from "utils/countries";
-import type { ICountries } from "utils/countries";
+import { getCountries } from "utils/countries";
+import type { ICountry } from "utils/countries";
 import {
   FormikDropdown,
   FormikFileInput,
@@ -55,12 +55,9 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
 }: IUpdateOtherMethodModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [countriesData, setCountriesData] = useState<ICountries[] | undefined>(
-    undefined
-  );
-
-  const [states, setStates] = useState<string[] | undefined>(undefined);
-  const [cities, setCities] = useState<string[] | undefined>(undefined);
+  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [states, setStates] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
 
   const validations = object().shape({
     businessName: string()
@@ -75,10 +72,6 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
       "isRequired",
       t("validations.required"),
       (value): boolean => {
-        if (cities === undefined) {
-          return true;
-        }
-
         return cities.length === 0 || value !== undefined;
       }
     ),
@@ -98,10 +91,6 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
       "isRequired",
       t("validations.required"),
       (value): boolean => {
-        if (states === undefined) {
-          return true;
-        }
-
         return states.length === 0 || value !== undefined;
       }
     ),
@@ -113,13 +102,11 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
   });
 
   useEffect((): void => {
-    async function getData(): Promise<void> {
-      await countries(setCountriesData);
-    }
-    getData().catch((): void => {
-      setCountriesData(undefined);
-    });
-  }, [setCountriesData]);
+    const loadCountries = async (): Promise<void> => {
+      setCountries(await getCountries());
+    };
+    void loadCountries();
+  }, [setCountries]);
 
   return (
     <Modal
@@ -137,10 +124,10 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
           function changeCountry(): void {
             setFieldValue("state", "");
             setFieldValue("city", "");
-            setCities(undefined);
-            if (countriesData !== undefined && values.country !== "") {
+            setCities([]);
+            if (values.country !== "") {
               setStates(
-                countriesData
+                countries
                   .filter(
                     (country): boolean => country.name === values.country
                   )[0]
@@ -150,13 +137,9 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
           }
           function changeState(): void {
             setFieldValue("city", "");
-            if (
-              countriesData !== undefined &&
-              values.country !== "" &&
-              values.state !== ""
-            ) {
+            if (values.country !== "" && values.state !== "") {
               setCities(
-                countriesData
+                countries
                   .filter(
                     (country): boolean => country.name === values.country
                   )[0]
@@ -198,69 +181,63 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
               >
                 <Field component={FormikDropdown} name={"country"}>
                   <option value={""}>{""}</option>
-                  {countriesData === undefined
-                    ? undefined
-                    : countriesData.map(
-                        (country): JSX.Element => (
-                          <option key={country.id} value={country.name}>
-                            {country.name}
+                  {countries.map(
+                    (country): JSX.Element => (
+                      <option key={country.id} value={country.name}>
+                        {country.name}
+                      </option>
+                    )
+                  )}
+                </Field>
+              </div>
+              {states.length > 0 ? (
+                <React.Fragment>
+                  <div>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.state"
+                      )}
+                    </ControlLabel>
+                  </div>
+                  <div
+                    onClick={changeState}
+                    onKeyDown={changeState}
+                    role={"listitem"}
+                  >
+                    <Field component={FormikDropdown} name={"state"}>
+                      <option value={""}>{""}</option>
+                      {states.map(
+                        (state): JSX.Element => (
+                          <option key={state} value={state}>
+                            {state}
                           </option>
                         )
                       )}
-                </Field>
-              </div>
-              {states === undefined
-                ? undefined
-                : states.length > 0 && (
-                    <React.Fragment>
-                      <div>
-                        <ControlLabel>
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          {t(
-                            "organization.tabs.billing.paymentMethods.add.otherMethods.state"
-                          )}
-                        </ControlLabel>
-                      </div>
-                      <div
-                        onClick={changeState}
-                        onKeyDown={changeState}
-                        role={"listitem"}
-                      >
-                        <Field component={FormikDropdown} name={"state"}>
-                          <option value={""}>{""}</option>
-                          {states.map(
-                            (state): JSX.Element => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            )
-                          )}
-                        </Field>
-                      </div>
-                    </React.Fragment>
-                  )}
-              {cities === undefined
-                ? undefined
-                : cities.length > 0 && (
-                    <div>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t(
-                          "organization.tabs.billing.paymentMethods.add.otherMethods.city"
-                        )}
-                      </ControlLabel>
-                      <Field component={FormikDropdown} name={"city"}>
-                        <option value={""}>{""}</option>
-                        {cities.map(
-                          (city): JSX.Element => (
-                            <option key={city} value={city}>
-                              {city}
-                            </option>
-                          )
-                        )}
-                      </Field>
-                    </div>
-                  )}
+                    </Field>
+                  </div>
+                </React.Fragment>
+              ) : undefined}
+              {cities.length > 0 ? (
+                <div>
+                  <ControlLabel>
+                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                    {t(
+                      "organization.tabs.billing.paymentMethods.add.otherMethods.city"
+                    )}
+                  </ControlLabel>
+                  <Field component={FormikDropdown} name={"city"}>
+                    <option value={""}>{""}</option>
+                    {cities.map(
+                      (city): JSX.Element => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      )
+                    )}
+                  </Field>
+                </div>
+              ) : undefined}
               {values.country === "Colombia" ? (
                 <React.Fragment>
                   <div>
