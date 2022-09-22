@@ -6,6 +6,10 @@ from . import (
     get_result,
     update_services,
 )
+from custom_exceptions import (
+    InvalidCannotModifyNicknameWhenClosing,
+    InvalidNewVulnState,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -315,53 +319,55 @@ async def test_upload_file_access_denied_error(
     assert result["errors"][0]["message"] == "Access denied"
 
 
-# @pytest.mark.asyncio
-# @pytest.mark.resolver_test_group("upload_file")
-# @pytest.mark.parametrize(
-#     ["email"],
-#     [
-#         ["admin@gmail.com"],
-#         ["hacker@gmail.com"],
-#         ["reattacker@gmail.com"],
-#     ],
-# )
-# async def test_upload_new_closed_error(populate: bool, email: str) -> None:
-#     assert populate
-#     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-#     file_name = "test-vulns-new-closed-error.yaml"
-#     result: dict[str, Any] = await get_result(
-#         user=email,
-#         finding=finding_id,
-#         yaml_file_name=file_name,
-#     )
-# assert "errors" in result
-# assert result["errors"][0]["message"] == InvalidNewVulnState.msg
+@pytest.mark.skip(reason="Return error on localhost, no errors in result")
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_upload_new_closed_error(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name = "test-vulns-new-closed-error.yaml"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == InvalidNewVulnState.msg
 
 
-# @pytest.mark.asyncio
-# @pytest.mark.resolver_test_group("upload_file")
-# @pytest.mark.parametrize(
-#     ["email"],
-#     [
-#         ["admin@gmail.com"],
-#         ["hacker@gmail.com"],
-#         ["reattacker@gmail.com"],
-#     ],
-# )
-# async def test_upload_error(populate: bool, email: str) -> None:
-#     assert populate
-#     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-#     file_name = "test-vulns-error.yaml"
-#     result: dict[str, Any] = await get_result(
-#         user=email,
-#         finding=finding_id,
-#         yaml_file_name=file_name,
-#     )
-# assert "errors" in result
-# assert (
-#     result["errors"][0]["message"]
-#     == InvalidCannotModifyNicknameWhenClosing.msg
-# )
+@pytest.mark.skip(reason="Return error on localhost, no errors in result")
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_upload_error(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name = "test-vulns-error.yaml"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == InvalidCannotModifyNicknameWhenClosing.msg
+    )
 
 
 @pytest.mark.asyncio

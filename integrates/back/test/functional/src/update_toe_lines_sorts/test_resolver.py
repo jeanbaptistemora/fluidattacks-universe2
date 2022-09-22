@@ -157,7 +157,6 @@ async def test_update_toe_lines_sorts_range_fail(
     assert result["errors"][0]["message"] == InvalidSortsRiskLevel.msg
 
 
-@pytest.mark.skip
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
 async def test_update_toe_lines_sorts_no_filename(populate: bool) -> None:

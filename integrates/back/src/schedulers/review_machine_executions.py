@@ -104,7 +104,6 @@ async def main() -> None:
             > 1800
         ]
 
-        # return None
         actions_dict = {
             action.key: action
             for action in (
