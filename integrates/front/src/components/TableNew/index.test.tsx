@@ -580,6 +580,46 @@ describe("Table", (): void => {
     ).toBeInTheDocument();
   });
 
+  it("should sort data", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columnToggle={true}
+        columns={columns}
+        data={data}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: "Name" })
+    ).toBeInTheDocument();
+
+    expect(screen.queryAllByRole("cell")[0].textContent).toBe("Daria Hays");
+
+    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("cell")[0].textContent).toBe("Amber Morgan");
+    });
+
+    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("cell")[0].textContent).toBe(
+        "Timothy Powers"
+      );
+    });
+
+    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("cell")[0].textContent).toBe("Daria Hays");
+    });
+  });
+
   interface ITestComponentProps {
     selectionMode: "checkbox" | "radio";
   }
