@@ -29,7 +29,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Exposure Trends by Categories",
     "Vulnerabilities treatment",
     "Vulnerabilities by source",
-    "Remediation Rate",
+    "Remediation rate",
     "Total types",
     "Days until zero exposure",
     "Vulnerabilities with no treatment",

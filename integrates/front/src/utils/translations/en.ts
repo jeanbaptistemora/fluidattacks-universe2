@@ -253,7 +253,7 @@ export const enTranslations: ResourceKey = {
         title: "Sprint exposure increment",
       },
       remediationRate: {
-        title: "Remediation Rate",
+        title: "Remediation rate",
       },
       remediationRemediated: {
         title: "Sprint exposure change overall",
