@@ -263,7 +263,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    organization_name = organization.name
     if (
         ensure_org_uniqueness
         and group.state.type != GroupSubscriptionType.ONESHOT
@@ -271,7 +270,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             url,
             branch,
             group_name,
-            await loaders.organization_roots.load(organization_name),
+            await loaders.organization_roots.load(organization.name),
             include_inactive=True,
         )
     ):
@@ -303,7 +302,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         created_date=modified_date,
         group_name=group_name,
         id=root_id,
-        organization_name=organization_name,
+        organization_name=organization.name,
         state=GitRootState(
             branch=branch,
             credential_id=organization_credential.id

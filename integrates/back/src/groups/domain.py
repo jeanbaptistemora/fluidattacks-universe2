@@ -128,6 +128,9 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+from enrollment import (
+    domain as enrollment_domain,
+)
 from events import (
     domain as events_domain,
 )
@@ -285,19 +288,6 @@ async def reject_register_for_group_invitation(
     )
 
 
-async def _is_trial(
-    loaders: Dataloaders, user_email: str, organization: Organization
-) -> bool:
-    enrollment: Enrollment = await loaders.enrollment.load(user_email)
-    trial = enrollment.trial
-    is_old = trial.completed and not trial.start_date
-    has_payment_method = trial.completed and organization.payment_methods
-
-    if is_old or has_payment_method:
-        return False
-    return True
-
-
 async def add_group(
     *,
     loaders: Dataloaders,
@@ -335,7 +325,7 @@ async def add_group(
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    if await _is_trial(loaders, user_email, organization):
+    if await enrollment_domain.is_trial(loaders, user_email, organization):
         managed = GroupManaged.TRIAL
         if (
             await loaders.organization_groups.load(organization.id)
@@ -633,7 +623,9 @@ async def update_group(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    if await _is_trial(loaders, user_email, organization) and (
+    if await enrollment_domain.is_trial(
+        loaders, user_email, organization
+    ) and (
         has_squad
         or not has_machine
         or service != GroupService.WHITE

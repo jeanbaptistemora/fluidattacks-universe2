@@ -11,6 +11,9 @@ from custom_exceptions import (
     InvalidParameter,
     UnableToSendMail,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     enrollment as enrollment_model,
 )
@@ -18,6 +21,9 @@ from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
     Trial,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from decorators import (
     retry_on_exceptions,
@@ -158,3 +164,16 @@ def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
         return EnrollmentTrialState.EXTENDED
 
     return EnrollmentTrialState.EXTENDED_ENDED
+
+
+async def is_trial(
+    loaders: Dataloaders, user_email: str, organization: Organization
+) -> bool:
+    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    trial = enrollment.trial
+    is_old = trial.completed and not trial.start_date
+    has_payment_method = trial.completed and organization.payment_methods
+
+    if is_old or has_payment_method:
+        return False
+    return True
