@@ -58,7 +58,9 @@ async def send_mail_free_trial_start(
     context = {
         "email": email_to,
         "empty_notification_notice": True,
-        "enrolled_date": datetime_utils.get_now(),
+        "enrolled_date": datetime_utils.get_as_str(
+            datetime_utils.get_now(), "%Y-%m-%d %H:%M:%S %Z"
+        ),
         "enrolled_name": full_name,
         "expires_date": datetime_utils.get_as_str(
             datetime_utils.get_now_plus_delta(days=21)

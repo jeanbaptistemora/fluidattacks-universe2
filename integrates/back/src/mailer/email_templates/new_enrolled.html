@@ -15,15 +15,17 @@ SPDX-License-Identifier: MPL-2.0
       <div class="main-content">
         <p>Good news!</p>
         <p>
-          A new user has enrolled to ARM.
+          A new user has enrolled to ARM:
+          <ul>
+            <li><strong>Name:</strong> {{ enrolled_name }}</li>
+            <li><strong>Email:</strong> {{ email }}</li>
+            <li><strong>Enroll date:</strong> {{ enrolled_date }}</li>
+          </ul>
         </p>
         <p>
-          <strong>User name:</strong> {{ enrolled_name }}</br>
-          <strong>User email:</strong> {{ email }}</br>
-          <strong>Enroll date:</strong> {{ enrolled_date }}</br>
+          Best Regards,</br>
+          Fluid Attacks Team
         </p>
-        <p>Best Regards,</p>
-        <p>Fluid Attacks Team</p>
       </div>
       {% include 'layouts/components/footer.html' %}
 
