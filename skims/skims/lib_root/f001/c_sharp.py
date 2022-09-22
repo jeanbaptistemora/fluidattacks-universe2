@@ -11,9 +11,15 @@ from lib_root.utilities.common import (
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
+)
+from model.graph_model import (
+    Graph,
+    GraphDB,
+    GraphShardMetadataLanguage,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -24,22 +30,38 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+)
 from utils import (
     graph as g,
 )
 
 
+def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+    danger_methods = {"ExecuteNonQuery", "ExecuteScalar"}
+    danger_params = {"CommandText", "UserParams"}
+    if graph.nodes[n_id].get("member") not in danger_methods:
+        return False
+    test_nid = graph.nodes[n_id].get("expression_id")
+    for path in get_backward_paths(graph, test_nid):
+        evaluation = evaluate(method, graph, path, test_nid)
+        if evaluation and evaluation.triggers == danger_params:
+            return True
+    return False
+
+
 def sql_injection(
     shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     danger_methods = {"ExecuteSqlCommand"}
     danger_objects = {"SqlCommand"}
-    method = core_model.MethodsEnum.CS_SQL_INJECTION
+    method = MethodsEnum.CS_SQL_INJECTION
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
+            GraphShardMetadataLanguage.CSHARP,
         ):
             if shard.syntax_graph is None:
                 continue
@@ -59,6 +81,35 @@ def sql_injection(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.001.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def sql_user_params(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.QUERY_F001
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.CSHARP,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for nid in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
+            ):
+                if is_execute_danger(graph, nid, method):
+                    yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.F001.user_controled_param",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
