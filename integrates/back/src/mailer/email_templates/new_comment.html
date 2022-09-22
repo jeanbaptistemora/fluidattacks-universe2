@@ -29,14 +29,7 @@ SPDX-License-Identifier: MPL-2.0
         <strong>{{ finding_name }}</strong>
         {% endif %}
         has been
-        {% if parent == '0' %} made {% else %} replied {% endif %} by
-        <strong><a href="mailto:{{ user_email }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #ff3435;"
-        >
-          {{ user_email -}}
-        </a></strong>
+        {% if parent == '0' %} made {% else %} replied {% endif %}
         in the group <strong>{{ group }}</strong>:
       </p>
       {{ text_area(comment) }}

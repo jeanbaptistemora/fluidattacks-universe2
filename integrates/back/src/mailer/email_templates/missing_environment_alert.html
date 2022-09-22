@@ -16,8 +16,8 @@ SPDX-License-Identifier: MPL-2.0
       <p>Hi {{ name }},</p>
       <p>
         You have not yet registered any environment in the group
-        <strong>{{ group }}</strong>, created {{ group_date }}
-        {% if group_date == 1 %}week{% else %}weeks{% endif %} ago.
+        <strong>{{ group }}</strong>, created <strong>{{ group_date }}
+        {% if group_date == 1 %}week{% else %}weeks{% endif %} ago</strong>.
         If you are not sure how to register the environments, please
         <a
           href="https://docs.fluidattacks.com/machine/web/groups/scope/roots/#managing-git-root-environments"
