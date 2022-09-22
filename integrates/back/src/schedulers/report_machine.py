@@ -965,7 +965,7 @@ async def process_execution(
 ) -> bool:
     # pylint: disable=too-many-locals
     criteria_vulns = criteria_vulns or await get_vulns_file()
-    criteria_reqs = criteria_reqs or get_requirements_file()
+    criteria_reqs = criteria_reqs or await get_requirements_file()
     loaders: Dataloaders = get_new_context()
     boto3_session = aioboto3.Session()
     group_name = execution_id.split("_", maxsplit=1)[0]
@@ -1090,7 +1090,7 @@ def _callback_done(
 
 async def main() -> None:
     criteria_vulns = await get_vulns_file()
-    criteria_reqs = get_requirements_file()
+    criteria_reqs = await get_requirements_file()
     sqs = boto3.resource("sqs", region_name=FI_AWS_REGION_NAME)
     queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
     signal_handler = SignalHandler()

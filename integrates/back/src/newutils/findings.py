@@ -5,9 +5,10 @@
 from aioextensions import (
     collect,
 )
-import aiohttp
+import aiofiles
 from context import (
     FI_INTEGRATES_CRITERIA_REQUIREMENTS,
+    FI_INTEGRATES_CRITERIA_VULNERABILITIES,
 )
 from custom_exceptions import (
     InvalidFileStructure,
@@ -73,23 +74,18 @@ async def append_records_to_file(
 
 async def get_vulns_file() -> Dict:
     """Parses the vulns info yaml from the repo into a dictionary."""
-    base_url: str = (
-        "https://gitlab.com/api/v4/projects/20741933/repository/files"
-    )
-    branch_ref: str = "trunk"
-    vulns_file_id = "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml"
-    url: str = f"{base_url}/{vulns_file_id}/raw?ref={branch_ref}"
-
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            return yaml.safe_load(await response.text())
+    async with aiofiles.open(
+        FI_INTEGRATES_CRITERIA_VULNERABILITIES, encoding="utf-8"
+    ) as handler:
+        return yaml.safe_load(await handler.read())
 
 
-def get_requirements_file() -> Dict[str, Any]:
-    with open(
+async def get_requirements_file() -> Dict[str, Any]:
+    """Parses the requirements info yaml from the repo into a dictionary."""
+    async with aiofiles.open(
         FI_INTEGRATES_CRITERIA_REQUIREMENTS, encoding="utf-8"
     ) as handler:
-        return yaml.safe_load(handler)
+        return yaml.safe_load(await handler.read())
 
 
 async def is_valid_finding_title(

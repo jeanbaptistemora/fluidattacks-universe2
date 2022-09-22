@@ -39,7 +39,7 @@ from unittest import (
 async def test_persist_result(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()
-    criteria_reqs = get_requirements_file()
+    criteria_reqs = await get_requirements_file()
     with mock.patch(
         "schedulers.report_machine.get_config",
         side_effect=mock.AsyncMock(
@@ -235,7 +235,7 @@ async def test_persist_result(populate: bool) -> None:
 async def test_report_f079(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()
-    criteria_reqs = get_requirements_file()
+    criteria_reqs = await get_requirements_file()
     with mock.patch(
         "schedulers.report_machine.get_config",
         side_effect=mock.AsyncMock(
@@ -412,7 +412,7 @@ async def test_report_f079(populate: bool) -> None:
 async def test_duplicated_reports(populate: bool) -> None:
     assert populate
     criteria_vulns = await get_vulns_file()
-    criteria_reqs = get_requirements_file()
+    criteria_reqs = await get_requirements_file()
     with mock.patch(
         "schedulers.report_machine.get_config",
         side_effect=mock.AsyncMock(
