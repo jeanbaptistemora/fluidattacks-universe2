@@ -97,15 +97,16 @@ async def send_mail_free_trial_over(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     context = {
-        "expires_date": datetime_utils.get_now(),
-        "payment_link": f"{BASE_URL}/orgs/{org_name}/billing",
+        "vulnerabilities_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns"
+        ),
     }
     await send_mails_async(
         loaders,
         email_to=email_to,
         context=context,
         tags=[],
-        subject="[ARM] Want to continue with your machine plan free trial?",
+        subject="[ARM] your free trial ends today.",
         template_name="free_trial_over",
     )
 
