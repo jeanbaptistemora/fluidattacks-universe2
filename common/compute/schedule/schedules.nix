@@ -938,7 +938,7 @@
     ];
 
     schedule_expression = "cron(45 0,4,8 ? * 2-6 *)";
-    size = "small";
+    size = "medium";
     awsRole = "prod_integrates";
     attempts = 1;
     timeout = 86400;
