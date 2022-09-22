@@ -20,6 +20,7 @@ from parse_gemfile import (
 import re
 from typing import (
     Iterator,
+    List,
     Pattern,
 )
 
@@ -29,6 +30,7 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
         form_req: Pattern[str] = re.compile(
             r"^gem\s*.*,[^><~!]*(=?\s?[\d+\.?]+)"
         )
+        equal_patt: Pattern[str] = re.compile(r"= ?")
         for line_number, line in enumerate(content.splitlines(), 1):
             if not line:
                 continue
@@ -36,7 +38,9 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
                 continue
             line = GemfileParser.preprocess(line)
             line = line[3:]
-            line_items = parse_line(line, gem_file=True)
+            line_items = parse_line(line)
+            line_version: str = line_items["requirement"]
+            version = re.sub(equal_patt, "", line_version)
             yield (
                 {
                     "column": 0,
@@ -46,7 +50,7 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
                 {
                     "column": 0,
                     "line": line_number,
-                    "item": line_items.get("requirement"),
+                    "item": version,
                 },
             )
 
@@ -62,23 +66,24 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
 def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         line_gem: bool = False
-        format_deps: Pattern[str] = re.compile(r"\s+(.*\([^><~,]+\))")
+        form_dep: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
+        match_arr: List[str] = []
         for line_number, line in enumerate(content.splitlines(), 1):
             if line.startswith("GEM"):
                 line_gem = True
             elif not line_gem:
                 continue
-            elif matched := re.match(format_deps, line):
-                line = matched.group(1)
-                line = GemfileParser.preprocess(line)
-                line_items = parse_line(line, gem_file=False)
-                packg_name = line_items.get("name")
-                version = line_items.get("requirement")
+            elif matched := re.match(form_dep, line):
+                pck_name = matched.group(1)
+                version = matched.group(2)
+                if pck_name in match_arr:
+                    continue
+                match_arr.append(pck_name)
                 yield (
                     {
                         "column": 0,
                         "line": line_number,
-                        "item": packg_name,
+                        "item": pck_name,
                     },
                     {
                         "column": 0,
