@@ -12,6 +12,7 @@ from toolbox import (
     api,
 )
 from toolbox.api.integrates import (
+    get_paginated_fields,
     Response,
 )
 from toolbox.constants import (
@@ -39,7 +40,7 @@ def get_vulnerabilities_to_reattack(
     """
     vulnerabilities_to_reattack: List[Dict[str, str]] = []
     query = """
-        query MeltsDoGetFindingVulnerabilities(
+        query MeltsGetVulnerabilitiesToReattack(
             $after: String
             $finding_id: String!
             $first: Int
@@ -154,15 +155,45 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
         for group_data in org.get("groups", [])
     ]
 
+    vulns_to_reattack_query: str = """
+        query MeltsGetVulnerabilitiesToReattack(
+            $after: String
+            $finding_id: String!
+            $first: Int
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                vulnerabilitiesToReattackConnection(
+                    after: $after,
+                    first: $first,
+                ) {
+                    edges {
+                        node {
+                            id
+                            lastVerificationDate
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
+            }
+        }
+    """
+
     # Filling vulnerability info
     for group_data in groups_info:
         for finding in group_data["findings"]:
-            finding[
-                "vulnerabilitiesToReattack"
-            ] = get_vulnerabilities_to_reattack(finding["id"])
+            finding["vulnerabilitiesToReattack"] = get_paginated_fields(
+                api_token=API_TOKEN,
+                paginated_field="vulnerabilitiesToReattackConnection",
+                parent_field="finding",
+                params=dict(finding_id=finding["id"]),
+                query=vulns_to_reattack_query,
+            )
 
     # cleaning empty findigs
-    print(f"Data: {groups_info}")
     groups_info = list(
         filter(
             lambda info: info.get("findings")
