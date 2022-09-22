@@ -48,6 +48,15 @@ p, ol, ul {
   opacity: 1 !important;
 }
 
+.exposed-over-time-cvssf-area {
+  opacity: 1 !important;
+  fill: #fda6ab !important;
+}
+
+.exposed-over-time-cvssf-line {
+  stroke-width: 3px !important;
+}
+
 .c3-text {
   transform: translate(0, 15px);
   fill: white !important;

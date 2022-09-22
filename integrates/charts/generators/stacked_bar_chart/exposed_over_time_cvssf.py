@@ -253,7 +253,7 @@ def format_document(
             colors=dict(
                 Exposure=RISK.more_agressive,
             ),
-            type="area-spline",
+            type="area",
             groups=[
                 [
                     "Exposure",
@@ -290,7 +290,7 @@ def format_document(
             ),
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         point=dict(
             focus=dict(
@@ -298,12 +298,7 @@ def format_document(
                     enabled=True,
                 ),
             ),
-            r=0 if len(columns[0]) > 2 else 3,
-        ),
-        spline=dict(
-            interpolation=dict(
-                type="monotone",
-            ),
+            r=3,
         ),
     )
 
