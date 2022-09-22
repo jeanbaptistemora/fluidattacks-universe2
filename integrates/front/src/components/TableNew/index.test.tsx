@@ -652,4 +652,36 @@ describe("Table", (): void => {
       );
     });
   });
+
+  it("should select many checkboxes", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(<TestComponent selectionMode={"checkbox"} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+      0
+    );
+
+    userEvent.click(screen.queryAllByRole("checkbox")[1]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        2
+      );
+    });
+
+    userEvent.click(screen.queryAllByRole("checkbox")[2]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        3
+      );
+    });
+
+    userEvent.click(screen.queryAllByRole("checkbox")[3]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        4
+      );
+    });
+  });
 });
