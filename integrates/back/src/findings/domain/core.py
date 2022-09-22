@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=too-many-lines
 from aiodataloader import (
     DataLoader,
 )
@@ -737,7 +738,7 @@ async def send_vulnerability_report(
     severity_score: Decimal = get_severity_score(finding.severity)
     severity_level: str = get_severity_level(severity_score)
     if (
-        severity_score >= 7.0
+        severity_score >= 5.0
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         schedule(
@@ -747,6 +748,9 @@ async def send_vulnerability_report(
                 finding_title=finding.title,
                 finding_id=finding_id,
                 vulnerabilities_properties=vulnerabilities_properties,
+                responsible=finding.state.modified_by
+                if is_closed
+                else finding.hacker_email,
                 severity_score=severity_score,
                 severity_level=severity_level,
                 is_closed=is_closed,

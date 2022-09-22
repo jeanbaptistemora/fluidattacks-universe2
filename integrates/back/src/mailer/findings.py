@@ -303,13 +303,14 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     )
 
 
-async def send_mail_vulnerability_report(
+async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     group_name: str = "",
     finding_title: str,
     finding_id: str,
     vulnerabilities_properties: Dict[str, Any],
+    responsible: str,
     severity_score: Decimal,
     severity_level: str,
     is_closed: bool = False,
@@ -338,6 +339,7 @@ async def send_mail_vulnerability_report(
             f"{finding_id}/locations"
         ),
         "vulns_props": vulnerabilities_properties,
+        "responsible": responsible,
         "severity_score": severity_score,
         "severity_level": severity_level.capitalize(),
         "state": state,

@@ -135,6 +135,7 @@ async def mutate(
                     finding_title=finding.title,
                     finding_id=finding_id,
                     vulnerabilities_properties=vulns_props,
+                    responsible=finding.hacker_email,
                     severity_score=severity_score,
                     severity_level=severity_level,
                 )

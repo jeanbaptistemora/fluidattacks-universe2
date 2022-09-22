@@ -24,12 +24,12 @@ SPDX-License-Identifier: MPL-2.0
             rel="noopener noreferrer"
             style="color: #ff3435;"
           >
-            {{ user_email }}
+            {{ user_email -}}
         </a></strong>:
       </p>
       <p>
         <strong>Type of vulnerability:</strong> {{ finding_name }} <br>
-        <strong>solution applied:</strong>
+        <strong>Solution applied:</strong>
         {% for line in solution_description %}
         {{ line }}<br>
         {% endfor %}
