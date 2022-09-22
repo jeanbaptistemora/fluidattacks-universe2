@@ -12,6 +12,7 @@ from .types import (
     OrganizationMetadataToUpdate,
     OrganizationPaymentMethods,
     OrganizationState,
+    OrganizationUnreliableIndicators,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -147,3 +148,11 @@ def format_documents(documents: Item) -> OrganizationDocuments:
         if documents.get("tax_id")
         else None,
     )
+
+
+def format_unreliable_indicators_item(
+    indicators: OrganizationUnreliableIndicators,
+) -> Item:
+    return {
+        "non_compliance_level": indicators.non_compliance_level,
+    }

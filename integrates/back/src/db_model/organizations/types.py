@@ -8,6 +8,9 @@ from db_model.organizations.enums import (
 from db_model.types import (
     Policies,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -39,6 +42,10 @@ class OrganizationState(NamedTuple):
     modified_by: str
     modified_date: str
     pending_deletion_date: Optional[str] = None
+
+
+class OrganizationUnreliableIndicators(NamedTuple):
+    non_compliance_level: Optional[Decimal] = None
 
 
 class Organization(NamedTuple):

@@ -13,6 +13,7 @@ from .update import (
     update_metadata,
     update_policies,
     update_state,
+    update_unreliable_indicators,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "update_metadata",
     "update_policies",
     "update_state",
+    "update_unreliable_indicators",
 ]
