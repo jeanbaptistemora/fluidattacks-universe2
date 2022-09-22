@@ -55,7 +55,13 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       onSort: onSortState,
       width: "10%",
     },
-
+    {
+      dataField: "url",
+      header: "URL",
+      onSort: onSortState,
+      visible: false,
+      width: "10",
+    },
     {
       dataField: "oldestReattackRequestedDate",
       header: "Reattack Date",

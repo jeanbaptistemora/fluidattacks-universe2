@@ -34,6 +34,7 @@ interface IVulnerabilitiesConnection {
 }
 interface IFindingFormatted extends ITodoFindingToReattackAttr {
   oldestReattackRequestedDate: string;
+  url: string;
 }
 
 export type {

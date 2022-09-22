@@ -36,6 +36,7 @@ const formatFindings = (
       oldestReattackRequestedDate: getOldestRequestedReattackDate(
         finding.vulnerabilitiesToReattackConnection.edges
       ),
+      url: `https://app.fluidattacks.com/groups/${finding.groupName}/vulns/${finding.id}/locations`,
     })
   );
 
