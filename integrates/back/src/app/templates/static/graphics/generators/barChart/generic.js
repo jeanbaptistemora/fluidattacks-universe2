@@ -9,9 +9,9 @@ const defaultPaddingRatio = 0.055;
 
 function getColor(d, originalValues) {
   if (originalValues[d[0].x] > 0) {
-    return '#db3a34';
+    return '#da1e28';
   }
-  return '#009044';
+  return '#33cc99';
 }
 
 function formatYTick(value) {
@@ -124,7 +124,7 @@ function render(dataDocument, height, width) {
     const { maxValueLogAdjusted, originalValues, data: columsData } = dataDocument;
     const { columns } = columsData;
     dataDocument.axis.y.tick = { format: formatYTickAdjusted };
-    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#db3a34' : '#009044');
+    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#da1e28' : '#33cc99');
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
     dataDocument.paddingRatioLeft = 0.065;
     dataDocument.data.labels = {
