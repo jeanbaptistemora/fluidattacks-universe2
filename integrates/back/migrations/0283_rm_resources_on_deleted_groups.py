@@ -8,8 +8,8 @@ Trigger remove_resources on deleted groups, as some of them still have
 non_removed/unmasked data on dynamodb.
 The origin could be early failures on the remove_resources batch action.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-09-22 at 02:29:50 UTC
+Finalization Time: 2022-09-22 at 05:00:34 UTC
 """
 
 from aioextensions import (
@@ -36,6 +36,7 @@ async def main() -> None:
     deleted_groups = sorted(await get_all_deleted_groups(loaders))
     print(f"Groups to process: {len(deleted_groups)=}")
     for count, group in enumerate(deleted_groups):
+        print(f"Working on {group.name=}...")
         if group.state.status == GroupStateStatus.DELETED:
             await groups_domain.remove_resources(
                 loaders=loaders,
@@ -43,7 +44,7 @@ async def main() -> None:
                 user_email="integrates@fluidattacks.com",
             )
             print(
-                f"Group processed: {group=}, "
+                f"Group processed: {group.name=}, "
                 f"progress: {round(count / len(deleted_groups), 2)}"
             )
 
