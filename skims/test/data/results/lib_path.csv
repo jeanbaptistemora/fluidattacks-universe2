@@ -10713,6 +10713,31 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   37 |       ""Type"": ""AWS::KMS::Key"",
      ^ Col 0
 ",cloudformation.cfn_kms_key_has_master_keys_exposed_to_everyone
+F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,129,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
+ in namespace/skims/test/data/lib_path/f325/terraform.tf","
+  119 |       }
+  120 |     ]
+  121 |   }
+  122 |   EOF
+  123 | }
+  124 |
+  125 | resource ""aws_kms_key"" ""vuln_key_exposed_1"" {
+  126 |   description             = ""KMS key 1""
+  127 |   deletion_window_in_days = 10
+  128 |
+> 129 |   policy = <<-EOF
+  130 |   {
+  131 |     ""Version"": ""2012-10-17"",
+  132 |     ""Statement"": [
+  133 |       {
+  134 |         ""Principal"": {
+  135 |           ""AWS"": ""*""
+  136 |         },
+  137 |         ""Effect"": ""Allow""
+  138 |       }
+  139 |     ]
+      ^ Col 0
+",terraform.tfm_kms_key_has_master_keys_exposed_to_everyone
 F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,16,250,skims,267. Excessive Privileges - Kubernetes,"Containers must not set securityContext.runAsUser property to 0
  in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml","
    1 | ---
