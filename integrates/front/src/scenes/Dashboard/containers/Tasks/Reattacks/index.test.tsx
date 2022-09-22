@@ -30,25 +30,27 @@ describe("TodoReattacksView", (): void => {
     result: {
       data: {
         me: {
-          reattacks: {
-            edges: [
-              {
-                node: {
-                  finding: {
-                    id: "436992569",
-                    severityScore: 2.7,
-                    title: "038. Business information leak",
-                  },
-                  groupName: "group1",
-                  id: "3fead407-5c00-43b2-9106-6d419369441f",
-                  lastRequestedReattackDate: "2022-07-12 16:42:53",
-                  verification: "Requested",
-                },
+          findingReattacks: [
+            {
+              groupName: "group1",
+              id: "436992569",
+              title: "038. Business information leak",
+              verificationSummary: {
+                requested: 1,
               },
-            ],
-          },
+              vulnerabilitiesToReattackConnection: {
+                edges: [
+                  {
+                    node: {
+                      lastRequestedReattackDate: "2022-07-12 16:42:53",
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+          userEmail: "test@fluidattacks.com",
         },
-        userEmail: "test@fluidattacks.com",
       },
     },
   };
@@ -79,7 +81,7 @@ describe("TodoReattacksView", (): void => {
     expect(screen.queryAllByRole("table")).toHaveLength(1);
 
     expect(screen.getByText("Type")).toBeInTheDocument();
-    expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Requested Vulns")).toBeInTheDocument();
     expect(screen.getByText("Group Name")).toBeInTheDocument();
     expect(screen.getByText("Reattack Date")).toBeInTheDocument();
     expect(screen.getByText("2022-07-12 16:42:53")).toBeInTheDocument();

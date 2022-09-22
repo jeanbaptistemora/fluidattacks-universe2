@@ -5,39 +5,41 @@
  */
 
 interface ITodoFindingToReattackAttr {
-  age: number;
-  currentState: string;
   groupName: string;
-  hacker: string;
   id: string;
-  lastVulnerability: number;
-  openVulnerabilities: number;
-  severityScore: number;
-  state: string;
   title: string;
-}
-
-interface IVulnerabilityAttr {
-  id: string;
-  groupName: string;
-  lastRequestedReattackDate: string;
-  finding: ITodoFindingToReattackAttr;
+  vulnerabilitiesToReattackConnection: IVulnerabilitiesConnection;
+  verificationSummary: {
+    requested: string;
+  };
 }
 
 interface IGetTodoReattacks {
   me: {
-    reattacks: {
-      edges: { node: IVulnerabilityAttr }[];
-    };
+    findingReattacks: ITodoFindingToReattackAttr[];
   };
 }
-interface IVulnFormatted extends IVulnerabilityAttr {
+
+interface IVulnerabilityAttr {
+  id: string;
+  lastRequestedReattackDate: string;
+}
+
+interface IVulnerabilityEdge {
+  node: IVulnerabilityAttr;
+}
+
+interface IVulnerabilitiesConnection {
+  edges: IVulnerabilityEdge[];
+}
+interface IFindingFormatted extends ITodoFindingToReattackAttr {
   oldestReattackRequestedDate: string;
 }
 
 export type {
+  IFindingFormatted,
   IGetTodoReattacks,
-  IVulnFormatted,
   ITodoFindingToReattackAttr,
   IVulnerabilityAttr,
+  IVulnerabilityEdge,
 };

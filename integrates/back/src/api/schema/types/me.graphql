@@ -14,6 +14,8 @@ type Me {
   drafts: [Finding!]
   "Enrollment information"
   enrollment: Enrollment!
+  "Stakeholder findings to reattack"
+  findingReattacks: [Finding]!
   "Indicates if user has rejected drafts"
   hasDraftsRejected: Boolean!
   "Indicates if user has mobile app"

@@ -7,6 +7,7 @@ from api.resolvers.me import (
     credentials,
     drafts,
     enrollment,
+    finding_reattacks,
     has_drafts_rejected,
     has_mobile_app,
     is_concurrent_session,
@@ -31,6 +32,7 @@ ME.set_field("accessToken", access_token.resolve)
 ME.set_field("credentials", credentials.resolve)
 ME.set_field("drafts", drafts.resolve)
 ME.set_field("enrollment", enrollment.resolve)
+ME.set_field("findingReattacks", finding_reattacks.resolve)
 ME.set_field("hasMobileApp", has_mobile_app.resolve)
 ME.set_field("hasDraftsRejected", has_drafts_rejected.resolve)
 ME.set_field("isConcurrentSession", is_concurrent_session.resolve)

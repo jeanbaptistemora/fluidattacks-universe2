@@ -10,22 +10,22 @@ import type { DocumentNode } from "graphql";
 export const GET_TODO_REATTACKS: DocumentNode = gql`
   query GetTodoReattacksOPEN {
     me {
-      userEmail
-      reattacks {
-        edges {
-          node {
-            lastRequestedReattackDate
-            groupName
-            id
-            verification
-            finding {
-              id
-              severityScore
-              title
+      findingReattacks {
+        groupName
+        id
+        title
+        verificationSummary {
+          requested
+        }
+        vulnerabilitiesToReattackConnection {
+          edges {
+            node {
+              lastRequestedReattackDate
             }
           }
         }
       }
+      userEmail
     }
   }
 `;
