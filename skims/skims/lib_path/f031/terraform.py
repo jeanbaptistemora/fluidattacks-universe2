@@ -188,5 +188,5 @@ def tfm_iam_has_full_access_to_ssm(
             )
         ),
         path=path,
-        method=MethodsEnum.TFM_PERMISSIVE_POLICY,
+        method=MethodsEnum.TFM_IAM_FULL_ACCESS_SSM,
     )

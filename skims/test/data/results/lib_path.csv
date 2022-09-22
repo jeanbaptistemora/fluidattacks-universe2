@@ -17047,7 +17047,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   46 |         ],
   47 |         ""Resource"": ""*"",
      ^ Col 0
-",terraform.terraform_permissive_policy
+",terraform.tfm_iam_has_full_access_to_ssm
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
   58 |       ""ec2:*"",
   59 |       ""autoscaling:*"",
@@ -17071,7 +17071,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   77 |     ]
   78 |     resources = [
      ^ Col 0
-",terraform.terraform_permissive_policy
+",terraform.tfm_iam_has_full_access_to_ssm
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,26,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
   16 |   CreateTestDBPolicy:
