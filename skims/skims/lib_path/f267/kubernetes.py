@@ -119,7 +119,12 @@ def _k8s_check_seccomp_profile(
 def _k8s_check_privileged_used(
     template: Any,
 ) -> Iterator[Any]:
-    for ctx in iter_security_context(template, True):
+    if (
+        getattr(template, "raw")
+        and hasattr(template.raw, "get")
+        and template.raw.get("apiVersion")
+        and (ctx := template.inner.get("spec"))
+    ):
         privileged = ctx.inner.get("privileged")
         if privileged and privileged.data:
             yield privileged
