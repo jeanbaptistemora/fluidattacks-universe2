@@ -12,6 +12,14 @@ resource "helm_release" "metrics_server" {
   namespace  = "kube-system"
 }
 
+resource "helm_release" "cloudwatch_metrics" {
+  name       = "cloudwatch-metrics"
+  repository = "https://charts.deliveryhero.io/"
+  chart      = "k8s-cloudwatch-adapter"
+  version    = "0.1.4"
+  namespace  = "kube-system"
+}
+
 # Cluster autoscaler
 
 resource "aws_iam_policy" "autoscaler" {
@@ -34,6 +42,7 @@ resource "aws_iam_policy" "autoscaler" {
             "autoscaling:TerminateInstanceInAutoScalingGroup",
             "ec2:DescribeInstanceTypes",
             "eks:DescribeNodegroup",
+            "cloudwatch:GetMetricData",
           ]
           Resource = ["*"]
         },

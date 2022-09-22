@@ -71,6 +71,8 @@ locals {
             "arn:aws:s3:::continuous-repositories/*",
             "arn:aws:s3:::skims.data",
             "arn:aws:s3:::skims.data/*",
+            "arn:aws:s3:::machine.data",
+            "arn:aws:s3:::machine.data/*",
           ]
         },
         {
@@ -97,6 +99,8 @@ locals {
             "arn:aws:s3:::continuous*/*",
             "arn:aws:s3:::skims.data/",
             "arn:aws:s3:::skims.data/*",
+            "arn:aws:s3:::machine.data/",
+            "arn:aws:s3:::machine.data/*",
           ]
         },
         {
