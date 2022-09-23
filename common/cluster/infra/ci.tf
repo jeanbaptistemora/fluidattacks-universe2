@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 variable "ciGitlabApiToken" {}
+variable "ciGitlabSshKey" {}
 variable "ciUsers" {}
 
 locals {
@@ -14,7 +15,6 @@ locals {
         "git:4.11.5",
         "gitlab-plugin:1.5.35",
         "kubernetes:3706.vdfb_d599579f3",
-        "role-strategy:561.v9846c7351a_41",
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
       ]
 
@@ -45,6 +45,20 @@ locals {
                           id          = "ci_gitlab_token"
                           apiToken    = var.ciGitlabApiToken
                           description = "CI Gitlab Token"
+                        }
+                      },
+                      {
+                        basicSSHUserPrivateKey = {
+                          scope       = "GLOBAL"
+                          id          = "ci_gitlab_ssh_key"
+                          username    = ""
+                          passphrase  = ""
+                          description = "SSH key for GitLab Git operations."
+                          privateKeySource = {
+                            directEntry = {
+                              privateKey = var.ciGitlabSshKey
+                            }
+                          }
                         }
                       },
                     ]

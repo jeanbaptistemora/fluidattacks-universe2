@@ -50,6 +50,7 @@ in {
       vars = [
         "CLUSTER_CI_USERS"
         "CLUSTER_CI_GITLAB_API_TOKEN"
+        "CLUSTER_CI_GITLAB_SSH_KEY"
         "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/common/secrets/dev.yaml";
@@ -58,6 +59,7 @@ in {
       vars = [
         "CLUSTER_CI_USERS"
         "CLUSTER_CI_GITLAB_API_TOKEN"
+        "CLUSTER_CI_GITLAB_SSH_KEY"
         "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/common/secrets/prod.yaml";
@@ -72,6 +74,7 @@ in {
   secretsForTerraformFromEnv = {
     commonCluster = {
       ciGitlabApiToken = "CLUSTER_CI_GITLAB_API_TOKEN";
+      ciGitlabSshKey = "CLUSTER_CI_GITLAB_SSH_KEY";
       ciUsers = "CLUSTER_CI_USERS";
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
