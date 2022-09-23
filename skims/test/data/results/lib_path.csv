@@ -34744,6 +34744,17 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
 ",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/connection.config,5,798,skims,009. Sensitive information in source code,Database connection string in namespace/skims/test/data/lib_path/f009/connection.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <connectionStrings>
+  4 |       <add name=""ud_DEV""
+> 5 |        connectionString=""connectDB=uDB; uid=db2admin; password=7hgy7JIT57c; dbalias=uDB;""
+  6 |        providerName=""System.Data.Odbc"" />
+  7 |     </connectionStrings>
+  8 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_db_connection
 F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,10,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
    1 | ENV API_KEY '123'
    2 | ENV API_KEY='123'
