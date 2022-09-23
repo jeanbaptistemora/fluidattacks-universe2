@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 /* global c3 */
+/* global d3 */
 
 const defaultPaddingRatio = 0.055;
 
@@ -70,6 +71,26 @@ function load() {
   const dataDocument = JSON.parse(args.data);
 
   render(dataDocument, args.height, args.width);
+
+  if (dataDocument.data.type === 'area') {
+    const areaClass = d3.select('.c3-area').attr('class');
+    d3.select('.c3-area').attr('class', `${ areaClass } exposed-over-time-cvssf-area`);
+
+    const currentClass = d3.select('.c3-line').attr('class');
+    d3.select('.c3-line').attr('class', `${ currentClass } exposed-over-time-cvssf-line`);
+  }
+
+  if (dataDocument.hideYAxisLine) {
+    d3.select('.c3-axis-y')
+      .select('.domain')
+      .style('visibility', 'hidden');
+    d3.select('.c3-axis-y')
+      .selectAll('.tick').each((_d, index, tickList) => {
+        d3.select(tickList[index])
+          .select('line')
+          .style('visibility', 'hidden');
+      });
+  }
 }
 
 window.load = load;

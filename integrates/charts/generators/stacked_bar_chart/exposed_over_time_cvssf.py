@@ -300,6 +300,7 @@ def format_document(
             ),
             r=3,
         ),
+        hideYAxisLine=True,
     )
 
 
