@@ -14,6 +14,7 @@
   pkg_override = names: (import ./pkg_override.nix) (x: (x ? overridePythonAttrs && builtins.elem x.pname names));
   typing_ext_override = python_pkgs: pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
   pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  oscrypto_override = python_pkgs: pkg_override ["oscrypto"] python_pkgs.oscrypto;
   jsonschema_override = python_pkgs: pkg_override ["jsonschema"] python_pkgs.jsonschema;
   fa_purity_override = python_pkgs: pkg_override ["fa_purity"] python_pkgs.fa-purity;
 
@@ -21,6 +22,7 @@
   overrides = map pkgs_overrides [
     typing_ext_override
     pytz_override
+    oscrypto_override
     jsonschema_override
     fa_purity_override
   ];
@@ -32,6 +34,7 @@
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
       jsonschema = import ./jsonschema {inherit lib python_pkgs;};
+      oscrypto = import ./oscrypto {inherit python_pkgs;};
       pytz = import ./pytz {inherit lib python_pkgs;};
       snowflake-connector-python = import ./snowflake-connector-python {inherit lib python_pkgs;};
       typing-extensions = import ./typing-extensions {inherit lib python_pkgs;};

@@ -14,4 +14,7 @@ echo "Executing functional tests setup" \
   && export SNOWFLAKE_USER="${snowflake_admin_user}" \
   && export SNOWFLAKE_PASSWORD="${snowflake_admin_password}" \
   && export SNOWFLAKE_ACCOUNT="${snowflake_account}" \
-  && target-snowflake-env-entrypoint "${@}"
+  && echo "Executing functional tests" \
+  && pytest --version \
+  && pytest -p no:cacheprovider '__argFxTests__' \
+  && echo "Finished test phase"

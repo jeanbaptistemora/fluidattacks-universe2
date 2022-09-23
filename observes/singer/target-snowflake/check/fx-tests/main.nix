@@ -11,12 +11,13 @@
 }: let
   root = projectPath inputs.observesIndex.target.snowflake.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  env = pkg.env.bin ./inner_script.sh;
+  env = pkg.env.bin;
 in
   makeScript {
     name = "target-snowflake";
     replace = {
       __argSecrets__ = projectPath "/observes/secrets/prod.yaml";
+      __argFxTests__ = "${root}/fx_tests";
     };
     searchPaths = {
       bin = [

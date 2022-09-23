@@ -6,7 +6,6 @@
   metadata,
   python_pkgs,
   src,
-  nixpkgs,
 }: let
   runtime_deps = with python_pkgs; [
     click
@@ -31,25 +30,9 @@
       inherit extraLibs;
       ignoreCollisions = false;
     };
-  bin_env = let
-    python_env = build_env [pkg];
-  in
-    runScript:
-      nixpkgs.buildFHSUserEnv {
-        inherit runScript;
-        name = "target-snowflake-env-entrypoint";
-        targetPkgs = _: [];
-        multiPkgs = _:
-          with nixpkgs; [
-            binutils
-            iana-etc
-            openssl
-            python_env
-          ];
-      };
 in {
   inherit pkg;
   env.runtime = build_env runtime_deps;
   env.dev = build_env (runtime_deps ++ test_deps ++ build_deps);
-  env.bin = bin_env;
+  env.bin = build_env [pkg];
 }
