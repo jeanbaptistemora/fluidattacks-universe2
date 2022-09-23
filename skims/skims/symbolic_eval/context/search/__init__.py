@@ -15,6 +15,7 @@ from symbolic_eval.context.search import (
     if_statement,
     method_declaration,
     method_invocation,
+    using_statement,
     variable_declaration,
 )
 from symbolic_eval.context.search.types import (
@@ -32,15 +33,16 @@ from typing import (
 )
 
 SEARCHERS: Dict[str, Searcher] = {
-    "DeclarationBlock": declaration_block.search,
+    "Assignment": assignment.search,
     "CallExpression": call_expression.search,
     "ClassBody": class_body.search,
+    "DeclarationBlock": declaration_block.search,
     "ForEachStatement": for_each.search,
     "If": if_statement.search,
     "MethodDeclaration": method_declaration.search,
     "MethodInvocation": method_invocation.search,
+    "UsingStatement": using_statement.search,
     "VariableDeclaration": variable_declaration.search,
-    "Assignment": assignment.search,
 }
 
 
