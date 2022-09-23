@@ -18,6 +18,7 @@ import {
   numberBetween,
   numeric,
   required,
+  validCsvInput,
   validEmail,
   validEvidenceImage,
   validExploitFile,
@@ -581,6 +582,20 @@ describe("Validations", (): void => {
     );
 
     expect(date).toBeDefined();
+  });
+
+  it("Should be a invalid input", (): void => {
+    expect.hasAssertions();
+
+    const BadBegin: string | undefined = validCsvInput("=testText");
+    const BadPattern: string | undefined = validCsvInput("ThisIsA,=Test");
+
+    expect(BadBegin).toBe(
+      "Field cannot begin with the following character: '='"
+    );
+    expect(BadPattern).toBe(
+      "Field cannot contain the following character pattern: ',='"
+    );
   });
 });
 
