@@ -147,7 +147,7 @@ async def unrestricted_cidrs(
                     Location(
                         access_patterns=(
                             (
-                                f"/IpPermissionsEgress/{index_ip}/"
+                                f"/IpPermissions/{index_ip}/"
                                 f"IpRanges/{index_range}/CidrIp"
                             ),
                         ),
@@ -159,7 +159,7 @@ async def unrestricted_cidrs(
                         description="Must not have 0.0.0.0/0 CIDRs",
                     )
                     for index_ip, ip_permission in enumerate(
-                        group["IpPermissionsEgress"]
+                        group["IpPermissions"]
                     )
                     for index_range, ip_range in enumerate(
                         ip_permission["IpRanges"]
@@ -170,7 +170,7 @@ async def unrestricted_cidrs(
                     Location(
                         access_patterns=(
                             (
-                                f"/IpPermissionsEgress/{index_ip}/"
+                                f"/IpPermissions/{index_ip}/"
                                 f"IpRanges/{index_range}/CidrIp"
                             ),
                         ),
@@ -182,7 +182,7 @@ async def unrestricted_cidrs(
                         description="Must not have ::/0 CIDRs",
                     )
                     for index_ip, ip_permission in enumerate(
-                        group["IpPermissionsEgress"]
+                        group["IpPermissions"]
                     )
                     for index_range, ip_range in enumerate(
                         ip_permission["Ipv6Ranges"]
@@ -194,9 +194,7 @@ async def unrestricted_cidrs(
                 *vulns,
                 *build_vulnerabilities(
                     locations=locations,
-                    method=(
-                        core_model.MethodsEnum.AWS_UNRESTRICTED_IP_PROTOCOlS
-                    ),
+                    method=(core_model.MethodsEnum.AWS_UNRESTRICTED_CIDRS),
                     aws_response=group,
                 ),
             )
