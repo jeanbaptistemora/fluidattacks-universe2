@@ -7,13 +7,12 @@
 import { Buffer } from "buffer";
 
 import { useMutation } from "@apollo/client";
-import type { ApolloError, FetchResult } from "@apollo/client";
-import type { FormikProps } from "formik";
+import type { ApolloError } from "@apollo/client";
 import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
@@ -59,57 +58,50 @@ const AddRoot: React.FC<IAddRootProps> = ({
   const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
-  function handleSubmit(): void {
-    setRootMessages({
-      message: t("group.scope.git.repo.credentials.checkAccess.success"),
-      type: "success",
-    });
-    onCompleted();
-  }
-  const formRef = useRef<FormikProps<IRootAttr>>(null);
+  const [validateGitAccess] =
+    useMutation<ICheckGitAccessResult>(VALIDATE_GIT_ACCESS);
 
-  const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
-    onCompleted: (): void => {
-      setShowSubmitAlert(false);
-      handleSubmit();
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      setShowSubmitAlert(false);
-      handleValidationError(graphQLErrors, setRootMessages);
-    },
-  });
-
-  async function checkAccess(): Promise<void> {
-    if (formRef.current !== null) {
-      const { values } = formRef.current;
-      const response: FetchResult<ICheckGitAccessResult> =
-        await validateGitAccess({
-          variables: {
-            branch: values.branch,
-            credentials: {
-              key: values.credentials.key
-                ? Buffer.from(values.credentials.key).toString("base64")
-                : undefined,
-              name: values.credentials.name,
-              password: values.credentials.password,
-              token: values.credentials.token,
-              type: values.credentials.type,
-              user: values.credentials.user,
-            },
-            url: values.url,
+  async function validateAndSubmit(values: IRootAttr): Promise<void> {
+    try {
+      await validateGitAccess({
+        variables: {
+          branch: values.branch,
+          credentials: {
+            key: values.credentials.key
+              ? Buffer.from(values.credentials.key).toString("base64")
+              : undefined,
+            name: values.credentials.name,
+            password: values.credentials.password,
+            token: values.credentials.token,
+            type: values.credentials.type,
+            user: values.credentials.user,
           },
-        });
-      setRepositoryValues(values);
-      const validateSuccess =
-        response.data === null || response.data === undefined
-          ? false
-          : response.data.validateGitAccess.success;
+          url: values.url,
+        },
+      });
       mixpanel.track("AutoenrollCheckAccess", {
         credentialType: values.credentials.type,
         formErrors: 0,
-        success: validateSuccess,
+        success: true,
         url: values.url,
       });
+      setShowSubmitAlert(false);
+      setRepositoryValues(values);
+      setRootMessages({
+        message: t("group.scope.git.repo.credentials.checkAccess.success"),
+        type: "success",
+      });
+      onCompleted();
+    } catch (error) {
+      mixpanel.track("AutoenrollCheckAccess", {
+        credentialType: values.credentials.type,
+        formErrors: 0,
+        success: false,
+        url: values.url,
+      });
+      setShowSubmitAlert(false);
+      const { graphQLErrors } = error as ApolloError;
+      handleValidationError(graphQLErrors, setRootMessages);
     }
   }
 
@@ -118,52 +110,12 @@ const AddRoot: React.FC<IAddRootProps> = ({
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        innerRef={formRef}
         name={"newRoot"}
-        onSubmit={handleSubmit}
+        onSubmit={validateAndSubmit}
         validationSchema={rootSchema(isDirty)}
       >
-        {({
-          dirty,
-          isSubmitting,
-          setFieldTouched,
-          validateForm,
-          values,
-        }): JSX.Element => {
-          if (isSubmitting) {
-            setShowSubmitAlert(false);
-          }
-
+        {({ dirty, isSubmitting, values }): JSX.Element => {
           setIsDirty(dirty);
-
-          async function handleAccess(): Promise<void> {
-            const validateErrors = await validateForm();
-            const errorsLength = Object.keys(validateErrors).length;
-            const exclusionsError =
-              validateErrors.exclusions === undefined
-                ? false
-                : errorsLength === 1 && validateErrors.exclusions.length > 0;
-            if (errorsLength === 0 || exclusionsError) {
-              await checkAccess();
-            } else {
-              mixpanel.track("AutoenrollCheckAccess", {
-                credentialType: values.credentials.type,
-                formErrors: errorsLength,
-                success: false,
-                url: values.url,
-              });
-              setFieldTouched("branch", true);
-              setFieldTouched("credentials.key", true);
-              setFieldTouched("credentials.name", true);
-              setFieldTouched("credentials.password", true);
-              setFieldTouched("credentials.token", true);
-              setFieldTouched("credentials.type", true);
-              setFieldTouched("credentials.user", true);
-              setFieldTouched("env", true);
-              setFieldTouched("exclusions", true);
-              setFieldTouched("url", true);
-            }
-          }
 
           return (
             <Form>
@@ -289,7 +241,11 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 )}
               </Row>
               <div className={"flex justify-start mt3"}>
-                <Button onClick={handleAccess} variant={"primary"}>
+                <Button
+                  disabled={isSubmitting}
+                  type={"submit"}
+                  variant={"primary"}
+                >
                   {t("autoenrollment.next")}
                 </Button>
               </div>

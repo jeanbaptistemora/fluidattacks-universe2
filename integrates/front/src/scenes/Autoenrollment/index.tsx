@@ -4,11 +4,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/* eslint-disable prefer-promise-reject-errors, no-async-promise-executor */
 import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError, FetchResult } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -71,7 +70,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     setPage("organization");
   }, [setPage]);
 
-  const [asmLocation, setAsmLocation] = useState("/logout");
+  const [redirectPath, setRedirectPath] = useState("/logout");
 
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
@@ -153,7 +152,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const [addOrganization] = useMutation<IAddOrganizationResult>(
     ADD_ORGANIZATION,
     {
-      awaitRefetchQueries: true,
       onCompleted: (result): void => {
         if (result.addOrganization.success) {
           mixpanel.track("NewOrganization", {
@@ -212,26 +210,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
   });
 
-  const timeoutPromise = useCallback(
-    async (
-      fn: Promise<FetchResult<IAddOrganizationResult>>,
-      timeout: number
-    ): Promise<unknown> => {
-      return new Promise(async (resolve, reject): Promise<void> => {
-        setTimeout((): void => {
-          reject("API_TIMEOUT");
-        }, timeout);
-        const response = await fn;
-        if (response.data === null || response.data === undefined) {
-          reject("ERROR");
-        } else {
-          resolve(response.data);
-        }
-      });
-    },
-    []
-  );
-
   const handleSubmit = useCallback(
     async (values: {
       groupDescription: string;
@@ -251,18 +229,13 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       async function successOrg(): Promise<boolean> {
         try {
           mixpanel.track("AddOrganization");
-          const response = await timeoutPromise(
-            addOrganization({
-              variables: {
-                country: values.organizationCountry,
-                name: values.organizationName.toUpperCase(),
-              },
-            }),
-            5000
-          );
-          const orgResult = response as {
-            addOrganization: { success: boolean };
-          };
+          const response = await addOrganization({
+            variables: {
+              country: values.organizationCountry,
+              name: values.organizationName.toUpperCase(),
+            },
+          });
+          const orgResult = response.data as IAddOrganizationResult;
           setSuccessValues(
             successMutation.group,
             orgResult.addOrganization.success,
@@ -346,7 +319,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               url: url.trim(),
             });
             await addEnrollment();
-            setAsmLocation(
+            setRedirectPath(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
             setPage("standBy");
@@ -401,18 +374,21 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       addGroup,
       addOrganization,
       repository,
-      setAsmLocation,
+      setRedirectPath,
       setOrganizationValues,
       setPage,
       setSuccessValues,
       successMutation,
       t,
-      timeoutPromise,
     ]
   );
 
-  function asmRedirect(): void {
-    location.replace(asmLocation);
+  function redirect(): void {
+    /*
+     * Intentional full page reload as we're in a conditionally rendered view
+     * No way to use the router to get to the dashboard from here
+     */
+    location.replace(redirectPath);
   }
 
   if (data === undefined || hasPersonalEmail === undefined) {
@@ -483,7 +459,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         <div className={"pb4"} />
         <Col lg={30} md={50} sm={70}>
           <Card>
-            <Standby onClose={asmRedirect}>
+            <Standby onClose={redirect}>
               <Text fw={7} mb={2} size={4} ta={"center"}>
                 {t("autoenrollment.standby.title")}
               </Text>
