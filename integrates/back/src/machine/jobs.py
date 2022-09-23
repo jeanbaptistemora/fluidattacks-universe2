@@ -322,7 +322,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
                         "checks": list(sorted(finding_codes)),
                     }
                 ),
-                attempt_duration_seconds=86400,
+                attempt_duration_seconds=43200,
                 subject="integrates@fluidattacks.com",
                 memory=7200,
                 **kwargs,

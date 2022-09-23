@@ -14,9 +14,16 @@ function main() {
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && dynamo_key="{\"pk\":{\"S\": \"${2}\"}}" \
-      dynamo_item="$(aws dynamodb get-item \
-        --table-name "fi_async_processing" \
-        --key "${dynamo_key}")" \
+    && dynamo_item="$(aws dynamodb get-item \
+      --table-name "fi_async_processing" \
+      --key "${dynamo_key}")" \
+    && retries="$(echo "${dynamo_item}" \
+      | jq '.Item | if has("retries") then .retries.N else 0 end' -r)" \
+    && aws dynamodb update-item \
+      --table-name "fi_async_processing" \
+      --key "${dynamo_key}" \
+      --update-expression "SET retries=:retries" \
+      --expression-attribute-values "{\":retries\": {\"N\": \"$((retries + 1))\"}}" \
     && group_name="$(echo "${dynamo_item}" \
       | jq '.Item.entity.S' -r)" \
     && checks="$(echo "${dynamo_item}" \

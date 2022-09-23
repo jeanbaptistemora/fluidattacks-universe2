@@ -176,7 +176,6 @@ async def requeue_actions() -> bool:
         )
     }
     futures = []
-    attempt_duration_seconds: int = 3600
     for action in actions_to_requeue:
         if action.batch_job_id:
             kwargs = {}
@@ -188,9 +187,6 @@ async def requeue_actions() -> bool:
                     memory = batch_jobs_dict[action.batch_job_id]["container"][
                         "memory"
                     ]
-                    attempt_duration_seconds = batch_jobs_dict[
-                        action.batch_job_id
-                    ]["timeout"]["attemptDurationSeconds"]
                     kwargs.update({"memory": memory, "vcpus": vcpus})
                 except KeyError:
                     if action.action_name == Action.EXECUTE_MACHINE.value:
@@ -198,7 +194,11 @@ async def requeue_actions() -> bool:
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,
-                    attempt_duration_seconds=attempt_duration_seconds,
+                    attempt_duration_seconds=(
+                        43200
+                        if action.action_name == Action.EXECUTE_MACHINE.value
+                        else 3600
+                    ),
                     action_dynamo_pk=action.key,
                     entity=action.entity,
                     queue=action.queue,
