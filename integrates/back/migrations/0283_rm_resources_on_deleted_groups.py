@@ -10,6 +10,9 @@ The origin could be early failures on the remove_resources batch action.
 
 Execution Time:    2022-09-22 at 02:29:50 UTC
 Finalization Time: 2022-09-22 at 05:00:34 UTC
+
+Execution Time:    2022-09-22 at 14:42:22 UTC
+Finalization Time: 2022-09-23 at 03:12:06 UTC
 """
 
 from aioextensions import (
@@ -22,6 +25,9 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupStateStatus,
 )
+from db_model.groups.types import (
+    Group,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -33,7 +39,7 @@ import time
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    deleted_groups = sorted(await get_all_deleted_groups(loaders))
+    deleted_groups: tuple[Group, ...] = await get_all_deleted_groups(loaders)
     print(f"Groups to process: {len(deleted_groups)=}")
     for count, group in enumerate(deleted_groups):
         print(f"Working on {group.name=}...")
