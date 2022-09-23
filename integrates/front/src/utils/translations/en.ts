@@ -1720,6 +1720,14 @@ export const enTranslations: ResourceKey = {
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",
       },
+      compliance: {
+        tabs: {
+          overview: {
+            text: "Overview",
+            tooltip: "Overview of the compliance with the standards",
+          },
+        },
+      },
       credentials: {
         actionButtons: {
           addButton: {
