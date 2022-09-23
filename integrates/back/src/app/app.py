@@ -107,6 +107,7 @@ from search.client import (
 )
 from sessions import (
     dal as sessions_dal,
+    domain as sessions_domain,
 )
 from settings import (
     DEBUG,
@@ -331,6 +332,7 @@ async def logout(request: Request) -> HTMLResponse:
         return templates.unauthorized(request)
 
     user_email = user_info["user_email"]
+    await sessions_domain.remove_session_token(user_info, user_email)
     await sessions_dal.remove_session_key(user_email, "web")
     await sessions_dal.remove_session_key(user_email, "jwt")
     await redis_del_entity_attr(entity="session", attr="jti", email=user_email)

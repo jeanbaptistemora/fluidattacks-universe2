@@ -11,7 +11,9 @@ from .types import (
     StakeholderAccessToken,
     StakeholderMetadataToUpdate,
     StakeholderPhone,
+    StakeholderSessionToken,
     StakeholderTours,
+    StateSessionType,
 )
 from dynamodb.types import (
     Item,
@@ -27,6 +29,13 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
         iat=int(item["iat"]),
         jti=item["jti"],
         salt=item["salt"],
+    )
+
+
+def format_session_token(item: Item) -> StakeholderSessionToken:
+    return StakeholderSessionToken(
+        jti=item["jti"],
+        state=StateSessionType[item["state"]],
     )
 
 
@@ -105,6 +114,9 @@ def format_stakeholder(item: Item) -> Stakeholder:
         push_tokens=item.get("push_tokens"),
         registration_date=item.get("registration_date"),
         role=item.get("role"),
+        session_token=format_session_token(item["session_token"])
+        if item.get("session_token")
+        else None,
         tours=format_tours(item["tours"])
         if item.get("tours")
         else StakeholderTours(),

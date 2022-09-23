@@ -13,6 +13,14 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
+    StakeholderSessionToken,
+    StateSessionType,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -54,6 +62,14 @@ async def create_session_token(user: UserAccessInfo) -> str:
             sub="starlette_session",
             jti=jti,
         )
+    )
+    await stakeholders_model.update_metadata(
+        email=user_email,
+        metadata=StakeholderMetadataToUpdate(
+            session_token=StakeholderSessionToken(
+                jti=jti, state=StateSessionType.IS_VALID
+            )
+        ),
     )
 
     await redis_set_entity_attr(

@@ -160,10 +160,11 @@ async def handle_user(
     user_info: UserAccessInfo = format_user_access_info(user)
     session_key = str(uuid.uuid4())
     request.session["session_key"] = session_key
+
+    await log_stakeholder_in(get_new_context(), user_info)
     jwt_token = await utils.create_session_token(user_info)
     utils.set_token_in_response(response, jwt_token)
     await sessions_dal.create_session_web(request, user_info.user_email)
-    await log_stakeholder_in(get_new_context(), user_info)
 
 
 async def autoenroll_stakeholder(
