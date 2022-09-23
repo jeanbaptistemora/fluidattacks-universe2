@@ -48,10 +48,10 @@ spec:
             #   kubectl get pod -n prod-integrates
             #   kubectl describe pod -n prod-integrates <pod>
             requests:
-              cpu: 2000m
+              cpu: 1000m
               memory: 6000Mi
             limits:
-              cpu: 4000m
+              cpu: 2000m
               memory: 6500Mi
           envFrom:
             - secretRef:
