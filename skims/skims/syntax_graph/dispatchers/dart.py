@@ -24,6 +24,7 @@ from syntax_graph.syntax_readers.dart import (  # type: ignore
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
+    assignable_selector as dart_assignable_selector,
     declaration_block as dart_declaration_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
@@ -64,7 +65,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "unconditional_assignable_selector",
         },
-        syntax_reader=dart_arguments.reader,
+        syntax_reader=dart_assignable_selector.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -10,7 +10,6 @@ from syntax_graph.syntax_readers.common import (
     identifier as common_identifier,
     program as common_program,
     string_literal as common_string_literal,
-    variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.tsx import (  # type: ignore
@@ -58,12 +57,6 @@ TSX_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=common_program.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "variable_declaration",
-        },
-        syntax_reader=common_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
