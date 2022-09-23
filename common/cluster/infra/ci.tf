@@ -15,6 +15,7 @@ locals {
         "git:4.11.5",
         "gitlab-plugin:1.5.35",
         "kubernetes:3706.vdfb_d599579f3",
+        "pipeline-stage-view:2.24",
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
       ]
 
