@@ -34908,6 +34908,24 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 ",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/user.config,5,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/user.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <identity impersonate=""true""
+  4 |         userName=""MyDomain\UserAccount""
+> 5 |         password=""*****"" />
+  6 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_user_pass
+F009,lines,namespace/skims/test/data/lib_path/f009/user.config,4,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/user.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <identity impersonate=""true""
+> 4 |         userName=""MyDomain\UserAccount""
+  5 |         password=""*****"" />
+  6 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_user_pass
 F009,lines,namespace/skims/test/data/lib_path/f009/appsettings.json,9,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/appsettings.json,"
    1 | {
    2 |     ""Logging"": {
