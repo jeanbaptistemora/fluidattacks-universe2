@@ -246,6 +246,19 @@ describe("Table", (): void => {
     expect(typeof Table).toBe("function");
   });
 
+  it("should render csv button", (): void => {
+    expect.hasAssertions();
+
+    render(
+      <Table columns={columns} data={data} exportCsv={true} id={"testTable"} />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "group.findings.exportCsv.text" })
+    ).toBeInTheDocument();
+  });
+
   it("should filter numberRange upper bound", async (): Promise<void> => {
     expect.hasAssertions();
 
