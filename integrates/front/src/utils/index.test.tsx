@@ -10,7 +10,9 @@ import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
 import {
   alphaNumeric,
+  isFloatOrInteger,
   isLowerDate,
+  isPositive,
   isValidFileName,
   isValidFileSize,
   maxLength,
@@ -19,9 +21,11 @@ import {
   numeric,
   required,
   validCsvInput,
+  validDraftTitle,
   validEmail,
   validEvidenceImage,
   validExploitFile,
+  validFindingTypology,
   validRecordsFile,
   validTag,
   validTextField,
@@ -466,6 +470,46 @@ describe("Validations", (): void => {
     expect(BadBeginUrl).toBe(
       "Field cannot begin with the following character: '='"
     );
+  });
+
+  it("Should be valid draft", (): void => {
+    expect.hasAssertions();
+
+    const ValidDraft = validDraftTitle("111. .test");
+
+    expect(ValidDraft).toBeUndefined();
+  });
+
+  it("Should be negative", (): void => {
+    expect.hasAssertions();
+
+    const NegativeNum: string | undefined = isPositive(-2);
+
+    expect(NegativeNum).toBe("The number must be greater than 0");
+  });
+
+  it("Should be float or integer", (): void => {
+    expect.hasAssertions();
+
+    const Num = isFloatOrInteger(1);
+
+    expect(Num).toBeUndefined();
+  });
+
+  it("Should'nt be float or integer", (): void => {
+    expect.hasAssertions();
+
+    const Num = isFloatOrInteger("a");
+
+    expect(Num).toBe("This field can only contain numbers");
+  });
+
+  it("Should be in list", (): void => {
+    expect.hasAssertions();
+
+    const Findingtypology = validFindingTypology(["Hello", "World"])("World");
+
+    expect(Findingtypology).toBeUndefined();
   });
 
   it("should be a valid tag", (): void => {
