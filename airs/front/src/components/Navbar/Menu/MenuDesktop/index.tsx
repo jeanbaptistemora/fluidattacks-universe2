@@ -108,6 +108,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} />
             <BodyLink link={"/categories/arm/"} name={"ARM"} />
             <BodyLink link={"/solutions/attack-simulation/"} name={"BAS"} />
+            <BodyLink link={"/categories/mast/"} name={"MAST"} />
           </MenuDesktopSectionList>
         </div>
 

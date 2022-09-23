@@ -84,6 +84,12 @@ const CategoriesIndex: React.FC<IQueryData> = ({
       paragraph: translate.t("categories.ptaas.paragraph"),
       title: translate.t("categories.ptaas.subtitle"),
     },
+    {
+      image: "mast",
+      link: "/categories/mast/",
+      paragraph: translate.t("categories.mast.paragraph"),
+      title: translate.t("categories.mast.subtitle"),
+    },
   ];
 
   return (

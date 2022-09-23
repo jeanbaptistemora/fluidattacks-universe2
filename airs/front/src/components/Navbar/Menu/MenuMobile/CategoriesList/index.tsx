@@ -57,6 +57,9 @@ const CategoriesList: React.FC = (): JSX.Element => {
             <InnerListItem>
               <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} />
             </InnerListItem>
+            <InnerListItem>
+              <BodyLink link={"/categories/mast/"} name={"MAST"} />
+            </InnerListItem>
           </InnerContentList>
         </InnerListContainer>
       </ListItem>

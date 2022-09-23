@@ -77,6 +77,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} /> <br />
       <BodyLink link={"/categories/arm/"} name={"ARM"} /> <br />
       <BodyLink link={"/solutions/attack-simulation/"} name={"BAS"} /> <br />
+      <BodyLink link={"/categories/mast/"} name={"MAST"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"/systems/"} name={"Systems"} /> <br />

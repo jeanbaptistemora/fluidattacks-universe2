@@ -527,6 +527,13 @@ const pageTexts: ResourceKey = {
         "connection to data, configuration, and business logic, no matter the programming language.",
       subtitle: "DAST",
     },
+    mast: {
+      paragraph:
+        "We perform mobile application security testing (MAST), including SAST, DAST " +
+        "and manual penetration testing, to detect vulnerabilities in your mobile application " +
+        "according to the platform it runs on and its development frameworks.",
+      subtitle: "MAST",
+    },
     mpt: {
       paragraph:
         "We can perform Manual Penetration Testing (MPT) simulating real attacks " +
