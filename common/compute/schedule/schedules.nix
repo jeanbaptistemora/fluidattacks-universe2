@@ -1342,7 +1342,7 @@
     ];
 
     schedule_expression = "cron(0 12-23/2 ? * 2-6 *)";
-    size = "nano";
+    size = "medium";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 7200;
