@@ -12,7 +12,6 @@ import { BlogCategoryList } from "../components/BlogCategoryList";
 import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Seo } from "../components/Seo";
 import { Paragraph, Title } from "../components/Texts";
 import {
   BlogPageArticle,
@@ -87,15 +86,6 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
 
   return (
     <React.Fragment>
-      <Seo
-        description={translate.t("blog.description")}
-        image={blogImage}
-        keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${capitalizePlainString(
-          categoryName
-        )} | A Pentesting Company | Fluid Attacks`}
-        url={"https://fluidattacks.com/blog"}
-      />
       <BlogSeo
         description={
           metaDescription === undefined
@@ -103,8 +93,10 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
             : metaDescription
         }
         image={blogImage}
-        title={"Blog | A Pentesting Company | Fluid Attacks"}
-        url={"https://fluidattacks.com/blog"}
+        title={`Blogs about ${capitalizePlainString(
+          categoryName
+        )} | A Pentesting Company | Fluid Attacks`}
+        url={`https://fluidattacks.com/blog/categories/${categoryName}`}
       />
 
       <Layout>
