@@ -349,7 +349,7 @@ def cfn_unrestricted_cidrs(
                 rules_iterator=iter_ec2_ingress_egress(
                     template=template,
                     ingress=True,
-                    egress=True,
+                    egress=False,
                 )
             )
         ),

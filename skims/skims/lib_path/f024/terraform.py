@@ -315,7 +315,6 @@ def _tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
             for item in resource.data:
                 if isinstance(item, Block) and item.namespace[0] in (
                     "ingress",
-                    "egress",
                 ):
                     item_block = get_argument(
                         key=item.namespace[0], body=resource.data
