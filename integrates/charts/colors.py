@@ -55,12 +55,4 @@ OTHER = _SCALE(
     more_agressive="#5b7572",
 )
 
-# https://coolors.co/ffce00-ffa031-e00000-8b0000
-SEVERITY = _SEVERITYSCALE(
-    low="#ffce00",
-    medium="#ffa031",
-    high="#e00000",
-    critical="#8b0000",
-)
-
 GRAY_JET: str = "#323031"

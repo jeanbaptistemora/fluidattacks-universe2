@@ -44,10 +44,6 @@ p, ol, ul {
   margin-block-end: 0rem !important;
 }
 
-.c3-area {
-  opacity: 1 !important;
-}
-
 .exposed-over-time-cvssf-area {
   opacity: 1 !important;
   fill: #fda6ab !important;
