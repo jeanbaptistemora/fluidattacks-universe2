@@ -9,6 +9,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    organizations as orgs_model,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -17,6 +20,7 @@ from db_model.groups.types import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationUnreliableIndicators,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -139,7 +143,14 @@ async def update_organization_compliance(
         requirements_file=requirements_file,
         vulnerabilities_file=vulnerabilities_file,
     )
-    info(f"non_compliance_level {non_compliance_level}")
+    info(f"{organization.name} non_compliance_level {non_compliance_level}")
+    await orgs_model.update_unreliable_indicators(
+        organization_id=organization.id,
+        organization_name=organization.name,
+        indicators=OrganizationUnreliableIndicators(
+            non_compliance_level=non_compliance_level
+        ),
+    )
 
 
 async def update_compliance() -> None:
@@ -147,17 +158,26 @@ async def update_compliance() -> None:
     compliance_file = await get_compliance_file()
     requirements_file = await get_requirements_file()
     vulnerabilities_file = await get_vulns_file()
+    orgs_to_update = []
     async for organization in orgs_domain.iterate_organizations():
         if orgs_utils.is_deleted(organization):
             continue
 
-        await update_organization_compliance(
-            loaders=loaders,
-            organization=organization,
-            compliance_file=compliance_file,
-            requirements_file=requirements_file,
-            vulnerabilities_file=vulnerabilities_file,
-        )
+        orgs_to_update.append(organization)
+
+    await collect(
+        tuple(
+            update_organization_compliance(
+                loaders=loaders,
+                organization=organization,
+                compliance_file=compliance_file,
+                requirements_file=requirements_file,
+                vulnerabilities_file=vulnerabilities_file,
+            )
+            for organization in orgs_to_update
+        ),
+        workers=5,
+    )
 
 
 async def main() -> None:
