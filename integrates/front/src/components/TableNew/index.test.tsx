@@ -691,6 +691,13 @@ describe("Table", (): void => {
         11
       );
     });
+
+    userEvent.click(screen.queryAllByRole("checkbox")[0]);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        0
+      );
+    });
   });
 
   it("should select many checkboxes", async (): Promise<void> => {
