@@ -39,16 +39,11 @@ from group_comments.domain import (
     get_comments,
 )
 from groups.domain import (
-    get_mean_remediate_non_treated_severity,
-    get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
     set_pending_deletion_date,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 from newutils.datetime import (
     convert_from_iso_str,
@@ -66,36 +61,6 @@ from typing import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@freeze_time("2020-12-01")
-async def test_get_mean_remediate() -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    min_severity: Decimal = Decimal("0.0")
-    max_severity: Decimal = Decimal("10.0")
-    assert await get_mean_remediate_severity(
-        context, group_name, min_severity, max_severity
-    ) == Decimal("384.0")
-    assert await get_mean_remediate_non_treated_severity(
-        context, group_name, min_severity, max_severity
-    ) == Decimal("386.0")
-
-    min_date = datetime_utils.get_now_minus_delta(days=30).date()
-    assert await get_mean_remediate_severity(
-        context, group_name, min_severity, max_severity, min_date
-    ) == Decimal("0.0")
-    assert await get_mean_remediate_non_treated_severity(
-        context, group_name, min_severity, max_severity, min_date
-    ) == Decimal("0.0")
-
-    min_date = datetime_utils.get_now_minus_delta(days=90).date()
-    assert await get_mean_remediate_severity(
-        context, group_name, min_severity, max_severity, min_date
-    ) == Decimal("82.0")
-    assert await get_mean_remediate_non_treated_severity(
-        context, group_name, min_severity, max_severity, min_date
-    ) == Decimal("0.0")
 
 
 @freeze_time("2020-12-01")
@@ -122,34 +87,6 @@ async def test_get_mean_remediate_cvssf(
         else None,
     )
     assert mean_remediate_cvssf == expected_output
-
-
-@freeze_time("2020-12-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("239.007")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_non_treated_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    mttr_no_treated_cvssf = (
-        await get_mean_remediate_non_treated_severity_cvssf(
-            loaders,
-            group_name,
-            Decimal("0.0"),
-            Decimal("10.0"),
-            (datetime.now() - timedelta(days=min_days)).date()
-            if min_days
-            else None,
-        )
-    )
-    assert mttr_no_treated_cvssf == expected_output
 
 
 async def test_list_comments() -> None:
@@ -257,34 +194,6 @@ async def test_get_mean_remediate_severity_low_min_days(
     assert mean_remediate_low_severity == expected_output
 
 
-@freeze_time("2019-10-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("49.797")),
-        (30, Decimal("10.658")),
-        (90, Decimal("11.269")),
-    ),
-)
-async def test_get_mean_remediate_severity_low(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("0.1")
-    max_severity = Decimal("3.9")
-    low_severity = await get_mean_remediate_non_treated_severity_cvssf(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert low_severity == expected_output
-
-
 @freeze_time("2019-11-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -311,34 +220,6 @@ async def test_get_mean_remediate_severity_medium(
         else None,
     )
     assert mean_remediate_medium_severity == expected_output
-
-
-@freeze_time("2019-11-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("182")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_non_treated_severity_medium(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("4.0")
-    max_severity = Decimal("6.9")
-    medium_severity = await get_mean_remediate_non_treated_severity(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert medium_severity == expected_output
 
 
 @freeze_time("2019-10-01")
