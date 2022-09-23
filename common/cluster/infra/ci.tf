@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+variable "ciGitlabApiToken" {}
 variable "ciUsers" {}
 
 locals {
@@ -13,6 +14,7 @@ locals {
         "git:4.11.5",
         "gitlab-plugin:1.5.35",
         "kubernetes:3706.vdfb_d599579f3",
+        "role-strategy:561.v9846c7351a_41",
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
       ]
 
@@ -30,6 +32,39 @@ locals {
             allowAnonymousRead = false
           }
         })
+        credentials = {
+          system = {
+            domainCredentials = [
+              {
+                credentials = [
+                  {
+                    gitLabApiTokenImpl = {
+                      scope       = "SYSTEM"
+                      id          = "ci_gitlab_token"
+                      apiToken    = var.ciGitlabApiToken
+                      description = "CI Gitlab Token"
+                    }
+                  },
+                ]
+              }
+            ]
+          }
+        }
+        unclassified = {
+          gitlabconnectionconfig = {
+            connections = [
+              {
+                apiTokenId              = "ci_gitlab_token"
+                clientBuilderId         = "autodetect"
+                connectionTimeout       = 20
+                ignoreCertificateErrors = true
+                name                    = "saas"
+                readTimeout             = 10
+                url                     = "https://gitlab.com/"
+              }
+            ]
+          }
+        }
       }
 
       # Network
