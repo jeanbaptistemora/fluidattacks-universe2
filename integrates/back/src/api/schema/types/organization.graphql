@@ -13,6 +13,8 @@ type Organization {
   ): GenericScalar
   "Portal URL for managing group tiers"
   billingPortal: String
+  "Compliance with the standards in the organization"
+  compliance: OrganizationCompliance!
   "Credentials associated to the organization"
   credentials: [Credentials!]
   "Enacted and pending Finding policies within the organization"

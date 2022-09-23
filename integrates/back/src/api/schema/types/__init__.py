@@ -53,6 +53,9 @@ from .mutation import (
 from .organization import (
     ORGANIZATION,
 )
+from .organization_compliance import (
+    ORGANIZATION_COMPLIANCE,
+)
 from .payment_method import (
     PAYMENT_METHOD,
 )
@@ -161,6 +164,7 @@ TYPES: Tuple[ObjectType, ...] = (
     ME,
     MUTATION,
     ORGANIZATION,
+    ORGANIZATION_COMPLIANCE,
     PAYMENT_METHOD,
     PRICES,
     QUERY,
