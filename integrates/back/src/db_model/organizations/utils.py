@@ -21,6 +21,9 @@ from db_model.types import (
     Policies,
     PoliciesToUpdate,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb.types import (
     Item,
 )
@@ -147,6 +150,14 @@ def format_documents(documents: Item) -> OrganizationDocuments:
         )
         if documents.get("tax_id")
         else None,
+    )
+
+
+def format_unreliable_indicators(
+    item: Item,
+) -> OrganizationUnreliableIndicators:
+    return OrganizationUnreliableIndicators(
+        non_compliance_level=item.get("non_compliance_level", Decimal("0.0"))
     )
 
 

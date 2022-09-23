@@ -58,6 +58,7 @@ from db_model.organization_access.get import (
 )
 from db_model.organizations.get import (
     OrganizationLoader,
+    OrganizationUnreliableIndicatorsLoader,
 )
 from db_model.portfolios.get import (
     OrganizationPortfoliosLoader,
@@ -167,6 +168,7 @@ class Dataloaders(NamedTuple):
     organization_roots: OrganizationRootsLoader
     organization_stakeholders_access: OrganizationStakeholdersAccessLoader
     organization: OrganizationLoader
+    organization_unreliable_indicators: OrganizationUnreliableIndicatorsLoader
     portfolio: PortfolioLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
@@ -305,6 +307,9 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders_access=(
             organization_stakeholders_access_loader
+        ),
+        organization_unreliable_indicators=(
+            OrganizationUnreliableIndicatorsLoader()
         ),
         portfolio=portfolio_loader,
         root=RootLoader(),

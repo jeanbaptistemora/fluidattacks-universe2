@@ -8,9 +8,11 @@ from .constants import (
 )
 from .types import (
     Organization,
+    OrganizationUnreliableIndicators,
 )
 from .utils import (
     format_organization,
+    format_unreliable_indicators,
 )
 from aiodataloader import (
     DataLoader,
@@ -142,3 +144,41 @@ class OrganizationLoader(DataLoader):
             self.prime(organization.name, organization)
 
         return organizations
+
+
+async def _get_organization_unreliable_indicators(
+    *, organization_id: str
+) -> OrganizationUnreliableIndicators:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["organization_unreliable_indicators"],
+        values={"id": organization_id},
+    )
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with("ORG#")
+        ),
+        facets=(TABLE.facets["organization_unreliable_indicators"],),
+        limit=1,
+        table=TABLE,
+    )
+    if not response.items:
+        return OrganizationUnreliableIndicators()
+
+    return format_unreliable_indicators(response.items[0])
+
+
+class OrganizationUnreliableIndicatorsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: Iterable[str]
+    ) -> tuple[OrganizationUnreliableIndicators, ...]:
+        return await collect(
+            tuple(
+                _get_organization_unreliable_indicators(
+                    organization_id=organization_id
+                )
+                for organization_id in organization_ids
+            )
+        )
