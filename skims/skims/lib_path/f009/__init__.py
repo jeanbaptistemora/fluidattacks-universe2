@@ -130,7 +130,11 @@ def analyze(
         "yaml",
         "yml",
     }:
-        results = (*results, run_aws_credentials(content, path))
+        results = (
+            *results,
+            run_aws_credentials(content, path),
+            run_jwt_token(content, path),
+        )
 
     if (
         file_name in NAMES_DOCKERFILE
