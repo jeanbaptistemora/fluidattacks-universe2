@@ -78,6 +78,9 @@ const SystemsList: React.FC = (): JSX.Element => {
             <InnerListItem>
               <BodyLink link={"/systems/ot/"} name={"SCADA and OT"} />
             </InnerListItem>
+            <InnerListItem>
+              <BodyLink link={"/systems/containers/"} name={"Containers"} />
+            </InnerListItem>
           </InnerContentList>
         </InnerListContainer>
       </ListItem>

@@ -96,6 +96,12 @@ const SystemsIndex: React.FC<IQueryData> = ({
       paragraph: translate.t("systems.scada.paragraph"),
       title: translate.t("systems.scada.title"),
     },
+    {
+      image: "containers",
+      link: "/systems/containers/",
+      paragraph: translate.t("systems.containers.paragraph"),
+      title: translate.t("systems.containers.title"),
+    },
   ];
 
   return (

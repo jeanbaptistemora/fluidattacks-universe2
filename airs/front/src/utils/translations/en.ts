@@ -1123,6 +1123,12 @@ const pageTexts: ResourceKey = {
         "for its monetary and optimization benefits.",
       title: "Cloud Infrastructure",
     },
+    containers: {
+      paragraph:
+        "We can identify vulnerabilities in your container images and running containers " +
+        "by examining dependencies, configurations and interactions.",
+      title: "Containers",
+    },
     iot: {
       paragraph:
         "We provide you with security testing for each connected element " +

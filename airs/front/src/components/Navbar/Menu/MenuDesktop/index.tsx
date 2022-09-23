@@ -131,6 +131,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             />
             <BodyLink link={"/systems/iot/"} name={"Internet of Things"} />
             <BodyLink link={"/systems/ot/"} name={"SCADA and OT"} />
+            <BodyLink link={"/systems/containers/"} name={"Containers"} />
           </MenuDesktopSectionList>
 
           <MenuDesktopSectionList>
