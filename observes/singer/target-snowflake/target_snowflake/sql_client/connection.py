@@ -2,11 +2,20 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._inner import (
+    RawCursor,
+)
+from .cursor import (
+    Cursor,
+)
 from dataclasses import (
     dataclass,
 )
 from fa_purity.cmd import (
     Cmd,
+)
+from logging import (
+    Logger,
 )
 from snowflake.connector import (
     connect as snowflake_connect,
@@ -51,6 +60,12 @@ class DbConnection:
 
     def commit(self) -> Cmd[None]:
         return Cmd.from_cmd(lambda: cast(None, self._inner._connection.commit())).map(lambda _: None)  # type: ignore[no-untyped-call]
+
+    def cursor(self, log: Logger) -> Cmd[Cursor]:
+        def _action() -> Cursor:
+            return Cursor(log, RawCursor(self._inner._connection.cursor()))
+
+        return Cmd.from_cmd(_action)
 
 
 @dataclass(frozen=True)
