@@ -9,21 +9,19 @@ from syntax_graph.syntax_nodes.switch_default import (
     build_switch_default_node,
 )
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast_d,
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
+    c_ids = adj_ast(args.ast_graph, args.n_id)
 
-    if (
-        expression := match_ast_d(
-            args.ast_graph, args.n_id, "expression_statement"
-        )
-    ) or match_ast_d(args.ast_graph, args.n_id, "break_statement"):
-        return build_switch_default_node(args, expression)
+    if len(c_ids) < 3:
+        expression = None
+    else:
+        expression = c_ids[2]
 
-    raise MissingCaseHandling(f"Bad switch default handling in {args.n_id}")
+    return build_switch_default_node(args, expression)

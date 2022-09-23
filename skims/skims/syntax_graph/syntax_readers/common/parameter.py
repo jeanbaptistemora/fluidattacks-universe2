@@ -3,18 +3,22 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    GraphShardMetadataLanguage,
     NId,
 )
 from syntax_graph.syntax_nodes.parameter import (
     build_parameter_node,
 )
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
+)
+from typing import (
+    cast,
+    Iterator,
 )
 from utils.graph import (
     adj_ast,
-    match_ast_d,
+    match_ast_group_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -23,20 +27,21 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    childs = adj_ast(graph, args.n_id)
+    param_node = graph.nodes[args.n_id]
 
-    if len(childs) > 3:
-        raise MissingCaseHandling(f"Bad parameter handling in {args.n_id}")
+    type_id = param_node.get("label_field_type")
+    var_type = node_to_str(graph, type_id) if type_id else None
 
-    parameter = graph.nodes[args.n_id]
-    type_id = parameter.get("label_field_type")
+    identifier_id = param_node.get("label_field_name")
+    var_name = node_to_str(graph, identifier_id) if identifier_id else None
 
-    variable = (
-        node_to_str(graph, identifier_id)
-        if (identifier_id := parameter.get("label_field_name"))
-        else None
+    if args.language == GraphShardMetadataLanguage.DART:
+        c_ids = adj_ast(graph, args.n_id)
+    elif args.language == GraphShardMetadataLanguage.JAVA:
+        c_ids = tuple(match_ast_group_d(graph, args.n_id, "modifiers"))
+    else:
+        c_ids = ()
+
+    return build_parameter_node(
+        args, var_name, var_type, cast(Iterator[str], c_ids)
     )
-    variable_type = None if type_id is None else node_to_str(graph, type_id)
-    modifiers_id = match_ast_d(graph, args.n_id, "modifiers")
-
-    return build_parameter_node(args, variable, variable_type, modifiers_id)
