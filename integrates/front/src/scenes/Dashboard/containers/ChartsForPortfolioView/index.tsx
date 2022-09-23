@@ -5,18 +5,15 @@
  */
 
 import _ from "lodash";
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
-import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 import { ChartsChangedOrderView } from "scenes/Dashboard/containers/ChartsGenericView/newOrderIndex";
-import { featurePreviewContext } from "utils/featurePreview";
 
 const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = ({
   organizationId,
 }: IChartsForPortfolioViewProps): JSX.Element => {
-  const { featurePreview } = useContext(featurePreviewContext);
   const { tagName } = useParams<{ tagName: string }>();
   const searchParams: URLSearchParams = new URLSearchParams(
     useLocation().search
@@ -32,21 +29,12 @@ const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = ({
 
   return (
     <React.StrictMode>
-      {featurePreview ? (
-        <ChartsChangedOrderView
-          bgChange={searchParams.get("bgChange") === "true"}
-          entity={"portfolio"}
-          reportMode={searchParams.get("reportMode") === "true"}
-          subject={subject}
-        />
-      ) : (
-        <ChartsGenericView
-          bgChange={searchParams.get("bgChange") === "true"}
-          entity={"portfolio"}
-          reportMode={searchParams.get("reportMode") === "true"}
-          subject={subject}
-        />
-      )}
+      <ChartsChangedOrderView
+        bgChange={searchParams.get("bgChange") === "true"}
+        entity={"portfolio"}
+        reportMode={searchParams.get("reportMode") === "true"}
+        subject={subject}
+      />
     </React.StrictMode>
   );
 };
