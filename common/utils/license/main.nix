@@ -12,9 +12,10 @@ makeScript {
   searchPaths.bin = [
     inputs.nixpkgs.coreutils
     inputs.nixpkgs.gawk
-    inputs.nixpkgs.reuse
+    inputs.nixpkgs.git
     inputs.nixpkgs.gnused
     inputs.nixpkgs.gnugrep
-    inputs.nixpkgs.git
+    inputs.nixpkgs.reuse
+    inputs.nixpkgs.findutils
   ];
 }
