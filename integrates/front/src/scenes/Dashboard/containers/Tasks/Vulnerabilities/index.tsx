@@ -310,23 +310,29 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       header: t("searchFindings.tabVuln.vulnTable.vulnerability"),
     },
     {
-      accessorKey: "treatment",
-      header: t("searchFindings.tabVuln.vulnTable.treatment"),
-      meta: { filterType: "select" },
+      accessorFn: (): string => "View",
+      cell: (cell): JSX.Element => {
+        const orgName =
+          cell.row.original.organizationName === undefined
+            ? ""
+            : cell.row.original.organizationName;
+        const findingId =
+          cell.row.original.finding === undefined
+            ? ""
+            : cell.row.original.finding.id;
+        const link =
+          `../orgs/${orgName}/groups/${cell.row.original.groupName}` +
+          `/vulns/${findingId}/evidence`;
+        const text = cell.getValue<string>();
+
+        return formatLinkHandler(link, text);
+      },
+      enableColumnFilter: false,
+      header: "Evidence",
     },
     {
       accessorKey: "tag",
       header: t("searchFindings.tabVuln.vulnTable.tags"),
-    },
-    {
-      accessorKey: "treatmentAcceptanceStatus",
-      header: "Treatment Acceptance",
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "treatmentAssigned",
-      header: "Asignees",
-      meta: { filterType: "select" },
     },
   ];
 
