@@ -18,6 +18,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_REGION_NAME,
+    FI_ENVIRONMENT,
 )
 from custom_exceptions import (
     FileNotFound,
@@ -147,6 +148,7 @@ from uuid import (
 )
 
 LOGGER = logging.getLogger(__name__)
+RESTRICTED_REPO_URLS = ["https://gitlab.com/fluidattacks/universe"]
 
 
 async def _notify_health_check(
@@ -218,6 +220,12 @@ async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
     return organization_credential
 
 
+def _is_allowed(url: str) -> bool:
+    if FI_ENVIRONMENT == "development":
+        return True
+    return url not in RESTRICTED_REPO_URLS
+
+
 async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
@@ -235,6 +243,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     loaders.group_roots.clear(group_name)
     if not (
         validations.is_valid_url(url)
+        and _is_allowed(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
