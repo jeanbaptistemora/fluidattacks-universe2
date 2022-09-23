@@ -85,3 +85,25 @@ C_SHARP_STATEMENT = {
     "while_statement",
     "yield_statement",
 }
+
+TSX_PRIMARY_TYPES = {
+    "array_type",
+    "conditional_type",
+    "existential_type",
+    "flow_maybe_type",
+    "generic_type",
+    "index_type_query",
+    "intersection_type",
+    "literal_type",
+    "lookup_type",
+    "nested_type_identifier",
+    "object_type",
+    "parenthesized_type",
+    "predefined_type",
+    "template_literal_type",
+    "this_type",
+    "tuple_type",
+    "type_identifier",
+    "type_query",
+    "union_type",
+}

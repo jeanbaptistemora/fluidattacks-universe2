@@ -5,6 +5,9 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.constants import (
+    TSX_PRIMARY_TYPES,
+)
 from syntax_graph.syntax_nodes.type_annotation import (
     build_type_annotation_node,
 )
@@ -23,32 +26,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    primary_types = {
-        "array_type",
-        "conditional_type",
-        "existential_type",
-        "flow_maybe_type",
-        "generic_type",
-        "index_type_query",
-        "intersection_type",
-        "literal_type",
-        "lookup_type",
-        "nested_type_identifier",
-        "object_type",
-        "parenthesized_type",
-        "predefined_type",
-        "template_literal_type",
-        "this_type",
-        "tuple_type",
-        "type_identifier",
-        "type_query",
-        "union_type",
-    }
-
     valid_childs = [
         child
         for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] in primary_types
+        if args.ast_graph.nodes[child]["label_type"] in TSX_PRIMARY_TYPES
     ]
 
     return build_type_annotation_node(args, valid_childs)
