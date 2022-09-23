@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
@@ -621,11 +621,15 @@ describe("Table", (): void => {
   });
 
   interface ITestComponentProps {
-    selectionMode: "checkbox" | "radio";
+    TData: IRandomData[];
+    expandedRow?: (row: Row<IRandomData>) => JSX.Element;
+    selectionMode?: "checkbox" | "radio";
   }
 
   const TestComponent: React.FC<ITestComponentProps> = ({
+    expandedRow,
     selectionMode,
+    TData,
   }): JSX.Element => {
     const [selectedData, setSelectedData] = useState<IRandomData[]>([]);
 
@@ -634,7 +638,8 @@ describe("Table", (): void => {
         <p>{JSON.stringify(selectedData[0])}</p>
         <Table
           columns={columns}
-          data={data}
+          data={TData}
+          expandedRow={expandedRow}
           id={"testTable"}
           rowSelectionSetter={setSelectedData}
           rowSelectionState={selectedData}
@@ -647,7 +652,7 @@ describe("Table", (): void => {
   it("should only select one when radio selection", async (): Promise<void> => {
     expect.hasAssertions();
 
-    render(<TestComponent selectionMode={"radio"} />);
+    render(<TestComponent TData={data} selectionMode={"radio"} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
@@ -678,7 +683,7 @@ describe("Table", (): void => {
   it("should select all checkboxes", async (): Promise<void> => {
     expect.hasAssertions();
 
-    render(<TestComponent selectionMode={"checkbox"} />);
+    render(<TestComponent TData={data} selectionMode={"checkbox"} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
@@ -703,7 +708,7 @@ describe("Table", (): void => {
   it("should select many checkboxes", async (): Promise<void> => {
     expect.hasAssertions();
 
-    render(<TestComponent selectionMode={"checkbox"} />);
+    render(<TestComponent TData={data} selectionMode={"checkbox"} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
@@ -729,6 +734,64 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         4
       );
+    });
+  });
+
+  function handleRowExpand(row: Row<IRandomData>): JSX.Element {
+    return <p>{`This is ${row.original.name} expanded`}</p>;
+  }
+
+  it("should expand rows", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <TestComponent TData={data.slice(0, 2)} expandedRow={handleRowExpand} />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.queryByText("This is Daria Hays expanded")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("This is Palmer Wilcox expanded")
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.queryAllByRole("button", { name: "" })[1]);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("This is Daria Hays expanded")
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("This is Palmer Wilcox expanded")
+      ).not.toBeInTheDocument();
+    });
+    userEvent.click(screen.queryAllByRole("button", { name: "" })[2]);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("This is Daria Hays expanded")
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("This is Palmer Wilcox expanded")
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("This is Daria Hays expanded")
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("This is Palmer Wilcox expanded")
+      ).not.toBeInTheDocument();
+    });
+    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("This is Daria Hays expanded")
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("This is Palmer Wilcox expanded")
+      ).toBeInTheDocument();
     });
   });
 });
