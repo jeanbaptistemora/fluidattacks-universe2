@@ -144,10 +144,10 @@ def analyze(  # noqa: MC0001
     if (file_name, file_extension) == ("requirements", "txt"):
         return (run_pip_requirements_txt(content_generator(), path),)
 
-    if file_name == "Gemfile":
-        return (run_gem_gemfile(content_generator(), path),)
-
     if (file_name, file_extension) == ("Gemfile", "lock"):
         return (run_gem_gemfile_lock(content_generator(), path),)
+
+    if file_name == "Gemfile":
+        return (run_gem_gemfile(content_generator(), path),)
 
     return ()
