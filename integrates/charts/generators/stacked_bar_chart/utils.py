@@ -62,7 +62,7 @@ RISK_OVER_TIME: List[str] = [
     "date",
     "Closed",
     "Accepted",
-    "Found",
+    "Reported",
 ]
 
 EXPOSED_OVER_TIME: List[str] = [
@@ -179,12 +179,12 @@ def format_document(
             colors={
                 "Closed": RISK.more_passive,
                 "Accepted": TREATMENT.passive,
-                "Found": RISK.more_agressive,
+                "Reported": RISK.more_agressive,
             },
             types={
                 "Closed": "line",
                 "Accepted": "line",
-                "Found": "line",
+                "Reported": "line",
             },
         ),
         axis=dict(
@@ -227,6 +227,8 @@ def format_document(
             r=5,
         ),
         barChartYTickFormat=tick_format,
+        stackedBarChartYTickFormat=tick_format,
+        hideYAxisLine=True,
     )
 
 
@@ -445,8 +447,9 @@ def get_risk_over_rangetime(
             get_time(key): value
             for key, value in group_data["Accepted"].items()
         },
-        "Found": {
-            get_time(key): value for key, value in group_data["Found"].items()
+        "Reported": {
+            get_time(key): value
+            for key, value in group_data["Reported"].items()
         },
     }
 
@@ -514,7 +517,7 @@ def get_data_risk_over_time_group(
         "date": {datum.date: 0 for datum in data_monthly},
         "Closed": {datum.date: datum.closed for datum in data_monthly},
         "Accepted": {datum.date: datum.accepted for datum in data_monthly},
-        "Found": {
+        "Reported": {
             datum.date: datum.closed + datum.accepted + datum.opened
             for datum in data_monthly
         },
@@ -523,7 +526,7 @@ def get_data_risk_over_time_group(
         "date": {datum.date: 0 for datum in data_yearly},
         "Closed": {datum.date: datum.closed for datum in data_yearly},
         "Accepted": {datum.date: datum.accepted for datum in data_yearly},
-        "Found": {
+        "Reported": {
             datum.date: datum.closed + datum.accepted + datum.opened
             for datum in data_yearly
         },
@@ -553,7 +556,7 @@ def get_data_risk_over_time_group(
             "date": {datum.date: 0 for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
             "Accepted": {datum.date: datum.accepted for datum in data},
-            "Found": {
+            "Reported": {
                 datum.date: datum.closed + datum.accepted + datum.opened
                 for datum in data
             },

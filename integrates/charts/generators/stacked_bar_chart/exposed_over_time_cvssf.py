@@ -300,6 +300,7 @@ def format_document(
             ),
             r=3,
         ),
+        stackedBarChartYTickFormat=True,
         hideYAxisLine=True,
     )
 
