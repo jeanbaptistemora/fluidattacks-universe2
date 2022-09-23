@@ -32,38 +32,42 @@ locals {
             allowAnonymousRead = false
           }
         })
-        credentials = {
-          system = {
-            domainCredentials = [
-              {
-                credentials = [
+        configScripts = {
+          gitlab = yamlencode({
+            credentials = {
+              system = {
+                domainCredentials = [
                   {
-                    gitLabApiTokenImpl = {
-                      scope       = "SYSTEM"
-                      id          = "ci_gitlab_token"
-                      apiToken    = var.ciGitlabApiToken
-                      description = "CI Gitlab Token"
-                    }
-                  },
+                    credentials = [
+                      {
+                        gitLabApiTokenImpl = {
+                          scope       = "SYSTEM"
+                          id          = "ci_gitlab_token"
+                          apiToken    = var.ciGitlabApiToken
+                          description = "CI Gitlab Token"
+                        }
+                      },
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        }
-        unclassified = {
-          gitlabconnectionconfig = {
-            connections = [
-              {
-                apiTokenId              = "ci_gitlab_token"
-                clientBuilderId         = "autodetect"
-                connectionTimeout       = 20
-                ignoreCertificateErrors = true
-                name                    = "saas"
-                readTimeout             = 10
-                url                     = "https://gitlab.com/"
+            }
+            unclassified = {
+              gitlabconnectionconfig = {
+                connections = [
+                  {
+                    apiTokenId              = "ci_gitlab_token"
+                    clientBuilderId         = "autodetect"
+                    connectionTimeout       = 20
+                    ignoreCertificateErrors = true
+                    name                    = "gitlab"
+                    readTimeout             = 10
+                    url                     = "https://gitlab.com/"
+                  }
+                ]
               }
-            ]
-          }
+            }
+          })
         }
       }
 
