@@ -231,13 +231,17 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
   return (
     <React.Fragment>
       <Seo
-        description={translate.t("blog.description")}
+        description={
+          metaDescription === undefined
+            ? translate.t("blog.description")
+            : metaDescription
+        }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
         title={`Blogs by ${capitalizeDashedString(
           authorName
         )} | A Pentesting Company | Fluid Attacks`}
-        url={"https://fluidattacks.com/blog"}
+        url={`https://fluidattacks.com/blog/authors/${authorName}`}
       />
       <BlogSeo
         description={

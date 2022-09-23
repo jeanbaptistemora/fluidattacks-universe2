@@ -88,13 +88,17 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
   return (
     <React.Fragment>
       <Seo
-        description={translate.t("blog.description")}
+        description={
+          metaDescription === undefined
+            ? translate.t("blog.description")
+            : metaDescription
+        }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
         title={`Blogs about ${capitalizePlainString(
           categoryName
         )} | A Pentesting Company | Fluid Attacks`}
-        url={"https://fluidattacks.com/blog"}
+        url={`https://fluidattacks.com/blog/categories/${categoryName}`}
       />
       <BlogSeo
         description={
