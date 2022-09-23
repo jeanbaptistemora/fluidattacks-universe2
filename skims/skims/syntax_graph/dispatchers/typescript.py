@@ -12,16 +12,16 @@ from syntax_graph.syntax_readers.common import (
     string_literal as common_string_literal,
     variable_declarator as common_variable_declarator,
 )
-from syntax_graph.syntax_readers.tsx import (  # type: ignore
-    array_type as tsx_array_type,
-    type_annotation as tsx_type_annotation,
+from syntax_graph.syntax_readers.typescript import (  # type: ignore
+    array_type as typescript_array_type,
+    type_annotation as typescript_type_annotation,
 )
 from syntax_graph.types import (
     Dispatcher,
     Dispatchers,
 )
 
-TSX_DISPATCHERS: Dispatchers = (
+TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "array",
@@ -32,7 +32,7 @@ TSX_DISPATCHERS: Dispatchers = (
         applicable_types={
             "array_type",
         },
-        syntax_reader=tsx_array_type.reader,
+        syntax_reader=typescript_array_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -80,6 +80,6 @@ TSX_DISPATCHERS: Dispatchers = (
         applicable_types={
             "type_annotation",
         },
-        syntax_reader=tsx_type_annotation.reader,
+        syntax_reader=typescript_type_annotation.reader,
     ),
 )

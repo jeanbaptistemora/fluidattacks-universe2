@@ -6,16 +6,19 @@ from model.graph_model import (
     NId,
 )
 from syntax_graph.constants import (
-    TSX_PRIMARY_TYPES,
+    TYPESCRIPT_PRIMARY_TYPES,
 )
-from syntax_graph.syntax_nodes.type_annotation import (
-    build_type_annotation_node,
+from syntax_graph.syntax_nodes.array_type import (
+    build_array_type_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
     adj_ast,
+)
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
@@ -26,10 +29,15 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    valid_childs = [
+    c_id = [
         child
         for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] in TSX_PRIMARY_TYPES
+        if args.ast_graph.nodes[child]["label_type"]
+        in TYPESCRIPT_PRIMARY_TYPES
     ]
 
-    return build_type_annotation_node(args, valid_childs)
+    for id in c_id:
+        if args.ast_graph.nodes[id]["label_type"] == "predefined_type":
+            array_type = node_to_str(args.ast_graph, id)
+
+    return build_array_type_node(args, array_type)

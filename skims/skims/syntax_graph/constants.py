@@ -86,7 +86,7 @@ C_SHARP_STATEMENT = {
     "yield_statement",
 }
 
-TSX_PRIMARY_TYPES = {
+TYPESCRIPT_PRIMARY_TYPES = {
     "array_type",
     "conditional_type",
     "existential_type",

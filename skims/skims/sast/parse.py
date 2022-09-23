@@ -197,7 +197,7 @@ def _is_final_node(node: Node, language: GraphShardMetadataLanguage) -> bool:
             and node.type in {"scope_resolution"}
         )
         or (
-            language == GraphShardMetadataLanguage.TSX
+            language == GraphShardMetadataLanguage.TYPESCRIPT
             and node.type
             in {
                 "this",

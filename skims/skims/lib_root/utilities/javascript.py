@@ -30,7 +30,7 @@ def yield_method_invocation(
             GraphShardMetadataLanguage.JAVASCRIPT,
         ),
         *graph_db.shards_by_language(
-            GraphShardMetadataLanguage.TSX,
+            GraphShardMetadataLanguage.TYPESCRIPT,
         ),
     ]:
         for syntax_steps in shard.syntax.values():

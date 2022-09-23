@@ -63,7 +63,7 @@ language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
     GraphShardMetadataLanguage.PHP: [".php"],
     GraphShardMetadataLanguage.RUBY: [".rb"],
     GraphShardMetadataLanguage.SCALA: [".sc", ".scala"],
-    GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
+    GraphShardMetadataLanguage.TYPESCRIPT: [".ts", ".tsx"],
 }
 
 

@@ -390,7 +390,7 @@ class GraphShardMetadataLanguage(Enum):
     PHP: str = "php"
     RUBY: str = "ruby"
     SCALA: str = "scala"
-    TSX: str = "tsx"
+    TYPESCRIPT: str = "tsx"
 
 
 class GraphShardMetadata(NamedTuple):

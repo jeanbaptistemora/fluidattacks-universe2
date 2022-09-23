@@ -21,7 +21,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if (
         (len(match) == 2 and match[";"])
         or args.language == GraphShardMetadataLanguage.JAVASCRIPT
-        or args.language == GraphShardMetadataLanguage.TSX
+        or args.language == GraphShardMetadataLanguage.TYPESCRIPT
     ):
         expression_id = match["__0__"]
         return args.generic(args.fork_n_id(str(expression_id)))
