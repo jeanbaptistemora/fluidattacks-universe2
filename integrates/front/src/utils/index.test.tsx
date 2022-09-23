@@ -458,6 +458,16 @@ describe("Validations", (): void => {
     );
   });
 
+  it("Should be invalid begin of url", (): void => {
+    expect.hasAssertions();
+
+    const BadBeginUrl = validUrlField("=test/url/field");
+
+    expect(BadBeginUrl).toBe(
+      "Field cannot begin with the following character: '='"
+    );
+  });
+
   it("should be a valid tag", (): void => {
     expect.hasAssertions();
 
