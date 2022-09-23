@@ -6,6 +6,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -21,6 +24,8 @@ from db_model.vulnerabilities.types import (
 from newutils.vulnerabilities import (
     as_range,
     format_vulnerabilities,
+    get_closing_date,
+    get_opening_date,
     get_ranges,
     group_specific,
     is_range,
@@ -74,6 +79,77 @@ async def test_format_vulnerabilities() -> None:
         "ports": [],
     }
     assert test_data == expected_output
+
+
+async def test_get_vuln_closing_date() -> None:
+    closed_vulnerability = Vulnerability(
+        created_by="test@test.com",
+        created_date="2019-01-08T21:01:26+00:00",
+        finding_id="422286126",
+        group_name="unittesting",
+        hacker_email="test@test.com",
+        id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
+        specific="phone",
+        state=VulnerabilityState(
+            modified_by="test@test.com",
+            modified_date="2019-01-08T21:01:26+00:00",
+            source=Source.ASM,
+            status=VulnerabilityStateStatus.CLOSED,
+        ),
+        type=VulnerabilityType.INPUTS,
+        unreliable_indicators=VulnerabilityUnreliableIndicators(
+            unreliable_source=Source.ASM,
+        ),
+        where="https://example.com",
+    )
+    test_data = get_closing_date(closed_vulnerability)
+    closing_date = datetime(2019, 1, 8).date()
+    assert test_data == closing_date
+
+    loaders: Dataloaders = get_new_context()
+    open_vulnerability: Vulnerability = await loaders.vulnerability.load(
+        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+    )
+    test_data = get_closing_date(open_vulnerability)
+    assert test_data is None
+
+
+async def test_get_vuln_opening_date() -> None:
+    test_vuln = Vulnerability(
+        created_by="test@test.com",
+        created_date="2019-01-08T21:01:26+00:00",
+        finding_id="",
+        group_name="",
+        hacker_email="",
+        id="",
+        specific="",
+        type=VulnerabilityType.LINES,
+        where="",
+        state=VulnerabilityState(
+            modified_by="",
+            modified_date="2019-01-08T21:01:26+00:00",
+            source=Source.ASM,
+            status=VulnerabilityStateStatus.OPEN,
+        ),
+        unreliable_indicators=VulnerabilityUnreliableIndicators(
+            unreliable_source=Source.ASM,
+            unreliable_treatment_changes=0,
+        ),
+    )
+    result_date = get_opening_date(test_vuln)
+    assert result_date == datetime(2019, 1, 8).date()
+
+    min_date = datetime(2021, 1, 1).date()
+    result_date = get_opening_date(vuln=test_vuln, min_date=min_date)
+    assert result_date is None
+
+    loaders: Dataloaders = get_new_context()
+    test_open_vuln = await loaders.vulnerability.load(
+        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+    )
+    result_date = get_opening_date(test_open_vuln)
+    expected_output = datetime(2020, 9, 9).date()
+    assert result_date == expected_output
 
 
 def test_get_ranges() -> None:
