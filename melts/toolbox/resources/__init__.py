@@ -135,9 +135,12 @@ def cmd_execute(cmnd: List[str], folder: str = ".") -> List[str]:
     env_vars: Dict[str, str] = {
         "GIT_SSL_NO_VERIFY": "1",
         "GIT_SSH_COMMAND": (
-            "ssh -o "
-            "UserKnownHostsFile=/dev/null -o "
-            "StrictHostKeyChecking=no"
+            "ssh"
+            " -o UserKnownHostsFile=/dev/null"
+            " -o StrictHostKeyChecking=no"
+            " -o IdentitiesOnly=yes"
+            " -o HostkeyAlgorithms=+ssh-rsa"
+            " -o PubkeyAcceptedAlgorithms=+ssh-rsa"
         ),
     }
     process = Popen(  # pylint: disable=consider-using-with

@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: machine-report-${NAME}
@@ -14,4 +14,11 @@ spec:
     name: machine-report-${NAME}
   minReplicas: 1
   maxReplicas: 45
-  targetCPUUtilizationPercentage: 60
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 70
+          periodSeconds: 300
+      selectPolicy: Max
