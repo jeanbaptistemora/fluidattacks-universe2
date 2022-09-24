@@ -15,25 +15,10 @@ interface ITodoDraftAttr {
   title: string;
 }
 
-interface ITodoGroupAttr {
-  drafts: ITodoDraftAttr[];
-  managed: string;
-}
-
-interface ITodoOrganizationAttr {
-  groups: ITodoGroupAttr[];
-  name: string;
-}
-
 interface IGetTodoDrafts {
   me: {
-    organizations: ITodoOrganizationAttr[];
+    drafts: ITodoDraftAttr[];
   };
 }
 
-export type {
-  IGetTodoDrafts,
-  ITodoDraftAttr,
-  ITodoGroupAttr,
-  ITodoOrganizationAttr,
-};
+export type { IGetTodoDrafts, ITodoDraftAttr };

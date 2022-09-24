@@ -30,36 +30,24 @@ describe("TodoDraftsView", (): void => {
     result: {
       data: {
         me: {
-          organizations: [
+          drafts: [
             {
-              groups: [
-                {
-                  drafts: [
-                    {
-                      currentState: "SUBMITTED",
-                      groupName: "group1",
-                      hacker: "test1@fluidattacks.com",
-                      id: "475041513",
-                      openVulnerabilities: 1,
-                      reportDate: "2019-04-12 08:45:48",
-                      severityScore: 3.4,
-                      title: "081. Lack of multi-factor authentication",
-                    },
-                    {
-                      currentState: "CREATED",
-                      groupName: "gropu1",
-                      hacker: "test2@fluidattacks.com",
-                      id: "475041535",
-                      openVulnerabilities: 0,
-                      reportDate: "2019-02-04 12:46:10",
-                      severityScore: 3.4,
-                      title: "006. Authentication mechanism absence or evasion",
-                    },
-                  ],
-                  name: "group1",
-                },
-              ],
-              name: "orgtest",
+              currentState: "SUBMITTED",
+              groupName: "group1",
+              id: "475041513",
+              openVulnerabilities: 1,
+              reportDate: "2019-04-12 08:45:48",
+              severityScore: 3.4,
+              title: "081. Lack of multi-factor authentication",
+            },
+            {
+              currentState: "CREATED",
+              groupName: "gropu1",
+              id: "475041535",
+              openVulnerabilities: 0,
+              reportDate: "2019-02-04 12:46:10",
+              severityScore: 3.4,
+              title: "006. Authentication mechanism absence or evasion",
             },
           ],
           userEmail: "test@fluidattacks.com",
@@ -97,16 +85,11 @@ describe("TodoDraftsView", (): void => {
     expect(screen.getByText("Type")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Open Vulns.")).toBeInTheDocument();
-    expect(screen.getByText("Group Name")).toBeInTheDocument();
-    expect(screen.getByText("Hacker")).toBeInTheDocument();
     expect(screen.getByText("State")).toBeInTheDocument();
-
-    expect(screen.getByText("test1@fluidattacks.com")).toBeInTheDocument();
     expect(screen.getAllByText("Submitted")).toHaveLength(2);
     expect(
       screen.getByText("006. Authentication mechanism absence or evasion")
     ).toBeInTheDocument();
-    expect(screen.getByText("test2@fluidattacks.com")).toBeInTheDocument();
     expect(screen.getAllByText("Created")).toHaveLength(2);
   });
 });

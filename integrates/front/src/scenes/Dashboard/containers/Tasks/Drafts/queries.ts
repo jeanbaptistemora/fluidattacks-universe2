@@ -10,24 +10,16 @@ import type { DocumentNode } from "graphql";
 export const GET_TODO_DRAFTS: DocumentNode = gql`
   query GetTodoDrafts {
     me {
-      userEmail
-      organizations {
-        name
-        groups {
-          name
-          managed
-          drafts {
-            currentState
-            groupName
-            hacker
-            id
-            openVulnerabilities
-            reportDate
-            severityScore
-            title
-          }
-        }
+      drafts {
+        currentState
+        groupName
+        id
+        openVulnerabilities
+        reportDate
+        severityScore
+        title
       }
+      userEmail
     }
   }
 `;

@@ -19,8 +19,6 @@ import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/Drafts/querie
 import type {
   IGetTodoDrafts,
   ITodoDraftAttr,
-  ITodoGroupAttr,
-  ITodoOrganizationAttr,
 } from "scenes/Dashboard/containers/Tasks/Drafts/types";
 import { Logger } from "utils/logger";
 
@@ -45,10 +43,6 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   ): void => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("todoDraftSort", JSON.stringify(newSorted));
-  };
-
-  const hackerFormatter = (value: string): JSX.Element => {
-    return <div className={`tl truncate`}>{value}</div>;
   };
 
   const tableHeaders: IHeaderConfig[] = [
@@ -85,13 +79,6 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
       width: "10%",
     },
     {
-      dataField: "hacker",
-      formatter: hackerFormatter,
-      header: "Hacker",
-      onSort: onSortState,
-      width: "10%",
-    },
-    {
       dataField: "currentState",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "todoDraftStatusFilter"),
@@ -118,20 +105,7 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   });
 
   const dataset: ITodoDraftAttr[] =
-    _.isUndefined(data) || _.isEmpty(data)
-      ? []
-      : _.flatten(
-          data.me.organizations.map(
-            (org: ITodoOrganizationAttr): ITodoDraftAttr[] =>
-              org.name === "imamura"
-                ? []
-                : _.flatten(
-                    org.groups.map((group: ITodoGroupAttr): ITodoDraftAttr[] =>
-                      group.managed === "UNDER_REVIEW" ? [] : group.drafts
-                    )
-                  )
-          )
-        );
+    _.isUndefined(data) || _.isEmpty(data) ? [] : _.flatten(data.me.drafts);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
