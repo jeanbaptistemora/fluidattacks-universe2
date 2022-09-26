@@ -24,8 +24,6 @@ class ColumnId:
 @dataclass(frozen=True)
 class Column:
     data_type: DataType
-    primary_key: bool
-    unique_key: bool
     nullable: bool
     default: Primitive
 
