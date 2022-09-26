@@ -120,7 +120,7 @@ def test_group_analytics(
     expected_charts: Tuple[str, ...] = tuple(
         (
             "MTTR Benchmarking",
-            "Total Exposure",
+            "Exposure over time",
             "Open Exposure by type",
             "Aggregated exposure benchmark",
             "Exposure management over time",
