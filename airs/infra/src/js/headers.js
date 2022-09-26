@@ -1094,6 +1094,13 @@ const redirectMap = new Map([
   ["/security-testing/", "https://fluidattacks.com/solutions/security-testing/"],
   ["/products/defends/java/validar-correo-electronico", homeURL],
   ["/products/defends/java/validar-correo-electronico/", homeURL],
+  ["/blog/gherkin-steroids/local-file-inclusion.feature/","https://fluidattacks.com/blog/gherkin-steroids/local-file-inclusion.feature"],
+  ["/blog/libssh-bypass-cve/cve201810933.zip/","https://fluidattacks.com/blog/libssh-bypass-cve/cve201810933.zip"],
+  ["/blog/my-heart-bleeds/openssl-fragment.c/","https://fluidattacks.com/blog/my-heart-bleeds/openssl-fragment.c"],
+  ["/blog/pars-orationis-secura/results.txt/","https://fluidattacks.com/blog/pars-orationis-secura/results.txt"],
+  ["/blog/pars-orationis-secura/sqli-parser.py/","https://fluidattacks.com/blog/pars-orationis-secura/sqli-parser.py"],
+  ["/blog/pars-orationis-secura/redux-sqli-7.php/","https://fluidattacks.com/blog/pars-orationis-secura/redux-sqli-7.php"],
+  ["/blog/pars-orationis-secura/test-cases.lst/","https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst"],
 ]);
 
 addEventListener('fetch', event => {
