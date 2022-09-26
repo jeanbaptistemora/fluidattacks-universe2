@@ -13,6 +13,7 @@ import {
   isFloatOrInteger,
   isLowerDate,
   isPositive,
+  isValidEnvironmentUrl,
   isValidFileName,
   isValidFileSize,
   isValidVulnSeverity,
@@ -28,6 +29,7 @@ import {
   validEvidenceImage,
   validExploitFile,
   validFindingTypology,
+  validPath,
   validRecordsFile,
   validTag,
   validTextField,
@@ -677,6 +679,50 @@ describe("Validations", (): void => {
     const IsSame = sameValue("TestGroup")("TestGroup1");
 
     expect(IsSame).toBe("Required field");
+  });
+
+  it("Should path include the host", (): void => {
+    expect.hasAssertions();
+
+    const HosthPathTest = validPath("https://test.com")("https://test.com");
+
+    expect(HosthPathTest).toBe("The path should not include the host");
+  });
+
+  it("Should path starts with: /", (): void => {
+    expect.hasAssertions();
+
+    const HosthPathTest = validPath("https://test_host_")(
+      "/path_with_bad_char"
+    );
+
+    expect(HosthPathTest).toBe(
+      "Field cannot begin with the following character: /"
+    );
+  });
+
+  it("Should has good path", (): void => {
+    expect.hasAssertions();
+
+    const HosthPathTest = validPath("https://test_host_")("this_is_the_path");
+
+    expect(HosthPathTest).toBeUndefined();
+  });
+
+  it("Should have valid environment", (): void => {
+    expect.hasAssertions();
+
+    const EnvUrl = isValidEnvironmentUrl(["Test1", "Test2"])("Test1");
+
+    expect(EnvUrl).toBeUndefined();
+  });
+
+  it("Should not have environment url", (): void => {
+    expect.hasAssertions();
+
+    const EnvUrl = isValidEnvironmentUrl(["Test1", "Test2"])("Test");
+
+    expect(EnvUrl).toBe("The environment URL is invalid");
   });
 });
 
