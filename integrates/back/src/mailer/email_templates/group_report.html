@@ -5,26 +5,28 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-  <div class="container">
-{% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' %}
-{{ banner_group('Report Available') }}
-    <div class="main-content">
-      <p>Hi {{ name }},</p>
-      <p>
-        You can download your {{ filetype }} report you requested on group
-        <strong>{{ groupname }}</strong> on {{ date }} at {{ time }}
-        by clicking the button below.
-        The link will be <strong>available for the next hour</strong>.
-      </p>
-      <p>Regards,<br>
-        Fluid Attacks Team</p>
-      {{ go_to_button('Go to report', filelink, 'primary-button') }}
-      <br />
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Report Available') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          You can download your {{ filetype }} report you requested on group
+          <strong>{{ groupname }}</strong> on {{ date }} at {{ time }}
+          by clicking the button below.
+          The link will be <strong>available for the next hour</strong>.
+        </p>
+        <p>Regards,<br>
+          Fluid Attacks Team
+        </p>
+        {{ go_to_button('Go to report', filelink, 'primary-button') }}
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
     </div>
-    {% include 'layouts/components/footer.html' %}
-  </div>
-{% endblock %}
+  {% endblock %}

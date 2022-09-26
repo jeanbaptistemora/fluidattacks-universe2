@@ -5,76 +5,75 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import header, go_to_button %}
+  {% from 'layouts/components/forms.html' import header, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {{ header(
+        'You have reached day 21!',
+        'Want to continue enjoying the Machine Plan free trial?'
+      ) }}
 
-{% block layout %}
-<div class="container">
-  {{ header(
-    'You have reached day 21!',
-    'Want to continue enjoying the Machine Plan free trial?'
-  ) }}
+      <div class="main-content">
+        <p>Hi, {{ name }},</p>
+        <p>
+          For us, it’s been a great journey having you using our
+          <strong>Continuous Hacking Machine</strong> Plan in this free trial.
+          We hope you have gained value from the trial and we look forward
+          to keeping you as a user from now on.
+        </p>
+        <p>
+          <strong>What do you want to do next?</strong>
+        </p>
+        <ul class="big-list-icon">
+          <li>
+            <a href="mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription">
+              Talk to a sales representative
+            </a>
+          </li>
+          <li>
+            <a href="https://calendly.com/vbustamante2/free-trial-feedback" rel="noopener noreferrer" target="_blank">
+              Schedule a Customer Success Session
+            </a>
+          </li>
+        </ul>
+        <p>
+          <strong>What happens when the trial expires?</strong>
+        </p>
+        <p>
+          Just as a reminder, the information that is in our
+          <strong>ARM Platform</strong> will follow one
+          of these two paths after the trial ends:
+        </p>
+        <ul class="big-list-icon">
+          <li class="mb1">
+            <strong>
+              You want to subscribe to our Continuous Hacking solution:
+            </strong>
+            we would preserve the information in ARM. To subscribe,
+            talk to one of our sales representatives:
+          </li>
+          {{
+            go_to_button(
+            'Contact sales',
+            'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
+            'primary-button'
+            )
+          }}
+          <li class="mt1">
+            <strong>You don’t want to subscribe at the moment:</strong>
+            your information (account, groups, vulnerabilities, and more)
+            will be <u>securely removed from our ARM Platform within one day</u>.
+          </li>
+        </ul>
+        {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
+        <p class="mt1">
+          <strong>Questions or comments?</strong> You can always contact us at
+          <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+        </p>
+        <p>Best regards,</p>
+        <p>Fluid Attacks Team</p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>Hi, {{ name }},</p>
-    <p>
-      For us, it’s been a great journey having you using our
-      <strong>Continuous Hacking Machine</strong> Plan in this free trial.
-      We hope you have gained value from the trial and we look forward
-      to keeping you as a user from now on.
-    </p>
-    <p>
-      <strong>What do you want to do next?</strong>
-    </p>
-    <ul class="big-list-icon">
-      <li>
-        <a href="mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription">
-          Talk to a sales representative
-        </a>
-      </li>
-      <li>
-        <a href="https://calendly.com/vbustamante2/free-trial-feedback" rel="noopener noreferrer" target="_blank">
-          Schedule a Customer Success Session
-        </a>
-      </li>
-    </ul>
-    <p>
-      <strong>What happens when the trial expires?</strong>
-    </p>
-    <p>
-      Just as a reminder, the information that is in our
-      <strong>ARM Platform</strong> will follow one
-      of these two paths after the trial ends:
-    </p>
-    <ul class="big-list-icon">
-      <li class="mb1">
-        <strong>
-          You want to subscribe to our Continuous Hacking solution:
-        </strong>
-        we would preserve the information in ARM. To subscribe,
-        talk to one of our sales representatives:
-      </li>
-      {{
-        go_to_button(
-        'Contact sales',
-        'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
-        'primary-button'
-         )
-      }}
-      <li class="mt1">
-        <strong>You don’t want to subscribe at the moment:</strong>
-        your information (account, groups, vulnerabilities, and more)
-        will be <u>securely removed from our ARM Platform within one day</u>.
-      </li>
-    </ul>
-    {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
-    <p class="mt1">
-      <strong>Questions or comments?</strong> You can always contact us at
-      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
-    </p>
-    <p>Best regards,</p>
-    <p>Fluid Attacks Team</p>
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}

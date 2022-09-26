@@ -5,48 +5,49 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_group('DevSecOps Agent Token') }}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('DevSecOps Agent Token') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          A DevSecOps Agent token in the group
+          <strong>{{ group_name }}</strong> has been
+          {% if had_token %} reset {% else %} generated {% endif %}
+          by <strong><a
+              href="mailto:{{ responsible }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #ff3435;"
+            >
+              {{ responsible -}}
+            </a></strong>
+            {{ report_date }}.<br/>
+        </p>
+        <p>
+          You can use our DevSecOps agent on any OS on which Docker can run.
+          You can also integrate it into your <strong>CI/CD pipeline</strong>
+          to ensure that your software is built and shipped without vulnerabilities
+          previously reported in our ARM.
+          In order to install the agent, you need to follow
+          <a href="https://docs.fluidattacks.com/machine/agent/installation"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            this guide</a>.
+        </p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
+        {{ go_to_button('Go to scope', scope_url, 'primary-button') }}
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>Hi {{ name }},</p>
-    <p>
-      A DevSecOps Agent token in the group
-      <strong>{{ group_name }}</strong> has been
-      {% if had_token %} reset {% else %} generated {% endif %}
-      by <strong>
-        <a
-          href="mailto:{{ responsible }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #ff3435;"
-        >
-          {{ responsible }}
-        </a>
-      </strong> {{ report_date }}.<br/>
-    </p>
-    <p>
-      You can use our DevSecOps agent on any OS on which Docker can run.
-      You can also integrate it into your <strong>CI/CD pipeline</strong>
-      to ensure that your software is built and shipped without vulnerabilities
-      previously reported in our ARM.
-      In order to install the agent, you need to follow
-      <a href="https://docs.fluidattacks.com/machine/agent/installation"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="color: #ff3435;"
-      >
-        this guide</a>.
-    </p>
-    <p>Regards,<br>Fluid Attacks Team</p>
-    {{ go_to_button('Go to scope', scope_url, 'primary-button') }}
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}
