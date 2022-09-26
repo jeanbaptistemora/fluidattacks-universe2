@@ -4,35 +4,34 @@
 
 from syntax_graph.syntax_readers.common import (
     assignment_expression as common_assignment_expression,
-    boolean_literal as common_boolean_literal,
-    comment as common_comment,
     conditional_expression as common_conditional_expression,
     execution_block as common_execution_block,
-    identifier as common_identifier,
-    library_name as common_library_name,
     method_declaration as common_method_declaration,
     number_literal as common_number_literal,
-    operator as common_operator,
     parameter as common_parameter,
-    parameter_list as common_parameter_list,
-    program as common_program,
-    reserved_word as common_reserved_word,
     string_literal as common_string_literal,
-    this as common_this,
 )
 from syntax_graph.syntax_readers.dart import (  # type: ignore
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
     assignable_selector as dart_assignable_selector,
+    boolean_literal as dart_boolean_literal,
+    comment as dart_comment,
     declaration_block as dart_declaration_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
     function_body as dart_function_body,
     function_signature as dart_function_signature,
     getter_signature as dart_getter_signature,
+    identifier as dart_identifier,
     import_or_export as dart_import_or_export,
+    library_name as dart_library_name,
     method_signature as dart_method_signature,
+    operator as dart_operator,
+    parameter_list as dart_parameter_list,
+    program as dart_program,
+    reserved_word as dart_reserved_word,
     selector as dart_selector,
     type_identifier as dart_type_identifier,
     variable_declaration as dart_variable_declaration,
@@ -78,7 +77,7 @@ DART_DISPATCHERS: Dispatchers = (
             "false",
             "true",
         },
-        syntax_reader=common_boolean_literal.reader,
+        syntax_reader=dart_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -91,7 +90,7 @@ DART_DISPATCHERS: Dispatchers = (
             "comment",
             "documentation_comment",
         },
-        syntax_reader=common_comment.reader,
+        syntax_reader=dart_comment.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -148,7 +147,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "identifier",
         },
-        syntax_reader=common_identifier.reader,
+        syntax_reader=dart_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -160,7 +159,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "library_name",
         },
-        syntax_reader=common_library_name.reader,
+        syntax_reader=dart_library_name.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -179,7 +178,7 @@ DART_DISPATCHERS: Dispatchers = (
             "additive_operator",
             "equality_operator",
         },
-        syntax_reader=common_operator.reader,
+        syntax_reader=dart_operator.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -191,31 +190,26 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "formal_parameter_list",
         },
-        syntax_reader=common_parameter_list.reader,
+        syntax_reader=dart_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
             "program",
         },
-        syntax_reader=common_program.reader,
+        syntax_reader=dart_program.reader,
     ),
     Dispatcher(
         applicable_types={
             "get",
+            "this",
         },
-        syntax_reader=common_reserved_word.reader,
+        syntax_reader=dart_reserved_word.reader,
     ),
     Dispatcher(
         applicable_types={
             "selector",
         },
         syntax_reader=dart_selector.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "this",
-        },
-        syntax_reader=common_this.reader,
     ),
     Dispatcher(
         applicable_types={
