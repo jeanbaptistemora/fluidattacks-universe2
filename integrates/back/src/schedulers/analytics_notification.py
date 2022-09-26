@@ -28,7 +28,7 @@ from mailchimp_transactional.api_client import (
     ApiClientError,
 )
 from mailer import (
-    groups as groups_mail,
+    analytics as analytics_mail,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -42,7 +42,7 @@ mail_analytics_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=4,
     sleep_seconds=2,
-)(groups_mail.send_analytics_notification)
+)(analytics_mail.send_trial_analytics_notification)
 
 
 async def send_analytics_notification() -> None:

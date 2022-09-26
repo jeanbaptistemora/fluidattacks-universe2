@@ -216,26 +216,6 @@ async def send_support_channels_notification(
     )
 
 
-async def send_analytics_notification(
-    loaders: Any, email_to: str, group_name: str
-) -> None:
-    fname = await get_recipient_first_name(loaders, email_to)
-    org_name = await get_organization_name(loaders, group_name)
-    context = {
-        "analytics_link": f"{BASE_URL}/orgs/{org_name}/analytics",
-    }
-    await send_mails_async(
-        loaders,
-        email_to=[email_to],
-        context=context,
-        tags=[],
-        subject=(
-            f"[{fname}], check your Continuous Hacking numbers: Analytics."
-        ),
-        template_name="analytics_notification",
-    )
-
-
 async def send_devsecops_agent_notification(
     loaders: Any, email_to: str, group_name: str
 ) -> None:
@@ -331,6 +311,29 @@ async def send_how_improve_notification(
         tags=[],
         subject=(f"[{fname}], how can we improve?"),
         template_name="how_improve_notification",
+    )
+
+
+async def send_trial_ended_notification(
+    loaders: Any, email_to: str, group_name: str
+) -> None:
+    fname = await get_recipient_first_name(loaders, email_to)
+    org_name = await get_organization_name(loaders, group_name)
+    context = {
+        "vulnerabilities_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns"
+        ),
+    }
+    await send_mails_async(
+        loaders,
+        email_to=[email_to],
+        context=context,
+        tags=[],
+        subject=(
+            f"[{fname}], your free trial has ended. "
+            "Here’s what you can do next."
+        ),
+        template_name="trial_ended_notification",
     )
 
 

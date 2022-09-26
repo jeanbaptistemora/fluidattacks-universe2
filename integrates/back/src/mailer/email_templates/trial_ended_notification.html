@@ -1,0 +1,57 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %}
+  {% include 'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <p>{{ name }},</p>
+    <p>
+      Thank you for trying our <strong>Continuous Hacking Machine Plan</strong>.
+      We hope you have had a great experience and we look forward
+      to keeping you as a user from now on.
+    </p>
+    <p>
+      <strong>What do you want to do next?</strong>
+    </p>
+    <p>
+      If you want to keep the service, get in touch with us
+    </p>
+    {{
+      go_to_button(
+      'Talk to a sales representative',
+      'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
+      'primary-button'
+       )
+    }}
+    <p class="mt1">
+      Remember, that you can download the information from vulnerabilities:
+    </p>
+    {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
+    <p class="mt1">
+      We’s love your feedback regarding your experience. Would you like to talk to us?
+    </p>
+    <p>
+      <a href="https://calendly.com/vbustamante2/free-trial-feedback" rel="noopener noreferrer" target="_blank">
+        Schedule a Customer Success Session
+      </a>
+    </p>
+    <p>
+      <strong>Questions or comments?</strong> You can always contact us at
+      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+    </p>
+    <p>All the best,</p>
+    <p><strong>Fluid Attacks Team</strong></p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
