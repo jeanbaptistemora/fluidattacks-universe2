@@ -10,6 +10,7 @@ from db_model.findings.types import (
 )
 from db_model.findings.utils import (
     filter_non_in_test_orgs,
+    filter_stakeholder_groups,
     format_finding,
 )
 from decorators import (
@@ -17,6 +18,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from group_access.domain import (
+    get_stakeholder_groups_names,
 )
 from search.operations import (
     search,
@@ -39,14 +43,13 @@ async def resolve(
             {"state.status": "REJECTED"},
             {"state.status": "SUBMITTED"},
         ],
-        must_filters=[{"analyst_email": user_email}],
         must_not_filters=[
             {"state.status": "APPROVED"},
             {"state.status": "DELETED"},
             {"state.status": "MASKED"},
         ],
         index="findings",
-        limit=100,
+        limit=500,
     )
     loaders: Dataloaders = info.context.loaders
     test_group_orgs = await loaders.organization_groups.load_many(
@@ -56,7 +59,13 @@ async def resolve(
         )
     )
 
-    return filter_non_in_test_orgs(
+    org_filtered = filter_non_in_test_orgs(
         test_group_orgs,
         tuple(format_finding(result) for result in results.items),
     )
+
+    stakeholder_groups = await get_stakeholder_groups_names(
+        loaders, user_email, True
+    )
+
+    return tuple(filter_stakeholder_groups(stakeholder_groups, org_filtered))

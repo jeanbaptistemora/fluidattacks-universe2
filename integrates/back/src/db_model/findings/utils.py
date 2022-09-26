@@ -58,6 +58,15 @@ def filter_non_in_test_orgs(
     )
 
 
+def filter_stakeholder_groups(
+    group_names: list[str],
+    findings: tuple[Finding, ...],
+) -> tuple[Finding, ...]:
+    return tuple(
+        finding for finding in findings if finding.group_name in group_names
+    )
+
+
 def filter_non_state_status_findings(
     findings: tuple[Finding, ...], status: set[FindingStateStatus]
 ) -> tuple[Finding, ...]:
