@@ -79,7 +79,6 @@ async def mutate(
     _: None, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> AddConsultPayload:
     loaders: Dataloaders = info.context.loaders
-    validations_utils.validate_fields([parameters["content"]])
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
@@ -88,6 +87,8 @@ async def mutate(
     )
     comment_id = int(round(time.time() * 1000))
     content = parameters["content"]
+    validations_utils.validate_fields([content])
+    validations_utils.validate_field_length(content, 5000)
     comment_data = GroupComment(
         group_name=group_name,
         id=str(comment_id),
