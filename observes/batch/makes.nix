@@ -109,7 +109,7 @@ in {
     observesGitlabEtlProduct = scheduled_job {
       size = "medium";
       attempts = 1;
-      timeout = 3600;
+      timeout = 3600 * 6;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
     };
 
