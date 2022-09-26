@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ctx import (
-    CTX,
-)
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
@@ -24,12 +21,8 @@ from typing import (
     cast,
     Optional,
 )
-from utils.env import (
-    guess_environment,
-)
 from utils.logs import (
     log_blocking,
-    log_to_remote_blocking,
 )
 
 
@@ -41,15 +34,10 @@ def generic(args: SyntaxGraphArgs) -> str:
             if node_type in dispatcher.applicable_types:
                 return dispatcher.syntax_reader(args)
 
-    if guess_environment() == "production":
-        log_to_remote_blocking(
-            msg=f"Missing syntax reader in {args.language.name}",
-            severity="warning",
-            group=CTX.config.group,
-            namespace=CTX.config.namespace,
-            path=args.path,
-            node_type=node_type,
-        )
+    log_blocking(
+        "warning",
+        f"Missing syntax reader for {node_type} in {args.language.name}",
+    )
 
     return missing_node_reader(args, node_type)
 

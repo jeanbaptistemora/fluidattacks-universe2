@@ -9,12 +9,12 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
-    List,
+    Iterator,
 )
 
 
 def build_missing_node(
-    args: SyntaxGraphArgs, n_type: str, c_ids: List[NId]
+    args: SyntaxGraphArgs, n_type: str, c_ids: Iterator[NId]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
