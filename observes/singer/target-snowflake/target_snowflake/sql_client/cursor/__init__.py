@@ -22,12 +22,14 @@ from fa_purity.json.primitive import (
     Primitive,
 )
 from fa_purity.pure_iter.factory import (
+    from_flist,
     infinite_range,
 )
 from fa_purity.stream.factory import (
     from_piter,
 )
 from fa_purity.stream.transform import (
+    chain,
     until_empty,
 )
 from fa_purity.utils import (
@@ -129,4 +131,11 @@ class Cursor:
             )
             .transform(lambda i: from_piter(i))
             .transform(lambda i: until_empty(i))
+        )
+
+    def data_stream(self, chunk: int) -> Stream[RowData]:
+        return (
+            self.data_chunks_stream(chunk)
+            .map(lambda i: from_flist(i))
+            .transform(lambda i: chain(i))
         )
