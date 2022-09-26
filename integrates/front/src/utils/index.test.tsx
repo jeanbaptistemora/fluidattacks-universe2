@@ -15,11 +15,13 @@ import {
   isPositive,
   isValidFileName,
   isValidFileSize,
+  isValidVulnSeverity,
   maxLength,
   minLength,
   numberBetween,
   numeric,
   required,
+  sameValue,
   validCsvInput,
   validDraftTitle,
   validEmail,
@@ -650,6 +652,31 @@ describe("Validations", (): void => {
     expect(BadPattern).toBe(
       "Field cannot contain the following character pattern: ',='"
     );
+  });
+
+  it("Should be an invalid vuln", (): void => {
+    expect.hasAssertions();
+
+    const TestVuln: string = "11111111111";
+    const CheckVuln: string | undefined = isValidVulnSeverity(TestVuln);
+
+    expect(CheckVuln).toBe("This value must be between 0 and 1000000000");
+  });
+
+  it("Should be the same value", (): void => {
+    expect.hasAssertions();
+
+    const IsSame = sameValue("TestGroup")("TestGroup");
+
+    expect(IsSame).toBeUndefined();
+  });
+
+  it("Should't be the same value", (): void => {
+    expect.hasAssertions();
+
+    const IsSame = sameValue("TestGroup")("TestGroup1");
+
+    expect(IsSame).toBe("Required field");
   });
 });
 
