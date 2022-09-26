@@ -23,9 +23,9 @@ spec:
           periodSeconds: 300
       selectPolicy: Max
   metrics:
-    type: Resource
-    resource:
-      name: CPU
-      target:
-        type: Utilization
-        averageUtilization: 65
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 65
