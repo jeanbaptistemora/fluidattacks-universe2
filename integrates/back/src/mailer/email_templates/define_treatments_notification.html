@@ -5,39 +5,38 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import go_to_button %}
+  {% from 'layouts/components/forms.html' import go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
+      {% include 'layouts/components/arm_banner.html' %}
+      <div class="main-content">
+        <p>{{ name }},</p>
+        <p>
+          You can define <strong>treatments</strong> for each vulnerability and speed-up remediation,
+          the ultimate goal after identifying weaknesses on your applications.This way,
+          you can better manage how your team make progress towards closing vulnerabilities
+          across your applications.
+        </p>
+        <div>
+          <img alt="define treatments gif" class="w-100"
+            src="https://res.cloudinary.com/fluid-attacks/image/upload/v1662999388/notifications/define-tratments/define-treatments.gif"
+            style="display:block;">
+        </div>
+        <p class="mt1">
+          To know more, visit our documentation
+          <a href="https://docs.fluidattacks.com" rel="noopener noreferrer" target="_blank">here</a>.
+        </p>
+        {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
+        <p class="mt1">
+          <strong>Questions or comments?</strong> You can always contact us at
+          <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
+        </p>
+        <p>Keep getting value from Continuous Hacking!</p>
+        <p><strong>Fluid Attacks Team</strong></p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>{{ name }},</p>
-    <p>
-      You can define <strong>treatments</strong> for each vulnerability and speed-up remediation,
-      the ultimate goal after identifying weaknesses on your applications.This way,
-      you can better manage how your team make progress towards closing vulnerabilities
-      across your applications.
-    </p>
-    <div>
-      <img alt="define treatments gif" class="w-100"
-        src="https://res.cloudinary.com/fluid-attacks/image/upload/v1662999388/notifications/define-tratments/define-treatments.gif"
-        style="display:block;">
     </div>
-    <p class="mt1">
-      To know more, visit our documentation
-      <a href="https://docs.fluidattacks.com" rel="noopener noreferrer" target="_blank">here</a>.
-    </p>
-    {{ go_to_button('Go to Vulnerabilities', '{{ vulnerabilities_link }}', 'primary-button') }}
-    <p class="mt1">
-      <strong>Questions or comments?</strong> You can always contact us at
-      <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
-    </p>
-    <p>Keep getting value from Continuous Hacking!</p>
-    <p><strong>Fluid Attacks Team</strong></p>
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+  {% endblock %}

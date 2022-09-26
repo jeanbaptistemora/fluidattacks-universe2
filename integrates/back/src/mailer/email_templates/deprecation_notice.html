@@ -5,50 +5,49 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_news %}
+  {% from 'layouts/components/forms.html' import banner_news %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %}
-  {% include 'layouts/components/arm_banner.html' %}
-  {{ banner_news('API Deprecation Notice') }}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_news('API Deprecation Notice') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          The following API elements are nearing the end of
+          their six-month lifespan to become deprecated.
+          Therefore, we will <strong>remove</strong> them from our API next month:
+        </p>
+        {% for object, fields in deprecations.items() %}
+        <div class="row">
+          <div class="column left" style="width: 35%; text-align: left;">
+            <strong>From {{ object }}:</strong>
+          </div>
+          <div class="column right" style="width: 65%; text-align: center;">
+            {{ fields }}
+          </div>
+        </div>
+        {% endfor %}
+        <br>
+        <p>
+          If your product currently consumes any of the above API elements
+          in its queries, we encourage you to
+          <strong>update them before</strong>
+          next month’s planned removal.
+          For more information, you can check the
+          <a href="https://app.fluidattacks.com/api"
+            target="_blank" rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            ARM API docs</a>.
+        </p>
+        <p></p>
+        <p>Regards,<br>
+          Fluid Attacks Team</p>
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
 
-  <div class="main-content">
-    <p>Hi {{ name }},</p>
-    <p>
-      The following API elements are nearing the end of
-      their six-month lifespan to become deprecated.
-      Therefore, we will <strong>remove</strong> them from our API next month:
-    </p>
-    {% for object, fields in deprecations.items() %}
-    <div class="row">
-      <div class="column left" style="width: 35%; text-align: left;">
-        <strong>From {{ object }}:</strong>
-      </div>
-      <div class="column right" style="width: 65%; text-align: center;">
-        {{ fields }}
-      </div>
     </div>
-    {% endfor %}
-    <br>
-    <p>
-      If your product currently consumes any of the above API elements
-      in its queries, we encourage you to
-      <strong>update them before</strong>
-      next month’s planned removal.
-      For more information, you can check the
-      <a href="https://app.fluidattacks.com/api"
-        target="_blank" rel="noopener noreferrer"
-        style="color: #ff3435;"
-      >
-        ARM API docs</a>.
-    </p>
-    <p></p>
-    <p>Regards,<br>
-      Fluid Attacks Team</p>
-    <br />
-  </div>
-
-  {% include 'layouts/components/footer.html' %}
-</div>
-{% endblock %}
+  {% endblock %}
