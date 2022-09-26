@@ -37,4 +37,12 @@ TRIGGERS: tuple[Trigger, ...] = (
         ),
         records_processor=opensearch.process_findings,
     ),
+    Trigger(
+        batch_size=0,
+        records_filter=(
+            lambda record: record.pk.startswith("EXEC#")
+            and record.sk.startswith("GROUP#")
+        ),
+        records_processor=opensearch.process_executions,
+    ),
 )
