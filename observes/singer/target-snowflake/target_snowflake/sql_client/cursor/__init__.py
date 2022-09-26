@@ -9,11 +9,11 @@ from dataclasses import (
     dataclass,
 )
 from fa_purity import (
-    Maybe,
-    Stream,
-)
-from fa_purity.cmd import (
     Cmd,
+    Maybe,
+    Result,
+    ResultE,
+    Stream,
 )
 from fa_purity.frozen import (
     FrozenList,
@@ -36,11 +36,17 @@ from fa_purity.utils import (
 from logging import (
     Logger,
 )
+from snowflake.connector.errors import (
+    ProgrammingError,
+)
 from target_snowflake.sql_client._inner import (
     RawCursor,
 )
 from target_snowflake.sql_client.query import (
     Query,
+)
+from typing import (
+    NoReturn,
 )
 
 
@@ -54,14 +60,27 @@ class Cursor:
     _log: Logger
     _cursor: RawCursor
 
-    def execute(self, query: Query) -> Cmd[None]:
-        def _action() -> None:
+    def handled_execute(self, query: Query) -> Cmd[ResultE[None]]:
+        def _action() -> ResultE[None]:
             self._log.info(
                 "Executing: %s with values %s", query.statement, query.values
             )
-            self._cursor.cursor.execute(query.statement, dict(query.values))  # type: ignore[misc]
+            try:
+                self._cursor.cursor.execute(query.statement, dict(query.values))  # type: ignore[misc]
+                return Result.success(None)
+            except ProgrammingError as err:
+                return Result.failure(
+                    ValueError(
+                        "Invalid query `%s` error: %s", query.statement, err
+                    )
+                )
 
         return Cmd.from_cmd(_action)
+
+    def execute(self, query: Query) -> Cmd[None] | NoReturn:
+        return self.handled_execute(query).map(
+            lambda r: r.alt(raise_exception).unwrap()
+        )
 
     def fetch_one(self) -> Cmd[Maybe[RowData]]:
         def _action() -> Maybe[RowData]:
