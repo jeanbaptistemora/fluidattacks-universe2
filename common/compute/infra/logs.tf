@@ -14,7 +14,8 @@ resource "aws_cloudwatch_log_group" "job" {
 }
 
 resource "aws_cloudwatch_log_group" "skims" {
-  name = "skims"
+  name              = "skims"
+  retention_in_days = 7
 
   tags = {
     "Name"               = "skims"

@@ -58,11 +58,19 @@ locals {
           Resource = ["*"]
         },
         {
+          Sid    = "s3Create"
+          Effect = "Allow"
+          Action = [
+            "s3:CreateBucket"
+          ]
+          Resource = ["arn:aws:s3:::*"]
+        },
+        {
           Sid    = "s3Read"
           Effect = "Allow"
           Action = [
             "s3:Get*",
-            "s3:ListBucket"
+            "s3:ListBucket",
           ]
           Resource = [
             "arn:aws:s3:::continuous-data",
