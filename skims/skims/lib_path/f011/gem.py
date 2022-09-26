@@ -31,10 +31,15 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
             r"^gem\s*.*,[^><~!]*(=?\s?[\d+\.?]+)"
         )
         equal_patt: Pattern[str] = re.compile(r"= ?")
+        not_prod_patt: Pattern[str] = re.compile(
+            r":group => \[?[:\w\-, ]*(:development|:test)"
+        )
         for line_number, line in enumerate(content.splitlines(), 1):
             if not line:
                 continue
             if not re.search(form_req, line):
+                continue
+            if re.search(not_prod_patt, line):
                 continue
             line = GemfileParser.preprocess(line)
             line = line[3:]

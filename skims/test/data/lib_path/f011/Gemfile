@@ -115,12 +115,12 @@ local_gemfile = File.expand_path(".Gemfile", __dir__)
 instance_eval File.read local_gemfile if File.exist? local_gemfile
 
 group :test do
-  gem "minitest-bisect"
+  gem "minitest-bisect", "1.0.0"
   gem "minitest-ci", require: false
   gem "minitest-retry"
 
   platforms :mri do
-    gem "stackprof"
+    gem "stackprof", "= 1.4.2"
     gem "debug", ">= 1.1.0", require: false
   end
 
@@ -128,7 +128,10 @@ group :test do
 end
 
 platforms :ruby, :windows do
-  gem "nokogiri", ">= 1.8.1", "!= 1.11.0"
+  gem "nokogiri", "= 1.8.1"
+  gem "devise", "= 1.4.2", :group => :development
+  gem "rubocop", "= 1.35.1", :group => [:caravan, :topo, :test, :mongo]
+  gem "rails", "= 7.0.4", :group => :caravan
 
   # Needed for compiling the ActionDispatch::Journey parser.
   gem "racc", ">=1.4.6", require: false
