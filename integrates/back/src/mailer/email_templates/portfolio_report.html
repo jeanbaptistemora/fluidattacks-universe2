@@ -5,28 +5,31 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group %}
+  {% from 'layouts/components/forms.html' import banner_group %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-  <div class="container">
-{% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' %}
-{{ banner_group('Portfolio Alert') }}
-    <div class="main-content">
-      <p>Hi {{ name }},</p>
-      <p>
-        Portfolios have been
-        {% if is_added %} added to {% else %} deleted from {% endif %}
-        the group <strong>{{ group_name }}</strong>:
-      </p>
-      <p>
-        <strong>Date:</strong> {{ report_date }}<br>
-        <strong>Portfolios:</strong> {{ portfolios }}<br>
-      </p>
-      <p></p>
-      <p>Regards,<br>Fluid Attacks Team</p>
-      <br />
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Portfolio Alert') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          Portfolios have been
+          {% if is_added %} added to {% else %} deleted from {% endif %}
+          the group <strong>{{ group_name }}</strong>:
+        </p>
+        <p>
+          <strong>Date:</strong> {{ report_date }}<br>
+          <strong>Portfolios:</strong> {{ portfolios }}<br>
+        </p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
     </div>
-    {% include 'layouts/components/footer.html' %}
-  </div>
-{% endblock %}
+  {% endblock %}
