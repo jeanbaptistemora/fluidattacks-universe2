@@ -5,13 +5,13 @@ authors: Carlos Bello
 writer: cbello
 codename: marshmello
 product: Gridea 0.9.3
-date: 2022-09-09 20:30 COT
+date: 2022-09-26 02:30 COT
 cveid: CVE-2022-40274
-severity: 8.8
+severity: 8.6
 description: Gridea 0.9.3  -  RCE via nodeIntegration feature
 keywords: Fluid Attacks, Security, Vulnerabilities, Gridea
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -23,8 +23,8 @@ template: advisory
 | **Code name**         | [Marshmello](https://en.wikipedia.org/wiki/Marshmello) |
 | **Product**           | Gridea                                                 |
 | **Affected versions** | Version 0.9.3                                          |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-09                                             |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-26                                             |
 
 ## Vulnerability
 
@@ -33,8 +33,8 @@ template: advisory
 | **Kind**              | Remote command execution                                                                               |
 | **Rule**              | [004. Remote command execution](https://docs.fluidattacks.com/criteria/vulnerabilities/004)            |
 | **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H                                                           |
-| **CVSSv3 Base Score** | 8.8                                                                                                    |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H                                                           |
+| **CVSSv3 Base Score** | 8.6                                                                                                    |
 | **Exploit available** | Yes                                                                                                    |
 | **CVE ID(s)**         | [CVE-2022-40274](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40274)                        |
 
@@ -99,7 +99,7 @@ Team of `Fluid Attacks`.
   discovered="2022-09-08"
   contacted="2022-09-08"
   replied=""
-  confirmed="2022-09-00"
+  confirmed=""
   patched=""
-  disclosure="2022-09-00">
+  disclosure="2022-09-26">
 </time-lapse>
