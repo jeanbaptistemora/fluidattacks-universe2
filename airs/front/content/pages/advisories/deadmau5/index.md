@@ -5,13 +5,13 @@ authors: Carlos Bello
 writer: cbello
 codename: deadmau5
 product: Gridea 0.9.3
-date: 2022-09-09 20:30 COT
+date: 2022-09-26 03:00 COT
 cveid: CVE-2022-40275
-severity: 6.5
+severity: 5.5
 description: Gridea 0.9.3  -  Local File Read
 keywords: Fluid Attacks, Security, Vulnerabilities, Gridea
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -23,20 +23,20 @@ template: advisory
 | **Code name**         | [Deadmau5](https://en.wikipedia.org/wiki/Deadmau5)     |
 | **Product**           | Gridea                                                 |
 | **Affected versions** | Version 0.9.3                                          |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-09                                             |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-26                                             |
 
 ## Vulnerability
 
-|                       |                                                                                                        |
-| --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Kind**              | Lack of data validation - URL                                                                          |
-| **Rule**              | [141. Lack of data validation - URL](https://docs.fluidattacks.com/criteria/vulnerabilities/141)       |
-| **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N                                                           |
-| **CVSSv3 Base Score** | 6.5                                                                                                    |
-| **Exploit available** | Yes                                                                                                    |
-| **CVE ID(s)**         | [CVE-2022-40275](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40275)                        |
+|                       |                                                                                                                             |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------|
+| **Kind**              | Insecure or unset HTTP headers - Content-Security-Policy                                                                    |
+| **Rule**              | [043. Insecure or unset HTTP headers - Content-Security-Policy](https://docs.fluidattacks.com/criteria/vulnerabilities/043) |
+| **Remote**            | Yes                                                                                                                         |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N                                                                                |
+| **CVSSv3 Base Score** | 5.5                                                                                                                         |
+| **Exploit available** | Yes                                                                                                                         |
+| **CVE ID(s)**         | [CVE-2022-40275](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40275)                                             |
 
 ## Description
 
@@ -99,7 +99,7 @@ Team of `Fluid Attacks`.
   discovered="2022-09-05"
   contacted="2022-09-05"
   replied=""
-  confirmed="2022-09-00"
+  confirmed=""
   patched=""
-  disclosure="2022-09-00">
+  disclosure="2022-09-26">
 </time-lapse>
