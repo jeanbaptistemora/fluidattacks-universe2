@@ -110,6 +110,18 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                   return regex.test(value);
                 }
+              )
+              .test(
+                "includeSymbols",
+                translate.t("validations.credentialsModal.includeSymbols"),
+                (value: string | undefined): boolean => {
+                  if (value === undefined || value === "") {
+                    return false;
+                  }
+                  const regex = /['~:;%@_$#!,.*\-?"[\]|()/{}>^<=&+`]/u;
+
+                  return regex.test(value);
+                }
               ),
           })
           .test(

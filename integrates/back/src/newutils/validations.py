@@ -457,3 +457,8 @@ def validate_sequence(value: str) -> None:
         raise InvalidReportFilter(
             "Password should not include sequentials characters"
         )
+
+
+def validate_symbols(value: str) -> None:
+    if not re.search(r"[!\";#\$%&'\(\)\*\+,-./:<=>\?@\[\]^_`\{\|\}~]", value):
+        raise InvalidReportFilter("Password should include symbols characters")

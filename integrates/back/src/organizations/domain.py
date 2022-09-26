@@ -120,6 +120,7 @@ from newutils.validations import (
     validate_sequence,
     validate_space_field,
     validate_start_letter,
+    validate_symbols,
 )
 from organizations import (
     utils as orgs_utils,
@@ -170,6 +171,7 @@ async def add_credentials(
         validate_include_lowercase(password)
         validate_include_uppercase(password)
         validate_sequence(password)
+        validate_symbols(password)
         secret = HttpsSecret(
             user=user,
             password=password,

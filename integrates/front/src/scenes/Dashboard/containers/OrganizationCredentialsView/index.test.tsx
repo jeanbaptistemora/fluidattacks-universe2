@@ -311,7 +311,7 @@ describe("organization credentials view", (): void => {
           variables: {
             credentials: {
               name: "Credentials test",
-              password: "Passw0rd test",
+              password: "Passw0rd.test",
               type: "HTTPS",
               user: "User test",
             },
@@ -370,7 +370,7 @@ describe("organization credentials view", (): void => {
     userEvent.type(screen.getByRole("textbox", { name: "user" }), "User test");
     userEvent.type(
       screen.getByRole("textbox", { name: "password" }),
-      "Passw0rd test"
+      "Passw0rd.test"
     );
     userEvent.click(
       screen.getByRole("button", {

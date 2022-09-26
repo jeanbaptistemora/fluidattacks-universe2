@@ -3709,6 +3709,8 @@ export const enTranslations: ResourceKey = {
     credentialsModal: {
       includeLowercase: "Should include lowercase characters",
       includeNumber: "Should include at least one number",
+      includeSymbols:
+        "Should include symbols characters '~:;%@_$#!,.*-?\"[]|()/{}>^<=&+`",
       includeUppercase: "Should include uppercase characters",
       sequentialsCharacters: "Should not include sequentials characters",
       startWithLetter: "Should start with a letter",

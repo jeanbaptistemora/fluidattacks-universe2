@@ -36,7 +36,10 @@ from typing import (
             "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(
-                name="cred2", type="HTTPS", user="user test", password="t3sT"
+                name="cred2",
+                type="HTTPS",
+                user="user test",
+                password="t]{3[s.T}/l;u=r<w>oiu(p",
             ),
         ],
         [
@@ -232,13 +235,34 @@ async def test_add_credentials_fail(
         user=email,
         organization_id=organization_id,
         credentials=dict(
-            name="cred5", type="HTTPS", user="usertest", password="ttbcd3Tl"
+            # FP: local testing
+            name="cred5",
+            type="HTTPS",
+            user="usertest",
+            password="ttbcd3Tl",  # NOSONAR
         ),
     )
     assert "errors" in result
     assert (
         result["errors"][0]["message"]
         == "Exception - Password should not include sequentials characters"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            # FP: local testing
+            name="cred6",
+            type="HTTPS",
+            user="usertest",
+            password="ttbd3Tl",  # NOSONAR
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Password should include symbols characters"
     )
 
 

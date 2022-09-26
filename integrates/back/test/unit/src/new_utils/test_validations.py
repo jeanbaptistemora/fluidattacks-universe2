@@ -7,6 +7,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
+    InvalidReportFilter,
     NumberOutOfRange,
     UnsanitizedInputFound,
 )
@@ -24,6 +25,7 @@ from newutils.validations import (
     validate_group_name,
     validate_int_range,
     validate_sanitized_csv_input,
+    validate_symbols,
 )
 import pytest
 
@@ -181,3 +183,33 @@ def test_validate_sanitized_csv_input(field: str) -> None:
 )
 def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
     assert has_sequence(value, length) == should_fail
+
+
+@pytest.mark.parametrize(
+    ["value", "should_fail"],
+    [
+        ("a123b", True),
+        ("a'123b", False),
+        ("a~876b", False),
+        ("a87:6b", False),
+        ("aa;bcc", False),
+        ("aa<bcc", False),
+        ("ayx%wc", False),
+        ("ay>xwc", False),
+        ("aDEFc", True),
+        ("aDE=Fc", False),
+        ("aQP@Oc", False),
+        ("aQP-Oc", False),
+        ("a12]21b", False),
+        ("a123+321b", False),
+        ("a34^55431b", False),
+        ('a1"357b', False),
+        ("a97?53b", False),
+    ],
+)
+def test_validate_symbols(value: str, should_fail: bool) -> None:
+    if should_fail:
+        with pytest.raises(InvalidReportFilter):
+            assert validate_symbols(value)  # type: ignore
+    else:
+        assert validate_symbols(value) is None  # type: ignore
