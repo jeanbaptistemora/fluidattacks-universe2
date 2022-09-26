@@ -191,6 +191,56 @@ async def group_with_inline_policies(
     return vulns
 
 
+async def user_with_inline_policies(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="list_users"
+    )
+    users = response.get("Users", []) if response else []
+
+    vulns: core_model.Vulnerabilities = ()
+    if users:
+        for user in users:
+            user_policies: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_user_policies",
+                parameters={"UserName": str(user["UserName"])},
+            )
+
+            policy_names = user_policies.get("PolicyNames", [])
+
+            locations: List[Location] = []
+            if policy_names:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=("/PolicyNames",),
+                            arn=(f"{user['Arn']}"),
+                            values=(policy_names[0],),
+                            description=t(
+                                "src.lib_path.f031."
+                                "iam_user_missing_role_based_security"
+                            ),
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_USER_WITH_INLINE_POLICY
+                    ),
+                    aws_response=user_policies,
+                ),
+            )
+
+    return vulns
+
+
 async def full_access_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -637,5 +687,6 @@ CHECKS: Tuple[
     full_access_policies,
     public_buckets,
     group_with_inline_policies,
+    user_with_inline_policies,
     open_passrole,
 )
