@@ -222,9 +222,9 @@ and the worst organization.
 > **NOTE:**
   > MTTR  means “Mean Time To Remediate.”
 
-## Total exposure
+## Exposure over time
 
-![Total Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1644932532/docs/web/analytics/common/common_total_exposur.png)
+![Exposure over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1644932532/docs/web/analytics/common/common_total_exposur.png)
 
 One of the main dilemmas organizations face
 every day is which vulnerability they
