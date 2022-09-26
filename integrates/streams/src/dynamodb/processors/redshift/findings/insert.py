@@ -3,8 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from ..operations import (
-    execute,
-    execute_many,
+    db_cursor,
 )
 from ..queries import (
     SQL_INSERT_HISTORIC,
@@ -37,18 +36,25 @@ from .utils import (
     format_row_verification,
     format_row_verification_vuln_ids,
 )
+from dynamodb.context import (
+    FI_ENVIRONMENT,
+)
 from dynamodb.types import (
     Item,
+)
+from psycopg2.extensions import (
+    cursor as cursor_cls,
 )
 
 
 def insert_metadata(
     *,
+    cursor: cursor_cls,
     item: Item,
 ) -> None:
     _fields, values = format_query_fields(MetadataTableRow)
     sql_values = format_row_metadata(item)
-    execute(  # nosec
+    cursor.execute(
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
             fields=_fields,
@@ -60,6 +66,7 @@ def insert_metadata(
 
 def insert_metadata_severity(
     *,
+    cursor: cursor_cls,
     item: Item,
 ) -> None:
     if item["cvss_version"] == "3.1":
@@ -69,7 +76,7 @@ def insert_metadata_severity(
         _fields, values = format_query_fields(SeverityCvss20TableRow)
         severity_table = SEVERITY_CVSS20_TABLE
     sql_values = format_row_severity(item)
-    execute(  # nosec
+    cursor.execute(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=severity_table,
             fields=_fields,
@@ -81,6 +88,7 @@ def insert_metadata_severity(
 
 def insert_historic_state(
     *,
+    cursor: cursor_cls,
     finding_id: str,
     historic_state: tuple[Item, ...],
 ) -> None:
@@ -88,7 +96,7 @@ def insert_historic_state(
     sql_values = [
         format_row_state(finding_id, state) for state in historic_state
     ]
-    execute_many(  # nosec
+    cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
             table=STATE_TABLE,
             fields=_fields,
@@ -100,6 +108,7 @@ def insert_historic_state(
 
 def insert_historic_verification(
     *,
+    cursor: cursor_cls,
     finding_id: str,
     historic_verification: tuple[Item, ...],
 ) -> None:
@@ -108,7 +117,7 @@ def insert_historic_verification(
         format_row_verification(finding_id, verification)
         for verification in historic_verification
     ]
-    execute_many(  # nosec
+    cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
             table=VERIFICATION_TABLE,
             fields=_fields,
@@ -120,6 +129,7 @@ def insert_historic_verification(
 
 def insert_historic_verification_vuln_ids(
     *,
+    cursor: cursor_cls,
     finding_id: str,
     historic_verification: tuple[Item, ...],
 ) -> None:
@@ -134,7 +144,7 @@ def insert_historic_verification_vuln_ids(
         if verification.get("vulnerability_ids")
         for vulnerability_id in verification["vulnerability_ids"]
     ]
-    execute_many(  # nosec
+    cursor.executemany(  # nosec
         SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
             table=VERIFICATION_VULN_IDS_TABLE,
             fields=_fields,
@@ -142,3 +152,42 @@ def insert_historic_verification_vuln_ids(
         ),
         sql_values,
     )
+
+
+def insert_finding(
+    *,
+    item: Item,
+) -> None:
+    if FI_ENVIRONMENT != "prod":
+        return
+
+    with db_cursor() as cursor:
+        insert_metadata(cursor=cursor, item=item)
+        insert_metadata_severity(cursor=cursor, item=item)
+        finding_id = item["id"]
+        state_items = (
+            item.get("state"),
+            item.get("creation"),
+            item.get("submission"),
+            item.get("approval"),
+        )
+        state_items_filtered = tuple(item for item in state_items if item)
+        if state_items_filtered:
+            insert_historic_state(
+                cursor=cursor,
+                finding_id=finding_id,
+                historic_state=state_items_filtered,
+            )
+        verification = item.get("verification")
+        if verification:
+            historic_verification = (verification,)
+            insert_historic_verification(
+                cursor=cursor,
+                finding_id=finding_id,
+                historic_verification=historic_verification,
+            )
+            insert_historic_verification_vuln_ids(
+                cursor=cursor,
+                finding_id=finding_id,
+                historic_verification=historic_verification,
+            )

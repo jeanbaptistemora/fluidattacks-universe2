@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from .insert import (
+    insert_finding,
     insert_historic_state,
     insert_historic_verification,
     insert_historic_verification_vuln_ids,
@@ -11,6 +12,7 @@ from .insert import (
 )
 
 __all__ = [
+    "insert_finding",
     "insert_historic_state",
     "insert_historic_verification",
     "insert_historic_verification_vuln_ids",
