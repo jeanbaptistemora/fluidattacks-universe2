@@ -68,7 +68,7 @@ Code names are assigned by the team member
 who discovered the vulnerability.
 They are last names of musicians and artists,
 much like names given randomly to our clients' organizations
-on our [attack surface management platform](../../categories/asm/)
+on our [attack surface management platform](../../categories/arm/)
 are city names.
 That's the bit of trivia we've brought you today\!
 

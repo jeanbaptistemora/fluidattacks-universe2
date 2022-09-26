@@ -180,7 +180,7 @@ At `Fluid Attacks`
 we're prepared to overcome this challenge.
 Our clients using any of our [Plans](../../plans/)
 can immediately find out if they use Log4j in their software.
-On our [Attack Resistance Management platform](../../categories/asm/),
+On our [Attack Resistance Management platform](../../categories/arm/),
 the platform that makes [vulnerability management](../../solutions/vulnerability-management/)
 smoother,
 they can look for the vulnerability type

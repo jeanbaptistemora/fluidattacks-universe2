@@ -153,7 +153,7 @@ to AI and machine learning to analyze great volumes of data.
 In addition to those techniques,
 organizations are soliciting [manual pentesting](../../solutions/penetration-testing/)
 as a way to find more complex and severe types of vulnerabilities.
-They are also in need of [attack surface management platforms](../../categories/asm/)
+They are also in need of [attack surface management platforms](../../categories/arm/)
 that help the prioritization of risks and fixes.
 Besides, the [Breach and Attack Simulation](../../solutions/attack-simulation/)
 solution is gaining recognition
