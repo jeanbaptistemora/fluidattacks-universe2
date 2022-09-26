@@ -45,6 +45,7 @@ from shlex import (
 )
 import shutil
 import stat
+import subprocess
 from subprocess import (
     DEVNULL,
     PIPE,
@@ -78,10 +79,14 @@ from typing import (
     List,
     Optional,
 )
+from urllib3.exceptions import (
+    LocationParseError,
+)
 from urllib3.util.url import (
     parse_url,
 )
 import urllib.parse
+import uuid
 
 config_handler.set_global(length=25)
 
@@ -238,91 +243,143 @@ def repo_url(group_name: str, root_id: str, baseurl: str) -> str:
 
 
 def _ssh_ls_remote(group_name: str, root: GitRoot) -> Optional[str]:
-    baseurl = root.url
-    if "source.developers.google" not in baseurl:
-        baseurl = baseurl.replace("ssh://", "")
+    repo_url_ = root.url
+    if "source.developers.google" not in repo_url_:
+        repo_url_ = repo_url_.replace("ssh://", "")
 
     branch = urllib.parse.unquote(root.branch)
 
-    with setup_ssh_key(group_name, root.root_id) as keyfile:
-        command_ls = [
-            "ssh-agent",
-            "sh",
-            "-c",
-            f"ssh-add {shq(keyfile)}; git ls-remote {shq(baseurl)} {branch}",
-        ]
-        cmd = cmd_execute(command_ls)
-        if len(cmd[0]) > 0:
-            return cmd[0].split("\t")[0]
-    return None
+    try:
+        parsed_url = urllib.parse.urlparse(repo_url_)
+    except LocationParseError:
+        return None
+    raw_root_url = repo_url_
+    if "source.developers.google" not in raw_root_url:
+        raw_root_url = repo_url_.replace(f"{parsed_url.scheme}://", "")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            if credential_key := get_git_root_credentials(
+                group_name, root.root_id
+            ):
+                ssh_file.write(
+                    base64.b64decode(credential_key.get("key") or "").decode()
+                )
+        with subprocess.Popen(
+            args=("git", "ls-remote", raw_root_url, branch),
+            stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": (
+                    f"ssh -i {ssh_file_name}"
+                    " -o UserKnownHostsFile=/dev/null"
+                    " -o StrictHostKeyChecking=no"
+                    " -o IdentitiesOnly=yes"
+                    " -o HostkeyAlgorithms=+ssh-rsa"
+                    " -o PubkeyAcceptedAlgorithms=+ssh-rsa"
+                ),
+            },
+        ) as proc:
+            stdout, stderr = proc.communicate()
+
+            if stderr and proc.returncode != 0:
+                LOGGER.error(
+                    "failed git ls-remote",
+                    extra=dict(
+                        extra={
+                            "error": stderr.decode(),
+                            "repo_url": repo_url_,
+                        }
+                    ),
+                )
+
+            os.remove(ssh_file_name)
+
+            if proc.returncode != 0:
+                return None
+
+            return stdout.decode().split("\t", maxsplit=1)[0]
 
 
 def _ssh_repo_cloning(
     group_name: str,
     root: GitRoot,
 ) -> ResultE[None]:
-    """cloning or updated a repository ssh"""
-    baseurl = root.url
-    if "source.developers.google" not in baseurl:
-        baseurl = baseurl.replace("ssh://", "")
-
-    # handle urls special chars in branch names
+    raw_root_url = root.url
     branch = urllib.parse.unquote(root.branch)
-
-    problem: Optional[FormatRepoProblem] = None
     nickname = root.nickname
 
     folder = nickname
-
-    with setup_ssh_key(group_name, root.root_id) as keyfile:
-        if os.path.isdir(folder):
-            # Update already existing repo
-            command = [
-                "ssh-agent",
-                "sh",
-                "-c",
-                "ssh-add "
-                f"{shq(keyfile)} "
-                "git "
-                "pull "
-                "origin "
-                f"{shq(branch)}",
-            ]
-
-            cmd = cmd_execute(command, folder)
-            if len(cmd[0]) == 0 and "fatal" in cmd[1]:
-                problem = FormatRepoProblem(nickname, branch, cmd[1])
-                problem.log(LOGGER)
-        else:
-            # Clone repo:
-            command = [
-                "ssh-agent",
-                "sh",
-                "-c",
-                "ssh-add "
-                f"{shq(keyfile)}; "
-                "git "
-                "clone "
-                "-b "
-                f"{shq(branch)} "
-                "--single-branch "
-                f"{shq(baseurl)} "
-                f"{shq(folder)}",
-            ]
-
-            cmd = cmd_execute(command)
-            if len(cmd[0]) == 0 and "fatal" in cmd[1]:
-                problem = FormatRepoProblem(nickname, branch, cmd[1])
-                problem.log(LOGGER)
-
-    if problem:
-        message = format_problem_message(problem.raw()["problem"])
-        utils.integrates.update_root_cloning_status(
-            group_name,
-            root.root_id,
-            "FAILED",
-            message,
+    problem: Optional[FormatRepoProblem] = None
+    if "source.developers.google" not in raw_root_url:
+        raw_root_url = raw_root_url.replace(
+            f"{urllib.parse.urlparse(raw_root_url).scheme}://", ""
         )
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            if credential_key := get_git_root_credentials(
+                group_name, root.root_id
+            ):
+                ssh_file.write(
+                    base64.b64decode(credential_key.get("key") or "").decode()
+                )
+        with subprocess.Popen(
+            args=(
+                "git",
+                *(
+                    ("pull", "origin", branch)
+                    if os.path.isdir(folder)
+                    else (
+                        "clone",
+                        "--single-branch",
+                        "--branch",
+                        branch,
+                        raw_root_url,
+                    )
+                ),
+                *(() if os.path.isdir(folder) else (folder,)),
+            ),
+            stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": (
+                    f"ssh -i {ssh_file_name}"
+                    " -o UserKnownHostsFile=/dev/null"
+                    " -o StrictHostKeyChecking=no"
+                    " -o IdentitiesOnly=yes"
+                    " -o HostkeyAlgorithms=+ssh-rsa"
+                    " -o PubkeyAcceptedAlgorithms=+ssh-rsa"
+                ),
+            },
+            cwd=(os.path.abspath(folder) if os.path.isdir(folder) else None),
+        ) as proc:
+            _, stderr = proc.communicate()
+
+            os.remove(ssh_file_name)
+            if proc.returncode != 0:
+                problem = FormatRepoProblem(nickname, branch, stderr.decode())
+                problem.log(LOGGER)
+
+            if problem:
+                message = format_problem_message(problem.raw()["problem"])
+                utils.integrates.update_root_cloning_status(
+                    group_name,
+                    root.root_id,
+                    "FAILED",
+                    message,
+                )
     return Maybe.from_optional(problem).to_result().swap()  # type: ignore
 
 
