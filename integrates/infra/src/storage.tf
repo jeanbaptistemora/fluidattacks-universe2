@@ -2,6 +2,42 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# Integrates main bucket
+
+resource "aws_s3_bucket" "fluidintegrates" {
+  bucket = "fluidintegrates"
+
+  tags = {
+    "Name"               = "fluidintegrates"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
+  }
+}
+
+resource "aws_s3_bucket_acl" "fluidintegrates" {
+  bucket = "fluidintegrates"
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_logging" "fluidintegrates" {
+  bucket = aws_s3_bucket.fluidintegrates.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/fluidintegrates"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "fluidintegrates" {
+  bucket = aws_s3_bucket.fluidintegrates.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
 # Analytics
 
 resource "aws_s3_bucket" "analytics" {
