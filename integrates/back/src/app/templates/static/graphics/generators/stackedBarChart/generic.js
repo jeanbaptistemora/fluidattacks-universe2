@@ -7,19 +7,19 @@
 
 const defaultPaddingRatio = 0.055;
 
+function getTooltipPercentage(id, index, maxPercentageValues) {
+  if (maxPercentageValues[id][index] === '') {
+    return '';
+  }
+
+  return `${ parseFloat(maxPercentageValues[id][index]) } %`;
+}
+
+function getTooltipValue(id, index, maxValues) {
+  return maxValues[id][index];
+}
+
 function render(dataDocument, height, width) {
-  function getTooltipPercentage(id, index, maxPercentageValues) {
-    if (maxPercentageValues[id][index] === '') {
-      return '';
-    }
-
-    return `${ parseFloat(maxPercentageValues[id][index]) } %`;
-  }
-
-  function getTooltipValue(id, index, maxValues) {
-    return maxValues[id][index];
-  }
-
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
     const { percentageValues, maxPercentageValues } = dataDocument;
     dataDocument.tooltip.format.value = (_datum, _r, id, index) =>
@@ -47,7 +47,14 @@ function render(dataDocument, height, width) {
   }
 
   if (dataDocument.stackedBarChartYTickFormat) {
-    dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
+    const { tick } = dataDocument.axis.y;
+    dataDocument.axis.y.tick = { ...tick, format: (x) => {
+      if (tick && tick.count) {
+        return parseFloat(parseFloat(x).toFixed(1));
+      }
+
+      return x % 1 === 0 ? x : '';
+    } };
   }
 
   c3.generate({
@@ -78,6 +85,16 @@ function load() {
 
     const currentClass = d3.select('.c3-line').attr('class');
     d3.select('.c3-line').attr('class', `${ currentClass } exposed-over-time-cvssf-line`);
+
+    if (dataDocument.data.labels) {
+      d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
+        const itemClass = d3.select(textList[index]).attr('class');
+
+        d3.select(textList[index])
+          .style('transform', 'translate(0, -5px)')
+          .attr('class', `${ itemClass } exposureTrendsByCategories`);
+      });
+    }
   }
 
   if (dataDocument.hideYAxisLine) {

@@ -253,6 +253,7 @@ def format_document(
             colors=dict(
                 Exposure=RISK.more_agressive,
             ),
+            labels=True,
             type="area",
             groups=[
                 [
@@ -271,19 +272,22 @@ def format_document(
                 type="category",
             ),
             y=dict(
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
                 min=0,
                 padding=dict(
                     bottom=0,
                 ),
-                label=dict(
-                    text="CVSSF",
-                    position="inner-top",
+                tick=dict(
+                    count=5,
                 ),
             ),
         ),
         grid=dict(
             x=dict(
-                show=True,
+                show=False,
             ),
             y=dict(
                 show=True,
