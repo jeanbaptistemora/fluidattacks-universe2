@@ -72,6 +72,7 @@ locals {
           ]
         },
         {
+          # required to rename tags
           Sid    = "redshiftTags"
           Effect = "Allow"
           Action = [
