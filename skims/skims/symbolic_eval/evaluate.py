@@ -42,6 +42,7 @@ from symbolic_eval.cases import (
     type_of,
     using_statement,
     variable_declaration,
+    while_statement,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -97,6 +98,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "UsingStatement": using_statement.evaluate,
     "VariableDeclaration": variable_declaration.evaluate,
     "VariableDeclarator": variable_declaration.evaluate,
+    "WhileStatement": while_statement.evaluate,
     "Yield": not_dangerous.evaluate,
 }
 

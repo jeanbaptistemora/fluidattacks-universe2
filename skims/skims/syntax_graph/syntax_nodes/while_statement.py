@@ -14,11 +14,11 @@ from typing import (
 
 
 def build_while_statement_node(
-    args: SyntaxGraphArgs, block: str, conditional: Optional[str]
+    args: SyntaxGraphArgs, block: NId, conditional: Optional[NId]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        conditional_id=conditional,
+        block_id=block,
         label_type="WhileStatement",
     )
 
