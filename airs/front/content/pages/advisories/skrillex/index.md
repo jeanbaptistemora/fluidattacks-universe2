@@ -5,13 +5,13 @@ authors: Carlos Bello
 writer: cbello
 codename: skrillex
 product: Joplin 2.8.8
-date: 2022-09-12 20:30 COT
+date: 2022-09-26 05:00 COT
 cveid: CVE-2022-40277
-severity: 8.8
+severity: 7.7
 description: Joplin 2.8.8  -  Remote Command Execution
 keywords: Fluid Attacks, Security, Vulnerabilities, Joplin
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -23,8 +23,8 @@ template: advisory
 | **Code name**         | [Skrillex](https://en.wikipedia.org/wiki/Skrillex)     |
 | **Product**           | Joplin                                                 |
 | **Affected versions** | Version 2.8.8                                          |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-12                                             |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-26                                             |
 
 ## Vulnerability
 
@@ -33,8 +33,8 @@ template: advisory
 | **Kind**              | Remote command execution                                                                               |
 | **Rule**              | [004. Remote command execution](https://docs.fluidattacks.com/criteria/vulnerabilities/004)            |
 | **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H                                                           |
-| **CVSSv3 Base Score** | 8.8                                                                                                    |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H                                                           |
+| **CVSSv3 Base Score** | 7.7                                                                                                    |
 | **Exploit available** | Yes                                                                                                    |
 | **CVE ID(s)**         | [CVE-2022-40277](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40277)                        |
 
@@ -132,7 +132,7 @@ Team of `Fluid Attacks`.
   discovered="2022-09-07"
   contacted="2022-09-08"
   replied=""
-  confirmed="2022-09-00"
+  confirmed=""
   patched=""
-  disclosure="2022-09-00">
+  disclosure="2022-09-26">
 </time-lapse>
