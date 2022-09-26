@@ -5,13 +5,13 @@ authors: Carlos Bello
 writer: cbello
 codename: avicii
 product: Zettlr 2.3.0
-date: 2022-09-12 20:30 COT
+date: 2022-09-26 03:30 COT
 cveid: CVE-2022-40276
-severity: 6.5
+severity: 5.5
 description: Zettlr 2.3.0  -  Local File Read
 keywords: Fluid Attacks, Security, Vulnerabilities, Zettlr
 banner: advisories-bg
-advise: no
+advise: yes
 template: advisory
 ---
 
@@ -23,20 +23,20 @@ template: advisory
 | **Code name**         | [Avicii](https://en.wikipedia.org/wiki/Avicii)         |
 | **Product**           | Gridea                                                 |
 | **Affected versions** | Version 2.3.0                                          |
-| **State**             | Private                                                |
-| **Release date**      | 2022-09-12                                             |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-09-26                                             |
 
 ## Vulnerability
 
-|                       |                                                                                                        |
-| --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Kind**              | Lack of data validation - URL                                                                          |
-| **Rule**              | [141. Lack of data validation - URL](https://docs.fluidattacks.com/criteria/vulnerabilities/141)       |
-| **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N                                                           |
-| **CVSSv3 Base Score** | 6.5                                                                                                    |
-| **Exploit available** | Yes                                                                                                    |
-| **CVE ID(s)**         | [CVE-2022-40276](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40276)                        |
+|                       |                                                                                                                             |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------|
+| **Kind**              | Insecure or unset HTTP headers - Content-Security-Policy                                                                    |
+| **Rule**              | [043. Insecure or unset HTTP headers - Content-Security-Policy](https://docs.fluidattacks.com/criteria/vulnerabilities/043) |
+| **Remote**            | Yes                                                                                                                         |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N                                                                                |
+| **CVSSv3 Base Score** | 5.5                                                                                                                         |
+| **Exploit available** | Yes                                                                                                                         |
+| **CVE ID(s)**         | [CVE-2022-40276](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40276)                                             |
 
 ## Description
 
@@ -107,7 +107,7 @@ Team of `Fluid Attacks`.
   discovered="2022-09-07"
   contacted="2022-09-08"
   replied=""
-  confirmed="2022-09-00"
+  confirmed=""
   patched=""
-  disclosure="2022-09-00">
+  disclosure="2022-09-26">
 </time-lapse>
