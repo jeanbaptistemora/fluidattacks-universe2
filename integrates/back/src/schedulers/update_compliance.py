@@ -99,7 +99,9 @@ async def get_organization_non_compliance_level(
             open_findings.append(finding)
 
     requirements_by_finding = tuple(
-        vulnerabilities_file[finding.title[:3]]["requirements"]
+        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
+            "requirements"
+        ]
         for finding in open_findings
     )
     compliances_by_finding = tuple(
@@ -158,7 +160,7 @@ async def update_compliance() -> None:
     compliance_file = await get_compliance_file()
     requirements_file = await get_requirements_file()
     vulnerabilities_file = await get_vulns_file()
-    orgs_to_update = []
+    orgs_to_update: list[Organization] = []
     async for organization in orgs_domain.iterate_organizations():
         if orgs_utils.is_deleted(organization):
             continue
