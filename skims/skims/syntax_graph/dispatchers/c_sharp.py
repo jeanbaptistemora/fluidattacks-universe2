@@ -13,7 +13,14 @@ from syntax_graph.syntax_readers.c_sharp import (
     assignment_expression as c_sharp_assignment_expression,
     attribute as c_sharp_attribute,
     attribute_list as c_sharp_attribute_list,
+    binary_expression as c_sharp_binary_expression,
+    boolean_literal as c_sharp_boolean_literal,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
+    break_statement as c_sharp_break_statement,
+    catch_clause as c_sharp_catch_clause,
+    catch_declaration as c_sharp_catch_declaration,
+    class_declaration as c_sharp_class_declaration,
+    comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     conditional_access_expression as c_sharp_conditional_access_expression,
     constructor_declaration as c_sharp_constructor_declaration,
@@ -46,13 +53,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     while_statement as c_sharp_while_statement,
 )
 from syntax_graph.syntax_readers.common import (
-    binary_expression as common_binary_expression,
-    boolean_literal as common_boolean_literal,
-    break_statement as common_break_statement,
-    catch_clause as common_catch_clause,
-    catch_declaration as common_catch_declaration,
-    class_declaration as common_class_declaration,
-    comment as common_comment,
     conditional_expression as common_conditional_expression,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
@@ -150,13 +150,13 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "binary_expression",
         },
-        syntax_reader=common_binary_expression.reader,
+        syntax_reader=c_sharp_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "boolean_literal",
         },
-        syntax_reader=common_boolean_literal.reader,
+        syntax_reader=c_sharp_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -168,7 +168,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "break_statement",
         },
-        syntax_reader=common_break_statement.reader,
+        syntax_reader=c_sharp_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -180,25 +180,25 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "catch_clause",
         },
-        syntax_reader=common_catch_clause.reader,
+        syntax_reader=c_sharp_catch_clause.reader,
     ),
     Dispatcher(
         applicable_types={
             "catch_declaration",
         },
-        syntax_reader=common_catch_declaration.reader,
+        syntax_reader=c_sharp_catch_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
             "class_declaration",
         },
-        syntax_reader=common_class_declaration.reader,
+        syntax_reader=c_sharp_class_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
             "comment",
         },
-        syntax_reader=common_comment.reader,
+        syntax_reader=c_sharp_comment.reader,
     ),
     Dispatcher(
         applicable_types={

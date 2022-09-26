@@ -26559,8 +26559,7 @@
           },
           "1293": {
             "1297": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1302": {
               "label_ast": "AST",
@@ -26569,22 +26568,10 @@
           },
           "1297": {
             "1298": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1300": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "1298": {
-            "1348": {
-              "label_cfg": "CFG"
-            }
-          },
-          "1300": {
-            "1348": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1302": {
@@ -27813,8 +27800,7 @@
           },
           "319": {
             "323": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "328": {
               "label_ast": "AST",
@@ -27823,22 +27809,10 @@
           },
           "323": {
             "324": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "326": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "324": {
-            "460": {
-              "label_cfg": "CFG"
-            }
-          },
-          "326": {
-            "460": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "328": {
@@ -28947,8 +28921,7 @@
           },
           "858": {
             "862": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "867": {
               "label_ast": "AST",
@@ -28965,22 +28938,10 @@
           },
           "862": {
             "863": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "865": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "863": {
-            "888": {
-              "label_cfg": "CFG"
-            }
-          },
-          "865": {
-            "888": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "867": {
@@ -29242,8 +29203,7 @@
           },
           "979": {
             "983": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "988": {
               "label_ast": "AST",
@@ -29252,22 +29212,10 @@
           },
           "983": {
             "984": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "986": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "984": {
-            "1050": {
-              "label_cfg": "CFG"
-            }
-          },
-          "986": {
-            "1050": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "988": {
@@ -81407,8 +81355,7 @@
           },
           "1100": {
             "1104": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1109": {
               "label_ast": "AST",
@@ -81417,12 +81364,10 @@
           },
           "1104": {
             "1105": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1107": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1109": {
@@ -82266,8 +82211,7 @@
           },
           "294": {
             "298": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "303": {
               "label_ast": "AST",
@@ -82276,12 +82220,10 @@
           },
           "298": {
             "299": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "301": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "303": {
@@ -82732,8 +82674,7 @@
           },
           "539": {
             "543": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "545": {
               "label_ast": "AST",
@@ -83490,8 +83431,7 @@
           },
           "951": {
             "955": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "957": {
               "label_ast": "AST",
@@ -86141,8 +86081,8 @@
             "value_type": "string"
           },
           "951": {
-            "body_id": "957",
-            "label_type": "TryStatement",
+            "block_id": "957",
+            "label_type": "SwitchStatement",
             "value_id": "953"
           },
           "955": {

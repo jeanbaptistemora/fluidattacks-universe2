@@ -17,9 +17,9 @@ def build_switch_statement_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        body_id=body_id,
+        block_id=body_id,
         value_id=value_id,
-        label_type="TryStatement",
+        label_type="SwitchStatement",
     )
 
     args.syntax_graph.add_edge(
