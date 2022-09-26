@@ -5,84 +5,87 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
 
-{% block layout %}
-  <div class="container">
-{% include 'layouts/components/dark_logo_header.html' %}
-{% include 'layouts/components/arm_banner.html' %}
-{{ banner_group('Root Updated') }}
-    <div class="main-content">
-      <p>Hi {{ name }},</p>
-      <p>
-        The root with the nickname <strong>{{ root_nickname }}</strong>
-        in the group <strong>{{ group_name }}</strong> has been updated by
-        <strong><a
-          href="mailto:{{ responsible }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #ff3435;"
-        >
-          {{ responsible -}}
-        </a></strong>:
-      </p>
-      <div style="line-height: 30px;">
-        {% for key, value in new_root_content.items() %}
-          {% if key in key_format %}
-            <strong>{{ key_format[key] }}:</strong>
-          {% else %}
-            <strong>
-              {{ key.replace('_', ' ').capitalize().replace('vpn', 'of VPN') }}:
-            </strong>
-          {% endif %}
-          {% if key in ["url", "gitignore"]%}
-            <div class="row">
-              <div class="column left">
-                <em>from</em>
-              </div>
-              <div class="column right">
-                {% if key == "url" %}
-                <a
-                  href="{{ old_state[key] }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style="color: #ff3435;"
-                >
-                  {{ old_state[key] }}
-                </a>
-                {% else %}
-                  {{ old_state[key] }}
-                {% endif %}
-              </div>
-            </div>
-            <div class="row" style="margin-bottom:1rem !important;">
-              <div class="column left">
-                <em>to</em>
-              </div>
-              <div class="column right">
-                {% if key == "url" %}
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Root Updated') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          The root with the nickname <strong>{{ root_nickname }}</strong>
+          in the group <strong>{{ group_name }}</strong> has been updated by
+          <strong><a
+            href="mailto:{{ responsible }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ responsible -}}
+          </a></strong>:
+        </p>
+        <div style="line-height: 30px;">
+          {% for key, value in new_root_content.items() %}
+            {% if key in key_format %}
+              <strong>{{ key_format[key] }}:</strong>
+            {% else %}
+              <strong>
+                {{ key.replace('_', ' ').capitalize().replace('vpn', 'of VPN') }}:
+              </strong>
+            {% endif %}
+            {% if key in ["url", "gitignore"]%}
+              <div class="row">
+                <div class="column left">
+                  <em>from</em>
+                </div>
+                <div class="column right">
+                  {% if key == "url" %}
                   <a
-                    href="{{ value }}"
+                    href="{{ old_state[key] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     style="color: #ff3435;"
                   >
-                    {{ value }}
+                    {{ old_state[key] }}
                   </a>
-                {% else %}
-                  {{ value }}
-                {% endif %}
+                  {% else %}
+                    {{ old_state[key] }}
+                  {% endif %}
+                </div>
               </div>
-            </div>
-          {% else %}
-          <em>from</em> {{ old_state[key] }} <em>to</em> {{ value }}<br>
-          {% endif %}
-        {% endfor %}
+              <div class="row" style="margin-bottom:1rem !important;">
+                <div class="column left">
+                  <em>to</em>
+                </div>
+                <div class="column right">
+                  {% if key == "url" %}
+                    <a
+                      href="{{ value }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style="color: #ff3435;"
+                    >
+                      {{ value }}
+                    </a>
+                  {% else %}
+                    {{ value }}
+                  {% endif %}
+                </div>
+              </div>
+            {% else %}
+            <em>from</em> {{ old_state[key] }} <em>to</em> {{ value }}<br>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <p></p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
       </div>
-      <p></p>
-      <p>Regards,<br>Fluid Attacks Team</p>
-    </div>
+      {% include 'layouts/components/footer.html' %}
 
-    {% include 'layouts/components/footer.html' %}
-  </div>
-{% endblock %}
+    </div>
+  {% endblock %}
