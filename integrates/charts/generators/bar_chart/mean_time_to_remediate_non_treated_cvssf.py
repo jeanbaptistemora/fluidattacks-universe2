@@ -9,15 +9,15 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart.utils import (
     Remediate,
     sum_mttr_many_groups,
 )
 from charts.generators.bar_chart.utils_mean_time_to_remediate import (
     generate_all,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from dataloaders import (
     Dataloaders,

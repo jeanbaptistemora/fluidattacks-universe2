@@ -12,13 +12,13 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-    TREATMENT,
-)
 from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
+)
+from charts.generators.common.colors import (
+    RISK,
+    TREATMENT,
 )
 from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,

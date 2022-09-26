@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     RISK,
 )
 from charts.generators.stacked_bar_chart import (  # type: ignore

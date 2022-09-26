@@ -541,6 +541,14 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/integratesBackCharts";
+            gitlabExtra = gitlabLint;
+          }
+          {
+            output = "/lintPython/module/integratesBackChartsCollector";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintPython/dirOfModules/integratesBackChartsGenerators";
             gitlabExtra = gitlabLint;
           }

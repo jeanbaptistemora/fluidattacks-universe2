@@ -6,7 +6,7 @@ from aioextensions import (
     collect,
     run,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     RISK,
 )
 from charts.generators.pie_chart.availability import (

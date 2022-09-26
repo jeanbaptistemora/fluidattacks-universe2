@@ -8,7 +8,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     RISK,
 )
 from charts.utils import (

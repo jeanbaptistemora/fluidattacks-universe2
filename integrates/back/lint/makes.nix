@@ -65,6 +65,24 @@
         python = "3.9";
         src = "/integrates/back/test/e2e/src";
       };
+      integratesBackChartsCollector = {
+        searchPaths.source = [
+          outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/charts/pypi"
+          outputs."/integrates/back/env/pypi/type-stubs"
+        ];
+        python = "3.9";
+        src = "/integrates/charts/collector";
+      };
+      integratesBackCharts = {
+        searchPaths.source = [
+          outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/charts/pypi"
+          outputs."/integrates/back/env/pypi/type-stubs"
+        ];
+        python = "3.9";
+        src = "/integrates/charts";
+      };
     };
   };
 }

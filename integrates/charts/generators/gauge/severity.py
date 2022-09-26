@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     GRAY_JET,
     RISK,
 )

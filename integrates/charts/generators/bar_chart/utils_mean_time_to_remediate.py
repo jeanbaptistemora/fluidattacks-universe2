@@ -5,12 +5,12 @@
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart.utils import (
     format_csv_data,
     Remediate,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from dataloaders import (
     Dataloaders,

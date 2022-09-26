@@ -9,19 +9,17 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    CRITERIA_VULNERABILITIES,
-)
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from charts.generators.common.colors import (
+    RISK,
+)
 from charts.generators.common.utils import (
+    CRITERIA_VULNERABILITIES,
     format_cvssf_log_adjusted,
 )
 from charts.generators.gauge.severity import (

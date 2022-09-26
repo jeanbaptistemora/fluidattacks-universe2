@@ -12,7 +12,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     TREATMENT,
 )
 from charts.generators.pie_chart.utils import (

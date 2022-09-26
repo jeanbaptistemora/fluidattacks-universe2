@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from charts.colors import (
+from charts.generators.common.colors import (
     RISK,
 )
 from charts.generators.pie_chart import (  # type: ignore

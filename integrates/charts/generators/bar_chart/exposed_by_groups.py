@@ -12,14 +12,14 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from charts.colors import (
+from charts.generators.common.colors import (
     RISK,
     TREATMENT,
 )

@@ -120,11 +120,11 @@ def json_dump(
             f"{entity}:{safe_encode(subject.lower())}",
         ],
     ):
-        with open(f"{result_path}.json", "w") as json_file:
+        with open(f"{result_path}.json", "w", encoding="utf-8") as json_file:
             json.dump(document, json_file, default=json_encoder, indent=2)
 
         if csv_document:
-            with open(f"{result_path}.csv", "w") as csv_file:
+            with open(f"{result_path}.csv", "w", encoding="utf-8") as csv_file:
                 writer = csv.writer(
                     csv_file,
                     delimiter=",",

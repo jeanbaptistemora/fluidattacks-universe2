@@ -14,8 +14,17 @@ from decimal import (
     ROUND_FLOOR,
 )
 import math
+import os
 
 MAX_WITH_DECIMALS = Decimal("10.0")
+
+try:
+    CRITERIA_VULNERABILITIES: str = os.environ[
+        "CHARTS_CRITERIA_VULNERABILITIES"
+    ]
+except KeyError as exe:
+    print("Environment variable " + exe.args[0] + " doesn't exist")
+    raise
 
 
 async def get_all_time_forces_executions(

@@ -8,11 +8,11 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from charts.utils import (
     format_cvssf,

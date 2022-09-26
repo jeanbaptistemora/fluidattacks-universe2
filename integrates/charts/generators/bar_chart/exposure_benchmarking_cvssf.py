@@ -9,9 +9,6 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
@@ -25,6 +22,9 @@ from charts.generators.bar_chart.utils import (
     GROUP_CATEGORIES,
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from charts.generators.stacked_bar_chart.exposed_over_time_cvssf import (
     get_group_document,

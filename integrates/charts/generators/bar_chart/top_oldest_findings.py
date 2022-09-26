@@ -9,14 +9,14 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.bar_chart.utils import (
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
+)
+from charts.generators.common.colors import (
+    RISK,
 )
 from charts.generators.common.utils import (
     get_finding_name,

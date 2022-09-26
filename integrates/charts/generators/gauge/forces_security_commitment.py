@@ -8,7 +8,7 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from charts.colors import (
+from charts.generators.common.colors import (
     GRAY_JET,
     TREATMENT,
 )
