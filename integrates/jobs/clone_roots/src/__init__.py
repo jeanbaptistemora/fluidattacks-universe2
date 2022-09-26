@@ -338,10 +338,12 @@ async def ssh_clone(
         env={
             **os.environ.copy(),
             "GIT_SSH_COMMAND": (
-                f"ssh -i {ssh_file_name} -o"
-                "UserKnownHostsFile=/dev/null -o "
-                "StrictHostKeyChecking=no -o "
-                "IdentitiesOnly=yes"
+                f"ssh -i {ssh_file_name}"
+                " -o UserKnownHostsFile=/dev/null"
+                " -o StrictHostKeyChecking=no"
+                " -o IdentitiesOnly=yes"
+                " -o HostkeyAlgorithms=+ssh-rsa"
+                " -o PubkeyAcceptedAlgorithms=+ssh-rsa"
             ),
         },
     )
