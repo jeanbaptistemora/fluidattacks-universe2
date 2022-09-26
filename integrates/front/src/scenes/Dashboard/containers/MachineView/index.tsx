@@ -8,6 +8,7 @@ import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import { faClock, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
@@ -30,8 +31,8 @@ import type {
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { ButtonToolbarCenter } from "styles/styledComponents";
 import { formatDate, formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
@@ -65,13 +66,15 @@ const MachineView: React.FC = (): JSX.Element => {
     setIsExecutionDetailsModalOpen(false);
   }, []);
 
-  const openSeeExecutionDetailsModal: (
-    event: Record<string, unknown>,
-    row: IExecution
-  ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
-    setCurrentRow(row);
-    setIsExecutionDetailsModalOpen(true);
-  };
+  function openSeeExecutionDetailsModal(
+    rowInfo: Row<IExecution>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      setCurrentRow(rowInfo.original);
+      setIsExecutionDetailsModalOpen(true);
+      event.stopPropagation();
+    };
+  }
 
   // GraphQL operations
   const {
@@ -171,33 +174,30 @@ const MachineView: React.FC = (): JSX.Element => {
     .filter((root: IGroupRoot): boolean => root.state === "ACTIVE")
     .map((root: IGroupRoot): string => root.nickname);
 
-  const headers: IHeaderConfig[] = [
+  const headers: ColumnDef<IExecution>[] = [
     {
-      dataField: "status",
+      accessorKey: "status",
       header: translate.t("searchFindings.tabMachine.headerStatus"),
-      width: "10%",
     },
     {
-      dataField: "startedAt",
-      formatter: (date: string): string => formatDate(parseFloat(date)),
+      accessorKey: "startedAt",
+      cell: (cell: ICellHelper<IExecution>): string =>
+        formatDate(parseFloat(cell.getValue())),
       header: translate.t("searchFindings.tabMachine.headerStartedAt"),
-      width: "10%",
     },
     {
-      dataField: "duration",
-      formatter: formatDuration,
+      accessorKey: "duration",
+      cell: (cell: ICellHelper<IExecution>): string =>
+        formatDuration(cell.getValue()),
       header: translate.t("searchFindings.tabMachine.headerDuration"),
-      width: "10%",
     },
     {
-      dataField: "rootNickname",
+      accessorKey: "rootNickname",
       header: translate.t("searchFindings.tabMachine.headerRoot"),
-      width: "60%",
     },
     {
-      dataField: "priority",
+      accessorKey: "priority",
       header: translate.t("searchFindings.tabMachine.headerPriority"),
-      width: "10%",
     },
   ];
 
@@ -270,14 +270,10 @@ const MachineView: React.FC = (): JSX.Element => {
       ) : (
         <React.StrictMode>
           <Table
-            dataset={tableDataset}
-            defaultSorted={undefined}
-            exportCsv={false}
-            headers={headers}
+            columns={headers}
+            data={tableDataset}
             id={"tblMachineJobs"}
-            pageSize={30}
-            rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-            search={false}
+            onRowClick={openSeeExecutionDetailsModal}
           />
           <Modal
             onClose={closeSeeExecutionDetailsModal}
