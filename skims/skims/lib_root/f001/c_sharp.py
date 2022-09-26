@@ -40,7 +40,7 @@ from utils import (
 
 def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     danger_methods = {"ExecuteNonQuery", "ExecuteScalar"}
-    danger_params = {"CommandText", "UserParams"}
+    danger_params = {"UserParams"}
     if graph.nodes[n_id].get("member") not in danger_methods:
         return False
     test_nid = graph.nodes[n_id].get("expression_id")
@@ -52,7 +52,7 @@ def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 
 
 def sql_injection(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {"ExecuteSqlCommand"}
