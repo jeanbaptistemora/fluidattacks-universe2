@@ -1788,6 +1788,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_USER_WITH_INLINE_POLICY = MethodInfo(
+        file_name="aws",
+        name="user_with_inline_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_FULL_ACCESS_POLICIES = MethodInfo(
         file_name="aws",
         name="group_with_inline_policies",
