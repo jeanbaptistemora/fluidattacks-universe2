@@ -33,9 +33,9 @@ Number of vulnerabilities without
 a remediation plan specified by
 one of your managers.
 
-## Exposure over time
+## Exposure management over time
 
-![Exposure Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
+![Exposure Management Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
 
 In the ARM,
 you can track the evolution of your systems
