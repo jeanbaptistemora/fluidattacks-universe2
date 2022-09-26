@@ -195,7 +195,7 @@ def _apk_backups_enabled(
         return _create_vulns_line(
             ctx=ctx,
             locations=locations,
-            method=core_model.MethodsEnum.APK_BACKUPS_ENABLED,
+            method=core_model.MethodsEnum.PATH_APK_BACKUPS_ENABLED,
         )
 
     return _create_vulns(
