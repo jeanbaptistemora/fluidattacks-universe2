@@ -8,13 +8,20 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import type { ReactElement } from "react";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -28,14 +35,8 @@ import type {
   IGetStakeholdersAttrs,
 } from "../GroupStakeholdersView/types";
 import { Button } from "components/Button";
-import { Table } from "components/Table";
-import { commitFormatter } from "components/Table/formatters";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import {
-  filterSearchText,
-  filterSelect,
-  filterText,
-} from "components/Table/utils";
+import { Table } from "components/TableNew/index";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
@@ -53,13 +54,6 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-interface IFilterSet {
-  author: string;
-  groupsContributed: string;
-  invitationState?: string;
-  repository: string;
-}
-
 const GroupAuthorsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
@@ -75,35 +69,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
   const [billingDate, setBillingDate] = useState(dateRange[0].toISOString());
 
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("groupAuthorsFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterAuthorsTable, setFilterAuthorsTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupAuthorsSet",
-      {
-        author: "",
-        groupsContributed: "",
-        invitationState: "",
-        repository: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
   const formatText: (value: string) => ReactElement<Text> = (
     value: string
   ): ReactElement<Text> => <p className={styles.wrapped}>{value}</p>;
-
-  const formatCommit: (value: string) => ReactElement<Text> = (
-    value: string
-  ): ReactElement<Text> => (
-    <p className={styles.wrapped}>{commitFormatter(value)}</p>
-  );
 
   const formatDate: (date: Date) => string = (date: Date): string => {
     const month: number = date.getMonth() + 1;
@@ -111,6 +79,18 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
     return `${monthStr.padStart(2, "0")}/${date.getFullYear()}`;
   };
+
+  function commitFormatter(value: string): string {
+    const COMMIT_LENGTH: number = 7;
+
+    return value.slice(0, COMMIT_LENGTH);
+  }
+
+  const formatCommit: (value: string) => ReactElement<Text> = (
+    value: string
+  ): ReactElement<Text> => (
+    <p className={styles.wrapped}>{commitFormatter(value)}</p>
+  );
 
   const handleDateChange: (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -189,73 +169,84 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [stackHolderData, t]
   );
 
-  const headersAuthorsTable: IHeaderConfig[] = [
+  const hasInvitationPermissions: boolean = useMemo(
+    (): boolean =>
+      stackHolderData !== undefined &&
+      permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
+      permissions.can("api_mutations_grant_stakeholder_access_mutate"),
+    [permissions, stackHolderData]
+  );
+
+  const [columnFilters, columnFiltersSetter] =
+    useStoredState<ColumnFiltersState>("tblAuthorsList-columnFilters", []);
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("tblAuthorsList-visibilityState", {
+      invitation: hasInvitationPermissions,
+    });
+  const [pagination, setpagination] = useStoredState<PaginationState>(
+    "tblAuthorsList-pagination",
     {
-      dataField: "actor",
-      formatter: formatText,
+      pageIndex: 0,
+      pageSize: 10,
+    }
+  );
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblAuthorsList-sortingState",
+    []
+  );
+
+  const columns: ColumnDef<IAuthors & { invitationState: string }>[] = [
+    {
+      accessorKey: "actor",
+      cell: (
+        cell: ICellHelper<IAuthors & { invitationState: string }>
+      ): JSX.Element => formatText(cell.getValue()),
       header: t("group.authors.actor"),
-      width: "40%",
-      wrapped: true,
     },
     {
-      dataField: "groups",
-      formatter: formatText,
+      accessorKey: "groups",
+      cell: (
+        cell: ICellHelper<IAuthors & { invitationState: string }>
+      ): JSX.Element => formatText(cell.getValue()),
       header: t("group.authors.groupsContributed"),
-      width: "20%",
-      wrapped: true,
     },
     {
-      dataField: "commit",
-      formatter: formatCommit,
+      accessorKey: "commit",
+      cell: (
+        cell: ICellHelper<IAuthors & { invitationState: string }>
+      ): JSX.Element => formatCommit(cell.getValue()),
       header: t("group.authors.commit"),
-      width: "20%",
-      wrapped: true,
     },
     {
-      dataField: "repository",
-      formatter: formatText,
+      accessorKey: "repository",
+      cell: (
+        cell: ICellHelper<IAuthors & { invitationState: string }>
+      ): JSX.Element => formatText(cell.getValue()),
       header: t("group.authors.repository"),
-      width: "20%",
-      wrapped: true,
     },
     {
-      csvExport: false,
-      dataField: "invitation",
+      accessorKey: "invitation",
+      cell: (
+        cell: ICellHelper<IAuthors & { invitationState: string }>
+      ): JSX.Element => cell.getValue(),
       header: t("searchFindings.usersTable.invitationState"),
-      sortFunc: (
-        _a,
-        _b,
-        order,
-        _dataField,
-        rowA: IAuthors,
-        rowB: IAuthors
-      ): number => {
-        function invitationState(actor: string): string {
-          const place: number = actor.lastIndexOf("<");
-
-          return place >= 0
-            ? formatInvitation(actor.substring(place + 1, actor.length - 1))
-            : formatInvitation(actor);
-        }
-        if (
-          (order === "asc" &&
-            invitationState(rowB.actor) < invitationState(rowA.actor)) ||
-          (order === "desc" &&
-            invitationState(rowA.actor) < invitationState(rowB.actor))
-        ) {
-          return 1;
-        }
-
-        return -1;
-      },
-      visible:
-        stackHolderData !== undefined &&
-        permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
-        permissions.can("api_mutations_grant_stakeholder_access_mutate"),
-      width: "130px",
-      wrapped: true,
     },
   ];
+
+  const columnsExtra: ColumnDef<IAuthors & { invitationState: string }>[] = [
+    {
+      accessorKey: "invitationState",
+      header: t("searchFindings.usersTable.invitationState"),
+      meta: { filterType: "select" },
+    },
+  ];
+
+  useEffect((): void => {
+    setColumnVisibility({
+      invitation: hasInvitationPermissions,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasInvitationPermissions]);
 
   const stakeholdersEmail: string[] = useMemo(
     (): string[] =>
@@ -369,155 +360,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [dataset, formatInvitation]
   );
 
-  const hasInvitationPermissions: boolean = useMemo(
-    (): boolean =>
-      stackHolderData !== undefined &&
-      permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
-      permissions.can("api_mutations_grant_stakeholder_access_mutate"),
-    [permissions, stackHolderData]
-  );
-
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchtextDataset: IAuthors[] = filterSearchText(
-    datasetText,
-    searchTextFilter
-  ).map((value: IAuthors): IAuthors => _.omit(value, "invitationState"));
-
-  function onAuthorChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterAuthorsTable(
-      (value): IFilterSet => ({
-        ...value,
-        author: event.target.value,
-      })
-    );
-  }
-  const filterAuthorDataset: IAuthors[] = filterText(
-    dataset,
-    filterAuthorsTable.author,
-    "actor"
-  );
-  function onGroupsContributedChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterAuthorsTable(
-      (value): IFilterSet => ({
-        ...value,
-        groupsContributed: event.target.value,
-      })
-    );
-  }
-  const filterGroupsContributedDataset: IAuthors[] = filterText(
-    dataset,
-    filterAuthorsTable.groupsContributed,
-    "groups"
-  );
-  function onRepositoryChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterAuthorsTable(
-      (value): IFilterSet => ({
-        ...value,
-        repository: event.target.value,
-      })
-    );
-  }
-  const filterRepositoryDataset: IAuthors[] = filterText(
-    dataset,
-    filterAuthorsTable.repository,
-    "repository"
-  );
-
-  const onFilterAuthorsTableChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setFilterAuthorsTable(
-      (value): IFilterSet => ({
-        ...value,
-        invitationState: event.target.value,
-      })
-    );
-  };
-
-  function clearFilters(): void {
-    setFilterAuthorsTable(
-      (): IFilterSet => ({
-        author: "",
-        groupsContributed: "",
-        invitationState: "",
-        repository: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-  const filterInvitationDataset: IAuthors[] = filterSelect(
-    datasetText,
-    filterAuthorsTable.invitationState ?? "",
-    "invitationState"
-  ).map((value: IAuthors): IAuthors => _.omit(value, "invitationState"));
-
-  const resultDataset: IAuthors[] = _.intersectionWith(
-    filterSearchtextDataset,
-    filterAuthorDataset,
-    filterRepositoryDataset,
-    filterGroupsContributedDataset,
-    filterInvitationDataset,
-    _.isEqual
-  );
-
-  const additionalFilter: IFilterProps[] = [
-    {
-      defaultValue: filterAuthorsTable.invitationState ?? "",
-      onChangeSelect: onFilterAuthorsTableChange,
-      placeholder: "Registration status",
-      selectOptions: {
-        Pending: "Pending",
-        Registered: "Registered",
-        Unregistered: "Unregistered",
-      },
-      tooltipId: "group.authors.filtersTooltips.invitation.id",
-      tooltipMessage: "group.authors.filtersTooltips.invitation",
-      type: "select",
-    },
-  ];
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterAuthorsTable.author,
-      onChangeInput: onAuthorChange,
-      placeholder: "Author",
-      tooltipId: "group.authors.filtersTooltips.actor.id",
-      tooltipMessage: "group.authors.filtersTooltips.actor",
-      type: "text",
-    },
-    {
-      defaultValue: filterAuthorsTable.groupsContributed,
-      onChangeInput: onGroupsContributedChange,
-      placeholder: "Groups Contributed",
-      tooltipId: "group.authors.filtersTooltips.groupsContributed.id",
-      tooltipMessage: "group.authors.filtersTooltips.groupsContributed",
-      type: "text",
-    },
-    {
-      defaultValue: filterAuthorsTable.repository,
-      onChangeInput: onRepositoryChange,
-      placeholder: "Repository",
-      tooltipId: "group.authors.filtersTooltips.repository.id",
-      tooltipMessage: "group.authors.filtersTooltips.repository",
-      type: "text",
-    },
-  ];
 
   return (
     <React.StrictMode>
@@ -548,37 +393,22 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         </Col100>
       </Row>
       <Table
-        clearFiltersButton={clearFilters}
-        customFilters={{
-          customFiltersProps: [
-            ...customFiltersProps,
-            ...(hasInvitationPermissions ? additionalFilter : []),
-          ],
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          resultSize: {
-            current: resultDataset.length,
-            total: dataset.length,
-          },
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={
-          /* eslint-disable-next-line fp/no-mutating-methods */
-          resultDataset.sort((itemA, itemB): number =>
-            itemA.actor > itemB.actor ? 1 : -1
-          )
-        }
-        defaultSorted={{ dataField: "actor", order: "asc" }}
+        columnFilterSetter={columnFiltersSetter}
+        columnFilterState={columnFilters}
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
+        columns={[
+          ...columns,
+          ...(hasInvitationPermissions ? columnsExtra : []),
+        ]}
+        data={datasetText}
+        enableColumnFilters={true}
         exportCsv={true}
-        headers={headersAuthorsTable}
         id={"tblAuthorsList"}
-        pageSize={100}
-        search={false}
+        paginationSetter={setpagination}
+        paginationState={pagination}
+        sortingSetter={setSorting}
+        sortingState={sorting}
       />
     </React.StrictMode>
   );

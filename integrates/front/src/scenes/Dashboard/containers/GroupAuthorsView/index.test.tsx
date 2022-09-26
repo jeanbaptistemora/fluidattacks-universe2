@@ -128,13 +128,17 @@ describe("AuthorsView", (): void => {
     });
 
     expect(screen.getAllByRole("columnheader")).toHaveLength(4);
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.authors.actor",
         "group.authors.groupsContributed",
         "group.authors.commit",
         "group.authors.repository",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
 
     jest.clearAllMocks();
@@ -191,7 +195,7 @@ describe("AuthorsView", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    const TEST_COLUMN_LENGTH = 5;
+    const TEST_COLUMN_LENGTH = 6;
     await waitFor((): void => {
       expect(screen.queryAllByRole("columnheader")).toHaveLength(
         TEST_COLUMN_LENGTH
@@ -199,28 +203,33 @@ describe("AuthorsView", (): void => {
     });
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.authors.actor",
         "group.authors.groupsContributed",
         "group.authors.commit",
         "group.authors.repository",
         "searchFindings.usersTable.invitationState",
-      ].join("")
+        "searchFindings.usersTable.invitationState",
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test");
     expect(screen.getAllByRole("cell")[1].textContent).toBe("test, test2");
     expect(screen.getAllByRole("cell")[2].textContent).toBe("123");
     expect(
-      screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2].textContent
+      screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 3].textContent
     ).toBe("test_repository");
     expect(
-      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2]).queryByText(
+      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 3]).queryByText(
         "group.authors.sendInvitation"
       )
     ).not.toBeInTheDocument();
     expect(
-      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 1]).getByText(
+      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2]).getByText(
         "group.authors.sendInvitation"
       )
     ).toBeInTheDocument();
