@@ -194,8 +194,8 @@ export const enTranslations: ResourceKey = {
         title: "Total Exposure",
       },
       riskOverTime: {
-        altTitle: "Vulnerabilities over time",
-        title: "Exposure over time",
+        altTitle: "Vulnerabilities management over time",
+        title: "Exposure management over time",
         tooltip: {
           cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",

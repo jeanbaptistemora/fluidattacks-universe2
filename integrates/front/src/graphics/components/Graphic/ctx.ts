@@ -165,7 +165,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
       ),
-      url: "#exposure-over-time",
+      url: "#exposure-management-over-time",
     },
     documentType: "stackedBarChart",
   },

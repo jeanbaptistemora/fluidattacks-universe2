@@ -123,7 +123,7 @@ def test_group_analytics(
             "Total Exposure",
             "Open Exposure by type",
             "Aggregated exposure benchmark",
-            "Exposure over time",
+            "Exposure management over time",
             "Distribution over time",
             "Exposure Trends by Categories",
             "Vulnerabilities treatment",
