@@ -72,6 +72,18 @@ locals {
           ]
         },
         {
+          Sid    = "redshiftTags"
+          Effect = "Allow"
+          Action = [
+            "redshift:CreateTags",
+            "redshift:DeleteTags",
+            "redshift:DescribeTags",
+          ]
+          Resource = [
+            "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:subnetgroup:observes",
+          ]
+        },
+        {
           Sid    = "redshiftWrite"
           Effect = "Allow"
           Action = [
@@ -182,6 +194,7 @@ locals {
             "iam:PutRolePolicy",
             "iam:TagRole",
             "iam:UpdateAssumeRolePolicy",
+            "iam:UntagRole",
           ]
           Resource = [
             "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/analytics",
