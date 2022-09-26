@@ -6,6 +6,9 @@ import aioboto3
 from aiobotocore.config import (
     AioConfig,
 )
+from botocore import (
+    UNSIGNED,
+)
 from contextlib import (
     AsyncExitStack,
 )
@@ -31,7 +34,7 @@ RESOURCE_OPTIONS = {
         retries={"max_attempts": 10, "mode": "standard"},
         # Signature version for signing URLs
         # https://boto3.amazonaws.com/v1/documentation/api/1.9.42/guide/s3.html#generating-presigned-urls
-        signature_version="s3v4",
+        signature_version=UNSIGNED,
     ),
     "region_name": AWS_REGION_NAME,
     "service_name": "s3",

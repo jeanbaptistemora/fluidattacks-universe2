@@ -47,13 +47,13 @@ async def upload_object(
 
 
 async def download_json_fileobj(
-    client: Any,
     bucket: str,
     file_name: str,
 ) -> Dict[str, Any]:
     return_value: Dict[str, Any] = {}
     with NamedTemporaryFile() as temp:
         try:
+            client = await get_s3_resource()
             await client.download_fileobj(
                 bucket,
                 file_name,
@@ -69,26 +69,20 @@ async def download_json_fileobj(
 async def download_advisories(
     needed_platforms: Iterable[str],
     dl_only_patches: bool = False,
-    client_arg: Any = None,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-    try:
-        client = await get_s3_resource() if client_arg is None else client_arg
-        s3_advisories = {}
-        s3_patch_advisories = {}
-        bucket_name = "skims.sca"
-        for plt in needed_platforms:
-            if not dl_only_patches:
-                dict_obj: Dict[str, Any] = await download_json_fileobj(
-                    client, bucket_name, f"{plt}.json"
-                )
-                s3_advisories.update({plt: dict_obj})
-            dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
-                client, bucket_name, f"{plt}_patch.json"
+    s3_advisories = {}
+    s3_patch_advisories = {}
+    bucket_name = "skims.sca"
+    for plt in needed_platforms:
+        if not dl_only_patches:
+            dict_obj: Dict[str, Any] = await download_json_fileobj(
+                bucket_name, f"{plt}.json"
             )
-            s3_patch_advisories.update({plt: dict_patch_obj})
-    finally:
-        if client_arg is None:
-            await s3_shutdown()
+            s3_advisories.update({plt: dict_obj})
+        dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
+            bucket_name, f"{plt}_patch.json"
+        )
+        s3_patch_advisories.update({plt: dict_patch_obj})
     return s3_advisories, s3_patch_advisories
 
 
@@ -96,7 +90,6 @@ async def upload_advisories(
     to_storage: List[Advisory],
     s3_advisories: Optional[Dict[str, Any]] = None,
     is_patch: bool = False,
-    client_arg: Any = None,
 ) -> None:
     s3_advisories = {} if s3_advisories is None else s3_advisories
     for adv in to_storage:
@@ -108,7 +101,7 @@ async def upload_advisories(
             {adv.associated_advisory: adv.vulnerable_version}
         )
     try:
-        client = await get_s3_resource() if client_arg is None else client_arg
+        client = await get_s3_resource()
         for key, value in s3_advisories.items():
             await upload_object(
                 client=client,
@@ -119,5 +112,4 @@ async def upload_advisories(
     except UnavailabilityError as ex:
         log_blocking("error", "%s", ex.new())
     finally:
-        if client_arg is None:
-            await s3_shutdown()
+        await s3_shutdown()

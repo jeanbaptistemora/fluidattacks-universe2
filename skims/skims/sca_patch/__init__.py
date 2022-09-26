@@ -31,7 +31,6 @@ from s3.operations import (
     upload_advisories,
 )
 from s3.resource import (
-    get_s3_resource,
     s3_shutdown,
 )
 import sys
@@ -93,9 +92,7 @@ async def update_s3(
     to_storage: List[Advisory], action: str, needed_platforms: Iterable[str]
 ) -> None:
     try:
-        client = await get_s3_resource()
         s3_advisories, s3_patch_advisories = await download_advisories(
-            client_arg=client,
             dl_only_patches=action != REMOVE,
             needed_platforms=needed_platforms,
         )
@@ -104,7 +101,6 @@ async def update_s3(
                 to_storage,
                 s3_patch_advisories,
                 is_patch=True,
-                client_arg=client,
             )
         else:
             for adv in to_storage:
@@ -112,14 +108,11 @@ async def update_s3(
                     remove_from_s3(adv, s3_patch_advisories)
                 else:
                     remove_from_s3(adv, s3_advisories)
-            await upload_advisories(
-                to_storage=[], s3_advisories=s3_advisories, client_arg=client
-            )
+            await upload_advisories(to_storage=[], s3_advisories=s3_advisories)
             await upload_advisories(
                 to_storage=[],
                 s3_advisories=s3_patch_advisories,
                 is_patch=True,
-                client_arg=client,
             )
     except UnavailabilityError as ex:
         log_blocking("error", "%s", ex.new())
