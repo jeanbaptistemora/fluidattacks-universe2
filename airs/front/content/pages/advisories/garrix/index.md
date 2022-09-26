@@ -11,7 +11,7 @@ severity: 8.8
 description: Microweber 1.3.1  -  DOM XSS to Account Takeover
 keywords: Fluid Attacks, Security, Vulnerabilities, Microweber
 banner: advisories-bg
-advise: yes
+advise: no
 template: advisory
 ---
 
@@ -23,7 +23,7 @@ template: advisory
 | **Code name**         | [Garrix](https://en.wikipedia.org/wiki/Martin_Garrix)  |
 | **Product**           | Microweber                                             |
 | **Affected versions** | Version 1.3.1                                          |
-| **State**             | Public                                                 |
+| **State**             | Private                                                |
 | **Release date**      | 2022-09-19                                             |
 
 ## Vulnerability
@@ -117,8 +117,8 @@ Team of `Fluid Attacks`.
 <time-lapse
   discovered="2022-09-05"
   contacted="2022-09-05"
-  replied="2022-09-05"
-  confirmed="2022-09-05"
+  replied="2022-09-19"
+  confirmed="2022-09-19"
   patched="2022-09-19"
   disclosure="2022-09-19">
 </time-lapse>
