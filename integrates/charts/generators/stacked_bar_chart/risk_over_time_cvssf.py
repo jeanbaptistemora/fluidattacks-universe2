@@ -96,7 +96,6 @@ async def generate_all() -> None:
             document = format_document(
                 document=get_current_time_range([group_document])[0],
                 y_label=y_label,
-                tick_format=False,
             )
             json_dump(
                 document=document,
@@ -111,7 +110,6 @@ async def generate_all() -> None:
             document = format_document(
                 document=await get_many_groups_document(org_groups, days),
                 y_label=y_label,
-                tick_format=False,
             )
             json_dump(
                 document=document,
@@ -127,7 +125,6 @@ async def generate_all() -> None:
                 document = format_document(
                     document=await get_many_groups_document(groups, days),
                     y_label=y_label,
-                    tick_format=False,
                 )
                 json_dump(
                     document=document,

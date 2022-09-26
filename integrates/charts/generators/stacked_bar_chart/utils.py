@@ -159,7 +159,6 @@ def translate_date_last(date_str: str) -> datetime:
 def format_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,
-    tick_format: bool = True,
 ) -> Dict[str, Any]:
     return dict(
         data=dict(
@@ -205,11 +204,14 @@ def format_document(
                     text=y_label,
                     position="inner-top",
                 ),
+                tick=dict(
+                    count=5,
+                ),
             ),
         ),
         grid=dict(
             x=dict(
-                show=True,
+                show=False,
             ),
             y=dict(
                 show=True,
@@ -226,8 +228,7 @@ def format_document(
             ),
             r=5,
         ),
-        barChartYTickFormat=tick_format,
-        stackedBarChartYTickFormat=tick_format,
+        stackedBarChartYTickFormat=True,
         hideYAxisLine=True,
     )
 
