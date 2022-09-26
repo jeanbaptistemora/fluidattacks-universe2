@@ -11,9 +11,23 @@ from dynamodb.types import (
     Record,
 )
 
+FLUID_IDENTIFIER = "@fluidattacks.com"
+
 
 def _process_metadata(item: Item) -> None:
-    findings_ops.insert_finding(item=item)
+    state: Item = item["state"]
+    if (
+        state["status"] == "DELETED"
+        and not str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
+        and item.get("approval")
+    ):
+        findings_ops.insert_finding(item=item)
+        return
+
+    if state["status"] != "DELETED" or not str(state["modified_by"]).endswith(
+        FLUID_IDENTIFIER
+    ):
+        findings_ops.insert_finding(item=item)
 
 
 def process_finding(records: tuple[Record, ...]) -> None:
