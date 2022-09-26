@@ -2,12 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._inner import (
-    RawCursor,
-)
-from .query import (
-    Query,
-)
 from dataclasses import (
     dataclass,
 )
@@ -22,6 +16,12 @@ from fa_purity.json.primitive import (
 )
 from logging import (
     Logger,
+)
+from target_snowflake.sql_client._inner import (
+    RawCursor,
+)
+from target_snowflake.sql_client.query import (
+    Query,
 )
 
 

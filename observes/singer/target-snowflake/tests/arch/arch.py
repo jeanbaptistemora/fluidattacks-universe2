@@ -27,7 +27,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "connection",
         "cursor",
         "query",
-        ("_inner", "_identifier"),
+        ("_inner", "_identifier", "primitive"),
     ),
 }
 
