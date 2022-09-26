@@ -670,35 +670,7 @@ async def default_seggroup_allows_all_traffic(
                         if ip_range["CidrIp"] == "0.0.0.0/0"
                     ],
                 ]
-            for index, ip_permission in enumerate(
-                group["IpPermissionsEgress"]
-            ):
-                locations = [
-                    *locations,
-                    *[
-                        Location(
-                            access_patterns=(
-                                (
-                                    f"/IpPermissionsEgress/{index}/IpRanges"
-                                    f"/{index_ip_range}/CidrIp"
-                                ),
-                            ),
-                            arn=(
-                                f"arn:aws:ec2::{group['OwnerId']}:"
-                                f"security-group/{group['GroupId']}"
-                            ),
-                            values=(ip_range["CidrIp"],),
-                            description=t(
-                                "src.lib_path.f024."
-                                "default_seggroup_allows_all_traffic"
-                            ),
-                        )
-                        for index_ip_range, ip_range in enumerate(
-                            ip_permission["IpRanges"]
-                        )
-                        if ip_range["CidrIp"] == "0.0.0.0/0"
-                    ],
-                ]
+
             vulns = (
                 *vulns,
                 *build_vulnerabilities(
