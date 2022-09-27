@@ -9,15 +9,12 @@ rule 'MD001'
 rule 'MD002', :level => 2
 rule 'MD003'
 rule 'MD004'
-rule 'MD005'
 rule 'MD006'
-rule 'MD007', :indent => 4
 rule 'MD009'
 rule 'MD010'
 rule 'MD011'
 rule 'MD012'
 rule 'MD013', :tables => false, :code_blocks => false
-rule 'MD014'
 rule 'MD018'
 rule 'MD019'
 rule 'MD020'
