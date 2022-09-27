@@ -297,7 +297,7 @@ def _apk_exported_cp(
         return _create_vulns_line(
             ctx=ctx,
             locations=locations,
-            method=core_model.MethodsEnum.APK_EXPORTED_CP,
+            method=core_model.MethodsEnum.PATH_APK_EXPORTED_CP,
         )
     return _create_vulns(
         ctx=ctx,

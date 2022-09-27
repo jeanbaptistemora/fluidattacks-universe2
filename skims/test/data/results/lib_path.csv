@@ -19507,7 +19507,7 @@ F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,sk
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",analyze_bytecodes.apk_exported_cp
+",android.apk_exported_cp
 F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,skims,075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -19528,7 +19528,7 @@ F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,sk
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",analyze_bytecodes.apk_exported_cp
+",android.apk_exported_cp
 F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Property admin_ssh_key is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
 >  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
    2 |   name           = ""example-machine""
