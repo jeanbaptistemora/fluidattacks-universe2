@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ..operations import (
-    db_cursor,
-)
 from ..queries import (
     SQL_INSERT_HISTORIC,
     SQL_INSERT_METADATA,
@@ -35,9 +32,6 @@ from .utils import (
     format_row_state,
     format_row_verification,
     format_row_verification_vuln_ids,
-)
-from dynamodb.context import (
-    FI_ENVIRONMENT,
 )
 from dynamodb.types import (
     Item,
@@ -156,38 +150,35 @@ def insert_historic_verification_vuln_ids(
 
 def insert_finding(
     *,
+    cursor: cursor_cls,
     item: Item,
 ) -> None:
-    if FI_ENVIRONMENT != "prod":
-        return
-
-    with db_cursor() as cursor:
-        insert_metadata(cursor=cursor, item=item)
-        insert_metadata_severity(cursor=cursor, item=item)
-        finding_id = item["id"]
-        state_items = (
-            item.get("state"),
-            item.get("creation"),
-            item.get("submission"),
-            item.get("approval"),
+    insert_metadata(cursor=cursor, item=item)
+    insert_metadata_severity(cursor=cursor, item=item)
+    finding_id = item["id"]
+    state_items = (
+        item.get("state"),
+        item.get("creation"),
+        item.get("submission"),
+        item.get("approval"),
+    )
+    state_items_filtered = tuple(item for item in state_items if item)
+    if state_items_filtered:
+        insert_historic_state(
+            cursor=cursor,
+            finding_id=finding_id,
+            historic_state=state_items_filtered,
         )
-        state_items_filtered = tuple(item for item in state_items if item)
-        if state_items_filtered:
-            insert_historic_state(
-                cursor=cursor,
-                finding_id=finding_id,
-                historic_state=state_items_filtered,
-            )
-        verification = item.get("verification")
-        if verification:
-            historic_verification = (verification,)
-            insert_historic_verification(
-                cursor=cursor,
-                finding_id=finding_id,
-                historic_verification=historic_verification,
-            )
-            insert_historic_verification_vuln_ids(
-                cursor=cursor,
-                finding_id=finding_id,
-                historic_verification=historic_verification,
-            )
+    verification = item.get("verification")
+    if verification:
+        historic_verification = (verification,)
+        insert_historic_verification(
+            cursor=cursor,
+            finding_id=finding_id,
+            historic_verification=historic_verification,
+        )
+        insert_historic_verification_vuln_ids(
+            cursor=cursor,
+            finding_id=finding_id,
+            historic_verification=historic_verification,
+        )
