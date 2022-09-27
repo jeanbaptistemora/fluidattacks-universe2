@@ -92,7 +92,8 @@ def insert_historic_state(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table=STATE_TABLE,
+            table_metadata=METADATA_TABLE,
+            table_historic=STATE_TABLE,
             fields=_fields,
             values=values,
         ),
@@ -113,7 +114,8 @@ def insert_historic_verification(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table=VERIFICATION_TABLE,
+            table_metadata=METADATA_TABLE,
+            table_historic=VERIFICATION_TABLE,
             fields=_fields,
             values=values,
         ),
@@ -140,7 +142,8 @@ def insert_historic_verification_vuln_ids(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
-            table=VERIFICATION_VULN_IDS_TABLE,
+            table_metadata=METADATA_TABLE,
+            table_vulns_ids=VERIFICATION_VULN_IDS_TABLE,
             fields=_fields,
             values=values,
         ),
