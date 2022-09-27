@@ -125,3 +125,52 @@ class TableClient:
             .map(lambda p: self._cursor.execute_many(query, p))
             .transform(consume)
         )
+
+    def exist(self, table_id: TableId) -> Cmd[bool]:
+        stm = """
+            SELECT EXISTS (
+                SELECT * FROM information_schema.tables
+                WHERE table_schema = %(table_schema)s
+                AND table_name = %(table_name)s
+            );
+        """
+        args: Dict[str, Primitive] = {
+            "table_schema": self._schema.name.sql_identifier,
+            "table_name": table_id.name.sql_identifier,
+        }
+        query = Query(stm, freeze({}), freeze(args))
+        return self._cursor.execute(query) + self._cursor.fetch_one().map(
+            lambda m: m.map(
+                lambda i: _assert.assert_bool(i.data[0]).unwrap()
+            ).unwrap()
+        )
+
+    def rename(self, table_id: TableId, new_name: TableId) -> Cmd[None]:
+        stm = """
+            ALTER TABLE {schema}.{table} RENAME TO {new_name}
+        """
+        identifiers: Dict[str, Identifier] = {
+            "schema": self._schema.name,
+            "table": table_id.name,
+            "new_name": new_name.name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query)
+
+    def _delete(self, table_id: TableId, cascade: bool) -> Cmd[None]:
+        _cascade = "CASCADE" if cascade else ""
+        stm = f"""
+            DROP TABLE {{schema}}.{{table}} {_cascade}
+        """
+        identifiers: Dict[str, Identifier] = {
+            "schema": self._schema.name,
+            "table": table_id.name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query)
+
+    def delete(self, table_id: TableId) -> Cmd[None]:
+        return self._delete(table_id, False)
+
+    def delete_cascade(self, table_id: TableId) -> Cmd[None]:
+        return self._delete(table_id, True)
