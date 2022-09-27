@@ -3,20 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.common import (
-    declaration_block as common_declaration_block,
-    do_statement as common_do_statement,
-    execution_block as common_execution_block,
-    expression_statement as common_expression_statement,
-    finally_clause as common_finally_clause,
-    identifier as common_identifier,
-    if_statement as common_if_statement,
-    interpolation as common_interpolation,
-    method_declaration as common_method_declaration,
-    null_literal as common_null_literal,
-    number_literal as common_number_literal,
-    object_creation_expression as common_object_creation_expression,
-    parameter as common_parameter,
-    parenthesized_expression as common_parenthesized_expression,
     program as common_program,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
@@ -49,20 +35,34 @@ from syntax_graph.syntax_readers.java import (
     comment as java_comment,
     conditional_expression as java_conditional_expression,
     continue_statement as java_continue_statement,
+    declaration_block as java_declaration_block,
     dimensions_expr as java_dimensions_expr,
+    do_statement as java_do_statement,
     element_value_pair as java_element_value_pair,
     enhanced_for_statement as java_enhanced_for_statement,
+    execution_block as java_execution_block,
+    expression_statement as java_expression_statement,
     field_access as java_field_access,
     field_declaration as java_field_declaration,
+    finally_clause as java_finally_clause,
     for_statement as java_for_statement,
+    identifier as java_identifier,
+    if_statement as java_if_statement,
     import_declaration as java_import_declaration,
     instanceof_expression as java_instanceof_expression,
     interface_declaration as java_interface_declaration,
+    interpolation as java_interpolation,
     lambda_expression as java_lambda_expression,
+    method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
     modifiers as java_modifiers,
+    null_literal as java_null_literal,
+    number_literal as java_number_literal,
+    object_creation_expression as java_object_creation_expression,
     package_declaration as java_package_declaration,
+    parameter as java_parameter,
     parameter_list as java_parameter_list,
+    parenthesized_expression as java_parenthesized_expression,
     resource as java_resource,
     switch_block as java_switch_block,
     switch_block_statement_group as java_switch_block_statement_group,
@@ -204,7 +204,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "declaration_list",
         },
-        syntax_reader=common_declaration_block.reader,
+        syntax_reader=java_declaration_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -216,13 +216,13 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "do_statement",
         },
-        syntax_reader=common_do_statement.reader,
+        syntax_reader=java_do_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "block",
         },
-        syntax_reader=common_execution_block.reader,
+        syntax_reader=java_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -240,7 +240,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "expression_statement",
         },
-        syntax_reader=common_expression_statement.reader,
+        syntax_reader=java_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -258,7 +258,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "finally_clause",
         },
-        syntax_reader=common_finally_clause.reader,
+        syntax_reader=java_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -266,13 +266,13 @@ JAVA_DISPATCHERS: Dispatchers = (
             "type_identifier",
             "scoped_type_identifier",
         },
-        syntax_reader=common_identifier.reader,
+        syntax_reader=java_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
             "if_statement",
         },
-        syntax_reader=common_if_statement.reader,
+        syntax_reader=java_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -296,14 +296,14 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "interpolation",
         },
-        syntax_reader=common_interpolation.reader,
+        syntax_reader=java_interpolation.reader,
     ),
     Dispatcher(
         applicable_types={
             "constructor_declaration",
             "method_declaration",
         },
-        syntax_reader=common_method_declaration.reader,
+        syntax_reader=java_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -327,20 +327,20 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "null_literal",
         },
-        syntax_reader=common_null_literal.reader,
+        syntax_reader=java_null_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "integer_literal",
             "real_literal",
         },
-        syntax_reader=common_number_literal.reader,
+        syntax_reader=java_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "object_creation_expression",
         },
-        syntax_reader=common_object_creation_expression.reader,
+        syntax_reader=java_object_creation_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -364,7 +364,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "formal_parameter",
         },
-        syntax_reader=common_parameter.reader,
+        syntax_reader=java_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -378,7 +378,7 @@ JAVA_DISPATCHERS: Dispatchers = (
             "parenthesized_expression",
             "resource_specification",
         },
-        syntax_reader=common_parenthesized_expression.reader,
+        syntax_reader=java_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={

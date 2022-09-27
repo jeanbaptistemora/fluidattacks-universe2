@@ -26318,11 +26318,6 @@
               "label_ast": "AST"
             }
           },
-          "1167": {
-            "1169": {
-              "label_ast": "AST"
-            }
-          },
           "117": {
             "118": {
               "label_ast": "AST"
@@ -26355,11 +26350,6 @@
               "label_ast": "AST"
             }
           },
-          "1185": {
-            "1187": {
-              "label_ast": "AST"
-            }
-          },
           "1189": {
             "1190": {
               "label_ast": "AST"
@@ -26368,11 +26358,6 @@
               "label_ast": "AST"
             },
             "1204": {
-              "label_ast": "AST"
-            }
-          },
-          "1190": {
-            "1192": {
               "label_ast": "AST"
             }
           },
@@ -28312,11 +28297,6 @@
               "label_ast": "AST"
             }
           },
-          "540": {
-            "542": {
-              "label_ast": "AST"
-            }
-          },
           "545": {
             "546": {
               "label_ast": "AST"
@@ -28338,11 +28318,6 @@
               "label_ast": "AST"
             },
             "562": {
-              "label_ast": "AST"
-            }
-          },
-          "558": {
-            "560": {
               "label_ast": "AST"
             }
           },
@@ -28488,11 +28463,6 @@
               "label_ast": "AST"
             }
           },
-          "639": {
-            "641": {
-              "label_ast": "AST"
-            }
-          },
           "64": {
             "126": {
               "label_cfg": "CFG"
@@ -28601,11 +28571,6 @@
               "label_ast": "AST"
             }
           },
-          "695": {
-            "697": {
-              "label_ast": "AST"
-            }
-          },
           "70": {
             "71": {
               "label_ast": "AST"
@@ -28635,11 +28600,6 @@
               "label_ast": "AST"
             }
           },
-          "710": {
-            "712": {
-              "label_ast": "AST"
-            }
-          },
           "715": {
             "716": {
               "label_ast": "AST"
@@ -28661,11 +28621,6 @@
               "label_ast": "AST"
             },
             "730": {
-              "label_ast": "AST"
-            }
-          },
-          "725": {
-            "727": {
               "label_ast": "AST"
             }
           },
@@ -28764,11 +28719,6 @@
               "label_ast": "AST"
             }
           },
-          "778": {
-            "780": {
-              "label_ast": "AST"
-            }
-          },
           "78": {
             "126": {
               "label_cfg": "CFG"
@@ -28785,11 +28735,6 @@
               "label_ast": "AST"
             }
           },
-          "783": {
-            "785": {
-              "label_ast": "AST"
-            }
-          },
           "787": {
             "788": {
               "label_ast": "AST"
@@ -28798,11 +28743,6 @@
               "label_ast": "AST"
             },
             "802": {
-              "label_ast": "AST"
-            }
-          },
-          "788": {
-            "790": {
               "label_ast": "AST"
             }
           },
@@ -28827,11 +28767,6 @@
               "label_ast": "AST"
             }
           },
-          "806": {
-            "808": {
-              "label_ast": "AST"
-            }
-          },
           "81": {
             "82": {
               "label_ast": "AST"
@@ -28839,11 +28774,6 @@
           },
           "810": {
             "811": {
-              "label_ast": "AST"
-            }
-          },
-          "811": {
-            "813": {
               "label_ast": "AST"
             }
           },
@@ -28855,11 +28785,6 @@
               "label_ast": "AST"
             },
             "830": {
-              "label_ast": "AST"
-            }
-          },
-          "816": {
-            "818": {
               "label_ast": "AST"
             }
           },
@@ -29620,12 +29545,7 @@
           },
           "1167": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "1169": {
-            "label_type": "Literal",
-            "value": "3",
-            "value_type": "string"
+            "value": "case3"
           },
           "117": {
             "arguments_id": "121",
@@ -29669,24 +29589,14 @@
           },
           "1185": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "1187": {
-            "label_type": "Literal",
-            "value": "5",
-            "value_type": "string"
+            "value": "case5"
           },
           "1189": {
             "label_type": "SwitchBlockStatementGroup"
           },
           "1190": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "1192": {
-            "label_type": "Literal",
-            "value": "6",
-            "value_type": "string"
+            "value": "case6"
           },
           "1195": {
             "arguments_id": "1199",
@@ -31553,12 +31463,7 @@
           },
           "540": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "542": {
-            "label_type": "Literal",
-            "value": "1",
-            "value_type": "string"
+            "value": "case1"
           },
           "545": {
             "arguments_id": "549",
@@ -31591,16 +31496,11 @@
           },
           "558": {
             "label_type": "SwitchCase",
-            "value": "case"
+            "value": "case2"
           },
           "56": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
-          },
-          "560": {
-            "label_type": "Literal",
-            "value": "2",
             "value_type": "string"
           },
           "562": {
@@ -31775,7 +31675,7 @@
           },
           "639": {
             "label_type": "SwitchCase",
-            "value": "case"
+            "value": "case3"
           },
           "64": {
             "arguments_id": "68",
@@ -31783,11 +31683,6 @@
             "expression_id": "67",
             "label_type": "MethodInvocation",
             "object_id": "65"
-          },
-          "641": {
-            "label_type": "Literal",
-            "value": "3",
-            "value_type": "string"
           },
           "644": {
             "arguments_id": "648",
@@ -31891,12 +31786,7 @@
           },
           "695": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "697": {
-            "label_type": "Literal",
-            "value": "1",
-            "value_type": "string"
+            "value": "case1"
           },
           "70": {
             "access_index": "10",
@@ -31934,12 +31824,7 @@
           },
           "710": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "712": {
-            "label_type": "Literal",
-            "value": "2",
-            "value_type": "string"
+            "value": "case2"
           },
           "715": {
             "arguments_id": "719",
@@ -31969,12 +31854,7 @@
           },
           "725": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "727": {
-            "label_type": "Literal",
-            "value": "3",
-            "value_type": "string"
+            "value": "case3"
           },
           "730": {
             "arguments_id": "734",
@@ -32064,40 +31944,25 @@
           },
           "778": {
             "label_type": "SwitchCase",
-            "value": "case"
+            "value": "case1"
           },
           "78": {
             "block_id": "86",
             "label_type": "CatchClause"
-          },
-          "780": {
-            "label_type": "Literal",
-            "value": "1",
-            "value_type": "string"
           },
           "782": {
             "label_type": "SwitchBlockStatementGroup"
           },
           "783": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "785": {
-            "label_type": "Literal",
-            "value": "2",
-            "value_type": "string"
+            "value": "case2"
           },
           "787": {
             "label_type": "SwitchBlockStatementGroup"
           },
           "788": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "790": {
-            "label_type": "Literal",
-            "value": "3",
-            "value_type": "string"
+            "value": "case3"
           },
           "793": {
             "arguments_id": "797",
@@ -32130,12 +31995,7 @@
           },
           "806": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "808": {
-            "label_type": "Literal",
-            "value": "4",
-            "value_type": "string"
+            "value": "case4"
           },
           "81": {
             "label_type": "CatchParameter",
@@ -32146,24 +32006,14 @@
           },
           "811": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "813": {
-            "label_type": "Literal",
-            "value": "5",
-            "value_type": "string"
+            "value": "case5"
           },
           "815": {
             "label_type": "SwitchBlockStatementGroup"
           },
           "816": {
             "label_type": "SwitchCase",
-            "value": "case"
-          },
-          "818": {
-            "label_type": "Literal",
-            "value": "6",
-            "value_type": "string"
+            "value": "case6"
           },
           "82": {
             "label_type": "CatchType"
