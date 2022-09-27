@@ -60,22 +60,20 @@ from syntax_graph.syntax_readers.c_sharp import (
     postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
     property_declaration as c_sharp_property_declaration,
+    return_statement as c_sharp_return_statement,
+    string_literal as c_sharp_string_literal,
+    switch_body as c_sharp_switch_body,
+    switch_section as c_sharp_switch_section,
+    switch_statement as c_sharp_switch_statement,
     this_expression as c_sharp_this_expression,
+    throw_statement as c_sharp_throw_statement,
+    try_statement as c_sharp_try_statement,
     type_of_expression as c_sharp_type_of_expression,
     type_parameter_list as c_sharp_type_parameter_list,
     using_directive as c_sharp_using_directive,
     using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
     while_statement as c_sharp_while_statement,
-)
-from syntax_graph.syntax_readers.common import (
-    return_statement as common_return_statement,
-    string_literal as common_string_literal,
-    switch_body as common_switch_body,
-    switch_section as common_switch_section,
-    switch_statement as common_switch_statement,
-    throw_statement as common_throw_statement,
-    try_statement as common_try_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -434,7 +432,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "return_statement",
         },
-        syntax_reader=common_return_statement.reader,
+        syntax_reader=c_sharp_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -443,25 +441,25 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "verbatim_string_literal",
             "predefined_type",
         },
-        syntax_reader=common_string_literal.reader,
+        syntax_reader=c_sharp_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_body",
         },
-        syntax_reader=common_switch_body.reader,
+        syntax_reader=c_sharp_switch_body.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_statement",
         },
-        syntax_reader=common_switch_statement.reader,
+        syntax_reader=c_sharp_switch_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_section",
         },
-        syntax_reader=common_switch_section.reader,
+        syntax_reader=c_sharp_switch_section.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -473,7 +471,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "throw_statement",
         },
-        syntax_reader=common_throw_statement.reader,
+        syntax_reader=c_sharp_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -491,7 +489,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "try_statement",
         },
-        syntax_reader=common_try_statement.reader,
+        syntax_reader=c_sharp_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={

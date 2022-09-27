@@ -22,7 +22,11 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
-    ignored_labels = {"preprocessor_call"}
+    ignored_labels = {
+        "preprocessor_call",
+        "endif_directive",
+        "if_directive",
+    }
 
     filtered_ids = (
         _id
