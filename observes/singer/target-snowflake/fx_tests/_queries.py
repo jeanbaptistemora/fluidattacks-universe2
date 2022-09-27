@@ -7,8 +7,6 @@ from fa_purity import (
 )
 from target_snowflake.sql_client import (
     Identifier,
-)
-from target_snowflake.sql_client.query import (
     Query,
 )
 

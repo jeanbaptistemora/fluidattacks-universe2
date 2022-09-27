@@ -13,13 +13,9 @@ import logging
 import os
 import pytest
 from target_snowflake.sql_client import (
-    Identifier,
-)
-from target_snowflake.sql_client.connection import (
     Credentials,
     DbConnector,
-)
-from target_snowflake.sql_client.cursor import (
+    Identifier,
     RowData,
 )
 

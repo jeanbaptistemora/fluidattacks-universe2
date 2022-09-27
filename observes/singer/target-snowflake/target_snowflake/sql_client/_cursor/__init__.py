@@ -44,7 +44,7 @@ from snowflake.connector.errors import (
 from target_snowflake.sql_client._inner import (
     RawCursor,
 )
-from target_snowflake.sql_client.query import (
+from target_snowflake.sql_client._query import (
     Query,
 )
 from typing import (

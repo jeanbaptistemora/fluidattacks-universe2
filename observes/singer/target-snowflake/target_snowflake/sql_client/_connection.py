@@ -2,11 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._cursor import (
+    Cursor,
+)
 from ._inner import (
     RawCursor,
-)
-from .cursor import (
-    Cursor,
 )
 from dataclasses import (
     dataclass,

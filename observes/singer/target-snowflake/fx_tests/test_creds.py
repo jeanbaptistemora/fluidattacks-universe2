@@ -4,7 +4,7 @@
 
 import os
 import pytest
-from target_snowflake.sql_client.connection import (
+from target_snowflake.sql_client import (
     Credentials,
     DbConnector,
 )
