@@ -191,13 +191,10 @@ def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
             g_text = _find_vars(group.get_text(), path)
             a_text = _find_vars(artifact.get_text(), path)
             if version is None:
-                v_text = _find_vars("*", path)
-                column = artifact.sourcepos
-                line = artifact.sourceline
-            else:
-                v_text = _find_vars(version.get_text(), path)
-                column = version.sourcepos
-                line = version.sourceline
+                continue
+            v_text = _find_vars(version.get_text(), path)
+            column = version.sourcepos
+            line = version.sourceline
 
             yield (
                 {"column": column, "line": line, "item": f"{g_text}:{a_text}"},

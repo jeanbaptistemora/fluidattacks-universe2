@@ -36591,30 +36591,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    59 |       <groupId>com.newrelic.agent.java</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2010-3700, CVE-2011-2731, CVE-2011-2732, CVE-2011-2894, CVE-2012-5055, CVE-2014-0097, CVE-2014-3527, CVE-2016-5007, CVE-2016-9879, CVE-2017-4995, CVE-2018-1199, CVE-2018-1258, CVE-2018-15801, CVE-2019-11272, CVE-2019-3795, CVE-2020-3700, CVE-2020-5407, CVE-2020-5408, CVE-2021-22112, CVE-2021-22119, CVE-2022-22976, CVE-2022-22978, GHSA-27xw-p8v6-9jjr, GHSA-2ppp-9496-p23q, GHSA-3295-h9qx-r82x, GHSA-3533-rvpc-6x56, GHSA-4644-hg35-55m9, GHSA-48rw-j489-928m, GHSA-5xm9-rf63-wj7h, GHSA-8crv-49fr-2h6j, GHSA-f866-m9mv-2xr3, GHSA-gv9v-c375-hvmg, GHSA-hh32-7344-cg2f, GHSA-v2r2-7qm7-jj6v, GHSA-v33x-prhc-gph5, GHSA-v35c-49j6-q8hq, GHSA-v596-fwhq-8x48, GHSA-vhrg-v3cv-p247, GHSA-w9jg-gvgr-354m, GHSA-wmv4-5w76-vp9g, GHSA-wx54-3278-m5g4]",90,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version  with ['CVE-2010-3700', 'CVE-2011-2731', 'CVE-2011-2732', 'CVE-2011-2894', 'CVE-2012-5055', 'CVE-2014-0097', 'CVE-2014-3527', 'CVE-2016-5007', 'CVE-2016-9879', 'CVE-2017-4995', 'CVE-2018-1199', 'CVE-2018-1258', 'CVE-2018-15801', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-3700', 'CVE-2020-5407', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2021-22119', 'CVE-2022-22976', 'CVE-2022-22978', 'GHSA-27xw-p8v6-9jjr', 'GHSA-2ppp-9496-p23q', 'GHSA-3295-h9qx-r82x', 'GHSA-3533-rvpc-6x56', 'GHSA-4644-hg35-55m9', 'GHSA-48rw-j489-928m', 'GHSA-5xm9-rf63-wj7h', 'GHSA-8crv-49fr-2h6j', 'GHSA-f866-m9mv-2xr3', 'GHSA-gv9v-c375-hvmg', 'GHSA-hh32-7344-cg2f', 'GHSA-v2r2-7qm7-jj6v', 'GHSA-v33x-prhc-gph5', 'GHSA-v35c-49j6-q8hq', 'GHSA-v596-fwhq-8x48', 'GHSA-vhrg-v3cv-p247', 'GHSA-w9jg-gvgr-354m', 'GHSA-wmv4-5w76-vp9g', 'GHSA-wx54-3278-m5g4'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
-   80 |       <scope>test</scope>
-   81 |     </dependency>
-   82 |     <dependency>
-   83 |       <groupId>org.springframework.security</groupId>
-   84 |       <artifactId>spring-security-core</artifactId>
-   85 |       <version>${spring.version}</version>
-   86 |       <scope>test</scope>
-   87 |     </dependency>
-   88 |     <dependency>
-   89 |       <groupId>org.springframework.security</groupId>
->  90 |       <artifactId>spring-security-core</artifactId>
-   91 |       <scope>test</scope>
-   92 |     </dependency>
-   93 |     <dependency>
-   94 |       <groupId>org.mockito</groupId>
-   95 |       <artifactId>mockito-core</artifactId>
-   96 |       <version>${mockito.version}</version>
-   97 |       <scope>test</scope>
-   98 |     </dependency>
-   99 |     <dependency>
-  100 |       <groupId>org.slf4j</groupId>
-      ^ Col 0
-",maven.maven_pom_xml
 F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995, CVE-2018-1199, CVE-2019-11272, CVE-2019-3795, CVE-2020-5408, CVE-2021-22112, CVE-2022-22976, CVE-2022-22978, GHSA-2ppp-9496-p23q, GHSA-hh32-7344-cg2f, GHSA-v2r2-7qm7-jj6v, GHSA-v33x-prhc-gph5, GHSA-v596-fwhq-8x48, GHSA-vhrg-v3cv-p247, GHSA-wx54-3278-m5g4]",85,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with ['CVE-2017-4995', 'CVE-2018-1199', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2022-22976', 'CVE-2022-22978', 'GHSA-2ppp-9496-p23q', 'GHSA-hh32-7344-cg2f', 'GHSA-v2r2-7qm7-jj6v', 'GHSA-v33x-prhc-gph5', 'GHSA-v596-fwhq-8x48', 'GHSA-vhrg-v3cv-p247', 'GHSA-wx54-3278-m5g4'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    75 |     </dependency>
    76 |     <dependency>
