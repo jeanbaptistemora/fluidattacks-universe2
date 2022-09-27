@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-interface IComplianceAttr {
+interface IOrganizationAttr {
   id: string;
   name: string;
   compliance: {
@@ -16,4 +16,4 @@ interface IOrganizationComplianceOverviewProps {
   organizationId: string;
 }
 
-export type { IComplianceAttr, IOrganizationComplianceOverviewProps };
+export type { IOrganizationAttr, IOrganizationComplianceOverviewProps };

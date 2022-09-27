@@ -1723,6 +1723,16 @@ export const enTranslations: ResourceKey = {
       compliance: {
         tabs: {
           overview: {
+            nonCompliance: {
+              complianceLevel: {
+                info: "The organization has not complied with the {{percentage}}% of the standards",
+                title: "Compliance level of {{organizationName}}",
+              },
+              title: {
+                info: "Non-compliance information for {{organizationName}}",
+                text: "Organization non-compliance",
+              },
+            },
             text: "Overview",
             tooltip: "Overview of the compliance with the standards",
           },
