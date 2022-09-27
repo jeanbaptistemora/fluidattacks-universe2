@@ -726,16 +726,6 @@ describe("Validations", (): void => {
   });
 });
 
-describe("environments", (): void => {
-  it("should return development", (): void => {
-    expect.hasAssertions();
-
-    const environment: string = getEnvironment();
-
-    expect(environment).toBe("development");
-  });
-});
-
 describe("cvss", (): void => {
   it("Should required LOW_SCOPE_C privileges", (): void => {
     expect.hasAssertions();
@@ -775,5 +765,62 @@ describe("cvss", (): void => {
     const privReq: number = calcPrivilegesRequired("1", "0");
 
     expect(privReq).toBe(1);
+  });
+});
+
+describe("Window mock to production", (): void => {
+  const { location } = window;
+  jest.spyOn(window, "location", "get").mockRestore();
+
+  it("Should be in production environment", (): void => {
+    expect.hasAssertions();
+
+    const mockedLocation = {
+      ...location,
+      hostname: "test.com",
+    };
+    jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
+    const expectedEnv = "production";
+    const result = getEnvironment();
+
+    expect(result).toBe(expectedEnv);
+  });
+});
+
+describe("Window mock to ephemeral", (): void => {
+  const { location } = window;
+  jest.spyOn(window, "location", "get").mockRestore();
+
+  it("Should be in ephemeral environment", (): void => {
+    expect.hasAssertions();
+
+    const mockedLocation = {
+      ...location,
+      hostname: "testatfluid.app.fluidattacks.com",
+    };
+    jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
+    const expectedEnv = "ephemeral";
+    const result = getEnvironment();
+
+    expect(result).toBe(expectedEnv);
+  });
+});
+
+describe("Window mock to development", (): void => {
+  const { location } = window;
+  jest.spyOn(window, "location", "get").mockRestore();
+
+  it("Should be in development environment", (): void => {
+    expect.hasAssertions();
+
+    const mockedLocation = {
+      ...location,
+      hostname: "localhost",
+    };
+    jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
+    const expectedEnv = "development";
+    const result = getEnvironment();
+
+    expect(result).toBe(expectedEnv);
   });
 });
