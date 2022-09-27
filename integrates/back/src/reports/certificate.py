@@ -9,7 +9,7 @@ from back.src.settings.logger import (
     LOGGING,
 )
 from context import (
-    FI_AWS_S3_RESOURCES_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from dataloaders import (
     Dataloaders,
@@ -260,9 +260,9 @@ class CertificateCreator(CreatorPdf):
         # Fetch signature resource
         with tempfile.NamedTemporaryFile(mode="w+") as file:
             await s3_ops.download_file(
-                FI_AWS_S3_RESOURCES_BUCKET,
-                "certificate/signature.png",
-                file.name,
+                FI_AWS_S3_MAIN_BUCKET,
+                "resources/certificate/signature.png",
+                f"resources/{file.name}",
             )
             self.cert_context[
                 "signature_img"

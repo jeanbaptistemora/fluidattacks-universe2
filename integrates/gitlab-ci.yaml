@@ -3930,6 +3930,27 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/move_s3__resources:
+  image: ghcr.io/fluidattacks/makes:22.09
+  interruptible: true
+  needs: []
+  resource_group: deploy/$CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/move_s3 'resources'
+  stage: deploy-infra
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/secrets/lint:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true

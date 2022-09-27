@@ -12,6 +12,7 @@ function serve {
     'fluidintegrates.evidences'
     'fluidintegrates.forces'
     'fluidintegrates.resources'
+    'integrates'
     'continuous-repositories'
   )
   local buckets_by_root=(

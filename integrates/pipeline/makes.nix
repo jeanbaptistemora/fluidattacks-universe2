@@ -239,6 +239,11 @@ in {
         []
         ++ [
           {
+            args = ["resources"];
+            output = "/integrates/move_s3";
+            gitlabExtra = gitlabDeployInfra;
+          }
+          {
             output = "/deployTerraform/integratesInfra";
             gitlabExtra = gitlabDeployInfra;
           }

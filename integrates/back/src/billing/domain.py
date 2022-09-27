@@ -14,7 +14,7 @@ from billing.types import (
     Subscription,
 )
 from context import (
-    FI_AWS_S3_RESOURCES_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
@@ -95,18 +95,24 @@ TRIAL_DAYS: int = 14
 
 async def save_file(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_RESOURCES_BUCKET,
+        FI_AWS_S3_MAIN_BUCKET,
         file_object,
-        file_name,
+        f"resources/{file_name}",
     )
 
 
 async def search_file(file_name: str) -> list[str]:
-    return await s3_ops.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)
+    return await s3_ops.list_files(
+        FI_AWS_S3_MAIN_BUCKET,
+        f"resources/{file_name}",
+    )
 
 
 async def remove_file(file_name: str) -> None:
-    await s3_ops.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)
+    await s3_ops.remove_file(
+        FI_AWS_S3_MAIN_BUCKET,
+        f"resources/{file_name}",
+    )
 
 
 async def get_document_link(
@@ -124,7 +130,11 @@ async def get_document_link(
         business_name = payment_method[0].business_name.lower()
         file_url = f"billing/{org_name}/{business_name}/{file_name}"
 
-    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_RESOURCES_BUCKET)
+    return await s3_ops.sign_url(
+        f"resources/{file_url}",
+        10,
+        FI_AWS_S3_MAIN_BUCKET,
+    )
 
 
 async def _customer_has_payment_method(
