@@ -12,10 +12,6 @@ from db_model.advisories.types import (
     Advisory,
 )
 import json
-from s3.resource import (
-    get_s3_resource,
-    s3_shutdown,
-)
 from tempfile import (
     NamedTemporaryFile,
 )
@@ -47,13 +43,13 @@ async def upload_object(
 
 
 async def download_json_fileobj(
+    client: Any,
     bucket: str,
     file_name: str,
 ) -> Dict[str, Any]:
     return_value: Dict[str, Any] = {}
     with NamedTemporaryFile() as temp:
         try:
-            client = await get_s3_resource()
             await client.download_fileobj(
                 bucket,
                 file_name,
@@ -67,6 +63,7 @@ async def download_json_fileobj(
 
 
 async def download_advisories(
+    client: Any,
     needed_platforms: Iterable[str],
     dl_only_patches: bool = False,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
@@ -76,17 +73,18 @@ async def download_advisories(
     for plt in needed_platforms:
         if not dl_only_patches:
             dict_obj: Dict[str, Any] = await download_json_fileobj(
-                bucket_name, f"{plt}.json"
+                client, bucket_name, f"{plt}.json"
             )
             s3_advisories.update({plt: dict_obj})
         dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
-            bucket_name, f"{plt}_patch.json"
+            client, bucket_name, f"{plt}_patch.json"
         )
         s3_patch_advisories.update({plt: dict_patch_obj})
     return s3_advisories, s3_patch_advisories
 
 
 async def upload_advisories(
+    client: Any,
     to_storage: List[Advisory],
     s3_advisories: Optional[Dict[str, Any]] = None,
     is_patch: bool = False,
@@ -101,7 +99,6 @@ async def upload_advisories(
             {adv.associated_advisory: adv.vulnerable_version}
         )
     try:
-        client = await get_s3_resource()
         for key, value in s3_advisories.items():
             await upload_object(
                 client=client,
@@ -111,5 +108,3 @@ async def upload_advisories(
             )
     except UnavailabilityError as ex:
         log_blocking("error", "%s", ex.new())
-    finally:
-        await s3_shutdown()

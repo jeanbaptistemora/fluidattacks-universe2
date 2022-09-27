@@ -21,19 +21,23 @@ from typing import (
 
 RESOURCE_OPTIONS = {
     "config": AioConfig(
-        # The time in seconds till a timeout exception is thrown when
-        # attempting to make a connection. [60]
         connect_timeout=15,
-        # Maximum amount of simultaneously opened connections. [10]
-        # https://docs.aiohttp.org/en/stable/client_advanced.html#limiting-connection-pool-size
         max_pool_connections=2000,
-        # The time in seconds till a timeout exception is thrown when
-        # attempting to read from a connection. [60]
         read_timeout=30,
-        # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/retries.html
         retries={"max_attempts": 10, "mode": "standard"},
-        # Signature version for signing URLs
-        # https://boto3.amazonaws.com/v1/documentation/api/1.9.42/guide/s3.html#generating-presigned-urls
+        signature_version="s3v4",
+    ),
+    "region_name": AWS_REGION_NAME,
+    "service_name": "s3",
+    "use_ssl": True,
+    "verify": True,
+}
+PUBLIC_RESOURCE_OPTIONS = {
+    "config": AioConfig(
+        connect_timeout=15,
+        max_pool_connections=2000,
+        read_timeout=30,
+        retries={"max_attempts": 10, "mode": "standard"},
         signature_version=UNSIGNED,
     ),
     "region_name": AWS_REGION_NAME,
@@ -46,13 +50,16 @@ CONTEXT_STACK = None
 RESOURCE = None
 
 
-async def s3_startup() -> None:
+async def s3_startup(is_public: bool) -> None:
     # pylint: disable=global-statement
     global CONTEXT_STACK, RESOURCE
 
     CONTEXT_STACK = AsyncExitStack()
+
     RESOURCE = await CONTEXT_STACK.enter_async_context(
-        SESSION.client(**RESOURCE_OPTIONS)
+        SESSION.client(
+            **(PUBLIC_RESOURCE_OPTIONS if is_public else RESOURCE_OPTIONS)
+        )
     )
 
 
@@ -61,8 +68,8 @@ async def s3_shutdown() -> None:
         await CONTEXT_STACK.aclose()
 
 
-async def get_s3_resource() -> Any:
+async def get_s3_resource(*, is_public: bool = False) -> Any:
     if RESOURCE is None:
-        await s3_startup()
+        await s3_startup(is_public)
 
     return RESOURCE
