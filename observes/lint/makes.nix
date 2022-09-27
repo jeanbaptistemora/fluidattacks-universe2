@@ -50,10 +50,6 @@ in {
         config = "/observes/common/postgres-client/src/setup.imports.cfg";
         src = "/observes/common/postgres-client/src";
       };
-      observesCommonPurity = {
-        config = "/observes/common/purity/purity/setup.imports.cfg";
-        src = "/observes/common/purity";
-      };
       observesCommonSingerIo = {
         config = "/observes/common/singer-io/src/setup.imports.cfg";
         src = "/observes/common/singer-io/src";
@@ -116,20 +112,6 @@ in {
         python = "3.8";
         src = "/observes/common/postgres-client/src/postgres_client";
       };
-      observesCommonPurity = {
-        searchPaths.source = [
-          outputs."/observes/common/purity/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/common/purity/purity";
-      };
-      observesCommonPurityTests = {
-        searchPaths.source = [
-          outputs."/observes/common/purity/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/common/purity/tests";
-      };
       observesCommonPostgresClientTests = {
         searchPaths.source = [
           outputs."/observes/common/postgres-client/env/development"
@@ -153,13 +135,6 @@ in {
         ];
         python = "3.8";
         src = "/observes/common/singer-io/src/tests";
-      };
-      observesServiceMigrateTables = {
-        searchPaths.source = [
-          outputs."/observes/service/migrate-tables/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/service/migrate-tables/src/migrate_tables";
       };
       observesStreamerZohoCrm = {
         searchPaths.source = [
