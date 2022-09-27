@@ -13,6 +13,9 @@ import type { IFormValues } from "./types";
 import { translate } from "utils/translations/translate";
 import { regExps } from "utils/validations";
 
+const MAX_FIELD_LENGTH = 100;
+const MIN_FIELD_LENGTH = 40;
+
 const validateSchema = (): InferType<TypedSchema> =>
   lazy(
     (values: IFormValues): BaseSchema =>
@@ -110,6 +113,18 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                   return regex.test(value);
                 }
+              )
+              .min(
+                MIN_FIELD_LENGTH,
+                translate.t("validations.minLength", {
+                  count: MIN_FIELD_LENGTH,
+                })
+              )
+              .max(
+                MAX_FIELD_LENGTH,
+                translate.t("validations.maxLength", {
+                  count: MAX_FIELD_LENGTH,
+                })
               )
               .test(
                 "includeSymbols",

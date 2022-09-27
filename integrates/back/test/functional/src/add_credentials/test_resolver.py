@@ -39,7 +39,7 @@ from typing import (
                 name="cred2",
                 type="HTTPS",
                 user="user test",
-                password="t]{3[s.T}/l;u=r<w>oiu(p",
+                password="lorem.ipsum,Dolor.sit:am3t;t]{3[s.T}/l;u=r<w>oiu(p",
             ),
         ],
         [
@@ -257,6 +257,23 @@ async def test_add_credentials_fail(
             type="HTTPS",
             user="usertest",
             password="ttbd3Tl",  # NOSONAR
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Invalid field length in form"
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            # FP: local testing
+            name="cred7",
+            type="HTTPS",
+            user="usertest",
+            password="loremripsumlDolornsitlam3txconsectetrttbd3Tl",  # NOSONAR
         ),
     )
     assert "errors" in result

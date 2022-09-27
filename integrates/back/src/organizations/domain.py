@@ -114,6 +114,7 @@ from newutils.organization_access import (
 )
 from newutils.validations import (
     validate_email_address,
+    validate_field_length,
     validate_include_lowercase,
     validate_include_number,
     validate_include_uppercase,
@@ -171,6 +172,16 @@ async def add_credentials(
         validate_include_lowercase(password)
         validate_include_uppercase(password)
         validate_sequence(password)
+        validate_field_length(
+            password,
+            limit=40,
+            is_greater_than_limit=True,
+        )
+        validate_field_length(
+            password,
+            limit=100,
+            is_greater_than_limit=False,
+        )
         validate_symbols(password)
         secret = HttpsSecret(
             user=user,
@@ -686,9 +697,27 @@ async def update_credentials(
         and attributes.user is not None
         and attributes.password is not None
     ):
-        secret = HttpsSecret(
-            user=attributes.user, password=attributes.password
+        user: str = attributes.user
+        password: str = attributes.password or ""
+        validate_space_field(user)
+        validate_space_field(password)
+        validate_start_letter(password)
+        validate_include_number(password)
+        validate_include_lowercase(password)
+        validate_include_uppercase(password)
+        validate_sequence(password)
+        validate_field_length(
+            password,
+            limit=40,
+            is_greater_than_limit=True,
         )
+        validate_field_length(
+            password,
+            limit=100,
+            is_greater_than_limit=False,
+        )
+        validate_symbols(password)
+        secret = HttpsSecret(user=user, password=password)
         force_update_owner = True
     elif credentials_type is CredentialType.SSH and attributes.key is not None:
         secret = SshSecret(

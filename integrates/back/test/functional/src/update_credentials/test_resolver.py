@@ -38,7 +38,10 @@ from typing import (
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
             dict(
-                name="cred2", type="HTTPS", user="user user", password="99111"
+                name="cred2",
+                type="HTTPS",
+                user="user user",
+                password="lorem.ipsum,Dolor.sit:am3t;t]{3[s.T}/l;u=r<w>oiu(p",
             ),
         ],
         [

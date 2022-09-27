@@ -311,7 +311,8 @@ describe("organization credentials view", (): void => {
           variables: {
             credentials: {
               name: "Credentials test",
-              password: "Passw0rd.test",
+              password:
+                "lorem.ipsum,Dolor.sit:am3t;consectetur@adipiscing$elit",
               type: "HTTPS",
               user: "User test",
             },
@@ -368,9 +369,11 @@ describe("organization credentials view", (): void => {
       ),
     ]);
     userEvent.type(screen.getByRole("textbox", { name: "user" }), "User test");
+
+    userEvent.clear(screen.getByRole("textbox", { name: "password" }));
     userEvent.type(
       screen.getByRole("textbox", { name: "password" }),
-      "Passw0rd.test"
+      "lorem.ipsum,Dolor.sit:am3t;consectetur@adipiscing$elit"
     );
     userEvent.click(
       screen.getByRole("button", {
