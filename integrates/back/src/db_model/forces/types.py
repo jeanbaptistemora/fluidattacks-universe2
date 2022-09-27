@@ -8,6 +8,9 @@ from db_model.forces.enums import (
 from decimal import (
     Decimal,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -48,6 +51,16 @@ class ForcesExecution(NamedTuple):
     vulnerabilities: ExecutionVulnerabilities
     grace_period: Optional[int] = 0
     severity_threshold: Optional[Decimal] = Decimal("0.0")
+
+
+class ExecutionEdge(NamedTuple):
+    node: ForcesExecution
+    cursor: str
+
+
+class ExecutionsConnection(NamedTuple):
+    edges: tuple[ExecutionEdge, ...]
+    page_info: PageInfo
 
 
 class ForcesExecutionRequest(NamedTuple):

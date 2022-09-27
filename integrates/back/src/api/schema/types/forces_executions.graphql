@@ -6,6 +6,16 @@
 type ForcesExecutions {
   "List of Forces executions within the provided time period"
   executions: [ForcesExecution!]
+  "List of Forces executions paginated within the provided time period"
+  executionsConnections(
+     "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of executions to return"
+    first: Int
+    "Search query for execution attributes"
+    search: String
+
+  ):ExecutionsConnection!
   "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
   fromDate: String!
     @deprecated(
