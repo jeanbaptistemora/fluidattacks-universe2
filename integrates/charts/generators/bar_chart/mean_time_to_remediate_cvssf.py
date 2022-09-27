@@ -106,6 +106,11 @@ def format_data(data: Remediate) -> dict:
             labels=True,
             type="bar",
         ),
+        bar=dict(
+            width=dict(
+                ratio=0.4,
+            ),
+        ),
         axis=dict(
             x=dict(
                 categories=[value for _, value in translations.items()],

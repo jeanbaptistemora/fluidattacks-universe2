@@ -126,6 +126,11 @@ def format_data(data: Remediate) -> Dict[str, Any]:
                 ),
             ),
         ),
+        bar=dict(
+            width=dict(
+                ratio=0.4,
+            ),
+        ),
         barChartYTickFormat=True,
     )
 

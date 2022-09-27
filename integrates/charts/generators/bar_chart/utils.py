@@ -174,6 +174,11 @@ def format_mttr_data(
                 ),
             ),
         ),
+        bar=dict(
+            width=dict(
+                ratio=0.4,
+            ),
+        ),
         barChartYTickFormat=True,
     )
 
