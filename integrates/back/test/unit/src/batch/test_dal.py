@@ -58,6 +58,7 @@ async def test_delete_action(dynamodb: ServiceResource) -> None:
             Key={"pk": key}
         )
         assert await delete_action(dynamodb_pk=key)
+    assert mock_delete_item.called is True
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 4
     with pytest.raises(Exception) as delete_exception:
         await delete_action()
@@ -96,6 +97,7 @@ async def test_get_action(dynamodb: ServiceResource) -> None:
             dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
         ]
         action_in_db = await get_action(action_dynamo_pk=key)
+    assert mock_query.called is True
     assert bool(action_in_db)
 
     item_2 = dict(
@@ -120,6 +122,7 @@ async def test_get_action(dynamodb: ServiceResource) -> None:
         except KeyError:
             mock_query.return_value = []
         action_not_in_db = await get_action(action_dynamo_pk=key_2)
+    assert mock_query.called is True
     assert not bool(action_not_in_db)
 
 
@@ -127,6 +130,7 @@ async def test_get_actions(dynamodb: ServiceResource) -> None:
     with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
         mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
         all_actions = await get_actions()
+    assert mock_scan.called is True
     assert isinstance(all_actions, list)
     assert len(all_actions) == 4
 
@@ -166,7 +170,7 @@ async def test_put_action_to_batch(dynamodb: ServiceResource) -> None:
     with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
         mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
         pending_actions: List[BatchProcessing] = await get_actions()
-
+    assert mock_scan.called is True
     assert all(
         result is None
         for result in await collect(
@@ -234,6 +238,7 @@ async def test_put_action_to_dynamodb(dynamodb: ServiceResource) -> None:
     with mock.patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
         mock_put_item.side_effect = side_effect
         await put_action_to_dynamodb(**item)
+    assert mock_put_item.called is True
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
     assert (
         key
