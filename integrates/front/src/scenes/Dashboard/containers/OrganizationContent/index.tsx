@@ -251,7 +251,9 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   />
                 </Route>
                 <Route exact={false} path={`${path}/compliance`}>
-                  <ComplianceContent />
+                  <ComplianceContent
+                    organizationId={basicData.organizationId.id}
+                  />
                 </Route>
                 <Redirect to={`${path}/groups`} />
               </Switch>
