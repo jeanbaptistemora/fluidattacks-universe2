@@ -45,6 +45,10 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     sessionStorage.setItem("todoDraftSort", JSON.stringify(newSorted));
   };
 
+  const hackerFormatter = (value: string): JSX.Element => {
+    return <div className={`tl truncate`}>{value}</div>;
+  };
+
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "reportDate",
@@ -75,6 +79,13 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     {
       dataField: "groupName",
       header: "Group Name",
+      onSort: onSortState,
+      width: "10%",
+    },
+    {
+      dataField: "hacker",
+      formatter: hackerFormatter,
+      header: "Hacker",
       onSort: onSortState,
       width: "10%",
     },

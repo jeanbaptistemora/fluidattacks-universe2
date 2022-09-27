@@ -13,6 +13,7 @@ export const GET_TODO_DRAFTS: DocumentNode = gql`
       drafts {
         currentState
         groupName
+        hacker
         id
         openVulnerabilities
         reportDate

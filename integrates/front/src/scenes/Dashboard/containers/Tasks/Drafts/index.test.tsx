@@ -34,6 +34,7 @@ describe("TodoDraftsView", (): void => {
             {
               currentState: "SUBMITTED",
               groupName: "group1",
+              hacker: "test1@fluidattacks.com",
               id: "475041513",
               openVulnerabilities: 1,
               reportDate: "2019-04-12 08:45:48",
@@ -43,6 +44,7 @@ describe("TodoDraftsView", (): void => {
             {
               currentState: "CREATED",
               groupName: "gropu1",
+              hacker: "test2@fluidattacks.com",
               id: "475041535",
               openVulnerabilities: 0,
               reportDate: "2019-02-04 12:46:10",

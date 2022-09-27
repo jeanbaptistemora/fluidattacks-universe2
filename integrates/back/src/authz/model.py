@@ -799,6 +799,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -832,6 +833,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_resolvers_git_environment_url_secrets_resolve",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -860,6 +862,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["reattacker"]["actions"],
             "api_mutations_submit_machine_job_mutate",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_environment_url_secrets_resolve",
             "api_resolvers_group_disambiguation_resolve",
@@ -889,6 +892,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     user_manager=dict(
         actions={
             *GROUP_LEVEL_ROLES["user_manager"]["actions"],
+            "api_resolvers_finding_hacker_resolve",
             "api_mutations_update_group_payment_id_mutate",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
@@ -905,6 +909,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_machine_job_mutate",
             "api_mutations_remove_secret_mutate",
             "api_mutations_remove_environment_url_secret_mutate",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
@@ -936,6 +941,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -963,6 +969,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["reviewer"]["actions"],
             "api_mutations_submit_machine_job_mutate",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -990,6 +997,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["architect"]["actions"],
             "api_mutations_refresh_toe_lines_mutate",
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -1002,6 +1010,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     vulnerability_manager=dict(
         actions={
             *GROUP_LEVEL_ROLES["vulnerability_manager"]["actions"],
+            "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -1226,6 +1235,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_edit_credentials_secrets_in_bulk",
             "front_can_retrieve_todo_drafts",
             "front_can_retrieve_todo_reattacks",
+            "api_resolvers_finding_hacker_resolve",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1241,6 +1251,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_use_groups_searchbar",
             "front_can_retrieve_todo_drafts",
             "front_can_retrieve_todo_reattacks",
+            "api_resolvers_finding_hacker_resolve",
         },
         tags={
             *USER_LEVEL_ROLES["hacker"]["tags"],
@@ -1254,6 +1265,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_use_groups_searchbar",
             "front_can_retrieve_todo_drafts",
             "front_can_retrieve_todo_reattacks",
+            "api_resolvers_finding_hacker_resolve",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],
