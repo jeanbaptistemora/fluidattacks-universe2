@@ -29,7 +29,7 @@ async def _get_result(data: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-async def test_group_name() -> None:
+async def _test_group_name() -> None:
     """Check for group_name field."""
     query = """{
       forcesExecutions(groupName: "unittesting"){

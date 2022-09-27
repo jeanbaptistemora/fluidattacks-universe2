@@ -13,43 +13,6 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("forces_executions_s3")
-@pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-        ["hacker@gmail.com"],
-        ["reattacker@gmail.com"],
-        ["user@gmail.com"],
-        ["user_manager@gmail.com"],
-        ["vulnerability_manager@gmail.com"],
-        ["resourcer@gmail.com"],
-        ["reviewer@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
-    ],
-)
-async def test_get_forces_executions(populate: bool, email: str) -> None:
-    assert populate
-    result: dict[str, Any] = await get_result(
-        user=email,
-        group="group1",
-    )
-    executions = result["data"]["forcesExecutions"]["executions"]
-    assert executions[0]["date"] == "2020-02-05T00:00:00+00:00"
-    assert executions[0]["exitCode"] == "1"
-    assert executions[0]["gitBranch"] == "master"
-    assert (
-        executions[0]["gitCommit"]
-        == "6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6"
-    )
-    # FP: local testing
-    assert executions[0]["gitOrigin"] == "http://test.com"  # NOSONAR
-    assert executions[0]["gitRepo"] == "Repository"
-    assert executions[0]["kind"] == "dynamic"
-    assert executions[0]["strictness"] == "strict"
-    assert executions[0]["gracePeriod"] == 0
-    assert executions[0]["severityThreshold"] == 0.0
-
-
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("forces_executions_s3")
 @pytest.mark.parametrize(
