@@ -20,6 +20,9 @@ from charts.generators.common.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
@@ -411,6 +414,11 @@ def format_data(
                 average_organization[2],
                 worst_organization[2],
             ],
+        ),
+        bar=dict(
+            width=dict(
+                ratio=BAR_RATIO_WIDTH,
+            ),
         ),
         maxPercentageValues=max_percentage_values,
     )

@@ -13,6 +13,9 @@ from charts.generators.common.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
@@ -199,6 +202,11 @@ def format_data(data: Counter[str]) -> dict:
                 categories=[value for _, value in translations.items()],
                 type="category",
                 tick=dict(multiline=False),
+            ),
+        ),
+        bar=dict(
+            width=dict(
+                ratio=BAR_RATIO_WIDTH,
             ),
         ),
         tooltip=dict(
