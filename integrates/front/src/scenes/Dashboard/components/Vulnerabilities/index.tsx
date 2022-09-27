@@ -94,7 +94,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     attributes.can("can_report_vulnerabilities");
   const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
     "vulnerabilitiesTable-columnFilters",
-    []
+    [],
+    localStorage
   );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("vulnerabilitiesTable-visibilityState", {});
