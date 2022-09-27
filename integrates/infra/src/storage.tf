@@ -4,32 +4,32 @@
 
 # Integrates main bucket
 
-resource "aws_s3_bucket" "fluidintegrates" {
-  bucket = "fluidintegrates"
+resource "aws_s3_bucket" "integrates" {
+  bucket = "integrates"
 
   tags = {
-    "Name"               = "fluidintegrates"
+    "Name"               = "integrates"
     "Management:Area"    = "cost"
     "Management:Product" = "integrates"
     "Management:Type"    = "product"
   }
 }
 
-resource "aws_s3_bucket_acl" "fluidintegrates" {
-  bucket = "fluidintegrates"
+resource "aws_s3_bucket_acl" "integrates" {
+  bucket = "integrates"
 
   acl = "private"
 }
 
-resource "aws_s3_bucket_logging" "fluidintegrates" {
-  bucket = aws_s3_bucket.fluidintegrates.id
+resource "aws_s3_bucket_logging" "integrates" {
+  bucket = aws_s3_bucket.integrates.id
 
   target_bucket = "common.logging"
-  target_prefix = "log/fluidintegrates"
+  target_prefix = "log/integrates"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "fluidintegrates" {
-  bucket = aws_s3_bucket.fluidintegrates.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "integrates" {
+  bucket = aws_s3_bucket.integrates.id
 
   rule {
     apply_server_side_encryption_by_default {
