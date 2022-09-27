@@ -1145,5 +1145,8 @@ CHECKS: Dict[
         _fallback_scsv_disabled,
         _tlsv1_3_downgrade,
         _heartbleed_possible,
+        _freak_possible,
+        _raccoon_possible,
+        _breach_possible,
     ],
 }
