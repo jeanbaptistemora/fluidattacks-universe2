@@ -31,6 +31,7 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
+    Union,
 )
 
 # Containers
@@ -59,7 +60,7 @@ def get_paginated_fields(
     api_token: str,
     paginated_field: str,
     parent_field: str,
-    params: Dict[str, str],
+    params: Dict[str, Union[str, bool]],
     query: str,
 ) -> List[Dict[str, str]]:
     """
@@ -313,28 +314,59 @@ class Queries:
                     severityScore
                     threat
                     title
-                    vulnerabilities @include(if: $withVulns) {
-                        lastStateDate
-                        currentState
-                        hacker
-                        source
-                        lastTreatmentDate
-                        treatment
-                        treatmentUser
-                        id
-                        vulnerabilityType
-                        where
-                        specific
-                    }
                 }
             }
             """
+
+        vulns_query: str = """
+            query MeltsGetVulnerabilities(
+                    $finding_id: String!, $withVulns: Boolean!
+                ) {
+                finding(identifier: $finding_id) {
+                    id
+                    vulnerabilitiesConnection @include(if: $withVulns) {
+                        edges {
+                            node {
+                                lastStateDate
+                                currentState
+                                hacker
+                                source
+                                lastTreatmentDate
+                                treatment
+                                treatmentUser
+                                id
+                                vulnerabilityType
+                                where
+                                specific
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            endCursor
+                        }
+                    }
+                }
+            }
+        """
 
         params: dict = {
             "identifier": identifier,
             "withVulns": with_vulns,
         }
-        return request(api_token, body, params, operation="MeltsGetFinding")
+        response: Response = request(
+            api_token, body, params, operation="MeltsGetFinding"
+        )
+
+        # Filling vulnerability info
+        response.data["finding"]["vulnerabilities"] = get_paginated_fields(
+            api_token=api_token,
+            paginated_field="vulnerabilities",
+            parent_field="finding",
+            params=params,
+            query=vulns_query,
+        )
+
+        return response
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
