@@ -5,6 +5,13 @@
 
 # pylint: disable=invalid-name
 
+"""
+Populates OpenSearch with all the findings from active groups
+
+Execution Time:    2022-09-27 at 01:40:20 UTC
+Finalization Time: 2022-09-27 at 01:42:56 UTC
+"""
+
 from aioextensions import (
     collect,
     run,
@@ -108,7 +115,7 @@ async def main() -> None:
     await client.indices.create(index="forces_executions")
     await collect(
         tuple(process_group(group_name) for group_name in active_group_names),
-        workers=2,
+        workers=4,
     )
     await search_shutdown()
 
