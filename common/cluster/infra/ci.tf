@@ -8,6 +8,20 @@ variable "ciUsers" {}
 
 locals {
   values = {
+    # Worker resources
+    agent = {
+      podName = "ci-worker"
+      resources = {
+        requests = {
+          cpu    = "1200m"
+          memory = "3500Mi"
+        }
+        limits = {
+          cpu    = "2000m"
+          memory = "3800Mi"
+        }
+      }
+    }
     controller = {
       # Plugins
       installPlugins = [
@@ -21,7 +35,7 @@ locals {
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
       ]
 
-      # Security
+      # Jenkins Configuration as Code
       JCasC = {
         security = {
           gitHostKeyVerificationConfiguration = {
