@@ -72,7 +72,6 @@ from db_model.roots.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-    VulnerabilityTreatmentStatus,
     VulnerabilityType,
     VulnerabilityVerificationStatus,
 )
@@ -859,7 +858,7 @@ def _filter_vulns_to_open(
     vulns_to_open: Dict[str, Any],
     integrates_vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Any:
-    closed_hashes = {
+    must_not_open = {
         hash(
             (
                 get_path_from_integrates_vulnerability(
@@ -869,13 +868,6 @@ def _filter_vulns_to_open(
             )
         )
         for vuln in integrates_vulnerabilities
-        # his result was not found by Skims
-        if vuln.treatment
-        and vuln.treatment.status
-        in (
-            VulnerabilityTreatmentStatus.ACCEPTED,
-            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-        )
     }
     return {
         "inputs": [
@@ -889,7 +881,7 @@ def _filter_vulns_to_open(
                     vuln["field"],
                 )
             )
-            not in closed_hashes
+            not in must_not_open
         ],
         "lines": [
             vuln
@@ -902,7 +894,7 @@ def _filter_vulns_to_open(
                     vuln["line"],
                 )
             )
-            not in closed_hashes
+            not in must_not_open
         ],
     }
 
@@ -966,12 +958,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     )
     vulns_to_open = _filter_vulns_to_open(
         vulns_to_open,
-        tuple(
-            vuln
-            for vuln in await loaders.finding_vulnerabilities.load(finding.id)
-            if vuln.state.source == Source.MACHINE
-            and vuln.root_id == git_root.id
-        ),
+        integrates_vulnerabilities,
     )
 
     reattack_future = add_reattack_justification(

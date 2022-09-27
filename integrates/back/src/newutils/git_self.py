@@ -386,6 +386,7 @@ def get_diff(
                 "--patch",
                 "--unified=0",
                 f"{rev_a}...{rev_b}",
+                "--",
                 *((path,) if path else tuple()),
             ),
         )
@@ -405,7 +406,7 @@ def _rebase_one_commit_at_a_time(
     patch: PatchedFile
 
     diff = get_diff(repo, rev_a=rev_a, rev_b=rev_b, path=path)
-    if not diff:
+    if diff is None:
         return None
 
     rebased_line = line
