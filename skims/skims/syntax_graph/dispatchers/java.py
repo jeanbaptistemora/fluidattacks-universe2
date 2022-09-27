@@ -2,18 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from syntax_graph.syntax_readers.common import (
-    program as common_program,
-    return_statement as common_return_statement,
-    string_literal as common_string_literal,
-    ternary_expression as common_ternary_expression,
-    this as common_this,
-    throw_statement as common_throw_statement,
-    try_statement as common_try_statement,
-    unary_expression as common_unary_expression,
-    update_expression as common_update_expression,
-    variable_declarator as common_variable_declarator,
-)
 from syntax_graph.syntax_readers.java import (
     annotation as java_annotation,
     annotation_argument_list as java_annotation_argument_list,
@@ -63,12 +51,22 @@ from syntax_graph.syntax_readers.java import (
     parameter as java_parameter,
     parameter_list as java_parameter_list,
     parenthesized_expression as java_parenthesized_expression,
+    program as java_program,
     resource as java_resource,
+    return_statement as java_return_statement,
+    string_literal as java_string_literal,
     switch_block as java_switch_block,
     switch_block_statement_group as java_switch_block_statement_group,
     switch_expression as java_switch_expression,
     switch_label as java_switch_label,
+    ternary_expression as java_ternary_expression,
+    this as java_this,
+    throw_statement as java_throw_statement,
+    try_statement as java_try_statement,
+    unary_expression as java_unary_expression,
+    update_expression as java_update_expression,
     variable_declaration as java_variable_declaration,
+    variable_declarator as java_variable_declarator,
     while_statement as java_while_statement,
 )
 from syntax_graph.types import (
@@ -346,7 +344,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "program",
         },
-        syntax_reader=common_program.reader,
+        syntax_reader=java_program.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -390,7 +388,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "return_statement",
         },
-        syntax_reader=common_return_statement.reader,
+        syntax_reader=java_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -399,7 +397,7 @@ JAVA_DISPATCHERS: Dispatchers = (
             "integral_type",
             "string_literal",
         },
-        syntax_reader=common_string_literal.reader,
+        syntax_reader=java_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -429,38 +427,38 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "ternary_expression",
         },
-        syntax_reader=common_ternary_expression.reader,
+        syntax_reader=java_ternary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "this",
         },
-        syntax_reader=common_this.reader,
+        syntax_reader=java_this.reader,
     ),
     Dispatcher(
         applicable_types={
             "throw_statement",
         },
-        syntax_reader=common_throw_statement.reader,
+        syntax_reader=java_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "try_statement",
             "try_with_resources_statement",
         },
-        syntax_reader=common_try_statement.reader,
+        syntax_reader=java_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "unary_expression",
         },
-        syntax_reader=common_unary_expression.reader,
+        syntax_reader=java_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "update_expression",
         },
-        syntax_reader=common_update_expression.reader,
+        syntax_reader=java_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -472,7 +470,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "variable_declarator",
         },
-        syntax_reader=common_variable_declarator.reader,
+        syntax_reader=java_variable_declarator.reader,
     ),
     Dispatcher(
         applicable_types={

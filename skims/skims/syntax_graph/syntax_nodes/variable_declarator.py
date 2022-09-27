@@ -16,7 +16,7 @@ from typing import (
 
 def build_variable_declarator_node(
     args: SyntaxGraphArgs,
-    c_ids: List[NId],
+    c_ids: Optional[List[NId]],
     variable_name: str,
     value_id: Optional[NId],
 ) -> NId:
@@ -34,12 +34,12 @@ def build_variable_declarator_node(
             args.generic(args.fork_n_id(value_id)),
             label_ast="AST",
         )
-
-    for c_id in c_ids:
-        args.syntax_graph.add_edge(
-            args.n_id,
-            args.generic(args.fork_n_id(c_id)),
-            label_ast="AST",
-        )
+    if c_ids:
+        for c_id in c_ids:
+            args.syntax_graph.add_edge(
+                args.n_id,
+                args.generic(args.fork_n_id(c_id)),
+                label_ast="AST",
+            )
 
     return args.n_id
