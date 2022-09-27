@@ -11,9 +11,11 @@ locals {
     controller = {
       # Plugins
       installPlugins = [
+        "blueocean:1.25.8",
         "configuration-as-code:1512.vb_79d418d5fc8",
         "git:4.11.5",
         "gitlab-plugin:1.5.35",
+        "job-dsl:1.81",
         "kubernetes:3706.vdfb_d599579f3",
         "pipeline-stage-view:2.24",
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
@@ -95,6 +97,21 @@ locals {
                 ]
               }
             }
+            jobs = [
+              {
+                script = <<-EOF
+                  multibranchPipelineJob('universe') {
+                    branchSources {
+                      git {
+                        id = 'universe'
+                        remote('git@gitlab.com:fluidattacks/universe.git')
+                        credentialsId('ci_gitlab_ssh_key')
+                      }
+                    }
+                  }
+                EOF
+              }
+            ]
           })
         }
       }
