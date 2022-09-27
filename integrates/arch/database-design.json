@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 22, 2022, 01:06 PM",
+    "DateLastModified": "Sep 27, 2022, 07:49 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -7570,9 +7570,6 @@
               },
               "created_date": {
                 "S": "2018-03-08T00:43:18+00:00"
-              },
-              "agent_token": {
-                "S": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBoZXJ0ZXh0IjoiTC1iZVRYUTZXYXFZcmFORUZWOEc5NGhMcUtnVWt4U295elN2YVRKeF8tMUQ2bUtjRFRtUDFWaFpIY0hHelc2VS15ZjY2ak5yYkdoZkNQZHZSREtzNnNKQkdobHNPN0Zyb3pVZG9VMXIxTzNzcmtmM1RwWTdsWWxTcVpCNXpmcU1menlHby04aG42dXpadU5IcnVsS05ZTml1V0J6RFk5TFVQaFlGcHhLQnVRRkMzaU9aeTNUbGdCa1ItTkJ2b2VMc1dUbTU4NTNDUndoY2VDVENiWjl6cGw0YThBMFEzYTZwdC1idU1RME1EMGktSl9WV0xEbGN2WFkiLCJlbmNyeXB0ZWRfa2V5IjoiT0pLeEpTZkgyN2U5MEN5QjVXdW5DUG5ra0FKMkktNGxLYllEU0cwUV9yNCIsImhlYWRlciI6eyJpdiI6IlduQXh2TFVfQmtTZzJwdl8iLCJ0YWciOiJBUm1nOUlhdUZKWlF6cEhodTZnd0xRIn0sIml2IjoieXYyMmpIb0MyUUQwWjg4RCIsInByb3RlY3RlZCI6ImV5SmhiR2NpT2lKQk1qVTJSME5OUzFjaUxDSmxibU1pT2lKQk1qVTJSME5OSW4wIiwidGFnIjoiczFIZmlMblByYjJqRjZtYWQ1MkczdyJ9.t9RTji3iySHZ9dTSMHgv_g0pCeJZ8GJgfavdOzQNQPWRK-NKplBNCaWfHjfXtZmOA8p7pEzLc2vIRN1jaENjxw"
               },
               "state": {
                 "M": {
