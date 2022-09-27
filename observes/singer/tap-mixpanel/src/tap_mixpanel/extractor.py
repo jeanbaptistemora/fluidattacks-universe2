@@ -30,12 +30,12 @@ Interval = Union[pandas.Interval]
 def _get_extremes(date_range: Interval) -> Tuple[Timestamp, Timestamp]:
     start = (
         date_range.left
-        if date_range.closed == "left" or date_range.closed == "both"
+        if date_range.closed in ("left", "both")
         else date_range.left + pandas.DateOffset(days=1)
     )
     end = (
         date_range.right
-        if date_range.closed == "right" or date_range.closed == "both"
+        if date_range.closed in ("right", "both")
         else date_range.right - pandas.DateOffset(days=1)
     )
     return (start, end)

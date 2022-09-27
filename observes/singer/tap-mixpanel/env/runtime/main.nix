@@ -17,9 +17,6 @@ in
       rpath = [
         inputs.nixpkgs.gcc.cc.lib
       ];
-      pythonMypy = [
-        self
-      ];
       pythonPackage = [
         self
       ];

@@ -35,8 +35,8 @@ from typing import (
     Tuple,
 )
 
-_format = "[%(levelname)s] %(message)s"
-formatter = Formatter(_format)
+_FORMAT = "[%(levelname)s] %(message)s"
+formatter = Formatter(_FORMAT)
 handler = StreamHandler(sys.stderr)
 handler.setFormatter(formatter)
 LOG: Logger = getLogger(__name__)
@@ -54,7 +54,7 @@ def open_temp(file: IO[str]) -> Iterator[IO[str]]:
 
 
 def read_properties(schema_file: str) -> Dict[str, Any]:
-    with open(schema_file) as cred:
+    with open(schema_file, encoding="utf-8") as cred:
         credentials = json.loads(cred.read())
     return dict(credentials)
 
@@ -139,7 +139,7 @@ def check_and_parse(
 
 
 def write_file(singer_schema: str, singer_records: List[str]) -> None:
-    with open("Events.txt", "w+") as stream_file:
+    with open("Events.txt", mode="w+", encoding="utf-8") as stream_file:
         str_records = "\n".join(singer_records)
         str_stream = str(singer_schema) + "\n" + str_records
         stream_file.write(str_stream)

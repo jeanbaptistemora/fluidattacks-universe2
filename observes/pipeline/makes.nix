@@ -249,6 +249,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/observesTapMixpanel";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintPython/module/observesTapTimedoctor";
             gitlabExtra = gitlabLint;
           }
