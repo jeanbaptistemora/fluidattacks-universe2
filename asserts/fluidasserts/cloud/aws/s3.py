@@ -102,62 +102,6 @@ def has_server_access_logging_disabled(
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_buckets(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if S3 buckets have public read access.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    buckets = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="s3",
-        func="list_buckets",
-        param="Buckets",
-        retry=retry,
-    )
-
-    msg_open: str = "There are public buckets"
-    msg_closed: str = "There are not public buckets"
-
-    vulns, safes = [], []
-
-    if buckets:
-        for bucket in buckets:
-            bucket_name = bucket["Name"]
-            bucket_grants = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="s3",
-                func="get_bucket_acl",
-                Bucket=bucket_name,
-                param="Grants",
-                retry=retry,
-            )
-
-            result = aws.get_bucket_public_grants(bucket_name, bucket_grants)
-
-            (vulns if result else safes).append(
-                (bucket_name, "Must not be publicly accessible")
-            )
-
-    return _get_result_as_tuple(
-        service="S3",
-        objects="buckets",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def bucket_has_authenticated_access(
     key_id: str,
     secret: str,
