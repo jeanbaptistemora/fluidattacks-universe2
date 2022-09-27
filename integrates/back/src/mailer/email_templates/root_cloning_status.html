@@ -16,11 +16,13 @@ SPDX-License-Identifier: MPL-2.0
         <p>Hi {{ name }},</p>
         <p>
           {% if not is_failed %}
-            {% if cloning_time_delta %}
-          After {{ cloning_time_delta }}
-            {% endif %}
-          your repo <strong>{{ root_nickname }}</strong> in
-          <strong>{{ group }}</strong> is clonning again.<br><br>
+          The <strong>{{ root_nickname }}</strong> root of the group
+          <strong>{{ group }}</strong> is cloning again
+            {%- if cloning_time_delta %}
+          after {{ cloning_time_delta -}}
+            {%- endif -%}.
+        </p>
+        <p>
             {% if last_clone_date %}
           <strong>Last cloning date:</strong> {{ last_clone_date }}
               {% if days_to_clone %}
@@ -28,8 +30,8 @@ SPDX-License-Identifier: MPL-2.0
               {% endif %}<br>
             {% endif %}
           {% else %}
-          The root <strong>{{ root_nickname }}</strong> from the group
-          <strong>{{ group }}</strong> has failed <strong>cloning</strong>
+          The <strong>{{ root_nickname }}</strong> root of the group
+          <strong>{{ group }}</strong> failed to clone
           {{ report_date }}.
           {% endif %}
         </p>
@@ -39,10 +41,18 @@ SPDX-License-Identifier: MPL-2.0
         </p>
         {{ go_to_button('Go to scope', scope_url, 'primary-button') }}
         <p style="font-size: 13px !important; margin-top: 3rem !important; line-height : 150%;">
-          <strong>More information about:</strong><br>
+          <strong>More information:</strong><br>
           <strong>ID:</strong> {{ root_id }}<br>
-          <strong>Creation Date:</strong> {{ root_creation_date }}<br>
-          <strong>Last modified by:</strong> {{ modified_by }}.
+          <strong>Creation date:</strong> {{ root_creation_date }}<br>
+          <strong>Last modified by:</strong>
+          <a
+            href="mailto:{{ modified_by }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ modified_by -}}
+          </a>
         </p>
       </div>
       {% include 'layouts/components/footer.html' %}
