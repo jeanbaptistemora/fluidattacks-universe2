@@ -768,6 +768,24 @@ describe("cvss", (): void => {
   });
 });
 
+describe("Window mock to undefined", (): void => {
+  jest.spyOn(global, "window", "get").mockRestore();
+
+  it("Should be undefined window", (): void => {
+    expect.hasAssertions();
+
+    jest
+      .spyOn(global as unknown as { window: undefined }, "window", "get")
+      .mockReturnValue(undefined);
+
+    const expectedEnv = "development";
+    const result = getEnvironment();
+    jest.spyOn(global, "window", "get").mockRestore();
+
+    expect(result).toBe(expectedEnv);
+  });
+});
+
 describe("Window mock to production", (): void => {
   const { location } = window;
   jest.spyOn(window, "location", "get").mockRestore();
@@ -782,6 +800,7 @@ describe("Window mock to production", (): void => {
     jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
     const expectedEnv = "production";
     const result = getEnvironment();
+    jest.spyOn(window, "location", "get").mockRestore();
 
     expect(result).toBe(expectedEnv);
   });
@@ -801,6 +820,7 @@ describe("Window mock to ephemeral", (): void => {
     jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
     const expectedEnv = "ephemeral";
     const result = getEnvironment();
+    jest.spyOn(window, "location", "get").mockRestore();
 
     expect(result).toBe(expectedEnv);
   });
@@ -820,6 +840,7 @@ describe("Window mock to development", (): void => {
     jest.spyOn(window, "location", "get").mockReturnValue(mockedLocation);
     const expectedEnv = "development";
     const result = getEnvironment();
+    jest.spyOn(window, "location", "get").mockRestore();
 
     expect(result).toBe(expectedEnv);
   });
