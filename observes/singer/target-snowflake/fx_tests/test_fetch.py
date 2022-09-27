@@ -14,6 +14,7 @@ import os
 import pytest
 from target_snowflake.sql_client import (
     Credentials,
+    DatabaseId,
     DbConnector,
     Identifier,
     RowData,
@@ -32,7 +33,9 @@ def test_fetch() -> None:
         cursor = (
             DbConnector(creds)
             .connect_db(
-                os.environ["SNOWFLAKE_DB"],
+                DatabaseId(
+                    Identifier.from_raw(os.environ["SNOWFLAKE_DB"]), None, None
+                ),
             )
             .bind(lambda c: c.cursor(LOG))
         )

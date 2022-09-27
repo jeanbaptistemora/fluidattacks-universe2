@@ -4,8 +4,12 @@
 
 from ._core import (
     Table,
+    TableId,
+    TableObj,
 )
 
 __all__ = [
+    "TableId",
     "Table",
+    "TableObj",
 ]

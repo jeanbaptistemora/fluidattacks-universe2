@@ -5,6 +5,9 @@
 from ._cursor import (
     Cursor,
 )
+from ._identifier import (
+    Identifier,
+)
 from ._inner import (
     RawCursor,
 )
@@ -23,14 +26,15 @@ from snowflake.connector import (
 )
 from typing import (
     cast,
+    Optional,
 )
 
 
 @dataclass(frozen=True)
 class DatabaseId:
-    db_name: str
-    host: str
-    port: int
+    db_name: Identifier
+    host: Optional[str]
+    port: Optional[int]
 
 
 @dataclass(frozen=True)
@@ -72,13 +76,13 @@ class DbConnection:
 class DbConnector:
     _creds: Credentials
 
-    def connect_db(self, database: str) -> Cmd[DbConnection]:
+    def connect_db(self, database: DatabaseId) -> Cmd[DbConnection]:
         def _action() -> DbConnection:
             connection = snowflake_connect(
                 user=self._creds.user,
                 password=self._creds.password,
                 account=self._creds.account,
-                database=database,
+                database=database.db_name.sql_identifier,
             )
             draft = _DbConnection(connection)
             return DbConnection(draft)

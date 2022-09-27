@@ -8,6 +8,7 @@ from __future__ import (
 
 from dataclasses import (
     dataclass,
+    field,
 )
 from fa_purity.frozen import (
     FrozenDict,
@@ -20,6 +21,9 @@ from fa_purity.result import (
 from target_snowflake.column import (
     Column,
     ColumnId,
+)
+from target_snowflake.sql_client import (
+    Identifier,
 )
 from typing import (
     Callable,
@@ -34,8 +38,13 @@ class _Private:
 
 
 @dataclass(frozen=True)
+class TableId:
+    name: Identifier
+
+
+@dataclass(frozen=True)
 class Table:
-    _inner: _Private
+    _inner: _Private = field(repr=False, compare=False, hash=False)
     order: FrozenList[ColumnId]
     columns: FrozenDict[ColumnId, Column]
     primary_keys: FrozenSet[ColumnId]
@@ -56,3 +65,9 @@ class Table:
             table = Table(_Private(), order, columns, primary_keys)
             return Result.success(table)
         return Result.failure(Exception("All primary keys must be in columns"))
+
+
+@dataclass(frozen=True)
+class TableObj:
+    id_obj: TableId
+    table: Table
