@@ -15,6 +15,7 @@ makeScript {
       inputs.nixpkgs.bash
       inputs.nixpkgs.xdg_utils
       outputs."/docs/generate/criteria"
+      outputs."/docs/generate/graphs"
       (makeNodeJsVersion "16")
     ];
   };

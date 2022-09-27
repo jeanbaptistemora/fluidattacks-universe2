@@ -23,6 +23,7 @@ function main {
 
   _clean "${src}" \
     && generate-criteria \
+    && generate-graphs \
     && pushd "${src}" \
     && npm install \
     && npm run "${action}" \
