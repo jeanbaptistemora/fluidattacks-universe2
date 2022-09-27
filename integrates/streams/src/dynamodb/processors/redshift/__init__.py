@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from .process import (
-    process_finding,
+    process_findings,
 )
 
 __all__ = [
-    "process_finding",
+    "process_findings",
 ]

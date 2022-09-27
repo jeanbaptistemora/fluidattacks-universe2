@@ -4,6 +4,7 @@
 
 from dynamodb.processors import (
     opensearch,
+    redshift,
     webhooks,
 )
 from dynamodb.types import (
@@ -44,5 +45,13 @@ TRIGGERS: tuple[Trigger, ...] = (
             and record.sk.startswith("GROUP#")
         ),
         records_processor=opensearch.process_executions,
+    ),
+    Trigger(
+        batch_size=0,
+        records_filter=(
+            lambda record: record.event_name == EventName.REMOVE
+            and record.pk.startswith("FIN#")
+        ),
+        records_processor=redshift.process_findings,
     ),
 )

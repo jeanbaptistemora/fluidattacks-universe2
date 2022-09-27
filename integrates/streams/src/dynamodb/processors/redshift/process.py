@@ -17,6 +17,7 @@ from dynamodb.types import (
     Record,
 )
 import itertools
+import logging
 from operator import (
     itemgetter,
 )
@@ -25,6 +26,7 @@ from psycopg2.extensions import (
 )
 
 FLUID_IDENTIFIER = "@fluidattacks.com"
+LOGGER = logging.getLogger(__name__)
 
 
 def _process_metadata(cursor: cursor_cls, item: Item) -> None:
@@ -33,14 +35,20 @@ def _process_metadata(cursor: cursor_cls, item: Item) -> None:
         state["status"] == "DELETED"
         and not str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
         and item.get("approval")
+    ) or (
+        state["status"] != "DELETED"
+        or not str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
     ):
         findings_ops.insert_finding(cursor=cursor, item=item)
-        return
-
-    if state["status"] != "DELETED" or not str(state["modified_by"]).endswith(
-        FLUID_IDENTIFIER
-    ):
-        findings_ops.insert_finding(cursor=cursor, item=item)
+        LOGGER.info(
+            "Finding metadata stored",
+            extra={
+                "extra": {
+                    "group_name": item["group_name"],
+                    "finding_id": item["id"],
+                }
+            },
+        )
 
 
 def _process_state(
@@ -66,7 +74,7 @@ def _process_verification(
     )
 
 
-def process_finding(records: tuple[Record, ...]) -> None:
+def process_findings(records: tuple[Record, ...]) -> None:
     if FI_ENVIRONMENT != "prod":
         return
 
