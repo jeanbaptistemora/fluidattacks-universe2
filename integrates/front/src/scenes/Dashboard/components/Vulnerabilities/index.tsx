@@ -8,6 +8,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
+  ColumnFilter,
   ColumnFiltersState,
   Row,
   SortingState,
@@ -92,6 +93,11 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canRemoveVulns: boolean =
     permissions.can("api_mutations_remove_vulnerability_mutate") &&
     attributes.can("can_report_vulnerabilities");
+  const [findsFilters, setFindsFilters] = useStoredState<ColumnFiltersState>(
+    "tblFindings-columnFilters",
+    [],
+    localStorage
+  );
   const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
     "vulnerabilitiesTable-columnFilters",
     [],
@@ -258,6 +264,48 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       header: t("searchFindings.tabDescription.action"),
     },
   ];
+
+  useEffect((): void => {
+    if (
+      columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "currentState"
+      ).length > 0
+    ) {
+      const filtervalue = columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "currentState"
+      )[0].value;
+      if (
+        findsFilters.filter(
+          (element: ColumnFilter): boolean => element.id === "state"
+        ).length > 0
+      ) {
+        setFindsFilters(
+          findsFilters.map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "state") {
+              return { id: "state", value: filtervalue };
+            }
+
+            return element;
+          })
+        );
+      } else {
+        setFindsFilters([...findsFilters, { id: "state", value: filtervalue }]);
+      }
+    } else {
+      setFindsFilters(
+        findsFilters
+          .map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "state") {
+              return { id: "", value: "" };
+            }
+
+            return element;
+          })
+          .filter((element: ColumnFilter): boolean => element.id !== "")
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columnFilters]);
 
   return (
     <React.StrictMode>

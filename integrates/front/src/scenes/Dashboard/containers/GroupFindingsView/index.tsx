@@ -12,6 +12,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
+  ColumnFilter,
   ColumnFiltersState,
   Row,
   SortingState,
@@ -20,7 +21,7 @@ import type {
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -69,8 +70,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
-  const [columnFilters, columnFiltersSetter] =
-    useStoredState<ColumnFiltersState>("tblFindings-columnFilters", []);
+  const [vulnFilters, setVulnFilters] = useStoredState<ColumnFiltersState>(
+    "vulnerabilitiesTable-columnFilters",
+    [],
+    localStorage
+  );
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblFindings-columnFilters",
+    [],
+    localStorage
+  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblFindings-visibilityState", {
       Asignees: false,
@@ -306,10 +315,55 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     return renderDescription(row.original);
   }
 
+  useEffect((): void => {
+    if (
+      columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "state"
+      ).length > 0
+    ) {
+      const filtervalue = columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "state"
+      )[0].value;
+      if (
+        vulnFilters.filter(
+          (element: ColumnFilter): boolean => element.id === "currentState"
+        ).length > 0
+      ) {
+        setVulnFilters(
+          vulnFilters.map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "currentState") {
+              return { id: "currentState", value: filtervalue };
+            }
+
+            return element;
+          })
+        );
+      } else {
+        setVulnFilters([
+          ...vulnFilters,
+          { id: "currentState", value: filtervalue },
+        ]);
+      }
+    } else {
+      setVulnFilters(
+        vulnFilters
+          .map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "currentState") {
+              return { id: "", value: "" };
+            }
+
+            return element;
+          })
+          .filter((element: ColumnFilter): boolean => element.id !== "")
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columnFilters]);
+
   return (
     <React.StrictMode>
       <Table
-        columnFilterSetter={columnFiltersSetter}
+        columnFilterSetter={setColumnFilters}
         columnFilterState={columnFilters}
         columnToggle={true}
         columnVisibilitySetter={setColumnVisibility}
