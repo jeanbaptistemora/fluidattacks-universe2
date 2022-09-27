@@ -48,6 +48,7 @@ from target_snowflake.sql_client._query import (
     Query,
 )
 from typing import (
+    Dict,
     NoReturn,
 )
 
@@ -62,13 +63,14 @@ class Cursor:
     _log: Logger
     _cursor: RawCursor
 
-    def handled_execute(self, query: Query) -> Cmd[ResultE[None]]:
+    def _handled_execute(self, query: Query) -> Cmd[ResultE[None]]:
         def _action() -> ResultE[None]:
             self._log.info(
                 "Executing: %s with values %s", query.statement, query.values
             )
             try:
-                self._cursor.cursor.execute(query.statement, dict(query.values))  # type: ignore[misc]
+                values: Dict[str, Primitive] = dict(query.values)
+                self._cursor.cursor.execute(query.statement, values)
                 return Result.success(None)
             except ProgrammingError as err:
                 return Result.failure(
@@ -80,7 +82,38 @@ class Cursor:
         return Cmd.from_cmd(_action)
 
     def execute(self, query: Query) -> Cmd[None] | NoReturn:
-        return self.handled_execute(query).map(
+        return self._handled_execute(query).map(
+            lambda r: r.alt(raise_exception).unwrap()
+        )
+
+    def _handled_execute_many(
+        self, query: Query, data: FrozenList[RowData]
+    ) -> Cmd[ResultE[None]]:
+        def _action() -> ResultE[None]:
+            self._log.info(
+                "Executing many: %s with #%s values",
+                query.statement,
+                len(data),
+            )
+            try:
+                _data: FrozenList[FrozenList[Primitive]] = tuple(
+                    d.data for d in data
+                )
+                self._cursor.cursor.executemany(query.statement, _data)
+                return Result.success(None)
+            except ProgrammingError as err:
+                return Result.failure(
+                    ValueError(
+                        "Invalid query `%s` error: %s", query.statement, err
+                    )
+                )
+
+        return Cmd.from_cmd(_action)
+
+    def execute_many(
+        self, query: Query, data: FrozenList[RowData]
+    ) -> Cmd[None] | NoReturn:
+        return self._handled_execute_many(query, data).map(
             lambda r: r.alt(raise_exception).unwrap()
         )
 
