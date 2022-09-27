@@ -56,7 +56,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
       <React.StrictMode>
         <Row>
           <Col lg={60} md={60} sm={100}>
-            <Text fw={7} mb={3} mt={4} size={5}>
+            <Text fw={7} mb={3} mt={2} size={5}>
               {t(
                 "organization.tabs.compliance.tabs.overview.nonCompliance.title.text",
                 {

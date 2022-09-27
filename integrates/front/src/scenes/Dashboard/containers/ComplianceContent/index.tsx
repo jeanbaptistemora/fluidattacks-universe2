@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
+import { OrganizationComplianceOverviewView } from "../OrganizationComplianceOverviewView";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
 
@@ -30,7 +30,7 @@ const ComplianceContent: React.FC = (): JSX.Element => {
       <TabContent>
         <Switch>
           <Route exact={true} path={`${path}/overview`}>
-            <div />
+            <OrganizationComplianceOverviewView organizationId={"okada"} />
           </Route>
           <Redirect to={`${path}/overview`} />
         </Switch>

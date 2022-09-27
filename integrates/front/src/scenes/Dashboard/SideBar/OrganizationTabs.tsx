@@ -5,6 +5,7 @@
  */
 import {
   faChartColumn,
+  faFileLines,
   faFolder,
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +35,9 @@ const OrganizationTabs: FC = (): JSX.Element => {
       </SideBarTab>
       <SideBarTab icon={faShield} to={`/orgs/${org}/policies`}>
         {"Policies"}
+      </SideBarTab>
+      <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`}>
+        {"Compliance"}
       </SideBarTab>
     </Fragment>
   );

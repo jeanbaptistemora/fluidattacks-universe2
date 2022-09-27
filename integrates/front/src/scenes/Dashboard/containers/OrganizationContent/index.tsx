@@ -22,6 +22,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
+import { ComplianceContent } from "../ComplianceContent";
 import { OrganizationCredentials } from "../OrganizationCredentialsView";
 import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
@@ -248,6 +249,9 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   <OrganizationCredentials
                     organizationId={basicData.organizationId.id}
                   />
+                </Route>
+                <Route exact={false} path={`${path}/compliance`}>
+                  <ComplianceContent />
                 </Route>
                 <Redirect to={`${path}/groups`} />
               </Switch>
