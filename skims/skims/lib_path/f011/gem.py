@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from gemfileparser import (
-    GemfileParser,
-)
 from lib_path.common import (
     DependencyType,
     translate_dependencies_to_vulnerabilities,
@@ -13,9 +10,6 @@ from model.core_model import (
     MethodsEnum,
     Platform,
     Vulnerabilities,
-)
-from parse_gemfile import (
-    parse_line,
 )
 import re
 from typing import (
@@ -27,37 +21,43 @@ from typing import (
 
 def gem_gemfile(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
-        form_req: Pattern[str] = re.compile(
-            r"^gem\s*.*,[^><~!]*(=?\s?[\d+\.?]+)"
+        require_patt: Pattern[str] = re.compile(
+            r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
         )
-        equal_patt: Pattern[str] = re.compile(r"= ?")
         not_prod_patt: Pattern[str] = re.compile(
             r":group => \[?[:\w\-, ]*(:development|:test)"
         )
+        test_dev_group_patt: Pattern[str] = re.compile(
+            r"(\s*)group :(test|development)"
+        )
+        line_group: bool = False
+        end_line: str = ""
         for line_number, line in enumerate(content.splitlines(), 1):
-            if not line:
-                continue
-            if not re.search(form_req, line):
-                continue
-            if re.search(not_prod_patt, line):
-                continue
-            line = GemfileParser.preprocess(line)
-            line = line[3:]
-            line_items = parse_line(line)
-            line_version: str = line_items["requirement"]
-            version = re.sub(equal_patt, "", line_version)
-            yield (
-                {
-                    "column": 0,
-                    "line": line_number,
-                    "item": line_items.get("name"),
-                },
-                {
-                    "column": 0,
-                    "line": line_number,
-                    "item": version,
-                },
-            )
+            if line_group:
+                if line == end_line:
+                    line_group = False
+                    end_line = ""
+            elif match_group := re.search(test_dev_group_patt, line):
+                line_group = True
+                blank = match_group.group(1)
+                end_line = f"{blank}end"
+            elif matched := re.search(require_patt, line):
+                if re.search(not_prod_patt, line):
+                    continue
+                pkg_name: str = matched.group(1)
+                version: str = matched.group(2)
+                yield (
+                    {
+                        "column": 0,
+                        "line": line_number,
+                        "item": pkg_name,
+                    },
+                    {
+                        "column": 0,
+                        "line": line_number,
+                        "item": version,
+                    },
+                )
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
