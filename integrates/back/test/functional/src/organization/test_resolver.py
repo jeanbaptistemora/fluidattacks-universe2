@@ -93,7 +93,7 @@ async def test_get_organization_ver_1(
         ("reattacker@gmail.com", "user", 3),
         ("resourcer@gmail.com", "user", 3),
         ("reviewer@gmail.com", "user", 3),
-        ("customer_manager@fluidattacks.com", "customer_manager", 23),
+        ("customer_manager@fluidattacks.com", "customer_manager", 25),
     ),
 )
 async def test_get_organization_ver_2(

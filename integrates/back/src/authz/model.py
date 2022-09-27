@@ -1172,6 +1172,8 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_payment_method_mutate",
             "api_mutations_update_credentials_mutate",
+            "grant_organization_level_role:user",
+            "grant_organization_level_role:user_manager",
             "grant_organization_level_role:customer_manager",
             "see_billing_service_type",
             "see_billing_subscription_type",
