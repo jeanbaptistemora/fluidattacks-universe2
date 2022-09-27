@@ -3,20 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.common import (
-    array as common_array,
-    assignment_expression as common_assignment_expression,
-    binary_expression as common_binary_expression,
-    boolean_literal as common_boolean_literal,
-    break_statement as common_break_statement,
-    catch_clause as common_catch_clause,
-    catch_declaration as common_catch_declaration,
-    catch_parameter as common_catch_parameter,
-    catch_type as common_catch_type,
-    class_body as common_class_body,
-    class_declaration as common_class_declaration,
-    comment as common_comment,
-    conditional_expression as common_conditional_expression,
-    continue_statement as common_continue_statement,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
     execution_block as common_execution_block,
@@ -46,9 +32,23 @@ from syntax_graph.syntax_readers.java import (
     annotation as java_annotation,
     annotation_argument_list as java_annotation_argument_list,
     argument_list as java_argument_list,
+    array as java_array,
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
+    assignment_expression as java_assignment_expression,
+    binary_expression as java_binary_expression,
+    boolean_literal as java_boolean_literal,
+    break_statement as java_break_statement,
     cast_expression as java_cast_expression,
+    catch_clause as java_catch_clause,
+    catch_declaration as java_catch_declaration,
+    catch_parameter as java_catch_parameter,
+    catch_type as java_catch_type,
+    class_body as java_class_body,
+    class_declaration as java_class_declaration,
+    comment as java_comment,
+    conditional_expression as java_conditional_expression,
+    continue_statement as java_continue_statement,
     dimensions_expr as java_dimensions_expr,
     element_value_pair as java_element_value_pair,
     enhanced_for_statement as java_enhanced_for_statement,
@@ -99,7 +99,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "array_initializer",
         },
-        syntax_reader=common_array.reader,
+        syntax_reader=java_array.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -117,26 +117,26 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "assignment_expression",
         },
-        syntax_reader=common_assignment_expression.reader,
+        syntax_reader=java_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "binary_expression",
         },
-        syntax_reader=common_binary_expression.reader,
+        syntax_reader=java_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "true",
             "false",
         },
-        syntax_reader=common_boolean_literal.reader,
+        syntax_reader=java_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "break_statement",
         },
-        syntax_reader=common_break_statement.reader,
+        syntax_reader=java_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -148,25 +148,25 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "catch_clause",
         },
-        syntax_reader=common_catch_clause.reader,
+        syntax_reader=java_catch_clause.reader,
     ),
     Dispatcher(
         applicable_types={
             "catch_declaration",
         },
-        syntax_reader=common_catch_declaration.reader,
+        syntax_reader=java_catch_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
             "catch_formal_parameter",
         },
-        syntax_reader=common_catch_parameter.reader,
+        syntax_reader=java_catch_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
             "catch_type",
         },
-        syntax_reader=common_catch_type.reader,
+        syntax_reader=java_catch_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -174,31 +174,31 @@ JAVA_DISPATCHERS: Dispatchers = (
             "constructor_body",
             "interface_body",
         },
-        syntax_reader=common_class_body.reader,
+        syntax_reader=java_class_body.reader,
     ),
     Dispatcher(
         applicable_types={
             "class_declaration",
         },
-        syntax_reader=common_class_declaration.reader,
+        syntax_reader=java_class_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
             "comment",
         },
-        syntax_reader=common_comment.reader,
+        syntax_reader=java_comment.reader,
     ),
     Dispatcher(
         applicable_types={
             "conditional_expression",
         },
-        syntax_reader=common_conditional_expression.reader,
+        syntax_reader=java_conditional_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "continue_statement",
         },
-        syntax_reader=common_continue_statement.reader,
+        syntax_reader=java_continue_statement.reader,
     ),
     Dispatcher(
         applicable_types={
