@@ -235,7 +235,7 @@ def _apk_debugging_enabled(
         return _create_vulns_line(
             ctx=ctx,
             locations=locations,
-            method=core_model.MethodsEnum.APK_DEBUGGING_ENABLED,
+            method=core_model.MethodsEnum.PATH_APK_DEBUGGING_ENABLED,
         )
     return _create_vulns(
         ctx=ctx,

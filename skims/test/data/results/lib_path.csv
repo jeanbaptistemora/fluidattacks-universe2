@@ -26730,7 +26730,7 @@ F058,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,4,489,ski
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes.apk_debugging_enabled
+",android.apk_debugging_enabled
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
    1 | ass XmlSerializerTestCase : Controller
    2 |
