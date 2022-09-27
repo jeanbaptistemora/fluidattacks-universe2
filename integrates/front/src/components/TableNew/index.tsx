@@ -260,7 +260,11 @@ const Table = <TData extends RowData>({
         </table>
       </TableContainer>
       {data.length > 10 ? (
-        <Pagination onNextPage={onNextPage} size={data.length} table={table} />
+        <Pagination
+          onNextPage={onNextPage}
+          size={table.getFilteredRowModel().rows.length}
+          table={table}
+        />
       ) : undefined}
     </div>
   );
