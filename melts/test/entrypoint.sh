@@ -30,7 +30,7 @@ function main {
       start_localstack
     fi \
     && use_git_repo_services \
-    && melts drills --pull-repos continuoustest \
+    && melts drills --pull-repos absecon \
     && services_path=$(pwd) \
     && popd \
     && cp -r melts/ "${services_path}" \

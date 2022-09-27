@@ -4,7 +4,7 @@
 
 # pylint: disable=unused-argument
 
-
+import pytest
 from toolbox import (
     utils,
 )
@@ -20,6 +20,7 @@ FAILURE: int = 1
 FINDING: str = "720412598"
 
 
+@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_toolbox_get_group_from_commit_msg(relocate: Any) -> None:
     """Test toolbox.get_group_from_commit_msg."""
     utils.get_commit_subs.main()

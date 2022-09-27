@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import pathspec
+import pytest
 from toolbox.drills import (
     pull_repos,
 )
@@ -16,11 +17,13 @@ NON_EXISTING_REPO: str = "sodjfoisajfdoiasjfdoia"
 LOCAL_PATH = "continuoustest"
 
 
+@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_drills_pull_repos() -> None:
     assert pull_repos.main(EXISTING_REPO)
     assert not pull_repos.main(NON_EXISTING_REPO)
 
 
+@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_get_repo_from_url() -> None:
     for url, repo in (
         (
