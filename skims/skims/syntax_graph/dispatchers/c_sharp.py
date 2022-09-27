@@ -42,13 +42,21 @@ from syntax_graph.syntax_readers.c_sharp import (
     initializer_expression as c_sharp_initializer_expression,
     interface_declaration as c_sharp_interface_declaration,
     interpolated_string_expression as c_sharp_interpolated_string_expression,
+    interpolation as c_sharp_interpolation,
     invocation_expression as c_sharp_invocation_expression,
     lambda_expression as c_sharp_lambda_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     member_binding_expression as c_sharp_member_binding_expression,
+    method_declaration as c_sharp_method_declaration,
     name_equals as c_sharp_name_equals,
     namespace_declaration as c_sharp_namespace_declaration,
+    null_literal as c_sharp_null_literal,
+    number_literal as c_sharp_number_literal,
+    object_creation_expression as c_sharp_object_creation_expression,
+    parameter as c_sharp_parameter,
+    parameter_list as c_sharp_parameter_list,
+    parenthesized_expression as c_sharp_parenthesized_expression,
     postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
     property_declaration as c_sharp_property_declaration,
@@ -61,14 +69,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     while_statement as c_sharp_while_statement,
 )
 from syntax_graph.syntax_readers.common import (
-    interpolation as common_interpolation,
-    method_declaration as common_method_declaration,
-    null_literal as common_null_literal,
-    number_literal as common_number_literal,
-    object_creation_expression as common_object_creation_expression,
-    parameter as common_parameter,
-    parameter_list as common_parameter_list,
-    parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
     switch_body as common_switch_body,
@@ -330,7 +330,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "interpolation",
         },
-        syntax_reader=common_interpolation.reader,
+        syntax_reader=c_sharp_interpolation.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -361,7 +361,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "local_function_statement",
             "method_declaration",
         },
-        syntax_reader=common_method_declaration.reader,
+        syntax_reader=c_sharp_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -379,38 +379,38 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "null_literal",
         },
-        syntax_reader=common_null_literal.reader,
+        syntax_reader=c_sharp_null_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "integer_literal",
             "real_literal",
         },
-        syntax_reader=common_number_literal.reader,
+        syntax_reader=c_sharp_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "object_creation_expression",
         },
-        syntax_reader=common_object_creation_expression.reader,
+        syntax_reader=c_sharp_object_creation_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "parameter",
         },
-        syntax_reader=common_parameter.reader,
+        syntax_reader=c_sharp_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
             "parameter_list",
         },
-        syntax_reader=common_parameter_list.reader,
+        syntax_reader=c_sharp_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
         },
-        syntax_reader=common_parenthesized_expression.reader,
+        syntax_reader=c_sharp_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={

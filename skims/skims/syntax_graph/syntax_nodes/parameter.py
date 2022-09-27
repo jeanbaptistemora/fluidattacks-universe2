@@ -18,7 +18,7 @@ def build_parameter_node(
     args: SyntaxGraphArgs,
     variable: Optional[str],
     variable_type: Optional[str],
-    c_ids: Iterator[NId],
+    c_ids: Optional[Iterator[NId]],
 ) -> NId:
 
     args.syntax_graph.add_node(
@@ -32,11 +32,12 @@ def build_parameter_node(
     if variable_type:
         args.syntax_graph.nodes[args.n_id]["variable_type"] = variable_type
 
-    for c_id in c_ids:
-        args.syntax_graph.add_edge(
-            args.n_id,
-            args.generic(args.fork_n_id(c_id)),
-            label_ast="AST",
-        )
+    if c_ids:
+        for c_id in c_ids:
+            args.syntax_graph.add_edge(
+                args.n_id,
+                args.generic(args.fork_n_id(c_id)),
+                label_ast="AST",
+            )
 
     return args.n_id
