@@ -7,8 +7,8 @@
 Remove old notification preferences from stakeholders
 https://gitlab.com/fluidattacks/universe/-/issues/7520
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-09-27 at 20:07:35 UTC
+Finalization Time: 2022-09-27 at 20:08:17 UTC
 """
 
 

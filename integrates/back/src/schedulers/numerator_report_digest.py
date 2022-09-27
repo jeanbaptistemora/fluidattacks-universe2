@@ -46,8 +46,12 @@ from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLinesConnection,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from decimal import (
     Decimal,
@@ -383,20 +387,27 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding.id)
+    historic_state_loader = loaders.vulnerability_historic_state
 
     for vuln in vulnerabilities:
-        _common_generate_count_report(
-            content=content,
-            date_range=date_range,
-            date_report=datetime_utils.get_datetime_from_iso_str(
-                vuln.state.modified_date
-            ),
-            field="released",
-            group=group,
-            user_email=vuln.state.modified_by,
-            allowed_users=users_email,
-            cvss=cvss,
-        )
+        historic_state_loader.clear(vuln.id)
+        historic_state: Tuple[
+            VulnerabilityState, ...
+        ] = await historic_state_loader.load(vuln.id)
+        for state in historic_state:
+            if state.status == VulnerabilityStateStatus.OPEN:
+                _common_generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        state.modified_date
+                    ),
+                    field="released",
+                    group=group,
+                    user_email=state.modified_by,
+                    allowed_users=users_email,
+                    cvss=cvss,
+                )
 
 
 def _max_severity_released(
