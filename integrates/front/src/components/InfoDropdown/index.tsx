@@ -16,10 +16,10 @@ import { Text } from "components/Text";
 type Nums1To7 = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 interface IInfoDropdownProps {
-  alignDropdown: "center" | "left" | "right";
-  size: Nums1To7;
-  sup: boolean;
-  children?: ReactNode;
+  alignDropdown?: "center" | "left" | "right";
+  size?: Nums1To7;
+  sup?: boolean;
+  children?: ReactNode | string;
 }
 
 const InfoDropdown: FC<IInfoDropdownProps> = ({
