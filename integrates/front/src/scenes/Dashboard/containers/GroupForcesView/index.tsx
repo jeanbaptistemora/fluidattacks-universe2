@@ -21,6 +21,7 @@ import { useParams } from "react-router-dom";
 
 import { Modal } from "components/Modal";
 import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/TableNew/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
@@ -91,6 +92,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const headersExecutionTable: ColumnDef<IExecution>[] = [
     {
       accessorKey: "date",
+      filterFn: filterDate,
       header: t("group.forces.date"),
       meta: { filterType: "dateRange" },
     },
