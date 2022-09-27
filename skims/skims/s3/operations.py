@@ -12,6 +12,9 @@ from db_model.advisories.types import (
     Advisory,
 )
 import json
+from s3.resource import (
+    get_s3_resource,
+)
 from tempfile import (
     NamedTemporaryFile,
 )
@@ -29,9 +32,10 @@ from utils.logs import (
 
 
 async def upload_object(
-    client: Any, file_name: str, dict_object: Dict[str, Any], bucket: str
+    file_name: str, dict_object: Dict[str, Any], bucket: str
 ) -> None:
     try:
+        client = await get_s3_resource()
         await client.put_object(
             Body=json.dumps(dict_object, indent=2, sort_keys=True),
             Bucket=bucket,
@@ -43,13 +47,13 @@ async def upload_object(
 
 
 async def download_json_fileobj(
-    client: Any,
     bucket: str,
     file_name: str,
 ) -> Dict[str, Any]:
     return_value: Dict[str, Any] = {}
     with NamedTemporaryFile() as temp:
         try:
+            client = await get_s3_resource()
             await client.download_fileobj(
                 bucket,
                 file_name,
@@ -63,7 +67,6 @@ async def download_json_fileobj(
 
 
 async def download_advisories(
-    client: Any,
     needed_platforms: Iterable[str],
     dl_only_patches: bool = False,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
@@ -73,18 +76,17 @@ async def download_advisories(
     for plt in needed_platforms:
         if not dl_only_patches:
             dict_obj: Dict[str, Any] = await download_json_fileobj(
-                client, bucket_name, f"{plt}.json"
+                bucket_name, f"{plt}.json"
             )
             s3_advisories.update({plt: dict_obj})
         dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
-            client, bucket_name, f"{plt}_patch.json"
+            bucket_name, f"{plt}_patch.json"
         )
         s3_patch_advisories.update({plt: dict_patch_obj})
     return s3_advisories, s3_patch_advisories
 
 
 async def upload_advisories(
-    client: Any,
     to_storage: List[Advisory],
     s3_advisories: Optional[Dict[str, Any]] = None,
     is_patch: bool = False,
@@ -101,7 +103,6 @@ async def upload_advisories(
     try:
         for key, value in s3_advisories.items():
             await upload_object(
-                client=client,
                 bucket="skims.sca",
                 dict_object=value,
                 file_name=f"{key}{'_patch' if is_patch else ''}.json",

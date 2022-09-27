@@ -31,8 +31,8 @@ from s3.operations import (
     upload_advisories,
 )
 from s3.resource import (
-    get_s3_resource,
     s3_shutdown,
+    s3_startup,
 )
 import sys
 from typing import (
@@ -93,15 +93,13 @@ async def update_s3(
     to_storage: List[Advisory], action: str, needed_platforms: Iterable[str]
 ) -> None:
     try:
-        client = await get_s3_resource()
+        await s3_startup()
         s3_advisories, s3_patch_advisories = await download_advisories(
-            client=client,
             dl_only_patches=action != REMOVE,
             needed_platforms=needed_platforms,
         )
         if action != REMOVE:
             await upload_advisories(
-                client,
                 to_storage,
                 s3_patch_advisories,
                 is_patch=True,
@@ -112,11 +110,8 @@ async def update_s3(
                     remove_from_s3(adv, s3_patch_advisories)
                 else:
                     remove_from_s3(adv, s3_advisories)
+            await upload_advisories(to_storage=[], s3_advisories=s3_advisories)
             await upload_advisories(
-                client=client, to_storage=[], s3_advisories=s3_advisories
-            )
-            await upload_advisories(
-                client=client,
                 to_storage=[],
                 s3_advisories=s3_patch_advisories,
                 is_patch=True,

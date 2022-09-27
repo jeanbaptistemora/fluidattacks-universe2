@@ -24,8 +24,8 @@ from s3.operations import (
     upload_advisories,
 )
 from s3.resource import (
-    get_s3_resource,
     s3_shutdown,
+    s3_startup,
 )
 from tempfile import (
     TemporaryDirectory,
@@ -97,8 +97,8 @@ async def update_sca() -> None:
 
     # adding to s3 bucket
     log_blocking("info", "Adding advisories to skima.sca bucket")
-    client = await get_s3_resource()
-    await upload_advisories(client, to_storage)
+    await s3_startup()
+    await upload_advisories(to_storage)
     await s3_shutdown()
 
 

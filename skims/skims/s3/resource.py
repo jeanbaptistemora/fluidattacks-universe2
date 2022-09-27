@@ -50,7 +50,7 @@ CONTEXT_STACK = None
 RESOURCE = None
 
 
-async def s3_startup(is_public: bool) -> None:
+async def s3_startup(*, is_public: bool = False) -> None:
     # pylint: disable=global-statement
     global CONTEXT_STACK, RESOURCE
 
@@ -68,8 +68,8 @@ async def s3_shutdown() -> None:
         await CONTEXT_STACK.aclose()
 
 
-async def get_s3_resource(*, is_public: bool = False) -> Any:
+async def get_s3_resource() -> Any:
     if RESOURCE is None:
-        await s3_startup(is_public)
+        await s3_startup()
 
     return RESOURCE
