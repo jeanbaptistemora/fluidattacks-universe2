@@ -72,6 +72,7 @@ from db_model.roots.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
     VulnerabilityType,
     VulnerabilityVerificationStatus,
 )
@@ -854,6 +855,58 @@ async def release_finding(
             pass
 
 
+def _filter_vulns_to_open(
+    vulns_to_open: Dict[str, Any],
+    integrates_vulnerabilities: Tuple[Vulnerability, ...],
+) -> Any:
+    closed_hashes = {
+        hash(
+            (
+                get_path_from_integrates_vulnerability(
+                    vuln.where, vuln.type, True
+                )[1],
+                vuln.specific,
+            )
+        )
+        for vuln in integrates_vulnerabilities
+        # his result was not found by Skims
+        if vuln.treatment
+        and vuln.treatment.status
+        in (
+            VulnerabilityTreatmentStatus.ACCEPTED,
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+        )
+    }
+    return {
+        "inputs": [
+            vuln
+            for vuln in vulns_to_open["inputs"]
+            if hash(
+                (
+                    get_path_from_integrates_vulnerability(
+                        vuln["url"], VulnerabilityType.INPUTS, True
+                    )[1],
+                    vuln["field"],
+                )
+            )
+            not in closed_hashes
+        ],
+        "lines": [
+            vuln
+            for vuln in vulns_to_open["lines"]
+            if hash(
+                (
+                    get_path_from_integrates_vulnerability(
+                        vuln["path"], VulnerabilityType.LINES, True
+                    )[1],
+                    vuln["line"],
+                )
+            )
+            not in closed_hashes
+        ],
+    }
+
+
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
@@ -910,6 +963,15 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         machine_vulnerabilities,
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
         git_root.state.nickname,
+    )
+    vulns_to_open = _filter_vulns_to_open(
+        vulns_to_open,
+        tuple(
+            vuln
+            for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+            if vuln.state.source == Source.MACHINE
+            and vuln.root_id == git_root.id
+        ),
     )
 
     reattack_future = add_reattack_justification(
