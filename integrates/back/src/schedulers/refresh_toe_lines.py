@@ -38,7 +38,7 @@ async def main() -> None:
         )
         for group_name in group_names
     )
-    await collect(
+    futures_rebase = [
         put_action(
             action=Action.REBASE,
             additional_info="*",
@@ -54,4 +54,5 @@ async def main() -> None:
             ],
         )
         for group_name, execution in zip(group_names, results)
-    )
+    ]
+    await collect(futures_rebase)

@@ -749,25 +749,32 @@ async def put_action(  # pylint: disable=too-many-locals
             dynamo_pk=dynamodb_pk,
         )
 
-    job_id = await put_action_to_batch(
-        action_name=action.value,
-        vcpus=vcpus,
-        queue=queue,
-        entity=entity,
-        attempt_duration_seconds=attempt_duration_seconds,
-        action_dynamo_pk=possible_key,
-        product_name=product_name.value,
-        **kwargs,
-    )
-    dynamo_pk = await put_action_to_dynamodb(
-        key=possible_key, **action_dict, batch_job_id=job_id
-    )
-    LOGGER.info(
-        "A job for %s has been queued",
-        entity,
-    )
+    if dynamo_pk := await put_action_to_dynamodb(
+        key=possible_key,
+        **action_dict,
+    ):
+        job_id = await put_action_to_batch(
+            action_name=action.value,
+            vcpus=vcpus,
+            queue=queue,
+            entity=entity,
+            attempt_duration_seconds=attempt_duration_seconds,
+            action_dynamo_pk=possible_key,
+            product_name=product_name.value,
+            **kwargs,
+        )
+        await update_action_to_dynamodb(key=dynamo_pk, batch_job_id=job_id)
+
+        LOGGER.info(
+            "A job for %s has been queued",
+            entity,
+        )
+        return PutActionResult(
+            success=True,
+            batch_job_id=job_id,
+            dynamo_pk=dynamo_pk,
+        )
     return PutActionResult(
-        success=True,
-        batch_job_id=job_id,
-        dynamo_pk=dynamo_pk,
+        success=False,
+        dynamo_pk=possible_key,
     )
