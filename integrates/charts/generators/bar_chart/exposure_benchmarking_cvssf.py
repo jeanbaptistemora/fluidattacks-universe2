@@ -26,6 +26,9 @@ from charts.generators.bar_chart.utils import (
 from charts.generators.common.colors import (
     RISK,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from charts.generators.stacked_bar_chart.exposed_over_time_cvssf import (
     get_group_document,
 )
@@ -213,6 +216,11 @@ def format_data(
                     text="Exposure (less is better)",
                     position="inner-top",
                 ),
+            ),
+        ),
+        bar=dict(
+            width=dict(
+                ratio=BAR_RATIO_WIDTH,
             ),
         ),
         maxValue=format_max_value(data),

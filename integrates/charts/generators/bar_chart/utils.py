@@ -11,6 +11,9 @@ from async_lru import (
 from charts.generators.common.colors import (
     RISK,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from charts.utils import (
     CsvData,
     get_portfolios_groups,
@@ -176,7 +179,7 @@ def format_mttr_data(
         ),
         bar=dict(
             width=dict(
-                ratio=0.4,
+                ratio=BAR_RATIO_WIDTH,
             ),
         ),
         barChartYTickFormat=True,

@@ -12,6 +12,9 @@ from charts.generators.bar_chart.utils import (
 from charts.generators.common.colors import (
     RISK,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -131,7 +134,7 @@ def format_data_non_cvssf(data: Remediate) -> dict:
         ),
         bar=dict(
             width=dict(
-                ratio=0.4,
+                ratio=BAR_RATIO_WIDTH,
             ),
         ),
         axis=dict(

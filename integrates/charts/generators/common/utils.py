@@ -16,7 +16,8 @@ from decimal import (
 import math
 import os
 
-MAX_WITH_DECIMALS = Decimal("10.0")
+MAX_WITH_DECIMALS: Decimal = Decimal("10.0")
+BAR_RATIO_WIDTH: Decimal = Decimal("0.4")
 
 try:
     CRITERIA_VULNERABILITIES: str = os.environ[

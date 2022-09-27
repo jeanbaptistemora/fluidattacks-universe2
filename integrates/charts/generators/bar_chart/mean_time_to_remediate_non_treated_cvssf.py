@@ -19,6 +19,9 @@ from charts.generators.bar_chart.utils_mean_time_to_remediate import (
 from charts.generators.common.colors import (
     RISK,
 )
+from charts.generators.common.utils import (
+    BAR_RATIO_WIDTH,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -128,7 +131,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
         ),
         bar=dict(
             width=dict(
-                ratio=0.4,
+                ratio=BAR_RATIO_WIDTH,
             ),
         ),
         barChartYTickFormat=True,
