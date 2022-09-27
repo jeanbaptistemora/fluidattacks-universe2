@@ -48,39 +48,4 @@ const handleUpdateError = ({ graphQLErrors }: ApolloError): void => {
   });
 };
 
-const getSwitchButtonHandlers = (
-  values: {
-    squad: boolean;
-    machine: boolean;
-  },
-  setFieldValue: (
-    field: string,
-    value: unknown,
-    shouldValidate?: boolean | undefined
-  ) => void,
-  scope: "machine" | "squad"
-): (() => void) => {
-  function handleMachineBtnChange(): void {
-    setFieldValue("machine", !values.machine);
-
-    if (values.machine) {
-      setFieldValue("squad", false);
-    }
-  }
-
-  function handleSquadBtnChange(): void {
-    setFieldValue("squad", !values.squad);
-
-    if (!values.squad) {
-      setFieldValue("machine", true);
-    }
-  }
-
-  if (scope === "machine") {
-    return handleMachineBtnChange;
-  }
-
-  return handleSquadBtnChange;
-};
-
-export { getSwitchButtonHandlers, handleCreateError, handleUpdateError };
+export { handleCreateError, handleUpdateError };

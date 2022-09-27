@@ -18,11 +18,7 @@ import { useHistory } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { ConfigurableValidator } from "revalidate";
 
-import {
-  getSwitchButtonHandlers,
-  handleCreateError,
-  handleUpdateError,
-} from "./helpers";
+import { handleCreateError, handleUpdateError } from "./helpers";
 
 import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
@@ -100,15 +96,14 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       type: string;
       service: string;
       squad: boolean;
-      machine: boolean;
     }): Promise<void> => {
       mixpanel.track("AddGroup");
       await addGroup({
         variables: {
           description: values.description,
           groupName: values.name.toUpperCase(),
-          hasMachine: values.machine,
-          hasSquad: values.squad,
+          hasMachine: values.type === "CONTINUOUS",
+          hasSquad: values.type === "CONTINUOUS" ? values.squad : false,
           language: values.language,
           organizationName: values.organization,
           service: values.service,
@@ -136,7 +131,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           initialValues={{
             description: "",
             language: "EN",
-            machine: true,
             name: "",
             organization: organization.toUpperCase(),
             service: "WHITE",
@@ -147,17 +141,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           onSubmit={handleSubmit}
         >
           {({ values, dirty, setFieldValue }): JSX.Element => {
-            const handleMachineBtnChange = getSwitchButtonHandlers(
-              values,
-              setFieldValue,
-              "machine"
-            );
-
-            const handleSquadBtnChange = getSwitchButtonHandlers(
-              values,
-              setFieldValue,
-              "squad"
-            );
+            function handleSquadBtnChange(): void {
+              setFieldValue("squad", !values.squad);
+            }
 
             const isContinuous = values.type === "CONTINUOUS";
 
@@ -367,30 +353,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </Tooltip>
                     </Col>
                   </Row>
-                  <div className={"mv2"} hidden={true}>
-                    <Tooltip
-                      hide={runTour}
-                      id={"organization.tabs.groups.newGroup.machine.tooltip"}
-                      place={"top"}
-                      tip={t(
-                        "organization.tabs.groups.newGroup.machine.tooltip"
-                      )}
-                    >
-                      <Text mb={1}>
-                        {"* "}
-                        {t("organization.tabs.groups.newGroup.machine.text")}
-                      </Text>
-                      <Switch
-                        checked={values.machine}
-                        label={{
-                          off: t("organization.tabs.groups.newGroup.switch.no"),
-                          on: t("organization.tabs.groups.newGroup.switch.yes"),
-                        }}
-                        name={"machine"}
-                        onChange={handleMachineBtnChange}
-                      />
-                    </Tooltip>
-                  </div>
                   {isContinuous && (
                     <div className={"mv2"} id={"add-group-plan"}>
                       <Tooltip
