@@ -231,6 +231,14 @@ locals {
           Resource = ["*"]
         },
         {
+          Sid    = "cloudwatchWrite"
+          Effect = "Allow"
+          Action = [
+            "cloudwatch:PutMetricData",
+          ]
+          Resource = ["*"]
+        },
+        {
           Sid    = "cloudMachineLogs"
           Effect = "Allow"
           Action = [
