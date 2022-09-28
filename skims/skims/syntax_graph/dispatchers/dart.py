@@ -11,7 +11,7 @@ from syntax_graph.syntax_readers.common import (
     parameter as common_parameter,
     string_literal as common_string_literal,
 )
-from syntax_graph.syntax_readers.dart import (  # type: ignore
+from syntax_graph.syntax_readers.dart import (
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,

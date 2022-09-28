@@ -10,11 +10,12 @@ from syntax_graph.syntax_readers.common import (
     identifier as common_identifier,
     program as common_program,
     string_literal as common_string_literal,
-    variable_declarator as common_variable_declarator,
 )
-from syntax_graph.syntax_readers.typescript import (  # type: ignore
+from syntax_graph.syntax_readers.typescript import (
     array_type as typescript_array_type,
     type_annotation as typescript_type_annotation,
+    variable_declaration as typescript_variable_declaration,
+    variable_declarator as typescript_variable_declarator,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -33,6 +34,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "array_type",
         },
         syntax_reader=typescript_array_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assignment_expression",
+        },
+        syntax_reader=common_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -60,18 +67,6 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "variable_declarator",
-        },
-        syntax_reader=common_variable_declarator.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "assignment_expression",
-        },
-        syntax_reader=common_assignment_expression.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "string",
         },
         syntax_reader=common_string_literal.reader,
@@ -81,5 +76,17 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "type_annotation",
         },
         syntax_reader=typescript_type_annotation.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "variable_declaration",
+        },
+        syntax_reader=typescript_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "variable_declarator",
+        },
+        syntax_reader=typescript_variable_declarator.reader,
     ),
 )

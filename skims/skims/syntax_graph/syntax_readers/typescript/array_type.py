@@ -29,15 +29,15 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    c_id = [
+    c_ids = [
         child
         for child in childs_id
         if args.ast_graph.nodes[child]["label_type"]
         in TYPESCRIPT_PRIMARY_TYPES
     ]
 
-    for id in c_id:
-        if args.ast_graph.nodes[id]["label_type"] == "predefined_type":
-            array_type = node_to_str(args.ast_graph, id)
+    for c_id in c_ids:
+        if args.ast_graph.nodes[c_id]["label_type"] == "predefined_type":
+            array_type = node_to_str(args.ast_graph, c_id)
 
     return build_array_type_node(args, array_type)
