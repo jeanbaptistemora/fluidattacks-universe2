@@ -4,7 +4,6 @@
 
 variable "ciGitlabApiToken" {}
 variable "ciGitlabSshKey" {}
-variable "ciUsers" {}
 
 locals {
   values = {
@@ -32,6 +31,7 @@ locals {
         "job-dsl:1.81",
         "kubernetes:3706.vdfb_d599579f3",
         "pipeline-stage-view:2.24",
+        "saml:4.354.vdc8c005cda_34",
         "workflow-aggregator:590.v6a_d052e5a_a_b_5",
       ]
 
@@ -51,10 +51,19 @@ locals {
           }
         }
         securityRealm = yamlencode({
-          local = {
-            allowsSignup  = false
-            enableCaptcha = false
-            users         = jsondecode(var.ciUsers)
+          saml = {
+            binding                  = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            displayNameAttributeName = "displayname"
+            emailAttributeName       = "email"
+            groupsAttributeName      = "group"
+            idpMetadataConfiguration = {
+              period = 0
+              url    = "https://fluidattacks.okta.com/app/exkm1ndoheeYZ1Sdj357/sso/saml/metadata"
+            }
+            maximumAuthenticationLifetime = 86400
+            usernameAttributeName         = "username"
+            usernameCaseConversion        = "none"
+            logoutUrl                     = "https://fluidattacks.okta.com"
           }
         })
         authorizationStrategy = yamlencode({
@@ -131,7 +140,8 @@ locals {
       }
 
       # Network
-      serviceType = "NodePort"
+      serviceType        = "NodePort"
+      jenkinsUrlProtocol = "https"
       ingress = {
         enabled    = true
         apiVersion = "extensions/v1beta1"
