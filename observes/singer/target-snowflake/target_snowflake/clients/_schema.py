@@ -18,6 +18,9 @@ from fa_purity.frozen import (
 from fa_purity.json.primitive import (
     Primitive,
 )
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
 from fa_purity.pure_iter.factory import (
     from_flist,
 )
@@ -47,11 +50,13 @@ from target_snowflake.table import (
 from typing import (
     Callable,
     Dict,
+    FrozenSet,
+    Tuple,
 )
 
 
 @dataclass(frozen=True)
-class TableClient:
+class SchemaClient:
     _cursor: Cursor
     _db: DatabaseId
     _schema: SchemaId
@@ -99,6 +104,42 @@ class TableClient:
             for index, cid in enum_columns
         }
         query = Query(stm, freeze(identifiers), freeze(values))
+        return self._cursor.execute(query)
+
+    def table_ids(self) -> Cmd[FrozenSet[TableId]]:
+        _stm = (
+            "SELECT tables.table_name FROM information_schema.tables",
+            "WHERE table_schema = %(schema_name)s",
+        )
+        stm = " ".join(_stm)
+        values: Dict[str, Primitive] = {
+            "schema_name": self._schema.name.sql_identifier
+        }
+        query = Query(stm, freeze({}), freeze(values))
+        return self._cursor.execute(query) + self._cursor.fetch_all().map(
+            lambda x: from_flist(x)
+        ).map(
+            lambda p: p.map(lambda r: to_primitive(r.data[0], str).unwrap())
+            .map(Identifier.from_raw)
+            .map(TableId)
+            .transform(lambda x: frozenset(x))
+        )
+
+    def create_like(
+        self, blueprint: Tuple[SchemaId, TableId], new_table: TableId
+    ) -> Cmd[None]:
+        stm = """
+            CREATE TABLE {new_schema}.{new_table} (
+                LIKE {blueprint_schema}.{blueprint_table}
+            )
+        """
+        identifiers: Dict[str, Identifier] = {
+            "new_schema": self._schema.name,
+            "new_table": new_table.name,
+            "blueprint_schema": blueprint[0].name,
+            "blueprint_table": blueprint[1].name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
 
     def exist(self, table_id: TableId) -> Cmd[bool]:

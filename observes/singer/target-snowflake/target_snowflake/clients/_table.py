@@ -29,26 +29,31 @@ from target_snowflake.sql_client import (
     RowData,
 )
 from target_snowflake.table import (
-    TableObj,
+    Table,
+    TableId,
 )
 from typing import (
     Dict,
+    Optional,
+    Tuple,
 )
 
 
 @dataclass(frozen=True)
-class TableOperations:
+class TableClient:
     _cursor: Cursor
     _db: DatabaseId
     _schema: SchemaId
-    _table: TableObj
+    _table_id: TableId
+    _local_def: Optional[Table]
 
     def insert(
         self,
+        table_def: Table,
         items: PureIter[RowData],
         limit: int,
     ) -> Cmd[None]:
-        enum_fields = from_flist(tuple(enumerate(self._table.table.order)))
+        enum_fields = from_flist(tuple(enumerate(table_def.order)))
         _fields = ",".join(enum_fields.map(lambda t: f"{{field_{t[0]}}}"))
         values_placeholder = ",".join(enum_fields.map(lambda _: "?"))
         stm = f"""
@@ -56,9 +61,9 @@ class TableOperations:
         """
         identifiers: Dict[str, Identifier] = {
             "schema": self._schema.name,
-            "table": self._table.id_obj.name,
+            "table": self._table_id.name,
         }
-        for i, c in enumerate(self._table.table.order):
+        for i, c in enumerate(table_def.order):
             identifiers[f"field_{i}"] = c.name
         query = Query(stm, freeze(identifiers), freeze({}))
         return (
@@ -66,3 +71,21 @@ class TableOperations:
             .map(lambda p: self._cursor.execute_many(query, p))
             .transform(consume)
         )
+
+    def insert_from(self, source: Tuple[SchemaId, TableId]) -> Cmd[None]:
+        """
+        This method copies data from source to target.
+        Both tables must exists and share the same table definition.
+        """
+        stm = """
+            INSERT INTO {target_schema}.{target_table}
+            SELECT * FROM {source_schema}.{source_table};
+        """
+        identifiers: Dict[str, Identifier] = {
+            "source_schema": source[0].name,
+            "source_table": source[1].name,
+            "target_schema": self._schema.name,
+            "target_table": self._table_id.name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query)

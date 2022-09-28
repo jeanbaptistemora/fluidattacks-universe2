@@ -2,14 +2,18 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._db import (
+    DbClient,
+)
+from ._schema import (
+    SchemaClient,
+)
 from ._table import (
     TableClient,
 )
-from ._table_ops import (
-    TableOperations,
-)
 
 __all__ = [
+    "DbClient",
+    "SchemaClient",
     "TableClient",
-    "TableOperations",
 ]
