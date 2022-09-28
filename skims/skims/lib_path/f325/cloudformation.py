@@ -44,6 +44,20 @@ WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
 WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
 
 
+def get_wildcard_nodes_for_resources(
+    actions: Node, resources: Node, pattern: Pattern
+) -> Iterator[Node]:
+    exceptions = {
+        "ec2:DescribeInstanceStatus",
+        "ec2:DescribeNetworkInterfaces",
+    }
+    for res in (
+        resources.data if isinstance(resources.raw, List) else [resources]
+    ):
+        if str(actions.data) not in exceptions and pattern.match(res.raw):
+            yield res
+
+
 def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
     for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
         if pattern.match(act.raw):

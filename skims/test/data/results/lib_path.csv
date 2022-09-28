@@ -36783,30 +36783,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rdoc v3.11) [CVE-20
    38 | # Explicitly avoid 1.x that doesn't support Ruby 2.4+
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (ruby-openid v2.9.2) [GHSA-fqfj-cmh6-hj49],199,937,skims,011. Use of software with known vulnerabilities,Use of ruby-openid at version 2.9.2 with ['GHSA-fqfj-cmh6-hj49'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
-  189 |       rake (>= 12.2)
-  190 |       thor (~> 1.0)
-  191 |       zeitwerk (~> 2.5)
-  192 |     rake (13.0.6)
-  193 |     rdoc (6.4.0)
-  194 |       psych (>= 4.0.0)
-  195 |     responders (3.0.1)
-  196 |       actionpack (>= 5.0)
-  197 |       railties (>= 5.0)
-  198 |     rexml (3.2.5)
-> 199 |     ruby-openid (2.9.2)
-  200 |     ruby2_keywords (0.0.5)
-  201 |     sqlite3 (1.4.2)
-  202 |     stringio (3.0.1)
-  203 |     strscan (3.0.1)
-  204 |     thor (1.2.1)
-  205 |     timecop (0.9.5)
-  206 |     timeout (0.2.0)
-  207 |     tzinfo (2.0.4)
-  208 |       concurrent-ruby (~> 1.0)
-  209 |     warden (1.2.9)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1) [CVE-2020-7737, GHSA-6m85-wvcr-pgw3]",375,937,skims,011. Use of software with known vulnerabilities,"Use of safetydance at version 0.7.1 with ['CVE-2020-7737', 'GHSA-6m85-wvcr-pgw3'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   365 | safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   366 |   version ""5.2.1""
