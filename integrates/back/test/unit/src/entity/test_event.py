@@ -32,11 +32,28 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
+    Any,
+    Dict,
     List,
+    Optional,
     Tuple,
 )
 
 pytestmark = pytest.mark.asyncio
+
+
+async def _get_result(
+    data: Dict[str, Any],
+    user: str = "integratesmanager@gmail.com",
+    loaders: Optional[Dataloaders] = None,
+) -> Dict[str, Any]:
+    """Get result."""
+    request = await create_dummy_session(username=user)
+    request = apply_context_attrs(
+        request, loaders or get_new_context()  # type: ignore
+    )
+    _, result = await graphql(SCHEMA, data, context_value=request)
+    return result
 
 
 async def test_event() -> None:
@@ -62,9 +79,7 @@ async def test_event() -> None:
         }
     }"""
     data = {"query": query}
-    request = await create_dummy_session()
-    request = apply_context_attrs(request)  # type: ignore
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert "event" in result["data"]
     assert result["data"]["event"]["groupName"] == "unittesting"
@@ -80,8 +95,7 @@ async def test_events() -> None:
         }
     }"""
     data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "events" in result["data"]
     assert result["data"]["events"][0]["groupName"] == "unittesting"
     assert len(result["data"]["events"][0]["detail"]) >= 1
@@ -103,8 +117,7 @@ async def test_create_event() -> None:
         }
     """
     data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert "success" in result["data"]["addEvent"]
 
@@ -135,8 +148,7 @@ async def test_solve_event() -> None:
         }
     """
     data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     if "errors" not in result:
         assert "errors" not in result
         assert "success" in result["data"]["solveEvent"]
@@ -171,10 +183,7 @@ async def test_add_event_consult() -> None:
         }
     """
     data = {"query": query}
-    request = await create_dummy_session(
-        username="integratesmanager@gmail.com"
-    )
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert "success" in result["data"]["addEventConsult"]
     assert "commentId" in result["data"]["addEventConsult"]
@@ -206,8 +215,7 @@ async def test_update_event_evidence() -> None:
             "file": uploaded_file,
         }
         data = {"query": query, "variables": variables}
-        request = await create_dummy_session()
-        _, result = await graphql(SCHEMA, data, context_value=request)
+        result = await _get_result(data)
 
     assert "errors" not in result
     assert "success" in result["data"]["updateEventEvidence"]
@@ -223,8 +231,7 @@ async def test_update_event_evidence() -> None:
     """
     variables = {"eventId": "540462628"}
     data = {"query": query, "variables": variables}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert (
         result["data"]["event"]["evidence"]
@@ -250,8 +257,7 @@ async def test_download_event_file() -> None:
         }
     """
     data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert "success" in result["data"]["downloadEventFile"]
     assert "url" in result["data"]["downloadEventFile"]
@@ -269,7 +275,6 @@ async def test_remove_event_evidence() -> None:
         }
     """
     data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
+    result = await _get_result(data)
     assert "errors" not in result
     assert "success" in result["data"]["removeEventEvidence"]
