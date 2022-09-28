@@ -82,5 +82,5 @@ def get_vulnerable_lines(group: str) -> List[str]:
     return [
         vuln.where
         for vuln in vulnerabilities
-        if vuln.kind == VulnerabilityKindEnum.LINES
+        if vuln.kind.value == VulnerabilityKindEnum.LINES.value
     ]
