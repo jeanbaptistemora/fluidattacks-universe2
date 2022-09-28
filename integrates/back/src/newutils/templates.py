@@ -58,6 +58,7 @@ def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
             js_runtime=f"{STATIC_URL}/dashboard/runtime-bundle.min.js",
             js_vendors=f"{STATIC_URL}/dashboard/vendors-bundle.min.js",
             css_vendors=f"{STATIC_URL}/dashboard/vendors-style.min.css",
+            entity_graphic_css=f"{STATIC_URL}/styles/generic_graphic.css",
             js=(
                 f"{STATIC_URL}/dashboard/"
                 f"graphicsFor{entity_title}-bundle.min.js"
@@ -82,6 +83,7 @@ def graphic_view(  # pylint: disable=too-many-arguments
         name="graphic.html",
         context=dict(
             request=request,
+            debug=DEBUG,
             args=dict(
                 data=json.dumps(document),
                 height=height,
@@ -93,6 +95,14 @@ def graphic_view(  # pylint: disable=too-many-arguments
                 f"{generator_type}/"
                 f"{generator_name}.js"
             ),
+            generator_js=(
+                f"{STATIC_URL}/"
+                "graphics/"
+                "generators/"
+                f"{generator_type}/"
+                f"{generator_name}.js"
+            ),
+            graphic_css=f"{STATIC_URL}/styles/graphic.css",
             c3js=f"{STATIC_URL}/external/C3/c3.min.js",
             c3css=f"{STATIC_URL}/external/C3/c3.min.css",
         ),

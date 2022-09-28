@@ -59,6 +59,7 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "cdn.jsdelivr.net/npm/ "
                 "d2yyd1h5u9mauk.cloudfront.net "
                 "cdnjs.cloudflare.com/ajax/libs/d3/ "
+                "cdnjs.cloudflare.com/ajax/libs/c3/ "
                 "js-agent.newrelic.com "
                 "*.front.development.fluidattacks.com "
                 "*.front.production.fluidattacks.com "

@@ -13,14 +13,11 @@ SPDX-License-Identifier: MPL-2.0
     {% if '127.0.0.1' in request.client.host and debug %}
       <link rel="stylesheet" href="https://localhost:3000/dashboard/vendors-style.min.css" type="text/css">
       <link rel="stylesheet" href="https://localhost:3000/dashboard/graphicsFor{{ entity }}-style.min.css" type="text/css">
+      <link href="{{ url_for('static', path='/styles/generic_graphic.css') | replace('http://', 'https://') }}" rel="stylesheet" type="text/css"  media="screen"/>
     {% else %}
       <link rel="stylesheet" href="{{ css_vendors }}" type="text/css">
       <link rel="stylesheet" href="{{ css }}" type="text/css">
-    {% endif %}
-    {% if 'https' in url_for('static', path='/styles/generic_graphic.css') %}
-      <link href="{{ url_for('static', path='/styles/generic_graphic.css') }}" rel="stylesheet" type="text/css"  media="screen"/>
-    {% else %}
-      <link href="{{ url_for('static', path='/styles/generic_graphic.css') | replace('http', 'https') }}" rel="stylesheet" type="text/css"  media="screen"/>
+      <link rel="stylesheet" href="{{ entity_graphic_css }}" type="text/css">
     {% endif %}
     <!-- Third party styles -->
     <link
