@@ -2,20 +2,33 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  makePythonPypiEnvironment,
   inputs,
+  makePythonPypiEnvironment,
+  makeTemplate,
   ...
-}:
-makePythonPypiEnvironment {
-  name = "integrates-streams-runtime";
-  sourcesYaml = ./pypi-sources.yaml;
-  searchPathsBuild = {
-    bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
+}: let
+  pythonRequirements = makePythonPypiEnvironment {
+    name = "integrates-streams-runtime";
+    sourcesYaml = ./pypi-sources.yaml;
+    searchPathsBuild = {
+      bin = [
+        inputs.nixpkgs.gcc
+        inputs.nixpkgs.postgresql
+      ];
+    };
+    searchPathsRuntime = {
+      bin = [
+        inputs.nixpkgs.gcc
+        inputs.nixpkgs.postgresql
+      ];
+    };
   };
-  searchPathsRuntime = {
-    bin = [
-      inputs.nixpkgs.gcc
-      inputs.nixpkgs.postgresql
-    ];
-  };
-}
+in
+  makeTemplate {
+    name = "integrates-streams-runtime";
+    searchPaths = {
+      source = [
+        pythonRequirements
+      ];
+    };
+  }
