@@ -30,6 +30,7 @@ async def search(  # pylint: disable=too-many-locals
     must_filters: Optional[list[dict[str, Any]]] = None,
     range_filters: Optional[dict[str, Any]] = None,
     must_not_filters: Optional[list[dict[str, Any]]] = None,
+    sort_by: Optional[dict[str, Any]] = None,
 ) -> SearchResponse:
     """
     Searches for items matching both the user input (full-text)
@@ -43,6 +44,7 @@ async def search(  # pylint: disable=too-many-locals
     full_must_not_filters = []
     full_or_filters = []
     query_range = []
+    sort = []
 
     if must_filters:
         full_and_filters = [
@@ -74,6 +76,10 @@ async def search(  # pylint: disable=too-many-locals
         if exact_filters
         else {}
     )
+
+    if sort_by:
+        sort = [{key: {"order": value} for key, value in sort_by.items()}]
+
     body = {
         "query": {
             "bool": {
@@ -88,7 +94,8 @@ async def search(  # pylint: disable=too-many-locals
                 ],
                 "must_not": [*full_must_not_filters],
             }
-        }
+        },
+        "sort": [*sort],
     }
     response: dict[str, Any] = (
         await client.scroll(scroll_id=after, scroll=SCROLL_TIME)

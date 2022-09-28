@@ -24,6 +24,9 @@ from graphql.type.definition import (
 from newutils.forces import (
     format_forces_to_resolve,
 )
+from search.enums import (
+    Sort,
+)
 from search.operations import (
     search,
 )
@@ -54,6 +57,7 @@ async def resolve(
         query=query,
         exact_filters={"group_name": group_name},
         index="forces_executions",
+        sort_by={"execution_date": Sort.DESCENDING.value},
     )
 
     forces_executions = tuple(
