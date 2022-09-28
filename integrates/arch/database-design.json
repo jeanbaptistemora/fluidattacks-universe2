@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 28, 2022, 11:57 AM",
+    "DateLastModified": "Sep 28, 2022, 02:09 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1728,16 +1728,6 @@
               },
               "sk_2": {
                 "S": "USER#integratesmanager@gmail.com"
-              },
-              "session_token": {
-                "M": {
-                  "jti": {
-                    "S": "0f98c8d494be2c9eddd973e4a861483988a1d90bb268be48dfc442d0b4cada72"
-                  },
-                  "state": {
-                    "S": "REVOKED"
-                  }
-                }
               }
             },
             {
