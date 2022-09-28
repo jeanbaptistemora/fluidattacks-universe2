@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.symbol_lookup import (
-    build_symbol_lookup_node,
+from syntax_graph.syntax_nodes.number_literal import (
+    build_number_literal_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -14,5 +14,5 @@ from syntax_graph.types import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    symbol = args.ast_graph.nodes[args.n_id]["label_text"]
-    return build_symbol_lookup_node(args, symbol)
+    n_attrs = args.ast_graph.nodes[args.n_id]
+    return build_number_literal_node(args, value=n_attrs["label_text"])

@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.operator import (
-    build_operator_node,
+from syntax_graph.syntax_nodes.string_literal import (
+    build_string_literal_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -15,5 +15,4 @@ from syntax_graph.types import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     n_attrs = args.ast_graph.nodes[args.n_id]
-
-    return build_operator_node(args, value=n_attrs["label_text"])
+    return build_string_literal_node(args, value=n_attrs["label_text"])

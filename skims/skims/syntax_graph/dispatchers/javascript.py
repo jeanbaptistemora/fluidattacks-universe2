@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from syntax_graph.syntax_readers.common import (
-    number_literal as common_number_literal,
-    program as common_program,
-    string_literal as common_string_literal,
-)
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     array as javascript_array,
@@ -35,12 +30,15 @@ from syntax_graph.syntax_readers.javascript import (
     method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
     null_literal as javascript_null_literal,
+    number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
     parameter_list as javascript_parameter_list,
     parenthesized_expression as javascript_parenthesized_expression,
+    program as javascript_program,
     return_statement as javascript_return_statement,
     statement_block as javascript_statement_block,
+    string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
     switch_case as javascript_switch_case,
@@ -227,7 +225,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "number",
         },
-        syntax_reader=common_number_literal.reader,
+        syntax_reader=javascript_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -263,7 +261,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "program",
         },
-        syntax_reader=common_program.reader,
+        syntax_reader=javascript_program.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -282,7 +280,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "string",
             "template_string",
         },
-        syntax_reader=common_string_literal.reader,
+        syntax_reader=javascript_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={

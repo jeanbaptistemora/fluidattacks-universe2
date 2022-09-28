@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from syntax_graph.syntax_readers.common import (
-    array as common_array,
-    assignment_expression as common_assignment_expression,
-    comment as common_comment,
-    expression_statement as common_expression_statement,
-    identifier as common_identifier,
-    program as common_program,
-    string_literal as common_string_literal,
+from syntax_graph.syntax_readers.javascript import (
+    array as javascript_array,
+    assignment_expression as javascript_assignment_expression,
+    comment as javascript_comment,
+    expression_statement as javascript_expression_statement,
+    identifier as javascript_identifier,
+    program as javascript_program,
+    string_literal as javascript_string_literal,
 )
 from syntax_graph.syntax_readers.typescript import (
     array_type as typescript_array_type,
@@ -27,7 +27,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "array",
         },
-        syntax_reader=common_array.reader,
+        syntax_reader=javascript_array.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -39,37 +39,37 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "assignment_expression",
         },
-        syntax_reader=common_assignment_expression.reader,
+        syntax_reader=javascript_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "comment",
         },
-        syntax_reader=common_comment.reader,
+        syntax_reader=javascript_comment.reader,
     ),
     Dispatcher(
         applicable_types={
             "expression_statement",
         },
-        syntax_reader=common_expression_statement.reader,
+        syntax_reader=javascript_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "identifier",
         },
-        syntax_reader=common_identifier.reader,
+        syntax_reader=javascript_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
             "program",
         },
-        syntax_reader=common_program.reader,
+        syntax_reader=javascript_program.reader,
     ),
     Dispatcher(
         applicable_types={
             "string",
         },
-        syntax_reader=common_string_literal.reader,
+        syntax_reader=javascript_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
