@@ -15,8 +15,28 @@ import re
 from typing import (
     Iterator,
     List,
+    Match,
     Pattern,
 )
+
+
+def format_dep(
+    matched: Match[str], line_number: int, pkg_name: str = ""
+) -> DependencyType:
+    pkg_name = pkg_name or matched.group(1)
+    version: str = matched.group(2)
+    return (
+        {
+            "column": 0,
+            "line": line_number,
+            "item": pkg_name,
+        },
+        {
+            "column": 0,
+            "line": line_number,
+            "item": version,
+        },
+    )
 
 
 def gem_gemfile(content: str, path: str) -> Vulnerabilities:
@@ -44,20 +64,7 @@ def gem_gemfile(content: str, path: str) -> Vulnerabilities:
             elif matched := re.search(require_patt, line):
                 if re.search(not_prod_patt, line):
                     continue
-                pkg_name: str = matched.group(1)
-                version: str = matched.group(2)
-                yield (
-                    {
-                        "column": 0,
-                        "line": line_number,
-                        "item": pkg_name,
-                    },
-                    {
-                        "column": 0,
-                        "line": line_number,
-                        "item": version,
-                    },
-                )
+                yield format_dep(matched, line_number)
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
@@ -79,23 +86,11 @@ def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
             elif not line_gem:
                 continue
             elif matched := re.match(form_dep, line):
-                pck_name = matched.group(1)
-                version = matched.group(2)
-                if pck_name in match_arr:
+                pkg_name = matched.group(1)
+                if pkg_name in match_arr:
                     continue
-                match_arr.append(pck_name)
-                yield (
-                    {
-                        "column": 0,
-                        "line": line_number,
-                        "item": pck_name,
-                    },
-                    {
-                        "column": 0,
-                        "line": line_number,
-                        "item": version,
-                    },
-                )
+                match_arr.append(pkg_name)
+                yield format_dep(matched, line_number, pkg_name)
             elif not line or not line.startswith(" "):
                 break
 
