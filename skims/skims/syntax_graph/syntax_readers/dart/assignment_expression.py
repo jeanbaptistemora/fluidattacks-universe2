@@ -17,9 +17,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     as_attrs = args.ast_graph.nodes[args.n_id]
     var_id = as_attrs["label_field_left"]
     val_id = as_attrs["label_field_right"]
-    operation = (
-        str(args.ast_graph.nodes[op_id]["label_text"])
-        if (op_id := as_attrs.get("label_field_operator"))
-        else None
-    )
+    op_id = as_attrs.get("label_field_operator")
+    operation = str(args.ast_graph.nodes[op_id]["label_text"])
+
     return build_assignment_node(args, var_id, val_id, operation)

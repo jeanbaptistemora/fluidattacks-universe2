@@ -20,26 +20,17 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    name = None
     method = args.ast_graph.nodes[args.n_id]
 
-    if name_id := method.get("label_field_name"):
-        name = node_to_str(args.ast_graph, name_id)
+    name_id = method["label_field_name"]
+    name = node_to_str(args.ast_graph, name_id)
+
+    block_id = method.get("label_field_body")
 
     parameters_id = method["label_field_parameters"]
-    block_id = method.get("label_field_body")
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None
-
-    match_childs = match_ast(
-        args.ast_graph, args.n_id, "attribute_list", "modifiers"
-    )
-    attributes_id = match_childs.get("attribute_list")
-    modifiers_id = match_childs.get("modifiers")
-
     children_nid = {
-        "attributes_id": attributes_id,
-        "modifiers_id": modifiers_id,
         "parameters_id": parameters_id,
     }
 

@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
-    GraphShardMetadataLanguage,
     NId,
 )
 from syntax_graph.syntax_nodes.conditional_expression import (
@@ -32,19 +31,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
         false_block,
     }
 
-    if args.language == GraphShardMetadataLanguage.DART:
-        frst_child = match_ast(args.ast_graph, args.n_id).get("__0__")
-        if (
-            frst_child
-            and args.ast_graph.nodes[frst_child]["label_type"]
-            not in invalid_types
-            and frst_child not in reserved_ids
-        ):
-            conditional_node = frst_child
-    else:
-        conditional_node = args.ast_graph.nodes[args.n_id][
-            "label_field_condition"
-        ]
+    frst_child = match_ast(args.ast_graph, args.n_id).get("__0__")
+    if (
+        frst_child
+        and args.ast_graph.nodes[frst_child]["label_type"] not in invalid_types
+        and frst_child not in reserved_ids
+    ):
+        conditional_node = frst_child
 
     return build_conditional_expression_node(
         args, conditional_node, true_block, false_block

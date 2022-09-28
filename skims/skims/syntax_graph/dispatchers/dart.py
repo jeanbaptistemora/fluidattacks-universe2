@@ -2,23 +2,17 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from syntax_graph.syntax_readers.common import (
-    assignment_expression as common_assignment_expression,
-    conditional_expression as common_conditional_expression,
-    execution_block as common_execution_block,
-    method_declaration as common_method_declaration,
-    number_literal as common_number_literal,
-    parameter as common_parameter,
-    string_literal as common_string_literal,
-)
 from syntax_graph.syntax_readers.dart import (
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
     assignable_selector as dart_assignable_selector,
+    assignment_expression as dart_assignment_expression,
     boolean_literal as dart_boolean_literal,
     comment as dart_comment,
+    conditional_expression as dart_conditional_expression,
     declaration_block as dart_declaration_block,
+    execution_block as dart_execution_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
     function_body as dart_function_body,
@@ -27,12 +21,16 @@ from syntax_graph.syntax_readers.dart import (
     identifier as dart_identifier,
     import_or_export as dart_import_or_export,
     library_name as dart_library_name,
+    method_declaration as dart_method_declaration,
     method_signature as dart_method_signature,
+    number_literal as dart_number_literal,
     operator as dart_operator,
+    parameter as dart_parameter,
     parameter_list as dart_parameter_list,
     program as dart_program,
     reserved_word as dart_reserved_word,
     selector as dart_selector,
+    string_literal as dart_string_literal,
     type_identifier as dart_type_identifier,
     variable_declaration as dart_variable_declaration,
 )
@@ -70,7 +68,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "assignment_expression",
         },
-        syntax_reader=common_assignment_expression.reader,
+        syntax_reader=dart_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -83,7 +81,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "conditional_expression",
         },
-        syntax_reader=common_conditional_expression.reader,
+        syntax_reader=dart_conditional_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -103,13 +101,13 @@ DART_DISPATCHERS: Dispatchers = (
             "block",
             "extension_body",
         },
-        syntax_reader=common_execution_block.reader,
+        syntax_reader=dart_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
             "decimal_integer_literal",
         },
-        syntax_reader=common_number_literal.reader,
+        syntax_reader=dart_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -165,7 +163,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "constructor_signature",
         },
-        syntax_reader=common_method_declaration.reader,
+        syntax_reader=dart_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -184,7 +182,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "formal_parameter",
         },
-        syntax_reader=common_parameter.reader,
+        syntax_reader=dart_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -221,7 +219,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "string_literal",
         },
-        syntax_reader=common_string_literal.reader,
+        syntax_reader=dart_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
