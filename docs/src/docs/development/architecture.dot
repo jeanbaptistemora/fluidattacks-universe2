@@ -31,6 +31,7 @@ digraph architecture {
 
   subgraph cluster_aws {
     label="AWS"
+
     subgraph cluster_aws_s3 {
       label="S3"
       aws_s3_airs_dev[label="web.eph.fluidattacks.com"];
@@ -41,12 +42,25 @@ digraph architecture {
 
   subgraph cluster_cloudinary {
     label="Cloudinary"
-    cloudinary[label="Cloudinary"]
+
+    subgraph cluster_cloudinary_media {
+      label="Media"
+
+      cloudinary_media_airs[label="airs"]
+      cloudinary_media_blog[label="blog"]
+      cloudinary_media_docs[label="docs"]
+      cloudinary_media_notifications[label="notifications"]
+    }
   }
 
   subgraph cluster_algolia {
     label="Algolia"
-    algolia[label="Algolia"]
+
+    subgraph cluster_algolia_index {
+      label="Index"
+
+      algolia_airs[label="fluidattacks_airs"]
+    }
   }
 
   subgraph cluster_cloudflare {
@@ -65,8 +79,9 @@ digraph architecture {
   {
     // Airs
     aws_s3_airs_prod -> aws_s3_airs_prod_static[label="has" dir="back" arrowtail="odiamond"]
-    aws_s3_airs_prod_static -> algolia[label="uses"]
-    aws_s3_airs_prod_static -> cloudinary[label="uses"]
+    aws_s3_airs_prod_static -> algolia_airs[label="uses"]
+    aws_s3_airs_prod_static -> cloudinary_media_blog[label="uses"]
+    aws_s3_airs_prod_static -> cloudinary_media_airs[label="uses"]
     cloudflare_domain_prod -> aws_s3_airs_prod[label="uses"]
     gitlab_airs -> aws_s3_airs_prod[label="deployed to"]
     gitlab_airs -> gitlab_airs_gatsby[label="uses"]
