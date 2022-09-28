@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 27, 2022, 07:49 AM",
+    "DateLastModified": "Sep 28, 2022, 11:57 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -989,6 +989,10 @@
         {
           "AttributeName": "non_compliance_level",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "standard_compliances",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -6234,9 +6238,9 @@
             "policies",
             "billing_customer",
             "payment_methods",
+            "country",
             "documents",
-            "vulnerabilities_url",
-            "country"
+            "vulnerabilities_url"
           ],
           "DataAccess": {
             "MySql": {}
@@ -6250,7 +6254,8 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "non_compliance_level"
+            "non_compliance_level",
+            "standard_compliances"
           ],
           "DataAccess": {
             "MySql": {}

@@ -11,6 +11,7 @@ from .types import (
     OrganizationDocuments,
     OrganizationMetadataToUpdate,
     OrganizationPaymentMethods,
+    OrganizationStandardCompliance,
     OrganizationState,
     OrganizationUnreliableIndicators,
 )
@@ -150,11 +151,33 @@ def format_documents(documents: Item) -> OrganizationDocuments:
     )
 
 
+def format_standard_compliance(item: Item) -> OrganizationStandardCompliance:
+    return OrganizationStandardCompliance(
+        standard_name=item["standard_name"],
+        non_compliance_level=item["non_compliance_level"],
+    )
+
+
+def format_standard_compliance_item(
+    standard_compliance: OrganizationStandardCompliance,
+) -> Item:
+    return {
+        "standard_name": standard_compliance.standard_name,
+        "non_compliance_level": standard_compliance.non_compliance_level,
+    }
+
+
 def format_unreliable_indicators(
     item: Item,
 ) -> OrganizationUnreliableIndicators:
     return OrganizationUnreliableIndicators(
-        non_compliance_level=item.get("non_compliance_level")
+        non_compliance_level=item.get("non_compliance_level"),
+        standard_compliances=[
+            format_standard_compliance(standard_compliance)
+            for standard_compliance in item["standard_compliances"]
+        ]
+        if "standard_compliances" in item
+        else None,
     )
 
 
@@ -163,4 +186,10 @@ def format_unreliable_indicators_item(
 ) -> Item:
     return {
         "non_compliance_level": indicators.non_compliance_level,
+        "standard_compliances": [
+            format_standard_compliance_item(standard_compliance)
+            for standard_compliance in indicators.standard_compliances
+        ]
+        if indicators.standard_compliances is not None
+        else None,
     }
