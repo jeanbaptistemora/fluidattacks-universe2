@@ -2,8 +2,12 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=too-many-locals
 from aioextensions import (
     collect,
+)
+from collections import (
+    defaultdict,
 )
 from dataloaders import (
     Dataloaders,
@@ -20,6 +24,7 @@ from db_model.groups.types import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationStandardCompliance,
     OrganizationUnreliableIndicators,
 )
 from db_model.vulnerabilities.enums import (
@@ -138,6 +143,60 @@ async def get_organization_non_compliance_level(
     )
 
 
+async def get_organization_standard_compliances(
+    loaders: Dataloaders,
+    organization: Organization,
+    compliance_file: dict[str, Any],
+    requirements_file: dict[str, Any],
+    vulnerabilities_file: dict[str, Any],
+) -> list[OrganizationStandardCompliance]:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        organization.id
+    )
+    findings: tuple[
+        Finding, ...
+    ] = await loaders.group_findings.load_many_chained(
+        tuple(group.name for group in org_groups)
+    )
+    findings_open_vulnerabilities = await collect(
+        tuple(
+            get_open_vulnerabilities(loaders, finding) for finding in findings
+        ),
+        workers=100,
+    )
+    open_findings: list[Finding] = []
+    for finding, open_vulnerabilities in zip(
+        findings, findings_open_vulnerabilities
+    ):
+        if open_vulnerabilities:
+            open_findings.append(finding)
+
+    requirements_by_finding = tuple(
+        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
+            "requirements"
+        ]
+        for finding in open_findings
+    )
+    non_compliance_definitions_by_standard = defaultdict(set)
+    for requirements in requirements_by_finding:
+        for requirement in requirements:
+            for reference in requirements_file[requirement]["references"]:
+                non_compliance_definitions_by_standard[
+                    get_standard_from_reference(reference)
+                ].add(get_definition_from_reference(reference))
+
+    return list(
+        OrganizationStandardCompliance(
+            standard_name=standard_name.lower(),
+            non_compliance_level=Decimal(
+                len(non_compliance_definitions_by_standard[standard_name])
+                / len(standard["definitions"])
+            ).quantize(Decimal("0.01")),
+        )
+        for standard_name, standard in compliance_file.items()
+    )
+
+
 async def update_organization_compliance(
     loaders: Dataloaders,
     organization: Organization,
@@ -153,12 +212,19 @@ async def update_organization_compliance(
         requirements_file=requirements_file,
         vulnerabilities_file=vulnerabilities_file,
     )
-    info(f"{organization.name} non_compliance_level {non_compliance_level}")
+    standard_compliances = await get_organization_standard_compliances(
+        loaders=loaders,
+        organization=organization,
+        compliance_file=compliance_file,
+        requirements_file=requirements_file,
+        vulnerabilities_file=vulnerabilities_file,
+    )
     await orgs_model.update_unreliable_indicators(
         organization_id=organization.id,
         organization_name=organization.name,
         indicators=OrganizationUnreliableIndicators(
-            non_compliance_level=non_compliance_level
+            non_compliance_level=non_compliance_level,
+            standard_compliances=standard_compliances,
         ),
     )
 
