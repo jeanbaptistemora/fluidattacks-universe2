@@ -212,7 +212,7 @@ const Table = <TData extends RowData>({
   }, [rowSelection, rowSelectionSetter, table]);
 
   return (
-    <div className={"comp-table"} id={id}>
+    <div className={"w-100"} id={id}>
       <div className={"flex justify-between"}>
         <div>
           <Gap>
