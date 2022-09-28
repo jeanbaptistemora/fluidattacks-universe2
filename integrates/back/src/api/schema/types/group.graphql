@@ -41,6 +41,16 @@ type Group {
   drafts: [Finding!]
   "Situations affecting the group"
   events: [Event!]
+  "List of Forces executions paginated within the provided time period"
+  executionsConnections(
+     "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of executions to return"
+    first: Int
+    "Search query for execution attributes"
+    search: String
+
+  ):ExecutionsConnection!
   "Approved findings with discovered vulnerabilities"
   findings(
     """

@@ -16,6 +16,12 @@ type ForcesExecutions {
     search: String
 
   ):ExecutionsConnection!
+  @deprecated(
+      reason: """
+        This field has no effect
+        This field will be removed after 2023/03/28.
+      """
+    )
   "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
   fromDate: String!
     @deprecated(

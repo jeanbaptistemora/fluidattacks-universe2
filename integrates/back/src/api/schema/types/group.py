@@ -14,6 +14,7 @@ from api.resolvers.group import (
     drafts,
     events,
     findings,
+    forces_executions,
     forces_token,
     has_asm,
     has_forces,
@@ -67,6 +68,7 @@ GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("credentials", credentials.resolve)
 GROUP.set_field("deletionDate", deletion_date.resolve)
 GROUP.set_field("drafts", drafts.resolve)
+GROUP.set_field("executionsConnections", forces_executions.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
