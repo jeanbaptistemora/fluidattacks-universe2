@@ -9,6 +9,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
+    List,
     Optional,
 )
 
@@ -18,7 +19,7 @@ def build_variable_declaration_node(
     variable: Optional[str],
     variable_type: Optional[str],
     value_id: Optional[NId],
-    declarator_id: Optional[NId],
+    c_ids: Optional[List[NId]],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -38,12 +39,12 @@ def build_variable_declaration_node(
             args.generic(args.fork_n_id(value_id)),
             label_ast="AST",
         )
-
-    if declarator_id:
-        args.syntax_graph.add_edge(
-            args.n_id,
-            args.generic(args.fork_n_id(declarator_id)),
-            label_ast="AST",
-        )
+    if c_ids:
+        for c_id in c_ids:
+            args.syntax_graph.add_edge(
+                args.n_id,
+                args.generic(args.fork_n_id(c_id)),
+                label_ast="AST",
+            )
 
     return args.n_id

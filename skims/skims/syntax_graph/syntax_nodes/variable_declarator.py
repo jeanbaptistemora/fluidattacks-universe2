@@ -9,14 +9,13 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
-    List,
     Optional,
 )
 
 
 def build_variable_declarator_node(
     args: SyntaxGraphArgs,
-    c_ids: Optional[List[NId]],
+    c_ids: Optional[NId],
     variable_name: str,
     value_id: Optional[NId],
 ) -> NId:
