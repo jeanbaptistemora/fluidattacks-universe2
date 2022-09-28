@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import pathspec
-import pytest
 from toolbox.drills import (
     pull_repos,
 )
@@ -11,38 +10,25 @@ from toolbox.drills.pull_repos import (
     match_file,
 )
 
-EXISTING_REPO: str = "continuoustest"
-EXISTING_REPO_NO_PERMISSIONS: str = "daimon"
+EXISTING_REPO: str = "absecon"
 NON_EXISTING_REPO: str = "sodjfoisajfdoiasjfdoia"
 LOCAL_PATH = "continuoustest"
 
 
-@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_drills_pull_repos() -> None:
     assert pull_repos.main(EXISTING_REPO)
     assert not pull_repos.main(NON_EXISTING_REPO)
 
 
-@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_get_repo_from_url() -> None:
     for url, repo in (
         (
-            "ssh://git@gitlab.com:fluidattacks/universe.git",
-            "universe",
+            "https://gitlab.com/fluidattacks/product",
+            "product",
         ),
         (
-            (
-                "ssh://git@vs-ssh.visualstudio.com:v3/grupo/"
-                "something Tecnología/Test"
-            ),
-            "Test",
-        ),
-        (
-            (
-                "ssh://git@vs-ssh.visualstudio.com:v3/grupo/"
-                "something+Tecnolog%C3%ADa/Test+test"
-            ),
-            "Test test",
+            "https://github.com/WebGoat/WebGoat",
+            "WebGoat",
         ),
     ):
         assert pull_repos.get_repo_from_url(url) == repo
