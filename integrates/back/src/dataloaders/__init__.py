@@ -5,6 +5,9 @@
 from collections import (
     defaultdict,
 )
+from db_model.compliance.get import (
+    ComplianceUnreliableIndicatorsLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -119,6 +122,7 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
+    compliance_unreliable_indicators: ComplianceUnreliableIndicatorsLoader
     credentials: CredentialsLoader
     enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
@@ -257,6 +261,9 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     )
 
     return Dataloaders(
+        compliance_unreliable_indicators=(
+            ComplianceUnreliableIndicatorsLoader()
+        ),
         credentials=CredentialsLoader(),
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),

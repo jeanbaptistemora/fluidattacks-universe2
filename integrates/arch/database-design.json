@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 28, 2022, 02:09 PM",
+    "DateLastModified": "Sep 28, 2022, 04:34 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -992,6 +992,10 @@
         },
         {
           "AttributeName": "standard_compliances",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "standards",
           "AttributeType": "L"
         }
       ],
@@ -13397,6 +13401,20 @@
             "protocol",
             "other",
             "query"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "compliance_unreliable_indicators",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "COMPLIANCE#UNRELIABLEINDICATOR",
+            "SortKeyAlias": "COMPLIANCE#UNRELIABLEINDICATOR"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "standards"
           ],
           "DataAccess": {
             "MySql": {}

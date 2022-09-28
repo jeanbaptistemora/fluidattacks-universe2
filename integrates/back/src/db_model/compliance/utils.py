@@ -50,9 +50,9 @@ def format_unreliable_indicators(
     return ComplianceUnreliableIndicators(
         standards=[
             format_compliance_standard(standard_compliance)
-            for standard_compliance in item["standard_compliances"]
+            for standard_compliance in item["standards"]
         ]
-        if "standard_compliances" in item
+        if "standards" in item
         else None,
     )
 
