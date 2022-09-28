@@ -284,21 +284,22 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       )}
                     </p>
                   ) : (
-                    <p className={"ws-pre-wrap"}>
+                    <div className={"ws-pre-wrap"}>
                       {reqsList.map((req: string): ReactElement => {
                         return (
-                          <ExternalLink
-                            href={`${baseCriteriaUrl}requirements/${req.slice(
-                              0,
-                              criteriaIdSlice
-                            )}`}
-                            key={req}
-                          >
-                            {req}
-                          </ExternalLink>
+                          <div className={"w-100"} key={req}>
+                            <ExternalLink
+                              href={`${baseCriteriaUrl}requirements/${req.slice(
+                                0,
+                                criteriaIdSlice
+                              )}`}
+                            >
+                              {req}
+                            </ExternalLink>
+                          </div>
                         );
                       })}
-                    </p>
+                    </div>
                   )}
                 </FormGroup>
               </Tooltip>
