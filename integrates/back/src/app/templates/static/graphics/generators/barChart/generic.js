@@ -7,11 +7,26 @@
 
 const defaultPaddingRatio = 0.055;
 
+function getMttrColor(d) {
+  return d[0].index === 0 ? '#fda6ab' : '#ac0a17';
+}
+
 function getColor(d, originalValues) {
   if (originalValues[d[0].x] > 0) {
     return '#da1e28';
   }
   return '#33cc99';
+}
+
+function getTooltipColorContent(dataDocument, originalValues, d, color) {
+  if (dataDocument.exposureTrendsByCategories) {
+    return () => getColor(d, originalValues);
+  }
+  if (dataDocument.mttrBenchmarking) {
+    return () => getMttrColor(d);
+  }
+
+  return color;
 }
 
 function formatYTick(value) {
@@ -94,6 +109,7 @@ function formatLabels(datum, maxValue) {
   return '';
 }
 
+// eslint-disable-next-line complexity
 function render(dataDocument, height, width) {
   if (dataDocument.barChartYTickFormat) {
     dataDocument.axis.y.tick = { format: formatYTick };
@@ -107,6 +123,12 @@ function render(dataDocument, height, width) {
   if (dataDocument.maxValue) {
     dataDocument.data.labels = {
       format: (datum) => formatLabels(datum, dataDocument.maxValue),
+    };
+  }
+
+  if (dataDocument.mttrBenchmarking) {
+    dataDocument.data.colors = {
+      'Mean time to remediate': (d) => getMttrColor([ d ]),
     };
   }
 
@@ -157,7 +179,8 @@ function render(dataDocument, height, width) {
           d,
           defaultTitleFormat,
           defaultValueFormat,
-          dataDocument.exposureTrendsByCategories ? () => getColor(d, originalValues) : color);
+          getTooltipColorContent(dataDocument, originalValues, d, color),
+        );
       } },
     onrendered: () => {
       d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');

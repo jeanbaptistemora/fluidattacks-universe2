@@ -156,7 +156,7 @@ def format_mttr_data(
                 ]
             ],
             colors={
-                "Mean time to remediate": RISK.neutral,
+                "Mean time to remediate": "#ac0a17",
             },
             labels=True,
             type="bar",
@@ -183,6 +183,10 @@ def format_mttr_data(
             ),
         ),
         barChartYTickFormat=True,
+        legend=dict(
+            show=False,
+        ),
+        mttrBenchmarking=True,
     )
 
 
