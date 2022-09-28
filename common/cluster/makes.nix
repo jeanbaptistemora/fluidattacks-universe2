@@ -47,19 +47,11 @@ in {
   };
   secretsForEnvFromSops = {
     commonClusterDev = {
-      vars = [
-        "CLUSTER_CI_GITLAB_API_TOKEN"
-        "CLUSTER_CI_GITLAB_SSH_KEY"
-        "NEW_RELIC_LICENSE_KEY"
-      ];
+      vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/dev.yaml";
     };
     commonClusterProd = {
-      vars = [
-        "CLUSTER_CI_GITLAB_API_TOKEN"
-        "CLUSTER_CI_GITLAB_SSH_KEY"
-        "NEW_RELIC_LICENSE_KEY"
-      ];
+      vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/prod.yaml";
     };
   };
@@ -71,8 +63,6 @@ in {
   };
   secretsForTerraformFromEnv = {
     commonCluster = {
-      ciGitlabApiToken = "CLUSTER_CI_GITLAB_API_TOKEN";
-      ciGitlabSshKey = "CLUSTER_CI_GITLAB_SSH_KEY";
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
