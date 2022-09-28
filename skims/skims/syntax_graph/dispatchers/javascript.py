@@ -3,22 +3,10 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.common import (
-    boolean_literal as common_boolean_literal,
-    break_statement as common_break_statement,
-    call_expression as common_call_expression,
-    class_body as common_class_body,
-    class_declaration as common_class_declaration,
     comment as common_comment,
-    do_statement as common_do_statement,
-    else_clause as common_else_clause,
-    export_statement as common_export_statement,
     expression_statement as common_expression_statement,
-    finally_clause as common_finally_clause,
     identifier as common_identifier,
-    if_statement as common_if_statement,
     method_declaration as common_method_declaration,
-    new_expression as common_new_expression,
-    null_literal as common_null_literal,
     number_literal as common_number_literal,
     pair as common_pair,
     parameter_list as common_parameter_list,
@@ -44,11 +32,23 @@ from syntax_graph.syntax_readers.javascript import (
     assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
     binary_expression as javascript_binary_expression,
+    boolean_literal as javascript_boolean_literal,
+    break_statement as javascript_break_statement,
+    call_expression as javascript_call_expression,
     catch_clause as javascript_catch_clause,
+    class_body as javascript_class_body,
+    class_declaration as javascript_class_declaration,
+    do_statement as javascript_do_statement,
+    else_clause as javascript_else_clause,
+    export_statement as javascript_export_statement,
+    finally_clause as javascript_finally_clause,
     for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
+    if_statement as javascript_if_statement,
     import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
+    new_expression as javascript_new_expression,
+    null_literal as javascript_null_literal,
     object as javascript_object,
     subscript_expression as javascript_subscript_expression,
     try_statement as javascript_try_statement,
@@ -103,19 +103,19 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "false",
             "true",
         },
-        syntax_reader=common_boolean_literal.reader,
+        syntax_reader=javascript_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
             "break_statement",
         },
-        syntax_reader=common_break_statement.reader,
+        syntax_reader=javascript_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "call_expression",
         },
-        syntax_reader=common_call_expression.reader,
+        syntax_reader=javascript_call_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -127,13 +127,13 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "class_body",
         },
-        syntax_reader=common_class_body.reader,
+        syntax_reader=javascript_class_body.reader,
     ),
     Dispatcher(
         applicable_types={
             "class_declaration",
         },
-        syntax_reader=common_class_declaration.reader,
+        syntax_reader=javascript_class_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -145,19 +145,19 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "do_statement",
         },
-        syntax_reader=common_do_statement.reader,
+        syntax_reader=javascript_do_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "else_clause",
         },
-        syntax_reader=common_else_clause.reader,
+        syntax_reader=javascript_else_clause.reader,
     ),
     Dispatcher(
         applicable_types={
             "export_statement",
         },
-        syntax_reader=common_export_statement.reader,
+        syntax_reader=javascript_export_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -176,7 +176,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "if_statement",
         },
-        syntax_reader=common_if_statement.reader,
+        syntax_reader=javascript_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -188,7 +188,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "finally_clause",
         },
-        syntax_reader=common_finally_clause.reader,
+        syntax_reader=javascript_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -221,7 +221,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "new_expression",
         },
-        syntax_reader=common_new_expression.reader,
+        syntax_reader=javascript_new_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -233,7 +233,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "null",
         },
-        syntax_reader=common_null_literal.reader,
+        syntax_reader=javascript_null_literal.reader,
     ),
     Dispatcher(
         applicable_types={

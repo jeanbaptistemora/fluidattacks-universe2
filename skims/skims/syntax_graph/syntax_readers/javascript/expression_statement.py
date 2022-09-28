@@ -5,9 +5,6 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.finally_clause import (
-    build_finally_clause_node,
-)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -17,7 +14,7 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    childs = match_ast(args.ast_graph, args.n_id, "block", "statement_block")
-    finally_block = childs.get("block") or childs.get("statement_block")
+    match = match_ast(args.ast_graph, args.n_id, ";")
+    expression_id = match["__0__"]
 
-    return build_finally_clause_node(args, finally_block)
+    return args.generic(args.fork_n_id(str(expression_id)))

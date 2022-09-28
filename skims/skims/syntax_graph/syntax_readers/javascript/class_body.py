@@ -5,14 +5,17 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.syntax_nodes.class_body import (
+    build_class_body,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
+)
+from utils.graph import (
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    args.syntax_graph.add_node(
-        args.n_id,
-        label_type="Continue",
-    )
-    return args.n_id
+    _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
+    return build_class_body(args, c_ids)
