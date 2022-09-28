@@ -271,7 +271,9 @@ async def full_access_policies(
                 if policy_names
                 else {}
             )
-            policy_statements = pol_access.get("Statement", [])
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -358,7 +360,9 @@ async def open_passrole(
                 if policy_names
                 else {}
             )
-            policy_statements = pol_access.get("Statement", [])
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -454,7 +458,9 @@ async def permissive_policy(
                 if policy_names
                 else {}
             )
-            policy_statements = pol_access.get("Statement", [])
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -533,7 +539,9 @@ async def full_access_to_ssm(
                 if policy_names
                 else {}
             )
-            policy_statements = pol_access.get("Statement", [])
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -605,7 +613,9 @@ async def negative_statement(
                 if policy_names
                 else {}
             )
-            policy_statements = pol_access.get("Statement", [])
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
