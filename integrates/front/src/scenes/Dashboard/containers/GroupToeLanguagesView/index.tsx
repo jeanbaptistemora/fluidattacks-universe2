@@ -15,7 +15,8 @@ import { GET_TOE_LANGUAGES } from "./queries";
 import type { ICodeLanguage } from "./types";
 
 import { formatPercentage } from "../GroupToeLinesView/utils";
-import { Table } from "components/Table";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Text } from "components/Text";
 import { Logger } from "utils/logger";
 
@@ -63,32 +64,24 @@ export const GroupToeLanguagesView: React.FC = (): JSX.Element => {
         {t("group.toe.codeLanguages.title")}
       </Text>
       <Table
-        dataset={completeData}
-        exportCsv={false}
-        headers={[
+        columns={[
           {
-            dataField: "language",
-            header: t("group.toe.codeLanguages.lang"),
-            nonToggleList: true,
-            visible: true,
+            accessorKey: "language",
+            header: String(t("group.toe.codeLanguages.lang")),
           },
           {
-            dataField: "loc",
-            header: t("group.toe.codeLanguages.loc"),
-            nonToggleList: true,
-            visible: true,
+            accessorKey: "loc",
+            header: String(t("group.toe.codeLanguages.loc")),
           },
           {
-            dataField: "percentage",
-            formatter: formatPercentage,
-            header: t("group.toe.codeLanguages.percent"),
-            nonToggleList: true,
-            visible: true,
+            accessorKey: "percentage",
+            cell: (cell: ICellHelper<ICodeLanguage>): string =>
+              formatPercentage(cell.getValue()),
+            header: String(t("group.toe.codeLanguages.percent")),
           },
         ]}
+        data={completeData}
         id={"tblCodeLanguages"}
-        pageSize={10}
-        search={false}
       />
     </Fragment>
   );

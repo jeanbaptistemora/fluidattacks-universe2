@@ -64,12 +64,16 @@ describe("groupToeLanguagesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.toe.codeLanguages.lang",
         "group.toe.codeLanguages.loc",
         "group.toe.codeLanguages.percent",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
     expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
       ["Python", "15", "36%"].join("")
@@ -109,13 +113,11 @@ describe("groupToeLanguagesView", (): void => {
       </MemoryRouter>
     );
 
-    const numberOfRows: number = 2;
+    const numberOfRows: number = 1;
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
-    expect(screen.getAllByRole("row")[1].textContent).toBe(
-      "table.noDataIndication"
-    );
+    expect(screen.getByText("table.noDataIndication")).toBeInTheDocument();
   });
 });
