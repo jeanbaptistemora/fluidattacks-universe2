@@ -32,29 +32,46 @@ pytestmark = [
 ]
 
 
-async def test_get_group_service_attributes_policies() -> None:
+@pytest.mark.parametrize(
+    ["group", "result"],
+    [
+        ["oneshottest", ["asm", "report_vulnerabilities", "service_black"]],
+        [
+            "unittesting",
+            [
+                "asm",
+                "continuous",
+                "forces",
+                "report_vulnerabilities",
+                "service_white",
+                "squad",
+            ],
+        ],
+    ],
+)
+async def test_get_group_service_attributes_policies(
+    group: str, result: list
+) -> None:
     loaders: Dataloaders = get_new_context()
     group_policies_fn = get_group_service_policies
-    assert sorted(
-        group_policies_fn(await loaders.group.load("oneshottest"))
-    ) == [
-        "asm",
-        "report_vulnerabilities",
-        "service_black",
-    ]
-    assert sorted(
-        group_policies_fn(await loaders.group.load("unittesting"))
-    ) == [
-        "asm",
-        "continuous",
-        "forces",
-        "report_vulnerabilities",
-        "service_white",
-        "squad",
-    ]
+    assert sorted(group_policies_fn(await loaders.group.load(group))) == result
 
 
-async def test_get_group_level_role(dynamo_resource: ServiceResource) -> None:
+@pytest.mark.parametrize(
+    ["email", "group", "result"],
+    [
+        ["integrateshacker@fluidattacks.com", "unittesting", "hacker"],
+        ["integratesuser@gmail.com", "unittesting", "user_manager"],
+        ["unittest@fluidattacks.com", "unittesting", "admin"],
+        ["asdfasdfasdfasdf@gmail.com", "unittesting", ""],
+    ],
+)
+async def test_get_group_level_role(
+    dynamo_resource: ServiceResource,
+    email: str,
+    group: str,
+    result: str,
+) -> None:
     loaders: Dataloaders = get_new_context()
 
     def side_effect(table: str, query_attrs: dict) -> str:
@@ -65,48 +82,22 @@ async def test_get_group_level_role(dynamo_resource: ServiceResource) -> None:
 
     with mock.patch("dynamodb.operations_legacy.query") as mock_query:
         mock_query.side_effect = side_effect
-        assert (
-            await get_group_level_role(
-                loaders, "integrateshacker@fluidattacks.com", "unittesting"
-            )
-            == "hacker"
-        )
-        assert (
-            await get_group_level_role(
-                loaders, "integratesuser@gmail.com", "unittesting"
-            )
-            == "user_manager"
-        )
-        assert (
-            await get_group_level_role(
-                loaders, "unittest@fluidattacks.com", "unittesting"
-            )
-            == "admin"
-        )
-        assert not await get_group_level_role(
-            loaders, "asdfasdfasdfasdf@gmail.com", "unittesting"
-        )
+        assert await get_group_level_role(loaders, email, group) == result
 
 
-async def test_get_user_level_role() -> None:
+@pytest.mark.parametrize(
+    ["email", "result"],
+    [
+        ["continuoushacking@gmail.com", "hacker"],
+        ["integrateshacker@fluidattacks.com", "hacker"],
+        ["integratesuser@gmail.com", "user"],
+        ["unittest@fluidattacks.com", "admin"],
+        ["asdfasdfasdfasdf@gmail.com", ""],
+    ],
+)
+async def test_get_user_level_role(email: str, result: str) -> None:
     loaders: Dataloaders = get_new_context()
-    assert (
-        await get_user_level_role(loaders, "continuoushacking@gmail.com")
-        == "hacker"
-    )
-    assert (
-        await get_user_level_role(loaders, "integrateshacker@fluidattacks.com")
-        == "hacker"
-    )
-    assert (
-        await get_user_level_role(loaders, "integratesuser@gmail.com")
-        == "user"
-    )
-    assert (
-        await get_user_level_role(loaders, "unittest@fluidattacks.com")
-        == "admin"
-    )
-    assert not await get_user_level_role(loaders, "asdfasdfasdfasdf@gmail.com")
+    assert await get_user_level_role(loaders, email) == result
 
 
 @pytest.mark.changes_db
