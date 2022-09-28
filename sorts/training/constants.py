@@ -45,6 +45,9 @@ from typing import (
     List,
     Union,
 )
+from xgboost import (
+    XGBClassifier,
+)
 
 # Threshold defining the minimum elements that our dataset must have (*1000)
 DATASET_THRESHOLD: int = 40
@@ -95,6 +98,7 @@ MODELS: Dict[str, ModelType] = {
     "logisticregression": LogisticRegression,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
+    "xgbclassifier": XGBClassifier,
 }
 INC_TRAINING_MODELS: Dict[str, ModelType] = {
     "bernoullinb": BernoulliNB,
@@ -109,6 +113,12 @@ MODELS_DEFAULTS: Dict[ModelType, Dict[str, Union[str, int, float]]] = {
     LinearSVC: {"dual": False},
     LogisticRegression: {"max_iter": 2000},
     MLPClassifier: {"max_iter": 500},
+    XGBClassifier: {
+        "learning_rate": 0.01,
+        "max_depth": 4,
+        "min_child_weight": 6,
+        "subsample": 0.5,
+    },
 }
 
 # Hyperparameters

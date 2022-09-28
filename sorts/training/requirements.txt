@@ -5,3 +5,4 @@
 psycopg2-binary==2.8.6
 sagemaker==2.43.0
 lightgbm==3.2.1
+xgboost==1.6.2

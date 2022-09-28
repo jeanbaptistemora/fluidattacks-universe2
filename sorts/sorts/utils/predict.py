@@ -45,7 +45,7 @@ def build_results_csv(
         ],
         axis=1,
     )
-    error: float = 5 + 5 * np.random.rand(
+    error: ndarray = 5 + 5 * np.random.rand(
         len(result_df),
     )
     result_df["prob_vuln"] = round(result_df.prob_vuln * 100 - error, 1)

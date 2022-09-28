@@ -38,6 +38,7 @@ ON_DEMAND_NEEDED: List[str] = [
     "logisticregression",
     "mlpclassifier",
     "randomforestclassifier",
+    "xgbclassifier",
 ]
 
 INCMODELS_S3PATH: str = "s3://sorts/incremental-training-output/"
