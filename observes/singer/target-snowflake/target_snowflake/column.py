@@ -11,14 +11,6 @@ from fa_purity.json.primitive import (
 from target_snowflake.data_type import (
     DataType,
 )
-from target_snowflake.sql_client import (
-    Identifier,
-)
-
-
-@dataclass(frozen=True)
-class ColumnId:
-    name: Identifier
 
 
 @dataclass(frozen=True)
@@ -26,9 +18,3 @@ class Column:
     data_type: DataType
     nullable: bool
     default: Primitive
-
-
-@dataclass(frozen=True)
-class ColumnObj:
-    id_obj: ColumnId
-    column: Column

@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from .table import (
-    Table,
-)
 from dataclasses import (
     dataclass,
 )
 from fa_purity import (
     FrozenDict,
+)
+from target_snowflake.schema import (
+    Schema,
 )
 from target_snowflake.sql_client import (
     Identifier,
@@ -17,16 +17,10 @@ from target_snowflake.sql_client import (
 
 
 @dataclass(frozen=True)
-class TableId:
+class SchemaId:
     name: Identifier
 
 
 @dataclass(frozen=True)
-class TableObj:
-    id_obj: TableId
-    table: Table
-
-
-@dataclass(frozen=True)
-class Schema:
-    tables: FrozenDict[TableId, Table]
+class Database:
+    tables: FrozenDict[SchemaId, Schema]

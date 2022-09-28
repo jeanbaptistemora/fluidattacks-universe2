@@ -6,7 +6,9 @@ import os
 import pytest
 from target_snowflake.sql_client import (
     Credentials,
+    DatabaseId,
     DbConnector,
+    Identifier,
 )
 
 
@@ -18,7 +20,9 @@ def test_connection() -> None:
             os.environ["SNOWFLAKE_ACCOUNT"],
         )
         conn = DbConnector(creds).connect_db(
-            os.environ["SNOWFLAKE_DB"],
+            DatabaseId(
+                Identifier.from_raw(os.environ["SNOWFLAKE_DB"]), None, None
+            ),
         )
         conn.compute()
     assert wrapped_test.value.code == 0

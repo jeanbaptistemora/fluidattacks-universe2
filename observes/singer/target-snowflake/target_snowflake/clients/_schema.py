@@ -10,7 +10,6 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    PureIter,
 )
 from fa_purity.frozen import (
     freeze,
@@ -24,28 +23,24 @@ from fa_purity.json.primitive.factory import (
 from fa_purity.pure_iter.factory import (
     from_flist,
 )
-from fa_purity.pure_iter.transform import (
-    consume,
-)
 from target_snowflake import (
     _assert,
 )
-from target_snowflake.column import (
-    ColumnId,
+from target_snowflake.db import (
+    SchemaId,
 )
 from target_snowflake.schema import (
-    SchemaId,
+    TableId,
+    TableObj,
 )
 from target_snowflake.sql_client import (
     Cursor,
     DatabaseId,
     Identifier,
     Query,
-    RowData,
 )
 from target_snowflake.table import (
-    TableId,
-    TableObj,
+    ColumnId,
 )
 from typing import (
     Callable,

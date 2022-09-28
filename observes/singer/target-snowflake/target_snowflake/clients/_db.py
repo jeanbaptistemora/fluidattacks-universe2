@@ -17,7 +17,7 @@ from fa_purity.json.primitive import (
 from target_snowflake import (
     _assert,
 )
-from target_snowflake.schema import (
+from target_snowflake.db import (
     SchemaId,
 )
 from target_snowflake.sql_client import (

@@ -18,8 +18,11 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.pure_iter.transform import (
     consume,
 )
-from target_snowflake.schema import (
+from target_snowflake.db import (
     SchemaId,
+)
+from target_snowflake.schema import (
+    TableId,
 )
 from target_snowflake.sql_client import (
     Cursor,
@@ -30,7 +33,6 @@ from target_snowflake.sql_client import (
 )
 from target_snowflake.table import (
     Table,
-    TableId,
 )
 from typing import (
     Dict,

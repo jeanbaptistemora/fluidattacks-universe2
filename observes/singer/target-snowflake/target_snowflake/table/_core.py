@@ -20,7 +20,6 @@ from fa_purity.result import (
 )
 from target_snowflake.column import (
     Column,
-    ColumnId,
 )
 from target_snowflake.sql_client import (
     Identifier,
@@ -38,8 +37,14 @@ class _Private:
 
 
 @dataclass(frozen=True)
-class TableId:
+class ColumnId:
     name: Identifier
+
+
+@dataclass(frozen=True)
+class ColumnObj:
+    id_obj: ColumnId
+    column: Column
 
 
 @dataclass(frozen=True)
@@ -65,9 +70,3 @@ class Table:
             table = Table(_Private(), order, columns, primary_keys)
             return Result.success(table)
         return Result.failure(Exception("All primary keys must be in columns"))
-
-
-@dataclass(frozen=True)
-class TableObj:
-    id_obj: TableId
-    table: Table

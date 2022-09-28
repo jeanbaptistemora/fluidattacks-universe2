@@ -3,13 +3,13 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from ._core import (
+    ColumnId,
+    ColumnObj,
     Table,
-    TableId,
-    TableObj,
 )
 
 __all__ = [
-    "TableId",
+    "ColumnId",
     "Table",
-    "TableObj",
+    "ColumnObj",
 ]

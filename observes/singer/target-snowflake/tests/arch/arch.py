@@ -20,6 +20,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_snowflake": (
         "cli",
         "clients",
+        "db",
         "schema",
         "table",
         "column",
