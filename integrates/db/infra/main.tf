@@ -445,6 +445,23 @@ resource "aws_dynamodb_table" "integrates_vms" {
   range_key = "sk"
 }
 
+resource "aws_dynamodb_table" "integrates_vms_consumer" {
+  name         = "integrates_vms_consumer"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "leaseKey"
+
+  attribute {
+    name = "leaseKey"
+    type = "S"
+  }
+
+  tags = {
+    "Name"               = "integrates_vms_consumer"
+    "Management:Area"    = "cost"
+    "Management:Product" = "integrates"
+    "Management:Type"    = "product"
+  }
+}
 
 resource "aws_dynamodb_table" "skims_sca" {
   name         = "skims_sca"
