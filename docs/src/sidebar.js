@@ -369,6 +369,7 @@ const Criteria = [
 
 const Development = [
   'development/products-repo-intro',
+  'development/architecture',
   {
     type: 'category',
     label: 'Setup',
