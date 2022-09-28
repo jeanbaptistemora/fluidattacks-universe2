@@ -329,6 +329,7 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
       },
       Group: {
         fields: {
+          executionsConnections: relayStylePagination(["state"]),
           toeInputs: relayStylePagination(),
           toeLines: relayStylePagination(),
           vulnerabilities: relayStylePagination(),

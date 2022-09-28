@@ -44,9 +44,16 @@ interface IExecution {
   vulnerabilities: IVulnerabilities | null;
 }
 
-interface IGetExecution {
-  forcesExecutions: {
-    executions: IExecution[];
+interface IGroupExecutions {
+  group: {
+    executionsConnections: {
+      edges: { node: IExecution }[];
+      pageInfo: {
+        endCursor: string;
+        hasNextPage: boolean;
+      };
+    };
+    name: string;
   };
 }
 
@@ -63,6 +70,6 @@ export type {
   IFoundVulnerabilities,
   IVulnerabilities,
   IExecution,
-  IGetExecution,
+  IGroupExecutions,
   IGetForcesExecution,
 };

@@ -29,10 +29,10 @@ import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesVi
 import type {
   IExecution,
   IFoundVulnerabilities,
-  IGetExecution,
+  IGroupExecutions,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { formatDate } from "utils/formatHelpers";
-import { useStoredState } from "utils/hooks";
+import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -159,61 +159,77 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     });
   };
 
-  const { data } = useQuery<IGetExecution>(GET_FORCES_EXECUTIONS, {
-    onError: handleQryErrors,
-    variables: { groupName },
-  });
-
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
-
-  const executions: IExecution[] = data.forcesExecutions.executions.map(
-    (execution: IExecution): IExecution => {
-      const date: string = formatDate(execution.date);
-      const kind: string = t(`group.forces.kind.${execution.kind}`);
-      const strictness: string = toTitleCase(
-        t(
-          execution.strictness === "lax"
-            ? "group.forces.strictness.tolerant"
-            : "group.forces.strictness.strict"
-        )
-      );
-      const { vulnerabilities } = execution;
-      const foundVulnerabilities: IFoundVulnerabilities = _.isNull(
-        vulnerabilities
-      )
-        ? {
-            accepted: 0,
-            closed: 0,
-            open: 0,
-            total: 0,
-          }
-        : {
-            accepted: vulnerabilities.numOfAcceptedVulnerabilities,
-            closed: vulnerabilities.numOfClosedVulnerabilities,
-            open: vulnerabilities.numOfOpenVulnerabilities,
-            total:
-              vulnerabilities.numOfAcceptedVulnerabilities +
-              vulnerabilities.numOfOpenVulnerabilities +
-              vulnerabilities.numOfClosedVulnerabilities,
-          };
-      const status: string = t(
-        foundVulnerabilities.open === 0
-          ? "group.forces.status.secure"
-          : "group.forces.status.vulnerable"
-      );
-
-      return {
-        ...execution,
-        date,
-        foundVulnerabilities,
-        kind,
-        status,
-        strictness,
-      };
+  const { data, fetchMore, refetch } = useQuery<IGroupExecutions>(
+    GET_FORCES_EXECUTIONS,
+    {
+      fetchPolicy: "cache-first",
+      onError: handleQryErrors,
+      variables: { first: 100, groupName, search: "" },
     }
   );
+
+  const executions: IExecution[] =
+    data === undefined
+      ? []
+      : data.group.executionsConnections.edges.map((execution): IExecution => {
+          const date: string = formatDate(execution.node.date);
+          const kind: string = t(`group.forces.kind.${execution.node.kind}`);
+          const strictness: string = toTitleCase(
+            t(
+              execution.node.strictness === "lax"
+                ? "group.forces.strictness.tolerant"
+                : "group.forces.strictness.strict"
+            )
+          );
+          const { vulnerabilities } = execution.node;
+          const foundVulnerabilities: IFoundVulnerabilities = _.isNull(
+            vulnerabilities
+          )
+            ? {
+                accepted: 0,
+                closed: 0,
+                open: 0,
+                total: 0,
+              }
+            : {
+                accepted: vulnerabilities.numOfAcceptedVulnerabilities,
+                closed: vulnerabilities.numOfClosedVulnerabilities,
+                open: vulnerabilities.numOfOpenVulnerabilities,
+                total:
+                  vulnerabilities.numOfAcceptedVulnerabilities +
+                  vulnerabilities.numOfOpenVulnerabilities +
+                  vulnerabilities.numOfClosedVulnerabilities,
+              };
+          const status: string = t(
+            foundVulnerabilities.open === 0
+              ? "group.forces.status.secure"
+              : "group.forces.status.vulnerable"
+          );
+
+          return {
+            ...execution.node,
+            date,
+            foundVulnerabilities,
+            kind,
+            status,
+            strictness,
+          };
+        });
+
+  const handleNextPage = useCallback(async (): Promise<void> => {
+    const pageInfo =
+      data === undefined
+        ? { endCursor: "", hasNextPage: false }
+        : data.group.executionsConnections.pageInfo;
+
+    if (pageInfo.hasNextPage) {
+      await fetchMore({ variables: { after: pageInfo.endCursor } });
+    }
+  }, [data, fetchMore]);
+
+  const handleSearch = useDebouncedCallback((search: string): void => {
+    void refetch({ search });
+  }, 500);
 
   return (
     <React.StrictMode>
@@ -226,7 +242,9 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         enableColumnFilters={true}
         exportCsv={true}
         id={"tblForcesExecutions"}
+        onNextPage={handleNextPage}
         onRowClick={openSeeExecutionDetailsModal}
+        onSearch={handleSearch}
         sortingSetter={setSorting}
         sortingState={sorting}
       />

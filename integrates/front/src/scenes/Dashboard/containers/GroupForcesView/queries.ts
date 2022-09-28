@@ -8,24 +8,38 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FORCES_EXECUTIONS: DocumentNode = gql`
-  query GetForcesExecutions($groupName: String!) {
-    forcesExecutions(groupName: $groupName) {
-      executions {
-        groupName
-        gracePeriod
-        date
-        exitCode
-        gitRepo
-        executionId
-        kind
-        severityThreshold
-        strictness
-        vulnerabilities {
-          numOfAcceptedVulnerabilities
-          numOfOpenVulnerabilities
-          numOfClosedVulnerabilities
+  query GetForcesExecutions(
+    $after: String
+    $first: Int
+    $groupName: String!
+    $search: String
+  ) {
+    group(groupName: $groupName) {
+      executionsConnections(after: $after, first: $first, search: $search) {
+        edges {
+          node {
+            groupName
+            gracePeriod
+            date
+            exitCode
+            gitRepo
+            executionId
+            kind
+            severityThreshold
+            strictness
+            vulnerabilities {
+              numOfAcceptedVulnerabilities
+              numOfOpenVulnerabilities
+              numOfClosedVulnerabilities
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
+      name
     }
   }
 `;

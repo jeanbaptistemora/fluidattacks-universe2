@@ -33,31 +33,43 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
+          first: 100,
           groupName: "unittesting",
+          search: "",
         },
       },
       result: {
         data: {
-          forcesExecutions: {
-            executions: [
-              {
-                date: "2020-02-19T19:31:18+00:00",
-                executionId: "33e5d863252940edbfb144ede56d56cf",
-                exitCode: "1",
-                gitRepo: "Repository",
-                gracePeriod: "0",
-                groupName: "unittesting",
-                kind: "dynamic",
-                log: "...",
-                severityThreshold: "0.0",
-                strictness: "strict",
-                vulnerabilities: {
-                  numOfAcceptedVulnerabilities: 1,
-                  numOfClosedVulnerabilities: 1,
-                  numOfOpenVulnerabilities: 1,
+          group: {
+            executionsConnections: {
+              edges: [
+                {
+                  node: {
+                    date: "2020-02-19T19:31:18+00:00",
+                    executionId: "33e5d863252940edbfb144ede56d56cf",
+                    exitCode: "1",
+                    gitRepo: "Repository",
+                    gracePeriod: "0",
+                    groupName: "unittesting",
+                    kind: "dynamic",
+                    log: "...",
+                    severityThreshold: "0.0",
+                    strictness: "strict",
+                    vulnerabilities: {
+                      numOfAcceptedVulnerabilities: 1,
+                      numOfClosedVulnerabilities: 1,
+                      numOfOpenVulnerabilities: 1,
+                    },
+                  },
                 },
+              ],
+              pageInfo: {
+                endCursor:
+                  "FGluY2x1ZGVfY29udGV4dF91dWlkDnF1ZXJ5VGhlbkZldGNoBRZldlhLRHZEYlRaQ19FOHlmYkVFTFdBAAAAAAAAQh8WUXd1UGFJRC1TQUNDUmJ4ZEtSUUhHZxZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT6wWdkFtLU4yakhTM0NsdUxEeS1PcGNYQRZGejhKY0RlSVFNU3lzMWVUZjBKdUxRAAAAAAAAS0AWWVJ5d3pzUU5Ta2lxTHdIYkxnbG4zZxZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT60WdkFtLU4yakhTM0NsdUxEeS1PcGNYQRZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT64WdkFtLU4yakhTM0NsdUxEeS1PcGNYQQ==",
+                hasNextPage: true,
               },
-            ],
+            },
+            name: "unittesting",
           },
         },
       },
@@ -118,7 +130,9 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
+          first: 100,
           groupName: "unittesting",
+          search: "",
         },
       },
       result: {
