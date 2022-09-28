@@ -46,6 +46,7 @@ async def main() -> None:
             product_name=Product.INTEGRATES,
             subject="integrates@fluidattacks.com",
             queue="small",
+            attempt_duration_seconds=14400,
             dependsOn=[
                 {
                     "jobId": execution.batch_job_id,

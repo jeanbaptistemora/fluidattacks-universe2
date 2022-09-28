@@ -484,31 +484,67 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     )
 
     if roots_to_clone:
-        result = await put_action(
+        additional_info = json.dumps(
+            {
+                "group_name": group_name,
+                "roots": list(
+                    {
+                        *[
+                            roots_dict[root_id].state.nickname
+                            for root_id in roots_to_clone
+                        ],
+                        *roots_in_current_actions,
+                    }
+                ),
+            }
+        )
+        result_clone = await put_action(
             action=Action.CLONE_ROOTS,
             attempt_duration_seconds=5400,
             vcpus=1,
             memory=1800,
             entity=group_name,
             subject=user_email,
-            additional_info=json.dumps(
-                {
-                    "group_name": group_name,
-                    "roots": list(
-                        {
-                            *[
-                                roots_dict[root_id].state.nickname
-                                for root_id in roots_to_clone
-                            ],
-                            *roots_in_current_actions,
-                        }
-                    ),
-                }
-            ),
+            additional_info=additional_info,
             queue="clone",
             product_name=Product.INTEGRATES,
             dynamodb_pk=current_action.key if current_action else None,
         )
+        if (
+            result_clone.batch_job_id
+            and (
+                result_refresh := await put_action(
+                    action=Action.REFRESH_TOE_LINES,
+                    additional_info="*",
+                    entity=group_name,
+                    product_name=Product.INTEGRATES,
+                    subject="integrates@fluidattacks.com",
+                    queue="small",
+                    dependsOn=[
+                        {
+                            "jobId": result_clone.batch_job_id,
+                            "type": "SEQUENTIAL",
+                        },
+                    ],
+                )
+            )
+            and result_refresh.batch_job_id
+        ):
+            await put_action(
+                action=Action.REBASE,
+                additional_info=additional_info,
+                entity=group_name,
+                product_name=Product.INTEGRATES,
+                subject="integrates@fluidattacks.com",
+                queue="small",
+                attempt_duration_seconds=14400,
+                dependsOn=[
+                    {
+                        "jobId": result_refresh.batch_job_id,
+                        "type": "SEQUENTIAL",
+                    },
+                ],
+            )
         if not from_scheduler:
             await collect(
                 tuple(
@@ -523,5 +559,5 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                 )
             )
 
-        return result
+        return result_clone
     return None
