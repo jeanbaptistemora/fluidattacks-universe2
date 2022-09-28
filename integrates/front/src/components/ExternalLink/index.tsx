@@ -13,7 +13,7 @@ type ExternalLinkProps = Omit<
 >;
 
 const ExternalLink = styled.a.attrs<ExternalLinkProps>({
-  className: "comp-ext-link f6 link",
+  className: "comp-ext-link f6 link dib",
   // https://owasp.org/www-community/attacks/Reverse_Tabnabbing
   rel: "nofollow noopener noreferrer",
   target: "_blank",
