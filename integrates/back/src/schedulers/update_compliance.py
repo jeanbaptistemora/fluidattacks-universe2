@@ -54,6 +54,14 @@ from typing import (
 )
 
 
+def get_definition_from_reference(reference: str) -> str:
+    return reference.split(".", 1)[1]
+
+
+def get_standard_from_reference(reference: str) -> str:
+    return reference.split(".", 1)[0]
+
+
 async def get_open_vulnerabilities(
     loaders: Dataloaders,
     finding: Finding,
