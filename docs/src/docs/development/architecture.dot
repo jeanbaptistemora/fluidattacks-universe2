@@ -8,6 +8,7 @@ digraph architecture {
   // layout="fdp"
   compound="true"
   scale="scalexy"
+  // splines="curved"
   // splines="ortho"
   // edge[len=6 minlen=4]
 
@@ -74,14 +75,31 @@ digraph architecture {
   subgraph cluster_cloudflare {
     label="Cloudflare"
 
-    subgraph cluster_cloudflare_zone_fluidattacks_com {
-      label="fluidattacks.com"
+    subgraph cluster_cloudflare_workers {
+      label="Workers"
 
-      subgraph cluster_cloudflare_zone_fluidattacks_com_dns {
-        label="DNS"
+      cluster_cloudflare_workers_airs_headers[label="airs_headers"]
+    }
 
-        cloudflare_zone_fluidattacks_com_dns_cname[label="CNAME"]
-        cloudflare_zone_fluidattacks_com_dns_cname_web_eph[label="CNAME web.eph"]
+    subgraph cluster_cloudflare_zones {
+      label="Zones"
+
+      subgraph cluster_cloudflare_zone_fluidattacks_com {
+        label="fluidattacks.com"
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_com_dns_cname[label="CNAME"]
+          cloudflare_zone_fluidattacks_com_dns_cname_web_eph[label="CNAME web.eph"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_worker_routes {
+          label="Worker Routes"
+
+          cloudflare_zone_fluidattacks_com_worker_route_dev[label="web.eph.fluidattacks.com/*"]
+          cloudflare_zone_fluidattacks_com_worker_route_prod[label="fluidattacks.com/*"]
+        }
       }
     }
   }
@@ -100,6 +118,10 @@ digraph architecture {
     aws_s3_airs_prod_static -> algolia_airs[]
     aws_s3_airs_prod_static -> cloudinary_media_blog[]
     aws_s3_airs_prod_static -> cloudinary_media_airs[]
+    cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
+    cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
+    cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
+    cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> cloudflare_zone_fluidattacks_com_worker_route_dev[]
     cloudflare_zone_fluidattacks_com_dns_cname -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
     cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
     gitlab_airs -> aws_s3_airs_dev_static[label="deployed to" lhead="cluster_aws_s3_airs_dev"]
