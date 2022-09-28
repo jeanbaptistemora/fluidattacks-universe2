@@ -9,6 +9,7 @@ function main {
 
   find "${src}" -type f -name '*.dot' | while read -r path; do
     : && info "Convering ${path} to SVG" \
+      && dot -v \
       && if ! dot -O -Tsvg "${path}"; then
         critical "Failed to convert to SVG: ${path}"
       fi

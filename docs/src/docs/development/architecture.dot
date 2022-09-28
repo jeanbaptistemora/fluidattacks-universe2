@@ -6,22 +6,21 @@ digraph architecture {
   label="Fluid Attacks Architecture"
   // If things overlap you can play with the following options:
   // layout="fdp"
-  layout="dot"
-  // scale="scale"
+  compound="true"
   scale="scalexy"
   // splines="ortho"
   // edge[len=6 minlen=4]
-  // margin=12
 
   customer[label="Customer"]
+  fluid_attacks_developer[label="Fluid Attacks Developer"]
 
   subgraph cluster_gitlab {
-    label="GitLab";
+    label="GitLab"
 
     subgraph cluster_gitlab_airs {
-      label="Airs";
+      label="Airs"
 
-      gitlab_airs[label="Source Code"];
+      gitlab_airs[label="Source Code"]
       gitlab_airs_gatsby[label="Gatsby"]
       gitlab_airs_typescript[label="TypeScript"]
       gitlab_airs_tachyons[label="Tachyons"]
@@ -34,9 +33,18 @@ digraph architecture {
 
     subgraph cluster_aws_s3 {
       label="S3"
-      aws_s3_airs_dev[label="web.eph.fluidattacks.com"];
-      aws_s3_airs_prod[label="fluidattacks.com"];
-      aws_s3_airs_prod_static[label="Static Content"];
+
+      subgraph cluster_aws_s3_airs_dev {
+        label="web.eph.fluidattacks.com"
+
+        aws_s3_airs_dev_static[label="Static Content" width="3.0"]
+      }
+
+      subgraph cluster_aws_s3_airs_prod {
+        label="fluidattacks.com"
+
+        aws_s3_airs_prod_static[label="Static Content" width="3.0"]
+      }
     }
   }
 
@@ -65,28 +73,40 @@ digraph architecture {
 
   subgraph cluster_cloudflare {
     label="Cloudflare"
-    subgraph cluster_cloudflare_domain {
-      label="Domains"
-      cloudflare_domain_prod[label="fluidattacks.com"]
+
+    subgraph cluster_cloudflare_zone_fluidattacks_com {
+      label="fluidattacks.com"
+
+      subgraph cluster_cloudflare_zone_fluidattacks_com_dns {
+        label="DNS"
+
+        cloudflare_zone_fluidattacks_com_dns_cname[label="CNAME"]
+        cloudflare_zone_fluidattacks_com_dns_cname_web_eph[label="CNAME web.eph"]
+      }
     }
   }
 
   {
     // Global
-    customer -> cloudflare_domain_prod[label="uses"]
+    customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
+    fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
   }
 
   {
     // Airs
-    aws_s3_airs_prod -> aws_s3_airs_prod_static[label="has" dir="back" arrowtail="odiamond"]
-    aws_s3_airs_prod_static -> algolia_airs[label="uses"]
-    aws_s3_airs_prod_static -> cloudinary_media_blog[label="uses"]
-    aws_s3_airs_prod_static -> cloudinary_media_airs[label="uses"]
-    cloudflare_domain_prod -> aws_s3_airs_prod[label="uses"]
-    gitlab_airs -> aws_s3_airs_prod[label="deployed to"]
-    gitlab_airs -> gitlab_airs_gatsby[label="uses"]
-    gitlab_airs -> gitlab_airs_typescript[label="uses"]
-    gitlab_airs -> gitlab_airs_tachyons[label="uses"]
-    gitlab_airs -> gitlab_airs_react[label="uses"]
+    aws_s3_airs_dev_static -> algolia_airs[]
+    aws_s3_airs_dev_static -> cloudinary_media_blog[]
+    aws_s3_airs_dev_static -> cloudinary_media_airs[]
+    aws_s3_airs_prod_static -> algolia_airs[]
+    aws_s3_airs_prod_static -> cloudinary_media_blog[]
+    aws_s3_airs_prod_static -> cloudinary_media_airs[]
+    cloudflare_zone_fluidattacks_com_dns_cname -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
+    cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
+    gitlab_airs -> aws_s3_airs_dev_static[label="deployed to" lhead="cluster_aws_s3_airs_dev"]
+    gitlab_airs -> aws_s3_airs_prod_static[label="deployed to" lhead="cluster_aws_s3_airs_prod"]
+    gitlab_airs -> gitlab_airs_gatsby[]
+    gitlab_airs -> gitlab_airs_typescript[]
+    gitlab_airs -> gitlab_airs_tachyons[]
+    gitlab_airs -> gitlab_airs_react[]
   }
 }
