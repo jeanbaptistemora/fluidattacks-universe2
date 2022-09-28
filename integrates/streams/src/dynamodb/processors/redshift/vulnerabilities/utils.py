@@ -14,7 +14,7 @@ def format_row_metadata(
     item: Item,
 ) -> Item:
     return dict(
-        id=item["id"],
+        id=item.get("id") or str(item["pk"]).split("#")[1],
         custom_severity=item["custom_severity"],
         finding_id=item["finding_id"],
         skims_method=item["skims_method"],
