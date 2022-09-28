@@ -27,7 +27,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         ("_assert", "_logger"),
     ),
     "target_snowflake.db_clients": (
-        "_table",
+        ("_table", "_table_ops"),
         ("_encode", "_decode"),
     ),
     "target_snowflake.sql_client": (

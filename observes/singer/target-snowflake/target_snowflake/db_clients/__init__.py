@@ -5,7 +5,11 @@
 from ._table import (
     TableClient,
 )
+from ._table_ops import (
+    TableOperations,
+)
 
 __all__ = [
     "TableClient",
+    "TableOperations",
 ]

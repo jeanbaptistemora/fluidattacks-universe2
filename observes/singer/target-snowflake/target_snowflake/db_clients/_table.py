@@ -101,31 +101,6 @@ class TableClient:
         query = Query(stm, freeze(identifiers), freeze(values))
         return self._cursor.execute(query)
 
-    def insert(
-        self,
-        table_obj: TableObj,
-        items: PureIter[RowData],
-        limit: int,
-    ) -> Cmd[None]:
-        enum_fields = from_flist(tuple(enumerate(table_obj.table.order)))
-        _fields = ",".join(enum_fields.map(lambda t: f"{{field_{t[0]}}}"))
-        values_placeholder = ",".join(enum_fields.map(lambda _: "?"))
-        stm = f"""
-            INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values_placeholder})
-        """
-        identifiers: Dict[str, Identifier] = {
-            "schema": self._schema.name,
-            "table": table_obj.id_obj.name,
-        }
-        for i, c in enumerate(table_obj.table.order):
-            identifiers[f"field_{i}"] = c.name
-        query = Query(stm, freeze(identifiers), freeze({}))
-        return (
-            items.chunked(limit)
-            .map(lambda p: self._cursor.execute_many(query, p))
-            .transform(consume)
-        )
-
     def exist(self, table_id: TableId) -> Cmd[bool]:
         stm = """
             SELECT EXISTS (
