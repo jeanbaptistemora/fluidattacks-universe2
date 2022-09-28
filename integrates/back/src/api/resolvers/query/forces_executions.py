@@ -5,6 +5,10 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from db_model.forces.types import (
+    ExecutionEdge,
+    ExecutionsConnection,
+)
 from db_model.forces.utils import (
     format_forces_execution,
 )
@@ -54,4 +58,14 @@ async def resolve(
     return {
         "executions": executions_formatted,
         "group_name": group_name,
+        "executions_connections": ExecutionsConnection(
+            edges=tuple(
+                ExecutionEdge(
+                    cursor=results.page_info.end_cursor,
+                    node=execution,
+                )
+                for execution in executions_formatted
+            ),
+            page_info=results.page_info,
+        ),
     }

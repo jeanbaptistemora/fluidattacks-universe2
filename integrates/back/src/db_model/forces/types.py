@@ -9,6 +9,7 @@ from decimal import (
     Decimal,
 )
 from dynamodb.types import (
+    Item,
     PageInfo,
 )
 from typing import (
@@ -54,7 +55,7 @@ class ForcesExecution(NamedTuple):
 
 
 class ExecutionEdge(NamedTuple):
-    node: ForcesExecution
+    node: Item
     cursor: str
 
 
