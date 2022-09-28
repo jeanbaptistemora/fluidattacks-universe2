@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { Table } from "components/Table";
+import { Table } from "components/TableNew";
 import { Tooltip } from "components/Tooltip";
 import {
   REMOVE_EVIDENCE_MUTATION,
@@ -138,6 +138,14 @@ const RecordsView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
+  const recordData: object[] = JSON.parse(data.finding.records);
+
+  const columns: { accessorKey: string }[] = _.isEmpty(recordData)
+    ? []
+    : Object.keys(recordData[0]).map((key: string): { accessorKey: string } => {
+        return { accessorKey: key };
+      });
+
   return (
     <React.StrictMode>
       <React.Fragment>
@@ -216,12 +224,9 @@ const RecordsView: React.FC = (): JSX.Element => {
             </div>
           ) : (
             <Table
-              dataset={JSON.parse(data.finding.records)}
-              exportCsv={false}
-              headers={[]}
+              columns={columns}
+              data={JSON.parse(data.finding.records)}
               id={"tblRecords"}
-              pageSize={10}
-              search={false}
             />
           )}
         </RowCenter>
