@@ -3,27 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.common import (
-    comment as common_comment,
-    expression_statement as common_expression_statement,
-    identifier as common_identifier,
-    method_declaration as common_method_declaration,
     number_literal as common_number_literal,
-    pair as common_pair,
-    parameter_list as common_parameter_list,
-    parenthesized_expression as common_parenthesized_expression,
     program as common_program,
-    return_statement as common_return_statement,
-    statement_block as common_statement_block,
     string_literal as common_string_literal,
-    switch_body as common_switch_body,
-    switch_case as common_switch_case,
-    switch_default as common_switch_default,
-    switch_statement as common_switch_statement,
-    this as common_this,
-    throw_statement as common_throw_statement,
-    unary_expression as common_unary_expression,
-    update_expression as common_update_expression,
-    yield_expression as common_yield_expression,
 )
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
@@ -38,22 +20,40 @@ from syntax_graph.syntax_readers.javascript import (
     catch_clause as javascript_catch_clause,
     class_body as javascript_class_body,
     class_declaration as javascript_class_declaration,
+    comment as javascript_comment,
     do_statement as javascript_do_statement,
     else_clause as javascript_else_clause,
     export_statement as javascript_export_statement,
+    expression_statement as javascript_expression_statement,
     finally_clause as javascript_finally_clause,
     for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
+    identifier as javascript_identifier,
     if_statement as javascript_if_statement,
     import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
+    method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
     null_literal as javascript_null_literal,
     object as javascript_object,
+    pair as javascript_pair,
+    parameter_list as javascript_parameter_list,
+    parenthesized_expression as javascript_parenthesized_expression,
+    return_statement as javascript_return_statement,
+    statement_block as javascript_statement_block,
     subscript_expression as javascript_subscript_expression,
+    switch_body as javascript_switch_body,
+    switch_case as javascript_switch_case,
+    switch_default as javascript_switch_default,
+    switch_statement as javascript_switch_statement,
+    this as javascript_this,
+    throw_statement as javascript_throw_statement,
     try_statement as javascript_try_statement,
+    unary_expression as javascript_unary_expression,
+    update_expression as javascript_update_expression,
     variable_declaration as javascript_variable_declaration,
     while_statement as javascript_while_statement,
+    yield_expression as javascript_yield_expression,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -139,7 +139,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "comment",
         },
-        syntax_reader=common_comment.reader,
+        syntax_reader=javascript_comment.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -163,14 +163,14 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "expression_statement",
         },
-        syntax_reader=common_expression_statement.reader,
+        syntax_reader=javascript_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "identifier",
             "property_identifier",
         },
-        syntax_reader=common_identifier.reader,
+        syntax_reader=javascript_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -215,7 +215,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "generator_function_declaration",
             "method_definition",
         },
-        syntax_reader=common_method_declaration.reader,
+        syntax_reader=javascript_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -245,19 +245,19 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "pair",
         },
-        syntax_reader=common_pair.reader,
+        syntax_reader=javascript_pair.reader,
     ),
     Dispatcher(
         applicable_types={
             "formal_parameters",
         },
-        syntax_reader=common_parameter_list.reader,
+        syntax_reader=javascript_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
         },
-        syntax_reader=common_parenthesized_expression.reader,
+        syntax_reader=javascript_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -269,13 +269,13 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "return_statement",
         },
-        syntax_reader=common_return_statement.reader,
+        syntax_reader=javascript_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "statement_block",
         },
-        syntax_reader=common_statement_block.reader,
+        syntax_reader=javascript_statement_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -294,37 +294,37 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "switch_body",
         },
-        syntax_reader=common_switch_body.reader,
+        syntax_reader=javascript_switch_body.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_case",
         },
-        syntax_reader=common_switch_case.reader,
+        syntax_reader=javascript_switch_case.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_default",
         },
-        syntax_reader=common_switch_default.reader,
+        syntax_reader=javascript_switch_default.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_statement",
         },
-        syntax_reader=common_switch_statement.reader,
+        syntax_reader=javascript_switch_statement.reader,
     ),
     Dispatcher(
         applicable_types={
             "this",
         },
-        syntax_reader=common_this.reader,
+        syntax_reader=javascript_this.reader,
     ),
     Dispatcher(
         applicable_types={
             "throw_statement",
         },
-        syntax_reader=common_throw_statement.reader,
+        syntax_reader=javascript_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -336,13 +336,13 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "unary_expression",
         },
-        syntax_reader=common_unary_expression.reader,
+        syntax_reader=javascript_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "update_expression",
         },
-        syntax_reader=common_update_expression.reader,
+        syntax_reader=javascript_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -361,6 +361,6 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "yield_expression",
         },
-        syntax_reader=common_yield_expression.reader,
+        syntax_reader=javascript_yield_expression.reader,
     ),
 )

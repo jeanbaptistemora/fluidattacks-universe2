@@ -14,11 +14,8 @@ from syntax_graph.types import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    node_id = args.ast_graph.nodes[args.n_id]
-    operator = args.ast_graph.nodes[node_id["label_field_operator"]][
-        "label_text"
-    ]
-    operand = node_id.get("label_field_operand") or node_id.get(
-        "label_field_argument"
-    )
+    graph = args.ast_graph
+    n_attrs = graph.nodes[args.n_id]
+    operator = graph.nodes[n_attrs["label_field_operator"]]["label_text"]
+    operand = n_attrs["label_field_argument"]
     return build_unary_expression_node(args, operator, operand)

@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.switch_statement import (
-    build_switch_statement_node,
+from syntax_graph.syntax_nodes.pair import (
+    build_pair_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -14,7 +14,6 @@ from syntax_graph.types import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    body_id = args.ast_graph.nodes[args.n_id]["label_field_body"]
+    key_id = args.ast_graph.nodes[args.n_id]["label_field_key"]
     value_id = args.ast_graph.nodes[args.n_id]["label_field_value"]
-
-    return build_switch_statement_node(args, body_id, value_id)
+    return build_pair_node(args, key_id, value_id)
