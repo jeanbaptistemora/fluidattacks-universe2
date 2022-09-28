@@ -20,6 +20,9 @@ from target_snowflake import (
 from target_snowflake.db import (
     SchemaId,
 )
+from target_snowflake.schema import (
+    TableId,
+)
 from target_snowflake.sql_client import (
     Cursor,
     DatabaseId,
@@ -28,13 +31,14 @@ from target_snowflake.sql_client import (
 )
 from typing import (
     Dict,
+    Tuple,
 )
 
 
 @dataclass(frozen=True)
 class DbClient:
     _cursor: Cursor
-    _db: DatabaseId
+    _pointer: DatabaseId
 
     def exist(self, schema: SchemaId) -> Cmd[bool]:
         _stm = (
@@ -53,8 +57,11 @@ class DbClient:
 
     def _delete(self, schema: SchemaId, cascade: bool) -> Cmd[None]:
         opt = " CASCADE" if cascade else ""
-        stm: str = "DROP SCHEMA {schema_name}" + opt
-        identifiers: Dict[str, Identifier] = {"schema_name": schema.name}
+        stm: str = "DROP SCHEMA {database}.{schema_name}" + opt
+        identifiers: Dict[str, Identifier] = {
+            "database": self._pointer.db_name,
+            "schema": schema.name,
+        }
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
 
@@ -65,10 +72,31 @@ class DbClient:
         return self._delete(schema, True)
 
     def rename(self, old: SchemaId, new: SchemaId) -> Cmd[None]:
-        stm = "ALTER SCHEMA {from_schema} RENAME TO {to_schema}"
+        stm = "ALTER SCHEMA {database}.{from_schema} RENAME TO {to_schema}"
         identifiers: Dict[str, Identifier] = {
+            "database": self._pointer.db_name,
             "from_schema": old.name,
             "schema_name": new.name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query)
+
+    def move_table(
+        self,
+        source: Tuple[SchemaId, TableId],
+        target: Tuple[SchemaId, TableId],
+    ) -> Cmd[None]:
+        stm = """
+            ALTER TABLE {source_database}.{source_schema}.{source_table}
+            RENAME TO {target_database}.{target_schema}.{target_table}
+        """
+        identifiers: Dict[str, Identifier] = {
+            "source_database": self._pointer.db_name,
+            "source_schema": source[0].name,
+            "source_table": source[1].name,
+            "target_database": self._pointer.db_name,
+            "target_schema": target[0].name,
+            "target_table": target[1].name,
         }
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
@@ -77,8 +105,11 @@ class DbClient:
         self, schema: SchemaId, if_not_exist: bool = False
     ) -> Cmd[None]:
         not_exist = " IF NOT EXISTS " if if_not_exist else ""
-        stm = f"CREATE SCHEMA {not_exist} {{schema}}"
-        identifiers: Dict[str, Identifier] = {"schema": schema.name}
+        stm = f"CREATE SCHEMA {not_exist} {{database}}.{{schema}}"
+        identifiers: Dict[str, Identifier] = {
+            "database": self._pointer.db_name,
+            "schema": schema.name,
+        }
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
 

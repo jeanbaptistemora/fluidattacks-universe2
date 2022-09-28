@@ -5,6 +5,10 @@
 from . import (
     _encode,
 )
+from ._full_path import (
+    RemoteSchemaPointer,
+    RemoteTablePointer,
+)
 from dataclasses import (
     dataclass,
 )
@@ -26,16 +30,12 @@ from fa_purity.pure_iter.factory import (
 from target_snowflake import (
     _assert,
 )
-from target_snowflake.db import (
-    SchemaId,
-)
 from target_snowflake.schema import (
     TableId,
     TableObj,
 )
 from target_snowflake.sql_client import (
     Cursor,
-    DatabaseId,
     Identifier,
     Query,
 )
@@ -46,15 +46,13 @@ from typing import (
     Callable,
     Dict,
     FrozenSet,
-    Tuple,
 )
 
 
 @dataclass(frozen=True)
 class SchemaClient:
     _cursor: Cursor
-    _db: DatabaseId
-    _schema: SchemaId
+    _pointer: RemoteSchemaPointer
 
     def new(
         self, table_obj: TableObj, if_not_exist: bool = False
@@ -86,8 +84,8 @@ class SchemaClient:
         )
         stm = f"CREATE TABLE {not_exists} {{database}}.{{schema}}.{{table}} ({fields_template}{pkeys_template})"
         identifiers: Dict[str, Identifier] = {
-            "database": self._db.db_name,
-            "schema": self._schema.name,
+            "database": self._pointer.db.db_name,
+            "schema": self._pointer.schema.name,
             "table": table_obj.id_obj.name,
         }
         for index, cid in enum_primary_keys:
@@ -104,11 +102,12 @@ class SchemaClient:
     def table_ids(self) -> Cmd[FrozenSet[TableId]]:
         _stm = (
             "SELECT tables.table_name FROM information_schema.tables",
-            "WHERE table_schema = %(schema_name)s",
+            "WHERE table_catalog = %(database)s AND table_schema = %(schema)s",
         )
         stm = " ".join(_stm)
         values: Dict[str, Primitive] = {
-            "schema_name": self._schema.name.sql_identifier
+            "database": self._pointer.db.db_name.sql_identifier,
+            "schema": self._pointer.schema.name.sql_identifier,
         }
         query = Query(stm, freeze({}), freeze(values))
         return self._cursor.execute(query) + self._cursor.fetch_all().map(
@@ -121,18 +120,20 @@ class SchemaClient:
         )
 
     def create_like(
-        self, blueprint: Tuple[SchemaId, TableId], new_table: TableId
+        self, blueprint: RemoteTablePointer, new_table: TableId
     ) -> Cmd[None]:
         stm = """
-            CREATE TABLE {new_schema}.{new_table} (
-                LIKE {blueprint_schema}.{blueprint_table}
+            CREATE TABLE {new_db}.{new_schema}.{new_table} (
+                LIKE {blueprint_db}.{blueprint_schema}.{blueprint_table}
             )
         """
         identifiers: Dict[str, Identifier] = {
-            "new_schema": self._schema.name,
+            "new_db": self._pointer.db.db_name,
+            "new_schema": self._pointer.schema.name,
             "new_table": new_table.name,
-            "blueprint_schema": blueprint[0].name,
-            "blueprint_table": blueprint[1].name,
+            "blueprint_db": blueprint.db.db_name,
+            "blueprint_schema": blueprint.schema.name,
+            "blueprint_table": blueprint.table.name,
         }
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
@@ -141,13 +142,15 @@ class SchemaClient:
         stm = """
             SELECT EXISTS (
                 SELECT * FROM information_schema.tables
-                WHERE table_schema = %(table_schema)s
-                AND table_name = %(table_name)s
+                WHERE table_catalog = %(database)s
+                AND table_schema = %(schema)s
+                AND table_name = %(table)s
             );
         """
         args: Dict[str, Primitive] = {
-            "table_schema": self._schema.name.sql_identifier,
-            "table_name": table_id.name.sql_identifier,
+            "database": self._pointer.db.db_name.sql_identifier,
+            "schema": self._pointer.schema.name.sql_identifier,
+            "table": table_id.name.sql_identifier,
         }
         query = Query(stm, freeze({}), freeze(args))
         return self._cursor.execute(query) + self._cursor.fetch_one().map(
@@ -158,10 +161,11 @@ class SchemaClient:
 
     def rename(self, table_id: TableId, new_name: TableId) -> Cmd[None]:
         stm = """
-            ALTER TABLE {schema}.{table} RENAME TO {new_name}
+            ALTER TABLE {database}.{schema}.{table} RENAME TO {new_name}
         """
         identifiers: Dict[str, Identifier] = {
-            "schema": self._schema.name,
+            "database": self._pointer.db.db_name,
+            "schema": self._pointer.schema.name,
             "table": table_id.name,
             "new_name": new_name.name,
         }
@@ -171,10 +175,11 @@ class SchemaClient:
     def _delete(self, table_id: TableId, cascade: bool) -> Cmd[None]:
         _cascade = "CASCADE" if cascade else ""
         stm = f"""
-            DROP TABLE {{schema}}.{{table}} {_cascade}
+            DROP TABLE {{database}}.{{schema}}.{{table}} {_cascade}
         """
         identifiers: Dict[str, Identifier] = {
-            "schema": self._schema.name,
+            "database": self._pointer.db.db_name,
+            "schema": self._pointer.schema.name,
             "table": table_id.name,
         }
         query = Query(stm, freeze(identifiers), freeze({}))
