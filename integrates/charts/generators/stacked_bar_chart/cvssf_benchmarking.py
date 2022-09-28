@@ -12,7 +12,11 @@ from async_lru import (
 from charts import (
     utils,
 )
+from charts.generators.bar_chart.mttr_benchmarking_cvssf import (
+    _get_historic_verification,
+)
 from charts.generators.bar_chart.utils import (
+    get_vulnerability_reattacks,
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
@@ -43,6 +47,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityVerification,
 )
 from decimal import (
     Decimal,
@@ -70,12 +75,20 @@ class OrganizationCvssfBenchmarking(NamedTuple):
     accepted: Decimal
     closed: Decimal
     open: Decimal
+    is_valid: bool
     organization_id: str
     total: Decimal
 
 
+class GroupBenchmarking(NamedTuple):
+    counter: Counter[str]
+    number_of_reattacks: int
+
+
 @alru_cache(maxsize=None, typed=True)
-async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
+async def get_group_data(
+    *, group: str, loaders: Dataloaders
+) -> GroupBenchmarking:
     finding_severity: dict[str, Decimal] = {}
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
@@ -86,6 +99,7 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
             for finding in group_findings
         }
     )
+
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         chain.from_iterable(
             await collect(
@@ -100,6 +114,20 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
                 workers=2,
             )
         )
+    )
+    historics_verification: tuple[
+        tuple[VulnerabilityVerification, ...], ...
+    ] = await collect(
+        tuple(
+            _get_historic_verification(loaders, vulnerability)
+            for vulnerability in vulnerabilities
+        ),
+        workers=16,
+    )
+
+    number_of_reattacks = sum(
+        get_vulnerability_reattacks(historic_verification=historic)
+        for historic in historics_verification
     )
 
     counter: Counter[str] = Counter()
@@ -119,14 +147,17 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
         else:
             counter.update({"closed": severity})
 
-    return counter
+    return GroupBenchmarking(
+        counter=counter,
+        number_of_reattacks=number_of_reattacks,
+    )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_organization(
     *, organization_id: str, groups: tuple[str, ...], loaders: Dataloaders
 ) -> OrganizationCvssfBenchmarking:
-    groups_data = await collect(
+    groups_data: tuple[GroupBenchmarking, ...] = await collect(
         tuple(
             get_group_data(group=group.lower(), loaders=loaders)
             for group in groups
@@ -134,9 +165,15 @@ async def get_data_one_organization(
         workers=16,
     )
 
-    counter: Counter[str] = sum(groups_data, Counter())
+    counter: Counter[str] = sum(
+        [group.counter for group in groups_data], Counter()
+    )
+    number_of_reattacks = sum(
+        group.number_of_reattacks for group in groups_data
+    )
 
     return OrganizationCvssfBenchmarking(
+        is_valid=number_of_reattacks > 100,
         accepted=Decimal(counter["accepted"]).quantize(Decimal("0.1")),
         closed=Decimal(counter["closed"]).quantize(Decimal("0.1")),
         open=Decimal(counter["open"]).quantize(Decimal("0.1")),
@@ -146,7 +183,7 @@ async def get_data_one_organization(
 
 
 def get_best_organization(
-    *, organizations: list[OrganizationCvssfBenchmarking]
+    *, organizations: tuple[OrganizationCvssfBenchmarking, ...]
 ) -> OrganizationCvssfBenchmarking:
     if organizations:
         return max(
@@ -162,13 +199,14 @@ def get_best_organization(
         accepted=Decimal("0.0"),
         closed=Decimal("1.0"),
         open=Decimal("0.0"),
+        is_valid=True,
         organization_id="",
         total=Decimal("1.0"),
     )
 
 
 def get_worst_organization(
-    *, organizations: list[OrganizationCvssfBenchmarking]
+    *, organizations: tuple[OrganizationCvssfBenchmarking, ...]
 ) -> OrganizationCvssfBenchmarking:
     if organizations:
         return min(
@@ -184,6 +222,7 @@ def get_worst_organization(
         accepted=Decimal("0.0"),
         closed=Decimal("0.0"),
         open=Decimal("1.0"),
+        is_valid=True,
         organization_id="",
         total=Decimal("1.0"),
     )
@@ -208,6 +247,7 @@ def get_mean_organizations(
             closed=closed,
             open=opened,
             organization_id="",
+            is_valid=True,
             total=accepted + closed + opened,
         )
 
@@ -216,6 +256,7 @@ def get_mean_organizations(
         closed=Decimal("0.0"),
         open=Decimal("0.0"),
         organization_id="",
+        is_valid=True,
         total=Decimal("0.0"),
     )
 
@@ -229,6 +270,7 @@ def get_valid_organizations(
         organization
         for organization in organizations
         if organization_id != organization.organization_id
+        and organization.is_valid
     ]
 
 
@@ -438,7 +480,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 (f"{org_id}PORTFOLIO#{portfolio}", tuple(groups))
             )
 
-    all_organizations_data = await collect(
+    all_organizations_data: tuple[
+        OrganizationCvssfBenchmarking, ...
+    ] = await collect(
         tuple(
             get_data_one_organization(
                 organization_id=organization[0],
@@ -450,7 +494,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         workers=32,
     )
 
-    all_portfolios_data = await collect(
+    all_portfolios_data: tuple[
+        OrganizationCvssfBenchmarking, ...
+    ] = await collect(
         tuple(
             get_data_one_organization(
                 organization_id=portfolios[0],
@@ -463,16 +509,32 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     )
 
     best_cvssf = get_best_organization(
-        organizations=all_organizations_data  # type: ignore
+        organizations=tuple(
+            organization
+            for organization in all_organizations_data
+            if organization.is_valid
+        )
     )
     worst_cvssf = get_worst_organization(
-        organizations=all_organizations_data  # type: ignore
+        organizations=tuple(
+            organization
+            for organization in all_organizations_data
+            if organization.is_valid
+        )
     )
     best_portfolio_cvssf = get_best_organization(
-        organizations=all_portfolios_data  # type: ignore
+        organizations=tuple(
+            portfolio
+            for portfolio in all_portfolios_data
+            if portfolio.is_valid
+        )
     )
     worst_portfolio_cvssf = get_worst_organization(
-        organizations=all_portfolios_data  # type: ignore
+        organizations=tuple(
+            portfolio
+            for portfolio in all_portfolios_data
+            if portfolio.is_valid
+        )
     )
 
     header: str = "Categories"

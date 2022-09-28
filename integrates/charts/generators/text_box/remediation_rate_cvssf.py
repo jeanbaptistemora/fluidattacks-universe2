@@ -8,6 +8,7 @@ from aioextensions import (
 from charts.generators.stacked_bar_chart.cvssf_benchmarking import (
     get_data_one_organization,
     get_group_data,
+    GroupBenchmarking,
     OrganizationCvssfBenchmarking,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -29,9 +30,6 @@ from dataloaders import (
 from decimal import (
     Decimal,
 )
-from typing import (
-    Counter,
-)
 
 
 def format_data(*, closed: Decimal) -> dict:
@@ -49,22 +47,22 @@ async def generate_all() -> None:
     values: list[Decimal]
     loaders: Dataloaders = get_new_context()
     async for group in iterate_groups():
-        data_group: Counter[str] = await get_group_data(
+        data_group: GroupBenchmarking = await get_group_data(
             group=group, loaders=loaders
         )
         total = (
             Decimal(
-                data_group["closed"]
-                + data_group["accepted"]
-                + data_group["open"]
+                data_group.counter["closed"]
+                + data_group.counter["accepted"]
+                + data_group.counter["open"]
             )
-            if data_group["total"] > Decimal("0.0")
+            if data_group.counter["total"] > Decimal("0.0")
             else Decimal("0.1")
         )
         values = [
-            data_group["closed"] / total,
-            data_group["accepted"] / total,
-            data_group["open"] / total,
+            data_group.counter["closed"] / total,
+            data_group.counter["accepted"] / total,
+            data_group.counter["open"] / total,
         ]
         percentages = get_percentage(values)
         document = format_data(
