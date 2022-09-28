@@ -4,7 +4,6 @@
 
 # pylint: disable=unused-argument
 
-import pytest
 from toolbox import (
     utils,
 )
@@ -13,14 +12,9 @@ from typing import (
 )
 
 # Constants
-SUBS: str = "continuoustest"
-SUBS_BAD: str = "not-existing-group"
-SUCCESS: int = 0
-FAILURE: int = 1
-FINDING: str = "720412598"
+SUBS: str = "absecon"
 
 
-@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_toolbox_get_group_from_commit_msg(relocate: Any) -> None:
     """Test toolbox.get_group_from_commit_msg."""
     utils.get_commit_subs.main()

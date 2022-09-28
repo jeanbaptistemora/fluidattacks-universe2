@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import pytest
 from toolbox.api.exceptions import (
     IntegratesError,
 )
@@ -14,18 +13,19 @@ from toolbox.utils.integrates import (
     has_squad,
 )
 
+# Constants
+GROUP: str = "absecon"
 
-@pytest.mark.skip(reason="test should not depend on prod integrates")
+
 def test_get_groups_with_forces() -> None:
     # TODO: refactor this test to point to a test group in a dev environment
     groups = get_groups_with_forces()
-    assert "continuoustest" in groups
+    assert GROUP in groups
 
 
-@pytest.mark.skip(reason="test should not depend on prod integrates")
 def test_has_forces() -> None:
     # TODO: refactor this test to point to a test group in a dev environment
-    assert has_forces("continuoustest")
+    assert has_forces(GROUP)
     try:
         assert has_forces("undefined")
     except IntegratesError:
@@ -34,18 +34,16 @@ def test_has_forces() -> None:
         assert False
 
 
-@pytest.mark.skip(reason="test should not depend on prod integrates")
 def test_get_repos() -> None:
     # TODO: refactor this test to point to a test group in a dev environment
-    repos = get_group_repos("continuoustest")
+    repos = get_group_repos(GROUP)
     assert not repos
     assert not get_group_repos("undefined")
 
 
-@pytest.mark.skip(reason="test should not depend on prod integrates")
 def test_get_group_language() -> None:
     # TODO: refactor this test to point to a test group in a dev environment
-    assert get_group_language("continuoustest") == "EN"
+    assert get_group_language(GROUP) == "EN"
     try:
         assert get_group_language("undefined")
     except IntegratesError:
@@ -54,10 +52,9 @@ def test_get_group_language() -> None:
         assert False
 
 
-@pytest.mark.skip(reason="test should not depend on prod integrates")
 def test_has_drills() -> None:
     # TODO: refactor this test to point to a test group in a dev environment
-    assert has_squad("continuoustest")
+    assert has_squad(GROUP)
     try:
         assert has_squad("undefined")
     except IntegratesError:
