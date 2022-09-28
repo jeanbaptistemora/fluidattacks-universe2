@@ -122,6 +122,7 @@ async def mutate(
         vulns_props: dict[str, Any] = {
             vuln.id: {
                 "Location": vuln.where,
+                "Specific": vuln.specific,
             }
             for vuln in vulnerabilities
             if vuln.state.status == VulnerabilityStateStatus.OPEN

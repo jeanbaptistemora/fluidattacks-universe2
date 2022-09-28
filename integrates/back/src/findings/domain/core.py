@@ -710,6 +710,7 @@ async def send_closed_vulnerabilities_report(
         )
         vulns_closed_props[vuln.id] = {
             "Location": vuln.where,
+            "Specific": vuln.specific,
             "Assigned": vuln.treatment.assigned if vuln.treatment else None,
             "Report date": report_date,
             "Time to remediate": f"{days_open} calendar days",
