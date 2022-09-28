@@ -19,6 +19,7 @@ locals {
             "batch:*",
             "budgets:*",
             "ce:*",
+            "cloudformation:*",
             "cloudwatch:*",
             "cur:*",
             "dynamodb:*",
