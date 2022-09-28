@@ -9,19 +9,9 @@ SPDX-License-Identifier: MPL-2.0
   <head>
     <meta charset="utf-8">
     <title>Graphic</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-      integrity="sha384-Cr5RPHxcHREJ6WiTIhm5VCkJJ54ufz4UVsVOXvazwLKSMiTQ/47Zn/LqT7EiWinZ"
-      crossorigin="anonymous">
-    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
-      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
-    {% else %}
-      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
-    {% endif %}
 
     <!-- Include C3 -->
-    <link href="{{ c3css }}" rel="stylesheet">
+    <link href="{{ c3css }}" rel="stylesheet" type="text/css"  media="screen">
     <script src="{{ c3js }}"></script>
 
     <!-- Include D3 -->
@@ -34,7 +24,7 @@ SPDX-License-Identifier: MPL-2.0
 
     <!-- Include graphic generator -->
     <link href="{{ url_for('static', path='/styles/graphic.css') | replace('http://', 'https://') }}" rel="stylesheet" type="text/css"  media="screen"/>
-    <script src="{{ url_for('static', path=generator_src) | replace('http://', 'https://') }}"></script>
+    <script src="{{ url_for('static', path=generator_src) | replace('http://', 'https://') }}" async></script>
     {% if 'https' in url_for('static', path='/styles/generic_graphic.css') %}
       <link href="{{ url_for('static', path='/styles/generic_graphic.css') }}" rel="stylesheet" type="text/css"  media="screen"/>
     {% else %}

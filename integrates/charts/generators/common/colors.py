@@ -18,16 +18,6 @@ _SCALE = NamedTuple(
     ],
 )
 
-_SEVERITYSCALE = NamedTuple(
-    "_SEVERITYSCALE",
-    [
-        ("low", str),
-        ("medium", str),
-        ("high", str),
-        ("critical", str),
-    ],
-)
-
 # https://coolors.co/33cc99-084c61-177e89-ffc857-da1e28
 RISK = _SCALE(
     more_passive="#33cc99",

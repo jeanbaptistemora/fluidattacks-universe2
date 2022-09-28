@@ -11,8 +11,8 @@
 makeDerivation {
   env = {
     envExternalC3 = inputs.nixpkgs.fetchzip {
-      url = "https://github.com/c3js/c3/archive/v0.7.18.zip";
-      sha256 = "Wqfm34pE2NDMu1JMwBAR/1jcZZlVBfxRKGp/YPNlocU=";
+      url = "https://github.com/c3js/c3/archive/v0.7.20.zip";
+      sha256 = "tnKDZjobbxLkat2WZ+CN+AU526JUOk51vq86miGRVPI=";
     };
     envSetupIntegratesFrontDevRuntime =
       outputs."/integrates/front/config/dev-runtime";
