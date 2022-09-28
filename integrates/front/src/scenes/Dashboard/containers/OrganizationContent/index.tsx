@@ -46,6 +46,7 @@ import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { featurePreviewContext } from "utils/featurePreview";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -59,6 +60,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   const { path, url } = useRouteMatch();
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
+  const { featurePreview } = useContext(featurePreviewContext);
 
   // Side effects
   useTabTracking("Organization");
@@ -146,67 +148,73 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
           <div>
             <div>
               <EventBar organizationName={organizationName} />
-              <Tabs>
-                <Tab
-                  id={"analyticsTab"}
-                  link={`${url}/analytics`}
-                  tooltip={translate.t("organization.tabs.analytics.tooltip")}
-                >
-                  {translate.t("organization.tabs.analytics.text")}
-                </Tab>
-                <Tab
-                  id={"groupsTab"}
-                  link={`${url}/groups`}
-                  tooltip={translate.t("organization.tabs.groups.tooltip")}
-                >
-                  {translate.t("organization.tabs.groups.text")}
-                </Tab>
-                {!_.isUndefined(portfoliosData) &&
-                !_.isEmpty(portfoliosData) &&
-                portfoliosData.me.tags.length > 0 ? (
+              {featurePreview ? undefined : (
+                <Tabs>
                   <Tab
-                    id={"portfoliosTab"}
-                    link={`${url}/portfolios`}
+                    id={"analyticsTab"}
+                    link={`${url}/analytics`}
+                    tooltip={translate.t("organization.tabs.analytics.tooltip")}
+                  >
+                    {translate.t("organization.tabs.analytics.text")}
+                  </Tab>
+                  <Tab
+                    id={"groupsTab"}
+                    link={`${url}/groups`}
+                    tooltip={translate.t("organization.tabs.groups.tooltip")}
+                  >
+                    {translate.t("organization.tabs.groups.text")}
+                  </Tab>
+                  {!_.isUndefined(portfoliosData) &&
+                  !_.isEmpty(portfoliosData) &&
+                  portfoliosData.me.tags.length > 0 ? (
+                    <Tab
+                      id={"portfoliosTab"}
+                      link={`${url}/portfolios`}
+                      tooltip={translate.t(
+                        "organization.tabs.portfolios.tooltip"
+                      )}
+                    >
+                      {translate.t("organization.tabs.portfolios.text")}
+                    </Tab>
+                  ) : null}
+                  <Can do={"api_resolvers_organization_stakeholders_resolve"}>
+                    <Tab
+                      id={"usersTab"}
+                      link={`${url}/stakeholders`}
+                      tooltip={translate.t("organization.tabs.users.tooltip")}
+                    >
+                      {translate.t("organization.tabs.users.text")}
+                    </Tab>
+                  </Can>
+                  <Tab
+                    id={"policiesTab"}
+                    link={`${url}/policies`}
+                    tooltip={translate.t("organization.tabs.policies.tooltip")}
+                  >
+                    {translate.t("organization.tabs.policies.text")}
+                  </Tab>
+                  <Can
+                    do={"api_resolvers_organization_payment_methods_resolve"}
+                  >
+                    <Tab
+                      id={"billingTab"}
+                      link={`${url}/billing`}
+                      tooltip={translate.t("organization.tabs.billing.tooltip")}
+                    >
+                      {translate.t("organization.tabs.billing.text")}
+                    </Tab>
+                  </Can>
+                  <Tab
+                    id={"credentialsTab"}
+                    link={`${url}/credentials`}
                     tooltip={translate.t(
-                      "organization.tabs.portfolios.tooltip"
+                      "organization.tabs.credentials.tooltip"
                     )}
                   >
-                    {translate.t("organization.tabs.portfolios.text")}
+                    {translate.t("organization.tabs.credentials.text")}
                   </Tab>
-                ) : null}
-                <Can do={"api_resolvers_organization_stakeholders_resolve"}>
-                  <Tab
-                    id={"usersTab"}
-                    link={`${url}/stakeholders`}
-                    tooltip={translate.t("organization.tabs.users.tooltip")}
-                  >
-                    {translate.t("organization.tabs.users.text")}
-                  </Tab>
-                </Can>
-                <Tab
-                  id={"policiesTab"}
-                  link={`${url}/policies`}
-                  tooltip={translate.t("organization.tabs.policies.tooltip")}
-                >
-                  {translate.t("organization.tabs.policies.text")}
-                </Tab>
-                <Can do={"api_resolvers_organization_payment_methods_resolve"}>
-                  <Tab
-                    id={"billingTab"}
-                    link={`${url}/billing`}
-                    tooltip={translate.t("organization.tabs.billing.tooltip")}
-                  >
-                    {translate.t("organization.tabs.billing.text")}
-                  </Tab>
-                </Can>
-                <Tab
-                  id={"credentialsTab"}
-                  link={`${url}/credentials`}
-                  tooltip={translate.t("organization.tabs.credentials.tooltip")}
-                >
-                  {translate.t("organization.tabs.credentials.text")}
-                </Tab>
-              </Tabs>
+                </Tabs>
+              )}
             </div>
             <TabContent>
               <Switch>
