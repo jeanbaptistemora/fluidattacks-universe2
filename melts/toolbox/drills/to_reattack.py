@@ -210,7 +210,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
         "oldest_finding": oldest_finding,
     }
 
-    return {"projects_info": groups_info, "summary_info": summary_info}
+    return {"groups_info": groups_info, "summary_info": summary_info}
 
 
 @shield()
@@ -220,15 +220,15 @@ def main(group: str = "all") -> None:
     """
     to_reattack_search = to_reattack(group)
 
-    projects_info = to_reattack_search["projects_info"]
+    groups_info = to_reattack_search["groups_info"]
     summary_info = to_reattack_search["summary_info"]
 
-    for project_info in projects_info:
-        if project_info["findings"]:
+    for group_info in groups_info:
+        if group_info["findings"]:
             # Head
-            print(project_info["name"])
+            print(group_info["name"])
             # Body
-            for finding in project_info["findings"]:
+            for finding in group_info["findings"]:
                 print(
                     "  url:               "
                     f'{finding["url"]}\n'
