@@ -5,7 +5,6 @@
 # pylint: disable=unused-argument
 
 import os
-import pytest
 from toolbox import (
     resources,
 )
@@ -14,15 +13,10 @@ from typing import (
 )
 
 # Constants
-SUBS: str = "continuoustest"
+SUBS: str = "absecon"
 SUBS_BAD: str = "not-existing-group"
-SUCCESS: int = 0
-FAILURE: int = 1
-FINDING: str = "720412598"
-EMAIL: str = "dalvarez@fluidattacks.com"
 
 
-@pytest.mark.skip(reason="The group this test depends on was deleted")
 def test_toolbox_get_fingerprint(relocate: Any) -> None:
     """Run required toolbox commands."""
     assert resources.get_fingerprint(SUBS)
