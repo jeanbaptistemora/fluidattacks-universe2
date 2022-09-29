@@ -23,6 +23,7 @@ import {
   numeric,
   required,
   sameValue,
+  someRequired,
   validCsvInput,
   validDraftTitle,
   validEmail,
@@ -723,6 +724,38 @@ describe("Validations", (): void => {
     const EnvUrl = isValidEnvironmentUrl(["Test1", "Test2"])("Test");
 
     expect(EnvUrl).toBe("The environment URL is invalid");
+  });
+
+  it("Should be defined group values", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, unknown> = {
+      grouptest1: 1,
+      grouptest2: 2,
+    };
+    const values: Record<string, Record<string, unknown>> = {
+      grouptest1: helperList,
+    };
+    const name: string = "grouptest1.grouptest2.grouptest3";
+    const answer = someRequired(true, values, helperList, name);
+
+    expect(answer).toBeUndefined();
+  });
+
+  it("Should be undefined group values", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, unknown> = {
+      grouptest1: 1,
+      grouptest2: 2,
+    };
+    const values: Record<string, Record<string, unknown>> = {
+      grouptest1: helperList,
+    };
+    const name: string = "group1";
+    const answer = someRequired(true, values, helperList, name);
+
+    expect(answer).toBe("Select at least one value");
   });
 });
 
