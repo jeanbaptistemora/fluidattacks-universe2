@@ -6,8 +6,6 @@ from model.core_model import (
     FindingEnum,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
-    insecure_crypto_js,
-    insecure_key as javascript_insecure_key,
     insecure_mysql_query,
     process_cookie as javascript_process_cookie,
 )
@@ -95,27 +93,9 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
-    FindingEnum.F034.name: complete_attrs_on_set(
-        {
-            "java.lang.Math.random",
-            "java.util.Random.nextFloat",
-            "java.util.Random.nextInt",
-            "java.util.Random.nextLong",
-            "java.util.Random.nextBoolean",
-            "java.util.Random.nextDouble",
-            "java.util.Random.nextGaussian",
-            # javascrip
-            "Math.random",
-        }
-    ),
     FindingEnum.F001.name: complete_attrs_on_set(
         {
             "System.Console.ReadLine",
-        }
-    ),
-    FindingEnum.F107.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
         }
     ),
     FindingEnum.F004.name: complete_attrs_on_set(
@@ -128,7 +108,25 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "Environment.GetEnvironmentVariable",
         }
     ),
+    FindingEnum.F034.name: complete_attrs_on_set(
+        {
+            "java.lang.Math.random",
+            "java.util.Random.nextFloat",
+            "java.util.Random.nextInt",
+            "java.util.Random.nextLong",
+            "java.util.Random.nextBoolean",
+            "java.util.Random.nextDouble",
+            "java.util.Random.nextGaussian",
+            # javascript
+            "Math.random",
+        }
+    ),
     FindingEnum.F063.name: complete_attrs_on_set(
+        {
+            "Environment.GetEnvironmentVariable",
+        }
+    ),
+    FindingEnum.F107.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",
         }
@@ -142,17 +140,17 @@ STATIC_SIDE_EFFECTS: Dict[str, Set[str]] = {
     ),
 }
 BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
+    FindingEnum.F021.name: complete_attrs_on_set(
+        {
+            "Split",
+        }
+    ),
     FindingEnum.F034.name: complete_attrs_on_set(
         {
             "getSession.setAttribute",
             "toString.substring",
             "addCookie",
             "toString",
-        }
-    ),
-    FindingEnum.F021.name: complete_attrs_on_set(
-        {
-            "Split",
         }
     ),
     FindingEnum.F089.name: complete_attrs_on_set(
@@ -404,26 +402,6 @@ BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = complete_attrs_on_dict(
     }
 )
 BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
-    FindingEnum.F042.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "addCookie",
-            },
-        }
-    ),
-    FindingEnum.F034.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "addCookie",
-            },
-            "javax.servlet.http.HttpServletRequest": {
-                "getSession.setAttribute",
-            },
-            "Response": {
-                "cookie",
-            },
-        }
-    ),
     FindingEnum.F004.name: complete_attrs_on_dict(
         {
             "ProcessBuilder": {
@@ -431,14 +409,6 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "Runtime": {
                 "exec",
-            },
-        }
-    ),
-    FindingEnum.F021.name: complete_attrs_on_dict(
-        {
-            "System.Xml.XPath.XPathNavigator": {
-                "Evaluate",
-                "Select",
             },
         }
     ),
@@ -456,6 +426,34 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "Response": {
                 "send",
+            },
+        }
+    ),
+    FindingEnum.F021.name: complete_attrs_on_dict(
+        {
+            "System.Xml.XPath.XPathNavigator": {
+                "Evaluate",
+                "Select",
+            },
+        }
+    ),
+    FindingEnum.F034.name: complete_attrs_on_dict(
+        {
+            "javax.servlet.http.HttpServletResponse": {
+                "addCookie",
+            },
+            "javax.servlet.http.HttpServletRequest": {
+                "getSession.setAttribute",
+            },
+            "Response": {
+                "cookie",
+            },
+        }
+    ),
+    FindingEnum.F042.name: complete_attrs_on_dict(
+        {
+            "javax.servlet.http.HttpServletResponse": {
+                "addCookie",
             },
         }
     ),
@@ -484,29 +482,6 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
             "cookie": {
                 javascript_process_cookie,
             },
-        },
-        "crypto": {
-            "generateKeyPair": {
-                javascript_insecure_key,
-            }
-        },
-        "crypto-js.AES": {
-            "encrypt": {
-                insecure_crypto_js,
-            }
-        },
-        "crypto-js": {
-            "AES.encrypt": {
-                insecure_crypto_js,
-            },
-            "RSA.encrypt": {
-                insecure_crypto_js,
-            },
-        },
-        "crypto-js.RSA": {
-            "encrypt": {
-                insecure_crypto_js,
-            }
         },
         "mysql.Connection": {
             "query": {

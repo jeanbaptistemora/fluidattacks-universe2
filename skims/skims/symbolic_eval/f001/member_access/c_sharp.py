@@ -7,7 +7,14 @@ from symbolic_eval.types import (
     SymbolicEvaluation,
 )
 
-DANGER_METHODS = {"QueryString", "ReadLine", "GetString", "Cookies"}
+DANGER_METHODS = {
+    "QueryString",
+    "ReadLine",
+    "GetString",
+    "Cookies",
+    "GetStream",
+    "AcceptTcpClient",
+}
 
 
 def cs_sql_user_params(args: SymbolicEvalArgs) -> SymbolicEvaluation:

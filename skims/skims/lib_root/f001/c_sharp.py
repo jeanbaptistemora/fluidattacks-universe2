@@ -39,7 +39,14 @@ from utils import (
 
 
 def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    danger_methods = {"ExecuteNonQuery", "ExecuteScalar"}
+    danger_methods = {
+        "ExecuteNonQuery",
+        "ExecuteReader",
+        "ExecuteScalar",
+        "ExecuteNonQueryAsync",
+        "ExecuteScalarAsync",
+        "ExecuteReaderAsync",
+    }
     danger_params = {"UserParams"}
     if graph.nodes[n_id].get("member") not in danger_methods:
         return False

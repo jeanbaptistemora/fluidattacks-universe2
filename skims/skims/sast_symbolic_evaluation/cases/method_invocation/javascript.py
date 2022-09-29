@@ -25,10 +25,6 @@ from typing import (
     Set,
     Union,
 )
-from utils.crypto import (
-    insecure_elliptic_curve,
-    is_vulnerable_cipher,
-)
 from utils.string import (
     split_on_first_dot,
 )
@@ -128,66 +124,6 @@ def process_cookie(args: EvaluatorArgs) -> None:
             continue
         if _secure := _arg_value.get("secure"):
             args.syntax_step.meta.danger = _secure.meta.value is False
-
-
-@javascript_only
-def insecure_key(args: EvaluatorArgs) -> None:
-    arguments = args.dependencies
-    if len(arguments) < 2:
-        return None
-    *_, _options, key_type = arguments
-    options = _options.meta.value
-    if (
-        key_type.meta.value == "rsa"
-        and isinstance(options, dict)
-        and (key_length := options.get("modulusLength"))
-    ):
-        args.syntax_step.meta.danger = (
-            key_length.meta.value and key_length.meta.value < 2048
-        )
-    elif (
-        key_type.meta.value == "ec"
-        and isinstance(options, dict)
-        and (curve_name := options.get("namedCurve"))
-    ):
-        args.syntax_step.meta.danger = (
-            curve_name.meta.value
-            and insecure_elliptic_curve(curve_name.meta.value)
-        )
-    return None
-
-
-@javascript_only
-def insecure_crypto_js(args: EvaluatorArgs) -> None:
-    arguments = args.dependencies
-    if len(arguments) < 3:
-        return None
-
-    algorithm = ""
-    if "aes" in args.syntax_step.method.lower():
-        algorithm = "aes"
-    elif "rsa" in args.syntax_step.method.lower():
-        algorithm = "rsa"
-    else:
-        return None
-
-    *_, _options, _, _ = arguments
-    options = _options.meta.value
-    cipher_mode = options.get("mode")
-    cipher_padding = options.get("padding")
-
-    args.syntax_step.meta.danger = is_vulnerable_cipher(
-        algorithm,
-        cipher_mode.member
-        if cipher_padding.type == "SyntaxStepMemberAccessExpression"
-        else None,
-        cipher_padding.member
-        if cipher_padding
-        and cipher_padding.type == "SyntaxStepMemberAccessExpression"
-        else None,
-    )
-
-    return None
 
 
 def insecure_mysql_query(args: EvaluatorArgs) -> None:
