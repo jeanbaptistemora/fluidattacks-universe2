@@ -4,6 +4,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import _ from "lodash";
+
+const handleComplianceValue: (value: number | null) => number = (
+  value: number | null
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+): number => (_.isNull(value) ? 0 : value * 100);
+
 const getProgressBarColor: (progress: number) => string = (
   progress: number
 ): string => {
@@ -18,4 +25,4 @@ const getProgressBarColor: (progress: number) => string = (
   return "#BF0B1A";
 };
 
-export { getProgressBarColor };
+export { getProgressBarColor, handleComplianceValue };

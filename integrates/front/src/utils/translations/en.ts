@@ -1723,6 +1723,13 @@ export const enTranslations: ResourceKey = {
       compliance: {
         tabs: {
           overview: {
+            benchmark: {
+              avgOrganization: "Avg organization",
+              bestOrganization: "Best organization",
+              myOrganization: "My organization",
+              title: "Benchmark",
+              worstOrganization: "Worst organization",
+            },
             nonCompliance: {
               complianceLevel: {
                 info: "The organization has not complied with the {{percentage}}% of the standards",

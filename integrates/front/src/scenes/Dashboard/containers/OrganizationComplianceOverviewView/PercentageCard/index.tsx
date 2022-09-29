@@ -41,10 +41,10 @@ const PercentageCard: FC<IPercentageCardProps> = (
             </Text>
           </Col>
           <Col lg={50} md={50} sm={50}>
-            <div className={"flex flex-column  h-100 w-30 justify-center "}>
+            <div className={"flex flex-column h-100 justify-center "}>
               <ProgressBar
                 height={10}
-                maxWidth={40}
+                maxWidth={37}
                 percentage={percentage}
                 progressColor={getProgressBarColor(percentage)}
               />
