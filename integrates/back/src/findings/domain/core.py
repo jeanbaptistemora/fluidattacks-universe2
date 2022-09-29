@@ -709,13 +709,14 @@ async def send_closed_vulnerabilities_report(
             vuln.unreliable_indicators.unreliable_last_reattack_requester
         )
         vulns_closed_props[vuln.id] = {
-            "Location": vuln.where,
-            "Specific": vuln.specific,
-            "Assigned": vuln.treatment.assigned if vuln.treatment else None,
-            "Report date": report_date,
-            "Time to remediate": f"{days_open} calendar days",
-            "Reattack requester": reattack_requester,
-            "Reduction in exposure": round(exposure, 1),
+            "location": vuln.where,
+            "specific": vuln.specific,
+            "source": vuln.state.source.value,
+            "assigned": vuln.treatment.assigned if vuln.treatment else None,
+            "report date": report_date,
+            "time to remediate": f"{days_open} calendar days",
+            "reattack requester": reattack_requester,
+            "reduction in exposure": round(exposure, 1),
         }
 
     schedule(
