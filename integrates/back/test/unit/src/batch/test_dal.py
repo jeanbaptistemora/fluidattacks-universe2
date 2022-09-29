@@ -65,65 +65,63 @@ async def test_delete_action(dynamodb: ServiceResource) -> None:
     assert "you must supply the dynamodb pk" in str(delete_exception.value)
 
 
-async def test_get_action(dynamodb: ServiceResource) -> None:
-    item_1 = dict(
-        action_name="report",
-        entity="unittesting",
-        subject="unittesting@fluidattacks.com",
-        additional_info=json.dumps(
-            {
-                "report_type": "XLS",
-                "treatments": ["ACCEPTED", "NEW"],
-                "states": ["OPEN"],
-                "verifications": [],
-                "closing_date": None,
-                "finding_title": "038",
-                "age": 1100,
-                "min_severity": "2.4",
-                "max_severity": "6.4",
-            }
-        ),
-    )
+@pytest.mark.parametrize(
+    ["item", "expected_bool"],
+    [
+        [
+            dict(
+                action_name="report",
+                entity="unittesting",
+                subject="unittesting@fluidattacks.com",
+                additional_info=json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": ["ACCEPTED", "NEW"],
+                        "states": ["OPEN"],
+                        "verifications": [],
+                        "closing_date": None,
+                        "finding_title": "038",
+                        "age": 1100,
+                        "min_severity": "2.4",
+                        "max_severity": "6.4",
+                    }
+                ),
+            ),
+            True,
+        ],
+        [
+            dict(
+                action_name="report",
+                entity="continuoustesting",
+                subject="integratesmanager@gmail.com",
+                additional_info="PDF",
+            ),
+            False,
+        ],
+    ],
+)
+async def test_get_action(
+    dynamodb: ServiceResource, item: dict, expected_bool: bool
+) -> None:
     key = mapping_to_key(
         [
-            item_1["action_name"],
-            item_1["entity"],
-            item_1["subject"],
-            item_1["additional_info"],
+            item["action_name"],
+            item["entity"],
+            item["subject"],
+            item["additional_info"],
         ]
     )
-    with mock.patch("batch.dal.dynamodb_ops.query") as mock_query:
-        mock_query.return_value = [
-            dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
-        ]
-        action_in_db = await get_action(action_dynamo_pk=key)
-    assert mock_query.called is True
-    assert bool(action_in_db)
 
-    item_2 = dict(
-        action_name="report",
-        entity="continuoustesting",
-        subject="integratesmanager@gmail.com",
-        additional_info="PDF",
-    )
-    key_2 = mapping_to_key(
-        [
-            item_2["action_name"],
-            item_2["entity"],
-            item_2["subject"],
-            item_2["additional_info"],
-        ]
-    )
     with mock.patch("batch.dal.dynamodb_ops.query") as mock_query:
         try:
             mock_query.return_value = [
-                dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key_2})["Item"]
+                dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
             ]
         except KeyError:
             mock_query.return_value = []
-        action_not_in_db = await get_action(action_dynamo_pk=key_2)
+        action = await get_action(action_dynamo_pk=key)
     assert mock_query.called is True
-    assert not bool(action_not_in_db)
+    assert bool(action) is expected_bool
 
 
 async def test_get_actions(dynamodb: ServiceResource) -> None:
