@@ -1,0 +1,34 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_group %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Group Alert') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          The group <strong>{{ group }}</strong> has been {{ state }}
+          <strong>{{ organization }}</strong>:
+        </p>
+        <p>
+          <strong>Date:</strong> {{ date }}<br>
+          <strong>Reason:</strong> {{ reason }}<br>
+        </p>
+        <p>
+          Regards,<br>
+          Fluid Attacks Team
+        </p>
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
+    </div>
+  {% endblock %}

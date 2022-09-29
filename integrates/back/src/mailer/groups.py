@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=too-many-lines
+
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
@@ -351,6 +353,20 @@ async def send_mail_access_granted(
         ),
         "access_granted",
         is_access_granted=True,
+    )
+
+
+async def send_mail_group_alert(
+    loaders: Any, email_to: List[str], context: dict[str, Any]
+) -> None:
+    await send_mails_async(
+        loaders,
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'[ARM] Group [{context["group"]}] has been [{context["state"]}] '
+        + f'from [{context["organization"]}]',
+        "group_alert",
     )
 
 
@@ -876,8 +892,18 @@ async def send_mail_updated_group_information(
         **(
             {
                 "Sprint Start Date": {
-                    "from": group.sprint_start_date,
-                    "to": metadata.sprint_start_date,
+                    "from": datetime_utils.get_as_str(
+                        datetime_utils.get_datetime_from_iso_str(
+                            group.sprint_start_date
+                        ),
+                        "%Y-%m-%d",
+                    ),
+                    "to": datetime_utils.get_as_str(
+                        datetime_utils.get_datetime_from_iso_str(
+                            metadata.sprint_start_date
+                        ),
+                        "%Y-%m-%d",
+                    ),
                 }
             }
             if metadata.sprint_start_date
