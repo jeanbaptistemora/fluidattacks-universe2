@@ -19,7 +19,7 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_snowflake": (
         "cli",
-        ("root", "clients"),
+        "root",
         "db",
         "schema",
         "table",
@@ -36,9 +36,9 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "_manager",
         "_core",
     ),
-    "target_snowflake.clients": (
-        "_table",
-        "_full_path",
+    "target_snowflake.table": (
+        "_manager",
+        "_core",
     ),
     "target_snowflake.sql_client": (
         "_connection",

@@ -7,9 +7,15 @@ from ._core import (
     ColumnObj,
     Table,
 )
+from ._manager import (
+    TableManager,
+    UpperMethods,
+)
 
 __all__ = [
     "ColumnId",
     "Table",
     "ColumnObj",
+    "TableManager",
+    "UpperMethods",
 ]

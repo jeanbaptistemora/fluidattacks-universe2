@@ -10,8 +10,9 @@ from dataclasses import (
     dataclass,
     field,
 )
-from fa_purity.cmd import (
+from fa_purity import (
     Cmd,
+    PureIter,
 )
 from fa_purity.frozen import (
     freeze,
@@ -34,6 +35,7 @@ from target_snowflake.schema import (
 from target_snowflake.sql_client import (
     Cursor,
     Query,
+    RowData,
 )
 from target_snowflake.table import (
     Table,
@@ -86,6 +88,20 @@ class UpperMethods(ABC):
     @abstractmethod
     def create_schema(
         self, schema: SchemaId, if_not_exist: bool = False
+    ) -> Cmd[None]:
+        pass
+
+    @abstractmethod
+    def append_table(self, source: DbTableId, target: DbTableId) -> Cmd[None]:
+        pass
+
+    @abstractmethod
+    def insert(
+        self,
+        table_id: DbTableId,
+        table_def: Table,
+        items: PureIter[RowData],
+        limit: int,
     ) -> Cmd[None]:
         pass
 
@@ -167,5 +183,21 @@ class DbManager:
 
             def _delete(s, target: TableId, cascade: bool) -> Cmd[None]:
                 return self._upper.delete_table(_table_path(target), cascade)
+
+            def append_table(s, source: TableId, target: TableId) -> Cmd[None]:
+                return self._upper.append_table(
+                    _table_path(source), _table_path(target)
+                )
+
+            def insert(
+                s,
+                table_id: TableId,
+                table_def: Table,
+                items: PureIter[RowData],
+                limit: int,
+            ) -> Cmd[None]:
+                return self._upper.insert(
+                    _table_path(table_id), table_def, items, limit
+                )
 
         return SchemaManager(_ConcreteMethods())

@@ -12,10 +12,19 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    PureIter,
 )
 from target_snowflake.schema import (
     TableId,
     TableObj,
+)
+from target_snowflake.sql_client import (
+    RowData,
+)
+from target_snowflake.table import (
+    Table,
+    TableManager,
+    UpperMethods as TableUpperMethods,
 )
 from typing import (
     FrozenSet,
@@ -43,6 +52,20 @@ class UpperMethods(ABC):
     def _delete(self, target: TableId, cascade: bool) -> Cmd[None]:
         pass
 
+    @abstractmethod
+    def append_table(self, source: TableId, target: TableId) -> Cmd[None]:
+        pass
+
+    @abstractmethod
+    def insert(
+        self,
+        table_id: TableId,
+        table_def: Table,
+        items: PureIter[RowData],
+        limit: int,
+    ) -> Cmd[None]:
+        pass
+
 
 @dataclass(frozen=True)
 class SchemaManager:
@@ -68,3 +91,18 @@ class SchemaManager:
 
     def delete_cascade(self, table_id: TableId) -> Cmd[None]:
         return self._delete(table_id, True)
+
+    def append_table(self, source: TableId, target: TableId) -> Cmd[None]:
+        return self._upper.append_table(source, target)
+
+    def table_manager(self, table: TableId) -> TableManager:
+        class _ConcreteMethods(TableUpperMethods):
+            def insert(
+                s,
+                table_def: Table,
+                items: PureIter[RowData],
+                limit: int,
+            ) -> Cmd[None]:
+                return self._upper.insert(table, table_def, items, limit)
+
+        return TableManager(_ConcreteMethods())

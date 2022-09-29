@@ -18,6 +18,7 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    PureIter,
 )
 from fa_purity.frozen import (
     freeze,
@@ -30,6 +31,9 @@ from fa_purity.json.primitive.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
+)
+from fa_purity.pure_iter.transform import (
+    consume,
 )
 from target_snowflake.db import (
     DbTableId,
@@ -44,6 +48,7 @@ from target_snowflake.sql_client import (
     DatabaseId,
     Identifier,
     Query,
+    RowData,
 )
 from target_snowflake.table import (
     Table,
@@ -179,7 +184,34 @@ class RootManager:
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
 
-    def insert_from(
+    def insert(
+        self,
+        table_id: FullTablePointer,
+        table_def: Table,
+        items: PureIter[RowData],
+        limit: int,
+    ) -> Cmd[None]:
+        enum_fields = from_flist(tuple(enumerate(table_def.order)))
+        _fields = ",".join(enum_fields.map(lambda t: f"{{field_{t[0]}}}"))
+        values_placeholder = ",".join(enum_fields.map(lambda _: "?"))
+        stm = f"""
+            INSERT INTO {{db}}.{{schema}}.{{table}} ({_fields}) VALUES ({values_placeholder})
+        """
+        identifiers: Dict[str, Identifier] = {
+            "db": table_id.db.db_name,
+            "schema": table_id.schema.name,
+            "table": table_id.table.name,
+        }
+        for i, c in enumerate(table_def.order):
+            identifiers[f"field_{i}"] = c.name
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return (
+            items.chunked(limit)
+            .map(lambda p: self._cursor.execute_many(query, p))
+            .transform(consume)
+        )
+
+    def append_table(
         self, source: FullTablePointer, target: FullTablePointer
     ) -> Cmd[None]:
         """
@@ -318,5 +350,23 @@ class RootManager:
 
             def table_ids(s, schema: SchemaId) -> Cmd[FrozenSet[TableId]]:
                 return self.table_ids(_schema_path(schema))
+
+            def append_table(
+                s, source: DbTableId, target: DbTableId
+            ) -> Cmd[None]:
+                return self.append_table(
+                    _table_path(source), _table_path(target)
+                )
+
+            def insert(
+                s,
+                table_id: DbTableId,
+                table_def: Table,
+                items: PureIter[RowData],
+                limit: int,
+            ) -> Cmd[None]:
+                return self.insert(
+                    _table_path(table_id), table_def, items, limit
+                )
 
         return DbManager(self._cursor, _ConcreteDbMethods())
