@@ -8,6 +8,9 @@
 """
 Populates OpenSearch with all the events from active groups
 
+Execution Time:    2022-09-29 at 18:04:37 UTC
+Finalization Time: 2022-09-29 at 18:05:38 UTC
+
 """
 
 from aioextensions import (
@@ -109,7 +112,6 @@ async def main() -> None:
     active_group_names = sorted(await get_all_active_group_names(loaders))
     await search_startup()
     client = await get_client()
-    await client.indices.delete(index="events")
     await client.indices.create(index="events")
     await collect(
         tuple(process_group(group_name) for group_name in active_group_names),
