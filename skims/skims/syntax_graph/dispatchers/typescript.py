@@ -15,6 +15,9 @@ from syntax_graph.syntax_readers.javascript import (
     string_literal as javascript_string_literal,
     variable_declaration as javascript_variable_declaration,
 )
+from syntax_graph.syntax_readers.typescript import (
+    as_expression as typescript_as_expression,
+)
 from syntax_graph.types import (
     Dispatcher,
     Dispatchers,
@@ -26,6 +29,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "array",
         },
         syntax_reader=javascript_array.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "as_expression",
+        },
+        syntax_reader=typescript_as_expression.reader,
     ),
     Dispatcher(
         applicable_types={
