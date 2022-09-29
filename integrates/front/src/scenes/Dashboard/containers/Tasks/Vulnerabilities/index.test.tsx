@@ -74,6 +74,7 @@ describe("todoVulnerabilitiesView", (): void => {
               lastVerificationDate: null,
               remediated: false,
               reportDate: "2020-07-05 09:56:40",
+              rootNickname: "https:",
               severity: "",
               specific: "specific-3",
               stream: null,

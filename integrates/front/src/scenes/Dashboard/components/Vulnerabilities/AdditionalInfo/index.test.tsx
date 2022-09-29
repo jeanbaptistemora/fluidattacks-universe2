@@ -44,6 +44,7 @@ describe("AdditionalInfo", (): void => {
     organizationName: undefined,
     remediated: false,
     reportDate: "",
+    rootNickname: "https:",
     severity: "1",
     specific: "specific-3",
     stream: null,

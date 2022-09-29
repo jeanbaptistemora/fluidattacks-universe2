@@ -262,6 +262,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
       (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
         ...vulnerability,
         groupName,
+        where:
+          vulnerability.vulnerabilityType === "lines" &&
+          vulnerability.rootNickname !== null &&
+          !vulnerability.where.startsWith(`${vulnerability.rootNickname}/`)
+            ? `${vulnerability.rootNickname}/${vulnerability.where}`
+            : vulnerability.where,
       })
     ),
     undefined

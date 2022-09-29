@@ -26,6 +26,7 @@ interface IVulnRowAttr {
   lastVerificationDate: string | null;
   remediated: boolean;
   reportDate: string;
+  rootNickname: string | null;
   severity: string | null;
   specific: string;
   stream: string | null;
