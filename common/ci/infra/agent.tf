@@ -30,10 +30,7 @@ resource "aws_cloudformation_stack" "main" {
 
   parameters = {
     # Core
-    BuildkiteAgentToken                   = null
     BuildkiteAgentTokenParameterStorePath = local.buildkiteTokenPath
-    BuildkiteQueue                        = "common-ci"
-    BuildkiteAgentRelease                 = "stable"
     BuildkiteTerminateInstanceAfterJob    = false
 
     # Network
