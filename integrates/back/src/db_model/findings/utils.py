@@ -42,7 +42,7 @@ from typing import (
 )
 
 
-def filter_non_in_test_orgs(
+def filter_find_non_in_test_orgs(
     test_group_orgs: tuple[tuple[Group, ...], ...],
     findings: tuple[Finding, ...],
 ) -> tuple[Finding, ...]:
@@ -58,7 +58,7 @@ def filter_non_in_test_orgs(
     )
 
 
-def filter_stakeholder_groups(
+def filter_find_stakeholder_groups(
     group_names: list[str],
     findings: tuple[Finding, ...],
 ) -> tuple[Finding, ...]:

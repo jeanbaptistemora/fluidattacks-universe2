@@ -17,10 +17,36 @@ from db_model.events.enums import (
     EventStateStatus,
     EventType,
 )
+from db_model.groups.types import (
+    Group,
+)
 from dynamodb.types import (
     Item,
 )
 import simplejson as json
+
+
+def filter_event_non_in_test_orgs(
+    *,
+    test_group_orgs: tuple[tuple[Group, ...], ...],
+    events: tuple[Event, ...],
+) -> tuple[Event, ...]:
+    test_group_names = tuple(
+        tuple(group.name for group in groups) for groups in test_group_orgs
+    )
+    return tuple(
+        event
+        for event in events
+        if not any(
+            event.group_name in group_name for group_name in test_group_names
+        )
+    )
+
+
+def filter_event_stakeholder_groups(
+    group_names: list[str], events: tuple[Event, ...]
+) -> tuple[Event, ...]:
+    return tuple(event for event in events if event.group_name in group_names)
 
 
 def format_evidences(evidences: Item) -> EventEvidences:

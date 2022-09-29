@@ -5,13 +5,13 @@
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
+from db_model.events.types import (
+    Event,
 )
-from db_model.findings.utils import (
-    filter_find_non_in_test_orgs,
-    filter_find_stakeholder_groups,
-    format_finding,
+from db_model.events.utils import (
+    filter_event_non_in_test_orgs,
+    filter_event_stakeholder_groups,
+    format_event,
 )
 from decorators import (
     require_login,
@@ -35,21 +35,13 @@ async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Finding, ...]:
+) -> tuple[Event, ...]:
+
     user_email = str(parent["user_email"])
     results = await search(
-        should_filters=[
-            {"state.status": "CREATED"},
-            {"state.status": "REJECTED"},
-            {"state.status": "SUBMITTED"},
-        ],
-        must_not_filters=[
-            {"state.status": "APPROVED"},
-            {"state.status": "DELETED"},
-            {"state.status": "MASKED"},
-        ],
-        index="findings",
-        limit=500,
+        must_not_filters=[{"state.status": "SOLVED"}],
+        index="events",
+        limit=1000,
     )
     loaders: Dataloaders = info.context.loaders
     test_group_orgs = await loaders.organization_groups.load_many(
@@ -59,9 +51,9 @@ async def resolve(
         )
     )
 
-    org_filtered = filter_find_non_in_test_orgs(
+    org_filtered = filter_event_non_in_test_orgs(
         test_group_orgs=test_group_orgs,
-        findings=tuple(format_finding(result) for result in results.items),
+        events=tuple(format_event(result) for result in results.items),
     )
 
     stakeholder_groups = await get_stakeholder_groups_names(
@@ -69,7 +61,7 @@ async def resolve(
     )
 
     return tuple(
-        filter_find_stakeholder_groups(
-            group_names=stakeholder_groups, findings=org_filtered
+        filter_event_stakeholder_groups(
+            group_names=stakeholder_groups, events=org_filtered
         )
     )

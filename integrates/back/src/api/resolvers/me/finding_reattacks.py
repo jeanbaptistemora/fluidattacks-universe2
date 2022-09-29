@@ -9,7 +9,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.findings.utils import (
-    filter_non_in_test_orgs,
+    filter_find_non_in_test_orgs,
     format_finding,
 )
 from decorators import (
@@ -54,7 +54,7 @@ async def resolve(
         )
     )
 
-    return filter_non_in_test_orgs(
+    return filter_find_non_in_test_orgs(
         test_group_orgs,
         tuple(format_finding(result) for result in results.items),
     )
