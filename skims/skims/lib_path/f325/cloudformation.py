@@ -50,11 +50,29 @@ def get_wildcard_nodes_for_resources(
     exceptions = {
         "ec2:DescribeInstanceStatus",
         "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeInstanceCreditSpecifications",
+        "ec2:DescribeInstanceEventNotificationAttributes",
+        "ec2:DescribeInstanceEventWindows",
+        "ec2:DescribeInstanceTypeOfferings",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeInstances",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeIpamPools",
+        "ec2:DescribeIpamScopes",
+        "ec2:DescribeIpams",
+        "ec2:DescribeIpv6Pools",
+        "ec2:DescribeKeyPairs",
     }
     for res in (
         resources.data if isinstance(resources.raw, List) else [resources]
     ):
-        if str(actions.data) not in exceptions and pattern.match(res.raw):
+        is_action_in_exceptions = list(
+            map(
+                lambda action: str(action.raw) in exceptions,
+                actions.data if isinstance(actions.raw, List) else [actions],
+            )
+        )
+        if False in is_action_in_exceptions and pattern.match(res.raw):
             yield res
 
 
@@ -287,7 +305,9 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
             if actions:
                 yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
             if resources:
-                yield from get_wildcard_nodes(resources, WILDCARD_RESOURCE)
+                yield from get_wildcard_nodes_for_resources(
+                    actions, resources, WILDCARD_RESOURCE
+                )
 
 
 def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
