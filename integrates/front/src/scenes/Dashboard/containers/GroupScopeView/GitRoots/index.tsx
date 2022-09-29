@@ -52,9 +52,7 @@ import type {
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table } from "components/Table";
-import { filterSearchText } from "components/Table/utils";
-import { Table as Tablez } from "components/TableNew";
+import { Table } from "components/TableNew";
 import type { ICellHelper } from "components/TableNew/types";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
@@ -144,7 +142,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     undefined
   );
   const [currentRowUrl, setCurrentRowUrl] = useState<
-    IEnvironmentUrl | undefined
+    Record<string, unknown> | undefined
   >(undefined);
 
   const [deactivationModal, setDeactivationModal] = useState({
@@ -174,8 +172,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     "tblGitRoots-sortingState",
     []
   );
-
-  const [searchEnvsTextFilter, setSearchEnvsTextFilter] = useState("");
 
   // GraphQL operations
   const [updateTours] = useMutation(UPDATE_TOURS, {
@@ -257,13 +253,21 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     };
   }
 
-  const handleRowUrlClick = useCallback(
-    (_0: React.SyntheticEvent, row: IEnvironmentUrl): void => {
-      setCurrentRowUrl(row);
+  function handleRowUrlClick(
+    rowInfo: Row<{
+      createdAt: string;
+      id: string;
+      url: string;
+      repositoryUrls: string[];
+    }>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      setCurrentRowUrl(rowInfo.original);
       setIsEnvironmentModalOpen(true);
-    },
-    []
-  );
+      event.preventDefault();
+    };
+  }
+
   function closeEnvironmentModal(): void {
     setIsEnvironmentModalOpen(false);
   }
@@ -297,12 +301,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       {}
     );
 
-  function onSearchEnvsTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchEnvsTextFilter(event.target.value);
-  }
-
   const formatBoolean = useCallback(
     (value: boolean): string =>
       value
@@ -320,6 +318,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     })
   );
   const envUrlsDataSet: {
+    createdAt: string;
     id: string;
     url: string;
     repositoryUrls: string[];
@@ -338,6 +337,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       (
         envUrl
       ): {
+        createdAt: string;
         id: string;
         url: string;
         repositoryUrls: string[];
@@ -349,11 +349,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       }
     );
 
-  const resultEnvironmentsUrlsDataset: Record<string, unknown>[] =
-    filterSearchText(envUrlsDataSet, searchEnvsTextFilter);
-
   function handleRowExpand(row: Row<IGitRootData>): JSX.Element {
     return renderDescriptionComponent(row.original, groupName);
+  }
+
+  function handleUrlRowExpand(
+    row: Row<{
+      createdAt: string;
+      id: string;
+      url: string;
+      repositoryUrls: string[];
+    }>
+  ): JSX.Element {
+    return renderEnvDescription(row.original);
   }
 
   const managementInitialValues: IFormValues | undefined = _.isUndefined(
@@ -410,7 +418,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {t("group.scope.git.title")}
               </Text>
               <Card>
-                <Tablez
+                <Table
                   columnFilterSetter={setColumnFilters}
                   columnFilterState={columnFilters}
                   columnToggle={true}
@@ -541,33 +549,20 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           </Text>
           <Card>
             <Table
-              customSearch={{
-                customSearchDefault: searchEnvsTextFilter,
-                isCustomSearchEnabled: true,
-                onUpdateCustomSearch: onSearchEnvsTextChange,
-                position: "right",
-              }}
-              dataset={resultEnvironmentsUrlsDataset}
-              expandRow={{
-                expandByColumnOnly: true,
-                renderer: renderEnvDescription,
-                showExpandColumn: true,
-              }}
-              exportCsv={false}
-              headers={[
+              columns={[
                 {
-                  dataField: "url",
-                  header: t("group.scope.git.repo.url"),
+                  accessorKey: "url",
+                  header: String(t("group.scope.git.repo.url")),
                 },
               ]}
+              data={envUrlsDataSet}
+              expandedRow={handleUrlRowExpand}
               id={"tblGitRootEnvs"}
-              pageSize={10}
-              rowEvents={
+              onRowClick={
                 permissions.can("api_resolvers_query_environment_url_resolve")
-                  ? { onClick: handleRowUrlClick }
-                  : {}
+                  ? handleRowUrlClick
+                  : undefined
               }
-              search={false}
             />
           </Card>
           <Can do={"api_resolvers_query_environment_url_resolve"}>
@@ -576,7 +571,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 closeModal={closeEnvironmentModal}
                 groupName={groupName}
                 isOpen={isEnvironmentModalOpen}
-                urlId={currentRowUrl.id}
+                urlId={String(currentRowUrl.id)}
               />
             )}
           </Can>
