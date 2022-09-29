@@ -271,12 +271,14 @@ async def full_access_policies(
                 if policy_names
                 else {}
             )
+            print(pol_access, type(pol_access))
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-
+            print(pol_access, type(policy_statements))
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
+                print(item, type(item))
                 with suppress(KeyError):
                     if (
                         item["Effect"] == "Allow"
@@ -690,13 +692,9 @@ CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    negative_statement,
-    full_access_to_ssm,
-    permissive_policy,
     admin_policy_attached,
     full_access_policies,
     public_buckets,
     group_with_inline_policies,
     user_with_inline_policies,
-    open_passrole,
 )
