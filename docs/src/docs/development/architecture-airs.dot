@@ -88,6 +88,19 @@ digraph airs {
           cloudflare_zone_fluidattacks_com_dns_cname_web_eph[label="CNAME web.eph"]
         }
 
+        subgraph cluster_cloudflare_zone_fluidattacks_com_rules {
+          label="Rules"
+
+          subgraph cluster_cloudflare_zone_fluidattacks_com_rules_page {
+            label="Page Rules"
+
+            cloudflare_zone_fluidattacks_com_rules_page[label="fluidattacks.com/*"]
+            cloudflare_zone_fluidattacks_com_rules_page_cache[label="cache"]
+            cloudflare_zone_fluidattacks_com_rules_page_web_eph[label="web.eph.fluidattacks.com/$1"]
+            cloudflare_zone_fluidattacks_com_rules_page_web_eph_cache[label="cache"]
+          }
+        }
+
         subgraph cluster_cloudflare_zone_fluidattacks_com_worker_routes {
           label="Worker Routes"
 
@@ -110,6 +123,8 @@ digraph airs {
   cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> cloudflare_zone_fluidattacks_com_worker_route_dev[]
   cloudflare_zone_fluidattacks_com_dns_cname -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
   cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
+  cloudflare_zone_fluidattacks_com_rules_page -> cloudflare_zone_fluidattacks_com_rules_page_cache[]
+  cloudflare_zone_fluidattacks_com_rules_page_web_eph -> cloudflare_zone_fluidattacks_com_rules_page_web_eph_cache[]
   customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
   fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
   gitlab_airs -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
