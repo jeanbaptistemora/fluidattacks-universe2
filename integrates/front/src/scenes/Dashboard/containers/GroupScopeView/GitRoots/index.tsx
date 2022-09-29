@@ -10,24 +10,30 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  Row,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import _ from "lodash";
 import React, { Fragment, useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
+import { changeFormatter } from "./Formatters/changeFormatter";
+import { syncButtonFormatter } from "./Formatters/syncButtonFormatter";
 import {
-  filterSelectIncludesHealthCheck,
-  filterSelectStatus,
   handleActivationError,
   handleCreationError,
   handleSyncError,
   handleUpdateError,
-  hasCheckedItem,
   useGitSubmit,
 } from "./helpers";
 import { ManagementEnvironmentUrlsModal } from "./ManagementEnvironmentUrlsModal";
 import { ManagementModal } from "./ManagementModal";
-import { renderRepoDescription } from "./repoDescription";
+import { renderDescriptionComponent } from "./repoDescription";
 
 import { DeactivationModal } from "../deactivationModal";
 import { InternalSurfaceButton } from "../InternalSurfaceButton";
@@ -47,18 +53,9 @@ import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
-import {
-  changeFormatter,
-  syncButtonFormatter,
-} from "components/Table/formatters";
-import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
-import { useRowExpand } from "components/Table/hooks/useRowExpand";
-import type { IFilterProps } from "components/Table/types";
-import {
-  filterSearchText,
-  filterSelect,
-  filterText,
-} from "components/Table/utils";
+import { filterSearchText } from "components/Table/utils";
+import { Table as Tablez } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import { BaseStep, Tour } from "components/Tour/index";
@@ -75,14 +72,6 @@ interface IGitRootsProps {
   groupName: string;
   onUpdate: () => void;
   roots: IGitRootAttr[];
-}
-
-interface IFilterSet {
-  branch: string;
-  includesHealthCheck?: string;
-  nickname: string;
-  state: string;
-  status: string;
 }
 
 export const GitRoots: React.FC<IGitRootsProps> = ({
@@ -171,42 +160,22 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setDeactivationModal({ open: false, rootId: "" });
   }, []);
 
-  const [checkedItems, setCheckedItems] = useStoredState<
-    Record<string, boolean>
-  >(
-    "gitRootsColumns",
-    {
-      branch: true,
-      "cloningStatus.status": true,
-      includesHealthCheck: false,
-      state: true,
-      sync: true,
-      url: true,
-    },
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblGitRoots-columnFilters",
+    [],
     localStorage
   );
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("tblGitRoots-visibilityState", {
+      HCK: false,
+      nickname: false,
+    });
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblGitRoots-sortingState",
+    []
+  );
 
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("rootsCustomFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [searchEnvsTextFilter, setSearchEnvsTextFilter] = useState("");
-  const [filterGroupScopeTable, setFilterGroupScopeTable] =
-    useStoredState<IFilterSet>(
-      "filterGroupScopeSet",
-      {
-        branch: "",
-        includesHealthCheck: "",
-        nickname: "",
-        state: "",
-        status: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // GraphQL operations
   const [updateTours] = useMutation(UPDATE_TOURS, {
@@ -272,21 +241,22 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleSyncClick: (row: Record<string, string>) => void = (
-    row
-  ): void => {
+  const handleSyncClick: (row: IGitRootData) => void = (row): void => {
     void syncGitRoot({ variables: { groupName, rootId: row.id } });
   };
 
-  const handleRowClick = useCallback(
-    (_0: React.SyntheticEvent, row: IGitRootData): void => {
-      if (row.state === "ACTIVE") {
-        setCurrentRow(row);
+  function handleRowClick(
+    rowInfo: Row<IGitRootData>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      if (rowInfo.original.state === "ACTIVE") {
+        setCurrentRow(rowInfo.original);
         setIsManagingRoot({ mode: "EDIT" });
       }
-    },
-    []
-  );
+      event.preventDefault();
+    };
+  }
+
   const handleRowUrlClick = useCallback(
     (_0: React.SyntheticEvent, row: IEnvironmentUrl): void => {
       setCurrentRowUrl(row);
@@ -305,22 +275,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setRootModalMessages,
     updateGitRoot
   );
-
-  function handleChange(columnName: string): void {
-    if (hasCheckedItem(checkedItems, columnName)) {
-      // eslint-disable-next-line no-alert -- Deliberate usage
-      alert(t("validations.columns"));
-      setCheckedItems({
-        ...checkedItems,
-        [columnName]: true,
-      });
-    } else {
-      setCheckedItems({
-        ...checkedItems,
-        [columnName]: !checkedItems[columnName],
-      });
-    }
-  }
 
   const rootsGroupedByEnvs = roots
     .filter(
@@ -343,59 +297,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       {}
     );
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
   function onSearchEnvsTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchEnvsTextFilter(event.target.value);
-  }
-  const filterSearchTextRoots: IGitRootAttr[] = filterSearchText(
-    roots,
-    searchTextFilter
-  );
-
-  function onNicknameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        nickname: event.target.value,
-      })
-    );
-  }
-  const filterNicknameRoots: IGitRootAttr[] = filterText(
-    roots,
-    filterGroupScopeTable.nickname,
-    "nickname"
-  );
-
-  function onBranchChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        branch: event.target.value,
-      })
-    );
-  }
-  const filterBranchRoots: IGitRootAttr[] = filterText(
-    roots,
-    filterGroupScopeTable.branch,
-    "branch"
-  );
-
-  function onStateChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        state: event.target.value,
-      })
-    );
   }
 
   const formatBoolean = useCallback(
@@ -405,133 +310,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         : t("group.scope.git.healthCheck.no"),
     [t]
   );
-
-  const includesHealthCheckSelectOptions = Object.fromEntries([
-    ["false", formatBoolean(false)],
-    ["true", formatBoolean(true)],
-  ]);
-
-  const onIncludesHealthCheckChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        includesHealthCheck: event.target.value,
-      })
-    );
-  };
-
-  const filterStateRoots: IGitRootAttr[] = filterSelect(
-    roots,
-    filterGroupScopeTable.state,
-    "state"
-  );
-
-  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupScopeTable(
-      (value): IFilterSet => ({
-        ...value,
-        status: event.target.value,
-      })
-    );
-  }
-
-  function clearFilters(): void {
-    setFilterGroupScopeTable(
-      (): IFilterSet => ({
-        branch: "",
-        includesHealthCheck: "",
-        nickname: "",
-        state: "",
-        status: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const filterStatusRoots: IGitRootAttr[] = filterSelectStatus(
-    roots,
-    filterGroupScopeTable.status
-  );
-
-  const filterHCKRoots: IGitRootAttr[] = filterSelectIncludesHealthCheck(
-    roots,
-    filterGroupScopeTable.includesHealthCheck ?? ""
-  );
-
-  const resultExecutions: IGitRootAttr[] = _.intersection(
-    filterSearchTextRoots,
-    filterNicknameRoots,
-    filterBranchRoots,
-    filterHCKRoots,
-    filterStateRoots,
-    filterStatusRoots
-  );
-
-  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
-    rowId: "id",
-    rows: resultExecutions,
-    storageKey: "gitRootsExpandedRows",
-  });
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterGroupScopeTable.nickname,
-      onChangeInput: onNicknameChange,
-      placeholder: "Nickname",
-      tooltipId: "group.scope.git.filtersTooltips.nickname.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.nickname",
-      type: "text",
-    },
-    {
-      defaultValue: filterGroupScopeTable.branch,
-      onChangeInput: onBranchChange,
-      placeholder: "Branch",
-      tooltipId: "group.scope.git.filtersTooltips.branch.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.branch",
-      type: "text",
-    },
-    {
-      defaultValue: filterGroupScopeTable.state,
-      onChangeSelect: onStateChange,
-      placeholder: "State",
-      selectOptions: {
-        ACTIVE: "Active",
-        INACTIVE: "Inactive",
-      },
-      tooltipId: "group.scope.git.filtersTooltips.state.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.state",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupScopeTable.status,
-      onChangeSelect: onStatusChange,
-      placeholder: "Status",
-      selectOptions: {
-        CLONING: "Cloning",
-        FAILED: "Failed",
-        "N/A": "N/A",
-        OK: "Ok",
-        QUEUED: "Queued",
-        UNKNOWN: "Unknown",
-      },
-      tooltipId: "group.scope.git.filtersTooltips.status.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.status",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupScopeTable.includesHealthCheck ?? "",
-      onChangeSelect: onIncludesHealthCheckChange,
-      placeholder: t("group.scope.git.filtersTooltips.healthCheck.placeholder"),
-      selectOptions: includesHealthCheckSelectOptions,
-      tooltipId: "group.scope.git.filtersTooltips.healthCheck.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.healthCheck.text",
-      type: "select",
-    },
-  ];
 
   const envDataset: Record<string, unknown>[] = Object.entries(
     rootsGroupedByEnvs
@@ -574,6 +352,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const resultEnvironmentsUrlsDataset: Record<string, unknown>[] =
     filterSearchText(envUrlsDataSet, searchEnvsTextFilter);
 
+  function handleRowExpand(row: Row<IGitRootData>): JSX.Element {
+    return renderDescriptionComponent(row.original, groupName);
+  }
+
   const managementInitialValues: IFormValues | undefined = _.isUndefined(
     currentRow
   )
@@ -610,7 +392,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     <Fragment>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm): React.ReactNode => {
-          const handleStateUpdate: (row: Record<string, string>) => void = (
+          const handleStateUpdate: (row: IGitRootData) => void = (
             row
           ): void => {
             if (row.state === "ACTIVE") {
@@ -628,34 +410,84 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {t("group.scope.git.title")}
               </Text>
               <Card>
-                <Table
-                  clearFiltersButton={clearFilters}
+                <Tablez
+                  columnFilterSetter={setColumnFilters}
+                  columnFilterState={columnFilters}
                   columnToggle={true}
-                  csvFilename={`${groupName}.csv`}
-                  customFilters={{
-                    customFiltersProps,
-                    isCustomFilterEnabled,
-                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                    resultSize: {
-                      current: resultExecutions.length,
-                      total: roots.length,
-                    },
-                  }}
-                  customSearch={{
-                    customSearchDefault: searchTextFilter,
-                    isCustomSearchEnabled: true,
-                    onUpdateCustomSearch: onSearchTextChange,
-                    position: "right",
-                  }}
-                  dataset={resultExecutions}
-                  expandRow={{
-                    expandByColumnOnly: true,
-                    expanded: expandedRows,
-                    onExpand: handleRowExpand,
-                    onExpandAll: handleRowExpandAll,
-                    renderer: renderRepoDescription(groupName),
-                    showExpandColumn: true,
-                  }}
+                  columnVisibilitySetter={setColumnVisibility}
+                  columnVisibilityState={columnVisibility}
+                  columns={(
+                    [
+                      {
+                        accessorKey: "url",
+                        enableColumnFilter: false,
+                        header: String(t("group.scope.git.repo.url")),
+                      },
+                      {
+                        accessorKey: "branch",
+                        header: String(t("group.scope.git.repo.branch")),
+                      },
+                      {
+                        accessorKey: "state",
+                        cell: (cell: ICellHelper<IGitRootData>): JSX.Element =>
+                          canUpdateRootState
+                            ? changeFormatter(
+                                cell.row.original,
+                                handleStateUpdate
+                              )
+                            : statusFormatter(cell.getValue()),
+                        header: String(t("group.scope.common.state")),
+                        meta: { filterType: "select" },
+                      },
+                      {
+                        accessorFn: (row: IGitRootData): string =>
+                          row.cloningStatus.status,
+                        cell: (cell: ICellHelper<IGitRootData>): JSX.Element =>
+                          statusFormatter(cell.getValue()),
+                        header: String(
+                          t("group.scope.git.repo.cloning.status")
+                        ),
+                        meta: { filterType: "select" },
+                      },
+                      {
+                        accessorFn: (row: IGitRootData): string | undefined =>
+                          row.includesHealthCheck === null
+                            ? undefined
+                            : formatBoolean(row.includesHealthCheck),
+                        header: String(
+                          t("group.scope.git.healthCheck.tableHeader")
+                        ),
+                        meta: { filterType: "select" },
+                      },
+                      {
+                        accessorKey: "nickname",
+                        header: String(t("group.scope.git.repo.nickname")),
+                      },
+                    ] as ColumnDef<IGitRootData>[]
+                  ).concat(
+                    canSyncGitRoot
+                      ? [
+                          {
+                            accessorFn: (): string => "sync",
+                            cell: (
+                              cell: ICellHelper<IGitRootData>
+                            ): JSX.Element =>
+                              syncButtonFormatter(
+                                cell.row.original,
+                                handleSyncClick
+                              ),
+                            enableColumnFilter: false,
+                            header: String(
+                              t("group.scope.git.repo.cloning.sync")
+                            ),
+                          },
+                        ]
+                      : []
+                  )}
+                  csvName={groupName}
+                  data={roots}
+                  enableColumnFilters={true}
+                  expandedRow={handleRowExpand}
                   exportCsv={true}
                   extraButtons={
                     <Fragment>
@@ -692,99 +524,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       <InternalSurfaceButton />
                     </Fragment>
                   }
-                  headers={[
-                    {
-                      dataField: "id",
-                      header: t("group.machine.rootId"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      dataField: "url",
-                      header: t("group.scope.git.repo.url"),
-                      visible: checkedItems.url,
-                      wrapped: true,
-                    },
-                    {
-                      dataField: "branch",
-                      header: t("group.scope.git.repo.branch"),
-                      visible: checkedItems.branch,
-                    },
-                    {
-                      changeFunction: handleStateUpdate,
-                      dataField: "state",
-                      formatter: canUpdateRootState
-                        ? changeFormatter
-                        : statusFormatter,
-                      header: t("group.scope.common.state"),
-                      visible: checkedItems.state,
-                      width: canUpdateRootState ? "130px" : "100px",
-                    },
-                    {
-                      dataField: "cloningStatus.status",
-                      formatter: statusFormatter,
-                      header: t("group.scope.git.repo.cloning.status"),
-                      visible: checkedItems["cloningStatus.status"],
-                      width: "105px",
-                    },
-                    {
-                      dataField: "includesHealthCheck",
-                      formatter: formatBoolean,
-                      header: t("group.scope.git.healthCheck.tableHeader"),
-                      headerFormatter: tooltipFormatter,
-                      tooltipDataField: t(
-                        "group.scope.git.healthCheck.titleTooltip"
-                      ),
-                      visible: _.isUndefined(checkedItems.includesHealthCheck)
-                        ? false
-                        : checkedItems.includesHealthCheck,
-                      width: "45px",
-                    },
-                    {
-                      dataField: "nickname",
-                      header: t("group.scope.git.repo.nickname"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      dataField: "environment",
-                      header: t("group.scope.git.repo.environment"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      dataField: "gitignore",
-                      header: t("group.scope.git.filter.exclude"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      dataField: "environmentUrls",
-                      header: t("group.scope.git.envUrls"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      dataField: "useVpn",
-                      header: t("group.scope.git.repo.useVpn"),
-                      nonToggleList: true,
-                      visible: false,
-                    },
-                    {
-                      changeFunction: handleSyncClick,
-                      csvExport: false,
-                      dataField: "sync",
-                      formatter: syncButtonFormatter,
-                      header: t("group.scope.git.repo.cloning.sync"),
-                      visible: canSyncGitRoot && checkedItems.sync,
-                      width: "15px",
-                    },
-                  ]}
                   id={"tblGitRoots"}
-                  onColumnToggle={handleChange}
-                  pageSize={10}
-                  rowEvents={{ onClick: handleRowClick }}
-                  search={false}
+                  onRowClick={handleRowClick}
+                  sortingSetter={setSorting}
+                  sortingState={sorting}
                 />
               </Card>
             </Fragment>

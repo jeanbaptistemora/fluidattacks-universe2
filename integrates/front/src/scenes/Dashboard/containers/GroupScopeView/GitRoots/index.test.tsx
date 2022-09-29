@@ -105,7 +105,7 @@ describe("GitRoots", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(4);
+      expect(screen.queryAllByRole("button")).toHaveLength(5);
     });
 
     expect(

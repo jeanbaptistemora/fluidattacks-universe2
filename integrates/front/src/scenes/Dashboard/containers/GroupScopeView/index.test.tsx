@@ -125,6 +125,8 @@ describe("GroupScopeView", (): void => {
           "Active",
           // Cloning status
           "Unknown",
+          // HealthCheck
+          "group.scope.git.healthCheck.yes",
         ].join("")
       );
     });
@@ -326,6 +328,8 @@ describe("GroupScopeView", (): void => {
           "Active",
           // Cloning status
           "Unknown",
+          // HealthCheck
+          "group.scope.git.healthCheck.no",
         ].join("")
       );
     });
@@ -532,6 +536,8 @@ describe("GroupScopeView", (): void => {
           "Active",
           // Cloning status
           "Unknown",
+          // HeathCheck
+          "group.scope.git.healthCheck.no",
         ].join("")
       );
     });

@@ -180,7 +180,7 @@ const Description = ({
   );
 };
 
-const renderDescriptionComponent = (
+export const renderDescriptionComponent = (
   props: IDescriptionProps,
   groupName: string
 ): JSX.Element => (
@@ -194,8 +194,3 @@ const renderDescriptionComponent = (
     nickname={props.nickname}
   />
 );
-
-export const renderRepoDescription =
-  (groupName: string): ((props: IDescriptionProps) => JSX.Element) =>
-  (props: IDescriptionProps): JSX.Element =>
-    renderDescriptionComponent(props, groupName);
