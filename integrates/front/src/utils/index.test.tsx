@@ -27,6 +27,7 @@ import {
   validCsvInput,
   validDraftTitle,
   validEmail,
+  validEvidenceDescription,
   validEvidenceImage,
   validExploitFile,
   validFindingTypology,
@@ -756,6 +757,46 @@ describe("Validations", (): void => {
     const answer = someRequired(true, values, helperList, name);
 
     expect(answer).toBe("Select at least one value");
+  });
+
+  it("Should check the evidence", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, unknown> = {
+      description: 1,
+      file: 2,
+      grouptest: 3,
+      url: 4,
+    };
+    const values: Record<string, Record<string, unknown>> = {
+      description: helperList,
+      file: helperList,
+      grouptest1: helperList,
+      url: helperList,
+    };
+    const name: string = "description.file.grouptest1.url";
+    const answer = validEvidenceDescription(true, values, helperList, name);
+
+    expect(answer).toBeUndefined();
+  });
+
+  it("Should check the evidence description", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, unknown> = {
+      description: 1,
+      file: 2,
+      grouptest: 3,
+    };
+    const values: Record<string, Record<string, unknown>> = {
+      description: helperList,
+      file: helperList,
+      grouptest1: helperList,
+    };
+    const name: string = "description.file.grouptest1";
+    const answer = validEvidenceDescription(true, values, helperList, name);
+
+    expect(answer).toBeUndefined();
   });
 });
 
