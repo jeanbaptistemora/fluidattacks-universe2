@@ -32,7 +32,7 @@ from s3.operations import (
 )
 from s3.resource import (
     s3_shutdown,
-    s3_startup,
+    s3_start_resource,
 )
 import sys
 from typing import (
@@ -93,7 +93,7 @@ async def update_s3(
     to_storage: List[Advisory], action: str, needed_platforms: Iterable[str]
 ) -> None:
     try:
-        await s3_startup()
+        await s3_start_resource()
         s3_advisories, s3_patch_advisories = await download_advisories(
             dl_only_patches=action != REMOVE,
             needed_platforms=needed_platforms,

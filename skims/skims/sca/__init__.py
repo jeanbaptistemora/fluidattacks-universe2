@@ -4,10 +4,10 @@
 
 from ctx import (
     CTX,
-    STATIC,
 )
 from db_model.advisories.constants import (
     PATCH_SRC,
+    SUPPORTED_PLATFORMS,
 )
 from db_model.advisories.get import (
     AdvisoriesLoader,
@@ -15,70 +15,116 @@ from db_model.advisories.get import (
 from db_model.advisories.types import (
     Advisory,
 )
-import json
 from model import (
     core_model,
+)
+from s3.operations import (
+    download_advisories,
+)
+from s3.resource import (
+    s3_shutdown,
+    s3_start_resource,
 )
 from typing import (
     Dict,
     Iterable,
     List,
+    Optional,
     Tuple,
 )
 from utils.function import (
     semver_match,
 )
+from utils.logs import (
+    log_blocking,
+)
 
-Database = Dict[str, Dict[str, List[str]]]
+Database = Optional[Dict[str, Dict[str, Dict[str, str]]]]
 
-
-def _validate(database: Database) -> Database:
-    for project, vulnerabilities in database.items():
-
-        if project != project.lower():
-            raise ValueError(f"Not lowercase project: {project}")
-
-        for versions in vulnerabilities.values():
-            for version in versions:
-                if version != version.lower():
-                    raise ValueError(f"Not lowercase: {version}")
-
-    return database
+DATABASE: Database = None
+DATABASE_PATCH: Database = None
 
 
-with open(f"{STATIC}/sca/npm.json", encoding="utf-8") as _FILE:
-    DATABASE_NPM: Database = _validate(json.load(_FILE))
+async def get_advisories_from_s3(
+    pkg_name: str, platform: str
+) -> Optional[Iterable[Tuple[str, str]]]:
+    try:
+        # pylint: disable=global-statement
+        global DATABASE, DATABASE_PATCH
+        if DATABASE is None or DATABASE_PATCH is None:
+            await s3_start_resource(is_public=True)
+            s3_advisories, s3_patch_advisories = await download_advisories(
+                needed_platforms=SUPPORTED_PLATFORMS
+            )
+            DATABASE = s3_advisories
+            DATABASE_PATCH = s3_patch_advisories
+            await s3_shutdown()
+        ads: Dict[str, str] = DATABASE.get(platform, {}).get(pkg_name, {})
+        patch_ads: Dict[str, str] = DATABASE_PATCH.get(platform, {}).get(
+            pkg_name, {}
+        )
+        ads.update(patch_ads)
+        no_gms_ads = {
+            key: value
+            for key, value in ads.items()
+            if not key.startswith("GMS")
+        }
+        return no_gms_ads.items()
+    except Exception:  # pylint: disable=broad-except
+        log_blocking(
+            "error",
+            "Couldn't download advisories from s3 bucket",
+        )
+        return None
 
-with open(f"{STATIC}/sca/maven.json", encoding="utf-8") as _FILE:
-    DATABASE_MAVEN: Database = _validate(json.load(_FILE))
 
-with open(f"{STATIC}/sca/nuget.json", encoding="utf-8") as _FILE:
-    DATABASE_NUGET: Database = _validate(json.load(_FILE))
-
-with open(f"{STATIC}/sca/pip.json", encoding="utf-8") as _FILE:
-    DATABASE_PIP: Database = _validate(json.load(_FILE))
+async def get_advisories_from_dynamodb(
+    pkg_name: str, platform: str
+) -> Optional[Iterable[Tuple[str, str]]]:
+    try:
+        remote_ads: Iterable[Advisory] = await AdvisoriesLoader().load(
+            (platform.lower(), pkg_name)
+        )
+        advisories: Dict[str, str] = {}
+        for advisory in remote_ads:
+            if advisory.associated_advisory.startswith("GMS"):
+                continue
+            if advisory.associated_advisory in advisories:
+                if advisory.source == PATCH_SRC:
+                    advisories.update(
+                        {
+                            advisory.associated_advisory: advisory.vulnerable_version  # noqa
+                        }
+                    )
+            else:
+                advisories.update(
+                    {advisory.associated_advisory: advisory.vulnerable_version}
+                )
+        return advisories.items()
+    except Exception:  # pylint: disable=broad-except
+        return None
 
 
 async def get_remote_advisories(
     pkg_name: str, platform: str
 ) -> List[Tuple[str, str]]:
-    remote_ads: Iterable[Advisory] = await AdvisoriesLoader().load(
-        (platform.lower(), pkg_name)
-    )
-    advisories: Dict[str, str] = {}
-    for advisory in remote_ads:
-        if advisory.associated_advisory.startswith("GMS"):
-            continue
-        if advisory.associated_advisory in advisories:
-            if advisory.source == PATCH_SRC:
-                advisories.update(
-                    {advisory.associated_advisory: advisory.vulnerable_version}
-                )
-        else:
-            advisories.update(
-                {advisory.associated_advisory: advisory.vulnerable_version}
+    if (
+        DATABASE is None
+        and (
+            advisories := await get_advisories_from_dynamodb(
+                pkg_name, platform.lower()
             )
-    return sorted(advisories.items())
+        )
+        is not None
+    ):
+        return sorted(advisories)
+    if (
+        s3_advisories := await get_advisories_from_s3(
+            pkg_name, platform.lower()
+        )
+    ) is not None:
+        return sorted(s3_advisories)
+    return []
 
 
 async def get_vulnerabilities(

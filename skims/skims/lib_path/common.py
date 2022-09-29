@@ -14,7 +14,6 @@ from ctx import (
 )
 from dynamodb.resource import (
     dynamo_shutdown,
-    dynamo_startup,
 )
 from frozendict import (
     frozendict,
@@ -326,7 +325,6 @@ async def _translate_dependencies_to_vulnerabilities(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     try:
-        await dynamo_startup()
         # pylint: disable=consider-using-generator
         results: core_model.Vulnerabilities = tuple(
             [
