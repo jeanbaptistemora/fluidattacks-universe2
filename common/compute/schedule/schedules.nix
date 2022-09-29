@@ -608,35 +608,6 @@
       "Management:Type" = "product";
     };
   };
-  integrates_get_remediated_findings = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.get_remediated_findings.main"
-    ];
-
-    schedule_expression = "cron(30 5,16 ? * 2-6 *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 3;
-    timeout = 86400;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_get_remediated_findings";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
-    };
-  };
   integrates_how_improve_notification = {
     enabled = true;
     command = [
