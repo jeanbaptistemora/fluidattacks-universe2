@@ -255,21 +255,23 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
       </div>
       {doesEntityMatch(["organization", "portfolio"]) ? (
         <div className={reportClassName}>
-          <Col100>
-            <Graphic
-              bsHeight={320}
-              className={"g1"}
-              documentName={"cvssfBenchmarking"}
-              documentType={"stackedBarChart"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"stackedBarChart"}
-              infoLink={`${graphInfoLink}${entity}#exposure-remediation-rate-benchmark`}
-              reportMode={reportMode}
-              subject={subject}
-              title={t("analytics.stackedBarChart.cvssfBenchmarking.title")}
-            />
-          </Col100>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"cvssfBenchmarking"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"stackedBarChart"}
+                infoLink={`${graphInfoLink}${entity}#exposure-remediation-rate-benchmark`}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("analytics.stackedBarChart.cvssfBenchmarking.title")}
+              />
+            </Col100>
+          </RowCenter>
         </div>
       ) : undefined}
       <div className={reportClassName}>
