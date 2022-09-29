@@ -8,18 +8,12 @@ from syntax_graph.syntax_readers.javascript import (
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
-    lexical_declaration as javascript_lexical_declaration,
+    number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
     program as javascript_program,
     string_literal as javascript_string_literal,
-)
-from syntax_graph.syntax_readers.typescript import (
-    array_type as typescript_array_type,
-    property_identifier as typescript_property_identifier,
-    type_annotation as typescript_type_annotation,
-    variable_declaration as typescript_variable_declaration,
-    variable_declarator as typescript_variable_declarator,
+    variable_declaration as javascript_variable_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -32,12 +26,6 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "array",
         },
         syntax_reader=javascript_array.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "array_type",
-        },
-        syntax_reader=typescript_array_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -60,14 +48,15 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
+            "property_identifier",
         },
         syntax_reader=javascript_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
-            "lexical_declaration",
+            "number",
         },
-        syntax_reader=javascript_lexical_declaration.reader,
+        syntax_reader=javascript_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -89,32 +78,15 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "property_identifier",
-        },
-        syntax_reader=typescript_property_identifier.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "string",
         },
         syntax_reader=javascript_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
-            "type_annotation",
-        },
-        syntax_reader=typescript_type_annotation.reader,
-    ),
-    Dispatcher(
-        applicable_types={
+            "lexical_declaration",
             "variable_declaration",
         },
-        syntax_reader=typescript_variable_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "variable_declarator",
-        },
-        syntax_reader=typescript_variable_declarator.reader,
+        syntax_reader=javascript_variable_declaration.reader,
     ),
 )
