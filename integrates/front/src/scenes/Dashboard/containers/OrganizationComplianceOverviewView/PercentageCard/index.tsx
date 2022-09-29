@@ -7,6 +7,7 @@
 import type { FC } from "react";
 import React from "react";
 
+import { getProgressBarColor } from "../utils";
 import { Card } from "components/Card";
 import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
@@ -41,7 +42,12 @@ const PercentageCard: FC<IPercentageCardProps> = (
           </Col>
           <Col lg={50} md={50} sm={50}>
             <div className={"flex flex-column  h-100 w-30 justify-center "}>
-              <ProgressBar height={10} maxWidth={40} percentage={percentage} />
+              <ProgressBar
+                height={10}
+                maxWidth={40}
+                percentage={percentage}
+                progressColor={getProgressBarColor(percentage)}
+              />
             </div>
           </Col>
         </Row>
