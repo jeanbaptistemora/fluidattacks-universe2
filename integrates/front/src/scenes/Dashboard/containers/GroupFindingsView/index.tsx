@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint @typescript-eslint/no-unnecessary-condition:0 */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
@@ -28,8 +29,12 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
 import { locationsFormatter } from "./formatters/locationsFormatter";
-import { VulnerabilitiesLoader } from "./loaders/VulnerabilitiesLoader";
-import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
+import { GET_GROUP_VULNERABILITIES } from "./queries";
+import type {
+  IGroupVulnerabilities,
+  IVulnerabilitiesResume,
+  IVulnerability,
+} from "./types";
 import {
   formatFindings,
   formatState,
@@ -238,6 +243,65 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     onError: handleQryErrors,
     variables: { groupName },
   });
+
+  const { data: vulnData, fetchMore } = useQuery<IGroupVulnerabilities>(
+    GET_GROUP_VULNERABILITIES,
+    {
+      fetchPolicy: "cache-first",
+      onCompleted: (groupVulnsData): void => {
+        const { edges } = groupVulnsData.group.vulnerabilities;
+
+        edges
+          .map((edge): IVulnerability => edge.node)
+          .forEach((vulnerability): void => {
+            setFindingVulnerabilities(
+              (
+                prevState: Record<string, IVulnerabilitiesResume>
+              ): Record<string, IVulnerabilitiesResume> => {
+                const current = prevState[vulnerability.findingId] ?? {
+                  treatmentAssignmentEmails: new Set(),
+                  wheres: "",
+                };
+                const wheres =
+                  current.wheres === ""
+                    ? vulnerability.where
+                    : [current.wheres, vulnerability.where].join(", ");
+
+                const treatmentAssignmentEmails = new Set(
+                  [
+                    ...current.treatmentAssignmentEmails,
+                    vulnerability.currentState === "open"
+                      ? (vulnerability.treatmentAssigned as string)
+                      : "",
+                  ].filter(Boolean)
+                );
+
+                return {
+                  ...prevState,
+                  [vulnerability.findingId]: {
+                    treatmentAssignmentEmails,
+                    wheres,
+                  },
+                };
+              }
+            );
+          });
+      },
+      variables: { first: 1200, groupName },
+    }
+  );
+
+  useEffect((): void => {
+    if (!_.isUndefined(vulnData)) {
+      if (vulnData.group.vulnerabilities.pageInfo.hasNextPage) {
+        void fetchMore({
+          variables: {
+            after: vulnData.group.vulnerabilities.pageInfo.endCursor,
+          },
+        });
+      }
+    }
+  }, [vulnData, fetchMore]);
 
   const hasMachine = data?.group.hasMachine ?? false;
   const filledGroupInfo =
@@ -460,15 +524,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           </Form>
         </Formik>
       </Modal>
-      {findings.map(
-        (finding: IFindingAttr): JSX.Element => (
-          <VulnerabilitiesLoader
-            findingId={finding.id}
-            key={finding.id}
-            setFindingVulnerabilities={setFindingVulnerabilities}
-          />
-        )
-      )}
     </React.StrictMode>
   );
 };

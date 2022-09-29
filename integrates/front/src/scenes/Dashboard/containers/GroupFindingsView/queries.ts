@@ -89,4 +89,31 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, REQUEST_GROUP_REPORT };
+const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
+  query GetGroupVulnerabilities(
+    $after: String
+    $first: Int
+    $groupName: String!
+  ) {
+    group(groupName: $groupName) {
+      name
+      vulnerabilities(after: $after, first: $first) {
+        edges {
+          node {
+            currentState
+            findingId
+            id
+            treatmentAssigned
+            where
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+`;
+
+export { GET_FINDINGS, GET_GROUP_VULNERABILITIES, REQUEST_GROUP_REPORT };

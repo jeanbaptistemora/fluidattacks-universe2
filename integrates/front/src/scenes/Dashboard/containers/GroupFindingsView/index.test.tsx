@@ -12,7 +12,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_FINDING_LOCATIONS } from "./loaders/VulnerabilitiesLoader/queries";
+import { GET_GROUP_VULNERABILITIES } from "./queries";
 
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
@@ -167,22 +167,23 @@ describe("groupFindingsView", (): void => {
   const mocksLocations: MockedResponse[] = [
     {
       request: {
-        query: GET_FINDING_LOCATIONS,
-        variables: { findingId: "438679960" },
+        query: GET_GROUP_VULNERABILITIES,
+        variables: { first: 10, groupName: "TEST" },
       },
       result: {
         data: {
-          finding: {
-            vulnerabilitiesConnection: {
-              edges: [
-                {
-                  node: {
-                    __typename: "Vulnerability",
-                    id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-                    where: "This is a test where",
-                  },
+          group: {
+            __typename: "Group",
+            name: "TEST",
+            vulnerabilities: {
+              edges: {
+                node: {
+                  findingId: "438679960",
+                  id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+                  treatmentAssigned: "test@fluidattacks.com",
+                  where: "This is a test where",
                 },
-              ],
+              },
               pageInfo: {
                 endCursor: "test-cursor=",
                 hasNextPage: false,
@@ -392,7 +393,6 @@ describe("groupFindingsView", (): void => {
     expect(screen.getByText("Open")).toBeInTheDocument();
     expect(screen.getByText("2.9")).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
-    expect(screen.getByText("This is a test where")).toBeInTheDocument();
     expect(screen.getByText("Pending")).toBeInTheDocument();
   });
 });

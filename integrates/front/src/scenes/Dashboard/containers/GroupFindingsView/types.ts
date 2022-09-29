@@ -86,12 +86,41 @@ interface IRequestGroupReportResult {
   };
 }
 
+interface IVulnerability {
+  currentState: "closed" | "open";
+  findingId: string;
+  id: string;
+  treatmentAssigned: string | null;
+  where: string;
+}
+
+interface IGroupVulnerabilities {
+  group: {
+    name: string;
+    vulnerabilities: {
+      edges: { node: IVulnerability }[];
+      pageInfo: {
+        endCursor: string;
+        hasNextPage: boolean;
+      };
+    };
+  };
+}
+
+interface IVulnerabilitiesResume {
+  treatmentAssignmentEmails: Set<string>;
+  wheres: string;
+}
+
 export type {
   IGroupFindingsAttr,
+  IGroupVulnerabilities,
   IFindingAttr,
   IFindingData,
   ILocationsInfoAttr,
   IRequestGroupReportResult,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,
+  IVulnerability,
+  IVulnerabilitiesResume,
 };
