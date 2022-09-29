@@ -3930,7 +3930,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/move_s3__resources__build__evidences:
+/integrates/move_s3__resources__build__evidences__analytics:
   image: ghcr.io/fluidattacks/makes:22.09
   interruptible: true
   needs: []
@@ -3944,7 +3944,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/move_s3 'resources' 'build' 'evidences'
+    - m . /integrates/move_s3 'resources' 'build' 'evidences' 'analytics'
   stage: deploy-infra
   tags:
     - small

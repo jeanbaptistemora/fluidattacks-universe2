@@ -23,7 +23,7 @@ function main {
       python3 charts/collector/generate_reports.py \
     && aws_s3_sync \
       'charts/collector' \
-      "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}/snapshots" \
+      "s3://integrates/analytics/${CI_COMMIT_REF_NAME}/snapshots" \
     && popd \
     || return 1
 }

@@ -10,8 +10,12 @@ function serve {
     'evidences'
     'resources'
   )
+  local bucket_paths_by_branch=(
+    'analytics'
+  )
   local bucket_paths=(
     "${bucket_paths_by_group[@]}"
+    "${bucket_paths_by_branch[@]}"
   )
   local buckets_by_branch=(
     'fluidintegrates.analytics'
@@ -91,7 +95,14 @@ function serve {
               "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
               --delete \
               || return 1
-          done
+          done \
+            && for bucket_path in "${bucket_paths_by_branch[@]}"; do
+              aws_s3_sync \
+                "s3://${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
+                "${state_path}/${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
+                --delete \
+                || return 1
+            done
         fi \
         && bill_date="$(date +'%Y/%m')" \
         && aws_s3_sync \

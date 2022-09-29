@@ -40,7 +40,7 @@ function main {
     && execute_chunk_parallel execute_analytics_generator "${todo}" "${parallel}" "${runtime}" \
     && aws_s3_sync \
       "charts/generators" \
-      "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}/documents" \
+      "s3://integrates/analytics/${CI_COMMIT_REF_NAME}/documents" \
     && popd \
     || return 1
 }

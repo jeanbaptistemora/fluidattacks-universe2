@@ -10,7 +10,7 @@ from botocore.exceptions import (
 )
 from context import (
     CI_COMMIT_REF_NAME,
-    FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
+    FI_AWS_S3_MAIN_BUCKET as BUCKET_ANALYTICS,
 )
 from custom_exceptions import (
     DocumentNotFound,
@@ -40,7 +40,9 @@ async def get_document(key: str) -> str:
 
         # Stream the download to an in-memory buffer
         try:
-            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            await client.download_fileobj(
+                BUCKET_ANALYTICS, f"analytics/{key}", stream
+            )
         except ClientError as ex:
             raise DocumentNotFound() from ex
 
@@ -59,7 +61,9 @@ async def get_snapshot(key: str) -> bytes:
 
         # Stream the download to an in-memory buffer
         try:
-            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            await client.download_fileobj(
+                BUCKET_ANALYTICS, f"analytics/{key}", stream
+            )
         except (ClientError, ClientPayloadError) as ex:
             LOGGER.exception(ex, extra=dict(extra=locals()))
             raise SnapshotNotFound() from ex

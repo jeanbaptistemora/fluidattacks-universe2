@@ -20,7 +20,7 @@ from botocore.exceptions import (
 )
 from context import (
     CI_COMMIT_REF_NAME,
-    FI_AWS_S3_ANALYTICS_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from contextlib import (
     suppress,
@@ -283,12 +283,12 @@ async def main() -> None:
                 f"/{folder_date}/{org_id}-{date}.tar.gz"
             )
             await upload_file(
-                FI_AWS_S3_ANALYTICS_BUCKET,
+                FI_AWS_S3_MAIN_BUCKET,
                 str(tar_file.name),
-                filename,
+                f"analytics/{filename}",
             )
             signed_url: str = await sign_url(
-                filename, TTL, FI_AWS_S3_ANALYTICS_BUCKET
+                f"analytics/{filename}", TTL, FI_AWS_S3_MAIN_BUCKET
             )
             await update_url(
                 org_id,
