@@ -1221,9 +1221,9 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F001 = MethodInfo(
-        file_name="query",
-        name="query_f001",
-        module="sast",
+        file_name="c_sharp",
+        name="c_sharp_sql_user_params",
+        module="lib_root",
         finding=FindingEnum.F001,
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
