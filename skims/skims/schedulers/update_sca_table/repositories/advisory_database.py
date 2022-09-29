@@ -27,6 +27,40 @@ PLATFORMS = {
 }
 
 
+def append_advisories(
+    advisories: List[Advisory],
+    current_advisories: Dict[str, Dict[str, str]],
+    vuln_id: str,
+    severity: Optional[str],
+) -> None:
+    for key_pkg, sub_dict in current_advisories.items():
+        advisories.append(
+            Advisory(
+                associated_advisory=vuln_id,
+                package_manager=PLATFORMS[sub_dict["platform"]],
+                package_name=key_pkg,
+                severity=severity,
+                source=URL_ADVISORY_DATABASE,
+                vulnerable_version=sub_dict["version"],
+            )
+        )
+
+
+def get_limit(events: List[Dict[str, str]]) -> str:
+    if len(events) > 1:
+        if (fixed := events[1].get("fixed")) is not None:
+            return f" <{fixed}"
+        if (l_affected := events[1].get("last_affected")) is not None:
+            return f" <={l_affected}"
+    return ""
+
+
+def get_final_range(final_range: str, str_range: str) -> str:
+    if final_range == "":
+        return str_range
+    return " || ".join((final_range, str_range))
+
+
 def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     affected: List[dict],
     vuln_id: str,
@@ -50,12 +84,9 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
             events: List[Dict[str, str]] = range_ver.get("events") or []
             str_range: str
             introduced = f">={events[0].get('introduced')}"
-            fixed = f" <{events[1].get('fixed')}" if len(events) > 1 else ""
-            str_range = f"{introduced}{fixed}".lower()
-            if final_range == "":
-                final_range = str_range
-            else:
-                final_range = " || ".join((final_range, str_range))
+            limit = get_limit(events)
+            str_range = f"{introduced}{limit}".lower()
+            final_range = get_final_range(final_range, str_range)
         if pkg_name not in current_advisories:
             current_advisories.update(
                 {pkg_name: {"version": final_range, "platform": platform}}
@@ -70,17 +101,11 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
                     }
                 }
             )
-
-    for key_pkg, sub_dict in current_advisories.items():
-        advisories.append(
-            Advisory(
-                associated_advisory=vuln_id,
-                package_manager=PLATFORMS[sub_dict["platform"]],
-                package_name=key_pkg,
-                severity=severity,
-                source=URL_ADVISORY_DATABASE,
-                vulnerable_version=sub_dict["version"],
-            )
+        append_advisories(
+            advisories,
+            current_advisories,
+            vuln_id,
+            severity,
         )
 
 
