@@ -16,6 +16,7 @@ from context import (
 )
 from db_model.enums import (
     Notification,
+    Source,
     StateRemovalJustification,
 )
 from db_model.finding_comments.enums import (
@@ -44,6 +45,9 @@ from group_access import (
 )
 from mailer.utils import (
     get_organization_name,
+)
+from stakeholders.domain import (
+    is_fluid_staff,
 )
 from typing import (
     Any,
@@ -330,7 +334,6 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         if Notification.VULNERABILITY_REPORT
         in stakeholder.notifications_preferences.email
     ]
-
     email_context: dict[str, Any] = {
         "finding": finding_title,
         "group": group_name.lower(),
@@ -343,6 +346,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         "severity_score": severity_score,
         "severity_level": severity_level.capitalize(),
         "state": state,
+        "is_escape": False,
     }
     await send_mails_async(
         loaders,
@@ -352,3 +356,20 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         subject=f"[ARM] {finding_title} {state} in [{group_name}].",
         template_name="vulnerability_report",
     )
+    if (not is_closed) and any(
+        map(
+            lambda id: vulnerabilities_properties[id]["source"]
+            == Source.ESCAPE.value,
+            vulnerabilities_properties.keys(),
+        )
+    ):
+        email_context["is_escape"] = True
+        await send_mails_async(
+            loaders,
+            email_to=list(filter(is_fluid_staff, stakeholders_email)),
+            context=email_context,
+            tags=GENERAL_TAG,
+            subject=f"[ARM] {finding_title} {state} with escape in "
+            + f"[{group_name}].",
+            template_name="vulnerability_report",
+        )
