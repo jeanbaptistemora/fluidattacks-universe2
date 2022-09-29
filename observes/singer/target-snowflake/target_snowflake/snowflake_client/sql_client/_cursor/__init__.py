@@ -41,10 +41,10 @@ from logging import (
 from snowflake.connector.errors import (
     ProgrammingError,
 )
-from target_snowflake.sql_client._inner import (
+from target_snowflake.snowflake_client.sql_client._inner import (
     RawCursor,
 )
-from target_snowflake.sql_client._query import (
+from target_snowflake.snowflake_client.sql_client._query import (
     Query,
 )
 from typing import (

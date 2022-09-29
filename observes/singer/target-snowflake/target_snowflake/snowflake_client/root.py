@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from . import (
-    _assert,
     _encode,
 )
 from .db import (
@@ -35,22 +34,25 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.pure_iter.transform import (
     consume,
 )
-from target_snowflake.db import (
+from target_snowflake import (
+    _assert,
+)
+from target_snowflake.snowflake_client.db import (
     DbTableId,
     SchemaId,
 )
-from target_snowflake.schema import (
+from target_snowflake.snowflake_client.schema import (
     TableId,
     TableObj,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Cursor,
     DatabaseId,
     Identifier,
     Query,
     RowData,
 )
-from target_snowflake.table import (
+from target_snowflake.snowflake_client.table import (
     Table,
 )
 from typing import (

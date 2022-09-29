@@ -18,7 +18,7 @@ from fa_purity.result.transform import (
 from fa_purity.union import (
     UnionFactory,
 )
-from target_snowflake.sql_client._primitive import (
+from target_snowflake.snowflake_client.sql_client._primitive import (
     to_list_of,
     to_prim_list,
     to_prim_val,

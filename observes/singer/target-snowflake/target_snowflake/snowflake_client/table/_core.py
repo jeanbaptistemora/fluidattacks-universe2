@@ -18,10 +18,10 @@ from fa_purity.result import (
     Result,
     ResultE,
 )
-from target_snowflake.column import (
+from target_snowflake.snowflake_client.column import (
     Column,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Identifier,
 )
 from typing import (

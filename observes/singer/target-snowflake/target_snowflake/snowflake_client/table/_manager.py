@@ -17,7 +17,7 @@ from fa_purity import (
     Cmd,
     PureIter,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     RowData,
 )
 

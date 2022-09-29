@@ -8,10 +8,10 @@ from dataclasses import (
 from fa_purity import (
     FrozenDict,
 )
-from target_snowflake.schema import (
+from target_snowflake.snowflake_client.schema import (
     Schema,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Identifier,
 )
 

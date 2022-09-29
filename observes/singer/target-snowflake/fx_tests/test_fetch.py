@@ -12,7 +12,7 @@ from fa_purity import (
 import logging
 import os
 import pytest
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Credentials,
     DatabaseId,
     DbConnector,

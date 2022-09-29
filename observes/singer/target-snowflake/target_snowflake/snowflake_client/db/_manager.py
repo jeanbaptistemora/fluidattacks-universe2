@@ -23,21 +23,21 @@ from fa_purity.json.primitive import (
 from target_snowflake import (
     _assert,
 )
-from target_snowflake.db import (
+from target_snowflake.snowflake_client.db import (
     SchemaId,
 )
-from target_snowflake.schema import (
+from target_snowflake.snowflake_client.schema import (
     SchemaManager,
     TableId,
     TableObj,
     UpperMethods as SchemaUpperMethods,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Cursor,
     Query,
     RowData,
 )
-from target_snowflake.table import (
+from target_snowflake.snowflake_client.table import (
     Table,
 )
 from typing import (

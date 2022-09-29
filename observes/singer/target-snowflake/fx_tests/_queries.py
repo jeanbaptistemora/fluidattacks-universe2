@@ -5,7 +5,7 @@
 from fa_purity import (
     FrozenDict,
 )
-from target_snowflake.sql_client import (
+from target_snowflake.snowflake_client.sql_client import (
     Identifier,
     Query,
 )

@@ -7,7 +7,7 @@ from fa_purity import (
     ResultE,
 )
 import re
-from target_snowflake.data_type import (
+from target_snowflake.snowflake_client.data_type import (
     DataType,
     PrecisionType,
     PrecisionTypes,
