@@ -101,12 +101,12 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
                     }
                 }
             )
-        append_advisories(
-            advisories,
-            current_advisories,
-            vuln_id,
-            severity,
-        )
+    append_advisories(
+        advisories,
+        current_advisories,
+        vuln_id,
+        severity,
+    )
 
 
 def get_advisory_database(
