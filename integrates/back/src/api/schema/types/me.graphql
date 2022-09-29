@@ -31,6 +31,8 @@ type Me {
   notificationsPreferences: NotificationsPreferences!
   "List of Organizations the user is a member of"
   organizations: [Organization!]
+  "List of pending events from the groups the stakeholders belongs"
+  pendingEvents: [Event!]
   "Gets the  user-level permissions of the current stakeholder/user"
   permissions: [String!]
   "Stakeholder's phone information"

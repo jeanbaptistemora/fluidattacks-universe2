@@ -13,6 +13,7 @@ from api.resolvers.me import (
     is_concurrent_session,
     notifications_preferences,
     organizations,
+    pending_events,
     permissions,
     phone,
     reattacks,
@@ -37,6 +38,7 @@ ME.set_field("hasMobileApp", has_mobile_app.resolve)
 ME.set_field("hasDraftsRejected", has_drafts_rejected.resolve)
 ME.set_field("isConcurrentSession", is_concurrent_session.resolve)
 ME.set_field("organizations", organizations.resolve)
+ME.set_field("pendingEvents", pending_events.resolve)
 ME.set_field("permissions", permissions.resolve)
 ME.set_field("phone", phone.resolve)
 ME.set_field("reattacks", reattacks.resolve)
