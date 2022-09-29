@@ -17,5 +17,10 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
+    graph = args.ast_graph
+    c_ids = [
+        _id
+        for _id in adj_ast(graph, args.n_id)
+        if graph.nodes[_id]["label_type"] not in {"{", ";", "}"}
+    ]
     return build_class_body_node(args, c_ids)

@@ -18,6 +18,8 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
 
+    conditional_node = None
+
     invalid_types = {
         "?",
         ":",

@@ -9,6 +9,8 @@ from syntax_graph.syntax_readers.dart import (
     assignable_selector as dart_assignable_selector,
     assignment_expression as dart_assignment_expression,
     boolean_literal as dart_boolean_literal,
+    class_body as dart_class_body,
+    class_definition as dart_class_definition,
     comment as dart_comment,
     conditional_expression as dart_conditional_expression,
     declaration_block as dart_declaration_block,
@@ -77,6 +79,18 @@ DART_DISPATCHERS: Dispatchers = (
             "true",
         },
         syntax_reader=dart_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_body",
+        },
+        syntax_reader=dart_class_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_definition",
+        },
+        syntax_reader=dart_class_definition.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -206,6 +220,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "get",
+            "inferred_type",
             "this",
         },
         syntax_reader=dart_reserved_word.reader,

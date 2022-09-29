@@ -10,7 +10,7 @@ from syntax_graph.types import (
 )
 
 
-def build_class_body(args: SyntaxGraphArgs, c_ids: list) -> NId:
+def build_class_body_node(args: SyntaxGraphArgs, c_ids: list) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="ClassBody",
