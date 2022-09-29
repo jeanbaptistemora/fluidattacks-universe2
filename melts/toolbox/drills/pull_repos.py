@@ -12,6 +12,7 @@ from contextlib import (
     suppress,
 )
 from git import (
+    Git,
     Repo,
 )
 from git.exc import (
@@ -23,7 +24,6 @@ from pathspec.patterns.gitwildmatch import (
     GitWildMatchPattern,
 )
 import shutil
-import subprocess
 import tarfile
 from toolbox import (
     utils,
@@ -210,6 +210,16 @@ def download_repo_from_s3(
     os.remove(file_path)
 
     try:
+        Git().execute(
+            [
+                "git",
+                "config",
+                "--global",
+                "--add",
+                "safe.directory",
+                repo_path,
+            ]
+        )
         repo = Repo(repo_path)
         repo.git.reset("--hard", "HEAD")
     except GitError as exc:
@@ -220,88 +230,6 @@ def download_repo_from_s3(
         return False
 
     return True
-
-
-def pull_repos_s3_to_fusion(
-    subs: str,
-    repository_name: str,
-    progress_bar: Optional[Any] = None,
-) -> bool:
-    """
-    Download repos from s3 to a provided path
-
-    param: subs: group to work with
-    param: local_path: Path to store downloads
-    """
-
-    if repository_name == "*":
-        raise Exception("A valid repository name is required")
-
-    bucket = f"s3://continuous-repositories/{subs}/{repository_name}/"
-    local_path = f"groups/{subs}/fusion/{repository_name}/"
-
-    os.makedirs(local_path, exist_ok=True)
-
-    aws_sync_command: List[str] = [
-        "aws",
-        "s3",
-        "sync",
-        "--delete",
-        "--sse",
-        "AES256",
-        "--exact-timestamps",
-        bucket,
-        local_path,
-    ]
-
-    LOGGER.info("Downloading %s from %s to %s", subs, bucket, local_path)
-
-    # Passing None to stdout and stderr shows the s3 progress
-    # We want the CI to be as quiet as possible to have clean logs
-    kwargs = (
-        {}
-        if utils.generic.is_env_ci()
-        else dict(
-            stdout=subprocess.DEVNULL,
-            stderr=None,
-        )
-    )
-
-    status, stdout, stderr = utils.generic.run_command(
-        cmd=aws_sync_command,
-        cwd=".",
-        env={},
-        **kwargs,  # type: ignore
-    )
-
-    if status:
-        if not os.listdir(local_path):
-            shutil.rmtree(local_path)
-        LOGGER.debug("pull status: %s", status)
-        LOGGER.error("Sync from bucket has failed:")
-        LOGGER.info(stdout)
-        LOGGER.info(stderr)
-        LOGGER.info("\n")
-        return False
-
-    if progress_bar:
-        progress_bar()
-
-    failed = False
-
-    try:
-        repo = Repo(local_path)
-        repo.git.reset("--hard", "HEAD")
-    except GitError as exc:
-        if not os.listdir(local_path):
-            shutil.rmtree(local_path)
-            return True
-        LOGGER.error("Expand repositories has failed:")
-        LOGGER.info("Repository: %s", local_path)
-        LOGGER.info(exc)
-        LOGGER.info("\n")
-        failed = True
-    return not failed
 
 
 @shield(retries=1)

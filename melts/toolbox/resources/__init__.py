@@ -11,7 +11,6 @@ from alive_progress import (
 )
 import base64
 from contextlib import (
-    contextmanager,
     suppress,
 )
 from datetime import (
@@ -44,7 +43,6 @@ from shlex import (
     quote as shq,
 )
 import shutil
-import stat
 import subprocess
 from subprocess import (
     DEVNULL,
@@ -75,7 +73,6 @@ from toolbox.utils.integrates import (
 from typing import (
     Any,
     Dict,
-    Iterator,
     List,
     Optional,
 )
@@ -182,33 +179,6 @@ def has_vpn(code: Dict[str, str], subs: str) -> None:
     if does_have_vpn:
         LOGGER.info("%s needs VPN. ", subs)
         LOGGER.info("Make sure to run your VPN software before cloning.\n")
-
-
-@contextmanager
-def setup_ssh_key(group_name: str, root_id: str) -> Iterator[str]:
-    try:
-        if credentials := get_git_root_credentials(group_name, root_id):
-            key = base64.b64decode(credentials.get("key") or "").decode(
-                "utf-8"
-            )
-
-        with tempfile.NamedTemporaryFile(delete=False) as keyfile:
-            os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
-            keyfile.write(key.encode())
-
-        os.chmod(keyfile.name, stat.S_IREAD)
-
-        yield keyfile.name
-    finally:
-        with suppress(UnboundLocalError):
-            cmd_execute(
-                [
-                    "ssh-agent",
-                    "sh",
-                    "-c",
-                    f"ssh-add -D; rm -f {shq(keyfile.name)}",
-                ]
-            )
 
 
 def repo_url(group_name: str, root_id: str, baseurl: str) -> str:
