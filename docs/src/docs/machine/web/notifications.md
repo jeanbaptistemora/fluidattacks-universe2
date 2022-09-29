@@ -325,11 +325,11 @@ of a vulnerability.
 If you are a user manager
 or vulnerability manager,
 you will receive an email
-or an SMS when a vulnerability
+when a vulnerability
 has Temporarily Accepted
 treatment request and acceptance.
 
-![Treatment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1657900877/docs/web/notifications/notif_treatment_report.png)
+![Treatment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664459457/docs/web/notifications/treatment_request.png)
 
 ### User unsubscription
 
@@ -394,7 +394,7 @@ has been created,
 edited,
 or deleted.
 
-![Environment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660743038/docs/web/notifications/notif_environment.png)
+![Environment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664460938/docs/web/notifications/environment_modified.png)
 
 ### Portfolio report
 
