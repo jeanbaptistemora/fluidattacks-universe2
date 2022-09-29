@@ -44,8 +44,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-1",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar1Title"),
-      urlCard:
-        "https://www.gotostage.com/channel/d38612ee120645cd93ac5ef7f65119f6/recording/287e90418c824496b67638480010f2b4/watch",
+      urlCard: "https://www.youtube.com/watch?v=tGNbQelMrFA",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -105,7 +104,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-5",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report4Title"),
-      urlCard: "https://fluidattacks.docsend.com/view/kp8uj28i8d6us5u5",
+      urlCard: "https://try.fluidattacks.com/report/owasp-benchmark/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -117,7 +116,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-6",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report5Title"),
-      urlCard: "https://fluidattacks.docsend.com/view/4k524b3gviwqubri",
+      urlCard: "https://try.fluidattacks.com/report/owasp-samm/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -129,7 +128,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-7",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar2Title"),
-      urlCard: "https://register.gotowebinar.com/register/1684905226222105611",
+      urlCard: "https://www.youtube.com/watch?v=N6nVIOsnaOA",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -141,8 +140,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-8",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar3Title"),
-      urlCard:
-        "https://www.gotostage.com/channel/d38612ee120645cd93ac5ef7f65119f6/recording/702df3005c534f6992ad60bffc63bdee/watch",
+      urlCard: "https://www.youtube.com/watch?v=zUJ_kU79j7E",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -164,7 +162,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-10",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.webinars.webinar4Title"),
-      urlCard: "https://register.gotowebinar.com/register/3700452970867466510",
+      urlCard: "https://www.youtube.com/watch?v=VWwqhA2LFHg",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -176,7 +174,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-11",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar4Title"),
-      urlCard: "https://register.gotowebinar.com/register/8330343603644644110",
+      urlCard: "https://www.youtube.com/watch?v=uGnccQg8Zfc",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -188,7 +186,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-12",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar5Title"),
-      urlCard: "https://register.gotowebinar.com/register/3618185313140820236",
+      urlCard: "https://www.youtube.com/watch?v=4MS3Glq4dv8",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -200,7 +198,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-13",
       language: "SPANISH",
       title: translate.t("resources.cardsText.webinars.webinar6Title"),
-      urlCard: "https://register.gotowebinar.com/register/6501685343309054732",
+      urlCard: "https://www.youtube.com/watch?v=8DXafdNIZ-4",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -212,7 +210,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-14",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.webinars.webinar7Title"),
-      urlCard: "https://register.gotowebinar.com/register/1179192545930222092",
+      urlCard: "https://www.youtube.com/watch?v=NoI3PWnTUak",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
