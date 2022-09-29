@@ -6,4 +6,6 @@
 type OrganizationCompliance {
   "Level of non-compliance with the standards"
   nonComplianceLevel: Float
+  "Compliance information by standard"
+  standards: [OrganizationComplianceStandard]!
 }

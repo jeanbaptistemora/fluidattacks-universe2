@@ -123,6 +123,9 @@ from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
 )
+from api.schema.types.organization_compliance_standard import (
+    ORGANIZATION_COMPLIANCE_STANDARD,
+)
 from api.schema.types.toe_lines import (
     TOELINES,
 )
@@ -165,6 +168,7 @@ TYPES: Tuple[ObjectType, ...] = (
     MUTATION,
     ORGANIZATION,
     ORGANIZATION_COMPLIANCE,
+    ORGANIZATION_COMPLIANCE_STANDARD,
     PAYMENT_METHOD,
     PRICES,
     QUERY,

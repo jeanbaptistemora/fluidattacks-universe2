@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+"OrganizationCompliance type definition"
+type OrganizationComplianceStandard {
+  "Average level of non-compliance with the standard in all organizations"
+  avgOrganizationNonComplianceLevel: Float
+  "Best level of non-compliance with the standard in all organizations"
+  bestOrganizationNonComplianceLevel: Float
+  "Level of non-compliance with the standard"
+  nonComplianceLevel: Float
+  "Title of the standard"
+  standardTitle: String
+  "Worst level of non-compliance with the standard in all organizations"
+  worstOrganizationNonComplianceLevel: Float
+}
