@@ -5,6 +5,14 @@
 # shellcheck shell=bash
 
 function serve {
+  local main_bucket='integrates'
+  local bucket_paths_by_group=(
+    'evidences'
+    'resources'
+  )
+  local bucket_paths=(
+    "${bucket_paths_by_group[@]}"
+  )
   local buckets_by_branch=(
     'fluidintegrates.analytics'
   )
@@ -12,7 +20,6 @@ function serve {
     'fluidintegrates.evidences'
     'fluidintegrates.forces'
     'fluidintegrates.resources'
-    'integrates'
     'continuous-repositories'
   )
   local buckets_by_root=(
@@ -53,6 +60,10 @@ function serve {
       __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
         || return 1
     done \
+    && for bucket_path in "${bucket_paths[@]}"; do
+      __argMinioCli__ mc mb --ignore-existing "storage/${main_bucket}/${bucket_path}" \
+        || return 1
+    done \
     && if test "${POPULATE}" != 'false'; then
       for project in "${TEST_PROJECTS[@]}"; do
         for bucket in "${buckets_by_group[@]}"; do
@@ -61,7 +72,14 @@ function serve {
             "${state_path}/${bucket}/${project}" \
             --delete \
             || return 1
-        done
+        done \
+          && for bucket_path in "${bucket_paths_by_group[@]}"; do
+            aws_s3_sync \
+              "s3://${main_bucket}/${bucket_path}/${project}" \
+              "${state_path}/${main_bucket}/${bucket_path}/${project}" \
+              --delete \
+              || return 1
+          done
       done \
         && if test -z "${CI_COMMIT_REF_NAME:-}"; then
           CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"

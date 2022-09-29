@@ -6,13 +6,14 @@
 
 # This is a temporary script, used to unify all integrates' buckets into one
 function main {
-  local bucket_moving="${1}"
   local main_bucket
   main_bucket="s3://integrates"
 
   aws_login "prod_integrates" "3600" \
-    && echo "[INFO] Syncing data from: ${main_bucket}.${bucket_moving} to ${main_bucket}/${bucket_moving}" \
-    && aws_s3_sync "${main_bucket}.${bucket_moving}" "${main_bucket}/${bucket_moving}" \
+    && for item in "$@"; do
+      echo "[INFO] Syncing data from: ${main_bucket}.${item} to ${main_bucket}/${item}" \
+        && aws_s3_sync "s3://fluidintegrates.${item}" "${main_bucket}/${item}"
+    done \
     || return 1
 }
 

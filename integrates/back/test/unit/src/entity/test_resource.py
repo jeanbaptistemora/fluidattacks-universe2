@@ -99,7 +99,7 @@ async def test_get_resources() -> None:
 async def test_add_files() -> None:
     """Check for SignPostUrlMutation mutation."""
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "./mock/test-anim.gif")
+    filename = os.path.join(filename, "./mock/evidences/test-anim.gif")
     with open(filename, "rb") as test_file:
         file_data = [
             {

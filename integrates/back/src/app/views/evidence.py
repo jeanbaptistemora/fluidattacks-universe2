@@ -8,7 +8,7 @@
 import aiohttp
 import authz
 from context import (
-    FI_AWS_S3_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from dataloaders import (
     Dataloaders,
@@ -48,7 +48,7 @@ from typing import (
     Sequence,
 )
 
-BUCKET_S3 = FI_AWS_S3_BUCKET
+BUCKET_S3 = FI_AWS_S3_MAIN_BUCKET
 download_evidence_file = retry_on_exceptions(
     exceptions=(
         aiohttp.ClientError,
@@ -112,7 +112,7 @@ async def get_evidence(request: Request) -> Response:
         if file_id is None:
             return Response("Error - Unsent image ID", media_type="text/html")
         evidences = await list_s3_evidences(
-            f"{group_name.lower()}/{finding_id}/{file_id}"
+            f"evidences/{group_name.lower()}/{finding_id}/{file_id}"
         )
         if evidences:
             for evidence in evidences:
@@ -121,7 +121,9 @@ async def get_evidence(request: Request) -> Response:
                 localtmp = utils.replace_all(
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )
-                await download_evidence_file(BUCKET_S3, evidence, localtmp)
+                await download_evidence_file(
+                    BUCKET_S3, f"evidences/{evidence}", localtmp
+                )
                 return retrieve_image(localtmp)
         else:
             return JSONResponse(
