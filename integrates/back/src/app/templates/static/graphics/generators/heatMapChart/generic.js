@@ -46,6 +46,7 @@ function render(dataDocument, height, width) {
 
   function xAxis(element) {
     return element
+      .style('color', '#8f8fa3')
       .attr('transform', `translate(0, ${ height - margin.bottom })`)
       .call(d3.axisBottom(xScale).tickSizeOuter(0))
       .call((datum) => datum
@@ -55,6 +56,7 @@ function render(dataDocument, height, width) {
 
   function yAxis(element) {
     return element
+      .style('color', '#8f8fa3')
       .attr('transform', `translate(${ margin.left }, 0)`)
       .call(d3.axisLeft(yScale).ticks(null, 's'));
   }
