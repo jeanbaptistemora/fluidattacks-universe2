@@ -581,7 +581,7 @@
             "current_instance": null,
             "expression": "badSqlCommand",
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "245",
               "value": null
@@ -592,7 +592,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "238",
               "value": null

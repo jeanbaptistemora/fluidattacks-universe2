@@ -43,6 +43,8 @@ def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
         "ExecuteNonQuery",
         "ExecuteReader",
         "ExecuteScalar",
+        "ExecuteOracleNonQuery",
+        "ExecuteOracleScalar",
         "ExecuteNonQueryAsync",
         "ExecuteScalarAsync",
         "ExecuteReaderAsync",

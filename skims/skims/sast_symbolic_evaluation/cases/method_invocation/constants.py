@@ -43,7 +43,6 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Float.toString",
         "Integer.toString",
         "Long.toString",
-        "System.Diagnostics.Process.Start",
         "System.IO.File.Copy",
         "System.IO.File.Create",
         "System.IO.File.Delete",
@@ -93,16 +92,6 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
-    FindingEnum.F001.name: complete_attrs_on_set(
-        {
-            "System.Console.ReadLine",
-        }
-    ),
-    FindingEnum.F004.name: complete_attrs_on_set(
-        {
-            "Environment.GetEnvironmentVariable",
-        }
-    ),
     FindingEnum.F021.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",
@@ -212,48 +201,6 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "java.util.List": {
             "get",
         },
-        "System.Data.SqlClient.SqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "System.Data.SQLite.SQLite.SQLiteCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "System.Data.OracleClient.OracleCommand": {
-            "ExecuteNonQuery",
-            "ExecuteOracleNonQuery",
-            "ExecuteOracleScalar",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "MySql.Data.MySqlClient.MySqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
-        "Npgsql.NpgsqlCommand": {
-            "ExecuteNonQuery",
-            "ExecuteReader",
-            "ExecuteScalar",
-            "ExecuteNonQueryAsync",
-            "ExecuteScalarAsync",
-            "ExecuteReaderAsync",
-        },
         "MySql.Data.MySqlClient.MySqlDataReader": {
             "ToString",
         },
@@ -266,9 +213,6 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
         "System.Net.WebClient": {
             "OpenRead",
-        },
-        "System.Diagnostics.Process": {
-            "Start",
         },
         "XPath": {"select"},
     }
@@ -295,7 +239,7 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Security.Cryptography.AesCryptoServiceProvider": {
             "CreateEncryptor",
         },
-        # javascrip
+        # javascript
         "child_process": {
             "exec",
             "execSync",

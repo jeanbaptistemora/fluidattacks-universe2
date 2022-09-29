@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from lib_root.utilities.c_sharp import (
-    get_first_member_syntax_graph,
-)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -16,9 +13,10 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -28,51 +26,51 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-    get_object_identifiers,
+)
+from typing import (
+    Iterable,
 )
 
 
+def is_execute_danger(graph: Graph, n_id: str, check: str) -> bool:
+    method = MethodsEnum.CS_REMOTE_COMMAND_EXECUTION
+
+    danger_p1 = {"UserConnection", "UserParams"}
+    danger_p2 = {"Executor", "UserConnection", "UserParams"}
+
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and (
+            (check == "Start" and evaluation.triggers == danger_p1)
+            or (check == "Execute" and evaluation.triggers == danger_p2)
+        ):
+            return True
+    return False
+
+
 def remote_command_execution(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.CS_REMOTE_COMMAND_EXECUTION
     c_sharp = GraphLanguage.CSHARP
-    danger_params = {"HttpRequest", "UserParams"}
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
             graph = shard.syntax_graph
-            executors_objs = get_object_identifiers(graph, {"Executor"})
 
-            executors = list(
-                search_method_invocation_naive(graph, {"Execute"})
-            )
-            danger_meths = set(
-                search_method_invocation_naive(graph, {"Start"})
-            )
-            methods = [
-                executor
-                if (
-                    (member := get_first_member_syntax_graph(graph, executor))
-                    and graph.nodes[member].get("symbol") in executors_objs
-                )
-                else None
-                for executor in executors
-            ]
-            danger_meths.update(filter(None, methods))
-            for n_id in danger_meths:
-                for path in get_backward_paths(graph, n_id):
-                    evaluation = evaluate(method, graph, path, n_id)
-                    if evaluation and evaluation.triggers == danger_params:
-                        yield shard, n_id
+            for n_id in search_method_invocation_naive(graph, {"Start"}):
+                if is_execute_danger(graph, n_id, "Start"):
+                    yield shard, n_id
+
+            for n_id in search_method_invocation_naive(graph, {"Execute"}):
+                if is_execute_danger(graph, n_id, "Execute"):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_path.f004.remote_command_execution",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=method,
+        method=MethodsEnum.CS_REMOTE_COMMAND_EXECUTION,
     )
