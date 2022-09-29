@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
 # pylint: disable=too-many-locals
+
 from aioextensions import (
     collect,
 )
@@ -14,7 +14,12 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
+    compliance as compliance_model,
     organizations as orgs_model,
+)
+from db_model.compliance.types import (
+    ComplianceStandard,
+    ComplianceUnreliableIndicators,
 )
 from db_model.findings.types import (
     Finding,
@@ -53,6 +58,9 @@ from organizations import (
 )
 from schedulers.common import (
     info,
+)
+from statistics import (
+    mean,
 )
 from typing import (
     Any,
@@ -204,7 +212,7 @@ async def update_organization_compliance(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> None:
-    info(f"Working on organization {organization.name}")
+    info(f"Update organization compliance: {organization.name}")
     non_compliance_level = await get_organization_non_compliance_level(
         loaders=loaders,
         organization=organization,
@@ -229,17 +237,71 @@ async def update_organization_compliance(
     )
 
 
+async def update_compliance_indicators(
+    loaders: Dataloaders,
+    organizations: list[Organization],
+    compliance_file: dict[str, Any],
+) -> None:
+    info("Update compliance indicators")
+    organizations_unreliable_indicators: tuple[
+        OrganizationUnreliableIndicators, ...
+    ] = await loaders.organization_unreliable_indicators.load_many(
+        tuple(organization.id for organization in organizations)
+    )
+    non_compliances_level_by_standard: dict[str, set] = {}
+    standard_names = tuple(
+        standard_name.lower() for standard_name in compliance_file
+    )
+    for standard_name in standard_names:
+        non_compliances_level_by_standard[standard_name] = set()
+    for standard_name in standard_names:
+        for indicators in organizations_unreliable_indicators:
+            compliance = next(
+                (
+                    standard_compliance
+                    for standard_compliance in indicators.standard_compliances
+                    or []
+                    if standard_compliance.standard_name == standard_name
+                ),
+                None,
+            )
+            if compliance:
+                non_compliances_level_by_standard[standard_name].add(
+                    compliance.non_compliance_level
+                )
+
+    await compliance_model.update_unreliable_indicators(
+        indicators=ComplianceUnreliableIndicators(
+            standards=[
+                ComplianceStandard(
+                    avg_organization_non_compliance_level=Decimal(
+                        mean(non_compliances_level_by_standard[standard_name])
+                    ).quantize(Decimal("0.01")),
+                    best_organization_non_compliance_level=Decimal(
+                        min(non_compliances_level_by_standard[standard_name])
+                    ).quantize(Decimal("0.01")),
+                    standard_name=standard_name,
+                    worst_organization_non_compliance_level=Decimal(
+                        max(non_compliances_level_by_standard[standard_name])
+                    ).quantize(Decimal("0.01")),
+                )
+                for standard_name in standard_names
+            ]
+        )
+    )
+
+
 async def update_compliance() -> None:
     loaders: Dataloaders = get_new_context()
     compliance_file = await get_compliance_file()
     requirements_file = await get_requirements_file()
     vulnerabilities_file = await get_vulns_file()
-    orgs_to_update: list[Organization] = []
+    current_orgs: list[Organization] = []
     async for organization in orgs_domain.iterate_organizations():
         if orgs_utils.is_deleted(organization):
             continue
 
-        orgs_to_update.append(organization)
+        current_orgs.append(organization)
 
     await collect(
         tuple(
@@ -250,9 +312,14 @@ async def update_compliance() -> None:
                 requirements_file=requirements_file,
                 vulnerabilities_file=vulnerabilities_file,
             )
-            for organization in orgs_to_update
+            for organization in current_orgs
         ),
         workers=5,
+    )
+    await update_compliance_indicators(
+        loaders=loaders,
+        organizations=current_orgs,
+        compliance_file=compliance_file,
     )
 
 
