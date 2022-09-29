@@ -12,7 +12,7 @@ Removes duplicate vulnerabilities reported by Machine, based on four criteria:
     - Duplicate vulnerabilities that have some treatment defined
 
 Execution Time:    2022-09-29 at 00:37:14 UTC
-Finalization Time: 2022-09-27 at 01:42:56 UTC
+Finalization Time: 2022-09-29 at 02:42:38 UTC
 """
 from aioextensions import (
     collect,
