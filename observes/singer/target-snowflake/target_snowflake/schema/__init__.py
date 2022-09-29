@@ -3,19 +3,19 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from ._core import (
-    Database,
-    SchemaId,
+    Schema,
+    TableId,
+    TableObj,
 )
 from ._manager import (
-    DbManager,
-    DbTableId,
+    SchemaManager,
     UpperMethods,
 )
 
 __all__ = [
-    "SchemaId",
-    "Database",
-    "DbTableId",
+    "TableId",
+    "TableObj",
+    "Schema",
+    "SchemaManager",
     "UpperMethods",
-    "DbManager",
 ]

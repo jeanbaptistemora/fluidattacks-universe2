@@ -2,9 +2,16 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from . import (
+    _assert,
+    _encode,
+)
 from .db import (
-    DbClient,
+    DbManager,
     UpperMethods as DbUpperMethods,
+)
+from .table import (
+    ColumnId,
 )
 from dataclasses import (
     dataclass,
@@ -15,11 +22,22 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
+from fa_purity.json.primitive import (
+    Primitive,
+)
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
+)
 from target_snowflake.db import (
+    DbTableId,
     SchemaId,
 )
 from target_snowflake.schema import (
     TableId,
+    TableObj,
 )
 from target_snowflake.sql_client import (
     Cursor,
@@ -27,8 +45,13 @@ from target_snowflake.sql_client import (
     Identifier,
     Query,
 )
+from target_snowflake.table import (
+    Table,
+)
 from typing import (
+    Callable,
     Dict,
+    FrozenSet,
 )
 
 
@@ -48,25 +71,6 @@ class FullTablePointer:
 @dataclass(frozen=True)
 class RootManager:
     _cursor: Cursor
-
-    def db_client(self, database: DatabaseId) -> DbClient:
-        class _ConcreteDbMethods(DbUpperMethods):
-            def rename_schema(s, old: SchemaId, new: SchemaId) -> Cmd[None]:
-                _old = FullSchemaPointer(database, old)
-                _new = FullSchemaPointer(database, new)
-                return self.rename_schema(_old, _new)
-
-            def delete_schema(s, target: SchemaId, cascade: bool) -> Cmd[None]:
-                _target = FullSchemaPointer(database, target)
-                return self.delete_schema(_target, cascade)
-
-            def create_schema(
-                s, schema: SchemaId, if_not_exist: bool = False
-            ) -> Cmd[None]:
-                _schema = FullSchemaPointer(database, schema)
-                return self.create_schema(_schema, if_not_exist)
-
-        return DbClient(self._cursor, _ConcreteDbMethods())
 
     # Db manager
     def create_schema(
@@ -107,6 +111,54 @@ class RootManager:
         return self._cursor.execute(query)
 
     # Schema manager
+    def create_table(
+        self,
+        schema: FullSchemaPointer,
+        table_obj: TableObj,
+        if_not_exist: bool = False,
+    ) -> Cmd[None]:
+        enum_primary_keys = from_flist(
+            tuple(enumerate(table_obj.table.primary_keys))
+        )
+        enum_columns = from_flist(tuple(enumerate(table_obj.table.order)))
+        p_fields = ",".join(
+            enum_primary_keys.map(lambda t: f"{{pkey_{t[0]}}}")
+        )
+        pkeys_template = (
+            f",PRIMARY KEY({p_fields})" if table_obj.table.primary_keys else ""
+        )
+        not_exists = "" if not if_not_exist else "IF NOT EXISTS"
+        encode_nullable: Callable[[bool], str] = (
+            lambda b: "NULL" if b else "NOT NULL"
+        )
+
+        def _encode_field(index: int, column_id: ColumnId) -> str:
+            column = table_obj.table.columns[column_id]
+            return f"""
+                {{name_{index}}} {_encode.encode_type(column.data_type)}
+                DEFAULT %(default_{index})s {encode_nullable(column.nullable)}
+            """
+
+        fields_template: str = ",".join(
+            enum_columns.map(lambda t: _encode_field(*t))
+        )
+        stm = f"CREATE TABLE {not_exists} {{database}}.{{schema}}.{{table}} ({fields_template}{pkeys_template})"
+        identifiers: Dict[str, Identifier] = {
+            "database": schema.db.db_name,
+            "schema": schema.schema.name,
+            "table": table_obj.id_obj.name,
+        }
+        for index, cid in enum_primary_keys:
+            identifiers[f"pkey_{index}"] = cid.name
+        for index, cid in enum_columns:
+            identifiers[f"name_{index}"] = cid.name
+        values = {
+            f"default_{index}": table_obj.table.columns[cid].default
+            for index, cid in enum_columns
+        }
+        query = Query(stm, freeze(identifiers), freeze(values))
+        return self._cursor.execute(query)
+
     def move_table(
         self,
         source: FullTablePointer,
@@ -167,3 +219,104 @@ class RootManager:
         }
         query = Query(stm, freeze(identifiers), freeze({}))
         return self._cursor.execute(query)
+
+    def table_ids(self, schema: FullSchemaPointer) -> Cmd[FrozenSet[TableId]]:
+        _stm = (
+            "SELECT tables.table_name FROM information_schema.tables",
+            "WHERE table_catalog = %(database)s AND table_schema = %(schema)s",
+        )
+        stm = " ".join(_stm)
+        values: Dict[str, Primitive] = {
+            "database": schema.db.db_name.sql_identifier,
+            "schema": schema.schema.name.sql_identifier,
+        }
+        query = Query(stm, freeze({}), freeze(values))
+        return self._cursor.execute(query) + self._cursor.fetch_all().map(
+            lambda x: from_flist(x)
+        ).map(
+            lambda p: p.map(lambda r: to_primitive(r.data[0], str).unwrap())
+            .map(Identifier.from_raw)
+            .map(TableId)
+            .transform(lambda x: frozenset(x))
+        )
+
+    def exist_table(self, table: FullTablePointer) -> Cmd[bool]:
+        stm = """
+            SELECT EXISTS (
+                SELECT * FROM information_schema.tables
+                WHERE table_catalog = %(database)s
+                AND table_schema = %(schema)s
+                AND table_name = %(table)s
+            );
+        """
+        args: Dict[str, Primitive] = {
+            "database": table.db.db_name.sql_identifier,
+            "schema": table.schema.name.sql_identifier,
+            "table": table.table.name.sql_identifier,
+        }
+        query = Query(stm, freeze({}), freeze(args))
+        return self._cursor.execute(query) + self._cursor.fetch_one().map(
+            lambda m: m.map(
+                lambda i: _assert.assert_bool(i.data[0]).unwrap()
+            ).unwrap()
+        )
+
+    def delete_table(
+        self, table: FullTablePointer, cascade: bool
+    ) -> Cmd[None]:
+        _cascade = "CASCADE" if cascade else ""
+        stm = f"""
+            DROP TABLE {{database}}.{{schema}}.{{table}} {_cascade}
+        """
+        identifiers: Dict[str, Identifier] = {
+            "database": table.db.db_name,
+            "schema": table.schema.name,
+            "table": table.table.name,
+        }
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query)
+
+    # managers
+    def db_manager(self, database: DatabaseId) -> DbManager:
+        def _schema_path(schema: SchemaId) -> FullSchemaPointer:
+            return FullSchemaPointer(database, schema)
+
+        def _table_path(schema: DbTableId) -> FullTablePointer:
+            return FullTablePointer(database, schema.schema, schema.table)
+
+        class _ConcreteDbMethods(DbUpperMethods):
+            def rename_schema(s, old: SchemaId, new: SchemaId) -> Cmd[None]:
+                return self.rename_schema(_schema_path(old), _schema_path(new))
+
+            def delete_schema(s, target: SchemaId, cascade: bool) -> Cmd[None]:
+                return self.delete_schema(_schema_path(target), cascade)
+
+            def create_schema(
+                s, schema: SchemaId, if_not_exist: bool = False
+            ) -> Cmd[None]:
+                return self.create_schema(_schema_path(schema), if_not_exist)
+
+            def create_table(
+                s, table_id: DbTableId, table: Table, if_not_exist: bool
+            ) -> Cmd[None]:
+                _schema = _schema_path(table_id.schema)
+                _table_obj = TableObj(table_id.table, table)
+                return self.create_table(_schema, _table_obj, if_not_exist)
+
+            def create_table_like(
+                s, blueprint: DbTableId, new_table: DbTableId
+            ) -> Cmd[None]:
+                return self.create_table_like(
+                    _table_path(blueprint), _table_path(new_table)
+                )
+
+            def rename_table(s, old: DbTableId, new: DbTableId) -> Cmd[None]:
+                return self.move_table(_table_path(old), _table_path(new))
+
+            def delete_table(s, target: DbTableId, cascade: bool) -> Cmd[None]:
+                return self.delete_table(_table_path(target), cascade)
+
+            def table_ids(s, schema: SchemaId) -> Cmd[FrozenSet[TableId]]:
+                return self.table_ids(_schema_path(schema))
+
+        return DbManager(self._cursor, _ConcreteDbMethods())

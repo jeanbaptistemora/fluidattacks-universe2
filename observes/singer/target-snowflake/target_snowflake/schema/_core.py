@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from .table import (
-    Table,
-)
 from dataclasses import (
     dataclass,
 )
@@ -13,6 +10,9 @@ from fa_purity import (
 )
 from target_snowflake.sql_client import (
     Identifier,
+)
+from target_snowflake.table import (
+    Table,
 )
 
 
