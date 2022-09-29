@@ -48,6 +48,7 @@ locals {
             "sagemaker:*",
             "savingsplans:*",
             "secretsmanager:*",
+            "serverlessrepo:*",
             "servicequotas:*",
             "sns:*",
             "sqs:*",

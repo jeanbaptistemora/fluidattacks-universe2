@@ -47,16 +47,23 @@ in {
   };
   secretsForEnvFromSops = {
     commonCiProd = {
-      vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
+      vars = [
+        "BUILDKITE_AGENT_TOKEN"
+        "GITLAB_TOKEN_FLUIDATTACKS"
+      ];
       manifest = "/common/secrets/prod.yaml";
     };
     commonCiDev = {
-      vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
+      vars = [
+        "BUILDKITE_AGENT_TOKEN"
+        "GITLAB_TOKEN_FLUIDATTACKS"
+      ];
       manifest = "/common/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     commonCi = {
+      agentToken = "BUILDKITE_AGENT_TOKEN";
       gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
     };
   };
