@@ -75,3 +75,7 @@ def process_findings(records: tuple[Record, ...]) -> None:
 
 def process_executions(records: tuple[Record, ...]) -> None:
     _process(records, "forces_executions")
+
+
+def process_events(records: tuple[Record, ...]) -> None:
+    _process(records, "events")
