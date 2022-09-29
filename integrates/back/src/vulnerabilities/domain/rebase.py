@@ -74,7 +74,7 @@ async def rebase(
             )[1],
             root_id=vuln.root_id,
         )
-        if vuln_hash == current_vuln_hash:
+        if vuln_hash == current_vuln_hash and vuln.id != current_vuln.id:
             LOGGER.warning(
                 "there is a problem with the rebase vulnerability",
                 extra={
