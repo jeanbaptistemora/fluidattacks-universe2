@@ -23,6 +23,7 @@ from syntax_graph.syntax_readers.dart import (
     library_name as dart_library_name,
     method_declaration as dart_method_declaration,
     method_signature as dart_method_signature,
+    new_expression as dart_new_expression,
     number_literal as dart_number_literal,
     operator as dart_operator,
     parameter as dart_parameter,
@@ -170,6 +171,12 @@ DART_DISPATCHERS: Dispatchers = (
             "method_signature",
         },
         syntax_reader=dart_method_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "new_expression",
+        },
+        syntax_reader=dart_new_expression.reader,
     ),
     Dispatcher(
         applicable_types={

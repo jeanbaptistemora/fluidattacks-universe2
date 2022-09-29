@@ -11,8 +11,12 @@ from syntax_graph.syntax_nodes.string_literal import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from utils.graph import (
+    adj_ast,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
     n_attrs = args.ast_graph.nodes[args.n_id]
-    return build_string_literal_node(args, value=n_attrs["label_text"])
+    c_ids = adj_ast(args.ast_graph, args.n_id)
+    return build_string_literal_node(args, n_attrs["label_text"], iter(c_ids))
