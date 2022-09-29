@@ -473,7 +473,7 @@ def _get_weak_enabled_suites_as_vuln(
     v_id: SSLVersionId,
     cipher_suites: List[SSLSuiteInfo],
     intention: Dict[core_model.LocalesEnum, str],
-    method_name: str,
+    method: core_model.MethodsEnum,
     cipher_names: List[str],
     hash_names: List[str],
     extensions: Optional[List[int]] = None,
@@ -516,7 +516,7 @@ def _get_weak_enabled_suites_as_vuln(
                         intention=intention,
                     ),
                     server_response=response,
-                    method=getattr(core_model.MethodsEnum, method_name),
+                    method=method,
                     check_kwargs={
                         "v_name": ssl_id2ssl_name(v_id),
                         "insecure_cipher": cipher_iana_name,
@@ -531,13 +531,8 @@ def _get_weak_enabled_suites_as_vuln(
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
-
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-
     suites: List[SSLSuiteInfo] = list(get_weak_suites())
-
-    method_name: str = "WEAK_CIPHERS_ALLOWED"
-
     cipher_names: List[str] = [
         "NULL",
         "RC2",
@@ -548,18 +543,15 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         "SM4",
         "CBC",
     ]
-
     hash_names: List[str] = [
         "SHA",
         "MD5",
         "SM3",
     ]
-
     en_intention = (
         "Perform a {v_name} request offering only weak cipher suites and\n"
         "check if the connection is accepted by the server"
     )
-
     es_intention = (
         "Realizar una petición {v_name} ofreciendo solamente suites de\n"
         "cifrado débiles y verificar si la conexión es aceptada por el\n"
@@ -575,9 +567,14 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                 es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
-
         ssl_vulnerabilities += _get_weak_enabled_suites_as_vuln(
-            ctx, v_id, suites, intention, method_name, cipher_names, hash_names
+            ctx,
+            v_id,
+            suites,
+            intention,
+            core_model.MethodsEnum.WEAK_CIPHERS_ALLOWED,
+            cipher_names,
+            hash_names,
         )
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -585,29 +582,20 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
-
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-
     suites: List[SSLSuiteInfo] = list(get_suites_with_cbc())
-
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
-
-    method_name: str = "CBC_ENABLED"
-
     cipher_names: List[str] = [
         "CBC",
     ]
-
     hash_names: List[str] = [
         "ANY",
     ]
-
     en_intention = (
         "Perform a {v_name} request offering any cipher suite \n"
         "and check if the connection is accepted by the server"
     )
-
     es_intention = (
         "Realizar una petición {v_name} ofreciendo solamente suites de\n"
         "cifrado que usen CBC y verificar si la conexión es aceptada por el\n"
@@ -617,7 +605,6 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
-
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
@@ -626,13 +613,12 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
-
         ssl_vulnerabilities += _get_weak_enabled_suites_as_vuln(
             ctx,
             v_id,
             suites,
             intention,
-            method_name,
+            core_model.MethodsEnum.CBC_ENABLED,
             cipher_names,
             hash_names,
             extensions,
