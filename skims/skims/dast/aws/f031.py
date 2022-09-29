@@ -362,12 +362,14 @@ async def open_passrole(
                 if policy_names
                 else {}
             )
+            print(pol_access, type(pol_access))
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-
+            print(policy_statements, type(policy_statements))
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
+                print(item, type(item))
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
                         action = [item["Action"]]
