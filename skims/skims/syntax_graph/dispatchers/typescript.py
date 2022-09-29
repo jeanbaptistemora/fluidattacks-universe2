@@ -8,11 +8,15 @@ from syntax_graph.syntax_readers.javascript import (
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
+    lexical_declaration as javascript_lexical_declaration,
+    object as javascript_object,
+    pair as javascript_pair,
     program as javascript_program,
     string_literal as javascript_string_literal,
 )
 from syntax_graph.syntax_readers.typescript import (
     array_type as typescript_array_type,
+    property_identifier as typescript_property_identifier,
     type_annotation as typescript_type_annotation,
     variable_declaration as typescript_variable_declaration,
     variable_declarator as typescript_variable_declarator,
@@ -61,9 +65,33 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "lexical_declaration",
+        },
+        syntax_reader=javascript_lexical_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "object",
+        },
+        syntax_reader=javascript_object.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "pair",
+        },
+        syntax_reader=javascript_pair.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "program",
         },
         syntax_reader=javascript_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "property_identifier",
+        },
+        syntax_reader=typescript_property_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
