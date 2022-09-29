@@ -21,7 +21,7 @@ from custom_types import (  # pylint: disable=import-error
 from findings.domain.core import (
     get_findings_by_group,
     is_deleted,
-    remove_vulnerabilities,
+    remove_vulnerabilities_legacy,
 )
 from groups.domain import (
     get_alive_groups,
@@ -42,7 +42,7 @@ async def _add_deleted_status(
     historic_state = finding["historic_state"]
     last_state = historic_state[-1]
     if STAGE == "apply":
-        await remove_vulnerabilities(
+        await remove_vulnerabilities_legacy(
             finding_id,
             last_state["justification"],
             last_state["analyst"],

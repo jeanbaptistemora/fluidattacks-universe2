@@ -26,6 +26,9 @@ from custom_exceptions import (
     PermissionDenied,
     VulnNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -33,6 +36,7 @@ from db_model import (
     findings as findings_model,
 )
 from db_model.enums import (
+    Source,
     StateRemovalJustification,
 )
 from db_model.finding_comments.enums import (
@@ -197,13 +201,14 @@ async def remove_finding(
     justification: StateRemovalJustification,
     user_email: str,
 ) -> None:
-    finding_loader = context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    loaders: Dataloaders = context.loaders
+    source = requests_utils.get_source_new(context)
+    finding: Finding = await loaders.finding.load(finding_id)
     new_state = FindingState(
         justification=justification,
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
-        source=requests_utils.get_source_new(context),
+        source=source,
         status=FindingStateStatus.DELETED,
     )
     await findings_model.update_state(
@@ -213,7 +218,7 @@ async def remove_finding(
         state=new_state,
     )
     await remove_vulnerabilities(
-        context, finding_id, justification, user_email
+        loaders, finding_id, justification, source, user_email
     )
     file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
@@ -232,7 +237,7 @@ async def remove_finding(
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         await _send_to_redshift(
-            loaders=context.loaders,
+            loaders=loaders,
             finding=finding,
         )
     await findings_model.remove(
@@ -241,19 +246,18 @@ async def remove_finding(
 
 
 async def remove_vulnerabilities(
-    context: Any,
+    loaders: Dataloaders,
     finding_id: str,
     justification: StateRemovalJustification,
+    source: Source,
     user_email: str,
 ) -> None:
-    finding_vulns_loader = context.loaders.finding_vulnerabilities
-    vulnerabilities: Tuple[Vulnerability] = await finding_vulns_loader.load(
-        finding_id
-    )
-    source = requests_utils.get_source_new(context)
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
     await collect(
         vulns_domain.remove_vulnerability(
-            context.loaders,
+            loaders,
             finding_id,
             vuln.id,
             justification,
