@@ -11,23 +11,21 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { BenchmarkCard } from "./BenchmarkCard";
 import { PercentageCard } from "./PercentageCard";
 import { GET_ORGANIZATION_COMPLIANCE } from "./queries";
 import type {
   IOrganizationAttr,
   IOrganizationComplianceOverviewProps,
+  IStandardComplianceAttr,
 } from "./types";
+import { handleComplianceValue } from "./utils";
 
 import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 import { Logger } from "utils/logger";
-
-const handleComplianceValue: (value: number | null) => number = (
-  value: number | null
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-): number => (_.isNull(value) ? 0 : value * 100);
 
 const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOverviewProps> =
   ({ organizationId }: IOrganizationComplianceOverviewProps): JSX.Element => {
@@ -95,6 +93,36 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
             </Col>
           </Col>
           <Col lg={40} md={40} sm={100} />
+        </Row>
+        <Row>
+          <Col lg={100} md={100} sm={100}>
+            <Text fw={7} mb={3} mt={2} size={5}>
+              {t("organization.tabs.compliance.tabs.overview.benchmark.title")}
+            </Text>
+            <Row>
+              {organization.compliance.standards
+                .filter(
+                  (standardCompliance: IStandardComplianceAttr): boolean =>
+                    ["OWASP ASVS", "OWASP MASVS"].includes(
+                      standardCompliance.standardTitle
+                    )
+                )
+                .map(
+                  (
+                    standardCompliance: IStandardComplianceAttr
+                  ): JSX.Element => (
+                    <Col
+                      key={standardCompliance.standardTitle}
+                      lg={25}
+                      md={25}
+                      sm={50}
+                    >
+                      <BenchmarkCard standardCompliance={standardCompliance} />
+                    </Col>
+                  )
+                )}
+            </Row>
+          </Col>
         </Row>
       </React.StrictMode>
     );
