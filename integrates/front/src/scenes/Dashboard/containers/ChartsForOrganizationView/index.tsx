@@ -9,7 +9,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 import type { IChartsForOrganizationViewProps } from "scenes/Dashboard/containers/ChartsForOrganizationView/types";
-import { ChartsChangedOrderView } from "scenes/Dashboard/containers/ChartsGenericView/newOrderIndex";
+import { ChartsView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = ({
   organizationId,
@@ -32,7 +32,7 @@ const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = ({
 
   return (
     <React.StrictMode>
-      <ChartsChangedOrderView
+      <ChartsView
         bgChange={searchParams.get("bgChange") === "true"}
         entity={"organization"}
         reportMode={searchParams.get("reportMode") === "true"}

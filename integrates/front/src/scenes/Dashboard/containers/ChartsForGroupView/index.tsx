@@ -8,7 +8,7 @@ import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { ChartsChangedOrderView } from "scenes/Dashboard/containers/ChartsGenericView/newOrderIndex";
+import { ChartsView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForGroupView: React.FC = (): JSX.Element => {
   const params: { groupName: string } = useParams();
@@ -24,7 +24,7 @@ const ChartsForGroupView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <ChartsChangedOrderView
+      <ChartsView
         bgChange={searchParams.get("bgChange") === "true"}
         entity={"group"}
         reportMode={searchParams.get("reportMode") === "true"}

@@ -11,7 +11,7 @@ import React from "react";
 
 import { SUBSCRIPTIONS_TO_ENTITY_REPORT } from "./queries";
 
-import { ChartsChangedOrderView } from "scenes/Dashboard/containers/ChartsGenericView/newOrderIndex";
+import { ChartsView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 describe("ChartsGenericView", (): void => {
   const mocks: MockedResponse = {
@@ -31,7 +31,7 @@ describe("ChartsGenericView", (): void => {
 
   it("should return an function", (): void => {
     expect.hasAssertions();
-    expect(typeof ChartsChangedOrderView).toBe("function");
+    expect(typeof ChartsView).toBe("function");
   });
 
   it("should render a component and number of graphics of entity", async (): Promise<void> => {
@@ -42,7 +42,7 @@ describe("ChartsGenericView", (): void => {
 
     const { container, rerender } = render(
       <MockedProvider addTypename={true} mocks={[mocks]}>
-        <ChartsChangedOrderView
+        <ChartsView
           bgChange={false}
           entity={"organization"}
           reportMode={false}
@@ -59,7 +59,7 @@ describe("ChartsGenericView", (): void => {
 
     rerender(
       <MockedProvider addTypename={true} mocks={[mocks]}>
-        <ChartsChangedOrderView
+        <ChartsView
           bgChange={false}
           entity={"group"}
           reportMode={false}
@@ -76,7 +76,7 @@ describe("ChartsGenericView", (): void => {
 
     rerender(
       <MockedProvider addTypename={true} mocks={[mocks]}>
-        <ChartsChangedOrderView
+        <ChartsView
           bgChange={false}
           entity={"portfolio"}
           reportMode={false}

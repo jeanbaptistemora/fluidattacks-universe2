@@ -19,7 +19,7 @@ import type {
 } from "scenes/Dashboard/containers/ChartsGenericView/types";
 import { PanelCollapseHeader, Row, RowCenter } from "styles/styledComponents";
 
-export const ChartsChangedOrderView: React.FC<IChartsGenericViewProps> = ({
+export const ChartsView: React.FC<IChartsGenericViewProps> = ({
   bgChange,
   entity,
   reportMode,
@@ -45,15 +45,13 @@ export const ChartsChangedOrderView: React.FC<IChartsGenericViewProps> = ({
   return (
     <React.StrictMode>
       {reportMode ? undefined : (
-        <div className={`center ${reportClassName}`.trim()}>
-          <div className={"ph3 mb3"}>
-            <ChartsGenericViewExtras
-              bgChange={bgChange}
-              entity={entity}
-              reportMode={reportMode}
-              subject={subject}
-            />
-          </div>
+        <div className={"center ph3 mb3"}>
+          <ChartsGenericViewExtras
+            bgChange={bgChange}
+            entity={entity}
+            reportMode={reportMode}
+            subject={subject}
+          />
         </div>
       )}
       <div className={reportClassName}>
