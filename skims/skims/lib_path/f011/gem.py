@@ -13,6 +13,7 @@ from model.core_model import (
 )
 import re
 from typing import (
+    Callable,
     Iterator,
     List,
     Match,
@@ -36,6 +37,23 @@ def format_dep(
             "line": line_number,
             "item": version,
         },
+    )
+
+
+def pck_manager_file(
+    content: str,
+    path: str,
+    platform: Platform,
+    method: MethodsEnum,
+    resolve_dependencies: Callable[[str], Iterator[DependencyType]],
+) -> Vulnerabilities:
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(content),
+        path=path,
+        platform=platform,
+        method=method,
     )
 
 
