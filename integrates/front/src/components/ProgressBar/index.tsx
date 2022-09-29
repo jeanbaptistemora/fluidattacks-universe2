@@ -44,6 +44,7 @@ const ProgressBar: FC<IProgressBarProps> = ({
 }: Readonly<IProgressBarProps>): JSX.Element => (
   <Bar
     color={backgroundColor}
+    display={"inline-block"}
     height={height}
     leftRadius={borderRadius}
     maxWidth={maxWidth}

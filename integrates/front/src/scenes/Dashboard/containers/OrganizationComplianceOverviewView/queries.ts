@@ -14,6 +14,13 @@ const GET_ORGANIZATION_COMPLIANCE: DocumentNode = gql`
       name
       compliance {
         nonComplianceLevel
+        standards {
+          avgOrganizationNonComplianceLevel
+          bestOrganizationNonComplianceLevel
+          nonComplianceLevel
+          standardTitle
+          worstOrganizationNonComplianceLevel
+        }
       }
     }
   }
