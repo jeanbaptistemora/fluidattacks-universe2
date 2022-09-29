@@ -176,7 +176,6 @@
   interruptible: false
   needs:
     - /sorts/extract-features
-  parallel: 15
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

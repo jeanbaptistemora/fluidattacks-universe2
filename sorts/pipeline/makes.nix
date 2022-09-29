@@ -94,7 +94,6 @@ in {
           gitlabExtra = {
             interruptible = false;
             needs = ["/sorts/extract-features"];
-            parallel = 15;
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined "sorts_extract_features")

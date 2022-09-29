@@ -5,7 +5,7 @@ closure:
   botocore: 1.19.63
   bugsnag: 3.9.0
   category-encoders: 2.2.2
-  certifi: 2022.9.14
+  certifi: 2022.9.24
   cffi: 1.15.1
   chardet: 3.0.4
   click: 7.1.2
@@ -25,7 +25,7 @@ closure:
   more-itertools: 8.5.0
   multidict: 6.0.2
   mypy-extensions: 0.4.3
-  numpy: 1.23.3
+  numpy: 1.20.3
   packaging: '21.3'
   pandas: 1.1.2
   patsy: 0.5.2
@@ -86,12 +86,12 @@ links:
   - name: category_encoders-2.2.2.tar.gz
     sha256: 1c3c2dvf0193hhk66wq6s4b90ilkkskljk20bny4jrydx31isrbr
     url: https://files.pythonhosted.org/packages/5d/91/d47000ae53ff4fcbb24b0788ef482c042d476300a76e4711fce3f257b09a/category_encoders-2.2.2.tar.gz
-  - name: certifi-2022.9.14-py3-none-any.whl
-    sha256: 05h5gfqh9cv5nhhcdqnh1y1mdqwrys05qqhvaamc4wmbw4yk8cp2
-    url: https://files.pythonhosted.org/packages/6a/34/cd29f4dd8a23ce45f2b8ce9631ff2d4205fb74eddb412a3dc4fd1e4aa800/certifi-2022.9.14-py3-none-any.whl
-  - name: certifi-2022.9.14.tar.gz
-    sha256: 1mayclnhy5piqgy28qy50xij689v9cmpna7a3p86nbjlp62ki5rn
-    url: https://files.pythonhosted.org/packages/ca/48/88ec470f8b68319b6782ca3a0570789886ad5ca24c1af2f3771699135baa/certifi-2022.9.14.tar.gz
+  - name: certifi-2022.9.24-py3-none-any.whl
+    sha256: 10pkhgnxd22ca8c9bc3d207rza6cyrq67qslhd441yb83lps7hch
+    url: https://files.pythonhosted.org/packages/1d/38/fa96a426e0c0e68aabc68e896584b83ad1eec779265a028e156ce509630e/certifi-2022.9.24-py3-none-any.whl
+  - name: certifi-2022.9.24.tar.gz
+    sha256: 056fpl8l6f8p4c087zj1yvsk87n2aff0vinv2abvm9p54h8n170d
+    url: https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz
   - name: cffi-1.15.1-cp38-cp38-macosx_10_9_x86_64.whl
     sha256: 1hzjj2gy7q8mcbs99izwq1cd5nn4fljrsmjqwvqcvsmjgipan39j
     url: https://files.pythonhosted.org/packages/87/4b/64e8bd9d15d6b22b6cb11997094fbe61edf453ea0a97c8675cb7d1c3f06f/cffi-1.15.1-cp38-cp38-macosx_10_9_x86_64.whl
@@ -281,21 +281,27 @@ links:
   - name: mypy_extensions-0.4.3.tar.gz
     sha256: 1a04qsk8hd1lqns8w1j7cr0vmvbhg450di5k1i16kqxkbf7q30id
     url: https://files.pythonhosted.org/packages/63/60/0582ce2eaced55f65a4406fc97beba256de4b7a95a0034c6576458c6519f/mypy_extensions-0.4.3.tar.gz
-  - name: numpy-1.23.3-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 1ikc5a0s0m55mnnwgrprjyd6xj8ihk8b3kqbn1wbangk2nj8svmw
-    url: https://files.pythonhosted.org/packages/e5/0e/c76c8cd19fa0477742e553471373e69f4aeb228b3b18aaac305a66cd5f5b/numpy-1.23.3-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: numpy-1.23.3-cp38-cp38-macosx_11_0_arm64.whl
-    sha256: 0kdcjpkv76xjqm9igxmjd95cmw62xq9frfa965zm9k8axrv37m12
-    url: https://files.pythonhosted.org/packages/3b/93/e613ce34c908f3228fa181241ae9505c42a72ffc630af9e5173c2f26f406/numpy-1.23.3-cp38-cp38-macosx_11_0_arm64.whl
-  - name: numpy-1.23.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 0q0lzi49n7q2463i3vqahhz0s25k0j7w04hbbvcdrzz56kv06i56
-    url: https://files.pythonhosted.org/packages/24/3e/fbbef2c3a04ed1d237fe4711146f111631d02f5155c1dbeb713005787cf5/numpy-1.23.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.23.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 0zn68zm128kkfma3gq24ihfqy8caniw82x5hrnz08i3pwnmx7ngg
-    url: https://files.pythonhosted.org/packages/d6/e2/bed33bdbf513cd6d3fcb4377792ef1b8aad941da542a191e1e2a98c6621f/numpy-1.23.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: numpy-1.23.3.tar.gz
-    sha256: 1kgn1b0n1yli1m7x1llki5fvki5gb0s6z9ha4h5bwlhxrp04kgsi
-    url: https://files.pythonhosted.org/packages/0a/88/f4f0c7a982efdf7bf22f283acf6009b29a9cc5835b684a49f8d3a4adb22f/numpy-1.23.3.tar.gz
+  - name: numpy-1.20.3-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 05vwgbph488qhpyzs3k5k5dy3p8cidaab988fv486qjis1w2aigi
+    url: https://files.pythonhosted.org/packages/f7/c3/47a197baf6d0a634a2850b30eec420eb8d9fc02b4f95f685a5763601d675/numpy-1.20.3-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: numpy-1.20.3-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 06qvhrydj7gnn703lv04rgys9aygcps429h6k804ljyig1756lbf
+    url: https://files.pythonhosted.org/packages/72/c2/c301c9e4837d1832d1d181968e3213266c2b79c231d8decabcbafea39be2/numpy-1.20.3-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: numpy-1.20.3-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 17vzrjhvi6hd4r3rw8fcby7ajks9b0f434wmxik73qpb7alwj5g5
+    url: https://files.pythonhosted.org/packages/a3/9d/5cc11fb882e628d21f8d490f56610f2e6612c9f55ecb25b2b57d4729c5bc/numpy-1.20.3-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: numpy-1.20.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 192zpdymadmafibyazv465bzjd6bxb7bbx5mpljjax7ari3r5h61
+    url: https://files.pythonhosted.org/packages/22/bc/167ee56ac14f314544f393009b2cc62250c6e8d4d048d10304c8124b374b/numpy-1.20.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.20.3-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.whl
+    sha256: 06npqlbvff39lbksaxg74fhv0nk063zrc2xp3y0bj4sav7zcdyv6
+    url: https://files.pythonhosted.org/packages/ee/e7/6786f5b6f1e2eba354cd19777cc04726d8d7f43d64f6e463a404bb33110b/numpy-1.20.3-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.whl
+  - name: numpy-1.20.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 0rfsvsadv0m6wf6ziqix4dsj3ygjd1dqxyikw6z6v5asww0zz77a
+    url: https://files.pythonhosted.org/packages/b1/4f/73eb767af6a93f4dd1d4770d12d98a30114a9931b1071331a9278030e864/numpy-1.20.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: numpy-1.20.3.zip
+    sha256: 0s8sqycnnmh4ng7c3hiznfb0aizl7vbmyc78kzj8imqq3gjqalg5
+    url: https://files.pythonhosted.org/packages/f3/1f/fe9459e39335e7d0e372b5e5dcd60f4381d3d1b42f0b9c8222102ff29ded/numpy-1.20.3.zip
   - name: packaging-21.3-py3-none-any.whl
     sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
     url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl

@@ -185,10 +185,12 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                 [
                     ToeLines(
                         attacked_lines=edge["node"].get("attackedLines", 0),
-                        filename=edge["node"]["filename"],
-                        loc=edge["node"]["loc"],
-                        root_nickname=edge["node"]["root"]["nickname"],
-                        sorts_risk_level=edge["node"]["sortsRiskLevel"],
+                        filename=edge["node"].get("filename", ""),
+                        loc=edge["node"].get("loc", 0),
+                        root_nickname=edge["node"]["root"].get("nickname", ""),
+                        sorts_risk_level=edge["node"].get(
+                            "sortsRiskLevel", ""
+                        ),
                     )
                     for edge in toe_lines_edges
                 ]
