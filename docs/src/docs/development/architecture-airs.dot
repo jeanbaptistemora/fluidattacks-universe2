@@ -2,15 +2,10 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-digraph architecture {
-  label="Fluid Attacks Architecture"
-  // If things overlap you can play with the following options:
-  // layout="fdp"
+digraph airs {
+  label="Airs Architecture"
   compound="true"
   scale="scalexy"
-  // splines="curved"
-  // splines="ortho"
-  // edge[len=6 minlen=4]
 
   customer[label="Customer"]
   fluid_attacks_developer[label="Fluid Attacks Developer"]
@@ -23,6 +18,7 @@ digraph architecture {
 
       gitlab_airs[label="Source Code"]
       gitlab_airs_gatsby[label="Gatsby"]
+      gitlab_airs_markdown[label="Markdown"]
       gitlab_airs_typescript[label="TypeScript"]
       gitlab_airs_tachyons[label="Tachyons"]
       gitlab_airs_react[label="React"]
@@ -57,8 +53,6 @@ digraph architecture {
 
       cloudinary_media_airs[label="airs"]
       cloudinary_media_blog[label="blog"]
-      cloudinary_media_docs[label="docs"]
-      cloudinary_media_notifications[label="notifications"]
     }
   }
 
@@ -66,7 +60,7 @@ digraph architecture {
     label="Algolia"
 
     subgraph cluster_algolia_index {
-      label="Index"
+      label="Indexes"
 
       algolia_airs[label="fluidattacks_airs"]
     }
@@ -104,31 +98,25 @@ digraph architecture {
     }
   }
 
-  {
-    // Global
-    customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
-    fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
-  }
-
-  {
-    // Airs
-    aws_s3_airs_dev_static -> algolia_airs[]
-    aws_s3_airs_dev_static -> cloudinary_media_blog[]
-    aws_s3_airs_dev_static -> cloudinary_media_airs[]
-    aws_s3_airs_prod_static -> algolia_airs[]
-    aws_s3_airs_prod_static -> cloudinary_media_blog[]
-    aws_s3_airs_prod_static -> cloudinary_media_airs[]
-    cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
-    cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
-    cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
-    cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> cloudflare_zone_fluidattacks_com_worker_route_dev[]
-    cloudflare_zone_fluidattacks_com_dns_cname -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
-    cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
-    gitlab_airs -> aws_s3_airs_dev_static[label="deployed to" lhead="cluster_aws_s3_airs_dev"]
-    gitlab_airs -> aws_s3_airs_prod_static[label="deployed to" lhead="cluster_aws_s3_airs_prod"]
-    gitlab_airs -> gitlab_airs_gatsby[]
-    gitlab_airs -> gitlab_airs_typescript[]
-    gitlab_airs -> gitlab_airs_tachyons[]
-    gitlab_airs -> gitlab_airs_react[]
-  }
+  aws_s3_airs_dev_static -> algolia_airs[]
+  aws_s3_airs_dev_static -> cloudinary_media_blog[]
+  aws_s3_airs_dev_static -> cloudinary_media_airs[]
+  aws_s3_airs_prod_static -> algolia_airs[]
+  aws_s3_airs_prod_static -> cloudinary_media_blog[]
+  aws_s3_airs_prod_static -> cloudinary_media_airs[]
+  cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
+  cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
+  cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
+  cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> cloudflare_zone_fluidattacks_com_worker_route_dev[]
+  cloudflare_zone_fluidattacks_com_dns_cname -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
+  cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
+  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
+  gitlab_airs -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
+  gitlab_airs -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
+  gitlab_airs -> gitlab_airs_gatsby[]
+  gitlab_airs -> gitlab_airs_markdown[]
+  gitlab_airs -> gitlab_airs_typescript[]
+  gitlab_airs -> gitlab_airs_tachyons[]
+  gitlab_airs -> gitlab_airs_react[]
 }

@@ -1,0 +1,123 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph docs {
+  label="Docs Architecture"
+  compound="true"
+  scale="scalexy"
+
+  customer[label="Customer"]
+  fluid_attacks_developer[label="Fluid Attacks Developer"]
+
+  subgraph cluster_aws {
+    label="AWS"
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_docs_dev {
+        label="docs-dev.fluidattacks.com"
+
+        aws_s3_docs_dev_static[label="Static Content" width="3.0"]
+      }
+
+      subgraph cluster_aws_s3_docs_prod {
+        label="docs.fluidattacks.com"
+
+        aws_s3_docs_prod_static[label="Static Content" width="3.0"]
+      }
+    }
+  }
+
+  subgraph cluster_cloudinary {
+    label="Cloudinary"
+
+    subgraph cluster_cloudinary_media {
+      label="Media"
+
+      cloudinary_media_docs[label="docs"]
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+
+    subgraph cluster_cloudflare_workers {
+      label="Workers"
+
+      cluster_cloudflare_workers_docs_headers[label="docs_headers"]
+    }
+
+    subgraph cluster_cloudflare_zones {
+      label="Zones"
+
+      subgraph cluster_cloudflare_zone_fluidattacks_com {
+        label="fluidattacks.com"
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_dns_docs {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_com_dns_cname_doc[label="CNAME doc"]
+          cloudflare_zone_fluidattacks_com_dns_cname_docs[label="CNAME docs"]
+          cloudflare_zone_fluidattacks_com_dns_cname_docs_dev[label="CNAME docs-dev"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_rules {
+          label="Rules"
+
+          subgraph cluster_cloudflare_zone_fluidattacks_com_rules_page {
+            label="Page Rules"
+
+            cloudflare_zone_fluidattacks_com_rules_page_doc[label="doc.fluidattacks.com/*"]
+            cloudflare_zone_fluidattacks_com_rules_page_doc_forward[label="docs.fluidattacks.com/$1"]
+            cloudflare_zone_fluidattacks_com_rules_page_docs[label="docs.fluidattacks.com/*"]
+            cloudflare_zone_fluidattacks_com_rules_page_docs_cache[label="cache"]
+          }
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_worker_routes {
+          label="Worker Routes"
+
+          cloudflare_zone_fluidattacks_com_worker_route_dev[label="docs-dev.fluidattacks.com/*"]
+          cloudflare_zone_fluidattacks_com_worker_route_prod[label="docs.fluidattacks.com/*"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+
+    subgraph cluster_gitlab_docs {
+      label="Docs"
+
+      gitlab_docs[label="Source Code"]
+      gitlab_docs_docasaurus[label="Docasaurus"]
+      gitlab_docs_graphviz[label="Graphviz"]
+      gitlab_docs_javascript[label="JavaScript"]
+      gitlab_docs_markdown[label="Markdown"]
+    }
+  }
+
+  cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_docs_headers[]
+  cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_docs_headers[]
+  cloudflare_zone_fluidattacks_com_dns_cname_doc -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
+  cloudflare_zone_fluidattacks_com_dns_cname_docs -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
+  cloudflare_zone_fluidattacks_com_dns_cname_docs_dev -> cloudflare_zone_fluidattacks_com_worker_route_dev[]
+  cloudflare_zone_fluidattacks_com_dns_cname_docs -> aws_s3_docs_prod_static[lhead="cluster_aws_s3_docs_prod"]
+  cloudflare_zone_fluidattacks_com_dns_cname_docs_dev -> aws_s3_docs_dev_static[lhead="cluster_aws_s3_docs_dev"]
+  cloudflare_zone_fluidattacks_com_rules_page_doc -> cloudflare_zone_fluidattacks_com_rules_page_doc_forward[]
+  cloudflare_zone_fluidattacks_com_rules_page_docs -> cloudflare_zone_fluidattacks_com_rules_page_docs_cache[]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname_doc[]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
+  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_docs_dev[]
+  gitlab_docs -> aws_s3_docs_dev_static[lhead="cluster_aws_s3_airs_dev"]
+  gitlab_docs -> aws_s3_docs_prod_static[lhead="cluster_aws_s3_airs_prod"]
+  aws_s3_docs_dev_static -> cloudinary_media_docs[]
+  aws_s3_docs_prod_static -> cloudinary_media_docs[]
+  gitlab_docs -> gitlab_docs_docasaurus[]
+  gitlab_docs -> gitlab_docs_graphviz[]
+  gitlab_docs -> gitlab_docs_javascript[]
+  gitlab_docs -> gitlab_docs_markdown[]
+}
