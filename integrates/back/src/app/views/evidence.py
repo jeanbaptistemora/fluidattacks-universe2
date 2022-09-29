@@ -121,9 +121,7 @@ async def get_evidence(request: Request) -> Response:
                 localtmp = utils.replace_all(
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )
-                await download_evidence_file(
-                    BUCKET_S3, f"evidences/{evidence}", localtmp
-                )
+                await download_evidence_file(BUCKET_S3, evidence, localtmp)
                 return retrieve_image(localtmp)
         else:
             return JSONResponse(
