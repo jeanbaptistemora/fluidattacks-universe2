@@ -190,19 +190,6 @@ async def send_mail_new_draft(
     )
 
 
-async def send_mail_new_remediated(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
-) -> None:
-    await send_mails_async(
-        loaders,
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'[ARM] Types of vulnerabilities to verify ({context["total"]})',
-        "new_remediated",
-    )
-
-
 async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     loaders: Any,
     draft_id: str,
