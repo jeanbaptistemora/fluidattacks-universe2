@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._db import (
-    DbClient,
-)
 from ._schema import (
     SchemaClient,
 )
@@ -13,7 +10,6 @@ from ._table import (
 )
 
 __all__ = [
-    "DbClient",
     "SchemaClient",
     "TableClient",
 ]

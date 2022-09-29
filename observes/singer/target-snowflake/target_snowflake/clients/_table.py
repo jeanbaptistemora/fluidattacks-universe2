@@ -32,7 +32,6 @@ from target_snowflake.table import (
 )
 from typing import (
     Dict,
-    Optional,
 )
 
 
@@ -40,7 +39,6 @@ from typing import (
 class TableClient:
     _cursor: Cursor
     _pointer: RemoteTablePointer
-    _local_def: Optional[Table]
 
     def insert(
         self,
