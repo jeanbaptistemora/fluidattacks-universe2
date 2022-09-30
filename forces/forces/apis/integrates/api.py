@@ -29,6 +29,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     TypeVar,
     Union,
@@ -43,7 +44,7 @@ SHIELD: Callable[[TFun], TFun] = shield(
 
 
 @SHIELD
-async def get_findings(group: str, **kwargs: str) -> List[str]:
+async def get_findings(group: str, **kwargs: str) -> Set[str]:
     """
     Returns the findings of a group.
 
@@ -73,7 +74,7 @@ async def get_findings(group: str, **kwargs: str) -> List[str]:
         or {}
     )
 
-    findings: List[str] = list(
+    findings: Set[str] = set(
         finding["id"]
         for finding in (result.get("group", {}) or {}).get("findings", [])
         if finding["currentState"] == "APPROVED"
@@ -214,7 +215,7 @@ async def vulns_generator(
 
     :param group: Group Name.
     """
-    findings = await get_findings(group, **kwargs)
+    findings: Set[str] = await get_findings(group, **kwargs)
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
