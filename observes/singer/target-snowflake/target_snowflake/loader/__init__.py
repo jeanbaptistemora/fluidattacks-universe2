@@ -36,6 +36,9 @@ import sys
 from target_snowflake.snowflake_client.schema import (
     SchemaManager,
 )
+from typing import (
+    Callable,
+)
 
 
 def _stdin_buffer() -> Cmd[TextIOWrapper]:
@@ -45,14 +48,14 @@ def _stdin_buffer() -> Cmd[TextIOWrapper]:
 
 
 def main(
-    manager: SchemaManager,
+    new_manager: Callable[[], Cmd[SchemaManager]],
     limit: int,
     options: SingerHandlerOptions,
 ) -> Cmd[None]:
     data: Stream[SingerMessage] = unsafe_from_cmd(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
-    handler = SingerHandler(manager, options)
+    handler = SingerHandler.new(new_manager, options)
     schemas = MutableTableMap({})
     cmds = data.transform(lambda d: group_records(d, limit)).map(
         lambda p: handler.handle(schemas, p)

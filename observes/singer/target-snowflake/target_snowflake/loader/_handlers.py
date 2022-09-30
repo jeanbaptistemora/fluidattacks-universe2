@@ -1,16 +1,21 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+from __future__ import (
+    annotations,
+)
 
 from ._grouper import (
     PackagedSinger,
 )
 from dataclasses import (
     dataclass,
+    field,
 )
 from fa_purity import (
     Cmd,
     FrozenDict,
+    FrozenList,
     JsonValue,
     Maybe,
     PureIter,
@@ -38,6 +43,9 @@ from fa_singer_io.singer import (
 )
 import logging
 from pathos.threading import ThreadPool  # type: ignore[import]
+from target_snowflake._patch import (
+    Patch,
+)
 from target_snowflake.data_schema import (
     extract_table,
 )
@@ -55,6 +63,7 @@ from target_snowflake.snowflake_client.table import (
     Table,
 )
 from typing import (
+    Callable,
     cast,
     Dict,
     Iterable,
@@ -121,6 +130,11 @@ class MutableTableMap:
 
 
 @dataclass(frozen=True)
+class _Private:
+    pass
+
+
+@dataclass(frozen=True)
 class SingerHandlerOptions:
     records_per_query: int
     pkg_threads: int
@@ -128,17 +142,30 @@ class SingerHandlerOptions:
 
 @dataclass(frozen=True)
 class SingerHandler:
-    manager: SchemaManager
+    _inner: _Private = field(repr=False, hash=False, compare=False)
+    _build_manager: Patch[Callable[[], Cmd[SchemaManager]]]
     options: SingerHandlerOptions
+
+    @staticmethod
+    def new(
+        manager_builder: Callable[[], Cmd[SchemaManager]],
+        options: SingerHandlerOptions,
+    ) -> SingerHandler:
+        return SingerHandler(_Private(), Patch(manager_builder), options)
 
     @staticmethod
     def _target_table(schema: SingerSchema) -> TableId:
         return TableId(Identifier.from_raw(schema.stream))
 
+    def _new_manager(self) -> Cmd[SchemaManager]:
+        return self._build_manager.inner()
+
     def create_table(self, schema: SingerSchema) -> Cmd[None]:
         table_id = self._target_table(schema)
         table = extract_table(schema).unwrap()
-        return self.manager.create(TableObj(table_id, table), False)
+        return self._new_manager().bind(
+            lambda m: m.create(TableObj(table_id, table), False)
+        )
 
     def update_stream_tables(
         self, table_map: StreamTables, schema: SingerSchema
@@ -151,17 +178,28 @@ class SingerHandler:
             else table_map
         )
 
+    def _upload_records_chunk(
+        self, table: TableObj, chunk: FrozenList[RowData]
+    ) -> Cmd[None]:
+        # [!] Each chunk must have its own independent cursor for enabling threads execution
+        client = self._new_manager().map(
+            lambda m: m.table_manager(table.id_obj)
+        )
+        return client.bind(
+            lambda c: c.insert(
+                table.table,
+                from_flist(chunk),
+                self.options.records_per_query,
+            )
+        )
+
     def _upload_records(self, tar: _TableAndRecords) -> Cmd[None]:
         chunks = tar.records.map(
             lambda r: _to_row(tar.table, r).unwrap()
         ).chunked(self.options.records_per_query)
-        client = self.manager.table_manager(tar.table_id)
+        table = TableObj(tar.table_id, tar.table)
         cmds = chunks.map(
-            lambda p: client.insert(
-                tar.table,
-                from_flist(p),
-                self.options.records_per_query,
-            )
+            lambda c: self._upload_records_chunk(table, c)
             + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
         )
         return _in_threads(cmds, self.options.pkg_threads)
