@@ -14,6 +14,10 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from db_model.enums import (
     StateRemovalJustification,
 )
@@ -38,6 +42,7 @@ from mailer import (
 )
 from newutils import (
     logs as logs_utils,
+    requests as requests_utils,
     token as token_utils,
 )
 
@@ -56,20 +61,22 @@ async def mutate(
     justification: str,
 ) -> SimplePayload:
     try:
-        finding_loader = info.context.loaders.finding
+        loaders: Dataloaders = get_new_context()
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         state_justification = StateRemovalJustification[justification]
-        finding: Finding = await finding_loader.load(finding_id)
+        finding: Finding = await loaders.finding.load(finding_id)
+        source = requests_utils.get_source_new(info.context)
         await findings_domain.remove_finding(
-            info.context,
-            finding_id,
-            state_justification,
-            user_email,
+            loaders=loaders,
+            email=user_email,
+            finding_id=finding_id,
+            justification=state_justification,
+            source=source,
         )
         schedule(
             findings_mail.send_mail_remove_finding(
-                info.context.loaders,
+                loaders,
                 finding.id,
                 finding.title,
                 finding.group_name,

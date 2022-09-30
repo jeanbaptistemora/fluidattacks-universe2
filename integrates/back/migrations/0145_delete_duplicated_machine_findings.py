@@ -89,7 +89,7 @@ async def main() -> None:
                 f"Deleting finding {finding.id} - {finding.title} "
                 f"from group {finding.group_name}"
             )
-            await findings_domain.remove_finding(
+            await findings_domain.remove_finding_legacy(
                 context,
                 finding.id,
                 FindingStateJustification.DUPLICATED,

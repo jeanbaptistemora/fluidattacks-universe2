@@ -101,7 +101,6 @@ from newutils import (
     cvss as cvss_utils,
     datetime as datetime_utils,
     findings as findings_utils,
-    requests as requests_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -196,17 +195,16 @@ async def add_comment(
 
 
 async def remove_finding(
-    context: Any,
+    loaders: Dataloaders,
+    email: str,
     finding_id: str,
     justification: StateRemovalJustification,
-    user_email: str,
+    source: Source,
 ) -> None:
-    loaders: Dataloaders = context.loaders
-    source = requests_utils.get_source_new(context)
     finding: Finding = await loaders.finding.load(finding_id)
     new_state = FindingState(
         justification=justification,
-        modified_by=user_email,
+        modified_by=email,
         modified_date=datetime_utils.get_iso_date(),
         source=source,
         status=FindingStateStatus.DELETED,
@@ -216,9 +214,6 @@ async def remove_finding(
         finding_id=finding.id,
         group_name=finding.group_name,
         state=new_state,
-    )
-    await remove_vulnerabilities(
-        loaders, finding_id, justification, source, user_email
     )
     file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
@@ -232,8 +227,25 @@ async def remove_finding(
         finding_id=finding.id,
         metadata=metadata,
     )
+
+    comments_and_observations: list[
+        FindingComment
+    ] = await loaders.finding_comments.load(
+        (CommentType.COMMENT, finding.id)
+    ) + await loaders.finding_comments.load(
+        (CommentType.OBSERVATION, finding.id)
+    )
+    await collect(
+        comments_domain.remove(comment.id, finding.id)
+        for comment in comments_and_observations
+    )
+
+    await remove_vulnerabilities(
+        loaders, finding_id, justification, source, email
+    )
+
     if (
-        not user_email.endswith("@fluidattacks.com")
+        not email.endswith("@fluidattacks.com")
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         await _send_to_redshift(

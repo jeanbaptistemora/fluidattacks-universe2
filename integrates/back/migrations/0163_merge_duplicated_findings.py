@@ -196,7 +196,7 @@ async def _get_duplicated_findings(
         print(f"\t\t=== {success} creating vulns group {finding.group_name}")
 
         await collect(
-            findings_dom.remove_finding(
+            findings_dom.remove_finding_legacy(
                 context=context,
                 finding_id=finding.id,
                 justification=StateRemovalJustification.DUPLICATED,

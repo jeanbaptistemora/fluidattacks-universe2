@@ -77,7 +77,7 @@ async def main() -> None:
         + "\n[INFO]\t".join([finding.id for finding in findings_to_delete])
     )
     await collect(
-        findings_domain.remove_finding(
+        findings_domain.remove_finding_legacy(
             context,
             finding.id,
             FindingStateJustification.NOT_REQUIRED,
