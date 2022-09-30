@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 28, 2022, 04:34 PM",
+    "DateLastModified": "Sep 30, 2022, 02:57 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -997,6 +997,10 @@
         {
           "AttributeName": "standards",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "compliance_weekly_trend",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -6249,7 +6253,8 @@
           "TableData": [],
           "NonKeyAttributes": [
             "compliance_level",
-            "standard_compliances"
+            "standard_compliances",
+            "compliance_weekly_trend"
           ],
           "DataAccess": {
             "MySql": {}

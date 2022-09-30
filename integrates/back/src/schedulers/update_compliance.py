@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 # pylint: disable=too-many-locals
+# pylint: disable = too-many-arguments
 
 from aioextensions import (
     collect,
@@ -44,6 +45,7 @@ from decimal import (
     Decimal,
 )
 from newutils import (
+    datetime as datetime_utils,
     organizations as orgs_utils,
 )
 from newutils.compliance import (
@@ -85,6 +87,22 @@ async def get_open_vulnerabilities(
                 finding_id=finding.id,
                 paginate=False,
                 state_status=VulnerabilityStateStatus.OPEN,
+            )
+        )
+    )
+    return tuple(edge.node for edge in connections.edges)
+
+
+async def get_closed_vulnerabilities(
+    loaders: Dataloaders,
+    finding: Finding,
+) -> tuple[Vulnerability, ...]:
+    connections: VulnerabilitiesConnection = (
+        await loaders.finding_vulnerabilities_nzr_c.load(
+            FindingVulnerabilitiesZrRequest(
+                finding_id=finding.id,
+                paginate=False,
+                state_status=VulnerabilityStateStatus.CLOSED,
             )
         )
     )
@@ -148,6 +166,103 @@ async def get_organization_compliance_level(
                 - len(org_non_compliance.intersection(all_compliances))
             )
             / len(all_compliances)
+        ).quantize(Decimal("0.01"))
+        if all_compliances
+        else Decimal("0.0")
+    )
+
+
+async def get_organization_compliance_weekly_trend(
+    loaders: Dataloaders,
+    organization: Organization,
+    current_compliance_level: Decimal,
+    compliance_file: dict[str, Any],
+    requirements_file: dict[str, Any],
+    vulnerabilities_file: dict[str, Any],
+) -> Decimal:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        organization.id
+    )
+    findings: tuple[
+        Finding, ...
+    ] = await loaders.group_findings.load_many_chained(
+        tuple(group.name for group in org_groups)
+    )
+    findings_open_vulnerabilities = await collect(
+        tuple(
+            get_open_vulnerabilities(loaders, finding) for finding in findings
+        ),
+        workers=100,
+    )
+    findings_closed_vulnerabilities = await collect(
+        tuple(
+            get_closed_vulnerabilities(loaders, finding)
+            for finding in findings
+        ),
+        workers=100,
+    )
+    a_week_ago = datetime_utils.get_now_minus_delta(weeks=1)
+    last_week_open_findings: list[Finding] = []
+    for finding, open_vulnerabilities in zip(
+        findings, findings_open_vulnerabilities
+    ):
+        # Do not count vulnerabilities that were created the last week
+        if [
+            vulnerability
+            for vulnerability in open_vulnerabilities
+            if datetime_utils.get_datetime_from_iso_str(
+                vulnerability.created_date
+            )
+            < a_week_ago
+        ]:
+            last_week_open_findings.append(finding)
+
+    for finding, closed_vulnerabilities in zip(
+        findings, findings_closed_vulnerabilities
+    ):
+        # Do not count vulnerabilities that were closed within the last week
+        if [
+            vulnerability
+            for vulnerability in closed_vulnerabilities
+            if datetime_utils.get_datetime_from_iso_str(
+                vulnerability.state.modified_date
+            )
+            > a_week_ago
+        ]:
+            last_week_open_findings.append(finding)
+
+    requirements_by_finding = tuple(
+        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
+            "requirements"
+        ]
+        for finding in last_week_open_findings
+    )
+    compliances_by_finding = tuple(
+        set(
+            reference
+            for requirement in requirements
+            for reference in requirements_file[requirement]["references"]
+        )
+        for requirements in requirements_by_finding
+    )
+    org_non_compliance = (
+        set.union(*compliances_by_finding) if compliances_by_finding else set()
+    )
+    all_compliances = set(
+        f"{name.lower()}.{definition}"
+        for name, standard in compliance_file.items()
+        for definition in standard["definitions"]
+    )
+    return (
+        (
+            current_compliance_level
+            - Decimal(
+                (
+                    len(all_compliances)
+                    - len(org_non_compliance.intersection(all_compliances))
+                )
+                / len(all_compliances)
+            )
         ).quantize(Decimal("0.01"))
         if all_compliances
         else Decimal("0.0")
@@ -228,6 +343,14 @@ async def update_organization_compliance(
         requirements_file=requirements_file,
         vulnerabilities_file=vulnerabilities_file,
     )
+    compliance_weekly_trend = await get_organization_compliance_weekly_trend(
+        loaders=loaders,
+        organization=organization,
+        compliance_file=compliance_file,
+        current_compliance_level=compliance_level,
+        requirements_file=requirements_file,
+        vulnerabilities_file=vulnerabilities_file,
+    )
     standard_compliances = await get_organization_standard_compliances(
         loaders=loaders,
         organization=organization,
@@ -240,6 +363,7 @@ async def update_organization_compliance(
         organization_name=organization.name,
         indicators=OrganizationUnreliableIndicators(
             compliance_level=compliance_level,
+            compliance_weekly_trend=compliance_weekly_trend,
             standard_compliances=standard_compliances,
         ),
     )

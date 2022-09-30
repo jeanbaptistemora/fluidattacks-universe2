@@ -51,6 +51,7 @@ class OrganizationStandardCompliance(NamedTuple):
 
 class OrganizationUnreliableIndicators(NamedTuple):
     compliance_level: Optional[Decimal] = None
+    compliance_weekly_trend: Optional[Decimal] = None
     standard_compliances: Optional[list[OrganizationStandardCompliance]] = None
 
 
