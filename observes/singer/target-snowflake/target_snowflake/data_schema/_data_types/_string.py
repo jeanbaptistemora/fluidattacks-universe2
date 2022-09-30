@@ -19,6 +19,9 @@ from target_snowflake.snowflake_client.data_type import (
 
 
 def _format_handler(format: str, encoded: JsonObj) -> ResultE[DataType]:
+    # default time obj precision found at:
+    # https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#timestamp
+    DEFAULT_PRECISION = 9
     timezone: ResultE[bool] = opt_transform(
         encoded,
         "timezone",
@@ -28,13 +31,15 @@ def _format_handler(format: str, encoded: JsonObj) -> ResultE[DataType]:
     ).value_or(Result.success(False))
     if format == "date-time":
         return timezone.map(
-            lambda t: PrecisionType(PrecisionTypes.TIMESTAMP_TZ, 9)
+            lambda t: PrecisionType(
+                PrecisionTypes.TIMESTAMP_TZ, DEFAULT_PRECISION
+            )
             if t
-            else PrecisionType(PrecisionTypes.TIMESTAMP_NTZ, 9)
+            else PrecisionType(PrecisionTypes.TIMESTAMP_NTZ, DEFAULT_PRECISION)
         ).map(DataType)
     elif format == "time":
         return timezone.map(
-            lambda t: PrecisionType(PrecisionTypes.TIME, 9),
+            lambda t: PrecisionType(PrecisionTypes.TIME, DEFAULT_PRECISION),
         ).map(DataType)
     elif format == "date":
         return Result.success(StaticTypes.DATE, Exception).map(
@@ -45,13 +50,16 @@ def _format_handler(format: str, encoded: JsonObj) -> ResultE[DataType]:
 
 
 def _string_handler(encoded: JsonObj) -> ResultE[DataType]:
+    # max size found at:
+    # https://docs.snowflake.com/en/sql-reference/data-types-text.html#varchar
+    MAX_SIZE = 16777216
     precision: ResultE[int] = opt_transform(
         encoded,
         "precision",
         lambda u: u.to_primitive(int).alt(
             lambda e: Exception(f"Error at precision. {e}")
         ),
-    ).value_or(Result.success(256))
+    ).value_or(Result.success(MAX_SIZE))
 
     return precision.map(
         lambda p: PrecisionType(PrecisionTypes.VARCHAR, p)
