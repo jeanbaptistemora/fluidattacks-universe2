@@ -2,17 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from boto3.dynamodb.conditions import (
-    Key,
-)
 from dynamodb.context import (
     FI_GOOGLE_CHAT_WEBOOK_URL,
     FI_WEBHOOK_POC_KEY,
-    FI_WEBHOOK_POC_ORG,
     FI_WEBHOOK_POC_URL,
-)
-from dynamodb.resource import (
-    TABLE_RESOURCE,
 )
 from dynamodb.types import (
     Record,
@@ -23,9 +16,6 @@ from operator import (
     itemgetter,
 )
 import requests  # type: ignore
-from typing import (
-    Any,
-)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -59,35 +49,15 @@ def process_google_chat(records: tuple[Record, ...]) -> None:
         requests.post(FI_GOOGLE_CHAT_WEBOOK_URL, json={"text": text})
 
 
-def _get_poc_groups(org_id: str) -> list[str]:
-    query_args = {
-        "ExpressionAttributeNames": {"#name": "name"},
-        "IndexName": "inverted_index",
-        "KeyConditionExpression": (
-            Key("sk").eq(org_id) & Key("pk").begins_with("GROUP#")
-        ),
-        "ProjectionExpression": "#name",
-    }
-    response = TABLE_RESOURCE.query(**query_args)
-    items: list[dict[str, Any]] = response.get("Items", [])
-    while response.get("LastEvaluatedKey"):
-        response = TABLE_RESOURCE.query(
-            **query_args,
-            ExclusiveStartKey=response.get("LastEvaluatedKey"),
-        )
-        items += response.get("Items", [])
-    return [item["name"] for item in items]
-
-
 def process_poc(records: tuple[Record, ...]) -> None:
-    poc_groups = _get_poc_groups(FI_WEBHOOK_POC_ORG)
     for record in records:
-        if record.new_image and record.new_image["group_name"] in poc_groups:
+        if record.new_image:
             try:
                 requests.post(
                     FI_WEBHOOK_POC_URL,
                     headers={"x-api-key": FI_WEBHOOK_POC_KEY},
                     json={"id_vulnerability": record.new_image["id"]},
                 )
+                LOGGER.info("[POC] Notified %s", record.new_image["id"])
             except requests.exceptions.RequestException as ex:
                 LOGGER.exception(ex)
