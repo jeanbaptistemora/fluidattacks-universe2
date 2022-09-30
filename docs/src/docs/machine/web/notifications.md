@@ -264,7 +264,7 @@ vulnerability on the ARM.
 If you enable these notifications,
 you will receive emails
 telling you when a new
-event is reported in a group.
+event is reported and solved in a group.
 The message will include
 the type of event,
 the date when it was
@@ -381,7 +381,7 @@ which will be generated when
 a file is added or deleted
 in the Files section in the Scope tab.
 
-![File Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660747635/docs/web/notifications/notif_file_report.png)
+![File Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664462976/docs/web/notifications/file_updated.png)
 
 ### Environment report
 
@@ -447,7 +447,7 @@ when the user completes the
 process of creating the repository,
 the organization and the group.
 
-![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174095/docs/web/notifications/free_start_trial.png)
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1664470209/docs/web/notifications/free_trail.png)
 
 ### Missing registered environments
 
