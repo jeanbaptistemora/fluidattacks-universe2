@@ -590,7 +590,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   {expanded &&
                   !reportMode &&
                   fullSize.width > minWidthToShowButtons ? (
-                    <div className={"fr"}>
+                    <div className={"fr nt2"}>
                       <FilterButton
                         changeToAll={changeToAll}
                         changeToAlternative={changeToAlternative}
@@ -642,81 +642,85 @@ export const Graphic: React.FC<IGraphicProps> = (
                           </Tooltip>
                         </ExternalLink>
                       ) : undefined}
-                      <ExternalLink
-                        className={"g-a"}
-                        download={csvFileName}
-                        href={buildCsvUrl(
-                          {
-                            ...props,
-                            documentName: currentDocumentName,
-                            subject: subjectName,
-                          },
-                          subjectName,
-                          currentDocumentName
-                        )}
-                        onClick={trackCsv}
-                      >
-                        <Tooltip
-                          disp={"inline-block"}
-                          id={"csv_file_button_tooltip"}
-                          tip={translate.t(
-                            "analytics.buttonToolbar.fileCsv.tooltip"
-                          )}
-                        >
-                          <GraphicButton>
-                            <FontAwesomeIcon icon={faFileCsv} />
-                          </GraphicButton>
-                        </Tooltip>
-                      </ExternalLink>
-                      <ExternalLink
-                        className={"g-a"}
-                        download={buildFileName(bigGraphicSize)}
-                        href={buildUrl(
-                          {
-                            ...props,
-                            documentName: currentDocumentName,
-                            subject: subjectName,
-                          },
-                          bigGraphicSize,
-                          subjectName,
-                          currentDocumentName
-                        )}
-                        onClick={track}
-                      >
-                        <Tooltip
-                          disp={"inline-block"}
-                          id={"download_button_tooltip"}
-                          tip={translate.t(
-                            "analytics.buttonToolbar.download.tooltip"
-                          )}
-                        >
-                          <GraphicButton>
-                            <FontAwesomeIcon icon={faDownload} />
-                          </GraphicButton>
-                        </Tooltip>
-                      </ExternalLink>
-                      <Tooltip
-                        disp={"inline-block"}
-                        id={"refresh_button_tooltip"}
-                        tip={translate.t(
-                          "analytics.buttonToolbar.refresh.tooltip"
-                        )}
-                      >
-                        <GraphicButton onClick={frameOnRefresh}>
-                          <FontAwesomeIcon icon={faSyncAlt} />
-                        </GraphicButton>
-                      </Tooltip>
-                      <Tooltip
-                        disp={"inline-block"}
-                        id={"expand_button_tooltip"}
-                        tip={translate.t(
-                          "analytics.buttonToolbar.expand.tooltip"
-                        )}
-                      >
-                        <GraphicButton onClick={frameOnFullScreen}>
-                          <FontAwesomeIcon icon={faExpandArrowsAlt} />
-                        </GraphicButton>
-                      </Tooltip>
+                      {documentType === "textBox" ? undefined : (
+                        <React.Fragment>
+                          <ExternalLink
+                            className={"g-a"}
+                            download={csvFileName}
+                            href={buildCsvUrl(
+                              {
+                                ...props,
+                                documentName: currentDocumentName,
+                                subject: subjectName,
+                              },
+                              subjectName,
+                              currentDocumentName
+                            )}
+                            onClick={trackCsv}
+                          >
+                            <Tooltip
+                              disp={"inline-block"}
+                              id={"csv_file_button_tooltip"}
+                              tip={translate.t(
+                                "analytics.buttonToolbar.fileCsv.tooltip"
+                              )}
+                            >
+                              <GraphicButton>
+                                <FontAwesomeIcon icon={faFileCsv} />
+                              </GraphicButton>
+                            </Tooltip>
+                          </ExternalLink>
+                          <ExternalLink
+                            className={"g-a"}
+                            download={buildFileName(bigGraphicSize)}
+                            href={buildUrl(
+                              {
+                                ...props,
+                                documentName: currentDocumentName,
+                                subject: subjectName,
+                              },
+                              bigGraphicSize,
+                              subjectName,
+                              currentDocumentName
+                            )}
+                            onClick={track}
+                          >
+                            <Tooltip
+                              disp={"inline-block"}
+                              id={"download_button_tooltip"}
+                              tip={translate.t(
+                                "analytics.buttonToolbar.download.tooltip"
+                              )}
+                            >
+                              <GraphicButton>
+                                <FontAwesomeIcon icon={faDownload} />
+                              </GraphicButton>
+                            </Tooltip>
+                          </ExternalLink>
+                          <Tooltip
+                            disp={"inline-block"}
+                            id={"refresh_button_tooltip"}
+                            tip={translate.t(
+                              "analytics.buttonToolbar.refresh.tooltip"
+                            )}
+                          >
+                            <GraphicButton onClick={frameOnRefresh}>
+                              <FontAwesomeIcon icon={faSyncAlt} />
+                            </GraphicButton>
+                          </Tooltip>
+                          <Tooltip
+                            disp={"inline-block"}
+                            id={"expand_button_tooltip"}
+                            tip={translate.t(
+                              "analytics.buttonToolbar.expand.tooltip"
+                            )}
+                          >
+                            <GraphicButton onClick={frameOnFullScreen}>
+                              <FontAwesomeIcon icon={faExpandArrowsAlt} />
+                            </GraphicButton>
+                          </Tooltip>
+                        </React.Fragment>
+                      )}
                     </div>
                   ) : undefined}
                 </div>
