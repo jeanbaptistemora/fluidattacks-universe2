@@ -17,6 +17,7 @@ import {
   isValidFileName,
   isValidFileSize,
   isValidVulnSeverity,
+  isValidVulnsFile,
   maxLength,
   minLength,
   numberBetween,
@@ -797,6 +798,27 @@ describe("Validations", (): void => {
     const answer = validEvidenceDescription(true, values, helperList, name);
 
     expect(answer).toBeUndefined();
+  });
+
+  it("Should be a big size file", (): void => {
+    expect.hasAssertions();
+
+    const file: File = {
+      ...new File([], ""),
+      name: "test.yml",
+      size: 1048577,
+    };
+    const answer = isValidVulnsFile([file]);
+
+    expect(answer).toBe("The file size must be less than 1MB");
+  });
+
+  it("Should be a empty filelist", (): void => {
+    expect.hasAssertions();
+
+    const answer = isValidVulnsFile([]);
+
+    expect(answer).toBe("No file selected");
   });
 });
 
