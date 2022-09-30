@@ -46,11 +46,11 @@ class OrganizationState(NamedTuple):
 
 class OrganizationStandardCompliance(NamedTuple):
     standard_name: str
-    non_compliance_level: Decimal
+    compliance_level: Decimal
 
 
 class OrganizationUnreliableIndicators(NamedTuple):
-    non_compliance_level: Optional[Decimal] = None
+    compliance_level: Optional[Decimal] = None
     standard_compliances: Optional[list[OrganizationStandardCompliance]] = None
 
 

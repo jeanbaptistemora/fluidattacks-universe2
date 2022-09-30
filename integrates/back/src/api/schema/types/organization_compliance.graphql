@@ -4,8 +4,15 @@
 
 "OrganizationCompliance type definition"
 type OrganizationCompliance {
+  "Level of compliance with the standards"
+  complianceLevel: Float
   "Level of non-compliance with the standards"
   nonComplianceLevel: Float
+    @deprecated(
+      reason: """
+      This field will be removed after 2022/10/10.
+      """
+    )
   "Compliance information by standard"
   standards: [OrganizationComplianceStandard]!
 }

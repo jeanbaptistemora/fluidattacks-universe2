@@ -14,15 +14,15 @@ from dynamodb.types import (
 
 def format_compliance_standard(item: Item) -> ComplianceStandard:
     return ComplianceStandard(
-        avg_organization_non_compliance_level=item[
-            "avg_organization_non_compliance_level"
+        avg_organization_compliance_level=item[
+            "avg_organization_compliance_level"
         ],
-        best_organization_non_compliance_level=item[
-            "best_organization_non_compliance_level"
+        best_organization_compliance_level=item[
+            "best_organization_compliance_level"
         ],
         standard_name=item["standard_name"],
-        worst_organization_non_compliance_level=item[
-            "worst_organization_non_compliance_level"
+        worst_organization_compliance_level=item[
+            "worst_organization_compliance_level"
         ],
     )
 
@@ -31,15 +31,15 @@ def format_compliance_standard_item(
     standard: ComplianceStandard,
 ) -> Item:
     return {
-        "avg_organization_non_compliance_level": (
-            standard.avg_organization_non_compliance_level
+        "avg_organization_compliance_level": (
+            standard.avg_organization_compliance_level
         ),
-        "best_organization_non_compliance_level": (
-            standard.best_organization_non_compliance_level
+        "best_organization_compliance_level": (
+            standard.best_organization_compliance_level
         ),
         "standard_name": standard.standard_name,
-        "worst_organization_non_compliance_level": (
-            standard.worst_organization_non_compliance_level
+        "worst_organization_compliance_level": (
+            standard.worst_organization_compliance_level
         ),
     }
 

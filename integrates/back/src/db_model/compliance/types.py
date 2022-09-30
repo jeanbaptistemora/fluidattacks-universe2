@@ -12,10 +12,10 @@ from typing import (
 
 
 class ComplianceStandard(NamedTuple):
-    avg_organization_non_compliance_level: Decimal
-    best_organization_non_compliance_level: Decimal
+    avg_organization_compliance_level: Decimal
+    best_organization_compliance_level: Decimal
     standard_name: str
-    worst_organization_non_compliance_level: Decimal
+    worst_organization_compliance_level: Decimal
 
 
 class ComplianceUnreliableIndicators(NamedTuple):

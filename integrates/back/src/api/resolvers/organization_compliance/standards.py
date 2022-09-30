@@ -48,7 +48,7 @@ async def resolve(
         standard_name: org_compliance_by_standard.get(
             standard_name,
             OrganizationStandardCompliance(
-                non_compliance_level=Decimal("0.0"),
+                compliance_level=Decimal("0.0"),
                 standard_name=standard_name,
             ),
         )
@@ -62,29 +62,29 @@ async def resolve(
         standard_name: global_compliance_by_standard.get(
             standard_name,
             ComplianceStandard(
-                avg_organization_non_compliance_level=Decimal("0.0"),
-                best_organization_non_compliance_level=Decimal("0.0"),
+                avg_organization_compliance_level=Decimal("0.0"),
+                best_organization_compliance_level=Decimal("0.0"),
                 standard_name=standard_name,
-                worst_organization_non_compliance_level=Decimal("0.0"),
+                worst_organization_compliance_level=Decimal("0.0"),
             ),
         )
         for standard_name in compliance_file
     }
     return [
         OrganizationComplianceStandard(
-            avg_organization_non_compliance_level=(
+            avg_organization_compliance_level=(
                 full_global_compliance_by_standard[standard_name]
-            ).avg_organization_non_compliance_level,
-            best_organization_non_compliance_level=(
+            ).avg_organization_compliance_level,
+            best_organization_compliance_level=(
                 full_global_compliance_by_standard[standard_name]
-            ).best_organization_non_compliance_level,
-            non_compliance_level=(
+            ).best_organization_compliance_level,
+            compliance_level=(
                 full_org_compliance_by_standard[standard_name]
-            ).non_compliance_level,
+            ).compliance_level,
             standard_title=standard["title"],
-            worst_organization_non_compliance_level=(
+            worst_organization_compliance_level=(
                 full_global_compliance_by_standard[standard_name]
-            ).worst_organization_non_compliance_level,
+            ).worst_organization_compliance_level,
         )
         for standard_name, standard in compliance_file.items()
     ]

@@ -91,7 +91,7 @@ async def get_open_vulnerabilities(
     return tuple(edge.node for edge in connections.edges)
 
 
-async def get_organization_non_compliance_level(
+async def get_organization_compliance_level(
     loaders: Dataloaders,
     organization: Organization,
     compliance_file: dict[str, Any],
@@ -143,7 +143,10 @@ async def get_organization_non_compliance_level(
     )
     return (
         Decimal(
-            len(org_non_compliance.intersection(all_compliances))
+            (
+                len(all_compliances)
+                - len(org_non_compliance.intersection(all_compliances))
+            )
             / len(all_compliances)
         ).quantize(Decimal("0.01"))
         if all_compliances
@@ -196,8 +199,13 @@ async def get_organization_standard_compliances(
     return list(
         OrganizationStandardCompliance(
             standard_name=standard_name.lower(),
-            non_compliance_level=Decimal(
-                len(non_compliance_definitions_by_standard[standard_name])
+            compliance_level=Decimal(
+                (
+                    len(standard["definitions"])
+                    - len(
+                        non_compliance_definitions_by_standard[standard_name]
+                    )
+                )
                 / len(standard["definitions"])
             ).quantize(Decimal("0.01")),
         )
@@ -213,7 +221,7 @@ async def update_organization_compliance(
     vulnerabilities_file: dict[str, Any],
 ) -> None:
     info(f"Update organization compliance: {organization.name}")
-    non_compliance_level = await get_organization_non_compliance_level(
+    compliance_level = await get_organization_compliance_level(
         loaders=loaders,
         organization=organization,
         compliance_file=compliance_file,
@@ -231,7 +239,7 @@ async def update_organization_compliance(
         organization_id=organization.id,
         organization_name=organization.name,
         indicators=OrganizationUnreliableIndicators(
-            non_compliance_level=non_compliance_level,
+            compliance_level=compliance_level,
             standard_compliances=standard_compliances,
         ),
     )
@@ -248,12 +256,12 @@ async def update_compliance_indicators(
     ] = await loaders.organization_unreliable_indicators.load_many(
         tuple(organization.id for organization in organizations)
     )
-    non_compliances_level_by_standard: dict[str, set] = {}
+    compliances_level_by_standard: dict[str, set] = {}
     standard_names = tuple(
         standard_name.lower() for standard_name in compliance_file
     )
     for standard_name in standard_names:
-        non_compliances_level_by_standard[standard_name] = set()
+        compliances_level_by_standard[standard_name] = set()
     for standard_name in standard_names:
         for indicators in organizations_unreliable_indicators:
             compliance = next(
@@ -266,23 +274,23 @@ async def update_compliance_indicators(
                 None,
             )
             if compliance:
-                non_compliances_level_by_standard[standard_name].add(
-                    compliance.non_compliance_level
+                compliances_level_by_standard[standard_name].add(
+                    compliance.compliance_level
                 )
 
     await compliance_model.update_unreliable_indicators(
         indicators=ComplianceUnreliableIndicators(
             standards=[
                 ComplianceStandard(
-                    avg_organization_non_compliance_level=Decimal(
-                        mean(non_compliances_level_by_standard[standard_name])
+                    avg_organization_compliance_level=Decimal(
+                        mean(compliances_level_by_standard[standard_name])
                     ).quantize(Decimal("0.01")),
-                    best_organization_non_compliance_level=Decimal(
-                        min(non_compliances_level_by_standard[standard_name])
+                    best_organization_compliance_level=Decimal(
+                        max(compliances_level_by_standard[standard_name])
                     ).quantize(Decimal("0.01")),
                     standard_name=standard_name,
-                    worst_organization_non_compliance_level=Decimal(
-                        max(non_compliances_level_by_standard[standard_name])
+                    worst_organization_compliance_level=Decimal(
+                        min(compliances_level_by_standard[standard_name])
                     ).quantize(Decimal("0.01")),
                 )
                 for standard_name in standard_names

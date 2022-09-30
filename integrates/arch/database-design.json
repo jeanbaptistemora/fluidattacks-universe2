@@ -987,7 +987,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "non_compliance_level",
+          "AttributeName": "compliance_level",
           "AttributeType": "N"
         },
         {
@@ -6248,7 +6248,7 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "non_compliance_level",
+            "compliance_level",
             "standard_compliances"
           ],
           "DataAccess": {
