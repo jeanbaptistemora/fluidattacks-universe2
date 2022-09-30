@@ -6,8 +6,8 @@
 """
 Remove unwanted findings and their vulns for specific orgs.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-09-30 at 15:27:54 UTC
+Finalization Time: 2022-09-30 at 16:10:05 UTC
 """
 
 from aioextensions import (
@@ -49,7 +49,7 @@ FINDING_TITLES_TO_DELETE: list[str] = [
     "139. Use of deprecated components",
     "303. Inappropriate coding practices - Initialization",
 ]
-PROD: bool = False
+PROD: bool = True
 
 
 async def _process_group(
