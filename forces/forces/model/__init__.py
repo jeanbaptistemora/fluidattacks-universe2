@@ -10,7 +10,22 @@ from .config import (
 )
 from .finding import (
     Finding,
-    FindingSeverity,
+)
+from .vulnerability import (
+    Vulnerability,
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+    VulnerabilityZeroRiskStatus,
 )
 
-__all__ = ["Finding", "FindingSeverity", "ForcesConfig", "KindEnum"]
+__all__ = [
+    "Finding",
+    "ForcesConfig",
+    "KindEnum",
+    "Vulnerability",
+    "VulnerabilityStateStatus",
+    "VulnerabilityTreatmentStatus",
+    "VulnerabilityType",
+    "VulnerabilityZeroRiskStatus",
+]

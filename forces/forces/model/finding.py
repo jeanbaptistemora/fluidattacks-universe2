@@ -10,17 +10,11 @@ from typing import (
 )
 
 
-class FindingSeverity(NamedTuple):
-    """Data structure to represent the exploitability data"""
-
-    exploitability: Decimal
-
-
 class Finding(NamedTuple):
     """Data structure to represent a Finding"""
 
     id: str
-    severity: FindingSeverity
-    severity_score: Decimal
-    state: str
     title: str
+    state: str
+    exploitability: Decimal
+    severity_score: Decimal
