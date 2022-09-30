@@ -38,6 +38,45 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "integrates" {
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "integrates" {
+  bucket = aws_s3_bucket.integrates.id
+
+  rule {
+    id     = "analytics"
+    status = "Enabled"
+
+    filter {
+      prefix = "analytics/"
+    }
+    noncurrent_version_expiration {
+      noncurrent_days = 14
+    }
+    expiration {
+      days = 14
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "integrates" {
+  bucket = aws_s3_bucket.integrates.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_cors_configuration" "integrates" {
+  bucket = aws_s3_bucket.integrates.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["https://app.fluidattacks.com", "https://localhost:*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
+}
+
 # Analytics
 
 resource "aws_s3_bucket" "analytics" {
