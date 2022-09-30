@@ -29,6 +29,7 @@ function main() {
     && checks="$(echo "${dynamo_item}" \
       | jq '.Item.additional_info.S' -r \
       | jq -c -r '.checks')" \
+    && git config --global --add safe.directory "$(pwd)" \
     && echo "${dynamo_item}" \
     | jq '.Item.additional_info.S' -r \
       | jq -c -r '.roots[]' \
