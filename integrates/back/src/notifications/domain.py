@@ -10,6 +10,7 @@ from aioextensions import (
 )
 from context import (
     BASE_URL,
+    FI_MAIL_PRODUCTION,
 )
 from db_model.enums import (
     Notification,
@@ -98,7 +99,7 @@ def translate_group_reason(reason: str) -> str:
         + " group",
         GroupReason.NO_SECTST.value: "No more security testing",
         GroupReason.NO_SYSTEM.value: "System will be deprecated",
-        GroupReason.OTHER.value: "Other reason not mentioned here",
+        GroupReason.OTHER.value: "Other reason not mentioned",
     }
     if reason in translation:
         return translation[reason]
@@ -117,9 +118,19 @@ async def delete_group(
     org_id = group.organization_id
     organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
+    roles: set[str] = {"customer_manager", "user_manager"}
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.GROUP_INFORMATION,
+            roles=roles,
+        )
+    )
+    users_email.append(FI_MAIL_PRODUCTION)
     await groups_mail.send_mail_group_alert(
         loaders,
-        [],
+        users_email,
         {
             "date": deletion_date,
             "group": group_name,
