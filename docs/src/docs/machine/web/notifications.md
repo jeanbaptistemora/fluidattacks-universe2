@@ -80,7 +80,7 @@ you will receive an email when
 three weeks have elapsed since
 you last logged in to the ARM.
 
-![Inactivity Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_inactivity_alert.png)
+![Inactivity Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1664548872/docs/web/notifications/inactivity_alert.png)
 
 ### Access granted
 
@@ -222,7 +222,7 @@ remediation practices.
 
 ![Analytics Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083596/docs/web/notifications/analytics_report.png)
 
-### Report available
+### Technical report
 
 If you order a
 [report](/machine/web/groups/reports)
@@ -235,7 +235,7 @@ clicking on the button
 Your access will be
 granted for one hour only.
 
-![Report Available](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_report_available.png)
+![Report Available](https://res.cloudinary.com/fluid-attacks/image/upload/v1664547756/docs/web/notifications/technical_report.png)
 
 ### Vulnerability alert
 
@@ -405,9 +405,9 @@ of the Scope tab.
 This email will be sent
 to the User Manager role.
 
-![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660685611/docs/web/notifications/notif_portfolio_report.png)
+![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664547999/docs/web/notifications/portfolios_added.png)
 
-### Root cloning status
+### Root status
 
 This notification will be
 generated when any situation
@@ -417,7 +417,7 @@ clone or access the root.
 The User Manager role will
 be notified by email with this.
 
-![Root Cloning](https://res.cloudinary.com/fluid-attacks/image/upload/v1660832966/docs/web/notifications/notif_root_cloning.png)
+![Root Cloning](https://res.cloudinary.com/fluid-attacks/image/upload/v1664549391/docs/web/notifications/root_status.png)
 
 ### Confirm deletion
 
