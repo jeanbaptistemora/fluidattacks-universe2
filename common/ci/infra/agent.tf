@@ -2,22 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-variable "agentToken" {}
-
-locals {
-  buildkiteTokenPath = "/common/ci/buildkite-token"
-}
-
-resource "aws_ssm_parameter" "main" {
-  name  = local.buildkiteTokenPath
-  type  = "SecureString"
-  value = var.agentToken
-
-  tags = {
-    "Management:Area"    = "innovation"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
-  }
+resource "buildkite_agent_token" "main" {
+  description = "common-ci"
 }
 
 resource "aws_cloudformation_stack" "main" {
@@ -30,8 +16,8 @@ resource "aws_cloudformation_stack" "main" {
 
   parameters = {
     # Core
-    BuildkiteAgentTokenParameterStorePath = local.buildkiteTokenPath
-    BuildkiteTerminateInstanceAfterJob    = false
+    BuildkiteAgentToken                = buildkite_agent_token.main.token
+    BuildkiteTerminateInstanceAfterJob = false
 
     # Network
     VpcId                    = data.aws_vpc.main.id
