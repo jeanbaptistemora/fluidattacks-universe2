@@ -14,6 +14,9 @@ function export_secrets {
     DYNAMODB_HOST
     DYNAMODB_PORT
     GOOGLE_CHAT_WEBOOK_URL
+    WEBHOOK_POC_KEY
+    WEBHOOK_POC_ORG
+    WEBHOOK_POC_URL
   )
   local secrets_path
 

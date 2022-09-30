@@ -159,7 +159,8 @@ def _consume_shard_records(
             )
 
             if trigger.batch_size == 0:
-                trigger.records_processor(matching_records)
+                if matching_records:
+                    trigger.records_processor(matching_records)
                 continue
 
             batches[trigger].extend(matching_records)

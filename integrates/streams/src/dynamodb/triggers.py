@@ -24,7 +24,22 @@ TRIGGERS: tuple[Trigger, ...] = (
             and record.sk.startswith("FIN#")
             and record.event_name == EventName.INSERT
         ),
-        records_processor=webhooks.process,
+        records_processor=webhooks.process_google_chat,
+    ),
+    Trigger(
+        batch_size=0,
+        records_filter=(
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.pk.startswith("VULN#")
+            and record.sk.startswith("FIN#")
+            # After approving the draft
+            and record.event_name == EventName.MODIFY
+            and record.new_image is not None
+            and record.old_image is not None
+            and record.new_image.get("created_date")
+            != record.old_image.get("created_date")
+        ),
+        records_processor=webhooks.process_poc,
     ),
     Trigger(
         batch_size=0,
