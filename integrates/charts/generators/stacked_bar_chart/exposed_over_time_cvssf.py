@@ -296,6 +296,9 @@ def format_document(
         legend=dict(
             show=False,
         ),
+        tooltip=dict(
+            show=False,
+        ),
         point=dict(
             focus=dict(
                 expand=dict(

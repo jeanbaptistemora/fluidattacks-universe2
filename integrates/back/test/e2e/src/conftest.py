@@ -54,7 +54,7 @@ def is_ci() -> bool:
 
 @pytest.fixture(autouse=True, scope="session")
 def timeout() -> int:
-    return 30
+    return 40
 
 
 @pytest.fixture(autouse=True, scope="session")
