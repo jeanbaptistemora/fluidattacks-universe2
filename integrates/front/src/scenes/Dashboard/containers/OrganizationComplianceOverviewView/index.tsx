@@ -100,27 +100,22 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
               {t("organization.tabs.compliance.tabs.overview.benchmark.title")}
             </Text>
             <Row>
-              {organization.compliance.standards
-                .filter(
-                  (standardCompliance: IStandardComplianceAttr): boolean =>
-                    ["OWASP ASVS", "OWASP MASVS"].includes(
-                      standardCompliance.standardTitle
-                    )
+              {_.sortBy(
+                organization.compliance.standards,
+                (standardCompliance: IStandardComplianceAttr): string =>
+                  standardCompliance.standardTitle.toUpperCase()
+              ).map(
+                (standardCompliance: IStandardComplianceAttr): JSX.Element => (
+                  <Col
+                    key={standardCompliance.standardTitle}
+                    lg={25}
+                    md={50}
+                    sm={100}
+                  >
+                    <BenchmarkCard standardCompliance={standardCompliance} />
+                  </Col>
                 )
-                .map(
-                  (
-                    standardCompliance: IStandardComplianceAttr
-                  ): JSX.Element => (
-                    <Col
-                      key={standardCompliance.standardTitle}
-                      lg={25}
-                      md={25}
-                      sm={50}
-                    >
-                      <BenchmarkCard standardCompliance={standardCompliance} />
-                    </Col>
-                  )
-                )}
+              )}
             </Row>
           </Col>
         </Row>
