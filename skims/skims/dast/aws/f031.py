@@ -266,19 +266,18 @@ async def full_access_policies(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", {})
-            pol_access = (
-                ast.literal_eval(str(policy_names["Document"]))
-                if policy_names
-                else {}
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
             )
-            print(pol_access, type(pol_access))
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-            print(pol_access, type(policy_statements))
+
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
+
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
-                print(item, type(item))
                 with suppress(KeyError):
                     if (
                         item["Effect"] == "Allow"
@@ -357,19 +356,18 @@ async def open_passrole(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", {})
-            pol_access = (
-                ast.literal_eval(str(policy_names["Document"]))
-                if policy_names
-                else {}
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
             )
-            print(pol_access, type(pol_access))
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-            print(policy_statements, type(policy_statements))
+
+            if not isinstance(policy_statements, list):
+                policy_statements = [policy_statements]
+
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
-                print(item, type(item))
                 with suppress(KeyError):
                     if isinstance(item["Action"], str):
                         action = [item["Action"]]
@@ -457,14 +455,15 @@ async def permissive_policy(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", {})
-            pol_access = (
-                ast.literal_eval(str(policy_names["Document"]))
-                if policy_names
-                else {}
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
             )
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
+
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -538,14 +537,15 @@ async def full_access_to_ssm(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", {})
-            pol_access = (
-                ast.literal_eval(str(policy_names["Document"]))
-                if policy_names
-                else {}
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
             )
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
+
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -612,14 +612,15 @@ async def negative_statement(
                 },
             )
             policy_names = pol_ver.get("PolicyVersion", {})
-            pol_access = (
-                ast.literal_eval(str(policy_names["Document"]))
-                if policy_names
-                else {}
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
             )
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
+
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
                 item = ast.literal_eval(str(item))
@@ -696,7 +697,11 @@ CHECKS: Tuple[
 ] = (
     admin_policy_attached,
     full_access_policies,
+    open_passrole,
     public_buckets,
+    permissive_policy,
+    negative_statement,
+    full_access_to_ssm,
     group_with_inline_policies,
     user_with_inline_policies,
 )
