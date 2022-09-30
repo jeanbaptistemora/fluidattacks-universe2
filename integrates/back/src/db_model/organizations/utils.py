@@ -185,7 +185,6 @@ def format_unreliable_indicators_item(
     indicators: OrganizationUnreliableIndicators,
 ) -> Item:
     return {
-        "non_compliance_level": None,
         "compliance_level": indicators.compliance_level,
         "standard_compliances": [
             format_standard_compliance_item(standard_compliance)

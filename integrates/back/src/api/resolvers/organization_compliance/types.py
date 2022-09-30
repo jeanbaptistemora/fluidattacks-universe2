@@ -17,7 +17,3 @@ class OrganizationComplianceStandard(NamedTuple):
     compliance_level: Decimal
     standard_title: str
     worst_organization_compliance_level: Decimal
-    avg_organization_non_compliance_level: Decimal = Decimal("0.0")
-    best_organization_non_compliance_level: Decimal = Decimal("0.0")
-    non_compliance_level: Decimal = Decimal("0.0")
-    worst_organization_non_compliance_level: Decimal = Decimal("0.0")
