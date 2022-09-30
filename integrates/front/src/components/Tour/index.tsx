@@ -30,19 +30,19 @@ const BaseStep: Step = {
   showSkipButton: true,
   styles: {
     buttonBack: {
-      fontFamily: "roboto",
+      fontFamily: "poppins",
     },
     buttonNext: {
-      fontFamily: "roboto",
+      fontFamily: "poppins",
     },
     buttonSkip: {
-      fontFamily: "roboto",
+      fontFamily: "poppins",
     },
     options: {
       zIndex: 9999,
     },
     tooltipContainer: {
-      fontFamily: "roboto",
+      fontFamily: "poppins",
       textAlign: "left",
     },
   },

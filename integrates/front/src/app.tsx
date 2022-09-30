@@ -5,7 +5,7 @@
  */
 
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
-import "@fontsource/roboto";
+import "@fontsource/poppins";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";

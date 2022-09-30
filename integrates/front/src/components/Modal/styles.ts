@@ -21,7 +21,7 @@ const Dialog = styled.div`
   color: #2e2e38;
   display: flex;
   flex-direction: column;
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   max-height: 90%;
   max-width: 90%;
