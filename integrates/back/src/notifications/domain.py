@@ -113,7 +113,7 @@ async def delete_group(
     group_name: str,
     requester_email: str,
     reason: str,
-) -> bool:
+) -> None:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
     organization: Organization = await loaders.organization.load(org_id)
@@ -139,27 +139,6 @@ async def delete_group(
             "responsible": requester_email,
             "state": "deleted",
         },
-    )
-    return cast(
-        bool,
-        await in_thread(
-            notifications_dal.create_ticket,
-            subject=f"[ARM] Group deleted: {group_name}",
-            description=f"""
-                You are receiving this email because you have deleted a group
-                through ARM by Fluid Attacks.
-
-                Here are the details of the group:
-                - Name: {group_name}
-                - Deletion date: {deletion_date}
-                - Deletion reason: {reason}
-                - Organization name : {org_name}
-
-                If you require any further information,
-                do not hesitate to contact us.
-            """,
-            requester_email=requester_email,
-        ),
     )
 
 
