@@ -66,6 +66,7 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "ArrayInitializer",
             "ArrowExpressionClause",
             "Assignment",
             "Break",

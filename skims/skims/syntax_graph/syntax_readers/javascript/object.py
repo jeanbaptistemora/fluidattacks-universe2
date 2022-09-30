@@ -21,6 +21,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "method_definition",
         "pair",
         "shorthand_property_identifier",
+        "shorthand_property_identifier_pattern",
         "spread_element",
     }
     graph = args.ast_graph

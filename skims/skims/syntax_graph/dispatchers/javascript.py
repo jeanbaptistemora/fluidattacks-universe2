@@ -167,6 +167,8 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "identifier",
             "property_identifier",
+            "shorthand_property_identifier",
+            "shorthand_property_identifier_pattern",
         },
         syntax_reader=javascript_identifier.reader,
     ),
@@ -236,6 +238,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "object",
+            "object_pattern",
         },
         syntax_reader=javascript_object.reader,
     ),
@@ -254,6 +257,8 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
+            "rest_pattern",
+            "spread_element",
         },
         syntax_reader=javascript_parenthesized_expression.reader,
     ),
@@ -279,6 +284,8 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "string",
             "template_string",
+            "regex",
+            "undefined",
         },
         syntax_reader=javascript_string_literal.reader,
     ),
