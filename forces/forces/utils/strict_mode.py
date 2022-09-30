@@ -6,11 +6,11 @@ from datetime import (
     datetime,
     timedelta,
 )
+from forces.model import (
+    ForcesConfig,
+)
 from forces.utils.logs import (
     log,
-)
-from forces.utils.model import (
-    ForcesConfig,
 )
 from typing import (
     Any,

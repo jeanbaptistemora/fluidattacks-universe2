@@ -11,6 +11,10 @@ from aioextensions import (
     run,
 )
 import click
+from forces.model import (
+    ForcesConfig,
+    KindEnum,
+)
 from forces.utils.bugs import (
     configure_bugsnag,
 )
@@ -22,10 +26,6 @@ from forces.utils.logs import (
     log_banner,
     LogInterface,
     rich_log,
-)
-from forces.utils.model import (
-    ForcesConfig,
-    KindEnum,
 )
 from forces.utils.strict_mode import (
     choose_min_breaking_severity,

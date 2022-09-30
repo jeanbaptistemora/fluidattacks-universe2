@@ -15,12 +15,16 @@ from typing import (
 
 
 class KindEnum(Enum):
+    """DAST / SAST vulnerabilities mode"""
+
     ALL: str = "all"
     DYNAMIC: str = "dynamic"
     STATIC: str = "static"
 
 
 class ForcesConfig(NamedTuple):
+    """Forces user config"""
+
     group: str
     kind: KindEnum = KindEnum.ALL
     output: Optional[TextIOWrapper] = None

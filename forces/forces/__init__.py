@@ -18,6 +18,10 @@ from forces.apis.integrates import (
 from forces.apis.integrates.api import (
     upload_report,
 )
+from forces.model import (
+    ForcesConfig,
+    KindEnum,
+)
 from forces.report import (
     filter_report,
     format_rich_report,
@@ -28,10 +32,6 @@ from forces.utils.logs import (
     log,
     LOG_FILE,
     rich_log,
-)
-from forces.utils.model import (
-    ForcesConfig,
-    KindEnum,
 )
 from forces.utils.strict_mode import (
     set_forces_exit_code,

@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from forces.model import (
+    ForcesConfig,
+)
 from forces.report import (
     create_findings_dict,
     generate_report,
@@ -11,9 +14,6 @@ from forces.report import (
 )
 from forces.report.filters import (
     filter_repo,
-)
-from forces.utils.model import (
-    ForcesConfig,
 )
 import pytest
 

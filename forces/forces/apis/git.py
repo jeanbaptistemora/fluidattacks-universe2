@@ -8,12 +8,12 @@ from contextlib import (
 from forces.apis.integrates.api import (
     get_git_remotes,
 )
+from forces.model import (
+    ForcesConfig,
+)
 from forces.utils.logs import (
     blocking_log,
     log,
-)
-from forces.utils.model import (
-    ForcesConfig,
 )
 from git import (
     Commit,

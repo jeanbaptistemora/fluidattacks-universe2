@@ -11,7 +11,7 @@ from forces.apis.git import (
 from forces.apis.integrates import (
     set_api_token,
 )
-from forces.utils.model import (
+from forces.model import (
     ForcesConfig,
 )
 import os

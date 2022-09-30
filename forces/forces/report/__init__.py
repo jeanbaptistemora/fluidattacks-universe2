@@ -10,12 +10,12 @@ from forces.apis.integrates.api import (
     get_findings,
     vulns_generator,
 )
+from forces.model import (
+    ForcesConfig,
+)
 from forces.report.filters import (
     filter_kind,
     filter_repo,
-)
-from forces.utils.model import (
-    ForcesConfig,
 )
 from rich.box import (
     MINIMAL,
