@@ -95,29 +95,21 @@ def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
             yield format_dep(matched, line_number)
 
 
-def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        line_gem: bool = False
-        form_dep: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
-        match_arr: List[str] = []
-        for line_number, line in enumerate(content.splitlines(), 1):
-            if line.startswith("GEM"):
-                line_gem = True
-            elif not line_gem:
+@pkg_manager_file(Platform.GEM, MethodsEnum.GEM_GEMFILE_LOCK)
+def gem_gemfile_lock(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
+    line_gem: bool = False
+    form_dep: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
+    match_arr: List[str] = []
+    for line_number, line in enumerate(gem_info[0].splitlines(), 1):
+        if line.startswith("GEM"):
+            line_gem = True
+        elif not line_gem:
+            continue
+        elif matched := re.match(form_dep, line):
+            pkg_name = matched.group(1)
+            if pkg_name in match_arr:
                 continue
-            elif matched := re.match(form_dep, line):
-                pkg_name = matched.group(1)
-                if pkg_name in match_arr:
-                    continue
-                match_arr.append(pkg_name)
-                yield format_dep(matched, line_number, pkg_name)
-            elif not line or not line.startswith(" "):
-                break
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.GEM,
-        method=MethodsEnum.GEM_GEMFILE_LOCK,
-    )
+            match_arr.append(pkg_name)
+            yield format_dep(matched, line_number, pkg_name)
+        elif not line or not line.startswith(" "):
+            break

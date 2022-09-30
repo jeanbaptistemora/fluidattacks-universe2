@@ -43,7 +43,7 @@ def run_gem_gemfile(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
-    return gem_gemfile_lock(content=content, path=path)
+    return gem_gemfile_lock((content, path))
 
 
 @SHIELD_BLOCKING
