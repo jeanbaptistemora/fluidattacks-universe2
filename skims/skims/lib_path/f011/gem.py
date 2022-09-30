@@ -7,6 +7,7 @@ from functools import (
 )
 from lib_path.common import (
     DependencyType,
+    TFun,
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
@@ -16,16 +17,13 @@ from model.core_model import (
 )
 import re
 from typing import (
-    Any,
     Callable,
     Iterator,
     List,
     Match,
     Pattern,
-    TypeVar,
+    Tuple,
 )
-
-TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 def format_dep(
@@ -47,20 +45,18 @@ def format_dep(
     )
 
 
-def pck_manager_file(
+def pkg_manager_file(
     platform: Platform, method: MethodsEnum
-) -> Callable[[TFun], Callable[[str, str], Vulnerabilities]]:
+) -> Callable[[TFun], Callable[[Tuple[str, str]], Vulnerabilities]]:
     def resolve_deps(
         resolve_dependencies: TFun,
-    ) -> Callable[[str, str], Vulnerabilities]:
+    ) -> Callable[[Tuple[str, str]], Vulnerabilities]:
         @wraps(resolve_dependencies)
-        def resolve_vulns(
-            content: str,
-            path: str,
-        ) -> Vulnerabilities:
+        def resolve_vulns(pkg_info: Tuple[str, str]) -> Vulnerabilities:
+            content, path = pkg_info
             return translate_dependencies_to_vulnerabilities(
                 content=content,
-                dependencies=resolve_dependencies(content, path),
+                dependencies=resolve_dependencies(pkg_info),
                 path=path,
                 platform=platform,
                 method=method,
@@ -71,40 +67,32 @@ def pck_manager_file(
     return resolve_deps
 
 
-def gem_gemfile(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        require_patt: Pattern[str] = re.compile(
-            r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
-        )
-        not_prod_patt: Pattern[str] = re.compile(
-            r":group => \[?[:\w\-, ]*(:development|:test)"
-        )
-        test_dev_group_patt: Pattern[str] = re.compile(
-            r"(\s*)group :(test|development)"
-        )
-        line_group: bool = False
-        end_line: str = ""
-        for line_number, line in enumerate(content.splitlines(), 1):
-            if line_group:
-                if line == end_line:
-                    line_group = False
-                    end_line = ""
-            elif match_group := re.search(test_dev_group_patt, line):
-                line_group = True
-                blank = match_group.group(1)
-                end_line = f"{blank}end"
-            elif matched := re.search(require_patt, line):
-                if re.search(not_prod_patt, line):
-                    continue
-                yield format_dep(matched, line_number)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.GEM,
-        method=MethodsEnum.GEM_GEMFILE,
+@pkg_manager_file(Platform.GEM, MethodsEnum.GEM_GEMFILE)
+def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
+    require_patt: Pattern[str] = re.compile(
+        r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
     )
+    not_prod_patt: Pattern[str] = re.compile(
+        r":group => \[?[:\w\-, ]*(:development|:test)"
+    )
+    test_dev_group_patt: Pattern[str] = re.compile(
+        r"(\s*)group :(test|development)"
+    )
+    line_group: bool = False
+    end_line: str = ""
+    for line_number, line in enumerate(gem_info[0].splitlines(), 1):
+        if line_group:
+            if line == end_line:
+                line_group = False
+                end_line = ""
+        elif match_group := re.search(test_dev_group_patt, line):
+            line_group = True
+            blank = match_group.group(1)
+            end_line = f"{blank}end"
+        elif matched := re.search(require_patt, line):
+            if re.search(not_prod_patt, line):
+                continue
+            yield format_dep(matched, line_number)
 
 
 def gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
