@@ -4,9 +4,29 @@ title: Red Teaming
 description: At Fluid Attacks, we are a certified Red Team specialized in testing and attacking IT systems to detect vulnerabilities that can pose risks to your company.
 keywords: Fluid Attacks, Solutions, Read Team, Red Teaming, Ethical Hacking, Security, Vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735155/airs/solutions/solution-red-teaming_trx6rr.webp
-solution: Fluid Attacks is 100% a Red Team. Our core is testing and attacking infrastructures, applications, and source codes to find vulnerabilities that may pose risks to the assets of the owners and users of those systems. Our certified ethical hackers, continuously aiming to discover and employ novel tools and approaches, simulate cybercriminal attacks on your company’s information technology to assess its security controls and status. Based on these findings, we can then provide you with advice to determine the best ways to resolve your systems’ weaknesses and improve your protection against the countless, constant internal and external threats in cybersecurity.
 template: solution
 ---
+
+Fluid Attacks is 100% a Red Team. Our core is testing
+and attacking infrastructures, applications,
+and source codes to find vulnerabilities that may pose risks
+to the assets of the owners and users of those systems.
+Our certified ethical hackers, continuously aiming
+to discover and employ novel tools and approaches,
+simulate cybercriminal attacks on your company’s information technology
+to assess its security controls and status. Based on these findings,
+we can then provide you with advice to determine the best ways
+to resolve your systems’ weaknesses and improve
+your protection against the countless,
+constant internal and external threats in cybersecurity.
+
+<div class="tc">
+
+## Benefits
+
+</div>
+
+<div class="flex flex-wrap justify-center items-center">
 
 <div class="sect2">
 
@@ -41,5 +61,7 @@ Our hackers are skilled at finding zero-day vulnerabilities,
 which are the weaknesses in IT systems
 that others have not yet discovered
 and which do not have a defined remediation patch.
+
+</div>
 
 </div>

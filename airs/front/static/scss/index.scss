@@ -1282,6 +1282,13 @@ body {
 }
 
 .solution-benefits {
+
+  color: $fluid-black;
+
+  h2 {
+    font-size: 2.25rem;
+  }
+
   .sect2 {
     margin-left: auto;
     margin-right: auto;

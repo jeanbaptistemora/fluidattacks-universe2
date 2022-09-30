@@ -4,9 +4,29 @@ title: Breach and Attack Simulation
 description: Our certified team of ethical hackers understands malicious intentions and knows how to perform simulated attacks to assess your IT systems’ security.
 keywords: Fluid Attacks, Solutions, Attack Simulation, Ethical Hacking, Cyberattack, Security, Vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-attack-simulation_asqzhr.webp
-solution: Simulating an attack scenario can be the best way to discover whether an organization’s information system and defense staff are ready to identify, respond to, and prevent real threats. Current malicious hackers and malware follow specific procedures which our certified team of ethical hackers has the ability to understand and implement in every controlled simulation. Through this solution, in which our team strictly assumes the role of the attacker, you will find out what the weaknesses of your company are in terms of cybersecurity, and consequently achieve the first step to strengthening your IT systems’ controls and enhancing their security.
 template: solution
 ---
+
+Simulating an attack scenario can be the best way
+to discover whether an organization’s information system
+and defense staff are ready to identify, respond to,
+and prevent real threats. Current malicious hackers
+and malware follow specific procedures which our certified team
+of ethical hackers has the ability to understand and implement
+in every controlled simulation. Through this solution,
+in which our team strictly assumes the role of the attacker,
+you will find out what the weaknesses of your company are
+in terms of cybersecurity, and consequently achieve
+the first step to strengthening your IT systems’
+controls and enhancing their security.
+
+<div class="tc">
+
+## Benefits
+
+</div>
+
+<div class="flex flex-wrap justify-center items-center">
 
 <div class="sect2">
 
@@ -39,5 +59,7 @@ classify them according to their severity (critical ones tend to receive
 a high priority). With the information we provide, you can consider the
 possible impacts of each vulnerability on your business and make the
 necessary decisions in order to keep your company secure.
+
+</div>
 
 </div>

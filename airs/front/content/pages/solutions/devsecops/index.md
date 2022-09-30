@@ -4,9 +4,29 @@ title: DevSecOps
 description: Fluid Attacks integrates security in your development and operations processes (from any SDLC’s stage) to achieve the reliable DevSecOps methodology.
 keywords: Fluid Attacks, Solutions, DevSecOps, DevOps, Ethical Hacking, SDLC, Security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-devsecops_jgeyje.webp
-solution: We offer the integration of security into the development + operations (DevOps) methodology during Software Development Lifecycle (SDLC). In DevSecOps, all team members involved in software development become responsible for security. As opposed to other companies’ approach, at Fluid Attacks, we are not entirely dependent on tools and place more value on our ethical hackers’ skills to ensure greater accuracy in testing. We recognize that speed without precision is useless. Our security solutions can help optimize your development process from the first uploaded commit and continue after the application is in production.
 template: solution
 ---
+
+We offer the integration of security into
+the development + operations (DevOps) methodology during
+Software Development Lifecycle (SDLC).
+In DevSecOps, all team members involved
+in software development become responsible for security.
+As opposed to other companies’ approach, at Fluid Attacks,
+we are not entirely dependent on tools and place more value
+on our ethical hackers’ skills to ensure greater accuracy in testing.
+We recognize that speed without precision is useless.
+Our security solutions can help optimize your development process
+from the first uploaded commit and continue after
+the application is in production.
+
+<div class="tc">
+
+## Benefits
+
+</div>
+
+<div class="flex flex-wrap justify-center items-center">
 
 <div class="sect2">
 
@@ -67,5 +87,7 @@ weaknesses that can generate severe impacts on your business.
 At Fluid Attacks, within our DevSecOps solution, we can break the build
 in any continuous integration pipeline to prevent going to production
 with unrepaired vulnerabilities.
+
+</div>
 
 </div>

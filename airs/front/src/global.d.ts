@@ -40,7 +40,6 @@ interface IQueryData {
         phrase: string;
         product: string;
         slug: string;
-        solution: string;
         subtext: string;
         subtitle: string;
         product: string;

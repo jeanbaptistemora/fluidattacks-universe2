@@ -29,11 +29,8 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
-import { Paragraph } from "../components/Texts";
 import {
-  BlackH2,
   ComplianceContainer,
-  FlexCenterItemsContainer,
   FullWidthContainer,
   MarkedTitle,
   PageArticle,
@@ -50,7 +47,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, image, keywords, slug, solution, title } =
+  const { description, image, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   const { trackEvent } = useMatomo();
@@ -94,13 +91,9 @@ const SolutionIndex: React.FC<IQueryData> = ({
               <RedMark>
                 <MarkedTitle>{title}</MarkedTitle>
               </RedMark>
-              <Paragraph fColor={"#2e2e38"} fSize={"16"} marginTop={"1"}>
-                {solution}
-              </Paragraph>
               <FullWidthContainer>
-                <BlackH2>{translate.t("solution.benefits")}</BlackH2>
-                <FlexCenterItemsContainer
-                  className={"solution-benefits flex-wrap"}
+                <div
+                  className={"solution-benefits"}
                   dangerouslySetInnerHTML={{
                     __html: data.markdownRemark.html,
                   }}
@@ -141,7 +134,6 @@ export const query: StaticQueryDocument = graphql`
         description
         keywords
         slug
-        solution
         image
         title
       }

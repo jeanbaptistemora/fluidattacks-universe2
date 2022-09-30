@@ -4,9 +4,31 @@ title: Security Testing
 description: Thanks to our comprehensive Security Testing, your IT systems’ vulnerabilities will be found with very low rates of false positives and false negatives.
 keywords: Fluid Attacks, Solutions, Security, Testing, Ethical Hacking, Vulnerability, SDLC
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-security-testing_mmthfa.webp
-solution: Fluid Attacks’ Security Testing solution allows the comprehensive and accurate detection of security vulnerabilities in your IT infrastructure, applications, or source code. Our security testing team consists of certified ethical hackers who work on diverse environments, both with automated tools and manual exploitation. We prioritize all findings according to their severity and provide you with recommendations and guidance on their remediation in order to mitigate the risks of cyberattacks from internal and external sources. Our security testing, which is available for your entire software development lifecycle, succeeds in identifying both known and unknown vulnerabilities while guaranteeing reports with minimal rates of false positives (lies) and false negatives (omissions).
 template: solution
 ---
+
+Fluid Attacks’ Security Testing solution allows the comprehensive
+and accurate detection of security vulnerabilities
+in your IT infrastructure, applications, or source code.
+Our security testing team consists of certified ethical hackers
+who work on diverse environments, both with automated tools
+and manual exploitation. We prioritize all findings according
+to their severity and provide you with recommendations
+and guidance on their remediation in order to mitigate
+the risks of cyberattacks from internal and external sources.
+Our security testing, which is available for
+your entire software development lifecycle,
+succeeds in identifying both known and unknown vulnerabilities
+while guaranteeing reports with minimal rates
+of false positives (lies) and false negatives (omissions).
+
+<div class="tc">
+
+## Benefits
+
+</div>
+
+<div class="flex flex-wrap justify-center items-center">
 
 <div class="sect2">
 
@@ -40,5 +62,7 @@ Management platform (ARM). This allows our red team to be available and
 in constant communication with your developers in order to achieve high
 remediation rates. We also use this platform to provide you
 with easy-to-understand, real-time executive indicators.
+
+</div>
 
 </div>
