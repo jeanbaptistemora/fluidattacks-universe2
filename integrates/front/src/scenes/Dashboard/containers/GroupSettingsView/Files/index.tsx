@@ -8,19 +8,17 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table as Tablez } from "components/TableNew";
 import { Tooltip } from "components/Tooltip";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
@@ -63,16 +61,17 @@ const Files: React.FC<IFilesProps> = ({
     setIsOptionsModalOpen(false);
   }, []);
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-
   const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
-  const handleRowClick: (
-    _0: React.FormEvent,
-    row: Record<string, string>
-  ) => void = (_0: React.FormEvent, row: Record<string, string>): void => {
-    setCurrentRow(row);
-    setIsOptionsModalOpen(true);
-  };
+
+  function handleRowClickz(
+    rowInfo: Row<IFile>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      setCurrentRow(rowInfo.original as unknown as Record<string, string>);
+      setIsOptionsModalOpen(true);
+      event.preventDefault();
+    };
+  }
 
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {
@@ -205,12 +204,6 @@ const Files: React.FC<IFilesProps> = ({
     };
   }
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-
   const resourcesFiles: IGroupFileAttr[] = _.isNull(data.resources.files)
     ? []
     : data.resources.files;
@@ -315,58 +308,27 @@ const Files: React.FC<IFilesProps> = ({
     }
   };
 
-  const sortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("fileSort", JSON.stringify(newSorted));
-  };
-
-  const tableHeaders: IHeaderConfig[] = [
+  const tableHeadersz: ColumnDef<IFile>[] = [
     {
-      dataField: "fileName",
+      accessorKey: "fileName",
       header: t("searchFindings.filesTable.file"),
-      onSort: sortState,
-      width: "25%",
-      wrapped: true,
     },
     {
-      dataField: "description",
+      accessorKey: "description",
       header: t("searchFindings.filesTable.description"),
-      onSort: sortState,
-      width: "50%",
-      wrapped: true,
     },
     {
-      dataField: "uploadDate",
+      accessorKey: "uploadDate",
       header: t("searchFindings.filesTable.uploadDate"),
-      onSort: sortState,
-      width: "25%",
-      wrapped: true,
     },
   ];
-
-  const filterSearchTextDataset: IFile[] = filterSearchText(
-    filesDataset,
-    searchTextFilter
-  );
 
   return (
     <React.StrictMode>
       <div className={"flex flex-wrap nt1"}>
-        <Table
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={filterSearchTextDataset}
-          defaultSorted={JSON.parse(
-            _.get(sessionStorage, "fileSort", "{}") as string
-          )}
-          exportCsv={false}
+        <Tablez
+          columns={tableHeadersz}
+          data={filesDataset}
           extraButtons={
             <Can do={"api_mutations_add_files_mutate"}>
               <Tooltip
@@ -385,11 +347,8 @@ const Files: React.FC<IFilesProps> = ({
               </Tooltip>
             </Can>
           }
-          headers={tableHeaders}
           id={"tblFiles"}
-          pageSize={10}
-          rowEvents={{ onClick: handleRowClick }}
-          search={false}
+          onRowClick={handleRowClickz}
         />
       </div>
       <label>

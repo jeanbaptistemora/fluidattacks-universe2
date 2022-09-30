@@ -243,12 +243,7 @@ describe("Files", (): void => {
 
     userEvent.click(
       screen.getByRole("columnheader", {
-        name: "searchFindings.filesTable.file sortable",
-      })
-    );
-    userEvent.click(
-      screen.getByRole("columnheader", {
-        name: "searchFindings.filesTable.file sort desc",
+        name: "searchFindings.filesTable.file",
       })
     );
     await waitFor((): void => {
@@ -256,17 +251,6 @@ describe("Files", (): void => {
         "shell.exeshell2019-04-24 14:56"
       );
     });
-
-    expect(
-      screen.queryByRole("columnheader", {
-        name: "searchFindings.filesTable.file sort desc",
-      })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("columnheader", {
-        name: "searchFindings.filesTable.file sort asc",
-      })
-    ).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
