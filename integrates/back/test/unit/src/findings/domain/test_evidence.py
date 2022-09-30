@@ -27,7 +27,6 @@ pytestmark = [
 ]
 
 BUCKET_NAME = "test_bucket"
-SKIP_REASON = "The S3 Mock is behaving weird with the new buckets' structure"
 
 
 async def test_create_test_bucket(s3_mock: S3Client) -> None:
@@ -60,13 +59,14 @@ async def test_upload_test_file(
 ) -> None:
     file_location = os.path.dirname(os.path.abspath(__file__))
     file_location = os.path.join(file_location, "mock/evidences/" + file_name)
-    file_name = "/".join([group_name.lower(), finding_id, file_name])
+    file_name = "/".join(
+        ["evidences", group_name.lower(), finding_id, file_name]
+    )
     with open(file_location, "rb") as data:
         s3_mock.upload_fileobj(data, BUCKET_NAME, file_name)
     assert bool(s3_mock.get_object(Bucket=BUCKET_NAME, Key=file_name))
 
 
-@pytest.mark.skip(reason=SKIP_REASON)
 async def test_download_evidence_file(s3_mock: S3Client) -> None:
     def side_effect(bucket: str, file_name: str, file_path: str) -> None:
         if bool(bucket and file_name and file_path):
@@ -75,7 +75,9 @@ async def test_download_evidence_file(s3_mock: S3Client) -> None:
     group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_route_1.png"
-    file_key = "/".join([group_name.lower(), finding_id, file_name])
+    file_key = "/".join(
+        ["evidences", group_name.lower(), finding_id, file_name]
+    )
     with mock.patch("s3.operations.download_file") as mock_download:
         mock_download.side_effect = side_effect
         with mock.patch(
@@ -95,7 +97,6 @@ async def test_download_evidence_file(s3_mock: S3Client) -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.skip(reason=SKIP_REASON)
 async def test_get_records_from_file(s3_mock: S3Client) -> None:
     def side_effect(bucket: str, file_name: str, file_path: str) -> None:
         if bool(bucket and file_name and file_path):
@@ -104,7 +105,9 @@ async def test_get_records_from_file(s3_mock: S3Client) -> None:
     group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_file.csv"
-    file_key = "/".join([group_name.lower(), finding_id, file_name])
+    file_key = "/".join(
+        ["evidences", group_name.lower(), finding_id, file_name]
+    )
     with mock.patch("s3.operations.download_file") as mock_download:
         mock_download.side_effect = side_effect
         with mock.patch(
