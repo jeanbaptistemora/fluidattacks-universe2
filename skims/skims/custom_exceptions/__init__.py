@@ -69,10 +69,7 @@ class InvalidSeverity(_SingleMessageException):
 
 
 class InvalidVulnerableVersion(_SingleMessageException):
-    msg: str = (
-        "Invalid 'vulnerable_version' format, each range must start with "
-        "('=' | '<' | '>' | '>=' | '<=')"
-    )
+    msg: str = "Invalid 'vulnerable_version' format"
 
 
 class InvalidFilterCursor(CustomBaseException):

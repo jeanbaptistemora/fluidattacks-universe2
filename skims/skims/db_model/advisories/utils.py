@@ -6,6 +6,7 @@ from .types import (
     Advisory,
 )
 from custom_exceptions import (
+    _SingleMessageException,
     InvalidSeverity,
     InvalidVulnerableVersion,
 )
@@ -24,6 +25,9 @@ from typing import (
 )
 from utils.function import (
     semver_match,
+)
+from utils.logs import (
+    log_blocking,
 )
 
 VALID_RANGES = ("=", "<", ">", ">=", "<=")
@@ -127,3 +131,25 @@ def format_advisory_to_item(advisory: Advisory) -> Item:
         "created_at": advisory.created_at,
         "modified_at": advisory.modified_at,
     }
+
+
+def print_exc(
+    exc: _SingleMessageException,
+    action: str,
+    advisory: Advisory,
+    attr: str = "",
+) -> None:
+    log_blocking(
+        "warning",
+        (
+            "Advisory PLATFORM#%s#PACKAGE#%s SOURCE#%s#ADVISORY#%s "
+            "wasn't %s. %s%s"
+        ),
+        advisory.package_manager,
+        advisory.package_name,
+        advisory.source,
+        advisory.associated_advisory,
+        action,
+        exc.new(),
+        attr,
+    )

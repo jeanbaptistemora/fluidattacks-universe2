@@ -8,6 +8,10 @@ from .types import (
 from .update import (
     update,
 )
+from .utils import (
+    format_advisory,
+    print_exc,
+)
 from boto3.dynamodb.conditions import (
     Key,
 )
@@ -19,9 +23,6 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
-from db_model.advisories.utils import (
-    format_advisory,
-)
 from dynamodb import (
     keys,
     operations,
@@ -31,9 +32,8 @@ from typing import (
     List,
     Optional,
 )
-from utils.logs import (
-    log_blocking,
-)
+
+ACTION = "added"
 
 
 async def add(
@@ -46,18 +46,12 @@ async def add(
         await _add(advisory=advisory, no_overwrite=no_overwrite)
         if to_storage is not None:
             to_storage.append(advisory)
-    except (
-        AdvisoryAlreadyCreated,
-        InvalidSeverity,
-        InvalidVulnerableVersion,
-    ) as exc:
-        log_blocking(
-            "warning",
-            "Advisory SOURCE#%s#ADVISORY#%s wasn't added. %s",
-            advisory.source,
-            advisory.associated_advisory,
-            exc.new(),
-        )
+    except (InvalidVulnerableVersion,) as exc:
+        print_exc(exc, ACTION, advisory, f" ({advisory.vulnerable_version})")
+    except (InvalidSeverity,) as exc:
+        print_exc(exc, ACTION, advisory, f" ({advisory.severity})")
+    except (AdvisoryAlreadyCreated,) as exc:
+        print_exc(exc, ACTION, advisory)
 
 
 async def _add(*, advisory: Advisory, no_overwrite: bool) -> None:

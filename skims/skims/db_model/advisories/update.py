@@ -8,6 +8,7 @@ from .types import (
 from .utils import (
     format_advisory,
     format_advisory_to_item,
+    print_exc,
 )
 from boto3.dynamodb.conditions import (
     Key,
@@ -29,9 +30,8 @@ from typing import (
     List,
     Optional,
 )
-from utils.logs import (
-    log_blocking,
-)
+
+ACTION = "updated"
 
 
 async def update(
@@ -44,19 +44,15 @@ async def update(
         await _update(advisory=advisory, checked=checked)
         if to_storage is not None:
             to_storage.append(advisory)
+    except (InvalidVulnerableVersion,) as exc:
+        print_exc(exc, ACTION, advisory, f" ({advisory.vulnerable_version})")
+    except (InvalidSeverity,) as exc:
+        print_exc(exc, ACTION, advisory, f" ({advisory.severity})")
     except (
         AdvisoryDoesNotExist,
         AdvisoryNotModified,
-        InvalidSeverity,
-        InvalidVulnerableVersion,
     ) as exc:
-        log_blocking(
-            "warning",
-            "Advisory SOURCE#%s#ADVISORY#%s wasn't updated. %s",
-            advisory.source,
-            advisory.associated_advisory,
-            exc.new(),
-        )
+        print_exc(exc, ACTION, advisory)
 
 
 async def _update(
