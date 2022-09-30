@@ -104,7 +104,7 @@ async def entrypoint(
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
                 finding_report, summary_report = format_rich_report(
-                    filtered_report, config.verbose_level, config.kind.value
+                    filtered_report, config.verbose_level, config.kind
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
                 rich_log(finding_report)

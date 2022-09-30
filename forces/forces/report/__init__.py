@@ -113,12 +113,12 @@ async def create_findings_dict(
     return findings_dict
 
 
-def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
+def format_summary_report(summary: Dict[str, Any], kind: KindEnum) -> Table:
     """Helper method to create the findings summary table from the report's
     summary data\n
-    @param summary: A dictionary with the summary data\n
-    @param kind: A string with the kind of desired vulnerabilities, can be
-    \"all\", \"static\" or \"dynamic\" """
+    @param `summary`: A dictionary with the summary data\n
+    @param `kind`: A kind from the `KindEnum`, can be `ALL`, `STATIC` or
+    `DYNAMIC`"""
     total = summary.pop("total")
     time_elapsed = summary.pop("time")
     summary_table = Table(
@@ -132,7 +132,7 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
     )
     # open, closed and/or accepted
     summary_table.add_column("Vuln state", style="cyan")
-    if kind == "all":
+    if kind == KindEnum.ALL:
         # DAST, SAST and total vulns
         summary_table.add_column("Vuln type", style="magenta1")
         summary_table.add_column("Value")
@@ -162,8 +162,9 @@ def format_summary_report(summary: Dict[str, Any], kind: str) -> Table:
 
 
 def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
-    """Helper method to create the nested vulns table\n
-    @param vulns: A list of dicts with each vuln's data\n
+    """
+    Helper method to create the nested vulns table\n
+    @param `vulns`: A list of dicts with each vuln's data
     """
     vuln_table = Table(
         show_header=False,
@@ -190,16 +191,16 @@ def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
 def format_rich_report(
     report: Dict[str, Any],
     verbose_level: int,
-    kind: str,
+    kind: KindEnum,
 ) -> Tuple[Table, Table]:
     """Outputs a rich-formatted table containing the reported data of findings
     and associated vulns of an ASM group\n
-    @param report: A dict containing the list of findings and summary data of
+    @param `report`: A dict containing the list of findings and summary data of
     an ASM group\n
-    @param verbose_level: An int from 1 to 4 of the desired verbosity level,
+    @param `verbose_level`: An int from 1 to 4 of the desired verbosity level,
     with more data being shown the higher the number\n
-    @param kind: A string with the kind of desired vulnerabilities, can be
-    \"all\", \"static\" or \"dynamic\"
+    @param `kind`: A kind from the `KindEnum`, can be
+    `ALL`, `STATIC` or `DYNAMIC`
     """
     # Finding report table
     report_table = Table(
