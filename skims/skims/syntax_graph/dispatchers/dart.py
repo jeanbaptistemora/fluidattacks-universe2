@@ -21,7 +21,9 @@ from syntax_graph.syntax_readers.dart import (
     function_signature as dart_function_signature,
     getter_signature as dart_getter_signature,
     identifier as dart_identifier,
+    identifier_list as dart_identifier_list,
     import_or_export as dart_import_or_export,
+    initialized_identifier as dart_initialized_identifier,
     library_name as dart_library_name,
     method_declaration as dart_method_declaration,
     method_signature as dart_method_signature,
@@ -161,6 +163,18 @@ DART_DISPATCHERS: Dispatchers = (
             "identifier",
         },
         syntax_reader=dart_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "initialized_identifier",
+        },
+        syntax_reader=dart_initialized_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "initialized_identifier_list",
+        },
+        syntax_reader=dart_identifier_list.reader,
     ),
     Dispatcher(
         applicable_types={
