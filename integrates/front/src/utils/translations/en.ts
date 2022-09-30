@@ -1730,14 +1730,14 @@ export const enTranslations: ResourceKey = {
               title: "Benchmark",
               worstOrganization: "Worst organization",
             },
-            nonCompliance: {
+            organizationCompliance: {
               complianceLevel: {
-                info: "The organization has not complied with the {{percentage}}% of the standards",
+                info: "The organization has complied with the {{percentage}}% of the standards",
                 title: "Compliance level of {{organizationName}}",
               },
               title: {
-                info: "Non-compliance information for {{organizationName}}",
-                text: "Organization non-compliance",
+                info: "Compliance information for {{organizationName}}",
+                text: "Organization compliance",
               },
             },
             text: "Overview",

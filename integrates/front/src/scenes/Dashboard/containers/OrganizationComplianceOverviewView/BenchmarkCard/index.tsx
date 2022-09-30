@@ -44,15 +44,15 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         </Col>
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
-            {`${handleComplianceValue(standardCompliance.nonComplianceLevel)}%`}{" "}
+            {`${handleComplianceValue(standardCompliance.complianceLevel)}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
               percentage={handleComplianceValue(
-                standardCompliance.nonComplianceLevel
+                standardCompliance.complianceLevel
               )}
               progressColor={getProgressBarColor(
-                handleComplianceValue(standardCompliance.nonComplianceLevel)
+                handleComplianceValue(standardCompliance.complianceLevel)
               )}
             />
           </Text>
@@ -69,17 +69,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
             {`${handleComplianceValue(
-              standardCompliance.bestOrganizationNonComplianceLevel
+              standardCompliance.bestOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
               percentage={handleComplianceValue(
-                standardCompliance.bestOrganizationNonComplianceLevel
+                standardCompliance.bestOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
                 handleComplianceValue(
-                  standardCompliance.bestOrganizationNonComplianceLevel
+                  standardCompliance.bestOrganizationComplianceLevel
                 )
               )}
             />
@@ -97,17 +97,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
             {`${handleComplianceValue(
-              standardCompliance.avgOrganizationNonComplianceLevel
+              standardCompliance.avgOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
               percentage={handleComplianceValue(
-                standardCompliance.avgOrganizationNonComplianceLevel
+                standardCompliance.avgOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
                 handleComplianceValue(
-                  standardCompliance.avgOrganizationNonComplianceLevel
+                  standardCompliance.avgOrganizationComplianceLevel
                 )
               )}
             />
@@ -125,17 +125,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
             {`${handleComplianceValue(
-              standardCompliance.worstOrganizationNonComplianceLevel
+              standardCompliance.worstOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
               percentage={handleComplianceValue(
-                standardCompliance.worstOrganizationNonComplianceLevel
+                standardCompliance.worstOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
                 handleComplianceValue(
-                  standardCompliance.worstOrganizationNonComplianceLevel
+                  standardCompliance.worstOrganizationComplianceLevel
                 )
               )}
             />

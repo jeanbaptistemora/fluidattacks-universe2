@@ -5,18 +5,18 @@
  */
 
 interface IStandardComplianceAttr {
-  avgOrganizationNonComplianceLevel: number;
-  bestOrganizationNonComplianceLevel: number;
-  nonComplianceLevel: number;
+  avgOrganizationComplianceLevel: number;
+  bestOrganizationComplianceLevel: number;
+  complianceLevel: number;
   standardTitle: string;
-  worstOrganizationNonComplianceLevel: number;
+  worstOrganizationComplianceLevel: number;
 }
 
 interface IOrganizationAttr {
   id: string;
   name: string;
   compliance: {
-    nonComplianceLevel: number | null;
+    complianceLevel: number | null;
     standards: IStandardComplianceAttr[];
   };
 }

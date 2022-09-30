@@ -17,12 +17,12 @@ const getProgressBarColor: (progress: number) => string = (
   const LOW_PROGRESS_LIMIT = 30;
   const MEDIUM_PROGRESS_LIMIT = 70;
   if (progress <= LOW_PROGRESS_LIMIT) {
-    return "#009245";
+    return "#BF0B1A";
   } else if (progress <= MEDIUM_PROGRESS_LIMIT) {
     return "#FF961E";
   }
 
-  return "#BF0B1A";
+  return "#009245";
 };
 
 export { getProgressBarColor, handleComplianceValue };

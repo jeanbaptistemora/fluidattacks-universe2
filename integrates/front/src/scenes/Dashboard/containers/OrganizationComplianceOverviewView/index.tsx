@@ -56,17 +56,17 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
           <Col lg={60} md={60} sm={100}>
             <Text fw={7} mb={3} mt={2} size={5}>
               {t(
-                "organization.tabs.compliance.tabs.overview.nonCompliance.title.text",
+                "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text",
                 {
                   percentage: handleComplianceValue(
-                    organization.compliance.nonComplianceLevel
+                    organization.compliance.complianceLevel
                   ),
                 }
               )}{" "}
               <InfoDropdown>
                 <Text size={2} ta={"center"}>
                   {t(
-                    "organization.tabs.compliance.tabs.overview.nonCompliance.title.info",
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.title.info",
                     { organizationName: organization.name }
                   )}
                 </Text>
@@ -75,18 +75,18 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
             <Col lg={33} md={33} sm={33}>
               <PercentageCard
                 info={t(
-                  "organization.tabs.compliance.tabs.overview.nonCompliance.complianceLevel.info",
+                  "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.info",
                   {
                     percentage: handleComplianceValue(
-                      organization.compliance.nonComplianceLevel
+                      organization.compliance.complianceLevel
                     ),
                   }
                 )}
                 percentage={handleComplianceValue(
-                  organization.compliance.nonComplianceLevel
+                  organization.compliance.complianceLevel
                 )}
                 title={t(
-                  "organization.tabs.compliance.tabs.overview.nonCompliance.complianceLevel.title",
+                  "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.title",
                   { organizationName: organization.name }
                 )}
               />
