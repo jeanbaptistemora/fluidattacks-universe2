@@ -563,30 +563,6 @@ F313,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Th
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
-F313,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),The given APK uses sockets created with getInsecure.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK uses sockets created with getInsecure.,"
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/get_insecure.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-  10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-> 12 |  >>> ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZT
-     | oColor', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'accept', 'acceptMatch', 'access$000'
-     | , 'access$001', 'access$100', 'access$101', 'access$200', 'access$300', 'access$400', 'access$500', 'accumField', 'acos'
-     | , 'acquire', 'acquireTempRect', 'actionBarOnMenuKeyEventPre28', 'actionFormatChanged', 'activeStateChanged', 'activitySu
-     | perDispatchKeyEventPre28', 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHideOffset', 'addActi
-     | ons', 'addAddedFragments', 'addAll', 'addAnimation', 'addBackStackState', 'addCategory', 'addChild', 'addChildrenForAcce
-     | ssibility', 'addChildrenForExpandedActionView', 'addColorStateListToCache', 'addCommand', 'addCompatExtras', 'addContent
-     | View', 'addCustomViewsWithGravity', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', '
-     | addDurationItem', 'addEdge', 'addEmailBcc', 'addEmailCc', 'addEmailTo', 'addExtras', 'addFirst', 'addFlags', 'addFocusab
-     | les', 'addFontFromAssetManager', 'addFontFromBuffer', 'addFontWeightStyle', 'addFragment', 'addFrame', 'addHeaderView',
-     | 'addHistoricalRecord', 'addIntentOptions', 'addInternal', 'addInvisibleAction', 'addItem', 'addItemView', 'addKeyboardNa
-     ^ Col 0
-",analyze_bytecodes.improper_certificate_validation
 F103,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -674,6 +650,30 @@ F082,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Th
      | EmailTo', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAsse
      ^ Col 0
 ",analyze_bytecodes.uses_insecure_delete
+F082,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),The given APK uses sockets created with getInsecure.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses sockets created with getInsecure.,"
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/get_insecure.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+  10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+> 12 |  >>> ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZT
+     | oColor', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'accept', 'acceptMatch', 'access$000'
+     | , 'access$001', 'access$100', 'access$101', 'access$200', 'access$300', 'access$400', 'access$500', 'accumField', 'acos'
+     | , 'acquire', 'acquireTempRect', 'actionBarOnMenuKeyEventPre28', 'actionFormatChanged', 'activeStateChanged', 'activitySu
+     | perDispatchKeyEventPre28', 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHideOffset', 'addActi
+     | ons', 'addAddedFragments', 'addAll', 'addAnimation', 'addBackStackState', 'addCategory', 'addChild', 'addChildrenForAcce
+     | ssibility', 'addChildrenForExpandedActionView', 'addColorStateListToCache', 'addCommand', 'addCompatExtras', 'addContent
+     | View', 'addCustomViewsWithGravity', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', '
+     | addDurationItem', 'addEdge', 'addEmailBcc', 'addEmailCc', 'addEmailTo', 'addExtras', 'addFirst', 'addFlags', 'addFocusab
+     | les', 'addFontFromAssetManager', 'addFontFromBuffer', 'addFontWeightStyle', 'addFragment', 'addFrame', 'addHeaderView',
+     | 'addHistoricalRecord', 'addIntentOptions', 'addInternal', 'addInvisibleAction', 'addItem', 'addItemView', 'addKeyboardNa
+     ^ Col 0
+",analyze_bytecodes.socket_uses_get_insecure
 F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application is vulnerable to Fragment Injection,470,"home,apk,bytecodes",398. Fragment Injection,The application is vulnerable to Fragment Injection,"
    1 | $ python3.8
    2 |

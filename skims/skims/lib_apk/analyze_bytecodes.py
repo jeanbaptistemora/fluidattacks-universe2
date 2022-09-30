@@ -833,8 +833,6 @@ def _improper_certificate_validation(
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.analysis is not None and (apk_obj := ctx.apk_ctx.apk_obj):
-        dex = ctx.apk_ctx.analysis
-        method_names: List[str] = _get_method_names(dex)
         net_conf: str = ""
 
         try:
@@ -849,6 +847,20 @@ def _improper_certificate_validation(
 
         if "trust-anchors" in net_conf and "user" in net_conf:
             _add_allow_user_ca(ctx, locations, net_conf)
+
+    return _create_vulns(
+        ctx=ctx,
+        locations=locations,
+        method=core_model.MethodsEnum.IMPROPER_CERTIFICATE_VALIDATION,
+    )
+
+
+def _uses_insecure_sockets(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        dex = ctx.apk_ctx.analysis
+        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
 
         uses_get_insecure: List[str] = is_method_present(
             dex=dex,
@@ -866,26 +878,29 @@ def _improper_certificate_validation(
     return _create_vulns(
         ctx=ctx,
         locations=locations,
-        method=core_model.MethodsEnum.IMPROPER_CERTIFICATE_VALIDATION,
+        method=core_model.MethodsEnum.SOCKET_GET_INSECURE,
     )
 
 
 CHECKS: Dict[
     core_model.FindingEnum,
-    Callable[[APKCheckCtx], core_model.Vulnerabilities],
+    List[Callable[[APKCheckCtx], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F046: _no_obfuscation,
-    core_model.FindingEnum.F048: _no_root_check,
-    core_model.FindingEnum.F055: _apk_backups_enabled,
-    core_model.FindingEnum.F058: _apk_debugging_enabled,
-    core_model.FindingEnum.F060: _not_verifies_ssl_hostname,
-    core_model.FindingEnum.F075: _apk_exported_cp,
-    core_model.FindingEnum.F082: _uses_insecure_delete,
-    core_model.FindingEnum.F103: _apk_unsigned,
-    core_model.FindingEnum.F206: _has_frida,
-    core_model.FindingEnum.F207: _no_certs_pinning,
-    core_model.FindingEnum.F268: _webview_vulnerabilities,
-    core_model.FindingEnum.F313: _improper_certificate_validation,
-    core_model.FindingEnum.F372: _uses_http_resources,
-    core_model.FindingEnum.F398: _has_fragment_injection,
+    core_model.FindingEnum.F046: [_no_obfuscation],
+    core_model.FindingEnum.F048: [_no_root_check],
+    core_model.FindingEnum.F055: [_apk_backups_enabled],
+    core_model.FindingEnum.F058: [_apk_debugging_enabled],
+    core_model.FindingEnum.F060: [_not_verifies_ssl_hostname],
+    core_model.FindingEnum.F075: [_apk_exported_cp],
+    core_model.FindingEnum.F082: [
+        _uses_insecure_delete,
+        _uses_insecure_sockets,
+    ],
+    core_model.FindingEnum.F103: [_apk_unsigned],
+    core_model.FindingEnum.F206: [_has_frida],
+    core_model.FindingEnum.F207: [_no_certs_pinning],
+    core_model.FindingEnum.F268: [_webview_vulnerabilities],
+    core_model.FindingEnum.F313: [_improper_certificate_validation],
+    core_model.FindingEnum.F372: [_uses_http_resources],
+    core_model.FindingEnum.F398: [_has_fragment_injection],
 }

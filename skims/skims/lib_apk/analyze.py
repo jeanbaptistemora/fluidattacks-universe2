@@ -35,6 +35,7 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    List,
     Set,
     Tuple,
 )
@@ -53,7 +54,7 @@ CHECKS: Tuple[
         Callable[[APKContext], Any],
         Dict[
             core_model.FindingEnum,
-            Callable[[Any], core_model.Vulnerabilities],
+            List[Callable[[Any], core_model.Vulnerabilities]],
         ],
     ],
     ...,
@@ -67,8 +68,9 @@ def analyze_one(
     return tuple(
         vulnerability
         for get_check_ctx, checks in CHECKS
-        for finding, check in checks.items()
+        for finding, check_list in checks.items()
         if finding in CTX.config.checks and apk_ctx.apk_obj is not None
+        for check in check_list
         for vulnerability in check(get_check_ctx(apk_ctx))
     )
 
