@@ -11,12 +11,17 @@ Finalization Time:
 """
 
 from aioextensions import (
+    collect,
     run,
 )
 import csv
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.enums import (
+    Source,
+    StateRemovalJustification,
 )
 from db_model.findings.types import (
     Finding,
@@ -26,6 +31,9 @@ from db_model.groups.types import (
 )
 from db_model.organizations.types import (
     Organization,
+)
+from findings import (
+    domain as findings_domain,
 )
 from newutils import (
     groups as groups_utils,
@@ -41,6 +49,7 @@ FINDING_TITLES_TO_DELETE: list[str] = [
     "139. Use of deprecated components",
     "303. Inappropriate coding practices - Initialization",
 ]
+PROD: bool = False
 
 
 async def _process_group(
@@ -55,6 +64,21 @@ async def _process_group(
         for finding in findings
         if finding.title in FINDING_TITLES_TO_DELETE
     )
+
+    if PROD:
+        await collect(
+            tuple(
+                findings_domain.remove_finding(
+                    loaders=loaders,
+                    email="integrates@fluidattacks.com",
+                    finding_id=finding.id,
+                    justification=StateRemovalJustification.NOT_REQUIRED,
+                    source=Source.ASM,
+                )
+                for finding in filtered
+            ),
+            workers=16,
+        )
 
     return [
         {
@@ -111,7 +135,7 @@ async def main() -> None:
         "status",
         "vulns_qty",
     ]
-    csv_file = "0289.csv"
+    csv_file = "0291.csv"
     try:
         with open(csv_file, "w", encoding="utf8") as f:
             writer = csv.DictWriter(f, fieldnames=csv_columns)
