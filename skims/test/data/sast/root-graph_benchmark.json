@@ -10454,9 +10454,9 @@
             "symbol": "fis"
           },
           "57": {
-            "label_type": "VariableDeclarator",
+            "label_type": "VariableDeclaration",
             "value_id": "60",
-            "variable_name": "serialVersionUID"
+            "variable": "serialVersionUID"
           },
           "570": {
             "label_type": "SymbolLookup",
@@ -15824,9 +15824,9 @@
             "label_type": "FieldDeclaration"
           },
           "57": {
-            "label_type": "VariableDeclarator",
+            "label_type": "VariableDeclaration",
             "value_id": "60",
-            "variable_name": "serialVersionUID"
+            "variable": "serialVersionUID"
           },
           "60": {
             "label_type": "Literal",
@@ -27381,9 +27381,9 @@
             "symbol": "request"
           },
           "57": {
-            "label_type": "VariableDeclarator",
+            "label_type": "VariableDeclaration",
             "value_id": "60",
-            "variable_name": "serialVersionUID"
+            "variable": "serialVersionUID"
           },
           "571": {
             "label_type": "SymbolLookup",

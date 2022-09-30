@@ -19870,8 +19870,8 @@
             "label_type": "Modifiers"
           },
           "13": {
-            "label_type": "VariableDeclarator",
-            "variable_name": "name"
+            "label_type": "VariableDeclaration",
+            "variable": "name"
           },
           "135": {
             "label_type": "ExecutionBlock"
@@ -19994,8 +19994,8 @@
             "name": "User"
           },
           "20": {
-            "label_type": "VariableDeclarator",
-            "variable_name": "lastName"
+            "label_type": "VariableDeclaration",
+            "variable": "lastName"
           },
           "200": {
             "label_type": "Parameter",
@@ -20060,8 +20060,8 @@
             "symbol": "lastName"
           },
           "27": {
-            "label_type": "VariableDeclarator",
-            "variable_name": "userId"
+            "label_type": "VariableDeclaration",
+            "variable": "userId"
           },
           "30": {
             "block_id": "40",

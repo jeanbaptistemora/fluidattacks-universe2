@@ -22,9 +22,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
-    if v_id := g.match_ast(args.graph, args.n_id, "VariableDeclarator").get(
-        "VariableDeclarator"
-    ):
+    if v_id := g.match_ast_d(args.graph, args.n_id, "VariableDeclaration"):
         args.evaluation[args.n_id] = args.generic(args.fork_n_id(v_id)).danger
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
