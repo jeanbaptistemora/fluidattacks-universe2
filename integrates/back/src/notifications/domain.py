@@ -19,6 +19,7 @@ from db_model.findings.types import (
 )
 from db_model.groups.enums import (
     GroupManaged,
+    GroupStateRemovalJustification as GroupReason,
 )
 from db_model.groups.types import (
     Group,
@@ -90,6 +91,20 @@ async def cancel_health_check(
     )
 
 
+def translate_group_reason(reason: str) -> str:
+    translation = {
+        GroupReason.DIFF_SECTST.value: "Different security testing strategy",
+        GroupReason.MIGRATION.value: "Information will be moved to a different"
+        + " group",
+        GroupReason.NO_SECTST.value: "No more security testing",
+        GroupReason.NO_SYSTEM.value: "System will be deprecated",
+        GroupReason.OTHER.value: "Other reason not mentioned here",
+    }
+    if reason in translation:
+        return translation[reason]
+    return reason.capitalize().replace("_", " ")
+
+
 async def delete_group(
     *,
     loaders: Any,
@@ -102,6 +117,18 @@ async def delete_group(
     org_id = group.organization_id
     organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
+    await groups_mail.send_mail_group_alert(
+        loaders,
+        [],
+        {
+            "date": deletion_date,
+            "group": group_name,
+            "organization": org_name,
+            "reason": translate_group_reason(reason),
+            "responsible": requester_email,
+            "state": "deleted",
+        },
+    )
     return cast(
         bool,
         await in_thread(
