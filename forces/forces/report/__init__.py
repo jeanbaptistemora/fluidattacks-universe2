@@ -13,6 +13,9 @@ from forces.apis.integrates.api import (
 from forces.model import (
     ForcesConfig,
 )
+from forces.model.config import (
+    KindEnum,
+)
 from forces.report.filters import (
     filter_kind,
     filter_repo,
@@ -272,7 +275,7 @@ def filter_report(
     return report
 
 
-def get_summary_template(kind: str) -> Dict[str, Dict[str, int]]:
+def get_summary_template(kind: KindEnum) -> Dict[str, Dict[str, int]]:
     _summary_dict: Dict[str, Dict[str, int]] = {
         "open": {"total": 0},
         "closed": {"total": 0},
@@ -281,7 +284,7 @@ def get_summary_template(kind: str) -> Dict[str, Dict[str, int]]:
 
     return (
         _summary_dict
-        if kind != "all"
+        if kind != KindEnum.ALL
         else {key: {"DAST": 0, "SAST": 0, "total": 0} for key in _summary_dict}
     )
 
@@ -296,11 +299,10 @@ async def generate_report(
     :param group: Group Name.
     :param verbose_level: Level of detail of the report.
     """
-    _start_time = timer()
-    kind = config.kind.value
+    _start_time: float = timer()
     repo_name = config.repository_name
 
-    _summary_dict = get_summary_template(kind)
+    _summary_dict = get_summary_template(config.kind)
 
     raw_report: Dict[str, List[Any]] = {"findings": []}
     findings_dict = await create_findings_dict(
@@ -312,15 +314,17 @@ async def generate_report(
         find_id: str = vuln["findingId"]  # type: ignore
         state: str = vuln["currentState"]  # type: ignore
 
-        if not filter_kind(vuln, kind):
+        if not filter_kind(vuln, config.kind):
             continue
-        if config.repository_name and not filter_repo(vuln, kind, repo_name):
+        if config.repository_name and not filter_repo(
+            vuln, config.kind, repo_name
+        ):
             continue
 
         vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
 
         _summary_dict[state]["total"] += 1
-        if kind == "all":
+        if config.kind == KindEnum.ALL:
             _summary_dict[state]["DAST"] += bool(vuln_type == "DAST")
             _summary_dict[state]["SAST"] += bool(vuln_type == "SAST")
         findings_dict[find_id][state] += 1

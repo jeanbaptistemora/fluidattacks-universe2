@@ -5,6 +5,9 @@
 from forces.model import (
     ForcesConfig,
 )
+from forces.model.config import (
+    KindEnum,
+)
 from forces.report import (
     create_findings_dict,
     generate_report,
@@ -77,12 +80,12 @@ async def test_generate_report2(
 
 
 def test_get_summary_template() -> None:
-    assert get_summary_template("all") == {
+    assert get_summary_template(KindEnum.ALL) == {
         "open": {"DAST": 0, "SAST": 0, "total": 0},
         "closed": {"DAST": 0, "SAST": 0, "total": 0},
         "accepted": {"DAST": 0, "SAST": 0, "total": 0},
     }
-    assert get_summary_template("DAST") == {
+    assert get_summary_template(KindEnum.DYNAMIC) == {
         "open": {"total": 0},
         "closed": {"total": 0},
         "accepted": {"total": 0},
@@ -109,9 +112,9 @@ def test_filter_repo() -> None:
     assert filter_repo(
         vuln={"vulnerabilityType": "inputs"},
         repo_name="root_test",
-        kind="dynamic",
+        kind=KindEnum.DYNAMIC,
     )
     assert filter_repo(
         vuln={"vulnerabilityType": "inputs"},
-        kind="dynamic",
+        kind=KindEnum.DYNAMIC,
     )

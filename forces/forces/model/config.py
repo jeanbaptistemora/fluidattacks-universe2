@@ -17,9 +17,9 @@ from typing import (
 class KindEnum(Enum):
     """DAST / SAST vulnerabilities mode"""
 
-    ALL: str = "all"
-    DYNAMIC: str = "dynamic"
-    STATIC: str = "static"
+    ALL: str = "ALL"
+    DYNAMIC: str = "DYNAMIC"
+    STATIC: str = "STATIC"
 
 
 class ForcesConfig(NamedTuple):

@@ -62,12 +62,11 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
         }
         """
 
-    params = {"group_name": group}
     result: Dict[str, Dict[str, List[Any]]] = (
         await execute(
             query=query,
             operation_name="ForcesDoGetGroupFindings",
-            variables=params,
+            variables=dict(group_name=group),
             default={},
             **kwargs,
         )
@@ -213,7 +212,7 @@ async def vulns_generator(
     """
     Returns a generator with all the vulnerabilities of a group.
 
-    :param group: Group Name.
+    :param `group`: Group Name.
     """
     findings: Set[str] = await get_findings(group, **kwargs)
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
