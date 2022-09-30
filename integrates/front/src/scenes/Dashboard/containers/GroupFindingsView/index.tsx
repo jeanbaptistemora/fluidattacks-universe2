@@ -248,51 +248,50 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     GET_GROUP_VULNERABILITIES,
     {
       fetchPolicy: "cache-first",
-      onCompleted: (groupVulnsData): void => {
-        const { edges } = groupVulnsData.group.vulnerabilities;
-
-        edges
-          .map((edge): IVulnerability => edge.node)
-          .forEach((vulnerability): void => {
-            setFindingVulnerabilities(
-              (
-                prevState: Record<string, IVulnerabilitiesResume>
-              ): Record<string, IVulnerabilitiesResume> => {
-                const current = prevState[vulnerability.findingId] ?? {
-                  treatmentAssignmentEmails: new Set(),
-                  wheres: "",
-                };
-                const wheres =
-                  current.wheres === ""
-                    ? vulnerability.where
-                    : [current.wheres, vulnerability.where].join(", ");
-
-                const treatmentAssignmentEmails = new Set(
-                  [
-                    ...current.treatmentAssignmentEmails,
-                    vulnerability.currentState === "open"
-                      ? (vulnerability.treatmentAssigned as string)
-                      : "",
-                  ].filter(Boolean)
-                );
-
-                return {
-                  ...prevState,
-                  [vulnerability.findingId]: {
-                    treatmentAssignmentEmails,
-                    wheres,
-                  },
-                };
-              }
-            );
-          });
-      },
       variables: { first: 1200, groupName },
     }
   );
 
   useEffect((): void => {
     if (!_.isUndefined(vulnData)) {
+      const { edges } = vulnData.group.vulnerabilities;
+
+      edges
+        .map((edge): IVulnerability => edge.node)
+        .forEach((vulnerability): void => {
+          setFindingVulnerabilities(
+            (
+              prevState: Record<string, IVulnerabilitiesResume>
+            ): Record<string, IVulnerabilitiesResume> => {
+              const current = prevState[vulnerability.findingId] ?? {
+                treatmentAssignmentEmails: new Set(),
+                wheres: "",
+              };
+              const wheres =
+                current.wheres === ""
+                  ? vulnerability.where
+                  : [current.wheres, vulnerability.where].join(", ");
+
+              const treatmentAssignmentEmails = new Set(
+                [
+                  ...current.treatmentAssignmentEmails,
+                  vulnerability.currentState === "open"
+                    ? (vulnerability.treatmentAssigned as string)
+                    : "",
+                ].filter(Boolean)
+              );
+
+              return {
+                ...prevState,
+                [vulnerability.findingId]: {
+                  treatmentAssignmentEmails,
+                  wheres,
+                },
+              };
+            }
+          );
+        });
+
       if (vulnData.group.vulnerabilities.pageInfo.hasNextPage) {
         void fetchMore({
           variables: {
