@@ -22,7 +22,6 @@ _T = TypeVar("_T")
 class StaticTypes(Enum):
     BOOLEAN = "BOOLEAN"
     DATE = "DATE"
-    TIME = "TIME"
     FLOAT = "FLOAT"
 
 
@@ -30,6 +29,7 @@ class PrecisionTypes(Enum):
     TIMESTAMP_LTZ = "TIMESTAMP_LTZ"  # with Local Time Zone
     TIMESTAMP_NTZ = "TIMESTAMP_NTZ"  # No Time Zone
     TIMESTAMP_TZ = "TIMESTAMP_TZ"  # with Time Zone (only the UTC offset)
+    TIME = "TIME"
     VARCHAR = "VARCHAR"
     BINARY = "BINARY"
 

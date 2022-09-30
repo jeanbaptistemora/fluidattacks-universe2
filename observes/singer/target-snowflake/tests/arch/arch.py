@@ -19,8 +19,16 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_snowflake": (
         "cli",
+        "data_schema",
         "snowflake_client",
         ("_assert", "_logger"),
+    ),
+    "target_snowflake.data_schema": (
+        "_data_types",
+        "_utils",
+    ),
+    "target_snowflake.data_schema._data_types": (
+        ("_integer", "_string", "_number"),
     ),
     "target_snowflake.snowflake_client": (
         "root",
