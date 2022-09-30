@@ -10,6 +10,9 @@ from dynamodb.checkpoint import (
     remove_checkpoint,
     save_checkpoint,
 )
+from dynamodb.context import (
+    FI_ENVIRONMENT,
+)
 from dynamodb.resource import (
     CLIENT,
     TABLE_NAME,
@@ -153,6 +156,9 @@ def _consume_shard_records(
         if not records:
             sleep(10)
             continue
+
+        if FI_ENVIRONMENT != "prod":
+            LOGGER.info(records)
 
         for trigger in TRIGGERS:
             matching_records = tuple(

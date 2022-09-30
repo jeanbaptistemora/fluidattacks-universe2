@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from dynamodb.context import (
+    FI_ENVIRONMENT,
+)
 from dynamodb.processors import (
     opensearch,
     redshift,
@@ -16,7 +19,8 @@ TRIGGERS: tuple[Trigger, ...] = (
     Trigger(
         batch_size=20,
         records_filter=(
-            lambda record: record.pk.startswith("VULN#")
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.pk.startswith("VULN#")
             and record.sk.startswith("FIN#")
             and record.event_name == EventName.INSERT
         ),

@@ -354,6 +354,9 @@ resource "aws_dynamodb_table" "integrates" {
 
 
 resource "aws_dynamodb_table" "integrates_vms" {
+  stream_enabled   = true
+  stream_view_type = "NEW_AND_OLD_IMAGES"
+
   attribute {
     name = "pk"
     type = "S"
