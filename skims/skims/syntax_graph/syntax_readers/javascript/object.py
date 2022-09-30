@@ -20,6 +20,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     valid_parameters = {
         "method_definition",
         "pair",
+        "property_signature",
         "shorthand_property_identifier",
         "shorthand_property_identifier_pattern",
         "spread_element",

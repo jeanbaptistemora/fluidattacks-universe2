@@ -17,6 +17,8 @@ from syntax_graph.syntax_readers.javascript import (
 )
 from syntax_graph.syntax_readers.typescript import (
     as_expression as typescript_as_expression,
+    interface_declaration as typescript_interface_declaration,
+    property_signature as typescript_property_signature,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -58,8 +60,15 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "identifier",
             "property_identifier",
+            "type_identifier",
         },
         syntax_reader=javascript_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "interface_declaration",
+        },
+        syntax_reader=typescript_interface_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -70,6 +79,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "object",
+            "object_type",
         },
         syntax_reader=javascript_object.reader,
     ),
@@ -84,6 +94,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=javascript_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "property_signature",
+        },
+        syntax_reader=typescript_property_signature.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -9,7 +9,6 @@ from syntax_graph.syntax_nodes.new_expression import (
     build_new_expression_node,
 )
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
@@ -18,8 +17,7 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    match_childs = match_ast(args.ast_graph, args.n_id)
-
-    if const_id := match_childs.get("__0__"):
-        return build_new_expression_node(args, const_id, None)
-    raise MissingCaseHandling(f"Bad new expression handling in {args.n_id}")
+    match_childs = match_ast(args.ast_graph, args.n_id, "as")
+    const_id = str(match_childs["__0__"])
+    args_id = match_childs.get("__1__")
+    return build_new_expression_node(args, const_id, args_id)
