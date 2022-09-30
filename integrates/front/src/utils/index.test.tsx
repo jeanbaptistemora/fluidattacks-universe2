@@ -820,6 +820,32 @@ describe("Validations", (): void => {
 
     expect(answer).toBe("No file selected");
   });
+
+  it("Should be a file without .yml or .yaml extension", (): void => {
+    expect.hasAssertions();
+
+    const file: File = {
+      ...new File([], ""),
+      name: "test.txt",
+      size: 1048575,
+    };
+    const answer = isValidVulnsFile([file]);
+
+    expect(answer).toBe("The file must be .yaml or .yml type");
+  });
+
+  it("Should be a valid vulns file", (): void => {
+    expect.hasAssertions();
+
+    const file: File = {
+      ...new File([], ""),
+      name: "test.yml",
+      size: 1048575,
+    };
+    const answer = isValidVulnsFile([file]);
+
+    expect(answer).toBeUndefined();
+  });
 });
 
 describe("cvss", (): void => {
