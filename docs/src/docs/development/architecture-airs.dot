@@ -5,6 +5,7 @@
 digraph airs {
   label="Airs Architecture"
   compound="true"
+  concentrate="true"
   scale="scalexy"
 
   customer[label="Customer"]
