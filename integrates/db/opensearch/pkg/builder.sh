@@ -16,6 +16,16 @@ function opensearch_keystore {
     || return 1
 }
 
+function apply_patches {
+  # Temporal workaround to 'convince' opensearch to run on makes containers
+  # https://github.com/fluidattacks/makes/issues/944
+  : \
+    && mkdir -p "org/opensearch/bootstrap" \
+    && cp "${envPatchedNatives}" "org/opensearch/bootstrap/Natives.class" \
+    && jar -uf "${out}/lib/opensearch-1.3.0.jar" "org/opensearch/bootstrap/" \
+    || return 1
+}
+
 function main {
   : \
     && mkdir -p "${out}" \
@@ -25,6 +35,7 @@ function main {
       --no-preserve=mode \
       bin config lib logs modules plugins "${out}" \
     && popd \
+    && apply_patches \
     && opensearch_keystore create \
     || return 1
 }

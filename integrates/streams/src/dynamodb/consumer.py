@@ -10,9 +10,6 @@ from dynamodb.checkpoint import (
     remove_checkpoint,
     save_checkpoint,
 )
-from dynamodb.context import (
-    FI_ENVIRONMENT,
-)
 from dynamodb.resource import (
     CLIENT,
     TABLE_NAME,
@@ -150,15 +147,11 @@ def _consume_shard_records(
 
     for records in _get_shard_records(shard_id, shard_iterator):
         if shutdown_event.is_set():
-            LOGGER.info("%s shutting down", shard_id)
             break
 
         if not records:
             sleep(10)
             continue
-
-        if FI_ENVIRONMENT != "prod":
-            LOGGER.info(records)
 
         for trigger in TRIGGERS:
             matching_records = tuple(
@@ -207,6 +200,7 @@ def consume() -> None:
                 worker.start()
 
     def _shutdown(*_: Any) -> None:
+        LOGGER.info("Shutting down")
         shutdown_event.set()
 
     signal.signal(signal.SIGINT, _shutdown)

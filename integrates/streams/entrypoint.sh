@@ -34,7 +34,7 @@ function main {
 
   echo "[INFO] Executing ${module} consumer" \
     && export_secrets "${ENVIRONMENT}" \
-    && pushd integrates/streams/src \
+    && pushd __argSrc__ \
     && python3 "invoker.py" "${module}" \
     && popd \
     || return 1

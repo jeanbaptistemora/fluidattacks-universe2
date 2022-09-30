@@ -14,6 +14,7 @@ makeScript {
   replace = {
     __argSecretsDev__ = projectPath "/integrates/secrets/development.yaml";
     __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
+    __argSrc__ = projectPath "/integrates/streams/src";
   };
   searchPaths = {
     bin = [

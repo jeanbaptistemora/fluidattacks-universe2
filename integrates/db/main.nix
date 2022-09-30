@@ -6,9 +6,11 @@
   projectPath,
   makeDynamoDb,
   makeScript,
+  managePorts,
+  outputs,
   ...
 }: let
-  data = makeScript {
+  dynamodb_data = makeScript {
     replace = {
       __argDbData__ = projectPath "/integrates/back/test/data";
       __argNewDbDesign__ = projectPath "/integrates/arch/database-design.json";
@@ -24,7 +26,7 @@
     };
     entrypoint = ./data.sh;
   };
-  run = makeDynamoDb {
+  dynamodb = makeDynamoDb {
     name = "db";
     host = "127.0.0.1";
     port = "8022";
@@ -32,16 +34,21 @@
     data = ["integrates/db/.data"];
     daemonMode = false;
   };
+  opensearch = outputs."/integrates/db/opensearch";
+  streams = outputs."/integrates/streams";
 in
   makeScript {
     name = "dynamodb-for-integrates";
     searchPaths = {
       bin = [
-        data
-        run
+        dynamodb_data
+        dynamodb
+        opensearch
+        streams
+      ];
+      source = [
+        managePorts
       ];
     };
-    entrypoint = ''
-      data-for-db && dynamodb-for-db
-    '';
+    entrypoint = ./entrypoint.sh;
   }
