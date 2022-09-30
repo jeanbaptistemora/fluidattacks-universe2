@@ -8,19 +8,18 @@ import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Gap } from "components/Layout";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
+import { Table } from "components/TableNew";
 import { Tooltip } from "components/Tooltip";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
@@ -51,7 +50,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     setIsAddModalOpen(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
+  const [currentRow, setCurrentRow] = useState<{ tagName: string }[]>([]);
 
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery<IGetTagsQuery>(GET_TAGS, {
@@ -107,11 +106,11 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     await removeGroupTag({
       variables: {
         groupName,
-        tagToRemove: currentRow.tagName,
+        tagToRemove: currentRow[0].tagName,
       },
     });
-    setCurrentRow({});
-  }, [currentRow.tagName, groupName, removeGroupTag]);
+    setCurrentRow([]);
+  }, [currentRow, groupName, removeGroupTag]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -149,19 +148,10 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     }
   }
 
-  const sortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("portfolioSort", JSON.stringify(newSorted));
-  };
-
-  const tableHeaders: IHeaderConfig[] = [
+  const columns: ColumnDef<{ tagName: string }>[] = [
     {
-      dataField: "tagName",
+      accessorKey: "tagName",
       header: t("searchFindings.tabResources.tags.title"),
-      onSort: sortState,
     },
   ];
 
@@ -209,24 +199,17 @@ const Portfolio: React.FC<IPortfolioProps> = ({
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <Table
-            dataset={tagsDataset}
-            defaultSorted={JSON.parse(
-              _.get(sessionStorage, "portfolioSort", "{}") as string
-            )}
-            exportCsv={false}
-            headers={tableHeaders}
+            columns={columns}
+            data={tagsDataset}
             id={"tblTags"}
-            pageSize={10}
-            search={false}
-            selectionMode={{
-              clickToSelect: canDelete,
-              hideSelectColumn: !canDelete,
-              mode: "radio",
-              onSelect:
-                networkStatus === NetworkStatus.refetch || removing
-                  ? undefined
-                  : setCurrentRow,
-            }}
+            rowSelectionSetter={
+              canDelete &&
+              !(networkStatus === NetworkStatus.refetch || removing)
+                ? setCurrentRow
+                : undefined
+            }
+            rowSelectionState={currentRow}
+            selectionMode={"radio"}
           />
         )}
       </Can>

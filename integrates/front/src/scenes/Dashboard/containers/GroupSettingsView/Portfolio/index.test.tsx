@@ -111,7 +111,10 @@ describe("Portfolio", (): void => {
     userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(screen.getByRole("textbox"), "test-new-tag");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "tags[0]" }),
+      "test-new-tag"
+    );
     userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
@@ -151,7 +154,7 @@ describe("Portfolio", (): void => {
 
     await screen.findByRole("row", { name: "test-tag1" });
 
-    userEvent.click(screen.getByRole("row", { name: "test-tag1" }));
+    userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
     userEvent.click(
       screen.getByText("searchFindings.tabResources.removeRepository")
     );
@@ -179,7 +182,17 @@ describe("Portfolio", (): void => {
 
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test-tag1");
 
-    userEvent.click(screen.getByRole("columnheader"));
+    userEvent.click(
+      screen.getByRole("columnheader", {
+        name: "searchFindings.tabResources.tags.title",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("columnheader", {
+        name: "searchFindings.tabResources.tags.title",
+      })
+    );
 
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test-tag2");
   });
@@ -224,7 +237,10 @@ describe("Portfolio", (): void => {
     userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(screen.getByRole("textbox"), "test-new-tag");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "tags[0]" }),
+      "test-new-tag"
+    );
     userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
@@ -264,7 +280,7 @@ describe("Portfolio", (): void => {
     );
     await screen.findByRole("row", { name: "test-tag1" });
 
-    userEvent.click(screen.getByRole("row", { name: "test-tag1" }));
+    userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
     userEvent.click(
       screen.getByText("searchFindings.tabResources.removeRepository")
     );
@@ -293,7 +309,10 @@ describe("Portfolio", (): void => {
     userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(screen.getByRole("textbox"), "test-tag1");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "tags[0]" }),
+      "test-tag1"
+    );
     userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
