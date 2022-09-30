@@ -8,10 +8,11 @@
 Removes input vulnerabilities reported by Machine
 with the specific splitted into two
 
-Execution Time:    TBD
-Finalization Time: TBD
+Execution Time:    2022-09-30 at 20:00:49 UTC
+Finalization Time: 2022-09-30 at 20:04:28 UTC
 """
 from aioextensions import (
+    collect,
     run,
 )
 from dataloaders import (
@@ -19,6 +20,7 @@ from dataloaders import (
 )
 from db_model.enums import (
     Source,
+    StateRemovalJustification,
 )
 from db_model.findings.types import (
     Finding,
@@ -40,6 +42,9 @@ from typing import (
     List,
     Optional,
     Tuple,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
 )
 
 INPUT_FINDINGS_DESCRIPTIONS: Dict[str, List[str]] = {
@@ -184,12 +189,9 @@ def get_vulns_with_description_issues(
         aux_descriptions_splits: List[List[str]] = descriptions_splits
         vuln_description = vuln.specific
 
-        if f_id in ["F052", "F094"]:
+        if finding_key in ["F052", "F094"]:
             cipher, protocol = get_tls_information(vuln_description)
             if cipher is None and protocol is None:
-                print(
-                    "\t\t" + f"Could not determine SSL information for {vuln}"
-                )
                 continue
             aux_descriptions = [
                 description.replace(
@@ -253,8 +255,24 @@ async def main() -> None:
                 ]
                 if machine_vulns:
                     vulns_to_delete += get_vulns_with_description_issues(
-                        finding.title[:2], machine_vulns
+                        finding.title[:3], machine_vulns
                     )
+            print("\t" + f"Deleting {len(vulns_to_delete)} vulnerabilities...")
+            await collect(
+                (
+                    vulns_domain.remove_vulnerability(
+                        loaders,
+                        vuln.finding_id,
+                        vuln.id,
+                        StateRemovalJustification.REPORTING_ERROR,
+                        "acuberos@fluidattacks.com",
+                        Source.ASM,
+                        True,
+                    )
+                    for vuln in vulns_to_delete
+                ),
+                workers=15,
+            )
 
 
 if __name__ == "__main__":
