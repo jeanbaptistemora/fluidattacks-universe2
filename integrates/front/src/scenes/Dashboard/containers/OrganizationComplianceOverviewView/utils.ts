@@ -6,10 +6,11 @@
 
 import _ from "lodash";
 
+const PERCENTAGE_BASE = 100;
+
 const handleComplianceValue: (value: number | null) => number = (
   value: number | null
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-): number => (_.isNull(value) ? 0 : value * 100);
+): number => (_.isNull(value) ? 0 : Math.round(value * PERCENTAGE_BASE));
 
 const getProgressBarColor: (progress: number) => string = (
   progress: number
