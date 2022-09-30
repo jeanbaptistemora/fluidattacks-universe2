@@ -25,6 +25,10 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         ("_assert", "_logger"),
         "_patch",
     ),
+    "target_snowflake.cli": (
+        "_upload",
+        "_core",
+    ),
     "target_snowflake.loader": (
         ("_handlers", "_strategy"),
         "_grouper",
