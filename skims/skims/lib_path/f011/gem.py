@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from functools import (
+    wraps,
+)
 from lib_path.common import (
     DependencyType,
     translate_dependencies_to_vulnerabilities,
@@ -13,12 +16,16 @@ from model.core_model import (
 )
 import re
 from typing import (
+    Any,
     Callable,
     Iterator,
     List,
     Match,
     Pattern,
+    TypeVar,
 )
+
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 def format_dep(
@@ -41,20 +48,27 @@ def format_dep(
 
 
 def pck_manager_file(
-    content: str,
-    path: str,
-    platform: Platform,
-    method: MethodsEnum,
-    resolve_dependencies: Callable[[str], Iterator[DependencyType]],
-) -> Vulnerabilities:
+    platform: Platform, method: MethodsEnum
+) -> Callable[[TFun], Callable[[str, str], Vulnerabilities]]:
+    def resolve_deps(
+        resolve_dependencies: TFun,
+    ) -> Callable[[str, str], Vulnerabilities]:
+        @wraps(resolve_dependencies)
+        def resolve_vulns(
+            content: str,
+            path: str,
+        ) -> Vulnerabilities:
+            return translate_dependencies_to_vulnerabilities(
+                content=content,
+                dependencies=resolve_dependencies(content, path),
+                path=path,
+                platform=platform,
+                method=method,
+            )
 
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(content),
-        path=path,
-        platform=platform,
-        method=method,
-    )
+        return resolve_vulns
+
+    return resolve_deps
 
 
 def gem_gemfile(content: str, path: str) -> Vulnerabilities:
