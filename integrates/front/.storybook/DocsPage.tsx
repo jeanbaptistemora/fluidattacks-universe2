@@ -40,7 +40,7 @@ const ImportStatement = (): JSX.Element => {
 const SBDocsTheme = styled.div.attrs({
   className: "sb-theme",
 })`
-  font-family: Roboto, sans-serif;
+  font-family: Poppins, sans-serif;
 `;
 
 const DocsPage = (): JSX.Element => (
