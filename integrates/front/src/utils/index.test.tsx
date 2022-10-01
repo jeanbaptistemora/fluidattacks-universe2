@@ -10,6 +10,7 @@ import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
 import {
   alphaNumeric,
+  hasSshFormat,
   isFloatOrInteger,
   isLowerDate,
   isPositive,
@@ -739,9 +740,9 @@ describe("Validations", (): void => {
       grouptest1: helperList,
     };
     const name: string = "grouptest1.grouptest2.grouptest3";
-    const answer = someRequired(true, values, helperList, name);
+    const someGroupValues = someRequired(true, values, helperList, name);
 
-    expect(answer).toBeUndefined();
+    expect(someGroupValues).toBeUndefined();
   });
 
   it("Should be undefined group values", (): void => {
@@ -755,9 +756,9 @@ describe("Validations", (): void => {
       grouptest1: helperList,
     };
     const name: string = "group1";
-    const answer = someRequired(true, values, helperList, name);
+    const someGroupValues = someRequired(true, values, helperList, name);
 
-    expect(answer).toBe("Select at least one value");
+    expect(someGroupValues).toBe("Select at least one value");
   });
 
   it("Should check the evidence", (): void => {
@@ -776,9 +777,14 @@ describe("Validations", (): void => {
       url: helperList,
     };
     const name: string = "description.file.grouptest1.url";
-    const answer = validEvidenceDescription(true, values, helperList, name);
+    const evidenceDescription = validEvidenceDescription(
+      true,
+      values,
+      helperList,
+      name
+    );
 
-    expect(answer).toBeUndefined();
+    expect(evidenceDescription).toBeUndefined();
   });
 
   it("Should check the evidence description", (): void => {
@@ -795,9 +801,14 @@ describe("Validations", (): void => {
       grouptest1: helperList,
     };
     const name: string = "description.file.grouptest1";
-    const answer = validEvidenceDescription(true, values, helperList, name);
+    const evidenceDescription = validEvidenceDescription(
+      true,
+      values,
+      helperList,
+      name
+    );
 
-    expect(answer).toBeUndefined();
+    expect(evidenceDescription).toBeUndefined();
   });
 
   it("Should be a big size file", (): void => {
@@ -808,17 +819,17 @@ describe("Validations", (): void => {
       name: "test.yml",
       size: 1048577,
     };
-    const answer = isValidVulnsFile([file]);
+    const vulnsFile = isValidVulnsFile([file]);
 
-    expect(answer).toBe("The file size must be less than 1MB");
+    expect(vulnsFile).toBe("The file size must be less than 1MB");
   });
 
   it("Should be a empty filelist", (): void => {
     expect.hasAssertions();
 
-    const answer = isValidVulnsFile([]);
+    const vulnsFile = isValidVulnsFile([]);
 
-    expect(answer).toBe("No file selected");
+    expect(vulnsFile).toBe("No file selected");
   });
 
   it("Should be a file without .yml or .yaml extension", (): void => {
@@ -829,9 +840,9 @@ describe("Validations", (): void => {
       name: "test.txt",
       size: 1048575,
     };
-    const answer = isValidVulnsFile([file]);
+    const vulnsFile = isValidVulnsFile([file]);
 
-    expect(answer).toBe("The file must be .yaml or .yml type");
+    expect(vulnsFile).toBe("The file must be .yaml or .yml type");
   });
 
   it("Should be a valid vulns file", (): void => {
@@ -842,9 +853,28 @@ describe("Validations", (): void => {
       name: "test.yml",
       size: 1048575,
     };
-    const answer = isValidVulnsFile([file]);
+    const vulnsFile = isValidVulnsFile([file]);
 
-    expect(answer).toBeUndefined();
+    expect(vulnsFile).toBeUndefined();
+  });
+
+  it("Should ve a valid ssh format", (): void => {
+    expect.hasAssertions();
+
+    const value =
+      "-----BEGIN OPENSSH PRIVATE KEY-----\ntestssh\n-----END OPENSSH PRIVATE KEY-----";
+    const sshCheck = hasSshFormat(value);
+
+    expect(sshCheck).toBeUndefined();
+  });
+
+  it("Should ve a invalid ssh format", (): void => {
+    expect.hasAssertions();
+
+    const value = "BEGIN OPENSSH PRIVATE KEY\ntest\nEND OPENSSH PRIVATE KEY";
+    const sshCheck = hasSshFormat(value);
+
+    expect(sshCheck).toBe("Invalid or malformed SSH private key");
   });
 });
 
