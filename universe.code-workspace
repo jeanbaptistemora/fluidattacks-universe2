@@ -1,0 +1,35 @@
+{
+  "extensions": {
+    "recommendations": [
+      "4ops.terraform",
+      "bbenoist.Nix",
+      "bierner.markdown-mermaid",
+      "eamodio.gitlens",
+      "GrapeCity.gc-excelviewer",
+      "hashicorp.terraform",
+      "jkillian.custom-local-formatters",
+      "joaompinto.vscode-graphviz",
+      "kamadorueda.alejandra",
+      "mads-hartmann.bash-ide-vscode",
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-toolsai.jupyter",
+      "ms-toolsai.jupyter-renderers",
+      "njpwerner.autodocstring",
+      "shardulm94.trailing-spaces",
+      "streetsidesoftware.code-spell-checker",
+      "tamasfe.even-better-toml",
+      "usernamehw.errorlens"
+    ],
+    "unwantedRecommendations": [
+      "b4dm4n.nixpkgs-fmt",
+      "esbenp.prettier-vscode",
+      "ms-python.black-formatter"
+    ]
+  },
+  "folders": [
+    {
+      "path": "."
+    }
+  ]
+}
