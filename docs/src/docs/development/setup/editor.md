@@ -12,42 +12,30 @@ and it works very well for our purpose.
 You can install it with
 `$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode`
 
-Now install some useful extensions.
+Now, from within a terminal
+that was setup as explained in the previous tutorial,
+open the [VS Code workspace](https://gitlab.com/fluidattacks/universe/-/blob/trunk/universe.code-workspace):
 
 ```bash
-extensions=(
-  4ops.terraform
-  bbenoist.Nix
-  bierner.markdown-mermaid
-  coolbear.systemd-unit-file
-  daohong-emilio.yash
-  eamodio.gitlens
-  GrapeCity.gc-excelviewer
-  hashicorp.terraform
-  haskell.haskell
-  jkillian.custom-local-formatters
-  justusadam.language-haskell
-  kamadorueda.alejandra
-  mads-hartmann.bash-ide-vscode
-  mattn.Lisp
-  ms-python.python
-  ms-python.vscode-pylance
-  ms-toolsai.jupyter
-  ms-toolsai.jupyter-renderers
-  ms-vscode-remote.remote-ssh
-  ms-vscode.cpptools
-  njpwerner.autodocstring
-  redhat.java
-  rust-lang.rust-analyzer
-  shardulm94.trailing-spaces
-  streetsidesoftware.code-spell-checker
-  tamasfe.even-better-toml
-  usernamehw.errorlens
-)
-for extension in "${extensions[@]}"; do
-  code --force --install-extension "${extension}"
-done
+universe $ code universe.code-workspace
 ```
+
+You will probably see a popup
+to install the recommended extensions,
+please install them:
+
+![](https://res.cloudinary.com/fluid-attacks/image/upload/v1664733557/docs/development/setup/recommended-popup.png)
+
+If you didn't see the popup,
+please go to the extensions tab (`Ctrl+Shift+X`),
+type `@recommended`,
+and install the recommended extensions for the workspace.
+You can click on the small cloud button
+to the right of "WORKSPACE RECOMMENDATIONS"
+and to the left of the pencil
+to download them all at the same time:
+
+![](https://res.cloudinary.com/fluid-attacks/image/upload/v1664733557/docs/development/setup/recommended-extensions.png)
 
 For further customization,
 a configuration file will be created at
