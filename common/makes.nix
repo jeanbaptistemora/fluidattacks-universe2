@@ -8,6 +8,7 @@
     ./compute/makes.nix
     ./cluster/makes.nix
     ./criteria/makes.nix
+    ./dev/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
     ./okta/makes.nix

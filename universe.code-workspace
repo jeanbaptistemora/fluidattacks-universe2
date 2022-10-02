@@ -31,5 +31,113 @@
     {
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "[python]": {
+      "editor.tabSize": 4
+    },
+    "customLocalFormatters.formatters": [
+      {
+        "command": "universe-fmt css",
+        "languages": [
+          "css"
+        ]
+      },
+      {
+        "command": "universe-fmt html",
+        "languages": [
+          "html"
+        ]
+      },
+      {
+        "command": "universe-fmt javascript",
+        "languages": [
+          "javascript"
+        ]
+      },
+      {
+        "command": "universe-fmt json",
+        "languages": [
+          "json",
+          "jsonc"
+        ]
+      },
+      {
+        "command": "universe-fmt markdown",
+        "languages": [
+          "markdown"
+        ]
+      },
+      {
+        "command": "universe-fmt python",
+        "languages": [
+          "python"
+        ]
+      },
+      {
+        "command": "universe-fmt scss",
+        "languages": [
+          "scss"
+        ]
+      },
+      {
+        "command": "universe-fmt shellscript",
+        "languages": [
+          "shellscript"
+        ]
+      },
+      {
+        "command": "universe-fmt terraform",
+        "languages": [
+          "terraform"
+        ]
+      },
+      {
+        "command": "universe-fmt toml",
+        "languages": [
+          "toml"
+        ]
+      },
+      {
+        "command": "universe-fmt xml",
+        "languages": [
+          "xml"
+        ]
+      },
+      {
+        "command": "universe-fmt yaml",
+        "languages": [
+          "yaml"
+        ]
+      }
+    ],
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.renderSideBySide": false,
+    "diffEditor.wordWrap": "on",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.defaultFormatter": "jkillian.custom-local-formatters",
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.tabSize": 2,
+    "extensions.autoUpdate": false,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "graphviz-interactive-preview.openAutomatically": false,
+    "python.analysis.autoSearchPaths": false,
+    "python.analysis.diagnosticMode": "openFilesOnly",
+    "python.defaultInterpreterPath": "python",
+    "python.formatting.provider": "none",
+    "python.languageServer": "Pylance",
+    "security.workspace.trust.enabled": false,
+    "telemetry.telemetryLevel": "off",
+    "update.mode": "none",
+    "update.showReleaseNotes": false,
+    "workbench.startupEditor": "none"
+  }
 }
