@@ -9,12 +9,15 @@ We highly recommend you use Visual Studio Code
 because most of the team uses it,
 and it works very well for our purpose.
 
-You can install it with
-`$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode`
+You can install it with:
+
+```bash
+$ NIXPKGS_ALLOW_UNFREE=1 nix-env --install --attr vscode --file https://github.com/nixos/nixpkgs/archive/b42e50fe36242b1b205a7d501b7911d698218086.tar.gz
+```
 
 Now, from within a terminal
 that was setup as explained in the previous tutorial,
-open the [VS Code workspace](https://gitlab.com/fluidattacks/universe/-/blob/trunk/universe.code-workspace):
+open the [VS Code workspace][workspace]:
 
 ```bash
 universe $ code universe.code-workspace
@@ -37,74 +40,27 @@ to download them all at the same time:
 
 ![](https://res.cloudinary.com/fluid-attacks/image/upload/v1664733557/docs/development/setup/recommended-extensions.png)
 
+You can test if everything works correctly by opening a JSON file,
+adding empty lines between elements,
+and then saving the file.
+The empty lines should be removed,
+and the keys sorted alphabetically.
+In other words, the file should be automatically formatted on save.
+
 For further customization,
-a configuration file will be created at
-`~/.config/Code/User/settings.json`
-once you start the editor.
-Please note that
-the entire configuration file
-must comply with the JSON format,
-so make sure you don't have trailing commas.
-If correctly formatted,
-you should be able
-to perform a `cat ~/.config/Code/User/settings.json | jq`
-without errors.
+you can add install other extensions
+or open the settings with `Ctrl+,`
+to configure things like the font, font size, or theme.
+If you think an extension or setting can be useful
+to other developers,
+please add it to the [workspace][workspace] configuration.
 
-This configuration is needed for the language server to work correctly:
+Finally, take into account that certain extensions
+or settings can prevent the environment from working.
+Feel free to ask for help
+in the _Development_ space on Google Workspace
+if something doesn't work.
 
-```json
-{
-  "python.languageServer": "Pylance"
-}
-```
+<!--  -->
 
-These configurations are suggested; you can add the ones you want:
-
-```json
-{
-  "editor.rulers": [80],
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true
-}
-```
-
-You can configure automatic code formatters like this:
-
-```json
-{
-  "customLocalFormatters.formatters": [
-    {
-      "command": "/path/to/my/python/formatter/script",
-      "languages": ["python"]
-    },
-    {
-      "command": "shfmt -bn -ci -i 2 -s -sr -",
-      "languages": ["shellscript"]
-    },
-    {
-      "command": "terraform fmt",
-      "languages": ["tf"]
-    }
-  ]
-}
-```
-
-The Python formatter script can be this one:
-
-```bash
-#! /usr/bin/env bash
-
-# Replace ${makesSrc} with the git-clone of:
-# https://github.com/fluidattacks/makes
-
-black \
-  --config \
-  "${makesSrc}/src/evaluator/modules/format-python/settings-black.toml" \
-  - \
-  | \
-isort \
-  --settings-path \
-  "${makesSrc}/src/evaluator/modules/format-python/settings-isort.toml" \
-  -
-```
+[workspace]: https://gitlab.com/fluidattacks/universe/-/blob/trunk/universe.code-workspace

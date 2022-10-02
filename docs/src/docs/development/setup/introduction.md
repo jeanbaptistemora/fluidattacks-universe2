@@ -14,9 +14,13 @@ every time you enter
 your local checkout
 of the Universe repository.
 
-After this section you will be able to develop with:
+After this section you will have:
 
-- code auto-completion,
-- go-to-definition functionality,
-- required dependencies in the host,
-- automatic formatters, etc.
+- A terminal with AWS credentials
+  for the specific product you are developing.
+- An editor with:
+  - The source code of the Universe repository.
+  - Recommended development extensions.
+  - Automatic code formatters on save.
+  - Auto completion and go to definition.
+  - OS libraries required.
