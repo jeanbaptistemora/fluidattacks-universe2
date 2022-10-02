@@ -28,7 +28,7 @@ spec:
         worker_group: prod_integrates
       containers:
         - name: back
-          image: ghcr.io/fluidattacks/makes:22.09
+          image: ghcr.io/fluidattacks/makes:22.11
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -38,7 +38,7 @@ spec:
               m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back prod
           env:
             - name: MAKES_K8S_COMPAT
-              value: '1'
+              value: "1"
           resources:
             # Ensure your request and limit fits in the node:
             #   kubectl get node --selector=worker_group=prod_integrates

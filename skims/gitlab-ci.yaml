@@ -1,6 +1,6 @@
 ---
 /deployTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -43,7 +43,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -65,7 +65,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/skimsTest:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -87,7 +87,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -109,7 +109,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -131,7 +131,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /skims/coverage:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
     - /testPython/skims@benchmark_cmdi
@@ -186,7 +186,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -214,7 +214,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -242,7 +242,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -270,7 +270,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -298,7 +298,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -326,7 +326,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -354,7 +354,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -382,7 +382,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -410,7 +410,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -438,7 +438,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -466,7 +466,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -494,7 +494,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -522,7 +522,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -550,7 +550,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -578,7 +578,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -606,7 +606,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -634,7 +634,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -662,7 +662,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -690,7 +690,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -718,7 +718,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -746,7 +746,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -774,7 +774,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -802,7 +802,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -830,7 +830,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -858,7 +858,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -886,7 +886,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -914,7 +914,7 @@
     paths:
       - skims/.coverage*
       - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:
@@ -934,7 +934,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/skims:
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
   rules:

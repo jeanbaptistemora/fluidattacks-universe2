@@ -36,7 +36,7 @@ workflow:
     - when: always
 
 .makes4: &makes4
-  image: ghcr.io/fluidattacks/makes:22.09
+  image: ghcr.io/fluidattacks/makes:22.11
   needs: []
   interruptible: true
   script:
@@ -163,7 +163,7 @@ common_forces:
   needs: []
   image:
     name: fluidattacks/forces:new
-    entrypoint: ['']
+    entrypoint: [""]
   script:
     - forces --token "${FORCES_API_TOKEN}" --strict -vv
   interruptible: true
@@ -178,7 +178,7 @@ common_sonarcloud_check:
   needs: []
   image:
     name: sonarsource/sonar-scanner-cli:latest
-    entrypoint: ['']
+    entrypoint: [""]
   cache:
     key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
     paths:
@@ -187,5 +187,5 @@ common_sonarcloud_check:
     - sonar-scanner
   variables:
     SONAR_HOST_URL: https://sonarcloud.io/
-    SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar  # Defines the location of the analysis task cache
-    GIT_DEPTH: '0'  # Tells git to fetch all the branches of the project, required by the analysis task
+    SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar # Defines the location of the analysis task cache
+    GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task

@@ -9,7 +9,7 @@ resource "aws_batch_job_definition" "main" {
   type = "container"
   container_properties = jsonencode(
     {
-      image      = "ghcr.io/fluidattacks/makes:22.09"
+      image      = "ghcr.io/fluidattacks/makes:22.11"
       jobRoleArn = each.value.arn
 
       # Will be overridden on job submission
