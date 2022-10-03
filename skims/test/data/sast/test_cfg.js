@@ -261,6 +261,26 @@ const {
   exec
 } = require("child_process");
 
+const collectD = (name, func) => {
+    return async (...args) => {
+      const end = st.startTimer({ t: name })
+      const res = await func(...args)
+      end()
+      return res
+    }
+}
+
+app.use(['/safe', '/sec'], securityTxt({
+    contact: config.get('sec.contact'),
+    languages: [...new Set(locales.map(locale => locale.key.substr(0, 2)))].join(', '),
+    expires: security.toUTCString(),
+}))
+
+for (const { name, exclude } of autoModels) {
+    console.log(name, exclude);
+}
+
+arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, "hello");
 
 export let name1, name2;
 export const name3 = 1, name4 = 2;

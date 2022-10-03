@@ -139,12 +139,12 @@ def unnamed_function(args: CfgArgs, stack: Stack) -> None:
         body_id = node_attrs["label_field_body"]
         args.graph.add_edge(args.n_id, body_id, **g.ALWAYS)
         args.generic(args.fork_n_id(body_id), stack)
-
-        # get last statement in edge block statements
-        *_, last_fun_statement = g.adj_cfg(args.graph, body_id, depth=-1)
-        for adj in current_node_adj:
-            args.graph.add_edge(last_fun_statement, adj, **g.ALWAYS)
-        if last_statement:
-            args.graph.add_edge(last_fun_statement, last_statement, **g.ALWAYS)
-
+        cfg_childs = g.adj_cfg(args.graph, body_id, depth=-1)
+        if len(cfg_childs) >= 1:
+            # get last statement in edge block statements
+            *_, last_fun_st = cfg_childs
+            for adj in current_node_adj:
+                args.graph.add_edge(last_fun_st, adj, **g.ALWAYS)
+            if last_statement:
+                args.graph.add_edge(last_fun_st, last_statement, **g.ALWAYS)
         break
