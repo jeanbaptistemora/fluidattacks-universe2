@@ -25,7 +25,7 @@ from forces.model import (
 from forces.report import (
     filter_report,
     format_rich_report,
-    generate_report,
+    generate_raw_report,
 )
 from forces.utils.logs import (
     CONSOLE_INTERFACE,
@@ -95,7 +95,7 @@ async def entrypoint(
                 ):
                     return 1
             await log("info", f"{tasks.pop(0)}{footer}")
-            report = await generate_report(config)
+            report = await generate_raw_report(config)
             await log("info", f"{tasks.pop(0)}{footer}")
 
             if report["summary"]["total"] > 0:

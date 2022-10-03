@@ -37,6 +37,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     Union,
 )
@@ -120,7 +121,7 @@ async def gather_finding_data(
     group: str,
     **kwargs: str,
 ) -> Dict[str, Finding]:
-    """Returns a tuple of containing as key the findings of a project."""
+    """Returns the findings data needed for the report"""
     findings_dict: Dict[str, Finding] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
@@ -289,16 +290,16 @@ def filter_report(
     # Remove extra info not needed for the formatted report
     if verbose_level == 1:
         # Filter level 1, do not show vulnerabilities details
-        filter_vulns(report["findings"], (None,))
+        filter_vulns(report["findings"], set())
     elif verbose_level == 2:
         # Filter level 2, only show open vulnerabilities
-        filter_vulns(report["findings"], ("open",))
+        filter_vulns(report["findings"], {"open"})
     elif verbose_level == 3:
         # Filter level 3, only show open and closed vulnerabilities
-        filter_vulns(report["findings"], ("open", "closed"))
+        filter_vulns(report["findings"], {"open", "closed"})
     else:
         # If filter level is 4 show open, closed and accepted vulnerabilities
-        filter_vulns(report["findings"], ("open", "closed", "accepted"))
+        filter_vulns(report["findings"], {"open", "closed", "accepted"})
     return report
 
 
@@ -316,15 +317,14 @@ def get_summary_template(kind: KindEnum) -> Dict[str, Dict[str, int]]:
     )
 
 
-async def generate_report(
+async def generate_raw_report(
     config: ForcesConfig,
     **kwargs: Any,
 ) -> Dict[str, Any]:
     """
     Generate a group vulnerability report.
 
-    :param group: Group Name.
-    :param verbose_level: Level of detail of the report.
+    :param `group`: Group Name
     """
     _start_time: float = timer()
 
@@ -389,12 +389,12 @@ async def generate_report(
 
 def filter_vulns(
     findings: List[Dict[str, Any]],
-    allowed_vuln_states: Tuple[Optional[str], ...],
+    allowed_vuln_states: Set[str],
 ) -> List[Dict[str, Any]]:
     """Helper method to filter vulns in findings based on the requested vuln
     states set by the verbosity level of the report"""
     # Verbosity level of 1
-    if None in allowed_vuln_states:
+    if allowed_vuln_states == set():
         for finding in findings:
             finding.pop("vulnerabilities")
     # Verbosity levels of 2, 3 and 4

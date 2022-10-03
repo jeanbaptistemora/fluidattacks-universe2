@@ -10,7 +10,7 @@ from forces.model.config import (
 )
 from forces.report import (
     create_findings_dict,
-    generate_report,
+    generate_raw_report,
     get_summary_template,
     style_report,
     style_summary,
@@ -48,7 +48,7 @@ async def test_generate_report1(
     test_finding: str,
 ) -> None:
     config = ForcesConfig(group=test_group)
-    report = await generate_report(
+    report = await generate_raw_report(
         config=config,
         api_token=test_token,
     )
@@ -69,7 +69,7 @@ async def test_generate_report2(
     test_finding: str,
 ) -> None:
     config = ForcesConfig(group=test_group)
-    report = await generate_report(
+    report = await generate_raw_report(
         config=config,
         api_token=test_token,
     )
