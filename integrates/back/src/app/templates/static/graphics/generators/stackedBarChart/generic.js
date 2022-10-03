@@ -16,10 +16,20 @@ function getTooltipPercentage(id, index, maxPercentageValues) {
 }
 
 function getTooltipValue(id, index, maxValues) {
-  return maxValues[id][index];
+  return d3.format(',.1~f')(maxValues[id][index]);
 }
 
+function formatYTick(x, tick) {
+  if (tick && tick.count) {
+    return d3.format(',.1~f')(parseFloat(parseFloat(x).toFixed(1)));
+  }
+
+  return x % 1 === 0 ? d3.format(',.1~f')(x) : '';
+}
+
+// eslint-disable-next-line complexity
 function render(dataDocument, height, width) {
+  dataDocument.paddingRatioLeft = 0.065;
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
     const { percentageValues, maxPercentageValues } = dataDocument;
     dataDocument.tooltip.format.value = (_datum, _r, id, index) =>
@@ -48,13 +58,13 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.stackedBarChartYTickFormat) {
     const { tick } = dataDocument.axis.y;
-    dataDocument.axis.y.tick = { ...tick, format: (x) => {
-      if (tick && tick.count) {
-        return parseFloat(parseFloat(x).toFixed(1));
-      }
+    dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick) };
+  }
 
-      return x % 1 === 0 ? x : '';
-    } };
+  if (dataDocument.hideYAxisLine && dataDocument.data.labels) {
+    dataDocument.data.labels = {
+      format: (datum) => d3.format(',.1~f')(datum),
+    };
   }
 
   c3.generate({

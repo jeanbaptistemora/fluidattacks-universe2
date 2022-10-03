@@ -31,7 +31,7 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
 
 function formatYTick(value) {
   if (value % 1 === 0) {
-    return value;
+    return d3.format(',.1~f')(value);
   }
 
   return '';
@@ -55,10 +55,10 @@ function formatYTickAdjusted(value) {
   const yTick = Math.round(Math.pow(2.0, Math.abs(value)) * ajustedBase) / base;
 
   if (value < 0.0) {
-    return -yTick;
+    return d3.format(',.1~f')(-yTick);
   }
 
-  return yTick;
+  return d3.format(',.1~f')(yTick);
 }
 
 // eslint-disable-next-line max-params
@@ -68,9 +68,9 @@ function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
-      return values.length > 0 ? values[0] : 0;
+      return values.length > 0 ? d3.format(',.1~f')(values[0]) : 0;
     }
-    return originalValues[index];
+    return d3.format(',.1~f')(originalValues[index]);
   }
 
   return '';
@@ -82,7 +82,7 @@ function formatLogYTick(value) {
   }
   const base = 100.0;
 
-  return parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1));
+  return d3.format(',.1~f')(parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1)));
 }
 
 function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
@@ -91,10 +91,10 @@ function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
-      return values.length > 0 ? values[0] : 0;
+      return values.length > 0 ? d3.format(',.1~f')(values[0]) : 0;
     }
 
-    return originalValues[index];
+    return d3.format(',.1~f')(originalValues[index]);
   }
 
   return '';
@@ -111,6 +111,7 @@ function formatLabels(datum, maxValue) {
 
 // eslint-disable-next-line complexity
 function render(dataDocument, height, width) {
+  dataDocument.paddingRatioLeft = 0.065;
   if (dataDocument.barChartYTickFormat) {
     dataDocument.axis.y.tick = { format: formatYTick };
   }
@@ -139,7 +140,7 @@ function render(dataDocument, height, width) {
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLogLabels(datum, index, maxValueLog, originalValues, columns),
     };
-    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
+    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
   }
 
   if (dataDocument.maxValueLogAdjusted) {
@@ -147,8 +148,7 @@ function render(dataDocument, height, width) {
     const { columns } = columsData;
     dataDocument.axis.y.tick = { format: formatYTickAdjusted };
     dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#da1e28' : '#33cc99');
-    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
-    dataDocument.paddingRatioLeft = 0.065;
+    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
         datum, index, maxValueLogAdjusted, originalValues, columns[0], dataDocument.exposureTrendsByCategories,
