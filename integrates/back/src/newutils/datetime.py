@@ -36,12 +36,6 @@ def format_comment_date(date_string: str) -> str:
     return formatted_date
 
 
-def format_justification_date(date_string: str) -> str:
-    just_date = get_datetime_from_iso_str(date_string)
-    formatted_date = get_as_str(just_date, date_format="%Y/%m/%d %H:%M")
-    return formatted_date
-
-
 def get_from_str(
     date_str: str,
     date_format: str = DEFAULT_DATE_FORMAT,
@@ -229,3 +223,15 @@ def convert_from_iso_str(iso8601utc_str: str) -> str:
 
 def get_first_day_next_month(date: datetime) -> datetime:
     return date.replace(day=1) + relativedelta(months=+1)
+
+
+def get_date_with_offset(
+    base_iso8601: str, target_iso8601: str, offset: int = 1
+) -> str:
+    """Guarantee at least n seconds separation between dates."""
+    return get_as_utc_iso_format(
+        max(
+            datetime.fromisoformat(base_iso8601) + timedelta(seconds=offset),
+            datetime.fromisoformat(target_iso8601),
+        )
+    )
