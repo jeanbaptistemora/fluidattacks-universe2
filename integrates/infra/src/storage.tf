@@ -55,6 +55,18 @@ resource "aws_s3_bucket_lifecycle_configuration" "integrates" {
       days = 14
     }
   }
+  rule {
+    id     = "reports"
+    status = "Enabled"
+
+    filter {
+      prefix = "reports/"
+    }
+    expiration {
+      # 1 month + some timezone skews
+      days = 32
+    }
+  }
 }
 
 resource "aws_s3_bucket_versioning" "integrates" {

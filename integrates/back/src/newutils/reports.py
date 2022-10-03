@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from context import (
-    FI_AWS_S3_REPORTS_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 import logging
 from s3 import (
@@ -37,16 +37,18 @@ async def expose_bytes_as_url(
     await uploaded_file.write(content)
     await uploaded_file.seek(0)
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_REPORTS_BUCKET,
+        FI_AWS_S3_MAIN_BUCKET,
         uploaded_file,
-        file_name,
+        f"reports/{file_name}",
     )
     return await sign_url(path=file_name, minutes=ttl)
 
 
 # Default ttl for reports is 1 hour = 3600 seconds
 async def sign_url(path: str, minutes: float = 3600) -> str:
-    return await s3_ops.sign_url(path, minutes, FI_AWS_S3_REPORTS_BUCKET)
+    return await s3_ops.sign_url(
+        f"reports/{path}", minutes, FI_AWS_S3_MAIN_BUCKET
+    )
 
 
 async def upload_report(file_name: str) -> str:
@@ -62,9 +64,9 @@ async def upload_report_from_file_descriptor(report: Any) -> str:
     file_path = report.filename
     file_name: str = file_path.split("_")[-1]
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_REPORTS_BUCKET,
+        FI_AWS_S3_MAIN_BUCKET,
         report,
-        file_name,
+        f"reports/{file_name}",
     )
     return file_name
 

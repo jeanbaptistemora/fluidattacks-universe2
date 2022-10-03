@@ -13,9 +13,13 @@ function serve {
   local bucket_paths_by_branch=(
     'analytics'
   )
+  local bucket_paths_by_root=(
+    'reports'
+  )
   local bucket_paths=(
     "${bucket_paths_by_group[@]}"
     "${bucket_paths_by_branch[@]}"
+    "${bucket_paths_by_root[@]}"
   )
   local buckets_by_branch=(
     'fluidintegrates.analytics'
