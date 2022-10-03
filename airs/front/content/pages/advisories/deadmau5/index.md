@@ -58,8 +58,8 @@ thus achieve an exfiltration of their local files.
 ## Exploitation
 
 To exploit this vulnerability, you must send the following file to a user to open
-with Gridea. The exploit is triggered when the user presses "CTRL+P" or simply
-clicks "preview".
+with Gridea. The exploit is triggered when the user presses `CTRL+P` or simply
+clicks `preview`.
 
 ### exploit.md
 
