@@ -9,9 +9,21 @@ An organization in the ARM refers
 to the different macro projects
 that the company has,
 which are divided into other subprojects
-[Groups](machine/web/groups/)
+([Groups](/machine/web/groups/))
 where you consolidate the
 data to analyze.
+
+In Organization,
+you can find multiple subsections,
+but according to the
+role you manage in the ARM,
+you can access this one.
+To find out which role you
+have in the ARM you can
+view it in the
+[User information drop-down menu.](/machine/web/user-information/)
+If you want to know more about roles,
+click [here](/machine/web/groups/roles/)
 
 ## Creating an organization using drop-down menu
 
