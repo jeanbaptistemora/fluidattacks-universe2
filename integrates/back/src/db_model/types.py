@@ -6,25 +6,13 @@ from .constants import (
     DEFAULT_MAX_SEVERITY,
     DEFAULT_MIN_SEVERITY,
 )
-from db_model.findings.types import (
-    FindingHistoric,
-)
-from db_model.vulnerabilities.types import (
-    VulnerabilityHistoric,
-)
 from decimal import (
     Decimal,
 )
 from typing import (
     NamedTuple,
     Optional,
-    Union,
 )
-
-Historic = Union[
-    FindingHistoric,
-    VulnerabilityHistoric,
-]
 
 
 class CodeLanguage(NamedTuple):
