@@ -247,7 +247,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const { data: vulnData, fetchMore } = useQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
-      fetchPolicy: "cache-first",
+      fetchPolicy: "cache-and-network",
+      nextFetchPolicy: "cache-first",
       variables: { first: 1200, groupName },
     }
   );
