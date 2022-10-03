@@ -43,19 +43,19 @@ template: advisory
 Gridea version 0.9.3 allows an external attacker to execute arbitrary
 code remotely on any client attempting to view a malicious markdown
 file through Gridea. This is possible because the application has the
-"nodeIntegration" option enabled.
+`nodeIntegration` option enabled.
 
 ## Vulnerability
 
-This vulnerability occurs because the application has the "nodeIntegration"
+This vulnerability occurs because the application has the `nodeIntegration`
 option enabled.  Due to the above, an attacker can embed malicious JS code
 in a markdown file and send it to the victim for viewing to achieve an RCE.
 
 ## Exploitation
 
 To exploit this vulnerability, you must send the following file to a user to
-open with Gridea. The exploit is triggered when the user presses "CTRL+P" or
-simply clicks "preview".
+open with Gridea. The exploit is triggered when the user presses `CTRL+P` or
+simply clicks `preview`.
 
 ### exploit.md
 
