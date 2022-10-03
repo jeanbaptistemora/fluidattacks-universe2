@@ -84,7 +84,7 @@ present in AppLock:
 5. Run the following command on your laptop.
 
 ```bash
-'frida -U AppLock -l exploit.js --no-pause'
+frida -U 'AppLock' -l exploit.js --no-pause
 ```
 
 6. Now on your device press the 'recent' button, commonly represented by a square.
