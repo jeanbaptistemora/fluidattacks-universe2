@@ -2,19 +2,32 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from decimal import (
-    Decimal,
+from dataclasses import (
+    dataclass,
+)
+from forces.model.vulnerability import (
+    Vulnerability,
 )
 from typing import (
-    NamedTuple,
+    Tuple,
 )
 
 
-class Finding(NamedTuple):
+@dataclass
+class FindingSummary:
+    open: int = 0
+    closed: int = 0
+    accepted: int = 0
+
+
+@dataclass
+class Finding:
     """Data structure to represent a Finding"""
 
-    id: str
+    identifier: str
     title: str
     state: str
-    exploitability: Decimal
-    severity_score: Decimal
+    exploitability: float
+    severity_score: float
+    summary: FindingSummary = FindingSummary()
+    vulnerabilities: Tuple[Vulnerability, ...] = tuple()

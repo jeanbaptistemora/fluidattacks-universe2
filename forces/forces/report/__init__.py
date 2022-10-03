@@ -16,6 +16,9 @@ from forces.model import (
 from forces.model.config import (
     KindEnum,
 )
+from forces.model.finding import (
+    Finding,
+)
 from forces.report.filters import (
     filter_kind,
     filter_repo,
@@ -110,6 +113,29 @@ async def create_findings_dict(
             {"open": 0, "closed": 0, "accepted": 0}
         )
         findings_dict[find["id"]]["vulnerabilities"] = []
+    return findings_dict
+
+
+async def gather_finding_data(
+    group: str,
+    **kwargs: str,
+) -> Dict[str, Finding]:
+    """Returns a tuple of containing as key the findings of a project."""
+    findings_dict: Dict[str, Finding] = {}
+    findings_futures = [
+        get_finding(fin) for fin in await get_findings(group, **kwargs)
+    ]
+    for _find in asyncio.as_completed(findings_futures):
+        find: Dict[str, Any] = await _find
+        severity: Dict[str, Any] = find.pop("severity", {})
+        find["exploitability"] = severity.get("exploitability", 0)
+        findings_dict[find["id"]] = Finding(
+            identifier=find["id"],
+            title=find["title"],
+            state=find["state"],
+            exploitability=find["exploitability"],
+            severity_score=find["severityScore"],
+        )
     return findings_dict
 
 
@@ -301,7 +327,6 @@ async def generate_report(
     :param verbose_level: Level of detail of the report.
     """
     _start_time: float = timer()
-    repo_name = config.repository_name
 
     _summary_dict = get_summary_template(config.kind)
 
@@ -318,7 +343,7 @@ async def generate_report(
         if not filter_kind(vuln, config.kind):
             continue
         if config.repository_name and not filter_repo(
-            vuln, config.kind, repo_name
+            vuln, config.kind, config.repository_name
         ):
             continue
 
