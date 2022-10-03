@@ -5327,30 +5327,6 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdow
   53 |   }
      ^ Col 0
 ",terraform.tfm_ec2_has_terminate_shutdown_behavior
-F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
-   1 | ---
-   2 | version: '3.9'  # optional since v1.27.0
-   3 | services:
->  4 |   web:
-   5 |     build: .
-   6 |     ports:
-   7 |       - 5000:5000
-   8 |     volumes:
-   9 |       - .:/code
-  10 |       - logvolume01:/var/log
-  11 |     links:
-  12 |       - redis
-  13 |     environment:
-  14 |       - DEBUG=${VAR}
-  15 |       - API_KEY='123'
-  16 |       - API_KEY
-  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
-  18 |   redis:
-  19 |     image: redis
-  20 |     environment:
-  21 |       - API_NAME=name1
-     ^ Col 0
-",docker.docker_compose_read_only
 F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,22,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    7 |       - 5000:5000
    8 |     volumes:
@@ -5397,6 +5373,30 @@ F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,16,skim
   25 |       - API_PASSWORD=pass
   26 | volumes:
   27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_read_only
+F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   1 | ---
+   2 | version: ""3.9"" # optional since v1.27.0
+   3 | services:
+>  4 |   web:
+   5 |     build: .
+   6 |     ports:
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
      ^ Col 0
 ",docker.docker_compose_read_only
 F418,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
@@ -15632,30 +15632,6 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   54 |         ]
      ^ Col 0
 ",cloudformation.cfn_iam_has_privileges_over_iam
-F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
-   1 | ---
-   2 | version: '3.9'  # optional since v1.27.0
-   3 | services:
->  4 |   web:
-   5 |     build: .
-   6 |     ports:
-   7 |       - 5000:5000
-   8 |     volumes:
-   9 |       - .:/code
-  10 |       - logvolume01:/var/log
-  11 |     links:
-  12 |       - redis
-  13 |     environment:
-  14 |       - DEBUG=${VAR}
-  15 |       - API_KEY='123'
-  16 |       - API_KEY
-  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
-  18 |   redis:
-  19 |     image: redis
-  20 |     environment:
-  21 |       - API_NAME=name1
-     ^ Col 0
-",docker.docker_compose_whitout_user
 F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,22,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    7 |       - 5000:5000
    8 |     volumes:
@@ -15702,6 +15678,30 @@ F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,250,ski
   25 |       - API_PASSWORD=pass
   26 | volumes:
   27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   1 | ---
+   2 | version: ""3.9"" # optional since v1.27.0
+   3 | services:
+>  4 |   web:
+   5 |     build: .
+   6 |     ports:
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
      ^ Col 0
 ",docker.docker_compose_whitout_user
 F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"

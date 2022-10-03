@@ -2,72 +2,25 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from functools import (
-    wraps,
-)
 from lib_path.common import (
     DependencyType,
-    TFun,
-    translate_dependencies_to_vulnerabilities,
+    format_pkg_dep,
+    pkg_deps_to_vulns,
 )
 from model.core_model import (
     MethodsEnum,
     Platform,
-    Vulnerabilities,
 )
 import re
 from typing import (
-    Callable,
     Iterator,
     List,
-    Match,
     Pattern,
     Tuple,
 )
 
 
-def format_dep(
-    matched: Match[str], line_number: int, pkg_name: str = ""
-) -> DependencyType:
-    pkg_name = pkg_name or matched.group(1)
-    version: str = matched.group(2)
-    return (
-        {
-            "column": 0,
-            "line": line_number,
-            "item": pkg_name,
-        },
-        {
-            "column": 0,
-            "line": line_number,
-            "item": version,
-        },
-    )
-
-
-def pkg_manager_file(
-    platform: Platform, method: MethodsEnum
-) -> Callable[[TFun], Callable[[Tuple[str, str]], Vulnerabilities]]:
-    def resolve_deps(
-        resolve_dependencies: TFun,
-    ) -> Callable[[Tuple[str, str]], Vulnerabilities]:
-        @wraps(resolve_dependencies)
-        def resolve_vulns(pkg_info: Tuple[str, str]) -> Vulnerabilities:
-            content, path = pkg_info
-            return translate_dependencies_to_vulnerabilities(
-                content=content,
-                dependencies=resolve_dependencies(pkg_info),
-                path=path,
-                platform=platform,
-                method=method,
-            )
-
-        return resolve_vulns
-
-    return resolve_deps
-
-
-@pkg_manager_file(Platform.GEM, MethodsEnum.GEM_GEMFILE)
+@pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE)
 def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
     require_patt: Pattern[str] = re.compile(
         r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
@@ -92,10 +45,12 @@ def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
         elif matched := re.search(require_patt, line):
             if re.search(not_prod_patt, line):
                 continue
-            yield format_dep(matched, line_number)
+            pkg_name = matched.group(1)
+            version = matched.group(2)
+            yield format_pkg_dep(pkg_name, version, line_number)
 
 
-@pkg_manager_file(Platform.GEM, MethodsEnum.GEM_GEMFILE_LOCK)
+@pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE_LOCK)
 def gem_gemfile_lock(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
     line_gem: bool = False
     form_dep: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
@@ -110,6 +65,7 @@ def gem_gemfile_lock(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
             if pkg_name in match_arr:
                 continue
             match_arr.append(pkg_name)
-            yield format_dep(matched, line_number, pkg_name)
+            version = matched.group(2)
+            yield format_pkg_dep(pkg_name, version, line_number)
         elif not line or not line.startswith(" "):
             break
