@@ -5,7 +5,7 @@ description: This Privacy Policy describes the manner in which Fluid Attacks col
 keywords: Fluid Attacks, Privacy, Policy, Information, Website, Right.
 ---
 
-#### *This document was last updated on September 2, 2022*
+#### *This document was last updated on October 3, 2022*
 
 This privacy policy ("Policy") describes how `Fluid Attacks`
 ("Fluid Attacks", "we", "us" or "our")
