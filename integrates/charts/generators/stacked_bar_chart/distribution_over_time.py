@@ -28,6 +28,7 @@ from charts.generators.stacked_bar_chart.utils import (
     GroupDocumentData,
     RiskOverTime,
     sum_over_time_many_groups,
+    TimeRangeType,
     translate_date,
 )
 from dataloaders import (
@@ -41,7 +42,6 @@ from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
 from typing import (
-    Dict,
     List,
     Tuple,
 )
@@ -190,7 +190,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 async def get_many_groups_document(
     groups: Tuple[str, ...],
     loaders: Dataloaders,
-) -> Dict[str, Dict[datetime, float]]:
+) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
@@ -209,7 +209,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         group_document: RiskOverTime = await get_group_document(group, loaders)
         document = format_distribution_document(
-            document=get_current_time_range([group_document])[0],
+            data_document=get_current_time_range([group_document]),
             y_label=y_label,
         )
         utils.json_dump(
@@ -225,7 +225,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_distribution_document(
-            document=await get_many_groups_document(org_groups, loaders),
+            data_document=await get_many_groups_document(org_groups, loaders),
             y_label=y_label,
         )
         utils.json_dump(
@@ -240,7 +240,7 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_distribution_document(
-                document=await get_many_groups_document(groups, loaders),
+                data_document=await get_many_groups_document(groups, loaders),
                 y_label=y_label,
             )
             utils.json_dump(

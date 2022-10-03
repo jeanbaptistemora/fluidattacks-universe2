@@ -34,6 +34,7 @@ from typing import (
 
 # Constants
 DATE_FMT: str = "%Y - %m - %d"
+DATE_SHORT_FMT: str = "%Y-%m"
 MIN_PERCENTAGE: Decimal = Decimal("15.0")
 # Let's no over think it
 MONTH_TO_NUMBER = {
@@ -157,16 +158,24 @@ def translate_date_last(date_str: str) -> datetime:
 
 
 def format_document(
-    document: Dict[str, Dict[datetime, float]],
+    data_document: tuple[
+        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+    ],
     y_label: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
+    all_documents, time_range = data_document
+    document = all_documents[0]
     return dict(
         data=dict(
             x="date",
             columns=[
                 [name]
                 + [
-                    date.strftime(DATE_FMT)
+                    date.strftime(
+                        DATE_FMT
+                        if time_range == TimeRangeType.WEEKLY
+                        else DATE_SHORT_FMT
+                    )
                     if name == "date"
                     else str(
                         Decimal(document[name][date]).quantize(Decimal("0.1"))
@@ -191,7 +200,9 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=TICK_ROTATION,
+                    rotate=TICK_ROTATION
+                    if time_range == TimeRangeType.WEEKLY
+                    else 0,
                 ),
                 type="category",
             ),
@@ -234,9 +245,13 @@ def format_document(
 
 
 def format_distribution_document(
-    document: Dict[str, Dict[datetime, float]],
+    data_document: tuple[
+        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+    ],
     y_label: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
+    all_documents, time_range = data_document
+    document = all_documents[0]
     percentage_values: List[Tuple[Dict[str, str], ...]] = [
         format_severity(
             {
@@ -254,7 +269,11 @@ def format_distribution_document(
             columns=[
                 [name]
                 + [
-                    date.strftime(DATE_FMT)
+                    date.strftime(
+                        DATE_FMT
+                        if time_range == TimeRangeType.WEEKLY
+                        else DATE_SHORT_FMT
+                    )
                     if name == "date"
                     else str(
                         Decimal(document[name][date]).quantize(Decimal("0.1"))
@@ -291,7 +310,9 @@ def format_distribution_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=TICK_ROTATION,
+                    rotate=TICK_ROTATION
+                    if time_range == TimeRangeType.WEEKLY
+                    else 0,
                 ),
                 type="category",
             ),
@@ -362,9 +383,12 @@ def format_distribution_document(
 
 
 def sum_over_time_many_groups(
-    group_documents: Tuple[Dict[str, Dict[datetime, float]], ...],
+    all_group_documents: tuple[
+        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+    ],
     documents_names: List[str],
-) -> Dict[str, Dict[datetime, float]]:
+) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
+    group_documents = all_group_documents[0]
     all_dates: List[datetime] = sorted(
         set(
             date
@@ -386,16 +410,23 @@ def sum_over_time_many_groups(
                 else:
                     group_document[name][date] = 0
 
-    return {
-        name: {
-            date: sum(
-                group_document[name].get(date, 0)
-                for group_document in group_documents
-            )
-            for date in all_dates
-        }
-        for name in documents_names
-    }
+    return (
+        tuple(
+            [
+                {
+                    name: {
+                        date: sum(
+                            group_document[name].get(date, 0)
+                            for group_document in group_documents
+                        )
+                        for date in all_dates
+                    }
+                    for name in documents_names
+                }
+            ]
+        ),
+        all_group_documents[1],
+    )
 
 
 def get_semester(data_date: datetime) -> datetime:
@@ -666,30 +697,43 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
 
 
 def get_current_time_range(
-    group_documents: Tuple[RiskOverTime, ...]
-) -> Tuple[Dict[str, Dict[datetime, float]], ...]:
+    group_documents: tuple[RiskOverTime, ...]
+) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
     time_range: Set[TimeRangeType] = {
         group.time_range for group in group_documents
     }
 
     if TimeRangeType.YEARLY in time_range:
-        return tuple(
-            group_document.yearly for group_document in group_documents
+        return (
+            tuple(group_document.yearly for group_document in group_documents),
+            TimeRangeType.YEARLY,
         )
     if TimeRangeType.SEMESTERLY in time_range:
-        return tuple(
-            group_document.semesterly for group_document in group_documents
+        return (
+            tuple(
+                group_document.semesterly for group_document in group_documents
+            ),
+            TimeRangeType.SEMESTERLY,
         )
     if TimeRangeType.QUARTERLY in time_range:
-        return tuple(
-            group_document.quarterly for group_document in group_documents
+        return (
+            tuple(
+                group_document.quarterly for group_document in group_documents
+            ),
+            TimeRangeType.QUARTERLY,
         )
     if TimeRangeType.MONTHLY in time_range:
-        return tuple(
-            group_document.monthly for group_document in group_documents
+        return (
+            tuple(
+                group_document.monthly for group_document in group_documents
+            ),
+            TimeRangeType.MONTHLY,
         )
 
-    return tuple(group_document.weekly for group_document in group_documents)
+    return (
+        tuple(group_document.weekly for group_document in group_documents),
+        TimeRangeType.WEEKLY,
+    )
 
 
 def get_distribution_over_rangetime(

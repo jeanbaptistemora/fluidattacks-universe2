@@ -20,6 +20,7 @@ from charts.generators.stacked_bar_chart import (  # type: ignore
 )
 from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
+    DATE_SHORT_FMT,
     EXPOSED_OVER_TIME,
     get_current_time_range,
     get_min_date_formatted,
@@ -29,6 +30,7 @@ from charts.generators.stacked_bar_chart.utils import (
     get_time_range,
     RiskOverTime,
     sum_over_time_many_groups,
+    TimeRangeType,
     translate_date,
 )
 from dataloaders import (
@@ -221,7 +223,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 async def get_many_groups_document(
     groups: Tuple[str, ...],
     loaders: Dataloaders,
-) -> Dict[str, Dict[datetime, float]]:
+) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
@@ -234,12 +236,23 @@ async def get_many_groups_document(
 
 
 def format_document(
-    document: Dict[str, Dict[datetime, float]],
-) -> Dict[str, Any]:
+    data_document: tuple[
+        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+    ],
+) -> dict[str, Any]:
+    all_documents, time_range = data_document
+    document = all_documents[0]
+    print("*" * 80)
+    print(document)
+    print(time_range)
     columns: list[list[str]] = [
         [name]
         + [
-            date.strftime(DATE_FMT)
+            date.strftime(
+                DATE_FMT
+                if time_range == TimeRangeType.WEEKLY
+                else DATE_SHORT_FMT
+            )
             if name == "date"
             else str(Decimal(document[name][date]).quantize(Decimal("0.1")))
             for date in tuple(document["date"])[-12:]
@@ -267,7 +280,9 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=utils.TICK_ROTATION,
+                    rotate=utils.TICK_ROTATION
+                    if time_range == TimeRangeType.WEEKLY
+                    else 0,
                 ),
                 type="category",
             ),
@@ -318,7 +333,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         group_document: RiskOverTime = await get_group_document(group, loaders)
         document = format_document(
-            document=get_current_time_range([group_document])[0],
+            data_document=get_current_time_range([group_document]),
         )
         utils.json_dump(
             document=document,
@@ -333,7 +348,7 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         document = format_document(
-            document=await get_many_groups_document(org_groups, loaders),
+            data_document=await get_many_groups_document(org_groups, loaders),
         )
         utils.json_dump(
             document=document,
@@ -347,7 +362,7 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             document = format_document(
-                document=await get_many_groups_document(
+                data_document=await get_many_groups_document(
                     tuple(groups), loaders
                 ),
             )

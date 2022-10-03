@@ -105,7 +105,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
     )
 
     group_document: RiskOverTime = await get_group_document(group, loaders)
-    document = get_current_time_range([group_document])[0]
+    document = get_current_time_range([group_document])[0][0]
     values: list[Decimal] = [
         Decimal(document[name][date]).quantize(Decimal("0.1"))
         for date in tuple(document["date"])[-12:]

@@ -22,6 +22,7 @@ from charts.generators.stacked_bar_chart.utils import (
     RISK_OVER_TIME,
     RiskOverTime,
     sum_over_time_many_groups,
+    TimeRangeType,
 )
 from dataloaders import (
     Dataloaders,
@@ -34,7 +35,6 @@ from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
 from typing import (
-    Dict,
     Iterable,
     List,
     Optional,
@@ -71,7 +71,7 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
 
 async def get_many_groups_document(
     groups: Iterable[str], days: Optional[int] = None
-) -> Dict[str, Dict[datetime, float]]:
+) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, days) for group in groups), workers=32
     )
@@ -92,7 +92,7 @@ async def generate_all() -> None:
                 group, days
             )
             document = format_document(
-                document=get_current_time_range([group_document])[0],
+                data_document=get_current_time_range([group_document]),
                 y_label=y_label,
             )
             utils.json_dump(
@@ -108,7 +108,7 @@ async def generate_all() -> None:
             utils.iterate_organizations_and_groups()
         ):
             document = format_document(
-                document=await get_many_groups_document(org_groups, days),
+                data_document=await get_many_groups_document(org_groups, days),
                 y_label=y_label,
             )
             utils.json_dump(
@@ -127,7 +127,7 @@ async def generate_all() -> None:
                 org_name
             ):
                 document = format_document(
-                    document=await get_many_groups_document(groups, days),
+                    data_document=await get_many_groups_document(groups, days),
                     y_label=y_label,
                 )
                 utils.json_dump(
