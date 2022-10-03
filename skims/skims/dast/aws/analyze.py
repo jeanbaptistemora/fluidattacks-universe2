@@ -11,6 +11,7 @@ from concurrent.futures import (
 from ctx import (
     CTX,
 )
+import dast.aws.f016
 import dast.aws.f024
 import dast.aws.f031
 from model import (
@@ -37,6 +38,7 @@ from typing import (
 )
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+    (core_model.FindingEnum.F016, [*dast.aws.f016.CHECKS]),
     (core_model.FindingEnum.F024, [*dast.aws.f024.CHECKS]),
     (core_model.FindingEnum.F031, [*dast.aws.f031.CHECKS]),
 )
