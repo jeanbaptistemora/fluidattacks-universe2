@@ -2,6 +2,19 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from amazon_kclpy.kcl import (
+    Checkpointer,
+    CheckpointError,
+    KCLProcess,
+)
+from amazon_kclpy.messages import (
+    InitializeInput,
+    ProcessRecordsInput,
+    ShutdownInput,
+)
+from amazon_kclpy.v2 import (
+    processor,
+)
 from collections import (
     defaultdict,
 )
@@ -211,5 +224,68 @@ def consume() -> None:
 
     for worker in workers:
         worker.join()
+
+    LOGGER.info("Stream consumption completed.")
+
+
+class RecordProcessor(processor.RecordProcessorBase):
+    def __init__(self) -> None:
+        self.checkpoint_retries = 5
+        self.sleep_seconds = 5
+
+    def initialize(self, _initialize_input: InitializeInput) -> None:
+        """Called by the KCL when the worker has been instanced"""
+
+    def checkpoint(
+        self,
+        checkpointer: Checkpointer,
+        sequence_number: Optional[str] = None,
+        sub_sequence_number: Optional[int] = None,
+    ) -> None:
+        """Keep track of progress so the KCL can pick up from there later"""
+        retries = 0
+
+        while retries < self.checkpoint_retries:
+            try:
+                checkpointer.checkpoint(sequence_number, sub_sequence_number)
+                return
+            except CheckpointError as ex:
+                if ex.value == "ShutdownException":
+                    LOGGER.info("Shutting down, skipping checkpoint.")
+                    return
+
+                if ex.value == "ThrottlingException":
+                    LOGGER.info(
+                        "Checkpoint throttled, waiting %s seconds.",
+                        self.sleep_seconds,
+                    )
+                else:
+                    LOGGER.error("Couldn't checkpoint due to %s", ex.value)
+
+            retries += 1
+            sleep(self.sleep_seconds)
+
+        LOGGER.error(
+            "Couldn't checkpoint after %s retries", self.checkpoint_retries
+        )
+
+    def process_records(
+        self, _process_records_input: ProcessRecordsInput
+    ) -> None:
+        """Called by the KCL when new records are read from the stream"""
+
+    def shutdown(self, shutdown_input: ShutdownInput) -> None:
+        """Called by the KCL when the worker will shutdown"""
+        if shutdown_input.reason == "TERMINATE":
+            self.checkpoint(shutdown_input.checkpointer)
+
+
+def consume_kcl() -> None:
+    """Consumes the DynamoDB stream"""
+    try:
+        kclprocess = KCLProcess(RecordProcessor())
+        kclprocess.run()
+    except KeyboardInterrupt:
+        LOGGER.info("Shutting down")
 
     LOGGER.info("Stream consumption completed.")

@@ -5,6 +5,7 @@
   inputs,
   makePythonPypiEnvironment,
   makeTemplate,
+  outputs,
   ...
 }: let
   pythonRequirements = makePythonPypiEnvironment {
@@ -23,12 +24,20 @@
       ];
     };
   };
+  amazon_kclpy = outputs."/integrates/streams/runtime/amazon_kclpy";
+  amazon_kclpy_package = "${amazon_kclpy}/lib/python3.9/site-packages";
 in
   makeTemplate {
     name = "integrates-streams-runtime";
     searchPaths = {
+      pythonPackage = [
+        amazon_kclpy_package
+      ];
       source = [
         pythonRequirements
       ];
     };
+    template = ''
+      export CLASSPATH="${amazon_kclpy_package}/amazon_kclpy/jars/*"
+    '';
   }
