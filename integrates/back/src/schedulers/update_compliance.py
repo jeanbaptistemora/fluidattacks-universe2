@@ -61,6 +61,9 @@ from organizations import (
 from schedulers.common import (
     info,
 )
+from search.operations import (
+    search,
+)
 from statistics import (
     mean,
 )
@@ -91,6 +94,25 @@ async def get_open_vulnerabilities(
         )
     )
     return tuple(edge.node for edge in connections.edges)
+
+
+async def get_closed_old_vulnerabilities_last_week(
+    finding: Finding,
+) -> int:
+    """Return the amount of vulnerabilities that were open before the
+    last week and were closed the last week"""
+    results = await search(
+        after=None,
+        must_filters=[{"sk": f"FIN#{finding.id}"}, {"state.status": "CLOSED"}],
+        range_filters=[
+            {"state.modified_date": {"gte": "now-1w"}},
+            {"created_date": {"lt": "now-1w"}},
+        ],
+        index="vulnerabilities",
+        limit=0,
+        query=None,
+    )
+    return results.total
 
 
 async def get_closed_vulnerabilities(
@@ -194,15 +216,15 @@ async def get_organization_compliance_weekly_trend(
         ),
         workers=100,
     )
-    findings_closed_vulnerabilities = await collect(
+    findings_closed_vulnerabilities_last_week = await collect(
         tuple(
-            get_closed_vulnerabilities(loaders, finding)
+            get_closed_old_vulnerabilities_last_week(finding)
             for finding in findings
         ),
-        workers=100,
+        workers=20,
     )
     a_week_ago = datetime_utils.get_now_minus_delta(weeks=1)
-    last_week_open_findings: list[Finding] = []
+    last_week_open_findings: dict[str, Finding] = {}
     for finding, open_vulnerabilities in zip(
         findings, findings_open_vulnerabilities
     ):
@@ -215,27 +237,20 @@ async def get_organization_compliance_weekly_trend(
             )
             < a_week_ago
         ]:
-            last_week_open_findings.append(finding)
+            last_week_open_findings[finding.id] = finding
 
-    for finding, closed_vulnerabilities in zip(
-        findings, findings_closed_vulnerabilities
+    for finding, closed_vulnerabilities_last_week in zip(
+        findings, findings_closed_vulnerabilities_last_week
     ):
         # Do not count vulnerabilities that were closed within the last week
-        if [
-            vulnerability
-            for vulnerability in closed_vulnerabilities
-            if datetime_utils.get_datetime_from_iso_str(
-                vulnerability.state.modified_date
-            )
-            > a_week_ago
-        ]:
-            last_week_open_findings.append(finding)
+        if closed_vulnerabilities_last_week:
+            last_week_open_findings[finding.id] = finding
 
     requirements_by_finding = tuple(
         vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
             "requirements"
         ]
-        for finding in last_week_open_findings
+        for finding in last_week_open_findings.values()
     )
     compliances_by_finding = tuple(
         set(
@@ -262,7 +277,7 @@ async def get_organization_compliance_weekly_trend(
                     - len(org_non_compliance.intersection(all_compliances))
                 )
                 / len(all_compliances)
-            )
+            ).quantize(Decimal("0.01"))
         ).quantize(Decimal("0.01"))
         if all_compliances
         else Decimal("0.0")
