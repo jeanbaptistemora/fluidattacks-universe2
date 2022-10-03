@@ -17,6 +17,7 @@ interface IOrganizationAttr {
   name: string;
   compliance: {
     complianceLevel: number | null;
+    complianceWeeklyTrend: number | null;
     standards: IStandardComplianceAttr[];
   };
 }

@@ -14,12 +14,16 @@ import { useTranslation } from "react-i18next";
 import { BenchmarkCard } from "./BenchmarkCard";
 import { PercentageCard } from "./PercentageCard";
 import { GET_ORGANIZATION_COMPLIANCE } from "./queries";
+import { TrendCard } from "./TrendCard";
 import type {
   IOrganizationAttr,
   IOrganizationComplianceOverviewProps,
   IStandardComplianceAttr,
 } from "./types";
-import { handleComplianceValue } from "./utils";
+import {
+  handleCompliancePercentageValue,
+  handleComplianceValue,
+} from "./utils";
 
 import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
@@ -58,7 +62,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
               {t(
                 "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text",
                 {
-                  percentage: handleComplianceValue(
+                  percentage: handleCompliancePercentageValue(
                     organization.compliance.complianceLevel
                   ),
                 }
@@ -72,25 +76,46 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
                 </Text>
               </InfoDropdown>
             </Text>
-            <Col lg={33} md={33} sm={33}>
-              <PercentageCard
-                info={t(
-                  "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.info",
-                  {
-                    percentage: handleComplianceValue(
-                      organization.compliance.complianceLevel
-                    ),
-                  }
-                )}
-                percentage={handleComplianceValue(
-                  organization.compliance.complianceLevel
-                )}
-                title={t(
-                  "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.title",
-                  { organizationName: organization.name }
-                )}
-              />
-            </Col>
+            <Row>
+              <Col lg={33} md={33} sm={33}>
+                <PercentageCard
+                  info={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.info",
+                    {
+                      percentage: handleCompliancePercentageValue(
+                        organization.compliance.complianceLevel
+                      ),
+                    }
+                  )}
+                  percentage={handleCompliancePercentageValue(
+                    organization.compliance.complianceLevel
+                  )}
+                  title={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceLevel.title",
+                    { organizationName: organization.name }
+                  )}
+                />
+              </Col>
+              <Col lg={33} md={33} sm={33}>
+                <TrendCard
+                  info={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceWeeklyTrend.info",
+                    {
+                      percentage: handleCompliancePercentageValue(
+                        organization.compliance.complianceWeeklyTrend
+                      ),
+                    }
+                  )}
+                  title={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceWeeklyTrend.title",
+                    { organizationName: organization.name }
+                  )}
+                  trend={handleComplianceValue(
+                    organization.compliance.complianceWeeklyTrend
+                  )}
+                />
+              </Col>
+            </Row>
           </Col>
           <Col lg={40} md={40} sm={100} />
         </Row>

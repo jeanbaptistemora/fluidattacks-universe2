@@ -1735,6 +1735,10 @@ export const enTranslations: ResourceKey = {
                 info: "The organization has complied with the {{percentage}}% of the standards",
                 title: "Compliance level of {{organizationName}}",
               },
+              complianceWeeklyTrend: {
+                info: "The organization has changed the compliance by {{percentage}}% in the last week",
+                title: "Weekly trend",
+              },
               title: {
                 info: "Compliance information for {{organizationName}}",
                 text: "Organization compliance",

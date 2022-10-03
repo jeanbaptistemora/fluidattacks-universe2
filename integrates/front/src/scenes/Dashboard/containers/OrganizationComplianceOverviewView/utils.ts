@@ -8,9 +8,13 @@ import _ from "lodash";
 
 const PERCENTAGE_BASE = 100;
 
-const handleComplianceValue: (value: number | null) => number = (
+const handleCompliancePercentageValue: (value: number | null) => number = (
   value: number | null
 ): number => (_.isNull(value) ? 0 : Math.round(value * PERCENTAGE_BASE));
+
+const handleComplianceValue: (value: number | null) => number = (
+  value: number | null
+): number => (_.isNull(value) ? 0.0 : value);
 
 const getProgressBarColor: (progress: number) => string = (
   progress: number
@@ -26,4 +30,8 @@ const getProgressBarColor: (progress: number) => string = (
   return "#009245";
 };
 
-export { getProgressBarColor, handleComplianceValue };
+export {
+  getProgressBarColor,
+  handleCompliancePercentageValue,
+  handleComplianceValue,
+};
