@@ -891,6 +891,27 @@ describe("Validations", (): void => {
       "Root name should not be included in the exception pattern"
     );
   });
+
+  it("Should't include name in format", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, string> = {
+      url: "testDomain.com/testOrg/testRepo.git",
+    };
+    const value = "testOrg/testRepo/test";
+    const formatCheck = excludeFormat(value, helperList);
+
+    expect(formatCheck).toBeUndefined();
+  });
+
+  it("Should't be an undefined name", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, string> = {};
+    const formatCheck = excludeFormat(undefined, helperList);
+
+    expect(formatCheck).toBeUndefined();
+  });
 });
 
 describe("cvss", (): void => {
