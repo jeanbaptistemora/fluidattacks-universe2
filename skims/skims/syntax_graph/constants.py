@@ -86,6 +86,29 @@ C_SHARP_STATEMENT = {
     "yield_statement",
 }
 
+JAVA_STATEMENT = {
+    "declaration",
+    "expression_statement",
+    "labeled_statement",
+    "if_statement",
+    "while_statement",
+    "for_statement",
+    "enhanced_for_statement",
+    "block",
+    "assert_statement",
+    "do_statement",
+    "break_statement",
+    "continue_statement",
+    "return_statement",
+    "yield_statement",
+    "switch_expression",
+    "synchronized_statement",
+    "local_variable_declaration",
+    "throw_statement",
+    "try_statement",
+    "try_with_resources_statement",
+}
+
 TYPESCRIPT_PRIMARY_TYPES = {
     "array_type",
     "conditional_type",

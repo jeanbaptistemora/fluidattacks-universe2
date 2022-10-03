@@ -94,7 +94,6 @@ DISPATCHERS: Dispatchers = (
             "Resource",
             "SwitchCase",
             "SwitchDefault",
-            "SwitchExpression",
             "SymbolLookup",
             "ThrowStatement",
             "UnaryExpression",
