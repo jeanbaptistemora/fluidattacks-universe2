@@ -45,4 +45,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
         value_id = match_eq["__0__"]
 
-    return build_variable_declaration_node(args, var, var_type, value_id, None)
+    return build_variable_declaration_node(args, var, var_type, value_id)

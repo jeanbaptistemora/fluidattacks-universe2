@@ -32,6 +32,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     value_id = args.ast_graph.nodes[declarator_id].get("label_field_value")
 
-    return build_variable_declaration_node(
-        args, var_name, None, value_id, None
-    )
+    return build_variable_declaration_node(args, var_name, None, value_id)

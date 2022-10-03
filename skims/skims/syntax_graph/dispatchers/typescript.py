@@ -5,6 +5,7 @@
 from syntax_graph.syntax_readers.javascript import (
     array as javascript_array,
     assignment_expression as javascript_assignment_expression,
+    boolean_literal as javascript_boolean_literal,
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
@@ -18,7 +19,9 @@ from syntax_graph.syntax_readers.javascript import (
 from syntax_graph.syntax_readers.typescript import (
     as_expression as typescript_as_expression,
     interface_declaration as typescript_interface_declaration,
+    intersection_type as typescript_intersection_type,
     property_signature as typescript_property_signature,
+    type_alias_declaration as typescript_type_alias_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -58,6 +61,13 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "false",
+            "true",
+        },
+        syntax_reader=javascript_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
             "property_identifier",
             "type_identifier",
@@ -69,6 +79,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "interface_declaration",
         },
         syntax_reader=typescript_interface_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "intersection_type",
+        },
+        syntax_reader=typescript_intersection_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -106,6 +122,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "string",
         },
         syntax_reader=javascript_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_alias_declaration",
+        },
+        syntax_reader=typescript_type_alias_declaration.reader,
     ),
     Dispatcher(
         applicable_types={

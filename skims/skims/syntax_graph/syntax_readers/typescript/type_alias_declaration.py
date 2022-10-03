@@ -19,5 +19,5 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     n_attrs = args.ast_graph.nodes[args.n_id]
     var_name = node_to_str(args.ast_graph, n_attrs["label_field_name"])
-    val_id = n_attrs.get("label_field_value")
+    val_id = n_attrs["label_field_value"]
     return build_variable_declaration_node(args, var_name, None, val_id)
