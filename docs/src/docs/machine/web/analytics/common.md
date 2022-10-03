@@ -33,6 +33,23 @@ Number of vulnerabilities without
 a remediation plan specified by
 one of your managers.
 
+## Open vulnerabilities
+
+![Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/open_vulnerabilities.png)
+
+Number of open vulnerabilities
+within your system.
+
+## Remediation rate
+
+![Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/remediation_rate.png)
+
+The percentage of closed
+vulnerabilities that is
+the number of closed
+vulnerabilities over all those
+reported within your system.
+
 ## Exposure management over time
 
 ![Exposure Management Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
