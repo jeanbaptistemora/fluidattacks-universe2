@@ -5,15 +5,14 @@
  */
 
 import { useQuery } from "@apollo/client";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
-import { selectFilter } from "react-bootstrap-table2-filter";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/TableNew/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/Drafts/queries";
 import type {
@@ -24,83 +23,50 @@ import { Logger } from "utils/logger";
 
 export const TasksDrafts: React.FC = (): JSX.Element => {
   const { push } = useHistory();
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const selectOptionsStatus = {
-    CREATED: "Created",
-    REJECTED: "Rejected",
-    SUBMITTED: "Submitted",
-  };
-
-  const onFilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("todoDraftStatusFilter", filterVal);
-  };
-
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("todoDraftSort", JSON.stringify(newSorted));
-  };
 
   const hackerFormatter = (value: string): JSX.Element => {
     return <div className={`tl truncate`}>{value}</div>;
   };
 
-  const tableHeaders: IHeaderConfig[] = [
+  const columns: ColumnDef<ITodoDraftAttr>[] = [
     {
-      dataField: "reportDate",
+      accessorKey: "reportDate",
+      filterFn: filterDate,
       header: "Date",
-      onSort: onSortState,
-      width: "10%",
+      meta: { filterType: "dateRange" },
     },
 
     {
-      dataField: "title",
+      accessorKey: "title",
       header: "Type",
-      onSort: onSortState,
-      width: "30%",
-      wrapped: true,
     },
     {
-      dataField: "severityScore",
+      accessorKey: "severityScore",
       header: "Severity",
-      onSort: onSortState,
-      width: "10%",
+      meta: { filterType: "number" },
     },
     {
-      dataField: "openVulnerabilities",
+      accessorKey: "openVulnerabilities",
       header: "Open Vulns.",
-      onSort: onSortState,
-      width: "10%",
+      meta: { filterType: "number" },
     },
     {
-      dataField: "groupName",
+      accessorKey: "groupName",
       header: "Group Name",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "hacker",
-      formatter: hackerFormatter,
+      accessorKey: "hacker",
+      cell: (cell: ICellHelper<ITodoDraftAttr>): JSX.Element =>
+        hackerFormatter(cell.getValue()),
       header: "Hacker",
-      onSort: onSortState,
-      width: "10%",
+      meta: { filterType: "select" },
     },
     {
-      dataField: "currentState",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "todoDraftStatusFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-      }),
-      formatter: statusFormatter,
+      accessorKey: "currentState",
+      cell: (cell: ICellHelper<ITodoDraftAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: "State",
-      onSort: onSortState,
-      width: "10%",
-      wrapped: true,
+      meta: { filterType: "select" },
     },
   ];
 
@@ -118,45 +84,26 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   const dataset: ITodoDraftAttr[] =
     _.isUndefined(data) || _.isEmpty(data) ? [] : _.flatten(data.me.drafts);
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
+  function goToDraft(
+    rowInfo: Row<ITodoDraftAttr>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      push(
+        `/groups/${rowInfo.original.groupName}/drafts/${rowInfo.original.id}/locations`
+      );
+      event.preventDefault();
+    };
   }
-  const filterSearchTextResult: ITodoDraftAttr[] = filterSearchText(
-    dataset,
-    searchTextFilter
-  );
-
-  const goToDraft: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ): void => {
-    const [draftSelected]: ITodoDraftAttr[] = dataset.filter(
-      (draftAttr: ITodoDraftAttr): boolean => draftAttr.id === rowInfo.id
-    );
-    push(`/groups/${draftSelected.groupName}/drafts/${rowInfo.id}/locations`);
-  };
 
   return (
     <React.StrictMode>
       <Table
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filterSearchTextResult}
+        columns={columns}
+        data={dataset}
+        enableColumnFilters={true}
         exportCsv={true}
-        headers={tableHeaders}
         id={"tblTodoDrafts"}
-        pageSize={25}
-        rowEvents={{ onClick: goToDraft }}
-        search={false}
+        onRowClick={goToDraft}
       />
     </React.StrictMode>
   );

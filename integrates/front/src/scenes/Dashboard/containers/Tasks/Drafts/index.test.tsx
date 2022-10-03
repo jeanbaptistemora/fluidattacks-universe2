@@ -88,10 +88,10 @@ describe("TodoDraftsView", (): void => {
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Open Vulns.")).toBeInTheDocument();
     expect(screen.getByText("State")).toBeInTheDocument();
-    expect(screen.getAllByText("Submitted")).toHaveLength(2);
+    expect(screen.getAllByText("Submitted")).toHaveLength(1);
     expect(
       screen.getByText("006. Authentication mechanism absence or evasion")
     ).toBeInTheDocument();
-    expect(screen.getAllByText("Created")).toHaveLength(2);
+    expect(screen.getAllByText("Created")).toHaveLength(1);
   });
 });
