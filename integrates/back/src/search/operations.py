@@ -28,7 +28,7 @@ async def search(  # pylint: disable=too-many-locals
     query: Optional[str] = None,
     should_filters: Optional[list[dict[str, Any]]] = None,
     must_filters: Optional[list[dict[str, Any]]] = None,
-    range_filters: Optional[dict[str, Any]] = None,
+    range_filters: Optional[list[dict[str, Any]]] = None,
     must_not_filters: Optional[list[dict[str, Any]]] = None,
     sort_by: Optional[dict[str, Any]] = None,
 ) -> SearchResponse:
@@ -68,7 +68,7 @@ async def search(  # pylint: disable=too-many-locals
         ]
 
     if range_filters:
-        query_range = [{"range": range_filters}]
+        query_range = [{"range": range} for range in range_filters]
 
     full_text_queries = [{"multi_match": {"query": query}}] if query else []
     term_queries = (
@@ -97,13 +97,14 @@ async def search(  # pylint: disable=too-many-locals
         },
         "sort": [*sort],
     }
+    scroll = None if limit == 0 else SCROLL_TIME
     response: dict[str, Any] = (
-        await client.scroll(scroll_id=after, scroll=SCROLL_TIME)
-        if after
+        await client.scroll(scroll_id=after, scroll=scroll)
+        if after and scroll
         else await client.search(
             body=body,
             index=index,
-            scroll=SCROLL_TIME,
+            scroll=scroll,
             size=limit,
         )
     )
@@ -112,7 +113,8 @@ async def search(  # pylint: disable=too-many-locals
     return SearchResponse(
         items=tuple(hit["_source"] for hit in hits),
         page_info=PageInfo(
-            end_cursor=response["_scroll_id"],
+            end_cursor=response.get("_scroll_id", ""),
             has_next_page=len(hits) > 0,
         ),
+        total=response["hits"]["total"]["value"],
     )

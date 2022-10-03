@@ -16,3 +16,4 @@ Item = dict[str, Any]
 class SearchResponse(NamedTuple):
     items: tuple[Item, ...]
     page_info: PageInfo
+    total: int
