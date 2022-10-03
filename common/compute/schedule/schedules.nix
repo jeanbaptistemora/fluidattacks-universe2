@@ -266,14 +266,13 @@
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/streams"
       "prod"
-      "dynamodb"
     ];
 
     schedule_expression = "cron(0 */4 * * ? *)";
     size = "nano";
     awsRole = "prod_integrates";
     attempts = 1;
-    timeout = 16200;
+    timeout = 14400;
     parallel = 1;
 
     environment = [

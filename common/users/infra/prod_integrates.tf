@@ -256,6 +256,16 @@ locals {
           Resource = ["*"]
         },
         {
+          Sid    = "opensearchRead"
+          Effect = "Allow"
+          Action = [
+            "es:Describe*",
+            "es:Get*",
+            "es:List*",
+          ]
+          Resource = ["*"]
+        },
+        {
           Sid    = "opensearchWrite"
           Effect = "Allow"
           Action = ["*"]
