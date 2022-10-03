@@ -487,10 +487,10 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
 
     return (
       <Container>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("organization.tabs.billing.paymentMethods.title")}
         </Text>
-        <Text fw={7} mb={2} mt={3} size={4}>
+        <Text fw={7} mb={2} mt={3} size={"medium"}>
           {t("organization.tabs.billing.paymentMethods.add.creditCard.label")}
         </Text>
         <Table
@@ -546,7 +546,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           rowSelectionState={currentCreditCardRow}
           selectionMode={"radio"}
         />
-        <Text fw={7} mb={2} mt={3} size={4}>
+        <Text fw={7} mb={2} mt={3} size={"medium"}>
           {t("organization.tabs.billing.paymentMethods.add.otherMethods.label")}
         </Text>
         <Table

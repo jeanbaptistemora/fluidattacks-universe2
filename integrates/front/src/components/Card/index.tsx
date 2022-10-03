@@ -28,7 +28,7 @@ const Card: FC<ICardProps> = ({
   <CardBox float={float} onClick={onClick}>
     {img === undefined ? undefined : <CardImgBox>{img}</CardImgBox>}
     {title === undefined ? undefined : (
-      <Text fw={7} mb={3} size={4}>
+      <Text fw={7} mb={3} size={"medium"}>
         {title}
       </Text>
     )}

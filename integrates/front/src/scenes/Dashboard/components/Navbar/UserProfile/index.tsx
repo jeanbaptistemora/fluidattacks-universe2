@@ -131,7 +131,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       align={"left"}
       button={
         <Button size={"sm"}>
-          <Text size={4}>
+          <Text size={"medium"}>
             <FontAwesomeIcon icon={faUserCircle} />
           </Text>
         </Button>

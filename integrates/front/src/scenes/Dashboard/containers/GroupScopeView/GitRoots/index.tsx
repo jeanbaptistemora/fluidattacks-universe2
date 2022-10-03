@@ -414,7 +414,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
           return (
             <Fragment>
-              <Text fw={7} mb={3} mt={4} size={5}>
+              <Text fw={7} mb={3} mt={4} size={"big"}>
                 {t("group.scope.git.title")}
               </Text>
               <Card>
@@ -544,7 +544,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       </ConfirmDialog>
       {envDataset.length === 0 ? undefined : (
         <Fragment>
-          <Text fw={7} mb={3} mt={4} size={5}>
+          <Text fw={7} mb={3} mt={4} size={"big"}>
             {t("group.scope.git.envUrls")}
           </Text>
           <Card>

@@ -31,25 +31,25 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div id={"resources"}>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("searchFindings.tabResources.files.title")}
         </Text>
         <Card>
           <Files groupName={groupName} />
         </Card>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("searchFindings.tabResources.tags.title")}
         </Text>
         <Card>
           <Portfolio groupName={groupName} />
         </Card>
         <Can do={"see_group_services_info"}>
-          <Text fw={7} mb={3} mt={4} size={5}>
+          <Text fw={7} mb={3} mt={4} size={"big"}>
             {t("searchFindings.servicesTable.services")}
           </Text>
           <Services groupName={groupName} />
         </Can>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("searchFindings.infoTable.title")}
         </Text>
         <GroupInformation />

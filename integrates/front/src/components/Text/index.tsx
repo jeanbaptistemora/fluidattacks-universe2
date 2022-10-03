@@ -11,6 +11,7 @@ type TDecor = "over" | "through" | "under";
 type TStyle = "i" | "no";
 type Nums1To7 = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 type Nums1To9 = Nums1To7 | 8 | 9;
+type TSize = "big" | "medium" | "small" | "xs";
 
 interface ITextProps {
   bright?: Nums1To9 | 0;
@@ -22,7 +23,7 @@ interface ITextProps {
   ml?: Nums1To7 | 0;
   mr?: Nums1To7 | 0;
   mt?: Nums1To7 | 0;
-  size?: Nums1To7;
+  size?: TSize;
   tone?: TColor;
   fs?: TStyle;
   fw?: Nums1To9;
@@ -80,17 +81,24 @@ const styles: Record<TStyle, string> = {
   no: "normal",
 };
 
+const sizes: Record<TSize, string> = {
+  big: "3",
+  medium: "4",
+  small: "6",
+  xs: "7",
+};
+
 const Text = styled.p.attrs(
   ({
     mb = 0,
     ml = 0,
     mr = 0,
     mt = 0,
-    size = 2,
+    size = "small",
   }: ITextProps): {
     className: string;
   } => ({
-    className: `comp-text f${8 - size} mb${mb} ml${ml} mr${mr} mt${mt}`,
+    className: `comp-text f${sizes[size]} mb${mb} ml${ml} mr${mr} mt${mt}`,
   })
 )<ITextProps>`
   ${({

@@ -54,7 +54,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
       <React.StrictMode>
         <Row>
           <Col lg={60} md={60} sm={100}>
-            <Text fw={7} mb={3} mt={2} size={5}>
+            <Text fw={7} mb={3} mt={2} size={"big"}>
               {t(
                 "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text",
                 {
@@ -64,7 +64,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
                 }
               )}{" "}
               <InfoDropdown>
-                <Text size={2} ta={"center"}>
+                <Text size={"small"} ta={"center"}>
                   {t(
                     "organization.tabs.compliance.tabs.overview.organizationCompliance.title.info",
                     { organizationName: organization.name }
@@ -96,7 +96,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
         </Row>
         <Row>
           <Col lg={100} md={100} sm={100}>
-            <Text fw={7} mb={3} mt={2} size={5}>
+            <Text fw={7} mb={3} mt={2} size={"big"}>
               {t("organization.tabs.compliance.tabs.overview.benchmark.title")}
             </Text>
             <Row>

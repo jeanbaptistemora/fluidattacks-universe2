@@ -13,18 +13,18 @@ import React from "react";
 import { Dropdown } from "components/Dropdown";
 import { Text } from "components/Text";
 
-type Nums1To7 = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type TSize = "big" | "medium" | "small";
 
 interface IInfoDropdownProps {
   alignDropdown?: "center" | "left" | "right";
-  size?: Nums1To7;
+  size?: TSize;
   sup?: boolean;
   children?: ReactNode | string;
 }
 
 const InfoDropdown: FC<IInfoDropdownProps> = ({
   alignDropdown = "left",
-  size = 1,
+  size = "small",
   sup = true,
   children,
 }: Readonly<IInfoDropdownProps>): JSX.Element => (

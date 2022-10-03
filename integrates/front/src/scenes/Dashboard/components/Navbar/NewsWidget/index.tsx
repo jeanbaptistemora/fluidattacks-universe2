@@ -24,7 +24,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
         widget={"https://news.atfluid.com/widgets/v2/ZmEGk"}
         widgetStyle={{ position: "absolute", top: "25px" }}
       >
-        <Text size={4}>
+        <Text size={"medium"}>
           <FontAwesomeIcon icon={faBullhorn} />
         </Text>
       </AnnounceKit>

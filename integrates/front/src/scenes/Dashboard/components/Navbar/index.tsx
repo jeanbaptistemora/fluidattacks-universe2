@@ -56,7 +56,7 @@ export const Navbar: React.FC<INavbarProps> = ({
           </li>
           <li>
             <Button onClick={open} size={"sm"}>
-              <Text size={4}>
+              <Text size={"medium"}>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </Text>
             </Button>

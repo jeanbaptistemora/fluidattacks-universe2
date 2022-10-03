@@ -90,7 +90,7 @@ const Pagination = <TData extends RowData>({
             </Button>
           )
         )}
-      <Text ml={3} size={1} tone={"light"}>
+      <Text ml={3} size={"xs"} tone={"light"}>
         {`${pageSize * pageIndex + 1} - ${Math.min(
           pageSize * (pageIndex + 1),
           size

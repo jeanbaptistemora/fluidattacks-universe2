@@ -29,7 +29,7 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
   return (
     <Card>
       <Row>
-        <Text fw={6} size={3} ta={"center"}>
+        <Text fw={6} size={"small"} ta={"center"}>
           {standardCompliance.standardTitle.toUpperCase()}
         </Text>
       </Row>

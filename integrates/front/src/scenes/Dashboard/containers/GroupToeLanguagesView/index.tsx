@@ -60,7 +60,7 @@ export const GroupToeLanguagesView: React.FC = (): JSX.Element => {
 
   return (
     <Fragment>
-      <Text fw={7} mb={3} mt={4} size={5}>
+      <Text fw={7} mb={3} mt={4} size={"big"}>
         {t("group.toe.codeLanguages.title")}
       </Text>
       <Table

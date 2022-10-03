@@ -22,7 +22,7 @@ const Dialog = styled.div`
   display: flex;
   flex-direction: column;
   font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   max-height: 90%;
   max-width: 90%;
   padding: 24px;

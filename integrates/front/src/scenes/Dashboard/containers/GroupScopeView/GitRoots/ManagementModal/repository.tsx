@@ -264,7 +264,7 @@ const Repository: FC<IRepositoryProps> = ({
           <Fragment>
             <Form>
               <fieldset className={"bn"}>
-                <Text fw={7} mb={2} size={4}>
+                <Text fw={7} mb={2} size={"medium"}>
                   {t("group.scope.git.repo.title")}
                 </Text>
                 <Row align={"center"}>

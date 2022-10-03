@@ -27,7 +27,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
       align={"left"}
       button={
         <Button size={"sm"}>
-          <Text size={4}>
+          <Text size={"medium"}>
             <FontAwesomeIcon icon={faInfoCircle} />
           </Text>
         </Button>

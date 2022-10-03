@@ -24,10 +24,10 @@ const Notification: FC<INotificationProps> = ({
   title,
 }: Readonly<INotificationProps>): JSX.Element => (
   <NotificationBox>
-    <Text mb={1} size={1} tone={"light"}>
+    <Text mb={1} size={"small"} tone={"light"}>
       {title}
     </Text>
-    <Text size={3} tone={"light"}>
+    <Text size={"small"} tone={"light"}>
       {text}
     </Text>
   </NotificationBox>

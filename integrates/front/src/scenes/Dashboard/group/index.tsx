@@ -170,7 +170,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                 <Lottie animationData={lotCircleXMark} size={100} />
               </div>
             </Text>
-            <Text fw={7} mb={3} size={4} ta={"center"}>
+            <Text fw={7} mb={3} size={"medium"} ta={"center"}>
               {t("group.accessDenied.title")}
             </Text>
             <Text mb={3} ta={"center"}>

@@ -96,10 +96,10 @@ const Comment: FC<ICommentProps> = ({
       <div className={"comment"}>
         <Card>
           <div className={"flex justify-between mb2"}>
-            <Text disp={"inline-block"} fw={7} size={3}>
+            <Text disp={"inline-block"} fw={7} size={"small"}>
               {rootComment.createdByCurrentUser ? `You` : rootComment.fullName}
             </Text>
-            <Text disp={"inline-block"} size={3}>
+            <Text disp={"inline-block"} size={"small"}>
               {rootComment.created}
             </Text>
           </div>

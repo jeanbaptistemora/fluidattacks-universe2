@@ -316,7 +316,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   return (
     <Container>
-      <Text fw={7} mb={3} mt={4} size={5}>
+      <Text fw={7} mb={3} mt={4} size={"big"}>
         {t("organization.tabs.billing.groups.title")}
       </Text>
       <Table

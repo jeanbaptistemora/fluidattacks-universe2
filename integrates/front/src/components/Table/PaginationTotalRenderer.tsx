@@ -13,7 +13,7 @@ const PaginationTotalRenderer = (
   to: number,
   size: number
 ): JSX.Element => (
-  <Text bright={5} disp={"inline"} ml={3} size={2} tone={"light"}>
+  <Text bright={5} disp={"inline"} ml={3} size={"xs"} tone={"light"}>
     {`${from} - ${to} of ${size}`}
   </Text>
 );

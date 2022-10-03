@@ -52,7 +52,7 @@ const Modal: FC<IModalProps> = ({
         <ContainerModal id={id}>
           <Dialog>
             <Header>
-              <Text fw={7} mr={2} size={4}>
+              <Text fw={7} mr={2} size={"medium"}>
                 {title}
               </Text>
               {onClose ? (

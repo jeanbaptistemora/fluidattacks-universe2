@@ -61,7 +61,7 @@ const HealthCheck: FC<IHealthCheckProps> = ({
   return (
     <Have I={"has_squad"}>
       <Hr mv={16} />
-      <Text fw={7} mb={2} size={4}>
+      <Text fw={7} mb={2} size={"medium"}>
         {t("group.scope.git.healthCheck.title")}
       </Text>
       <fieldset className={"bn"}>

@@ -28,9 +28,71 @@ Default.args = {
   hoverBright: 3,
   hoverTone: "red",
   ml: 5,
-  size: 3,
+  size: "medium",
   tone: "dark",
 };
 
-export { Default };
+const BigText: Story = (): JSX.Element => {
+  return (
+    <Text
+      bright={5}
+      hoverBright={3}
+      hoverTone={"red"}
+      ml={5}
+      size={"big"}
+      tone={"dark"}
+    >
+      {"Big heading"}
+    </Text>
+  );
+};
+
+const MediumText: Story = (): JSX.Element => {
+  return (
+    <Text
+      bright={5}
+      hoverBright={3}
+      hoverTone={"red"}
+      ml={5}
+      mt={3}
+      size={"medium"}
+      tone={"dark"}
+    >
+      {"Medium heading"}
+    </Text>
+  );
+};
+
+const SmallText: Story = (): JSX.Element => {
+  return (
+    <Text
+      bright={5}
+      hoverBright={3}
+      hoverTone={"red"}
+      ml={5}
+      mt={3}
+      tone={"dark"}
+    >
+      {"Body text"}
+    </Text>
+  );
+};
+
+const XsText: Story = (): JSX.Element => {
+  return (
+    <Text
+      bright={5}
+      hoverBright={3}
+      hoverTone={"red"}
+      ml={5}
+      mt={3}
+      size={"xs"}
+      tone={"dark"}
+    >
+      {"Body text"}
+    </Text>
+  );
+};
+
+export { Default, BigText, MediumText, SmallText, XsText };
 export default config;

@@ -85,7 +85,7 @@ const Policies: React.FC<IPolicies> = ({
     >
       {({ dirty, isSubmitting }): JSX.Element => (
         <Form id={"policies"}>
-          <Text fw={7} mb={3} mt={4} size={5}>
+          <Text fw={7} mb={3} mt={4} size={"big"}>
             {tooltipMessage === undefined ? (
               <React.StrictMode>
                 {t(`${translationStart}title`)}

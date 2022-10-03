@@ -22,7 +22,7 @@ const Default: Story = (): JSX.Element => (
     {[23, 24, 25, 26].map(
       (el: number): JSX.Element => (
         <Card float={true} key={el} title={`2022-07-${el}`}>
-          <Text fw={7} mb={1} size={3}>
+          <Text fw={7} mb={1} size={"big"}>
             {"Lorem ipsum"}
           </Text>
           <Text>

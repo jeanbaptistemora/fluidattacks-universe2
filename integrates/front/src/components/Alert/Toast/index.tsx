@@ -38,10 +38,10 @@ const toast = ({
     <AlertBox show={true} variant={variant}>
       <FontAwesomeIcon icon={variants[variant].icon} />
       <ContentBox>
-        <Text fw={7} mb={1} size={3} tone={"dark"}>
+        <Text fw={7} mb={1} size={"small"} tone={"dark"}>
           {title}
         </Text>
-        <Text size={3} tone={"dark"}>
+        <Text size={"small"} tone={"dark"}>
           {msg}
         </Text>
       </ContentBox>

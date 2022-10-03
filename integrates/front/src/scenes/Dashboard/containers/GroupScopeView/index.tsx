@@ -51,7 +51,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
         />
       </Have>
       <Have I={"has_service_black"}>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("group.scope.ip.title")}
         </Text>
         <Card>
@@ -61,7 +61,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
             roots={roots.filter(isIPRoot)}
           />
         </Card>
-        <Text fw={7} mb={3} mt={4} size={5}>
+        <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("group.scope.url.title")}
         </Text>
         <Card>

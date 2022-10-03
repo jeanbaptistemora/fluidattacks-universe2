@@ -24,7 +24,7 @@ const Template: Story<PropsWithChildren<IInfoDropdownProps>> = (
 const Default = Template.bind({});
 Default.args = {
   alignDropdown: "right",
-  size: 2,
+  size: "small",
 };
 
 export { Default };

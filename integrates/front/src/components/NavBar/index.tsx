@@ -39,7 +39,12 @@ const NavBar: FC<INavBarProps> = ({
           tip={INTEGRATES_DEPLOYMENT_DATE}
         >
           <ExternalLink href={`${repo}${CI_COMMIT_SHA}`}>
-            <Text bright={8} disp={"inline-block"} size={1} tone={"light"}>
+            <Text
+              bright={8}
+              disp={"inline-block"}
+              size={"small"}
+              tone={"light"}
+            >
               {`v. ${CI_COMMIT_SHORT_SHA}`}
             </Text>
           </ExternalLink>

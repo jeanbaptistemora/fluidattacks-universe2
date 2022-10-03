@@ -77,7 +77,7 @@ export const TaskInfo: React.FC = (): JSX.Element => {
         )}
       >
         <Button onClick={onClick} size={"sm"}>
-          <Text size={4}>
+          <Text size={"medium"}>
             <FontAwesomeIcon color={"#2e2e38"} icon={faTasks} />
             {undefinedOrEmpty ? undefined : (
               <span className={"fa-layers-counter f2 b"}>

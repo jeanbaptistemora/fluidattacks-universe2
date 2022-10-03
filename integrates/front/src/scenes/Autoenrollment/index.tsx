@@ -405,7 +405,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         <Text bright={0} mb={1} mt={5} ta={"center"} tone={"red"}>
           {t("autoenrollment.step2")}
         </Text>
-        <Text fw={7} mb={1} size={4} ta={"center"}>
+        <Text fw={7} mb={1} size={"medium"} ta={"center"}>
           {t("autoenrollment.setupOrganization")}
         </Text>
         <Text mb={4} ta={"center"}>
@@ -433,7 +433,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         <Text bright={0} mb={1} mt={5} ta={"center"} tone={"red"}>
           {t("autoenrollment.step1")}
         </Text>
-        <Text fw={7} mb={1} size={4} ta={"center"}>
+        <Text fw={7} mb={1} size={"medium"} ta={"center"}>
           {t("autoenrollment.addRepository")}
         </Text>
         <Text mb={4} ta={"center"}>
@@ -460,7 +460,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         <Col lg={30} md={50} sm={70}>
           <Card>
             <Standby onClose={redirect}>
-              <Text fw={7} mb={2} size={4} ta={"center"}>
+              <Text fw={7} mb={2} size={"medium"} ta={"center"}>
                 {t("autoenrollment.standby.title")}
               </Text>
               <Text ta={"center"}>{t("autoenrollment.standby.subtitle")}</Text>
