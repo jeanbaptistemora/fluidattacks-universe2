@@ -18,6 +18,9 @@ from syntax_graph.syntax_readers.javascript import (
 )
 from syntax_graph.syntax_readers.typescript import (
     as_expression as typescript_as_expression,
+    enum_assignment as typescript_enum_assignment,
+    enum_body as typescript_enum_body,
+    enum_declaration as typescript_enum_declaration,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
     property_signature as typescript_property_signature,
@@ -52,6 +55,24 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "comment",
         },
         syntax_reader=javascript_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "enum_assignment",
+        },
+        syntax_reader=typescript_enum_assignment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "enum_body",
+        },
+        syntax_reader=typescript_enum_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "enum_declaration",
+        },
+        syntax_reader=typescript_enum_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
