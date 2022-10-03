@@ -30,6 +30,50 @@ function export_secrets {
     || return 1
 }
 
+function get_stream_arn {
+  local table="${1}"
+  local aws_args=(--table-name "${table}")
+
+  : \
+    && if [ "${ENVIRONMENT}" = "dev" ]; then
+      aws_args+=(--endpoint-url "${LOCAL_ENDPOINT}")
+    fi \
+    && aws dynamodbstreams list-streams "${aws_args[@]}" \
+    | jq --raw-output ".Streams[0].StreamArn" \
+    || return 1
+}
+
+function dynamodb_consumer {
+  export LOCAL_ENDPOINT="http://${DYNAMODB_HOST}:${DYNAMODB_PORT}"
+
+  local table="${1}"
+  local name="${table}_consumer"
+  local properties=(
+    "applicationName = ${name}"
+    "AWSCredentialsProvider = DefaultAWSCredentialsProviderChain"
+    "executableName = python3 invoker.py dynamodb"
+    "initialPositionInStream = TRIM_HORIZON"
+    "regionName = ${AWS_DEFAULT_REGION}"
+    "streamName = $(get_stream_arn "${table}")"
+  )
+  local properties_file="${STATE}/${name}.properties"
+
+  : \
+    && if [ "${ENVIRONMENT}" = "dev" ]; then
+      config+=(
+        "dynamoDBEndpoint = ${LOCAL_ENDPOINT}"
+        "kinesisEndpoint = ${LOCAL_ENDPOINT}"
+      )
+    fi \
+    && for property in "${properties[@]}"; do
+      echo "${property}" >> "${properties_file}"
+    done \
+    && java \
+      "com.amazonaws.services.dynamodbv2.streamsadapter.StreamsMultiLangDaemon" \
+      "${properties_file}" \
+    || return 1
+}
+
 function main {
   export ENVIRONMENT="${1}"
   local module="${2}"
