@@ -767,6 +767,14 @@
       "title": "338. Insecure service configuration - Salt"
     }
   },
+  "F343": {
+    "EN": {
+      "title": "343. Insecure service configuration - BREACH Attack"
+    },
+    "ES": {
+      "title": "343. Insecure service configuration - BREACH Attack"
+    }
+  },
   "F346": {
     "EN": {
       "title": "346. Excessive privileges - Mobile App"
