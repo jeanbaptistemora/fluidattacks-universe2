@@ -10,6 +10,7 @@ from amazon_kclpy.kcl import (
 from amazon_kclpy.messages import (
     InitializeInput,
     ProcessRecordsInput,
+    Record as KCLRecord,
     ShutdownInput,
 )
 from amazon_kclpy.v2 import (
@@ -37,7 +38,17 @@ from dynamodb.types import (
 from dynamodb.utils import (
     format_record,
 )
+import json
 import logging
+from opensearchpy.exceptions import (
+    OpenSearchException,
+)
+from psycopg2 import (
+    Error as Psycopg2Error,
+)
+from requests.exceptions import (  # type: ignore
+    RequestException,
+)
 import signal
 from threading import (
     Event,
@@ -190,7 +201,7 @@ def _consume_shard_records(
     LOGGER.info("%s shutdown gracefully", shard_id)
 
 
-def consume() -> None:
+def consume_old() -> None:
     """Consumes the DynamoDB stream"""
     stream_arn = _get_stream_arn(TABLE_NAME)
     workers: list[Thread] = []
@@ -270,9 +281,37 @@ class RecordProcessor(processor.RecordProcessorBase):
         )
 
     def process_records(
-        self, _process_records_input: ProcessRecordsInput
+        self, process_records_input: ProcessRecordsInput
     ) -> None:
         """Called by the KCL when new records are read from the stream"""
+        kcl_records: list[KCLRecord] = process_records_input.records
+        records = tuple(
+            format_record(json.loads(record.binary_data.decode("utf-8")))
+            for record in kcl_records
+        )
+
+        for trigger in TRIGGERS:
+            try:
+                matching_records = tuple(
+                    record
+                    for record in records
+                    if trigger.records_filter(record)
+                )
+
+                if matching_records:
+                    trigger.records_processor(matching_records)
+            except (
+                OpenSearchException,
+                Psycopg2Error,
+                RequestException,
+            ) as ex:
+                LOGGER.exception(ex)
+
+        self.checkpoint(
+            process_records_input.checkpointer,
+            kcl_records[-1].sequence_number,
+            kcl_records[-1].sub_sequence_number,
+        )
 
     def shutdown(self, shutdown_input: ShutdownInput) -> None:
         """Called by the KCL when the worker will shutdown"""
@@ -280,7 +319,7 @@ class RecordProcessor(processor.RecordProcessorBase):
             self.checkpoint(shutdown_input.checkpointer)
 
 
-def consume_kcl() -> None:
+def consume() -> None:
     """Consumes the DynamoDB stream"""
     try:
         kclprocess = KCLProcess(RecordProcessor())

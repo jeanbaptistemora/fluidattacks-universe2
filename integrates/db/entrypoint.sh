@@ -32,9 +32,9 @@ function main {
     && { start_secondary_datastores & } \
     && wait \
     && if [ "${DAEMON:-}" = "true" ]; then
-      { integrates-streams dev dynamodb & }
+      { integrates-streams dev & }
     else
-      integrates-streams dev dynamodb
+      integrates-streams dev
     fi \
     || return 1
 }

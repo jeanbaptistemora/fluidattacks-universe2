@@ -43,7 +43,7 @@ function get_stream_arn {
     || return 1
 }
 
-function dynamodb_consumer {
+function run_dynamodb_consumer {
   export LOCAL_ENDPOINT="http://${DYNAMODB_HOST}:${DYNAMODB_PORT}"
 
   local table="${1}"
@@ -60,9 +60,10 @@ function dynamodb_consumer {
 
   : \
     && if [ "${ENVIRONMENT}" = "dev" ]; then
-      config+=(
+      properties+=(
         "dynamoDBEndpoint = ${LOCAL_ENDPOINT}"
         "kinesisEndpoint = ${LOCAL_ENDPOINT}"
+        "metricsLevel = NONE"
       )
     fi \
     && for property in "${properties[@]}"; do
@@ -76,13 +77,13 @@ function dynamodb_consumer {
 
 function main {
   export ENVIRONMENT="${1}"
-  local module="${2}"
+  local module="${2:-}"
   export AWS_DEFAULT_REGION="us-east-1"
 
   echo "[INFO] Executing ${module} consumer" \
     && export_secrets "${ENVIRONMENT}" \
     && pushd __argSrc__ \
-    && python3 "invoker.py" "${module}" \
+    && run_dynamodb_consumer integrates_vms \
     && popd \
     || return 1
 }
