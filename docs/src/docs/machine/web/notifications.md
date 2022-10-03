@@ -49,7 +49,7 @@ When you click on it,
 you will be directed to that
 type of vulnerability on the ARM.
 
-![Vulnerability Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vuln_assignment.png)
+![Vulnerability Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1664798185/docs/web/notifications/new_vulnerability__assignment.png)
 
 ### Treatment updates
 
@@ -70,7 +70,7 @@ When you click on it,
 you will be directed to that
 type of vulnerability on the ARM.
 
-![Treatment Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_treatment_updated.png)
+![Treatment Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1664797601/docs/web/notifications/treatment_updated.png)
 
 ### Inactivity alert
 
@@ -257,7 +257,7 @@ it will send you to the
 reported type of
 vulnerability on the ARM.
 
-![Vulnerability Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005445/docs/web/notifications/notif_vulnerability_alert.png)
+![Vulnerability Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1664798430/docs/web/notifications/vulnerability_reported.png)
 
 ### Event alert
 
@@ -303,7 +303,7 @@ policies were changed and
 the policies’ name and
 new selected values.
 
-![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_policies_updated.png)
+![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1664796913/docs/web/notifications/policies_update.png)
 
 ### Treatment expiration alert
 
@@ -338,7 +338,7 @@ triggered when any user
 unsubscribes from any ARM group.
 It is enabled for the User Manager role.
 
-![User Unsubscription](https://res.cloudinary.com/fluid-attacks/image/upload/v1658762773/docs/web/notifications/notif_user_unsubscription.png)
+![User Unsubscription](https://res.cloudinary.com/fluid-attacks/image/upload/v1664797879/docs/web/notifications/unsubcription_alert.png)
 
 ### DevSecOps agent token
 
@@ -356,21 +356,21 @@ This notification will be generated
 if any information of the group
 is edited or modified.
 The User Manager role will
-be notified by email or SMS.
+be notified by email.
 
-![Updated Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1658771422/docs/web/notifications/notif_updated_group.png)
+![Updated Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1664796577/docs/web/notifications/information_updated.png)
 
 ### Updated services
 
 If you are a User Manager,
 you will receive this
-notification via email or
-SMS called Services Updated,
+notification via email
+called Services Updated,
 which will be generated when
 any of the Services fields
 in the Scope tab are modified.
 
-![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1658957064/docs/web/notifications/notif_services_updated.png)
+![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1664797274/docs/web/notifications/services_updated.png)
 
 ### File report
 
