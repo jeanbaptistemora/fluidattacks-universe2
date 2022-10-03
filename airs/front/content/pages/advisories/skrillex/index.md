@@ -55,8 +55,6 @@ understanding of vulnerability.
 
 ![image](https://user-images.githubusercontent.com/51862990/189775403-75f4e110-50f0-4afb-8cd6-63dd2c651b16.png)
 
-![image](https://user-images.githubusercontent.com/51862990/189775423-31154fd3-f95e-4072-8cad-facb1b075e0f.png)
-
 Basically what the application is doing is sending to
 shell.openExternal(url), any url present in the markdown
 file.
