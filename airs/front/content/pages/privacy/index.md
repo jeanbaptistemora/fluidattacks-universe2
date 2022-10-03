@@ -366,8 +366,11 @@ deliver ads that might place cookies and otherwise track user behavior.
 
 ### Email marketing
 
-We offer electronic newsletters to which you may voluntarily subscribe
-at any time. We are committed to keeping your email address
+As stated in previous sections,
+we may send you marketing and promotional emails
+(such as newsletters)
+from which you may unsubscribe at any time.
+We are committed to keeping your email address
 confidential and will not disclose your email address to any third
 parties except as allowed in the information use and processing section
 or for the purposes of utilizing a third party provider to send such
