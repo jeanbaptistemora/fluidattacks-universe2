@@ -207,6 +207,10 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         )
         for category in categories
     ]
+    categories_trend = [
+        MaxSeverity(name=category.name, value=format_cvssf(category.value))
+        for category in categories_trend
+    ]
     categories_trend = sorted(categories_trend, key=sorter, reverse=True)
 
     return dict(
