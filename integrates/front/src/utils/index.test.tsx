@@ -10,6 +10,7 @@ import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
 import {
   alphaNumeric,
+  excludeFormat,
   hasSshFormat,
   isFloatOrInteger,
   isLowerDate,
@@ -875,6 +876,20 @@ describe("Validations", (): void => {
     const sshCheck = hasSshFormat(value);
 
     expect(sshCheck).toBe("Invalid or malformed SSH private key");
+  });
+
+  it("Should include name in format", (): void => {
+    expect.hasAssertions();
+
+    const helperList: Record<string, string> = {
+      url: "testDomain.com/testOrg/testRepo.git",
+    };
+    const value = "testRepo/testOrg/test";
+    const formatCheck = excludeFormat(value, helperList);
+
+    expect(formatCheck).toBe(
+      "Root name should not be included in the exception pattern"
+    );
   });
 });
 
