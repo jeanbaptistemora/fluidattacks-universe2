@@ -6,6 +6,8 @@
 type OrganizationCompliance {
   "Level of compliance with the standards"
   complianceLevel: Float
+  "Weekly trend for the compliance"
+  complianceWeeklyTrend: Float
   "Compliance information by standard"
   standards: [OrganizationComplianceStandard]!
 }
