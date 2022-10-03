@@ -10,9 +10,6 @@ from aioboto3.dynamodb.table import (
     BatchWriter,
 )
 import aioextensions
-from aioextensions import (
-    collect,
-)
 from boto3.dynamodb.conditions import (
     ConditionBase,
 )
@@ -26,7 +23,6 @@ from dynamodb.exceptions import (
     handle_error,
 )
 from dynamodb.resource import (
-    get_resource,
     get_table_resource,
 )
 from dynamodb.types import (
@@ -40,9 +36,6 @@ from dynamodb.types import (
 )
 from itertools import (
     chain,
-)
-from more_itertools import (
-    chunked,
 )
 from typing import (
     Any,
@@ -135,78 +128,6 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-async def batch_delete_item(
-    *, keys: Tuple[PrimaryKey, ...], table: Table
-) -> None:
-    key_structure = table.primary_key
-    table_resource = await get_table_resource(table)
-
-    async with PatchedBatchWriter(
-        table_resource.name,
-        table_resource.meta.client,
-        flush_amount=25,
-        overwrite_by_pkeys=None,
-        on_exit_loop_sleep=0,
-    ) as batch_writer:
-        try:
-            await aioextensions.collect(
-                tuple(
-                    batch_writer.delete_item(
-                        Key={
-                            key_structure.partition_key: (
-                                primary_key.partition_key
-                            ),
-                            key_structure.sort_key: primary_key.sort_key,
-                        }
-                    )
-                    for primary_key in keys
-                )
-            )
-        except ClientError as error:
-            handle_error(error=error)
-
-
-async def batch_get_item(
-    *, keys: Tuple[PrimaryKey, ...], table: Table
-) -> Tuple[Item, ...]:
-    key_structure = table.primary_key
-    items: List[Item] = []
-    resource = await get_resource()
-
-    async def _get_chunk(chunk_keys: List[PrimaryKey]) -> Tuple[Item, ...]:
-        response = await resource.batch_get_item(
-            RequestItems={
-                table.name: {
-                    "Keys": [
-                        {
-                            key_structure.partition_key: (
-                                primary_key.partition_key
-                            ),
-                            key_structure.sort_key: primary_key.sort_key,
-                        }
-                        for primary_key in chunk_keys
-                    ]
-                }
-            },
-        )
-        return response["Responses"][table.name]
-
-    try:
-        items = [
-            item
-            for items_chunk in await collect(
-                tuple(
-                    _get_chunk(keys_chunk) for keys_chunk in chunked(keys, 100)
-                ),
-            )
-            for item in items_chunk
-        ]
-    except ClientError as error:
-        handle_error(error=error)
-
-    return tuple(items)
-
-
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
     table_resource = await get_table_resource(table)
 
@@ -250,43 +171,6 @@ async def delete_item(
         await table_resource.delete_item(**_exclude_none(args=args))
     except ClientError as error:
         handle_error(error=error)
-
-
-def _build_get_item_args(
-    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
-) -> Dict[str, Any]:
-    facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
-    attrs = {
-        table.primary_key.partition_key,
-        table.primary_key.sort_key,
-        *facet_attrs,
-    }
-    key_structure = table.primary_key
-
-    return {
-        "ExpressionAttributeNames": {f"#{attr}": attr for attr in attrs},
-        "Key": {
-            key_structure.partition_key: key.partition_key,
-            key_structure.sort_key: key.sort_key,
-        },
-        "ProjectionExpression": ",".join([f"#{attr}" for attr in attrs]),
-    }
-
-
-async def get_item(
-    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
-) -> Optional[Item]:
-    item: Optional[Item] = None
-    table_resource = await get_table_resource(table)
-    get_item_args = _build_get_item_args(key=key, facets=facets, table=table)
-
-    try:
-        response = await table_resource.get_item(**get_item_args)
-        item = response.get("Item")
-    except ClientError as error:
-        handle_error(error=error)
-
-    return item
 
 
 async def put_item(
