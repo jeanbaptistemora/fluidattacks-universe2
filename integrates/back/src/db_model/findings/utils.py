@@ -27,9 +27,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decimal import (
     Decimal,
 )
@@ -40,31 +37,6 @@ from typing import (
     Optional,
     Union,
 )
-
-
-def filter_find_non_in_test_orgs(
-    test_group_orgs: tuple[tuple[Group, ...], ...],
-    findings: tuple[Finding, ...],
-) -> tuple[Finding, ...]:
-    test_group_names = tuple(
-        tuple(group.name for group in groups) for groups in test_group_orgs
-    )
-    return tuple(
-        finding
-        for finding in findings
-        if not any(
-            finding.group_name in group_name for group_name in test_group_names
-        )
-    )
-
-
-def filter_find_stakeholder_groups(
-    group_names: list[str],
-    findings: tuple[Finding, ...],
-) -> tuple[Finding, ...]:
-    return tuple(
-        finding for finding in findings if finding.group_name in group_names
-    )
 
 
 def filter_non_state_status_findings(

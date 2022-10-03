@@ -8,6 +8,7 @@ from datetime import (
     timezone,
 )
 from db_model.types import (
+    Historic,
     PoliciesToUpdate,
 )
 from decimal import (
@@ -15,7 +16,31 @@ from decimal import (
 )
 from typing import (
     Any,
+    cast,
 )
+
+
+def adjust_historic_dates(
+    historic: Historic,
+) -> Historic:
+    """
+    Ensure dates are not the same and in ascending order.
+    Also that there is a 1 second offset among them.
+    """
+    new_historic = []
+    comparison_date = ""
+    for entry in historic:
+        if entry.modified_date > comparison_date:
+            comparison_date = entry.modified_date
+        else:
+            fixed_date = datetime.fromisoformat(comparison_date) + timedelta(
+                seconds=1
+            )
+            comparison_date = fixed_date.astimezone(
+                tz=timezone.utc
+            ).isoformat()
+        new_historic.append(entry._replace(modified_date=comparison_date))
+    return cast(Historic, tuple(new_historic))
 
 
 def get_date_as_utc_iso_format(date: datetime) -> str:

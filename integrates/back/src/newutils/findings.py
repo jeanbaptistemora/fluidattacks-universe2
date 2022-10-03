@@ -22,6 +22,9 @@ from db_model.findings.types import (
     FindingEvidence,
     FindingVerificationSummary,
 )
+from db_model.groups.types import (
+    Group,
+)
 import io
 from newutils import (
     datetime as datetime_utils,
@@ -172,3 +175,28 @@ def is_verified(
     verification_summary: FindingVerificationSummary,
 ) -> bool:
     return verification_summary.requested == 0
+
+
+def filter_findings_non_in_test_orgs(
+    test_group_orgs: tuple[tuple[Group, ...], ...],
+    findings: tuple[Finding, ...],
+) -> tuple[Finding, ...]:
+    test_group_names = tuple(
+        tuple(group.name for group in groups) for groups in test_group_orgs
+    )
+    return tuple(
+        finding
+        for finding in findings
+        if not any(
+            finding.group_name in group_name for group_name in test_group_names
+        )
+    )
+
+
+def filter_findings_in_groups(
+    group_names: list[str],
+    findings: tuple[Finding, ...],
+) -> tuple[Finding, ...]:
+    return tuple(
+        finding for finding in findings if finding.group_name in group_names
+    )

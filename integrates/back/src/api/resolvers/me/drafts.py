@@ -9,8 +9,6 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.findings.utils import (
-    filter_find_non_in_test_orgs,
-    filter_find_stakeholder_groups,
     format_finding,
 )
 from decorators import (
@@ -21,6 +19,10 @@ from graphql.type.definition import (
 )
 from group_access.domain import (
     get_stakeholder_groups_names,
+)
+from newutils.findings import (
+    filter_findings_in_groups,
+    filter_findings_non_in_test_orgs,
 )
 from search.operations import (
     search,
@@ -59,7 +61,7 @@ async def resolve(
         )
     )
 
-    org_filtered = filter_find_non_in_test_orgs(
+    org_filtered = filter_findings_non_in_test_orgs(
         test_group_orgs=test_group_orgs,
         findings=tuple(format_finding(result) for result in results.items),
     )
@@ -69,7 +71,7 @@ async def resolve(
     )
 
     return tuple(
-        filter_find_stakeholder_groups(
+        filter_findings_in_groups(
             group_names=stakeholder_groups, findings=org_filtered
         )
     )

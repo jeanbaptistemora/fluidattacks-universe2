@@ -9,7 +9,6 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.findings.utils import (
-    filter_find_non_in_test_orgs,
     format_finding,
 )
 from decorators import (
@@ -17,6 +16,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from newutils.findings import (
+    filter_findings_non_in_test_orgs,
 )
 from search.operations import (
     search,
@@ -54,7 +56,7 @@ async def resolve(
         )
     )
 
-    return filter_find_non_in_test_orgs(
+    return filter_findings_non_in_test_orgs(
         test_group_orgs,
         tuple(format_finding(result) for result in results.items),
     )
