@@ -50,7 +50,9 @@ def format_forces_to_resolve(execution: ForcesExecution) -> Item:
         "exit_code": execution.exit_code,
         "strictness": execution.strictness,
         "git_origin": execution.origin,
-        "grace_period": execution.grace_period,
+        "grace_period": int(execution.grace_period)
+        if execution.grace_period
+        else None,
         "severity_threshold": execution.severity_threshold,
         "vulnerabilities": {
             "num_of_accepted_vulnerabilities": (

@@ -175,6 +175,29 @@ def test_group_analytics(
         )
 
 
+def test_group_forces(
+    driver: WebDriver,
+    credentials: Credentials,
+    asm_endpoint: str,
+    timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
+) -> None:
+    # Login
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
+
+    # Enter execution summary
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/devsecops")
+    utils.wait_for_text(
+        driver,
+        "Click on an execution to see more details",
+        timeout,
+    )
+    assert "Identifier" in driver.page_source
+
+
 def test_group_stakeholder(
     driver: WebDriver,
     credentials: Credentials,
