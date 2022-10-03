@@ -77,10 +77,9 @@ function run_dynamodb_consumer {
 
 function main {
   export ENVIRONMENT="${1}"
-  local module="${2:-}"
   export AWS_DEFAULT_REGION="us-east-1"
 
-  echo "[INFO] Executing ${module} consumer" \
+  echo "[INFO] Executing dynamodb streams consumer" \
     && export_secrets "${ENVIRONMENT}" \
     && pushd __argSrc__ \
     && run_dynamodb_consumer integrates_vms \

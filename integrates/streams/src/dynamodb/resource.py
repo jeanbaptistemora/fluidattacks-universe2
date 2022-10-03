@@ -22,8 +22,6 @@ ENDPOINT = (
 )
 SESSION = Session()
 TABLE_NAME = "integrates_vms"
-
-CLIENT = SESSION.client(endpoint_url=ENDPOINT, service_name="dynamodbstreams")
 RESOURCE = SESSION.resource(
     config=Config(max_pool_connections=100),
     endpoint_url=ENDPOINT,
