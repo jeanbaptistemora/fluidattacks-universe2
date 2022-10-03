@@ -3,18 +3,16 @@
 # SPDX-License-Identifier: MPL-2.0
 {
   inputs,
-  makeDerivation,
+  makeScript,
   outputs,
-  projectPath,
   ...
 }:
-makeDerivation {
-  env = {
-    envSetupIntegratesFrontDevRuntime =
+makeScript {
+  replace = {
+    __argSetupIntegratesFrontDevRuntime__ =
       outputs."/integrates/front/config/dev-runtime";
-    envSrcIntegratesFront = projectPath "/integrates/front";
   };
-  builder = ./builder.sh;
+  entrypoint = ./entrypoint.sh;
   name = "integrates-front-lint-stylelint";
   searchPaths = {
     bin = [inputs.nixpkgs.nodejs-14_x];

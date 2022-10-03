@@ -2,14 +2,15 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  makeDerivationParallel,
+  makeScript,
   outputs,
   ...
 }:
-makeDerivationParallel {
-  dependencies = [
+makeScript {
+  name = "integrates-front-lint";
+  searchPaths.bin = [
     outputs."/integrates/front/lint/eslint"
     outputs."/integrates/front/lint/stylelint"
   ];
-  name = "integrates-front-lint";
+  entrypoint = ./entrypoint.sh;
 }

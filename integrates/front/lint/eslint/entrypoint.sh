@@ -5,12 +5,11 @@
 # shellcheck shell=bash
 
 function main {
-  copy "${envSrcIntegratesFront}" "${out}" \
-    && copy "${envSetupIntegratesFrontDevRuntime}" "${out}/node_modules" \
-    && pushd "${out}" \
+  : && pushd integrates/front \
+    && copy __argSetupIntegratesFrontDevRuntime__ ./node_modules \
     && tcm src/ --silent \
     && tsc -p tsconfig.json \
-    && lint_typescript "${out}" "${out}" \
+    && lint_typescript . . \
     && popd \
     || return 1
 }
