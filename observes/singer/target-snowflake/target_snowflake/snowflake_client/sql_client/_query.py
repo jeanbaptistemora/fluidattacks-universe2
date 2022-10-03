@@ -9,14 +9,14 @@ from __future__ import (
 from ._identifier import (
     Identifier,
 )
+from ._primitive import (
+    Primitive,
+)
 from dataclasses import (
     dataclass,
 )
-from fa_purity.frozen import (
+from fa_purity import (
     FrozenDict,
-)
-from fa_purity.json.primitive.core import (
-    Primitive,
 )
 
 
@@ -34,6 +34,11 @@ class Query:
 
     @property
     def statement(self) -> str:
-        return self.raw_statement.format(
-            **{k: v.sql_identifier for k, v in self.identifiers.items()}
-        )
+        try:
+            return self.raw_statement.format(
+                **{k: v.sql_identifier for k, v in self.identifiers.items()}
+            )
+        except KeyError as err:
+            raise KeyError(
+                f"Missing key at statement: {self.raw_statement}"
+            ) from err

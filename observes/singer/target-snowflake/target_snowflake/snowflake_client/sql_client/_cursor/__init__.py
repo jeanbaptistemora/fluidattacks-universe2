@@ -18,12 +18,10 @@ from fa_purity import (
 from fa_purity.frozen import (
     FrozenList,
 )
-from fa_purity.json.primitive import (
-    Primitive,
-)
 from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
+    pure_map,
 )
 from fa_purity.stream.factory import (
     from_piter,
@@ -43,6 +41,10 @@ from snowflake.connector.errors import (
 )
 from target_snowflake.snowflake_client.sql_client._inner import (
     RawCursor,
+)
+from target_snowflake.snowflake_client.sql_client._primitive import (
+    Primitive,
+    UnfoldedPrimitive,
 )
 from target_snowflake.snowflake_client.sql_client._query import (
     Query,
@@ -69,7 +71,9 @@ class Cursor:
                 "Executing: %s with values %s", query.statement, query.values
             )
             try:
-                values: Dict[str, Primitive] = dict(query.values)
+                values: Dict[str, UnfoldedPrimitive] = {
+                    k: v.value for k, v in query.values.items()
+                }
                 self._cursor.cursor.execute(query.statement, values)
                 return Result.success(None)
             except ProgrammingError as err:
@@ -96,8 +100,11 @@ class Cursor:
                 len(data),
             )
             try:
-                _data: FrozenList[FrozenList[Primitive]] = tuple(
-                    d.data for d in data
+                _data: FrozenList[FrozenList[UnfoldedPrimitive]] = tuple(
+                    pure_map(
+                        lambda r: tuple(pure_map(lambda p: p.value, r.data)),
+                        data,
+                    )
                 )
                 self._cursor.cursor.executemany(query.statement, _data)
                 return Result.success(None)

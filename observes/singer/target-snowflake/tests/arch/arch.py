@@ -66,6 +66,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "_cursor",
         "_query",
         ("_inner", "_identifier", "_primitive"),
+        "_assert",
     ),
 }
 

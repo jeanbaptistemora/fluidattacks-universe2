@@ -15,6 +15,9 @@ from ._cursor import (
 from ._identifier import (
     Identifier,
 )
+from ._primitive import (
+    Primitive,
+)
 from ._query import (
     Query,
 )
@@ -28,4 +31,5 @@ __all__ = [
     "DbConnection",
     "DbConnector",
     "Query",
+    "Primitive",
 ]

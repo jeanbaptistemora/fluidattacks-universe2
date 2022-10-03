@@ -5,11 +5,11 @@
 from dataclasses import (
     dataclass,
 )
-from fa_purity.json.primitive import (
-    Primitive,
-)
 from target_snowflake.snowflake_client.data_type import (
     DataType,
+)
+from target_snowflake.snowflake_client.sql_client import (
+    Primitive,
 )
 
 

@@ -27,11 +27,15 @@ class LoadingStrategy:
 
     @property
     def _backup_schema(self) -> SchemaId:
-        return SchemaId(Identifier.from_raw(f"{self._target.name}_backup"))
+        return SchemaId(
+            Identifier.from_raw(self._target.name.sql_identifier + "_backup")
+        )
 
     @property
     def _loading_schema(self) -> SchemaId:
-        return SchemaId(Identifier.from_raw(f"{self._target.name}_loading"))
+        return SchemaId(
+            Identifier.from_raw(self._target.name.sql_identifier + "_loading")
+        )
 
     def _post_upload(self) -> Cmd[None]:
         _do_nothing = Cmd.from_cmd(lambda: None)

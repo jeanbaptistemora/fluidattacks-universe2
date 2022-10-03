@@ -5,9 +5,6 @@
 from fa_purity.frozen import (
     FrozenList,
 )
-from fa_purity.json.primitive import (
-    Primitive,
-)
 from fa_purity.result import (
     Result,
     ResultE,
@@ -19,9 +16,7 @@ from fa_purity.union import (
     UnionFactory,
 )
 from target_snowflake.snowflake_client.sql_client._primitive import (
-    to_list_of,
-    to_prim_list,
-    to_prim_val,
+    Primitive,
 )
 from typing import (
     Optional,
@@ -42,7 +37,7 @@ def assert_fetch_one(
     if result is None:
         return Result.success(result)
     if isinstance(result, tuple):
-        return to_list_of(result, to_prim_val).map(_union.inr)
+        return Primitive.assert_primitive_list(result).map(_union.inr)
     return Result.failure(
         _AssertException(
             f"Expected `Optional[FrozenList[_T]]` but got {type(result)}"
@@ -52,7 +47,7 @@ def assert_fetch_one(
 
 def assert_fetch_list(item: _T) -> ResultE[FrozenList[FrozenList[Primitive]]]:
     if isinstance(item, tuple):
-        return all_ok(tuple(to_prim_list(i) for i in item))
+        return all_ok(tuple(Primitive.assert_primitive_list(i) for i in item))
     return Result.failure(
         _AssertException(f"Expected `FrozenList[_T]` but got {type(item)}")
     )

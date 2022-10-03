@@ -36,6 +36,9 @@ from target_snowflake.snowflake_client.data_type import (
     DataType,
     StaticTypes,
 )
+from target_snowflake.snowflake_client.sql_client import (
+    Primitive,
+)
 from typing import (
     Callable,
 )
@@ -86,23 +89,24 @@ def _to_list(item: str | FrozenList[str]) -> FrozenList[str]:
 
 
 def _to_column(raw: _RawType, encoded: JsonObj) -> ResultE[Column]:
+    none = Primitive(None)
     if raw.raw_type is _JschemaType.integer:
         return int_handler(encoded).map(
-            lambda d: Column(d, raw.nullable, None)
+            lambda d: Column(d, raw.nullable, none)
         )
     if raw.raw_type is _JschemaType.number:
         return num_handler(encoded).map(
-            lambda d: Column(d, raw.nullable, None)
+            lambda d: Column(d, raw.nullable, none)
         )
     if raw.raw_type is _JschemaType.string:
         return string_format_handler(encoded).map(
-            lambda d: Column(d, raw.nullable, None)
+            lambda d: Column(d, raw.nullable, none)
         )
     if raw.raw_type is _JschemaType.boolean:
         return (
             Result.success(StaticTypes.BOOLEAN, Exception)
             .map(DataType)
-            .map(lambda d: Column(d, raw.nullable, None))
+            .map(lambda d: Column(d, raw.nullable, none))
         )
     err = NotImplementedError(f"Unsupported json schema type `{raw.raw_type}`")
     return Result.failure(err)

@@ -29,6 +29,7 @@ from target_snowflake.snowflake_client.column import (
 )
 from target_snowflake.snowflake_client.sql_client import (
     Identifier,
+    Primitive,
 )
 from target_snowflake.snowflake_client.table import (
     ColumnId,
@@ -60,7 +61,8 @@ def _set_nullable(
 ) -> ColumnObj:
     if column.id_obj not in required:
         return ColumnObj(
-            column.id_obj, Column(column.column.data_type, True, None)
+            column.id_obj,
+            Column(column.column.data_type, True, Primitive(None)),
         )
     return column
 

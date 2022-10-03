@@ -22,9 +22,6 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
-from fa_purity.json.primitive import (
-    Primitive,
-)
 from fa_purity.json.primitive.factory import (
     to_primitive,
 )
@@ -49,6 +46,7 @@ from target_snowflake.snowflake_client.sql_client import (
     Cursor,
     DatabaseId,
     Identifier,
+    Primitive,
     Query,
     RowData,
 )
@@ -80,6 +78,16 @@ class RootManager:
     _cursor: Cursor
 
     # Db manager
+    def exist_schema(self, schema: FullSchemaPointer) -> Cmd[bool]:
+        stm = "SHOW SCHEMAS IN DATABASE {database}"
+        identifiers: Dict[str, Identifier] = {"database": schema.db.db_name}
+        query = Query(stm, freeze(identifiers), freeze({}))
+        return self._cursor.execute(query) + self._cursor.fetch_all().map(
+            lambda i: tuple(
+                Identifier.from_raw(r.data[1].to_str().unwrap()) for r in i
+            )
+        ).map(lambda l: schema.schema.name in l)
+
     def create_schema(
         self, schema: FullSchemaPointer, if_not_exist: bool = False
     ) -> Cmd[None]:
@@ -96,7 +104,7 @@ class RootManager:
         self, schema: FullSchemaPointer, cascade: bool
     ) -> Cmd[None]:
         opt = " CASCADE" if cascade else ""
-        stm: str = "DROP SCHEMA {database}.{schema_name}" + opt
+        stm: str = "DROP SCHEMA {database}.{schema}" + opt
         identifiers: Dict[str, Identifier] = {
             "database": schema.db.db_name,
             "schema": schema.schema.name,
@@ -159,7 +167,7 @@ class RootManager:
             identifiers[f"pkey_{index}"] = cid.name
         for index, cid in enum_columns:
             identifiers[f"name_{index}"] = cid.name
-        values = {
+        values: Dict[str, Primitive] = {
             f"default_{index}": table_obj.table.columns[cid].default
             for index, cid in enum_columns
         }
@@ -261,8 +269,8 @@ class RootManager:
         )
         stm = " ".join(_stm)
         values: Dict[str, Primitive] = {
-            "database": schema.db.db_name.sql_identifier,
-            "schema": schema.schema.name.sql_identifier,
+            "database": Primitive(schema.db.db_name.sql_identifier),
+            "schema": Primitive(schema.schema.name.sql_identifier),
         }
         query = Query(stm, freeze({}), freeze(values))
         return self._cursor.execute(query) + self._cursor.fetch_all().map(
@@ -284,9 +292,9 @@ class RootManager:
             );
         """
         args: Dict[str, Primitive] = {
-            "database": table.db.db_name.sql_identifier,
-            "schema": table.schema.name.sql_identifier,
-            "table": table.table.name.sql_identifier,
+            "database": Primitive(table.db.db_name.sql_identifier),
+            "schema": Primitive(table.schema.name.sql_identifier),
+            "table": Primitive(table.table.name.sql_identifier),
         }
         query = Query(stm, freeze({}), freeze(args))
         return self._cursor.execute(query) + self._cursor.fetch_one().map(
@@ -329,6 +337,9 @@ class RootManager:
                 s, schema: SchemaId, if_not_exist: bool = False
             ) -> Cmd[None]:
                 return self.create_schema(_schema_path(schema), if_not_exist)
+
+            def exist_schema(s, schema: SchemaId) -> Cmd[bool]:
+                return self.exist_schema(_schema_path(schema))
 
             def create_table(
                 s, table_id: DbTableId, table: Table, if_not_exist: bool

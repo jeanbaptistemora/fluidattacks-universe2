@@ -20,6 +20,9 @@ from fa_purity.frozen import (
 from fa_purity.json.primitive import (
     Primitive,
 )
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
 from target_snowflake import (
     _assert,
 )
@@ -34,6 +37,7 @@ from target_snowflake.snowflake_client.schema import (
 )
 from target_snowflake.snowflake_client.sql_client import (
     Cursor,
+    Identifier,
     Query,
     RowData,
 )
@@ -63,6 +67,10 @@ class UpperMethods(ABC):
     def create_table_like(
         self, blueprint: DbTableId, new_table: DbTableId
     ) -> Cmd[None]:
+        pass
+
+    @abstractmethod
+    def exist_schema(self, schema: SchemaId) -> Cmd[bool]:
         pass
 
     @abstractmethod
@@ -112,19 +120,7 @@ class DbManager:
     _upper: UpperMethods = field(repr=False, hash=False, compare=False)
 
     def exist(self, schema: SchemaId) -> Cmd[bool]:
-        _stm = (
-            "SELECT EXISTS",
-            "(SELECT 1 FROM pg_namespace",
-            "WHERE nspname = %(schema_name)s)",
-        )
-        stm = " ".join(_stm)
-        values: Dict[str, Primitive] = {
-            "schema_name": schema.name.sql_identifier
-        }
-        query = Query(stm, freeze({}), freeze(values))
-        return self._cursor.execute(query) + self._cursor.fetch_one().map(
-            lambda x: x.unwrap()
-        ).map(lambda i: _assert.assert_bool(i.data[0]).unwrap())
+        return self._upper.exist_schema(schema)
 
     def delete(self, schema: SchemaId) -> Cmd[None]:
         return self._upper.delete_schema(schema, False)

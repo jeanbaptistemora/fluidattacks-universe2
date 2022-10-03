@@ -56,6 +56,7 @@ from target_snowflake.snowflake_client.schema import (
 )
 from target_snowflake.snowflake_client.sql_client import (
     Identifier,
+    Primitive,
     RowData,
 )
 from target_snowflake.snowflake_client.table import (
@@ -104,7 +105,7 @@ def _to_row(table: Table, record: SingerRecord) -> ResultE[RowData]:
                 KeyError(f"on non-nullable column `{c}`", table)
             )
         )
-        .bind(lambda x: Unfolder(x).to_any_primitive()),
+        .bind(lambda x: Primitive.from_any(Unfolder(x).value)),
         table.order,
     ).transform(lambda x: all_ok(tuple(x)).map(lambda d: RowData(d)))
 
