@@ -18,10 +18,16 @@ from dataloaders import (
 from db_model import (
     group_access as group_access_model,
 )
+from moto.dynamodb2 import (
+    dynamodb_backend2,
+)
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
 import pytest
+from typing import (
+    Any,
+)
 from unittest import (
     mock,
 )
@@ -30,6 +36,46 @@ from unittest import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+@pytest.mark.parametrize(
+    ["table", "length"],
+    [
+        ["fi_authz", 7],
+        ["integrates_vms", 4],
+    ],
+)
+def test_create_tables(
+    dynamo_resource: ServiceResource, table: str, length: int
+) -> None:
+    assert table in dynamodb_backend2.tables
+    assert len(dynamo_resource.Table(table).scan()["Items"]) == length
+
+
+@pytest.mark.parametrize(
+    ["email", "result"],
+    [
+        ["continuoushacking@gmail.com", "hacker"],
+        ["integrateshacker@fluidattacks.com", "hacker"],
+        ["integratesuser@gmail.com", "user"],
+        ["unittest@fluidattacks.com", "admin"],
+        ["asdfasdfasdfasdf@gmail.com", ""],
+    ],
+)
+async def test_get_user_level_role(
+    email: str, result: str, dynamo_resource: ServiceResource
+) -> None:
+    def side_effect(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    loaders: Dataloaders = get_new_context()
+    with mock.patch(
+        "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+    ) as mock_resource:
+        mock_resource.return_value.batch_get_item.side_effect = side_effect
+        user_level_role = await get_user_level_role(loaders, email)
+    assert mock_resource.called is True
+    assert user_level_role == result
 
 
 @pytest.mark.parametrize(
@@ -83,21 +129,6 @@ async def test_get_group_level_role(
     with mock.patch("dynamodb.operations_legacy.query") as mock_query:
         mock_query.side_effect = side_effect
         assert await get_group_level_role(loaders, email, group) == result
-
-
-@pytest.mark.parametrize(
-    ["email", "result"],
-    [
-        ["continuoushacking@gmail.com", "hacker"],
-        ["integrateshacker@fluidattacks.com", "hacker"],
-        ["integratesuser@gmail.com", "user"],
-        ["unittest@fluidattacks.com", "admin"],
-        ["asdfasdfasdfasdf@gmail.com", ""],
-    ],
-)
-async def test_get_user_level_role(email: str, result: str) -> None:
-    loaders: Dataloaders = get_new_context()
-    assert await get_user_level_role(loaders, email) == result
 
 
 @pytest.mark.changes_db
