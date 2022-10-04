@@ -1,4 +1,3 @@
----
 closure:
   types-pytz: 2022.2.1.0
 links:
@@ -8,4 +7,4 @@ links:
   - name: types-pytz-2022.2.1.0.tar.gz
     sha256: 0arylqp1awfv66jhfqww4xds64nk5wwxnh858jb5ixxraafb3ks7
     url: https://files.pythonhosted.org/packages/1b/95/6a327cee3387942d49b08db4dd3d781b89693a21454e1c2f37a99092668f/types-pytz-2022.2.1.0.tar.gz
-python: '3.8'
+python: "3.10"
