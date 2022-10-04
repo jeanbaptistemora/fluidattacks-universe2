@@ -19,6 +19,7 @@ interface IEventAttr {
   groupName: string;
   root: IRootAttr | null;
 }
+
 interface ITodoEvents {
   me: {
     pendingEvents: IEventAttr[];

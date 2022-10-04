@@ -10,6 +10,7 @@ import React from "react";
 
 import { GET_TODO_EVENTS } from "./queries";
 import type { IEventAttr, ITodoEvents } from "./types";
+import { formatTodoEvents } from "./utils";
 
 import { Table } from "components/TableNew";
 import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
@@ -58,10 +59,8 @@ const EventsTaskView: React.FC = (): JSX.Element => {
     variables: { search: "" },
   });
 
-  const Events =
-    data === undefined
-      ? []
-      : data.me.pendingEvents.map((event): IEventAttr => event);
+  const allEvents = data === undefined ? [] : data.me.pendingEvents;
+  const Events = formatTodoEvents(allEvents);
 
   const handleSearch = useDebouncedCallback((search: string): void => {
     void refetch({ search });
