@@ -20,6 +20,10 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.roots.types import (
+    GitRootState,
+    Root,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -55,9 +59,6 @@ from newutils import (
 from newutils.datetime import (
     convert_from_iso_str,
 )
-from typing import (
-    Any,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -75,7 +76,7 @@ from unreliable_indicators.operations import (
     require_report_vulnerabilities,
     require_finding_access,
 )
-async def mutate(
+async def mutate(  # pylint: disable=too-many-locals
     _: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
@@ -119,15 +120,34 @@ async def mutate(
             vulnerability_ids=[],
         )
 
-        vulns_props: dict[str, Any] = {
-            vuln.id: {
-                "location": vuln.where,
-                "specific": vuln.specific,
-                "source": vuln.state.source.value,
-            }
-            for vuln in vulnerabilities
-            if vuln.state.status == VulnerabilityStateStatus.OPEN
-        }
+        vulns_props: dict[str, dict[str, dict[str, str]]] = {}
+        for vuln in vulnerabilities:
+            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+                root: Root = await loaders.root.load(
+                    (group_name, vuln.root_id)
+                )
+                nickname = (
+                    root.state.nickname
+                    if isinstance(root.state.nickname, str)
+                    else "repo"
+                )
+                branch = (
+                    root.state.branch
+                    if isinstance(root.state, (GitRootState, str))
+                    else "branch"
+                )
+                repo = f"{nickname}/{branch}"
+                vuln_dict = vulns_props.get(repo, {})
+                vuln_dict.update(
+                    {
+                        f"{vuln.where}{vuln.specific}": {
+                            "location": vuln.where,
+                            "specific": vuln.specific,
+                            "source": vuln.state.source.value,
+                        },
+                    }
+                )
+                vulns_props[repo] = dict(sorted(vuln_dict.items()))
 
         if severity_score >= 5.0 or not group_findings:
             schedule(

@@ -60,6 +60,8 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRoot,
+    GitRootState,
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
@@ -699,7 +701,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         )
 
 
-async def send_closed_vulnerabilities_report(
+async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals # noqa: MC0001
     *,
     loaders: Any,
     finding_id: str,
@@ -714,9 +716,9 @@ async def send_closed_vulnerabilities_report(
         for vuln in await finding_vulns_loader.load(finding_id)
         if vuln.id in closed_vulnerabilities_id
     ]
-
     exposure: Decimal = 4 ** (severity_score - 4)
-    vulns_closed_props: dict[str, Any] = {}
+    group_name = finding.group_name
+    vulns_closed_props: dict[str, dict[str, dict[str, Any]]] = {}
 
     for vuln in closed_vulnerabilities:
         report_date = datetime_utils.get_date_from_iso_str(vuln.created_date)
@@ -724,16 +726,36 @@ async def send_closed_vulnerabilities_report(
         reattack_requester = (
             vuln.unreliable_indicators.unreliable_last_reattack_requester
         )
-        vulns_closed_props[vuln.id] = {
-            "location": vuln.where,
-            "specific": vuln.specific,
-            "source": vuln.state.source.value,
-            "assigned": vuln.treatment.assigned if vuln.treatment else None,
-            "report date": report_date,
-            "time to remediate": f"{days_open} calendar days",
-            "reattack requester": reattack_requester,
-            "reduction in exposure": round(exposure, 1),
-        }
+        root: Root = await loaders.root.load((group_name, vuln.root_id))
+        nickname = (
+            root.state.nickname
+            if isinstance(root.state.nickname, str)
+            else "repo"
+        )
+        branch = (
+            root.state.branch
+            if isinstance(root.state, (GitRootState, str))
+            else "branch"
+        )
+        repo = f"{nickname}/{branch}"
+        vuln_dict = vulns_closed_props.get(repo, {})
+        vuln_dict.update(
+            {
+                f"{vuln.where}{vuln.specific}": {
+                    "location": vuln.where,
+                    "specific": vuln.specific,
+                    "source": vuln.state.source.value,
+                    "assigned": vuln.treatment.assigned
+                    if vuln.treatment
+                    else None,
+                    "report date": report_date,
+                    "time to remediate": f"{days_open} calendar days",
+                    "reattack requester": reattack_requester,
+                    "reduction in exposure": round(exposure, 1),
+                },
+            }
+        )
+        vulns_closed_props[repo] = dict(sorted(vuln_dict.items()))
 
     schedule(
         send_vulnerability_report(

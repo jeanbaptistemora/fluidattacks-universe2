@@ -51,7 +51,6 @@ from stakeholders.domain import (
 )
 from typing import (
     Any,
-    Dict,
     List,
 )
 
@@ -300,7 +299,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     group_name: str = "",
     finding_title: str,
     finding_id: str,
-    vulnerabilities_properties: Dict[str, Any],
+    vulnerabilities_properties: dict[str, dict[str, dict[str, str]]],
     responsible: str,
     severity_score: Decimal,
     severity_level: str,
@@ -345,8 +344,13 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     )
     if (not is_closed) and any(
         map(
-            lambda id: vulnerabilities_properties[id]["source"]
-            == Source.ESCAPE.value,
+            lambda repo: any(
+                map(
+                    lambda id: vulnerabilities_properties[repo][id]["source"]
+                    == Source.ESCAPE.value,
+                    vulnerabilities_properties[repo].keys(),
+                )
+            ),
             vulnerabilities_properties.keys(),
         )
     ):
