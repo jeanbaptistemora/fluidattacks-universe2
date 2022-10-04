@@ -8,6 +8,9 @@ from dataloaders import (
     get_new_context,
 )
 import pytest
+from unittest import (
+    mock,
+)
 
 # Constants
 pytestmark = [
@@ -16,22 +19,25 @@ pytestmark = [
 
 
 @pytest.mark.parametrize(
-    ["email"],
+    ["email", "role"],
     [
-        ["continuoushacking@gmail.com"],
-        ["integratesuser2@gmail.com"],
-        ["integrateshacker@fluidattacks.com"],
+        ["continuoushacking@gmail.com", "hacker"],
+        ["integratesuser2@gmail.com", "user"],
+        ["integrateshacker@fluidattacks.com", "hacker"],
     ],
 )
-async def test_get_user_level_actions_model(email: str) -> None:
+async def test_get_user_level_actions_model(email: str, role: str) -> None:
     loaders: Dataloaders = get_new_context()
-    user_level_role = await authz.get_user_level_role(loaders, email)
-
-    assert await authz.get_user_level_actions(
-        loaders, email
-    ) == authz.get_user_level_roles_model(email).get(user_level_role, {}).get(
-        "actions"
-    )
+    with mock.patch(
+        "authz.enforcer.get_user_level_role", new_callable=mock.AsyncMock
+    ) as mock_get_user_level_role:
+        mock_get_user_level_role.return_value = role
+        assert await authz.get_user_level_actions(
+            loaders, email
+        ) == authz.get_user_level_roles_model(email).get(role, {}).get(
+            "actions"
+        )
+    assert mock_get_user_level_role.called is True
 
 
 @pytest.mark.parametrize(
