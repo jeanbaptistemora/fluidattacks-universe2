@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.javascript import (
-    array as javascript_array,
+    arrow_function as javascript_arrow_function,
     assignment_expression as javascript_assignment_expression,
+    binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
@@ -13,11 +14,14 @@ from syntax_graph.syntax_readers.javascript import (
     number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
+    parameter_list as javascript_parameter_list,
     program as javascript_program,
     string_literal as javascript_string_literal,
+    subscript_expression as javascript_subscript_expression,
     variable_declaration as javascript_variable_declaration,
 )
 from syntax_graph.syntax_readers.typescript import (
+    array as typescript_array,
     as_expression as typescript_as_expression,
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
@@ -40,7 +44,13 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "array",
         },
-        syntax_reader=javascript_array.reader,
+        syntax_reader=typescript_array.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "arrow_function",
+        },
+        syntax_reader=javascript_arrow_function.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -53,6 +63,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "assignment_expression",
         },
         syntax_reader=javascript_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "binary_expression",
+        },
+        syntax_reader=javascript_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -83,6 +99,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "expression_statement",
         },
         syntax_reader=javascript_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameters",
+        },
+        syntax_reader=javascript_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -154,6 +176,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "property_signature",
+            "required_parameter",
         },
         syntax_reader=typescript_property_signature.reader,
     ),
@@ -162,6 +185,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "string",
         },
         syntax_reader=javascript_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "subscript_expression",
+        },
+        syntax_reader=javascript_subscript_expression.reader,
     ),
     Dispatcher(
         applicable_types={
