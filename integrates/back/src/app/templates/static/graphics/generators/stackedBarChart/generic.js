@@ -61,7 +61,7 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick) };
   }
 
-  if (dataDocument.hideYAxisLine && dataDocument.data.labels) {
+  if (dataDocument.hideYAxisLine && dataDocument.data.labels && !dataDocument.data.stack) {
     dataDocument.data.labels = {
       format: (datum) => d3.format(',.1~f')(datum),
     };

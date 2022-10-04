@@ -324,9 +324,10 @@ def format_distribution_document(
                 ),
             ),
         ),
+        hideYAxisLine=True,
         grid=dict(
             x=dict(
-                show=True,
+                show=False,
             ),
             y=dict(
                 show=True,
