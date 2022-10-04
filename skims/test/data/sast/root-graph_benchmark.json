@@ -8736,6 +8736,12 @@
             }
           },
           "290": {
+            "294": {
+              "label_ast": "AST"
+            },
+            "296": {
+              "label_ast": "AST"
+            },
             "298": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -9841,11 +9847,18 @@
             "label_type": "ExecutionBlock"
           },
           "290": {
-            "body_id": "298",
-            "identifier_name": "theCookie",
-            "identifier_type": "javax.servlet.http.Cookie",
-            "label_type": "EnhancedForStatement",
-            "value_id": "298"
+            "block_id": "298",
+            "iterable_item_id": "296",
+            "label_type": "ForEachStatement",
+            "variable_id": "294"
+          },
+          "294": {
+            "label_type": "SymbolLookup",
+            "symbol": "theCookie"
+          },
+          "296": {
+            "label_type": "SymbolLookup",
+            "symbol": "theCookies"
           },
           "298": {
             "label_type": "ExecutionBlock"

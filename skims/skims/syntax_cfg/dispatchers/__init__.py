@@ -41,7 +41,6 @@ DISPATCHERS: Dispatchers = (
             "DeclarationBlock",
             "File",
             "FileNamespace",
-            "EnhancedForStatement",
             "PackageDeclaration",
             "TryStatement",
             "SwitchBody",

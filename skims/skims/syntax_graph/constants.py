@@ -97,8 +97,6 @@ JAVA_STATEMENT = {
     "block",
     "assert_statement",
     "do_statement",
-    "break_statement",
-    "continue_statement",
     "return_statement",
     "yield_statement",
     "switch_expression",

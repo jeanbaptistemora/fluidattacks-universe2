@@ -16,24 +16,15 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
-    match_ast_d,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    childs = [
+    execution_ids = [
         _id
         for _id in adj_ast(graph, args.n_id)
         if graph.nodes[_id]["label_type"] in JAVA_STATEMENT
     ]
 
-    if len(childs) >= 1:
-        body_id = childs[0]
-    else:
-        body_id = None
-
-    case_id = match_ast_d(graph, args.n_id, "switch_label")
-    c_ids = filter(None, (body_id, case_id))
-
-    return build_switch_section_node(args, c_ids)
+    return build_switch_section_node(args, None, execution_ids)

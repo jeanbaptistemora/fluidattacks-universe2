@@ -16,8 +16,9 @@ def build_for_each_statement_node(
 
     args.syntax_graph.add_node(
         args.n_id,
-        variable_id=var_node,
+        block_id=block,
         iterable_item_id=iterable_item,
+        variable_id=var_node,
         label_type="ForEachStatement",
     )
 

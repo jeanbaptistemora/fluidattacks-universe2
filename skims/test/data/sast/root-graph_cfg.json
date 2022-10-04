@@ -26222,6 +26222,12 @@
             }
           },
           "1123": {
+            "1127": {
+              "label_ast": "AST"
+            },
+            "1129": {
+              "label_ast": "AST"
+            },
             "1131": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -26310,17 +26316,8 @@
             }
           },
           "1166": {
-            "1167": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "1172": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "1167": {
-            "1226": {
               "label_cfg": "CFG"
             }
           },
@@ -26354,29 +26351,9 @@
               "label_ast": "AST"
             }
           },
-          "1184": {
-            "1185": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "1185": {
-            "1226": {
-              "label_cfg": "CFG"
-            }
-          },
           "1189": {
-            "1190": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "1195": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "1190": {
-            "1226": {
               "label_cfg": "CFG"
             }
           },
@@ -26400,17 +26377,8 @@
             }
           },
           "1207": {
-            "1208": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "1212": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "1208": {
-            "1226": {
               "label_cfg": "CFG"
             }
           },
@@ -28307,10 +28275,6 @@
             }
           },
           "539": {
-            "540": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "545": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -28325,11 +28289,6 @@
             },
             "60": {
               "label_ast": "AST"
-            }
-          },
-          "540": {
-            "674": {
-              "label_cfg": "CFG"
             }
           },
           "545": {
@@ -28352,17 +28311,8 @@
             }
           },
           "557": {
-            "558": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "562": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "558": {
-            "674": {
               "label_cfg": "CFG"
             }
           },
@@ -28525,17 +28475,8 @@
             }
           },
           "638": {
-            "639": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "644": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "639": {
-            "674": {
               "label_cfg": "CFG"
             }
           },
@@ -28573,17 +28514,8 @@
             }
           },
           "656": {
-            "657": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "661": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "657": {
-            "674": {
               "label_cfg": "CFG"
             }
           },
@@ -28652,17 +28584,8 @@
             }
           },
           "694": {
-            "695": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "700": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "695": {
-            "757": {
               "label_cfg": "CFG"
             }
           },
@@ -28691,17 +28614,8 @@
             }
           },
           "709": {
-            "710": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "715": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "710": {
-            "757": {
               "label_cfg": "CFG"
             }
           },
@@ -28725,17 +28639,8 @@
             }
           },
           "724": {
-            "725": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "730": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "725": {
-            "757": {
               "label_cfg": "CFG"
             }
           },
@@ -28759,17 +28664,8 @@
             }
           },
           "739": {
-            "740": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "744": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "740": {
-            "757": {
               "label_cfg": "CFG"
             }
           },
@@ -28844,17 +28740,6 @@
               "label_cfg": "CFG"
             }
           },
-          "777": {
-            "778": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "778": {
-            "851": {
-              "label_cfg": "CFG"
-            }
-          },
           "78": {
             "126": {
               "label_cfg": "CFG"
@@ -28866,29 +28751,9 @@
               "label_ast": "AST"
             }
           },
-          "782": {
-            "783": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "783": {
-            "851": {
-              "label_cfg": "CFG"
-            }
-          },
           "787": {
-            "788": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "793": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "788": {
-            "851": {
               "label_cfg": "CFG"
             }
           },
@@ -28911,45 +28776,14 @@
               "label_ast": "AST"
             }
           },
-          "805": {
-            "806": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "806": {
-            "851": {
-              "label_cfg": "CFG"
-            }
-          },
           "81": {
             "82": {
               "label_ast": "AST"
             }
           },
-          "810": {
-            "811": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "811": {
-            "851": {
-              "label_cfg": "CFG"
-            }
-          },
           "815": {
-            "816": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "821": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "816": {
-            "851": {
               "label_cfg": "CFG"
             }
           },
@@ -28978,17 +28812,8 @@
             }
           },
           "833": {
-            "834": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
             "838": {
               "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "834": {
-            "851": {
               "label_cfg": "CFG"
             }
           },
@@ -29645,11 +29470,18 @@
             "value_type": "string"
           },
           "1123": {
-            "body_id": "1131",
-            "identifier_name": "person",
-            "identifier_type": "String",
-            "label_type": "EnhancedForStatement",
-            "value_id": "1131"
+            "block_id": "1131",
+            "iterable_item_id": "1129",
+            "label_type": "ForEachStatement",
+            "variable_id": "1127"
+          },
+          "1127": {
+            "label_type": "SymbolLookup",
+            "symbol": "person"
+          },
+          "1129": {
+            "label_type": "SymbolLookup",
+            "symbol": "people"
           },
           "1131": {
             "label_type": "ExecutionBlock"
@@ -29718,10 +29550,6 @@
           "1166": {
             "label_type": "SwitchSection"
           },
-          "1167": {
-            "label_type": "SwitchCase",
-            "value": "case3"
-          },
           "117": {
             "arguments_id": "121",
             "expression": "printStackTrace",
@@ -29759,16 +29587,8 @@
           "1184": {
             "label_type": "SwitchSection"
           },
-          "1185": {
-            "label_type": "SwitchCase",
-            "value": "case5"
-          },
           "1189": {
             "label_type": "SwitchSection"
-          },
-          "1190": {
-            "label_type": "SwitchCase",
-            "value": "case6"
           },
           "1195": {
             "arguments_id": "1199",
@@ -29799,9 +29619,6 @@
           },
           "1207": {
             "label_type": "SwitchSection"
-          },
-          "1208": {
-            "label_type": "SwitchDefault"
           },
           "121": {
             "label_type": "ArgumentList"
@@ -31627,10 +31444,6 @@
           "54": {
             "label_type": "ArrayInitializer"
           },
-          "540": {
-            "label_type": "SwitchCase",
-            "value": "case1"
-          },
           "545": {
             "arguments_id": "549",
             "expression": "println",
@@ -31656,10 +31469,6 @@
           },
           "557": {
             "label_type": "SwitchSection"
-          },
-          "558": {
-            "label_type": "SwitchCase",
-            "value": "case2"
           },
           "56": {
             "label_type": "Literal",
@@ -31836,10 +31645,6 @@
           "638": {
             "label_type": "SwitchSection"
           },
-          "639": {
-            "label_type": "SwitchCase",
-            "value": "case3"
-          },
           "64": {
             "arguments_id": "68",
             "expression": "println",
@@ -31876,9 +31681,6 @@
           },
           "656": {
             "label_type": "SwitchSection"
-          },
-          "657": {
-            "label_type": "SwitchDefault"
           },
           "661": {
             "arguments_id": "665",
@@ -31941,10 +31743,6 @@
           "694": {
             "label_type": "SwitchSection"
           },
-          "695": {
-            "label_type": "SwitchCase",
-            "value": "case1"
-          },
           "70": {
             "access_index": "10",
             "label_type": "ArrayAccess"
@@ -31979,10 +31777,6 @@
             "label_type": "SymbolLookup",
             "symbol": "myNumbers"
           },
-          "710": {
-            "label_type": "SwitchCase",
-            "value": "case2"
-          },
           "715": {
             "arguments_id": "719",
             "expression": "println",
@@ -32009,10 +31803,6 @@
           "724": {
             "label_type": "SwitchSection"
           },
-          "725": {
-            "label_type": "SwitchCase",
-            "value": "case3"
-          },
           "730": {
             "arguments_id": "734",
             "expression": "println",
@@ -32038,9 +31828,6 @@
           },
           "739": {
             "label_type": "SwitchSection"
-          },
-          "740": {
-            "label_type": "SwitchDefault"
           },
           "744": {
             "arguments_id": "748",
@@ -32096,10 +31883,6 @@
           "777": {
             "label_type": "SwitchSection"
           },
-          "778": {
-            "label_type": "SwitchCase",
-            "value": "case1"
-          },
           "78": {
             "block_id": "86",
             "label_type": "CatchClause"
@@ -32107,16 +31890,8 @@
           "782": {
             "label_type": "SwitchSection"
           },
-          "783": {
-            "label_type": "SwitchCase",
-            "value": "case2"
-          },
           "787": {
             "label_type": "SwitchSection"
-          },
-          "788": {
-            "label_type": "SwitchCase",
-            "value": "case3"
           },
           "793": {
             "arguments_id": "797",
@@ -32144,10 +31919,6 @@
           "805": {
             "label_type": "SwitchSection"
           },
-          "806": {
-            "label_type": "SwitchCase",
-            "value": "case4"
-          },
           "81": {
             "label_type": "CatchParameter",
             "variable_name": "e"
@@ -32155,16 +31926,8 @@
           "810": {
             "label_type": "SwitchSection"
           },
-          "811": {
-            "label_type": "SwitchCase",
-            "value": "case5"
-          },
           "815": {
             "label_type": "SwitchSection"
-          },
-          "816": {
-            "label_type": "SwitchCase",
-            "value": "case6"
           },
           "82": {
             "label_type": "CatchType"
@@ -32198,9 +31961,6 @@
           },
           "833": {
             "label_type": "SwitchSection"
-          },
-          "834": {
-            "label_type": "SwitchDefault"
           },
           "838": {
             "arguments_id": "842",
@@ -87842,6 +87602,7 @@
             "label_type": "ArgumentList"
           },
           "1562": {
+            "block_id": "1575",
             "iterable_item_id": "1573",
             "label_type": "ForEachStatement",
             "variable_id": "1566"
@@ -89013,6 +88774,7 @@
             "label_type": "Comment"
           },
           "637": {
+            "block_id": "654",
             "iterable_item_id": "644",
             "label_type": "ForEachStatement",
             "variable_id": "642"
@@ -89256,6 +89018,7 @@
             "label_type": "ArgumentList"
           },
           "755": {
+            "block_id": "763",
             "iterable_item_id": "761",
             "label_type": "ForEachStatement",
             "variable_id": "759"
@@ -89374,6 +89137,7 @@
             "value_type": "number"
           },
           "811": {
+            "block_id": "819",
             "iterable_item_id": "817",
             "label_type": "ForEachStatement",
             "variable_id": "815"
