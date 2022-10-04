@@ -12,6 +12,9 @@ from model.graph_model import (
 from symbolic_eval.context.method import (
     solve_invocation,
 )
+from symbolic_eval.f004.method_invocation import (
+    evaluate as evaluate_parameter_f004,
+)
 from symbolic_eval.f091.method_invocation import (
     evaluate as evaluate_parameter_f091,
 )
@@ -38,6 +41,7 @@ from utils import (
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+    FindingEnum.F004: evaluate_parameter_f004,
     FindingEnum.F091: evaluate_parameter_f091,
     FindingEnum.F338: evaluate_parameter_f338,
 }
@@ -77,6 +81,11 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     else:
         d_arguments = False
 
+    if obj_id := args.graph.nodes[args.n_id].get("object_id"):
+        d_object = args.generic(args.fork_n_id(obj_id)).danger
+    else:
+        d_object = False
+
     expr_id = args.graph.nodes[args.n_id]["expression_id"]
     if md_id := solve_invocation(args.graph, args.path, expr_id):
         try:
@@ -99,7 +108,7 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     else:
         d_expression = args.generic(args.fork_n_id(expr_id)).danger
 
-    args.evaluation[args.n_id] = d_expression or d_arguments
+    args.evaluation[args.n_id] = d_expression or d_arguments or d_object
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
