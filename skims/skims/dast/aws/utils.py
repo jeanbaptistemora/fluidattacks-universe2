@@ -68,7 +68,9 @@ def build_vulnerabilities(
         build_inputs_vuln(
             method=method,
             what=location.arn,
-            where=_build_where(location) if location.access_patterns else "0",
+            where=_build_where(location)
+            if location.access_patterns
+            else location.description,
             stream="skims",
             metadata=build_metadata(
                 method=method,
