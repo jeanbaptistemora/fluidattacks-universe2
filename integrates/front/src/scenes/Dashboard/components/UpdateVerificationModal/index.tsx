@@ -5,9 +5,11 @@
  */
 
 import { useMutation } from "@apollo/client";
+import type { ColumnDef } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { changeVulnStateFormatter } from "./Formatters/changeVulnState";
 import {
   getAreAllChunckedMutationValid,
   handleAltSubmitHelper,
@@ -23,9 +25,7 @@ import type {
 
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../Navbar/Tasks/queries";
 import { Switch } from "components/Switch";
-import { Table } from "components/Table";
-import { changeVulnStateFormatter } from "components/Table/formatters";
-import type { IHeaderConfig } from "components/Table/types";
+import { Table } from "components/TableNew";
 import { Tooltip } from "components/Tooltip";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
@@ -184,26 +184,24 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
       );
       setVulnerabilitiesList([...newVulnList]);
     };
-    const vulnsHeader: IHeaderConfig[] = [
+
+    const columns: ColumnDef<IVulnData>[] = [
       {
-        dataField: "where",
+        accessorKey: "where",
         header: "Where",
-        width: "55%",
-        wrapped: true,
       },
       {
-        dataField: "specific",
+        accessorKey: "specific",
         header: "Specific",
-        width: "25%",
-        wrapped: true,
       },
       {
-        changeFunction: handleUpdateRepo,
-        dataField: "currentState",
-        formatter: changeVulnStateFormatter,
+        accessorKey: "currentState",
+        cell: (cell): JSX.Element =>
+          changeVulnStateFormatter(
+            cell.row.original as unknown as Record<string, string>,
+            handleUpdateRepo
+          ),
         header: "State",
-        width: "20%",
-        wrapped: true,
       },
     ];
 
@@ -231,12 +229,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
           </div>
         </Tooltip>
         <Table
-          dataset={vulnerabilitiesList}
-          exportCsv={false}
-          headers={vulnsHeader}
+          columns={columns}
+          data={vulnerabilitiesList}
           id={"vulnstoverify"}
-          pageSize={10}
-          search={false}
         />
       </React.StrictMode>
     );
