@@ -21,8 +21,12 @@ a safer place.
   as accurately and quickly as possible.
 
 The source code of the technologies used
-is versioned in the [Universe repository](https://gitlab.com/fluidattacks/universe)
+is versioned in the [Universe repository][universe]
 and is divided across many products.
+We also have a [GitHub account][github_fluidattacks]
+where we publish projects
+that are more oriented towards the community
+and less coupled to our model of business.
 
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
@@ -69,6 +73,27 @@ and is divided across many products.
 
 - **Reviews**: Small tool we use
   to enforce internal policies at Merge Request time.
+
+## Our users
+
+We have different kind of users,
+we divide them by use case:
+
+- **End Users**:
+
+  - **Security Analysts of Fluid Attacks**:
+    using tools like Sorts, Melts, and the ARM (Integrates).
+  - **Customers of Fluid Attacks**:
+    using platforms like the ARM (Integrates),
+    or willing to learn about Fluid Attack's processes,
+    and security guarantees.
+  - **Community users**:
+    using tools like Skims in its Free and Open Source plan.
+
+- **Developers**:
+  The people who contribute code at [Universe][universe]
+  and are usually hired by Fluid Attacks,
+  and who sometimes contribute code to our [GitHub account][github_fluidattacks].
 
 ## Installing
 
@@ -146,3 +171,8 @@ just run `$ rm -rf ~/.makes`.
 
    1. if the problem persists,
       please let us know at help@fluidattacks.com.
+
+<!--  -->
+
+[universe]: https://gitlab.com/fluidattacks/universe
+[github_fluidattacks]: https://gitlab.com/fluidattacks
