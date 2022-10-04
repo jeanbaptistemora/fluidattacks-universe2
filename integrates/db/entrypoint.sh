@@ -4,16 +4,9 @@
 
 # shellcheck shell=bash
 
-function start_dynamodb {
-  : \
-    && data-for-db \
-    && DAEMON=true dynamodb-for-db \
-    || return 1
-}
-
 function main {
   : \
-    && { start_dynamodb & } \
+    && { DAEMON=true dynamodb & } \
     && { DAEMON=true opensearch & } \
     && wait \
     && if [ "${DAEMON:-}" = "true" ]; then

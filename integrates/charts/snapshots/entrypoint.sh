@@ -13,7 +13,7 @@ function main {
         INTEGRATES_API_TOKEN
     else
       DAEMON=true integrates-cache \
-        && DAEMON=true dynamodb-for-integrates \
+        && DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

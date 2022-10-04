@@ -21,7 +21,7 @@ function main {
 
   source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-cache \
-    && DAEMON=true dynamodb-for-integrates \
+    && DAEMON=true integrates-db \
     && DAEMON=true integrates-storage \
     && pushd integrates \
     && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \

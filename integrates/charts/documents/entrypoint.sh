@@ -27,7 +27,7 @@ function main {
     && if test "${env}" = "dev"; then
       : \
         && DAEMON=true integrates-cache \
-        && DAEMON=true dynamodb-for-integrates \
+        && DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     elif test "${env}" = "prod"; then
       :

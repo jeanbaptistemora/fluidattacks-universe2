@@ -20,7 +20,7 @@ function main {
         INTEGRATES_API_TOKEN \
         UNIVERSE_API_TOKEN
     elif test "${env}" == 'dev'; then
-      DAEMON=true dynamodb-for-integrates \
+      DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \
