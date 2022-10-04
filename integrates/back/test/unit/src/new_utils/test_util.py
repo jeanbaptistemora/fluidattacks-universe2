@@ -27,8 +27,14 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderMetadataToUpdate,
+    StakeholderSessionToken,
+    StateSessionType,
 )
 from jwcrypto.jwe import (
     InvalidJWEData,
@@ -150,14 +156,24 @@ async def test_decrypt_temp_support_for_nonencrypted() -> None:
 
 async def test_get_jwt_content() -> None:
     request = create_dummy_simple_session()
+    user_email = "unittest"
+    jti = token_utils.calculate_hash_token()["jti"]
     payload = {
-        "user_email": "unittest",
+        "user_email": user_email,
         "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
-        "jti": token_utils.calculate_hash_token()["jti"],
+        "jti": jti,
     }
     token = token_utils.new_encoded_jwt(payload)
     request.cookies[JWT_COOKIE_NAME] = token
+    await stakeholders_model.update_metadata(
+        email=user_email,
+        metadata=StakeholderMetadataToUpdate(
+            session_token=StakeholderSessionToken(
+                jti=jti, state=StateSessionType.IS_VALID
+            )
+        ),
+    )
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
@@ -280,8 +296,8 @@ async def test_token_expired() -> None:
         setattr(request, "store", defaultdict(lambda: None))
         assert await token_utils.get_jwt_content(request)
 
-    setattr(new_request, "store", defaultdict(lambda: None))
-    assert await token_utils.get_jwt_content(new_request)
+        setattr(new_request, "store", defaultdict(lambda: None))
+        assert await token_utils.get_jwt_content(new_request)
 
 
 async def test_revoked_token() -> None:

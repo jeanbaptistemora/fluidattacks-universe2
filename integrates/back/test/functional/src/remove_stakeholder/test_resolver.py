@@ -96,18 +96,14 @@ async def test_remove_stakeholder(
 
     await confirm_deletion(loaders=get_new_context(), email=email)
 
-    result_me_query = await get_result_me_query(
-        user=email, organization_id=organization_id
-    )
+    new_loaders: Dataloaders = get_new_context()
+    with pytest.raises(StakeholderNotFound):
+        await new_loaders.stakeholder.load(email)
+
     result_stakeholder_query = await get_result_stakeholder_query(
         user=admin_email, stakeholder=email, group_name=group_name
     )
-    assert "errors" in result_me_query
     assert "errors" in result_stakeholder_query
-    assert (
-        result_me_query["errors"][0]["message"]
-        == "Access denied or stakeholder not found"
-    )
     assert (
         result_stakeholder_query["errors"][0]["message"]
         == "Access denied or stakeholder not found"
@@ -125,7 +121,3 @@ async def test_remove_stakeholder(
         result_organization_stakeholder_query["errors"][0]["message"]
         == "Access denied or stakeholder not found"
     )
-
-    new_loaders: Dataloaders = get_new_context()
-    with pytest.raises(StakeholderNotFound):
-        await new_loaders.stakeholder.load(email)

@@ -55,6 +55,7 @@ from redis_cluster.operations import (
 import secrets
 from sessions import (
     dal as sessions_dal,
+    domain as sessions_domain,
 )
 from settings import (
     JWT_COOKIE_NAME,
@@ -164,6 +165,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
             content = decode_jwt(token)
             email = content["user_email"]
             if content.get("sub") == "starlette_session":
+                await sessions_domain.verify_session_token(content, email)
                 await sessions_dal.check_jwt_token_validity(context, email)
                 try:
                     session_jti: str = await redis_get_entity_attr(

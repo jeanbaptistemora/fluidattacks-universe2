@@ -9,6 +9,14 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
+    StakeholderSessionToken,
+    StateSessionType,
+)
 from graphql import (
     GraphQLResolveInfo,
 )
@@ -50,19 +58,31 @@ async def create_dummy_session(
     username: str = "unittest", session_jwt: Optional[str] = None
 ) -> Request:
     request = create_dummy_simple_session(username)
+    jti = token_utils.calculate_hash_token()["jti"]
     payload = {
         "user_email": username,
         "first_name": "unit",
         "last_name": "test",
         "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
-        "jti": token_utils.calculate_hash_token()["jti"],
+        "jti": jti,
     }
     token = token_utils.new_encoded_jwt(payload)
     if session_jwt:
         request.headers["Authorization"] = f"Bearer {session_jwt}"
     else:
         request.cookies[JWT_COOKIE_NAME] = token
+        # do not use me query to validate if an stakeholder
+        # has been removed because update_metadata will create that user
+        await stakeholders_model.update_metadata(
+            email=username,
+            metadata=StakeholderMetadataToUpdate(
+                session_token=StakeholderSessionToken(
+                    jti=jti, state=StateSessionType.IS_VALID
+                )
+            ),
+        )
+
         await redis_set_entity_attr(
             entity="session",
             attr="jti",
