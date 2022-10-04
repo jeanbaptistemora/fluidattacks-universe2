@@ -3,10 +3,11 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
-
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+
+import { EventsTaskView } from "./Events.py";
 
 import { Tab, Tabs } from "components/Tabs";
 import { TasksDrafts } from "scenes/Dashboard/containers/Tasks/Drafts";
@@ -56,6 +57,15 @@ export const TasksContent: React.FC<ITasksContent> = ({
               {t("todoList.tabs.reattacks")}
             </Tab>
           </Can>
+          <Can do={"front_can_retrieve_todo_events"}>
+            <Tab
+              id={"tasksEvents"}
+              link={`${url}/events`}
+              tooltip={t("todoList.tooltip.events")}
+            >
+              {t("Events")}
+            </Tab>
+          </Can>
         </authzPermissionsContext.Provider>
       </Tabs>
       <TabContent>
@@ -68,6 +78,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
           </Route>
           <Route path={`${path}/reattacks`}>
             <TasksReattacks />
+          </Route>
+          <Route path={`${path}/events`}>
+            <EventsTaskView />
           </Route>
           <Redirect to={`${path}/vulns`} />
         </Switch>

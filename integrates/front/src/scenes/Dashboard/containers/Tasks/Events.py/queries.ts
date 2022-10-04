@@ -10,6 +10,7 @@ import type { DocumentNode } from "graphql";
 export const GET_TODO_EVENTS: DocumentNode = gql`
   query GetTodoEvents {
     me {
+      userEmail
       pendingEvents {
         eventDate
         detail

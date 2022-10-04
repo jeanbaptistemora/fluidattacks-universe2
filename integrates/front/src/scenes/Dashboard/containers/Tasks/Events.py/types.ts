@@ -21,7 +21,8 @@ interface IEventAttr {
 }
 interface ITodoEvents {
   me: {
-    events: IEventAttr[];
+    pendingEvents: IEventAttr[];
+    userEmail: string;
   };
 }
 
