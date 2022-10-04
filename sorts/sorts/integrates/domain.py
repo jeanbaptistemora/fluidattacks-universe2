@@ -50,7 +50,16 @@ def filter_allowed_files(
 
 def get_unique_vuln_files(group: str) -> List[str]:
     """Removes repeated files from group vulnerabilities"""
-    unique_vuln_files: Set[str] = set(get_vulnerable_lines(group))
+    open_vulnerability_files: List[str] = [
+        vuln.where
+        for vuln in get_vulnerable_lines(group)
+        if (
+            vuln.kind.value == VulnerabilityKindEnum.LINES.value
+            and vuln.current_state == "open"
+        )
+    ]
+    unique_vuln_files: Set[str] = set(open_vulnerability_files)
+
     return sorted(unique_vuln_files)
 
 
@@ -69,7 +78,7 @@ def get_vulnerable_files(group: str, ignore_repos: List[str]) -> List[str]:
     return allowed_vuln_files
 
 
-def get_vulnerable_lines(group: str) -> List[str]:
+def get_vulnerable_lines(group: str) -> List[Vulnerability]:
     """Fetches the vulnerable files from a group"""
     vulnerabilities: List[Vulnerability] = []
     finding_ids: List[str] = get_finding_ids(group)
@@ -79,8 +88,4 @@ def get_vulnerable_lines(group: str) -> List[str]:
         ):
             vulnerabilities.extend(finding_vulnerabilities)  # type: ignore
 
-    return [
-        vuln.where
-        for vuln in vulnerabilities
-        if vuln.kind.value == VulnerabilityKindEnum.LINES.value
-    ]
+    return vulnerabilities

@@ -7,9 +7,11 @@ from integrates.dal import (
 )
 from integrates.domain import (
     get_vulnerable_files,
+    get_vulnerable_lines,
 )
 from integrates.typing import (
     ToeLines,
+    VulnerabilityKindEnum,
 )
 import os
 import pandas as pd
@@ -90,17 +92,33 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
     return success
 
 
-def get_attacked_files(group: str) -> List[str]:
-    """Gets the filenames of a group that have been completely attacked"""
+def get_verified_safe_files(group: str) -> List[str]:
+    """Gets the filenames of a group
+    that haven't had any vulnerabilities ever since they were created
+    and have been completely attacked"""
     group_toe_lines: List[ToeLines] = get_toe_lines_sorts(
         group  # type: ignore
     )
 
-    return [
+    attacked_files = [
         f"{file.root_nickname}/{file.filename}"
         for file in group_toe_lines
         if file.attacked_lines == file.loc
     ]
+
+    all_vulnerable_files = {
+        vuln.where
+        for vuln in get_vulnerable_lines(group)
+        if vuln.kind.value == VulnerabilityKindEnum.LINES.value
+    }
+
+    verified_safe_files = [
+        filename
+        for filename in attacked_files
+        if filename not in all_vulnerable_files
+    ]
+
+    return verified_safe_files
 
 
 def get_safe_files(
@@ -111,7 +129,7 @@ def get_safe_files(
     safe_files: Set[str] = set()
     retries: int = 0
 
-    attacked_files = get_attacked_files(fusion_path.split("/")[-2])
+    verified_safe_files = get_verified_safe_files(fusion_path.split("/")[-2])
     extensions, composites = read_allowed_names()
     allowed_repos: List[str] = [
         repo for repo in os.listdir(fusion_path) if repo not in ignore_repos
@@ -126,8 +144,8 @@ def get_safe_files(
                 )
                 break
 
-            if attacked_files:
-                file_name: str = random.choice(attacked_files)
+            if verified_safe_files:
+                file_name: str = random.choice(verified_safe_files)
                 file_extension: str = (
                     os.path.splitext(file_name)[1].strip(".").lower()
                 )

@@ -50,15 +50,13 @@ def _execute(
 
 
 def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
-    """Fetches all reported vulnerabilities in a finding"""
-    state = "OPEN"
+    """Fetches all reported vulnerabilities in a finding, open or closed"""
     vulnerabilities: List[Vulnerability] = []
     query = """
         query SortsGetVulnerabilities(
             $after: String
             $finding_id: String!
             $first: Int
-            $state: VulnerabilityState
         ) {
             finding(identifier: $finding_id) {
                 id
@@ -66,10 +64,10 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
                 vulnerabilitiesConnection(
                     after: $after,
                     first: $first,
-                    state: $state
                 ) {
                     edges {
                         node {
+                            currentState
                             vulnerabilityType
                             where
                         }
@@ -85,7 +83,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
     result = _execute(
         query=query,
         operation="SortsGetVulnerabilities",
-        variables=dict(finding_id=finding_id, state=state),
+        variables=dict(finding_id=finding_id),
     )
 
     while True:
@@ -101,6 +99,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
             vulnerabilities.extend(
                 [
                     Vulnerability(
+                        current_state=vuln_edge["node"]["currentState"],
                         kind=VulnerabilityKindEnum(
                             vuln_edge["node"]["vulnerabilityType"]
                         ),
@@ -119,7 +118,6 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
             operation="SortsGetVulnerabilities",
             variables=dict(
                 finding_id=finding_id,
-                state=state,
                 after=end_cursor,
             ),
         )
