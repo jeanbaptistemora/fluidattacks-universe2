@@ -15,17 +15,16 @@ SPDX-License-Identifier: MPL-2.0
       <div class="main-content">
         <p>Hi {{ name }},</p>
         <p>
-          You can download your {{ filetype }} report you requested on group
+          You can download the <u>{{ filetype }} Report</u> you requested on group
           <strong>{{ groupname }}</strong> on {{ date }} at {{ time }}
-          by clicking the button below.
+          by clicking the link below.
           The link will be <strong>available for the next hour</strong>.
         </p>
-        <p>
+        {{ go_to_button('Download Report', filelink, 'primary-button') }}
+        <p class="mt1">
           Regards,<br>
           Fluid Attacks Team
         </p>
-        {{ go_to_button('Go to report', filelink, 'primary-button') }}
-        <br />
       </div>
       {% include 'layouts/components/footer.html' %}
 
