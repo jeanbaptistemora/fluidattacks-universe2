@@ -14,7 +14,7 @@ from typing import (
 )
 
 
-class KindEnum(Enum):
+class KindEnum(str, Enum):
     """DAST / SAST vulnerabilities mode"""
 
     ALL: str = "ALL"

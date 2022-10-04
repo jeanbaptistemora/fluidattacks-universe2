@@ -22,6 +22,9 @@ from forces.model.finding import (
 from forces.model.report import (
     ForcesReport,
 )
+from forces.model.vulnerability import (
+    VulnerabilityType,
+)
 from forces.report.filters import (
     filter_kind,
     filter_repo,
@@ -66,11 +69,14 @@ def style_report(key: str, value: str) -> str:
             "Functional": "[orange3]",
             "High": "[red]",
         },
-        "type": {"DAST": "[thistle3]", "SAST": "[light_steel_blue1]"},
+        "type": {
+            VulnerabilityType.DAST: "[thistle3]",
+            VulnerabilityType.SAST: "[light_steel_blue1]",
+        },
     }
     if key in style_data:
         value_style = style_data[key]
-        if isinstance(value_style, Dict):
+        if isinstance(value_style, dict):
             if value in value_style:
                 return f"{value_style[value]}{value}[/]"
             return value
@@ -252,7 +258,7 @@ def format_rich_report(
             # Vulns can come as an empty list depending on the verbosity level
             if key == "vulnerabilities":
                 vulns_data: Union[Table, str] = ""
-                if len(value):
+                if value:
                     vulns_data = format_vuln_table(value)
                 elif verbose_level == 2:
                     vulns_data = "None currently open"
@@ -349,12 +355,20 @@ async def generate_raw_report(
         ):
             continue
 
-        vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
+        vuln_type: VulnerabilityType = (
+            VulnerabilityType.SAST
+            if vuln["vulnerabilityType"] == "lines"
+            else VulnerabilityType.DAST
+        )
 
         _summary_dict[state]["total"] += 1
         if config.kind == KindEnum.ALL:
-            _summary_dict[state]["DAST"] += bool(vuln_type == "DAST")
-            _summary_dict[state]["SAST"] += bool(vuln_type == "SAST")
+            _summary_dict[state]["DAST"] += bool(
+                vuln_type == VulnerabilityType.DAST
+            )
+            _summary_dict[state]["SAST"] += bool(
+                vuln_type == VulnerabilityType.SAST
+            )
         findings_dict[find_id][state] += 1
 
         findings_dict[find_id]["vulnerabilities"].append(

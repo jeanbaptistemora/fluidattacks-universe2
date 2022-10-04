@@ -6,6 +6,9 @@ import fnmatch
 from forces.model.config import (
     KindEnum,
 )
+from forces.model.vulnerability import (
+    VulnerabilityType,
+)
 from typing import (
     Any,
     cast,
@@ -18,10 +21,14 @@ def filter_kind(
     vuln: Dict[str, Any],
     kind: KindEnum,
 ) -> bool:
-    vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
+    vuln_type = (
+        VulnerabilityType.SAST
+        if vuln["vulnerabilityType"] == "lines"
+        else VulnerabilityType.DAST
+    )
     return (
-        (kind == KindEnum.DYNAMIC and vuln_type == "DAST")
-        or (kind == KindEnum.STATIC and vuln_type == "SAST")
+        (kind == KindEnum.DYNAMIC and vuln_type == VulnerabilityType.DAST)
+        or (kind == KindEnum.STATIC and vuln_type == VulnerabilityType.SAST)
         or kind == KindEnum.ALL
     )
 
@@ -31,15 +38,22 @@ def filter_repo(
     kind: KindEnum,
     repo_name: Optional[str] = None,
 ) -> bool:
-    vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
+    vuln_type: VulnerabilityType = (
+        VulnerabilityType.SAST
+        if vuln["vulnerabilityType"] == "lines"
+        else VulnerabilityType.DAST
+    )
 
     if (
         kind in (KindEnum.ALL, KindEnum.STATIC)
-        and vuln_type == "SAST"
+        and vuln_type == VulnerabilityType.SAST
         and repo_name
     ):
         return fnmatch.fnmatch(cast(str, vuln["where"]), f"{repo_name}/*")
-    if kind in (KindEnum.ALL, KindEnum.DYNAMIC) and vuln_type == "DAST":
+    if (
+        kind in (KindEnum.ALL, KindEnum.DYNAMIC)
+        and vuln_type == VulnerabilityType.DAST
+    ):
         root_nickname: Optional[str] = vuln.get("rootNickname", "")
         return root_nickname == repo_name or not root_nickname
     return True
