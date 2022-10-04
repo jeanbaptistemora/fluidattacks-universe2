@@ -139,7 +139,7 @@ def get_vulnerability_reattacks_date(
 def format_mttr_data(
     data: Tuple[Decimal, Decimal, Decimal, Decimal],
     categories: List[str],
-    y_label: str = "Days per exposure (less is better)",
+    y_label: str = "Days per unit of exposure (CVSSF)",
 ) -> Dict[str, Any]:
 
     return dict(
@@ -156,7 +156,7 @@ def format_mttr_data(
                 ]
             ],
             colors={
-                "Mean time to remediate": "#ac0a17",
+                "Mean time to remediate": "#cc6699",
             },
             labels=True,
             type="bar",
@@ -175,12 +175,26 @@ def format_mttr_data(
                     text=y_label,
                     position="inner-top",
                 ),
+                tick=dict(
+                    count=5,
+                ),
+            ),
+        ),
+        grid=dict(
+            x=dict(
+                show=False,
+            ),
+            y=dict(
+                show=True,
             ),
         ),
         bar=dict(
             width=dict(
                 ratio=BAR_RATIO_WIDTH,
             ),
+        ),
+        tooltip=dict(
+            show=False,
         ),
         barChartYTickFormat=True,
         legend=dict(

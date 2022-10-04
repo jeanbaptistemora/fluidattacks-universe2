@@ -8,7 +8,7 @@
 const defaultPaddingRatio = 0.055;
 
 function getMttrColor(d) {
-  return d[0].index === 0 ? '#fda6ab' : '#ac0a17';
+  return d[0].index === 0 ? '#7f0540' : '#cc6699';
 }
 
 function getColor(d, originalValues) {
@@ -29,12 +29,12 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
   return color;
 }
 
-function formatYTick(value) {
-  if (value % 1 === 0) {
-    return d3.format(',.1~f')(value);
+function formatYTick(value, tick) {
+  if (tick && tick.count) {
+    return d3.format(',.1~f')(parseFloat(parseFloat(value).toFixed(1)));
   }
 
-  return '';
+  return value % 1 === 0 ? d3.format(',.1~f')(value) : '';
 }
 
 function formatXTick(index, categories) {
@@ -113,7 +113,8 @@ function formatLabels(datum, maxValue) {
 function render(dataDocument, height, width) {
   dataDocument.paddingRatioLeft = 0.065;
   if (dataDocument.barChartYTickFormat) {
-    dataDocument.axis.y.tick = { format: formatYTick };
+    const { tick } = dataDocument.axis.y;
+    dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick) };
   }
 
   if (dataDocument.barChartXTickFormat) {
@@ -130,17 +131,24 @@ function render(dataDocument, height, width) {
   if (dataDocument.mttrBenchmarking) {
     dataDocument.data.colors = {
       'Mean time to remediate': (d) => getMttrColor([ d ]),
+      'Exposure': (d) => getMttrColor([ d ]),
     };
   }
 
   if (dataDocument.maxValueLog) {
     const { originalValues, maxValueLog, data: columsData } = dataDocument;
     const { columns } = columsData;
-    dataDocument.axis.y.tick = { format: formatLogYTick };
+    const { tick } = dataDocument.axis.y;
+    dataDocument.axis.y.tick = { ...tick, format: formatLogYTick };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLogLabels(datum, index, maxValueLog, originalValues, columns),
     };
-    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
+    const { tooltip } = dataDocument;
+    dataDocument.tooltip = {
+      ...tooltip, format: {
+        value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]),
+      },
+    };
   }
 
   if (dataDocument.maxValueLogAdjusted) {

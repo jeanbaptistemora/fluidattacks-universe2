@@ -216,6 +216,9 @@ def format_data(
                     text="Exposure (less is better)",
                     position="inner-top",
                 ),
+                tick=dict(
+                    count=5,
+                ),
             ),
         ),
         bar=dict(
@@ -223,6 +226,13 @@ def format_data(
                 ratio=BAR_RATIO_WIDTH,
             ),
         ),
+        tooltip=dict(
+            show=False,
+        ),
+        legend=dict(
+            show=False,
+        ),
+        mttrBenchmarking=True,
         maxValue=format_max_value(data),
         maxValueLog=format_max_value(
             tuple(format_cvssf_log(value) for value in data)
@@ -230,6 +240,14 @@ def format_data(
         originalValues=[
             Decimal(value).quantize(Decimal("0.1")) for value in data
         ],
+        grid=dict(
+            x=dict(
+                show=False,
+            ),
+            y=dict(
+                show=True,
+            ),
+        ),
     )
 
 
