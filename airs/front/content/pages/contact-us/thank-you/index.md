@@ -1,8 +1,8 @@
 ---
 slug: contact-us/thank-you/
-title: Your form was submitted succesfully!
-description: In this page we present our contact information, where you can get further details about our products, services or request a job if you are interested in working with us. In this page we display an acknowledgment message after a successful contact request.
-keywords: Fluid Attacks, Contact, Acknowledgment, Company, About us, Security.
+title: Your form was submitted successfully!
+description: In this page we display an acknowledgment message after a request to contact an expert at Fluid Attacks has been submitted successfully.
+keywords: Fluid Attacks, Contact, Acknowledgment, Company, About Us, Security
 template: thankYou
 ---
 
