@@ -394,7 +394,7 @@ resource "cloudflare_record" "mail_dmarc" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "_dmarc.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "TXT"
-  value   = "v=DMARC1; p=none; rua=mailto:technology+dmarc@fluidattacks.com"
+  value   = "v=DMARC1; p=none;"
   ttl     = 1
   proxied = false
 }
