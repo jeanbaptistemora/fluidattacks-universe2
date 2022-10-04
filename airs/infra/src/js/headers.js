@@ -190,7 +190,6 @@ const redirectMap = new Map([
   ["/products/rules/list/134/", homeURL],
   ["/products/rules/list/357/", homeURL],
   ["/products/defends/java/usar-privilegio/", homeURL],
-  ["/services/", homeURL],
   ["/products/defends/apache/configurar-soporte-https/", homeURL],
   ["/products/defends/aspnet/establecer-autenticacion/", homeURL],
   ["/products/forces/", homeURL],
