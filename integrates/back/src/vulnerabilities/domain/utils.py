@@ -79,11 +79,6 @@ def get_path_from_integrates_vulnerability(
             namespace = namespace[:-1]
         else:
             where, namespace = chunks[0], ""
-    elif vulnerability_type == VulnerabilityType.LINES:
-        if len(chunks := vulnerability_where.split("/", maxsplit=1)) == 2:
-            namespace, where = chunks
-        else:
-            namespace, where = "", chunks[0]
     else:
         raise NotImplementedError()
     if ignore_cve:
@@ -107,9 +102,11 @@ def get_hash_from_typed(
     type_ = vuln.type.value
     where = vuln.where
     if validate_root:
-        where = get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
-            1
-        ]
+        where = (
+            get_path_from_integrates_vulnerability(vuln.where, vuln.type)[1]
+            if vuln.type == VulnerabilityType.INPUTS
+            else vuln.where
+        )
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)

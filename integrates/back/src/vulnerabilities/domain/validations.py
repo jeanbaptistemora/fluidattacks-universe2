@@ -20,7 +20,6 @@ from string import (
     hexdigits,
 )
 from typing import (
-    Set,
     Tuple,
 )
 from urllib.parse import (
@@ -45,27 +44,31 @@ def validate_uniqueness(
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
     vulnerability_id: str,
+    vulnerability_commit: str,
 ) -> None:
-    finding_vulns_hashes: Set[int] = set(
-        map(get_hash_from_typed, finding_vulns_data)
-    )
-    vuln = next(
+    current_vuln = next(
         (item for item in finding_vulns_data if item.id == vulnerability_id),
         None,
     )
-    if not vuln:
+    if not current_vuln:
         return
-    vuln_hash: int = get_hash(
+    new_vuln_hash: int = get_hash(
         specific=vulnerability_specific,
         type_=vulnerability_type.value,
         where=get_path_from_integrates_vulnerability(
             vulnerability_where, vulnerability_type
-        )[1],
-        root_id=vuln.root_id,
+        )[1]
+        if current_vuln.type == VulnerabilityType.INPUTS
+        else vulnerability_where,
+        root_id=current_vuln.root_id,
     )
-
-    if vuln_hash in finding_vulns_hashes:
-        raise InvalidVulnerabilityAlreadyExists.new()
+    for vuln in finding_vulns_data:
+        vuln_hash = get_hash_from_typed(vuln)
+        if (
+            vuln_hash == new_vuln_hash
+            and current_vuln.commit == vulnerability_commit
+        ):
+            raise InvalidVulnerabilityAlreadyExists.new()
 
 
 def validate_commit_hash(vuln_commit: str) -> None:

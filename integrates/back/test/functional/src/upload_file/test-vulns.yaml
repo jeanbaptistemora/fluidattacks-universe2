@@ -12,7 +12,7 @@ inputs:
 lines:
   - line: '123'
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-    path: universe/path/to/file1.ext
+    path: path/to/file1.ext
     state: open
     repo_nickname: universe
     source: analyst
@@ -20,7 +20,7 @@ lines:
       name: tool-2
       impact: indirect
   - line: '1'
-    path: universe/test/1
+    path: test/1
     repo_nickname: universe
     state: open
     commit_hash: 000000000000000000000000000000000000000f
@@ -29,7 +29,7 @@ lines:
       name: tool-2
       impact: direct
   - line: '1'
-    path: universe/test/1
+    path: test/1
     repo_nickname: universe
     state: open
     commit_hash: 111111111111111111111111111111111111111f

@@ -518,7 +518,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="test_nickname_1/test1/test.sh",
+                    where="test1/test.sh",
                 ),
             },
             {
@@ -556,7 +556,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="test_nickname_2/test2/test#.config",
+                    where="test2/test#.config",
                 )
             },
             {
@@ -598,7 +598,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:12+00:00",
                         status=VulnerabilityVerificationStatus.VERIFIED,
                     ),
-                    where="test_nickname_2/test3/test.sh",
+                    where="test3/test.sh",
                 ),
                 "historic_state": [
                     VulnerabilityState(

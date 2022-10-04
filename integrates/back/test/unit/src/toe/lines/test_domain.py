@@ -36,7 +36,7 @@ async def test_add() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
-    filename = "universe/test/new.new"
+    filename = "test/new.new"
     attributes = ToeLinesAttributesToAdd(
         attacked_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         attacked_by="hacker@test.com",
@@ -65,7 +65,7 @@ async def test_add() -> None:
         be_present=True,
         be_present_until=None,
         comments="comment test",
-        filename="universe/test/new.new",
+        filename="test/new.new",
         first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
         has_vulnerabilities=False,
@@ -84,7 +84,7 @@ async def test_add() -> None:
 async def test_update() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
-    filename = "universe/test/new.new"
+    filename = "test/new.new"
     loaders = get_new_context()
     current_value = await loaders.toe_lines.load(
         ToeLinesRequest(
@@ -118,7 +118,7 @@ async def test_update() -> None:
         be_present=True,
         be_present_until=None,
         comments="comment test 2",
-        filename="universe/test/new.new",
+        filename="test/new.new",
         first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
         has_vulnerabilities=False,

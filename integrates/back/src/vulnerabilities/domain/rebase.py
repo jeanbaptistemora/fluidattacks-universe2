@@ -4,6 +4,7 @@
 
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
+    InvalidVulnerabilityAlreadyExists,
 )
 from db_model import (
     vulnerabilities as vulns_model,
@@ -62,7 +63,9 @@ async def rebase(
         type_=current_vuln.type,
         where=get_path_from_integrates_vulnerability(
             current_vuln.where, current_vuln.type
-        )[1],
+        )[1]
+        if current_vuln.type == VulnerabilityType.INPUTS
+        else current_vuln.where,
         root_id=current_vuln.root_id,
     )
     for vuln in finding_vulns_data:
@@ -71,7 +74,9 @@ async def rebase(
             type_=vuln.type,
             where=get_path_from_integrates_vulnerability(
                 vuln.where, vuln.type
-            )[1],
+            )[1]
+            if vuln.type == VulnerabilityType.INPUTS
+            else vuln.where,
             root_id=vuln.root_id,
         )
         if vuln_hash == current_vuln_hash and vuln.id != current_vuln.id:
@@ -95,13 +100,23 @@ async def rebase(
                 },
             )
 
-    validate_uniqueness(
-        finding_vulns_data=finding_vulns_data,
-        vulnerability_where=vulnerability_where,
-        vulnerability_specific=vulnerability_specific,
-        vulnerability_type=vulnerability_type,
-        vulnerability_id=vulnerability_id,
-    )
+    try:
+        validate_uniqueness(
+            finding_vulns_data=finding_vulns_data,
+            vulnerability_where=vulnerability_where,
+            vulnerability_specific=vulnerability_specific,
+            vulnerability_type=vulnerability_type,
+            vulnerability_id=vulnerability_id,
+            vulnerability_commit=vulnerability_commit,
+        )
+    except InvalidVulnerabilityAlreadyExists as exc:
+        for vuln in finding_vulns_data:
+            if (
+                vuln.id == vulnerability_id
+                and vuln.commit == vulnerability_commit
+            ):
+                raise exc
+
     validate_where(vulnerability_where)
 
     await vulns_model.update_metadata(

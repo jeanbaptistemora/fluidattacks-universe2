@@ -8,7 +8,6 @@ from PIL import (
     ImageDraw,
     ImageFont,
 )
-import aioboto3
 from aioextensions import (
     collect,
 )
@@ -123,6 +122,9 @@ from organizations_finding_policies import (
 import os
 import pytz
 import random
+from s3.resource import (
+    get_s3_resource,
+)
 from settings.various import (
     TIME_ZONE,
 )
@@ -203,7 +205,6 @@ class SignalHandler:  # pylint: disable=too-few-public-methods
 
 
 async def get_config(
-    boto3_session: aioboto3.Session,
     execution_id: str,
     config_path: Optional[str] = None,
 ) -> Dict[str, Any]:
@@ -211,15 +212,15 @@ async def get_config(
     if config_path is not None:
         with open(config_path, "rb") as config_file:
             return yaml.safe_load(config_file)
-    async with boto3_session.client("s3") as s3_client:
-        with tempfile.NamedTemporaryFile() as temp:
-            await s3_client.download_fileobj(
-                "skims.data",
-                f"configs/{execution_id}.yaml",
-                temp,
-            )
-            temp.seek(0)
-            return yaml.safe_load(temp)
+    s3_client = await get_s3_resource()
+    with tempfile.NamedTemporaryFile() as temp:
+        await s3_client.download_fileobj(
+            "skims.data",
+            f"configs/{execution_id}.yaml",
+            temp,
+        )
+        temp.seek(0)
+        return yaml.safe_load(temp)
 
 
 @retry_on_exceptions(
@@ -227,7 +228,6 @@ async def get_config(
     sleep_seconds=1,
 )
 async def get_sarif_log(
-    boto3_session: aioboto3.Session,
     execution_id: str,
     sarif_path: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
@@ -235,20 +235,20 @@ async def get_sarif_log(
     if sarif_path is not None:
         with open(sarif_path, "rb") as sarif_file:
             return yaml.safe_load(sarif_file)
-    async with boto3_session.client("s3") as s3_client:
-        with tempfile.NamedTemporaryFile() as temp:
-            await s3_client.download_fileobj(
-                "skims.data",
-                f"results/{execution_id}.sarif",
-                temp,
+    s3_client = await get_s3_resource()
+    with tempfile.NamedTemporaryFile() as temp:
+        await s3_client.download_fileobj(
+            "skims.data",
+            f"results/{execution_id}.sarif",
+            temp,
+        )
+        temp.seek(0)
+        try:
+            return yaml.safe_load(
+                temp.read().decode(encoding="utf-8").replace("x0081", "")
             )
-            temp.seek(0)
-            try:
-                return yaml.safe_load(
-                    temp.read().decode(encoding="utf-8").replace("x0081", "")
-                )
-            except ReaderError:
-                return None
+        except ReaderError:
+            return None
 
 
 def generate_cssv_vector(criteria_vulnerability: Dict[str, Any]) -> str:
@@ -522,10 +522,7 @@ def _build_vulnerabilities_stream_from_sarif(
                         "startLine"
                     ]
                 ),
-                "path": (
-                    f"{repo_nickname}/"
-                    f"{_get_path_from_sarif_vulnerability(vuln)}"
-                ),
+                "path": _get_path_from_sarif_vulnerability(vuln),
                 "repo_nickname": repo_nickname,
                 "state": "open",
                 "skims_method": vuln["properties"]["source_method"],
@@ -565,12 +562,7 @@ def _build_vulnerabilities_stream_from_integrates(
             {
                 "commit_hash": vuln.commit,
                 "line": vuln.specific,
-                "path": os.path.join(
-                    git_root.state.nickname,
-                    get_path_from_integrates_vulnerability(
-                        vuln.where, vuln.type
-                    )[1],
-                ),
+                "path": vuln.where,
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "skims_method": vuln.skims_method,
@@ -611,7 +603,9 @@ def _machine_vulns_to_close(
             (
                 get_path_from_integrates_vulnerability(
                     vuln.where, vuln.type, True
-                )[1],
+                )[1]
+                if vuln.type == VulnerabilityType.INPUTS
+                else vuln.where,
                 vuln.specific,
             )
         )
@@ -619,9 +613,13 @@ def _machine_vulns_to_close(
         and (
             # the result path is included in the current analysis
             path_is_include(
-                get_path_from_integrates_vulnerability(vuln.where, vuln.type)[
-                    1
-                ].split(" ", maxsplit=1)[0],
+                (
+                    get_path_from_integrates_vulnerability(
+                        vuln.where, vuln.type
+                    )[1]
+                    if vuln.type == VulnerabilityType.INPUTS
+                    else vuln.where
+                ).split(" ", maxsplit=1)[0],
                 [
                     *(execution_config["path"]["include"]),
                     *(execution_config["apk"]["include"]),
@@ -863,7 +861,9 @@ def _filter_vulns_to_open(
             (
                 get_path_from_integrates_vulnerability(
                     vuln.where, vuln.type, True
-                )[1],
+                )[1]
+                if vuln.type == VulnerabilityType.INPUTS
+                else vuln.where,
                 vuln.specific,
             )
         )
@@ -888,9 +888,7 @@ def _filter_vulns_to_open(
             for vuln in vulns_to_open["lines"]
             if hash(
                 (
-                    get_path_from_integrates_vulnerability(
-                        vuln["path"], VulnerabilityType.LINES, True
-                    )[1],
+                    vuln["path"],
                     vuln["line"],
                 )
             )
@@ -1016,11 +1014,8 @@ async def process_execution(
     criteria_vulns = criteria_vulns or await get_vulns_file()
     criteria_reqs = criteria_reqs or await get_requirements_file()
     loaders: Dataloaders = get_new_context()
-    boto3_session = aioboto3.Session()
     group_name = execution_id.split("_", maxsplit=1)[0]
-    execution_config = await get_config(
-        boto3_session, execution_id, config_path
-    )
+    execution_config = await get_config(execution_id, config_path)
     try:
         git_root = next(  # noqa  # pylint: disabled=unused-variable
             root
@@ -1040,7 +1035,7 @@ async def process_execution(
             },
         )
         return False
-    results = await get_sarif_log(boto3_session, execution_id, sarif_path)
+    results = await get_sarif_log(execution_id, sarif_path)
     if not results:
         LOGGER.warning(
             "Cloud not find execution result",

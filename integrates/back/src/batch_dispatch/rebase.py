@@ -70,9 +70,6 @@ from typing import (
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
 )
-from vulnerabilities.domain.utils import (
-    get_path_from_integrates_vulnerability,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -135,9 +132,7 @@ def _rebase_vulnerability(
             and (
                 result := git_utils.rebase(
                     repo,
-                    path=get_path_from_integrates_vulnerability(
-                        vulnerability.where, vulnerability.type
-                    )[1],
+                    path=vulnerability.where,
                     line=int(vulnerability.specific),
                     rev_a=vulnerability.commit,
                     rev_b="HEAD",

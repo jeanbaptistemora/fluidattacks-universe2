@@ -160,7 +160,6 @@ async def update_toe_lines(
 async def process_toe_lines(
     group_name: str,
     open_vulnerabilities: tuple[Vulnerability, ...],
-    root_nicknames: dict[str, str],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     group_toe_lines = await loaders.group_toe_lines.load_nodes(
@@ -172,13 +171,9 @@ async def process_toe_lines(
     for toe_line in group_toe_lines:
         has_vulnerabilities = (
             any(
-                vulnerability_where_repo == root_nicknames[toe_line.root_id]
-                and vulnerability_where_path.startswith(toe_line.filename)
+                vulnerability.where.startswith(toe_line.filename)
                 for vulnerability in open_vulnerabilities
                 if vulnerability.type == VulnerabilityType.LINES
-                for vulnerability_where_repo, vulnerability_where_path in [
-                    _strip_first_dir(html.unescape(vulnerability.where))
-                ]
             )
             if toe_line.be_present
             else False
@@ -216,10 +211,6 @@ async def get_open_vulnerabilities(
 async def process_group(group_name: str) -> None:
     loaders: Dataloaders = get_new_context()
     _log("group", id=group_name)
-    root_nicknames: dict[str, str] = {
-        root.id: root.state.nickname
-        for root in await loaders.group_roots.load(group_name)
-    }
 
     findings: tuple[Finding, ...]
     findings = await loaders.group_findings.load(group_name)
@@ -238,7 +229,8 @@ async def process_group(group_name: str) -> None:
         (
             process_toe_inputs(group_name, open_vulnerabilities),
             process_toe_lines(
-                group_name, open_vulnerabilities, root_nicknames
+                group_name,
+                open_vulnerabilities,
             ),
         )
     )

@@ -120,7 +120,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "treatment_status": "NEW",
             "type": "LINES",
             "verification_status": None,
-            "where": "universe/test/1",
+            "where": "test/1",
         },
         {
             "commit_hash": "5b5c92105b5c92105b5c92105b5c92105b5c9210",
@@ -131,7 +131,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "treatment_status": "NEW",
             "type": "LINES",
             "verification_status": None,
-            "where": "universe/path/to/file1.ext",
+            "where": "path/to/file1.ext",
         },
         {
             "commit_hash": None,
@@ -287,7 +287,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         ),
         unreliable_where=(
             "192.168.1.44, 192.168.1.46, https://example.com, "
-            "universe/path/to/file1.ext, universe/test/1"
+            "path/to/file1.ext, test/1"
         ),
     )
 

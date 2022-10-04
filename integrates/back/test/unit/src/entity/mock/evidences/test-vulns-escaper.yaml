@@ -2,7 +2,7 @@
 lines:
   - line: '89'
     commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
-    path: universe/test/test#.config
+    path: test/test#.config
     state: open
     repo_nickname: universe
     source: escape

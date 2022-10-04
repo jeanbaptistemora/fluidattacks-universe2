@@ -2,7 +2,7 @@
 lines:
   - line: '123'
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-    path: universe/test/test#.config
+    path: test/test#.config
     state: open
     repo_nickname: universe
     source: analyst
@@ -11,7 +11,7 @@ lines:
       impact: direct
   - line: '89'
     commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
-    path: universe/test/test#.config
+    path: test/test#.config
     state: closed
     repo_nickname: universe
     source: analyst

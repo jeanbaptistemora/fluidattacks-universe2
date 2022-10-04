@@ -405,7 +405,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.ON_HOLD,
                         event_id="418900975",
                     ),
-                    where="nickname1/README.md",
+                    where="README.md",
                     root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                     commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                 ),

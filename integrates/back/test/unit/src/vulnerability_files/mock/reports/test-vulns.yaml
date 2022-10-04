@@ -13,7 +13,7 @@ lines:
   - line: '123'
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
     repo_nickname: universe
-    path: universe/test/test#.config
+    path: test/test#.config
     state: closed
     source: analyst
     tool:
@@ -22,7 +22,7 @@ lines:
   - line: '345'
     commit_hash: e17059d1e17059d1e17059d1e17059d1e17059d1
     repo_nickname: universe
-    path: universe/path/to/file3.ext
+    path: path/to/file3.ext
     state: closed
     source: analyst
     tool:

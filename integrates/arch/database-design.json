@@ -23755,7 +23755,7 @@
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "where": {
-                "S": "universe/path/to/file3.ext"
+                "S": "path/to/file3.ext"
               },
               "created_date": {
                 "S": "2019-01-16T13:47:07+00:00"
@@ -24012,7 +24012,7 @@
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "where": {
-                "S": "universe/test/test#.config"
+                "S": "test/test#.config"
               },
               "created_date": {
                 "S": "2019-01-15T16:04:14+00:00"
@@ -24138,7 +24138,7 @@
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "where": {
-                "S": "universe/test/test#.config"
+                "S": "test/test#.config"
               },
               "created_date": {
                 "S": "2019-01-15T15:43:39+00:00"
@@ -24352,7 +24352,7 @@
                 "S": "ROOT"
               },
               "where": {
-                "S": "universe/test/test#.config"
+                "S": "test/test#.config"
               },
               "created_date": {
                 "S": "2019-04-12T13:45:48+00:00"
