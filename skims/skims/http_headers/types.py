@@ -83,8 +83,14 @@ class XFrameOptionsHeader(NamedTuple):
     value: str
 
 
+class ContentEncodingHeader(NamedTuple):
+    name: str
+    value: str
+
+
 Header = Optional[
     Union[
+        ContentEncodingHeader,
         ContentSecurityPolicyHeader,
         DateHeader,
         ReferrerPolicyHeader,
