@@ -61,12 +61,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
           <Col lg={60} md={60} sm={100}>
             <Text fw={7} mb={3} mt={2} size={"big"}>
               {t(
-                "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text",
-                {
-                  percentage: handleCompliancePercentageValue(
-                    organization.compliance.complianceLevel
-                  ),
-                }
+                "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text"
               )}{" "}
               <InfoDropdown>
                 <Text size={"small"} ta={"center"}>
@@ -134,7 +129,21 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
               </Col>
             </Row>
           </Col>
-          <Col lg={40} md={40} sm={100} />
+          <Col lg={40} md={40} sm={100}>
+            <Text fw={7} mb={3} mt={2} size={"big"}>
+              {t(
+                "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.text"
+              )}{" "}
+              <InfoDropdown>
+                <Text size={"small"} ta={"center"}>
+                  {t(
+                    "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.info",
+                    { organizationName: organization.name }
+                  )}
+                </Text>
+              </InfoDropdown>
+            </Text>
+          </Col>
         </Row>
         <Row>
           <Col lg={100} md={100} sm={100}>
