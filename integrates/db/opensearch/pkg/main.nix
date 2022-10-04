@@ -6,10 +6,6 @@
   makeDerivation,
   ...
 }: let
-  patchedNatives = inputs.nixpkgs.fetchurl {
-    url = "https://gitlab.com/dacevedoatfluid/utils/-/raw/main/Natives.class";
-    sha256 = "1xm4ixhq4qmwxsfd1j3znm86ii33p5271fw3zk9w7w7d6sigargp";
-  };
   src = builtins.fetchTarball {
     url = "https://artifacts.opensearch.org/releases/core/opensearch/${version}/opensearch-min-${version}-linux-x64.tar.gz";
     sha256 = "1m01sdh1i9ldi719cnlsbi10mmypvmqjcj9xsyn7qpiq95nmwmzi";
@@ -19,7 +15,6 @@ in
   makeDerivation {
     builder = ./builder.sh;
     env = {
-      envPatchedNatives = patchedNatives;
       envSrc = src;
     };
     name = "opensearch-pkg";

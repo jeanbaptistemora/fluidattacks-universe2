@@ -302,6 +302,9 @@ in {
                   expire_in = "1 day";
                   when = "on_success";
                 };
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
               };
           })
           functionalTests)
@@ -320,11 +323,20 @@ in {
                   ];
                   expire_in = "1 week";
                 };
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
               };
           }
           {
             output = "/integrates/back/test/check-forces-output";
-            gitlabExtra = gitlabTestDev;
+            gitlabExtra =
+              gitlabTestDev
+              // {
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
+              };
           }
           rec {
             args = ["dev" (toString gitlabExtra.parallel) "gitlab"];
@@ -335,6 +347,9 @@ in {
                 parallel = 7;
                 rules = gitlabOnlyDev;
                 tags = ["small"];
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
               };
           }
           rec {
@@ -369,6 +384,9 @@ in {
               needs = ["/integrates/charts/documents__prod__30__gitlab"];
               stage = "analytics";
               tags = ["small"];
+              variables = {
+                MAKES_NON_ROOT = 1;
+              };
             };
           }
           {
@@ -505,6 +523,9 @@ in {
               rules = gitlabOnlyDev;
               stage = "subscriptions";
               tags = ["small"];
+              variables = {
+                MAKES_NON_ROOT = 1;
+              };
             };
           })
           [

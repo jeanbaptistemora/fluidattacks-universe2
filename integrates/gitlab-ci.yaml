@@ -187,6 +187,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__accept_legal:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -215,6 +216,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__acknowledge_concurrent_session:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -243,6 +245,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__activate_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -271,6 +274,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_credentials:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -299,6 +303,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_draft:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -327,6 +332,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_event:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -355,6 +361,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_event_consult:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -383,6 +390,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_files_to_db:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -411,6 +419,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_finding_consult:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -439,6 +448,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_forces_execution_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -467,6 +477,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_git_root_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -495,6 +506,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_group:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -523,6 +535,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_group_consult:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -551,6 +564,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_group_tags:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -579,6 +593,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_organization:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -607,6 +622,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_push_token:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -635,6 +651,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -663,6 +680,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_toe_input:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -691,6 +709,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_toe_lines:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -719,6 +738,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_url_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -747,6 +767,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__approve_draft:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -775,6 +796,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__batch:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -803,6 +825,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__batch_dispatch_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -831,6 +854,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -859,6 +883,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__deactivate_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -887,6 +912,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__delete_obsolete_groups:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -915,6 +941,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__download_event_file:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -943,6 +970,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__download_file:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -971,6 +999,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__download_vulnerability_file_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -999,6 +1028,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__event:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1027,6 +1057,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__events:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1055,6 +1086,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__finding:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1083,6 +1115,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__forces_executions_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1111,6 +1144,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__grant_stakeholder_access:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1139,6 +1173,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__grant_stakeholder_organization_access:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1167,6 +1202,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__group_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1195,6 +1231,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__groups_languages_distribution:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1223,6 +1260,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__groups_with_forces:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1251,6 +1289,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__handle_vulnerabilities_acceptance:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1279,6 +1318,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__invalidate_access_token:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1307,6 +1347,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__me:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1335,6 +1376,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__move_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1363,6 +1405,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__organization:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1391,6 +1434,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__organization_id:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1419,6 +1463,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__refresh_toe_inputs:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1447,6 +1492,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__refresh_toe_lines:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1475,6 +1521,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__reject_draft:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1503,6 +1550,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__reject_event_solution:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1531,6 +1579,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__reject_vulnerabilities_zero_risk:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1559,6 +1608,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_credentials:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1587,6 +1637,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_event_evidence_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1615,6 +1666,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_evidence_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1643,6 +1695,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_files_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1671,6 +1724,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_finding_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1699,6 +1753,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_group_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1727,6 +1782,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_group_tag:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1755,6 +1811,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1783,6 +1840,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_stakeholder_access:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1811,6 +1869,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_stakeholder_organization_access:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1839,6 +1898,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_tags:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1867,6 +1927,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_vulnerability:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1895,6 +1956,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__report:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1923,6 +1985,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__report_machine_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1951,6 +2014,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__request_event_verification:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1979,6 +2043,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__request_vulnerabilities_hold:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2007,6 +2072,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__request_vulnerabilities_verification:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2035,6 +2101,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__request_vulnerabilities_zero_risk:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2063,6 +2130,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__requeue_actions:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2091,6 +2159,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__reset_expired_accepted_findings:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2119,6 +2188,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__resources:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2147,6 +2217,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__sign_in:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2175,6 +2246,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__solve_event:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2203,6 +2275,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2231,6 +2304,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__submit_draft:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2259,6 +2333,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__submit_organization_finding_policy:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2287,6 +2362,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__subscribe_to_entity_report_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2315,6 +2391,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__sync_git_root_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2343,6 +2420,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__toe_inputs:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2371,6 +2449,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__toe_lines:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2399,6 +2478,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__unsubscribe_from_group:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2427,6 +2507,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_access_token:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2455,6 +2536,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_credentials:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2483,6 +2565,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_event:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2511,6 +2594,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_event_evidence_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2539,6 +2623,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_event_solving_reason:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2567,6 +2652,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_evidence_description:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2595,6 +2681,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_evidence_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2623,6 +2710,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_finding_description:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2651,6 +2739,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_forces_access_token:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2679,6 +2768,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_git_environments:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2707,6 +2797,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_git_root_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2735,6 +2826,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_access_info:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2763,6 +2855,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_disambiguation:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2791,6 +2884,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_info:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2819,6 +2913,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_managed:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2847,6 +2942,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_policies:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2875,6 +2971,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_s3:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2903,6 +3000,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_group_stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2931,6 +3029,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_ip_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2959,6 +3058,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_nickname:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2987,6 +3087,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_organization_policies:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3015,6 +3116,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_organization_stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3043,6 +3145,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_severity:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3071,6 +3174,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_stakeholder_phone:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3099,6 +3203,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_toe_input:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3127,6 +3232,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_toe_lines_attacked_lines:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3155,6 +3261,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_toe_lines_sorts:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3183,6 +3290,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_toe_vulnerabilities:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3211,6 +3319,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_tours:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3239,6 +3348,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_url_root:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3267,6 +3377,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_vulnerabilities_treatment:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3295,6 +3406,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_vulnerability_commit:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3323,6 +3435,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_vulnerability_treatment:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3351,6 +3464,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__upload_file:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3379,6 +3493,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__validate_git_access:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3407,6 +3522,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__verify_stakeholder:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3435,6 +3551,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__verify_vulnerabilities_request:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3463,6 +3580,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__vulnerability:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3491,6 +3609,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/unit:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3519,6 +3638,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/charts/documents__dev__7__gitlab:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3550,6 +3670,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/charts/documents__prod__30__gitlab:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3596,6 +3717,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/coverage:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3996,6 +4118,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/subscriptions/analytics__dev__hourly:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -4019,6 +4142,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/subscriptions/analytics__dev__monthly:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -4042,6 +4166,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/subscriptions/analytics__dev__weekly:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -4065,6 +4190,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/web/check-forces-output:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
