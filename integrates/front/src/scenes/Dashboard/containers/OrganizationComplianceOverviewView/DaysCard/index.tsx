@@ -37,7 +37,7 @@ const DaysCard: FC<IDaysCardProps> = (props: IDaysCardProps): JSX.Element => {
         <Row justify={"center"}>
           <Col lg={100} md={100} sm={100}>
             <Text fw={9} size={"big"} ta={"center"}>
-              {Math.round(days)}{" "}
+              {Math.ceil(days)}{" "}
               {t("organization.tabs.compliance.tabs.overview.cards.days")}{" "}
               <FontAwesomeIcon icon={faCalendar} />
             </Text>

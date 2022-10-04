@@ -302,18 +302,18 @@ async def get_organization_estimated_days_to_full_compliance(
         ),
         workers=100,
     )
-    open_findings: list[Finding] = []
+    min_time_to_remediate_total = 0
     for finding, open_vulnerabilities in zip(
         findings, findings_open_vulnerabilities
     ):
-        if open_vulnerabilities:
-            open_findings.append(finding)
+        min_time_to_remediate_total += (
+            finding.min_time_to_remediate or 0
+        ) * len(open_vulnerabilities)
 
     minutes_in_a_day = 1440
-    return Decimal(
-        sum([finding.min_time_to_remediate or 0 for finding in open_findings])
-        / minutes_in_a_day
-    ).quantize(Decimal("0.01"))
+    return Decimal(min_time_to_remediate_total / minutes_in_a_day).quantize(
+        Decimal("0.01")
+    )
 
 
 async def get_organization_standard_compliances(
