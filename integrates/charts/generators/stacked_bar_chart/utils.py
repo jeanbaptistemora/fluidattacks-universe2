@@ -35,6 +35,7 @@ from typing import (
 # Constants
 DATE_FMT: str = "%Y - %m - %d"
 DATE_SHORT_FMT: str = "%Y-%m"
+DATE_WEEKLY_FMT: str = "%y-%m-%d"
 MIN_PERCENTAGE: Decimal = Decimal("15.0")
 # Let's no over think it
 MONTH_TO_NUMBER = {
@@ -172,7 +173,7 @@ def format_document(
                 [name]
                 + [
                     date.strftime(
-                        DATE_FMT
+                        DATE_WEEKLY_FMT
                         if time_range == TimeRangeType.WEEKLY
                         else DATE_SHORT_FMT
                     )
@@ -200,9 +201,7 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=TICK_ROTATION
-                    if time_range == TimeRangeType.WEEKLY
-                    else 0,
+                    rotate=0,
                 ),
                 type="category",
             ),
@@ -270,7 +269,7 @@ def format_distribution_document(
                 [name]
                 + [
                     date.strftime(
-                        DATE_FMT
+                        DATE_WEEKLY_FMT
                         if time_range == TimeRangeType.WEEKLY
                         else DATE_SHORT_FMT
                     )
@@ -310,9 +309,7 @@ def format_distribution_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=TICK_ROTATION
-                    if time_range == TimeRangeType.WEEKLY
-                    else 0,
+                    rotate=0,
                 ),
                 type="category",
             ),

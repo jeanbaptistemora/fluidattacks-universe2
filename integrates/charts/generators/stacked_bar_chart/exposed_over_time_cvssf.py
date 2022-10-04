@@ -19,8 +19,8 @@ from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
-    DATE_FMT,
     DATE_SHORT_FMT,
+    DATE_WEEKLY_FMT,
     EXPOSED_OVER_TIME,
     get_current_time_range,
     get_min_date_formatted,
@@ -249,7 +249,7 @@ def format_document(
         [name]
         + [
             date.strftime(
-                DATE_FMT
+                DATE_WEEKLY_FMT
                 if time_range == TimeRangeType.WEEKLY
                 else DATE_SHORT_FMT
             )
@@ -280,9 +280,7 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=utils.TICK_ROTATION
-                    if time_range == TimeRangeType.WEEKLY
-                    else 0,
+                    rotate=0,
                 ),
                 type="category",
             ),
