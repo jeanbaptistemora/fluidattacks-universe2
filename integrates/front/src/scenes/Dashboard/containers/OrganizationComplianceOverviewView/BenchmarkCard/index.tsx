@@ -38,7 +38,7 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"start"}>
             {t(
-              "organization.tabs.compliance.tabs.overview.benchmark.myOrganization"
+              "organization.tabs.compliance.tabs.overview.cards.myOrganization"
             )}
           </Text>
         </Col>
@@ -66,7 +66,7 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"start"}>
             {t(
-              "organization.tabs.compliance.tabs.overview.benchmark.bestOrganization"
+              "organization.tabs.compliance.tabs.overview.cards.bestOrganization"
             )}
           </Text>
         </Col>
@@ -94,7 +94,7 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"start"}>
             {t(
-              "organization.tabs.compliance.tabs.overview.benchmark.avgOrganization"
+              "organization.tabs.compliance.tabs.overview.cards.avgOrganization"
             )}
           </Text>
         </Col>
@@ -122,7 +122,7 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         <Col lg={50} md={50} sm={50}>
           <Text ta={"start"}>
             {t(
-              "organization.tabs.compliance.tabs.overview.benchmark.worstOrganization"
+              "organization.tabs.compliance.tabs.overview.cards.worstOrganization"
             )}
           </Text>
         </Col>

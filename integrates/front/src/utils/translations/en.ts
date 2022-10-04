@@ -1724,10 +1724,13 @@ export const enTranslations: ResourceKey = {
         tabs: {
           overview: {
             benchmark: {
+              title: "Benchmark",
+            },
+            cards: {
               avgOrganization: "Avg organization",
               bestOrganization: "Best organization",
+              days: "days",
               myOrganization: "My organization",
-              title: "Benchmark",
               worstOrganization: "Worst organization",
             },
             organizationCompliance: {
