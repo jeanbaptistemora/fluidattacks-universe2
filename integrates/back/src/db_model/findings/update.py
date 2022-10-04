@@ -38,6 +38,7 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+    utils as db_model_utils,
 )
 from db_model.findings.constants import (
     ME_DRAFTS_INDEX_METADATA,
@@ -166,6 +167,12 @@ async def update_state(
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
+    )
+    state = state._replace(
+        modified_date=db_model_utils.get_date_with_offset(
+            current_value.modified_date,
+            state.modified_date,
+        )
     )
     state_item = format_state_item(state)
     metadata_item = {"state": state_item}

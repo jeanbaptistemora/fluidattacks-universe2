@@ -56,12 +56,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
         },
         {
             "analyst": "test1@gmail.com",
-            "date": "2018-04-07 19:45:11",
+            "date": "2018-04-07 19:45:15",
             "source": "asm",
             "state": "APPROVED",
         },
     ]
-    release_date: str = "2018-04-07 19:45:11"
+    release_date: str = "2018-04-07 19:45:15"
     severity: Dict[str, float] = {
         "attackComplexity": 0.44,
         "attackVector": 0.2,

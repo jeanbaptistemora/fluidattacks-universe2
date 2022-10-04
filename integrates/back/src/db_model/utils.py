@@ -35,6 +35,17 @@ def get_first_day_iso_date() -> str:
     return (now - timedelta(days=(now.isoweekday() - 1) % 7)).isoformat()
 
 
+def get_date_with_offset(
+    base_iso8601: str, target_iso8601: str, offset: int = 1
+) -> str:
+    """Guarantee at least n seconds separation between dates."""
+    max_date = max(
+        datetime.fromisoformat(base_iso8601) + timedelta(seconds=offset),
+        datetime.fromisoformat(target_iso8601),
+    )
+    return max_date.astimezone(tz=timezone.utc).isoformat()
+
+
 def format_policies_to_update(
     policies_data: dict[str, Any],
 ) -> PoliciesToUpdate:
