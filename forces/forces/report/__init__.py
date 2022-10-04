@@ -19,6 +19,9 @@ from forces.model.config import (
 from forces.model.finding import (
     Finding,
 )
+from forces.model.report import (
+    ForcesReport,
+)
 from forces.report.filters import (
     filter_kind,
     filter_repo,
@@ -38,7 +41,6 @@ from typing import (
     List,
     Optional,
     Set,
-    Tuple,
     Union,
 )
 
@@ -219,7 +221,7 @@ def format_rich_report(
     report: Dict[str, Any],
     verbose_level: int,
     kind: KindEnum,
-) -> Tuple[Table, Table]:
+) -> ForcesReport:
     """Outputs a rich-formatted table containing the reported data of findings
     and associated vulns of an ASM group\n
     @param `report`: A dict containing the list of findings and summary data of
@@ -268,7 +270,7 @@ def format_rich_report(
     # Summary report table
     summary = report["summary"]
     summary_table = format_summary_report(summary, kind)
-    return report_table, summary_table
+    return ForcesReport(findings_report=report_table, summary=summary_table)
 
 
 def filter_report(

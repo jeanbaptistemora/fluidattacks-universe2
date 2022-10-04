@@ -22,6 +22,9 @@ from forces.model import (
     ForcesConfig,
     KindEnum,
 )
+from forces.model.report import (
+    ForcesReport,
+)
 from forces.report import (
     filter_report,
     format_rich_report,
@@ -103,12 +106,12 @@ async def entrypoint(
                     copy.deepcopy(report), verbose_level=config.verbose_level
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
-                finding_report, summary_report = format_rich_report(
+                forces_report: ForcesReport = format_rich_report(
                     filtered_report, config.verbose_level, config.kind
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
-                rich_log(finding_report)
-                rich_log(summary_report)
+                rich_log(forces_report.findings_report)
+                rich_log(forces_report.summary)
             else:
                 tasks.pop(0)
                 tasks.pop(0)

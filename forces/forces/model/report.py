@@ -10,6 +10,6 @@ from typing import (
 )
 
 
-class Report(NamedTuple):
+class ForcesReport(NamedTuple):
+    findings_report: Table
     summary: Table
-    table: Table

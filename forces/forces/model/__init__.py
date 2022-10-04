@@ -12,7 +12,7 @@ from .finding import (
     Finding,
 )
 from .report import (
-    Report,
+    ForcesReport,
 )
 from .vulnerability import (
     Vulnerability,
@@ -25,8 +25,8 @@ from .vulnerability import (
 __all__ = [
     "Finding",
     "ForcesConfig",
+    "ForcesReport",
     "KindEnum",
-    "Report",
     "Vulnerability",
     "VulnerabilityStateStatus",
     "VulnerabilityTreatmentStatus",
