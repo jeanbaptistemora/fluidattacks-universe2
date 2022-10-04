@@ -11,10 +11,12 @@ from model.graph_model import (
 )
 from symbolic_eval.cases import (
     argument_list,
+    array_creation,
     array_initializer,
     assignment,
     binary_operation,
     call_expression,
+    cast_expression,
     element_access,
     execution_block,
     field_declaration,
@@ -39,6 +41,7 @@ from symbolic_eval.cases import (
     return_node,
     switch_case,
     symbol_lookup,
+    ternary_operation,
     try_statement,
     type_of,
     using_statement,
@@ -63,6 +66,7 @@ from utils import (
 
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
+    "ArrayCreation": array_creation.evaluate,
     "ArrayInitializer": array_initializer.evaluate,
     "Assignment": assignment.evaluate,
     "Break": not_dangerous.evaluate,
@@ -70,9 +74,11 @@ EVALUATORS: Dict[str, Evaluator] = {
     "Continue": not_dangerous.evaluate,
     "BinaryOperation": binary_operation.evaluate,
     "CallExpression": call_expression.evaluate,
+    "CastExpression": cast_expression.evaluate,
     "ElementAccess": element_access.evaluate,
     "ElementValuePair": named_argument.evaluate,
     "ExecutionBlock": execution_block.evaluate,
+    "FieldAccess": not_dangerous.evaluate,
     "FieldDeclaration": field_declaration.evaluate,
     "ForEachStatement": for_each_statement.evaluate,
     "ForStatement": for_statement.evaluate,
@@ -96,6 +102,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "SwitchSection": switch_case.evaluate,
     "SwitchStatement": switch_case.evaluate,
     "SymbolLookup": symbol_lookup.evaluate,
+    "TernaryOperation": ternary_operation.evaluate,
     "TryStatement": try_statement.evaluate,
     "This": not_dangerous.evaluate,
     "TypeOf": type_of.evaluate,

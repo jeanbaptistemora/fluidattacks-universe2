@@ -15,24 +15,17 @@ from typing import (
 
 def build_array_creation_expression_node(
     args: SyntaxGraphArgs,
-    type_id: Optional[NId],
+    arr_type: str,
     initializer_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        array_type_id=type_id,
-        initializer_id=initializer_id,
+        array_type=arr_type,
         label_type="ArrayCreation",
     )
 
-    if type_id:
-        args.syntax_graph.add_edge(
-            args.n_id,
-            args.generic(args.fork_n_id(type_id)),
-            label_ast="AST",
-        )
-
     if initializer_id:
+        args.syntax_graph.nodes[args.n_id]["initializer_id"] = initializer_id
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(initializer_id)),

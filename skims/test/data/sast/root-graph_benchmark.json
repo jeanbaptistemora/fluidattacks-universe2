@@ -8959,19 +8959,6 @@
               "label_cfg": "CFG"
             }
           },
-          "398": {
-            "400": {
-              "label_ast": "AST"
-            },
-            "401": {
-              "label_ast": "AST"
-            }
-          },
-          "401": {
-            "403": {
-              "label_ast": "AST"
-            }
-          },
           "406": {
             "411": {
               "label_ast": "AST"
@@ -10061,23 +10048,8 @@
             "variable_type": "byte[]"
           },
           "398": {
-            "array_type_id": "400",
-            "initializer_id": "401",
+            "array_type": "byte",
             "label_type": "ArrayCreation"
-          },
-          "400": {
-            "label_type": "Literal",
-            "value": "byte",
-            "value_type": "string"
-          },
-          "401": {
-            "label_type": "DimensionsExpr",
-            "value_id": "403"
-          },
-          "403": {
-            "label_type": "Literal",
-            "value": "1000",
-            "value_type": "string"
           },
           "406": {
             "label_type": "VariableDeclaration",

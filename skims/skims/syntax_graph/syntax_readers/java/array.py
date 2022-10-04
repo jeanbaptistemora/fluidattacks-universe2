@@ -24,6 +24,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     node_types = {
         "array_initializer",
+        "binary_expression",
         "cast_expression",
         "decimal_integer_literal",
         "identifier",

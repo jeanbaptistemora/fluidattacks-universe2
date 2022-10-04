@@ -38228,9 +38228,6 @@
             }
           },
           "51": {
-            "53": {
-              "label_ast": "AST"
-            },
             "58": {
               "label_ast": "AST"
             }
@@ -38489,13 +38486,9 @@
             "variable_type": "byte[]"
           },
           "51": {
-            "array_type_id": "53",
+            "array_type": "byte[]",
             "initializer_id": "58",
             "label_type": "ArrayCreation"
-          },
-          "53": {
-            "array_type": "byte",
-            "label_type": "ArrayType"
           },
           "58": {
             "label_type": "InitializerExpression"

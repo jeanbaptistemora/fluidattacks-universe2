@@ -11,15 +11,16 @@ from syntax_graph.syntax_nodes.array_creation_expression import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from utils.graph import (
-    match_ast,
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    children = match_ast(
-        args.ast_graph, args.n_id, "integral_type", "dimensions_expr"
-    )
-    arr_type = children.get("integral_type")
-    arr_init = children.get("dimensions_expr")
-    return build_array_creation_expression_node(args, arr_type, arr_init)
+    n_attr = args.ast_graph.nodes[args.n_id]
+    type_id = n_attr["label_field_type"]
+    arr_type = node_to_str(args.ast_graph, type_id)
+
+    arr_value = n_attr.get("label_field_value")
+
+    return build_array_creation_expression_node(args, arr_type, arr_value)
