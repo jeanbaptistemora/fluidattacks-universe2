@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.typescript import (
     intersection_type as typescript_intersection_type,
     predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
+    tuple_type as typescript_tuple_type,
     type_alias_declaration as typescript_type_alias_declaration,
     union_type as typescript_union_type,
 )
@@ -143,6 +144,9 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "optional_type",
+            "array_type",
+            "literal_type",
             "predefined_type",
         },
         syntax_reader=typescript_predefined_type.reader,
@@ -158,6 +162,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "string",
         },
         syntax_reader=javascript_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "tuple_type",
+        },
+        syntax_reader=typescript_tuple_type.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -12,6 +12,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    get_ast_childs,
     match_ast,
 )
 
@@ -19,8 +20,13 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     name_id = args.ast_graph.nodes[args.n_id]["label_field_name"]
     type_annon_id = args.ast_graph.nodes[args.n_id].get("label_field_type")
-    match_childs = match_ast(args.ast_graph, str(type_annon_id), ":")
-    predefined_type = str(match_childs["__0__"])
-    type_id = match_ast(args.ast_graph, predefined_type)["__0__"]
+    pred_type = get_ast_childs(
+        args.ast_graph, str(type_annon_id), "predefined_type"
+    )
+    if pred_type:
+        type_id = pred_type[0]
+    else:
+        match_childs = match_ast(args.ast_graph, str(type_annon_id), ":")
+        type_id = str(match_childs["__0__"])
 
-    return build_pair_node(args, name_id, str(type_id))
+    return build_pair_node(args, name_id, type_id)

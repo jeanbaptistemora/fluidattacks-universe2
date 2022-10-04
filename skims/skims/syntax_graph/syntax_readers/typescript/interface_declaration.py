@@ -26,7 +26,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     clause = get_ast_childs(args.ast_graph, args.n_id, "extends_clause")
     var_type = None
     if clause:
-        var_type = node_to_str(args.ast_graph, str(clause[0])).replace(
+        var_type = node_to_str(args.ast_graph, clause[0]).replace(
             "extends", ""
         )
     return build_variable_declaration_node(args, name, var_type, body_id)
