@@ -8,6 +8,8 @@ type OrganizationCompliance {
   complianceLevel: Float
   "Weekly trend for the compliance"
   complianceWeeklyTrend: Float
+  "Estimated time to comply with all the standards"
+  estimatedDaysToFullCompliance: Float
   "Compliance information by standard"
   standards: [OrganizationComplianceStandard]!
 }
