@@ -699,6 +699,7 @@ async def instances_without_profile(
                 and config["State"]["Name"] != "terminated"
             ):
                 locations = [
+                    *locations,
                     *[
                         Location(
                             arn=(
@@ -741,6 +742,7 @@ async def insecure_port_range_in_security_group(
                 with suppress(KeyError):
                     if rule["FromPort"] != rule["ToPort"]:
                         locations = [
+                            *locations,
                             *[
                                 Location(
                                     access_patterns=(
