@@ -43,7 +43,7 @@ const InfoDropdown: FC<IInfoDropdownProps> = ({
         </Text>
       )
     }
-    minWidth={"100px"}
+    minWidth={"150px"}
   >
     {children}
   </Dropdown>

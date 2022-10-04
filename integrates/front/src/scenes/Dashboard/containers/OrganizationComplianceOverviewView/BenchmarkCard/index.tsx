@@ -9,7 +9,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IStandardComplianceAttr } from "../types";
-import { getProgressBarColor, handleComplianceValue } from "../utils";
+import { getProgressBarColor, handleCompliancePercentageValue } from "../utils";
 import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
@@ -44,15 +44,19 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         </Col>
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
-            {`${handleComplianceValue(standardCompliance.complianceLevel)}%`}{" "}
+            {`${handleCompliancePercentageValue(
+              standardCompliance.complianceLevel
+            )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
-              percentage={handleComplianceValue(
+              percentage={handleCompliancePercentageValue(
                 standardCompliance.complianceLevel
               )}
               progressColor={getProgressBarColor(
-                handleComplianceValue(standardCompliance.complianceLevel)
+                handleCompliancePercentageValue(
+                  standardCompliance.complianceLevel
+                )
               )}
             />
           </Text>
@@ -68,17 +72,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         </Col>
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
-            {`${handleComplianceValue(
+            {`${handleCompliancePercentageValue(
               standardCompliance.bestOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
-              percentage={handleComplianceValue(
+              percentage={handleCompliancePercentageValue(
                 standardCompliance.bestOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
-                handleComplianceValue(
+                handleCompliancePercentageValue(
                   standardCompliance.bestOrganizationComplianceLevel
                 )
               )}
@@ -96,17 +100,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         </Col>
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
-            {`${handleComplianceValue(
+            {`${handleCompliancePercentageValue(
               standardCompliance.avgOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
-              percentage={handleComplianceValue(
+              percentage={handleCompliancePercentageValue(
                 standardCompliance.avgOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
-                handleComplianceValue(
+                handleCompliancePercentageValue(
                   standardCompliance.avgOrganizationComplianceLevel
                 )
               )}
@@ -124,17 +128,17 @@ const BenchmarkCard: FC<IBenchmarkCardProps> = (
         </Col>
         <Col lg={50} md={50} sm={50}>
           <Text ta={"end"}>
-            {`${handleComplianceValue(
+            {`${handleCompliancePercentageValue(
               standardCompliance.worstOrganizationComplianceLevel
             )}%`}{" "}
             <ProgressBar
               height={10}
               maxWidth={35}
-              percentage={handleComplianceValue(
+              percentage={handleCompliancePercentageValue(
                 standardCompliance.worstOrganizationComplianceLevel
               )}
               progressColor={getProgressBarColor(
-                handleComplianceValue(
+                handleCompliancePercentageValue(
                   standardCompliance.worstOrganizationComplianceLevel
                 )
               )}
