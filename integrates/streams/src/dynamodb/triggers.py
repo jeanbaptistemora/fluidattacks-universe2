@@ -58,7 +58,6 @@ POC_GROUPS = _get_poc_groups(FI_WEBHOOK_POC_ORG) if FI_WEBHOOK_POC_ORG else []
 
 TRIGGERS: tuple[Trigger, ...] = (
     Trigger(
-        batch_size=20,
         records_filter=(
             lambda record: FI_ENVIRONMENT == "prod"
             and record.pk.startswith("VULN#")
@@ -68,7 +67,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=webhooks.process_google_chat,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: FI_ENVIRONMENT == "prod"
             and record.pk.startswith("VULN#")
@@ -95,7 +93,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=webhooks.process_poc,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: record.pk.startswith("VULN#")
             and record.sk.startswith("FIN#")
@@ -103,7 +100,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=opensearch.process_vulns,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: record.pk.startswith("FIN#")
             and record.sk.startswith("GROUP#")
@@ -111,7 +107,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=opensearch.process_findings,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: record.pk.startswith("EXEC#")
             and record.sk.startswith("GROUP#")
@@ -119,7 +114,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=opensearch.process_executions,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: record.event_name == EventName.REMOVE
             and record.pk.startswith("FIN#")
@@ -127,7 +121,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_processor=redshift.process_findings,
     ),
     Trigger(
-        batch_size=0,
         records_filter=(
             lambda record: record.pk.startswith("EVENT#")
             and record.sk.startswith("GROUP#")

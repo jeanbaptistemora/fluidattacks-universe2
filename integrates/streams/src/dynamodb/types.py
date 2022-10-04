@@ -31,6 +31,5 @@ class Record(NamedTuple):
 
 
 class Trigger(NamedTuple):
-    batch_size: int
     records_filter: Callable[[Record], bool]
     records_processor: Callable[[tuple[Record, ...]], None]

@@ -70,6 +70,7 @@ function run_dynamodb_consumer {
       echo "${property}" >> "${properties_file}"
     done \
     && java \
+      -Djava.util.logging.config.file="logging.properties" \
       "com.amazonaws.services.dynamodbv2.streamsadapter.StreamsMultiLangDaemon" \
       "${properties_file}" \
     || return 1
