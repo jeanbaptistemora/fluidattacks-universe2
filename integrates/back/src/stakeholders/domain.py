@@ -316,7 +316,7 @@ async def update_mobile(
     await verify_operations.validate_mobile(
         phone_number=get_international_format_phone_number(new_phone)
     )
-    country_code = await verify_operations.get_contry_code(
+    country_code = await verify_operations.get_country_code(
         get_international_format_phone_number(new_phone)
     )
     await verify_operations.check_verification(

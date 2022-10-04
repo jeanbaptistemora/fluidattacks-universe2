@@ -35,7 +35,7 @@ from typing import (
 client = Client(FI_TWILIO_ACCOUNT_SID, FI_TWILIO_AUTH_TOKEN)
 
 
-async def get_contry_code(phone_number: str) -> str:
+async def get_country_code(phone_number: str) -> str:
     if FI_ENVIRONMENT == "development":
         return ""
     try:

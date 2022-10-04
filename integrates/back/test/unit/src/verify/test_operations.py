@@ -6,12 +6,15 @@ from custom_exceptions import (
     CouldNotVerifyStakeholder,
 )
 import pytest
+from typing import (
+    NamedTuple,
+)
 from unittest import (
     mock,
 )
 from verify.operations import (
     check_verification,
-    get_contry_code,
+    get_country_code,
     start_verification,
     validate_mobile,
 )
@@ -23,13 +26,13 @@ pytestmark = [
 
 
 @pytest.mark.skip(reason="Test should mock the Twilio response")
-async def test_get_contry_code() -> None:
+async def test_get_country_code() -> None:
     test_phone_number = "12345678"
-    test_result = await get_contry_code(test_phone_number)
+    test_result = await get_country_code(test_phone_number)
     print(test_result)
     assert test_result == ""
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
-        test_result = await get_contry_code("+15108675310")
+        test_result = await get_country_code("+15108675310")
         assert test_result == "US"
 
 
@@ -57,11 +60,39 @@ async def test_start_verification() -> None:
         await start_verification(phone_number="+15108675310")
 
 
-@pytest.mark.skip(reason="Test should mock the Twilio response")
 async def test_validate_mobile() -> None:
+    class MockedTwilioObject(NamedTuple):
+        caller_name: str
+        carrier: dict
+        country_code: str
+        national_format: str
+        phone_number: str
+        add_ons: str
+        url: str
+
     test_phone_number = "12345678"
     test_result = await validate_mobile(test_phone_number)  # type: ignore
-    print(test_result)
     assert test_result is None
+    mocked_response = MockedTwilioObject(
+        caller_name="null",
+        carrier={
+            "error_code": "null",
+            "mobile_country_code": "310",
+            "mobile_network_code": "456",
+            "name": "verizon",
+            "type": "mobile",
+        },
+        country_code="US",
+        national_format="(510) 867-5310",
+        phone_number="+15108675310",
+        add_ons="null",
+        url="https://lookups.twilio.com/v1/PhoneNumbers/+15108675310",
+    )
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
-        await validate_mobile("+15108675310")
+        with mock.patch("verify.operations.client"):
+            with mock.patch(
+                "verify.operations.client.lookups.v1.phone_numbers"
+            ) as mock_twilio:
+                mock_twilio.return_value.fetch.return_value = mocked_response
+                await validate_mobile("+15108675310")
+    assert mock_twilio.called is True
