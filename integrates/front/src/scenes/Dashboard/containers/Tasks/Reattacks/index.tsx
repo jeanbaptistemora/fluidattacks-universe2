@@ -5,70 +5,40 @@
  */
 
 import { useQuery } from "@apollo/client";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Table } from "components/Table";
-import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Table } from "components/TableNew";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 import type {
   IFindingFormatted,
   IGetTodoReattacks,
-  ITodoFindingToReattackAttr,
 } from "scenes/Dashboard/containers/Tasks/Reattacks/types";
 import { formatFindings } from "scenes/Dashboard/containers/Tasks/Reattacks/utils";
 import { Logger } from "utils/logger";
 
 export const TasksReattacks: React.FC = (): JSX.Element => {
   const { push } = useHistory();
-  const [searchTextFilter, setSearchTextFilter] = useState("");
 
-  const onSortState: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("todoReattackSort", JSON.stringify(newSorted));
-  };
-
-  const tableHeaders: IHeaderConfig[] = [
+  const columns: ColumnDef<IFindingFormatted>[] = [
     {
-      dataField: "groupName",
+      accessorKey: "groupName",
       header: "Group Name",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "title",
+      accessorKey: "title",
       header: "Type",
-      onSort: onSortState,
-      width: "30%",
-      wrapped: true,
     },
     {
-      dataField: "verificationSummary.requested",
+      accessorFn: (row: IFindingFormatted): string =>
+        row.verificationSummary.requested,
       header: "Requested Vulns",
-      onSort: onSortState,
-      width: "10%",
     },
     {
-      dataField: "url",
-      header: "URL",
-      onSort: onSortState,
-      visible: false,
-      width: "10",
-    },
-    {
-      dataField: "oldestReattackRequestedDate",
+      accessorKey: "oldestReattackRequestedDate",
       header: "Reattack Date",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: "Oldest Requested Reattack Date",
-      width: "10%",
     },
   ];
 
@@ -89,46 +59,25 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       : _.flatten(data.me.findingReattacks)
   );
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
+  function goToFinding(
+    rowInfo: Row<IFindingFormatted>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      push(
+        `/groups/${rowInfo.original.groupName}/vulns/${rowInfo.original.id}/locations`
+      );
+      event.preventDefault();
+    };
   }
-  const filterSearchTextResult: ITodoFindingToReattackAttr[] = filterSearchText(
-    dataset,
-    searchTextFilter
-  );
-
-  const goToFinding: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { id: string }
-  ): void => {
-    const [findingSelected]: ITodoFindingToReattackAttr[] = dataset.filter(
-      (findingAttr: ITodoFindingToReattackAttr): boolean =>
-        findingAttr.id === rowInfo.id
-    );
-    push(`/groups/${findingSelected.groupName}/vulns/${rowInfo.id}/locations`);
-  };
 
   return (
     <React.StrictMode>
       <Table
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filterSearchTextResult}
+        columns={columns}
+        data={dataset}
         exportCsv={true}
-        headers={tableHeaders}
         id={"tblTodoReattacks"}
-        pageSize={25}
-        rowEvents={{ onClick: goToFinding }}
-        search={false}
+        onRowClick={goToFinding}
       />
     </React.StrictMode>
   );
