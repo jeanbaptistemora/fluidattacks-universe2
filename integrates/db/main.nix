@@ -6,7 +6,6 @@
   projectPath,
   makeDynamoDb,
   makeScript,
-  managePorts,
   outputs,
   ...
 }: let
@@ -45,9 +44,6 @@ in
         dynamodb
         opensearch
         streams
-      ];
-      source = [
-        managePorts
       ];
     };
     entrypoint = ./entrypoint.sh;

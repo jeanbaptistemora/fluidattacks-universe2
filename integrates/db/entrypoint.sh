@@ -11,25 +11,10 @@ function start_dynamodb {
     || return 1
 }
 
-function start_opensearch {
-  : \
-    && kill_port "9200" \
-    && { opensearch & } \
-    && wait_port 300 "0.0.0.0:9200" \
-    && info "Opensearch is ready" \
-    || return 1
-}
-
-function start_secondary_datastores {
-  : \
-    && start_opensearch \
-    || return 1
-}
-
 function main {
   : \
     && { start_dynamodb & } \
-    && { start_secondary_datastores & } \
+    && { DAEMON=true opensearch & } \
     && wait \
     && if [ "${DAEMON:-}" = "true" ]; then
       { integrates-streams dev & }
