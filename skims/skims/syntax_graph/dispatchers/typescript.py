@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.javascript import (
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
+    member_expression as javascript_member_expression,
     number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
@@ -23,8 +24,10 @@ from syntax_graph.syntax_readers.typescript import (
     enum_declaration as typescript_enum_declaration,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
+    predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
     type_alias_declaration as typescript_type_alias_declaration,
+    union_type as typescript_union_type,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -109,6 +112,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "member_expression",
+        },
+        syntax_reader=javascript_member_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "number",
         },
         syntax_reader=javascript_number_literal.reader,
@@ -134,6 +143,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "predefined_type",
+        },
+        syntax_reader=typescript_predefined_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "property_signature",
         },
         syntax_reader=typescript_property_signature.reader,
@@ -149,6 +164,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "type_alias_declaration",
         },
         syntax_reader=typescript_type_alias_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "union_type",
+        },
+        syntax_reader=typescript_union_type.reader,
     ),
     Dispatcher(
         applicable_types={
