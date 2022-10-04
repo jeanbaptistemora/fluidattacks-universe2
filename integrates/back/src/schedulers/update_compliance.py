@@ -284,6 +284,38 @@ async def get_organization_compliance_weekly_trend(
     )
 
 
+async def get_organization_estimated_days_to_full_compliance(
+    loaders: Dataloaders,
+    organization: Organization,
+) -> Decimal:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        organization.id
+    )
+    findings: tuple[
+        Finding, ...
+    ] = await loaders.group_findings.load_many_chained(
+        tuple(group.name for group in org_groups)
+    )
+    findings_open_vulnerabilities = await collect(
+        tuple(
+            get_open_vulnerabilities(loaders, finding) for finding in findings
+        ),
+        workers=100,
+    )
+    open_findings: list[Finding] = []
+    for finding, open_vulnerabilities in zip(
+        findings, findings_open_vulnerabilities
+    ):
+        if open_vulnerabilities:
+            open_findings.append(finding)
+
+    minutes_in_a_day = 1440
+    return Decimal(
+        sum([finding.min_time_to_remediate or 0 for finding in open_findings])
+        / minutes_in_a_day
+    ).quantize(Decimal("0.01"))
+
+
 async def get_organization_standard_compliances(
     loaders: Dataloaders,
     organization: Organization,
