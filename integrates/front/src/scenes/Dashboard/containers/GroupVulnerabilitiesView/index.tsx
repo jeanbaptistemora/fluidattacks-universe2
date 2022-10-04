@@ -63,7 +63,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
   {
     accessorFn: (row): number => row.finding.severityScore,
     cell: (cell): JSX.Element => {
-      const link = `${cell.row.original.finding.id}/severity`;
+      const link = `vulns/${cell.row.original.finding.id}/severity`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);
@@ -74,7 +74,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
   {
     accessorFn: (): string => "View",
     cell: (cell): JSX.Element => {
-      const link = `${cell.row.original.finding.id}/evidence`;
+      const link = `vulns/${cell.row.original.finding.id}/evidence`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);
