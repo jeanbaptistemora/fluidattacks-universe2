@@ -7,6 +7,7 @@ from charts.generators.common.colors import (
     TREATMENT,
 )
 from charts.utils import (
+    format_cvssf,
     TICK_ROTATION,
 )
 from datetime import (
@@ -158,7 +159,7 @@ def translate_date_last(date_str: str) -> datetime:
     return datetime(int(date_year), MONTH_TO_NUMBER[date_month], int(date_day))
 
 
-def format_document(
+def format_risk_document(
     data_document: tuple[
         tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
     ],
@@ -178,9 +179,7 @@ def format_document(
                         else DATE_SHORT_FMT
                     )
                     if name == "date"
-                    else str(
-                        Decimal(document[name][date]).quantize(Decimal("0.1"))
-                    )
+                    else str(format_cvssf(Decimal(document[name][date])))
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document

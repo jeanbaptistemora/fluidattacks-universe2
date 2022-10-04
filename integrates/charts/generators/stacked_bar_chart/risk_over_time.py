@@ -16,7 +16,7 @@ from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
-    format_document,
+    format_risk_document,
     get_current_time_range,
     get_data_risk_over_time_group,
     RISK_OVER_TIME,
@@ -91,7 +91,7 @@ async def generate_all() -> None:
             group_document: RiskOverTime = await get_group_document(
                 group, days
             )
-            document = format_document(
+            document = format_risk_document(
                 data_document=get_current_time_range([group_document]),
                 y_label=y_label,
             )
@@ -107,7 +107,7 @@ async def generate_all() -> None:
         async for org_id, _, org_groups in (
             utils.iterate_organizations_and_groups()
         ):
-            document = format_document(
+            document = format_risk_document(
                 data_document=await get_many_groups_document(org_groups, days),
                 y_label=y_label,
             )
@@ -126,7 +126,7 @@ async def generate_all() -> None:
             for portfolio, groups in await utils.get_portfolios_groups(
                 org_name
             ):
-                document = format_document(
+                document = format_risk_document(
                     data_document=await get_many_groups_document(groups, days),
                     y_label=y_label,
                 )

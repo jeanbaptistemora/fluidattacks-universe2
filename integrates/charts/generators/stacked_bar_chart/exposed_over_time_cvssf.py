@@ -254,7 +254,7 @@ def format_document(
                 else DATE_SHORT_FMT
             )
             if name == "date"
-            else str(Decimal(document[name][date]).quantize(Decimal("0.1")))
+            else str(utils.format_cvssf(Decimal(document[name][date])))
             for date in tuple(document["date"])[-12:]
         ]
         for name in document
