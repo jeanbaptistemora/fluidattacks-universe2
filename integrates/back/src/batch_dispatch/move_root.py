@@ -84,6 +84,9 @@ from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from operator import (
     attrgetter,
 )
@@ -296,18 +299,30 @@ async def _process_finding(
             },
         )
         if source_finding.submission:
+            submission_date = datetime_utils.get_date_with_offset(
+                initial_state.modified_date,
+                source_finding.submission.modified_date,
+            )
             await findings_model.update_state(
                 current_value=initial_state,
                 finding_id=target_finding_id,
                 group_name=target_group_name,
-                state=source_finding.submission,
+                state=source_finding.submission._replace(
+                    modified_date=submission_date
+                ),
             )
             if source_finding.approval:
+                approval_date = datetime_utils.get_date_with_offset(
+                    submission_date,
+                    source_finding.approval.modified_date,
+                )
                 await findings_model.update_state(
                     current_value=source_finding.submission,
                     finding_id=target_finding_id,
                     group_name=target_group_name,
-                    state=source_finding.approval,
+                    state=source_finding.approval._replace(
+                        modified_date=approval_date
+                    ),
                 )
 
     target_vuln_ids = await collect(

@@ -81,10 +81,11 @@ async def approve_draft(
     if not nzr_vulns:
         raise DraftWithoutVulns()
 
-    approval_date = datetime_utils.get_iso_date()
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=approval_date,
+        modified_date=datetime_utils.get_date_with_offset(
+            finding.state.modified_date, datetime_utils.get_iso_date()
+        ),
         source=source,
         status=FindingStateStatus.APPROVED,
     )
@@ -111,11 +112,11 @@ async def approve_draft(
             loaders=loaders,
             finding_id=finding_id,
             vulnerability_id=vuln.id,
-            modified_date=approval_date,
+            modified_date=new_state.modified_date,
         )
         for vuln in finding_vulnerabilities
     )
-    return approval_date
+    return new_state.modified_date
 
 
 def validate_draft_inputs(*, kwargs: List[str]) -> None:
@@ -182,17 +183,19 @@ async def reject_draft(
     if DraftRejectionReason.OTHER in reasons and not other:
         raise IncompleteDraft(fields=["other"])
 
+    rejection_date = datetime_utils.get_date_with_offset(
+        finding.state.modified_date, datetime_utils.get_iso_date()
+    )
     rejection = DraftRejection(
         other=other if other else "",
         reasons=reasons,
         rejected_by=reviewer_email,
-        rejection_date=datetime_utils.get_iso_date(),
+        rejection_date=rejection_date,
         submitted_by=finding.state.modified_by,
     )
-
     new_state = FindingState(
         modified_by=reviewer_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=rejection_date,
         rejection=rejection,
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.REJECTED,
@@ -242,7 +245,9 @@ async def submit_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_date_with_offset(
+            finding.state.modified_date, datetime_utils.get_iso_date()
+        ),
         source=source,
         status=FindingStateStatus.SUBMITTED,
     )
