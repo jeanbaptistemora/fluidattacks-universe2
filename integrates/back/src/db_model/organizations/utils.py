@@ -173,6 +173,9 @@ def format_unreliable_indicators(
     return OrganizationUnreliableIndicators(
         compliance_level=item.get("compliance_level"),
         compliance_weekly_trend=item.get("compliance_weekly_trend"),
+        estimated_days_to_full_compliance=item.get(
+            "estimated_days_to_full_compliance"
+        ),
         standard_compliances=[
             format_standard_compliance(standard_compliance)
             for standard_compliance in item["standard_compliances"]
@@ -188,6 +191,9 @@ def format_unreliable_indicators_item(
     return {
         "compliance_level": indicators.compliance_level,
         "compliance_weekly_trend": indicators.compliance_weekly_trend,
+        "estimated_days_to_full_compliance": (
+            indicators.estimated_days_to_full_compliance
+        ),
         "standard_compliances": [
             format_standard_compliance_item(standard_compliance)
             for standard_compliance in indicators.standard_compliances

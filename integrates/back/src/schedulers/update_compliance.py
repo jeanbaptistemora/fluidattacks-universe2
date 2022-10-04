@@ -398,6 +398,12 @@ async def update_organization_compliance(
         requirements_file=requirements_file,
         vulnerabilities_file=vulnerabilities_file,
     )
+    estimated_days_to_full_compliance = (
+        await get_organization_estimated_days_to_full_compliance(
+            loaders=loaders,
+            organization=organization,
+        )
+    )
     standard_compliances = await get_organization_standard_compliances(
         loaders=loaders,
         organization=organization,
@@ -411,6 +417,9 @@ async def update_organization_compliance(
         indicators=OrganizationUnreliableIndicators(
             compliance_level=compliance_level,
             compliance_weekly_trend=compliance_weekly_trend,
+            estimated_days_to_full_compliance=(
+                estimated_days_to_full_compliance
+            ),
             standard_compliances=standard_compliances,
         ),
     )
