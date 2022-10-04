@@ -241,6 +241,27 @@ function load() {
         }
       });
   }
+
+  if (dataDocument.hideYAxisLine) {
+    d3.select('.c3-axis-y')
+      .select('.domain')
+      .style('visibility', 'hidden');
+    d3.select('.c3-axis-y')
+      .selectAll('.tick').each((_d, index, tickList) => {
+        d3.select(tickList[index])
+          .select('line')
+          .style('visibility', 'hidden');
+      });
+  }
+
+  if (dataDocument.hideXTickLine) {
+    d3.select('.c3-axis-x')
+      .selectAll('.tick').each((_d, index, tickList) => {
+        d3.select(tickList[index])
+          .select('line')
+          .style('visibility', 'hidden');
+      });
+  }
 }
 
 window.load = load;

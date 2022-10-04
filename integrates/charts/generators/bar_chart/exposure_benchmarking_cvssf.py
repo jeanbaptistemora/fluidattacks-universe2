@@ -248,6 +248,8 @@ def format_data(
                 show=True,
             ),
         ),
+        hideYAxisLine=True,
+        hideXTickLine=True,
     )
 
 

@@ -196,11 +196,13 @@ def format_mttr_data(
         tooltip=dict(
             show=False,
         ),
+        hideYAxisLine=True,
         barChartYTickFormat=True,
         legend=dict(
             show=False,
         ),
         mttrBenchmarking=True,
+        hideXTickLine=True,
     )
 
 
