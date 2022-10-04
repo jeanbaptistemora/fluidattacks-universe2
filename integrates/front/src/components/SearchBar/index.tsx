@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Form, Formik } from "formik";
 import React, { useCallback } from "react";
 
@@ -11,11 +11,10 @@ import type { IFormValues, ISearchBarProps } from "./types";
 
 import { Button } from "components/Button";
 import { Input } from "components/Input";
-import { Col, Row } from "components/Layout";
 
 const SearchBar: React.FC<ISearchBarProps> = ({
   onSubmit,
-  placeholder = "Search",
+  placeholder = "Search...",
 }: Readonly<ISearchBarProps>): JSX.Element => {
   const handleSubmit = useCallback(
     ({ search }: IFormValues): void => {
@@ -25,30 +24,17 @@ const SearchBar: React.FC<ISearchBarProps> = ({
   );
 
   return (
-    <div>
-      <Formik initialValues={{ search: "" }} onSubmit={handleSubmit}>
-        {({ resetForm }): JSX.Element => {
-          function clear(): void {
-            resetForm();
+    <Formik initialValues={{ search: "" }} onSubmit={handleSubmit}>
+      <Form>
+        <Input
+          childLeft={
+            <Button icon={faMagnifyingGlass} size={"xs"} type={"submit"} />
           }
-
-          return (
-            <Form>
-              <Row justify={"start"} role={"searchbox"}>
-                <Col lg={30} md={40} sm={60}>
-                  <Input name={"search"} placeholder={placeholder} />
-                </Col>
-                <Col>
-                  <Button onClick={clear} variant={"secondary"}>
-                    {"Clear"}
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+          name={"search"}
+          placeholder={placeholder}
+        />
+      </Form>
+    </Formik>
   );
 };
 
