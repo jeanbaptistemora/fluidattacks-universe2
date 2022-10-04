@@ -99,4 +99,4 @@ async def _update(
         key=advisory_key,
         table=TABLE,
     )
-    print(f"Updated ( {advisory_key.sort_key} )")
+    print(f"Updated ( {advisory_key.partition_key} {advisory_key.sort_key} )")

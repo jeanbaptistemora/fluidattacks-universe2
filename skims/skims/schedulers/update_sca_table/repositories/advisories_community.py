@@ -120,10 +120,15 @@ def get_platform_advisories(
                     "npm",
                 ) and not package_key.startswith("@"):
                     package_key = package_key.replace("/", ":")
-                formatted_ranges = format_ranges(
-                    platform,
-                    str(parsed_yaml.get("affected_range")),
-                ).lower()
+                affected_range = str(parsed_yaml.get("affected_range"))
+                formatted_ranges = (
+                    format_ranges(
+                        platform,
+                        affected_range,
+                    ).lower()
+                    if affected_range != ""
+                    else ">=0"
+                )
                 advisories.append(
                     Advisory(
                         associated_advisory=cve_key,

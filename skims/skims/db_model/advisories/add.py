@@ -98,4 +98,6 @@ async def _add(*, advisory: Advisory, no_overwrite: bool) -> None:
         items.append(advisory_item)
 
         await operations.batch_put_item(items=tuple(items), table=TABLE)
-        print(f"Added ( {advisory_key.sort_key} )")
+        print(
+            f"Added ( {advisory_key.partition_key} {advisory_key.sort_key} )"
+        )
