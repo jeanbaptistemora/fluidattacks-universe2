@@ -21,12 +21,12 @@ from typing import (
 def _json_anon_connection_config(
     template: Any,
 ) -> Iterator[Any]:
-    if isinstance(template, Node):
-        print(template.inner.get("AllowedHosts"))
-        if (
-            allowed_hosts := template.inner.get("AllowedHosts")
-        ) and allowed_hosts.data == "*":
-            yield allowed_hosts.start_line, allowed_hosts.start_column
+    if (
+        isinstance(template, Node)
+        and (allowed_hosts := template.inner.get("AllowedHosts"))
+        and allowed_hosts.data == "*"
+    ):
+        yield allowed_hosts.start_line, allowed_hosts.start_column
 
 
 def json_allowed_hosts(

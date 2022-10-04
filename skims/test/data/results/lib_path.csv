@@ -15256,7 +15256,7 @@ F266,lines,namespace/skims/test/data/lib_path/f266/Dockerfile,0,250,skims,266. E
   7 |     rm -rf /var/lib/apt/lists/* && \
   8 |     apt clean
     ^ Col 0
-",docker.container_whitout_user
+",docker.container_without_user
 F266,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,0,250,skims,266. Excessive Privileges - Docker,"No command found to create a group or user, make sure the container is running as non-root
  in namespace/skims/test/data/lib_path/f380/Dockerfile","
    1 | # Insecure
@@ -15281,7 +15281,7 @@ F266,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,0,250,skims,266. E
   20 | WORKDIR /app
   21 | COPY . .
      ^ Col 0
-",docker.container_whitout_user
+",docker.container_without_user
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,20,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   10 |               - Action:
@@ -15655,7 +15655,7 @@ F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,22,250,ski
   26 | volumes:
   27 |   logvolume01: {}
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    7 |       - 5000:5000
    8 |     volumes:
@@ -15679,7 +15679,7 @@ F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,250,ski
   26 | volumes:
   27 |   logvolume01: {}
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    1 | ---
    2 | version: ""3.9"" # optional since v1.27.0
@@ -15703,7 +15703,7 @@ F266,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,250,skim
   20 |     environment:
   21 |       - API_NAME=name1
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
    1 | ---
    2 | version: '3.4'
@@ -15727,7 +15727,7 @@ F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,250,ski
   20 |     image: eshop/catalog-api
   21 |     environment:
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
    9 |       - OrderingUrl=http://ordering-api
   10 |       - BasketUrl=http://basket-api
@@ -15751,7 +15751,7 @@ F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,sk
   28 |     extra_hosts:
   29 |       - CESARDLSURFBOOK:10.0.75.1
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
    1 | ---
    2 | version: '3.4'
@@ -15775,7 +15775,7 @@ F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,5,250,ski
   20 |     image: eshop/catalog-api
   21 |     environment:
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
    9 |       - OrderingUrl=http://ordering-api
   10 |       - BasketUrl=http://basket-api
@@ -15799,7 +15799,7 @@ F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,250,sk
   28 |       - CESARDLSURFBOOK:10.0.75.1
   29 |     depends_on:
      ^ Col 0
-",docker.docker_compose_whitout_user
+",docker.docker_compose_without_user
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,41,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
   31 |           - Action:
   32 |               - s3:DeleteObject

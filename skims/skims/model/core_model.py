@@ -3283,17 +3283,17 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CONTAINER_WHITOUR_USER = MethodInfo(
+    CONTAINER_WITHOUT_USER = MethodInfo(
         file_name="docker",
-        name="container_whitout_user",
+        name="container_without_user",
         module="lib_path",
         finding=FindingEnum.F266,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    DOCKER_COMPOSE_WHITOUR_USER = MethodInfo(
+    DOCKER_COMPOSE_WITHOUT_USER = MethodInfo(
         file_name="docker",
-        name="docker_compose_whitout_user",
+        name="docker_compose_without_user",
         module="lib_path",
         finding=FindingEnum.F266,
         developer=DeveloperEnum.JUAN_ECHEVERRI,

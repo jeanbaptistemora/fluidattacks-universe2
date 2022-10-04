@@ -37,7 +37,7 @@ def get_container_image(content: str) -> bool:
     return False
 
 
-def container_whitout_user(content: str, path: str) -> Vulnerabilities:
+def container_without_user(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         no_line = (0, 0)
         has_user = False
@@ -49,14 +49,14 @@ def container_whitout_user(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f266.container_whitout_user",
+        description_key="lib_path.f266.container_without_user",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.CONTAINER_WHITOUR_USER,
+        method=MethodsEnum.CONTAINER_WITHOUT_USER,
     )
 
 
-def _docker_compose_whitout_user(template: Node) -> Iterator[Tuple[int, int]]:
+def _docker_compose_without_user(template: Node) -> Iterator[Tuple[int, int]]:
     if (
         isinstance(template, Node)
         and (template_services := template.inner.get("services"))
@@ -73,15 +73,15 @@ def _docker_compose_whitout_user(template: Node) -> Iterator[Tuple[int, int]]:
                     yield service
 
 
-def docker_compose_whitout_user(
+def docker_compose_without_user(
     content: str,
     path: str,
     template: Any,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f266.docker_compose_whitout_user",
-        iterator=get_cloud_iterator(_docker_compose_whitout_user(template)),
+        description_key="lib_path.f266.docker_compose_without_user",
+        iterator=get_cloud_iterator(_docker_compose_without_user(template)),
         path=path,
-        method=MethodsEnum.DOCKER_COMPOSE_WHITOUR_USER,
+        method=MethodsEnum.DOCKER_COMPOSE_WITHOUT_USER,
     )

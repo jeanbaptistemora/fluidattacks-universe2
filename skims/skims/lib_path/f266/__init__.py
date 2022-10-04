@@ -9,8 +9,8 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f266.docker import (
-    container_whitout_user,
-    docker_compose_whitout_user,
+    container_without_user,
+    docker_compose_without_user,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -26,15 +26,15 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_container_whitout_user(content: str, path: str) -> Vulnerabilities:
-    return container_whitout_user(content=content, path=path)
+def run_container_without_user(content: str, path: str) -> Vulnerabilities:
+    return container_without_user(content=content, path=path)
 
 
 @SHIELD_BLOCKING
-def run_docker_compose_whitout_user(
+def run_docker_compose_without_user(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return docker_compose_whitout_user(
+    return docker_compose_without_user(
         content=content, path=path, template=template
     )
 
@@ -52,14 +52,14 @@ def analyze(
         file_name in NAMES_DOCKERFILE
         and file_extension in EXTENSIONS_DOCKERFILE
     ):
-        results = (run_container_whitout_user(content_generator(), path),)
+        results = (run_container_without_user(content_generator(), path),)
 
     if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
         content = content_generator()
         results = (
             *results,
             *(
-                run_docker_compose_whitout_user(content, path, template)
+                run_docker_compose_without_user(content, path, template)
                 for template in load_templates_blocking(
                     content, fmt=file_extension
                 )
