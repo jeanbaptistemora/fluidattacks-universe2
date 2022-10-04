@@ -16,7 +16,6 @@ from typing import (
     Iterator,
     List,
     Pattern,
-    Tuple,
 )
 
 GEMFILE_DEP: Pattern[str] = re.compile(
@@ -29,11 +28,12 @@ NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
 GEM_LOCK_DEP: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
 
 
+# pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE)
-def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
+def gem_gemfile(content: str, path: str) -> Iterator[DependencyType]:
     line_group: bool = False
     end_line: str = ""
-    for line_number, line in enumerate(gem_info[0].splitlines(), 1):
+    for line_number, line in enumerate(content.splitlines(), 1):
         if line_group:
             if line == end_line:
                 line_group = False
@@ -50,11 +50,12 @@ def gem_gemfile(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
             yield format_pkg_dep(pkg_name, version, line_number)
 
 
+# pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE_LOCK)
-def gem_gemfile_lock(gem_info: Tuple[str, str]) -> Iterator[DependencyType]:
+def gem_gemfile_lock(content: str, path: str) -> Iterator[DependencyType]:
     line_gem: bool = False
     match_arr: List[str] = []
-    for line_number, line in enumerate(gem_info[0].splitlines(), 1):
+    for line_number, line in enumerate(content.splitlines(), 1):
         if line.startswith("GEM"):
             line_gem = True
         elif not line_gem:

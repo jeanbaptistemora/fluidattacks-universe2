@@ -38,12 +38,12 @@ from typing import (
 
 @SHIELD_BLOCKING
 def run_gem_gemfile(content: str, path: str) -> Vulnerabilities:
-    return gem_gemfile((content, path))
+    return gem_gemfile(content, path)
 
 
 @SHIELD_BLOCKING
 def run_gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
-    return gem_gemfile_lock((content, path))
+    return gem_gemfile_lock(content, path)
 
 
 @SHIELD_BLOCKING

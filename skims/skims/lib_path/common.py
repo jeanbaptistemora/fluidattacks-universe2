@@ -505,18 +505,18 @@ def format_pkg_dep(
 
 def pkg_deps_to_vulns(
     platform: core_model.Platform, method: core_model.MethodsEnum
-) -> Callable[[TFun], Callable[[Tuple[str, str]], core_model.Vulnerabilities]]:
+) -> Callable[[TFun], Callable[[str, str], core_model.Vulnerabilities]]:
     def resolve_deps(
         resolve_dependencies: TFun,
-    ) -> Callable[[Tuple[str, str]], core_model.Vulnerabilities]:
+    ) -> Callable[[str, str], core_model.Vulnerabilities]:
         @wraps(resolve_dependencies)
         def resolve_vulns(
-            pkg_info: Tuple[str, str]
+            content: str, path: str
         ) -> core_model.Vulnerabilities:
-            content, path = pkg_info
+
             return translate_dependencies_to_vulnerabilities(
                 content=content,
-                dependencies=resolve_dependencies(pkg_info),
+                dependencies=resolve_dependencies(content, path),
                 path=path,
                 platform=platform,
                 method=method,
