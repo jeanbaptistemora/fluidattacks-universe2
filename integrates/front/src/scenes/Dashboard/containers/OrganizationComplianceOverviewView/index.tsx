@@ -12,6 +12,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { BenchmarkCard } from "./BenchmarkCard";
+import { DaysCard } from "./DaysCard";
 import { PercentageCard } from "./PercentageCard";
 import { GET_ORGANIZATION_COMPLIANCE } from "./queries";
 import { TrendCard } from "./TrendCard";
@@ -107,11 +108,27 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
                     }
                   )}
                   title={t(
-                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceWeeklyTrend.title",
-                    { organizationName: organization.name }
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.complianceWeeklyTrend.title"
                   )}
                   trend={handleComplianceValue(
                     organization.compliance.complianceWeeklyTrend
+                  )}
+                />
+              </Col>
+              <Col lg={33} md={33} sm={33}>
+                <DaysCard
+                  days={handleComplianceValue(
+                    organization.compliance.estimatedDaysToFullCompliance
+                  )}
+                  info={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.etToFullCompliance.info",
+                    {
+                      days: organization.compliance
+                        .estimatedDaysToFullCompliance,
+                    }
+                  )}
+                  title={t(
+                    "organization.tabs.compliance.tabs.overview.organizationCompliance.etToFullCompliance.title"
                   )}
                 />
               </Col>

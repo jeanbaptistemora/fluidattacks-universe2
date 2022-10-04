@@ -17,8 +17,8 @@ import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 
 interface IDaysCardProps {
-  info: string;
   days: number;
+  info: string;
   title: string;
 }
 
@@ -37,7 +37,7 @@ const DaysCard: FC<IDaysCardProps> = (props: IDaysCardProps): JSX.Element => {
         <Row justify={"center"}>
           <Col lg={100} md={100} sm={100}>
             <Text fw={9} size={"big"} ta={"center"}>
-              {days}{" "}
+              {Math.round(days)}{" "}
               {t("organization.tabs.compliance.tabs.overview.cards.days")}{" "}
               <FontAwesomeIcon icon={faCalendar} />
             </Text>

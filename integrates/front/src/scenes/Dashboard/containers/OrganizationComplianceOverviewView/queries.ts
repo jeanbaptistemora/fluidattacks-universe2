@@ -15,6 +15,7 @@ const GET_ORGANIZATION_COMPLIANCE: DocumentNode = gql`
       compliance {
         complianceLevel
         complianceWeeklyTrend
+        estimatedDaysToFullCompliance
         standards {
           avgOrganizationComplianceLevel
           bestOrganizationComplianceLevel
