@@ -5,6 +5,12 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.constants import (
+    C_SHARP_EXPRESSION,
+)
+from syntax_graph.syntax_nodes.argument import (
+    build_argument_node,
+)
 from syntax_graph.syntax_nodes.named_argument import (
     build_named_argument_node,
 )
@@ -26,10 +32,18 @@ def reader(args: SyntaxGraphArgs) -> NId:
         return args.generic(args.fork_n_id(first_child))
 
     match = match_ast(args.ast_graph, args.n_id, "name_colon")
-    if name_colon := match["name_colon"]:
+    if name_colon := match.get("name_colon"):
         var_id = match_ast_d(args.ast_graph, name_colon, "identifier")
         return build_named_argument_node(
             args, str(var_id), val_id=str(match["__0__"])
         )
+
+    if valid_childs := [
+        _id
+        for _id in adj_ast(args.ast_graph, args.n_id)
+        if args.ast_graph.nodes[_id]["label_type"]
+        in C_SHARP_EXPRESSION.union({"declaration_expression"})
+    ]:
+        return build_argument_node(args, iter(valid_childs))
 
     raise MissingCaseHandling(f"Bad argument handling in {args.n_id}")

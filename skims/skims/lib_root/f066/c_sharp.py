@@ -44,14 +44,7 @@ def has_console_functions(
                     syntax_graph.nodes[pred_nid].get("expression")
                     == "Console.WriteLine"
                 ):
-                    args = g.get_ast_childs(
-                        syntax_graph,
-                        pred_nid,
-                        "InterpolatedStringExpression",
-                        depth=2,
-                    )
-                    if args:
-                        yield shard, nid
+                    yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f066.has_console_functions",
