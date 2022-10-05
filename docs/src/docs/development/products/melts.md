@@ -5,8 +5,6 @@ sidebar_label: Melts
 slug: /development/melts
 ---
 
-## What is Melts?
-
 Melts is a `Fluid Attacks` tool
 that has many functions
 for consulting and managing
@@ -146,6 +144,7 @@ needed to create these files:
 
   These allow you to
   get the necessary AWS credentials.
+
 - After this is done
   you need to open
   the file `~/.aws/credentials`
@@ -181,6 +180,7 @@ needed to create these files:
 
   With this you will create
   the group's secrets-dev file.
+
 - Creating the secrets-prod file
   requires a little more customization
   so you need to

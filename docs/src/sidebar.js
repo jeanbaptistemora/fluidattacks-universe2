@@ -374,7 +374,15 @@ const Development = [
     label: 'Products',
     items: [
       'development/products/airs',
+      'development/products/common',
       'development/products/docs',
+      'development/products/forces',
+      'development/products/integrates',
+      'development/products/melts',
+      'development/products/observes',
+      'development/products/reviews',
+      'development/products/skims',
+      'development/products/sorts',
     ],
   },
   {
@@ -488,7 +496,6 @@ const Development = [
   'development/writing-code-suggestions',
   'development/licencing-and-copyright',
   'development/analytics-conventions',
-  'development/melts',
 ]
 
 const Machine = [
