@@ -27,53 +27,7 @@ to our team?
 Enter this link,
 and you will see how to do it!
 
-## Filtering your To-Do List
-
-Filters are useful tools that
-allow you to analyze data quickly.
-The **To-Do** section is equipped
-with filters that can help you
-visualize the vulnerabilities
-that have been assigned to you
-according to specific attributes.
-
-![To Do Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_filters.png)
-
-There are six filters.
-From left to right, the first
-one is **Treatment**.
-This field will let you filter
-vulnerabilities in terms
-of their assigned
-[treatment](/machine/web/vulnerabilities/management/treatments).
-You can select one of the
-four possible treatments.
-
-![Treatment Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_treatment.jpg)
-
-Next is **Treatment Acceptance**.
-This field will present you with
-two options corresponding to
-whether the request to accept a
-vulnerability, either temporarily
-or permanently, has been accepted
-or is still pending.
-
-![Treatment Acceptance Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_tacceptance.jpg)
-
-Up next is **Search Tag**.
-It is technically a search box
-where you can type the name of
-the tag by which you would like
-to filter the list.
-Further to the right is the
-**Group Name** filter.
-By clicking on it, you can select
-one of the groups you are part
-of to visualize the vulnerabilities
-you have been assigned from that group.
-
-![Group Name Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_group_name.jpg)
+## To-Do List table
 
 Moving to the next field is
 the **Reattacks** filter.
