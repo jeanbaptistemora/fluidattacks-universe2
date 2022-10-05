@@ -32,15 +32,21 @@ generated from their personal Git branch on GitLab:
 1. At build time,
    we generate search indexes to leverage search functionality through Algolia.
 1. Once built,
-   its static content is deployed to an S3 bucket on Amazon Web Services (AWS).
+   its static content is deployed to an
+   [S3 bucket on Amazon Web Services (AWS)](/development/stack/aws/s3).
 1. All of the media content (images, videos, etc)
-   are stored (and served from) Cloudinary.
-1. The domain's registrar is Cloudflare,
+   is stored (and served from) Cloudinary.
+1. The domain's registrar is [Cloudflare](/development/stack/cloudflare),
    which also proxies incoming traffic from the users
    through the Cloudflare network (CDN, Firewall, etc),
    and caches the content for some time using Page Rules.
    Before a request is returned to the user,
    a Cloudflare Worker adds HTTP security headers like the Content-Security-Policy.
+1. In order to allow developers to test their changes,
+   an ephemeral environment is deployed from their Git branch
+   into [web.eph.fluidattacks.com/&lt;branch&gt;](https://web.eph.fluidattacks.com).
+   So that they can check that everything is OK
+   before opening a Merge Request on [GitLab](/development/stack/gitlab).
 
 :::tip
 You can right click on the image below
