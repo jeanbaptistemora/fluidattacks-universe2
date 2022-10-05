@@ -262,7 +262,7 @@ class CertificateCreator(CreatorPdf):
             await s3_ops.download_file(
                 FI_AWS_S3_MAIN_BUCKET,
                 "resources/certificate/signature.png",
-                f"resources/{file.name}",
+                file.name,
             )
             self.cert_context[
                 "signature_img"
