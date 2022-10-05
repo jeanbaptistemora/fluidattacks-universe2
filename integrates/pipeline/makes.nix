@@ -239,7 +239,7 @@ in {
         []
         ++ [
           {
-            args = ["reports"];
+            args = ["forces"];
             output = "/integrates/move_s3";
             gitlabExtra = gitlabDeployInfra;
           }

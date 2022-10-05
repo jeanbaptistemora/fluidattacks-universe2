@@ -9,6 +9,7 @@ function serve {
   local bucket_paths_by_group=(
     'evidences'
     'resources'
+    'forces'
   )
   local bucket_paths_by_branch=(
     'analytics'
