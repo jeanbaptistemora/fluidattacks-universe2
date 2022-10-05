@@ -15,7 +15,10 @@ from syntax_graph.syntax_readers.javascript import (
     object as javascript_object,
     pair as javascript_pair,
     parameter_list as javascript_parameter_list,
+    parenthesized_expression as javascript_parenthesized_expression,
     program as javascript_program,
+    return_statement as javascript_return_statement,
+    statement_block as javascript_statement_block,
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     variable_declaration as javascript_variable_declaration,
@@ -30,6 +33,8 @@ from syntax_graph.syntax_readers.typescript import (
     intersection_type as typescript_intersection_type,
     predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
+    required_parameter as typescript_required_parameter,
+    ternary_expression as typescript_ternary_expression,
     tuple_type as typescript_tuple_type,
     type_alias_declaration as typescript_type_alias_declaration,
     union_type as typescript_union_type,
@@ -108,6 +113,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "boolean",
             "false",
             "true",
         },
@@ -117,6 +123,8 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "identifier",
             "property_identifier",
+            "shorthand_property_identifier",
+            "shorthand_property_identifier_pattern",
             "type_identifier",
         },
         syntax_reader=javascript_identifier.reader,
@@ -160,6 +168,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "parenthesized_expression",
+        },
+        syntax_reader=javascript_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "program",
         },
         syntax_reader=javascript_program.reader,
@@ -176,9 +190,26 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "property_signature",
-            "required_parameter",
         },
         syntax_reader=typescript_property_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "required_parameter",
+        },
+        syntax_reader=typescript_required_parameter.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "return_statement",
+        },
+        syntax_reader=javascript_return_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "statement_block",
+        },
+        syntax_reader=javascript_statement_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -191,6 +222,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "subscript_expression",
         },
         syntax_reader=javascript_subscript_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "ternary_expression",
+        },
+        syntax_reader=typescript_ternary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
