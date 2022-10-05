@@ -8,40 +8,33 @@ import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  Row,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
-import type { ChangeEvent } from "react";
-import React, { useCallback, useEffect, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
-import { dateFilter } from "react-bootstrap-table2-filter";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
 import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
-import {
-  formatBePresent,
-  formatRootId,
-  getFilteredData,
-  getNonSelectableToeInputIndex,
-  getToeInputIndex,
-  onSelectSeveralToeInputHelper,
-} from "./utils";
+import { getNonSelectableToeInputIndex } from "./utils";
 
-import { Table } from "components/Table";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-  ISelectRowProps,
-} from "components/Table/types";
+import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/TableNew/types";
 import {
   GET_TOE_INPUTS,
   UPDATE_TOE_INPUT,
 } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
-  IFilterSet,
   IGroupToeInputsViewProps,
   IToeInputAttr,
   IToeInputData,
@@ -49,8 +42,6 @@ import type {
   IToeInputsConnection,
   IUpdateToeInputResultAttr,
 } from "scenes/Dashboard/containers/GroupToeInputsView/types";
-import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
-import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
@@ -88,70 +79,37 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
   const [isMarkingAsAttacked, setIsMarkingAsAttacked] = useState(false);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
     IToeInputData[]
   >([]);
 
-  const [checkedItems, setCheckedItems] = useStoredState<
-    Record<string, boolean>
-  >(
-    "toeInputsTableSet",
-    {
-      attackedAt: true,
-      attackedBy: false,
-      bePresent: false,
-      bePresentUntil: false,
-      component: false,
-      entryPoint: true,
-      firstAttackAt: false,
-      hasVulnerabilities: true,
-      rootNickname: true,
-      seenAt: true,
-      seenFirstTimeBy: true,
-    },
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblToeInputs-columnFilters",
+    [],
     localStorage
   );
-  const [filterGroupToeInputTable, setFilterGroupToeInputTable] =
-    useStoredState<IFilterSet>(
-      `filterGroupToeInputSet-${groupName}`,
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>(
+      "tblToeInputs-visibilityState",
       {
-        bePresent: "",
-        component: "",
-        hasVulnerabilities: "",
-        rootId: "",
-        seenAt: { max: "", min: "" },
-        seenFirstTimeBy: "",
+        attackedAt: true,
+        attackedBy: false,
+        bePresent: false,
+        bePresentUntil: false,
+        component: false,
+        entryPoint: true,
+        firstAttackAt: false,
+        hasVulnerabilities: true,
+        rootNickname: true,
+        seenAt: true,
+        seenFirstTimeBy: true,
       },
       localStorage
     );
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("toeInputCustomFilters", false);
-  const handleChange: (columnName: string) => void = useCallback(
-    (columnName: string): void => {
-      if (
-        Object.values(checkedItems).filter((val: boolean): boolean => val)
-          .length === 1 &&
-        checkedItems[columnName]
-      ) {
-        // eslint-disable-next-line no-alert
-        alert(t("validations.columns"));
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: true,
-        });
-      } else {
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: !checkedItems[columnName],
-        });
-      }
-    },
-    [checkedItems, setCheckedItems, t]
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblToeInputs-sortingState",
+    []
   );
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // // GraphQL operations
   const [handleUpdateToeInput] = useMutation<IUpdateToeInputResultAttr>(
@@ -185,7 +143,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     canGetFirstAttackAt,
     canGetSeenFirstTimeBy,
     groupName,
-    rootId: formatRootId(filterGroupToeInputTable.rootId),
   };
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeInputs: IToeInputsConnection };
@@ -199,18 +156,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     },
     variables: {
       ...getToeInputsVariables,
-      bePresent: formatBePresent(filterGroupToeInputTable.bePresent),
       first: 150,
-    },
-  });
-  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group root ids", error);
-      });
-    },
-    variables: {
-      groupName,
     },
   });
   const pageInfo =
@@ -251,17 +197,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
 
     return moment(date).format("YYYY-MM-DD");
   };
-
-  const onSort: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("toeInputsSort", JSON.stringify(newSorted));
-  };
-
-  const formatCsvEntrypoint = (value: string): string =>
-    `'${value.trim().replace('"', '""')}`;
 
   const handleUpdateToeInputBePresent: (
     rootId: string,
@@ -330,7 +265,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
           query: GET_TOE_INPUTS,
           variables: {
             ...getToeInputsVariables,
-            bePresent: formatBePresent(filterGroupToeInputTable.bePresent),
             first: 150,
           },
         });
@@ -342,108 +276,118 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     }
   };
 
-  const headersToeInputsTable: IHeaderConfig[] = [
+  const columns: ColumnDef<IToeInputData>[] = [
     {
-      dataField: "rootNickname",
+      accessorKey: "rootNickname",
       header: t("group.toe.inputs.root"),
-      onSort,
-      visible: checkedItems.rootNickname,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "component",
+      accessorKey: "component",
       header: t("group.toe.inputs.component"),
-      onSort,
-      visible: checkedItems.component,
+      meta: { filterType: "select" },
     },
     {
-      csvFormatter: formatCsvEntrypoint,
-      dataField: "entryPoint",
+      accessorKey: "entryPoint",
       header: t("group.toe.inputs.entryPoint"),
-      onSort,
-      visible: checkedItems.entryPoint,
     },
     {
-      dataField: "hasVulnerabilities",
-      formatter: formatBoolean,
-      header: t("group.toe.inputs.hasVulnerabilities"),
-      onSort,
-      visible: checkedItems.hasVulnerabilities,
+      accessorFn: (row: IToeInputData): string => {
+        return formatBoolean(row.hasVulnerabilities);
+      },
+      header: String(t("group.toe.inputs.hasVulnerabilities")),
+      meta: { filterType: "select" },
     },
     {
-      dataField: "attackedAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.inputs.attackedAt"),
-      omit: !isInternal || !canGetAttackedAt,
-      onSort,
-      visible: checkedItems.attackedAt,
-    },
-    {
-      dataField: "attackedBy",
-      header: t("group.toe.inputs.attackedBy"),
-      omit: !isInternal || !canGetAttackedBy,
-      onSort,
-      visible: checkedItems.attackedBy,
-    },
-    {
-      dataField: "firstAttackAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.inputs.firstAttackAt"),
-      omit: !isInternal || !canGetFirstAttackAt,
-      onSort,
-      visible: checkedItems.firstAttackAt,
-    },
-    {
-      dataField: "seenAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
+      accessorKey: "seenAt",
+      cell: (cell: ICellHelper<IToeInputData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
       header: t("group.toe.inputs.seenAt"),
-      onSort,
-      visible: checkedItems.seenAt,
+      meta: { filterType: "dateRange" },
     },
     {
-      dataField: "seenFirstTimeBy",
-      header: t("group.toe.inputs.seenFirstTimeBy"),
-      omit: !isInternal || !canGetSeenFirstTimeBy,
-      onSort,
-      visible: checkedItems.seenFirstTimeBy,
-    },
-    {
-      dataField: "bePresent",
-      formatter: editableBePresentFormatter(
-        canUpdateToeInput && isInternal,
-        handleUpdateToeInputBePresent
-      ),
-      header: t("group.toe.inputs.bePresent"),
-      onSort,
-      visible: checkedItems.bePresent,
-    },
-    {
-      dataField: "bePresentUntil",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.inputs.bePresentUntil"),
-      omit: !isInternal || !canGetBePresentUntil,
-      onSort,
-      visible: checkedItems.bePresentUntil,
+      accessorFn: (row: IToeInputData): string => {
+        return formatBoolean(row.bePresent);
+      },
+      cell: (cell: ICellHelper<IToeInputData>): JSX.Element | string =>
+        editableBePresentFormatter(
+          cell.row.original,
+          canUpdateToeInput && isInternal,
+          handleUpdateToeInputBePresent
+        ),
+      header: String(t("group.toe.inputs.bePresent")),
+      id: "bePresent",
+      meta: { filterType: "select" },
     },
   ];
 
-  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
-  function clearFilters(): void {
-    setFilterGroupToeInputTable(
-      (): IFilterSet => ({
-        bePresent: "",
-        component: "",
-        hasVulnerabilities: "",
-        rootId: "",
-        seenAt: { max: "", min: "" },
-        seenFirstTimeBy: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
+  const columnsAttackedAt: ColumnDef<IToeInputData>[] =
+    isInternal && canGetAttackedAt
+      ? [
+          {
+            accessorKey: "attackedAt",
+            cell: (cell: ICellHelper<IToeInputData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.inputs.attackedAt"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+
+  const columnsAttackedBy: ColumnDef<IToeInputData>[] =
+    isInternal && canGetAttackedBy
+      ? [
+          {
+            accessorKey: "attackedBy",
+            header: t("group.toe.inputs.attackedBy"),
+          },
+        ]
+      : [];
+  const columnsFirstAttackAt: ColumnDef<IToeInputData>[] =
+    isInternal && canGetFirstAttackAt
+      ? [
+          {
+            accessorKey: "firstAttackAt",
+            cell: (cell: ICellHelper<IToeInputData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.inputs.firstAttackAt"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+  const columnsSeenFirstTimeBy: ColumnDef<IToeInputData>[] =
+    isInternal && canGetSeenFirstTimeBy
+      ? [
+          {
+            accessorKey: "seenFirstTimeBy",
+            header: t("group.toe.inputs.seenFirstTimeBy"),
+          },
+        ]
+      : [];
+  const columnsbePresentUntil: ColumnDef<IToeInputData>[] =
+    isInternal && canGetBePresentUntil
+      ? [
+          {
+            accessorKey: "bePresentUntil",
+            cell: (cell: ICellHelper<IToeInputData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.inputs.bePresentUntil"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+
+  const columnsResult: ColumnDef<IToeInputData>[] = columns
+    .concat(columnsAttackedAt)
+    .concat(columnsAttackedBy)
+    .concat(columnsFirstAttackAt)
+    .concat(columnsSeenFirstTimeBy)
+    .concat(columnsbePresentUntil);
+
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
@@ -456,15 +400,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   useEffect((): void => {
     setSelectedToeInputDatas([]);
     void refetch();
-  }, [
-    filterGroupToeInputTable.bePresent,
-    filterGroupToeInputTable.rootId,
-    refetch,
-  ]);
-
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
+  }, [refetch]);
 
   function toggleAdd(): void {
     setIsAdding(!isAdding);
@@ -517,184 +453,29 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     setIsMarkingAsAttacked(false);
   }
 
-  const onBasicFilterValueChange = (
-    filterName: keyof IFilterSet
-  ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
-    return (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      event.persist();
-      setFilterGroupToeInputTable(
-        (value): IFilterSet => ({
-          ...value,
-          [filterName]: event.target.value,
-        })
-      );
-    };
-  };
-  const onRangeFilterValueChange = (
-    filterName: keyof Pick<IFilterSet, "seenAt">,
-    key: "max" | "min"
-  ): ((event: ChangeEvent<HTMLInputElement>) => void) => {
-    return (event: React.ChangeEvent<HTMLInputElement>): void => {
-      event.persist();
-
-      setFilterGroupToeInputTable(
-        (value): IFilterSet => ({
-          ...value,
-          [filterName]: { ...value[filterName], [key]: event.target.value },
-        })
-      );
-    };
-  };
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const componentSelectOptions = Object.fromEntries(
-    toeInputs.map((toeInputData: IToeInputData): string[] => [
-      toeInputData.component,
-      toeInputData.component,
-    ])
-  );
-  const rootSelectOptions = Object.fromEntries(
-    roots.map((root: IRootIdAttr): string[] => [
-      root.id,
-      `${root.nickname} (${root.state.toLowerCase()})`,
-    ])
-  );
-  const booleanSelectOptions = Object.fromEntries([
-    ["false", formatBoolean(false)],
-    ["true", formatBoolean(true)],
-  ]);
-  const seenFirstTimeBySelectOptions = Object.fromEntries(
-    toeInputs.map((toeInputData: IToeInputData): string[] => [
-      toeInputData.markedSeenFirstTimeBy,
-      toeInputData.seenFirstTimeBy,
-    ])
-  );
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterGroupToeInputTable.rootId,
-      onChangeSelect: onBasicFilterValueChange("rootId"),
-      placeholder: t("group.toe.inputs.filters.root.placeholder"),
-      selectOptions: rootSelectOptions,
-      tooltipId: "group.toe.inputs.filters.root.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.root.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupToeInputTable.component,
-      onChangeSelect: onBasicFilterValueChange("component"),
-      placeholder: t("group.toe.inputs.filters.component.placeholder"),
-      selectOptions: componentSelectOptions,
-      tooltipId: "group.toe.inputs.filters.component.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.component.tooltip",
-      translateSelectOptions: false,
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupToeInputTable.hasVulnerabilities,
-      onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
-      placeholder: t("group.toe.inputs.filters.hasVulnerabilities.placeholder"),
-      selectOptions: booleanSelectOptions,
-      tooltipId: "group.toe.inputs.filters.hasVulnerabilities.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.hasVulnerabilities.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: t("group.toe.inputs.filters.seenAt.placeholder"),
-      rangeProps: {
-        defaultValue: filterGroupToeInputTable.seenAt,
-        onChangeMax: onRangeFilterValueChange("seenAt", "max"),
-        onChangeMin: onRangeFilterValueChange("seenAt", "min"),
-      },
-      tooltipId: "group.toe.inputs.filters.seenAt.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.seenAt.tooltip",
-      type: "dateRange",
-    },
-    {
-      defaultValue: filterGroupToeInputTable.seenFirstTimeBy,
-      omit: !isInternal || !canGetSeenFirstTimeBy,
-      onChangeSelect: onBasicFilterValueChange("seenFirstTimeBy"),
-      placeholder: t("group.toe.inputs.filters.seenFirstTimeBy.placeholder"),
-      selectOptions: seenFirstTimeBySelectOptions,
-      tooltipId: "group.toe.inputs.filters.seenFirstTimeBy.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.seenFirstTimeBy.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupToeInputTable.bePresent,
-      onChangeSelect: onBasicFilterValueChange("bePresent"),
-      placeholder: t("group.toe.inputs.filters.bePresent.placeholder"),
-      selectOptions: booleanSelectOptions,
-      tooltipId: "group.toe.inputs.filters.bePresent.tooltip.id",
-      tooltipMessage: "group.toe.inputs.filters.bePresent.tooltip",
-      type: "select",
-    },
-  ];
-  const filteredData: IToeInputData[] = getFilteredData(
-    filterGroupToeInputTable,
-    searchTextFilter,
-    toeInputs
-  );
-
-  function onSelectSeveralToeInputDatas(
-    isSelect: boolean,
-    toeInputDatasSelected: IToeInputData[]
-  ): string[] {
-    return onSelectSeveralToeInputHelper(
-      isSelect,
-      toeInputDatasSelected,
-      selectedToeInputDatas,
-      setSelectedToeInputDatas
+  function enabledRows(row: Row<IToeInputData>): boolean {
+    const indexes = getNonSelectableToeInputIndex(toeInputs);
+    const nonselectables = indexes.map(
+      (index: number): IToeInputData => toeInputs[index]
     );
-  }
-  function onSelectOneToeInputData(
-    toeInputdata: IToeInputData,
-    isSelect: boolean
-  ): boolean {
-    onSelectSeveralToeInputDatas(isSelect, [toeInputdata]);
 
-    return true;
+    return !nonselectables.includes(row.original);
   }
-  const selectionMode: ISelectRowProps = {
-    clickToSelect: false,
-    hideSelectColumn: !isInternal || !canUpdateToeInput,
-    mode: "checkbox",
-    nonSelectable: getNonSelectableToeInputIndex(filteredData),
-    onSelect: onSelectOneToeInputData,
-    onSelectAll: onSelectSeveralToeInputDatas,
-    selected: getToeInputIndex(selectedToeInputDatas, filteredData),
-  };
-
-  const initialSort: string = JSON.stringify({
-    dataField: "component",
-    order: "asc",
-  });
 
   return (
     <React.StrictMode>
       <Table
-        clearFiltersButton={clearFilters}
+        columnFilterSetter={setColumnFilters}
+        columnFilterState={columnFilters}
         columnToggle={true}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filteredData}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "toeInputsSort", initialSort) as string
-        )}
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
+        columns={columnsResult}
+        data={toeInputs}
+        enableColumnFilters={true}
+        enableRowSelection={enabledRows}
         exportCsv={true}
-        extraButtonsRight={
+        extraButtons={
           <ActionButtons
             areInputsSelected={selectedToeInputDatas.length > 0}
             isAdding={isAdding}
@@ -704,13 +485,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
             onMarkAsAttacked={handleMarkAsAttacked}
           />
         }
-        headers={headersToeInputsTable}
         id={"tblToeInputs"}
-        isFilterEnabled={undefined}
-        onColumnToggle={handleChange}
-        pageSize={100}
-        search={false}
-        selectionMode={selectionMode}
+        rowSelectionSetter={
+          !isInternal || !canUpdateToeInput
+            ? undefined
+            : setSelectedToeInputDatas
+        }
+        rowSelectionState={selectedToeInputDatas}
+        sortingSetter={setSorting}
+        sortingState={sorting}
       />
       {isAdding ? (
         <HandleAdditionModal

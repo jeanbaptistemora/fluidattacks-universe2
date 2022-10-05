@@ -141,48 +141,62 @@ describe("groupToeInputsView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.toe.inputs.root",
         "group.toe.inputs.entryPoint",
         "group.toe.inputs.hasVulnerabilities",
-        "group.toe.inputs.attackedAt",
         "group.toe.inputs.seenAt",
+        "group.toe.inputs.attackedAt",
         "group.toe.inputs.seenFirstTimeBy",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
-    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[1].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "test_nickname",
         "idTest",
         "group.toe.inputs.no",
-        "2020-01-02",
         "2000-01-01",
+        "2020-01-02",
         "",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
-    expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[2].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "test_nickname",
         "btnTest",
         "group.toe.inputs.yes",
-        "2021-02-02",
         "2020-03-14",
+        "2021-02-02",
         "test@test.com",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
 
-    const thirdRow: number = 3;
-
-    expect(screen.getAllByRole("row")[thirdRow].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[3].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "",
         "-",
         "group.toe.inputs.yes",
-        "2021-02-11",
         "2020-01-11",
+        "2021-02-11",
         "test2@test.com",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
   });
 
@@ -364,29 +378,25 @@ describe("groupToeInputsView", (): void => {
       })
     );
 
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.toe.inputs.root",
         "group.toe.inputs.entryPoint",
         "group.toe.inputs.hasVulnerabilities",
-        "group.toe.inputs.attackedAt",
         "group.toe.inputs.seenAt",
-        "group.toe.inputs.seenFirstTimeBy",
         "group.toe.inputs.bePresent",
+        "group.toe.inputs.attackedAt",
+        "group.toe.inputs.seenFirstTimeBy",
         "group.toe.inputs.bePresentUntil",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
 
     const row = screen.getByRole("row", {
-      name: [
-        "test_nickname",
-        "idTest",
-        "group.toe.inputs.no",
-        "2020-01-02",
-        "2000-01-01",
-        "bePresentSwitch",
-        "Yes",
-      ].join(" "),
+      name: "test_nickname idTest group.toe.inputs.no 2000-01-01 bePresentSwitch Yes 2020-01-02",
     });
 
     userEvent.click(
