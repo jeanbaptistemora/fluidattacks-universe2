@@ -38,7 +38,7 @@ subscription options.
 Select the one you prefer and
 the changes will be applied immediately.
 
-![Subscription Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1664989872/docs/web/analytics/reports/subscribe_analytics.png)
+![Subscription Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1664997736/docs/web/analytics/reports/subscribe.png)
 
 Emails are sent at 6:00 AM (UTC-5).
 If you subscribe monthly,
