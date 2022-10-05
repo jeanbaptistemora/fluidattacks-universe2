@@ -17,11 +17,6 @@ function serve {
   local bucket_paths_by_root=(
     'reports'
   )
-  local bucket_paths=(
-    "${bucket_paths_by_group[@]}"
-    "${bucket_paths_by_branch[@]}"
-    "${bucket_paths_by_root[@]}"
-  )
   local buckets_by_branch=(
     'fluidintegrates.analytics'
   )
@@ -35,6 +30,12 @@ function serve {
     'fluidintegrates.reports'
   )
   local bill_bucket='continuous-data'
+  local bucket_paths=(
+    "${bill_bucket}"
+    "${bucket_paths_by_group[@]}"
+    "${bucket_paths_by_branch[@]}"
+    "${bucket_paths_by_root[@]}"
+  )
   local buckets=(
     "${bill_bucket}"
     "${buckets_by_branch[@]}"
@@ -113,6 +114,10 @@ function serve {
         && aws_s3_sync \
           "s3://${bill_bucket}/bills/test" \
           "${state_path}/${bill_bucket}/bills/${bill_date}" \
+          --delete \
+        && aws_s3_sync \
+          "s3://${main_bucket}/${bill_bucket}/bills/test" \
+          "${state_path}/${main_bucket}/${bill_bucket}/bills/${bill_date}" \
           --delete
     fi \
     && done_port "${host}" 29000 \

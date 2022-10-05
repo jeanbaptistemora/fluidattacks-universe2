@@ -28,8 +28,8 @@ function job_compute_bills {
       'REDSHIFT_PORT' \
       'REDSHIFT_USER' \
     && folder="$(mktemp -d)" \
-    && bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
-    && bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
+    && bucket_month="s3://integrates/continuous-data/bills/$(date +%Y)/$(date +%m)" \
+    && bucket_day="s3://integrates/continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
     && echo "[INFO] Temporary results folder: ${folder}" \
     && code-etl \
       --db-id "${db}" \

@@ -14,9 +14,9 @@ from botocore.exceptions import (
 )
 from context import (
     BASE_URL,
+    FI_AWS_S3_MAIN_BUCKET as SERVICES_DATA_BUCKET,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
-    SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )
 import csv
 from custom_exceptions import (
@@ -71,7 +71,7 @@ async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
 
     try:
         await client.download_fileobj(
-            SERVICES_DATA_BUCKET, key, billing_buffer
+            SERVICES_DATA_BUCKET, f"continuous-data/{key}", billing_buffer
         )
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))

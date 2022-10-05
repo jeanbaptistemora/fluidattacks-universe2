@@ -12,7 +12,7 @@ function main {
   aws_login "prod_integrates" "3600" \
     && for item in "$@"; do
       echo "[INFO] Syncing data from: ${main_bucket}.${item} to ${main_bucket}/${item}" \
-        && aws_s3_sync "s3://fluidintegrates.${item}" "${main_bucket}/${item}"
+        && aws_s3_sync "s3://${item}" "${main_bucket}/${item}"
     done \
     || return 1
 }
