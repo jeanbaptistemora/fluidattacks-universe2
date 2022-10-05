@@ -24,11 +24,13 @@ from syntax_graph.syntax_readers.javascript import (
     variable_declaration as javascript_variable_declaration,
 )
 from syntax_graph.syntax_readers.typescript import (
+    ambient_declaration as typescript_ambient_declaration,
     array as typescript_array,
     as_expression as typescript_as_expression,
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
+    function_signature as typescript_function_signature,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
     predefined_type as typescript_predefined_type,
@@ -45,6 +47,12 @@ from syntax_graph.types import (
 )
 
 TYPESCRIPT_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "ambient_declaration",
+        },
+        syntax_reader=typescript_ambient_declaration.reader,
+    ),
     Dispatcher(
         applicable_types={
             "array",
@@ -118,6 +126,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "true",
         },
         syntax_reader=javascript_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "function_signature",
+        },
+        syntax_reader=typescript_function_signature.reader,
     ),
     Dispatcher(
         applicable_types={
