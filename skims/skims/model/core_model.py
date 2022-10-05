@@ -1620,10 +1620,10 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.DAST,
     )
     BREACH_POSSIBLE = MethodInfo(
-        file_name="analyze_protocol",
+        file_name="analyze_headers",
         name="breach_possible",
-        module="lib_ssl",
-        finding=FindingEnum.F016,
+        module="lib_http",
+        finding=FindingEnum.F343,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )

@@ -8,6 +8,7 @@ from __future__ import (
 
 from http_headers import (
     as_string,
+    content_encoding,
     content_security_policy,
     date,
     referrer_policy,
@@ -497,6 +498,25 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _breach_possible(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
+
+    if val := ctx.headers_parsed.get("ContentEncodingHeader"):
+        if val.value == "gzip":
+            locations.append(
+                desc="breach_possible.insecure",
+                desc_kwargs={"compression": val.value},
+            )
+
+    return _create_vulns(
+        locations=locations,
+        header=header,
+        ctx=ctx,
+        method=core_model.MethodsEnum.BREACH_POSSIBLE,
+    )
+
+
 def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     headers_parsed: MultiDict[str, Header] = MultiDict(  # type: ignore
         [
@@ -506,6 +526,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
             )
             for line in [f"{header_raw_name}: {header_raw_value}"]
             for header_parsed in [
+                content_encoding.parse(line),
                 content_security_policy.parse(line),
                 date.parse(line),
                 referrer_policy.parse(line),
@@ -532,15 +553,16 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F015: [_www_authenticate],
     core_model.FindingEnum.F023: [_location],
-    core_model.FindingEnum.F128: [_set_cookie_httponly],
-    core_model.FindingEnum.F129: [_set_cookie_samesite],
-    core_model.FindingEnum.F130: [_set_cookie_secure],
     core_model.FindingEnum.F043: [
         _content_security_policy,
         _upgrade_insecure_requests,
     ],
+    core_model.FindingEnum.F064: [_date],
     core_model.FindingEnum.F071: [_referrer_policy],
+    core_model.FindingEnum.F128: [_set_cookie_httponly],
+    core_model.FindingEnum.F129: [_set_cookie_samesite],
+    core_model.FindingEnum.F130: [_set_cookie_secure],
     core_model.FindingEnum.F131: [_strict_transport_security],
     core_model.FindingEnum.F132: [_x_content_type_options],
-    core_model.FindingEnum.F064: [_date],
+    core_model.FindingEnum.F343: [_breach_possible],
 }

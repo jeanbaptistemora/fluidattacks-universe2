@@ -1,0 +1,8 @@
+---
+lib_http.analyze_headers.breach_possible.insecure:
+  en: >
+    Server is vulnerable to BREACH attack with {compression}
+    as encoding method
+  es: >-
+    El servidor es vulnerable a un ataque BREACH al usar {compression}
+    como método de codificación

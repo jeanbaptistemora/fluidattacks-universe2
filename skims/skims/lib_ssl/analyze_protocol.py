@@ -1133,6 +1133,5 @@ CHECKS: Dict[
         _heartbleed_possible,
         _freak_possible,
         _raccoon_possible,
-        _breach_possible,
     ],
 }

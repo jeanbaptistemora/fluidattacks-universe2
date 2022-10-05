@@ -354,6 +354,17 @@ def add_f086() -> None:
     )
 
 
+def add_f343_breach_possible() -> None:
+    _add_headers(
+        "f343_breach_possible",
+        "content-encoding",
+        [
+            "compress",
+            "gzip",
+        ],
+    )
+
+
 def start() -> None:
     APP.run()
 
@@ -372,3 +383,4 @@ add_f043_dast_xcto()
 add_f043_dast_xfo()
 add_f064_server_clock()
 add_f086()
+add_f343_breach_possible()
