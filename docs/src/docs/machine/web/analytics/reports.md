@@ -21,7 +21,7 @@ To subscribe,
 you must first visit the Analytics
 section of your interest.
 You will find the subscription
-button at the bottom.
+button at the top.
 The button text describes your
 current subscription status.
 Therefore,
@@ -38,7 +38,7 @@ subscription options.
 Select the one you prefer and
 the changes will be applied immediately.
 
-![Subscription Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1647621810/docs/web/analytics/reports/subscription_status.jpg)
+![Subscription Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1664989872/docs/web/analytics/reports/subscribe_analytics.png)
 
 Emails are sent at 6:00 AM (UTC-5).
 If you subscribe monthly,
@@ -47,7 +47,7 @@ first day of every month.
 If you choose to subscribe weekly,
 you will receive them every Monday.
 
-![Information Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1647621810/docs/web/analytics/reports/subs_information_report.png)
+![Information Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664989978/docs/web/analytics/reports/analytics_report.png)
 
 There are two options at
 the end of every email.
@@ -59,7 +59,7 @@ redirect you to the
 corresponding Analytics
 section on the ARM.
 
-![Email Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1647621810/docs/web/analytics/reports/email_options.png)
+![Email Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1664990139/docs/web/analytics/reports/options.png)
 
 ## Download reports
 
@@ -79,7 +79,7 @@ There,
 you will find the
 **Download** button.
 
-![Download Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1647615060/docs/web/analytics/reports/download_button.png)
+![Download Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1664990254/docs/web/analytics/reports/download.png)
 
 Clicking on this button
 will download a `.png` file
