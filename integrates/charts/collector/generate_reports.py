@@ -7,10 +7,14 @@ from aioextensions import (
     run,
 )
 import aiohttp
+import asyncio
 from charts import (
     utils,
 )
 import contextlib
+from decorators import (
+    retry_on_exceptions,
+)
 from newutils.encodings import (
     safe_encode,
 )
@@ -19,14 +23,23 @@ from selenium import (
     webdriver,
 )
 from selenium.common.exceptions import (
+    NoSuchElementException,
     TimeoutException,
     WebDriverException,
+)
+from selenium.webdriver.common.by import (
+    By,
 )
 from selenium.webdriver.firefox.options import (
     Options,
 )
+from selenium.webdriver.support import (
+    expected_conditions as ec,
+)
+from selenium.webdriver.support.ui import (
+    WebDriverWait,
+)
 import socket
-import time
 from typing import (
     AsyncIterator,
 )
@@ -45,6 +58,7 @@ DEBUGGING: bool = False
 TARGET_URL: str = "https://app.fluidattacks.com"
 INTEGRATES_API_TOKEN: str = os.environ["INTEGRATES_API_TOKEN"]
 PROXY = "http://127.0.0.1:9000" if DEBUGGING else None
+COOKIE_MESSAGE = "Allow all cookies"
 WIDTH: int = 1200
 
 
@@ -53,7 +67,7 @@ async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
     def create() -> webdriver.Firefox:
         options = Options()
         options.add_argument(f"--width={WIDTH}")
-        options.add_argument("--height=64")
+        options.add_argument("--height=400")
         options.headless = True
 
         driver: webdriver.Firefox = webdriver.Firefox(
@@ -90,60 +104,98 @@ async def http_session() -> AsyncIterator[aiohttp.ClientSession]:
         yield session  # NOSONAR
 
 
-@utils.retry_on_exceptions(
-    default_value=None,
+@retry_on_exceptions(
     exceptions=(
+        NoSuchElementException,
         TimeoutException,
         WebDriverException,
     ),
-    retry_times=5,
+    max_attempts=5,
+    sleep_seconds=float("1.0"),
 )
-def take_snapshot(
+async def take_snapshot(  # pylint: disable=too-many-arguments
     driver: webdriver.Firefox,
     save_as: str,
     session: aiohttp.ClientSession,
     url: str,
+    entity: str,
+    subject: str = "*",
 ) -> None:
+    await insert_cookies(entity, session, subject)
     driver.get(TARGET_URL)
-    time.sleep(1)
+    await asyncio.sleep(1)
+
+    with contextlib.suppress(NoSuchElementException):
+        if driver.find_element_by_xpath(
+            f"//*[text()[contains(., '{COOKIE_MESSAGE}')]]",
+        ):
+            allow_cookies = WebDriverWait(driver, 20).until(
+                ec.presence_of_element_located(
+                    (
+                        By.XPATH,
+                        f"//*[text()[contains(., '{COOKIE_MESSAGE}')]]",
+                    )
+                )
+            )
+            allow_cookies.click()
+            await asyncio.sleep(2)
 
     for cookie in session.cookie_jar:
         driver.add_cookie({"name": cookie.key, "value": cookie.value})
 
+    await asyncio.sleep(1)
     driver.get(url)
-    time.sleep(10)
+    await asyncio.sleep(10)
+    if not WebDriverWait(driver, 20).until(
+        ec.presence_of_element_located(
+            (
+                By.ID,
+                "root",
+            )
+        )
+    ):
+        raise TimeoutException()
 
-    element = driver.find_element_by_tag_name("body")
-    with open(save_as, "wb") as file:
-        file.write(element.screenshot_as_png)
+    with contextlib.suppress(NoSuchElementException):
+        if driver.find_element_by_xpath(
+            "//*[text()[contains(., 'Error code')]]",
+        ):
+            raise TimeoutException()
+
+    if WebDriverWait(driver, 10).until(
+        ec.presence_of_element_located((By.CLASS_NAME, "report-title-pad"))
+    ):
+        element = driver.find_element_by_tag_name("body")
+        with open(save_as, "wb") as file:
+            file.write(element.screenshot_as_png)
 
 
-@utils.retry_on_exceptions(
-    default_value=None,
+@retry_on_exceptions(
     exceptions=(
         TimeoutException,
         WebDriverException,
     ),
-    retry_times=5,
+    max_attempts=5,
+    sleep_seconds=float("1.0"),
 )
-def clear_cookies(
+async def clear_cookies(
     driver: webdriver.Firefox,
     session: aiohttp.ClientSession,
 ) -> None:
     driver.get(f"{TARGET_URL}/logout")
     session.cookie_jar.clear()
     driver.delete_all_cookies()
-    time.sleep(1)
+    await asyncio.sleep(1)
 
 
-@utils.retry_on_exceptions(
-    default_value=bytes(),
+@retry_on_exceptions(
     exceptions=(
         aiohttp.ClientError,
         aiohttp.ClientOSError,
         socket.gaierror,
     ),
-    retry_times=5,
+    max_attempts=5,
+    sleep_seconds=float("1.0"),
 )
 async def insert_cookies(
     entity: str, session: aiohttp.ClientSession, subject: str = "*"
@@ -166,17 +218,16 @@ async def main() -> None:
             f"reportMode=true&bgChange=true"
         )
         async for org_id, _, _ in utils.iterate_organizations_and_groups():
-            await insert_cookies("organization", session)
-            await in_thread(
-                take_snapshot,
+            await take_snapshot(
                 driver=driver,
                 save_as=utils.get_result_path(
                     name=f"organization:{safe_encode(org_id.lower())}.png",
                 ),
                 session=session,
                 url=f"{base}&organization={percent_encode(org_id)}",
+                entity="organization",
             )
-            clear_cookies(driver, session)
+            await clear_cookies(driver, session)
 
         # Group reports
         base = (
@@ -184,17 +235,16 @@ async def main() -> None:
             f"reportMode=true&bgChange=true"
         )
         async for group in utils.iterate_groups():
-            await insert_cookies("group", session)
-            await in_thread(
-                take_snapshot,
+            await take_snapshot(
                 driver=driver,
                 save_as=utils.get_result_path(
                     name=f"group:{safe_encode(group.lower())}.png",
                 ),
                 session=session,
                 url=f"{base}&group={percent_encode(group)}",
+                entity="group",
             )
-            clear_cookies(driver, session)
+            await clear_cookies(driver, session)
 
         # Portfolio reports
         base = (
@@ -207,9 +257,7 @@ async def main() -> None:
         ):
             for portfolio, _ in await utils.get_portfolios_groups(org_name):
                 subject = percent_encode(org_id + separator + portfolio)
-                await insert_cookies("portfolio", session, subject)
-                await in_thread(
-                    take_snapshot,
+                await take_snapshot(
                     driver=driver,
                     save_as=utils.get_result_path(
                         name="portfolio:"
@@ -222,8 +270,10 @@ async def main() -> None:
                     ),
                     session=session,
                     url=f"{base}&portfolio={subject}",
+                    entity="portfolio",
+                    subject=subject,
                 )
-                clear_cookies(driver, session)
+                await clear_cookies(driver, session)
 
 
 if __name__ == "__main__":
