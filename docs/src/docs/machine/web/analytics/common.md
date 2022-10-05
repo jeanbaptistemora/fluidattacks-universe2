@@ -44,11 +44,13 @@ within your system.
 
 ![Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/remediation_rate.png)
 
-The percentage of closed
-vulnerabilities that is
-the number of closed
-vulnerabilities over all those
-reported within your system.
+The percentage of cvssf
+remediated (closed/total) in
+the different groups,
+organization (all groups in
+the organization),
+or portfolio (all groups in
+the portfolio).
 
 ## Exposure management over time
 
