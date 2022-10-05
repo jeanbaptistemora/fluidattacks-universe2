@@ -113,7 +113,62 @@ async def uses_insecure_security_policy(
     return vulns
 
 
+async def target_group_insecure_port(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="elbv2", function="describe_target_groups"
+    )
+    target_groups = response.get("TargetGroups", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if target_groups:
+        for index, target_group in enumerate(target_groups):
+            locations: List[Location] = []
+            port = target_group.get("Port", "")
+            target_type = target_group.get("TargetType", "")
+            if target_type == "lambda":
+                continue
+            if not port:
+                locations = [
+                    Location(
+                        access_patterns=(),
+                        arn=(f"{target_group['TargetGroupArn']}"),
+                        values=(),
+                        description=(
+                            "src.lib_path.f070."
+                            "elb2_uses_insecure_security_policy"
+                        ),
+                    )
+                ]
+
+            elif int(port) != 443:
+                locations = [
+                    Location(
+                        access_patterns=(f"/TargetGroups/{index}/Port",),
+                        arn=(f"{target_group['TargetGroupArn']}"),
+                        values=(port,),
+                        description=(
+                            "src.lib_path.f070.elb2_target_group_insecure_port"
+                        ),
+                    )
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_GROUP_INSECURE_PORT),
+                    aws_response=response,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (uses_insecure_security_policy,)
+] = (
+    target_group_insecure_port,
+    uses_insecure_security_policy,
+)
