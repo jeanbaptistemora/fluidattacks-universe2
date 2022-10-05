@@ -54,6 +54,19 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
       return <div />;
     }
     const { organization } = data;
+    const standardWithLowestCompliance =
+      organization.compliance.standards.reduce(
+        (
+          lowestStandard: IStandardComplianceAttr | undefined,
+          standard: IStandardComplianceAttr
+        ): IStandardComplianceAttr =>
+          _.isUndefined(lowestStandard) ||
+          (!_.isUndefined(lowestStandard) &&
+            standard.complianceLevel < lowestStandard.complianceLevel)
+            ? standard
+            : lowestStandard,
+        undefined
+      );
 
     return (
       <React.StrictMode>
@@ -118,8 +131,11 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
                   info={t(
                     "organization.tabs.compliance.tabs.overview.organizationCompliance.etToFullCompliance.info",
                     {
-                      days: organization.compliance
-                        .estimatedDaysToFullCompliance,
+                      days: Math.ceil(
+                        handleComplianceValue(
+                          organization.compliance.estimatedDaysToFullCompliance
+                        )
+                      ),
                     }
                   )}
                   title={t(
@@ -129,21 +145,46 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
               </Col>
             </Row>
           </Col>
-          <Col lg={40} md={40} sm={100}>
-            <Text fw={7} mb={3} mt={2} size={"big"}>
-              {t(
-                "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.text"
-              )}{" "}
-              <InfoDropdown>
-                <Text size={"small"} ta={"center"}>
-                  {t(
-                    "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.info",
-                    { organizationName: organization.name }
-                  )}
-                </Text>
-              </InfoDropdown>
-            </Text>
-          </Col>
+          {_.isUndefined(standardWithLowestCompliance) ? undefined : (
+            <Col lg={40} md={40} sm={100}>
+              <Text fw={7} mb={3} mt={2} size={"big"}>
+                {t(
+                  "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.text"
+                )}{" "}
+                <InfoDropdown>
+                  <Text size={"small"} ta={"center"}>
+                    {t(
+                      "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.info",
+                      { organizationName: organization.name }
+                    )}
+                  </Text>
+                </InfoDropdown>
+              </Text>
+              <Row>
+                <Col lg={50} md={50} sm={50} />
+                <Col lg={50} md={50} sm={50}>
+                  <PercentageCard
+                    info={t(
+                      "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.complianceLevelOfStandard.info",
+                      {
+                        percentage: handleCompliancePercentageValue(
+                          standardWithLowestCompliance.complianceLevel
+                        ),
+                        standardTitle:
+                          standardWithLowestCompliance.standardTitle.toUpperCase(),
+                      }
+                    )}
+                    percentage={handleCompliancePercentageValue(
+                      standardWithLowestCompliance.complianceLevel
+                    )}
+                    title={t(
+                      "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.complianceLevelOfStandard.title"
+                    )}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          )}
         </Row>
         <Row>
           <Col lg={100} md={100} sm={100}>

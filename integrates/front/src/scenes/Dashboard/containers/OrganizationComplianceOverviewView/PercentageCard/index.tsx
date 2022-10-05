@@ -29,8 +29,13 @@ const PercentageCard: FC<IPercentageCardProps> = (
   return (
     <Card>
       <Row>
-        <Text size={"small"} ta={"center"}>
-          {title} <InfoDropdown>{info}</InfoDropdown>
+        <Text size={"small"} ta={"center"} ws={"nowrap"}>
+          {title}{" "}
+          <InfoDropdown>
+            <Text size={"small"} ta={"center"} ws={"pre-line"}>
+              {info}
+            </Text>
+          </InfoDropdown>
         </Text>
       </Row>
       <Row>

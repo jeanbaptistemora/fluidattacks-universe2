@@ -1752,6 +1752,10 @@ export const enTranslations: ResourceKey = {
               },
             },
             standardWithLowestCompliance: {
+              complianceLevelOfStandard: {
+                info: "The standard with the lowest compliance is {{standardTitle}} with {{percentage}}%",
+                title: "Compliance level of standard",
+              },
               title: {
                 info: "The standard with lowest compliance within the organization",
                 text: "Standard with lowest compliance",
