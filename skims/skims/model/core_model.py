@@ -1851,7 +1851,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
-    AWS_USES_INSECURE_SECURITY_POLICY = MethodInfo(
+    AWS_INSECURE_SECURITY_POLICY = MethodInfo(
         file_name="aws",
         name="uses_insecure_security_policy",
         module="dast",
