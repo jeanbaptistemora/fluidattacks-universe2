@@ -12,12 +12,7 @@ function getPixels(text) {
   const maxNegativeNumber = -100;
   const moveTextPostive = parseFloat(text) > maxPositiveNumber ? '-60' : '-40';
   const moveTextNegative = parseFloat(text) > maxNegativeNumber ? '30' : '40';
-  return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
-}
 
-function getOldPixels(text) {
-  const moveTextPostive = 15;
-  const moveTextNegative = -25;
   return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
 }
 
@@ -247,27 +242,6 @@ function load() {
   const dataDocument = JSON.parse(args.data);
 
   const chart = render(dataDocument, args.height, args.width);
-
-  if (dataDocument.exposureTrendsByCategories) {
-    d3.select(chart.element).select('.c3-axis-x').select('.domain')
-      .style('visibility', 'hidden');
-    d3.select(chart.element).select('.c3-axis-x').selectAll('line')
-      .style('visibility', 'hidden');
-    d3.select(chart.element)
-      .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
-        const text = d3.select(textList[index]).text();
-        const itemClass = d3.select(textList[index]).attr('class');
-        const pixels = getOldPixels(text);
-
-        if (parseFloat(text) === 0) {
-          d3.select(textList[index])
-            .style('transform', 'translate(0, 7px)')
-            .attr('class', `${ itemClass } exposureTrendsByCategories`);
-        } else {
-          d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`);
-        }
-      });
-  }
 
   if (dataDocument.exposureTrendsByCategories && dataDocument.axis.rotated) {
     d3.select(chart.element).select('.c3-axis-y').select('.domain')

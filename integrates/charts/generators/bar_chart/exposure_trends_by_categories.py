@@ -253,7 +253,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             y=dict(
                 label=dict(
                     text="CVSSF",
-                    position="outter-top",
+                    position="outer-top",
                 ),
             ),
         ),

@@ -66,6 +66,7 @@ async def _run(*, entity: str, additional_info: str) -> int:
     return await process.wait()
 
 
+@pytest.mark.changes_db
 async def test_finding_report() -> None:
     query_pdf = """
         query test {

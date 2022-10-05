@@ -88,6 +88,7 @@ pytestmark = [
                         commit=None,
                         custom_severity=None,
                         hash=None,
+                        root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                         stream=None,
                         tags=None,
                         treatment=VulnerabilityTreatment(
