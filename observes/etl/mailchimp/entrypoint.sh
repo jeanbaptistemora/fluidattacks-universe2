@@ -16,6 +16,7 @@ function start_etl {
     && mailchimp_creds=$(mktemp) \
     && aws_login "prod_observes" "3600" \
     && export_notifier_key \
+    && export_snowflake \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       mailchimp_api_key \
       mailchimp_dc \
@@ -40,7 +41,10 @@ function start_etl {
       < .singer \
     && job-last-success single-job \
       --auth "${db_creds}" \
-      --job 'mailchimp'
+      --job 'mailchimp' \
+    && target-snowflake destroy-and-upload \
+      --schema-name 'mailchimp' \
+      < .singer
 }
 
 start_etl
