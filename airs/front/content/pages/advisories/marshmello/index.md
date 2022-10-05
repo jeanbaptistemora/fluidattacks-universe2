@@ -8,8 +8,8 @@ product: Gridea 0.9.3
 date: 2022-09-26 02:30 COT
 cveid: CVE-2022-40274
 severity: 8.6
-description: Gridea 0.9.3  -  RCE via nodeIntegration feature
-keywords: Fluid Attacks, Security, Vulnerabilities, Gridea
+description: Gridea 0.9.3  -  RCE via nodeIntegration feature - Remote command execution
+keywords: Fluid Attacks, Security, Vulnerabilities, Gridea, RCE
 banner: advisories-bg
 advise: yes
 template: advisory

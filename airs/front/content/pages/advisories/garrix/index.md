@@ -8,8 +8,8 @@ product: Microweber 1.3.1
 date: 2022-09-19 09:00 COT
 cveid: CVE-2022-0698
 severity: 8.8
-description: Microweber 1.3.1  -  DOM XSS to Account Takeover
-keywords: Fluid Attacks, Security, Vulnerabilities, Microweber
+description: Microweber 1.3.1  -  DOM XSS to Account Takeover - DOM-Based cross-site scripting (XSS)
+keywords: Fluid Attacks, Security, Vulnerabilities, Microweber, XSS
 banner: advisories-bg
 advise: no
 template: advisory

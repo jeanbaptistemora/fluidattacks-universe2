@@ -1,6 +1,3 @@
-#!comment: SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#!comment: SPDX-License-Identifier: MPL-2.0
-
 airs/front/content/blog/amsi-bypass/index.md
 airs/front/content/blog/another-proud-son-json/index.md
 airs/front/content/blog/attack-no-announce/index.md
@@ -289,4 +286,4 @@ airs/front/content/blog/amsi-bypass/index.md
 airs/front/content/blog/choosing-pentesting-team/index.md
 airs/front/content/blog/relleno-credenciales/index.md
 airs/front/content/blog/secdevops-security-champions-spa/index.md
-airs/front/content/pages/qr-event/index.md
+airs/front/content/pages/qr-events/index.md

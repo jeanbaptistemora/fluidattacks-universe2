@@ -9,7 +9,7 @@ date: 2022-09-26 06:00 COT
 cveid: CVE-2022-1959
 severity: 5.5
 description: AppLock 7.9.29  -  Improper Access Control - Fingerprint
-keywords: Fluid Attacks, Security, Vulnerabilities, AppLock, spsoftmobile, spsoft, Fingerprint
+keywords: Fluid Attacks, Security, Vulnerabilities, AppLock, Spsoft Mobile, Spsoft, Fingerprint
 banner: advisories-bg
 advise: yes
 template: advisory

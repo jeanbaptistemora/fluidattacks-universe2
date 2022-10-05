@@ -8,8 +8,8 @@ product: Gridea 0.9.3
 date: 2022-09-26 03:00 COT
 cveid: CVE-2022-40275
 severity: 5.5
-description: Gridea 0.9.3  -  Local File Read
-keywords: Fluid Attacks, Security, Vulnerabilities, Gridea
+description: Gridea 0.9.3  -  Local File Read - Insecure or unset HTTP headers
+keywords: Fluid Attacks, Security, Vulnerabilities, Gridea, HTTP
 banner: advisories-bg
 advise: yes
 template: advisory
