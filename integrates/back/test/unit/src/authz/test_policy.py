@@ -42,7 +42,7 @@ pytestmark = [
     ["table", "length"],
     [
         ["fi_authz", 7],
-        ["integrates_vms", 4],
+        ["integrates_vms", 6],
     ],
 )
 def test_create_tables(
@@ -95,12 +95,25 @@ async def test_get_user_level_role(
         ],
     ],
 )
-async def test_get_group_service_attributes_policies(
-    group: str, result: list
+async def test_get_group_service_policies(
+    group: str,
+    result: list,
+    dynamo_resource: ServiceResource,
 ) -> None:
+    def side_effect(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     loaders: Dataloaders = get_new_context()
-    group_policies_fn = get_group_service_policies
-    assert sorted(group_policies_fn(await loaders.group.load(group))) == result
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = side_effect
+        group_policies = get_group_service_policies(
+            await loaders.group.load(group)
+        )
+    assert mock_table_resource
+    assert sorted(group_policies) == result
 
 
 @pytest.mark.parametrize(
