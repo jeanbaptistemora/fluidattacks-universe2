@@ -59,7 +59,7 @@
           outputs."/forces/config/runtime"
           outputs."/forces/config/typing-stubs"
         ];
-        python = "3.8";
+        python = "3.10";
         src = "/forces/forces";
       };
       forcesTests = {
@@ -68,7 +68,7 @@
           outputs."/forces/config/runtime"
           outputs."/forces/config/typing-stubs"
         ];
-        python = "3.8";
+        python = "3.10";
         src = "/forces/test";
       };
     };
