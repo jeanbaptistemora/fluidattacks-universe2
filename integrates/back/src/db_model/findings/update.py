@@ -22,6 +22,7 @@ from .types import (
     FindingVerificationSummary,
 )
 from .utils import (
+    adjust_historic_dates,
     format_evidences_item,
     format_state_item,
     format_treatment_summary_item,
@@ -31,8 +32,10 @@ from .utils import (
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    Key,
 )
 from custom_exceptions import (
+    EmptyHistoric,
     FindingNotFound,
     IndicatorAlreadyUpdated,
 )
@@ -54,6 +57,7 @@ from enum import (
     Enum,
 )
 from typing import (
+    cast,
     Optional,
 )
 
@@ -207,6 +211,109 @@ async def update_state(
     await operations.put_item(
         facet=TABLE.facets["finding_historic_state"],
         item=historic_state_item,
+        table=TABLE,
+    )
+
+
+async def update_historic_state(
+    *,
+    group_name: str,
+    finding_id: str,
+    historic_state: tuple[FindingState, ...],
+) -> None:
+    if not historic_state:
+        raise EmptyHistoric()
+
+    historic_state = cast(
+        tuple[FindingState, ...], adjust_historic_dates(historic_state)
+    )
+    item = {"state": format_state_item(historic_state[-1])}
+    creation = next(
+        state
+        for state in historic_state
+        if state.status == FindingStateStatus.CREATED
+    )
+    item["creation"] = format_state_item(creation)
+    submission = next(
+        (
+            state
+            for state in reversed(historic_state)
+            if state.status == FindingStateStatus.SUBMITTED
+        ),
+        None,
+    )
+    if submission:
+        item["submission"] = format_state_item(submission)
+    approval = next(
+        (
+            state
+            for state in reversed(historic_state)
+            if state.status == FindingStateStatus.APPROVED
+        ),
+        None,
+    )
+    if approval:
+        item["approval"] = format_state_item(approval)
+
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    try:
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists()
+            & Attr("state.status").ne(FindingStateStatus.DELETED.value),
+            item=item,
+            key=primary_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise FindingNotFound() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_state"],
+        values={"id": finding_id},
+    )
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_historic_state"],),
+        table=TABLE,
+    )
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets["finding_historic_state"],
+            values={
+                "iso8601utc": item["modified_date"],
+                "id": finding_id,
+            },
+        )
+        for item in response.items
+    }
+    new_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["finding_historic_state"],
+            values={
+                "id": finding_id,
+                "iso8601utc": entry.modified_date,
+            },
+        )
+        for entry in historic_state
+    )
+    new_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **format_state_item(entry),
+        }
+        for key, entry in zip(new_keys, historic_state)
+    )
+    await operations.batch_put_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
         table=TABLE,
     )
 
