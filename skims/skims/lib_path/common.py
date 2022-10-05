@@ -485,18 +485,22 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
 
 
 def format_pkg_dep(
-    pkg_name: Any, version: Any, line_number: Any, column: Any = 0
+    pkg_name: Any,
+    version: Any,
+    product_line: Any,
+    version_line: Any,
+    column: Any = 0,
 ) -> DependencyType:
 
     return (
         {
             "column": column,
-            "line": line_number,
+            "line": product_line,
             "item": pkg_name,
         },
         {
             "column": column,
-            "line": line_number,
+            "line": version_line,
             "item": version,
         },
     )

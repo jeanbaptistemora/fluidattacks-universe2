@@ -47,7 +47,7 @@ def gem_gemfile(content: str, path: str) -> Iterator[DependencyType]:
                 continue
             pkg_name = matched.group(1)
             version = matched.group(2)
-            yield format_pkg_dep(pkg_name, version, line_number)
+            yield format_pkg_dep(pkg_name, version, line_number, line_number)
 
 
 # pylint: disable=unused-argument
@@ -66,6 +66,6 @@ def gem_gemfile_lock(content: str, path: str) -> Iterator[DependencyType]:
                 continue
             match_arr.append(pkg_name)
             version = matched.group(2)
-            yield format_pkg_dep(pkg_name, version, line_number)
+            yield format_pkg_dep(pkg_name, version, line_number, line_number)
         elif not line or not line.startswith(" "):
             break

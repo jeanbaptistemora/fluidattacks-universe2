@@ -6,6 +6,7 @@ import bs4
 import glob
 from lib_path.common import (
     DependencyType,
+    format_pkg_dep,
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
@@ -109,10 +110,7 @@ def resolve_dependencies_helper(content: str) -> Iterator[DependencyType]:
         if version == "":
             continue
 
-        yield (
-            {"column": column, "line": line_no, "item": product},
-            {"column": column, "line": line_no, "item": version},
-        )
+        yield format_pkg_dep(product, version, line_no, line_no, column)
 
 
 def maven_gradle(content: str, path: str) -> Vulnerabilities:
@@ -192,14 +190,12 @@ def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
             a_text = _find_vars(artifact.get_text(), path)
             if version is None:
                 continue
+            product = f"{g_text}:{a_text}"
             v_text = _find_vars(version.get_text(), path)
             column = version.sourcepos
             line = version.sourceline
 
-            yield (
-                {"column": column, "line": line, "item": f"{g_text}:{a_text}"},
-                {"column": column, "line": line, "item": v_text},
-            )
+            yield format_pkg_dep(product, v_text, line, line, column)
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
@@ -220,10 +216,7 @@ def maven_sbt(content: str, path: str) -> Vulnerabilities:
             else:
                 continue
 
-            yield (
-                {"column": column, "line": line_no, "item": product},
-                {"column": column, "line": line_no, "item": version},
-            )
+            yield format_pkg_dep(product, version, line_no, line_no, column)
 
     return translate_dependencies_to_vulnerabilities(
         content=content,

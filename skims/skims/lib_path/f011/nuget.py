@@ -5,6 +5,7 @@
 import bs4
 from lib_path.common import (
     DependencyType,
+    format_pkg_dep,
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
@@ -26,10 +27,7 @@ def nuget_csproj(content: str, path: str) -> Vulnerabilities:
                 column = pkg.sourcepos
                 line = pkg.sourceline
 
-                yield (
-                    {"column": column, "line": line, "item": id_},
-                    {"column": column, "line": line, "item": version},
-                )
+                yield format_pkg_dep(id_, version, line, line, column)
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
@@ -49,10 +47,7 @@ def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
                 column = pkg.sourcepos
                 line = pkg.sourceline
 
-                yield (
-                    {"column": column, "line": line, "item": id_},
-                    {"column": column, "line": line, "item": version},
-                )
+                yield format_pkg_dep(id_, version, line, line, column)
 
     return translate_dependencies_to_vulnerabilities(
         content=content,

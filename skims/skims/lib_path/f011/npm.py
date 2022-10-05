@@ -8,6 +8,7 @@ from frozendict import (
 from lib_path.common import (
     build_dependencies_tree,
     DependencyType,
+    format_pkg_dep,
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
@@ -104,17 +105,12 @@ def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
             )
             if dependencies_tree:
                 for key, value in dependencies_tree.items():
-                    yield (
-                        {
-                            "column": 0,
-                            "line": value.get("product_line"),
-                            "item": key.split("@")[:-1][0],
-                        },
-                        {
-                            "column": 0,
-                            "line": value.get("version_line"),
-                            "item": value.get("version"),
-                        },
+                    product = key.split("@")[:-1][0]
+                    product_line = value.get("product_line")
+                    version = value.get("version")
+                    version_line = value.get("version_line")
+                    yield format_pkg_dep(
+                        product, version, product_line, version_line
                     )
 
         except FileNotFoundError:
@@ -145,9 +141,8 @@ def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
                     version = version.split(" ", maxsplit=1)[1]
                     version = version.strip('"')
 
-                    yield (
-                        {"column": 0, "line": product_line, "item": product},
-                        {"column": 0, "line": version_line, "item": version},
+                    yield format_pkg_dep(
+                        product, version, product_line, version_line
                     )
 
     return translate_dependencies_to_vulnerabilities(
