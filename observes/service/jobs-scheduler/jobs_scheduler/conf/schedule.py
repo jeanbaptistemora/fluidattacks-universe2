@@ -48,10 +48,8 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
             Job.DELIGHTED,
         ),
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),
-        week_days(
-            ANY, range(0, 24, 6), DaysRange(Days.MON, Days.SUN)
-        ).unwrap(): (Job.GITLAB_PRODUCT,),
         work_days(ANY, range(7, 19, 1)).unwrap(): (
+            Job.GITLAB_PRODUCT,
             Job.GITLAB_CHALLENGES,
             Job.GITLAB_DEFAULT,
             Job.GITLAB_SERVICES,
