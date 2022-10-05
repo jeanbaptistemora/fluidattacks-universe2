@@ -29,29 +29,9 @@ and you will see how to do it!
 
 ## To-Do List table
 
-Moving to the next field is
-the **Reattacks** filter.
-It allows you to filter your
-to-do list by the status of
-[treatment](/squad/reattacks/),
-which can be either
-**Requested** or **Verified**.
-
-![Reattacks Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_reattacks.jpg)
-
-The last option is to filter by
-**Report date (Range)**.
-For the purpose of filtering
-vulnerabilities reported within
-a date range, there is a start
-date and an end date field.
-You can type a specific date in
-each field to create the date
-range that you want to visualize.
-
-If you want to clear all the
-filters that you have applied,
-simply click on the
-**Clear Filters** button.
-
-![Clear Files Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1645796934/docs/web/vulnerabilities/management/filtering_tdlist_clear_filters.png)
+The To-do list table shows
+us what vulnerabilities
+are assigned to me,
+and I am responsible
+for solving them.
+You find the following information:
