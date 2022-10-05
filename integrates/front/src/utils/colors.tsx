@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { IBadgeProps } from "components/Badge";
+import type { ITagProps } from "components/Tag";
 
 const statusGrayColor: string[] = ["Requested", "Unknown", "N/a", "Queued"];
 const statusGreenColor: string[] = [
@@ -41,7 +41,7 @@ const statusRedColor: string[] = [
   "Vulnerable",
 ];
 
-const getBgColor = (value: string): IBadgeProps["variant"] => {
+const getBgColor = (value: string): ITagProps["variant"] => {
   if (statusGrayColor.includes(value)) {
     return "gray";
   } else if (statusGreenColor.includes(value)) {

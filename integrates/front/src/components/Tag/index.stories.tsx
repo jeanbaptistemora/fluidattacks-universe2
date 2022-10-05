@@ -8,17 +8,17 @@
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
 
-import type { IBadgeProps } from ".";
-import { Badge } from ".";
+import type { ITagProps } from ".";
+import { Tag } from ".";
 
 const config: Meta = {
-  component: Badge,
-  title: "components/Badge",
+  component: Tag,
+  title: "components/Tag",
 };
 
-const Template: Story<React.PropsWithChildren<IBadgeProps>> = (
+const Template: Story<React.PropsWithChildren<ITagProps>> = (
   props
-): JSX.Element => <Badge {...props} />;
+): JSX.Element => <Tag {...props} />;
 
 const Default = Template.bind({});
 Default.args = {

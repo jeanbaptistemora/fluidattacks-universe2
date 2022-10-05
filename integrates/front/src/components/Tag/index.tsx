@@ -6,9 +6,9 @@
 
 import styled from "styled-components";
 
-type TVariant = "gray" | "green" | "orange" | "red";
+type TVariant = "blue" | "gray" | "green" | "orange" | "red";
 
-interface IBadgeProps {
+interface ITagProps {
   variant: TVariant;
 }
 
@@ -19,29 +19,34 @@ interface IVariant {
 }
 
 const variants: Record<TVariant, IVariant> = {
+  blue: {
+    bgColor: "#dce4f7",
+    borderColor: "#3778ff",
+    color: "#3778ff",
+  },
   gray: {
-    bgColor: "#e9e9ed",
-    borderColor: "#c7c7d1",
+    bgColor: "#d2d2da",
+    borderColor: "#2e2e38",
     color: "#2e2e38",
   },
   green: {
     bgColor: "#c2ffd4",
-    borderColor: "#afd8b5",
+    borderColor: "#009245",
     color: "#009245",
   },
   orange: {
     bgColor: "#ffeecc",
-    borderColor: "#ffdca9",
+    borderColor: "#d88218",
     color: "#d88218",
   },
   red: {
     bgColor: "#fdd8da",
-    borderColor: "#fbb1b5",
+    borderColor: "#bf0b1a",
     color: "#bf0b1a",
   },
 };
 
-const Badge = styled.span<IBadgeProps>`
+const Tag = styled.span<ITagProps>`
   border-radius: 50px;
   font-weight: 400;
   padding: 4px 12px;
@@ -56,5 +61,5 @@ const Badge = styled.span<IBadgeProps>`
   }}
 `;
 
-export type { IBadgeProps };
-export { Badge };
+export type { ITagProps };
+export { Tag };

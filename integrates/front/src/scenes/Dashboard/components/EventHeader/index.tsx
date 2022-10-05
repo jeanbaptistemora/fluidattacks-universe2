@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 import { HeaderContainer } from "./styles";
 
-import { Badge } from "components/Badge";
+import { Tag } from "components/Tag";
 import {
   Col100,
   EventHeaderGrid,
@@ -45,16 +45,16 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = ({
           <EventHeaderGrid>
             <EventHeaderLabel>
               {t("searchFindings.tabEvents.id")}
-              &nbsp;<Badge variant={"gray"}>{id}</Badge>
+              &nbsp;<Tag variant={"gray"}>{id}</Tag>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {t("searchFindings.tabEvents.date")}
-              &nbsp;<Badge variant={"gray"}>{eventDate}</Badge>
+              &nbsp;<Tag variant={"gray"}>{eventDate}</Tag>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {t("searchFindings.tabEvents.status")}
               &nbsp;
-              <Badge variant={"gray"}>{t(castEventStatus(eventStatus))}</Badge>
+              <Tag variant={"gray"}>{t(castEventStatus(eventStatus))}</Tag>
             </EventHeaderLabel>
           </EventHeaderGrid>
         </Col100>

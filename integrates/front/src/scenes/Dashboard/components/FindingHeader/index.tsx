@@ -14,9 +14,9 @@ import {
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import type { IBadgeProps } from "components/Badge";
-import { Badge } from "components/Badge";
 import { Indicator, Indicators } from "components/Indicators";
+import type { ITagProps } from "components/Tag";
+import { Tag } from "components/Tag";
 import { Tooltip } from "components/Tooltip";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
@@ -33,7 +33,7 @@ interface IFindingHeaderProps {
 
 const severityConfigs: Record<
   string,
-  { color: IBadgeProps["variant"]; text: string }
+  { color: ITagProps["variant"]; text: string }
 > = {
   CRITICAL: {
     color: "red",
@@ -118,7 +118,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = ({
             t("searchFindings.header.severity.tooltip") + severityLevelTooltip
           }
         >
-          <Badge variant={color}>{severity}</Badge>
+          <Tag variant={color}>{severity}</Tag>
           &nbsp;{"-"}&nbsp;
           {severityText}
         </Tooltip>
