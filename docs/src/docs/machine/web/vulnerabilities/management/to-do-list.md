@@ -18,33 +18,14 @@ in the top bar or follow
 [this link](https://app.fluidattacks.com/todos)
 (/todos).
 
-Right away, the new person responsible
-for fixing the vulnerability will
-receive an email notification telling
-them about the new assignment, specifying
-the type of vulnerability, the group
-and the location.
-Clicking the **Go to finding** button
-will redirect them to the **Location**
-section on the ARM.
+![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1664998109/docs/web/vulnerabilities/management/todolist.png)
 
-![Vulnerability Assigment](https://res.cloudinary.com/fluid-attacks/image/upload/v1645195953/docs/web/vulnerabilities/management/to_do_list_go_find.png)
-
-The person who was assigned the
-task will be able to find the
-aforementioned **To-Do List**
-function on the top-right menu
-of the ARM, next to the
-megaphone icon.
-The number over the icon will
-tell them how many vulnerabilities
-are assigned to them.
-Clicking on the icon will allow
-them to see the vulnerability
-locations they are responsible
-for remediating.
-
-![Vulnerabilities Assigned](https://res.cloudinary.com/fluid-attacks/image/upload/v1645198529/docs/web/vulnerabilities/management/to_do_list_menu.png)
+However,
+an initial question could be:
+How can we assign vulnerabilities
+to our team?
+Enter this link,
+and you will see how to do it!
 
 ## Filtering your To-Do List
 
