@@ -121,7 +121,7 @@ we divide them by use case:
    $ m
    ```
 
-1. Use the products of your choice:
+1. As End User you can now use the products of your choice:
 
    ```bash
    $ m gitlab:fluidattacks/universe@trunk /forces --help
@@ -130,6 +130,8 @@ we divide them by use case:
    $ m gitlab:fluidattacks/universe@trunk /skims --help
    $ m gitlab:fluidattacks/universe@trunk /sorts --help
    ```
+
+As developer, follow Development Environment section.
 
 ## Updating
 

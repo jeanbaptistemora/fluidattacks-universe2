@@ -22,22 +22,6 @@ as the command interpreter of your terminal.
 Please follow the following steps:
 
 1. Install [direnv](https://direnv.net/).
-1. Add the following to the end of your `~/.bashrc`:
-
-   ```bash
-   export DIRENV_WARN_TIMEOUT=1h
-   source <(direnv hook bash)
-   ```
-
-1. Clone the
-   [universe repository](https://gitlab.com/fluidattacks/universe)
-   into the path of your preference.
-1. Change directory to the universe repository:
-
-   ```bash
-   $ cd $universe
-   $
-   ```
 
 1. Add the following variables to your `~/.bashrc`
    or to a file at `$universe/.envrc.config`:
@@ -45,6 +29,29 @@ Please follow the following steps:
    ```bash
    export OKTA_EMAIL=<username>@fluidattacks.com
    export OKTA_PASS=<your-password>
+   ```
+
+   You can optionally omit the OKTA_PASS. In that case, 
+   it will be asked interactively on the terminal.
+
+1. Add the following to the end of your `~/.bashrc`:
+
+   ```bash
+   export DIRENV_WARN_TIMEOUT=1h
+   source <(direnv hook bash)
+   ```
+
+  Reload your terminal for changes to be loaded.
+
+1. Clone the
+   [universe repository](https://gitlab.com/fluidattacks/universe)
+   into the path of your preference.
+
+1. Change directory to the universe repository:
+
+   ```bash
+   $ cd $universe
+   $
    ```
 
 1. Pick the AWS role you want to load AWS credentials for.
@@ -65,6 +72,7 @@ Please follow the following steps:
    Selection: <type a number here>
    ```
 
+   - This prompt will be shown only if you have multiple roles assigned.
    - If you see an authentication error,
      make sure your email and password are correct.
    - If you see the following error:
@@ -138,5 +146,8 @@ is spawned as a child process,
 and environment variables like _PATH_, _AWS\_\*_, among others,
 are inherited by the child process
 from the parent process.
+
+For specific last steps to have each product running in local
+please refer to products section.
 
 [aws]: https://aws.amazon.com/
