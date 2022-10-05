@@ -51,6 +51,8 @@ def _expression(
         ):
             index_text = index_text.replace('"', "").replace("'", "")
             identifier_name = f"{object_name}.{index_text}"
+        else:
+            identifier_name = node_to_str(args.graph, left_id)
     else:
         raise MissingCaseHandling(args)
 

@@ -282,6 +282,14 @@ for (const { name, exclude } of autoModels) {
 
 arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, "hello");
 
+function generateWait() {
+    $("#generate-wait").fadeOut(500, () => {});
+}
+
+if (!(key in service[ourService])) {
+    service[ourService][key] = [];
+}
+
 export let name1, name2;
 export const name3 = 1, name4 = 2;
 export function functionName() { /* … */ }
