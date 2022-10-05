@@ -1,0 +1,117 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph common {
+  label="Common Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.4 1.0"
+    node[fillcolor="0.1 0.8 1.0"]
+
+    subgraph cluster_aws_dynamodb {
+      label="DynamoDB"
+
+      cluster_aws_dynamodb_common_terraform_state_lock[label="terraform_state_lock" shape="cylinder" width="3.0"]
+    }
+
+    subgraph cluster_aws_ec2 {
+      label="EC2"
+
+      aws_ec2_common_ci_runner_large[label="common-ci-runner-large_*" peripheries="2"]
+      aws_ec2_common_ci_runner_small[label="common-ci-runner-small_*" peripheries="2"]
+    }
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_common_ci {
+        label="common-ci-cache-*"
+
+        cluster_aws_s3_common_ci_cache[label="Cached Artifacts"]
+      }
+    }
+
+    subgraph cluster_aws_vpc {
+      label="VPC"
+
+      subgraph cluster_aws_vpc_fluid_vpc {
+        label="fluid-vpc"
+
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
+
+          cluster_aws_vpc_fluid_vpc_subnets_ci[label="ci"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+    bgcolor="0.6 0.4 1.0"
+    node[fillcolor="0.6 0.8 1.0"]
+
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.4 1.0"
+    node[fillcolor="0.8 0.8 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="Common"
+
+        gitlab_git_common[label="Source Code"]
+        gitlab_git_common_ci[label="CI"]
+        gitlab_git_common_ci_terraform[label="Terraform"]
+        gitlab_git_common_ci_terraform_npalm_gitlab_runner[label="npalm/gitlab-runner"]
+        gitlab_git_common_cluster[label="Cluster"]
+      }
+    }
+
+    gitlab_open_id_provider[label="OpenID"]
+
+    subgraph cluster_gitlab_ci_cd {
+      label="CI/CD"
+
+      gitlab_ci_cd_runner[label="Runner"]
+    }
+  }
+
+  edge[color="0.1 0.8 1.0"]
+  aws_ec2_common_ci_runner_large -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
+  aws_ec2_common_ci_runner_small -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
+
+  edge[color="0.6 0.8 1.0"]
+
+  edge[color="0.8 0.8 1.0"]
+  gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_large[]
+  gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_small[]
+  gitlab_ci_cd_runner -> cluster_aws_s3_common_ci_cache[]
+  gitlab_ci_cd_runner -> gitlab_open_id_provider[]
+  gitlab_git_common -> gitlab_git_common_ci[]
+  gitlab_git_common -> gitlab_git_common_cluster[]
+  gitlab_git_common_ci -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
+  gitlab_git_common_ci -> gitlab_git_common_ci_terraform[]
+  gitlab_git_common_ci -> gitlab_git_common_ci_terraform_npalm_gitlab_runner[]
+
+  node[fillcolor="/x11/lightgray"]
+  customer[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="/x11/black"]
+  developer -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
+  developer -> gitlab_git_common[lhead="cluster_gitlab_git_common"]
+}

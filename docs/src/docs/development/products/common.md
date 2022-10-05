@@ -45,3 +45,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
+![Architecture of Common](./common-arch.dot.svg)

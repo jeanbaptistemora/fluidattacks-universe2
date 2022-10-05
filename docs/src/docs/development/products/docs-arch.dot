@@ -4,7 +4,9 @@
 
 digraph docs {
   label="Docs Architecture"
+  labelloc="t"
   compound="true"
+  concentrate="true"
   scale="scalexy"
 
   node[style="filled"]
@@ -13,7 +15,7 @@ digraph docs {
   subgraph cluster_aws {
     label="AWS"
     bgcolor="0.1 0.4 1.0"
-    node[color="0.1 0.8 1.0"]
+    node[fillcolor="0.1 0.8 1.0"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -35,7 +37,7 @@ digraph docs {
   subgraph cluster_cloudflare {
     label="Cloudflare"
     bgcolor="0.6 0.4 1.0"
-    node[color="0.6 0.8 1.0"]
+    node[fillcolor="0.6 0.8 1.0"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -83,7 +85,7 @@ digraph docs {
   subgraph cluster_cloudinary {
     label="Cloudinary"
     bgcolor="/x11/white"
-    node[color="/x11/lightgray"]
+    node[fillcolor="/x11/lightgray"]
 
     subgraph cluster_cloudinary_media {
       label="Media"
@@ -95,20 +97,24 @@ digraph docs {
   subgraph cluster_gitlab {
     label="GitLab"
     bgcolor="0.8 0.4 1.0"
-    node[color="0.8 0.8 1.0"]
+    node[fillcolor="0.8 0.8 1.0"]
 
-    subgraph cluster_gitlab_docs {
-      label="Docs"
+    subgraph cluster_gitlab_git {
+      label="Git"
 
-      gitlab_docs[label="Source Code"]
-      gitlab_docs_docasaurus[label="Docasaurus"]
-      gitlab_docs_graphviz[label="Graphviz"]
-      gitlab_docs_javascript[label="JavaScript"]
-      gitlab_docs_markdown[label="Markdown"]
+      subgraph cluster_gitlab_docs {
+        label="Docs"
+
+        gitlab_docs[label="Source Code"]
+        gitlab_docs_docasaurus[label="Docasaurus"]
+        gitlab_docs_graphviz[label="Graphviz"]
+        gitlab_docs_javascript[label="JavaScript"]
+        gitlab_docs_markdown[label="Markdown"]
+      }
     }
   }
 
-  node[color="/x11/lightgray"]
+  node[fillcolor="/x11/lightgray"]
   customer[label="Customer"]
   fluid_attacks_developer[label="Fluid Attacks Developer"]
 
