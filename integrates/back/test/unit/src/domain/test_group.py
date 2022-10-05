@@ -39,7 +39,6 @@ from group_comments.domain import (
     get_comments,
 )
 from groups.domain import (
-    get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
@@ -54,9 +53,6 @@ from newutils.group_comments import (
 )
 import pytest
 import time
-from typing import (
-    Optional,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -164,62 +160,6 @@ async def test_list_events() -> None:
         GroupEventsRequest(group_name=group_name)
     )
     assert expected_output == sorted([event.id for event in events_group])
-
-
-@freeze_time("2019-10-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("10")),
-        (30, Decimal("0")),
-        (90, Decimal("1")),
-    ),
-)
-async def test_get_mean_remediate_severity_low_min_days(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("0.1")
-    max_severity = Decimal("3.9")
-    mean_remediate_low_severity = await get_mean_remediate_severity(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_low_severity == expected_output
-
-
-@freeze_time("2019-11-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (None, Decimal("185")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_severity_medium(
-    min_days: Optional[int], expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("4.0")
-    max_severity = Decimal("6.9")
-    mean_remediate_medium_severity = await get_mean_remediate_severity(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_medium_severity == expected_output
 
 
 @freeze_time("2019-10-01")
