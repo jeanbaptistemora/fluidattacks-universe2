@@ -130,6 +130,12 @@ def format_data(data: Remediate) -> dict:
                 ),
             ),
         ),
+        legend=dict(
+            show=False,
+        ),
+        tooltip=dict(
+            show=False,
+        ),
         barChartYTickFormat=True,
     )
 

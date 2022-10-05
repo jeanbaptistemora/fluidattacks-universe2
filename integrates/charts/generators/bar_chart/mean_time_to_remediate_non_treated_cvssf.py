@@ -129,6 +129,12 @@ def format_data(data: Remediate) -> Dict[str, Any]:
                 ),
             ),
         ),
+        legend=dict(
+            show=False,
+        ),
+        tooltip=dict(
+            show=False,
+        ),
         bar=dict(
             width=dict(
                 ratio=BAR_RATIO_WIDTH,

@@ -137,6 +137,12 @@ def format_data_non_cvssf(data: Remediate) -> dict:
                 ratio=BAR_RATIO_WIDTH,
             ),
         ),
+        legend=dict(
+            show=False,
+        ),
+        tooltip=dict(
+            show=False,
+        ),
         axis=dict(
             x=dict(
                 categories=[value for _, value in translations.items()],
