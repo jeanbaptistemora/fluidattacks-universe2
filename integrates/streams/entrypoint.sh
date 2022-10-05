@@ -52,6 +52,7 @@ function run_dynamodb_consumer {
     "applicationName = ${name}"
     "AWSCredentialsProvider = DefaultAWSCredentialsProviderChain"
     "executableName = python3 invoker.py dynamodb"
+    "idleTimeBetweenReadsInMillis = 500"
     "initialPositionInStream = TRIM_HORIZON"
     "regionName = ${AWS_DEFAULT_REGION}"
     "streamName = $(get_stream_arn "${table}")"
