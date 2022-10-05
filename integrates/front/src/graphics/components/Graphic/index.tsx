@@ -250,6 +250,10 @@ export const Graphic: React.FC<IGraphicProps> = (
     (): string => `${subject}-${currentTitle}.csv`,
     [currentTitle, subject]
   );
+  const shouldDisplayExtraButtons: boolean = useMemo((): boolean => {
+    return expanded && !reportMode && fullSize.width > minWidthToShowButtons;
+  }, [expanded, reportMode, fullSize.width]);
+
   function changeTothirtyDays(): void {
     setSubjectName(`${subject}_30`);
     frameOnRefresh();
@@ -584,13 +588,15 @@ export const Graphic: React.FC<IGraphicProps> = (
         >
           <div className={"report-title-pad"} ref={headRef}>
             <GraphicPanelCollapseHeader>
-              <div className={styles.titleBar}>
-                <div className={"w-100 report-title"}>
-                  {currentTitle}
-                  {expanded &&
-                  !reportMode &&
-                  fullSize.width > minWidthToShowButtons ? (
-                    <div className={"fr nt2"}>
+              <div className={` ${styles.titleBar} w-100`}>
+                <div
+                  className={
+                    "w-100 report-title flex flex-wrap justify-between items-center"
+                  }
+                >
+                  <div>{currentTitle}</div>
+                  {shouldDisplayExtraButtons ? (
+                    <div>
                       <FilterButton
                         changeToAll={changeToAll}
                         changeToAlternative={changeToAlternative}

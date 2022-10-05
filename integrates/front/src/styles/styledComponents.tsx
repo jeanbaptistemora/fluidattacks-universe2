@@ -224,8 +224,10 @@ const GraphicPanelCollapseHeader: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pa3 items-center panel-ch",
-})``;
+  className: "ph3 flex items-center panel-ch",
+})`
+  height: 67px;
+`;
 
 const InputGroup: StyledComponent<
   "span",
