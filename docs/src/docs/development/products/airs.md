@@ -5,10 +5,47 @@ sidebar_label: Airs
 slug: /development/airs
 ---
 
+Airs is the product that contains our home page,
+the description of services we provide to our customers,
+our blog,
+security advisories,
+the careers page,
+and is usually the first point of contact people have with our company.
+
+## Public Interface
+
+End Users normally interact with Airs through our home page:
+[fluidattacks.com](https://fluidattacks.com/).
+
+Developers usually interact with Airs through a development endpoint
+generated from their personal Git branch on GitLab:
+[web.eph.fluidattacks.com/&lt;branch&gt;](https://web.eph.fluidattacks.com).
+
 ## Architecture
 
-You can right click on any of the the images
-to open them in a new tab,
-or save them to your computer.
+1. Airs is a static site
+   built with Tachyons,
+   React,
+   Gatsby,
+   Markdown,
+   and TypeScript.
+1. At build time,
+   we generate search indexes to leverage search functionality through Algolia.
+1. Once built,
+   its static content is deployed to an S3 bucket on Amazon Web Services (AWS).
+1. All of the media content (images, videos, etc)
+   are stored (and served from) Cloudinary.
+1. The domain's registrar is Cloudflare,
+   which also proxies incoming traffic from the users
+   through the Cloudflare network (CDN, Firewall, etc),
+   and caches the content for some time using Page Rules.
+   Before a request is returned to the user,
+   a Cloudflare Worker adds HTTP security headers like the Content-Security-Policy.
+
+:::tip
+You can right click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
 
 ![Architecture of Airs](./airs-arch.dot.svg)
