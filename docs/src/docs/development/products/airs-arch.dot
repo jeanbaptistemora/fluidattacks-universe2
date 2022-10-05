@@ -8,26 +8,25 @@ digraph airs {
   concentrate="true"
   scale="scalexy"
 
-  customer[label="Customer"]
-  fluid_attacks_developer[label="Fluid Attacks Developer"]
+  node[style="filled"]
+  graph[style="dashed,rounded"]
 
-  subgraph cluster_gitlab {
-    label="GitLab"
+  subgraph cluster_algolia {
+    label="Algolia"
+    bgcolor="/paired12/1"
+    node[color="/paired12/2"]
 
-    subgraph cluster_gitlab_airs {
-      label="Airs"
+    subgraph cluster_algolia_index {
+      label="Indexes"
 
-      gitlab_airs[label="Source Code"]
-      gitlab_airs_gatsby[label="Gatsby"]
-      gitlab_airs_markdown[label="Markdown"]
-      gitlab_airs_typescript[label="TypeScript"]
-      gitlab_airs_tachyons[label="Tachyons"]
-      gitlab_airs_react[label="React"]
+      algolia_airs[label="fluidattacks_airs"]
     }
   }
 
   subgraph cluster_aws {
     label="AWS"
+    bgcolor="/paired12/3"
+    node[color="/paired12/4"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -46,29 +45,10 @@ digraph airs {
     }
   }
 
-  subgraph cluster_cloudinary {
-    label="Cloudinary"
-
-    subgraph cluster_cloudinary_media {
-      label="Media"
-
-      cloudinary_media_airs[label="airs"]
-      cloudinary_media_blog[label="blog"]
-    }
-  }
-
-  subgraph cluster_algolia {
-    label="Algolia"
-
-    subgraph cluster_algolia_index {
-      label="Indexes"
-
-      algolia_airs[label="fluidattacks_airs"]
-    }
-  }
-
   subgraph cluster_cloudflare {
     label="Cloudflare"
+    bgcolor="/paired12/5"
+    node[color="/paired12/6"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -112,12 +92,45 @@ digraph airs {
     }
   }
 
+  subgraph cluster_cloudinary {
+    label="Cloudinary"
+    bgcolor="/paired12/7"
+    node[color="/paired12/8"]
+
+    subgraph cluster_cloudinary_media {
+      label="Media"
+
+      cloudinary_media_airs[label="airs"]
+      cloudinary_media_blog[label="blog"]
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="/paired12/9"
+    node[color="/paired12/10"]
+
+    subgraph cluster_gitlab_airs {
+      label="Airs"
+
+      gitlab_airs[label="Source Code"]
+      gitlab_airs_gatsby[label="Gatsby"]
+      gitlab_airs_markdown[label="Markdown"]
+      gitlab_airs_typescript[label="TypeScript"]
+      gitlab_airs_tachyons[label="Tachyons"]
+      gitlab_airs_react[label="React"]
+    }
+  }
+
+  edge[color="/paired12/4"]
   aws_s3_airs_dev_static -> algolia_airs[]
   aws_s3_airs_dev_static -> cloudinary_media_blog[]
   aws_s3_airs_dev_static -> cloudinary_media_airs[]
   aws_s3_airs_prod_static -> algolia_airs[]
   aws_s3_airs_prod_static -> cloudinary_media_blog[]
   aws_s3_airs_prod_static -> cloudinary_media_airs[]
+
+  edge[color="/paired12/6"]
   cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
@@ -126,8 +139,8 @@ digraph airs {
   cloudflare_zone_fluidattacks_com_dns_cname_web_eph -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
   cloudflare_zone_fluidattacks_com_rules_page -> cloudflare_zone_fluidattacks_com_rules_page_cache[]
   cloudflare_zone_fluidattacks_com_rules_page_web_eph -> cloudflare_zone_fluidattacks_com_rules_page_web_eph_cache[]
-  customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
-  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
+
+  edge[color="/paired12/10"]
   gitlab_airs -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
   gitlab_airs -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
   gitlab_airs -> gitlab_airs_gatsby[]
@@ -135,4 +148,12 @@ digraph airs {
   gitlab_airs -> gitlab_airs_typescript[]
   gitlab_airs -> gitlab_airs_tachyons[]
   gitlab_airs -> gitlab_airs_react[]
+
+  node[color="/x11/lightgray"]
+  customer[label="Customer"]
+  fluid_attacks_developer[label="Fluid Attacks Developer"]
+
+  edge[color="/x11/black"]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
+  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
 }
