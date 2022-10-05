@@ -26973,6 +26973,7 @@
           },
           "388": {
             "label_type": "UnaryExpression",
+            "operand_id": "390",
             "operator": "!"
           },
           "390": {

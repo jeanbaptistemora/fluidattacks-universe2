@@ -11,6 +11,7 @@ from model.graph_model import (
 )
 from symbolic_eval.cases import (
     argument_list,
+    array_access,
     array_creation,
     array_initializer,
     assignment,
@@ -44,6 +45,7 @@ from symbolic_eval.cases import (
     ternary_operation,
     try_statement,
     type_of,
+    unary_expression,
     using_statement,
     variable_declaration,
     while_statement,
@@ -66,6 +68,7 @@ from utils import (
 
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
+    "ArrayAccess": array_access.evaluate,
     "ArrayCreation": array_creation.evaluate,
     "ArrayInitializer": array_initializer.evaluate,
     "Assignment": assignment.evaluate,
@@ -106,6 +109,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "TryStatement": try_statement.evaluate,
     "This": not_dangerous.evaluate,
     "TypeOf": type_of.evaluate,
+    "UnaryExpression": unary_expression.evaluate,
     "UsingStatement": using_statement.evaluate,
     "VariableDeclaration": variable_declaration.evaluate,
     "VariableDeclarator": variable_declaration.evaluate,

@@ -7,18 +7,8 @@ from symbolic_eval.types import (
     SymbolicEvaluation,
 )
 
-DANGER_METHODS = {
-    "getBytes",
-    "getHeader",
-    "getHeaderNames",
-    "getHeaders",
-    "getName",
-    "getParameter",
-    "getParameterMap",
-    "getParameterNames",
-    "getParameterValues",
-    "getQueryString",
-    "getValue",
+DANGER_OBJECTS = {
+    "SeparateClassRequest",
 }
 
 
@@ -26,7 +16,7 @@ def java_command_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
     ma_attr = args.graph.nodes[args.n_id]
 
-    if ma_attr["expression"] in DANGER_METHODS:
+    if any(danger_obj in ma_attr["name"] for danger_obj in DANGER_OBJECTS):
         args.triggers.add("UserParams")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

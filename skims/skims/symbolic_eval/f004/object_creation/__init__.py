@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f004.object_creation.c_sharp import (
     cs_remote_command_execution,
 )
+from symbolic_eval.f004.object_creation.java import (
+    java_command_injection,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REMOTE_COMMAND_EXECUTION: cs_remote_command_execution,
+    MethodsEnum.QUERY_F004: java_command_injection,
 }
 
 
