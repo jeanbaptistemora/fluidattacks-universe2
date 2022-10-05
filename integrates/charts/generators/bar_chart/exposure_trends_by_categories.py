@@ -232,7 +232,16 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         legend=dict(
             show=False,
         ),
+        grid=dict(
+            x=dict(
+                show=False,
+            ),
+            y=dict(
+                show=True,
+            ),
+        ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=categories,
                 type="category",
@@ -244,7 +253,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             y=dict(
                 label=dict(
                     text="CVSSF",
-                    position="inner-top",
+                    position="outter-top",
                 ),
             ),
         ),

@@ -7,20 +7,44 @@
 
 const defaultPaddingRatio = 0.055;
 
+function getPixels(text) {
+  const maxPositiveNumber = 10000;
+  const maxNegativeNumber = -100;
+  const moveTextPostive = parseFloat(text) > maxPositiveNumber ? '-60' : '-40';
+  const moveTextNegative = parseFloat(text) > maxNegativeNumber ? '30' : '40';
+  return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
+}
+
+function getOldPixels(text) {
+  const moveTextPostive = 15;
+  const moveTextNegative = -25;
+  return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
+}
+
+function getAxisLabel(dataDocument) {
+  if (!dataDocument.axis.rotated) {
+    d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+  }
+}
+
 function getMttrColor(d) {
   return d[0].index === 0 ? '#7f0540' : '#cc6699';
 }
 
-function getColor(d, originalValues) {
+function getColor(dataDocument, d, originalValues) {
   if (originalValues[d[0].x] > 0) {
     return '#da1e28';
   }
+  if (dataDocument.exposureTrendsByCategories) {
+    return '#30c292';
+  }
+
   return '#33cc99';
 }
 
 function getTooltipColorContent(dataDocument, originalValues, d, color) {
   if (dataDocument.exposureTrendsByCategories) {
-    return () => getColor(d, originalValues);
+    return () => getColor(dataDocument, d, originalValues);
   }
   if (dataDocument.mttrBenchmarking) {
     return () => getMttrColor(d);
@@ -112,6 +136,11 @@ function formatLabels(datum, maxValue) {
 // eslint-disable-next-line complexity
 function render(dataDocument, height, width) {
   dataDocument.paddingRatioLeft = 0.065;
+
+  if (dataDocument.axis.rotated) {
+    dataDocument.paddingRatioLeft = 0.2;
+  }
+
   if (dataDocument.barChartYTickFormat) {
     const { tick } = dataDocument.axis.y;
     dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick) };
@@ -155,7 +184,7 @@ function render(dataDocument, height, width) {
     const { maxValueLogAdjusted, originalValues, data: columsData } = dataDocument;
     const { columns } = columsData;
     dataDocument.axis.y.tick = { format: formatYTickAdjusted };
-    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#da1e28' : '#33cc99');
+    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#da1e28' : '#30c292');
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
@@ -170,13 +199,13 @@ function render(dataDocument, height, width) {
     // eslint-disable-next-line id-blacklist
     data: {
       onmouseover: () => {
-        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+        getAxisLabel(dataDocument);
       },
       onmouseout: () => {
-        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+        getAxisLabel(dataDocument);
       },
       onclick: () => {
-        d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+        getAxisLabel(dataDocument);
       },
     },
     ...dataDocument,
@@ -191,13 +220,13 @@ function render(dataDocument, height, width) {
         );
       } },
     onrendered: () => {
-      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      getAxisLabel(dataDocument);
     },
     onmouseover: () => {
-      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      getAxisLabel(dataDocument);
     },
     onmouseout: () => {
-      d3.select('.c3-axis-y-label').attr('dx', '-0.3em').attr('dy', '1em');
+      getAxisLabel(dataDocument);
     },
     bindto: 'div',
     padding: {
@@ -228,9 +257,7 @@ function load() {
       .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
         const text = d3.select(textList[index]).text();
         const itemClass = d3.select(textList[index]).attr('class');
-        const moveTextPostive = 15;
-        const moveTextNegative = -25;
-        const pixels = parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
+        const pixels = getOldPixels(text);
 
         if (parseFloat(text) === 0) {
           d3.select(textList[index])
@@ -238,6 +265,29 @@ function load() {
             .attr('class', `${ itemClass } exposureTrendsByCategories`);
         } else {
           d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`);
+        }
+      });
+  }
+
+  if (dataDocument.exposureTrendsByCategories && dataDocument.axis.rotated) {
+    d3.select(chart.element).select('.c3-axis-y').select('.domain')
+      .style('visibility', 'hidden');
+    d3.select(chart.element).select('.c3-axis-y').selectAll('line')
+      .style('visibility', 'hidden');
+    d3.select(chart.element).select('.c3-axis-x').select('.domain')
+      .style('visibility', 'hidden');
+    d3.select(chart.element).select('.c3-axis-x').selectAll('line')
+      .style('visibility', 'hidden');
+    d3.select(chart.element)
+      .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
+        const text = d3.select(textList[index]).text();
+        const pixels = getPixels(text);
+
+        if (parseFloat(text) === 0) {
+          d3.select(textList[index])
+            .style('visibility', 'hidden');
+        } else {
+          d3.select(textList[index]).style('transform', `translate(${ pixels }px, -1px)`);
         }
       });
   }
