@@ -5,6 +5,9 @@
 from . import (
     _encode,
 )
+from ._rows_package import (
+    RowsPackage,
+)
 from .db import (
     DbManager,
     UpperMethods as DbUpperMethods,
@@ -17,7 +20,6 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    PureIter,
 )
 from fa_purity.frozen import (
     freeze,
@@ -27,8 +29,10 @@ from fa_purity.json.primitive.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
+    from_range,
 )
 from fa_purity.pure_iter.transform import (
+    chain,
     consume,
 )
 from target_snowflake import (
@@ -48,7 +52,6 @@ from target_snowflake.snowflake_client.sql_client import (
     Identifier,
     Primitive,
     Query,
-    RowData,
 )
 from target_snowflake.snowflake_client.table import (
     Table,
@@ -198,27 +201,44 @@ class RootManager:
         self,
         table_id: FullTablePointer,
         table_def: Table,
-        items: PureIter[RowData],
-        limit: int,
+        items: RowsPackage,
     ) -> Cmd[None]:
         enum_fields = from_flist(tuple(enumerate(table_def.order)))
         _fields = ",".join(enum_fields.map(lambda t: f"{{field_{t[0]}}}"))
-        values_placeholder = ",".join(enum_fields.map(lambda _: "?"))
+        values_placeholders = (
+            items.rows.enumerate(1)
+            .map(
+                lambda t: ",".join(
+                    from_range(range(1, items.row_length + 1)).map(
+                        lambda r: f"%(value_{t[0]}_{r})s"
+                    )
+                )
+            )
+            .map(lambda p: f"({p})")
+        )
+        values_placeholder = ",".join(values_placeholders)
         stm = f"""
-            INSERT INTO {{db}}.{{schema}}.{{table}} ({_fields}) VALUES ({values_placeholder})
+            INSERT INTO {{db}}.{{schema}}.{{table}} ({_fields}) VALUES {values_placeholder}
         """
         identifiers: Dict[str, Identifier] = {
             "db": table_id.db.db_name,
             "schema": table_id.schema.name,
             "table": table_id.table.name,
         }
+        values: Dict[str, Primitive] = (
+            items.rows.enumerate(1)
+            .map(
+                lambda t: from_flist(t[1].data)
+                .enumerate(1)
+                .map(lambda i: (f"value_{t[0]}_{i[0]}", i[1]))
+            )
+            .transform(lambda x: dict(chain(x)))
+        )
         for i, c in enumerate(table_def.order):
             identifiers[f"field_{i}"] = c.name
-        query = Query(stm, freeze(identifiers), freeze({}))
-        return (
-            items.chunked(limit)
-            .map(lambda p: self._cursor.execute_many(query, p))
-            .transform(consume)
+        query = Query(stm, freeze(identifiers), freeze(values))
+        return items.rows.map(lambda d: self._cursor.execute(query)).transform(
+            consume
         )
 
     def append_table(
@@ -375,11 +395,8 @@ class RootManager:
                 s,
                 table_id: DbTableId,
                 table_def: Table,
-                items: PureIter[RowData],
-                limit: int,
+                items: RowsPackage,
             ) -> Cmd[None]:
-                return self.insert(
-                    _table_path(table_id), table_def, items, limit
-                )
+                return self.insert(_table_path(table_id), table_def, items)
 
         return DbManager(self._cursor, _ConcreteDbMethods())

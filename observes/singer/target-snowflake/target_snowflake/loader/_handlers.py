@@ -49,6 +49,9 @@ from target_snowflake._patch import (
 from target_snowflake.data_schema import (
     extract_table,
 )
+from target_snowflake.snowflake_client import (
+    RowsPackage,
+)
 from target_snowflake.snowflake_client.schema import (
     SchemaManager,
     TableId,
@@ -180,7 +183,7 @@ class SingerHandler:
         )
 
     def _upload_records_chunk(
-        self, table: TableObj, chunk: FrozenList[RowData]
+        self, table: TableObj, chunk: RowsPackage
     ) -> Cmd[None]:
         # [!] Each chunk must have its own independent cursor for enabling threads execution
         client = self._new_manager().map(
@@ -189,19 +192,21 @@ class SingerHandler:
         return client.bind(
             lambda c: c.insert(
                 table.table,
-                from_flist(chunk),
-                self.options.records_per_query,
+                chunk,
             )
         )
 
     def _upload_records(self, tar: _TableAndRecords) -> Cmd[None]:
+        nothing = Cmd.from_cmd(lambda: None)
         chunks = tar.records.map(
             lambda r: _to_row(tar.table, r).unwrap()
         ).chunked(self.options.records_per_query)
         table = TableObj(tar.table_id, tar.table)
-        cmds = chunks.map(
-            lambda c: self._upload_records_chunk(table, c)
-            + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
+        cmds = chunks.map(lambda c: RowsPackage.new(c)).map(
+            lambda m: m.map(
+                lambda p: self._upload_records_chunk(table, p)
+                + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
+            ).value_or(nothing)
         )
         return _in_threads(cmds, self.options.pkg_threads)
 

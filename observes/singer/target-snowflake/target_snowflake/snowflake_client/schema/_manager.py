@@ -12,14 +12,13 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    PureIter,
+)
+from target_snowflake.snowflake_client._rows_package import (
+    RowsPackage,
 )
 from target_snowflake.snowflake_client.schema import (
     TableId,
     TableObj,
-)
-from target_snowflake.snowflake_client.sql_client import (
-    RowData,
 )
 from target_snowflake.snowflake_client.table import (
     Table,
@@ -61,8 +60,7 @@ class UpperMethods(ABC):
         self,
         table_id: TableId,
         table_def: Table,
-        items: PureIter[RowData],
-        limit: int,
+        items: RowsPackage,
     ) -> Cmd[None]:
         pass
 
@@ -97,12 +95,7 @@ class SchemaManager:
 
     def table_manager(self, table: TableId) -> TableManager:
         class _ConcreteMethods(TableUpperMethods):
-            def insert(
-                s,
-                table_def: Table,
-                items: PureIter[RowData],
-                limit: int,
-            ) -> Cmd[None]:
-                return self._upper.insert(table, table_def, items, limit)
+            def insert(s, table_def: Table, items: RowsPackage) -> Cmd[None]:
+                return self._upper.insert(table, table_def, items)
 
         return TableManager(_ConcreteMethods())

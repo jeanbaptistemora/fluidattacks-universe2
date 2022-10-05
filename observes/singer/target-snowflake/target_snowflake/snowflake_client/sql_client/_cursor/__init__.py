@@ -90,40 +90,6 @@ class Cursor:
             lambda r: r.alt(raise_exception).unwrap()
         )
 
-    def _handled_execute_many(
-        self, query: Query, data: FrozenList[RowData]
-    ) -> Cmd[ResultE[None]]:
-        def _action() -> ResultE[None]:
-            self._log.info(
-                "Executing many: %s with #%s values",
-                query.statement,
-                len(data),
-            )
-            try:
-                _data: FrozenList[FrozenList[UnfoldedPrimitive]] = tuple(
-                    pure_map(
-                        lambda r: tuple(pure_map(lambda p: p.value, r.data)),
-                        data,
-                    )
-                )
-                self._cursor.cursor.executemany(query.statement, _data)
-                return Result.success(None)
-            except ProgrammingError as err:
-                return Result.failure(
-                    ValueError(
-                        "Invalid query `%s` error: %s", query.statement, err
-                    )
-                )
-
-        return Cmd.from_cmd(_action)
-
-    def execute_many(
-        self, query: Query, data: FrozenList[RowData]
-    ) -> Cmd[None] | NoReturn:
-        return self._handled_execute_many(query, data).map(
-            lambda r: r.alt(raise_exception).unwrap()
-        )
-
     def fetch_one(self) -> Cmd[Maybe[RowData]]:
         def _action() -> Maybe[RowData]:
             self._log.debug("Fetching one row")

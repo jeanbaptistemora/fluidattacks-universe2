@@ -14,17 +14,8 @@ from fa_purity import (
     Cmd,
     PureIter,
 )
-from fa_purity.frozen import (
-    freeze,
-)
-from fa_purity.json.primitive import (
-    Primitive,
-)
-from fa_purity.json.primitive.factory import (
-    to_primitive,
-)
-from target_snowflake import (
-    _assert,
+from target_snowflake.snowflake_client._rows_package import (
+    RowsPackage,
 )
 from target_snowflake.snowflake_client.db import (
     SchemaId,
@@ -37,15 +28,12 @@ from target_snowflake.snowflake_client.schema import (
 )
 from target_snowflake.snowflake_client.sql_client import (
     Cursor,
-    Identifier,
-    Query,
     RowData,
 )
 from target_snowflake.snowflake_client.table import (
     Table,
 )
 from typing import (
-    Dict,
     FrozenSet,
 )
 
@@ -108,8 +96,7 @@ class UpperMethods(ABC):
         self,
         table_id: DbTableId,
         table_def: Table,
-        items: PureIter[RowData],
-        limit: int,
+        items: RowsPackage,
     ) -> Cmd[None]:
         pass
 
@@ -189,11 +176,10 @@ class DbManager:
                 s,
                 table_id: TableId,
                 table_def: Table,
-                items: PureIter[RowData],
-                limit: int,
+                items: RowsPackage,
             ) -> Cmd[None]:
                 return self._upper.insert(
-                    _table_path(table_id), table_def, items, limit
+                    _table_path(table_id), table_def, items
                 )
 
         return SchemaManager(_ConcreteMethods())

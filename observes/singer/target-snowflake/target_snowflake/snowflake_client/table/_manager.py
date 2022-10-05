@@ -15,10 +15,9 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    PureIter,
 )
-from target_snowflake.snowflake_client.sql_client import (
-    RowData,
+from target_snowflake.snowflake_client._rows_package import (
+    RowsPackage,
 )
 
 
@@ -27,8 +26,7 @@ class UpperMethods(ABC):
     def insert(
         self,
         table_def: Table,
-        items: PureIter[RowData],
-        limit: int,
+        items: RowsPackage,
     ) -> Cmd[None]:
         pass
 
@@ -40,7 +38,6 @@ class TableManager:
     def insert(
         self,
         table_def: Table,
-        items: PureIter[RowData],
-        limit: int,
+        items: RowsPackage,
     ) -> Cmd[None]:
-        return self._upper.insert(table_def, items, limit)
+        return self._upper.insert(table_def, items)
