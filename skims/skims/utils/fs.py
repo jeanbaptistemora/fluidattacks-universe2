@@ -141,13 +141,14 @@ async def get_file_content(
 
 def get_file_content_block(
     path: str,
-    encoding: str = "latin-1",
+    encoding: str = "utf-8-sig",
     size: int = -1,
 ) -> str:
     with open(
         path,
         mode="r",
         encoding=encoding,
+        errors="ignore",
     ) as file_handle:
         file_contents: str = file_handle.read(size)
 

@@ -30,7 +30,7 @@ from typing import (
 WS = r"\s*"
 WSM = r"\s+"
 DOCKERFILE_ENV: Pattern[str] = re.compile(
-    rf"^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>.+?){WS}$",
+    rf"^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>[^$].+?){WS}$",
 )
 
 
