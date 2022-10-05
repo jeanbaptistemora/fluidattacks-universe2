@@ -36,7 +36,9 @@ module "runners" {
   ]...)
 
   # AWS
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/tags?sort=version_desc
   aws_region                             = "us-east-1"
+  gitlab_runner_version                  = "15.4.0"
   vpc_id                                 = data.aws_vpc.main.id
   allow_iam_service_linked_role_creation = true
   enable_kms                             = true
