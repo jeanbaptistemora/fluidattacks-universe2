@@ -20,9 +20,28 @@ End Users normally interact with Common through:
 - [Criteria](/criteria).
 - [The Virtual Private Network (VPN)](/development/stack/aws/vpn).
 
-Developers usually interact with Common through:
+Developers usually interact with Common through (or to change something in):
 
 - [Okta](/development/stack/okta).
-- [IAM on Amazon Web Services (AWS)](/development/stack/aws/iam).
+- Users: [IAM on Amazon Web Services (AWS)](/development/stack/aws/iam).
+- Compute: [Batch on Amazon Web Services (AWS)](/development/stack/aws/batch).
 - [GitLab CI/CD](/development/stack/gitlab-ci).
 - [Kubernetes Cluster](/development/stack/kubernetes).
+- Domain Name System: [DNS on Cloudflare](/development/stack/cloudflare).
+
+## Architecture
+
+1. All of the infrastructure
+   is managed as-code
+   with [Terraform](/development/stack/terraform).
+1. Criteria is managed as-code using YAML documents
+   whose schema is validated with [JSON schema](http://json-schema.org/)
+   using [Ajv](https://ajv.js.org/),
+   plus some metadata in its front-matter.
+
+:::tip
+You can right click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+

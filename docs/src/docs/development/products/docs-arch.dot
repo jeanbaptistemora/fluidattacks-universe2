@@ -7,11 +7,13 @@ digraph docs {
   compound="true"
   scale="scalexy"
 
-  customer[label="Customer"]
-  fluid_attacks_developer[label="Fluid Attacks Developer"]
+  node[style="filled"]
+  graph[style="dashed,rounded"]
 
   subgraph cluster_aws {
     label="AWS"
+    bgcolor="0.1 0.4 1.0"
+    node[color="0.1 0.8 1.0"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -30,18 +32,10 @@ digraph docs {
     }
   }
 
-  subgraph cluster_cloudinary {
-    label="Cloudinary"
-
-    subgraph cluster_cloudinary_media {
-      label="Media"
-
-      cloudinary_media_docs[label="docs"]
-    }
-  }
-
   subgraph cluster_cloudflare {
     label="Cloudflare"
+    bgcolor="0.6 0.4 1.0"
+    node[color="0.6 0.8 1.0"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -86,8 +80,22 @@ digraph docs {
     }
   }
 
+  subgraph cluster_cloudinary {
+    label="Cloudinary"
+    bgcolor="/x11/white"
+    node[color="/x11/lightgray"]
+
+    subgraph cluster_cloudinary_media {
+      label="Media"
+
+      cloudinary_media_docs[label="docs"]
+    }
+  }
+
   subgraph cluster_gitlab {
     label="GitLab"
+    bgcolor="0.8 0.4 1.0"
+    node[color="0.8 0.8 1.0"]
 
     subgraph cluster_gitlab_docs {
       label="Docs"
@@ -100,6 +108,15 @@ digraph docs {
     }
   }
 
+  node[color="/x11/lightgray"]
+  customer[label="Customer"]
+  fluid_attacks_developer[label="Fluid Attacks Developer"]
+
+  edge[color="0.1 0.8 1.0"]
+  aws_s3_docs_dev_static -> cloudinary_media_docs[]
+  aws_s3_docs_prod_static -> cloudinary_media_docs[]
+
+  edge[color="0.6 0.8 1.0"]
   cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_docs_headers[]
   cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_docs_headers[]
   cloudflare_zone_fluidattacks_com_dns_cname_doc -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
@@ -109,15 +126,17 @@ digraph docs {
   cloudflare_zone_fluidattacks_com_dns_cname_docs_dev -> aws_s3_docs_dev_static[lhead="cluster_aws_s3_docs_dev"]
   cloudflare_zone_fluidattacks_com_rules_page_doc -> cloudflare_zone_fluidattacks_com_rules_page_doc_forward[]
   cloudflare_zone_fluidattacks_com_rules_page_docs -> cloudflare_zone_fluidattacks_com_rules_page_docs_cache[]
-  customer -> cloudflare_zone_fluidattacks_com_dns_cname_doc[]
-  customer -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
-  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_docs_dev[]
+
+  edge[color="0.8 0.8 1.0"]
   gitlab_docs -> aws_s3_docs_dev_static[lhead="cluster_aws_s3_docs_dev"]
   gitlab_docs -> aws_s3_docs_prod_static[lhead="cluster_aws_s3_docs_prod"]
-  aws_s3_docs_dev_static -> cloudinary_media_docs[]
-  aws_s3_docs_prod_static -> cloudinary_media_docs[]
   gitlab_docs -> gitlab_docs_docasaurus[]
   gitlab_docs -> gitlab_docs_graphviz[]
   gitlab_docs -> gitlab_docs_javascript[]
   gitlab_docs -> gitlab_docs_markdown[]
+
+  edge[color="/x11/black"]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname_doc[]
+  customer -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
+  fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_docs_dev[]
 }

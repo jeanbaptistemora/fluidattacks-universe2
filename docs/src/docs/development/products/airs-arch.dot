@@ -13,8 +13,8 @@ digraph airs {
 
   subgraph cluster_algolia {
     label="Algolia"
-    bgcolor="/paired12/1"
-    node[color="/paired12/2"]
+    bgcolor="/x11/white"
+    node[color="/x11/lightgray"]
 
     subgraph cluster_algolia_index {
       label="Indexes"
@@ -25,8 +25,8 @@ digraph airs {
 
   subgraph cluster_aws {
     label="AWS"
-    bgcolor="/paired12/3"
-    node[color="/paired12/4"]
+    bgcolor="0.1 0.4 1.0"
+    node[color="0.1 0.8 1.0"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -47,8 +47,8 @@ digraph airs {
 
   subgraph cluster_cloudflare {
     label="Cloudflare"
-    bgcolor="/paired12/5"
-    node[color="/paired12/6"]
+    bgcolor="0.6 0.4 1.0"
+    node[color="0.6 0.8 1.0"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -94,8 +94,8 @@ digraph airs {
 
   subgraph cluster_cloudinary {
     label="Cloudinary"
-    bgcolor="/paired12/7"
-    node[color="/paired12/8"]
+    bgcolor="/x11/white"
+    node[color="/x11/lightgray"]
 
     subgraph cluster_cloudinary_media {
       label="Media"
@@ -107,8 +107,8 @@ digraph airs {
 
   subgraph cluster_gitlab {
     label="GitLab"
-    bgcolor="/paired12/9"
-    node[color="/paired12/10"]
+    bgcolor="0.8 0.4 1.0"
+    node[color="0.8 0.8 1.0"]
 
     subgraph cluster_gitlab_airs {
       label="Airs"
@@ -122,7 +122,7 @@ digraph airs {
     }
   }
 
-  edge[color="/paired12/4"]
+  edge[color="0.1 0.8 1.0"]
   aws_s3_airs_dev_static -> algolia_airs[]
   aws_s3_airs_dev_static -> cloudinary_media_blog[]
   aws_s3_airs_dev_static -> cloudinary_media_airs[]
@@ -130,7 +130,7 @@ digraph airs {
   aws_s3_airs_prod_static -> cloudinary_media_blog[]
   aws_s3_airs_prod_static -> cloudinary_media_airs[]
 
-  edge[color="/paired12/6"]
+  edge[color="0.6 0.8 1.0"]
   cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
@@ -140,7 +140,7 @@ digraph airs {
   cloudflare_zone_fluidattacks_com_rules_page -> cloudflare_zone_fluidattacks_com_rules_page_cache[]
   cloudflare_zone_fluidattacks_com_rules_page_web_eph -> cloudflare_zone_fluidattacks_com_rules_page_web_eph_cache[]
 
-  edge[color="/paired12/10"]
+  edge[color="0.8 0.8 1.0"]
   gitlab_airs -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
   gitlab_airs -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
   gitlab_airs -> gitlab_airs_gatsby[]
