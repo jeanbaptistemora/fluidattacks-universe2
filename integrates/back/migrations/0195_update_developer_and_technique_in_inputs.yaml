@@ -83,7 +83,7 @@ analyze_headers.www_authenticate:
 analyze_headers.x_content_type_options:
   developer: jrestrepo@fluidattacks.com
   technique: DAST
-analyze_protocol.breach_possible:
+analyze_headers.breach_possible:
   developer: asalgado@fluidattacks.com
   technique: DAST
 analyze_protocol.cbc_enabled:

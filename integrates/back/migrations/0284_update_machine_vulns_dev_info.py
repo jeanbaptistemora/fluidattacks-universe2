@@ -308,7 +308,7 @@ class SkimsMethods(Enum):
     )
     BREACH_POSSIBLE = SkimsMethodInfo(
         developer="asalgado@fluidattacks.com",
-        file_name="analyze_protocol",
+        file_name="analyze_headers",
         name="breach_possible",
     )
     CS_JWT_SIGNED = SkimsMethodInfo(

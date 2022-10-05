@@ -49,6 +49,6 @@ Missing rooted device detection: analyze_bytecodes.no_root_check
 Detección de dispositivo rooteado ausente: analyze_bytecodes.no_root_check
 application.android:grantUriPermissions habilitado: analyze_bytecodes.apk_exported_cp
 application.android:exported habilitado: analyze_bytecodes.apk_exported_cp
-el servidor es vulnerable a ataques BREACH: analyze_protocol.breach_possible
+el servidor es vulnerable a ataques BREACH: analyze_headers.breach_possible
 no tiene SameSite correctamente inicializado: analyze_headers.set_cookie_samesite
 La aplicación usa autenticación de tipo Basic sobre HTTP: analyze_headers.www_authenticate
