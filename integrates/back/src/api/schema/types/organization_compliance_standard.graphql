@@ -10,6 +10,8 @@ type OrganizationComplianceStandard {
   bestOrganizationComplianceLevel: Float
   "Level of compliance with the standard"
   complianceLevel: Float
+  "Id of the standard"
+  standardId: String
   "Title of the standard"
   standardTitle: String
   "Worst level of compliance with the standard in all organizations"

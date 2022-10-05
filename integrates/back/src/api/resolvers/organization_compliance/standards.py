@@ -73,18 +73,19 @@ async def resolve(
     return [
         OrganizationComplianceStandard(
             avg_organization_compliance_level=(
-                full_global_compliance_by_standard[standard_name]
+                full_global_compliance_by_standard[standard_id]
             ).avg_organization_compliance_level,
             best_organization_compliance_level=(
-                full_global_compliance_by_standard[standard_name]
+                full_global_compliance_by_standard[standard_id]
             ).best_organization_compliance_level,
             compliance_level=(
-                full_org_compliance_by_standard[standard_name]
+                full_org_compliance_by_standard[standard_id]
             ).compliance_level,
+            standard_id=standard_id,
             standard_title=standard["title"],
             worst_organization_compliance_level=(
-                full_global_compliance_by_standard[standard_name]
+                full_global_compliance_by_standard[standard_id]
             ).worst_organization_compliance_level,
         )
-        for standard_name, standard in compliance_file.items()
+        for standard_id, standard in compliance_file.items()
     ]
