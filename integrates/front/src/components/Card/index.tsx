@@ -21,11 +21,12 @@ interface ICardProps extends ICardBoxProps {
 const Card: FC<ICardProps> = ({
   children,
   float = false,
+  cover = false,
   img,
   onClick,
   title,
 }: Readonly<ICardProps>): JSX.Element => (
-  <CardBox float={float} onClick={onClick}>
+  <CardBox cover={cover} float={float} onClick={onClick}>
     {img === undefined ? undefined : <CardImgBox>{img}</CardImgBox>}
     {title === undefined ? undefined : (
       <Text fw={7} mb={3} size={"medium"}>

@@ -7,6 +7,7 @@
 import styled from "styled-components";
 
 interface ICardBoxProps {
+  cover?: boolean;
   float?: boolean;
   onClick?: () => void;
 }
@@ -14,12 +15,12 @@ interface ICardBoxProps {
 const CardBox = styled.div.attrs({
   className: "comp-card",
 })<ICardBoxProps>`
-  ${({ float = false, onClick }): string => `
+  ${({ cover = false, float = false, onClick }): string => `
   background-color: #f4f4f6;
   border-radius: 4px;
-  padding: 24px;
   transition: all 0.3s ease;
 
+  ${cover ? "padding: 0px;" : "padding: 24px;"}
   ${
     float
       ? `box-shadow: 0 2px 5px 0 #b0b0bf;
