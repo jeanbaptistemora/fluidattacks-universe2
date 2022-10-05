@@ -12,6 +12,9 @@ from forces.apis.integrates.client import (
     ApiError,
     execute,
 )
+from forces.model import (
+    VulnerabilityState,
+)
 from forces.utils.env import (
     guess_environment,
 )
@@ -300,14 +303,14 @@ async def upload_report(
             "kind": vuln["type"],
             "who": vuln["specific"],
             "where": vuln["where"],
-            "state": vuln["state"].upper(),
+            "state": str(vuln["state"].value).upper(),
             "exploitability": vuln["exploitability"],
         }
-        if vuln["state"] == "open":
+        if vuln["state"] == VulnerabilityState.OPEN:
             open_vulns.append(vuln_state)
-        elif vuln["state"] == "closed":
+        elif vuln["state"] == VulnerabilityState.CLOSED:
             closed_vulns.append(vuln_state)
-        elif vuln["state"] == "accepted":
+        elif vuln["state"] == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)
 
     params: Dict[str, Any] = {

@@ -8,6 +8,7 @@ from datetime import (
 )
 from forces.model import (
     ForcesConfig,
+    VulnerabilityState,
 )
 from forces.utils.logs import (
     log,
@@ -65,7 +66,7 @@ async def set_forces_exit_code(
                 )
                 time_diff: timedelta = current_date - report_date
                 if (
-                    vuln["state"] == "open"
+                    vuln["state"] == VulnerabilityState.OPEN
                     and severity >= config.breaking_severity
                     and time_diff.days >= config.grace_period
                 ):

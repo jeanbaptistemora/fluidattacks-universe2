@@ -11,18 +11,11 @@ from forces.apis.integrates.api import (
     vulns_generator,
 )
 from forces.model import (
-    ForcesConfig,
-)
-from forces.model.config import (
-    KindEnum,
-)
-from forces.model.finding import (
     Finding,
-)
-from forces.model.report import (
+    ForcesConfig,
     ForcesReport,
-)
-from forces.model.vulnerability import (
+    KindEnum,
+    VulnerabilityState,
     VulnerabilityType,
 )
 from forces.report.filters import (
@@ -42,7 +35,6 @@ from typing import (
     Any,
     Dict,
     List,
-    Optional,
     Set,
     Union,
 )
@@ -62,7 +54,10 @@ def style_report(key: str, value: str) -> str:
     """Adds styles as rich console markup to the report values"""
     style_data = {
         "title": "[yellow]",
-        "state": {"open": "[red]", "closed": "[green]"},
+        "state": {
+            VulnerabilityState.OPEN: "[red]",
+            VulnerabilityState.CLOSED: "[green]",
+        },
         "exploit": {
             "Unproven": "[green]",
             "Proof of concept": "[yellow3]",
@@ -84,12 +79,12 @@ def style_report(key: str, value: str) -> str:
     return str(value)
 
 
-def style_summary(key: str, value: int) -> str:
+def style_summary(key: VulnerabilityState, value: int) -> str:
     """Adds styles as rich console markup to the summary values"""
     markup: str = ""
-    if key == "accepted":
+    if key == VulnerabilityState.ACCEPTED:
         return str(value)
-    if key == "open":
+    if key == VulnerabilityState.OPEN:
         if value == 0:
             markup = "[green]"
         elif value < 10:
@@ -98,7 +93,7 @@ def style_summary(key: str, value: int) -> str:
             markup = "[orange3]"
         else:
             markup = "[red]"
-    elif key == "closed":
+    elif key == VulnerabilityState.CLOSED:
         markup = "[green]"
     return f"{markup}{str(value)}[/]"
 
@@ -148,14 +143,16 @@ async def gather_finding_data(
     return findings_dict
 
 
-def format_summary_report(summary: Dict[str, Any], kind: KindEnum) -> Table:
+def format_summary_report(
+    summary: Dict[Union[VulnerabilityState, str], Any], kind: KindEnum
+) -> Table:
     """Helper method to create the findings summary table from the report's
     summary data\n
     @param `summary`: A dictionary with the summary data\n
     @param `kind`: A kind from the `KindEnum`, can be `ALL`, `STATIC` or
     `DYNAMIC`"""
-    total = summary.pop("total")
-    time_elapsed = summary.pop("time")
+    total: str = summary.pop("total")
+    time_elapsed: str = summary.pop("time")
     summary_table = Table(
         title="Summary",
         show_header=False,
@@ -172,12 +169,12 @@ def format_summary_report(summary: Dict[str, Any], kind: KindEnum) -> Table:
         summary_table.add_column("Vuln type", style="magenta1")
         summary_table.add_column("Value")
         for vuln_state, vuln_type in summary.items():
-            label: Optional[str] = vuln_state
+            label: VulnerabilityState | None = vuln_state  # type: ignore
             for key, value in vuln_type.items():
                 summary_table.add_row(
                     label,
                     key,
-                    style_summary(vuln_state, value),
+                    style_summary(vuln_state, value),  # type: ignore
                     end_section=key == "total",
                 )
                 # Blank label from now on to avoid redundancy
@@ -190,7 +187,7 @@ def format_summary_report(summary: Dict[str, Any], kind: KindEnum) -> Table:
             for key, value in vuln_type.items():
                 summary_table.add_row(
                     vuln_state,
-                    style_summary(vuln_state, value),
+                    style_summary(vuln_state, value),  # type: ignore
                     end_section=key == "total",
                 )
     return summary_table
@@ -275,6 +272,7 @@ def format_rich_report(
                 )
     # Summary report table
     summary = report["summary"]
+    print(summary)
     summary_table = format_summary_report(summary, kind)
     return ForcesReport(findings_report=report_table, summary=summary_table)
 
@@ -301,21 +299,26 @@ def filter_report(
         filter_vulns(report["findings"], set())
     elif verbose_level == 2:
         # Filter level 2, only show open vulnerabilities
-        filter_vulns(report["findings"], {"open"})
+        filter_vulns(report["findings"], {VulnerabilityState.OPEN})
     elif verbose_level == 3:
         # Filter level 3, only show open and closed vulnerabilities
-        filter_vulns(report["findings"], {"open", "closed"})
+        filter_vulns(
+            report["findings"],
+            {VulnerabilityState.OPEN, VulnerabilityState.CLOSED},
+        )
     else:
         # If filter level is 4 show open, closed and accepted vulnerabilities
-        filter_vulns(report["findings"], {"open", "closed", "accepted"})
+        filter_vulns(report["findings"], set(VulnerabilityState))
     return report
 
 
-def get_summary_template(kind: KindEnum) -> Dict[str, Dict[str, int]]:
-    _summary_dict: Dict[str, Dict[str, int]] = {
-        "open": {"total": 0},
-        "closed": {"total": 0},
-        "accepted": {"total": 0},
+def get_summary_template(
+    kind: KindEnum,
+) -> Dict[Union[str, VulnerabilityState], Dict[str, int]]:
+    _summary_dict: Dict[Union[str, VulnerabilityState], Dict[str, int]] = {
+        VulnerabilityState.OPEN: {"total": 0},
+        VulnerabilityState.CLOSED: {"total": 0},
+        VulnerabilityState.ACCEPTED: {"total": 0},
     }
 
     return (
@@ -345,8 +348,10 @@ async def generate_raw_report(
     )
 
     async for vuln in vulns_generator(config.group, **kwargs):
-        find_id: str = vuln["findingId"]  # type: ignore
-        state: str = vuln["currentState"]  # type: ignore
+        find_id: str = str(vuln["findingId"])
+        state: VulnerabilityState = VulnerabilityState[
+            str(vuln["currentState"]).upper()
+        ]
 
         if not filter_kind(vuln, config.kind):
             continue
@@ -405,7 +410,7 @@ async def generate_raw_report(
 
 def filter_vulns(
     findings: List[Dict[str, Any]],
-    allowed_vuln_states: Set[str],
+    allowed_vuln_states: Set[VulnerabilityState],
 ) -> List[Dict[str, Any]]:
     """Helper method to filter vulns in findings based on the requested vuln
     states set by the verbosity level of the report"""

@@ -3,10 +3,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import fnmatch
-from forces.model.config import (
+from forces.model import (
     KindEnum,
-)
-from forces.model.vulnerability import (
     VulnerabilityType,
 )
 from typing import (

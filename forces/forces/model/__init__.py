@@ -16,7 +16,7 @@ from .report import (
 )
 from .vulnerability import (
     Vulnerability,
-    VulnerabilityStateStatus,
+    VulnerabilityState,
     VulnerabilityType,
     VulnerabilityZeroRiskStatus,
 )
@@ -27,7 +27,7 @@ __all__ = [
     "ForcesReport",
     "KindEnum",
     "Vulnerability",
-    "VulnerabilityStateStatus",
+    "VulnerabilityState",
     "VulnerabilityType",
     "VulnerabilityZeroRiskStatus",
 ]

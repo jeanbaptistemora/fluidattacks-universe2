@@ -4,9 +4,8 @@
 
 from forces.model import (
     ForcesConfig,
-)
-from forces.model.config import (
     KindEnum,
+    VulnerabilityState,
 )
 from forces.report import (
     create_findings_dict,
@@ -93,12 +92,12 @@ def test_get_summary_template() -> None:
 
 
 def test_style_summary() -> None:
-    assert style_summary("accepted", 1) == "1"
-    assert style_summary("open", 0) == "[green]0[/]"
-    assert style_summary("open", 9) == "[yellow3]9[/]"
-    assert style_summary("open", 17) == "[orange3]17[/]"
-    assert style_summary("open", 25) == "[red]25[/]"
-    assert style_summary("closed", 15) == "[green]15[/]"
+    assert style_summary(VulnerabilityState.ACCEPTED, 1) == "1"
+    assert style_summary(VulnerabilityState.OPEN, 0) == "[green]0[/]"
+    assert style_summary(VulnerabilityState.OPEN, 9) == "[yellow3]9[/]"
+    assert style_summary(VulnerabilityState.OPEN, 17) == "[orange3]17[/]"
+    assert style_summary(VulnerabilityState.OPEN, 25) == "[red]25[/]"
+    assert style_summary(VulnerabilityState.CLOSED, 15) == "[green]15[/]"
 
 
 def test_style_report() -> None:

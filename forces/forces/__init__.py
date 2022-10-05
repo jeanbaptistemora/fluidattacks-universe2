@@ -20,10 +20,8 @@ from forces.apis.integrates.api import (
 )
 from forces.model import (
     ForcesConfig,
-    KindEnum,
-)
-from forces.model.report import (
     ForcesReport,
+    KindEnum,
 )
 from forces.report import (
     filter_report,
