@@ -368,11 +368,18 @@ const Criteria = [
 ]
 
 const Development = [
-  'development/products-repo-intro',
-  'development/architecture',
+  'development/intro',
   {
     type: 'category',
-    label: 'Setup',
+    label: 'Products',
+    items: [
+      'development/products/airs',
+      'development/products/docs',
+    ],
+  },
+  {
+    type: 'category',
+    label: 'Development Environment',
     items: [
       'development/setup/introduction',
       'development/setup/terminal',

@@ -1,5 +1,5 @@
 ---
-id: products-repo-intro
+id: intro
 title: Introduction
 sidebar_label: Introduction
 slug: /development
@@ -44,16 +44,7 @@ and less coupled to our model of business.
 
 - **Common**: Owner of critical,
   or company wide infrastructure and resources,
-  and owner of the admin account:
-
-  - Development and production identities and permissions
-    for each of the other products
-    and external accounts.
-  - CI/CD infrastructure.
-  - Kubernetes cluster.
-  - Authentication provider (Okta).
-  - Virtual Private Cloud (VPC).
-  - Virtual Private Network (VPN).
+  and owner of the admin account.
 
 - **Integrates**: The Attack Resistance Management platform:
 
@@ -80,20 +71,28 @@ We have different kind of users,
 we divide them by use case:
 
 - **End Users**:
+  They don't contribute code,
+  but instead just interact with our products
+  by installing them on their hosts and using the product's CLI,
+  or through interacting with the product's public interface
+  (an API, web interface, container image, etc).
+
+  They are usually:
 
   - **Security Analysts of Fluid Attacks**:
-    using tools like Sorts, Melts, and the ARM (Integrates).
+    They usually use Sorts, Melts, and the ARM (Integrates), among others.
   - **Customers of Fluid Attacks**:
-    using platforms like the ARM (Integrates),
-    or willing to learn about Fluid Attack's processes,
-    and security guarantees.
+    They usually use the ARM (Integrates),
+    the DevSecOps container image (Forces),
+    read our blog (Airs),
+    and sometimes our documentation (Docs).
   - **Community users**:
-    using tools like Skims in its Free and Open Source plan.
+    They usually use tools like Skims in its Free and Open Source plan.
 
 - **Developers**:
   The people who contribute code at [Universe][universe]
-  and are usually hired by Fluid Attacks,
-  and who sometimes contribute code to our [GitHub account][github_fluidattacks].
+  and are usually hired by Fluid Attacks.
+  They also contribute sometimes to our [projects on GitHub][github_fluidattacks].
 
 ## Installing
 
@@ -175,4 +174,4 @@ just run `$ rm -rf ~/.makes`.
 <!--  -->
 
 [universe]: https://gitlab.com/fluidattacks/universe
-[github_fluidattacks]: https://gitlab.com/fluidattacks
+[github_fluidattacks]: https://github.com/fluidattacks
