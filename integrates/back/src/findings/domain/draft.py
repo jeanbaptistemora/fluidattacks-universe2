@@ -27,6 +27,9 @@ from db_model.findings.types import (
     Finding,
     FindingState,
 )
+from db_model.utils import (
+    get_date_with_offset,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -83,7 +86,7 @@ async def approve_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=datetime_utils.get_date_with_offset(
+        modified_date=get_date_with_offset(
             finding.state.modified_date, datetime_utils.get_iso_date()
         ),
         source=source,
@@ -183,7 +186,7 @@ async def reject_draft(
     if DraftRejectionReason.OTHER in reasons and not other:
         raise IncompleteDraft(fields=["other"])
 
-    rejection_date = datetime_utils.get_date_with_offset(
+    rejection_date = get_date_with_offset(
         finding.state.modified_date, datetime_utils.get_iso_date()
     )
     rejection = DraftRejection(
@@ -245,7 +248,7 @@ async def submit_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=datetime_utils.get_date_with_offset(
+        modified_date=get_date_with_offset(
             finding.state.modified_date, datetime_utils.get_iso_date()
         ),
         source=source,

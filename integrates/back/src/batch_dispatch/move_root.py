@@ -60,6 +60,9 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
 )
+from db_model.utils import (
+    get_date_with_offset,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -83,9 +86,6 @@ import logging.config
 from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 from operator import (
     attrgetter,
@@ -299,7 +299,7 @@ async def _process_finding(
             },
         )
         if source_finding.submission:
-            submission_date = datetime_utils.get_date_with_offset(
+            submission_date = get_date_with_offset(
                 initial_state.modified_date,
                 source_finding.submission.modified_date,
             )
@@ -312,7 +312,7 @@ async def _process_finding(
                 ),
             )
             if source_finding.approval:
-                approval_date = datetime_utils.get_date_with_offset(
+                approval_date = get_date_with_offset(
                     submission_date,
                     source_finding.approval.modified_date,
                 )

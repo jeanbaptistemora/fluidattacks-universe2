@@ -26,14 +26,12 @@ from .types import (
 from custom_exceptions import (
     VulnerabilityEntryNotFound,
 )
-from datetime import (
-    datetime,
-    timedelta,
-    timezone,
-)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
+)
+from db_model.utils import (
+    get_date_with_offset,
 )
 from db_model.vulnerabilities.constants import (
     ZR_FILTER_STATUSES,
@@ -270,19 +268,14 @@ def adjust_historic_dates(
     historic: VulnerabilityHistoric,
 ) -> VulnerabilityHistoric:
     """Ensure dates are not the same and in ascending order."""
-    new_historic = []
-    comparison_date = ""
-    for entry in historic:
-        if entry.modified_date > comparison_date:
-            comparison_date = entry.modified_date
-        else:
-            fixed_date = datetime.fromisoformat(comparison_date) + timedelta(
-                seconds=1
-            )
-            comparison_date = fixed_date.astimezone(
-                tz=timezone.utc
-            ).isoformat()
-        new_historic.append(entry._replace(modified_date=comparison_date))
+    if not historic:
+        return tuple()
+    new_historic = [historic[0]]
+    base_date = historic[0].modified_date
+    for entry in historic[1:]:
+        base_date = get_date_with_offset(base_date, entry.modified_date)
+        new_historic.append(entry._replace(modified_date=base_date))
+
     return cast(VulnerabilityHistoric, tuple(new_historic))
 
 

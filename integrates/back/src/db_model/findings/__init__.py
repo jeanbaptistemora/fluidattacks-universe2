@@ -12,6 +12,7 @@ from .remove import (
 )
 from .update import (
     update_evidence,
+    update_historic_state,
     update_me_draft_index,
     update_metadata,
     update_state,
@@ -31,6 +32,7 @@ __all__ = [
     "remove_evidence",
     # update
     "update_evidence",
+    "update_historic_state",
     "update_me_draft_index",
     "update_metadata",
     "update_state",
