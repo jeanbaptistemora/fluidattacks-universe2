@@ -8,7 +8,11 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type { ColumnDef } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  ColumnFilter,
+  ColumnFiltersState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -52,6 +56,7 @@ import { Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -77,6 +82,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
 
+  const [findsFilters, setFindsFilters] = useStoredState<ColumnFiltersState>(
+    "tblFindings-columnFilters",
+    [],
+    localStorage
+  );
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "vulnerabilitiesTable-columnFilters",
+    [],
+    localStorage
+  );
   const [remediationModal, setRemediationModal] = useState<IModalConfig>({
     clearSelected: (): void => undefined,
     selectedVulnerabilities: [],
@@ -233,6 +248,48 @@ export const VulnsView: React.FC = (): JSX.Element => {
     });
     setIsNotify(false);
   }
+
+  useEffect((): void => {
+    if (
+      columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "currentState"
+      ).length > 0
+    ) {
+      const filtervalue = columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "currentState"
+      )[0].value;
+      if (
+        findsFilters.filter(
+          (element: ColumnFilter): boolean => element.id === "state"
+        ).length > 0
+      ) {
+        setFindsFilters(
+          findsFilters.map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "state") {
+              return { id: "state", value: filtervalue };
+            }
+
+            return element;
+          })
+        );
+      } else {
+        setFindsFilters([...findsFilters, { id: "state", value: filtervalue }]);
+      }
+    } else {
+      setFindsFilters(
+        findsFilters
+          .map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "state") {
+              return { id: "", value: "" };
+            }
+
+            return element;
+          })
+          .filter((element: ColumnFilter): boolean => element.id !== "")
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columnFilters]);
 
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
@@ -403,6 +460,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
             <div>
               <VulnComponent
                 canDisplayHacker={canRetrieveHacker}
+                columnFilterSetter={setColumnFilters}
+                columnFilterState={columnFilters}
                 columns={columns}
                 extraButtons={
                   <ActionButtons

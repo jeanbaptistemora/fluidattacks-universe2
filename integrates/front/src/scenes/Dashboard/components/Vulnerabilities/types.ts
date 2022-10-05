@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
+import type { Dispatch, SetStateAction } from "react";
 
 import type {
   ICustomFiltersProps,
@@ -77,6 +78,8 @@ interface IVulnComponentProps {
   canDisplayHacker: boolean;
   clearFiltersButton?: () => void;
   changePermissions?: (groupName: string) => void;
+  columnFilterSetter?: Dispatch<SetStateAction<ColumnFiltersState>>;
+  columnFilterState?: ColumnFiltersState;
   columns: ColumnDef<IVulnRowAttr>[];
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;

@@ -8,8 +8,6 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
-  ColumnFilter,
-  ColumnFiltersState,
   Row,
   SortingState,
   VisibilityState,
@@ -65,6 +63,8 @@ function usePreviousProps(value: boolean): boolean {
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
   changePermissions,
+  columnFilterSetter = undefined,
+  columnFilterState = undefined,
   columns,
   extraButtons,
   findingState,
@@ -93,16 +93,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canRemoveVulns: boolean =
     permissions.can("api_mutations_remove_vulnerability_mutate") &&
     attributes.can("can_report_vulnerabilities");
-  const [findsFilters, setFindsFilters] = useStoredState<ColumnFiltersState>(
-    "tblFindings-columnFilters",
-    [],
-    localStorage
-  );
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "vulnerabilitiesTable-columnFilters",
-    [],
-    localStorage
-  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("vulnerabilitiesTable-visibilityState", {});
   const [sorting, setSorting] = useStoredState<SortingState>(
@@ -265,53 +255,11 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
   ];
 
-  useEffect((): void => {
-    if (
-      columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "currentState"
-      ).length > 0
-    ) {
-      const filtervalue = columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "currentState"
-      )[0].value;
-      if (
-        findsFilters.filter(
-          (element: ColumnFilter): boolean => element.id === "state"
-        ).length > 0
-      ) {
-        setFindsFilters(
-          findsFilters.map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "state") {
-              return { id: "state", value: filtervalue };
-            }
-
-            return element;
-          })
-        );
-      } else {
-        setFindsFilters([...findsFilters, { id: "state", value: filtervalue }]);
-      }
-    } else {
-      setFindsFilters(
-        findsFilters
-          .map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "state") {
-              return { id: "", value: "" };
-            }
-
-            return element;
-          })
-          .filter((element: ColumnFilter): boolean => element.id !== "")
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnFilters]);
-
   return (
     <React.StrictMode>
       <Table
-        columnFilterSetter={setColumnFilters}
-        columnFilterState={columnFilters}
+        columnFilterSetter={columnFilterSetter}
+        columnFilterState={columnFilterState}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
         columns={[...columns, ...(canRemoveVulns ? deleteColumn : [])]}
