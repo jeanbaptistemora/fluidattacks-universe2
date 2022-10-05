@@ -190,6 +190,22 @@ function check_md_fluid_attacks_name {
   fi
 }
 
+function check_md_arm_name {
+  local target="${1}"
+  local msg='Attack Resistance Management platform must be spelled as Attack Resistance Management platform'
+
+  if pcregrep \
+    -e '\bATTACK RESISTANCE MANAGEMENT PLATFORM' \
+    -e '\bAttack Resistance Management Platform' \
+    -e '\battack resistance management platform' \
+    -e '\bATTACKS RESISTANCE MANAGEMENT PLATFORM' \
+    -e '\bAttacks Resistance Management Platform' \
+    -e '\bAttacks Resistance Management platform' \
+    "${target}"; then
+    abort "[ERROR] ${msg}: ${target}"
+  fi
+}
+
 function check_md_words_case {
   local target="${1}"
   local words=(

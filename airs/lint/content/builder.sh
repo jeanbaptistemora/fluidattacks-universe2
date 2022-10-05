@@ -25,6 +25,7 @@ function main {
   find_md "${envAirs}" | while read -r path; do
     echo "[INFO] Verifying: ${path}" \
       && check_md_fluid_attacks_name "${path}" \
+      && check_md_arm_name "${path}" \
       && check_md_keywords_casing "${path}" \
       && check_md_lix "${path}" '75' \
       && check_md_main_title "${path}" \
