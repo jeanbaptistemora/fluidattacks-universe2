@@ -93,7 +93,7 @@
     forces = {
       host = "127.0.0.1";
       port = "8022";
-      infra = projectPath "/integrates/db/infra";
+      infra = projectPath "/integrates/db/dynamodb/infra";
       data = [
         (projectPath "/forces/test/data")
       ];

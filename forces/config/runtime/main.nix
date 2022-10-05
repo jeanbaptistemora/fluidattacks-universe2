@@ -16,7 +16,6 @@ makeTemplate {
   searchPaths = {
     bin = [
       inputs.nixpkgs.git
-      inputs.nixpkgs.python38
     ];
     source = [
       (makePythonPypiEnvironment {

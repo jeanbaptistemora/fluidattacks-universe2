@@ -1,4 +1,6 @@
----
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
 aioextensions: 21.7.2261349
 aiogqlc: 3.1.0
 aiohttp: 3.8.3
@@ -6,8 +8,7 @@ bugsnag: 4.2.1
 click: 8.1.3
 GitPython: 3.1.19
 more-itertools: 8.14.0
-oyaml: '0.9'
+oyaml: "0.9"
 python-dateutil: 2.8.2
-pytz: '2022.2.1'
+pytz: "2022.2.1"
 rich: 12.5.1
-uvloop: 0.17.0

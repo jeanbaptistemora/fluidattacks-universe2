@@ -24,7 +24,6 @@ closure:
   rich: 12.5.1
   six: 1.16.0
   smmap: 5.0.0
-  uvloop: 0.17.0
   webob: 1.8.7
   yarl: 1.8.1
 links:
@@ -298,27 +297,6 @@ links:
   - name: smmap-5.0.0.tar.gz
     sha256: 0dh9nghcsgjc67cq0ifxxm45d7f0w95zgjf9n02f4fydb4hfch68
     url: https://files.pythonhosted.org/packages/21/2d/39c6c57032f786f1965022563eec60623bb3e1409ade6ad834ff703724f3/smmap-5.0.0.tar.gz
-  - name: uvloop-0.17.0-cp310-cp310-macosx_10_9_universal2.whl
-    sha256: 06376ldx8yxpcqn5xxh8dv8pcjkx2iisdzxj7jfzfmbiin9n37yf
-    url: https://files.pythonhosted.org/packages/ad/14/f791682bc94a80b03431de5d753484ac1c8a5cc3b966fd21f053ad14d5c8/uvloop-0.17.0-cp310-cp310-macosx_10_9_universal2.whl
-  - name: uvloop-0.17.0-cp310-cp310-macosx_10_9_x86_64.whl
-    sha256: 0z31cz6d5g7v7n3xa3a45q25dvlj6cmrg27m76w00fgx951jylv8
-    url: https://files.pythonhosted.org/packages/90/75/e856169afc8c4676402a2c45ecb409f25e3dca4e17a5291bf6804006deba/uvloop-0.17.0-cp310-cp310-macosx_10_9_x86_64.whl
-  - name: uvloop-0.17.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 0vcdk4imp0kgmp3wgsvydddc1i1zpnxsqsvmqp3yzz5rfkvwlj89
-    url: https://files.pythonhosted.org/packages/33/f5/94d267b8286fd9390a3276843300461edaa65431b428634056994b24b16a/uvloop-0.17.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: uvloop-0.17.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 094hw14pxwq88qsxnqv5p8c9gcpcp87r6b26ckidqnp91jvh0ggz
-    url: https://files.pythonhosted.org/packages/20/9b/920b4b52028a84cc6031b4ce4bef1077d3475e6ce87969a0f0d220807307/uvloop-0.17.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: uvloop-0.17.0-cp310-cp310-musllinux_1_1_aarch64.whl
-    sha256: 1apljly6zpc8r3vd8hk0jd3ixqvvlr20cxcwjiw0lgwdanrxvax5
-    url: https://files.pythonhosted.org/packages/83/c0/9ade5760e31bc67fc30e74cf896cc72f7f8f8121b0ac64113c684571a22b/uvloop-0.17.0-cp310-cp310-musllinux_1_1_aarch64.whl
-  - name: uvloop-0.17.0-cp310-cp310-musllinux_1_1_x86_64.whl
-    sha256: 04fq8kqmrh2lg49f753s257mj9gc9ns1zk3wi1p3lg80l32svz4f
-    url: https://files.pythonhosted.org/packages/04/e3/e8c6b6b2ece6b0ab6033c62344d3de1706ed773d10c1798ee8afb0007b8c/uvloop-0.17.0-cp310-cp310-musllinux_1_1_x86_64.whl
-  - name: uvloop-0.17.0.tar.gz
-    sha256: 1qdrj6fqm7mrzd2mnznybgmpikxj2ngz71qlqwi1l6pikjpnppqd
-    url: https://files.pythonhosted.org/packages/ba/86/6dda1760481abf244cbd3908b79a4520d757040ca9ec37a79fc0fd01e2a0/uvloop-0.17.0.tar.gz
   - name: WebOb-1.8.7-py2.py3-none-any.whl
     sha256: 16zqij909ys74l0fq6wcq8hf8q0rldf8nvwm7gx18719b41y7akk
     url: https://files.pythonhosted.org/packages/62/9c/e94a9982e9f31fc35cf46cdc543a6c2c26cb7174635b5fd25b0bbc6a7bc0/WebOb-1.8.7-py2.py3-none-any.whl
