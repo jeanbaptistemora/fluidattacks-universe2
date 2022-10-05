@@ -1,0 +1,27 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import styled from "styled-components";
+
+const ImgBox = styled.div`
+  align-items: center;
+  background-color: #e9e9ed;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  height: 7.5em;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  > * {
+    border-radius: 4px 4px 0 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+`;
+
+export { ImgBox };
