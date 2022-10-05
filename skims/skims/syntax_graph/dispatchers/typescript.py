@@ -3,13 +3,16 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.javascript import (
+    arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
     assignment_expression as javascript_assignment_expression,
     binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
+    call_expression as javascript_call_expression,
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
+    if_statement as javascript_if_statement,
     member_expression as javascript_member_expression,
     number_literal as javascript_number_literal,
     object as javascript_object,
@@ -21,6 +24,9 @@ from syntax_graph.syntax_readers.javascript import (
     statement_block as javascript_statement_block,
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
+    switch_body as javascript_switch_body,
+    switch_case as javascript_switch_case,
+    switch_statement as javascript_switch_statement,
     variable_declaration as javascript_variable_declaration,
 )
 from syntax_graph.syntax_readers.typescript import (
@@ -55,6 +61,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "arguments",
+        },
+        syntax_reader=javascript_arguments.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "array",
         },
         syntax_reader=typescript_array.reader,
@@ -82,6 +94,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "binary_expression",
         },
         syntax_reader=javascript_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "call_expression",
+        },
+        syntax_reader=javascript_call_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -142,6 +160,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "type_identifier",
         },
         syntax_reader=javascript_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "if_statement",
+        },
+        syntax_reader=javascript_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -236,6 +260,24 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "subscript_expression",
         },
         syntax_reader=javascript_subscript_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_body",
+        },
+        syntax_reader=javascript_switch_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_case",
+        },
+        syntax_reader=javascript_switch_case.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_statement",
+        },
+        syntax_reader=javascript_switch_statement.reader,
     ),
     Dispatcher(
         applicable_types={
