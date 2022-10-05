@@ -155,8 +155,8 @@ digraph airs {
   gitlab_airs -> gitlab_airs_react[]
 
   node[fillcolor="/x11/lightgray"]
-  customer[label="Customer"]
-  fluid_attacks_developer[label="Fluid Attacks Developer"]
+  customer[label="End User"]
+  fluid_attacks_developer[label="Developer"]
 
   edge[color="/x11/black"]
   customer -> cloudflare_zone_fluidattacks_com_dns_cname[]

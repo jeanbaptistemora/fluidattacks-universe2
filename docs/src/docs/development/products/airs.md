@@ -55,3 +55,29 @@ or save it to your computer.
 :::
 
 ![Architecture of Airs](./airs-arch.dot.svg)
+
+## Contributing
+
+Please submit bug reports,
+feature requests,
+or general feedback to our [Bug Tracker on GitLab](https://gitlab.com/fluidattacks/universe/-/issues),
+or to our [Support Email](mailto:help@fluidattacks.com).
+
+If you want to contribute code, please keep reading.
+
+### Development Environment
+
+1. Follow the steps
+   at the [Development Environment](/development/setup) section of our documentation.
+
+   When prompted for an AWS role, choose `dev`,
+   and when prompted for a Development Environment, pick `airs`.
+
+1. Run:
+
+   ```sh
+   $ m . /airs/dev
+   ```
+
+   This will launch a replica of [fluidattacks.com](https://fluidattacks.com)
+   on your localhost.

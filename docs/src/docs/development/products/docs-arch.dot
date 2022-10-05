@@ -115,8 +115,8 @@ digraph docs {
   }
 
   node[fillcolor="/x11/lightgray"]
-  customer[label="Customer"]
-  fluid_attacks_developer[label="Fluid Attacks Developer"]
+  customer[label="End User"]
+  fluid_attacks_developer[label="Developer"]
 
   edge[color="0.1 0.8 1.0"]
   aws_s3_docs_dev_static -> cloudinary_media_docs[]
