@@ -14,7 +14,6 @@ from .enums import (
 from .types import (
     Vulnerability,
     VulnerabilityEdge,
-    VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityState,
     VulnerabilityTool,
@@ -29,9 +28,6 @@ from custom_exceptions import (
 from db_model.enums import (
     Source,
     StateRemovalJustification,
-)
-from db_model.utils import (
-    get_date_with_offset,
 )
 from db_model.vulnerabilities.constants import (
     ZR_FILTER_STATUSES,
@@ -50,7 +46,6 @@ from dynamodb.utils import (
     get_cursor,
 )
 from typing import (
-    cast,
     Optional,
     Tuple,
 )
@@ -262,21 +257,6 @@ def get_current_entry(
         return current_value.zero_risk
 
     raise VulnerabilityEntryNotFound()
-
-
-def adjust_historic_dates(
-    historic: VulnerabilityHistoric,
-) -> VulnerabilityHistoric:
-    """Ensure dates are not the same and in ascending order."""
-    if not historic:
-        return tuple()
-    new_historic = [historic[0]]
-    base_date = historic[0].modified_date
-    for entry in historic[1:]:
-        base_date = get_date_with_offset(base_date, entry.modified_date)
-        new_historic.append(entry._replace(modified_date=base_date))
-
-    return cast(VulnerabilityHistoric, tuple(new_historic))
 
 
 def get_assigned(*, treatment: Optional[VulnerabilityTreatment]) -> str:

@@ -219,9 +219,3 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
         FindingVerificationSummary
     ] = None
     unreliable_where: Optional[str] = None
-
-
-FindingHistoric = Union[
-    tuple[FindingState, ...],
-    tuple[FindingVerification, ...],
-]

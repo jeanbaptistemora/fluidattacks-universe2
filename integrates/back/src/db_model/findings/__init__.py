@@ -19,9 +19,6 @@ from .update import (
     update_unreliable_indicators,
     update_verification,
 )
-from .utils import (
-    adjust_historic_dates,
-)
 
 __all__ = [
     # create
@@ -38,6 +35,4 @@ __all__ = [
     "update_state",
     "update_unreliable_indicators",
     "update_verification",
-    # utils
-    "adjust_historic_dates",
 ]

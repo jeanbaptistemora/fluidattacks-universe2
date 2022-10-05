@@ -20,7 +20,6 @@ from .types import (
     VulnerabilityVerification,
 )
 from .utils import (
-    adjust_historic_dates,
     get_assigned,
     get_current_entry,
     get_new_zr_index_key,
@@ -38,6 +37,7 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+    utils as db_model_utils,
 )
 from decimal import (
     Decimal,
@@ -304,7 +304,7 @@ async def update_historic(  # pylint: disable=too-many-locals
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
-    historic = adjust_historic_dates(historic)
+    historic = db_model_utils.adjust_historic_dates(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)

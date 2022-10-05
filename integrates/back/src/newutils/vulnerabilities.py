@@ -31,6 +31,9 @@ from db_model.roots.types import (
     GitRoot,
     Root,
 )
+from db_model.utils import (
+    adjust_historic_dates,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -47,9 +50,6 @@ from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
-)
-from db_model.vulnerabilities.utils import (
-    adjust_historic_dates,
 )
 from decimal import (
     Decimal,

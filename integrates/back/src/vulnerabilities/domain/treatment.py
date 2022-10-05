@@ -21,6 +21,7 @@ from datetime import (
     timedelta,
 )
 from db_model import (
+    utils as db_model_utils,
     vulnerabilities as vulns_model,
 )
 from db_model.enums import (
@@ -317,7 +318,7 @@ async def _handle_vulnerability_acceptance(
     if treatments_to_add:
         current_value = vulnerability
         # Use for-await as update order is relevant for typed vuln
-        for treatment in vulns_model.utils.adjust_historic_dates(
+        for treatment in db_model_utils.adjust_historic_dates(
             treatments_to_add
         ):
             if isinstance(treatment, VulnerabilityTreatment):

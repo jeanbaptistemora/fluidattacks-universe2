@@ -22,7 +22,6 @@ from .types import (
     FindingVerificationSummary,
 )
 from .utils import (
-    adjust_historic_dates,
     format_evidences_item,
     format_state_item,
     format_treatment_summary_item,
@@ -57,7 +56,6 @@ from enum import (
     Enum,
 )
 from typing import (
-    cast,
     Optional,
 )
 
@@ -224,9 +222,7 @@ async def update_historic_state(
     if not historic_state:
         raise EmptyHistoric()
 
-    historic_state = cast(
-        tuple[FindingState, ...], adjust_historic_dates(historic_state)
-    )
+    historic_state = db_model_utils.adjust_historic_dates(historic_state)
     item = {"state": format_state_item(historic_state[-1])}
     creation = next(
         state

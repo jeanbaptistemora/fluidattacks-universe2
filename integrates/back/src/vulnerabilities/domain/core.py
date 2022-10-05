@@ -13,6 +13,7 @@ from custom_exceptions import (
     VulnNotInFinding,
 )
 from db_model import (
+    utils as db_model_utils,
     vulnerabilities as vulns_model,
 )
 from db_model.enums import (
@@ -726,7 +727,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
     historic_state = cast(
         tuple[VulnerabilityState, VulnerabilityState],
-        vulns_model.utils.adjust_historic_dates(
+        db_model_utils.adjust_historic_dates(
             tuple(
                 state._replace(modified_date=modified_date)
                 for state in historic_state
@@ -753,7 +754,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
     historic_treatment = cast(
         tuple[VulnerabilityTreatment, VulnerabilityTreatment],
-        vulns_model.utils.adjust_historic_dates(
+        db_model_utils.adjust_historic_dates(
             tuple(
                 treatment._replace(modified_date=modified_date)
                 for treatment in historic_treatment

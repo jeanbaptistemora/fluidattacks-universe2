@@ -17,7 +17,6 @@ from .types import (
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
-    FindingHistoric,
     FindingState,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
@@ -28,9 +27,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.utils import (
-    get_date_with_offset,
-)
 from decimal import (
     Decimal,
 )
@@ -38,25 +34,9 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
-    cast,
     Optional,
     Union,
 )
-
-
-def adjust_historic_dates(
-    historic: FindingHistoric,
-) -> FindingHistoric:
-    """Ensure dates are not the same and in ascending order."""
-    if not historic:
-        return tuple()
-    new_historic = [historic[0]]
-    base_date = historic[0].modified_date
-    for entry in historic[1:]:
-        base_date = get_date_with_offset(base_date, entry.modified_date)
-        new_historic.append(entry._replace(modified_date=base_date))
-
-    return cast(FindingHistoric, tuple(new_historic))
 
 
 def filter_non_state_status_findings(

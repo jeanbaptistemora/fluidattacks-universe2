@@ -11,7 +11,7 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     FindingState,
 )
-from db_model.findings.utils import (
+from db_model.utils import (
     adjust_historic_dates,
 )
 import pytest

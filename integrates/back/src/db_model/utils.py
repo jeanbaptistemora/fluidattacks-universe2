@@ -18,6 +18,24 @@ from typing import (
 )
 
 
+def adjust_historic_dates(
+    historic: tuple[Any, ...],
+) -> tuple[Any, ...]:
+    """
+    Ensure dates are not the same and in ascending order.
+    Also add a minimum 1 second offset among them.
+    """
+    if not historic:
+        return tuple()
+    new_historic = [historic[0]]
+    base_date = historic[0].modified_date
+    for entry in historic[1:]:
+        base_date = get_date_with_offset(base_date, entry.modified_date)
+        new_historic.append(entry._replace(modified_date=base_date))
+
+    return tuple(new_historic)
+
+
 def get_date_as_utc_iso_format(date: datetime) -> str:
     return date.astimezone(tz=timezone.utc).isoformat()
 
