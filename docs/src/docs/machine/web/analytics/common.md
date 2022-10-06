@@ -228,9 +228,9 @@ of the organization
 to solve a discovered vulnerability,
 categorized by severity.
 
-## MTTR benchmarking
+## Mean time to remediate (MTTR) benchmark
 
-![MTTR Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
+![MTTR Benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
 
 This section shows how your organization
 optimizes how many days pass before closing
