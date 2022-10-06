@@ -79,6 +79,11 @@ def get_path_from_integrates_vulnerability(
             namespace = namespace[:-1]
         else:
             where, namespace = chunks[0], ""
+    elif vulnerability_type == VulnerabilityType.LINES:
+        if len(chunks := vulnerability_where.split("/", maxsplit=1)) == 2:
+            namespace, where = chunks
+        else:
+            namespace, where = "", chunks[0]
     else:
         raise NotImplementedError()
     if ignore_cve:

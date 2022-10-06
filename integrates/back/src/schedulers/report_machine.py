@@ -861,9 +861,7 @@ def _filter_vulns_to_open(
             (
                 get_path_from_integrates_vulnerability(
                     vuln.where, vuln.type, True
-                )[1]
-                if vuln.type == VulnerabilityType.INPUTS
-                else vuln.where,
+                )[1],
                 vuln.specific,
             )
         )
