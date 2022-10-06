@@ -454,6 +454,8 @@ const Development = [
             label: 'DynamoDB',
             items: [
               'development/stack/aws/dynamodb/introduction',
+              'development/stack/aws/dynamodb/model',
+              'development/stack/aws/dynamodb/streams',
             ]
           },
           'development/stack/aws/ebs',

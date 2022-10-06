@@ -18,6 +18,8 @@ function _clean {
 function main {
   local src='docs/src'
   local action="${1:-start}"
+  export env="${2:-prod}"
+  export branch="${3:-default}"
 
   _clean "${src}" \
     && generate-criteria \
