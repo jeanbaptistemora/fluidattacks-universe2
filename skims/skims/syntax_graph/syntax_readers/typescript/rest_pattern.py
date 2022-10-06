@@ -5,22 +5,16 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.parameter import (
-    build_parameter_node,
-)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    cast,
-    Iterator,
-)
 from utils.graph import (
-    adj_ast,
+    match_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = adj_ast(args.ast_graph, args.n_id)
+    match = match_ast(args.ast_graph, args.n_id, "...")
+    identifier_id = match["__0__"]
 
-    return build_parameter_node(args, None, None, cast(Iterator[str], c_ids))
+    return args.generic(args.fork_n_id(str(identifier_id)))

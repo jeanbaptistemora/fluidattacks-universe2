@@ -42,9 +42,11 @@ from syntax_graph.syntax_readers.typescript import (
     predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
     required_parameter as typescript_required_parameter,
+    rest_pattern as typescript_rest_pattern,
     ternary_expression as typescript_ternary_expression,
     tuple_type as typescript_tuple_type,
     type_alias_declaration as typescript_type_alias_declaration,
+    type_annotation as typescript_type_annotation,
     union_type as typescript_union_type,
 )
 from syntax_graph.types import (
@@ -239,6 +241,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "rest_pattern",
+        },
+        syntax_reader=typescript_rest_pattern.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "return_statement",
         },
         syntax_reader=javascript_return_statement.reader,
@@ -290,6 +298,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "tuple_type",
         },
         syntax_reader=typescript_tuple_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_annotation",
+        },
+        syntax_reader=typescript_type_annotation.reader,
     ),
     Dispatcher(
         applicable_types={
