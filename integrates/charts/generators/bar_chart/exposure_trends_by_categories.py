@@ -21,6 +21,7 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     CRITERIA_VULNERABILITIES,
     format_cvssf_log_adjusted,
+    get_max_axis,
 )
 from charts.generators.gauge.severity import (
     MaxSeverity,
@@ -212,6 +213,21 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         for category in categories_trend
     ]
     categories_trend = sorted(categories_trend, key=sorter, reverse=True)
+    max_value: Decimal = list(
+        sorted(
+            [
+                format_cvssf(abs(category.value))
+                for category in categories_trend
+            ],
+            reverse=True,
+        )
+    )[0]
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
+    min_axis_value: Decimal = max_axis_value * Decimal("-1.0")
 
     return dict(
         data=dict(
@@ -255,6 +271,8 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
                     text="CVSSF",
                     position="outer-top",
                 ),
+                min=format_cvssf_log_adjusted(min_axis_value),
+                max=format_cvssf_log_adjusted(max_axis_value),
             ),
         ),
         maxValueLogAdjusted=format_max_value(
