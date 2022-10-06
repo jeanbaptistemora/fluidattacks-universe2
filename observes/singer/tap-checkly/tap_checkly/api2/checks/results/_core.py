@@ -9,7 +9,6 @@ from datetime import (
     datetime,
 )
 from fa_purity import (
-    FrozenList,
     JsonObj,
     Maybe,
 )

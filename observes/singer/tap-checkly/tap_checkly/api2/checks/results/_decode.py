@@ -18,13 +18,15 @@ from dateutil.parser import (
 from fa_purity import (
     FrozenDict,
     JsonObj,
-    JsonValue,
     Maybe,
     Result,
     ResultE,
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from fa_purity.result.core import (
+    UnwrapError,
 )
 from fa_purity.result.transform import (
     all_ok,
@@ -37,6 +39,7 @@ from tap_checkly.api2.id_objs import (
     IndexedObj,
 )
 from typing import (
+    cast,
     TypeVar,
 )
 
@@ -79,16 +82,8 @@ def _decode_timing_phases(raw: JsonObj) -> ResultE[TimingPhases]:
 
 def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
     unfolder = ExtendedUnfolder(raw)
-    status = unfolder.get_required("status").bind(
-        lambda x: Unfolder(x)
-        .to_primitive(int)
-        .alt(lambda e: TypeError(f"At `status` i.e. {e}"))
-    )
-    status_txt = unfolder.get_required("statusText").bind(
-        lambda x: Unfolder(x)
-        .to_primitive(str)
-        .alt(lambda e: TypeError(f"At `statusText` i.e. {e}"))
-    )
+    status = unfolder.require_primitive("status", int)
+    status_txt = unfolder.require_primitive("statusText", str)
     timings = _switch_maybe(
         unfolder.get("timings").map(
             lambda j: Unfolder(j)
@@ -119,20 +114,18 @@ def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
 
 
 def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
-    error = (
-        _switch_maybe(
-            Maybe.from_optional(raw.get("requestError")).map(
-                lambda x: Unfolder(x).to_optional(
-                    lambda u: u.to_primitive(str)
-                )
-            )
+    unfolder = ExtendedUnfolder(raw)
+    error = _switch_maybe(
+        unfolder.get("requestError").map(
+            lambda x: Unfolder(x)
+            .to_optional(lambda u: u.to_primitive(str))
+            .alt(lambda err: TypeError(f"At `requestError` i.e. {str(err)}"))
+            .alt(Exception)
         )
-        .alt(Exception)
-        .map(lambda m: m.bind_optional(lambda x: x))
-    )
+    ).map(lambda m: m.bind_optional(lambda x: x))
     response = (
         _switch_maybe(
-            Maybe.from_optional(raw.get("response")).map(
+            unfolder.get("response").map(
                 lambda x: Unfolder(x)
                 .to_json()
                 .alt(
@@ -152,33 +145,57 @@ def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
     return error.bind(lambda e: response.map(lambda r: ApiCheckResult(e, r)))
 
 
-def from_raw_result(raw: JsonObj) -> CheckResult:
-    return CheckResult(
-        Maybe.from_optional(raw.get("apiCheckResult")).map(
-            lambda j: Unfolder(j)
-            .to_json()
-            .alt(Exception)
-            .bind(_decode_result_api)
-            .alt(lambda _: LOG.error("At value: %s", j))
-            .unwrap()
-        ),
-        Maybe.from_optional(raw.get("browserCheckResult")).map(
-            lambda j: Unfolder(j).to_json().unwrap()
-        ),
-        Unfolder(raw["attempts"]).to_primitive(int).unwrap(),
-        Unfolder(raw["checkRunId"]).to_primitive(int).map(CheckRunId).unwrap(),
-        Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["hasErrors"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["hasFailures"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["isDegraded"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["overMaxResponseTime"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["responseTime"]).to_primitive(int).unwrap(),
-        Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
-        Unfolder(raw["startedAt"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["stoppedAt"]).to_primitive(str).map(isoparse).unwrap(),
+def from_raw_result(raw: JsonObj) -> ResultE[CheckResult]:
+    unfolder = ExtendedUnfolder(raw)
+    try:
+        api_result = _switch_maybe(
+            unfolder.get("apiCheckResult").map(
+                lambda j: Unfolder(j)
+                .to_json()
+                .alt(Exception)
+                .bind(_decode_result_api)
+                .alt(lambda e: Exception(f"At `apiCheckResult` i.e. {e}"))
+            )
+        )
+        browser_result = _switch_maybe(
+            unfolder.get("browserCheckResult").map(
+                lambda j: Unfolder(j).to_json()
+            )
+        )
+        result = CheckResult(
+            api_result.unwrap(),
+            browser_result.unwrap(),
+            unfolder.require_primitive("attempts", int).unwrap(),
+            unfolder.require_primitive("checkRunId", int)
+            .map(CheckRunId)
+            .unwrap(),
+            unfolder.require_primitive("created_at", str)
+            .map(isoparse)
+            .unwrap(),
+            unfolder.require_primitive("hasErrors", bool).unwrap(),
+            unfolder.require_primitive("hasFailures", bool).unwrap(),
+            unfolder.require_primitive("isDegraded", bool).unwrap(),
+            unfolder.require_primitive("overMaxResponseTime", bool).unwrap(),
+            unfolder.require_primitive("responseTime", int).unwrap(),
+            unfolder.require_primitive("runLocation", str).unwrap(),
+            unfolder.require_primitive("startedAt", str)
+            .map(isoparse)
+            .unwrap(),
+            unfolder.require_primitive("stoppedAt", str)
+            .map(isoparse)
+            .unwrap(),
+        )
+        return Result.success(result)
+    except UnwrapError as err:
+        return cast(ResultE[CheckResult], err.container)
+
+
+def from_raw_obj(raw: JsonObj) -> ResultE[CheckResultObj]:
+    _id = (
+        ExtendedUnfolder(raw)
+        .get_required("id")
+        .map(Unfolder)
+        .bind(lambda u: u.to_primitive(str).map(CheckResultId).alt(Exception))
     )
-
-
-def from_raw_obj(raw: JsonObj) -> CheckResultObj:
-    _id = Unfolder(raw["id"]).to_primitive(str).map(CheckResultId).unwrap()
-    return IndexedObj(_id, from_raw_result(raw))
+    _obj = from_raw_result(raw)
+    return _id.bind(lambda i: _obj.map(lambda obj: IndexedObj(i, obj)))

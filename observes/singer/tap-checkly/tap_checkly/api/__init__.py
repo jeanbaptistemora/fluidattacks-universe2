@@ -6,10 +6,6 @@ from __future__ import (
     annotations,
 )
 
-from tap_checkly.api.alert_channels import (
-    AlertChsApi,
-    AlertChsPage,
-)
 from tap_checkly.api.checks import (
     CheckGroupsPage,
     CheckId,
@@ -45,7 +41,6 @@ from typing import (
 )
 
 ApiPage = Union[
-    AlertChsPage,
     CheckGroupsPage,
     CheckReportsPage,
     ChecksPage,
@@ -57,7 +52,6 @@ ApiPage = Union[
 
 
 class ApiClient(NamedTuple):
-    alerts: AlertChsApi
     checks: ChecksApi
     dashboards: DashboardsApi
     maintenance: MantWindowsApi
@@ -68,7 +62,6 @@ class ApiClient(NamedTuple):
     def new(cls, creds: Credentials) -> ApiClient:
         client = Client.new(creds)
         return cls(
-            alerts=AlertChsApi.new(client),
             checks=ChecksApi.new(client),
             dashboards=DashboardsApi.new(client),
             env=EnvVarsApi.new(client),

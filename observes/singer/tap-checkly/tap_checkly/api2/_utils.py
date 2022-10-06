@@ -14,6 +14,9 @@ from fa_purity import (
     ResultE,
     Stream,
 )
+from fa_purity.json.primitive.core import (
+    NotNonePrimTvar,
+)
 from fa_purity.json.value.transform import (
     Unfolder,
 )
@@ -30,6 +33,7 @@ from fa_purity.stream.transform import (
 )
 from typing import (
     Callable,
+    Type,
     TypeVar,
 )
 
@@ -65,6 +69,19 @@ class ExtendedUnfolder:
             .alt(Exception)
         )
 
+    def require_primitive(
+        self, key: str, prim_type: Type[NotNonePrimTvar]
+    ) -> ResultE[NotNonePrimTvar]:
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(
+                lambda u: u.to_primitive(prim_type).alt(
+                    lambda e: TypeError(f"At `{key}` i.e. {e}")
+                )
+            )
+        )
+
     def require_float(self, key: str) -> ResultE[float]:
         return (
             self.get_required(key)
@@ -75,11 +92,7 @@ class ExtendedUnfolder:
                 .lash(
                     lambda _: u.to_primitive(int)
                     .map(float)
-                    .alt(
-                        lambda e: TypeError(
-                            f"key `{key}` is not a `float`. {e}"
-                        )
-                    )
+                    .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
                 )
             )
         )

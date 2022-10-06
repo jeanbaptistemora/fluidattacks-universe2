@@ -32,6 +32,9 @@ from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
 )
+from fa_purity.result.transform import (
+    all_ok,
+)
 from fa_purity.stream.factory import (
     from_piter,
 )
@@ -77,7 +80,11 @@ class CheckResultClient:
                     "to": str(int(datetime.timestamp(date_range.to_date))),
                 }
             ),
-        ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
+        ).map(
+            lambda l: all_ok(
+                from_flist(l).map(_decode.from_raw_obj).to_list()
+            ).unwrap()
+        )
 
     def _date_ranges(self) -> PureIter[DateRange]:
         return date_ranges_dsc(self._from_date, self._to_date)
