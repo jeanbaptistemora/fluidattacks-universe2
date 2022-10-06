@@ -58,3 +58,13 @@ async def gather_finding_data(
             severity_score=find["severityScore"],
         )
     return findings_dict
+
+
+def get_exploitability_measure(score: int) -> str:
+    data = {
+        "0.91": "Unproven",
+        "0.94": "Proof of concept",
+        "0.97": "Functional",
+        "1.0": "High",
+    }
+    return data.get(str(score), "-")

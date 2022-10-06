@@ -24,9 +24,11 @@ from forces.model import (
     KindEnum,
 )
 from forces.report import (
-    filter_report,
     format_rich_report,
     generate_raw_report,
+)
+from forces.report.filters import (
+    filter_report,
 )
 from forces.utils.logs import (
     CONSOLE_INTERFACE,
