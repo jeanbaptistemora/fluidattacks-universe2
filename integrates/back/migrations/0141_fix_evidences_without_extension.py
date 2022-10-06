@@ -20,7 +20,7 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
-    FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
 )
 from custom_exceptions import (
     FindingNotFound,

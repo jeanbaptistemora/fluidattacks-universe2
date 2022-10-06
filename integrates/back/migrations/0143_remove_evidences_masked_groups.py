@@ -20,7 +20,7 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from context import (
-    FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
 )
 from groups import (
     dal as groups_dal,

@@ -16,7 +16,7 @@ from aioextensions import (
     run,
 )
 from context import (
-    FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
 )
 from dataloaders import (
     Dataloaders,

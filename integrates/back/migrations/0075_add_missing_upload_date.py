@@ -18,7 +18,7 @@ from aioextensions import (
     run,
 )
 from context import (
-    FI_AWS_S3_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from custom_types import (  # pylint: disable=import-error
     Event,
@@ -50,7 +50,7 @@ async def add_missing_upload_date(event: Event) -> None:
     event_prefix = f"{group_name}/{event_id}/"
     client = await get_s3_resource()
     resp = await client.list_objects_v2(
-        Bucket=FI_AWS_S3_BUCKET, Prefix=event_prefix
+        Bucket=FI_AWS_S3_MAIN_BUCKET, Prefix=event_prefix
     )
     key_list = [item["Key"] for item in resp.get("Contents", [])]
     date_list = [item["LastModified"] for item in resp.get("Contents", [])]

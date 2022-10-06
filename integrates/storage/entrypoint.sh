@@ -18,30 +18,12 @@ function serve {
   local bucket_paths_by_root=(
     'reports'
   )
-  local buckets_by_branch=(
-    'fluidintegrates.analytics'
-  )
-  local buckets_by_group=(
-    'fluidintegrates.evidences'
-    'fluidintegrates.forces'
-    'fluidintegrates.resources'
-    'continuous-repositories'
-  )
-  local buckets_by_root=(
-    'fluidintegrates.reports'
-  )
   local bill_bucket='continuous-data'
   local bucket_paths=(
     "${bill_bucket}"
     "${bucket_paths_by_group[@]}"
     "${bucket_paths_by_branch[@]}"
     "${bucket_paths_by_root[@]}"
-  )
-  local buckets=(
-    "${bill_bucket}"
-    "${buckets_by_branch[@]}"
-    "${buckets_by_group[@]}"
-    "${buckets_by_root[@]}"
   )
   local host='127.0.0.1'
   local port='9000'
@@ -67,55 +49,33 @@ function serve {
     && __argMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
     && __argMinioCli__ admin user add storage "${MINIO_USER}" "${MINIO_PASS}" \
     && __argMinioCli__ admin policy set storage readwrite user="${MINIO_USER}" \
-    && for bucket in "${buckets[@]}"; do
-      __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
-        || return 1
-    done \
     && for bucket_path in "${bucket_paths[@]}"; do
       __argMinioCli__ mc mb --ignore-existing "storage/${main_bucket}/${bucket_path}" \
         || return 1
     done \
     && if test "${POPULATE}" != 'false'; then
       for project in "${TEST_PROJECTS[@]}"; do
-        for bucket in "${buckets_by_group[@]}"; do
+        for bucket_path in "${bucket_paths_by_group[@]}"; do
           aws_s3_sync \
-            "s3://${bucket}/${project}" \
-            "${state_path}/${bucket}/${project}" \
+            "s3://${main_bucket}/${bucket_path}/${project}" \
+            "${state_path}/${main_bucket}/${bucket_path}/${project}" \
             --delete \
             || return 1
-        done \
-          && for bucket_path in "${bucket_paths_by_group[@]}"; do
-            aws_s3_sync \
-              "s3://${main_bucket}/${bucket_path}/${project}" \
-              "${state_path}/${main_bucket}/${bucket_path}/${project}" \
-              --delete \
-              || return 1
-          done
+        done
       done \
         && if test -z "${CI_COMMIT_REF_NAME:-}"; then
           CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
         fi \
         && if test "${CI_COMMIT_REF_NAME}" != "trunk"; then
-          for bucket in "${buckets_by_branch[@]}"; do
+          for bucket_path in "${bucket_paths_by_branch[@]}"; do
             aws_s3_sync \
-              "s3://${bucket}/${CI_COMMIT_REF_NAME}" \
-              "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
+              "s3://${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
+              "${state_path}/${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
               --delete \
               || return 1
-          done \
-            && for bucket_path in "${bucket_paths_by_branch[@]}"; do
-              aws_s3_sync \
-                "s3://${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
-                "${state_path}/${main_bucket}/${bucket_path}/${CI_COMMIT_REF_NAME}" \
-                --delete \
-                || return 1
-            done
+          done
         fi \
         && bill_date="$(date +'%Y/%m')" \
-        && aws_s3_sync \
-          "s3://${bill_bucket}/bills/test" \
-          "${state_path}/${bill_bucket}/bills/${bill_date}" \
-          --delete \
         && aws_s3_sync \
           "s3://${main_bucket}/${bill_bucket}/bills/test" \
           "${state_path}/${main_bucket}/${bill_bucket}/bills/${bill_date}" \

@@ -21,7 +21,7 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
-    FI_AWS_S3_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from dataloaders import (
     Dataloaders,
@@ -108,7 +108,7 @@ async def update_evidence(
         f"{str(evidence_id.value).lower()}{extension}"
     )
     full_name = f"{event.group_name}/{event.id}/{file_name}"
-    await upload_file(FI_AWS_S3_BUCKET, file, full_name)
+    await upload_file(FI_AWS_S3_MAIN_BUCKET, file, full_name)
     await events_model.update_evidence(
         event_id=event.id,
         group_name=event.group_name,
@@ -139,7 +139,7 @@ async def update_evidence(
         full_name = (
             f"{event.group_name}/{event.id}/{evidence_to_remove.file_name}"
         )
-        await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
+        await s3_ops.remove_file(FI_AWS_S3_MAIN_BUCKET, full_name)
         await events_model.update_evidence(
             event_id=event.id,
             group_name=event.group_name,
@@ -166,7 +166,7 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
             target_name = f"{temp_dir}/{file_name}"
             try:
                 await s3_ops.download_file(
-                    FI_AWS_S3_BUCKET,
+                    FI_AWS_S3_MAIN_BUCKET,
                     file_name=file_name,
                     file_path=target_name,
                 )
@@ -174,11 +174,11 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
                 if exc.response["Error"]["Code"] == "404":
                     try:
                         list_files = await s3_ops.list_files(
-                            FI_AWS_S3_BUCKET, file_name
+                            FI_AWS_S3_MAIN_BUCKET, file_name
                         )
                         file_name = list_files[0]
                         await s3_ops.download_file(
-                            FI_AWS_S3_BUCKET,
+                            FI_AWS_S3_MAIN_BUCKET,
                             file_name=file_name,
                             file_path=target_name,
                         )
@@ -217,7 +217,7 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
             target_name = f"{temp_dir}/{file_name}"
             try:
                 await s3_ops.download_file(
-                    FI_AWS_S3_BUCKET,
+                    FI_AWS_S3_MAIN_BUCKET,
                     file_name=file_name,
                     file_path=target_name,
                 )
@@ -225,11 +225,11 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
                 if exc.response["Error"]["Code"] == "404":
                     try:
                         list_files = await s3_ops.list_files(
-                            FI_AWS_S3_BUCKET, file_name
+                            FI_AWS_S3_MAIN_BUCKET, file_name
                         )
                         file_name = list_files[0]
                         await s3_ops.download_file(
-                            FI_AWS_S3_BUCKET,
+                            FI_AWS_S3_MAIN_BUCKET,
                             file_name=file_name,
                             file_path=target_name,
                         )
