@@ -322,6 +322,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         where:
           vulnerability.vulnerabilityType === "lines" &&
           vulnerability.rootNickname !== null &&
+          vulnerability.rootNickname !== "" &&
           !vulnerability.where.startsWith(`${vulnerability.rootNickname}/`)
             ? `${vulnerability.rootNickname}/${vulnerability.where}`
             : vulnerability.where,
