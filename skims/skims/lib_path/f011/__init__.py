@@ -63,7 +63,7 @@ def run_maven_sbt(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
-    return npm_yarn_lock(content=content, path=path)
+    return npm_yarn_lock(content, path)
 
 
 @SHIELD_BLOCKING
@@ -78,15 +78,12 @@ def run_nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
-    return npm_package_json(content=content, path=path)
+    return npm_package_json(content, path)
 
 
 @SHIELD_BLOCKING
 def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
-    return npm_package_lock_json(
-        content=content,
-        path=path,
-    )
+    return npm_package_lock_json(content, path)
 
 
 @SHIELD_BLOCKING

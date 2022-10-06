@@ -9,13 +9,12 @@ from lib_path.common import (
     build_dependencies_tree,
     DependencyType,
     format_pkg_dep,
-    translate_dependencies_to_vulnerabilities,
+    pkg_deps_to_vulns,
 )
 from model.core_model import (
     DependenciesTypeEnum,
     MethodsEnum,
     Platform,
-    Vulnerabilities,
 )
 from more_itertools import (
     windowed,
@@ -29,7 +28,9 @@ from typing import (
 )
 
 
-def npm_package_json(content: str, path: str) -> Vulnerabilities:
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.NPM, MethodsEnum.NPM_PACKAGE_JSON)
+def npm_package_json(content: str, path: str) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
@@ -39,16 +40,14 @@ def npm_package_json(content: str, path: str) -> Vulnerabilities:
         for product, version in content_json[key].items()
     )
 
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=dependencies,
-        path=path,
-        platform=Platform.NPM,
-        method=MethodsEnum.NPM_PACKAGE_JSON,
-    )
+    return dependencies
 
 
-def npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.NPM, MethodsEnum.NPM_PACKAGE_LOCK_JSON)
+def npm_package_lock_json(  # NOSONAR
+    content: str, path: str
+) -> Iterator[DependencyType]:
     def resolve_dependencies(
         obj: frozendict, direct_deps: bool = True
     ) -> Iterator[DependencyType]:
@@ -83,72 +82,58 @@ def npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
                     # From this point on, we check the deps of my deps
                     yield from resolve_dependencies(spec, direct_deps=False)
 
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(
-            obj=json_loads_blocking(content, default={}),
-        ),
-        path=path,
-        platform=Platform.NPM,
-        method=MethodsEnum.NPM_PACKAGE_LOCK_JSON,
+    return resolve_dependencies(
+        obj=json_loads_blocking(content, default={}),
     )
 
 
-def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        try:
-            json_path = "/".join(path.split("/")[:-1]) + "/package.json"
-            dependencies_tree = build_dependencies_tree(
-                path_yarn=path,
-                path_json=json_path,
-                dependencies_type=DependenciesTypeEnum.PROD,
-            )
-            if dependencies_tree:
-                for key, value in dependencies_tree.items():
-                    product = key.split("@")[:-1][0]
-                    product_line = value.get("product_line")
-                    version = value.get("version")
-                    version_line = value.get("version_line")
-                    yield format_pkg_dep(
-                        product, version, product_line, version_line
-                    )
+@pkg_deps_to_vulns(Platform.NPM, MethodsEnum.NPM_YARN_LOCK)
+def npm_yarn_lock(content: str, path: str) -> Iterator[DependencyType]:
+    try:
+        json_path = "/".join(path.split("/")[:-1]) + "/package.json"
+        dependencies_tree = build_dependencies_tree(
+            path_yarn=path,
+            path_json=json_path,
+            dependencies_type=DependenciesTypeEnum.PROD,
+        )
+        if dependencies_tree:
+            for key, value in dependencies_tree.items():
+                product = key.split("@")[:-1][0]
+                product_line = value.get("product_line")
+                version = value.get("version")
+                version_line = value.get("version_line")
+                yield format_pkg_dep(
+                    product, version, product_line, version_line
+                )
 
-        except FileNotFoundError:
-            windower: Iterator[
-                Tuple[Tuple[int, str], Tuple[int, str]],
-            ] = windowed(  # type: ignore
-                fillvalue="",
-                n=2,
-                seq=tuple(enumerate(content.splitlines(), start=1)),
-                step=1,
-            )
+    except FileNotFoundError:
+        windower: Iterator[
+            Tuple[Tuple[int, str], Tuple[int, str]],
+        ] = windowed(  # type: ignore
+            fillvalue="",
+            n=2,
+            seq=tuple(enumerate(content.splitlines(), start=1)),
+            step=1,
+        )
 
-            # ((11479, 'zen-observable@^0.8.21:'),
-            #  (11480, '  version "0.8.21"'))
-            for (product_line, product), (version_line, version) in windower:
-                product, version = product.strip(), version.strip()
+        # ((11479, 'zen-observable@^0.8.21:'),
+        #  (11480, '  version "0.8.21"'))
+        for (product_line, product), (version_line, version) in windower:
+            product, version = product.strip(), version.strip()
 
-                if (
-                    product.endswith(":")
-                    and not product.startswith(" ")
-                    and version.startswith("version")
-                ):
-                    product = product.rstrip(":")
-                    product = product.split(",", maxsplit=1)[0]
-                    product = product.strip('"')
-                    product = product.rsplit("@", maxsplit=1)[0]
+            if (
+                product.endswith(":")
+                and not product.startswith(" ")
+                and version.startswith("version")
+            ):
+                product = product.rstrip(":")
+                product = product.split(",", maxsplit=1)[0]
+                product = product.strip('"')
+                product = product.rsplit("@", maxsplit=1)[0]
 
-                    version = version.split(" ", maxsplit=1)[1]
-                    version = version.strip('"')
+                version = version.split(" ", maxsplit=1)[1]
+                version = version.strip('"')
 
-                    yield format_pkg_dep(
-                        product, version, product_line, version_line
-                    )
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.NPM,
-        method=MethodsEnum.NPM_YARN_LOCK,
-    )
+                yield format_pkg_dep(
+                    product, version, product_line, version_line
+                )
