@@ -174,7 +174,7 @@ or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 assigned to them.
 
-## Exposure trends by categories
+## Exposure trends by vulnerability category
 
 ![Exposure Trends Categories](https://res.cloudinary.com/fluid-attacks/image/upload/v1661885630/docs/web/analytics/common/exposure_trends_cat.png)
 
