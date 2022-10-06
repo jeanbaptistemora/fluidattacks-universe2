@@ -19,7 +19,8 @@ const ImgBox = styled.div`
   > * {
     border-radius: 4px 4px 0 0;
     display: block;
-    height: 100%;
+    max-height: 122%;
+    min-height: 100%;
     width: 100%;
   }
 `;

@@ -26,6 +26,7 @@ import {
   handleComplianceValue,
 } from "./utils";
 
+import { Card } from "components/Card";
 import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
@@ -71,7 +72,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
     return (
       <React.StrictMode>
         <Row>
-          <Col lg={60} md={60} sm={100}>
+          <Col lg={60} md={100} sm={100}>
             <Text fw={7} mb={3} mt={2} size={"big"}>
               {t(
                 "organization.tabs.compliance.tabs.overview.organizationCompliance.title.text"
@@ -146,7 +147,7 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
             </Row>
           </Col>
           {_.isUndefined(standardWithLowestCompliance) ? undefined : (
-            <Col lg={40} md={40} sm={100}>
+            <Col lg={40} md={100} sm={100}>
               <Text fw={7} mb={3} mt={2} size={"big"}>
                 {t(
                   "organization.tabs.compliance.tabs.overview.standardWithLowestCompliance.title.text"
@@ -161,7 +162,15 @@ const OrganizationComplianceOverviewView: React.FC<IOrganizationComplianceOvervi
                 </InfoDropdown>
               </Text>
               <Row>
-                <Col lg={50} md={50} sm={50} />
+                <Col lg={50} md={50} sm={50}>
+                  <Card>
+                    <div className={"flex flex-column h-100 justify-center "}>
+                      <Text fw={9} size={"medium"} ta={"center"}>
+                        {standardWithLowestCompliance.standardTitle.toUpperCase()}
+                      </Text>
+                    </div>
+                  </Card>
+                </Col>
                 <Col lg={50} md={50} sm={50}>
                   <PercentageCard
                     info={t(
