@@ -36,16 +36,75 @@ digraph common {
       label="EKS"
 
       subgraph cluster_aws_eks_common {
-        label="Common"
+        label="common"
 
         cluster_aws_eks_common[style="invis"]
 
         subgraph cluster_aws_eks_common_namespaces {
           label="Namespaces"
 
-          aws_eks_common_namespaces_default[label="default"]
-          aws_eks_common_namespaces_dev[label="dev"]
-          aws_eks_common_namespaces_prod_integrates[label="prod_integrates"]
+          subgraph cluster_aws_eks_common_namespaces_default {
+            label="default"
+
+            cluster_aws_eks_common_namespaces_default[style="invis"]
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_dev {
+            label="dev"
+
+            subgraph cluster_aws_eks_common_namespaces_dev_deployments {
+              label="Deployments"
+
+              aws_eks_common_namespaces_dev_deployments_integrates_atfluid[label="integrates-*atfluid" peripheries="2"]
+            }
+
+            cluster_aws_eks_common_namespaces_dev[style="invis"]
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_kube_node_lease {
+            label="kube-node-lease"
+
+            cluster_aws_eks_common_namespaces_kube_node_lease[style="invis"]
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_kube_public {
+            label="kube-public"
+
+            cluster_aws_eks_common_namespaces_kube_public[style="invis"]
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_kube_system {
+            label="kube-system"
+
+            subgraph cluster_aws_eks_common_namespaces_kube_system_deployments {
+              label="Deployments"
+
+              cluster_aws_eks_common_namespaces_kube_system_alb_aws_load_balancer_controller[label="alb-aws-load-balancer-controller"]
+              cluster_aws_eks_common_namespaces_kube_system_autoscaler_aws_cluster_autoscaler[label="autoscaler-aws-cluster-autoscaler"]
+              cluster_aws_eks_common_namespaces_kube_system_coredns[label="coredns"]
+              cluster_aws_eks_common_namespaces_kube_system_dns_external_dns[label="dns-external-dns"]
+              cluster_aws_eks_common_namespaces_kube_system_metrics_server[label="metrics-server"]
+              cluster_aws_eks_common_namespaces_kube_system_newrelic_kube_state_metrics[label="newrelic-kube-state-metrics"]
+              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_kube_events[label="newrelic-nri-kube-events"]
+              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_metadata_injection[label="newrelic-nri-metadata-injection"]
+            }
+
+            cluster_aws_eks_common_namespaces_kube_system[style="invis"]
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_prod_integrates {
+            label="prod-integrates"
+
+            subgraph cluster_aws_eks_common_namespaces_prod_integrates_deployments {
+              label="Deployments"
+
+              aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[label="integrates-trunk"]
+              aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[label="machine-report-trunk"]
+            }
+
+            cluster_aws_eks_common_namespaces_prod_integrates[style="invis"]
+          }
+
         }
       }
     }
@@ -185,8 +244,8 @@ digraph common {
   aws_iam_roles_prod_skims -> aws_kms_keys_prod_skims[]
   aws_iam_roles_prod_sorts -> aws_kms_keys_dev[]
   aws_iam_roles_prod_sorts -> aws_kms_keys_prod_sorts[]
-  aws_eks_common_namespaces_dev -> aws_ec2_dev[]
-  aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[]
+  cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
+  cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
 
   edge[color="0.6 0.8 1.0"]
 
