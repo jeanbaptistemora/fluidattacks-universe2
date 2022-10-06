@@ -599,6 +599,14 @@
       "title": "234. Technical information leak - Stacktrace"
     }
   },
+  "F236": {
+    "EN": {
+      "title": "236. Technical information leak - SourceMap"
+    },
+    "ES": {
+      "title": "236. Technical information leak - SourceMap"
+    }
+  },
   "F239": {
     "EN": {
       "title": "239. Technical information leak - Errors"
