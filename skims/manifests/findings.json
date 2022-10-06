@@ -743,6 +743,14 @@
       "title": "325. Excessive privileges - Wildcards"
     }
   },
+  "F332": {
+    "EN": {
+      "title": "332. Use of insecure channel - Source code"
+    },
+    "ES": {
+      "title": "332. Use of insecure channel - Source code"
+    }
+  },
   "F333": {
     "EN": {
       "title": "333. Insecure service configuration - EC2"
