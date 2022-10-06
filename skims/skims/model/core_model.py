@@ -3546,6 +3546,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="csrf_protections_disabled",
+        module="lib_path",
+        finding=FindingEnum.F332,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_EC2_ASSOC_PUB_IP = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_associate_public_ip_address",

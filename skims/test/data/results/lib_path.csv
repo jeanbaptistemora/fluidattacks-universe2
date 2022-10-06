@@ -23539,6 +23539,54 @@ F250,lines,namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volum
   17 | }
      ^ Col 0
 ",terraform.tfm_ebs_unencrypted_volumes
+F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,11,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+  10 |         http.csrf().ignoringAntMatchers(""/route/"");
+> 11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",terraform.csrf_protections_disabled
+F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,10,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+> 10 |         http.csrf().ignoringAntMatchers(""/route/"");
+  11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",terraform.csrf_protections_disabled
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | ing System;
