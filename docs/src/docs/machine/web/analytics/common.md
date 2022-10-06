@@ -429,9 +429,9 @@ the registered files,
 and the total number of
 vulnerabilities on the Y-axis.
 
-## Aggregated exposure benchmark
+## Exposure benchmark
 
-![Aggregated exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1663701130/docs/web/analytics/common/aggregated_exposure_benchmark.png)
+![Exposure benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1663701130/docs/web/analytics/common/aggregated_exposure_benchmark.png)
 
 In this chart,
 you will be able to compare
