@@ -211,7 +211,6 @@ describe("VulnComponent", (): void => {
     const { rerender } = render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
-          canDisplayHacker={false}
           columns={columns}
           extraButtons={<div />}
           findingState={"open"}
@@ -237,7 +236,6 @@ describe("VulnComponent", (): void => {
     rerender(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
-          canDisplayHacker={false}
           columns={columns}
           extraButtons={<div />}
           findingState={"open"}
@@ -268,7 +266,6 @@ describe("VulnComponent", (): void => {
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
-          canDisplayHacker={false}
           columns={columns}
           extraButtons={<div />}
           findingState={"open"}

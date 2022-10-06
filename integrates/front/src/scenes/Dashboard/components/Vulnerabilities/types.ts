@@ -75,25 +75,27 @@ interface IVulnDataTypeAttr {
 }
 
 interface IVulnComponentProps {
-  canDisplayHacker: boolean;
   clearFiltersButton?: () => void;
   changePermissions?: (groupName: string) => void;
   columnFilterSetter?: Dispatch<SetStateAction<ColumnFiltersState>>;
   columnFilterState?: ColumnFiltersState;
+  columnToggle?: boolean;
   columns: ColumnDef<IVulnRowAttr>[];
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
-  extraButtons: JSX.Element;
-  findingState: "closed" | "open";
+  extraButtons?: JSX.Element;
+  findingState?: "closed" | "open";
   hideSelectVulnerability?: boolean;
-  isFindingReleased: boolean;
+  isFindingReleased?: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;
   refetchData: () => void;
   nonValidOnReattackVulnerabilities?: IVulnRowAttr[];
   vulnerabilities: IVulnRowAttr[];
-  onVulnSelect: (
+  onNextPage?: () => Promise<void>;
+  onSearch?: (search: string) => void;
+  onVulnSelect?: (
     vulnerabilities: IVulnRowAttr[],
     clearSelected: () => void
   ) => void;

@@ -21,7 +21,8 @@ interface IActionButtonsProps {
   areVulnsSelected: boolean;
   areVulnerabilitiesPendingToAcceptance: boolean;
   isEditing: boolean;
-  isFindingReleased: boolean;
+  isFindingReleased?: boolean;
+  isNotifyDisabled?: boolean;
   isOpen: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
@@ -40,7 +41,8 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
   areVulnerabilitiesPendingToAcceptance,
   isEditing,
-  isFindingReleased,
+  isFindingReleased = true,
+  isNotifyDisabled = false,
   isOpen,
   isReattackRequestedInAllVuln,
   isRequestingReattack,
@@ -53,7 +55,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   onVerify,
   openHandleAcceptance,
   openModal,
-}: IActionButtonsProps): JSX.Element => {
+}: Readonly<IActionButtonsProps>): JSX.Element => {
   const { t } = useTranslation();
   const displayMessage: () => void = (): void => {
     msgInfo(
@@ -75,7 +77,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
-      {state === "open" && (
+      {state === "open" && !isNotifyDisabled && (
         <NotifyButton
           isDisabled={false}
           isFindingReleased={isFindingReleased}

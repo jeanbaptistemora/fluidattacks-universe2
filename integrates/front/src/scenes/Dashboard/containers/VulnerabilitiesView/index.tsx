@@ -67,9 +67,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRetrieveHacker: boolean = permissions.can(
-    "api_resolvers_vulnerability_hacker_resolve"
-  );
   const canRetrieveZeroRisk: boolean = permissions.can(
     "api_resolvers_finding_zero_risk_connection_resolve"
   );
@@ -460,7 +457,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <div>
             <div>
               <VulnComponent
-                canDisplayHacker={canRetrieveHacker}
                 columnFilterSetter={setColumnFilters}
                 columnFilterState={columnFilters}
                 columns={columns}

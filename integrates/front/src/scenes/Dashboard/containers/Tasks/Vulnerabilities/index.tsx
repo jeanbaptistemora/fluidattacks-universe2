@@ -6,7 +6,6 @@
 
 import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -55,10 +54,6 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
   setUserRole,
 }: ITasksVulnerabilities): JSX.Element => {
   const { t } = useTranslation();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRetrieveHacker: boolean = permissions.can(
-    "api_resolvers_vulnerability_hacker_resolve"
-  );
 
   const [isEditing, setIsEditing] = useState(false);
   const [iscurrentOpen, setIscurrentOpen] = useState<boolean[]>([]);
@@ -417,7 +412,6 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       <div>
         <div>
           <VulnComponent
-            canDisplayHacker={canRetrieveHacker}
             changePermissions={changePermissions}
             columns={columns}
             extraButtons={

@@ -61,22 +61,24 @@ function usePreviousProps(value: boolean): boolean {
 }
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
-  canDisplayHacker,
   changePermissions,
   columnFilterSetter = undefined,
   columnFilterState = undefined,
+  columnToggle = false,
   columns,
-  extraButtons,
-  findingState,
+  extraButtons = undefined,
+  findingState = "open",
   hideSelectVulnerability,
   isEditing,
-  isFindingReleased,
+  isFindingReleased = true,
   isRequestingReattack,
   isVerifyingRequest,
   refetchData,
   nonValidOnReattackVulnerabilities,
   vulnerabilities,
-  onVulnSelect,
+  onNextPage = undefined,
+  onSearch = undefined,
+  onVulnSelect = (): void => undefined,
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
   const attributes: PureAbility<string> = useContext(authzGroupContext);
@@ -89,6 +91,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
+  );
+  const canRetrieveHacker: boolean = permissions.can(
+    "api_resolvers_vulnerability_hacker_resolve"
   );
   const canRemoveVulns: boolean =
     permissions.can("api_mutations_remove_vulnerability_mutate") &&
@@ -260,6 +265,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       <Table
         columnFilterSetter={columnFilterSetter}
         columnFilterState={columnFilterState}
+        columnToggle={columnToggle}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
         columns={[...columns, ...(canRemoveVulns ? deleteColumn : [])]}
@@ -267,10 +273,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         enableColumnFilters={true}
         enableRowSelection={enabledRows}
         extraButtons={
-          <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
+          extraButtons ? (
+            <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
+          ) : undefined
         }
         id={"vulnerabilitiesTable"}
+        onNextPage={onNextPage}
         onRowClick={openAdditionalInfoModal}
+        onSearch={onSearch}
         rowSelectionSetter={
           isFindingReleased &&
           !(hideSelectVulnerability === true || findingState === "closed")
@@ -290,7 +300,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       {currentRow ? (
         <AdditionalInformation
-          canDisplayHacker={canDisplayHacker}
+          canDisplayHacker={canRetrieveHacker}
           canRemoveVulnsTags={canRemoveVulnsTags}
           canRequestZeroRiskVuln={canRequestZeroRiskVuln}
           canUpdateVulnsTreatment={canUpdateVulnsTreatment}
