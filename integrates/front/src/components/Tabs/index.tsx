@@ -12,7 +12,6 @@ const Tabs = styled.ul.attrs({
   className: "comp-tabs list ma0 pa0",
 })`
   display: inline-flex;
-  overflow: hidden;
 
   > a:first-child,
   > *:first-child a {
