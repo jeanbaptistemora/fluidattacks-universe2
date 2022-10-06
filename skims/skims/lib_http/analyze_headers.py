@@ -20,6 +20,7 @@ from http_headers import (
     x_content_type_options,
 )
 from http_headers.types import (
+    ContentEncodingHeader,
     ContentSecurityPolicyHeader,
     Header,
     SetCookieHeader,
@@ -500,18 +501,24 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 def _breach_possible(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    headers: List[Header] = ctx.headers_parsed.getall(
+        key="ContentEncodingHeader", default=[]
+    )
 
-    if val := ctx.headers_parsed.get("ContentEncodingHeader"):
-        if val.value == "gzip":
+    for header in headers:
+        if (
+            isinstance(header, ContentEncodingHeader)
+            and header.value == "gzip"
+        ):
             locations.append(
                 desc="breach_possible.insecure",
-                desc_kwargs={"compression": val.value},
+                desc_kwargs={"compression": header.value},
+                identifier=header.value,
             )
 
     return _create_vulns(
         locations=locations,
-        header=header,
+        header=None if not headers else headers[0],
         ctx=ctx,
         method=core_model.MethodsEnum.BREACH_POSSIBLE,
     )
