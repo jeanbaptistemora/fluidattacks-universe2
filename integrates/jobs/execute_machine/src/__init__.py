@@ -527,7 +527,6 @@ def generate_config(  # pylint: disable=too-many-locals
         f"_{uuid.uuid4().hex[:8]}"
     )
 
-    scopes: Set[str] = set()
     urls: List[str] = []
     ssl_targets: List[Tuple[str, str]] = []
     dast_config: Optional[Dict[str, Any]] = None
