@@ -5,30 +5,25 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.pair import (
-    build_pair_node,
+from syntax_graph.syntax_nodes.parameter import (
+    build_parameter_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    cast,
+    Iterator,
+)
 from utils.graph import (
-    get_ast_childs,
-    match_ast,
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    name_id = get_ast_childs(args.ast_graph, args.n_id, "identifier")[0]
-    type_annon_id = get_ast_childs(
-        args.ast_graph, args.n_id, "type_annotation"
-    )[0]
-    pred_type = get_ast_childs(
-        args.ast_graph, type_annon_id, "predefined_type"
-    )
-    if pred_type:
-        type_id = pred_type[0]
-    else:
-        match_childs = match_ast(args.ast_graph, type_annon_id, ":")
-        type_id = str(match_childs["__0__"])
-
-    return build_pair_node(args, name_id, type_id)
+    c_ids = [
+        c_id
+        for c_id in adj_ast(args.ast_graph, args.n_id)
+        if args.ast_graph.nodes[c_id].get("label_type") != "type_annotation"
+    ]
+    return build_parameter_node(args, None, None, cast(Iterator[str], c_ids))
