@@ -34,6 +34,7 @@
   ],
   "settings": {
     "[python]": {
+      "editor.defaultFormatter": "jkillian.custom-local-formatters",
       "editor.tabSize": 4
     },
     "customLocalFormatters.formatters": [
