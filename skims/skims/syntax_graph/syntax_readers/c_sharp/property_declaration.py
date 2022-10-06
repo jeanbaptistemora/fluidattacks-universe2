@@ -19,7 +19,7 @@ from utils import (
 def reader(args: SyntaxGraphArgs) -> NId:
     node = args.ast_graph.nodes[args.n_id]
     match_type = node["label_field_type"]
-    match_identifier = node.get["label_field_name"]
+    match_identifier = node["label_field_name"]
 
     var_type = args.ast_graph.nodes[match_type].get("label_text")
     identifier = args.ast_graph.nodes[match_identifier].get("label_text")

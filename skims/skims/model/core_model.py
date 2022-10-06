@@ -2939,6 +2939,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
+    CHECK_DEFAULT_USEHSTS = MethodInfo(
+        file_name="c_sharp",
+        name="check_default_usehsts",
+        module="lib_root",
+        finding=FindingEnum.F131,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     X_CONTENT_TYPE_OPTIONS = MethodInfo(
         file_name="analyze_headers",
         name="x_content_type_options",

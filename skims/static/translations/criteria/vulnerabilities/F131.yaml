@@ -5,3 +5,6 @@ lib_http.analyze_headers.strict_transport_security.missing:
 lib_http.analyze_headers.strict_transport_security.short_max_age:
   en: max-age less than 31536000
   es: max-age menor que 31536000
+lib_root.check_default_usehsts:
+  en: The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small
+  es: El servidor carece del encabezado HTTP Strict-Transport-Security. Simultaneamente, el valor max-age del mismo es muy pequeño
