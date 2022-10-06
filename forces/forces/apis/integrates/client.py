@@ -30,7 +30,6 @@ import os
 from typing import (
     Any,
     AsyncIterator,
-    List,
     TypeVar,
 )
 
@@ -47,7 +46,7 @@ TVar = TypeVar("TVar")
 
 class ApiError(Exception):
     def __init__(self, *errors: dict[str, Any]) -> None:
-        self.messages: List[str] = []
+        self.messages: list[str] = []
         for error in errors:
             if message := error.get("message"):
                 self.messages.append(message)

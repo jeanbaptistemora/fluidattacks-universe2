@@ -20,7 +20,6 @@ from typing import (
     Any,
     Callable,
     cast,
-    Tuple,
     Type,
     TypeVar,
 )
@@ -46,7 +45,7 @@ class StopRetrying(Exception):
 def shield(
     *,
     on_error_return: Any = RAISE,
-    on_exceptions: Tuple[Type[BaseException], ...] = (
+    on_exceptions: tuple[Type[BaseException], ...] = (
         BaseException,
         RetryAndFinallyReturn,
     ),

@@ -33,7 +33,6 @@ import tempfile
 from typing import (
     Any,
     IO,
-    Set,
 )
 
 
@@ -71,7 +70,7 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.propagate = False
 
 
-def set_up_handlers(interfaces: Set[Console]) -> None:
+def set_up_handlers(interfaces: set[Console]) -> None:
     """Configures and sets up logging handlers for the main logger object"""
     for interface in interfaces:
         handler: logging.Handler = RichHandler(

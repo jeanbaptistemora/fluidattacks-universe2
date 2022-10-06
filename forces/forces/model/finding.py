@@ -8,9 +8,6 @@ from dataclasses import (
 from forces.model.vulnerability import (
     Vulnerability,
 )
-from typing import (
-    Tuple,
-)
 
 
 @dataclass
@@ -30,4 +27,4 @@ class Finding:
     exploitability: float
     severity_score: float
     summary: FindingSummary = FindingSummary()
-    vulnerabilities: Tuple[Vulnerability, ...] = tuple()
+    vulnerabilities: tuple[Vulnerability, ...] = tuple()

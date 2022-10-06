@@ -15,7 +15,6 @@ from forces.utils.logs import (
 )
 from typing import (
     Any,
-    List,
 )
 
 
@@ -33,7 +32,7 @@ def choose_min_breaking_severity(
 
 
 async def set_forces_exit_code(
-    config: ForcesConfig, findings: List[dict[str, Any]]
+    config: ForcesConfig, findings: list[dict[str, Any]]
 ) -> int:
     if config.strict:
         await log(

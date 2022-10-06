@@ -29,9 +29,6 @@ from typing import (
     AsyncGenerator,
     Callable,
     cast,
-    List,
-    Set,
-    Tuple,
     TypeVar,
 )
 
@@ -44,7 +41,7 @@ SHIELD: Callable[[TFun], TFun] = shield(
 
 
 @SHIELD
-async def get_findings(group: str, **kwargs: str) -> Set[str]:
+async def get_findings(group: str, **kwargs: str) -> set[str]:
     """
     Returns the findings of a group.
 
@@ -62,7 +59,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
         }
         """
 
-    result: dict[str, dict[str, List[Any]]] = (
+    result: dict[str, dict[str, list[Any]]] = (
         await execute(
             query=query,
             operation_name="ForcesDoGetGroupFindings",
@@ -73,7 +70,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
         or {}
     )
 
-    findings: Set[str] = set(
+    findings: set[str] = set(
         finding["id"]
         for finding in (result.get("group", {}) or {}).get("findings", [])
         if finding["currentState"] == "APPROVED"
@@ -85,7 +82,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
 @SHIELD
 async def get_vulnerabilities(
     finding_id: str, **kwargs: str
-) -> List[dict[str, str | List[dict[str, dict[str, Any]]]]]:
+) -> list[dict[str, str | list[dict[str, dict[str, Any]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -206,13 +203,13 @@ async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
 
 async def vulns_generator(
     group: str, **kwargs: str
-) -> AsyncGenerator[dict[str, str | List[dict[str, dict[str, Any]]]], None]:
+) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, Any]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
     :param `group`: Group Name.
     """
-    findings: Set[str] = await get_findings(group, **kwargs)
+    findings: set[str] = await get_findings(group, **kwargs)
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
@@ -288,9 +285,9 @@ async def upload_report(
             }
         }
         """
-    open_vulns: List[dict[str, str]] = []
-    closed_vulns: List[dict[str, str]] = []
-    accepted_vulns: List[dict[str, str]] = []
+    open_vulns: list[dict[str, str]] = []
+    closed_vulns: list[dict[str, str]] = []
+    accepted_vulns: list[dict[str, str]] = []
     for vuln in [
         vuln for find in report["findings"] for vuln in find["vulnerabilities"]
     ]:
@@ -342,7 +339,7 @@ async def upload_report(
 @SHIELD
 async def get_groups_access(
     **kwargs: Any,
-) -> List[Tuple[dict[str, str], float, int]]:
+) -> list[tuple[dict[str, str], float, int]]:
     query = """
         query ForcesGetMeGroups {
           me {
@@ -362,7 +359,7 @@ async def get_groups_access(
             str,
             dict[
                 str,
-                List[dict[str, List[dict[str, str]] | int | float]],
+                list[dict[str, list[dict[str, str]] | int | float]],
             ],
         ] = await execute(
             query,
@@ -384,11 +381,11 @@ async def get_groups_access(
             cast(int, group["vulnerabilityGracePeriod"]),
         )
         for organization in response["me"]["organizations"]
-        for group in cast(List[dict[str, str]], organization["groups"])
+        for group in cast(list[dict[str, str]], organization["groups"])
     )
 
 
-async def get_git_remotes(group: str, **kwargs: Any) -> List[dict[str, str]]:
+async def get_git_remotes(group: str, **kwargs: Any) -> list[dict[str, str]]:
     query = """
         query ForcesGetGitRoots($group: String!) {
           group(groupName: $group){
@@ -402,7 +399,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[dict[str, str]]:
           }
         }
     """
-    response: dict[str, dict[str, List[dict[str, str]]]] = await execute(
+    response: dict[str, dict[str, list[dict[str, str]]]] = await execute(
         query,
         operation_name="ForcesGetGitRoots",
         variables={"group": group},
@@ -414,7 +411,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[dict[str, str]]:
 
 async def get_forces_user_and_org_data(
     **kwargs: Any,
-) -> Tuple[str | None, float | None, int | None]:
+) -> tuple[str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
     for group, global_brk_severity, vuln_grace_period in groups:
         if group["userRole"] == "service_forces":

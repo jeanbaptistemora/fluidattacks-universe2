@@ -33,8 +33,6 @@ from timeit import (
 )
 from typing import (
     Any,
-    List,
-    Set,
 )
 
 
@@ -191,7 +189,7 @@ def format_summary_report(
     return summary_table
 
 
-def format_vuln_table(vulns: List[dict[str, str]]) -> Table:
+def format_vuln_table(vulns: list[dict[str, str]]) -> Table:
     """
     Helper method to create the nested vulns table\n
     @param `vulns`: A list of dicts with each vuln's data
@@ -339,7 +337,7 @@ async def generate_raw_report(
 
     _summary_dict = get_summary_template(config.kind)
 
-    raw_report: dict[str, List[Any]] = {"findings": []}
+    raw_report: dict[str, list[Any]] = {"findings": []}
     findings_dict = await create_findings_dict(
         config.group,
         **kwargs,
@@ -407,9 +405,9 @@ async def generate_raw_report(
 
 
 def filter_vulns(
-    findings: List[dict[str, Any]],
-    allowed_vuln_states: Set[VulnerabilityState],
-) -> List[dict[str, Any]]:
+    findings: list[dict[str, Any]],
+    allowed_vuln_states: set[VulnerabilityState],
+) -> list[dict[str, Any]]:
     """Helper method to filter vulns in findings based on the requested vuln
     states set by the verbosity level of the report"""
     # Verbosity level of 1
