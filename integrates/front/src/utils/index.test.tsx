@@ -1050,6 +1050,16 @@ describe("formatHelpers", (): void => {
     expect(checkFormat).toBe("Temporarily accepted");
   });
 
+  it("Should return empty treatment", (): void => {
+    expect.hasAssertions();
+
+    const findingState = "close";
+    const treatment = "ACCEPTED";
+    const checkFormat = formatTreatment(treatment, findingState);
+
+    expect(checkFormat).toBe("-");
+  });
+
   it("Should return incorrect date value", (): void => {
     expect.hasAssertions();
 
