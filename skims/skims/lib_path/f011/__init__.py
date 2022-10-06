@@ -48,17 +48,17 @@ def run_gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_maven_pom_xml(content: str, path: str) -> Vulnerabilities:
-    return maven_pom_xml(content=content, path=path)
+    return maven_pom_xml(content, path)
 
 
 @SHIELD_BLOCKING
 def run_maven_gradle(content: str, path: str) -> Vulnerabilities:
-    return maven_gradle(content=content, path=path)
+    return maven_gradle(content, path)
 
 
 @SHIELD_BLOCKING
 def run_maven_sbt(content: str, path: str) -> Vulnerabilities:
-    return maven_sbt(content=content, path=path)
+    return maven_sbt(content, path)
 
 
 @SHIELD_BLOCKING
@@ -68,12 +68,12 @@ def run_npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_nuget_csproj(content: str, path: str) -> Vulnerabilities:
-    return nuget_csproj(content=content, path=path)
+    return nuget_csproj(content, path)
 
 
 @SHIELD_BLOCKING
 def run_nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
-    return nuget_pkgs_config(content=content, path=path)
+    return nuget_pkgs_config(content, path)
 
 
 @SHIELD_BLOCKING
@@ -91,7 +91,7 @@ def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
 
 @SHIELD_BLOCKING
 def run_pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
-    return pip_requirements_txt(content=content, path=path)
+    return pip_requirements_txt(content, path)
 
 
 def _is_pom_xml(content: str) -> bool:

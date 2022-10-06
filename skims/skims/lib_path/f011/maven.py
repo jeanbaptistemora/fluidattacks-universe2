@@ -7,12 +7,11 @@ import glob
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
-    translate_dependencies_to_vulnerabilities,
+    pkg_deps_to_vulns,
 )
 from model.core_model import (
     MethodsEnum,
     Platform,
-    Vulnerabilities,
 )
 import re
 from typing import (
@@ -85,7 +84,9 @@ def avoid_cmt(line: str, is_block_cmt: bool) -> Tuple[str, bool]:
     return line, is_block_cmt
 
 
-def resolve_dependencies_helper(content: str) -> Iterator[DependencyType]:
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.MAVEN, MethodsEnum.MAVEN_GRADLE)
+def maven_gradle(content: str, path: str) -> Iterator[DependencyType]:
     is_block_cmt = False
     for line_no, line in enumerate(content.splitlines(), start=1):
         line, is_block_cmt = avoid_cmt(line, is_block_cmt)
@@ -111,17 +112,6 @@ def resolve_dependencies_helper(content: str) -> Iterator[DependencyType]:
             continue
 
         yield format_pkg_dep(product, version, line_no, line_no, column)
-
-
-def maven_gradle(content: str, path: str) -> Vulnerabilities:
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies_helper(content),
-        path=path,
-        platform=Platform.MAVEN,
-        method=MethodsEnum.MAVEN_GRADLE,
-    )
 
 
 def _is_pom_xml(content: str) -> bool:
@@ -175,53 +165,38 @@ def _find_vars(value: str, path: str) -> str:
     return interpolated_value
 
 
-def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        root = bs4.BeautifulSoup(content, features="html.parser")
+@pkg_deps_to_vulns(Platform.MAVEN, MethodsEnum.MAVEN_POM_XML)
+def maven_pom_xml(content: str, path: str) -> Iterator[DependencyType]:
+    root = bs4.BeautifulSoup(content, features="html.parser")
 
-        for group, artifact, version in [
-            (group, artifact, version)
-            for dependency in root.find_all("dependency", recursive=True)
-            for group in dependency.find_all("groupid", limit=1)
-            for artifact in dependency.find_all("artifactid", limit=1)
-            for version in (dependency.find_all("version", limit=1) or [None])
-        ]:
-            g_text = _find_vars(group.get_text(), path)
-            a_text = _find_vars(artifact.get_text(), path)
-            if version is None:
-                continue
-            product = f"{g_text}:{a_text}"
-            v_text = _find_vars(version.get_text(), path)
-            column = version.sourcepos
-            line = version.sourceline
+    for group, artifact, version in [
+        (group, artifact, version)
+        for dependency in root.find_all("dependency", recursive=True)
+        for group in dependency.find_all("groupid", limit=1)
+        for artifact in dependency.find_all("artifactid", limit=1)
+        for version in (dependency.find_all("version", limit=1) or [None])
+    ]:
+        g_text = _find_vars(group.get_text(), path)
+        a_text = _find_vars(artifact.get_text(), path)
+        if version is None:
+            continue
+        product = f"{g_text}:{a_text}"
+        v_text = _find_vars(version.get_text(), path)
+        column = version.sourcepos
+        line = version.sourceline
 
-            yield format_pkg_dep(product, v_text, line, line, column)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.MAVEN,
-        method=MethodsEnum.MAVEN_POM_XML,
-    )
+        yield format_pkg_dep(product, v_text, line, line, column)
 
 
-def maven_sbt(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        for line_no, line in enumerate(content.splitlines(), start=1):
-            if match := RE_SBT.match(line):
-                column: int = match.start("group")
-                product: str = match.group("group") + ":" + match.group("name")
-                version = match.group("version")
-            else:
-                continue
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.MAVEN, MethodsEnum.MAVEN_SBT)
+def maven_sbt(content: str, path: str) -> Iterator[DependencyType]:
+    for line_no, line in enumerate(content.splitlines(), start=1):
+        if match := RE_SBT.match(line):
+            column: int = match.start("group")
+            product: str = match.group("group") + ":" + match.group("name")
+            version = match.group("version")
+        else:
+            continue
 
-            yield format_pkg_dep(product, version, line_no, line_no, column)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.MAVEN,
-        method=MethodsEnum.MAVEN_SBT,
-    )
+        yield format_pkg_dep(product, version, line_no, line_no, column)

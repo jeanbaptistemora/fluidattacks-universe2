@@ -6,53 +6,38 @@ import bs4
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
-    translate_dependencies_to_vulnerabilities,
+    pkg_deps_to_vulns,
 )
 from model.core_model import (
     MethodsEnum,
     Platform,
-    Vulnerabilities,
 )
 from typing import (
     Iterator,
 )
 
 
-def nuget_csproj(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        root = bs4.BeautifulSoup(content, features="html.parser")
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.NUGET, MethodsEnum.NUGET_CSPROJ)
+def nuget_csproj(content: str, path: str) -> Iterator[DependencyType]:
+    root = bs4.BeautifulSoup(content, features="html.parser")
 
-        for pkg in root.find_all("packagereference", recursive=True):
-            if (id_ := pkg.get("include")) and (version := pkg.get("version")):
-                column = pkg.sourcepos
-                line = pkg.sourceline
+    for pkg in root.find_all("packagereference", recursive=True):
+        if (id_ := pkg.get("include")) and (version := pkg.get("version")):
+            column = pkg.sourcepos
+            line = pkg.sourceline
 
-                yield format_pkg_dep(id_, version, line, line, column)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.NUGET,
-        method=MethodsEnum.NUGET_CSPROJ,
-    )
+            yield format_pkg_dep(id_, version, line, line, column)
 
 
-def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        root = bs4.BeautifulSoup(content, features="html.parser")
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.NUGET, MethodsEnum.NUGET_PACKAGES_CONFIG)
+def nuget_pkgs_config(content: str, path: str) -> Iterator[DependencyType]:
+    root = bs4.BeautifulSoup(content, features="html.parser")
 
-        for pkg in root.find_all("package", recursive=True):
-            if (id_ := pkg.get("id")) and (version := pkg.get("version")):
-                column = pkg.sourcepos
-                line = pkg.sourceline
+    for pkg in root.find_all("package", recursive=True):
+        if (id_ := pkg.get("id")) and (version := pkg.get("version")):
+            column = pkg.sourcepos
+            line = pkg.sourceline
 
-                yield format_pkg_dep(id_, version, line, line, column)
-
-    return translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=resolve_dependencies(),
-        path=path,
-        platform=Platform.NUGET,
-        method=MethodsEnum.NUGET_PACKAGES_CONFIG,
-    )
+            yield format_pkg_dep(id_, version, line, line, column)
