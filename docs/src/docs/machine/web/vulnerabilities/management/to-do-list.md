@@ -35,3 +35,34 @@ are assigned to me,
 and I am responsible
 for solving them.
 You find the following information:
+
+- **Group name:**
+  The name of the [group](/machine/web/groups)
+  where that specific
+  vulnerability is found,
+  clicking on it redirects you
+  to the vulnerability
+  typology tab of the group.
+- **Type:**
+  The typology is that [vulnerability](/criteria/vulnerabilities/).
+  When you click on it you
+  will be redirected to the
+  description of that location.
+- **Vulnerability:**
+  Where it is located,
+  the vulnerability.
+- **Evidence:**
+  Clicking on view will
+  redirect you to the
+  [evidence](/machine/web/vulnerabilities/management/vulnerability-description#evidence)
+  tab in the locations tab.
+- **Tags:**
+  The tags that you put at the
+  time of assigning the vulnerability.
+
+## Functionalities
+
+In this section of the **ARM**
+we find the following functionalities:
+
+### Edit vulnerabilities
