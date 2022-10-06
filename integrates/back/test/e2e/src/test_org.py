@@ -40,7 +40,6 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Sprint exposure change overall",
     "Total vulnerabilities",
     "Open vulnerabilities",
-    "Mean time to reattack",
     "Severity",
     "Active resources distribution",
     "Vulnerabilities by tag",

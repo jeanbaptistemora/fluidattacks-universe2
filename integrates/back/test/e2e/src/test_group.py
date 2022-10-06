@@ -139,7 +139,6 @@ def test_group_analytics(
             "Sprint exposure change overall",
             "Total vulnerabilities",
             "Open vulnerabilities",
-            "Mean time to reattack",
             "Severity",
             "Active resources distribution",
             "Vulnerabilities by tag",
