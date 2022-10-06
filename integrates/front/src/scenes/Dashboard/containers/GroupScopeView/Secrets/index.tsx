@@ -9,6 +9,7 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { Row } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useState } from "react";
@@ -24,7 +25,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table } from "components/Table";
+import { Table as Tablez } from "components/TableNew";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 
@@ -126,6 +127,12 @@ const Secrets: React.FC<ISecretsProps> = ({
     return secretsDataSet.some((item): boolean => item.key === key);
   }
 
+  function handleRowExpand(row: Row<ISecretItem>): JSX.Element {
+    return renderSecretsDescription({
+      description: [row.original.description],
+    });
+  }
+
   return (
     <React.StrictMode>
       <Modal
@@ -145,27 +152,20 @@ const Secrets: React.FC<ISecretsProps> = ({
           setModalMessages={setModalMessages}
         />
       </Modal>
-      <Table
-        dataset={secretsDataSet}
-        expandRow={{
-          expandByColumnOnly: true,
-          renderer: renderSecretsDescription,
-          showExpandColumn: true,
-        }}
-        exportCsv={false}
-        headers={[
+      <Tablez
+        columns={[
           {
-            dataField: "key",
-            header: t("group.scope.git.repo.credentials.secrets.key"),
+            accessorKey: "key",
+            header: String(t("group.scope.git.repo.credentials.secrets.key")),
           },
           {
-            dataField: "element",
-            header: t("group.scope.git.repo.credentials.secrets.value"),
+            accessorKey: "element",
+            header: String(t("group.scope.git.repo.credentials.secrets.value")),
           },
         ]}
+        data={secretsDataSet}
+        expandedRow={handleRowExpand}
         id={"tblGitRootSecrets"}
-        pageSize={10}
-        search={false}
       />
       {!showAlert && modalMessages.message !== "" && (
         <Alert
