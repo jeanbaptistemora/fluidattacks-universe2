@@ -8,8 +8,8 @@ Guarantee the states within the finding's historic state are
 separated by at least one whole second.
 This is required for analytics purposes.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-05 at 21:47:13 UTC
+Finalization Time: 2022-10-05 at 22:15:28 UTC
 """
 
 from aioextensions import (
