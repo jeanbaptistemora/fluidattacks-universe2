@@ -11,6 +11,7 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import type { IComplianceContentProps } from "./types";
 
 import { OrganizationComplianceOverviewView } from "../OrganizationComplianceOverviewView";
+import { OrganizationComplianceStandardsView } from "../OrganizationComplianceStandardsView copy";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
 
@@ -31,11 +32,23 @@ const ComplianceContent: React.FC<IComplianceContentProps> = (
         >
           {t("organization.tabs.compliance.tabs.overview.text")}
         </Tab>
+        <Tab
+          id={"standardsTab"}
+          link={`${url}/standards`}
+          tooltip={t("organization.tabs.compliance.tabs.standards.tooltip")}
+        >
+          {t("organization.tabs.compliance.tabs.standards.text")}
+        </Tab>
       </Tabs>
       <TabContent>
         <Switch>
           <Route exact={true} path={`${path}/overview`}>
             <OrganizationComplianceOverviewView
+              organizationId={organizationId}
+            />
+          </Route>
+          <Route exact={true} path={`${path}/standards`}>
+            <OrganizationComplianceStandardsView
               organizationId={organizationId}
             />
           </Route>

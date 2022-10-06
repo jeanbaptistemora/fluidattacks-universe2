@@ -1764,6 +1764,10 @@ export const enTranslations: ResourceKey = {
             text: "Overview",
             tooltip: "Overview of the compliance with the standards",
           },
+          standards: {
+            text: "Standards",
+            tooltip: "Compliance information for standards",
+          },
         },
       },
       credentials: {
