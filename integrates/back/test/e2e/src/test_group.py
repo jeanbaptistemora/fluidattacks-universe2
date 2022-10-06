@@ -125,7 +125,7 @@ def test_group_analytics(
             "Exposure benchmark",
             "Exposure management over time",
             "Distribution over time",
-            "Exposure Trends by Categories",
+            "Exposure trends by vulnerability category",
             "Vulnerabilities treatment",
             "Vulnerabilities by source",
             "Remediation rate",

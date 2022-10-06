@@ -12,7 +12,7 @@ export const enTranslations: ResourceKey = {
       eventualities: "Unsolved events by groups",
       exposureBenchmarkingCvssf: "Exposure benchmark",
       exposureByGroups: "Open Exposure by groups",
-      exposureTrendsByCategories: "Exposure Trends by Categories",
+      exposureTrendsByCategories: "Exposure trends by vulnerability category",
       meanTimeToRemediate: {
         tooltip: {
           alt: {
@@ -242,9 +242,6 @@ export const enTranslations: ResourceKey = {
       },
       forcesUsage: {
         title: "Service usage",
-      },
-      meanTimeToReattack: {
-        title: "Mean time to reattack",
       },
       openVulnerabilities: {
         title: "Open vulnerabilities",
