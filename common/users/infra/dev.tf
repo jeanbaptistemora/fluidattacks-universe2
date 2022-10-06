@@ -92,13 +92,10 @@ locals {
             "s3:PutObjectAcl",
           ]
           Resource = [
-            "arn:aws:s3:::continuous-repositories/continuoustest*/*",
             "arn:aws:s3:::integrates/continuous-repositories/continuoustest*/*",
             "arn:aws:s3:::docs-dev.fluidattacks.com",
             "arn:aws:s3:::docs-dev.fluidattacks.com/*",
-            "arn:aws:s3:::fluidintegrates.analytics/*atfluid",
             "arn:aws:s3:::integrates/analytics/*atfluid",
-            "arn:aws:s3:::fluidintegrates.analytics/*atfluid/*",
             "arn:aws:s3:::integrates/analytics/*atfluid/*",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com/*",
