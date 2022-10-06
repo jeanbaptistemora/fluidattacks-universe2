@@ -30,7 +30,6 @@ import os
 from typing import (
     Any,
     AsyncIterator,
-    Dict,
     List,
     TypeVar,
 )
@@ -47,7 +46,7 @@ TVar = TypeVar("TVar")
 
 
 class ApiError(Exception):
-    def __init__(self, *errors: Dict[str, Any]) -> None:
+    def __init__(self, *errors: dict[str, Any]) -> None:
         self.messages: List[str] = []
         for error in errors:
             if message := error.get("message"):
@@ -89,7 +88,7 @@ async def session(
 async def execute(
     query: str,
     operation_name: str,
-    variables: Dict[str, Any] | None = None,
+    variables: dict[str, Any] | None = None,
     default: Any | None = None,
     **kwargs: Any,
 ) -> TVar:

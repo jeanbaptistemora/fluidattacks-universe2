@@ -10,12 +10,11 @@ from forces.model import (
 from typing import (
     Any,
     cast,
-    Dict,
 )
 
 
 def filter_kind(
-    vuln: Dict[str, Any],
+    vuln: dict[str, Any],
     kind: KindEnum,
 ) -> bool:
     vuln_type = (
@@ -31,7 +30,7 @@ def filter_kind(
 
 
 def filter_repo(
-    vuln: Dict[str, Any],
+    vuln: dict[str, Any],
     kind: KindEnum,
     repo_name: str | None = None,
 ) -> bool:

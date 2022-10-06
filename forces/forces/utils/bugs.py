@@ -20,11 +20,10 @@ from forces.utils.env import (
 import os
 from typing import (
     Any,
-    Dict,
 )
 
 # Constants
-META: ContextVar[Dict[str, str] | None] = ContextVar("META", default=None)
+META: ContextVar[dict[str, str] | None] = ContextVar("META", default=None)
 
 
 def customize_bugsnag_error_reports(

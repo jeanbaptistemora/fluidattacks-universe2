@@ -23,9 +23,6 @@ from git import (
 import os
 import pytz
 import re
-from typing import (
-    Dict,
-)
 
 # Contants
 DEFAULT_COLUMN_VALUE: str = "unable to retrieve"
@@ -70,7 +67,7 @@ def extract_repo_name(pattern: str) -> str | None:
     return None
 
 
-def get_repository_metadata(repo_path: str = ".") -> Dict[str, str]:
+def get_repository_metadata(repo_path: str = ".") -> dict[str, str]:
     git_branch = DEFAULT_COLUMN_VALUE
     git_commit = DEFAULT_COLUMN_VALUE
     git_commit_author = DEFAULT_COLUMN_VALUE

@@ -33,7 +33,6 @@ from timeit import (
 )
 from typing import (
     Any,
-    Dict,
     List,
     Set,
 )
@@ -100,15 +99,15 @@ def style_summary(key: VulnerabilityState, value: int) -> str:
 async def create_findings_dict(
     group: str,
     **kwargs: str,
-) -> Dict[str, Dict[str, Any]]:
+) -> dict[str, dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
-    findings_dict: Dict[str, Dict[str, Any]] = {}
+    findings_dict: dict[str, dict[str, Any]] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
     ]
     for _find in asyncio.as_completed(findings_futures):
-        find: Dict[str, Any] = await _find
-        severity: Dict[str, Any] = find.pop("severity", {})
+        find: dict[str, Any] = await _find
+        severity: dict[str, Any] = find.pop("severity", {})
         find["exploitability"] = severity.get("exploitability", 0)
         find["severity"] = find.pop("severityScore", "N/A")
         findings_dict[find["id"]] = find
@@ -122,15 +121,15 @@ async def create_findings_dict(
 async def gather_finding_data(
     group: str,
     **kwargs: str,
-) -> Dict[str, Finding]:
+) -> dict[str, Finding]:
     """Returns the findings data needed for the report"""
-    findings_dict: Dict[str, Finding] = {}
+    findings_dict: dict[str, Finding] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
     ]
     for _find in asyncio.as_completed(findings_futures):
-        find: Dict[str, Any] = await _find
-        severity: Dict[str, Any] = find.pop("severity", {})
+        find: dict[str, Any] = await _find
+        severity: dict[str, Any] = find.pop("severity", {})
         find["exploitability"] = severity.get("exploitability", 0)
         findings_dict[find["id"]] = Finding(
             identifier=find["id"],
@@ -143,7 +142,7 @@ async def gather_finding_data(
 
 
 def format_summary_report(
-    summary: Dict[VulnerabilityState | str, Any], kind: KindEnum
+    summary: dict[VulnerabilityState | str, Any], kind: KindEnum
 ) -> Table:
     """Helper method to create the findings summary table from the report's
     summary data\n
@@ -192,7 +191,7 @@ def format_summary_report(
     return summary_table
 
 
-def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
+def format_vuln_table(vulns: List[dict[str, str]]) -> Table:
     """
     Helper method to create the nested vulns table\n
     @param `vulns`: A list of dicts with each vuln's data
@@ -220,7 +219,7 @@ def format_vuln_table(vulns: List[Dict[str, str]]) -> Table:
 
 
 def format_rich_report(
-    report: Dict[str, Any],
+    report: dict[str, Any],
     verbose_level: int,
     kind: KindEnum,
 ) -> ForcesReport:
@@ -277,9 +276,9 @@ def format_rich_report(
 
 
 def filter_report(
-    report: Dict[str, Any],
+    report: dict[str, Any],
     verbose_level: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     # Set finding exploitability level
     for finding in report["findings"]:
         finding.pop("id")
@@ -313,8 +312,8 @@ def filter_report(
 
 def get_summary_template(
     kind: KindEnum,
-) -> Dict[str | VulnerabilityState, Dict[str, int]]:
-    _summary_dict: Dict[str | VulnerabilityState, Dict[str, int]] = {
+) -> dict[str | VulnerabilityState, dict[str, int]]:
+    _summary_dict: dict[str | VulnerabilityState, dict[str, int]] = {
         VulnerabilityState.OPEN: {"total": 0},
         VulnerabilityState.CLOSED: {"total": 0},
         VulnerabilityState.ACCEPTED: {"total": 0},
@@ -330,7 +329,7 @@ def get_summary_template(
 async def generate_raw_report(
     config: ForcesConfig,
     **kwargs: Any,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Generate a group vulnerability report.
 
@@ -340,7 +339,7 @@ async def generate_raw_report(
 
     _summary_dict = get_summary_template(config.kind)
 
-    raw_report: Dict[str, List[Any]] = {"findings": []}
+    raw_report: dict[str, List[Any]] = {"findings": []}
     findings_dict = await create_findings_dict(
         config.group,
         **kwargs,
@@ -408,9 +407,9 @@ async def generate_raw_report(
 
 
 def filter_vulns(
-    findings: List[Dict[str, Any]],
+    findings: List[dict[str, Any]],
     allowed_vuln_states: Set[VulnerabilityState],
-) -> List[Dict[str, Any]]:
+) -> List[dict[str, Any]]:
     """Helper method to filter vulns in findings based on the requested vuln
     states set by the verbosity level of the report"""
     # Verbosity level of 1
@@ -428,7 +427,7 @@ def filter_vulns(
     return findings
 
 
-def strip_vuln(vuln: Dict[str, Any]) -> Dict[str, Any]:
+def strip_vuln(vuln: dict[str, Any]) -> dict[str, Any]:
     """Helper method to strip unneeded report data from vulns"""
     # These two attrs are needed to check the grace period and severity
     # policies, they aren't needed in formatted reports

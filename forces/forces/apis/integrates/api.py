@@ -29,7 +29,6 @@ from typing import (
     AsyncGenerator,
     Callable,
     cast,
-    Dict,
     List,
     Set,
     Tuple,
@@ -63,7 +62,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
         }
         """
 
-    result: Dict[str, Dict[str, List[Any]]] = (
+    result: dict[str, dict[str, List[Any]]] = (
         await execute(
             query=query,
             operation_name="ForcesDoGetGroupFindings",
@@ -86,7 +85,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
 @SHIELD
 async def get_vulnerabilities(
     finding_id: str, **kwargs: str
-) -> List[Dict[str, str | List[Dict[str, Dict[str, Any]]]]]:
+) -> List[dict[str, str | List[dict[str, dict[str, Any]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -175,7 +174,7 @@ async def get_vulnerabilities(
 
 
 @SHIELD
-async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
+async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
     """
     Returns a finding.
 
@@ -195,7 +194,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
         }
         """
     params = {"finding_id": finding}
-    response: Dict[str, str] = await execute(
+    response: dict[str, str] = await execute(
         query=query,
         operation_name="ForcesDoGetFinding",
         variables=params,
@@ -207,7 +206,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
 
 async def vulns_generator(
     group: str, **kwargs: str
-) -> AsyncGenerator[Dict[str, str | List[Dict[str, Dict[str, Any]]]], None]:
+) -> AsyncGenerator[dict[str, str | List[dict[str, dict[str, Any]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
@@ -224,9 +223,9 @@ async def vulns_generator(
 @SHIELD
 async def upload_report(
     group: str,
-    report: Dict[str, Any],
+    report: dict[str, Any],
     log_file: str,
-    git_metadata: Dict[str, str],
+    git_metadata: dict[str, str],
     severity_threshold: float,
     **kwargs: datetime | str | int,
 ) -> bool:
@@ -289,9 +288,9 @@ async def upload_report(
             }
         }
         """
-    open_vulns: List[Dict[str, str]] = []
-    closed_vulns: List[Dict[str, str]] = []
-    accepted_vulns: List[Dict[str, str]] = []
+    open_vulns: List[dict[str, str]] = []
+    closed_vulns: List[dict[str, str]] = []
+    accepted_vulns: List[dict[str, str]] = []
     for vuln in [
         vuln for find in report["findings"] for vuln in find["vulnerabilities"]
     ]:
@@ -309,7 +308,7 @@ async def upload_report(
         elif vuln["state"] == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "group_name": group,
         "execution_id": kwargs.pop("execution_id"),
         "date": kwargs.pop(
@@ -330,7 +329,7 @@ async def upload_report(
         "kind": kwargs.pop("kind", "all"),
     }
 
-    response: Dict[str, Dict[str, bool]] = await execute(
+    response: dict[str, dict[str, bool]] = await execute(
         query=query,
         operation_name="ForcesDoUploadReport",
         variables=params,
@@ -343,7 +342,7 @@ async def upload_report(
 @SHIELD
 async def get_groups_access(
     **kwargs: Any,
-) -> List[Tuple[Dict[str, str], float, int]]:
+) -> List[Tuple[dict[str, str], float, int]]:
     query = """
         query ForcesGetMeGroups {
           me {
@@ -359,11 +358,11 @@ async def get_groups_access(
         }
     """
     try:
-        response: Dict[
+        response: dict[
             str,
-            Dict[
+            dict[
                 str,
-                List[Dict[str, List[Dict[str, str]] | int | float]],
+                List[dict[str, List[dict[str, str]] | int | float]],
             ],
         ] = await execute(
             query,
@@ -385,11 +384,11 @@ async def get_groups_access(
             cast(int, group["vulnerabilityGracePeriod"]),
         )
         for organization in response["me"]["organizations"]
-        for group in cast(List[Dict[str, str]], organization["groups"])
+        for group in cast(List[dict[str, str]], organization["groups"])
     )
 
 
-async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
+async def get_git_remotes(group: str, **kwargs: Any) -> List[dict[str, str]]:
     query = """
         query ForcesGetGitRoots($group: String!) {
           group(groupName: $group){
@@ -403,7 +402,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
           }
         }
     """
-    response: Dict[str, Dict[str, List[Dict[str, str]]]] = await execute(
+    response: dict[str, dict[str, List[dict[str, str]]]] = await execute(
         query,
         operation_name="ForcesGetGitRoots",
         variables={"group": group},
