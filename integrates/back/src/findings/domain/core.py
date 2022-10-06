@@ -778,7 +778,7 @@ async def send_vulnerability_report(
     severity_score: Decimal = get_severity_score(finding.severity)
     severity_level: str = get_severity_level(severity_score)
     if (
-        severity_score >= 5.0
+        severity_score >= 7.0
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         schedule(

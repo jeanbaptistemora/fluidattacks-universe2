@@ -149,7 +149,7 @@ async def mutate(  # pylint: disable=too-many-locals
                 )
                 vulns_props[repo] = dict(sorted(vuln_dict.items()))
 
-        if severity_score >= 5.0 or not group_findings:
+        if severity_score >= 7.0 or not group_findings:
             schedule(
                 findings_mail.send_mail_vulnerability_report(
                     loaders=loaders,
