@@ -8,7 +8,11 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
-import { formatDate, formatTreatment } from "utils/formatHelpers";
+import {
+  formatDate,
+  formatDuration,
+  formatTreatment,
+} from "utils/formatHelpers";
 import {
   alphaNumeric,
   excludeFormat,
@@ -1051,6 +1055,24 @@ describe("formatHelpers", (): void => {
 
     const value = -1;
     const checkFormat = formatDate(value);
+
+    expect(checkFormat).toBe("-");
+  });
+
+  it("Should return correct duration", (): void => {
+    expect.hasAssertions();
+
+    const value = 123000;
+    const checkFormat = formatDuration(value);
+
+    expect(checkFormat).toBe("00:02:03");
+  });
+
+  it("Should return incorrect duration", (): void => {
+    expect.hasAssertions();
+
+    const value = -1;
+    const checkFormat = formatDuration(value);
 
     expect(checkFormat).toBe("-");
   });
