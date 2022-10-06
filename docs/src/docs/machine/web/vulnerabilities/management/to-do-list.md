@@ -24,7 +24,7 @@ However,
 an initial question could be:
 How can we assign vulnerabilities
 to our team?
-Enter this link,
+Enter this [link](/machine/web/vulnerabilities/management/vulnerability-description/#vulnerability-assignment),
 and you will see how to do it!
 
 ## To-Do List table
