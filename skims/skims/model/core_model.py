@@ -1258,6 +1258,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_REMOTE_COMMAND_EXECUTION = MethodInfo(
+        file_name="java",
+        name="java_remote_command_execution",
+        module="lib_root",
+        finding=FindingEnum.F004,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_REMOTE_COMMAND_EXECUTION = MethodInfo(
+        file_name="javascript",
+        name="javascript_remote_command_execution",
+        module="lib_root",
+        finding=FindingEnum.F004,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     QUERY_F008 = MethodInfo(
         file_name="query",
         name="query_f008",

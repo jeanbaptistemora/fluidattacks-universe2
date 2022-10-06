@@ -6,7 +6,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f004.method_invocation.java import (
-    java_command_injection,
+    java_remote_command_execution,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,7 +18,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.QUERY_F004: java_command_injection,
+    MethodsEnum.JAVA_REMOTE_COMMAND_EXECUTION: java_remote_command_execution,
 }
 
 

@@ -39,7 +39,7 @@ def is_argument_vuln(
     graph: Graph,
     n_id: NId,
 ) -> bool:
-    method = MethodsEnum.QUERY_F004
+    method = MethodsEnum.JAVA_REMOTE_COMMAND_EXECUTION
     danger_set = {"UserParams", "UserConnection"}
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
@@ -48,7 +48,7 @@ def is_argument_vuln(
     return False
 
 
-def command_injection(
+def remote_command_execution(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -66,8 +66,8 @@ def command_injection(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="criteria.vulns.004.description",
+        desc_key="lib_path.f004.remote_command_execution",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.QUERY_F004,
+        method=MethodsEnum.JAVA_REMOTE_COMMAND_EXECUTION,
     )

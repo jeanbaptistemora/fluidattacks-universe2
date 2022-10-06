@@ -8,7 +8,9 @@ from symbolic_eval.types import (
 )
 
 
-def java_command_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def java_remote_command_execution(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id]["variable_type"] == "HttpServletRequest":
         args.triggers.add("UserConnection")
 

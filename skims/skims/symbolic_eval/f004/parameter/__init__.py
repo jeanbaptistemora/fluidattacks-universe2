@@ -9,7 +9,7 @@ from symbolic_eval.f004.parameter.c_sharp import (
     cs_remote_command_execution,
 )
 from symbolic_eval.f004.parameter.java import (
-    java_command_injection,
+    java_remote_command_execution,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -22,7 +22,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REMOTE_COMMAND_EXECUTION: cs_remote_command_execution,
-    MethodsEnum.QUERY_F004: java_command_injection,
+    MethodsEnum.JAVA_REMOTE_COMMAND_EXECUTION: java_remote_command_execution,
 }
 
 

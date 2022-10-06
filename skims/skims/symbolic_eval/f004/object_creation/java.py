@@ -12,7 +12,9 @@ DANGER_OBJECTS = {
 }
 
 
-def java_command_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def java_remote_command_execution(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
     ma_attr = args.graph.nodes[args.n_id]
 
