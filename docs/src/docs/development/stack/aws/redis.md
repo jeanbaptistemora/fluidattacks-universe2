@@ -143,4 +143,4 @@ We use [Redis][REDIS] for:
 
 [ASM]: https://fluidattacks.com/categories/arm/
 [REDIS]: https://aws.amazon.com/redis/
-[DYNAMODB]: /development/stack/aws/dynamodb/
+[DYNAMODB]: /development/stack/aws/dynamodb/introduction/

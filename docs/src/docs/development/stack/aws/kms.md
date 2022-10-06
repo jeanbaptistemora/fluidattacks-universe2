@@ -17,7 +17,7 @@ The main reasons why we chose it over other alternatives are the following:
 
 - It [integrates](https://aws.amazon.com/kms/features/#AWS_Service_Integration)
   with other [AWS][AWS] services
-  like [DynamoDB](/development/stack/aws/dynamodb/),
+  like [DynamoDB](/development/stack/aws/dynamodb/introduction/),
   [EKS](/development/stack/aws/eks/),
   [S3](/development/stack/aws/s3/),
   [EBS][EBS],

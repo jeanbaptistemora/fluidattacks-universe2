@@ -449,7 +449,13 @@ const Development = [
           'development/stack/aws/batch',
           'development/stack/aws/cloudwatch',
           'development/stack/aws/cost-management',
-          'development/stack/aws/dynamodb',
+          {
+            type: 'category',
+            label: 'DynamoDB',
+            items: [
+              'development/stack/aws/dynamodb/introduction',
+            ]
+          },
           'development/stack/aws/ebs',
           'development/stack/aws/ec2',
           'development/stack/aws/eks',

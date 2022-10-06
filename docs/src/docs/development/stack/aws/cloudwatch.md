@@ -24,7 +24,7 @@ are the following:
   Some examples are [EC2][EC2],
   [S3](/development/stack/aws/s3/),
   and
-  [DynamoDB](/development/stack/aws/dynamodb/).
+  [DynamoDB](/development/stack/aws/dynamodb/introduction/).
 - It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
   certifications from [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
   and [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
@@ -75,7 +75,7 @@ We use [CloudWatch][CLOUDWATCH] for monitoring
   database usage and performance;
 - [Redis cache cluster](/development/stack/aws/redis/)
   usage and performance;
-- [DynamoDB](/development/stack/aws/dynamodb/)
+- [DynamoDB](/development/stack/aws/dynamodb/introduction/)
   tables usage and performance;
 - [SQS](https://aws.amazon.com/sqs/)
   sent, delayed, received and deleted messages;

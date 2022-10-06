@@ -204,7 +204,7 @@ We use:
     for defining our CI as code.
 1. [AWS Lambda](/development/stack/aws/lambda/)
     for hourly cleaning orphaned machines.
-1. [AWS DynamoDB](/development/stack/aws/dynamodb/)
+1. [AWS DynamoDB](/development/stack/aws/dynamodb/introduction/)
     for [locking Terraform states](https://www.terraform.io/docs/language/state/locking.html)
     and avoiding race conditions.
 
