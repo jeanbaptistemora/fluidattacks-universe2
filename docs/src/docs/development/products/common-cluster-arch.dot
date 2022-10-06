@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 digraph common {
-  label="Common Architecture"
+  label="Common/Cluster Architecture"
   labelloc="t"
   compound="true"
   concentrate="true"
@@ -16,12 +16,6 @@ digraph common {
     label="AWS"
     bgcolor="0.1 0.4 1.0"
     node[fillcolor="0.1 0.8 1.0"]
-
-    subgraph cluster_aws_dynamodb {
-      label="DynamoDB"
-
-      cluster_aws_dynamodb_common_terraform_state_lock[label="terraform_state_lock" shape="cylinder" width="3.0"]
-    }
 
     subgraph cluster_aws_ec2 {
       label="EC2"
@@ -39,6 +33,10 @@ digraph common {
         label="common"
 
         cluster_aws_eks_common[style="invis"]
+
+        subgraph cluster_aws_eks_common_worker_groups {
+          label="Worker Groups"
+        }
 
         subgraph cluster_aws_eks_common_namespaces {
           label="Namespaces"
@@ -109,55 +107,6 @@ digraph common {
       }
     }
 
-    subgraph cluster_aws_iam {
-      label="IAM"
-
-
-      subgraph cluster_aws_iam_roles {
-        label="Roles"
-
-        aws_iam_roles_dev[label="dev"]
-        aws_iam_roles_prod_airs[label="prod_airs"]
-        aws_iam_roles_prod_common[label="prod_common"]
-        aws_iam_roles_prod_docs[label="prod_docs"]
-        aws_iam_roles_prod_forces[label="prod_forces"]
-        aws_iam_roles_prod_integrates[label="prod_integrates"]
-        aws_iam_roles_prod_melts[label="prod_melts"]
-        aws_iam_roles_prod_observes[label="prod_observes"]
-        aws_iam_roles_prod_skims[label="prod_skims"]
-        aws_iam_roles_prod_sorts[label="prod_sorts"]
-      }
-    }
-
-    subgraph cluster_aws_kms {
-      label="KMS"
-
-      subgraph cluster_aws_kms_keys {
-        label="Keys"
-
-        aws_kms_keys_dev[label="dev"]
-        aws_kms_keys_prod_airs[label="prod_airs"]
-        aws_kms_keys_prod_common[label="prod_common"]
-        aws_kms_keys_prod_docs[label="prod_docs"]
-        aws_kms_keys_prod_forces[label="prod_forces"]
-        aws_kms_keys_prod_integrates[label="prod_integrates"]
-        aws_kms_keys_prod_melts[label="prod_melts"]
-        aws_kms_keys_prod_observes[label="prod_observes"]
-        aws_kms_keys_prod_skims[label="prod_skims"]
-        aws_kms_keys_prod_sorts[label="prod_sorts"]
-      }
-    }
-
-    subgraph cluster_aws_s3 {
-      label="S3"
-
-      subgraph cluster_aws_s3_common_ci {
-        label="common-ci-cache-*"
-
-        cluster_aws_s3_common_ci_cache[label="Cached Artifacts"]
-      }
-    }
-
     subgraph cluster_aws_vpc {
       label="VPC"
 
@@ -178,7 +127,6 @@ digraph common {
     label="Cloudflare"
     bgcolor="0.6 0.4 1.0"
     node[fillcolor="0.6 0.8 1.0"]
-
   }
 
   subgraph cluster_gitlab {
@@ -190,25 +138,17 @@ digraph common {
       label="Git"
 
       subgraph cluster_gitlab_git_common {
-        label="Common"
+        label="/common"
 
-        gitlab_git_common[label="Source Code"]
-        gitlab_git_common_ci[label="CI"]
-        gitlab_git_common_ci_terraform[label="Terraform"]
-        gitlab_git_common_ci_terraform_npalm_gitlab_runner[label="npalm/gitlab-runner"]
-        gitlab_git_common_cluster[label="Cluster"]
-        gitlab_git_common_cluster_terraform[label="Terraform"]
-        gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[label="terraform-aws-modules/eks/aws"]
+        subgraph cluster_gitlab_git_common_cluster {
+          label="/cluster"
 
+          cluster_gitlab_git_common_cluster[style="invis"]
+          gitlab_git_common_cluster[label="Source Code"]
+          gitlab_git_common_cluster_terraform[label="Terraform"]
+          gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[label="terraform-aws-modules/eks/aws"]
+        }
       }
-    }
-
-    gitlab_open_id_provider[label="OpenID"]
-
-    subgraph cluster_gitlab_ci_cd {
-      label="CI/CD"
-
-      gitlab_ci_cd_runner[label="Runner"]
     }
   }
 
@@ -217,48 +157,12 @@ digraph common {
   aws_ec2_common_ci_runner_small -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
   aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
-  aws_iam_roles_dev -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_airs -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_airs -> aws_kms_keys_prod_airs[]
-  aws_iam_roles_prod_common -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_airs[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_common[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_docs[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_forces[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_integrates[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_melts[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_observes[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_skims[]
-  aws_iam_roles_prod_common -> aws_kms_keys_prod_sorts[]
-  aws_iam_roles_prod_docs -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_docs -> aws_kms_keys_prod_docs[]
-  aws_iam_roles_prod_forces -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_forces -> aws_kms_keys_prod_forces[]
-  aws_iam_roles_prod_integrates -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_integrates -> aws_kms_keys_prod_integrates[]
-  aws_iam_roles_prod_melts -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_melts -> aws_kms_keys_prod_melts[]
-  aws_iam_roles_prod_observes -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_observes -> aws_kms_keys_prod_observes[]
-  aws_iam_roles_prod_skims -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_skims -> aws_kms_keys_prod_skims[]
-  aws_iam_roles_prod_sorts -> aws_kms_keys_dev[]
-  aws_iam_roles_prod_sorts -> aws_kms_keys_prod_sorts[]
   cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
   cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
 
   edge[color="0.6 0.8 1.0"]
 
   edge[color="0.8 0.8 1.0"]
-  gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_large[]
-  gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_small[]
-  gitlab_ci_cd_runner -> cluster_aws_s3_common_ci_cache[]
-  gitlab_ci_cd_runner -> gitlab_open_id_provider[]
-  gitlab_git_common -> gitlab_git_common_ci[]
-  gitlab_git_common -> gitlab_git_common_cluster[]
-  gitlab_git_common_ci -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
-  gitlab_git_common_ci -> gitlab_git_common_ci_terraform[]
-  gitlab_git_common_ci -> gitlab_git_common_ci_terraform_npalm_gitlab_runner[]
   gitlab_git_common_cluster -> cluster_aws_eks_common[lhead="cluster_aws_eks_common"]
   gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform[]
   gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[]
@@ -268,6 +172,5 @@ digraph common {
   developer[label="Developer"]
 
   edge[color="/x11/black"]
-  developer -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
-  developer -> gitlab_git_common[lhead="cluster_gitlab_git_common"]
+  developer -> cluster_gitlab_git_common_cluster[lhead="cluster_gitlab_git_common_cluster"]
 }

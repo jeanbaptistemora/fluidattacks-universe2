@@ -1,0 +1,142 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph common {
+  label="Common/Users Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  layout="dot"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.4 1.0"
+    node[fillcolor="0.1 0.8 1.0"]
+
+    subgraph cluster_aws_iam {
+      label="IAM"
+
+      subgraph cluster_aws_iam_roles {
+        label="Roles"
+
+        cluster_aws_iam_roles[style="invis"]
+        aws_iam_roles_dev[label="dev"]
+        aws_iam_roles_prod_airs[label="prod_airs"]
+        aws_iam_roles_prod_common[label="prod_common"]
+        aws_iam_roles_prod_docs[label="prod_docs"]
+        aws_iam_roles_prod_forces[label="prod_forces"]
+        aws_iam_roles_prod_integrates[label="prod_integrates"]
+        aws_iam_roles_prod_melts[label="prod_melts"]
+        aws_iam_roles_prod_observes[label="prod_observes"]
+        aws_iam_roles_prod_skims[label="prod_skims"]
+        aws_iam_roles_prod_sorts[label="prod_sorts"]
+      }
+
+      subgraph cluster_aws_iam_users {
+        label="Users"
+
+        aws_iam_users_erika_bayona[label="erika.bayona"]
+        aws_iam_users_snowflake_user[label="snowflake-user"]
+      }
+
+      subgraph cluster_aws_iam_access_keys {
+        label="Access Keys"
+
+        aws_iam_access_keys_snowflake_access_key[label="snowflake-access-key"]
+      }
+    }
+
+    subgraph cluster_aws_kms {
+      label="KMS"
+
+      subgraph cluster_aws_kms_keys {
+        label="Keys"
+
+        cluster_aws_kms_keys[style="invis"]
+        aws_kms_keys_dev[label="dev"]
+        aws_kms_keys_prod_airs[label="prod_airs"]
+        aws_kms_keys_prod_common[label="prod_common"]
+        aws_kms_keys_prod_docs[label="prod_docs"]
+        aws_kms_keys_prod_forces[label="prod_forces"]
+        aws_kms_keys_prod_integrates[label="prod_integrates"]
+        aws_kms_keys_prod_melts[label="prod_melts"]
+        aws_kms_keys_prod_observes[label="prod_observes"]
+        aws_kms_keys_prod_skims[label="prod_skims"]
+        aws_kms_keys_prod_sorts[label="prod_sorts"]
+      }
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.4 1.0"
+    node[fillcolor="0.8 0.8 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_users {
+          label="/users"
+
+          gitlab_git_common_users[label="Source Code"]
+          gitlab_git_common_users_terraform[label="Terraform"]
+        }
+      }
+    }
+  }
+
+  edge[color="0.1 0.8 1.0"]
+  aws_iam_roles_dev -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_airs -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_airs -> aws_kms_keys_prod_airs[]
+  aws_iam_roles_prod_common -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_airs[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_common[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_docs[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_forces[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_integrates[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_melts[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_observes[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_skims[]
+  aws_iam_roles_prod_common -> aws_kms_keys_prod_sorts[]
+  aws_iam_roles_prod_docs -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_docs -> aws_kms_keys_prod_docs[]
+  aws_iam_roles_prod_forces -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_forces -> aws_kms_keys_prod_forces[]
+  aws_iam_roles_prod_integrates -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_integrates -> aws_kms_keys_prod_integrates[]
+  aws_iam_roles_prod_melts -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_melts -> aws_kms_keys_prod_melts[]
+  aws_iam_roles_prod_observes -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_observes -> aws_kms_keys_prod_observes[]
+  aws_iam_roles_prod_skims -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_skims -> aws_kms_keys_prod_skims[]
+  aws_iam_roles_prod_sorts -> aws_kms_keys_dev[]
+  aws_iam_roles_prod_sorts -> aws_kms_keys_prod_sorts[]
+  aws_iam_users_snowflake_user -> aws_iam_access_keys_snowflake_access_key[]
+
+  edge[color="0.6 0.8 1.0"]
+
+  edge[color="0.8 0.8 1.0"]
+  gitlab_git_common_users -> gitlab_git_common_users_terraform[]
+
+  node[fillcolor="/x11/lightgray"]
+  developer[label="Developer"]
+  end_user[label="End User"]
+
+  edge[color="/x11/black"]
+  developer -> cluster_aws_s3_common_ci_cache[]
+  developer -> cluster_aws_kms_keys[lhead="cluster_aws_kms_keys"]
+  developer -> cluster_aws_iam_roles[lhead="cluster_aws_iam_roles"]
+  developer -> gitlab_git_common_users[lhead="cluster_gitlab_git_common"]
+  developer -> aws_iam_users_snowflake_user[]
+  end_user -> aws_iam_users_erika_bayona[]
+}
