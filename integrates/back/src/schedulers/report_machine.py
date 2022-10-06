@@ -603,9 +603,7 @@ def _machine_vulns_to_close(
             (
                 get_path_from_integrates_vulnerability(
                     vuln.where, vuln.type, True
-                )[1]
-                if vuln.type == VulnerabilityType.INPUTS
-                else vuln.where,
+                )[1],
                 vuln.specific,
             )
         )
@@ -617,8 +615,6 @@ def _machine_vulns_to_close(
                     get_path_from_integrates_vulnerability(
                         vuln.where, vuln.type
                     )[1]
-                    if vuln.type == VulnerabilityType.INPUTS
-                    else vuln.where
                 ).split(" ", maxsplit=1)[0],
                 [
                     *(execution_config["path"]["include"]),
@@ -886,7 +882,9 @@ def _filter_vulns_to_open(
             for vuln in vulns_to_open["lines"]
             if hash(
                 (
-                    vuln["path"],
+                    get_path_from_integrates_vulnerability(
+                        vuln["path"], VulnerabilityType.LINES, True
+                    )[1],
                     vuln["line"],
                 )
             )
