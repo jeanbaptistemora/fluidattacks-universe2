@@ -2,10 +2,20 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from dataclasses import (
+    dataclass,
+)
 from fa_purity import (
     Cmd,
     FrozenList,
+    JsonObj,
+    JsonValue,
+    Maybe,
+    ResultE,
     Stream,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
@@ -38,3 +48,38 @@ def paginate_all(
         .map(lambda x: from_flist(x))
         .transform(lambda x: chain(x))
     )
+
+
+@dataclass(frozen=True)
+class ExtendedUnfolder:
+    json: JsonObj
+
+    def get(self, key: str) -> Maybe[JsonValue]:
+        return Maybe.from_optional(self.json.get(key))
+
+    def get_required(self, key: str) -> ResultE[JsonValue]:
+        return (
+            self.get(key)
+            .to_result()
+            .alt(lambda _: KeyError(key))
+            .alt(Exception)
+        )
+
+    def require_float(self, key: str) -> ResultE[float]:
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(
+                lambda u: u.to_primitive(float)
+                .alt(Exception)
+                .lash(
+                    lambda _: u.to_primitive(int)
+                    .map(float)
+                    .alt(
+                        lambda e: TypeError(
+                            f"key `{key}` is not a `float`. {e}"
+                        )
+                    )
+                )
+            )
+        )

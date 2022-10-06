@@ -26,7 +26,13 @@ from fa_purity import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
+from fa_purity.result.transform import (
+    all_ok,
+)
 import logging
+from tap_checkly.api2._utils import (
+    ExtendedUnfolder,
+)
 from tap_checkly.api2.id_objs import (
     IndexedObj,
 )
@@ -46,64 +52,59 @@ def _switch_maybe(item: Maybe[Result[_S, _F]]) -> Result[Maybe[_S], _F]:
     )
 
 
-def _decode_timings(raw: JsonObj) -> Timings:
-    return Timings(
-        Unfolder(raw["socket"]).to_primitive(float).unwrap(),
-        Unfolder(raw["lookup"]).to_primitive(float).unwrap(),
-        Unfolder(raw["connect"]).to_primitive(float).unwrap(),
-        Unfolder(raw["response"]).to_primitive(float).unwrap(),
-        Unfolder(raw["end"]).to_primitive(float).unwrap(),
+def _decode_timings(raw: JsonObj) -> ResultE[Timings]:
+    unfolder = ExtendedUnfolder(raw)
+    props = (
+        unfolder.require_float("socket"),
+        unfolder.require_float("lookup"),
+        unfolder.require_float("connect"),
+        unfolder.require_float("response"),
+        unfolder.require_float("end"),
     )
+    return all_ok(props).map(lambda p: Timings(*p))
 
 
-def _decode_timing_phases(raw: JsonObj) -> TimingPhases:
-    return TimingPhases(
-        Unfolder(raw["wait"]).to_primitive(float).unwrap(),
-        Unfolder(raw["dns"]).to_primitive(float).unwrap(),
-        Unfolder(raw["tcp"]).to_primitive(float).unwrap(),
-        Unfolder(raw["firstByte"]).to_primitive(float).unwrap(),
-        Unfolder(raw["download"]).to_primitive(float).unwrap(),
-        Unfolder(raw["total"]).to_primitive(float).unwrap(),
+def _decode_timing_phases(raw: JsonObj) -> ResultE[TimingPhases]:
+    unfolder = ExtendedUnfolder(raw)
+    props = (
+        unfolder.require_float("wait"),
+        unfolder.require_float("dns"),
+        unfolder.require_float("tcp"),
+        unfolder.require_float("firstByte"),
+        unfolder.require_float("download"),
+        unfolder.require_float("total"),
     )
-
-
-def _get_required(raw: JsonObj, key: str) -> ResultE[JsonValue]:
-    return (
-        Maybe.from_optional(raw.get(key))
-        .to_result()
-        .alt(lambda _: Exception(f"Missing required key: `{key}`"))
-    )
+    return all_ok(props).map(lambda p: TimingPhases(*p))
 
 
 def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
-    status = _get_required(raw, "status").bind(
-        lambda x: Unfolder(x).to_primitive(int).alt(Exception)
+    unfolder = ExtendedUnfolder(raw)
+    status = unfolder.get_required("status").bind(
+        lambda x: Unfolder(x)
+        .to_primitive(int)
+        .alt(lambda e: TypeError(f"At `status` i.e. {e}"))
     )
-    status_txt = _get_required(raw, "statusText").bind(
-        lambda x: Unfolder(x).to_primitive(str).alt(Exception)
+    status_txt = unfolder.get_required("statusText").bind(
+        lambda x: Unfolder(x)
+        .to_primitive(str)
+        .alt(lambda e: TypeError(f"At `statusText` i.e. {e}"))
     )
     timings = _switch_maybe(
-        Maybe.from_optional(raw.get("timings")).map(
+        unfolder.get("timings").map(
             lambda j: Unfolder(j)
             .to_json()
-            .map(_decode_timings)
-            .alt(
-                lambda err: Exception(
-                    f"Error at `timings` key i.e. {str(err)}"
-                )
-            ),
+            .alt(Exception)
+            .bind(_decode_timings)
+            .alt(lambda err: TypeError(f"At `timings` i.e. {str(err)}")),
         )
     ).alt(Exception)
     timing_phases = _switch_maybe(
-        Maybe.from_optional(raw.get("timingPhases")).map(
+        unfolder.get("timingPhases").map(
             lambda j: Unfolder(j)
             .to_json()
-            .map(_decode_timing_phases)
-            .alt(
-                lambda err: Exception(
-                    f"Error at `timingPhases` key i.e. {str(err)}"
-                )
-            )
+            .alt(Exception)
+            .bind(_decode_timing_phases)
+            .alt(lambda err: TypeError(f"At `timingPhases` i.e. {str(err)}"))
         )
     ).alt(Exception)
     return status.bind(
