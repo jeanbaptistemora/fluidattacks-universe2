@@ -3812,6 +3812,30 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    36 |             ""CidrIp"": ""0.0.0.0/0"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
+F418,lines,namespace/skims/test/data/lib_path/f418/docker_port_22_exposed/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,"Port 22 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f418/docker_port_22_exposed/Dockerfile","
+   1 | FROM node:16-alpine@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS build
+   2 |
+   3 | WORKDIR /usr/src/app
+   4 |
+   5 | COPY --chown=node:node package*.json ./
+   6 | RUN npm i
+   7 | COPY --chown=node:node . .
+   8 | USER node
+   9 |
+> 10 | EXPOSE 22
+  11 |
+  12 | WORKDIR /usr/src/app
+  13 | COPY --chown=node:node package*.json ./
+  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  15 | COPY --chown=node:node . .
+  16 |
+  17 | RUN npm run build
+  18 |
+  19 | ENV NODE_ENV production
+  20 |
+  21 | RUN npm i --only=production && npm cache clean --force
+     ^ Col 0
+",docker.docker_port_22_exposed
 F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,13,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
    3 |   myLaunchConfig:
    4 |     Type: AWS::AutoScaling::LaunchConfiguration
@@ -5399,7 +5423,7 @@ F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,16,skims
   21 |       - API_NAME=name1
      ^ Col 0
 ",docker.docker_compose_read_only
-F418,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
+F418,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,19,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
    9 |       - OrderingUrl=http://ordering-api
   10 |       - BasketUrl=http://basket-api
   11 |     read_only: true
@@ -9177,7 +9201,7 @@ F176,lines,namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,8,16,sk
   11 | EOF
      ^ Col 0
 ",bash.bash_using_sshpass
-F418,lines,namespace/skims/test/data/lib_path/f418/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,Using the ADD command to automatically extract files to the destination directory adds the risk of exploiting vulnerabilities such as zip bombs and Zip Slip that could then be activated automatically. in namespace/skims/test/data/lib_path/f418/Dockerfile,"
+F418,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,Using the ADD command to automatically extract files to the destination directory adds the risk of exploiting vulnerabilities such as zip bombs and Zip Slip that could then be activated automatically. in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 |
    3 | WORKDIR /usr/src/app
@@ -15776,7 +15800,7 @@ F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,sk
   29 |       - CESARDLSURFBOOK:10.0.75.1
      ^ Col 0
 ",docker.docker_compose_without_user
-F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
+F266,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
    1 | ---
    2 | version: '3.4'
    3 |
@@ -15800,7 +15824,7 @@ F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,5,250,ski
   21 |     environment:
      ^ Col 0
 ",docker.docker_compose_without_user
-F266,lines,namespace/skims/test/data/lib_path/f418/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker-compose.yaml,"
+F266,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
    9 |       - OrderingUrl=http://ordering-api
   10 |       - BasketUrl=http://basket-api
   11 |     read_only: true
@@ -30806,8 +30830,8 @@ F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,26,749,skims,380. 
   36 | RUN apt update
      ^ Col 0
 ",docker.unpinned_docker_image
-F380,lines,namespace/skims/test/data/lib_path/f418/Dockerfile,12,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
- in namespace/skims/test/data/lib_path/f418/Dockerfile","
+F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,12,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile","
    2 |
    3 | WORKDIR /usr/src/app
    4 |

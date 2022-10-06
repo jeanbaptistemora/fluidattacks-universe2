@@ -11,3 +11,10 @@ lib_path.f418.docker_using_add_command:
     El uso de comando ADD para extraer archivos automáticamente al directorio
     de destino agrega el riesgo de explotar vulnerabilidades como zip bombs y
     Zip Slip que luego podrían activarse automáticamente.
+lib_path.f418.docker_port_22_exposed:
+  en: >-
+    Port 22 is exposed, which is insecure and could lead to more complex
+    attacks such as information leaking and enumeration.
+  es: >-
+    Se tiene expuesto el puerto 22, el cual es inseguro podría llevar a ataques
+    mas complejos como filtración  y enumeración de información
