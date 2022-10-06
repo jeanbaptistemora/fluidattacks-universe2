@@ -34830,31 +34830,6 @@ F107,lines,namespace/skims/test/data/lib_root/f107/ldap_injection.cs,11,90,skims
   14 |
      ^ Col 8
 ",c_sharp.c_sharp_ldap_injection
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
- in namespace/skims/test/data/lib_root/f100/test.cs","
-   1 | g System.Net;
-   2 | g System;
-   3 | space testmod
-   4 |
-   5 |
-   6 | public class Controllers
-   7 | {
-   8 |     public void ReadContentOfURL(HttpRequest url)
-   9 |     {
-  10 |         //insecure
-  11 |         WebRequest req = WebRequest.Create(url);
-  12 |
-  13 |         if (!whiteList.Contains(url))
-  14 |         {
-  15 |             return BadRequest();
-  16 |         }
-  17 |         //secure
-> 18 |         WebRequest request = WebRequest.Create(url);
-  19 |     }
-  20 | }
-  21 |
-     ^ Col 4
-",c_sharp.c_sharp_insec_create
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | using System.Net;
@@ -34869,15 +34844,12 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   10 |             //insecure
 > 11 |             WebRequest req = WebRequest.Create(url);
   12 |
-  13 |             if (!whiteList.Contains(url))
-  14 |             {
-  15 |                 return BadRequest();
-  16 |             }
-  17 |             //secure
-  18 |             WebRequest request = WebRequest.Create(url);
-  19 |         }
-  20 |     }
-  21 | }
+  13 |             //secure
+  14 |             string staticUrl = ""https://someurl.com"";
+  15 |             WebRequest request = WebRequest.Create(staticUrl);
+  16 |         }
+  17 |     }
+  18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insec_create
 F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,22,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"

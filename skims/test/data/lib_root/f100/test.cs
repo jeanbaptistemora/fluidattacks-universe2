@@ -10,12 +10,9 @@ namespace testmod
             //insecure
             WebRequest req = WebRequest.Create(url);
 
-            if (!whiteList.Contains(url))
-            {
-                return BadRequest();
-            }
             //secure
-            WebRequest request = WebRequest.Create(url);
+            string staticUrl = "https://someurl.com";
+            WebRequest request = WebRequest.Create(staticUrl);
         }
     }
 }
