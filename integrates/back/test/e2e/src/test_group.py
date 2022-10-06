@@ -122,7 +122,7 @@ def test_group_analytics(
             "MTTR Benchmarking",
             "Exposure over time",
             "Open Exposure by type",
-            "Aggregated exposure benchmark",
+            "Exposure benchmark",
             "Exposure management over time",
             "Distribution over time",
             "Exposure Trends by Categories",

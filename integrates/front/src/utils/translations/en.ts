@@ -10,7 +10,7 @@ export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
       eventualities: "Unsolved events by groups",
-      exposureBenchmarkingCvssf: "Aggregated exposure benchmark",
+      exposureBenchmarkingCvssf: "Exposure benchmark",
       exposureByGroups: "Open Exposure by groups",
       exposureTrendsByCategories: "Exposure Trends by Categories",
       meanTimeToRemediate: {
