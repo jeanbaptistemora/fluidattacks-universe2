@@ -14,6 +14,7 @@ from syntax_graph.syntax_readers.javascript import (
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
     member_expression as javascript_member_expression,
+    method_declaration as javascript_method_declaration,
     number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
@@ -37,6 +38,7 @@ from syntax_graph.syntax_readers.typescript import (
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
     function_signature as typescript_function_signature,
+    function_type as typescript_function_type,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
     predefined_type as typescript_predefined_type,
@@ -48,6 +50,7 @@ from syntax_graph.syntax_readers.typescript import (
     type_alias_declaration as typescript_type_alias_declaration,
     type_annotation as typescript_type_annotation,
     union_type as typescript_union_type,
+    void as typescript_void,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -155,6 +158,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function_type",
+        },
+        syntax_reader=typescript_function_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
             "property_identifier",
             "shorthand_property_identifier",
@@ -186,6 +195,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "member_expression",
         },
         syntax_reader=javascript_member_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "function_declaration",
+        },
+        syntax_reader=javascript_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -323,5 +338,11 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "variable_declaration",
         },
         syntax_reader=javascript_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "void",
+        },
+        syntax_reader=typescript_void.reader,
     ),
 )
