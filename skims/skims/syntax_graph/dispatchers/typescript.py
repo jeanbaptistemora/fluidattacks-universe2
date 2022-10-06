@@ -9,6 +9,8 @@ from syntax_graph.syntax_readers.javascript import (
     binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
     call_expression as javascript_call_expression,
+    class_body as javascript_class_body,
+    class_declaration as javascript_class_declaration,
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
     identifier as javascript_identifier,
@@ -28,7 +30,10 @@ from syntax_graph.syntax_readers.javascript import (
     switch_body as javascript_switch_body,
     switch_case as javascript_switch_case,
     switch_statement as javascript_switch_statement,
+    this as javascript_this,
+    update_expression as javascript_update_expression,
     variable_declaration as javascript_variable_declaration,
+    while_statement as javascript_while_statement,
 )
 from syntax_graph.syntax_readers.typescript import (
     ambient_declaration as typescript_ambient_declaration,
@@ -43,6 +48,7 @@ from syntax_graph.syntax_readers.typescript import (
     intersection_type as typescript_intersection_type,
     predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
+    public_field_definition as typescript_public_field_definition,
     required_parameter as typescript_required_parameter,
     rest_pattern as typescript_rest_pattern,
     ternary_expression as typescript_ternary_expression,
@@ -105,6 +111,18 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "call_expression",
         },
         syntax_reader=javascript_call_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_body",
+        },
+        syntax_reader=javascript_class_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_declaration",
+        },
+        syntax_reader=javascript_class_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -199,6 +217,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "function_declaration",
+            "method_definition",
         },
         syntax_reader=javascript_method_declaration.reader,
     ),
@@ -247,6 +266,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "property_signature",
         },
         syntax_reader=typescript_property_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "public_field_definition",
+        },
+        syntax_reader=typescript_public_field_definition.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -304,6 +329,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "this",
+        },
+        syntax_reader=javascript_this.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "ternary_expression",
         },
         syntax_reader=typescript_ternary_expression.reader,
@@ -334,6 +365,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "update_expression",
+        },
+        syntax_reader=javascript_update_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "lexical_declaration",
             "variable_declaration",
         },
@@ -344,5 +381,11 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "void",
         },
         syntax_reader=typescript_void.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=javascript_while_statement.reader,
     ),
 )
