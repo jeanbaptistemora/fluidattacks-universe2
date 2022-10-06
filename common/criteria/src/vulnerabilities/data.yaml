@@ -34478,10 +34478,10 @@
   en:
     title: Supply Chain Attack - Docker
     description: >
-      Docker dependencies are not pinned,
-      allowing a malicious actor to override the used components
-      with malicious components
-      without leaving a trace.
+      Docker dependencies are not pinned to an exact digest,
+      making the Docker build unable the verify the integrity of the image
+      and allowing a malicious actor to override the used components
+      with malicious components without leaving a trace.
     impact: >
       Override depdendencies or component with malicious content.
     recommendation: >
@@ -34516,8 +34516,10 @@
   es:
     title: Supply Chain Attack - Docker
     description: >
-      Las dependencias de Docker no están pineadas,
-      permitiendo a un actor malicioso
+      Las dependencias de Docker no están pineadas a un digest específico,
+      haciendo que el proceso de construcción
+      sea incapaz de verificar la integridad de la imagen
+      y permitiendo a un actor malicioso
       sobreescribir los componentes utilizados
       con componentes maliciosos
       sin dejar un rastro.
