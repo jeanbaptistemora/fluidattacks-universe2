@@ -8,6 +8,7 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { calcPrivilegesRequired } from "utils/cvss";
 import { getEnvironment } from "utils/environment";
+import { formatDate, formatTreatment } from "utils/formatHelpers";
 import {
   alphaNumeric,
   excludeFormat,
@@ -1031,5 +1032,26 @@ describe("Window mock to development", (): void => {
     jest.spyOn(window, "location", "get").mockRestore();
 
     expect(result).toBe(expectedEnv);
+  });
+});
+
+describe("formatHelpers", (): void => {
+  it("Should return correct treatment", (): void => {
+    expect.hasAssertions();
+
+    const findingState = "open";
+    const treatment = "ACCEPTED";
+    const checkFormat = formatTreatment(treatment, findingState);
+
+    expect(checkFormat).toBe("Temporarily accepted");
+  });
+
+  it("Should return incorrect date value", (): void => {
+    expect.hasAssertions();
+
+    const value = -1;
+    const checkFormat = formatDate(value);
+
+    expect(checkFormat).toBe("-");
   });
 });
