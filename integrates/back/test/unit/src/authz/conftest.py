@@ -92,6 +92,32 @@ data: Dict[str, List[Any]] = dict(
     ],
     integrates_vms=[
         dict(
+            role="hacker",
+            group_name="unittesting",
+            responsability="Test",
+            sk="GROUP#unittesting",
+            has_access=True,
+            pk="USER#integrateshacker@fluidattacks.com",
+            email="integrateshacker@fluidattacks.com",
+        ),
+        dict(
+            role="user_manager",
+            group_name="unittesting",
+            responsability="Test",
+            sk="GROUP#unittesting",
+            has_access=True,
+            pk="USER#integratesuser@gmail.com",
+            email="integratesuser@gmail.com",
+        ),
+        dict(
+            group_name="unittesting",
+            responsability="Tester",
+            sk="GROUP#unittesting",
+            has_access=True,
+            pk="USER#unittest@fluidattacks.com",
+            email="unittest@fluidattacks.com",
+        ),
+        dict(
             is_concurrent_session=False,
             is_registered=True,
             role="hacker",

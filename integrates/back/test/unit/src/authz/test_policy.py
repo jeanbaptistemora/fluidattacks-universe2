@@ -42,7 +42,7 @@ pytestmark = [
     ["table", "length"],
     [
         ["fi_authz", 7],
-        ["integrates_vms", 6],
+        ["integrates_vms", 9],
     ],
 )
 def test_create_tables(
@@ -122,7 +122,7 @@ async def test_get_group_service_policies(
         ["integrateshacker@fluidattacks.com", "unittesting", "hacker"],
         ["integratesuser@gmail.com", "unittesting", "user_manager"],
         ["unittest@fluidattacks.com", "unittesting", "admin"],
-        ["asdfasdfasdfasdf@gmail.com", "unittesting", ""],
+        ["test_email@gmail.com", "unittesting", ""],
     ],
 )
 async def test_get_group_level_role(
@@ -131,17 +131,17 @@ async def test_get_group_level_role(
     group: str,
     result: str,
 ) -> None:
+    def side_effect(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
     loaders: Dataloaders = get_new_context()
-
-    def side_effect(table: str, query_attrs: dict) -> str:
-        return dynamo_resource.Table(table).query(  # type: ignore
-            ConsistentRead=query_attrs["ConsistentRead"],
-            KeyConditionExpression=query_attrs["KeyConditionExpression"],
-        )["Items"]
-
-    with mock.patch("dynamodb.operations_legacy.query") as mock_query:
-        mock_query.side_effect = side_effect
-        assert await get_group_level_role(loaders, email, group) == result
+    with mock.patch(
+        "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+    ) as mock_resource:
+        mock_resource.return_value.batch_get_item.side_effect = side_effect
+        test_role = await get_group_level_role(loaders, email, group)
+        assert mock_resource.called is True
+        assert test_role == result
 
 
 @pytest.mark.changes_db
