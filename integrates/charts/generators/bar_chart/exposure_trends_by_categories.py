@@ -273,6 +273,10 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
                 ),
                 min=format_cvssf_log_adjusted(min_axis_value),
                 max=format_cvssf_log_adjusted(max_axis_value),
+                padding=dict(
+                    bottom=0,
+                    top=0,
+                ),
             ),
         ),
         maxValueLogAdjusted=format_max_value(
