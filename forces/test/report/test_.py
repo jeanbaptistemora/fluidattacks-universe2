@@ -8,7 +8,6 @@ from forces.model import (
     VulnerabilityState,
 )
 from forces.report import (
-    create_findings_dict,
     generate_raw_report,
     get_summary_template,
     style_report,
@@ -16,6 +15,9 @@ from forces.report import (
 )
 from forces.report.filters import (
     filter_repo,
+)
+from forces.report.formatters import (
+    create_findings_dict,
 )
 import pytest
 
