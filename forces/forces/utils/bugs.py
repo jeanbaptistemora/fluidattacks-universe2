@@ -21,11 +21,10 @@ import os
 from typing import (
     Any,
     Dict,
-    Optional,
 )
 
 # Constants
-META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)
+META: ContextVar[Dict[str, str] | None] = ContextVar("META", default=None)
 
 
 def customize_bugsnag_error_reports(

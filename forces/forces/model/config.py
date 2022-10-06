@@ -10,7 +10,6 @@ from io import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -27,10 +26,10 @@ class ForcesConfig(NamedTuple):
 
     group: str
     kind: KindEnum = KindEnum.ALL
-    output: Optional[TextIOWrapper] = None
-    repository_path: Optional[str] = "."
-    repository_name: Optional[str] = None
-    strict: Optional[bool] = False
+    output: TextIOWrapper | None = None
+    repository_path: str | None = "."
+    repository_name: str | None = None
+    strict: bool | None = False
     verbose_level: int = 3
     breaking_severity: float = 0.0
     grace_period: int = 0

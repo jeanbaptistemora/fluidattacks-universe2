@@ -36,7 +36,6 @@ from typing import (
     Dict,
     List,
     Set,
-    Union,
 )
 
 
@@ -144,7 +143,7 @@ async def gather_finding_data(
 
 
 def format_summary_report(
-    summary: Dict[Union[VulnerabilityState, str], Any], kind: KindEnum
+    summary: Dict[VulnerabilityState | str, Any], kind: KindEnum
 ) -> Table:
     """Helper method to create the findings summary table from the report's
     summary data\n
@@ -254,7 +253,7 @@ def format_rich_report(
                 key = "exploit"
             # Vulns can come as an empty list depending on the verbosity level
             if key == "vulnerabilities":
-                vulns_data: Union[Table, str] = ""
+                vulns_data: Table | str = ""
                 if value:
                     vulns_data = format_vuln_table(value)
                 elif verbose_level == 2:
@@ -314,8 +313,8 @@ def filter_report(
 
 def get_summary_template(
     kind: KindEnum,
-) -> Dict[Union[str, VulnerabilityState], Dict[str, int]]:
-    _summary_dict: Dict[Union[str, VulnerabilityState], Dict[str, int]] = {
+) -> Dict[str | VulnerabilityState, Dict[str, int]]:
+    _summary_dict: Dict[str | VulnerabilityState, Dict[str, int]] = {
         VulnerabilityState.OPEN: {"total": 0},
         VulnerabilityState.CLOSED: {"total": 0},
         VulnerabilityState.ACCEPTED: {"total": 0},

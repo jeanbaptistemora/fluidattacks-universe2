@@ -31,11 +31,9 @@ from typing import (
     cast,
     Dict,
     List,
-    Optional,
     Set,
     Tuple,
     TypeVar,
-    Union,
 )
 
 # Constants
@@ -88,7 +86,7 @@ async def get_findings(group: str, **kwargs: str) -> Set[str]:
 @SHIELD
 async def get_vulnerabilities(
     finding_id: str, **kwargs: str
-) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
+) -> List[Dict[str, str | List[Dict[str, Dict[str, Any]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -209,9 +207,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
 
 async def vulns_generator(
     group: str, **kwargs: str
-) -> AsyncGenerator[
-    Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]], None
-]:
+) -> AsyncGenerator[Dict[str, str | List[Dict[str, Dict[str, Any]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
@@ -232,7 +228,7 @@ async def upload_report(
     log_file: str,
     git_metadata: Dict[str, str],
     severity_threshold: float,
-    **kwargs: Union[datetime, str, int],
+    **kwargs: datetime | str | int,
 ) -> bool:
     """
     Upload report execution to Integrates.
@@ -367,7 +363,7 @@ async def get_groups_access(
             str,
             Dict[
                 str,
-                List[Dict[str, Union[List[Dict[str, str]], float, int]]],
+                List[Dict[str, List[Dict[str, str]] | int | float]],
             ],
         ] = await execute(
             query,
@@ -419,7 +415,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
 
 async def get_forces_user_and_org_data(
     **kwargs: Any,
-) -> Tuple[Optional[str], Optional[float], Optional[int]]:
+) -> Tuple[str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
     for group, global_brk_severity, vuln_grace_period in groups:
         if group["userRole"] == "service_forces":

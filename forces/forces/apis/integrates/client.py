@@ -32,7 +32,6 @@ from typing import (
     AsyncIterator,
     Dict,
     List,
-    Optional,
     TypeVar,
 )
 
@@ -90,8 +89,8 @@ async def session(
 async def execute(
     query: str,
     operation_name: str,
-    variables: Optional[Dict[str, Any]] = None,
-    default: Optional[Any] = None,
+    variables: Dict[str, Any] | None = None,
+    default: Any | None = None,
     **kwargs: Any,
 ) -> TVar:
     async with session(**kwargs) as client:

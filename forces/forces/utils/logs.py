@@ -34,7 +34,6 @@ from typing import (
     Any,
     IO,
     Set,
-    Union,
 )
 
 
@@ -95,7 +94,7 @@ async def log(level: str, msg: str, *args: Any) -> None:
 
 
 def rich_log(
-    rich_msg: Union[Table, Text, str], log_to: LogInterface = LogInterface.ALL
+    rich_msg: Table | Text | str, log_to: LogInterface = LogInterface.ALL
 ) -> None:
     """Writes to the specified console interfaces to have either stdout and log
     output"""

@@ -17,12 +17,11 @@ from typing import (
     Any,
     Dict,
     List,
-    Optional,
 )
 
 
 def choose_min_breaking_severity(
-    global_brk_severity: Optional[float], local_brk_severity: Optional[float]
+    global_brk_severity: float | None, local_brk_severity: float | None
 ) -> float:
     global_brk_severity = (
         float(global_brk_severity) if global_brk_severity is not None else 0.0

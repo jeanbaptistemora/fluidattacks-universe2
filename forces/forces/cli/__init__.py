@@ -36,9 +36,6 @@ from io import (
 import re
 import sys
 import textwrap
-from typing import (
-    Optional,
-)
 
 # Constants
 USER_PATTERN = r"forces.(?P<group>\w+)@fluidattacks.com"
@@ -53,7 +50,7 @@ def get_group_from_email(email: str) -> str:
     return re.match(USER_PATTERN, email).group("group")  # type: ignore
 
 
-async def validate_severity(severity: Optional[float]) -> bool:
+async def validate_severity(severity: float | None) -> bool:
     """Ensure that the inserted local breaking severity is valid"""
     min_severity: float = 0.0
     max_severity: float = 10.0

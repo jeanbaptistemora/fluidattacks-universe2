@@ -8,17 +8,13 @@ from os import (
 )
 from typing import (
     Literal,
-    Union,
 )
 
 # Constants
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def guess_environment() -> Union[
-    Literal["development"],
-    Literal["production"],
-]:
+def guess_environment() -> Literal["development"] | Literal["production"]:
     if any(
         (
             "universe/" in BASE_DIR,

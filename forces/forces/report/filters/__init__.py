@@ -11,7 +11,6 @@ from typing import (
     Any,
     cast,
     Dict,
-    Optional,
 )
 
 
@@ -34,7 +33,7 @@ def filter_kind(
 def filter_repo(
     vuln: Dict[str, Any],
     kind: KindEnum,
-    repo_name: Optional[str] = None,
+    repo_name: str | None = None,
 ) -> bool:
     vuln_type: VulnerabilityType = (
         VulnerabilityType.SAST
@@ -52,6 +51,6 @@ def filter_repo(
         kind in (KindEnum.ALL, KindEnum.DYNAMIC)
         and vuln_type == VulnerabilityType.DAST
     ):
-        root_nickname: Optional[str] = vuln.get("rootNickname", "")
+        root_nickname: str | None = vuln.get("rootNickname", "")
         return root_nickname == repo_name or not root_nickname
     return True

@@ -25,7 +25,6 @@ import pytz
 import re
 from typing import (
     Dict,
-    Optional,
 )
 
 # Contants
@@ -45,7 +44,7 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
 ]
 
 
-def get_repo_name_from_vars() -> Optional[str]:
+def get_repo_name_from_vars() -> str | None:
     common_names = {
         "BUILD_REPOSITORY_NAME",  # Azure devops
         "CI_PROJECT_NAME",  # gitlab-ci
@@ -59,7 +58,7 @@ def get_repo_name_from_vars() -> Optional[str]:
     return None
 
 
-def extract_repo_name(pattern: str) -> Optional[str]:
+def extract_repo_name(pattern: str) -> str | None:
     for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
         match = regex.match(pattern)
         if match and match.group(1):
