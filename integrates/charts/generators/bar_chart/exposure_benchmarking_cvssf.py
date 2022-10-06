@@ -37,6 +37,7 @@ from charts.generators.stacked_bar_chart.utils import (
     RiskOverTime,
 )
 from charts.utils import (
+    format_cvssf,
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
@@ -184,9 +185,10 @@ def get_worst_exposure(*, subjects: list[Benchmarking]) -> Decimal:
 
 
 def format_data(
-    data: tuple[Decimal, Decimal, Decimal, Decimal],
+    all_data: tuple[Decimal, Decimal, Decimal, Decimal],
     categories: list[str],
 ) -> dict:
+    data = tuple(format_cvssf(value) for value in all_data)
 
     return dict(
         data=dict(
@@ -352,7 +354,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
 
     async for group in iterate_groups():
         document = format_data(
-            data=(
+            all_data=(
                 (
                     await get_data_one_group(
                         group,
@@ -381,7 +383,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
         document = format_data(
-            data=(
+            all_data=(
                 (
                     await get_data_many_groups(
                         organization_id=org_id,
@@ -412,7 +414,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, pgroup_names in await get_portfolios_groups(org_name):
             document = format_data(
-                data=(
+                all_data=(
                     (
                         await get_data_many_groups(
                             organization_id=f"{org_id}PORTFOLIO#{portfolio}",

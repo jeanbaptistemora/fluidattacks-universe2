@@ -24,7 +24,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       mttrBenchmarking: {
-        title: "MTTR Benchmarking",
+        title: "Mean time to remediate (MTTR) benchmark",
         tooltip: {
           all: "Days per Exposure for all vulnerabilities",
           nonTreated: "Days per Exposure for non treated vulnerabilities",

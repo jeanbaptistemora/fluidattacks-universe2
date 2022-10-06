@@ -142,7 +142,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       label: "All",
       title: translate.t("analytics.barChart.mttrBenchmarking.title"),
       tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
-      url: "#mttr-benchmarking",
+      url: "#mean-time-to-remediate-mttr-benchmark",
     },
     documentType: "barChart",
   },
