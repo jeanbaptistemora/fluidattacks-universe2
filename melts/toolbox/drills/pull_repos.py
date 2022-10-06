@@ -19,6 +19,9 @@ from git.exc import (
     GitError,
 )
 import os
+from pathlib import (
+    Path,
+)
 import pathspec
 from pathspec.patterns.gitwildmatch import (
     GitWildMatchPattern,
@@ -171,7 +174,7 @@ def download_repo_from_s3(
     root: Dict[str, Any],
     progress_bar: Optional[Any] = None,
 ) -> bool:
-    repo_path = f"groups/{group_name}/fusion/{nickname}"
+    repo_path = Path("groups") / group_name / Path("fusion") / nickname
 
     with suppress(GitError):
         if (
@@ -185,25 +188,21 @@ def download_repo_from_s3(
                     progress_bar()
                 return True
 
-    os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
-    file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
+    os.makedirs(repo_path.parent, exist_ok=True)
+    file_path = repo_path.with_suffix(".tar.gz")
 
     urlretrieve(root["downloadUrl"], file_path)
 
-    if not os.path.exists(file_path):
+    if not file_path.exists():
         return False
 
     if progress_bar:
         progress_bar()
 
     try:
-        shutil.rmtree(
-            f"groups/{group_name}/fusion/{nickname}", ignore_errors=True
-        )
+        shutil.rmtree(repo_path, ignore_errors=True)
         with tarfile.open(file_path, "r:gz") as tar_handler:
-            tar_handler.extractall(
-                f"groups/{group_name}/fusion/", numeric_owner=True
-            )
+            tar_handler.extractall(file_path.parent, numeric_owner=True)
     except PermissionError:
         LOGGER.error("filed to unzip %s", nickname)
 
@@ -217,14 +216,14 @@ def download_repo_from_s3(
                 "--global",
                 "--add",
                 "safe.directory",
-                repo_path,
+                repo_path.resolve(),
             ]
         )
-        repo = Repo(repo_path)
+        repo = Repo(repo_path.resolve())
         repo.git.reset("--hard", "HEAD")
     except GitError as exc:
         LOGGER.error("Expand repositories has failed:")
-        LOGGER.info("Repository: %s", repo_path)
+        LOGGER.info("Repository: %s", repo_path.resolve())
         LOGGER.info(exc)
         LOGGER.info("\n")
         return False

@@ -38,6 +38,9 @@ from multiprocessing.pool import (
     ThreadPool,
 )
 import os
+from pathlib import (
+    Path,
+)
 import re
 from shlex import (
     quote as shq,
@@ -367,10 +370,10 @@ def _http_ls_remote(
     return Result.failure(problem)
 
 
-def get_head_commit(path_to_repo: str, branch: str) -> Optional[str]:
+def get_head_commit(path_to_repo: Path, branch: str) -> Optional[str]:
     try:
         return (
-            git.Repo(path_to_repo, search_parent_directories=True)
+            git.Repo(path_to_repo.resolve(), search_parent_directories=True)
             .heads[branch]
             .object.hexsha
         )

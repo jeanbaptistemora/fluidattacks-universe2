@@ -15,6 +15,9 @@ from git.exc import (
 import glob
 import json
 import os
+from pathlib import (
+    Path,
+)
 import requests
 import tarfile
 import tempfile
@@ -183,7 +186,7 @@ def main(
         for repo in os.listdir(f"groups/{subs}/fusion"):
             if (root := roots_dict.get(repo)) and (
                 local_commit := get_head_commit(
-                    f"groups/{subs}/fusion/{repo}", root["branch"]
+                    Path(f"groups/{subs}/fusion/{repo}"), root["branch"]
                 )
             ):
                 if "uploadUrl" in root and (
