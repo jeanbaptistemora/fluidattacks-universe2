@@ -111,3 +111,58 @@ vulnerability you want
 to validate by clicking
 on the check box on the left,
 followed by the **Reattack button**.
+
+![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060237/docs/web/vulnerabilities/management/reattack_todolist.png)
+
+A pop-up window will appear asking
+you for the justification you applied
+in the solution;
+remember that this justification
+is composed of 10 or more characters.
+When you have typed the validation,
+click on the **Confirm button**.
+
+![Justification ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060354/docs/web/vulnerabilities/management/justification_todolist.png)
+
+Here this vulnerability enters
+in **Requested** status waiting
+for the validation of its solution.
+We invite you to enter [here](/squad/reattacks/)
+to understand the status of the
+attacks and their validation procedure.
+
+### Filters
+
+Filters are one of the features
+found throughout our **ARM** platform,
+helping us to analyze data quickly.
+The filters in this section are
+located on the right side next
+to the search bar.
+
+![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060898/docs/web/vulnerabilities/management/filters_todolist.png)
+
+Here you can filter by **Group name**,
+**type**,
+and **tags**.
+Note that you must set clear filters
+since the filter you apply will
+be maintained until you change
+any of these.
+
+![Filters options](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060977/docs/web/vulnerabilities/management/filters.png)
+
+### Table refresh
+
+If you need to refresh the
+ToDoList table view,
+you can do so with the button
+on the left next to the
+reattack button.
+
+![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1665061085/docs/web/vulnerabilities/management/reload.png)
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
