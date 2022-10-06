@@ -263,6 +263,21 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
 
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
+      accessorKey: "organizationName",
+      cell: (cell): JSX.Element => {
+        const orgName =
+          cell.row.original.organizationName === undefined
+            ? ""
+            : cell.row.original.organizationName;
+        const link = `../orgs/${orgName}/groups/${cell.row.original.groupName}`;
+        const text = cell.getValue<string>();
+
+        return formatLinkHandler(link, text);
+      },
+      header: "Organization",
+      meta: { filterType: "select" },
+    },
+    {
       accessorKey: "groupName",
       cell: (cell): JSX.Element => {
         const orgName =
