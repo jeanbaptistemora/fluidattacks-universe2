@@ -31,7 +31,7 @@ Please follow the following steps:
    export OKTA_PASS=<your-password>
    ```
 
-   You can optionally omit the OKTA_PASS. In that case, 
+   You can optionally omit the OKTA_PASS. In that case,
    it will be asked interactively on the terminal.
 
 1. Add the following to the end of your `~/.bashrc`:
