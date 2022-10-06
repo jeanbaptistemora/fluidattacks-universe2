@@ -38,7 +38,7 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     try:
         path = get_lookup_path(args.graph, args.path, symbol_id)
     except ValueError:
-        path = []
+        path = args.path
 
     refs_search_order = list(search_until_def(args.graph, path, symbol))
     refs_exec_order = reversed(refs_search_order)
