@@ -19,34 +19,41 @@ async def get_result(
     user: str,
     group: str,
 ) -> dict[str, Any]:
-    query: str = f"""
-        query {{
-            forcesExecutions(
-                groupName: "{group}",
-            ) {{
-                executions {{
-                    groupName
-                    executionId
-                    date
-                    exitCode
-                    gitBranch
-                    gitCommit
-                    gitOrigin
-                    gitRepo
-                    gracePeriod
-                    kind
-                    severityThreshold
-                    strictness
-                    vulnerabilities {{
-                        numOfOpenVulnerabilities
-                        numOfAcceptedVulnerabilities
-                        numOfClosedVulnerabilities
-                    }}
-                }}
-                __typename
+    firts = 50
+
+    query: str = f"""query {{
+    group(groupName: "{group}") {{
+      executionsConnections(after: "", first: {firts}, search: "") {{
+        edges {{
+          node {{
+            groupName
+            gracePeriod
+            date
+            exitCode
+            gitBranch
+            gitCommit
+            gitOrigin
+            gitRepo
+            executionId
+            kind
+            severityThreshold
+            strictness
+            vulnerabilities {{
+              numOfAcceptedVulnerabilities
+              numOfOpenVulnerabilities
+              numOfClosedVulnerabilities
             }}
+          }}
         }}
-    """
+        pageInfo {{
+          endCursor
+          hasNextPage
+        }}
+      }}
+      name
+    }}
+  }}"""
+
     data: dict[str, str] = {
         "query": query,
     }

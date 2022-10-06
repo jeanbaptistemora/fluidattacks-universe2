@@ -730,7 +730,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     service_forces=dict(
         actions={
-            "api_resolvers_group_forces_executions_resolve",
             "api_mutations_add_forces_execution_mutate",
             "api_resolvers_query_finding_resolve",
             "api_resolvers_query_group_resolve",

@@ -5,6 +5,7 @@
 from aioextensions import (
     collect,
 )
+import asyncio
 import authz
 from batch.dal import (
     put_action_to_dynamodb,
@@ -517,6 +518,7 @@ async def populate_executions(data: list[Any]) -> bool:
         )
         for item in data
     )
+    await asyncio.sleep(10)
     return True
 
 
