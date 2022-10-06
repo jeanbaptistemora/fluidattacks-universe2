@@ -6,9 +6,6 @@
 from back.test import (
     db,
 )
-from batch.enums import (
-    Action,
-)
 from datetime import (
     datetime,
 )
@@ -68,10 +65,6 @@ from decimal import (
 )
 from git import (
     Repo,
-)
-from newutils.datetime import (
-    get_as_epoch,
-    get_now,
 )
 import os
 import pytest
@@ -752,39 +745,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ),
         ),
     }
-    actions: tuple[dict[str, Any], ...] = (  # noqa
-        dict(
-            action_name=Action.CLONE_ROOTS.value,
-            entity="group1",
-            subject=generic_data["global_vars"]["admin_email"],
-            time=str(get_as_epoch(get_now())),
-            additional_info="nickname1,nickname2,nickname3,nickname4",
-            batch_job_id=None,
-            queue="small",
-            key="1",
-        ),
-        dict(
-            action_name=Action.CLONE_ROOTS.value,
-            entity="group1",
-            subject=generic_data["global_vars"]["admin_email"],
-            time=str(get_as_epoch(get_now())),
-            additional_info="nickname1,nickname3",
-            batch_job_id=None,
-            queue="small",
-            key="2",
-        ),
-        dict(
-            action_name=Action.CLONE_ROOTS.value,
-            entity="group1",
-            subject=generic_data["global_vars"]["admin_email"],
-            time=str(get_as_epoch(get_now())),
-            additional_info="nickname6",
-            batch_job_id=None,
-            queue="small",
-            key="3",
-        ),
-    )
-    # await db.populate_actions(actions)
     return await db.populate({**generic_data["db_data"], **data})
 
 
