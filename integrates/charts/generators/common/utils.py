@@ -11,7 +11,7 @@ from db_model.forces.types import (
 )
 from decimal import (
     Decimal,
-    ROUND_FLOOR,
+    ROUND_CEILING,
 )
 import math
 import os
@@ -53,7 +53,7 @@ def format_cvssf_log_adjusted(cvssf: Decimal) -> Decimal:
     if abs(cvssf) >= MAX_WITH_DECIMALS:
         cvssf_log = Decimal(
             math.log2(
-                abs(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
+                abs(cvssf.to_integral_exact(rounding=ROUND_CEILING))
                 * Decimal("10.0")
             )
         )
@@ -65,3 +65,25 @@ def format_cvssf_log_adjusted(cvssf: Decimal) -> Decimal:
 
     cvssf_log = Decimal(math.log2(abs(cvssf) * Decimal("10.0")))
     return cvssf_log if cvssf > Decimal("0.0") else cvssf_log * Decimal("-1.0")
+
+
+def round_to_next_multiple(*, value: Decimal, base: Decimal) -> Decimal:
+    format_value = value.to_integral_exact(rounding=ROUND_CEILING)
+    divided = format_value // base
+    nearest_multiple = divided * base
+    if nearest_multiple > format_value:
+        return nearest_multiple
+
+    return nearest_multiple + base
+
+
+def get_max_axis(*, value: Decimal) -> Decimal:
+    if value <= Decimal("100.0"):
+        return round_to_next_multiple(value=value, base=Decimal("5.0"))
+
+    exp = Decimal(math.log10(value)).to_integral_exact(rounding=ROUND_CEILING)
+    return round_to_next_multiple(
+        value=value,
+        base=Decimal(math.pow(Decimal("10.0"), exp)).quantize(Decimal("0.1"))
+        / Decimal("20.0"),
+    )

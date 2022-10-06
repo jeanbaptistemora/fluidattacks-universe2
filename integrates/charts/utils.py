@@ -17,7 +17,7 @@ from db_model.portfolios.types import (
 )
 from decimal import (
     Decimal,
-    ROUND_FLOOR,
+    ROUND_CEILING,
 )
 import functools
 import json
@@ -202,7 +202,7 @@ def get_subject_days(days: Optional[int]) -> str:
 
 def format_cvssf(cvssf: Decimal) -> Decimal:
     if abs(cvssf) >= MAX_WITH_DECIMALS:
-        return cvssf.to_integral_exact(rounding=ROUND_FLOOR)
+        return cvssf.to_integral_exact(rounding=ROUND_CEILING)
     return cvssf.quantize(Decimal("0.1"))
 
 
@@ -212,7 +212,7 @@ def format_cvssf_log(cvssf: Decimal) -> Decimal:
 
     if cvssf >= MAX_WITH_DECIMALS:
         return Decimal(
-            math.log2(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
+            math.log2(cvssf.to_integral_exact(rounding=ROUND_CEILING))
         )
 
     return Decimal(math.log2(cvssf))
