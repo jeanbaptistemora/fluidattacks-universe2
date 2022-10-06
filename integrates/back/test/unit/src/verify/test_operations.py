@@ -25,15 +25,43 @@ pytestmark = [
 ]
 
 
-@pytest.mark.skip(reason="Test should mock the Twilio response")
 async def test_get_country_code() -> None:
-    test_phone_number = "12345678"
+    class MockedTwilioObject(NamedTuple):
+        caller_name: str
+        carrier: dict
+        country_code: str
+        national_format: str
+        phone_number: str
+        add_ons: str
+        url: str
+
+    test_phone_number = "+15108675310"
     test_result = await get_country_code(test_phone_number)
-    print(test_result)
     assert test_result == ""
+    mocked_response = MockedTwilioObject(
+        caller_name="null",
+        carrier={
+            "error_code": "null",
+            "mobile_country_code": "310",
+            "mobile_network_code": "456",
+            "name": "verizon",
+            "type": "mobile",
+        },
+        country_code="US",
+        national_format="(510) 867-5310",
+        phone_number="+15108675310",
+        add_ons="null",
+        url="https://lookups.twilio.com/v1/PhoneNumbers/+15108675310",
+    )
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
-        test_result = await get_country_code("+15108675310")
-        assert test_result == "US"
+        with mock.patch("verify.operations.client"):
+            with mock.patch(
+                "verify.operations.client.lookups.v1.phone_numbers"
+            ) as mock_twilio:
+                mock_twilio.return_value.fetch.return_value = mocked_response
+                test_result = await get_country_code("+15108675310")
+    assert mock_twilio.called is True
+    assert test_result == "US"
 
 
 async def test_check_verification() -> None:
@@ -54,7 +82,6 @@ async def test_start_verification() -> None:
     test_result = await start_verification(
         phone_number=test_phone_number  # type: ignore
     )
-    print(test_result)
     assert test_result is None
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
         await start_verification(phone_number="+15108675310")
