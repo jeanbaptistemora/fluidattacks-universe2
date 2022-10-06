@@ -9,7 +9,10 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.tap.checkly.root;
-  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  pkg = import "${root}/entrypoint.nix" {
+    inherit projectPath fetchNixpkgs;
+    observesIndex = inputs.observesIndex;
+  };
   check = pkg.check.types;
 in
   makeScript {

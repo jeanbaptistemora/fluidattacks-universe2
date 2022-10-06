@@ -10,8 +10,8 @@
   pythonPkgs =
     legacyPkgs."${pythonVersion}Packages"
     // {
-      fa-purity = extras.purity."${pythonVersion}".pkg;
-      fa-singer-io = extras.singer-io."${pythonVersion}".pkg;
+      fa-purity = extras.fa-purity."${pythonVersion}".pkg;
+      fa-singer-io = extras.fa-singer-io."${pythonVersion}".pkg;
     };
   legacy = import ./legacy {
     inherit extras pythonPkgs pythonVersion;

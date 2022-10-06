@@ -1,10 +1,14 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-fetchNixpkgs: projectPath: observesIndex: let
+{
+  fetchNixpkgs,
+  projectPath,
+  observesIndex,
+}: let
   python_version = "python310";
   system = "x86_64-linux";
-  legacyPkgs = fetchNixpkgs {
+  nixpkgs = fetchNixpkgs {
     rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
   };
@@ -13,33 +17,40 @@ fetchNixpkgs: projectPath: observesIndex: let
   utils-logger."${python_version}" = import _utils_logger_src {
     inherit python_version;
     src = _utils_logger_src;
-    legacy_pkgs = legacyPkgs;
+    legacy_pkgs = nixpkgs;
   };
 
-  _purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    rev = "fe1e3930dbc4add352035d57dcf78d52717132b5";
-    ref = "refs/tags/v1.17.0";
-  };
-  purity = import _purity_src {
-    inherit system;
-    legacy_pkgs = legacyPkgs;
-    src = _purity_src;
-  };
+  fa-purity = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/purity";
+      rev = "6dac68449852e91d2825bfab551872132c278605";
+      ref = "refs/tags/v1.24.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
 
-  _singer_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/singer_io";
-    rev = "67375a892746d6f6b28966265969f55a09cc1df3";
-    ref = "refs/tags/v1.1.0";
-  };
-  singer-io = import _singer_src {
-    inherit system purity legacyPkgs;
-    src = _singer_src;
-  };
+  fa-singer-io = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/singer_io";
+      rev = "d35487441ba37e2a98dca789741407231576e481";
+      ref = "refs/tags/v1.4.0";
+    };
+  in
+    import src {
+      inherit src;
+      nixpkgs =
+        nixpkgs
+        // {
+          purity = fa-purity;
+        };
+    };
 
   _legacy_purity_src = projectPath "/observes/common/purity";
   legacy-purity."${python_version}" = import _legacy_purity_src {
-    inherit legacyPkgs system;
+    inherit system;
+    legacyPkgs = nixpkgs;
     src = _legacy_purity_src;
     pythonVersion = python_version;
   };
@@ -50,7 +61,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     local_pkgs = {
       inherit legacy-purity;
     };
-    pkgs = legacyPkgs;
+    pkgs = nixpkgs;
     src = _legacy_paginator_src;
   };
 
@@ -60,13 +71,14 @@ fetchNixpkgs: projectPath: observesIndex: let
     local_pkgs = {
       inherit legacy-purity;
     };
-    pkgs = legacyPkgs;
+    pkgs = nixpkgs;
     src = _legacy_singer_io;
   };
 
-  extras = {inherit purity singer-io legacy-purity legacy-paginator legacy-singer-io utils-logger;};
+  extras = {inherit fa-purity fa-singer-io legacy-purity legacy-paginator legacy-singer-io utils-logger;};
   out = import ./. {
-    inherit legacyPkgs extras;
+    inherit extras;
+    legacyPkgs = nixpkgs;
     pythonVersion = python_version;
     src = ./.;
   };
