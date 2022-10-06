@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_path.common import (
-    EXTENSIONS_DOCKERFILE,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
@@ -48,10 +47,7 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if (
-        file_name in NAMES_DOCKERFILE
-        and file_extension in EXTENSIONS_DOCKERFILE
-    ):
+    if file_name in NAMES_DOCKERFILE:
         results = (run_container_without_user(content_generator(), path),)
 
     if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:

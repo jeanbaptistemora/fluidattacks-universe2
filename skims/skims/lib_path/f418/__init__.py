@@ -1,9 +1,11 @@
 from lib_path.common import (
     EXTENSIONS_YAML,
+    NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
 )
 from lib_path.f418.docker import (
     docker_compose_read_only,
+    docker_using_add_command,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -28,6 +30,17 @@ def run_docker_compose_read_only(
 
 
 @SHIELD_BLOCKING
+def run_docker_using_add_command(
+    content: str,
+    path: str,
+) -> Vulnerabilities:
+    return docker_using_add_command(
+        content=content,
+        path=path,
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -35,10 +48,11 @@ def analyze(
     path: str,
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
+
     results: Tuple[Vulnerabilities, ...] = ()
+    content = content_generator()
 
     if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
-        content = content_generator()
         results = (
             *results,
             *(
@@ -48,5 +62,6 @@ def analyze(
                 )
             ),
         )
-
+    elif file_name in NAMES_DOCKERFILE:
+        results = (*results, run_docker_using_add_command(content, path))
     return results

@@ -2,3 +2,12 @@
 lib_path.f418.docker_compose_read_only:
   en: Property read_only is either missing or misconfigured
   es: Falta la propiedad read_only o está mal configurada
+lib_path.f418.docker_using_add_command:
+  en: >-
+    Using the ADD command to automatically extract files to the destination
+    directory adds the risk of exploiting vulnerabilities such as zip bombs and
+    Zip Slip that could then be activated automatically.
+  es: >-
+    El uso de comando ADD para extraer archivos automáticamente al directorio
+    de destino agrega el riesgo de explotar vulnerabilidades como zip bombs y
+    Zip Slip que luego podrían activarse automáticamente.

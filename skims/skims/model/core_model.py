@@ -3939,6 +3939,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DOCKER_USING_ADD_COMMAND = MethodInfo(
+        file_name="docker",
+        name="docker_using_add_command",
+        module="lib_path",
+        finding=FindingEnum.F418,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_USES_SYSTEM_EXIT = MethodInfo(
         file_name="java",
         name="java_uses_exit_method",

@@ -9,6 +9,7 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
+import re
 from typing import (
     Any,
     Iterator,
@@ -44,4 +45,19 @@ def docker_compose_read_only(
         iterator=get_cloud_iterator(_docker_compose_read_only(template)),
         path=path,
         method=MethodsEnum.DOCKER_COMPOSE_READ_ONLY,
+    )
+
+
+def docker_using_add_command(content: str, path: str) -> Vulnerabilities:
+    def iterator() -> Iterator[Tuple[int, int]]:
+        for line_number, line in enumerate(content.splitlines(), start=1):
+            if re.match(r"^ADD[ \t]+\w", line):
+                yield (line_number, 0)
+
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="lib_path.f418.docker_using_add_command",
+        iterator=iterator(),
+        path=path,
+        method=MethodsEnum.DOCKER_USING_ADD_COMMAND,
     )

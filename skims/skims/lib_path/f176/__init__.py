@@ -4,7 +4,6 @@
 
 from lib_path.common import (
     EXTENSIONS_BASH,
-    EXTENSIONS_DOCKERFILE,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
@@ -43,10 +42,9 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if (
-        file_name in NAMES_DOCKERFILE
-        and file_extension in EXTENSIONS_DOCKERFILE
-    ) or ("docker" in file_name.lower() and file_extension in EXTENSIONS_YAML):
+    if (file_name in NAMES_DOCKERFILE) or (
+        "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML
+    ):
         results = (run_container_using_sshpass(content_generator(), path),)
     elif file_extension in EXTENSIONS_BASH:
         results = (

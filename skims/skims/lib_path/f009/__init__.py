@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_path.common import (
-    EXTENSIONS_DOCKERFILE,
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
@@ -136,10 +135,7 @@ def analyze(
             run_jwt_token(content, path),
         )
 
-    if (
-        file_name in NAMES_DOCKERFILE
-        and file_extension in EXTENSIONS_DOCKERFILE
-    ):
+    if file_name in NAMES_DOCKERFILE:
         results = (*results, run_dockerfile_env_secrets(content, path))
 
     elif "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
