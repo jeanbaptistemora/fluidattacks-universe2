@@ -13,6 +13,7 @@ from charts.generators.common.colors import (
 )
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
+    get_max_axis,
 )
 from charts.utils import (
     CsvData,
@@ -142,6 +143,23 @@ def format_mttr_data(
     y_label: str = "Days per unit of exposure (CVSSF)",
 ) -> Dict[str, Any]:
 
+    max_value: Decimal = list(
+        sorted(
+            [
+                Decimal("0.0")
+                if data[0] == Decimal("Infinity")
+                else abs(value)
+                for value in data
+            ],
+            reverse=True,
+        )
+    )[0]
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
+
     return dict(
         data=dict(
             columns=[
@@ -170,6 +188,7 @@ def format_mttr_data(
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 label=dict(
                     text=y_label,
@@ -178,6 +197,7 @@ def format_mttr_data(
                 tick=dict(
                     count=5,
                 ),
+                max=max_axis_value,
             ),
         ),
         grid=dict(

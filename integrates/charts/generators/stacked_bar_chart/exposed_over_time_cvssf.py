@@ -15,6 +15,9 @@ from charts import (
 from charts.generators.common.colors import (
     RISK,
 )
+from charts.generators.common.utils import (
+    get_max_axis,
+)
 from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data_over_time,
 )
@@ -242,9 +245,29 @@ def format_document(
 ) -> dict[str, Any]:
     all_documents, time_range = data_document
     document = all_documents[0]
-    print("*" * 80)
-    print(document)
-    print(time_range)
+
+    values: list[Decimal] = [
+        utils.format_cvssf(Decimal(document[name][date]))
+        for date in tuple(document["date"])[-12:]
+        for name in document
+        if name != "date"
+    ]
+    max_value: Decimal = (
+        list(
+            sorted(
+                [abs(value) for value in values],
+                reverse=True,
+            )
+        )[0]
+        if values
+        else Decimal("0.0")
+    )
+
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
     columns: list[list[str]] = [
         [name]
         + [
@@ -292,10 +315,12 @@ def format_document(
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 tick=dict(
                     count=5,
                 ),
+                max=max_axis_value,
             ),
         ),
         grid=dict(

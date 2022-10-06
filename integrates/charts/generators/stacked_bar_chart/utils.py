@@ -6,6 +6,9 @@ from charts.generators.common.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.common.utils import (
+    get_max_axis,
+)
 from charts.utils import (
     format_cvssf,
     TICK_ROTATION,
@@ -167,6 +170,28 @@ def format_risk_document(
 ) -> dict[str, Any]:
     all_documents, time_range = data_document
     document = all_documents[0]
+    values: list[Decimal] = [
+        format_cvssf(Decimal(document[name][date]))
+        for date in tuple(document["date"])[-12:]
+        for name in document
+        if name != "date"
+    ]
+    max_value: Decimal = (
+        list(
+            sorted(
+                [abs(value) for value in values],
+                reverse=True,
+            )
+        )[0]
+        if values
+        else Decimal("0.0")
+    )
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
+
     return dict(
         data=dict(
             x="date",
@@ -208,6 +233,7 @@ def format_risk_document(
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 label=dict(
                     text=y_label,
@@ -216,6 +242,7 @@ def format_risk_document(
                 tick=dict(
                     count=5,
                 ),
+                max=max_axis_value,
             ),
         ),
         grid=dict(
