@@ -407,15 +407,6 @@ tests (Sast,
 Dast,
 and Sca).
 
-## Mean time to reattack
-
-![Mean time to reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1658425016/docs/web/analytics/common/mean_time_to_reattack.png)
-
-This chart shows how long
-reattacks take in number
-of hours. From when a reattack
-is requested until it is executed.
-
 ## Files with open vulnerabilities in the last 20 weeks
 
 ![In Last Weeks](https://res.cloudinary.com/fluid-attacks/image/upload/v1660771972/docs/web/analytics/common/open_last_20_weeks.png)
