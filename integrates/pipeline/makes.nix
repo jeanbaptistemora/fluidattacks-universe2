@@ -239,7 +239,7 @@ in {
         []
         ++ [
           {
-            args = ["continuous-data"];
+            args = ["continuous-repositories"];
             output = "/integrates/move_s3";
             gitlabExtra = gitlabDeployInfra;
           }

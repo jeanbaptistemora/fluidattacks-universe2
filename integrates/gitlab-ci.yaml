@@ -4052,7 +4052,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/move_s3__continuous-data:
+/integrates/move_s3__continuous-repositories:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4066,7 +4066,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/move_s3 'continuous-data'
+    - m . /integrates/move_s3 'continuous-repositories'
   stage: deploy-infra
   tags:
     - small

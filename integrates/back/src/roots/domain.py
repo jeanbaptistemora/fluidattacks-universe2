@@ -1803,12 +1803,13 @@ async def finish_machine_execution(
 
 
 async def is_in_s3(group_name: str, root_nickname: str) -> tuple[str, bool]:
+    bucket_path: str = "continuous-repositories"
     return (
         root_nickname,
         bool(
             await s3_operations.list_files(
-                bucket="continuous-repositories",
-                name=f"{group_name}/{root_nickname}.tar.gz",
+                bucket="integrates",
+                name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
             )
         ),
     )

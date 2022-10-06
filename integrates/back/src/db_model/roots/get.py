@@ -12,7 +12,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from context import (
-    FI_AWS_S3_MIRRORS_BUCKET,
+    FI_AWS_S3_MAIN_BUCKET,
 )
 from custom_exceptions import (
     RootNotFound,
@@ -348,12 +348,13 @@ class RootMachineExecutionsLoader(DataLoader):
 async def get_download_url(
     group_name: str, root_nickname: str
 ) -> Optional[str]:
+    bucket_path: str = "continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
     file_exits = bool(
         await list_files(
-            bucket=FI_AWS_S3_MIRRORS_BUCKET,
-            name=f"{group_name}/{root_nickname}.tar.gz",
+            bucket=FI_AWS_S3_MAIN_BUCKET,
+            name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
         )
     )
     if not file_exits:
@@ -361,7 +362,10 @@ async def get_download_url(
 
     return await client.generate_presigned_url(
         ClientMethod="get_object",
-        Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+        Params={
+            "Bucket": FI_AWS_S3_MAIN_BUCKET,
+            "Key": f"continuous-repositories/{object_name}",
+        },
         ExpiresIn=1800,
     )
 
@@ -372,7 +376,10 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
 
     return await client.generate_presigned_url(
         ClientMethod="put_object",
-        Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+        Params={
+            "Bucket": FI_AWS_S3_MAIN_BUCKET,
+            "Key": f"continuous-repositories/{object_name}",
+        },
         ExpiresIn=1800,
     )
 
@@ -384,8 +391,8 @@ async def get_upload_url_post(
     client = await get_s3_resource()
 
     return await client.generate_presigned_post(
-        FI_AWS_S3_MIRRORS_BUCKET,
-        object_name,
+        FI_AWS_S3_MAIN_BUCKET,
+        f"continuous-repositories/{object_name}",
         ExpiresIn=1800,
     )
 

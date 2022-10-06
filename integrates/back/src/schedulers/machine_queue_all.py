@@ -117,8 +117,8 @@ async def main() -> None:
             prefix["Prefix"].split("/")[0]
             for response in await collect(
                 s3_client.list_objects(
-                    Bucket="continuous-repositories",
-                    Prefix=group_name,
+                    Bucket="integrates",
+                    Prefix=f"continuous-repositories/{group_name}",
                     Delimiter="/",
                     MaxKeys=1,
                 )

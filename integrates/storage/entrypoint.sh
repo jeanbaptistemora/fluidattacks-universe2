@@ -10,6 +10,7 @@ function serve {
     'evidences'
     'resources'
     'forces'
+    'continuous-repositories'
   )
   local bucket_paths_by_branch=(
     'analytics'
