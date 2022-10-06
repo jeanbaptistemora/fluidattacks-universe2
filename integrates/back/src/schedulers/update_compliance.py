@@ -287,6 +287,8 @@ async def get_organization_compliance_weekly_trend(
 async def get_organization_estimated_days_to_full_compliance(
     loaders: Dataloaders,
     organization: Organization,
+    vulnerabilities_file: dict[str, Any],
+    default_average_minutes_to_remediate_vulnerability: Decimal,
 ) -> Decimal:
     org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
         organization.id
@@ -302,12 +304,22 @@ async def get_organization_estimated_days_to_full_compliance(
         ),
         workers=100,
     )
-    min_time_to_remediate_total = 0
+    min_time_to_remediate_total = Decimal("0.0")
     for finding, open_vulnerabilities in zip(
         findings, findings_open_vulnerabilities
     ):
+        remediation_time = vulnerabilities_file.get(
+            finding.title[:3],
+            {
+                "remediation_time": (
+                    default_average_minutes_to_remediate_vulnerability
+                )
+            },
+        )["remediation_time"]
         min_time_to_remediate_total += (
-            finding.min_time_to_remediate or 0
+            default_average_minutes_to_remediate_vulnerability
+            if remediation_time == "__empty__"
+            else Decimal(remediation_time)
         ) * len(open_vulnerabilities)
 
     minutes_in_a_day = 1440
@@ -381,6 +393,7 @@ async def update_organization_compliance(
     compliance_file: dict[str, Any],
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
+    default_average_minutes_to_remediate_vulnerability: Decimal,
 ) -> None:
     info(f"Update organization compliance: {organization.name}")
     compliance_level = await get_organization_compliance_level(
@@ -402,6 +415,10 @@ async def update_organization_compliance(
         await get_organization_estimated_days_to_full_compliance(
             loaders=loaders,
             organization=organization,
+            vulnerabilities_file=vulnerabilities_file,
+            default_average_minutes_to_remediate_vulnerability=(
+                default_average_minutes_to_remediate_vulnerability
+            ),
         )
     )
     standard_compliances = await get_organization_standard_compliances(
@@ -484,6 +501,13 @@ async def update_compliance() -> None:
     compliance_file = await get_compliance_file()
     requirements_file = await get_requirements_file()
     vulnerabilities_file = await get_vulns_file()
+    default_average_minutes_to_remediate_vulnerability = mean(
+        [
+            Decimal(finding["remediation_time"])
+            for finding in vulnerabilities_file.values()
+            if finding.get("remediation_time", "__empty__") != "__empty__"
+        ]
+    )
     current_orgs: list[Organization] = []
     async for organization in orgs_domain.iterate_organizations():
         if orgs_utils.is_deleted(organization):
@@ -499,6 +523,9 @@ async def update_compliance() -> None:
                 compliance_file=compliance_file,
                 requirements_file=requirements_file,
                 vulnerabilities_file=vulnerabilities_file,
+                default_average_minutes_to_remediate_vulnerability=(
+                    default_average_minutes_to_remediate_vulnerability
+                ),
             )
             for organization in current_orgs
         ),
