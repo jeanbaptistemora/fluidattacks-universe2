@@ -32,9 +32,6 @@ lib_ssl.analyze_protocol.freak_possible:
 lib_ssl.analyze_protocol.raccoon_possible:
   en: server is vulnerable to RACCOON attacks {v_name}
   es: el servidor es vulnerable a ataques RACCOON {v_name}
-lib_ssl.analyze_protocol.breach_possible:
-  en: server is vulnerable to BREACH attacks
-  es: el servidor es vulnerable a ataques BREACH
 lib_root.f016.service_point_manager_disabled:
   en: >
     A AppContext.SetSwitch method call sets

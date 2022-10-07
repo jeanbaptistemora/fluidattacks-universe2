@@ -52,9 +52,6 @@ from typing import (
     Tuple,
     Union,
 )
-from utils.http import (
-    request_blocking,
-)
 from utils.sockets import (
     tcp_connect,
 )
@@ -1052,66 +1049,6 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                 )
             )
         sock.close()
-
-    return _create_core_vulns(ssl_vulnerabilities)
-
-
-def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-
-    url: str = f"https://{ctx}"
-    common_compressors: List[str] = [
-        "compress",
-        "exi",
-        "gzip",
-        "identity",
-        "pack200-gzip",
-        "br",
-        "bzip2",
-        "lzma",
-        "peerdist",
-        "sdch",
-        "xpress",
-        "xz",
-    ]
-
-    en_intention = (
-        "check if server is vulnerable to BREACH attack with {compression}\n"
-        "as encoding method"
-    )
-
-    es_intention = (
-        "verificar si el servidor es vulnerable a un ataque BREACH al usar\n"
-        "{compression} como método de codificación"
-    )
-
-    for compression in common_compressors:
-        response = request_blocking(
-            url=url,
-            headers={"Accept-Encoding": f"{compression},deflate"},
-        )
-
-        if response is None:
-            continue
-
-        if compression in response.headers.get("Content-Encoding", ""):
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        intention={
-                            core_model.LocalesEnum.EN: (
-                                en_intention.format(compression=compression)
-                            ),
-                            core_model.LocalesEnum.ES: (
-                                es_intention.format(compression=compression)
-                            ),
-                        },
-                    ),
-                    server_response=None,
-                    method=core_model.MethodsEnum.BREACH_POSSIBLE,
-                )
-            )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
