@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint:disable=too-many-lines
 from charts.generators.common.colors import (
     RISK,
     TREATMENT,
@@ -353,6 +352,9 @@ def format_distribution_document(
                     text=y_label,
                     position="inner-top",
                 ),
+                tick=dict(
+                    count=2,
+                ),
             ),
         ),
         hideYAxisLine=True,
@@ -361,19 +363,11 @@ def format_distribution_document(
                 show=False,
             ),
             y=dict(
-                show=True,
+                show=False,
             ),
         ),
         legend=dict(
             position="bottom",
-        ),
-        point=dict(
-            focus=dict(
-                expand=dict(
-                    enabled=True,
-                ),
-            ),
-            r=5,
         ),
         tooltip=dict(
             format=dict(
@@ -408,6 +402,7 @@ def format_distribution_document(
                 for percentage_value in percentage_values
             ],
         ),
+        hideXTickLine=True,
     )
 
 

@@ -16,15 +16,15 @@ function getTooltipPercentage(id, index, maxPercentageValues) {
 }
 
 function getTooltipValue(id, index, maxValues) {
-  return d3.format(',.1~f')(maxValues[id][index]);
+  return d3.format(',~d')(maxValues[id][index]);
 }
 
 function formatYTick(x, tick) {
   if (tick && tick.count) {
-    return d3.format(',.1~f')(parseFloat(parseFloat(x).toFixed(1)));
+    return d3.format(',~d')(parseFloat(parseFloat(x).toFixed(1)));
   }
 
-  return x % 1 === 0 ? d3.format(',.1~f')(x) : '';
+  return x % 1 === 0 ? d3.format(',~d')(x) : '';
 }
 
 // eslint-disable-next-line complexity
@@ -63,7 +63,7 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.hideYAxisLine && dataDocument.data.labels && !dataDocument.data.stack) {
     dataDocument.data.labels = {
-      format: (datum) => d3.format(',.1~f')(datum),
+      format: (datum) => d3.format(',~d')(datum),
     };
   }
 
@@ -101,7 +101,7 @@ function load() {
         const itemClass = d3.select(textList[index]).attr('class');
 
         d3.select(textList[index])
-          .style('transform', 'translate(0, -5px)')
+          .style('transform', 'translate(10px, 2px)')
           .attr('class', `${ itemClass } exposureTrendsByCategories`);
       });
     }
@@ -112,6 +112,15 @@ function load() {
       .select('.domain')
       .style('visibility', 'hidden');
     d3.select('.c3-axis-y')
+      .selectAll('.tick').each((_d, index, tickList) => {
+        d3.select(tickList[index])
+          .select('line')
+          .style('visibility', 'hidden');
+      });
+  }
+
+  if (dataDocument.hideXTickLine) {
+    d3.select('.c3-axis-x')
       .selectAll('.tick').each((_d, index, tickList) => {
         d3.select(tickList[index])
           .select('line')
