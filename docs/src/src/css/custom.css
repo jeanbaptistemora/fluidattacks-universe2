@@ -66,6 +66,31 @@
   text-decoration: none;
 }
 
+div[class^='announcementBar'] {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 16px;
+  height: auto;
+  justify-content: center;
+}
+
+div[class^='announcementBar'] button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 4px;
+  color: #bf0b1a;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  padding: 10px 16px;
+}
+
+div[class^='announcementBar'] button:hover {
+  background-color: #f4f4f6;
+}
+
 p > img {
   width: auto;
   margin: auto;
