@@ -66,7 +66,7 @@ are the following:
   on local machines.
   This is especially useful
   for [ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments).
-- All its settings can be [written as code](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_global_table)
+- All its settings can be [written as code](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table)
   using [Terraform](/development/stack/terraform/).
 - It is supported by [Terraform state locking](https://www.terraform.io/docs/language/settings/backends/s3.html#dynamodb-state-locking),
   which allows us to [avoid race conditions](https://www.terraform.io/docs/language/state/locking.html)
