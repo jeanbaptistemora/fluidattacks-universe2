@@ -9,9 +9,11 @@ import { useMutation } from "@apollo/client";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { Row } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { changeFormatter } from "./changeFormatter";
 import { ManagementUrlModal } from "./ManagementModal/modal";
 import { Container } from "./styles";
 
@@ -21,9 +23,8 @@ import { ACTIVATE_ROOT, ADD_URL_ROOT, UPDATE_URL_ROOT } from "../queries";
 import type { IURLRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table } from "components/Table";
-import { changeFormatter } from "components/Table/formatters";
-import { filterSearchText } from "components/Table/utils";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -140,15 +141,17 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     [addUrlRoot, groupName, isManagingRoot, updateUrlRoot]
   );
 
-  const handleRowClick = useCallback(
-    (_0: React.SyntheticEvent, row: IURLRootAttr): void => {
-      if (row.state === "ACTIVE") {
-        setCurrentRow(row);
+  function handleRowClick(
+    rowInfo: Row<IURLRootAttr>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      if (rowInfo.original.state === "ACTIVE") {
+        setCurrentRow(rowInfo.original);
         setIsManagingRoot({ mode: "EDIT" });
       }
-    },
-    []
-  );
+      event.preventDefault();
+    };
+  }
 
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
     onCompleted: (): void => {
@@ -173,12 +176,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     open: false,
     rootId: "",
   });
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
   const openDeactivationModal = useCallback((rootId: string): void => {
     setDeactivationModal({ open: true, rootId });
   }, []);
@@ -188,11 +185,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 
   const canUpdateRootState = permissions.can(
     "api_mutations_activate_root_mutate"
-  );
-
-  const filterSearchtextResult: IURLRootAttr[] = filterSearchText(
-    roots,
-    searchTextFilter
   );
 
   return (
@@ -212,15 +204,47 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           return (
             <Container>
               <Table
-                columnToggle={false}
-                customSearch={{
-                  customSearchDefault: searchTextFilter,
-                  isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchTextChange,
-                  position: "right",
-                }}
-                dataset={filterSearchtextResult}
-                exportCsv={true}
+                columns={[
+                  {
+                    accessorKey: "host",
+                    header: String(t("group.scope.url.host")),
+                  },
+                  {
+                    accessorKey: "path",
+                    header: String(t("group.scope.url.path")),
+                  },
+                  {
+                    accessorKey: "port",
+                    header: String(t("group.scope.url.port")),
+                  },
+                  {
+                    accessorKey: "protocol",
+                    header: String(t("group.scope.url.protocol")),
+                  },
+                  {
+                    accessorKey: "query",
+                    header: String(t("group.scope.url.query")),
+                  },
+                  {
+                    accessorKey: "nickname",
+                    header: String(t("group.scope.ip.nickname")),
+                  },
+                  {
+                    accessorKey: "state",
+                    cell: (cell: ICellHelper<IURLRootAttr>): JSX.Element =>
+                      canUpdateRootState
+                        ? changeFormatter(
+                            cell.row.original as unknown as Record<
+                              string,
+                              string
+                            >,
+                            handleStateUpdate
+                          )
+                        : statusFormatter(cell.getValue()),
+                    header: String(t("group.scope.common.state")),
+                  },
+                ]}
+                data={roots}
                 extraButtons={
                   <React.Fragment>
                     <InternalSurfaceButton />
@@ -232,45 +256,8 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                     </Can>
                   </React.Fragment>
                 }
-                headers={[
-                  {
-                    dataField: "host",
-                    header: t("group.scope.url.host"),
-                  },
-                  {
-                    dataField: "path",
-                    header: t("group.scope.url.path"),
-                  },
-                  {
-                    dataField: "port",
-                    header: t("group.scope.url.port"),
-                  },
-                  {
-                    dataField: "protocol",
-                    header: t("group.scope.url.protocol"),
-                  },
-                  {
-                    dataField: "query",
-                    header: t("group.scope.url.query"),
-                  },
-                  {
-                    dataField: "nickname",
-                    header: t("group.scope.ip.nickname"),
-                  },
-                  {
-                    changeFunction: handleStateUpdate,
-                    dataField: "state",
-                    formatter: canUpdateRootState
-                      ? changeFormatter
-                      : statusFormatter,
-                    header: t("group.scope.common.state"),
-                    width: canUpdateRootState ? "10%" : "100px",
-                  },
-                ]}
                 id={"tblURLRoots"}
-                pageSize={10}
-                rowEvents={{ onClick: handleRowClick }}
-                search={false}
+                onRowClick={handleRowClick}
               />
             </Container>
           );
