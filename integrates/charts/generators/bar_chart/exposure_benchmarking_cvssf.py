@@ -23,11 +23,9 @@ from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
-from charts.generators.common.colors import (
-    RISK,
-)
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
+    get_max_axis,
 )
 from charts.generators.stacked_bar_chart.exposed_over_time_cvssf import (
     get_group_document,
@@ -189,6 +187,18 @@ def format_data(
     categories: list[str],
 ) -> dict:
     data = tuple(format_cvssf(value) for value in all_data)
+    max_value: Decimal = list(
+        sorted(
+            [abs(value) for value in data],
+            reverse=True,
+        )
+    )[0]
+
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
 
     return dict(
         data=dict(
@@ -199,7 +209,7 @@ def format_data(
                 ]
             ],
             colors={
-                "Exposure": RISK.more_agressive,
+                "Exposure": "#ac0a17",
             },
             labels=True,
             type="bar",
@@ -213,13 +223,19 @@ def format_data(
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 label=dict(
-                    text="Exposure (less is better)",
+                    text="CVSSF",
                     position="inner-top",
                 ),
                 tick=dict(
                     count=5,
+                ),
+                **(
+                    {}
+                    if max_axis_value == Decimal("0.0")
+                    else dict(max=format_cvssf_log(max_axis_value))
                 ),
             ),
         ),
@@ -252,6 +268,7 @@ def format_data(
         ),
         hideYAxisLine=True,
         hideXTickLine=True,
+        exposureBenchmarkingCvssf=True,
     )
 
 
