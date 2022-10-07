@@ -90,8 +90,7 @@ Security](https://elearnsecurity.com/)
 perform an actual penetration test](https://cutt.ly/dmfsphm),"** **was
 the exam preparation different from other exams you have taken?**
 
-1. My best preparation was my experience doing pentesting in `Fluid
-    Attacks`.
+1. My best preparation was my experience doing pentesting in `Fluid Attacks`.
 
 **That means you did not prepare yourself with the course given by
 INE?** **(Considering that INE [“is the premier provider of Technical

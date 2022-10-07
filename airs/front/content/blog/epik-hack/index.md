@@ -173,8 +173,8 @@ February, as suggested by the date of the most recent files in the
 leaked database.
 
 These final pieces of information remind us of the importance of
-watching out for vulnerabilities to prevent data breaches. We at `Fluid
-Attacks` use comprehensive [Continuous
-Hacking](../../services/continuous-hacking/) to detect your systems'
-vulnerabilities before someone else does. [Contact
-us](../../contact-us/)\!
+watching out for vulnerabilities to prevent data breaches.
+We at `Fluid Attacks` use comprehensive
+[Continuous Hacking](../../services/continuous-hacking/)
+to detect your systems' vulnerabilities before someone else does.
+[Contact us](../../contact-us/)\!

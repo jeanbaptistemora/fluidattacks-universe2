@@ -134,8 +134,7 @@ organizations, such as banks and governments.
 
 <div class="imgblock">
 
-![Photo by  on
-.](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/cybersecurity-2020-21-i/korpa_xppzrx.webp)
+![Photo by Jr Korpa](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/cybersecurity-2020-21-i/korpa_xppzrx.webp)
 
 <div class="title">
 

@@ -116,8 +116,7 @@ to form \[a\] task force to deal with Microsoft hack linked to China."
 
 <div class="imgblock">
 
-![Photo by ) on
-Unsplash.](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/four_cvecsh.webp)
+![Photo by Pineapple Supply Co. on Unsplash.](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/four_cvecsh.webp)
 
 <div class="title">
 

@@ -60,8 +60,8 @@ times when we choose [*insanely weak*](../credential-stuffing/)
 [passwords](../requiem-password/), of computer sessions we unnecessarily
 leave open waiting for someone to dive in, of doing nothing about timely
 found security vulnerabilities, of providing sensitive information to
-some party without much thought, etc. Some of these are out of `Fluid
-Attacks'` scope nowadays. Some others are our very reason to exist;
+some party without much thought, etc. Some of these are out of `Fluid Attacks'`
+scope nowadays. Some others are our very reason to exist;
 let’s talk about these.
 
 <div class="imgblock">

@@ -89,8 +89,7 @@ all, what can we find inside the Dark Web?
 
 <div class="imgblock">
 
-![Photo by  on
-](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/dark-web/onion_t47cb4.webp)
+![Photo by on K8](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/dark-web/onion_t47cb4.webp)
 
 <div class="title">
 
