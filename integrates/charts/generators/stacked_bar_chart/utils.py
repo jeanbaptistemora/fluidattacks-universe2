@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint:disable=too-many-lines
 from charts.generators.common.colors import (
     RISK,
     TREATMENT,
@@ -242,7 +243,11 @@ def format_risk_document(
                 tick=dict(
                     count=5,
                 ),
-                max=max_axis_value,
+                **(
+                    {}
+                    if max_axis_value == Decimal("0.0")
+                    else dict(max=max_axis_value)
+                ),
             ),
         ),
         grid=dict(

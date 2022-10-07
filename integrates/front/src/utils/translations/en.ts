@@ -184,7 +184,8 @@ export const enTranslations: ResourceKey = {
         title: "Exposure remediation rate (benchmark)",
       },
       distributionOverTimeCvssf: {
-        title: "Distribution over time",
+        altTitle: "Vulnerabilities management over time (%)",
+        title: "Exposure management over time (%)",
         tooltip: {
           cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",

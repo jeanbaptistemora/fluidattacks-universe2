@@ -63,7 +63,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         documentName: "distributionOverTime",
         label: "Vulns",
         title: translate.t(
-          "analytics.stackedBarChart.distributionOverTimeCvssf.title"
+          "analytics.stackedBarChart.distributionOverTimeCvssf.altTitle"
         ),
         tooltip: translate.t(
           "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.vulnerabilities"
@@ -80,7 +80,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.cvssf"
       ),
-      url: "#distribution-over-time",
+      url: "#exposure-management-over-time-",
     },
     documentType: "stackedBarChart",
   },
