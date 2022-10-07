@@ -7,6 +7,7 @@ digraph common {
   labelloc="t"
   compound="true"
   // concentrate="true"
+  rankdir="LR"
   scale="scalexy"
 
   node[style="filled"]
@@ -121,12 +122,15 @@ digraph common {
   subgraph cluster_helm {
     label="Helm Charts"
 
+    cluster_helm[label="" style="invis"]
     helm_aws_load_balancer_controller[label="github.com/aws/eks-charts//aws-load-balancer-controller"]
     helm_cluster_autoscaler[label="github.com/kubernetes/autoscaler//cluster-autoscaler"]
     helm_metrics_server[label="github.com/kubernetes-sigs/metrics-server//metrics-server"]
     helm_external_dns[label="charts.bitnami.com/bitnami//external-dns"]
     helm_nri_bundle[label="helm-charts.newrelic.com//nri-bundle"]
   }
+
+  cluster_aws_vpc_fluid_vpc_subnets_k8s -> cluster_helm[style="invis"]
 
   edge[color="0.1 0.8 1.0"]
   aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]

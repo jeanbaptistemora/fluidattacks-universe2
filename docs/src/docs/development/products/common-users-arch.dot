@@ -6,9 +6,10 @@ digraph common {
   label="Common/Users Architecture"
   labelloc="t"
   compound="true"
-  concentrate="true"
   layout="dot"
+  splines="line"
   scale="scalexy"
+  ranksep="2.0"
 
   node[style="filled"]
   graph[style="dashed,rounded"]
@@ -57,7 +58,7 @@ digraph common {
       subgraph cluster_aws_kms_keys {
         label="Keys"
 
-        cluster_aws_kms_keys[style="invis"]
+        cluster_aws_kms_keys[label="" style="invis"]
         aws_kms_keys_dev[label="dev"]
         aws_kms_keys_prod_airs[label="prod_airs"]
         aws_kms_keys_prod_common[label="prod_common"]
@@ -92,6 +93,18 @@ digraph common {
       }
     }
   }
+
+  aws_iam_access_keys_snowflake_access_key -> cluster_aws_kms_keys[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_dev[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_airs[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_common[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_docs[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_forces[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_integrates[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_melts[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_observes[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_skims[style="invis"]
+  aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_sorts[style="invis"]
 
   edge[color="0.1 0.8 1.0"]
   aws_iam_roles_dev -> aws_kms_keys_dev[]
@@ -133,7 +146,7 @@ digraph common {
   end_user[label="End User"]
 
   edge[color="/x11/black"]
-  developer -> cluster_aws_s3_common_ci_cache[]
+  // developer -> cluster_aws_s3_common_ci_cache[]
   developer -> cluster_aws_kms_keys[lhead="cluster_aws_kms_keys"]
   developer -> cluster_aws_iam_roles[lhead="cluster_aws_iam_roles"]
   developer -> gitlab_git_common_users[lhead="cluster_gitlab_git_common"]
