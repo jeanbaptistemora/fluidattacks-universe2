@@ -9,7 +9,6 @@ from syntax_graph.syntax_readers.javascript import (
     binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
     call_expression as javascript_call_expression,
-    class_body as javascript_class_body,
     class_declaration as javascript_class_declaration,
     comment as javascript_comment,
     expression_statement as javascript_expression_statement,
@@ -39,6 +38,7 @@ from syntax_graph.syntax_readers.typescript import (
     ambient_declaration as typescript_ambient_declaration,
     array as typescript_array,
     as_expression as typescript_as_expression,
+    class_body as typescript_class_body,
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
@@ -116,7 +116,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "class_body",
         },
-        syntax_reader=javascript_class_body.reader,
+        syntax_reader=typescript_class_body.reader,
     ),
     Dispatcher(
         applicable_types={
