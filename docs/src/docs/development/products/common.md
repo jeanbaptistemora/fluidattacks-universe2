@@ -34,12 +34,8 @@ Developers usually interact with Common through (or to change something in):
 1. All of the infrastructure
    is managed as-code
    with [Terraform](/development/stack/terraform).
-
-:::tip
-You can right click on the image below
-to open it in a new tab,
-or save it to your computer.
-:::
+1. Common has many sub-products,
+   which are documented below.
 
 ### Cluster
 
@@ -66,6 +62,12 @@ or save it to your computer.
 1. The cluster spawns machine instances
    on many subnets (prefixed with `k8s_`)
    in different availability zones.
+
+:::tip
+You can right click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
 
 ![Architecture of Common/Cluster](./common-cluster-arch.dot.svg)
 
@@ -111,5 +113,11 @@ or save it to your computer.
    - All `prod_*` roles can access the `dev` KMS key,
      and the KMS key of their respective product.
    - The `dev` role can access the `dev` KMS key only.
+
+:::tip
+You can right click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
 
 ![Architecture of Common/Users](./common-users-arch.dot.svg)

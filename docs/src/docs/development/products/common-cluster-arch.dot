@@ -6,7 +6,7 @@ digraph common {
   label="Common/Cluster Architecture"
   labelloc="t"
   compound="true"
-  concentrate="true"
+  // concentrate="true"
   scale="scalexy"
 
   node[style="filled"]
@@ -27,10 +27,12 @@ digraph common {
     subgraph cluster_aws_eks {
       label="EKS"
 
+      cluster_aws_eks[label="" style="invis"]
+
       subgraph cluster_aws_eks_common {
         label="common"
 
-        cluster_aws_eks_common[style="invis"]
+        cluster_aws_eks_common[label="" style="invis"]
 
         subgraph cluster_aws_eks_common_worker_groups {
           label="Worker Groups"
@@ -39,57 +41,27 @@ digraph common {
         subgraph cluster_aws_eks_common_namespaces {
           label="Namespaces"
 
-          subgraph cluster_aws_eks_common_namespaces_default {
-            label="default"
-
-            cluster_aws_eks_common_namespaces_default[style="invis"]
-          }
-
           subgraph cluster_aws_eks_common_namespaces_dev {
             label="dev"
+
+            cluster_aws_eks_common_namespaces_dev[label="" style="invis"]
 
             subgraph cluster_aws_eks_common_namespaces_dev_deployments {
               label="Deployments"
 
               aws_eks_common_namespaces_dev_deployments_integrates_atfluid[label="integrates-*atfluid" peripheries="2"]
             }
-
-            cluster_aws_eks_common_namespaces_dev[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_kube_node_lease {
-            label="kube-node-lease"
-
-            cluster_aws_eks_common_namespaces_kube_node_lease[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_kube_public {
-            label="kube-public"
-
-            cluster_aws_eks_common_namespaces_kube_public[style="invis"]
           }
 
           subgraph cluster_aws_eks_common_namespaces_kube_system {
             label="kube-system"
 
-            subgraph cluster_aws_eks_common_namespaces_kube_system_deployments {
-              label="Deployments"
-
-              cluster_aws_eks_common_namespaces_kube_system_alb_aws_load_balancer_controller[label="alb-aws-load-balancer-controller"]
-              cluster_aws_eks_common_namespaces_kube_system_autoscaler_aws_cluster_autoscaler[label="autoscaler-aws-cluster-autoscaler"]
-              cluster_aws_eks_common_namespaces_kube_system_coredns[label="coredns"]
-              cluster_aws_eks_common_namespaces_kube_system_dns_external_dns[label="dns-external-dns"]
-              cluster_aws_eks_common_namespaces_kube_system_metrics_server[label="metrics-server"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_kube_state_metrics[label="newrelic-kube-state-metrics"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_kube_events[label="newrelic-nri-kube-events"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_metadata_injection[label="newrelic-nri-metadata-injection"]
-            }
-
-            cluster_aws_eks_common_namespaces_kube_system[style="invis"]
+            cluster_aws_eks_common_namespaces_kube_system[label="" style="invis" width="2.0"]
           }
 
           subgraph cluster_aws_eks_common_namespaces_prod_integrates {
             label="prod-integrates"
+            cluster_aws_eks_common_namespaces_prod_integrates[label="" style="invis"]
 
             subgraph cluster_aws_eks_common_namespaces_prod_integrates_deployments {
               label="Deployments"
@@ -97,10 +69,7 @@ digraph common {
               aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[label="integrates-trunk"]
               aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[label="machine-report-trunk"]
             }
-
-            cluster_aws_eks_common_namespaces_prod_integrates[style="invis"]
           }
-
         }
       }
     }
@@ -140,7 +109,7 @@ digraph common {
         subgraph cluster_gitlab_git_common_cluster {
           label="/cluster"
 
-          cluster_gitlab_git_common_cluster[style="invis"]
+          cluster_gitlab_git_common_cluster[label="" style="invis"]
           gitlab_git_common_cluster[label="Source Code"]
           gitlab_git_common_cluster_terraform[label="Terraform"]
           gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[label="terraform-aws-modules/eks/aws"]
@@ -149,10 +118,25 @@ digraph common {
     }
   }
 
+  subgraph cluster_helm {
+    label="Helm Charts"
+
+    helm_aws_load_balancer_controller[label="github.com/aws/eks-charts//aws-load-balancer-controller"]
+    helm_cluster_autoscaler[label="github.com/kubernetes/autoscaler//cluster-autoscaler"]
+    helm_metrics_server[label="github.com/kubernetes-sigs/metrics-server//metrics-server"]
+    helm_external_dns[label="charts.bitnami.com/bitnami//external-dns"]
+    helm_nri_bundle[label="helm-charts.newrelic.com//nri-bundle"]
+  }
+
   edge[color="0.1 0.8 1.0"]
   aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
+  cluster_aws_eks_common_namespaces_kube_system -> helm_aws_load_balancer_controller[ltail="cluster_aws_eks_common_namespaces_kube_system"]
+  cluster_aws_eks_common_namespaces_kube_system -> helm_cluster_autoscaler[ltail="cluster_aws_eks_common_namespaces_kube_system"]
+  cluster_aws_eks_common_namespaces_kube_system -> helm_metrics_server[ltail="cluster_aws_eks_common_namespaces_kube_system"]
+  cluster_aws_eks_common_namespaces_kube_system -> helm_external_dns[ltail="cluster_aws_eks_common_namespaces_kube_system"]
+  cluster_aws_eks_common_namespaces_kube_system -> helm_nri_bundle[ltail="cluster_aws_eks_common_namespaces_kube_system"]
   cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
 
   edge[color="0.6 0.8 1.0"]
@@ -167,5 +151,7 @@ digraph common {
   developer[label="Developer"]
 
   edge[color="/x11/black"]
+  developer -> cluster_aws_eks_common_namespaces_dev[lhead="cluster_aws_eks_common_namespaces_dev"]
+  developer -> cluster_aws_eks_common_namespaces_prod_integrates[lhead="cluster_aws_eks_common_namespaces_prod_integrates"]
   developer -> cluster_gitlab_git_common_cluster[lhead="cluster_gitlab_git_common_cluster"]
 }
