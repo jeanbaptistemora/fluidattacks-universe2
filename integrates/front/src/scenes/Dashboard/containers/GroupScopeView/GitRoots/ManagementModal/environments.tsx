@@ -10,6 +10,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { VisibilityState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { FC } from "react";
@@ -26,8 +27,10 @@ import type { IBasicEnvironmentUrl, IFormValues } from "../../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Table } from "components/Table";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -63,6 +66,10 @@ const Environments: FC<IEnvironmentsProps> = ({
     },
     variables: { groupName, rootId: initialValues.id },
   });
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>("tblGitRootSecrets-visibilityState", {
+      element: permissions.can("api_mutations_remove_environment_url_mutate"),
+    });
   const [removeEnvironmentUrl] = useMutation(REMOVE_ENVIRONMENT_URL, {
     onCompleted: async (): Promise<void> => {
       await refetch();
@@ -134,30 +141,26 @@ const Environments: FC<IEnvironmentsProps> = ({
   return (
     <Fragment>
       <Table
-        dataset={gitEnvironmentUrls}
-        exportCsv={false}
-        headers={[
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
+        columns={[
           {
-            dataField: "url",
-            header: t("group.scope.git.envUrl"),
+            accessorKey: "url",
+            header: String(t("group.scope.git.envUrl")),
           },
           {
-            dataField: "urlType",
-            header: t("group.scope.git.envUrlType"),
+            accessorKey: "urlType",
+            header: String(t("group.scope.git.envUrlType")),
           },
           {
-            dataField: "element",
+            accessorKey: "element",
+            cell: (cell: ICellHelper<IEnvironmentUrlItem>): JSX.Element =>
+              cell.getValue(),
             header: "",
-            sort: false,
-            visible: permissions.can(
-              "api_mutations_remove_environment_url_mutate"
-            ),
-            width: "80px",
           },
         ]}
+        data={gitEnvironmentUrls}
         id={"tblGitRootSecrets"}
-        pageSize={10}
-        search={false}
       />
 
       <Modal
