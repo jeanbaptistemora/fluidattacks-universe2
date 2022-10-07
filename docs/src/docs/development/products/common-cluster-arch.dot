@@ -20,8 +20,6 @@ digraph common {
     subgraph cluster_aws_ec2 {
       label="EC2"
 
-      aws_ec2_common_ci_runner_large[label="common-ci-runner-large_*" peripheries="2"]
-      aws_ec2_common_ci_runner_small[label="common-ci-runner-small_*" peripheries="2"]
       aws_ec2_dev[label="dev" peripheries="2"]
       aws_ec2_prod_integrates[label="prod_integrates" peripheries="2"]
     }
@@ -116,7 +114,6 @@ digraph common {
         subgraph cluster_aws_vpc_fluid_vpc_subnets {
           label="Subnets"
 
-          cluster_aws_vpc_fluid_vpc_subnets_ci[label="ci"]
           cluster_aws_vpc_fluid_vpc_subnets_k8s[label="k8s_*", peripheries="2"]
         }
       }
@@ -153,8 +150,6 @@ digraph common {
   }
 
   edge[color="0.1 0.8 1.0"]
-  aws_ec2_common_ci_runner_large -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
-  aws_ec2_common_ci_runner_small -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
   aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]

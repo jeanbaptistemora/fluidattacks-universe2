@@ -43,6 +43,30 @@ or save it to your computer.
 
 ### Cluster
 
+1. We have one [Kubernetes cluster](/development/stack/kubernetes)
+   that is shared by all the products.
+1. The cluster is hosted by
+   [EKS on Amazon Web Services (AWS)](/development/stack/aws/eks).
+1. The cluster is divided into namespaces,
+   which keep resources in isolation from other namespaces.
+   - The `default` namespace is unused,
+     we try to put things into a namespace appropriate to the product.
+   - The `dev` namespace
+     currently holds the ephemeral environments of Integrates.
+   - The `prod-integrates` namespace holds the production deployment
+     of Integrates,
+     and a Celery jobs server.
+   - The `kube-system` namespace holds cluster-wide deployments
+     for New Relic, DNS, the load balancer, and the auto-scaler,
+   - Other `kube-*` namespaces exist,
+     but they are not used for anything at the moment.
+1. Every namespace runs in a specific worker group
+   whose physical machine instances run
+   on [EC2 on Amazon Web Services (AWS)](/development/stack/aws/ec2).
+1. The cluster spawns machine instances
+   on many subnets (prefixed with `k8s_`)
+   in different availability zones.
+
 ![Architecture of Common/Cluster](./common-cluster-arch.dot.svg)
 
 ### Criteria
