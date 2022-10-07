@@ -10,8 +10,8 @@ const defaultPaddingRatio = 0.055;
 function getPixels(text) {
   const maxPositiveNumber = 10000;
   const maxNegativeNumber = -100;
-  const moveTextPostive = parseFloat(text) > maxPositiveNumber ? '-60' : '-40';
-  const moveTextNegative = parseFloat(text) > maxNegativeNumber ? '30' : '40';
+  const moveTextPostive = parseFloat(text) > maxPositiveNumber ? '-60' : '-38';
+  const moveTextNegative = parseFloat(text) < maxNegativeNumber ? '30' : '40';
 
   return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
 }
@@ -213,7 +213,8 @@ function render(dataDocument, height, width) {
           defaultValueFormat,
           getTooltipColorContent(dataDocument, originalValues, d, color),
         );
-      } },
+      },
+    },
     onrendered: () => {
       getAxisLabel(dataDocument);
     },

@@ -36,7 +36,6 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from contextlib import (
     suppress,
@@ -262,7 +261,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
                 categories=categories,
                 type="category",
                 tick=dict(
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                     multiline=False,
                 ),
             ),
@@ -271,12 +270,11 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
                     text="CVSSF",
                     position="outer-top",
                 ),
+                tick=dict(
+                    count=7,
+                ),
                 min=format_cvssf_log_adjusted(min_axis_value),
                 max=format_cvssf_log_adjusted(max_axis_value),
-                padding=dict(
-                    bottom=0,
-                    top=0,
-                ),
             ),
         ),
         maxValueLogAdjusted=format_max_value(
