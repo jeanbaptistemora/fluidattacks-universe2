@@ -1249,6 +1249,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_retrieve_todo_events",
             "front_can_retrieve_todo_reattacks",
             "api_resolvers_finding_hacker_resolve",
+            "can_assign_vulnerabilities_to_fluidattacks_staff",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1266,6 +1267,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_retrieve_todo_events",
             "front_can_retrieve_todo_reattacks",
             "api_resolvers_finding_hacker_resolve",
+            "can_assign_vulnerabilities_to_fluidattacks_staff",
         },
         tags={
             *USER_LEVEL_ROLES["hacker"]["tags"],
@@ -1281,6 +1283,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_retrieve_todo_events",
             "front_can_retrieve_todo_reattacks",
             "api_resolvers_finding_hacker_resolve",
+            "can_assign_vulnerabilities_to_fluidattacks_staff",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],

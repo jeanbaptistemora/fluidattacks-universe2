@@ -19,6 +19,7 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
+    FLUID_IDENTIFIER,
     get_group_level_roles_model,
     get_organization_level_roles_model,
     get_user_level_roles_model,
@@ -66,6 +67,7 @@ __all__ = [
     "get_organization_level_enforcer",
     "get_user_level_enforcer",
     # Model
+    "FLUID_IDENTIFIER",
     "GROUP_LEVEL_ROLES",
     "GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS",
     "ORGANIZATION_LEVEL_ROLES",
