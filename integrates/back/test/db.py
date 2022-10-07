@@ -412,6 +412,7 @@ async def populate_events(data: list[Any]) -> bool:
         )
         for item in data
     )
+    await asyncio.sleep(8)
     await collect([_populate_event_historic_state(item) for item in data])
     return True
 

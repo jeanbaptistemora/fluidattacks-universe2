@@ -45,7 +45,7 @@ from typing import (
                 "countryCode": "US",
                 "nationalNumber": "1111111111",
             },
-            2,
+            3,
             [],
             {
                 "enrolled": True,
@@ -294,6 +294,7 @@ async def test_get_me(
         "newGroup": False,
         "newRoot": False,
     }
+    assert result["data"]["me"]["pendingEvents"][0]["id"] == "418900971"
     assert result["data"]["me"]["userEmail"] == email
     assert result["data"]["me"]["userName"] == "unit test"
     assert result["data"]["me"]["__typename"] == "Me"

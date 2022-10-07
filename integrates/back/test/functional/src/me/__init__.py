@@ -51,6 +51,14 @@ async def get_result(
                 countryCode
                 nationalNumber
             }}
+            pendingEvents{{
+                eventDate
+                detail
+                id
+                groupName
+                eventStatus
+                eventType
+            }}
             permissions
             remember
             role

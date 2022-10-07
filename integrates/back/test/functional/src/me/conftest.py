@@ -17,6 +17,16 @@ from db_model.enums import (
     GitCloningStatus,
     Source,
 )
+from db_model.events.enums import (
+    EventStateStatus,
+    EventType,
+)
+from db_model.events.types import (
+    Event,
+    EventEvidence,
+    EventEvidences,
+    EventState,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -76,6 +86,47 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             ),
         ),
+        "events": [
+            {
+                "event": Event(
+                    id="418900971",
+                    group_name="group1",
+                    hacker="unittest@fluidattacks.com",
+                    client="Fluid",
+                    created_by="unittest@fluidattacks.com",
+                    created_date="2018-06-27T12:00:00+00:00",
+                    description="ARM unit test",
+                    type=EventType.OTHER,
+                    event_date="2018-06-27T12:00:00+00:00",
+                    evidences=EventEvidences(
+                        image_1=EventEvidence(
+                            file_name=(
+                                "unittesting_418900971_evidence_image_1.png"
+                            ),
+                            modified_date="2019-03-11T15:57:45+00:00",
+                        ),
+                        file_1=EventEvidence(
+                            file_name=(
+                                "unittesting_418900971_evidence_file_1.csv"
+                            ),
+                            modified_date="2019-03-11T15:57:45+00:00",
+                        ),
+                    ),
+                    state=EventState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date="2018-06-27T12:00:00+00:00",
+                        status=EventStateStatus.CREATED,
+                    ),
+                ),
+                "historic_state": [
+                    EventState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date="2018-06-27T19:40:05+00:00",
+                        status=EventStateStatus.CREATED,
+                    ),
+                ],
+            },
+        ],
         "findings": [
             {
                 "finding": Finding(
@@ -474,6 +525,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "level": "group",
                 "subject": generic_data["global_vars"]["admin_email"],
                 "object": "group3",
+                "role": "admin",
+            },
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "group1",
                 "role": "admin",
             },
         ],
