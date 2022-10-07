@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 digraph common {
-  label="Common/Users Architecture"
+  label="Common's /users Architecture"
   labelloc="t"
   compound="true"
   layout="dot"
@@ -146,7 +146,6 @@ digraph common {
   end_user[label="End User"]
 
   edge[color="/x11/black"]
-  // developer -> cluster_aws_s3_common_ci_cache[]
   developer -> cluster_aws_kms_keys[lhead="cluster_aws_kms_keys"]
   developer -> cluster_aws_iam_roles[lhead="cluster_aws_iam_roles"]
   developer -> gitlab_git_common_users[lhead="cluster_gitlab_git_common"]

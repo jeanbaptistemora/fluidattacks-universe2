@@ -3,10 +3,12 @@
 // SPDX-License-Identifier: MPL-2.0
 
 digraph common {
-  label="Common/Cluster Architecture"
+  label="Common's /cluster Architecture"
   labelloc="t"
   compound="true"
-  concentrate="true"
+  // concentrate="true"
+  ranksep="2.0"
+  splines="line"
   scale="scalexy"
 
   node[style="filled"]
@@ -17,93 +19,28 @@ digraph common {
     bgcolor="0.1 0.1 1.0"
     node[fillcolor="0.1 0.5 1.0"]
 
+    subgraph cluster_aws_dynamodb {
+      label="common-ci-cache"
+
+      aws_dynamodb_terraform_state_lock[label="terraform_state_lock" width="3.0" shape="cylinder"]
+    }
+
     subgraph cluster_aws_ec2 {
       label="EC2"
 
       aws_ec2_common_ci_runner_large[label="common-ci-runner-large_*" peripheries="2"]
       aws_ec2_common_ci_runner_small[label="common-ci-runner-small_*" peripheries="2"]
-      aws_ec2_dev[label="dev" peripheries="2"]
-      aws_ec2_prod_integrates[label="prod_integrates" peripheries="2"]
     }
 
-    subgraph cluster_aws_eks {
-      label="EKS"
+    subgraph cluster_aws_s3 {
+      label="S3"
 
-      subgraph cluster_aws_eks_common {
-        label="common"
+      subgraph cluster_aws_s3_common_ci_cache {
+        label="common-ci-cache"
 
-        cluster_aws_eks_common[style="invis"]
+        cluster_aws_s3_common_ci_cache[label="" style="invis"]
 
-        subgraph cluster_aws_eks_common_worker_groups {
-          label="Worker Groups"
-        }
-
-        subgraph cluster_aws_eks_common_namespaces {
-          label="Namespaces"
-
-          subgraph cluster_aws_eks_common_namespaces_default {
-            label="default"
-
-            cluster_aws_eks_common_namespaces_default[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_dev {
-            label="dev"
-
-            subgraph cluster_aws_eks_common_namespaces_dev_deployments {
-              label="Deployments"
-
-              aws_eks_common_namespaces_dev_deployments_integrates_atfluid[label="integrates-*atfluid" peripheries="2"]
-            }
-
-            cluster_aws_eks_common_namespaces_dev[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_kube_node_lease {
-            label="kube-node-lease"
-
-            cluster_aws_eks_common_namespaces_kube_node_lease[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_kube_public {
-            label="kube-public"
-
-            cluster_aws_eks_common_namespaces_kube_public[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_kube_system {
-            label="kube-system"
-
-            subgraph cluster_aws_eks_common_namespaces_kube_system_deployments {
-              label="Deployments"
-
-              cluster_aws_eks_common_namespaces_kube_system_alb_aws_load_balancer_controller[label="alb-aws-load-balancer-controller"]
-              cluster_aws_eks_common_namespaces_kube_system_autoscaler_aws_cluster_autoscaler[label="autoscaler-aws-cluster-autoscaler"]
-              cluster_aws_eks_common_namespaces_kube_system_coredns[label="coredns"]
-              cluster_aws_eks_common_namespaces_kube_system_dns_external_dns[label="dns-external-dns"]
-              cluster_aws_eks_common_namespaces_kube_system_metrics_server[label="metrics-server"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_kube_state_metrics[label="newrelic-kube-state-metrics"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_kube_events[label="newrelic-nri-kube-events"]
-              cluster_aws_eks_common_namespaces_kube_system_newrelic_nri_metadata_injection[label="newrelic-nri-metadata-injection"]
-            }
-
-            cluster_aws_eks_common_namespaces_kube_system[style="invis"]
-          }
-
-          subgraph cluster_aws_eks_common_namespaces_prod_integrates {
-            label="prod-integrates"
-
-            subgraph cluster_aws_eks_common_namespaces_prod_integrates_deployments {
-              label="Deployments"
-
-              aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[label="integrates-trunk"]
-              aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[label="machine-report-trunk"]
-            }
-
-            cluster_aws_eks_common_namespaces_prod_integrates[style="invis"]
-          }
-
-        }
+        aws_s3_common_ci_cache_artifacts[label="Pipelines Cache"]
       }
     }
 
@@ -117,17 +54,9 @@ digraph common {
           label="Subnets"
 
           cluster_aws_vpc_fluid_vpc_subnets_ci[label="ci"]
-          cluster_aws_vpc_fluid_vpc_subnets_k8s[label="k8s_*", peripheries="2"]
         }
       }
     }
-  }
-
-  subgraph cluster_cloudflare {
-    label="Cloudflare"
-    bgcolor="0.6 0.1 1.0"
-    node[fillcolor="0.6 0.5 1.0"]
-
   }
 
   subgraph cluster_gitlab {
@@ -142,12 +71,9 @@ digraph common {
         label="Common"
 
         gitlab_git_common[label="Source Code"]
-        gitlab_git_common_ci[label="CI"]
+        gitlab_git_common_ci[label="/ci"]
         gitlab_git_common_ci_terraform[label="Terraform"]
         gitlab_git_common_ci_terraform_npalm_gitlab_runner[label="npalm/gitlab-runner"]
-        gitlab_git_common_cluster[label="Cluster"]
-        gitlab_git_common_cluster_terraform[label="Terraform"]
-        gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[label="terraform-aws-modules/eks/aws"]
 
       }
     }
@@ -164,32 +90,24 @@ digraph common {
   edge[color="0.1 1.0 1.0"]
   aws_ec2_common_ci_runner_large -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
   aws_ec2_common_ci_runner_small -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
-  aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
-  aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
-  cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
-  cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
-
-  edge[color="0.6 1.0 1.0"]
 
   edge[color="0.8 1.0 1.0"]
   gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_large[]
   gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_small[]
-  gitlab_ci_cd_runner -> cluster_aws_s3_common_ci_cache[]
+  gitlab_ci_cd_runner -> cluster_aws_s3_common_ci_cache[lhead="cluster_aws_s3_common_ci_cache"]
   gitlab_ci_cd_runner -> gitlab_open_id_provider[]
   gitlab_git_common -> gitlab_git_common_ci[]
-  gitlab_git_common -> gitlab_git_common_cluster[]
+  gitlab_git_common_ci -> aws_dynamodb_terraform_state_lock[]
   gitlab_git_common_ci -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
   gitlab_git_common_ci -> gitlab_git_common_ci_terraform[]
   gitlab_git_common_ci -> gitlab_git_common_ci_terraform_npalm_gitlab_runner[]
-  gitlab_git_common_cluster -> cluster_aws_eks_common[lhead="cluster_aws_eks_common"]
-  gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform[]
-  gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[]
 
   node[fillcolor="/x11/lightgray"]
   customer[label="End User"]
   developer[label="Developer"]
 
   edge[color="/x11/black"]
+  developer -> aws_dynamodb_terraform_state_lock[]
   developer -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
-  developer -> gitlab_git_common[lhead="cluster_gitlab_git_common"]
+  developer -> gitlab_git_common_ci[]
 }

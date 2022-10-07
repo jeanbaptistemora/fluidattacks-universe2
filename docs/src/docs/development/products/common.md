@@ -37,7 +37,34 @@ Developers usually interact with Common through (or to change something in):
 1. Common has many sub-products,
    which are documented below.
 
-### Cluster
+### /ci
+
+1. Our CI/CD system is [GitLab CI](/development/stack/gitlab-ci).
+1. Most of the infrastructure for this
+   is implemented using
+   [Niek Palm's terraform-aws-gitlab-runner module](https://github.com/npalm/terraform-aws-gitlab-runner).
+1. The machine instances created by the CI have two sizes (small and large),
+   and auto-scale on demand throughout the day.
+1. The GitLab runner uses the GitLab OpenID provider
+   in order to assume an
+   [IAM role on Amazon Web Services (AWS)](/development/stack/aws/iam),
+   like those provided by the [/users component of Common](#users).
+1. A DynamoDB table is provided
+   in order to allow other Developers
+   to lock the terraform state,
+   such that it's only modified by one actor (Developer, CI job, etc)
+   at the same time,
+   helping prevent state corruption.
+
+:::tip
+You can right click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+
+![Architecture of Common's /ci](./common-ci-arch.dot.svg)
+
+### /cluster
 
 1. We have one [Kubernetes cluster](/development/stack/kubernetes)
    that is shared by all the products.
@@ -69,9 +96,9 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common/Cluster](./common-cluster-arch.dot.svg)
+![Architecture of Common's /cluster](./common-cluster-arch.dot.svg)
 
-### Criteria
+### /criteria
 
 1. Criteria is managed as-code using YAML documents
    in order to make the information easily accessible
@@ -95,9 +122,9 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common/Criteria](./common-criteria-arch.dot.svg)
+![Architecture of Common's /criteria](./common-criteria-arch.dot.svg)
 
-### Users
+### /users
 
 1. The "users" component of "Common"
    owns the authentication and authorization within
@@ -139,4 +166,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common/Users](./common-users-arch.dot.svg)
+![Architecture of Common's /users](./common-users-arch.dot.svg)

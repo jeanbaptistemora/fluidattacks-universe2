@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 digraph common {
-  label="Common/Cluster Architecture"
+  label="Common's /cluster Architecture"
   labelloc="t"
   compound="true"
   // concentrate="true"

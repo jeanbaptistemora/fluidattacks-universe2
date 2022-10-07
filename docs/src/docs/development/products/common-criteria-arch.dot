@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 digraph common {
-  label="Common/Criteria Architecture"
+  label="Common's /criteria Architecture"
   labelloc="t"
   compound="true"
   concentrate="true"
