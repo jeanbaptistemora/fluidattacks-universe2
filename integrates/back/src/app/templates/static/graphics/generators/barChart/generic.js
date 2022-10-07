@@ -7,6 +7,26 @@
 
 const defaultPaddingRatio = 0.055;
 
+function centerLabel(dataDocument) {
+  if (dataDocument.mttrBenchmarking) {
+    const rectHeight = parseFloat(parseFloat(d3.select('.c3-event-rect').attr('height')).toFixed(2));
+    const transformText = 12;
+    d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
+      const haveDiffToMove = parseFloat(parseFloat(d3.select(textList[index]).attr('diffToMoveY')).toFixed(2));
+      if (haveDiffToMove) {
+        d3.select(textList[index]).attr('y', haveDiffToMove);
+      } else {
+        const textHeight = parseFloat(parseFloat(d3.select(textList[index]).attr('y')).toFixed(2));
+        const diffHeight = parseFloat(parseFloat((rectHeight - textHeight) / 2).toFixed(2));
+        if (diffHeight > transformText) {
+          const diffToMove = (textHeight + diffHeight - transformText).toFixed(2);
+          d3.select(textList[index]).attr('y', diffToMove).attr('diffToMoveY', diffToMove);
+        }
+      }
+    });
+  }
+}
+
 function getPixels(value) {
   const maxPositiveNumber = 10000;
   const maxNegativeNumber = -1000;
@@ -224,6 +244,7 @@ function render(dataDocument, height, width) {
       },
     },
     onrendered: () => {
+      centerLabel(dataDocument);
       getAxisLabel(dataDocument);
     },
     onmouseover: () => {
@@ -242,6 +263,9 @@ function render(dataDocument, height, width) {
     size: {
       height,
       width,
+    },
+    transition: {
+      duration: 0,
     },
   });
 }

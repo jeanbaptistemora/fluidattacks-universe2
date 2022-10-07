@@ -410,8 +410,11 @@ def format_data(
             position="bottom",
         ),
         grid=dict(
+            x=dict(
+                show=False,
+            ),
             y=dict(
-                show=True,
+                show=False,
             ),
         ),
         axis=dict(
@@ -428,6 +431,9 @@ def format_data(
                 label=dict(
                     text="Exposure (CVSSF)",
                     position="inner-top",
+                ),
+                tick=dict(
+                    count=2,
                 ),
             ),
         ),
@@ -463,6 +469,7 @@ def format_data(
             ),
         ),
         maxPercentageValues=max_percentage_values,
+        hideXTickLine=True,
     )
 
 
