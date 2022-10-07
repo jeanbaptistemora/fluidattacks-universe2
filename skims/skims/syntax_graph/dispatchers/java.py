@@ -329,6 +329,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "decimal_integer_literal",
             "integer_literal",
             "real_literal",
         },
@@ -393,7 +394,6 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "character_literal",
-            "decimal_integer_literal",
             "integral_type",
             "string_literal",
         },

@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.new_expression import (
-    build_new_expression_node,
+from syntax_graph.syntax_nodes.element_access import (
+    build_element_access_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -14,8 +14,7 @@ from syntax_graph.types import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    node = args.ast_graph.nodes[args.n_id]
-    index_id = node["label_field_index"]
-    object_id = node["label_field_object"]
-
-    return build_new_expression_node(args, object_id, index_id)
+    n_attrs = args.ast_graph.nodes[args.n_id]
+    index_id = n_attrs["label_field_index"]
+    expr_id = n_attrs["label_field_object"]
+    return build_element_access_node(args, expr_id, index_id)

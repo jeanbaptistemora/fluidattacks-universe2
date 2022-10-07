@@ -26783,6 +26783,9 @@
           "1403": {
             "1404": {
               "label_ast": "AST"
+            },
+            "1406": {
+              "label_ast": "AST"
             }
           },
           "1413": {
@@ -26825,6 +26828,9 @@
           },
           "1427": {
             "1428": {
+              "label_ast": "AST"
+            },
+            "1430": {
               "label_ast": "AST"
             }
           },
@@ -27032,10 +27038,16 @@
           "1532": {
             "1533": {
               "label_ast": "AST"
+            },
+            "1539": {
+              "label_ast": "AST"
             }
           },
           "1533": {
             "1534": {
+              "label_ast": "AST"
+            },
+            "1536": {
               "label_ast": "AST"
             }
           },
@@ -28592,6 +28604,9 @@
           "70": {
             "71": {
               "label_ast": "AST"
+            },
+            "73": {
+              "label_ast": "AST"
             }
           },
           "700": {
@@ -29291,7 +29306,7 @@
           "1040": {
             "label_type": "Literal",
             "value": "4",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1042": {
             "label_type": "ExecutionBlock"
@@ -29356,7 +29371,7 @@
           "1071": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1074": {
             "block_id": "1093",
@@ -29371,7 +29386,7 @@
           "1082": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1084": {
             "label_type": "BinaryOperation",
@@ -29386,7 +29401,7 @@
           "1087": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1089": {
             "expression_type": "++",
@@ -29528,7 +29543,7 @@
           "1151": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1153": {
             "label_type": "VariableDeclaration",
@@ -29659,7 +29674,7 @@
           "1234": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1236": {
             "label_type": "BinaryOperation",
@@ -29674,7 +29689,7 @@
           "1239": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1241": {
             "expression_type": "++",
@@ -29706,7 +29721,7 @@
           "1254": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1256": {
             "label_type": "ExecutionBlock"
@@ -29785,7 +29800,7 @@
           "1291": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1293": {
             "block_id": "1302",
@@ -29804,7 +29819,7 @@
           "1300": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1302": {
             "label_type": "ExecutionBlock"
@@ -29831,7 +29846,7 @@
           "1311": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1313": {
             "label_type": "ExecutionBlock"
@@ -29916,52 +29931,52 @@
           "1355": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1357": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1359": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1361": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1363": {
             "label_type": "Literal",
             "value": "4",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1365": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1367": {
             "label_type": "Literal",
             "value": "6",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1369": {
             "label_type": "Literal",
             "value": "7",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1371": {
             "label_type": "Literal",
             "value": "8",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1373": {
             "label_type": "Literal",
             "value": "9",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1376": {
             "block_id": "1395",
@@ -29976,7 +29991,7 @@
           "1384": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1386": {
             "label_type": "BinaryOperation",
@@ -30033,22 +30048,27 @@
             "right_id": "1409"
           },
           "1403": {
-            "access_index": "i",
-            "label_type": "ArrayAccess"
+            "arguments_id": "1406",
+            "expression_id": "1404",
+            "label_type": "ElementAccess"
           },
           "1404": {
             "label_type": "SymbolLookup",
             "symbol": "nums"
           },
+          "1406": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
           "1409": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1411": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1413": {
             "label_type": "ExecutionBlock"
@@ -30085,8 +30105,9 @@
             "right_id": "1433"
           },
           "1427": {
-            "access_index": "i",
-            "label_type": "ArrayAccess"
+            "arguments_id": "1430",
+            "expression_id": "1428",
+            "label_type": "ElementAccess"
           },
           "1428": {
             "label_type": "SymbolLookup",
@@ -30094,6 +30115,10 @@
           },
           "143": {
             "label_type": "ArgumentList"
+          },
+          "1430": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
           },
           "1433": {
             "label_type": "Literal",
@@ -30115,27 +30140,27 @@
           "1446": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1448": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "145": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1450": {
             "label_type": "Literal",
             "value": "7",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1452": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1455": {
             "label_type": "ArrayInitializer"
@@ -30143,22 +30168,22 @@
           "1457": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1459": {
             "label_type": "Literal",
             "value": "8",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1461": {
             "label_type": "Literal",
             "value": "4",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1463": {
             "label_type": "Literal",
             "value": "6",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1466": {
             "label_type": "ArrayInitializer"
@@ -30166,22 +30191,22 @@
           "1468": {
             "label_type": "Literal",
             "value": "7",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1470": {
             "label_type": "Literal",
             "value": "4",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1472": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1474": {
             "label_type": "Literal",
             "value": "9",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1478": {
             "label_type": "VariableDeclaration",
@@ -30192,7 +30217,7 @@
           "1483": {
             "label_type": "Literal",
             "value": "8",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1485": {
             "block_id": "1504",
@@ -30214,7 +30239,7 @@
           "1493": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1495": {
             "label_type": "BinaryOperation",
@@ -30262,7 +30287,7 @@
           "1514": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1516": {
             "label_type": "BinaryOperation",
@@ -30309,16 +30334,26 @@
             "right_id": "1542"
           },
           "1532": {
-            "access_index": "j",
-            "label_type": "ArrayAccess"
+            "arguments_id": "1539",
+            "expression_id": "1533",
+            "label_type": "ElementAccess"
           },
           "1533": {
-            "access_index": "i",
-            "label_type": "ArrayAccess"
+            "arguments_id": "1536",
+            "expression_id": "1534",
+            "label_type": "ElementAccess"
           },
           "1534": {
             "label_type": "SymbolLookup",
             "symbol": "nums"
+          },
+          "1536": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
+          },
+          "1539": {
+            "label_type": "SymbolLookup",
+            "symbol": "j"
           },
           "1542": {
             "label_type": "SymbolLookup",
@@ -30341,7 +30376,7 @@
           "155": {
             "label_type": "Literal",
             "value": "9",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1550": {
             "label_type": "SymbolLookup",
@@ -30426,7 +30461,7 @@
           "1586": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1589": {
             "block_id": "1597",
@@ -30497,7 +30532,7 @@
           "1637": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1640": {
             "block_id": "1648",
@@ -30520,7 +30555,7 @@
           "165": {
             "label_type": "Literal",
             "value": "8",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1651": {
             "arguments_id": "1653",
@@ -30555,7 +30590,7 @@
           "1669": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1672": {
             "block_id": "1674",
@@ -30601,7 +30636,7 @@
           "1694": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1696": {
             "label_type": "ExecutionBlock"
@@ -30626,7 +30661,7 @@
           "1703": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "1708": {
             "block_id": "1713",
@@ -30646,7 +30681,7 @@
           "175": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "179": {
             "arguments_id": "183",
@@ -30810,7 +30845,7 @@
           "252": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "254": {
             "label_type": "BinaryOperation",
@@ -30825,7 +30860,7 @@
           "257": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "259": {
             "expression_type": "++",
@@ -30952,7 +30987,7 @@
           "317": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "319": {
             "block_id": "328",
@@ -30971,7 +31006,7 @@
           "326": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "328": {
             "label_type": "ExecutionBlock"
@@ -31031,7 +31066,7 @@
           "356": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "358": {
             "label_type": "BinaryOperation",
@@ -31051,7 +31086,7 @@
           "361": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "363": {
             "expression_type": "++",
@@ -31150,12 +31185,12 @@
           "396": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "398": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "400": {
             "label_type": "ExecutionBlock"
@@ -31246,7 +31281,7 @@
           "440": {
             "label_type": "Literal",
             "value": "4",
-            "value_type": "string"
+            "value_type": "number"
           },
           "442": {
             "label_type": "ExecutionBlock"
@@ -31419,7 +31454,7 @@
           "524": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "526": {
             "label_type": "VariableDeclaration",
@@ -31473,7 +31508,7 @@
           "56": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "562": {
             "label_type": "ExecutionBlock"
@@ -31514,12 +31549,12 @@
           "58": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "582": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "584": {
             "label_type": "BinaryOperation",
@@ -31534,7 +31569,7 @@
           "587": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "589": {
             "expression_type": "++",
@@ -31570,7 +31605,7 @@
           "60": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "600": {
             "label_type": "ArgumentList"
@@ -31608,7 +31643,7 @@
           "615": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "617": {
             "label_type": "ExecutionBlock"
@@ -31718,7 +31753,7 @@
           "679": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "68": {
             "label_type": "ArgumentList"
@@ -31744,8 +31779,9 @@
             "label_type": "SwitchSection"
           },
           "70": {
-            "access_index": "10",
-            "label_type": "ArrayAccess"
+            "arguments_id": "73",
+            "expression_id": "71",
+            "label_type": "ElementAccess"
           },
           "700": {
             "arguments_id": "704",
@@ -31802,6 +31838,11 @@
           },
           "724": {
             "label_type": "SwitchSection"
+          },
+          "73": {
+            "label_type": "Literal",
+            "value": "10",
+            "value_type": "number"
           },
           "730": {
             "arguments_id": "734",
@@ -31861,7 +31902,7 @@
           "762": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "764": {
             "label_type": "VariableDeclaration",
@@ -31994,7 +32035,7 @@
           "856": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "858": {
             "block_id": "867",
@@ -32016,7 +32057,7 @@
           "865": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "867": {
             "label_type": "ExecutionBlock"
@@ -32077,7 +32118,7 @@
           "893": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "895": {
             "block_id": "897",
@@ -32148,7 +32189,7 @@
           "925": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "927": {
             "label_type": "BinaryOperation",
@@ -32170,7 +32211,7 @@
           "930": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "932": {
             "expression_type": "++",
@@ -32234,7 +32275,7 @@
           "959": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "96": {
             "label_type": "SymbolLookup",
@@ -32253,7 +32294,7 @@
           "964": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "966": {
             "expression_type": "++",
@@ -32279,7 +32320,7 @@
           "977": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "979": {
             "block_id": "988",
@@ -32298,7 +32339,7 @@
           "986": {
             "label_type": "Literal",
             "value": "5",
-            "value_type": "string"
+            "value_type": "number"
           },
           "988": {
             "label_type": "ExecutionBlock"
@@ -32321,7 +32362,7 @@
           "997": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "999": {
             "label_type": "ExecutionBlock"
@@ -88282,8 +88323,8 @@
           },
           "1317": {
             "arguments_id": "1323",
-            "constructor_id": "1318",
-            "label_type": "NewExpression"
+            "expression_id": "1318",
+            "label_type": "ElementAccess"
           },
           "1318": {
             "expression": "params",
@@ -88841,8 +88882,8 @@
           },
           "1593": {
             "arguments_id": "1596",
-            "constructor_id": "1594",
-            "label_type": "NewExpression"
+            "expression_id": "1594",
+            "label_type": "ElementAccess"
           },
           "1594": {
             "label_type": "SymbolLookup",
@@ -88867,8 +88908,8 @@
           },
           "1601": {
             "arguments_id": "1604",
-            "constructor_id": "1602",
-            "label_type": "NewExpression"
+            "expression_id": "1602",
+            "label_type": "ElementAccess"
           },
           "1602": {
             "label_type": "SymbolLookup",
@@ -88980,8 +89021,8 @@
           },
           "1660": {
             "arguments_id": "1663",
-            "constructor_id": "1661",
-            "label_type": "NewExpression"
+            "expression_id": "1661",
+            "label_type": "ElementAccess"
           },
           "1661": {
             "label_type": "SymbolLookup",
@@ -89002,13 +89043,13 @@
           },
           "1671": {
             "arguments_id": "1678",
-            "constructor_id": "1672",
-            "label_type": "NewExpression"
+            "expression_id": "1672",
+            "label_type": "ElementAccess"
           },
           "1672": {
             "arguments_id": "1675",
-            "constructor_id": "1673",
-            "label_type": "NewExpression"
+            "expression_id": "1673",
+            "label_type": "ElementAccess"
           },
           "1673": {
             "label_type": "SymbolLookup",

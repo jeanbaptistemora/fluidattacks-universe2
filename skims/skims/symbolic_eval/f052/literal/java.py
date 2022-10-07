@@ -14,7 +14,7 @@ def java_insecure_key(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
-    if args.graph.nodes[args.n_id]["value_type"] == "string":
+    if args.graph.nodes[args.n_id]["value_type"] in {"number", "string"}:
         member_str = args.graph.nodes[args.n_id]["value"].replace('"', "")
         if len(args.triggers) == 0:
             args.triggers.add(member_str)

@@ -20,7 +20,7 @@ def search(args: SearchArgs) -> Iterator[SearchResult]:
         expr := args.graph.nodes[assign_id].get("expression")
     ) and args.symbol in expr:
         yield False, args.n_id
-    elif args.graph.nodes[assign_id]["label_type"] == "NewExpression":
+    elif args.graph.nodes[assign_id]["label_type"] == "ElementAccess":
         arg_id = args.graph.nodes[assign_id]["arguments_id"]
         value = args.graph.nodes[arg_id]["value"].replace('"', "")
         if value == args.symbol:

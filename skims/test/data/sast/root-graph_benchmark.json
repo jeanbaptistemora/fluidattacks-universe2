@@ -9482,12 +9482,12 @@
           "120": {
             "label_type": "Literal",
             "value": "60",
-            "value_type": "string"
+            "value_type": "number"
           },
           "122": {
             "label_type": "Literal",
             "value": "3",
-            "value_type": "string"
+            "value_type": "number"
           },
           "125": {
             "comment": "//Store cookie for 3 minutes",
@@ -10222,7 +10222,7 @@
           "474": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "476": {
             "label_type": "SymbolLookup",
@@ -10490,7 +10490,7 @@
           "60": {
             "label_type": "Literal",
             "value": "1L",
-            "value_type": "string"
+            "value_type": "number"
           },
           "62": {
             "block_id": "85",
@@ -15816,7 +15816,7 @@
           "60": {
             "label_type": "Literal",
             "value": "1L",
-            "value_type": "string"
+            "value_type": "number"
           },
           "62": {
             "block_id": "85",
@@ -25790,6 +25790,9 @@
           "408": {
             "409": {
               "label_ast": "AST"
+            },
+            "411": {
+              "label_ast": "AST"
             }
           },
           "414": {
@@ -26836,7 +26839,7 @@
           "319": {
             "label_type": "Literal",
             "value": "1",
-            "value_type": "string"
+            "value_type": "number"
           },
           "321": {
             "arguments_id": "325",
@@ -26963,7 +26966,7 @@
           "385": {
             "label_type": "Literal",
             "value": "0",
-            "value_type": "string"
+            "value_type": "number"
           },
           "387": {
             "label_type": "BinaryOperation",
@@ -27013,12 +27016,17 @@
             "variable_type": "javax.servlet.http.Cookie"
           },
           "408": {
-            "access_index": "i",
-            "label_type": "ArrayAccess"
+            "arguments_id": "411",
+            "expression_id": "409",
+            "label_type": "ElementAccess"
           },
           "409": {
             "label_type": "SymbolLookup",
             "symbol": "cookies"
+          },
+          "411": {
+            "label_type": "SymbolLookup",
+            "symbol": "i"
           },
           "414": {
             "condition_id": "416",
@@ -27440,7 +27448,7 @@
           "60": {
             "label_type": "Literal",
             "value": "1L",
-            "value_type": "string"
+            "value_type": "number"
           },
           "600": {
             "label_type": "ArgumentList"

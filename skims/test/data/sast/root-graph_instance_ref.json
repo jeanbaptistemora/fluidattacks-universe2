@@ -15197,7 +15197,7 @@
           "56": {
             "label_type": "Literal",
             "value": "2",
-            "value_type": "string"
+            "value_type": "number"
           },
           "561": {
             "label_type": "SymbolLookup",
@@ -19954,7 +19954,7 @@
           "179": {
             "label_type": "Literal",
             "value": "13",
-            "value_type": "string"
+            "value_type": "number"
           },
           "181": {
             "label_type": "VariableDeclaration",
