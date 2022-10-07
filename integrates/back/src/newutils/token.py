@@ -34,12 +34,16 @@ from jose import (
     jwt,
     JWTError,
 )
+import json
 from jwcrypto.jwe import (
     InvalidJWEData,
     JWE,
 )
 from jwcrypto.jwk import (
     JWK,
+)
+from jwcrypto.jwt import (
+    JWT,
 )
 import logging
 import logging.config
@@ -61,6 +65,8 @@ from settings import (
     JWT_COOKIE_NAME,
     JWT_SECRET,
     JWT_SECRET_API,
+    JWT_SECRET_API_NEW,
+    JWT_SECRET_NEW,
     LOGGING,
 )
 from typing import (
@@ -236,6 +242,65 @@ def new_encoded_jwt(payload: Dict[str, Any], api: bool = False) -> str:
         key=secret,
     )
     return token
+
+
+def encode_session_token(
+    expiration_time: int, payload: Dict[str, Any], api: bool = False
+) -> str:
+    """Encrypts the payload into a jwe token and returns its encoded version"""
+    secret = JWT_SECRET_API_NEW if api else JWT_SECRET_NEW
+    jws_key = JWK.from_json(secret)
+    jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
+    default_claims = dict(exp=expiration_time, sub=payload.get("sub"))
+    jwt_object = JWT(
+        default_claims=default_claims,
+        claims=JWE(
+            algs=[
+                "A256GCM",
+                "A256GCMKW",
+            ],
+            plaintext=json.dumps(payload).encode("utf-8"),
+            protected={
+                "alg": "A256GCMKW",
+                "enc": "A256GCM",
+            },
+            recipient=jwe_key,
+        ).serialize(),
+        header={"alg": "HS512"},
+    )
+    jwt_object.make_signed_token(jws_key)
+
+    return jwt_object.serialize()
+
+
+def decode_session_token(token: str) -> Dict[str, Any]:
+    """Decodes a jwt token and returns its decrypted payload"""
+    jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
+    jwt_token = JWT(jwt=token)
+    secret = _get_secret(jwt_token)
+    jws_key = JWK.from_json(secret)
+    jwt_token.validate(jws_key)
+    claims = json.loads(jwt_token.claims)
+    default_claims = dict(exp=claims.get("exp"), sub=claims.get("sub"))
+
+    jwe_token = JWE()
+    jwe_token.deserialize(jwt_token.token.payload)
+    jwe_token.decrypt(jwe_key)
+    decoded_payload = json.loads(jwe_token.payload.decode("utf-8"))
+
+    return dict(decoded_payload, **default_claims)
+
+
+def _get_secret(jwt_token: JWT) -> str:
+    """Returns the secret needed to decrypt JWE"""
+    # pylint: disable=protected-access
+    payload = jwt_token._token.objects["payload"]
+    deserialized_payload = json.loads(payload.decode("utf-8"))
+    sub = deserialized_payload.get("sub")
+
+    if sub == "api_token":
+        return JWT_SECRET_API_NEW
+    return JWT_SECRET_NEW
 
 
 def verificate_hash_token(
