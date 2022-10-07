@@ -1,0 +1,194 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph common {
+  label="Common's /cluster Architecture"
+  labelloc="t"
+  compound="true"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_batch {
+      label="Batch"
+
+      cluster_aws_batch[label="" style="invis"]
+
+      subgraph cluster_aws_batch_compute_envs {
+        label="Compute Environments"
+
+        aws_batch_compute_envs_small[label="small"]
+        aws_batch_compute_envs_medium[label="medium"]
+        aws_batch_compute_envs_large[label="large"]
+        aws_batch_compute_envs_clone[label="clone"]
+      }
+
+      subgraph cluster_aws_batch_job_definition {
+        label="Job Definition"
+
+        aws_batch_job_definition_main[label="main"]
+      }
+
+      subgraph cluster_aws_batch_job_queues {
+        label="Job Queues"
+
+        aws_batch_job_queues_small[label="small"]
+        aws_batch_job_queues_medium[label="medium"]
+        aws_batch_job_queues_large[label="large"]
+        aws_batch_job_queues_clone[label="clone"]
+      }
+    }
+
+    subgraph cluster_aws_cloudwatch {
+      label="CloudWatch"
+
+      subgraph cluster_aws_cloudwatch_event_rules {
+        label="Event Rules"
+
+        aws_cloudwatch_event_rules_compute_alert[label="compute_alert"]
+      }
+
+      subgraph cluster_aws_cloudwatch_event_target {
+        label="Event Target"
+
+        aws_cloudwatch_event_target_alert[label="alert"]
+      }
+    }
+
+    subgraph cluster_aws_ec2 {
+      label="EC2"
+
+      subgraph cluster_aws_ec2_instances {
+        label="Instances"
+
+        aws_ec2_instances_small[label="small" peripheries="2"]
+        aws_ec2_instances_medium[label="medium" peripheries="2"]
+        aws_ec2_instances_large[label="large" peripheries="2"]
+        aws_ec2_instances_clone[label="clone" peripheries="2"]
+      }
+    }
+
+    subgraph cluster_aws_ecs {
+      label="ECS"
+
+      subgraph cluster_aws_ecs_clusters {
+        label="Clusters"
+
+        aws_ecs_clusters_small[label="small"]
+        aws_ecs_clusters_medium[label="medium"]
+        aws_ecs_clusters_large[label="large"]
+        aws_ecs_clusters_clone[label="clone"]
+      }
+    }
+
+    subgraph cluster_aws_sns {
+      label="SNS"
+
+      subgraph cluster_aws_sns_topics {
+        label="Topics"
+
+        aws_sns_topics_compute_alert[label="compute_alert"]
+      }
+
+      subgraph cluster_aws_sns_topic_subscriptions {
+        label="Topic Subscriptions"
+
+        aws_sns_topic_subscription_compute_alert[label="development@fluidattacks.com"]
+      }
+    }
+
+    subgraph cluster_aws_vpc {
+      label="VPC"
+
+      subgraph cluster_aws_vpc_fluid_vpc {
+        label="fluid-vpc"
+
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
+
+          cluster_aws_vpc_fluid_vpc_subnets_batch_clone[label="batch_clone"]
+          cluster_aws_vpc_fluid_vpc_subnets_batch_main[label="batch_main"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_compute {
+          label="/cluster"
+
+          cluster_gitlab_git_common_compute[label="" style="invis"]
+          gitlab_git_common_compute[label="Source Code"]
+          gitlab_git_common_compute_terraform[label="Terraform"]
+        }
+      }
+    }
+  }
+
+  edge[color="0.1 1.0 1.0"]
+  aws_batch_job_queues_small -> aws_batch_compute_envs_small[]
+  aws_batch_compute_envs_small -> aws_ecs_clusters_small[]
+  aws_batch_compute_envs_medium -> aws_ecs_clusters_medium[]
+  aws_batch_job_queues_medium -> aws_batch_compute_envs_medium[]
+  aws_batch_job_queues_large -> aws_batch_compute_envs_large[]
+  aws_batch_job_queues_clone -> aws_batch_compute_envs_clone[]
+  aws_batch_compute_envs_large -> aws_ecs_clusters_large[]
+  aws_batch_compute_envs_clone -> aws_ecs_clusters_clone[]
+  aws_cloudwatch_event_rules_compute_alert -> aws_cloudwatch_event_target_alert[label="Job failed"]
+  aws_cloudwatch_event_rules_compute_alert -> cluster_aws_batch[lhead="cluster_aws_batch"]
+  aws_cloudwatch_event_target_alert -> aws_sns_topics_compute_alert[]
+  aws_ec2_instances_clone -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_ec2_instances_small -> cluster_aws_vpc_fluid_vpc_subnets_batch_main[]
+  aws_ec2_instances_small -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_ec2_instances_medium -> cluster_aws_vpc_fluid_vpc_subnets_batch_main[]
+  aws_ec2_instances_medium -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_ec2_instances_large -> cluster_aws_vpc_fluid_vpc_subnets_batch_main[]
+  aws_ec2_instances_large -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_ecs_clusters_small -> aws_ec2_instances_small[]
+  aws_ecs_clusters_medium -> aws_ec2_instances_medium[]
+  aws_ecs_clusters_large -> aws_ec2_instances_large[]
+  aws_ecs_clusters_clone -> aws_ec2_instances_clone[]
+  aws_sns_topics_compute_alert -> aws_sns_topic_subscription_compute_alert[label="Email"]
+
+  edge[color="0.6 1.0 1.0"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_git_common_compute -> gitlab_git_common_compute_terraform[]
+
+  node[fillcolor="/x11/lightgray"]
+  customer[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="/x11/black"]
+  developer -> aws_batch_job_definition_main[]
+  developer -> aws_sns_topic_subscription_compute_alert[]
+  developer -> aws_batch_job_queues_clone[]
+  developer -> aws_batch_job_queues_small[]
+  developer -> aws_batch_job_queues_medium[]
+  developer -> aws_batch_job_queues_large[]
+  developer -> cluster_gitlab_git_common_compute[lhead="cluster_gitlab_git_common_compute"]
+}
