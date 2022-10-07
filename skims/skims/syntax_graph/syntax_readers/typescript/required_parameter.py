@@ -11,16 +11,23 @@ from syntax_graph.syntax_nodes.parameter import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    cast,
-    Iterator,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = adj_ast(args.ast_graph, args.n_id)
+    childs_id = adj_ast(
+        args.ast_graph,
+        args.n_id,
+    )
 
-    return build_parameter_node(args, None, None, cast(Iterator[str], c_ids))
+    ignore_types = {"?", ","}
+
+    valid_childs = [
+        child
+        for child in childs_id
+        if args.ast_graph.nodes[child]["label_type"] not in ignore_types
+    ]
+
+    return build_parameter_node(args, None, None, iter(valid_childs))

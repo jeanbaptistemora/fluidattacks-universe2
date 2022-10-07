@@ -11,11 +11,14 @@ from syntax_graph.syntax_readers.javascript import (
     call_expression as javascript_call_expression,
     class_declaration as javascript_class_declaration,
     comment as javascript_comment,
+    else_clause as javascript_else_clause,
     expression_statement as javascript_expression_statement,
+    for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
+    new_expression as javascript_new_expression,
     number_literal as javascript_number_literal,
     object as javascript_object,
     pair as javascript_pair,
@@ -153,9 +156,21 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "else_clause",
+        },
+        syntax_reader=javascript_else_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "expression_statement",
         },
         syntax_reader=javascript_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "for_statement",
+        },
+        syntax_reader=javascript_for_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -232,6 +247,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "new_expression",
+        },
+        syntax_reader=javascript_new_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "number",
         },
         syntax_reader=javascript_number_literal.reader,
@@ -290,6 +311,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "optional_parameter",
             "required_parameter",
         },
         syntax_reader=typescript_required_parameter.reader,
@@ -315,6 +337,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "string",
+            "template_string",
         },
         syntax_reader=javascript_string_literal.reader,
     ),
@@ -344,6 +367,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "super",
             "this",
         },
         syntax_reader=javascript_this.reader,
@@ -399,6 +423,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "undefined",
             "void",
         },
         syntax_reader=typescript_void.reader,

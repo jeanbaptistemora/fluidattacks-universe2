@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.initializer_expression import (
-    build_initializer_expression_node,
+from syntax_graph.syntax_nodes.global_statement import (
+    build_global_statement_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -22,12 +22,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    node_types = {"[", "]", ":"}
+    ignore_types = {"[", "]", ":"}
 
     valid_childs = [
         child
         for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] not in node_types
+        if args.ast_graph.nodes[child]["label_type"] not in ignore_types
     ]
 
-    return build_initializer_expression_node(args, iter(valid_childs))
+    return build_global_statement_node(args, iter(valid_childs))
