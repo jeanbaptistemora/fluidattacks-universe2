@@ -1,0 +1,62 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph common {
+  label="Common/Criteria Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  layout="dot"
+  scale="scalexy"
+  ranksep="2.0"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_criteria {
+          label="/crteria"
+
+          gitlab_git_common_criteria[label="Source Code"]
+          gitlab_git_common_criteria_ajv[label="Ajv"]
+          gitlab_git_common_criteria_compliance[label="/compliance"]
+          gitlab_git_common_criteria_requirements[label="/requirements"]
+          gitlab_git_common_criteria_vulnerabilities[label="/vulnerabilities"]
+          gitlab_git_common_criteria_json_schema[label="JSON Schema"]
+          gitlab_git_common_criteria_yaml[label="YAML"]
+        }
+      }
+    }
+  }
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_compliance[]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_requirements[]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_vulnerabilities[]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_ajv[]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_json_schema[]
+  gitlab_git_common_criteria -> gitlab_git_common_criteria_yaml[]
+
+  node[fillcolor="/x11/lightgray"]
+  developer[label="Developer"]
+  end_user[label="End User"]
+
+  edge[color="/x11/black"]
+  developer -> gitlab_git_common_criteria_compliance[]
+  developer -> gitlab_git_common_criteria_requirements[]
+  developer -> gitlab_git_common_criteria_vulnerabilities[]
+  end_user -> gitlab_git_common_criteria_compliance[]
+  end_user -> gitlab_git_common_criteria_requirements[]
+  end_user -> gitlab_git_common_criteria_vulnerabilities[]
+}
