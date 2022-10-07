@@ -1,8 +1,8 @@
 ---
-id: dynamodb-patterns
-title: DynamoDB Patterns
-sidebar_label: DynamoDB Patterns
-slug: /development/dynamodb-patterns
+id: patterns
+title: Patterns
+sidebar_label: Patterns
+slug: /development/stack/aws/dynamodb/patterns
 ---
 
 The following patterns

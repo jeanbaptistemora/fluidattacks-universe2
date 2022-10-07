@@ -454,7 +454,7 @@ const Development = [
             label: 'DynamoDB',
             items: [
               'development/stack/aws/dynamodb/introduction',
-              'development/stack/aws/dynamodb/model',
+              'development/stack/aws/dynamodb/patterns',
               'development/stack/aws/dynamodb/streams',
             ]
           },
@@ -465,6 +465,7 @@ const Development = [
           'development/stack/aws/iam',
           'development/stack/aws/kms',
           'development/stack/aws/lambda',
+          'development/stack/aws/opensearch',
           'development/stack/aws/redis',
           'development/stack/aws/redshift',
           'development/stack/aws/s3',
@@ -499,7 +500,6 @@ const Development = [
     ]
   },
   'development/front-technologies',
-  'development/dynamodb-patterns',
   'development/graphql-api',
   'development/writing-code-suggestions',
   'development/licencing-and-copyright',
