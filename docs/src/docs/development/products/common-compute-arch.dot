@@ -34,7 +34,9 @@ digraph common {
       subgraph cluster_aws_batch_job_definition {
         label="Job Definition"
 
-        aws_batch_job_definition_main[label="main"]
+        aws_batch_job_definition_dev[label="dev"]
+        aws_batch_job_definition_schedules[label="$schedule" peripheries="2"]
+        aws_batch_job_definition_prod[label="prod_*" peripheries="2"]
       }
 
       subgraph cluster_aws_batch_job_queues {
@@ -54,12 +56,14 @@ digraph common {
         label="Event Rules"
 
         aws_cloudwatch_event_rules_compute_alert[label="compute_alert"]
+        aws_cloudwatch_event_rules_schedule[label="schedule_*" peripheries="2"]
       }
 
       subgraph cluster_aws_cloudwatch_event_target {
         label="Event Target"
 
         aws_cloudwatch_event_target_alert[label="alert"]
+        aws_cloudwatch_event_target_schedule[label="$schedule"]
       }
     }
 
@@ -158,9 +162,11 @@ digraph common {
   aws_batch_job_queues_clone -> aws_batch_compute_envs_clone[]
   aws_batch_compute_envs_large -> aws_ecs_clusters_large[]
   aws_batch_compute_envs_clone -> aws_ecs_clusters_clone[]
-  aws_cloudwatch_event_rules_compute_alert -> aws_cloudwatch_event_target_alert[label="Job failed"]
+  aws_cloudwatch_event_rules_compute_alert -> aws_cloudwatch_event_target_alert[label="On failed job"]
   aws_cloudwatch_event_rules_compute_alert -> cluster_aws_batch[lhead="cluster_aws_batch"]
-  aws_cloudwatch_event_target_alert -> aws_sns_topics_compute_alert[]
+  aws_cloudwatch_event_rules_schedule -> aws_cloudwatch_event_target_schedule[label="On Cron"]
+  aws_cloudwatch_event_target_alert -> aws_sns_topics_compute_alert[label="Send"]
+  aws_cloudwatch_event_target_schedule -> aws_batch_job_definition_schedules[label="Trigger"]
   aws_ec2_instances_clone -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
   aws_ec2_instances_small -> cluster_aws_vpc_fluid_vpc_subnets_batch_main[]
   aws_ec2_instances_small -> cluster_aws_vpc_fluid_vpc_subnets_batch_clone[]
@@ -184,7 +190,8 @@ digraph common {
   developer[label="Developer"]
 
   edge[color="/x11/black"]
-  developer -> aws_batch_job_definition_main[]
+  developer -> aws_batch_job_definition_dev[]
+  developer -> aws_batch_job_definition_prod[]
   developer -> aws_sns_topic_subscription_compute_alert[]
   developer -> aws_batch_job_queues_clone[]
   developer -> aws_batch_job_queues_small[]
