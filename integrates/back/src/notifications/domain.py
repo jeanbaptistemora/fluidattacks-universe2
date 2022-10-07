@@ -137,6 +137,7 @@ async def delete_group(
             "organization": org_name,
             "reason": translate_group_reason(reason),
             "responsible": requester_email,
+            "subscription": group.state.type.value,
             "state": "deleted",
         },
     )

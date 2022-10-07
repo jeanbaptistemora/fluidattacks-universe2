@@ -24,12 +24,12 @@ SPDX-License-Identifier: MPL-2.0
           <strong>Vulnerabilities:</strong>
           <ul>
           {% for key, value in locations.items() %}
-            <li>{{ key }} ({{ value["vuln_count"] }}
-            {% if value["vuln_count"] == 1 %}
+            <li>{{ key }} ({{- value["vuln_count"] }}
+            {%- if value["vuln_count"] == 1 -%}
             vulnerability
-            {% else %}
+            {%- else -%}
             vulnerabilities
-            {% endif %})
+            {%- endif -%})
             </li>
           {% endfor %}
           </ul>
