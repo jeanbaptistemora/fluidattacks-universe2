@@ -144,6 +144,30 @@ const formatVulnerabilities: (
     };
   });
 
+const formatHistoricTreatment: (
+  vulnerabilities: IVulnRowAttr
+) => IHistoricTreatment = (vulnerability: IVulnRowAttr): IHistoricTreatment => {
+  return {
+    acceptanceDate: _.isNull(vulnerability.treatmentAcceptanceDate)
+      ? undefined
+      : vulnerability.treatmentAcceptanceDate,
+    acceptanceStatus: _.isNull(vulnerability.treatmentAcceptanceStatus)
+      ? undefined
+      : vulnerability.treatmentAcceptanceStatus,
+    assigned: _.isNull(vulnerability.treatmentAssigned)
+      ? undefined
+      : vulnerability.treatmentAssigned,
+    date: vulnerability.lastTreatmentDate,
+    justification: _.isNull(vulnerability.treatmentJustification)
+      ? undefined
+      : vulnerability.treatmentJustification,
+    treatment: vulnerability.treatment,
+    user: _.isNull(vulnerability.treatmentUser)
+      ? ""
+      : vulnerability.treatmentUser,
+  };
+};
+
 const formatVulnerabilitiesTreatment: (
   vulnerabilities: IVulnRowAttr[],
   organizationsGroups: IOrganizationGroups[] | undefined
@@ -152,25 +176,8 @@ const formatVulnerabilitiesTreatment: (
   organizationsGroups: IOrganizationGroups[] | undefined
 ): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
-    const lastTreatment: IHistoricTreatment = {
-      acceptanceDate: _.isNull(vulnerability.treatmentAcceptanceDate)
-        ? undefined
-        : vulnerability.treatmentAcceptanceDate,
-      acceptanceStatus: _.isNull(vulnerability.treatmentAcceptanceStatus)
-        ? undefined
-        : vulnerability.treatmentAcceptanceStatus,
-      assigned: _.isNull(vulnerability.treatmentAssigned)
-        ? undefined
-        : vulnerability.treatmentAssigned,
-      date: vulnerability.lastTreatmentDate,
-      justification: _.isNull(vulnerability.treatmentJustification)
-        ? undefined
-        : vulnerability.treatmentJustification,
-      treatment: vulnerability.treatment,
-      user: _.isNull(vulnerability.treatmentUser)
-        ? ""
-        : vulnerability.treatmentUser,
-    };
+    const lastTreatment: IHistoricTreatment =
+      formatHistoricTreatment(vulnerability);
     const organizationName: IOrganizationGroups | undefined =
       organizationsGroups === undefined
         ? undefined
@@ -317,6 +324,7 @@ export {
   filterOutVulnerabilities,
   filterTreatmentCurrentStatus,
   filterZeroRisk,
+  formatHistoricTreatment,
   formatVulnerabilities,
   formatVulnerabilitiesTreatment,
   getNonSelectableVulnerabilitiesOnEdit,
