@@ -215,7 +215,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
     max_value: Decimal = list(
         sorted(
             [
-                format_cvssf(abs(category.value))
+                abs(format_cvssf(category.value))
                 for category in categories_trend
             ],
             reverse=True,

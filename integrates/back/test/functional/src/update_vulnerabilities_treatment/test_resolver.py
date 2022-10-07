@@ -85,7 +85,7 @@ from typing import (
             "user@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdc11",
             "ACCEPTED",
-            "user@fluidattacks.com",
+            "user@gmail.com",
             "2021-03-31 19:45:11",
         ),
     ),

@@ -12,6 +12,7 @@ from db_model.forces.types import (
 from decimal import (
     Decimal,
     ROUND_CEILING,
+    ROUND_FLOOR,
 )
 import math
 import os
@@ -57,6 +58,14 @@ def format_cvssf_log_adjusted(cvssf: Decimal) -> Decimal:
                 * Decimal("10.0")
             )
         )
+        if cvssf < Decimal("0.0"):
+            cvssf_log = Decimal(
+                math.log2(
+                    abs(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
+                    * Decimal("10.0")
+                )
+            )
+
         return (
             cvssf_log
             if cvssf > Decimal("0.0")
