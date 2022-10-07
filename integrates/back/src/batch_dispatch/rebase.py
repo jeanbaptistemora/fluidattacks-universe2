@@ -195,9 +195,7 @@ async def rebase_root(
             ),
             vulnerability_commit=rebase_result.rev,
             vulnerability_id=vuln.id,
-            vulnerability_where=(
-                f"{git_root.state.nickname}/{rebase_result.path}"
-            ),
+            vulnerability_where=rebase_result.path,
             vulnerability_specific=str(rebase_result.line),
             vulnerability_type=vuln.type,
         )
