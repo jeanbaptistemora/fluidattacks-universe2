@@ -30,6 +30,7 @@ from syntax_graph.syntax_readers.javascript import (
     switch_case as javascript_switch_case,
     switch_statement as javascript_switch_statement,
     this as javascript_this,
+    unary_expression as javascript_unary_expression,
     update_expression as javascript_update_expression,
     variable_declaration as javascript_variable_declaration,
     while_statement as javascript_while_statement,
@@ -44,8 +45,10 @@ from syntax_graph.syntax_readers.typescript import (
     enum_declaration as typescript_enum_declaration,
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
+    index_signature as typescript_index_signature,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
+    parenthesized_type as typescript_parenthesized_type,
     predefined_type as typescript_predefined_type,
     property_signature as typescript_property_signature,
     public_field_definition as typescript_public_field_definition,
@@ -198,6 +201,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "index_signature",
+        },
+        syntax_reader=typescript_index_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "interface_declaration",
         },
         syntax_reader=typescript_interface_declaration.reader,
@@ -239,6 +248,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "pair",
         },
         syntax_reader=javascript_pair.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parenthesized_type",
+        },
+        syntax_reader=typescript_parenthesized_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -356,6 +371,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "type_alias_declaration",
         },
         syntax_reader=typescript_type_alias_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "unary_expression",
+        },
+        syntax_reader=javascript_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
