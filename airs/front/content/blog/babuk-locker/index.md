@@ -59,8 +59,8 @@ includes "SHA256 hashing, ChaCha8 encryption, and Elliptic-curve
 Diffie-Hellman (ECDH) key generation and exchange algorithm."
 [SHA256](https://xorbin.com/tools/sha256-hash-calculator) (SHA: Secure
 Hash Algorithm) is dedicated to generating a 256-bit (32-byte) hash
-value (we already saw what a *hash* is in [my first post on `Fluid
-Attacks'` blog](../pass-cracking/)). ChaCha8, on the other hand, is a
+value (we already saw what a *hash* is in [my first post on
+`Fluid Attacks'` blog](../pass-cracking/)). ChaCha8, on the other hand, is a
 [stream cipher](https://en.wikipedia.org/wiki/Stream_cipher), a better
 variant of [Salsa20](https://en.wikipedia.org/wiki/Salsa20). These
 ciphers —both developed by professor [Daniel J.

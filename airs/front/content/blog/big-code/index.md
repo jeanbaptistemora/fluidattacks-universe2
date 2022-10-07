@@ -237,8 +237,7 @@ but should be sanitized anyway.
 
 <div class="imgblock">
 
-![Asserts
-Dashboard](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/asserts_vtzc8h.webp)
+![Asserts Dashboard](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/asserts_vtzc8h.webp)
 
 </div>
 

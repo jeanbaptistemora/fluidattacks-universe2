@@ -1,6 +1,6 @@
 ---
 slug: close-invisible-doors/
-title: Alert! "Invisible" Doors Opened
+title: Alert! 'Invisible' Doors Opened
 date: 2021-10-28
 subtitle: Focus on what is being more exploited
 category: attacks

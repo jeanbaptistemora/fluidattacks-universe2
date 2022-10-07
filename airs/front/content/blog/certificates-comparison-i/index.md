@@ -199,9 +199,9 @@ Let’s stop here for today. Until now, we have reviewed almost every
 beginner or intermediate certification we have gotten. In the next post,
 we will take a look at the most advanced certifications. Hopefully, we
 will be continuing to accomplish more
-[certificates](../../about-us/certifications/) because we in `Fluid
-Attacks` are committed to constantly improving our [Red
-Team](../../solutions/red-teaming/).
+[certificates](../../about-us/certifications/) because we in `Fluid Attacks`
+are committed to constantly improving
+our [Red Team](../../solutions/red-teaming/).
 
 At `Fluid Attacks`, we are specialized in cybersecurity through
 [Pentesting](../../solutions/penetration-testing/) and [Ethical
