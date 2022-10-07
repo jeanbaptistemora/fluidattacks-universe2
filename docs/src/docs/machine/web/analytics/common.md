@@ -274,9 +274,9 @@ number of days it will take you
 to remediate all the vulnerabilities
 reported to this date.
 
-## Distribution over time
+## Exposure management over time (%)
 
-![Distribution Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
+![Exposure management over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
 
 This section shows the percentage of
 closed, accepted and open vulnerabilities
