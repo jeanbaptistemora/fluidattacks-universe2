@@ -16,8 +16,8 @@ digraph common {
 
   subgraph cluster_aws {
     label="AWS"
-    bgcolor="0.1 0.4 1.0"
-    node[fillcolor="0.1 0.8 1.0"]
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
 
     subgraph cluster_aws_iam {
       label="IAM"
@@ -75,8 +75,8 @@ digraph common {
 
   subgraph cluster_gitlab {
     label="GitLab"
-    bgcolor="0.8 0.4 1.0"
-    node[fillcolor="0.8 0.8 1.0"]
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
 
     subgraph cluster_gitlab_git {
       label="Git"
@@ -106,7 +106,7 @@ digraph common {
   aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_skims[style="invis"]
   aws_iam_access_keys_snowflake_access_key -> aws_kms_keys_prod_sorts[style="invis"]
 
-  edge[color="0.1 0.8 1.0"]
+  edge[color="0.1 1.0 1.0"]
   aws_iam_roles_dev -> aws_kms_keys_dev[]
   aws_iam_roles_prod_airs -> aws_kms_keys_dev[]
   aws_iam_roles_prod_airs -> aws_kms_keys_prod_airs[]
@@ -136,9 +136,9 @@ digraph common {
   aws_iam_roles_prod_sorts -> aws_kms_keys_prod_sorts[]
   aws_iam_users_snowflake_user -> aws_iam_access_keys_snowflake_access_key[]
 
-  edge[color="0.6 0.8 1.0"]
+  edge[color="0.6 1.0 1.0"]
 
-  edge[color="0.8 0.8 1.0"]
+  edge[color="0.8 1.0 1.0"]
   gitlab_git_common_users -> gitlab_git_common_users_terraform[]
 
   node[fillcolor="/x11/lightgray"]

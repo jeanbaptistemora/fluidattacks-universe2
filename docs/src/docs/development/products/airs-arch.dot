@@ -26,8 +26,8 @@ digraph airs {
 
   subgraph cluster_aws {
     label="AWS"
-    bgcolor="0.1 0.4 1.0"
-    node[fillcolor="0.1 0.8 1.0"]
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -48,8 +48,8 @@ digraph airs {
 
   subgraph cluster_cloudflare {
     label="Cloudflare"
-    bgcolor="0.6 0.4 1.0"
-    node[fillcolor="0.6 0.8 1.0"]
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -108,8 +108,8 @@ digraph airs {
 
   subgraph cluster_gitlab {
     label="GitLab"
-    bgcolor="0.8 0.4 1.0"
-    node[fillcolor="0.8 0.8 1.0"]
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
 
     subgraph cluster_gitlab_git {
       label="Git"
@@ -127,7 +127,7 @@ digraph airs {
     }
   }
 
-  edge[color="0.1 0.8 1.0"]
+  edge[color="0.1 1.0 1.0"]
   aws_s3_airs_dev_static -> algolia_airs[]
   aws_s3_airs_dev_static -> cloudinary_media_blog[]
   aws_s3_airs_dev_static -> cloudinary_media_airs[]
@@ -135,7 +135,7 @@ digraph airs {
   aws_s3_airs_prod_static -> cloudinary_media_blog[]
   aws_s3_airs_prod_static -> cloudinary_media_airs[]
 
-  edge[color="0.6 0.8 1.0"]
+  edge[color="0.6 1.0 1.0"]
   cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_airs_headers[]
   cloudflare_zone_fluidattacks_com_dns_cname -> cloudflare_zone_fluidattacks_com_worker_route_prod[]
@@ -145,7 +145,7 @@ digraph airs {
   cloudflare_zone_fluidattacks_com_rules_page -> cloudflare_zone_fluidattacks_com_rules_page_cache[]
   cloudflare_zone_fluidattacks_com_rules_page_web_eph -> cloudflare_zone_fluidattacks_com_rules_page_web_eph_cache[]
 
-  edge[color="0.8 0.8 1.0"]
+  edge[color="0.8 1.0 1.0"]
   gitlab_airs -> aws_s3_airs_dev_static[lhead="cluster_aws_s3_airs_dev"]
   gitlab_airs -> aws_s3_airs_prod_static[lhead="cluster_aws_s3_airs_prod"]
   gitlab_airs -> gitlab_airs_gatsby[]

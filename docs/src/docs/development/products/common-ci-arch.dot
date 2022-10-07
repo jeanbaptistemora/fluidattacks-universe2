@@ -14,8 +14,8 @@ digraph common {
 
   subgraph cluster_aws {
     label="AWS"
-    bgcolor="0.1 0.4 1.0"
-    node[fillcolor="0.1 0.8 1.0"]
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
 
     subgraph cluster_aws_ec2 {
       label="EC2"
@@ -125,15 +125,15 @@ digraph common {
 
   subgraph cluster_cloudflare {
     label="Cloudflare"
-    bgcolor="0.6 0.4 1.0"
-    node[fillcolor="0.6 0.8 1.0"]
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
 
   }
 
   subgraph cluster_gitlab {
     label="GitLab"
-    bgcolor="0.8 0.4 1.0"
-    node[fillcolor="0.8 0.8 1.0"]
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
 
     subgraph cluster_gitlab_git {
       label="Git"
@@ -161,7 +161,7 @@ digraph common {
     }
   }
 
-  edge[color="0.1 0.8 1.0"]
+  edge[color="0.1 1.0 1.0"]
   aws_ec2_common_ci_runner_large -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
   aws_ec2_common_ci_runner_small -> cluster_aws_vpc_fluid_vpc_subnets_ci[]
   aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
@@ -169,9 +169,9 @@ digraph common {
   cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
   cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
 
-  edge[color="0.6 0.8 1.0"]
+  edge[color="0.6 1.0 1.0"]
 
-  edge[color="0.8 0.8 1.0"]
+  edge[color="0.8 1.0 1.0"]
   gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_large[]
   gitlab_ci_cd_runner -> aws_ec2_common_ci_runner_small[]
   gitlab_ci_cd_runner -> cluster_aws_s3_common_ci_cache[]

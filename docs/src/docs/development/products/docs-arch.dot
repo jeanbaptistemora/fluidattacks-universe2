@@ -14,8 +14,8 @@ digraph docs {
 
   subgraph cluster_aws {
     label="AWS"
-    bgcolor="0.1 0.4 1.0"
-    node[fillcolor="0.1 0.8 1.0"]
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
 
     subgraph cluster_aws_s3 {
       label="S3"
@@ -36,8 +36,8 @@ digraph docs {
 
   subgraph cluster_cloudflare {
     label="Cloudflare"
-    bgcolor="0.6 0.4 1.0"
-    node[fillcolor="0.6 0.8 1.0"]
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
 
     subgraph cluster_cloudflare_workers {
       label="Workers"
@@ -96,8 +96,8 @@ digraph docs {
 
   subgraph cluster_gitlab {
     label="GitLab"
-    bgcolor="0.8 0.4 1.0"
-    node[fillcolor="0.8 0.8 1.0"]
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
 
     subgraph cluster_gitlab_git {
       label="Git"
@@ -118,11 +118,11 @@ digraph docs {
   customer[label="End User"]
   fluid_attacks_developer[label="Developer"]
 
-  edge[color="0.1 0.8 1.0"]
+  edge[color="0.1 1.0 1.0"]
   aws_s3_docs_dev_static -> cloudinary_media_docs[]
   aws_s3_docs_prod_static -> cloudinary_media_docs[]
 
-  edge[color="0.6 0.8 1.0"]
+  edge[color="0.6 1.0 1.0"]
   cloudflare_zone_fluidattacks_com_worker_route_dev -> cluster_cloudflare_workers_docs_headers[]
   cloudflare_zone_fluidattacks_com_worker_route_prod -> cluster_cloudflare_workers_docs_headers[]
   cloudflare_zone_fluidattacks_com_dns_cname_doc -> cloudflare_zone_fluidattacks_com_dns_cname_docs[]
@@ -133,7 +133,7 @@ digraph docs {
   cloudflare_zone_fluidattacks_com_rules_page_doc -> cloudflare_zone_fluidattacks_com_rules_page_doc_forward[]
   cloudflare_zone_fluidattacks_com_rules_page_docs -> cloudflare_zone_fluidattacks_com_rules_page_docs_cache[]
 
-  edge[color="0.8 0.8 1.0"]
+  edge[color="0.8 1.0 1.0"]
   gitlab_docs -> aws_s3_docs_dev_static[lhead="cluster_aws_s3_docs_dev"]
   gitlab_docs -> aws_s3_docs_prod_static[lhead="cluster_aws_s3_docs_prod"]
   gitlab_docs -> gitlab_docs_docasaurus[]

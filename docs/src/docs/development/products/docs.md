@@ -59,17 +59,17 @@ or save it to your computer.
 Conventions for Arch:
 
 AWS
-    bgcolor="0.1 0.4 1.0"
-    node[fillcolor="0.1 0.8 1.0"]
-  edge[color="0.1 0.8 1.0"]
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+  edge[color="0.1 1.0 1.0"]
 Cloudflare
-    bgcolor="0.6 0.4 1.0"
-    node[fillcolor="0.6 0.8 1.0"]
-  edge[color="0.6 0.8 1.0"]
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
+  edge[color="0.6 1.0 1.0"]
 GitLab
-    bgcolor="0.8 0.4 1.0"
-    node[fillcolor="0.8 0.8 1.0"]
-  edge[color="0.8 0.8 1.0"]
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+  edge[color="0.8 1.0 1.0"]
 Other:
     bgcolor="/x11/white"
     node[fillcolor="/x11/lightgray"]
