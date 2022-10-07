@@ -5,7 +5,3 @@
 from tap_gitlab import (
     __version__,
 )
-
-
-def test_placeholder() -> None:
-    assert 1
