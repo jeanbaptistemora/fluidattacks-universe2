@@ -7,6 +7,34 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const VULNS_FRAGMENT: DocumentNode = gql`
+  fragment vulnFields on Vulnerability {
+    currentState
+    externalBugTrackingSystem
+    findingId
+    id
+    lastTreatmentDate
+    lastVerificationDate
+    remediated
+    reportDate
+    rootNickname
+    severity
+    specific
+    stream
+    tag
+    treatment
+    treatmentAcceptanceDate
+    treatmentAcceptanceStatus
+    treatmentAssigned
+    treatmentJustification
+    treatmentUser
+    verification
+    vulnerabilityType
+    where
+    zeroRisk
+  }
+`;
+
 const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
   query GetFindingVulnerabilities(
     $after: String
@@ -29,18 +57,13 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
       ) {
         edges {
           node {
-            currentState
+            groupName
             finding {
               id
               severityScore
               title
             }
-            id
-            reportDate
-            specific
-            treatment
-            verification
-            where
+            ...vulnFields
           }
         }
         pageInfo {
@@ -50,6 +73,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
       }
     }
   }
+  ${VULNS_FRAGMENT}
 `;
 
 export { GET_GROUP_VULNERABILITIES };

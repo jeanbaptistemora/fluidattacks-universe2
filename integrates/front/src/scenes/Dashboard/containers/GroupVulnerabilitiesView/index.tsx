@@ -10,24 +10,27 @@ import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
-import type { IGroupVulnerabilities, IVulnerability } from "./types";
+import type { IGroupVulnerabilities } from "./types";
 
+import type { IHistoricTreatment } from "../DescriptionView/types";
 import { formatState } from "../GroupFindingsView/utils";
-import { Table } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { formatTreatment } from "utils/formatHelpers";
 import { useDebouncedCallback } from "utils/hooks";
 
-const tableColumns: ColumnDef<IVulnerability>[] = [
+const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   {
     accessorFn: (row): string => `${row.where} | ${row.specific}`,
     enableColumnFilter: false,
     header: "Vulnerability",
   },
   {
-    accessorFn: (row): string => row.finding.title,
+    accessorFn: (row): string => String(row.finding?.title),
     cell: (cell): JSX.Element => {
-      const link = `vulns/${cell.row.original.finding.id}/description`;
+      const link = `vulns/${String(cell.row.original.finding?.id)}/description`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);
@@ -61,9 +64,9 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
     meta: { filterType: "dateRange" },
   },
   {
-    accessorFn: (row): number => row.finding.severityScore,
+    accessorFn: (row): number => Number(row.finding?.severityScore),
     cell: (cell): JSX.Element => {
-      const link = `vulns/${cell.row.original.finding.id}/severity`;
+      const link = `vulns/${String(cell.row.original.finding?.id)}/severity`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);
@@ -74,7 +77,7 @@ const tableColumns: ColumnDef<IVulnerability>[] = [
   {
     accessorFn: (): string => "View",
     cell: (cell): JSX.Element => {
-      const link = `vulns/${cell.row.original.finding.id}/evidence`;
+      const link = `vulns/${String(cell.row.original.finding?.id)}/evidence`;
       const text = cell.getValue<string>();
 
       return formatLinkHandler(link, text);
@@ -96,9 +99,17 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const vulnerabilities =
     data === undefined
       ? []
-      : data.group.vulnerabilities.edges.map(
-          (edge): IVulnerability => edge.node
-        );
+      : data.group.vulnerabilities.edges
+          .map((edge): IVulnRowAttr => edge.node)
+          .map((vulnerability): IVulnRowAttr => {
+            const lastTreatment: IHistoricTreatment =
+              formatHistoricTreatment(vulnerability);
+
+            return {
+              ...vulnerability,
+              historicTreatment: [lastTreatment],
+            };
+          });
 
   const handleNextPage = useCallback(async (): Promise<void> => {
     const pageInfo =
@@ -117,15 +128,16 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
 
   return (
     <div>
-      <Table
+      <VulnComponent
         columnToggle={true}
         columns={tableColumns}
-        data={vulnerabilities}
-        enableColumnFilters={true}
-        exportCsv={false}
-        id={"tblGroupVulnerabilities"}
+        isEditing={false}
+        isRequestingReattack={false}
+        isVerifyingRequest={false}
         onNextPage={handleNextPage}
         onSearch={handleSearch}
+        refetchData={refetch}
+        vulnerabilities={vulnerabilities}
       />
     </div>
   );
