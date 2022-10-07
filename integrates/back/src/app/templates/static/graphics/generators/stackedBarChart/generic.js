@@ -16,6 +16,10 @@ function getTooltipPercentage(id, index, maxPercentageValues) {
 }
 
 function getTooltipValue(id, index, maxValues) {
+  if (maxValues[id][index] === '') {
+    return '';
+  }
+
   return d3.format(',~d')(maxValues[id][index]);
 }
 

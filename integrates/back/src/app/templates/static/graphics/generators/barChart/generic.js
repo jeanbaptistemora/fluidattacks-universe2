@@ -7,13 +7,17 @@
 
 const defaultPaddingRatio = 0.055;
 
-function getPixels(text) {
+function getPixels(value) {
   const maxPositiveNumber = 10000;
-  const maxNegativeNumber = -100;
-  const moveTextPostive = parseFloat(text) > maxPositiveNumber ? '-60' : '-38';
-  const moveTextNegative = parseFloat(text) < maxNegativeNumber ? '30' : '40';
+  const maxNegativeNumber = -1000;
+  const moveTextPostive = parseFloat(value) > maxPositiveNumber ? '-60' : '-40';
+  const moveTextNegative = parseFloat(value) < maxNegativeNumber ? '65' : '45';
 
-  return parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
+  return parseFloat(value) > 0 ? moveTextPostive : moveTextNegative;
+}
+
+function getExposureColor(d) {
+  return d[0].index === 0 ? '#ac0a17' : '#fda6ab';
 }
 
 function getAxisLabel(dataDocument) {
@@ -45,15 +49,19 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
     return () => getMttrColor(d);
   }
 
+  if (dataDocument.exposureBenchmarkingCvssf) {
+    return () => getExposureColor(d);
+  }
+
   return color;
 }
 
 function formatYTick(value, tick) {
   if (tick && tick.count) {
-    return d3.format(',.1~f')(parseFloat(parseFloat(value).toFixed(1)));
+    return d3.format(',~d')(parseFloat(parseFloat(value).toFixed(1)));
   }
 
-  return value % 1 === 0 ? d3.format(',.1~f')(value) : '';
+  return value % 1 === 0 ? d3.format(',~d')(value) : '';
 }
 
 function formatXTick(index, categories) {
@@ -81,9 +89,9 @@ function formatYTickAdjusted(value) {
 }
 
 // eslint-disable-next-line max-params
-function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns, alwaysVisible) {
+function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns) {
   const minValue = 0.10;
-  if ((Math.abs(datum / maxValueLog) > minValue) || (datum === 0 && alwaysVisible)) {
+  if ((Math.abs(datum / maxValueLog) > minValue)) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
@@ -101,7 +109,7 @@ function formatLogYTick(value) {
   }
   const base = 100.0;
 
-  return d3.format(',.1~f')(parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1)));
+  return d3.format(',~d')(parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1)));
 }
 
 function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
@@ -155,7 +163,7 @@ function render(dataDocument, height, width) {
   if (dataDocument.mttrBenchmarking) {
     dataDocument.data.colors = {
       'Mean time to remediate': (d) => getMttrColor([ d ]),
-      'Exposure': (d) => getMttrColor([ d ]),
+      'Exposure': (d) => getExposureColor([ d ]),
     };
   }
 
@@ -183,7 +191,7 @@ function render(dataDocument, height, width) {
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
-        datum, index, maxValueLogAdjusted, originalValues, columns[0], dataDocument.exposureTrendsByCategories,
+        datum, index, maxValueLogAdjusted, originalValues, columns[0],
       ),
     };
   }
@@ -256,9 +264,10 @@ function load() {
     d3.select(chart.element)
       .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
         const text = d3.select(textList[index]).text();
-        const pixels = getPixels(text);
+        const value = text.replace(',', '');
+        const pixels = getPixels(value);
 
-        if (parseFloat(text) === 0) {
+        if (parseFloat(value) === 0) {
           d3.select(textList[index])
             .style('visibility', 'hidden');
         } else {
