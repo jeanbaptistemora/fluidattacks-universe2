@@ -21,17 +21,17 @@ from typing import (
 
 @SHIELD_BLOCKING
 def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
-    return npm_package_json(content=content, path=path)
+    return npm_package_json(content, path)
 
 
 @SHIELD_BLOCKING
 def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
-    return npm_pkg_lock_json(content=content, path=path)
+    return npm_pkg_lock_json(content, path)
 
 
 @SHIELD_BLOCKING
 def run_npm_yarn_lock_dev(content: str, path: str) -> Vulnerabilities:
-    return npm_yarn_lock_dev(content=content, path=path)
+    return npm_yarn_lock_dev(content, path)
 
 
 @SHIELD_BLOCKING
