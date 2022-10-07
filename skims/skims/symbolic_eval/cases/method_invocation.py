@@ -9,6 +9,9 @@ from model.graph_model import (
     Graph,
     NId,
 )
+from symbolic_eval.context.data_structure import (
+    search_data_element,
+)
 from symbolic_eval.context.method import (
     solve_invocation,
 )
@@ -34,6 +37,7 @@ from symbolic_eval.utils import (
 from typing import (
     cast,
     Dict,
+    Set,
 )
 from utils import (
     graph as g,
@@ -46,8 +50,10 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F338: evaluate_parameter_f338,
 }
 
+ACCESSING_METHODS: Set[str] = set()
 
-def _get_invocation_eval(
+
+def get_invocation_eval(
     graph: Graph, evaluation: Dict[NId, bool], md_id: NId, mi_id: NId
 ) -> Dict[NId, bool]:
     invocation_eval: Dict[NId, bool] = {}
@@ -56,7 +62,7 @@ def _get_invocation_eval(
     pl_id = graph.nodes[md_id].get("parameters_id")
 
     if not al_id:
-        raise BadMethodInvocation(f"No aguments in {mi_id} to use in {md_id}")
+        raise BadMethodInvocation(f"No arguments in {mi_id} to use in {md_id}")
 
     if not pl_id:
         raise BadMethodInvocation(f"No parameters in {md_id} for call {mi_id}")
@@ -66,7 +72,7 @@ def _get_invocation_eval(
 
     if len(p_ids) != len(a_ids):
         raise BadMethodInvocation(
-            f"Can not assign parameters in {pl_id} with arguments in {al_id}"
+            f"Can not assign parameters in {md_id} with arguments in {mi_id}"
         )
 
     for p_id, a_id in zip(p_ids, a_ids):
@@ -75,21 +81,13 @@ def _get_invocation_eval(
     return invocation_eval
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    if al_id := args.graph.nodes[args.n_id].get("arguments_id"):
-        d_arguments = args.generic(args.fork_n_id(al_id)).danger
-    else:
-        d_arguments = False
-
-    if obj_id := args.graph.nodes[args.n_id].get("object_id"):
-        d_object = args.generic(args.fork_n_id(obj_id)).danger
-    else:
-        d_object = False
-
-    expr_id = args.graph.nodes[args.n_id]["expression_id"]
+def evaluate_method_expression(
+    args: SymbolicEvalArgs,
+    expr_id: NId,
+) -> bool:
     if md_id := solve_invocation(args.graph, args.path, expr_id):
         try:
-            invoc_eval = _get_invocation_eval(
+            invoc_eval = get_invocation_eval(
                 args.graph, args.evaluation, md_id, mi_id=args.n_id
             )
         except BadMethodInvocation as error:
@@ -108,7 +106,32 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     else:
         d_expression = args.generic(args.fork_n_id(expr_id)).danger
 
-    args.evaluation[args.n_id] = d_expression or d_arguments or d_object
+    return d_expression
+
+
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    n_attrs = args.graph.nodes[args.n_id]
+
+    if n_attrs.get("expression") in ACCESSING_METHODS and (
+        el_id := search_data_element(args.graph, args.path, args.n_id)
+    ):
+        args.evaluation[args.n_id] = args.generic(args.fork_n_id(el_id)).danger
+    else:
+        if al_id := n_attrs.get("arguments_id"):
+            d_arguments = args.generic(args.fork_n_id(al_id)).danger
+        else:
+            d_arguments = False
+
+        d_expression = evaluate_method_expression(
+            args, n_attrs["expression_id"]
+        )
+
+        if obj_id := n_attrs.get("object_id"):
+            d_object = args.generic(args.fork_n_id(obj_id)).danger
+        else:
+            d_object = False
+
+        args.evaluation[args.n_id] = d_expression or d_arguments or d_object
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
