@@ -37,32 +37,32 @@ and less coupled to our model of business.
 
 ## Our products
 
-- **Airs**: Home page,
+- [Airs](/development/airs): Home page,
   live at [fluidattacks.com](https://fluidattacks.com/).
-- **Docs**: Reference documentation,
+- [Docs](/development/docs): Reference documentation,
   live at [docs.fluidattacks.com](https://docs.fluidattacks.com/).
 
-- **Common**: Owner of critical,
+- [Common](/development/common): Owner of critical,
   or company wide infrastructure and resources,
   and owner of the admin account.
 
-- **Integrates**: The Attack Resistance Management platform:
+- [Integrates](/development/integrates): The Attack Resistance Management platform:
 
   - Web interface: [app.fluidattacks.com](https://app.fluidattacks.com/).
   - API: [app.fluidattacks.com/api](https://app.fluidattacks.com/api).
 
-- **Skims**: Security Vulnerability Scanner.
-- **Forces**: The DevSecOps agent.
-- **Sorts**: Machine Learning assisted tool,
+- [Skims](/development/skims): Security Vulnerability Scanner.
+- [Forces](/development/forces): The DevSecOps agent.
+- [Sorts](/development/sorts): Machine Learning assisted tool,
   that sorts the list of files in a git repository
   by probability of it having vulnerabilities.
 
-- **Melts**: CLI tool that allow Fluid Attack's security analysts
+- [Melts](/development/melts): CLI tool that allow Fluid Attack's security analysts
   to clone customer git repositories
 
-- **Observes**: Company wide data analytics.
+- [Observes](/development/observes): Company wide data analytics.
 
-- **Reviews**: Small tool we use
+- [Reviews](/development/reviews): Small tool we use
   to enforce internal policies at Merge Request time.
 
 ## Our users
