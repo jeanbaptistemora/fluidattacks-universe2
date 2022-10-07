@@ -845,3 +845,18 @@ def get_brother_node(
     ]:
         return filtered_types.pop(0)
     return None
+
+
+def search_pred_until_type(
+    graph: Graph,
+    n_id: NId,
+    targets: Set[str],
+    last_child: Optional[str] = None,
+) -> Tuple[str, Optional[str]]:
+    if not last_child:
+        last_child = n_id
+    if pred_c := pred_ast(graph, n_id):
+        if graph.nodes[pred_c[0]]["label_type"] in targets:
+            return (pred_c[0], last_child)
+        return search_pred_until_type(graph, pred_c[0], targets, pred_c[0])
+    return "", ""

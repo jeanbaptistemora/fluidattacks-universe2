@@ -13,8 +13,9 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    get_brother_node,
+    match_ast,
     match_ast_d,
+    search_pred_until_type,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -22,15 +23,37 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
+
+    body_parents = {
+        "class_body",
+        "extension_body",
+        "lambda_expression",
+        "program",
+    }
+
     name_id = args.ast_graph.nodes[args.n_id]["label_field_name"]
+    function_name = node_to_str(args.ast_graph, name_id)
+
+    class_pred, last_c = search_pred_until_type(
+        args.ast_graph,
+        args.n_id,
+        body_parents,
+    )
+
     if (
-        body_id := get_brother_node(args.ast_graph, args.n_id, "function_body")
-    ) and (
-        parameters_id := match_ast_d(
-            args.ast_graph, args.n_id, "formal_parameter_list"
+        last_c
+        and (
+            class_childs := list(
+                match_ast(args.ast_graph, class_pred).values()
+            )
+        )
+        and (
+            parameters_id := match_ast_d(
+                args.ast_graph, args.n_id, "formal_parameter_list"
+            )
         )
     ):
-        function_name = node_to_str(args.ast_graph, name_id)
+        body_id = class_childs[class_childs.index(last_c) + 1]
         return build_method_declaration_node(
             args, function_name, body_id, {"parameters_id": parameters_id}
         )

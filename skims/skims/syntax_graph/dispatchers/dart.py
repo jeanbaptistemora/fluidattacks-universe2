@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from syntax_graph.syntax_readers.dart import (
+    annotation as dart_annotation,
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
@@ -45,6 +46,12 @@ from syntax_graph.types import (
 )
 
 DART_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "marker_annotation",
+        },
+        syntax_reader=dart_annotation.reader,
+    ),
     Dispatcher(
         applicable_types={
             "argument",
@@ -235,6 +242,7 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "get",
             "inferred_type",
+            "const_builtin",
             "this",
         },
         syntax_reader=dart_reserved_word.reader,
