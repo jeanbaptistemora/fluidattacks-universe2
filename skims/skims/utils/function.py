@@ -84,9 +84,11 @@ def get_bound_arguments(
 
 def get_id(function: Callable[..., Any]) -> str:
     if isinstance(function, functools.partial):
-        function = function.func
+        function_attributes = function.func
+    else:
+        function_attributes = function
 
-    return f"{function.__module__}.{function.__name__}"
+    return f"{function_attributes.__module__}.{function_attributes.__name__}"
 
 
 def get_signature(function: Callable[..., Any]) -> inspect.Signature:
