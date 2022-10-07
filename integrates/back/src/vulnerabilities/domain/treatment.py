@@ -546,7 +546,7 @@ async def update_vulnerabilities_treatment(
             assigned=updated_values["assigned"],
             is_manager=role
             in {"user_manager", "customer_manager", "vulnerability_manager"},
-            user_email=user_email,
+            email=user_email,
             group_name=group_name,
         )
 

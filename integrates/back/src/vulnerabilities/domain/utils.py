@@ -7,6 +7,9 @@ from custom_exceptions import (
     AcceptanceNotRequested,
     InvalidAssigned,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -31,9 +34,6 @@ from newutils import (
     datetime as datetime_utils,
 )
 import re
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 from typing import (
     Any,
     Dict,
@@ -153,24 +153,29 @@ def validate_acceptance(vuln: Vulnerability) -> None:
 
 async def get_valid_assigned(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     assigned: str,
     is_manager: bool,
-    user_email: str,
+    email: str,
     group_name: str,
 ) -> str:
     if not is_manager:
-        assigned = user_email
-    enforcer = await authz.get_group_level_enforcer(loaders, assigned)
-    if await stakeholders_domain.exists(loaders, assigned):
-        stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
-    else:
-        stakeholder = Stakeholder(email=assigned)
+        assigned = email
+    group_enforcer = await authz.get_group_level_enforcer(loaders, assigned)
+    stakeholder: Stakeholder = await loaders.stakeholder_with_fallback.load(
+        assigned
+    )
     if (
-        not enforcer(group_name, "valid_assigned")
+        not group_enforcer(group_name, "valid_assigned")
         or not stakeholder.is_registered
     ):
         raise InvalidAssigned()
+    user_enforcer = await authz.get_user_level_enforcer(loaders, email)
+    if assigned.endswith(authz.FLUID_IDENTIFIER) and not user_enforcer(
+        "can_assign_vulnerabilities_to_fluidattacks_staff"
+    ):
+        raise InvalidAssigned()
+
     return assigned
 
 

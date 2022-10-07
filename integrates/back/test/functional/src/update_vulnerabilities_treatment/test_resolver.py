@@ -81,13 +81,6 @@ from typing import (
             "user@fluidattacks.com",
             "2021-03-31 19:45:11",
         ),
-        (
-            "user@gmail.com",
-            "be09edb7-cd5c-47ed-bee4-97c645acdc11",
-            "ACCEPTED",
-            "user@gmail.com",
-            "2021-03-31 19:45:11",
-        ),
     ),
 )
 @freeze_time("2021-03-31")
@@ -485,7 +478,7 @@ async def test_update_vulnerabilities_treatment_non_confirmed(
             "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "IN_PROGRESS",
-            "xxx@fluidattacks.com",
+            "user@fluidattacks.com",
         ),
     ),
 )
