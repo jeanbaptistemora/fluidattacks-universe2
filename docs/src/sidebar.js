@@ -383,6 +383,7 @@ const Development = [
           'development/products/common/cluster',
           'development/products/common/compute',
           'development/products/common/criteria',
+          'development/products/common/status',
           'development/products/common/users',
         ]
       },

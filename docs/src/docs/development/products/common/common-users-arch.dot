@@ -141,11 +141,11 @@ digraph common {
   edge[color="0.8 1.0 1.0"]
   gitlab_git_common_users -> gitlab_git_common_users_terraform[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   developer[label="Developer"]
   end_user[label="End User"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   developer -> cluster_aws_kms_keys[lhead="cluster_aws_kms_keys"]
   developer -> cluster_aws_iam_roles[lhead="cluster_aws_iam_roles"]
   developer -> gitlab_git_common_users[lhead="cluster_gitlab_git_common"]

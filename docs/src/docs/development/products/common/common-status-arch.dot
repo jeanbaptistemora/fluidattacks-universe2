@@ -1,0 +1,106 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph status {
+  label="Common's /status Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  layout="dot"
+  scale="scalexy"
+  ranksep="2.0"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_criteria {
+          label="/status"
+
+          gitlab_git_common_status[label="Source Code"]
+          gitlab_git_common_status_terraform[label="Terraform"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_checkly {
+    label="Checkly"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    subgraph cluster_checkly_groups {
+      label="Groups"
+
+      subgraph cluster_checkly_groups_fluidattacks {
+        label="fluidattacks"
+
+        subgraph cluster_checkly_groups_fluidattacks_alert_channels {
+          label="Alert Channels"
+
+          checkly_groups_fluidattacks_alert_channels_email[label="Email" peripheries="2"]
+          checkly_groups_fluidattacks_alert_channels_sms[label="SMS"]
+        }
+
+        subgraph cluster_checkly_groups_fluidattacks_check_groups {
+          label="Check Groups"
+
+          subgraph cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks {
+            label="Fluid Attacks"
+
+            cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks[label="" style="invis"]
+
+            subgraph cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks_checks {
+              label="Checks"
+
+              checkly_groups_fluidattacks_checks_airs[label="Airs"]
+              checkly_groups_fluidattacks_checks_docs[label="Docs"]
+              checkly_groups_fluidattacks_checks_arm[label="ARM"]
+              checkly_groups_fluidattacks_checks_api[label="API"]
+            }
+          }
+        }
+
+
+        subgraph cluster_checkly_groups_fluidattacks_dashboards {
+          label="Dashboards"
+
+          checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com[label="fluidattacks.checklyhq.com"]
+          checkly_groups_fluidattacks_dashboards_status_fluidattacks_com[label="status.fluidattacks.com"]
+
+        }
+      }
+    }
+  }
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_git_common_status -> gitlab_git_common_status_terraform[]
+
+  node[fillcolor="0.0 0.0 0.8"]
+  developer[label="Developer"]
+  end_user[label="End User"]
+
+  edge[color="0.0 0.0 0.0"]
+  checkly_groups_fluidattacks_dashboards_status_fluidattacks_com -> checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com[]
+  checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com -> checkly_groups_fluidattacks_checks_airs[]
+  checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com -> checkly_groups_fluidattacks_checks_docs[]
+  checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com -> checkly_groups_fluidattacks_checks_arm[]
+  checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com -> checkly_groups_fluidattacks_checks_api[]
+  checkly_groups_fluidattacks_alert_channels_email -> cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks[lhead="cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks"]
+  checkly_groups_fluidattacks_alert_channels_sms -> cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks[lhead="cluster_checkly_groups_fluidattacks_checks_groups_fluidattacks"]
+  developer -> gitlab_git_common_status[]
+  developer -> checkly_groups_fluidattacks_alert_channels_email[]
+  developer -> checkly_groups_fluidattacks_alert_channels_sms[]
+  end_user -> checkly_groups_fluidattacks_dashboards_status_fluidattacks_com[]
+}

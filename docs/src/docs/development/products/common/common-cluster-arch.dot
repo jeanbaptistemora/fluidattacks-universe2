@@ -121,6 +121,8 @@ digraph common {
 
   subgraph cluster_helm {
     label="Helm Charts"
+    bgcolor="0.7 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
 
     cluster_helm[label="" style="invis"]
     helm_aws_load_balancer_controller[label="github.com/aws/eks-charts//aws-load-balancer-controller"]
@@ -150,11 +152,11 @@ digraph common {
   gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform[]
   gitlab_git_common_cluster -> gitlab_git_common_cluster_terraform_terraform_aws_modules_eks_aws[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   customer[label="End User"]
   developer[label="Developer"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   developer -> cluster_aws_eks_common_namespaces_dev[lhead="cluster_aws_eks_common_namespaces_dev"]
   developer -> cluster_aws_eks_common_namespaces_prod_integrates[lhead="cluster_aws_eks_common_namespaces_prod_integrates"]
   developer -> cluster_gitlab_git_common_cluster[lhead="cluster_gitlab_git_common_cluster"]

@@ -26,7 +26,7 @@ digraph common {
         label="/common"
 
         subgraph cluster_gitlab_git_common_criteria {
-          label="/crteria"
+          label="/criteria"
 
           gitlab_git_common_criteria[label="Source Code"]
           gitlab_git_common_criteria_ajv[label="Ajv"]
@@ -48,11 +48,11 @@ digraph common {
   gitlab_git_common_criteria -> gitlab_git_common_criteria_json_schema[]
   gitlab_git_common_criteria -> gitlab_git_common_criteria_yaml[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   developer[label="Developer"]
   end_user[label="End User"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   developer -> gitlab_git_common_criteria_compliance[]
   developer -> gitlab_git_common_criteria_requirements[]
   developer -> gitlab_git_common_criteria_vulnerabilities[]

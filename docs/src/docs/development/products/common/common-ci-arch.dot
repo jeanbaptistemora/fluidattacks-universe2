@@ -102,11 +102,11 @@ digraph common {
   gitlab_git_common_ci -> gitlab_git_common_ci_terraform[]
   gitlab_git_common_ci -> gitlab_git_common_ci_terraform_npalm_gitlab_runner[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   customer[label="End User"]
   developer[label="Developer"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   developer -> aws_dynamodb_terraform_state_lock[]
   developer -> gitlab_ci_cd_runner[lhead="cluster_gitlab_ci_cd"]
   developer -> gitlab_git_common_ci[]

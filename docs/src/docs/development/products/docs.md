@@ -71,7 +71,7 @@ GitLab
     node[fillcolor="0.8 0.5 1.0"]
   edge[color="0.8 1.0 1.0"]
 Other:
-    bgcolor="/x11/white"
-    node[fillcolor="/x11/lightgray"]
-  edge[color="/x11/black"]
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+  edge[color="0.0 0.0 0.0"]
 -->

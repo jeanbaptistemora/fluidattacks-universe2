@@ -14,8 +14,8 @@ digraph airs {
 
   subgraph cluster_algolia {
     label="Algolia"
-    bgcolor="/x11/white"
-    node[fillcolor="/x11/lightgray"]
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
 
     subgraph cluster_algolia_index {
       label="Indexes"
@@ -95,8 +95,8 @@ digraph airs {
 
   subgraph cluster_cloudinary {
     label="Cloudinary"
-    bgcolor="/x11/white"
-    node[fillcolor="/x11/lightgray"]
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
 
     subgraph cluster_cloudinary_media {
       label="Media"
@@ -154,11 +154,11 @@ digraph airs {
   gitlab_airs -> gitlab_airs_tachyons[]
   gitlab_airs -> gitlab_airs_react[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   customer[label="End User"]
   fluid_attacks_developer[label="Developer"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   customer -> cloudflare_zone_fluidattacks_com_dns_cname[]
   fluid_attacks_developer -> cloudflare_zone_fluidattacks_com_dns_cname_web_eph[]
 }

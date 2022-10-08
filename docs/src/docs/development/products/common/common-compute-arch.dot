@@ -185,11 +185,11 @@ digraph common {
   edge[color="0.8 1.0 1.0"]
   gitlab_git_common_compute -> gitlab_git_common_compute_terraform[]
 
-  node[fillcolor="/x11/lightgray"]
+  node[fillcolor="0.0 0.0 0.8"]
   customer[label="End User"]
   developer[label="Developer"]
 
-  edge[color="/x11/black"]
+  edge[color="0.0 0.0 0.0"]
   developer -> aws_batch_job_definition_dev[]
   developer -> aws_batch_job_definition_prod[]
   developer -> aws_sns_topic_subscription_compute_alert[]
