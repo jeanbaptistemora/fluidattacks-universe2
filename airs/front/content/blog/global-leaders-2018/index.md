@@ -43,8 +43,7 @@ the top ten companies in their field.
 
 <div class="imgblock">
 
-![Clutc Leaders
-matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330884/blog/global-leaders-2018/clutch-leaders-matrix_x2oi4a.webp)
+![Clutc Leaders matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330884/blog/global-leaders-2018/clutch-leaders-matrix_x2oi4a.webp)
 
 </div>
 

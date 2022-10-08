@@ -100,8 +100,7 @@ that offset. We can use `mona` to do that:
 
 <div class="imgblock">
 
-![Mona Cyclic
-Pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330915/blog/hevd-smep-bypass/mona1_bhfpei.gif)
+![Mona Cyclic Pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330915/blog/hevd-smep-bypass/mona1_bhfpei.gif)
 
 </div>
 
@@ -139,8 +138,7 @@ And check it:
 
 <div class="imgblock">
 
-![Mona Cyclic
-Pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/mona2_nljhdo.gif)
+![Mona Cyclic Pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/mona2_nljhdo.gif)
 
 </div>
 
@@ -210,8 +208,7 @@ it:
 
 <div class="imgblock">
 
-![SMEP in
-action](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/smep1_zdy5uw.gif)
+![SMEP in action](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/smep1_zdy5uw.gif)
 
 </div>
 
@@ -245,8 +242,7 @@ specifically the 20th bit of the `CR4` control register:
 
 <div class="imgblock">
 
-![CR4
-register](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/cr4_wzdcnp.webp)
+![CR4 register](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/cr4_wzdcnp.webp)
 
 </div>
 
@@ -256,8 +252,7 @@ check what would be the value after flipping the 20th bit:
 
 <div class="imgblock">
 
-![CR4
-register](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/cr42_abunfu.webp)
+![CR4 register](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/cr42_abunfu.webp)
 
 </div>
 
@@ -276,8 +271,7 @@ value `EAX` may have: `mov cr4, eax # ret`
 
 <div class="imgblock">
 
-![CR4
-ROP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330913/blog/hevd-smep-bypass/cr4-rop_qsyqgw.webp)
+![CR4 ROP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330913/blog/hevd-smep-bypass/cr4-rop_qsyqgw.webp)
 
 </div>
 
@@ -286,8 +280,7 @@ of the `nt` module:
 
 <div class="imgblock">
 
-![CR4 ROP
-Offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/offset1_ztkull.webp)
+![CR4 ROP Offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/offset1_ztkull.webp)
 
 </div>
 
@@ -298,8 +291,7 @@ Now we need to find a `pop eax # ret` gadget. We can find one at
 
 <div class="imgblock">
 
-![POP EAX
-ROP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/popeax-rop_fuafnn.webp)
+![POP EAX ROP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/popeax-rop_fuafnn.webp)
 
 </div>
 
@@ -307,8 +299,7 @@ And the offset from the start of the `nt` module is `0002bbef`:
 
 <div class="imgblock">
 
-![POP EAX
-Offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/offset2_tzgwnp.webp)
+![POP EAX Offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/offset2_tzgwnp.webp)
 
 </div>
 
@@ -318,8 +309,7 @@ pointed by `ESP` and then will pop 8 bytes from the stack:
 
 <div class="imgblock">
 
-![ROP
-Padding](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/rop-padding_b9rtmd.webp)
+![ROP Padding](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/rop-padding_b9rtmd.webp)
 
 </div>
 
@@ -360,8 +350,7 @@ And check it:
 
 <div class="imgblock">
 
-![Kernel Base
-Address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/leak1_jtbpi1.webp)
+![Kernel Base Address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/leak1_jtbpi1.webp)
 
 </div>
 
@@ -370,8 +359,7 @@ As you can see, it matches perfectly to the address reported by
 
 <div class="imgblock">
 
-![Kernel Base
-Address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/leak2_iwvv7t.webp)
+![Kernel Base Address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/leak2_iwvv7t.webp)
 
 </div>
 

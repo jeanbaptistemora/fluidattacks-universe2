@@ -118,10 +118,12 @@ Figure 3. Volkswagen advertising.
 
 ## Epic failures and honesty
 
-Have you ever had an epic cybersecurity failure? I bet you have. `Fluid
-Attacks` has also been there (I know because I was responsible for one).
-The "FCK" story and, more broadly, the pratfall effect tells us
-something valuable about handling incidents and signaling who we are.
+Have you ever had an epic cybersecurity failure? I bet you have.
+`Fluid Attacks` has also been there
+(I know because I was responsible for one).
+The "FCK" story and, more broadly,
+the pratfall effect tells us something valuable about handling incidents
+and signaling who we are.
 
 Back in 2014,
 one of our customers angrily called us

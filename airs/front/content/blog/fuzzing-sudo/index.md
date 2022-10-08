@@ -217,8 +217,7 @@ It looked like this:
 
 <div class="imgblock">
 
-![Parallel
-Fuzzing](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/parallel1_dz7xvm.webp)
+![Parallel Fuzzing](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/parallel1_dz7xvm.webp)
 
 </div>
 
@@ -227,8 +226,7 @@ crashes\!
 
 <div class="imgblock">
 
-![Parallel
-Fuzzing](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/crash1_ylqtwu.webp)
+![Parallel Fuzzing](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/crash1_ylqtwu.webp)
 
 </div>
 
@@ -248,8 +246,7 @@ Qualys.
 
 <div class="imgblock">
 
-![Crash
-payloads](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/fuzzing-sudo/vuln1_vdlsma.webp)
+![Crash payloads](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/fuzzing-sudo/vuln1_vdlsma.webp)
 
 </div>
 

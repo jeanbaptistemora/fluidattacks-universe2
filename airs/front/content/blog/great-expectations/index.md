@@ -141,8 +141,7 @@ value with that count?
 
 <div class="imgblock">
 
-![Average
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/average2_cr8mmn.webp)
+![Average 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/average2_cr8mmn.webp)
 
 <div class="title">
 
@@ -157,8 +156,7 @@ fraction, we can rewrite that sum as
 
 <div class="imgblock">
 
-![Average
-3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/average3_ioogtz.webp)
+![Average 3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/average3_ioogtz.webp)
 
 <div class="title">
 

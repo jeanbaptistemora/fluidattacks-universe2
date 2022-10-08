@@ -52,8 +52,7 @@ user, we will use this as the target process to steal the ticket from.
 
 <div class="imgblock">
 
-![SYSTEM
-processes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/sysprocess2_fprfev.webp)
+![SYSTEM processes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/sysprocess2_fprfev.webp)
 
 </div>
 
@@ -61,8 +60,7 @@ Each process has a `EPROCESS` structure.
 
 <div class="imgblock">
 
-![EPROCESS
-structure](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/eprocess1_mmonli.webp)
+![EPROCESS structure](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/eprocess1_mmonli.webp)
 
 </div>
 
@@ -71,8 +69,7 @@ granted by the `LSASS` process.
 
 <div class="imgblock">
 
-![Security
-Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token1_vggzjy.webp)
+![Security Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token1_vggzjy.webp)
 
 </div>
 
@@ -92,8 +89,7 @@ To do that, we first need to get the offset of the `Token` field in the
 
 <div class="imgblock">
 
-![Security
-Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token2_yrbmfg.webp)
+![Security Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token2_yrbmfg.webp)
 
 </div>
 
@@ -102,8 +98,7 @@ As you see, it is at `_EPROCESS+0x0fc`. With that, we need to get the
 
 <div class="imgblock">
 
-![SYSTEM
-process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/sysprocess1_tpnrcu.webp)
+![SYSTEM process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/sysprocess1_tpnrcu.webp)
 
 </div>
 
@@ -111,8 +106,7 @@ Then, we need to get the value of the token for the `SYSTEM` process:
 
 <div class="imgblock">
 
-![SYSTEM token
-value](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-privilege-escalation/tokenvalue1_kvahmc.webp)
+![SYSTEM token value](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-privilege-escalation/tokenvalue1_kvahmc.webp)
 
 </div>
 
@@ -121,8 +115,7 @@ privileges:
 
 <div class="imgblock">
 
-![Before Privilege
-Escalation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/before1_pxrxmn.webp)
+![Before Privilege Escalation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/before1_pxrxmn.webp)
 
 </div>
 
@@ -130,8 +123,7 @@ We must get the `cmd.exe` process descriptor:
 
 <div class="imgblock">
 
-![CMD
-process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/cmdprocess1_xtjbqg.webp)
+![CMD process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/cmdprocess1_xtjbqg.webp)
 
 </div>
 
@@ -140,8 +132,7 @@ the `cmd.exe` process. Let’s see it in action:
 
 <div class="imgblock">
 
-![Local Privilege
-Escalation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/lpe1_hb1a8f.gif)
+![Local Privilege Escalation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/lpe1_hb1a8f.gif)
 
 </div>
 
@@ -190,8 +181,7 @@ In the `_KTHREAD` structure we can find an offset to the `_KPROCESS`.
 
 <div class="imgblock">
 
-![KTHREAD
-KPROCESS](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/kthread1_ghbqtt.webp)
+![KTHREAD KPROCESS](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/kthread1_ghbqtt.webp)
 
 </div>
 
@@ -213,8 +203,7 @@ information:
 
 <div class="imgblock">
 
-![Active Process
-Links](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/activeprocess1_krqcw8.webp)
+![Active Process Links](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/activeprocess1_krqcw8.webp)
 
 </div>
 
@@ -224,8 +213,7 @@ Links](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/he
 
 <div class="imgblock">
 
-![Parent
-Pid](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/parentpid1_msemxx.webp)
+![Parent Pid](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/parentpid1_msemxx.webp)
 
 </div>
 
@@ -313,8 +301,7 @@ stack frame at which we can return to, located at `esp+0x10`:
 
 <div class="imgblock">
 
-![Previous unmangled stack
-frame](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/prev-ebp1_vmscb7.webp)
+![Previous unmangled stack frame](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/prev-ebp1_vmscb7.webp)
 
 </div>
 

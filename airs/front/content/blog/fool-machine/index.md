@@ -57,8 +57,7 @@ The applications are potentially endless. You could:
 
 <div class="imgblock">
 
-![Stealth
-T-shirt](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fool-machine/stealth-shirt_dtkee4.gif)
+![Stealth T-shirt](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fool-machine/stealth-shirt_dtkee4.gif)
 
 </div>
 
@@ -66,8 +65,7 @@ T-shirt](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/
 
 <div class="imgblock">
 
-![Manipulated stop
-signs](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fool-machine/stop-signs_s8au8t.webp)
+![Manipulated stop signs](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fool-machine/stop-signs_s8au8t.webp)
 
 </div>
 
@@ -75,8 +73,7 @@ signs](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fo
 
 <div class="imgblock">
 
-![Trick speech
-recognition](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330874/blog/fool-machine/speech-recogn_w5ytaw.webp)
+![Trick speech recognition](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330874/blog/fool-machine/speech-recogn_w5ytaw.webp)
 
 </div>
 

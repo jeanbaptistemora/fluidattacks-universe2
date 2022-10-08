@@ -82,7 +82,7 @@ states and its mutations. For example:
 
 **Cilinder class example.**
 
-``` javascript
+``` JavaScript
 class cilinder {
   constructor(radius, height) {
     this.radius = radius;
@@ -97,7 +97,7 @@ functional way.
 
 **Cilinder class in a functional approach.**
 
-``` javascript
+``` JavaScript
 function cilinder(radius, height) {
   return {
     "radius": radius,
@@ -116,7 +116,7 @@ functional are the iterative cycles. Let’s look at the following code:
 
 **Increment in list example.**
 
-``` javascript
+``` JavaScript
 const result = [];
 const integers = [1, 2, 3];
 
@@ -130,7 +130,7 @@ cycle in a functional way:
 
 **Increment in list example, functional approach.**
 
-``` javascript
+``` JavaScript
 const result = [];
 const integers = [1, 2, 3];
 const result = elements.map(element => element + 1);
@@ -154,7 +154,7 @@ understand the first time but I’ll explain it with an example.
 
 **Multiply function is JavaScript.**
 
-``` javascript
+``` JavaScript
 var multiply = function(a, b) {
   return a * b;
 };
@@ -167,7 +167,7 @@ express this in a high-order function.
 
 **Multiplication in high-order function.**
 
-``` javascript
+``` JavaScript
 function multiplyByInteger(a) {
   return function(b) {
     a * b

@@ -45,8 +45,7 @@ for myself but kindly shared with you.
 
 <div class="imgblock">
 
-![g
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/g1_tz1tgb.webp)
+![g command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/g1_tz1tgb.webp)
 
 </div>
 
@@ -63,8 +62,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/
 
 <div class="imgblock">
 
-![execution flow
-commands](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/deb1_nho4cy.webp)
+![execution flow commands](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/deb1_nho4cy.webp)
 
 </div>
 
@@ -74,8 +72,7 @@ commands](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog
 
 <div class="imgblock">
 
-![dt
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/dc1_jash41.webp)
+![dt command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/dc1_jash41.webp)
 
 </div>
 
@@ -84,15 +81,13 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/
 
 <div class="imgblock">
 
-![lm
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/lm1_enljxt.webp)
+![lm command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/lm1_enljxt.webp)
 
 </div>
 
 <div class="imgblock">
 
-![lm m \<module\>
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/lm2_eouttf.webp)
+![lm m \<module\> command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/lm2_eouttf.webp)
 
 </div>
 
@@ -100,8 +95,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/
 
 <div class="imgblock">
 
-![dt
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/dt1_vbu2ot.webp)
+![dt command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/dt1_vbu2ot.webp)
 
 </div>
 
@@ -111,8 +105,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/
 
 <div class="imgblock">
 
-![r
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/r1_s2jzj9.webp)
+![r command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/r1_s2jzj9.webp)
 
 </div>
 
@@ -121,8 +114,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/
 
 <div class="imgblock">
 
-![u
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/u1_fp4xip.webp)
+![u command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/u1_fp4xip.webp)
 
 </div>
 
@@ -131,8 +123,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/
 
 <div class="imgblock">
 
-![x
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/x1_f0wxnj.webp)
+![x command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/x1_f0wxnj.webp)
 
 </div>
 
@@ -142,8 +133,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/
 
 <div class="imgblock">
 
-![ed
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/ed1_fd7mct.webp)
+![ed command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/ed1_fd7mct.webp)
 
 </div>
 
@@ -151,8 +141,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/
 
 <div class="imgblock">
 
-![?
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/quest1_wtsnn3.webp)
+![? command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/quest1_wtsnn3.webp)
 
 </div>
 
@@ -166,8 +155,7 @@ command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/
 
 <div class="imgblock">
 
-![?
-command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/bp1_kh0l6w.webp)
+![? command](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/bp1_kh0l6w.webp)
 
 </div>
 
@@ -219,8 +207,7 @@ The `IrpDeviceIoCtlHandler` function in `HEVD` creates a jump table
 
 <div class="imgblock">
 
-![JMP
-table](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/jmptable1_zih7lj.webp)
+![JMP table](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/jmptable1_zih7lj.webp)
 
 </div>
 
@@ -229,8 +216,7 @@ function that will trigger a specific vulnerable function:
 
 <div class="imgblock">
 
-![JMP
-table](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/jmptable2_pe1rxr.webp)
+![JMP table](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/jmptable2_pe1rxr.webp)
 
 </div>
 
@@ -261,8 +247,7 @@ function, the first case is this:
 
 <div class="imgblock">
 
-![Case
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/case1_dmru9e.webp)
+![Case 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/case1_dmru9e.webp)
 
 </div>
 

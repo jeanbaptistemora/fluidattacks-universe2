@@ -132,7 +132,7 @@ the file `Input.java`, such as:
 
 **`Input.java`.**
 
-``` java
+``` Java
 int f(Object target) {
   int i = 0;
   for (Object elem: this.elements) {
