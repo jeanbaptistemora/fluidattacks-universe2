@@ -17,7 +17,7 @@ and build system libraries.
 End Users normally interact with Common through:
 
 - [Criteria](/development/common/criteria): Live at [Criteria](/criteria).
-- Status: Live at [status.fluidattacks.com](https://status.fluidattacks.com/).
+- [Status](/development/common/status): Live at [status.fluidattacks.com](https://status.fluidattacks.com/).
 - VPN (Virtual Private Network):
   [VPN by Amazon Web Services](/development/stack/aws/vpn)
   and [Ubiquiti](/development/stack/ubiquiti).
