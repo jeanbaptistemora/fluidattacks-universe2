@@ -92,7 +92,7 @@ personal/company information here or leave it blank:
 **Generating the certificate.**
 
 ``` bash
-openssl req -x509 -days 3650 -nodes -newkey rsa:2048 -outform der -keyout fluidattacks.key -out fluidattacks.der -extensions v3_ca
+OpenSSL req -x509 -days 3650 -nodes -newkey rsa:2048 -outform der -keyout fluidattacks.key -out fluidattacks.der -extensions v3_ca
 Generating a RSA private key
 
 writing new private key to 'fluidattacks.key'
@@ -119,8 +119,8 @@ order to import it into the phone, and `DER` to import it into `burp`:
 **Converting the cert.**
 
 ``` bash
-openssl x509 -inform DER -outform PEM -text -in fluidattacks.der -out fluidattacks.pem
-openssl rsa -in fluidattacks.key -inform pem -out fluidattacks.key.der -outform der
+OpenSSL x509 -inform DER -outform PEM -text -in fluidattacks.der -out fluidattacks.pem
+OpenSSL rsa -in fluidattacks.key -inform pem -out fluidattacks.key.der -outform der
 ```
 
 Finally, we export our key into a `PKCS8` file in order to import it to
@@ -129,7 +129,7 @@ Finally, we export our key into a `PKCS8` file in order to import it to
 **Modifying for burp.**
 
 ``` bash
-openssl pkcs8 -topk8 -in fluidattacks.key.der -inform der -out fluidattacks.key.pkcs8.der -outform der -nocrypt
+OpenSSL pkcs8 -topk8 -in fluidattacks.key.der -inform der -out fluidattacks.key.pkcs8.der -outform der -nocrypt
 ```
 
 Once we have all the files, we need to start configuring our phones.
@@ -142,7 +142,7 @@ need the hash of the certificate:
 **Getting the hash.**
 
 ``` bash
-openssl x509 -inform PEM -subject_hash -in fluidattacks.pem | head -1
+OpenSSL x509 -inform PEM -subject_hash -in fluidattacks.pem | head -1
 ```
 
 After getting the hash, we create a copy of the certificate with that
@@ -213,8 +213,7 @@ open the `Options` tab.
 
 <div class="imgblock">
 
-![Burp
-options](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/burp-options_iwk6fc.webp)
+![Burp options](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/burp-options_iwk6fc.webp)
 
 <div class="title">
 
@@ -231,8 +230,7 @@ export CA certificate`, then selecting `Certificate` and private key in
 
 <div class="imgblock">
 
-![Import
-DER](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/import-der_uo3ssz.webp)
+![Import DER](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/import-der_uo3ssz.webp)
 
 <div class="title">
 
@@ -244,8 +242,7 @@ Figure 3. Import DER
 
 <div class="imgblock">
 
-![Choose
-file](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330922/blog/intercepting-android/cert-file_l1dmwv.webp)
+![Choose file](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330922/blog/intercepting-android/cert-file_l1dmwv.webp)
 
 <div class="title">
 
@@ -264,8 +261,7 @@ address and proxy’s port.
 
 <div class="imgblock">
 
-![Android
-Proxy](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/android-proxy_horg4w.webp)
+![Android Proxy](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/android-proxy_horg4w.webp)
 
 <div class="title">
 

@@ -125,7 +125,7 @@ elements in the document. We focus on this method because it is the most
 popular amongst developers, probably because of its simplicity.
 .SamlConfig.Java
 
-``` java
+``` Java
 NodeList nodes = document.getElementsByTagName("saml:Assertion");
 element = (Element) nodes.item(0);
 ```

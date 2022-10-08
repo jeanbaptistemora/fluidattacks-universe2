@@ -148,14 +148,14 @@ A developer could make a validation like this regex
 
 **validation.js.**
 
-``` javascript
+``` JavaScript
 var regexp = new RegExp(/([=,-,+,@])/g);
 ```
 
 And blocking this types of input, also, can put a space between the
 dangerous character like ' =' to mitigate this vulnerability
 
-``` javascript
+``` JavaScript
 if(regexp.test(formData.sdata1)){
   formData.sdata1 = " "+formData.sdata1
 }

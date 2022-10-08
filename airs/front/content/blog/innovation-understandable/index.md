@@ -75,8 +75,8 @@ just a hype?**
     serve. Investing in the latest solutions is expensive. I see other
     fronts where smaller investments have a greater impact on what I do
     with my team. We seek for small, incremental innovations. Second, we
-    are not focused on forefront topics, like, for example, those Fluid
-    Attacks is concentrated on. Our cybersecurity operations reach a
+    are not focused on forefront topics, like, for example, those Fluid Attacks
+    is concentrated on. Our cybersecurity operations reach a
     variety of technologies. Some are legacy —for example, our core,
     production plants. Others, cutting-edge tech. In this heterogeneous
     environment, it is essential to have a strategy and a vision
@@ -91,8 +91,8 @@ just a hype?**
     work at industry-level. **Fluid Attacks** invests resources in
     exploring and testing with stuff others don’t. Fluid Attacks’
     [Hacking](../../services/continuous-hacking/) services are proof of
-    that. A couple of times, I’ve read on the news stuff **Fluid
-    Attacks** began to prototype and test months before."
+    that. A couple of times, I’ve read on the news stuff **Fluid Attacks**
+    began to prototype and test months before."
 
 ## Innovation in cybersecurity
 

@@ -138,8 +138,7 @@ A CISO told us something very similar. Want to read about it? Click
 
 <div class="imgblock">
 
-![Computer and
-Lock](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/pc-lock_qtjvi0.webp)
+![Computer and Lock](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/pc-lock_qtjvi0.webp)
 
 </div>
 

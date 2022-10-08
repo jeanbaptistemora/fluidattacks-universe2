@@ -175,8 +175,7 @@ results:
 
 <div class="imgblock">
 
-![Updated
-LEC](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hit-miss/lec-comparison_xufbvt.webp)
+![Updated LEC](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hit-miss/lec-comparison_xufbvt.webp)
 
 <div class="title">
 

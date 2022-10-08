@@ -189,7 +189,7 @@ Looking at the documentation of
 
 <div class="imgblock">
 
-!["memcpy linux man page"](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/memcpy_h7niiu.webp)
+!["memcpy Linux man page"](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/memcpy_h7niiu.webp)
 
 <div class="title">
 

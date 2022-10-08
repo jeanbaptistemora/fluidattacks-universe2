@@ -207,8 +207,7 @@ state. If it is not one of the valid states, it denies the packet.
 
 <div class="imgblock">
 
-![Code on
-src/packet.c](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330934/blog/libssh-bypass-cve/solution_uaqs60.webp)
+![Code on src/packet.c](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330934/blog/libssh-bypass-cve/solution_uaqs60.webp)
 
 <div class="title">
 

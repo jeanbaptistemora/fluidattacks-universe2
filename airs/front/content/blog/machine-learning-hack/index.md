@@ -260,8 +260,7 @@ and causes":
 
 <div class="imgblock">
 
-![Correlation vs causation. Via
-.](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/machine-learning-hack/correlation_bethz4.webp)
+![Correlation vs causation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/machine-learning-hack/correlation_bethz4.webp)
 
 <div class="title">
 
