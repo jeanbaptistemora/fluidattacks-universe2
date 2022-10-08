@@ -374,7 +374,18 @@ const Development = [
     label: 'Products',
     items: [
       'development/products/airs',
-      'development/products/common',
+      {
+        type: 'category',
+        label: 'Common',
+        items: [
+          'development/products/common/intro',
+          'development/products/common/ci',
+          'development/products/common/cluster',
+          'development/products/common/compute',
+          'development/products/common/criteria',
+          'development/products/common/users',
+        ]
+      },
       'development/products/docs',
       'development/products/forces',
       'development/products/integrates',
