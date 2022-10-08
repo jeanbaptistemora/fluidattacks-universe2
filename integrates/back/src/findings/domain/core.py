@@ -730,14 +730,13 @@ async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals
         nickname = (
             root.state.nickname
             if isinstance(root.state.nickname, str)
-            else "repo"
+            else "Vulnerabilities"
         )
-        branch = (
-            root.state.branch
+        repo = (
+            f"{nickname}/{root.state.branch}"
             if isinstance(root.state, (GitRootState, str))
-            else "branch"
+            else nickname
         )
-        repo = f"{nickname}/{branch}"
         vuln_dict = vulns_closed_props.get(repo, {})
         vuln_dict.update(
             {
