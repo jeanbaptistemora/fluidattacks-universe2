@@ -1,8 +1,8 @@
 ---
-id: licencing-and-copyright
-title: Licencing and Copyright
-sidebar_label: Licencing and Copyright
-slug: /development/licencing-and-copyright
+id: licensing-and-copyright
+title: Licensing and Copyright
+sidebar_label: Licensing and Copyright
+slug: /development/licensing-and-copyright
 ---
 
 We as a company, following the

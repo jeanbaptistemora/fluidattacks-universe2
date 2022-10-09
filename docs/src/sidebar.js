@@ -431,7 +431,7 @@ const Development = [
     label: 'Guidelines',
     items: [
       'development/guidelines/intro',
-      'development/guidelines/licencing-and-copyright',
+      'development/guidelines/licensing-and-copyright',
       {
         type: 'category',
         label: 'Writing',
