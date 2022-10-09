@@ -11,6 +11,7 @@ from forces.model import (
     ForcesConfig,
     ForcesReport,
     KindEnum,
+    Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
 )
@@ -20,6 +21,10 @@ from forces.report.filters import (
 )
 from forces.report.formatters import (
     create_findings_dict,
+    get_exploitability_measure,
+)
+from operator import (
+    attrgetter,
 )
 from rich.box import (
     MINIMAL,
@@ -133,7 +138,7 @@ def format_summary_report(
     return summary_table
 
 
-def format_vuln_table(vulns: list[dict[str, str]]) -> Table:
+def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
     """
     Helper method to create the nested vulns table\n
     @param `vulns`: A list of dicts with each vuln's data
@@ -149,12 +154,10 @@ def format_vuln_table(vulns: list[dict[str, str]]) -> Table:
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
-        # Same value as the finding's exploitability
-        vuln.pop("exploitability")
-        for key, value in vuln.items():
+        for key in ("type", "where", "specific", "URL", "state"):
             vuln_table.add_row(
                 key,
-                style_report(key, value),
+                style_report(key, attrgetter(key.lower())(vuln)),
                 end_section=key == "state",
             )
     return vuln_table
@@ -190,9 +193,9 @@ def format_rich_report(
     for find in findings:
         for key, value in find.items():
             # Real state is precious within CI pipelines' 80 character limit
-            if key == "exploitability":
+            if is_exploit := key == "exploitability":
                 key = "exploit"
-            # Vulns can come as an empty list depending on the verbosity level
+            # Vulns can come as an empty tuple depending on the verbosity level
             if key == "vulnerabilities":
                 vulns_data: Table | str = ""
                 if value:
@@ -201,18 +204,22 @@ def format_rich_report(
                     vulns_data = "None currently open"
                 elif verbose_level == 3:
                     vulns_data = "None currently open or closed"
-                else:  # 4th verbosity level
+                else:
                     vulns_data = "None currently open, closed or accepted"
                 report_table.add_row("vulns", vulns_data, end_section=True)
             else:
                 report_table.add_row(
                     key,
-                    style_report(key, str(value)),
+                    style_report(
+                        key,
+                        get_exploitability_measure(value)
+                        if is_exploit
+                        else str(value),
+                    ),
                     end_section=key == last_key,
                 )
     # Summary report table
     summary = report["summary"]
-    print(summary)
     summary_table = format_summary_report(summary, kind)
     return ForcesReport(findings_report=report_table, summary=summary_table)
 
@@ -254,9 +261,28 @@ async def generate_raw_report(
 
     async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = str(vuln["findingId"])
-        state: VulnerabilityState = VulnerabilityState[
-            str(vuln["currentState"]).upper()
-        ]
+        exploitability: float = float(findings_dict[find_id]["exploitability"])
+        findings_dict[find_id]["exploitability"] = exploitability
+
+        vulnerability: Vulnerability = Vulnerability(
+            type=(
+                VulnerabilityType.SAST
+                if vuln["vulnerabilityType"] == "lines"
+                else VulnerabilityType.DAST
+            ),
+            where=str(vuln["where"]),
+            specific=str(vuln["specific"]),
+            url=(
+                "https://app.fluidattacks.com/groups/"
+                f'{config.group}/vulns/{vuln["findingId"]}'
+            ),
+            state=VulnerabilityState[str(vuln["currentState"]).upper()],
+            severity=float(str(vuln["severity"]))
+            if vuln["severity"] is not None
+            else None,
+            report_date=str(vuln["reportDate"]),
+            exploitability=exploitability,
+        )
 
         if not filter_kind(vuln, config.kind):
             continue
@@ -265,37 +291,17 @@ async def generate_raw_report(
         ):
             continue
 
-        vuln_type: VulnerabilityType = (
-            VulnerabilityType.SAST
-            if vuln["vulnerabilityType"] == "lines"
-            else VulnerabilityType.DAST
-        )
-
-        _summary_dict[state]["total"] += 1
+        _summary_dict[vulnerability.state]["total"] += 1
         if config.kind == KindEnum.ALL:
-            _summary_dict[state]["DAST"] += bool(
-                vuln_type == VulnerabilityType.DAST
+            _summary_dict[vulnerability.state]["DAST"] += bool(
+                vulnerability.type == VulnerabilityType.DAST
             )
-            _summary_dict[state]["SAST"] += bool(
-                vuln_type == VulnerabilityType.SAST
+            _summary_dict[vulnerability.state]["SAST"] += bool(
+                vulnerability.type == VulnerabilityType.SAST
             )
-        findings_dict[find_id][state] += 1
+        findings_dict[find_id][vulnerability.state] += 1
 
-        findings_dict[find_id]["vulnerabilities"].append(
-            {
-                "type": vuln_type,
-                "where": vuln["where"],
-                "specific": vuln["specific"],
-                "URL": (
-                    "https://app.fluidattacks.com/groups/"
-                    f'{config.group}/vulns/{vuln["findingId"]}'
-                ),
-                "state": state,
-                "severity": vuln["severity"],
-                "report_date": vuln["reportDate"],
-                "exploitability": findings_dict[find_id]["exploitability"],
-            }
-        )
+        findings_dict[find_id]["vulnerabilities"].append(vulnerability)
 
     for find in findings_dict.values():
         raw_report["findings"].append(find)

@@ -8,9 +8,6 @@ from forces.model import (
     VulnerabilityState,
     VulnerabilityType,
 )
-from forces.report.formatters import (
-    get_exploitability_measure,
-)
 from typing import (
     Any,
     cast,
@@ -66,10 +63,6 @@ def filter_report(
     # Set finding exploitability level
     for finding in report["findings"]:
         finding.pop("id")
-        explot = get_exploitability_measure(finding.get("exploitability", 0))
-        finding["exploitability"] = explot
-        for vuln in finding["vulnerabilities"]:
-            vuln["exploitability"] = explot
     # Filter findings without vulnerabilities
     report["findings"] = [
         finding for finding in report["findings"] if finding["vulnerabilities"]
@@ -107,11 +100,12 @@ def filter_vulns(
     # Verbosity levels of 2, 3 and 4
     else:
         for finding in findings:
-            finding["vulnerabilities"] = [
-                strip_vuln(vuln)
-                for vuln in finding["vulnerabilities"]
-                if vuln["state"] in allowed_vuln_states
-            ]
+            finding["vulnerabilities"] = tuple(
+                filter(
+                    lambda vuln: vuln.state in allowed_vuln_states,
+                    finding["vulnerabilities"],
+                )
+            )
     return findings
 
 

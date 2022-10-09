@@ -292,17 +292,17 @@ async def upload_report(
         vuln for find in report["findings"] for vuln in find["vulnerabilities"]
     ]:
         vuln_state = {
-            "kind": vuln["type"],
-            "who": vuln["specific"],
-            "where": vuln["where"],
-            "state": str(vuln["state"].value).upper(),
-            "exploitability": vuln["exploitability"],
+            "kind": vuln.type,
+            "who": vuln.specific,
+            "where": vuln.where,
+            "state": str(vuln.state.value).upper(),
+            "exploitability": vuln.exploitability,
         }
-        if vuln["state"] == VulnerabilityState.OPEN:
+        if vuln.state == VulnerabilityState.OPEN:
             open_vulns.append(vuln_state)
-        elif vuln["state"] == VulnerabilityState.CLOSED:
+        elif vuln.state == VulnerabilityState.CLOSED:
             closed_vulns.append(vuln_state)
-        elif vuln["state"] == VulnerabilityState.ACCEPTED:
+        elif vuln.state == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)
 
     params: dict[str, Any] = {

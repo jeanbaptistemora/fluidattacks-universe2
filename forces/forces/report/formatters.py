@@ -60,7 +60,7 @@ async def gather_finding_data(
     return findings_dict
 
 
-def get_exploitability_measure(score: int) -> str:
+def get_exploitability_measure(score: float) -> str:
     data = {
         "0.91": "Unproven",
         "0.94": "Proof of concept",
