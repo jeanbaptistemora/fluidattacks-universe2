@@ -5,6 +5,23 @@ sidebar_label: Criteria
 slug: /development/common/criteria
 ---
 
+Criteria is the component of Common
+that maps different security standards
+to each Fluid Attacks internal requirement,
+and enumerates the possible types of security findings
+that Fluid Attacks can find and report in a client.
+
+Here we store Criteria as raw data
+in a format intended to be consumed by automated processes.
+[Docs](/development/docs) also holds a [human-readable version of Criteria](/criteria),
+but both are different things and have different guarantees.
+
+## Public Oath
+
+1. The data complies the schema.
+1. The identifiers and titles of `requirements` and `vulnerabilities`
+   do not change.
+
 ## Architecture
 
 1. Criteria is managed as-code using YAML documents

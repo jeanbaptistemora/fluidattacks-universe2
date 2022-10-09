@@ -5,6 +5,11 @@ sidebar_label: Status
 slug: /development/common/status
 ---
 
+## Public Oath
+
+1. The status page is available at
+   [status.fluidattacks.com](https://status.fluidattacks.com).
+
 ## Architecture
 
 1. Status is a monitoring service

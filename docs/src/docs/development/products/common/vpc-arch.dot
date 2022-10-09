@@ -32,7 +32,7 @@ digraph common {
 
         cluster_aws_vpc_fluid_vpc[label="" style="invis"]
 
-        aws_vpc_fluid_vpc_internet_gateway[label="Internet Gateway"]
+        aws_vpc_fluid_vpc_internet_gateway[label="Internet Gateway 0.0.0.0/32"]
 
         subgraph cluster_aws_vpc_fluid_vpc_subnets {
           label="Subnets"
@@ -86,7 +86,6 @@ digraph common {
   }
 
   edge[color="0.1 1.0 1.0"]
-  cluster_aws_vpc_fluid_vpc -> aws_vpc_fluid_vpc_internet_gateway[ltail="cluster_aws_vpc_fluid_vpc"]
   aws_security_groups_cloudflare -> cluster_cloudflare[lhead="cluster_cloudflare"]
 
   edge[color="0.6 1.0 1.0"]

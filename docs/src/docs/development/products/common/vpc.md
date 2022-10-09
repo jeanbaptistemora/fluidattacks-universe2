@@ -37,6 +37,20 @@ which you can attach to a host
 in order to specify what traffic can get into or outside of it,
 from what port, protocol, and so on.
 
+## Public Oath
+
+1. There is a VPC called `fluid-vpc`
+   with an Internet Gateway accessible at `0.0.0.0/32`,
+   and subnets as described below.
+   We can add more subnets after the last one,
+   but the existing subnets,
+   their CIDR
+   and availability zone
+   is constant over time.
+1. There is a Security Group called `CloudFlare`
+   which allows all outbound traffic from the host,
+   and allows income traffic from the CloudFlare IP addresses.
+
 ## Architecture
 
 1. We have a single VPC for the entire company,

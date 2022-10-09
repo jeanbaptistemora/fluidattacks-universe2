@@ -5,6 +5,22 @@ sidebar_label: Users
 slug: /development/common/users
 ---
 
+## Public Oath
+
+1. There is `dev` role
+   and a role with the name of each product
+   but prefixed with `prod_`.
+   Each role has a KMS key with the same name,
+   and can access the keys of other less privileged roles,
+   `prod_common` being the super-admin,
+   and `dev` the less privileged user)
+1. There is a `snowflake-user` user with a corresponding access key
+   and the access key value doesn't change.
+1. There is an `erika.bayona` user.
+1. The ARN of the previous entities
+   (IAM roles, IAM users, and KMS keys)
+   is constant over time.
+
 ## Architecture
 
 1. The "users" component of "Common"
