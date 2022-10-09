@@ -54,12 +54,8 @@ or save it to your computer.
 
 ## Contributing
 
-Please submit bug reports,
-feature requests,
-or general feedback to our [Bug Tracker on GitLab](https://gitlab.com/fluidattacks/universe/-/issues),
-or to our [Support Email](mailto:help@fluidattacks.com).
-
-If you want to contribute code, please keep reading.
+Please make sure you follow the
+[general contributing guidelines](/development/contributing)
 
 ### Development Environment
 
