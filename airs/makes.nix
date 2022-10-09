@@ -7,6 +7,7 @@
     ./infra/makes.nix
     ./pipeline/makes.nix
   ];
+  dev.airs = {};
   secretsForAwsFromGitlab = {
     prodAirs = {
       roleArn = "arn:aws:iam::205810638802:role/prod_airs";

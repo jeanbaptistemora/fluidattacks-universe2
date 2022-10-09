@@ -54,22 +54,25 @@ or save it to your computer.
 
 ## Contributing
 
-Please make sure you follow the
-[general contributing guidelines](/development/contributing)
+Please read the
+[contributing](/development/contributing) page first.
 
 ### Development Environment
 
-1. Follow the steps
-   at the [Development Environment](/development/setup) section of our documentation.
+Follow the steps
+at the [Development Environment](/development/setup) section of our documentation.
 
-   When prompted for an AWS role, choose `dev`,
-   and when prompted for a Development Environment, pick `airs`.
+When prompted for an AWS role, choose `dev`,
+and when prompted for a Development Environment, pick `airs`.
 
-1. Run:
+### Local Deployment
 
-   ```sh
-   $ m . /airs/dev
-   ```
+Just run:
 
-   This will launch a replica of [fluidattacks.com](https://fluidattacks.com)
-   on your localhost.
+```sh
+$ m . /airs/dev
+```
+
+This will launch a replica of [fluidattacks.com](https://fluidattacks.com)
+on your localhost,
+which you can interactively develop and test.

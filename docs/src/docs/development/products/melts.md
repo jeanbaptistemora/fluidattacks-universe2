@@ -228,3 +228,16 @@ you can try to fix them:
   sending an e-mail to
   help@fluidattacks.com
   to assist you with any problems.
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.
+
+### Development Environment
+
+Follow the steps
+at the [Development Environment](/development/setup) section of our documentation.
+
+When prompted for an AWS role, choose `dev`,
+and when prompted for a Development Environment, pick `melts`.

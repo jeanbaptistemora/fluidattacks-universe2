@@ -51,6 +51,31 @@ or save it to your computer.
 
 ![Architecture of Docs](./docs-arch.dot.svg)
 
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.
+
+### Development Environment
+
+Follow the steps
+at the [Development Environment](/development/setup) section of our documentation.
+
+When prompted for an AWS role, choose `dev`,
+and when prompted for a Development Environment, pick `docs`.
+
+### Local Deployment
+
+Just run:
+
+```sh
+$ m . /docs start
+```
+
+This will launch a replica of [docs.fluidattacks.com](https://docs.fluidattacks.com)
+on your localhost, port 3000,
+which you can interactively develop and test.
+
 <!--
 Conventions for Arch:
 

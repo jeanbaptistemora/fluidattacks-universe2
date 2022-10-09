@@ -46,3 +46,8 @@ or save it to your computer.
 :::
 
 ![Architecture of Common's /compute](./compute-arch.dot.svg)
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.

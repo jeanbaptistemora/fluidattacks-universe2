@@ -64,3 +64,8 @@ or save it to your computer.
 :::
 
 ![Architecture of Common's /users](./users-arch.dot.svg)
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.

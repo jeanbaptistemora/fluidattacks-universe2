@@ -6,6 +6,7 @@
   imports = [
     ./infra/makes.nix
   ];
+  dev.docs = {};
   lintMarkdown = {
     docs = {
       config = "/docs/.lint-markdown.rb";

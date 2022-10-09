@@ -48,3 +48,8 @@ or save it to your computer.
 :::
 
 ![Architecture of Common's /ci](./ci-arch.dot.svg)
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.

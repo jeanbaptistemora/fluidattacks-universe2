@@ -84,3 +84,8 @@ or save it to your computer.
 :::
 
 ![Architecture of Common's /vpc](./vpc-arch.dot.svg)
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.

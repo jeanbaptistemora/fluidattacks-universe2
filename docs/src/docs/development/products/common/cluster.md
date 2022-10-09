@@ -49,3 +49,8 @@ or save it to your computer.
 :::
 
 ![Architecture of Common's /cluster](./cluster-arch.dot.svg)
+
+## Contributing
+
+Please read the
+[contributing](/development/contributing) page first.
