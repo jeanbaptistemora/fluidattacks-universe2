@@ -37,4 +37,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /cluster](./common-cluster-arch.dot.svg)
+![Architecture of Common's /cluster](./cluster-arch.dot.svg)

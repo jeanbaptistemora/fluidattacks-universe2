@@ -29,4 +29,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /criteria](./common-criteria-arch.dot.svg)
+![Architecture of Common's /criteria](./criteria-arch.dot.svg)

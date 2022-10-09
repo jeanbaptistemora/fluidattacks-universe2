@@ -1,0 +1,107 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph common {
+  label="Common's /vpc Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_vpc {
+      label="VPC"
+
+      subgraph cluster_aws_security_groups {
+        label="Security Groups"
+
+        aws_security_groups_cloudflare[label="CloudFlare"]
+      }
+
+      subgraph cluster_aws_vpc_fluid_vpc {
+        label="fluid-vpc (192.168.0.0/16)"
+
+        cluster_aws_vpc_fluid_vpc[label="" style="invis"]
+
+        aws_vpc_fluid_vpc_internet_gateway[label="Internet Gateway"]
+
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
+
+          cluster_aws_vpc_fluid_vpc_subnets_ci[label="ci 192.168.0.0/22 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_observes_1[label="observes_1 192.168.4.0/25 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_observes_2[label="observes_2 192.168.4.128/25 us-east-1b"]
+          cluster_aws_vpc_fluid_vpc_subnets_observes_3[label="observes_3 192.168.5.0/25 us-east-1d"]
+          cluster_aws_vpc_fluid_vpc_subnets_observes_4[label="observes_4 192.168.5.128/25 us-east-1e"]
+          cluster_aws_vpc_fluid_vpc_subnets_free[label="free 192.168.6.0/23 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_batch_clone[label="batch_clone 192.168.8.0/24 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_batch_main[label="batch_main 192.168.9.0/24 us-east-1b"]
+          cluster_aws_vpc_fluid_vpc_subnets_common[label="common 192.168.10.0/23 us-east-1b"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_1[label="k8s_1 192.168.12.0/22 us-east-1b"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_2[label="k8s_2 192.168.16.0/22 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_3[label="k8s_3 192.168.20.0/22 us-east-1d"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
+
+    cluster_cloudflare[label="" style="invis" width="2.0"]
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_vpc {
+          label="/vpc"
+
+          cluster_gitlab_git_common_vpc[label="" style="invis"]
+          gitlab_git_common_vpc[label="Source Code"]
+          gitlab_git_common_vpc_terraform[label="Terraform"]
+          gitlab_git_common_vpc_terraform_hashicorp_subnets_cidr[label="hashicorp/subnets/cidr"]
+        }
+      }
+    }
+  }
+
+  edge[color="0.1 1.0 1.0"]
+  cluster_aws_vpc_fluid_vpc -> aws_vpc_fluid_vpc_internet_gateway[ltail="cluster_aws_vpc_fluid_vpc"]
+  aws_security_groups_cloudflare -> cluster_cloudflare[lhead="cluster_cloudflare"]
+
+  edge[color="0.6 1.0 1.0"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_git_common_vpc -> gitlab_git_common_vpc_terraform[]
+  gitlab_git_common_vpc -> gitlab_git_common_vpc_terraform_hashicorp_subnets_cidr[]
+
+  node[fillcolor="0.0 0.0 0.8"]
+  developer[label="Developer"]
+  end_user[label="End User"]
+
+  edge[color="0.0 0.0 0.0"]
+  end_user -> aws_vpc_fluid_vpc_internet_gateway[]
+  developer -> aws_security_groups_cloudflare[]
+  developer -> cluster_aws_vpc_fluid_vpc[lhead="cluster_aws_vpc_fluid_vpc"]
+  developer -> cluster_gitlab_git_common_vpc[lhead="cluster_gitlab_git_common_vpc"]
+}

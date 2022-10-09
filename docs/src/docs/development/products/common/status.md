@@ -34,4 +34,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /status](./common-status-arch.dot.svg)
+![Architecture of Common's /status](./status-arch.dot.svg)

@@ -78,7 +78,6 @@ digraph status {
 
           checkly_groups_fluidattacks_dashboards_fluidattacks_checklyhq_com[label="fluidattacks.checklyhq.com"]
           checkly_groups_fluidattacks_dashboards_status_fluidattacks_com[label="status.fluidattacks.com"]
-
         }
       }
     }

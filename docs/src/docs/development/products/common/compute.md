@@ -13,4 +13,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /compute](./common-compute-arch.dot.svg)
+![Architecture of Common's /compute](./compute-arch.dot.svg)

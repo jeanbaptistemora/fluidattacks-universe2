@@ -385,6 +385,7 @@ const Development = [
           'development/products/common/criteria',
           'development/products/common/status',
           'development/products/common/users',
+          'development/products/common/vpc',
         ]
       },
       'development/products/docs',

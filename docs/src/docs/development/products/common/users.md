@@ -47,4 +47,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /users](./common-users-arch.dot.svg)
+![Architecture of Common's /users](./users-arch.dot.svg)

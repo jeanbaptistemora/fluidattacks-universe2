@@ -30,4 +30,4 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Common's /ci](./common-ci-arch.dot.svg)
+![Architecture of Common's /ci](./ci-arch.dot.svg)

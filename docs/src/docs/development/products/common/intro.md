@@ -35,5 +35,5 @@ Developers usually interact with Common through (or to change something in):
 - [Okta](/development/stack/okta).
 - [Users](/development/common/users):
   [IAM by Amazon Web Services (AWS)](/development/stack/aws/iam).
-- VPC (Virtual Private Cloud):
+- [VPC](/development/common/vpc) (Virtual Private Cloud):
   [VPC by Amazon Web Services (AWS)](/development/stack/aws/vpc).
