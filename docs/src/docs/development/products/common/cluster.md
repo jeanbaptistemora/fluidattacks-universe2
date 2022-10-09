@@ -5,6 +5,9 @@ sidebar_label: Cluster
 slug: /development/common/cluster
 ---
 
+Cluster is the component of Common
+in charge of providing a company-wide Kubernetes Cluster.
+
 ## Public Oath
 
 1. There is a Kubernetes cluster with name `common`

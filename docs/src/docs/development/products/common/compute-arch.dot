@@ -8,6 +8,7 @@ digraph common {
   compound="true"
   rankdir="LR"
   scale="scalexy"
+  splines="line"
 
   node[style="filled"]
   graph[style="dashed,rounded"]
@@ -192,10 +193,11 @@ digraph common {
   edge[color="0.0 0.0 0.0"]
   developer -> aws_batch_job_definition_dev[]
   developer -> aws_batch_job_definition_prod[]
-  developer -> aws_sns_topic_subscription_compute_alert[]
   developer -> aws_batch_job_queues_clone[]
   developer -> aws_batch_job_queues_small[]
   developer -> aws_batch_job_queues_medium[]
   developer -> aws_batch_job_queues_large[]
+  developer -> aws_cloudwatch_event_rules_schedule[]
+  developer -> aws_sns_topic_subscription_compute_alert[]
   developer -> cluster_gitlab_git_common_compute[lhead="cluster_gitlab_git_common_compute"]
 }

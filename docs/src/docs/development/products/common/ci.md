@@ -5,6 +5,9 @@ sidebar_label: CI
 slug: /development/common/ci
 ---
 
+CI is the component of Common in charge of providing the infrastructure
+of a Continuous Integration and Continuous Delivery system (CI/CD).
+
 ## Public Oath
 
 1. There are GitLab Runners attached to the Universe repository:
