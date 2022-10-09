@@ -17,6 +17,8 @@ slug: /development/common/ci
      RAM and Disk capacity is never decreased.
    - They start running the job within a few seconds (short queue time).
 
+1. There is a DynamoDB table called `terraform_state_lock`.
+
 ## Architecture
 
 1. Our CI/CD system is [GitLab CI](/development/stack/gitlab-ci).

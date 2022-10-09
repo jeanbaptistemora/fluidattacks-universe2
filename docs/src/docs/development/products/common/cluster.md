@@ -5,6 +5,14 @@ sidebar_label: Cluster
 slug: /development/common/cluster
 ---
 
+## Public Oath
+
+1. There is a Kubernetes cluster with name `common`
+   in the `us-east-1` region.
+   - It has namespaces called `dev` and `prod_integrates`,
+     and a role with the same name can access resources within it.
+   - It is able to spawn enough machine instances as you request.
+
 ## Architecture
 
 1. We have one [Kubernetes cluster](/development/stack/kubernetes)
