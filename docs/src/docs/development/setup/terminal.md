@@ -21,7 +21,12 @@ as the command interpreter of your terminal.
 
 Please follow the following steps:
 
-1. Install [direnv](https://direnv.net/).
+1. Make sure you have the following tools installed in your system:
+
+   - [Nix](/development/stack/nix)
+   - [Makes](/development/stack/makes)
+   - [Git](https://git-scm.com): `$ nix-env -iA nixpkgs.git`.
+   - [Direnv](https://direnv.net): `$ nix-env -iA nixpkgs.direnv`.
 
 1. Add the following variables to your `~/.bashrc`
    or to a file at `$universe/.envrc.config`:
@@ -41,7 +46,7 @@ Please follow the following steps:
    source <(direnv hook bash)
    ```
 
-  Reload your terminal for changes to be loaded.
+Reload your terminal for changes to be loaded.
 
 1. Clone the
    [universe repository](https://gitlab.com/fluidattacks/universe)
@@ -132,6 +137,8 @@ Please follow the following steps:
    and install them with Nix.
    If you happen to use them very frequently,
    you can add them to the development environment.
+   The development environment is yours and for your benefit,
+   help us take care of it.
 
 At this point,
 you can open a new terminal,

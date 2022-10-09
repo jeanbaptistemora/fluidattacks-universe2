@@ -544,6 +544,8 @@ const Development = [
       "development/stack/gitlab",
       "development/stack/gitlab-ci",
       "development/stack/kubernetes",
+      "development/stack/makes",
+      "development/stack/nix",
       "development/stack/okta",
       "development/stack/sops",
       "development/stack/terraform",
