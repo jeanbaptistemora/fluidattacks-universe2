@@ -12,14 +12,10 @@ security advisories,
 the careers page,
 and is usually the first point of contact people have with our company.
 
-## Public Interface
+## Public Oath
 
-End Users normally interact with Airs through our home page:
-[fluidattacks.com](https://fluidattacks.com/).
-
-Developers usually interact with Airs through a development endpoint
-generated from their personal Git branch on GitLab:
-[web.eph.fluidattacks.com/&lt;branch&gt;](https://web.eph.fluidattacks.com).
+1. The home page is located at:
+   [fluidattacks.com](https://fluidattacks.com/).
 
 ## Architecture
 

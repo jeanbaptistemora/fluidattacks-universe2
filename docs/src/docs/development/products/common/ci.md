@@ -5,6 +5,18 @@ sidebar_label: CI
 slug: /development/common/ci
 ---
 
+## Public Oath
+
+1. There are GitLab Runners attached to the Universe repository:
+
+   - They are able to run jobs, but for no longer than 30 minutes.
+   - They can access the internet.
+   - They are of x86_64-linux architecture.
+   - Their tag names do not change,
+     and for a given tag name the associated
+     RAM and Disk capacity is never decreased.
+   - They start running the job within a few seconds (short queue time).
+
 ## Architecture
 
 1. Our CI/CD system is [GitLab CI](/development/stack/gitlab-ci).

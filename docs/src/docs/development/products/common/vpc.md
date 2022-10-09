@@ -5,39 +5,39 @@ sidebar_label: VPC
 slug: /development/common/vpc
 ---
 
+A Virtual Private Cloud represents a traditional network,
+but on the cloud.
+It allows you to launch AWS resources
+(called hosts, and usually of type _EC2 instance_) on it,
+and assign private/public IPv4 addresses
+so that you can locate a them within the network.
+
+A VPC is always partitioned into subnets
+(a range of addresses within the whole network),
+that is physically located in one availability zone.
+You always deploy a resource into a subnet,
+because the subnet is what represents the physical component of the VPC.
+The VPC in the other hand,
+is simply a logical (virtual) way to group physical resources
+and locate them.
+
+A VPC is isolated by default.
+In order for traffic to go inside or outside of the VPC
+you need to define a gateway,
+without a gateway a VPC is effectively a sealed "box".
+
+A VPC has one or more Route Tables
+which define to which gateway the traffic
+from a host or subnet goes, if any.
+It is totally fine (and in some scenarios preferred)
+for a host to be ignorant of things outside of the VPC.
+
+There is also the concept of Security Groups,
+which you can attach to a host
+in order to specify what traffic can get into or outside of it,
+from what port, protocol, and so on.
+
 ## Architecture
-
-1. A Virtual Private Cloud represents a traditional network,
-   but on the cloud.
-   It allows you to launch AWS resources
-   (called hosts, and usually of type _EC2 instance_) on it,
-   and assign private/public IPv4 addresses
-   so that you can locate a them within the network.
-
-   A VPC is always partitioned into subnets
-   (a range of addresses within the whole network),
-   that is physically located in one availability zone.
-   You always deploy a resource into a subnet,
-   because the subnet is what represents the physical component of the VPC.
-   The VPC in the other hand,
-   is simply a logical (virtual) way to group physical resources
-   and locate them.
-
-   A VPC is isolated by default.
-   In order for traffic to go inside or outside of the VPC
-   you need to define a gateway,
-   without a gateway a VPC is effectively a sealed "box".
-
-   A VPC has one or more Route Tables
-   which define to which gateway the traffic
-   from a host or subnet goes, if any.
-   It is totally fine (and in some scenarios preferred)
-   for a host to be ignorant of things outside of the VPC.
-
-   There is also the concept of Security Groups,
-   which you can attach to a host
-   in order to specify what traffic can get into or outside of it,
-   from what port, protocol, and so on.
 
 1. We have a single VPC for the entire company,
    which is provided by this component of Common.

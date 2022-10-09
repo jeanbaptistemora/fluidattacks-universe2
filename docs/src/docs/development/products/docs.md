@@ -9,14 +9,10 @@ Docs is the product that contains our documentation.
 
 Surprising, isn't it?
 
-## Public Interface
+## Public Oath
 
-End Users normally interact with Docs through our docs subdomain:
-[docs.fluidattacks.com](https://docs.fluidattacks.com/).
-
-Developers usually interact with Docs through a development endpoint
-generated from their personal Git branch on GitLab:
-[docs-dev.fluidattacks.com/&lt;branch&gt;](https://docs-dev.fluidattacks.com).
+1. The documentation is located at:
+   [docs.fluidattacks.com](https://docs.fluidattacks.com/).
 
 ## Architecture
 
