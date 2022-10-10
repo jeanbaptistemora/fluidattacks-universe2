@@ -4,8 +4,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+interface IGroupAttr {
+  name: string;
+}
+
 interface IOrganizationComplianceStandardsProps {
   organizationId: string;
 }
 
-export type { IOrganizationComplianceStandardsProps };
+export type { IGroupAttr, IOrganizationComplianceStandardsProps };
