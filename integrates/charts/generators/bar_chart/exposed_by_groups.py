@@ -19,7 +19,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    EXPOSURE,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
@@ -110,7 +110,7 @@ def format_data(all_data: list[PortfoliosGroupsInfo]) -> dict:
                 + [str(utils.format_cvssf_log(group.value)) for group in data],
             ],
             colors={
-                "Open exposure": RISK.more_agressive,
+                "Open exposure": EXPOSURE,
             },
             labels=None,
             type="bar",
@@ -119,18 +119,19 @@ def format_data(all_data: list[PortfoliosGroupsInfo]) -> dict:
             show=False,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.group_name for group in data],
                 type="category",
                 tick=dict(
-                    rotate=utils.TICK_ROTATION,
+                    rotate=0,
                     multiline=False,
                 ),
             ),
             y=dict(
                 label=dict(
                     text="CVSSF",
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(
@@ -153,6 +154,8 @@ def format_data(all_data: list[PortfoliosGroupsInfo]) -> dict:
         originalValues=[
             utils.format_cvssf(Decimal(value)) for _, value in data
         ],
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 

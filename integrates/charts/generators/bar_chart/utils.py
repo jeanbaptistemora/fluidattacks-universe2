@@ -288,7 +288,12 @@ def format_value(data: List[Tuple[str, int]]) -> Decimal:
 
 
 def format_vulnerabilities_by_data(
-    *, counters: Counter[str], column: str, tick_rotation: int, categories: int
+    *,
+    counters: Counter[str],
+    column: str,
+    tick_rotation: int,
+    categories: int,
+    color: str = RISK.neutral,
 ) -> Dict[str, Any]:
     data = counters.most_common()[:categories]
 
@@ -298,7 +303,7 @@ def format_vulnerabilities_by_data(
                 [column, *[value for _, value in data]],
             ],
             colors={
-                column: RISK.neutral,
+                column: color,
             },
             labels=None,
             type="bar",

@@ -23,6 +23,9 @@ from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
+from charts.generators.common.colors import (
+    EXPOSURE,
+)
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
     get_max_axis,
@@ -209,7 +212,7 @@ def format_data(
                 ]
             ],
             colors={
-                "Exposure": "#ac0a17",
+                "Exposure": EXPOSURE,
             },
             labels=True,
             type="bar",

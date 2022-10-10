@@ -51,7 +51,7 @@ function getMttrColor(d) {
 }
 
 function getMttrCvssfColor(d) {
-  if (d[0].index) {
+  if (typeof d[0] === 'object') {
     switch (d[0].index.toString()) {
       case '0':
         return '#990915';
@@ -81,19 +81,22 @@ function getColor(dataDocument, d, originalValues) {
 }
 
 function getTooltipColorContent(dataDocument, originalValues, d, color) {
-  if (dataDocument.exposureTrendsByCategories) {
-    return () => getColor(dataDocument, d, originalValues);
-  }
-  if (dataDocument.mttrBenchmarking) {
-    return () => getMttrColor(d);
-  }
+  if (!dataDocument.keepToltipColor) {
+    if (dataDocument.exposureTrendsByCategories) {
+      return () => getColor(dataDocument, d, originalValues);
+    }
 
-  if (dataDocument.mttrCvssf) {
-    return () => getMttrCvssfColor(d);
-  }
+    if (dataDocument.mttrBenchmarking) {
+      return () => getMttrColor(d);
+    }
 
-  if (dataDocument.exposureBenchmarkingCvssf) {
-    return () => getExposureColor(d);
+    if (dataDocument.mttrCvssf) {
+      return () => getMttrCvssfColor(d);
+    }
+
+    if (dataDocument.exposureBenchmarkingCvssf) {
+      return () => getExposureColor(d);
+    }
   }
 
   return color;

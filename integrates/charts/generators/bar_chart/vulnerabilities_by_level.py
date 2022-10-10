@@ -16,35 +16,40 @@ from charts.generators.bar_chart.utils import (
     format_csv_data,
     format_vulnerabilities_by_data,
 )
+from charts.generators.common.colors import (
+    VULNERABILITIES_COUNT,
+)
 from dataloaders import (
     get_new_context,
 )
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from typing import (
     Counter,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+    group_findings: tuple[Finding, ...] = await context.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
 
-    vulnerabilities = (
-        await context.finding_vulnerabilities_nzr.load_many_chained(
-            finding_ids
-        )
+    vulnerabilities: tuple[
+        Vulnerability, ...
+    ] = await context.finding_vulnerabilities_nzr.load_many_chained(
+        finding_ids
     )
 
     return Counter(
         [
-            vulnerability.custom_severity  # type: ignore
+            str(vulnerability.custom_severity)
             for vulnerability in vulnerabilities
             if vulnerability.custom_severity is not None
             and vulnerability.custom_severity >= 0
@@ -66,8 +71,9 @@ async def generate_all() -> None:
         document = format_vulnerabilities_by_data(
             counters=await get_data_one_group(group),
             column=column,
-            tick_rotation=utils.TICK_ROTATION,
+            tick_rotation=0,
             categories=number_of_categories,
+            color=VULNERABILITIES_COUNT,
         )
         utils.json_dump(
             document=document,
@@ -84,8 +90,9 @@ async def generate_all() -> None:
         document = format_vulnerabilities_by_data(
             counters=await get_data_many_groups(org_groups),
             column=column,
-            tick_rotation=utils.TICK_ROTATION,
+            tick_rotation=0,
             categories=number_of_categories,
+            color=VULNERABILITIES_COUNT,
         )
         utils.json_dump(
             document=document,
@@ -101,8 +108,9 @@ async def generate_all() -> None:
             document = format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(groups),
                 column=column,
-                tick_rotation=utils.TICK_ROTATION,
+                tick_rotation=0,
                 categories=number_of_categories,
+                color=VULNERABILITIES_COUNT,
             )
             utils.json_dump(
                 document=document,
