@@ -400,7 +400,7 @@ const Development = [
             type: "category",
             label: "Guidelines",
             items: [
-              "development/products/integrates/guidelines/front-technologies",
+              "development/products/integrates/guidelines/front",
               "development/products/integrates/guidelines/graphql-api",
               "development/products/integrates/guidelines/writing-code-suggestions",
             ],

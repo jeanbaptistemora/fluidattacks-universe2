@@ -1,8 +1,8 @@
 ---
-id: front-technologies
-title: Front Technologies
-sidebar_label: Front Technologies
-slug: /development/front-technologies
+id: front
+title: Front
+sidebar_label: Front
+slug: /development/products/integrates/guidelines/front
 ---
 
 ## Technology stack
@@ -65,14 +65,6 @@ slug: /development/front-technologies
     You can read more
     about this functionality here:
     https://webpack.js.org/concepts/hot-module-replacement/
-
-    > **_NOTE:_**
-    > Google Chrome might cause trouble
-    > because of invalid https certificates in localhost.
-    > If the bundle fails to load,
-    > you can go to
-    > chrome://flags/#allow-insecure-localhost
-    > and enable that flag
 
 1. Lint your code
 
