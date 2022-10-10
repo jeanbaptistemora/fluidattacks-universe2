@@ -8,8 +8,8 @@ function serve {
   : \
     && info "Launching OpenSearch" \
     && java \
-      -Xms1g \
-      -Xmx1g \
+      -Xms500m \
+      -Xmx500m \
       -Dlog4j2.disable.jmx=true \
       -Dopensearch.distribution.type="tar" \
       -Dopensearch.path.conf="__argOpensearch__/config" \

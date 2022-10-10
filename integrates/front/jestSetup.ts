@@ -38,28 +38,3 @@ jest.mock("@bugsnag/js");
 // Set max timeout from 5000
 const newMaxTime: number = 15000;
 jest.setTimeout(newMaxTime);
-
-// Mock matchMedia
-Object.defineProperty(window, "matchMedia", {
-  value: jest.fn().mockImplementation(
-    (query: string): MediaQueryList => ({
-      addEventListener: jest.fn(),
-      // Deprecated
-      addListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-      matches: false,
-      media: query,
-      onchange: jest.fn(),
-      removeEventListener: jest.fn(),
-      // Deprecated
-      removeListener: jest.fn(),
-    })
-  ),
-  writable: true,
-});
-
-/**
- * Mock announcekit
- * @see https://github.com/announcekitapp/announcekit-react/issues/8
- */
-jest.mock("announcekit-react", (): React.ReactNode => "mocked");
