@@ -3893,7 +3893,7 @@
       - Verify that HTTP headers
       do not display any name or version.
     threat: >
-      Authenticated attacker from the Internet.
+      Anonymous attacker from the Internet.
   es:
     title: Technical information leak
     description: >
@@ -3918,7 +3918,7 @@
       - Verificar que los encabezados HTTP
       no expongan ningún nombre o versión.
     threat: >
-      Atacante autenticado desde Internet.
+      Atacante anónimo desde Internet.
   category: Collect Information
   examples:
     non_compliant: |
@@ -3968,7 +3968,7 @@
   score:
     base:
       attack_vector: N
-      attack_complexity: H
+      attack_complexity: L
       privileges_required: N
       user_interaction: N
       scope: U
@@ -11406,13 +11406,6 @@
       containing a known vulnerability
       and being unaware of it.
 
-      - Explicitly declare
-      all indirect dependencies
-      pinned to a specific version
-      to avoid unknown upgrades
-      that include security issues
-      or may break the application
-
       - Use a dependency version that is
       not compatible with the application.
     recommendation: >
@@ -11445,14 +11438,6 @@
       - Instalar una dependencia que
       contenga una vulnerabilidad conocida
       y no tener conocimiento de ello.
-
-      - Declare explícitamente
-      todas las dependencias indirectas
-      ancladas a una versión específica
-      para evitar actualizaciones
-      desconocidas que incluyan problemas
-      de seguridad o puedan dañar
-      la aplicación.
 
       - Usar una versión de la dependencia
       que no sea compatible con la aplicación.
@@ -11496,7 +11481,7 @@
     base:
       attack_vector: N
       attack_complexity: H
-      privileges_required: L
+      privileges_required: N
       user_interaction: N
       scope: U
       confidentiality: N
