@@ -3185,6 +3185,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TSCONFIG_SOURCEMAP_ENABLED = MethodInfo(
+        file_name="tsconfig",
+        name="tsconfig_sourcemap_enabled",
+        module="lib_path",
+        finding=FindingEnum.F236,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INFO_LEAK_ERRORS = MethodInfo(
         file_name="csharp",
         name="csharp_info_leak_errors",

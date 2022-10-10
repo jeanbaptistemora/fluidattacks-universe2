@@ -1,0 +1,8 @@
+---
+lib_path.f236.tsconfig_sourcemap_enabled:
+  en: >
+    The sourcemap property is set to true, which makes it easier for a
+    malicious actor to parse the application.
+  es: >-
+    La propiedad sourcemap se encuentra establecida en true, lo que facilita
+    el análisis de la aplicación por parte de un actor malintencionado.
