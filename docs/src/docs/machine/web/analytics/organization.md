@@ -15,9 +15,9 @@ and the amount of each one
 that belong to each group
 of your organization.
 
-## Exposure remediation rate (benchmark)
+## Remediation rate benchmark
 
-![Exposure Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925701/docs/web/analytics/organizations/organization_remediation_benchmarking.png)
+![Remediation rate benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925701/docs/web/analytics/organizations/organization_remediation_benchmarking.png)
 
 How do your numbers compare to those of
 other organizations? How close are you
