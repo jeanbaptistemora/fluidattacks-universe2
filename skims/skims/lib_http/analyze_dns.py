@@ -135,27 +135,25 @@ def _query_dns(
 
     resolution = resolver.Resolver()
     record_type = "TXT"
+    resolution.resolve(domain, record_type, lifetime=timeout)
     try:
-        resolution.resolve(domain, record_type, lifetime=timeout)
-        try:
-            resource_records = list(
-                map(
-                    lambda r: r.strings,
-                    resolution.resolve(
-                        "_dmarc." + domain, record_type, lifetime=timeout
-                    ),
-                )
+        resource_records = list(
+            map(
+                lambda r: r.strings,
+                resolution.resolve(
+                    "_dmarc." + domain, record_type, lifetime=timeout
+                ),
             )
-            _resource_record = [
-                resource_record[0][:0].join(resource_record)
-                for resource_record in resource_records
-                if resource_record
-            ]
-            records = [r.decode() for r in _resource_record]
-        except resolver.NXDOMAIN:
-            records = []
-    except exception.DNSException as exc:
-        raise exc
+        )
+        _resource_record = [
+            resource_record[0][:0].join(resource_record)
+            for resource_record in resource_records
+            if resource_record
+        ]
+        records = [r.decode() for r in _resource_record]
+    except resolver.NXDOMAIN:
+        records = []
+
     return records
 
 
