@@ -9,9 +9,11 @@ import { useMutation } from "@apollo/client";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { Row } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { changeFormatter as changeFormatterz } from "./changeFormatter";
 import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
@@ -20,9 +22,8 @@ import { InternalSurfaceButton } from "../InternalSurfaceButton";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table } from "components/Table";
-import { changeFormatter } from "components/Table/formatters";
-import { filterSearchText } from "components/Table/utils";
+import { Table as Tablez } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import {
   ACTIVATE_ROOT,
@@ -61,15 +62,18 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     setIsManagingRoot(false);
     setCurrentRow(undefined);
   }, []);
-  const handleRowClick = useCallback(
-    (_0: React.SyntheticEvent, row: IIPRootAttr): void => {
-      if (row.state === "ACTIVE") {
-        setCurrentRow(row);
+
+  function handleRowClick(
+    rowInfo: Row<IIPRootAttr>
+  ): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      if (rowInfo.original.state === "ACTIVE") {
+        setCurrentRow(rowInfo.original);
         setIsManagingRoot({ mode: "EDIT" });
       }
-    },
-    []
-  );
+      event.preventDefault();
+    };
+  }
 
   const [addIpRoot] = useMutation(ADD_IP_ROOT, {
     onCompleted: (): void => {
@@ -167,12 +171,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     open: false,
     rootId: "",
   });
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
   const openDeactivationModal = useCallback((rootId: string): void => {
     setDeactivationModal({ open: true, rootId });
   }, []);
@@ -183,10 +181,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
   const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
     "api_mutations_activate_root_mutate"
-  );
-  const filterSearchtextResult: IIPRootAttr[] = filterSearchText(
-    roots,
-    searchTextFilter
   );
 
   return (
@@ -205,16 +199,36 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
 
           return (
             <Container>
-              <Table
-                columnToggle={false}
-                customSearch={{
-                  customSearchDefault: searchTextFilter,
-                  isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchTextChange,
-                  position: "right",
-                }}
-                dataset={filterSearchtextResult}
-                exportCsv={true}
+              <Tablez
+                columns={[
+                  {
+                    accessorKey: "address",
+                    header: String(t("group.scope.ip.address")),
+                  },
+                  {
+                    accessorKey: "port",
+                    header: String(t("group.scope.ip.port")),
+                  },
+                  {
+                    accessorKey: "nickname",
+                    header: String(t("group.scope.ip.nickname")),
+                  },
+                  {
+                    accessorKey: "state",
+                    cell: (cell: ICellHelper<IIPRootAttr>): JSX.Element =>
+                      canUpdateRootState
+                        ? changeFormatterz(
+                            cell.row.original as unknown as Record<
+                              string,
+                              string
+                            >,
+                            handleStateUpdate
+                          )
+                        : statusFormatter(cell.getValue()),
+                    header: String(t("group.scope.common.state")),
+                  },
+                ]}
+                data={roots}
                 extraButtons={
                   <React.Fragment>
                     <InternalSurfaceButton />
@@ -226,37 +240,12 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                     </Can>
                   </React.Fragment>
                 }
-                headers={[
-                  {
-                    dataField: "address",
-                    header: t("group.scope.ip.address"),
-                  },
-                  {
-                    dataField: "port",
-                    header: t("group.scope.ip.port"),
-                  },
-                  {
-                    dataField: "nickname",
-                    header: t("group.scope.ip.nickname"),
-                  },
-                  {
-                    changeFunction: handleStateUpdate,
-                    dataField: "state",
-                    formatter: canUpdateRootState
-                      ? changeFormatter
-                      : statusFormatter,
-                    header: t("group.scope.common.state"),
-                    width: canUpdateRootState ? "10%" : "100px",
-                  },
-                ]}
                 id={"tblIPRoots"}
-                pageSize={10}
-                rowEvents={
+                onRowClick={
                   permissions.can("api_mutations_update_ip_root_mutate")
-                    ? { onClick: handleRowClick }
-                    : {}
+                    ? handleRowClick
+                    : undefined
                 }
-                search={false}
               />
             </Container>
           );
