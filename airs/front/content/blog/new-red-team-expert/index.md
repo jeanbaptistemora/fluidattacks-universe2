@@ -30,13 +30,13 @@ Figure 1. [Certificate](https://twitter.com/fluidattacks/status/1262759918853128
 
 </div>
 
-Daniel Yepes is a Computer Engineer who has been working at `Fluid
-Attacks` as Security Analyst for over two years. A few days ago, he was
-certified as a Red Team Expert from [Pentester
-Academy](https://www.pentesteracademy.com/). This is a site founded in
-**2011** by Vivek Ramachandran that "[furthers the
-careers](https://www.linkedin.com/company/pentesteracademy) of
-\[cybersecurity\] professionals worldwide with in-depth training,
+Daniel Yepes is a Computer Engineer who has been working at `Fluid Attacks`
+as Security Analyst for over two years. A few days ago,
+he was certified as a Red Team Expert from
+[Pentester Academy](https://www.pentesteracademy.com/).
+This is a site founded in **2011**
+by Vivek Ramachandran that "[furthers the careers](https://www.linkedin.com/company/pentesteracademy)
+of \[cybersecurity\] professionals worldwide with in-depth training,
 attack-defense products and informative content that address the
 ever-evolving landscape of online threats."
 

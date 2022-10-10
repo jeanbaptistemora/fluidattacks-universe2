@@ -230,15 +230,20 @@ function check_md_words_case {
     'SQLi'
   )
   local msg='Spelling'
+  local file_words
 
-  for word in "${words[@]}"; do
-    case_insensitive="$(grep -ioP "( |^)${word}( |$)" "${target}" || true)" \
-      && case_sensitive="$(grep -oP "( |^)${word}( |$)" "${target}" || true)" \
-      && if test "${case_insensitive}" != "${case_sensitive}"; then
-        abort "[ERROR] ${msg}: ${word}: ${target}"
-      fi \
-      || return 1
-  done
+  file_words="$(
+    sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
+      | sed 's/```.*//'
+  )" \
+    && for word in "${words[@]}"; do
+      case_insensitive="$(echo "${file_words}" | grep -ioP "( |^)${word}( |$)" || true)" \
+        && case_sensitive="$(echo "${file_words}" | grep -oP "( |^)${word}( |$)" || true)" \
+        && if test "${case_insensitive}" != "${case_sensitive}"; then
+          abort "[ERROR] ${msg}: ${word}: ${target}"
+        fi \
+        || return 1
+    done
 }
 
 function check_md_patterns {

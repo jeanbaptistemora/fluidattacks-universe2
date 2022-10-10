@@ -1,6 +1,6 @@
 ---
 slug: optimism-bias/
-title: '"No, We Won''t Get Hacked!"'
+title: '''No, We Won''t Get Hacked!'''
 date: 2020-10-07
 subtitle: And, "of course, I can always protect my company."
 category: philosophy
