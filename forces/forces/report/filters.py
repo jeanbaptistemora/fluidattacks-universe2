@@ -107,12 +107,3 @@ def filter_vulns(
                 )
             )
     return findings
-
-
-def strip_vuln(vuln: dict[str, Any]) -> dict[str, Any]:
-    """Helper method to strip unneeded report data from vulns"""
-    # These two attrs are needed to check the grace period and severity
-    # policies, they aren't needed in formatted reports
-    vuln.pop("report_date")
-    vuln.pop("severity")
-    return vuln
