@@ -173,8 +173,8 @@ export const enTranslations: ResourceKey = {
     },
     stackedBarChart: {
       assignedVulnerabilities: {
-        altTitle: "Vulnerabilities by assignment",
-        title: "Exposure by assignment",
+        altTitle: "Vulnerabilities by assignee",
+        title: "Exposure by assignee",
         tooltip: {
           cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",

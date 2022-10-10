@@ -149,7 +149,7 @@ def test_group_analytics(
             "Report Technique",
             "Group availability",
             "Accepted vulnerabilities by severity",
-            "Exposure by assignment",
+            "Exposure by assignee",
             "Files with open vulnerabilities in the last 20 weeks",
             "Mean (average) days to remediate",
             "Days since group is failing",
