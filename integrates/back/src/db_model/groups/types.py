@@ -56,6 +56,11 @@ class GroupTreatmentSummary(NamedTuple):
     new: int = 0
 
 
+class UnfulfilledStandard(NamedTuple):
+    name: str
+    unfulfilled_requirements: list[str]
+
+
 class GroupUnreliableIndicators(NamedTuple):
     closed_vulnerabilities: Optional[int] = None
     code_languages: Optional[List[CodeLanguage]] = None
@@ -85,6 +90,7 @@ class GroupUnreliableIndicators(NamedTuple):
     remediated_over_time_year: Optional[RegisterByTime] = None
     remediated_over_time_year_cvssf: Optional[RegisterByTime] = None
     treatment_summary: Optional[GroupTreatmentSummary] = None
+    unfulfilled_standards: Optional[list[UnfulfilledStandard]] = None
 
 
 class GroupFile(NamedTuple):

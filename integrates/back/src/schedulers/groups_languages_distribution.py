@@ -219,6 +219,7 @@ async def update_language_indicators(
                 group_indicators.remediated_over_time_year_cvssf
             ),
             treatment_summary=group_indicators.treatment_summary,
+            unfulfilled_standards=group_indicators.unfulfilled_standards,
         ),
     )
     LOGGER.info("Group %s language stats were updated", group)

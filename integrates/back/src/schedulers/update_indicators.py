@@ -1092,6 +1092,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
             remediated_over_ninety_days.vulnerabilities_cvssf
         ),
         treatment_summary=treatment_summary,
+        unfulfilled_standards=current_indicators.unfulfilled_standards,
     )
 
 

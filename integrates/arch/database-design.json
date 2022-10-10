@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 04, 2022, 11:10 AM",
+    "DateLastModified": "Oct 10, 2022, 01:52 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -980,6 +980,10 @@
         },
         {
           "AttributeName": "code_languages",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "unfulfilled_standards",
           "AttributeType": "L"
         },
         {
@@ -10721,7 +10725,8 @@
             "remediated_over_time_year",
             "remediated_over_time_year_cvssf",
             "treatment_summary",
-            "code_languages"
+            "code_languages",
+            "unfulfilled_standards"
           ],
           "DataAccess": {
             "MySql": {}

@@ -20,6 +20,7 @@ from .types import (
     GroupStatusJustification,
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
+    UnfulfilledStandard,
 )
 from db_model.organizations.utils import (
     add_org_id_prefix,
@@ -151,6 +152,15 @@ def format_unreliable_indicators(item: Item) -> GroupUnreliableIndicators:
         treatment_summary=format_treatment_summary(item["treatment_summary"])
         if item.get("treatment_summary")
         else None,
+        unfulfilled_standards=[
+            UnfulfilledStandard(
+                name=standard["name"],
+                unfulfilled_requirements=standard["unfulfilled_requirements"],
+            )
+            for standard in item["unfulfilled_standards"]
+        ]
+        if "unfulfilled_standards" in item
+        else None,
     )
 
 
@@ -235,6 +245,7 @@ def format_unreliable_indicators_item(
         )
         if indicators.treatment_summary
         else None,
+        "unfulfilled_standards": getattr(indicators, "unfulfilled_standards"),
     }
 
 
