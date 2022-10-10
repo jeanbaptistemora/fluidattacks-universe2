@@ -182,7 +182,10 @@ According to the nine categories
 that group the different
 types of vulnerabilities,
 it will be possible to filter by
-days how the CVSSF of these has varied,
+30,
+60,
+90 and 180 days how the CVSSF
+of these has varied,
 showing whether the exposure
 has increased or decreased.
 
