@@ -156,9 +156,9 @@ for your vulnerabiities,
 for more information
 [click here](/machine/web/vulnerabilities/management/treatments/).
 
-## Exposure by assignment
+## Exposure by assignee
 
-![Exposure By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
+![Exposure by Assignee](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
 
 This bar chart in an organization,
 group or portfolio has
