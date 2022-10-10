@@ -16,20 +16,18 @@ const coerce = (constraint) => {
 
   if (versionCoerced.length < 3) {
     versionCoerced.push("*");
-  };
+  }
 
   return versionCoerced.slice(0, 3).join(".") + tags;
 };
 
-const coerceRange = (range) => range
-  .replace(/\s+/g, " ")
-  .replace(/\s*\|\|\s*/g, "||")
-  .split("||")
-  .map((token) => token
-    .split(" ")
-    .map(coerce)
-    .join(" "))
-  .join("||");
+const coerceRange = (range) =>
+  range
+    .replace(/\s+/g, " ")
+    .replace(/\s*\|\|\s*/g, "||")
+    .split("||")
+    .map((token) => token.split(" ").map(coerce).join(" "))
+    .join("||");
 
 const argv = process.argv;
 const left = argv[2];
@@ -47,16 +45,27 @@ console.error("Using left constraint:", new semverRange(leftCoerced).range);
 console.error("Using right constraint:", new semverRange(rightCoerced).range);
 
 try {
-  console.log(JSON.stringify({
-    success: true,
-    match: semverIntersects(leftCoerced, rightCoerced),
-  }, null, true));
-}
-catch (error) {
-  console.log(JSON.stringify({
-    success: false,
-    error: error.toString(),
-  }, null, true));
+  console.log(
+    JSON.stringify(
+      {
+        success: true,
+        match: semverIntersects(leftCoerced, rightCoerced),
+      },
+      null,
+      true
+    )
+  );
+} catch (error) {
+  console.log(
+    JSON.stringify(
+      {
+        success: false,
+        error: error.toString(),
+      },
+      null,
+      true
+    )
+  );
 }
 
 process.exit(0);
