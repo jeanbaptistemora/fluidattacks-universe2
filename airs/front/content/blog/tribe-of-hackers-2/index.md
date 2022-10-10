@@ -182,5 +182,5 @@ directory?"
 
 All these were fairly simple yet worthwhile tips and ideas drawn from
 what Benjamin Donnelly shared on *Tribe of Hackers Red Team*. I hope you
-enjoyed them. If you’d like to know more about our red team at `Fluid
-Attacks`, please do not hesitate to [contact us](../../contact-us/).
+enjoyed them. If you’d like to know more about our red team at `Fluid Attacks`,
+please do not hesitate to [contact us](../../contact-us/).

@@ -48,8 +48,7 @@ syntax.
 
 <div class="imgblock">
 
-![GTER command
-syntax](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gter/gter1_bow4kj.webp)
+![GTER command syntax](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gter/gter1_bow4kj.webp)
 
 </div>
 
@@ -80,8 +79,7 @@ Now we can send the fuzz attack to the victim machine:
 
 <div class="imgblock">
 
-![Running
-spike](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/fuzz1_eahyra.gif)
+![Running spike](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/fuzz1_eahyra.gif)
 
 </div>
 
@@ -91,8 +89,7 @@ offending payload on `Wireshark`:
 
 <div class="imgblock">
 
-![Wireshark
-capture](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/wireshark1_ohyi15.webp)
+![Wireshark capture](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/wireshark1_ohyi15.webp)
 
 </div>
 
@@ -122,8 +119,7 @@ Let’s run the initial exploit and see what happens:
 
 <div class="imgblock">
 
-![Exploit: take
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/gter2_axxim1.gif)
+![Exploit: take 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/gter2_axxim1.gif)
 
 </div>
 
@@ -131,8 +127,7 @@ Look at that\! We replicated the crash\!
 
 <div class="imgblock">
 
-![Controlling
-EIP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/crash1_tnurkm.webp)
+![Controlling EIP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/crash1_tnurkm.webp)
 
 </div>
 
@@ -167,8 +162,7 @@ $ msf-pattern_create -l 400
 
 <div class="imgblock">
 
-![Cyclic
-pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/pattern1_rxyoot.webp)
+![Cyclic pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/pattern1_rxyoot.webp)
 
 </div>
 
@@ -196,8 +190,7 @@ And we run the exploit again:
 
 <div class="imgblock">
 
-![Exploit: take
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset1_uk8di2.webp)
+![Exploit: take 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset1_uk8di2.webp)
 
 </div>
 
@@ -240,8 +233,7 @@ four bytes of our `B` buffer, we got it right:
 
 <div class="imgblock">
 
-![Correct offset to
-EIP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset2_bv13e7.webp)
+![Correct offset to EIP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset2_bv13e7.webp)
 
 </div>
 
@@ -265,8 +257,7 @@ exclude `DLL` from the `OS`.
 
 <div class="imgblock">
 
-![JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/mona1_ooj8ce.webp)
+![JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/mona1_ooj8ce.webp)
 
 </div>
 
@@ -299,8 +290,7 @@ Let’s verify this:
 
 <div class="imgblock">
 
-![Performing the JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_ceeuzf.gif)
+![Performing the JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_ceeuzf.gif)
 
 </div>
 
@@ -324,8 +314,7 @@ Now look at the next image, which is the resulting location after our
 
 <div class="imgblock">
 
-![Location of our execution
-flow](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_vnn3ms.webp)
+![Location of our execution flow](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_vnn3ms.webp)
 
 </div>
 
@@ -338,8 +327,7 @@ If we scroll up, we can see that the buffer of `A` starts at `00CBF931`:
 
 <div class="imgblock">
 
-![Start of
-buffer](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/jmp2_yj95iy.webp)
+![Start of buffer](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/jmp2_yj95iy.webp)
 
 </div>
 
@@ -348,8 +336,7 @@ easily calculate the offset:
 
 <div class="imgblock">
 
-![Relative backward
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp3_gyybou.gif)
+![Relative backward jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp3_gyybou.gif)
 
 </div>
 
@@ -384,8 +371,7 @@ And check the result:
 
 <div class="imgblock">
 
-![Jumped
-back](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp4_ebtqur.gif)
+![Jumped back](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp4_ebtqur.gif)
 
 </div>
 

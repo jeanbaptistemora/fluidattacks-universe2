@@ -137,8 +137,7 @@ Let’s see it in action:
 
 <div class="imgblock">
 
-![Executing code on the
-stack](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack1_vf9ycb.gif)
+![Executing code on the stack](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack1_vf9ycb.gif)
 
 </div>
 
@@ -157,8 +156,7 @@ In a debugger, we can check if an executable has that flag enabled:
 
 <div class="imgblock">
 
-![Modules with
-NXCOMPAT](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/nxenabled_ggy9vw.webp)
+![Modules with NXCOMPAT](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/nxenabled_ggy9vw.webp)
 
 </div>
 
@@ -173,8 +171,7 @@ you can use the following instructions:
 
 <div class="imgblock">
 
-![Enabling
-DEP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/enable-dep1_jkzhsm.webp)
+![Enabling DEP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/enable-dep1_jkzhsm.webp)
 
 </div>
 
@@ -184,8 +181,7 @@ DEP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/unde
 
 <div class="imgblock">
 
-![Enabling
-DEP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/enable-dep2_eqdu9f.webp)
+![Enabling DEP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/enable-dep2_eqdu9f.webp)
 
 </div>
 
@@ -215,8 +211,7 @@ Now, after enabling `DEP` system-wide, let’s execute our exploit again:
 
 <div class="imgblock">
 
-![DEP
-enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack2_irsdv6.gif)
+![DEP enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack2_irsdv6.gif)
 
 </div>
 

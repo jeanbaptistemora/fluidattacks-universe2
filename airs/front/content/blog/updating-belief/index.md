@@ -88,8 +88,7 @@ Rule](https://betterexplained.com/articles/an-intuitive-and-short-explanation-of
 
 <div class="imgblock">
 
-![Bayes Cause
-Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/bayes-cause-evidence_y6mmzh.webp)
+![Bayes Cause Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/bayes-cause-evidence_y6mmzh.webp)
 
 <div class="title">
 
@@ -106,8 +105,7 @@ observing the evidence given the cause, i.e., P(B|R) = 50%. Hence
 
 <div class="imgblock">
 
-![First given
-second](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/first-given-second_giftov.webp)
+![First given second](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/first-given-second_giftov.webp)
 
 <div class="title">
 
@@ -168,8 +166,7 @@ We might draw a tree diagram like this to describe the situation:
 
 <div class="imgblock">
 
-![Probability tree
-cyber](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/prob-tree-cyber_lh4cn3.webp)
+![Probability tree cyber](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/prob-tree-cyber_lh4cn3.webp)
 
 <div class="title">
 
@@ -194,8 +191,7 @@ case, we have shorter branches ending in A:
 
 <div class="imgblock">
 
-![Attack Positive
-Test](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/attack-postest_a0huwb.webp)
+![Attack Positive Test](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/attack-postest_a0huwb.webp)
 
 <div class="title">
 
@@ -209,8 +205,7 @@ What if it is negative?
 
 <div class="imgblock">
 
-![Attack Negative
-Test](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/attack-negtest_vzmoqo.webp)
+![Attack Negative Test](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/attack-negtest_vzmoqo.webp)
 
 <div class="title">
 
@@ -237,8 +232,7 @@ nodes in the third column):
 
 <div class="imgblock">
 
-![Probability of
-Vulnerabilies](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/prob-vuln_v6f4ka.webp)
+![Probability of Vulnerabilies](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/prob-vuln_v6f4ka.webp)
 
 <div class="title">
 
@@ -253,8 +247,7 @@ Rule:
 
 <div class="imgblock">
 
-![Bayes
-Rule](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/cyber-bayes_bv3nqg.webp)
+![Bayes Rule](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/cyber-bayes_bv3nqg.webp)
 
 <div class="title">
 

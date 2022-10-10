@@ -174,9 +174,9 @@ behavior.
 Don't forget that you can access the full interview with Carlos Perez in
 [Carey and Jin's
 book](https://www.amazon.com/Tribe-Hackers-Red-Team-Cybersecurity/dp/1119643325).
-By the way, keep in mind that if you want to be part of the `Fluid
-Attacks'` red team, you can check out [our Careers
-page](../../careers/). And if you need information about our
+By the way, keep in mind that if you want to be part of the `Fluid Attacks'`
+red team, you can check out [our Careers page](../../careers/).
+And if you need information about our
 [services](../../services/continuous-hacking/) and
 [solutions](../../solutions/) for your organization, you can [click here
 to contact us](../../contact-us/).

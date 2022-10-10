@@ -20,8 +20,9 @@ source: https://unsplash.com/photos/R79qkPYvrcM
 Team:*](https://www.amazon.com/gp/product/B07VWHCQMR/ref=dbs_a_def_rwt_bibl_vppi_i2)
 *Tribal Knowledge from the Best in Offensive Cybersecurity* by Marcus J.
 Carey and Jennifer Jin (2019) belongs to the *Tribe of Hackers*
-cybersecurity book series. It was recently shared with me here at `Fluid
-Attacks`, and now I would like to share with you some of the highlights
+cybersecurity book series.
+It was recently shared with me here at `Fluid Attacks`,
+and now I would like to share with you some of the highlights
 that I selected for this post. Maybe there’s something that will pique
 your curiosity.
 
@@ -89,8 +90,8 @@ Figure 1. Marcus’s photo taken from
 </div>
 
 According to Marcus, "it is uncommon for people to start directly into
-red team jobs." (Well, it’s noteworthy that most hackers at `Fluid
-Attacks` began working as red teamers and never were part of blue teams,
+red team jobs." (Well, it’s noteworthy that most hackers at `Fluid Attacks`
+began working as red teamers and never were part of blue teams,
 as I was informed.) He says that the best way to get a red team job is
 to start working for a blue team and gain cybersecurity skills as a
 software engineer, systems administrator, or related roles. Once there,

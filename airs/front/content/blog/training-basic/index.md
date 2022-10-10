@@ -111,8 +111,8 @@ it…​**
     defensive side of security; I have heard you’re doing cool stuff on
     the offensive side as well, aren’t you?
 
-Security, as part of the development process, is essential to `Fluid
-Attacks`. We are proud to be working with this approach for several
+Security, as part of the development process, is essential to `Fluid Attacks`.
+We are proud to be working with this approach for several
 years now. Our [Continuous Hacking](../../services/continuous-hacking/)
 and [One-shot Hacking](../../services/one-shot-hacking/) services rely
 on IaC to support our customers consistently and faster.

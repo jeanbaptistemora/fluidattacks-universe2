@@ -81,8 +81,7 @@ handler itself. We can see the exception handler’s chain on a debugger:
 
 <div class="imgblock">
 
-![SEH
-chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh1_cwzur2.webp)
+![SEH chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh1_cwzur2.webp)
 
 </div>
 
@@ -90,8 +89,7 @@ And on the stack, it is shown as:
 
 <div class="imgblock">
 
-![SEH
-chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/seh2_vg1vlp.webp)
+![SEH chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/seh2_vg1vlp.webp)
 
 </div>
 
@@ -140,8 +138,7 @@ And run it:
 
 <div class="imgblock">
 
-![Fuzzing
-GMON](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/fuzz1_qh0ra7.gif)
+![Fuzzing GMON](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/fuzz1_qh0ra7.gif)
 
 </div>
 
@@ -190,8 +187,7 @@ However, if we look at the `SEH` chain table, we will see this:
 
 <div class="imgblock">
 
-![Corrupted
-SEH](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh3_axexgv.webp)
+![Corrupted SEH](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh3_axexgv.webp)
 
 </div>
 
@@ -201,8 +197,7 @@ exception handler with our buffer. If we trigger the exception handler
 
 <div class="imgblock">
 
-![EIP
-control](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/eip1_keniyt.gif)
+![EIP control](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/eip1_keniyt.gif)
 
 </div>
 
@@ -243,8 +238,7 @@ And run it:
 
 <div class="imgblock">
 
-![Pattern
-offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/pattern1_pds6g9.webp)
+![Pattern offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/pattern1_pds6g9.webp)
 
 </div>
 
@@ -292,8 +286,7 @@ And the result:
 
 <div class="imgblock">
 
-![Right
-offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/offset1_sosm3e.gif)
+![Right offset](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/offset1_sosm3e.gif)
 
 </div>
 
@@ -361,8 +354,7 @@ on modules of the `OS` (`-o`).
 
 <div class="imgblock">
 
-![POP POP
-RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/mona1_gzwngq.webp)
+![POP POP RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/mona1_gzwngq.webp)
 
 </div>
 
@@ -396,8 +388,7 @@ And run it:
 
 <div class="imgblock">
 
-![POP POP
-RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/popret1_xnh1tf.gif)
+![POP POP RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/popret1_xnh1tf.gif)
 
 </div>
 
@@ -470,8 +461,7 @@ And see if we could effectively jump over the `SEH` handler:
 
 <div class="imgblock">
 
-![Short
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/jmp1_hsds6d.gif)
+![Short jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/jmp1_hsds6d.gif)
 
 </div>
 
@@ -482,8 +472,7 @@ to the start of our `A` buffer and letting it calculate the offset.
 
 <div class="imgblock">
 
-![Long
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/jmp2_xmjgq1.gif)
+![Long jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/jmp2_xmjgq1.gif)
 
 </div>
 
@@ -523,8 +512,7 @@ And check it:
 
 <div class="imgblock">
 
-![Long
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnserver-gmon/jmp3_pwvvyj.gif)
+![Long jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnserver-gmon/jmp3_pwvvyj.gif)
 
 </div>
 
