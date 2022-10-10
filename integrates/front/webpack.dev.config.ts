@@ -23,7 +23,13 @@ const devConfig: IWebpackConfig = {
     historyApiFallback: true,
     hot: true,
     port: 3000,
-    server: "https",
+    server: {
+      options: {
+        cert: process.env.FI_WEBPACK_TLS_CERT,
+        key: process.env.FI_WEBPACK_TLS_KEY,
+      },
+      type: "https",
+    },
   },
   devtool: false,
   mode: "development",

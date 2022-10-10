@@ -66,6 +66,11 @@ function run_dynamodb_consumer {
         "kinesisEndpoint = ${LOCAL_ENDPOINT}"
         "metricsLevel = NONE"
       )
+    elif [ "${runtime}" = "prod-local" ]; then
+      properties+=(
+        "dynamoDBEndpoint = ${LOCAL_ENDPOINT}"
+        "metricsLevel = NONE"
+      )
     fi \
     && for property in "${properties[@]}"; do
       echo "${property}" >> "${properties_file}"

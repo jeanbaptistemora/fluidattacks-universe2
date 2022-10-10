@@ -9,7 +9,7 @@
 }:
 makeScript {
   replace = {
-    __argCertsDevelopment__ = outputs."/integrates/back/certs/dev";
+    __argCertsDevelopment__ = outputs."/integrates/certs/dev";
     __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
   name = "integrates-back";

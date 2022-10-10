@@ -9,8 +9,8 @@
 }:
 makeScript {
   replace = {
-    __argSetupIntegratesFrontDevRuntime__ =
-      outputs."/integrates/front/config/dev-runtime";
+    __argCertsDevelopment__ = outputs."/integrates/certs/dev";
+    __argRuntime__ = outputs."/integrates/front/config/dev-runtime";
   };
   entrypoint = ./entrypoint.sh;
   name = "integrates-front";
