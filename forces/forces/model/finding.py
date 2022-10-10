@@ -12,6 +12,8 @@ from forces.model.vulnerability import (
 
 @dataclass
 class FindingSummary:
+    """Data structure to represent a Finding vulns' state summary"""
+
     open: int = 0
     closed: int = 0
     accepted: int = 0
@@ -25,6 +27,6 @@ class Finding:
     title: str
     state: str
     exploitability: float
-    severity_score: float
+    severity: float | str
     summary: FindingSummary = FindingSummary()
     vulnerabilities: tuple[Vulnerability, ...] = tuple()

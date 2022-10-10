@@ -18,7 +18,6 @@ from .vulnerability import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
-    VulnerabilityZeroRiskStatus,
 )
 
 __all__ = [
@@ -29,5 +28,4 @@ __all__ = [
     "Vulnerability",
     "VulnerabilityState",
     "VulnerabilityType",
-    "VulnerabilityZeroRiskStatus",
 ]
