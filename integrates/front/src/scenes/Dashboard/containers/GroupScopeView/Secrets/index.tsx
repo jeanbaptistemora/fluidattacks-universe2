@@ -25,7 +25,8 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table as Tablez } from "components/TableNew";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 
@@ -152,7 +153,7 @@ const Secrets: React.FC<ISecretsProps> = ({
           setModalMessages={setModalMessages}
         />
       </Modal>
-      <Tablez
+      <Table
         columns={[
           {
             accessorKey: "key",
@@ -160,6 +161,8 @@ const Secrets: React.FC<ISecretsProps> = ({
           },
           {
             accessorKey: "element",
+            cell: (cell: ICellHelper<ISecretItem>): JSX.Element =>
+              cell.getValue(),
             header: String(t("group.scope.git.repo.credentials.secrets.value")),
           },
         ]}
