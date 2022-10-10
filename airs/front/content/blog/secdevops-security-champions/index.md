@@ -11,9 +11,9 @@ description: Here you'll learn about Security Champions. But first, we give you 
 keywords: Security, Champions, Devops, Secdevops, Devsecops, Software, Information, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
-:name: Felipe Ruiz
-:about1: Cybersecurity Editor
-:source: https://unsplash.com/photos/3tkxfe2GocY
+name: Felipe Ruiz
+about1: Cybersecurity Editor
+source: https://unsplash.com/photos/3tkxfe2GocY
 ---
 
 I recently attended a webcast from Carnegie Mellon University entitled

@@ -64,8 +64,8 @@ The requirements that are chosen determine the stringency
 and extent of pentesting,
 thus establishing conditions for [vulnerability management](../../solutions/vulnerability-management/).
 
-Hackers have in Rules, as Paula Vélez, Security Architect at `Fluid
-Attacks` suggests, "*a performance guide, because if a requirement is
+Hackers have in Rules, as Paula Vélez, Security Architect at `Fluid Attacks`
+suggests, "*a performance guide, because if a requirement is
 not being satisfied, that means there is a vulnerability to be
 reported*." Hacking is made easier; time and effort are saved if the
 requirements are found in a single set or single source.

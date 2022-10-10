@@ -138,8 +138,7 @@ I don’t know about you, dear reader, but I’ve never experienced a
 
 <div class="imgblock">
 
-![Richard
-Feynman](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/feynman_vbcjy0.webp)
+![Richard Feynman](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/feynman_vbcjy0.webp)
 
 <div class="title">
 

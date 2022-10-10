@@ -49,8 +49,7 @@ into `Cutter`:
 
 <div class="imgblock">
 
-![Basic
-info](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331064/blog/reversing-vulnserver/basic1_t7ros9.gif)
+![Basic info](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331064/blog/reversing-vulnserver/basic1_t7ros9.gif)
 
 </div>
 
@@ -95,15 +94,13 @@ To check that information, we can use our debugger. We will load
 
 <div class="imgblock">
 
-![Modules
-security](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/security1_xkio2p.gif)
+![Modules security](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/security1_xkio2p.gif)
 
 </div>
 
 <div class="imgblock">
 
-![Modules
-security](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/security2_fsxcq3.webp)
+![Modules security](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/security2_fsxcq3.webp)
 
 </div>
 
@@ -158,8 +155,7 @@ We can see this behavior in `Cutter`:
 
 <div class="imgblock">
 
-![Command
-iteration](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331067/blog/reversing-vulnserver/iteration1_fjionw.gif)
+![Command iteration](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331067/blog/reversing-vulnserver/iteration1_fjionw.gif)
 
 </div>
 
@@ -181,8 +177,7 @@ On the main loop, `vulnserver` checks if the received buffer contains
 
 <div class="imgblock">
 
-![KSTET
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-vulnserver/kstet1_gjfv0v.webp)
+![KSTET 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-vulnserver/kstet1_gjfv0v.webp)
 
 </div>
 
@@ -190,8 +185,7 @@ The `KSTET` execution is lineal and simple:
 
 <div class="imgblock">
 
-![KSTET
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331061/blog/reversing-vulnserver/kstet2_jo9em7.webp)
+![KSTET 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331061/blog/reversing-vulnserver/kstet2_jo9em7.webp)
 
 </div>
 
@@ -217,8 +211,7 @@ Now, let’s check what `Function2` does:
 
 <div class="imgblock">
 
-![KSTET
-3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/kstet3_m7i2ws.webp)
+![KSTET 3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/kstet3_m7i2ws.webp)
 
 </div>
 
@@ -248,8 +241,7 @@ Let’s check it:
 
 <div class="imgblock">
 
-![KSTET
-4](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/kstet4_i471nt.gif)
+![KSTET 4](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/kstet4_i471nt.gif)
 
 </div>
 
@@ -263,8 +255,7 @@ execution flow:
 
 <div class="imgblock">
 
-![TRUN is
-found](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/trun1_gftjkx.webp)
+![TRUN is found](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/trun1_gftjkx.webp)
 
 </div>
 
@@ -273,8 +264,7 @@ To get clear references later, I renamed the `s1` parameter to
 
 <div class="imgblock">
 
-![TRUN is
-found](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/trun1-1_vlbzgh.webp)
+![TRUN is found](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/trun1-1_vlbzgh.webp)
 
 </div>
 
@@ -283,8 +273,7 @@ The first thing it does is allocate 3000 bytes of dynamic memory using
 
 <div class="imgblock">
 
-![TRUN memory
-alloc](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/trun2_ffly3z.webp)
+![TRUN memory alloc](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/trun2_ffly3z.webp)
 
 </div>
 
@@ -301,8 +290,7 @@ Then, a loop is created:
 
 <div class="imgblock">
 
-![TRUN
-loop](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/trun-loop1_s8y8ji.webp)
+![TRUN loop](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331060/blog/reversing-vulnserver/trun-loop1_s8y8ji.webp)
 
 </div>
 
@@ -312,8 +300,7 @@ loop will finish:
 
 <div class="imgblock">
 
-![TRUN loop
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/trun-loop2_h5ktyq.webp)
+![TRUN loop 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/trun-loop2_h5ktyq.webp)
 
 </div>
 
@@ -324,8 +311,7 @@ representation of a dot (`.`):
 
 <div class="imgblock">
 
-![TRUN loop
-3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/trun-loop3_iwnfvm.webp)
+![TRUN loop 3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/trun-loop3_iwnfvm.webp)
 
 </div>
 
@@ -337,8 +323,7 @@ Then, a pointer to `dest` is put on the stack and `Function3` is called:
 
 <div class="imgblock">
 
-![TRUN loop
-4](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/trun-loop4_xsulyd.webp)
+![TRUN loop 4](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/trun-loop4_xsulyd.webp)
 
 </div>
 
@@ -350,8 +335,7 @@ the `*src` parameter of `strcpy()`, then `strcpy()` is called:
 
 <div class="imgblock">
 
-![strcpy on
-TRUN](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/strcpy1_eejc11.webp)
+![strcpy on TRUN](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/strcpy1_eejc11.webp)
 
 </div>
 
@@ -401,8 +385,7 @@ Violation` exception on our debugger:
 
 <div class="imgblock">
 
-![Access
-violation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331064/blog/reversing-vulnserver/accessviolation1_dy6guo.webp)
+![Access violation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331064/blog/reversing-vulnserver/accessviolation1_dy6guo.webp)
 
 </div>
 
@@ -435,8 +418,7 @@ overwritten by our buffer:
 
 <div class="imgblock">
 
-![Access
-violation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/eip1_osjkcu.gif)
+![Access violation](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331062/blog/reversing-vulnserver/eip1_osjkcu.gif)
 
 </div>
 
@@ -455,8 +437,7 @@ functions used by the application:
 
 <div class="imgblock">
 
-![Unsafe
-functions](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/unsafe2_dpirxx.webp)
+![Unsafe functions](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331063/blog/reversing-vulnserver/unsafe2_dpirxx.webp)
 
 </div>
 
@@ -469,8 +450,7 @@ input reaches the call of `strcpy()`:
 
 <div class="imgblock">
 
-![Cross
-references](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/reversing-vulnserver/xrefs1_c8flx4.gif)
+![Cross references](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/reversing-vulnserver/xrefs1_c8flx4.gif)
 
 </div>
 

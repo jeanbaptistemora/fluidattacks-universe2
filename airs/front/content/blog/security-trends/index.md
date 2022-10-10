@@ -134,8 +134,9 @@ seriously, since it’s our value promise.
 Machine Learning, Neural Networks, and Artificial Intelligence have
 demonstrated that they have several applications, and cybersecurity is
 not an exception. This topic has been widely addressed in [several blog
-entries](../tags/machine-learning/), so instead, let’s discuss `Fluid
-Attacks'` opinion about the prospects for Machine Learning in the
+entries](../tags/machine-learning/), so instead,
+let’s discuss `Fluid Attacks'`
+opinion about the prospects for Machine Learning in the
 cybersecurity field
 
 At `Fluid Attacks`, we do not discourage the use of automated tools in

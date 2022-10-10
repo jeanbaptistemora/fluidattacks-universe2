@@ -33,7 +33,7 @@ input properly and did not apply the best practices to retrieve data
 from the database. Let me give you an example; imagine this piece of
 code:
 
-**Common sqli vulnerable code.**
+**Common SQLi vulnerable code.**
 
 ``` PHP
 $user = $_POST['user'];
@@ -52,14 +52,14 @@ character, then will it be ok? Not so much.
 
 To set up our lab, we are going to use `Hashicorp’s`
 [Vagrant](https://www.vagrantup.com/); the source files are below.
-Create a folder with the name `sqli` and save the `Vagrantfile` there.
+Create a folder with the name `SQLi` and save the `Vagrantfile` there.
 
 **setting up the lab.**
 
 ``` bash
-$ mkdir sqli
-$ cd sqli
-sqli$ nano Vagrantfile #Add the content here
+$ mkdir SQLi
+$ cd SQLi
+SQLi$ nano Vagrantfile #Add the content here
 ```
 
 **Vagrantfile.**
@@ -82,7 +82,7 @@ Then run the environment using
 **vagrant up.**
 
 ``` bash
-sqli$ vagrant up
+SQLi$ vagrant up
 ```
 
 This will create a `Linux` machine with `LAMP` installed and configured.

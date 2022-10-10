@@ -8,7 +8,7 @@ tags: cybersecurity, red-team, security-testing, pentesting
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/red-team-exercise/cover_kmvlzc.webp
 alt: Photo by Stefan Steinbauer on Unsplash
 description: Here we give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise and its benefits for customers.
-keywords: Redteam, Red, Team, Attack, KillChain, Hacking, Business, Ethical Hacking, Pentesting
+keywords: Redteam, Red, Team, Attack, Kill Chain, Hacking, Business, Ethical Hacking, Pentesting
 author: Anderson Taguada
 writer: anders2d
 name: Anderson Taguada
