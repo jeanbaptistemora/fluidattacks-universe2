@@ -3594,8 +3594,16 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
-        file_name="terraform",
+        file_name="java",
         name="csrf_protections_disabled",
+        module="lib_root",
+        finding=FindingEnum.F332,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    KUBERNETES_INSECURE_PORT = MethodInfo(
+        file_name="kubernetes",
+        name="kubernetes_insecure_port",
         module="lib_path",
         finding=FindingEnum.F332,
         developer=DeveloperEnum.JUAN_ECHEVERRI,

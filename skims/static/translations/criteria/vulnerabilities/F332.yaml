@@ -2,3 +2,6 @@
 lib_root.f332.csrf_protections_disabled:
   en: Disabling of protection mechanism against CSRF attacks
   es: Deshabilitación de mecanismo de protección en contra de ataques de CSRF
+lib_path.f332.kubernetes_insecure_port:
+  en: Use of the http protocol which is insecure
+  es: Uso del protocolo http el cual es inseguro

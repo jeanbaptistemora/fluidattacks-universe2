@@ -23587,7 +23587,7 @@ F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.jav
   20 |     }
   21 | }
      ^ Col 0
-",terraform.csrf_protections_disabled
+",java.csrf_protections_disabled
 F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,10,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
    1 | import java.net.URI;
    2 | import java.net.URISyntaxException;
@@ -23611,7 +23611,7 @@ F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.jav
   20 |     }
   21 | }
      ^ Col 0
-",terraform.csrf_protections_disabled
+",java.csrf_protections_disabled
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | ing System;
@@ -23783,6 +23783,25 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sen
   33 | }
      ^ Col 0
 ",c_sharp.c_sharp_jwt_signed
+F332,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,9,319,skims,332. Use of insecure channel - Source code,Use of the http protocol which is insecure in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,"
+   1 | apiVersion: v1
+   2 | kind: Service
+   3 | metadata:
+   4 |   name: my-service
+   5 | spec:
+   6 |   selector:
+   7 |     app.kubernetes.io/name: MyApp
+   8 |   ports:
+>  9 |     - name: http
+  10 |       protocol: TCP
+  11 |       port: 80
+  12 |       targetPort: 9376
+  13 |     - name: https
+  14 |       protocol: TCP
+  15 |       port: 443
+  16 |       targetPort: 9377
+     ^ Col 0
+",kubernetes.kubernetes_insecure_port
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
    1 | bg.ws.endpoint =  http://www.test.com
    2 | bg.ws.endpoint = https://www.test.com
