@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+import ast
 from dast.aws.types import (
     Location,
 )
@@ -21,6 +22,7 @@ from typing import (
     Callable,
     Coroutine,
     Dict,
+    List,
     Tuple,
 )
 
@@ -38,6 +40,7 @@ async def unencrypted_buckets(
     buckets = response.get("Buckets", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     for bucket in buckets:
+        locations: List[Location] = []
         encryption: Dict[str, Any] = await run_boto3_fun(
             credentials,
             service="s3",
@@ -67,7 +70,76 @@ async def unencrypted_buckets(
     return vulns
 
 
+async def bucket_policy_has_server_side_encryption_disable(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.AWS_BUCKET_POLICY_ENCRYPTION_DISABLE
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="s3",
+        function="list_buckets",
+    )
+    buckets = response.get("Buckets", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    for bucket in buckets:
+        locations: List[Location] = []
+        bucket_policy_string: Dict[str, Any] = await run_boto3_fun(
+            credentials,
+            service="s3",
+            function="get_bucket_policy",
+            parameters={
+                "Bucket": str(bucket["Name"]),
+            },
+        )
+        if bucket_policy_string:
+            policy = ast.literal_eval(str(bucket_policy_string["Policy"]))
+            bucket_statements = policy["Statement"]
+
+            for index, stm in enumerate(bucket_statements):
+                conditions = stm.get("Condition", {})
+                if (
+                    conditions
+                    and stm["Condition"]["Null"][
+                        "s3:x-amz-server-side-encryption"
+                    ]
+                    != "true"
+                ):
+                    condition = stm["Condition"]["Null"][
+                        "s3:x-amz-server-side-encryption"
+                    ]
+                    locations = [
+                        *locations,
+                        Location(
+                            access_patterns=(
+                                (
+                                    f"/Statement/{index}/Condition/Null"
+                                    "/s3:x-amz-server-side-encryption"
+                                ),
+                            ),
+                            arn=(f"arn:aws:s3:::{bucket['Name']}"),
+                            values=(f"{condition}",),
+                            description=(
+                                "src.lib_path.f099."
+                                "bckp_has_server_side_encryption_disabled"
+                            ),
+                        ),
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=policy,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (unencrypted_buckets,)
+] = (
+    unencrypted_buckets,
+    bucket_policy_has_server_side_encryption_disable,
+)
