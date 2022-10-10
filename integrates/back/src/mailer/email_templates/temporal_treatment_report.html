@@ -20,12 +20,12 @@ SPDX-License-Identifier: MPL-2.0
           is about to end:
         </p>
         <p>
-          <strong>Type or vulnerability:</strong> {{ finding }}<br>
+          <strong>Type:</strong> {{ finding }}<br>
           <strong>Vulnerabilities:</strong>
           <ul>
           {% for key, value in locations.items() %}
             <li>{{ key }} ({{- value["vuln_count"] }}
-            {%- if value["vuln_count"] == 1 -%}
+            {%- if value["vuln_count"] == 1 %}
             vulnerability
             {%- else -%}
             vulnerabilities
