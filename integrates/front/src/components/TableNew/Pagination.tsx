@@ -4,12 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-  faAngleLeft,
-  faAngleRight,
-  faAnglesLeft,
-  faAnglesRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { RowData, Table } from "@tanstack/react-table";
 import _ from "lodash";
@@ -48,12 +43,6 @@ const Pagination = <TData extends RowData>({
   const isInFirst = pageIndex === 0;
   const isInLast = pageIndex === pageCount - 1;
 
-  const goToFirst = useCallback((): void => {
-    table.setPageIndex(0);
-  }, [table]);
-  const goToLast = useCallback((): void => {
-    table.setPageIndex(pageCount - 1);
-  }, [pageCount, table]);
   const goToNext = useCallback((): void => {
     if (isInLast && onNextPage) {
       void onNextPage().then((): void => {
@@ -98,14 +87,6 @@ const Pagination = <TData extends RowData>({
       </Text>
       <Button
         disabled={isInFirst}
-        onClick={goToFirst}
-        size={"sm"}
-        variant={"secondary"}
-      >
-        <FontAwesomeIcon icon={faAnglesLeft} />
-      </Button>
-      <Button
-        disabled={isInFirst}
         onClick={goToPrev}
         size={"sm"}
         variant={"secondary"}
@@ -133,14 +114,6 @@ const Pagination = <TData extends RowData>({
         variant={"secondary"}
       >
         <FontAwesomeIcon icon={faAngleRight} />
-      </Button>
-      <Button
-        disabled={isInLast}
-        onClick={goToLast}
-        size={"sm"}
-        variant={"secondary"}
-      >
-        <FontAwesomeIcon icon={faAnglesRight} />
       </Button>
     </PaginationBox>
   );
