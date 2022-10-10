@@ -77,7 +77,10 @@ import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Vulnerab
 import { Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
-import { authzPermissionsContext } from "utils/authz/config";
+import {
+  authzPermissionsContext,
+  userLevelPermissions,
+} from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -110,6 +113,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const canDeleteVulnsTags: boolean = permissions.can(
     "api_mutations_remove_vulnerability_tags_mutate"
+  );
+  const canAssignVulnsToFluid: boolean = userLevelPermissions.can(
+    "can_assign_vulnerabilities_to_fluidattacks_staff"
   );
   const [isRunning, setIsRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
@@ -344,7 +350,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       : data.group.stakeholders
           .filter(
             (stakeholder: IStakeholderAttr): boolean =>
-              stakeholder.invitationState === "REGISTERED"
+              stakeholder.invitationState === "REGISTERED" &&
+              (!stakeholder.email.endsWith("@fluidattacks.com") ||
+                canAssignVulnsToFluid)
           )
           .map((stakeholder: IStakeholderAttr): string => stakeholder.email);
 
