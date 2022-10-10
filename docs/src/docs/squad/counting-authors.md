@@ -1,7 +1,7 @@
 ---
 id: counting-authors
-title: Billing- Author count
-sidebar_label: Billing- Author count
+title: Billing author count
+sidebar_label: Billing author count
 slug: /squad/counting-authors
 ---
 
