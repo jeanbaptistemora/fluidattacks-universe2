@@ -19,13 +19,16 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    TYPES_COUNT,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
 from dataloaders import (
     get_new_context,
+)
+from decimal import (
+    Decimal,
 )
 from dynamodb.exceptions import (
     UnavailabilityError,
@@ -63,28 +66,30 @@ async def get_data_many_groups(
 
 
 def format_data(all_data: List[PortfoliosGroupsInfo]) -> dict:
-    data = all_data[:15]
+    data = [group for group in all_data[:15] if group.value > Decimal("0.0")]
 
     return dict(
         data=dict(
             columns=[
-                ["Open Vulnerabilities"] + [group.value for group in data],
+                ["Open Types of Vulnerabilities"]
+                + [group.value for group in data],
             ],
             colors={
-                "Open Vulnerabilities": RISK.neutral,
+                "Open Types of Vulnerabilities": TYPES_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.group_name for group in data],
                 type="category",
                 tick=dict(
-                    rotate=utils.TICK_ROTATION,
+                    rotate=0,
                     multiline=False,
                 ),
             ),
@@ -97,6 +102,8 @@ def format_data(all_data: List[PortfoliosGroupsInfo]) -> dict:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(data),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 

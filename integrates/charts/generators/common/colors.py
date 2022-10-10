@@ -48,3 +48,4 @@ OTHER = _SCALE(
 GRAY_JET: str = "#323031"
 EXPOSURE: str = "#ac0a17"
 VULNERABILITIES_COUNT: str = "#cc6699"
+TYPES_COUNT: str = "#7f0540"

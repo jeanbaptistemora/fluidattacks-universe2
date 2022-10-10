@@ -101,7 +101,7 @@ async def get_data_many_groups(
 
 
 def format_data(all_data: list[PortfoliosGroupsInfo]) -> dict:
-    data = all_data[:15]
+    data = [group for group in all_data[:15] if group.value > Decimal("0.0")]
 
     return dict(
         data=dict(
