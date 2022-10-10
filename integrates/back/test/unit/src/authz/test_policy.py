@@ -148,6 +148,13 @@ async def test_get_group_level_role(
         test_role = await get_group_level_role(loaders, email, group)
         assert mock_resource.called is True
         assert test_role == result
+        test_role_other_group = await get_group_level_role(
+            loaders, email, "other-group"
+        )
+        if await get_user_level_role(loaders, email) == "admin":
+            assert test_role_other_group == result
+        else:
+            assert not test_role_other_group
 
 
 @pytest.mark.parametrize(
@@ -195,31 +202,75 @@ async def test_grant_user_level_role(
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
+@pytest.mark.parametrize(
+    ["email", "group", "group_role", "expected_user_role"],
+    [
+        ["test@test.com", "test_group", "user", "user"],
+        [
+            "test2@test.com",
+            "test_group2",
+            "user_manager",
+            "user",
+        ],
+    ],
+)
 @pytest.mark.changes_db
-async def test_grant_group_level_role() -> None:
-    await grant_group_level_role(
-        get_new_context(), "..TEST2@gmail.com", "group", "user"
-    )
-    assert (
-        await get_user_level_role(get_new_context(), "..test2@gmail.com")
-        == "user"
-    )
-    assert (
-        await get_user_level_role(get_new_context(), "..tESt2@gmail.com")
-        == "user"
-    )
-    assert (
-        await get_group_level_role(
-            get_new_context(), "..test2@gmail.com", "GROUP"
+async def test_grant_group_level_role(
+    email: str,
+    group: str,
+    group_role: str,
+    expected_user_role: str,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_update_item(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).update_item(**kwargs)
+
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.update_item.side_effect = (
+            mock_update_item
         )
-        == "user"
-    )
-    assert not await get_group_level_role(
-        get_new_context(), "..test2@gmail.com", "other-group"
-    )
+        with mock.patch(
+            "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+        ) as mock_resource:
+            mock_resource.return_value.batch_get_item.side_effect = (
+                mock_batch_get_item
+            )
+            await grant_group_level_role(
+                get_new_context(), email, group, group_role
+            )
+    assert mock_table_resource.called is True
+    assert mock_resource.called is True
+    with mock.patch(
+        "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+    ) as mock_resource:
+        mock_resource.return_value.batch_get_item.side_effect = (
+            mock_batch_get_item
+        )
+
+        assert (
+            await get_user_level_role(get_new_context(), email)
+            == expected_user_role
+        )
+    with mock.patch(
+        "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+    ) as mock_resource:
+        mock_resource.return_value.batch_get_item.side_effect = (
+            mock_batch_get_item
+        )
+        assert (
+            await get_group_level_role(get_new_context(), email, group)
+            == group_role
+        )
+
     with pytest.raises(ValueError) as test_raised_err:
         await grant_group_level_role(
-            get_new_context(), "..TEST2@gmail.com", "group", "breakall"
+            get_new_context(), email, group, "breakall"
         )
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
