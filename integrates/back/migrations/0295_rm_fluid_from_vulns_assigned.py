@@ -7,8 +7,8 @@
 Remove fluid staff from treatment assignment in groups outside
 `mura` and `imamura`.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-10 at 17:55:24 UTC
+Finalization Time: 2022-10-10 at 18:20:16 UTC
 """
 
 from aioextensions import (
