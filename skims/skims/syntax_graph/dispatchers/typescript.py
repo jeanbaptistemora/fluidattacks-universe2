@@ -11,8 +11,10 @@ from syntax_graph.syntax_readers.javascript import (
     call_expression as javascript_call_expression,
     class_declaration as javascript_class_declaration,
     comment as javascript_comment,
+    do_statement as javascript_do_statement,
     else_clause as javascript_else_clause,
     expression_statement as javascript_expression_statement,
+    for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
@@ -138,6 +140,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "do_statement",
+        },
+        syntax_reader=javascript_do_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "enum_assignment",
         },
         syntax_reader=typescript_enum_assignment.reader,
@@ -165,6 +173,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "expression_statement",
         },
         syntax_reader=javascript_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "for_in_statement",
+        },
+        syntax_reader=javascript_for_each_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -423,6 +437,8 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "any",
+            "null",
             "undefined",
             "void",
         },
