@@ -245,7 +245,12 @@ def format_unreliable_indicators_item(
         )
         if indicators.treatment_summary
         else None,
-        "unfulfilled_standards": getattr(indicators, "unfulfilled_standards"),
+        "unfulfilled_standards": [
+            format_unfulfilled_standard_item(unfulfilled_standard)
+            for unfulfilled_standard in indicators.unfulfilled_standards
+        ]
+        if indicators.unfulfilled_standards
+        else None,
     }
 
 
@@ -346,4 +351,15 @@ def format_code_language(
     return {
         "language": code_language.language,
         "loc": code_language.loc,
+    }
+
+
+def format_unfulfilled_standard_item(
+    unfulfilled_standard: UnfulfilledStandard,
+) -> Dict[str, Union[str, list[str]]]:
+    return {
+        "name": unfulfilled_standard.name,
+        "unfulfilled_requirements": (
+            unfulfilled_standard.unfulfilled_requirements
+        ),
     }

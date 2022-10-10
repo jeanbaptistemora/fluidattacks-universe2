@@ -27,6 +27,8 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     Group,
+    GroupUnreliableIndicators,
+    UnfulfilledStandard,
 )
 from db_model.organizations.types import (
     Organization,
@@ -43,6 +45,9 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from groups import (
+    domain as groups_domain,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -415,13 +420,35 @@ async def update_group_standard_fulfillment(
         ]
         for finding in open_findings
     )
-    non_compliance_requirements_by_standard = defaultdict(set)
+    non_compliance_requirements_by_standard: defaultdict[
+        str, set
+    ] = defaultdict(set)
     for requirements in requirements_by_finding:
         for requirement in requirements:
             for reference in requirements_file[requirement]["references"]:
                 non_compliance_requirements_by_standard[
                     get_standard_from_reference(reference)
                 ].add(requirement)
+
+    unfulfilled_standards: list[UnfulfilledStandard] = [
+        UnfulfilledStandard(
+            name=standard_name,
+            unfulfilled_requirements=sorted(non_compliance_requirements),
+        )
+        for standard_name, non_compliance_requirements in (
+            non_compliance_requirements_by_standard.items()
+        )
+        if non_compliance_requirements
+    ]
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_unreliable_indicators.load(group.name)
+    )
+    await groups_domain.update_indicators(
+        group_name=group.name,
+        indicators=group_indicators._replace(
+            unfulfilled_standards=unfulfilled_standards
+        ),
+    )
 
 
 async def update_groups_standard_fulfillment(
