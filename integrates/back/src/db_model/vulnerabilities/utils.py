@@ -163,6 +163,7 @@ def format_state(item: Item) -> VulnerabilityState:
         else None,
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
+        commit=item.get("commit"),
         source=Source[item["source"]],
         status=VulnerabilityStateStatus[item["status"]],
         tool=tool,

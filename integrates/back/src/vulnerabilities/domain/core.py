@@ -822,6 +822,7 @@ async def update_metadata_and_state(
                 status=vulnerability.state.status,
                 justification=vulnerability.state.justification,
                 tool=vulnerability.state.tool,
+                commit=vulnerability.state.commit,
             ),
         )
     elif vulnerability.state.status != new_state.status or (
@@ -919,6 +920,7 @@ async def verify(
                 tool=close_item.state.tool
                 if close_item
                 else vuln_to_close.state.tool,  # type: ignore
+                commit=close_item.commit if close_item else None,
             ),
         )
         for vuln_to_close, close_item in zip_longest(

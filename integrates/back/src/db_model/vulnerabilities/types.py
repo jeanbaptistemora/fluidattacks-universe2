@@ -40,6 +40,7 @@ class VulnerabilityState(NamedTuple):
     modified_date: str
     source: Source
     status: VulnerabilityStateStatus
+    commit: Optional[str] = None
     justification: Optional[StateRemovalJustification] = None
     tool: Optional[VulnerabilityTool] = None
 
