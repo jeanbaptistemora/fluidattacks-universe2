@@ -70,8 +70,7 @@ where `KSTET` string is presented and set a breakpoint:
 
 <div class="imgblock">
 
-![Debugging
-KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/debug1_kkqjhs.gif)
+![Debugging KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/debug1_kkqjhs.gif)
 
 </div>
 
@@ -80,8 +79,7 @@ and see what happens under the hood:
 
 <div class="imgblock">
 
-![Debugging
-KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/debug2_wohqpl.gif)
+![Debugging KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/debug2_wohqpl.gif)
 
 </div>
 
@@ -146,8 +144,7 @@ this:
 
 <div class="imgblock">
 
-![Buffer
-space](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/space1_f2mosl.webp)
+![Buffer space](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/space1_f2mosl.webp)
 
 </div>
 
@@ -200,8 +197,7 @@ And check it:
 
 <div class="imgblock">
 
-![Cyclic
-pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/offset1_srjfjl.gif)
+![Cyclic pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/offset1_srjfjl.gif)
 
 </div>
 
@@ -239,8 +235,7 @@ And run it:
 
 <div class="imgblock">
 
-![Cyclic
-pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/offset2_rbtocx.gif)
+![Cyclic pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/offset2_rbtocx.gif)
 
 </div>
 
@@ -265,8 +260,7 @@ nonull`) and omitting OS DLLs (`-o`). The result is the following:
 
 <div class="imgblock">
 
-![JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/mona1_ym7y00.webp)
+![JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/mona1_ym7y00.webp)
 
 </div>
 
@@ -300,8 +294,7 @@ And check it:
 
 <div class="imgblock">
 
-![JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/jmp1_rcg7tb.gif)
+![JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/jmp1_rcg7tb.gif)
 
 </div>
 
@@ -313,8 +306,7 @@ With a short jump backward, we can easily jump to that place:
 
 <div class="imgblock">
 
-![JMP
-backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp2_mgivno.gif)
+![JMP backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp2_mgivno.gif)
 
 </div>
 
@@ -347,8 +339,7 @@ And check it:
 
 <div class="imgblock">
 
-![JMP
-backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp3_abef43.gif)
+![JMP backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp3_abef43.gif)
 
 </div>
 
@@ -378,8 +369,7 @@ will use our debugger again:
 
 <div class="imgblock">
 
-![Executable
-modules](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/modules1_mmzwqz.webp)
+![Executable modules](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/modules1_mmzwqz.webp)
 
 </div>
 
@@ -584,8 +574,7 @@ executable modules:
 
 <div class="imgblock">
 
-![Executable
-modules](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/modules2_bdsaow.webp)
+![Executable modules](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/modules2_bdsaow.webp)
 
 </div>
 

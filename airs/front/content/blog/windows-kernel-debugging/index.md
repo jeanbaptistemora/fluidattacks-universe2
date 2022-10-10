@@ -93,8 +93,7 @@ something like this:
 
 <div class="imgblock">
 
-![WinDBG
-dark](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/windbg1_do951r.webp)
+![WinDBG dark](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/windbg1_do951r.webp)
 
 </div>
 
@@ -105,8 +104,7 @@ You will get a much friendly UI:
 
 <div class="imgblock">
 
-![WinDBG
-dark](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/windbg2_haqojn.webp)
+![WinDBG dark](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/windbg2_haqojn.webp)
 
 </div>
 
@@ -161,8 +159,7 @@ folder)
 
 <div class="imgblock">
 
-![OSR Driver
-Loader](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/osr1_wy6ytq.webp)
+![OSR Driver Loader](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/osr1_wy6ytq.webp)
 
 </div>
 
@@ -171,8 +168,7 @@ Now browse for the `HEVD.sys` file, click on `Register Service` and then
 
 <div class="imgblock">
 
-![Driver
-Loaded](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/driver1_wdx60n.gif)
+![Driver Loaded](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/driver1_wdx60n.gif)
 
 </div>
 
@@ -181,8 +177,7 @@ findstr HEVD`. You should see something like this:
 
 <div class="imgblock">
 
-![Driver
-Loaded](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevd1_vomxc0.webp)
+![Driver Loaded](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevd1_vomxc0.webp)
 
 </div>
 
@@ -195,8 +190,7 @@ terminal as administrator and run
 
 <div class="imgblock">
 
-![Driver
-autostart](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331221/blog/windows-kernel-debugging/start1_f8d1tx.webp)
+![Driver autostart](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331221/blog/windows-kernel-debugging/start1_f8d1tx.webp)
 
 </div>
 
@@ -270,8 +264,7 @@ This will list all the functions in the `NT` module that contain `Create` and
 
 <div class="imgblock">
 
-![NT Create
-Process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/nt1_lvlrl7.webp)
+![NT Create Process](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/nt1_lvlrl7.webp)
 
 </div>
 
@@ -298,8 +291,7 @@ follow this steps:
 
 <div class="imgblock">
 
-![HEVD
-symbols](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/copy1_h2vptb.webp)
+![HEVD symbols](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/copy1_h2vptb.webp)
 
 </div>
 
@@ -311,8 +303,7 @@ symbols](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/
 
 <div class="imgblock">
 
-![HEVD
-symbols](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevdsymbols1_tnj3ip.gif)
+![HEVD symbols](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevdsymbols1_tnj3ip.gif)
 
 </div>
 

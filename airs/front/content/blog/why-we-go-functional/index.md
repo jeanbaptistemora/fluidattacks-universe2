@@ -8,7 +8,7 @@ tags: software, code, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
 alt: Photo by Shahadat Rahman on Unsplash
 description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
-keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
+keywords: Functional Paradigm, Object-oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
 author: Oswaldo Parada
 writer: oparada
 name: Oswaldo José Parada Cuadros

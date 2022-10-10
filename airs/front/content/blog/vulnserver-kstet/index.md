@@ -70,8 +70,7 @@ where `KSTET` string is presented and set a breakpoint:
 
 <div class="imgblock">
 
-![Debugging
-KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug1_o2nwuk.gif)
+![Debugging KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug1_o2nwuk.gif)
 
 </div>
 
@@ -80,8 +79,7 @@ and see what happens under the hood:
 
 <div class="imgblock">
 
-![Debugging
-KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug2_rkjgsp.gif)
+![Debugging KSTET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug2_rkjgsp.gif)
 
 </div>
 
@@ -146,8 +144,7 @@ this:
 
 <div class="imgblock">
 
-![Buffer
-space](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/space1_qshzcz.webp)
+![Buffer space](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/space1_qshzcz.webp)
 
 </div>
 
@@ -200,8 +197,7 @@ And check it:
 
 <div class="imgblock">
 
-![Cyclic
-pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/offset1_gfntrn.gif)
+![Cyclic pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/offset1_gfntrn.gif)
 
 </div>
 
@@ -239,8 +235,7 @@ And run it:
 
 <div class="imgblock">
 
-![Cyclic
-pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/offset2_bhloqq.gif)
+![Cyclic pattern](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/offset2_bhloqq.gif)
 
 </div>
 
@@ -265,8 +260,7 @@ nonull`) and omitting OS DLLs (`-o`). The result is the following:
 
 <div class="imgblock">
 
-![JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/mona1_jfvocq.webp)
+![JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/mona1_jfvocq.webp)
 
 </div>
 
@@ -300,8 +294,7 @@ And check it:
 
 <div class="imgblock">
 
-![JMP
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/jmp1_izwtmw.gif)
+![JMP ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/jmp1_izwtmw.gif)
 
 </div>
 
@@ -313,8 +306,7 @@ With a short jump backward, we can easily jump to that place:
 
 <div class="imgblock">
 
-![JMP
-backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/jmp2_qzbcsx.gif)
+![JMP backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/jmp2_qzbcsx.gif)
 
 </div>
 
@@ -347,8 +339,7 @@ And check it:
 
 <div class="imgblock">
 
-![JMP
-backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-kstet/jmp3_pbycxb.gif)
+![JMP backwards](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-kstet/jmp3_pbycxb.gif)
 
 </div>
 
@@ -432,8 +423,7 @@ for the call to `WS2_32.recv` and setting a breakpoint on it:
 
 <div class="imgblock">
 
-![recv() call
-location](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331153/blog/vulnserver-kstet/recv1_dfbgnj.gif)
+![recv() call location](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331153/blog/vulnserver-kstet/recv1_dfbgnj.gif)
 
 </div>
 
@@ -441,8 +431,7 @@ Now create a new connection:
 
 <div class="imgblock">
 
-![recv()
-call](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/recv2_jdwr9q.gif)
+![recv() call](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/recv2_jdwr9q.gif)
 
 </div>
 
@@ -566,8 +555,7 @@ And check it:
 
 <div class="imgblock">
 
-![Stage-1
-payload](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/stage1payload_w7hmoo.gif)
+![Stage-1 payload](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/stage1payload_w7hmoo.gif)
 
 </div>
 
@@ -706,8 +694,7 @@ Let’s see it in action:
 
 <div class="imgblock">
 
-![Stage-2
-payload](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331154/blog/vulnserver-kstet/stage2payload_wyl7oa.gif)
+![Stage-2 payload](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331154/blog/vulnserver-kstet/stage2payload_wyl7oa.gif)
 
 </div>
 

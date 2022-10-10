@@ -108,8 +108,7 @@ Now use a debugger to see what’s going on:
 
 <div class="imgblock">
 
-![Crash
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/crash2_kwxlzr.gif)
+![Crash 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/crash2_kwxlzr.gif)
 
 </div>
 
@@ -186,8 +185,7 @@ And check it:
 
 <div class="imgblock">
 
-![Pattern
-OK](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331204/blog/vulnserver-lter-seh/pattern2_fqkl7b.gif)
+![Pattern OK](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331204/blog/vulnserver-lter-seh/pattern2_fqkl7b.gif)
 
 </div>
 
@@ -195,8 +193,7 @@ Great. If we trigger the exception handler, we will overwrite `EIP`.
 
 <div class="imgblock">
 
-![Pattern
-OK](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/eip1_fld56r.webp)
+![Pattern OK](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/eip1_fld56r.webp)
 
 </div>
 
@@ -207,8 +204,7 @@ the `nSEH` field which we now control. `mona` can help us:
 
 <div class="imgblock">
 
-![POP POP
-RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/poppopret1_fi3zbt.webp)
+![POP POP RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/poppopret1_fi3zbt.webp)
 
 </div>
 
@@ -245,8 +241,7 @@ execution flow to our controlled buffer. Let’s check it:
 
 <div class="imgblock">
 
-![Badchar return
-address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/badchar1_jtchqp.gif)
+![Badchar return address](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/badchar1_jtchqp.gif)
 
 </div>
 
@@ -305,8 +300,7 @@ BADCHARS = bytes(bytearray([x for x in range(256) if hex(x) not in EXCLUDE]))
 
 <div class="imgblock">
 
-![ANSI
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-lter-seh/bytearray2_xhuyku.webp)
+![ANSI 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-lter-seh/bytearray2_xhuyku.webp)
 
 </div>
 
@@ -340,8 +334,7 @@ the chars:
 
 <div class="imgblock">
 
-![Checking bad
-chars](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/check-badchars1_ubzeez.gif)
+![Checking bad chars](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/check-badchars1_ubzeez.gif)
 
 </div>
 
@@ -369,8 +362,7 @@ chars were started to be injected on `00F0F1EE`:
 
 <div class="imgblock">
 
-![Bad chars
-start](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/badchars-start_qeb2ko.webp)
+![Bad chars start](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/badchars-start_qeb2ko.webp)
 
 </div>
 
@@ -384,8 +376,7 @@ And the output would be:
 
 <div class="imgblock">
 
-![Mona
-cmp](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/mona-cmp1_jgfekz.gif)
+![Mona cmp](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/mona-cmp1_jgfekz.gif)
 
 </div>
 
@@ -469,8 +460,7 @@ Fortunately for us, 3 pointers fulfill all our requirements:
 
 <div class="imgblock">
 
-![ASCII
-POP/POP/RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/ascii-poppopret1_gliml7.webp)
+![ASCII POP/POP/RET](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/ascii-poppopret1_gliml7.webp)
 
 </div>
 
@@ -501,8 +491,7 @@ And check if this time we are able to reach the `POP/POP/RET` sequence:
 
 <div class="imgblock">
 
-![Return
-success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/retsuccess1_c8o1pb.gif)
+![Return success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/retsuccess1_c8o1pb.gif)
 
 </div>
 
@@ -582,8 +571,7 @@ Now check if that worked:
 
 <div class="imgblock">
 
-![Jump
-success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/jmp-success1_rhjvra.gif)
+![Jump success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/jmp-success1_rhjvra.gif)
 
 </div>
 
@@ -610,8 +598,7 @@ First, we need to get the desired opcode:
 
 <div class="imgblock">
 
-![Long
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/longjump1_knhwi2.webp)
+![Long jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/longjump1_knhwi2.webp)
 
 </div>
 
@@ -623,8 +610,7 @@ on `msfvenom` that generate an alphanumeric shellcode:
 
 <div class="imgblock">
 
-![Failed
-encoders](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/failed-encoders1_wdb2n8.gif)
+![Failed encoders](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/failed-encoders1_wdb2n8.gif)
 
 </div>
 
@@ -693,8 +679,7 @@ Let’s do that:
 
 <div class="imgblock">
 
-![Align
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/align-esp1_rwmput.gif)
+![Align ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/align-esp1_rwmput.gif)
 
 </div>
 
@@ -738,8 +723,7 @@ buffer:
 
 <div class="imgblock">
 
-![Align
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/align-esp2_gahfhu.gif)
+![Align ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/align-esp2_gahfhu.gif)
 
 </div>
 
@@ -786,8 +770,7 @@ Let’s see if that works:
 
 <div class="imgblock">
 
-![Carve
-EAX](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/carve-eax1_fg9xhd.gif)
+![Carve EAX](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/carve-eax1_fg9xhd.gif)
 
 </div>
 
@@ -798,8 +781,7 @@ like magic:
 
 <div class="imgblock">
 
-![Carve
-EAX](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/push-eax1_pqhuob.gif)
+![Carve EAX](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/push-eax1_pqhuob.gif)
 
 </div>
 
@@ -857,8 +839,7 @@ backward jump:
 
 <div class="imgblock">
 
-![Second long
-jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-lter-seh/long-jump2_m5hsrq.webp)
+![Second long jump](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-lter-seh/long-jump2_m5hsrq.webp)
 
 </div>
 
@@ -931,8 +912,7 @@ And check it:
 
 <div class="imgblock">
 
-![Align
-ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/align-esp3_swtzxo.gif)
+![Align ESP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/align-esp3_swtzxo.gif)
 
 </div>
 
@@ -1012,8 +992,7 @@ And check it:
 
 <div class="imgblock">
 
-![Long jump
-success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/long-jump-success1_rmm8w0.gif)
+![Long jump success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/long-jump-success1_rmm8w0.gif)
 
 </div>
 
@@ -1186,8 +1165,7 @@ And check it:
 
 <div class="imgblock">
 
-![Stager
-success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/stager2_wzgle8.gif)
+![Stager success](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/stager2_wzgle8.gif)
 
 </div>
 

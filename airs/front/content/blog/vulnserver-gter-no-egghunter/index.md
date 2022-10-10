@@ -573,8 +573,7 @@ It looks simpler\! Now, run it to see what happens:
 
 <div class="imgblock">
 
-![Take
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/take1_y3ehtd.gif)
+![Take 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/take1_y3ehtd.gif)
 
 </div>
 
@@ -584,8 +583,7 @@ Let’s see what is going on:
 
 <div class="imgblock">
 
-![Take
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/take2_bsaxnn.gif)
+![Take 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/take2_bsaxnn.gif)
 
 </div>
 

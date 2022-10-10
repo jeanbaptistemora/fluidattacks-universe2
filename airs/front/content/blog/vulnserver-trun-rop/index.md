@@ -176,8 +176,7 @@ Let’s see what would be the values to that parameters:
 
 <div class="imgblock">
 
-![Mona
-JMP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331213/blog/vulnserver-trun-rop/monajmp1_tmmgoz.webp)
+![Mona JMP](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331213/blog/vulnserver-trun-rop/monajmp1_tmmgoz.webp)
 
 </div>
 
@@ -268,8 +267,7 @@ I will now run the exploit in stages, to explain every step:
 
 <div class="imgblock">
 
-![Stage
-1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run1_rffdx0.gif)
+![Stage 1](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run1_rffdx0.gif)
 
 </div>
 
@@ -279,8 +277,7 @@ However, there are some values that need to be changed. Let’s do that:
 
 <div class="imgblock">
 
-![Stage
-2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run2_bikqys.gif)
+![Stage 2](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run2_bikqys.gif)
 
 </div>
 
@@ -291,8 +288,7 @@ the exploit continues with the modified values:
 
 <div class="imgblock">
 
-![Stage
-3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run3_dy8pb2.gif)
+![Stage 3](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run3_dy8pb2.gif)
 
 </div>
 
@@ -618,8 +614,7 @@ And check it:
 
 <div class="imgblock">
 
-![ROP
-Chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331217/blog/vulnserver-trun-rop/run4_ayeb4j.gif)
+![ROP Chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331217/blog/vulnserver-trun-rop/run4_ayeb4j.gif)
 
 </div>
 
@@ -630,8 +625,7 @@ Let’s resume the execution to check if that worked:
 
 <div class="imgblock">
 
-![ROP
-Chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run5_mxyouz.gif)
+![ROP Chain](https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run5_mxyouz.gif)
 
 </div>
 
