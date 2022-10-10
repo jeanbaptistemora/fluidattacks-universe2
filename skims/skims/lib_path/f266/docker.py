@@ -61,16 +61,15 @@ def _docker_compose_without_user(template: Node) -> Iterator[Tuple[int, int]]:
         isinstance(template, Node)
         and (template_services := template.inner.get("services"))
         and isinstance(template_services, Node)
+        and isinstance(template_services.data, dict)
+        and (services_dict := template_services.data.items())
     ):
-        if isinstance(template_services.data, dict) and (
-            services_dict := template_services.data.items()
-        ):
-            for service, service_data in services_dict:
-                if (
-                    isinstance(service_data, Node)
-                    and service_data.raw.get("user") is None
-                ):
-                    yield service
+        for service, service_data in services_dict:
+            if (
+                isinstance(service_data, Node)
+                and service_data.raw.get("user") is None
+            ):
+                yield service
 
 
 def docker_compose_without_user(
