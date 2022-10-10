@@ -14,6 +14,7 @@ from charts.generators.common.colors import (
 )
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
+    get_max_axis,
 )
 from dataloaders import (
     Dataloaders,
@@ -21,6 +22,10 @@ from dataloaders import (
 )
 from datetime import (
     date,
+)
+from decimal import (
+    Decimal,
+    ROUND_CEILING,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -114,18 +119,31 @@ async def generate_all(  # pylint: disable=too-many-locals
 
 
 def format_data_non_cvssf(data: Remediate) -> dict:
-    translations: Dict[str, str] = {
-        "critical_severity": "Critical Severity",
-        "high_severity": "High Severity",
-        "medium_severity": "Medium Severity",
-        "low_severity": "Low Severity",
+    translations: dict[str, str] = {
+        "critical_severity": "Critical",
+        "high_severity": "High",
+        "medium_severity": "Medium",
+        "low_severity": "Low",
     }
+    values: list[Decimal] = [
+        Decimal(getattr(data, key)).to_integral_exact(rounding=ROUND_CEILING)
+        for key, _ in translations.items()
+    ]
+    max_value: Decimal = list(
+        sorted(
+            [abs(value) for value in values],
+            reverse=True,
+        )
+    )[0]
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
+
     return dict(
         data=dict(
-            columns=[
-                ["Mean time to remediate"]
-                + [getattr(data, column) for column in translations]
-            ],
+            columns=[["Mean time to remediate", *values]],
             colors={
                 "Mean time to remediate": RISK.neutral,
             },
@@ -143,6 +161,8 @@ def format_data_non_cvssf(data: Remediate) -> dict:
         tooltip=dict(
             show=False,
         ),
+        hideXTickLine=True,
+        hideYAxisLine=True,
         axis=dict(
             x=dict(
                 categories=[value for _, value in translations.items()],
@@ -152,12 +172,27 @@ def format_data_non_cvssf(data: Remediate) -> dict:
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 label=dict(
-                    text="Calendar days per exposure (less is better)",
+                    text="Calendar days per exposure",
                     position="inner-top",
+                ),
+                **(
+                    {}
+                    if max_axis_value == Decimal("0.0")
+                    else dict(max=max_axis_value)
+                ),
+                tick=dict(
+                    count=5,
                 ),
             ),
         ),
         barChartYTickFormat=True,
+        grid=dict(
+            y=dict(
+                show=True,
+            ),
+        ),
+        mttrCvssf=True,
     )

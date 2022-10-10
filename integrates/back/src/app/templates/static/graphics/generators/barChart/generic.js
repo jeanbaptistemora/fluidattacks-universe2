@@ -8,7 +8,7 @@
 const defaultPaddingRatio = 0.055;
 
 function centerLabel(dataDocument) {
-  if (dataDocument.mttrBenchmarking) {
+  if (dataDocument.mttrBenchmarking || dataDocument.mttrCvssf) {
     const rectHeight = parseFloat(parseFloat(d3.select('.c3-event-rect').attr('height')).toFixed(2));
     const transformText = 12;
     d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
@@ -50,6 +50,25 @@ function getMttrColor(d) {
   return d[0].index === 0 ? '#7f0540' : '#cc6699';
 }
 
+function getMttrCvssfColor(d) {
+  if (d[0].index) {
+    switch (d[0].index.toString()) {
+      case '0':
+        return '#990915';
+      case '1':
+        return '#fb7a80';
+      case '2':
+        return '#ffccff';
+      case '3':
+        return '#bcbcc8';
+      default:
+        return '#177e89';
+    }
+  }
+
+  return '#177e89';
+}
+
 function getColor(dataDocument, d, originalValues) {
   if (originalValues[d[0].x] > 0) {
     return '#da1e28';
@@ -67,6 +86,10 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
   }
   if (dataDocument.mttrBenchmarking) {
     return () => getMttrColor(d);
+  }
+
+  if (dataDocument.mttrCvssf) {
+    return () => getMttrCvssfColor(d);
   }
 
   if (dataDocument.exposureBenchmarkingCvssf) {
@@ -213,6 +236,12 @@ function render(dataDocument, height, width) {
       format: (datum, _id, index) => formatLabelsAdjusted(
         datum, index, maxValueLogAdjusted, originalValues, columns[0],
       ),
+    };
+  }
+
+  if (dataDocument.mttrCvssf) {
+    dataDocument.data.colors = {
+      'Mean time to remediate': (d) => getMttrCvssfColor([ d ]),
     };
   }
 
