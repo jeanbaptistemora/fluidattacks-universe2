@@ -15,9 +15,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model import (
-    group_access as group_access_model,
-)
 from moto.dynamodb2 import (
     dynamodb_backend2,
 )
@@ -164,7 +161,6 @@ async def test_get_group_level_role(
         ["TEST_EmAiL@tEsT.com", "test_email@test.com", "admin"],
     ],
 )
-@pytest.mark.changes_db
 async def test_grant_user_level_role(
     dynamo_resource: ServiceResource,
     email: str,
@@ -214,7 +210,6 @@ async def test_grant_user_level_role(
         ],
     ],
 )
-@pytest.mark.changes_db
 async def test_grant_group_level_role(
     email: str,
     group: str,
@@ -275,89 +270,83 @@ async def test_grant_group_level_role(
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
-@pytest.mark.changes_db
-async def test_revoke_group_level_role() -> None:
-    await grant_group_level_role(
-        get_new_context(), "revoke_group_LEVEL_role@gmail.com", "group", "user"
-    )
-    await grant_group_level_role(
-        get_new_context(),
-        "REVOKE_group_level_role@gmail.com",
-        "other-group",
-        "user",
-    )
-    assert (
-        await get_group_level_role(
-            get_new_context(), "revoke_group_level_ROLE@gmail.com", "group"
+@pytest.mark.parametrize(
+    ["email", "group", "group_role", "expected_group_role"],
+    [
+        ["revoke_group_level_role@gmail.com", "group", "user", "user"],
+    ],
+)
+async def test_revoke_group_level_role(
+    email: str,
+    group: str,
+    group_role: str,
+    expected_group_role: str,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_update_item(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).update_item(**kwargs)
+
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.update_item.side_effect = (
+            mock_update_item
         )
-        == "user"
-    )
-    assert (
-        await get_group_level_role(
-            get_new_context(),
-            "revoke_GROUP_level_role@gmail.com",
-            "other-group",
+        with mock.patch(
+            "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+        ) as mock_resource:
+            mock_resource.return_value.batch_get_item.side_effect = (
+                mock_batch_get_item
+            )
+            await grant_group_level_role(
+                get_new_context(), email, group, group_role
+            )
+            group_level_role = await get_group_level_role(
+                get_new_context(), email, group
+            )
+            assert group_level_role == expected_group_role
+            await revoke_group_level_role(get_new_context(), email, group)
+            assert not await get_group_level_role(
+                get_new_context(), email, group
+            )
+    assert mock_resource.called is True
+    assert mock_table_resource.called is True
+
+
+async def test_revoke_user_level_role(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_update_item(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).update_item(**kwargs)
+
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    email = "revoke_user_level_role@gmail.com"
+    role = "user"
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.update_item.side_effect = (
+            mock_update_item
         )
-        == "user"
-    )
-    assert not await get_group_level_role(
-        get_new_context(),
-        "REVOKE_group_level_role@gmail.com",
-        "yet-other-group",
-    )
-    await group_access_model.remove(
-        email="revoke_GROUP_level_role@gmail.com", group_name="other-group"
-    )
-    await revoke_group_level_role(
-        get_new_context(), "revoke_GROUP_level_role@gmail.com", "other-group"
-    )
-    assert (
-        await get_group_level_role(
-            get_new_context(), "revoke_group_level_role@gmail.com", "group"
-        )
-        == "user"
-    )
-    assert not await get_group_level_role(
-        get_new_context(), "revoke_group_level_role@gmail.com", "other-group"
-    )
-    assert not await get_group_level_role(
-        get_new_context(),
-        "revoke_group_level_role@gmail.com",
-        "yet-other-group",
-    )
-    await group_access_model.remove(
-        email="revoke_GROUP_level_role@gmail.com", group_name="group"
-    )
-    await revoke_group_level_role(
-        get_new_context(), "revoke_GROUP_level_role@gmail.com", "group"
-    )
-    assert not await get_group_level_role(
-        get_new_context(), "revOke_group_level_role@gmail.com", "group"
-    )
-    assert not await get_group_level_role(
-        get_new_context(), "revoKe_group_level_role@gmail.com", "other-group"
-    )
-    assert not await get_group_level_role(
-        get_new_context(),
-        "revokE_group_level_role@gmail.com",
-        "yet-other-group",
-    )
+        await grant_user_level_role(email, role)
+        with mock.patch(
+            "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+        ) as mock_resource:
+            mock_resource.return_value.batch_get_item.side_effect = (
+                mock_batch_get_item
+            )
+            loaders: Dataloaders = get_new_context()
+            user_level_role = await get_user_level_role(loaders, email)
+            assert user_level_role == role
+            await revoke_user_level_role(loaders, email)
 
-
-@pytest.mark.changes_db
-async def test_revoke_user_level_role() -> None:
-    await grant_user_level_role("revoke_user_LEVEL_role@gmail.com", "user")
-
-    loaders: Dataloaders = get_new_context()
-    assert (
-        await get_user_level_role(loaders, "revoke_user_level_ROLE@gmail.com")
-        == "user"
-    )
-    assert not await get_user_level_role(
-        loaders, "REVOKE_user_level_role@gmail.net"
-    )
-    await revoke_user_level_role(loaders, "revoke_USER_LEVEL_ROLE@gmail.com")
-
-    assert not await get_user_level_role(
-        get_new_context(), "revoke_user_level_ROLE@gmail.com"
-    )
+            assert not await get_user_level_role(get_new_context(), email)
+    assert mock_resource.called is True
+    assert mock_table_resource.called is True
