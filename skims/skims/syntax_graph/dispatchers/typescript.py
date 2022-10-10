@@ -50,6 +50,7 @@ from syntax_graph.syntax_readers.typescript import (
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
+    export_statement as typescript_export_statement,
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
     generic_type as typescript_generic_type,
@@ -176,6 +177,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "else_clause",
         },
         syntax_reader=javascript_else_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "export_statement",
+        },
+        syntax_reader=typescript_export_statement.reader,
     ),
     Dispatcher(
         applicable_types={
