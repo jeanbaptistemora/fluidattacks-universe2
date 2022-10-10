@@ -6,6 +6,7 @@
 
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import type { Row } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,7 +19,7 @@ import { SecretValue } from "../../Secrets/secretValue";
 import type { IEnvironmentUrl, ISecret } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table } from "components/Table";
+import { Table } from "components/TableNew";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 
@@ -107,6 +108,12 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
     setAddSecretModalOpen(false);
   }, [closeModal, defaultCurrentRow]);
 
+  function handleRowExpand(row: Row<ISecretItem>): JSX.Element {
+    return renderSecretsDescription({
+      description: [row.original.description],
+    });
+  }
+
   return (
     <React.StrictMode>
       <Modal onClose={onCloseModal} open={isOpen} title={"Secrets"}>
@@ -127,26 +134,21 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
           />
         </Modal>
         <Table
-          dataset={secretsDataSet}
-          expandRow={{
-            expandByColumnOnly: true,
-            renderer: renderSecretsDescription,
-            showExpandColumn: true,
-          }}
-          exportCsv={false}
-          headers={[
+          columns={[
             {
-              dataField: "key",
-              header: t("group.scope.git.repo.credentials.secrets.key"),
+              accessorKey: "key",
+              header: String(t("group.scope.git.repo.credentials.secrets.key")),
             },
             {
-              dataField: "element",
-              header: t("group.scope.git.repo.credentials.secrets.value"),
+              accessorKey: "element",
+              header: String(
+                t("group.scope.git.repo.credentials.secrets.value")
+              ),
             },
           ]}
+          data={secretsDataSet}
+          expandedRow={handleRowExpand}
           id={"tblGitRootSecrets"}
-          pageSize={10}
-          search={false}
         />
         <Can do={"api_mutations_add_git_environment_secret_mutate"}>
           <Button id={"add-secret"} onClick={openModal} variant={"secondary"}>
