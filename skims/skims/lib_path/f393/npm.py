@@ -8,6 +8,7 @@ from frozendict import (
 from lib_path.common import (
     build_dependencies_tree,
     DependencyType,
+    format_pkg_dep,
     pkg_deps_to_vulns,
 )
 from model.core_model import (
@@ -92,17 +93,12 @@ def npm_yarn_lock_dev(content: str, path: str) -> Iterator[DependencyType]:
         )
         if dependencies_tree:
             for key, value in dependencies_tree.items():
-                yield (
-                    {
-                        "column": 0,
-                        "line": value.get("product_line"),
-                        "item": key.split("@")[:-1][0],
-                    },
-                    {
-                        "column": 0,
-                        "line": value.get("version_line"),
-                        "item": value.get("version"),
-                    },
+                product = key.split("@")[:-1][0]
+                product_line = value.get("product_line")
+                version = value.get("version")
+                version_line = value.get("version_line")
+                yield format_pkg_dep(
+                    product, version, product_line, version_line
                 )
 
     except FileNotFoundError as exc:
