@@ -341,6 +341,13 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       header: "Evidence",
     },
     {
+      accessorFn: (row): string =>
+        row.verification === null ? "-" : row.verification,
+      header: t("searchFindings.tabVuln.vulnTable.verification"),
+      id: "reattacks",
+      meta: { filterType: "select" },
+    },
+    {
       accessorKey: "tag",
       header: t("searchFindings.tabVuln.vulnTable.tags"),
     },
