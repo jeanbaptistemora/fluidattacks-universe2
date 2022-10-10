@@ -66,7 +66,7 @@ function run_dynamodb_consumer {
         "kinesisEndpoint = ${LOCAL_ENDPOINT}"
         "metricsLevel = NONE"
       )
-    elif [ "${runtime}" = "prod-local" ]; then
+    elif [ "${ENVIRONMENT}" = "prod-local" ]; then
       properties+=(
         "dynamoDBEndpoint = ${LOCAL_ENDPOINT}"
         "metricsLevel = NONE"

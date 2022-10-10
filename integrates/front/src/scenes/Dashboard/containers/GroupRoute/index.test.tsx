@@ -104,7 +104,9 @@ describe("groupRoute", (): void => {
     });
     const numberOfTabs: number = 5;
 
-    expect(screen.getAllByRole("listitem")).toHaveLength(numberOfTabs);
+    await expect(screen.findAllByRole("listitem")).resolves.toHaveLength(
+      numberOfTabs
+    );
 
     jest.clearAllMocks();
   });

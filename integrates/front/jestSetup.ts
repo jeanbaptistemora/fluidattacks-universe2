@@ -10,9 +10,13 @@
 */
 import fetchMock from "fetch-mock";
 import "@testing-library/jest-dom";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 
-// Mock mixpanel
-jest.mock("mixpanel-browser");
+// Disable mixpanel
+mixpanel.init("123");
+mixpanel.disable();
 
 // Mock fetch
 Object.defineProperty(global, "fetch", { value: fetchMock, writable: true });
