@@ -27,6 +27,8 @@ type Group {
   closedVulnerabilities: Int
   "Language distribution in a group"
   codeLanguages: [CodeLanguages!]
+  "Compliance with the standards in the Group"
+  compliance: GroupCompliance!
   "Information about the group shared by the stakeholders via comments"
   consulting: [Consult!]
   "Credentials associated to the group"

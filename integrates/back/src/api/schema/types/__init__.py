@@ -119,6 +119,9 @@ from api.schema.types.event_evidence import (
 from api.schema.types.event_evidence_item import (
     EVENT_EVIDENCE_ITEM,
 )
+from api.schema.types.group_compliance import (
+    GROUP_COMPLIANCE,
+)
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
@@ -126,11 +129,17 @@ from api.schema.types.mutation_payloads import (
 from api.schema.types.organization_compliance_standard import (
     ORGANIZATION_COMPLIANCE_STANDARD,
 )
+from api.schema.types.requirement import (
+    REQUIREMENT,
+)
 from api.schema.types.toe_lines import (
     TOELINES,
 )
 from api.schema.types.trial import (
     TRIAL,
+)
+from api.schema.types.unfulfilled_standards import (
+    UNFULFILLED_STANDARDS,
 )
 from api.schema.types.verification_summary import (
     VERIFICATION_SUMMARY,
@@ -160,6 +169,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
     GITROOT,
+    GROUP_COMPLIANCE,
     ENVIRONMENT_URL,
     GROUP,
     GROUP_FILE,
@@ -172,6 +182,7 @@ TYPES: Tuple[ObjectType, ...] = (
     PAYMENT_METHOD,
     PRICES,
     QUERY,
+    REQUIREMENT,
     REPORT,
     RESOURCE,
     SEVERITY,
@@ -186,6 +197,7 @@ TYPES: Tuple[ObjectType, ...] = (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     URLROOT,
+    UNFULFILLED_STANDARDS,
     VERIFICATION,
     VERIFICATION_SUMMARY,
     VULNERABILITY,
