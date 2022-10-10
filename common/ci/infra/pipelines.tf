@@ -2,12 +2,12 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-resource "buildkite_pipeline" "main" {
-  name = "universe"
+resource "buildkite_pipeline" "makes" {
+  name = "makes"
 
   # Repo
-  repository           = "https://gitlab.com/fluidattacks/universe.git" # Use HTTPS to avoid having to provide a private SSH key
-  default_branch       = "trunk"
+  repository           = "https://github.com/fluidattacks/makes.git" # Use HTTPS to avoid having to provide a private SSH key
+  default_branch       = "main"
   branch_configuration = "*"
 
   steps = yamlencode(
