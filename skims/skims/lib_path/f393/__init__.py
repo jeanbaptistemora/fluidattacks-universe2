@@ -5,6 +5,9 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
+from lib_path.f393.gem import (
+    gem_gemfile_dev,
+)
 from lib_path.f393.npm import (
     npm_package_json,
     npm_pkg_lock_json,
@@ -17,6 +20,11 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_gem_gemfile_dev(content: str, path: str) -> Vulnerabilities:
+    return gem_gemfile_dev(content, path)
 
 
 @SHIELD_BLOCKING
@@ -51,5 +59,8 @@ def analyze(
 
     if (file_name, file_extension) == ("package-lock", "json"):
         return (run_npm_pkg_lock_json(content_generator(), path),)
+
+    if file_name == "Gemfile":
+        return (run_gem_gemfile_dev(content_generator(), path),)
 
     return ()

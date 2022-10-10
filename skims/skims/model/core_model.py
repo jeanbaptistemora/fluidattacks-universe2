@@ -3729,6 +3729,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.APK,
     )
+    GEM_GEMFILE_DEV = MethodInfo(
+        file_name="gem",
+        name="gem_gemfile_dev",
+        module="lib_path",
+        finding=FindingEnum.F393,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     NPM_PKG_JSON = MethodInfo(
         file_name="npm",
         name="npm_pkg_json",

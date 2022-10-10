@@ -36291,6 +36291,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    65 |       <groupId>org.springframework</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
+F393,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (devise v1.4.2) [CVE-2013-0233, CVE-2015-8314, CVE-2019-16109, CVE-2019-5421, GHSA-73rf-6mrf-759q, GHSA-fcjw-8rhj-gwwc]",132,937,skims,393. Use of software with known vulnerabilities in development,"Use of devise at version 1.4.2 with ['CVE-2013-0233', 'CVE-2015-8314', 'CVE-2019-16109', 'CVE-2019-5421', 'GHSA-73rf-6mrf-759q', 'GHSA-fcjw-8rhj-gwwc'] in namespace/skims/test/data/lib_path/f011/Gemfile","
+  122 |   platforms :mri do
+  123 |     gem ""stackprof"", ""= 1.4.2""
+  124 |     gem ""debug"", "">= 1.1.0"", require: false
+  125 |   end
+  126 |
+  127 |   gem ""benchmark-ips""
+  128 | end
+  129 |
+  130 | platforms :ruby, :windows do
+  131 |   gem ""nokogiri"", ""= 1.8.1""
+> 132 |   gem ""devise"", ""= 1.4.2"", :group => :development
+  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
+  134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
+  135 |
+  136 |   # Needed for compiling the ActionDispatch::Journey parser.
+  137 |   gem ""racc"", "">=1.4.6"", require: false
+  138 |
+  139 |   # Active Record.
+  140 |   gem ""sqlite3"", ""~> 1.4""
+  141 |
+  142 |   group :development do
+      ^ Col 0
+",gem.gem_gemfile_dev
 F393,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.3) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",5,937,skims,393. Use of software with known vulnerabilities in development,"Use of hoek at version 5.0.0.3 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
    1 | {
    2 |   ""dependencies"": {

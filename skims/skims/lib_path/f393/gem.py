@@ -27,8 +27,8 @@ NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
 
 
 # pylint: disable=unused-argument
-@pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE)
-def gem_gemfile(content: str, path: str) -> Iterator[DependencyType]:
+@pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE_DEV)
+def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
     line_group: bool = False
     end_line: str = ""
     for line_number, line in enumerate(content.splitlines(), 1):
