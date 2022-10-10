@@ -21,6 +21,7 @@ from charts.generators.common.colors import (
 )
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
+    get_max_axis,
 )
 from dataloaders import (
     Dataloaders,
@@ -85,22 +86,33 @@ async def get_data_many_groups(
 
 def format_data(data: Remediate) -> dict:
     translations: dict[str, str] = {
-        "critical_severity": "Critical Severity",
-        "high_severity": "High Severity",
-        "medium_severity": "Medium Severity",
-        "low_severity": "Low Severity",
+        "critical_severity": "Critical",
+        "high_severity": "High",
+        "medium_severity": "Medium",
+        "low_severity": "Low",
     }
+    values: list[Decimal] = [
+        Decimal(getattr(data, key)).to_integral_exact(rounding=ROUND_CEILING)
+        for key, _ in translations.items()
+    ]
+    max_value: Decimal = list(
+        sorted(
+            [abs(value) for value in values],
+            reverse=True,
+        )
+    )[0]
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0")
+        else Decimal("0.0")
+    )
+
     return dict(
         data=dict(
             columns=[
                 [
                     "Mean time to remediate",
-                    *[
-                        Decimal(getattr(data, key)).to_integral_exact(
-                            rounding=ROUND_CEILING
-                        )
-                        for key, _ in translations.items()
-                    ],
+                    *values,
                 ]
             ],
             colors={
@@ -123,11 +135,26 @@ def format_data(data: Remediate) -> dict:
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
                 label=dict(
-                    text="Days per Exposure",
+                    text="Days per unit of exposure (CVSSF)",
                     position="inner-top",
                 ),
+                tick=dict(
+                    count=5,
+                ),
+                **(
+                    {}
+                    if max_axis_value == Decimal("0.0")
+                    else dict(max=max_axis_value)
+                ),
+            ),
+        ),
+        mttrCvssf=True,
+        grid=dict(
+            y=dict(
+                show=True,
             ),
         ),
         legend=dict(
@@ -137,6 +164,8 @@ def format_data(data: Remediate) -> dict:
             show=False,
         ),
         barChartYTickFormat=True,
+        hideXTickLine=True,
+        hideYAxisLine=True,
     )
 
 
