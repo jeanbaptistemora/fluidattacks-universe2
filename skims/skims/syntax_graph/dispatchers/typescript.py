@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.javascript import (
     binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
     call_expression as javascript_call_expression,
+    catch_clause as javascript_catch_clause,
     class_declaration as javascript_class_declaration,
     comment as javascript_comment,
     do_statement as javascript_do_statement,
@@ -35,6 +36,7 @@ from syntax_graph.syntax_readers.javascript import (
     switch_case as javascript_switch_case,
     switch_statement as javascript_switch_statement,
     this as javascript_this,
+    try_statement as javascript_try_statement,
     unary_expression as javascript_unary_expression,
     update_expression as javascript_update_expression,
     variable_declaration as javascript_variable_declaration,
@@ -50,6 +52,7 @@ from syntax_graph.syntax_readers.typescript import (
     enum_declaration as typescript_enum_declaration,
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
+    generic_type as typescript_generic_type,
     index_signature as typescript_index_signature,
     interface_declaration as typescript_interface_declaration,
     intersection_type as typescript_intersection_type,
@@ -128,6 +131,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "catch_clause",
+        },
+        syntax_reader=javascript_catch_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "class_declaration",
         },
         syntax_reader=javascript_class_declaration.reader,
@@ -189,6 +198,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "formal_parameters",
+            "type_arguments",
         },
         syntax_reader=javascript_parameter_list.reader,
     ),
@@ -211,6 +221,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "function_type",
         },
         syntax_reader=typescript_function_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "generic_type",
+        },
+        syntax_reader=typescript_generic_type.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -391,6 +407,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "ternary_expression",
         },
         syntax_reader=typescript_ternary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "try_statement",
+        },
+        syntax_reader=javascript_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={
