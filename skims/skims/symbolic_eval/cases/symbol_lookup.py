@@ -30,6 +30,8 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F085: evaluate_symbol_f085
 }
 
+OUTSIDEPATH_TYPES = {"Parameter", "FieldDeclaration"}
+
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     symbol_id = args.n_id
@@ -44,18 +46,18 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     refs_exec_order = reversed(refs_search_order)
 
     args.evaluation[symbol_id] = False
-    def_types = {"Parameter", "FieldDeclaration"}
-
+    refs_dangers = []
     for ref_id in refs_exec_order:
-        if args.graph.nodes[ref_id]["label_type"] in def_types:
-            # Evaluate the node if it defines the symbol
+        if args.graph.nodes[ref_id]["label_type"] in OUTSIDEPATH_TYPES:
             args.generic(args.fork_n_id(ref_id))
         elif ref_id in args.path:
             cfg_id = g.lookup_first_cfg_parent(args.graph, ref_id)
             args.generic(args.fork_n_id(cfg_id))
 
         if ref_id in args.evaluation:
-            args.evaluation[symbol_id] = args.evaluation[ref_id]
+            refs_dangers.append(args.evaluation[ref_id])
+
+    args.evaluation[symbol_id] = any(refs_dangers)
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
