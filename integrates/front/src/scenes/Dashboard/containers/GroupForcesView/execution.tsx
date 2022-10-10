@@ -5,7 +5,7 @@
  */
 
 import { useQuery } from "@apollo/client";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import _ from "lodash";
 import React from "react";
 import ReactAnsi from "react-ansi";
@@ -13,7 +13,9 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
 
 import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tab, Tabs } from "components/Tabs";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
@@ -23,6 +25,7 @@ import type {
   IGetForcesExecution,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { Col33, Row, TabContent } from "styles/styledComponents";
+import { useStoredState } from "utils/hooks/useStoredState";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
@@ -30,6 +33,11 @@ const Execution: React.FC<IExecution> = (
   const { t } = useTranslation();
   const { log, executionId, groupName } = props;
   const isOld: boolean = log !== undefined;
+
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblForcesExecutionTableFilters",
+    []
+  );
 
   const { loading, data } = useQuery<IGetForcesExecution>(
     GET_FORCES_EXECUTION,
@@ -107,6 +115,8 @@ const Execution: React.FC<IExecution> = (
     },
     {
       accessorFn: (row): string => row.state,
+      cell: (cell: ICellHelper<IExploitResult>): JSX.Element =>
+        statusFormatter(cell.getValue()),
       header: t("group.forces.compromisedToe.status"),
       id: "state",
       meta: { filterType: "select" },
@@ -257,6 +267,8 @@ const Execution: React.FC<IExecution> = (
           <Switch>
             <Route path={"/summary"}>
               <Table
+                columnFilterSetter={setColumnFilters}
+                columnFilterState={columnFilters}
                 columnToggle={true}
                 columns={columns}
                 data={datset}
