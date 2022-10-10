@@ -387,6 +387,65 @@ async def get_organization_standard_compliances(
     )
 
 
+async def update_group_standard_fulfillment(
+    loaders: Dataloaders,
+    group: Group,
+    requirements_file: dict[str, Any],
+    vulnerabilities_file: dict[str, Any],
+) -> None:
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        group.name
+    )
+    findings_open_vulnerabilities = await collect(
+        tuple(
+            get_open_vulnerabilities(loaders, finding) for finding in findings
+        ),
+        workers=100,
+    )
+    open_findings: list[Finding] = []
+    for finding, open_vulnerabilities in zip(
+        findings, findings_open_vulnerabilities
+    ):
+        if open_vulnerabilities:
+            open_findings.append(finding)
+
+    requirements_by_finding = tuple(
+        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
+            "requirements"
+        ]
+        for finding in open_findings
+    )
+    non_compliance_requirements_by_standard = defaultdict(set)
+    for requirements in requirements_by_finding:
+        for requirement in requirements:
+            for reference in requirements_file[requirement]["references"]:
+                non_compliance_requirements_by_standard[
+                    get_standard_from_reference(reference)
+                ].add(requirement)
+
+
+async def update_groups_standard_fulfillment(
+    loaders: Dataloaders,
+    organization: Organization,
+    requirements_file: dict[str, Any],
+    vulnerabilities_file: dict[str, Any],
+) -> None:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        organization.id
+    )
+    await collect(
+        tuple(
+            update_group_standard_fulfillment(
+                loaders=loaders,
+                group=group,
+                requirements_file=requirements_file,
+                vulnerabilities_file=vulnerabilities_file,
+            )
+            for group in org_groups
+        ),
+    )
+
+
 async def update_organization_compliance(
     loaders: Dataloaders,
     organization: Organization,
@@ -439,6 +498,12 @@ async def update_organization_compliance(
             ),
             standard_compliances=standard_compliances,
         ),
+    )
+    await update_groups_standard_fulfillment(
+        loaders=loaders,
+        organization=organization,
+        requirements_file=requirements_file,
+        vulnerabilities_file=vulnerabilities_file,
     )
 
 
