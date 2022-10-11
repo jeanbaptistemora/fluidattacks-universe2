@@ -104,7 +104,7 @@ async def get_data_many_groups(
 
 
 def format_data(
-    *, data: tuple[EventsInfo, ...], x_label: str, legend: str
+    *, data: tuple[EventsInfo, ...], legend: str
 ) -> dict[str, Any]:
     limited_data = [group for group in data if group.days > 0][:15]
 
@@ -126,9 +126,6 @@ def format_data(
             rotated=True,
             x=dict(
                 categories=[group.name for group in limited_data],
-                label=dict(
-                    text=x_label,
-                ),
                 tick=dict(
                     multiline=False,
                     outer=False,
@@ -156,13 +153,11 @@ def format_data(
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    x_label_many_groups: str = "Group name"
     legend_many_groups: str = "Days since the group is failing"
 
     async for group in iterate_groups():
         document = format_data(
             data=await get_data_one_group(group=group, loaders=loaders),
-            x_label="Event ID",
             legend="Days since the event was reported",
         )
         json_dump(
@@ -177,7 +172,6 @@ async def generate_all() -> None:
             data=await get_data_many_groups(
                 groups=org_groups, loaders=loaders
             ),
-            x_label=x_label_many_groups,
             legend=legend_many_groups,
         )
         json_dump(
@@ -193,7 +187,6 @@ async def generate_all() -> None:
                 data=await get_data_many_groups(
                     groups=tuple(groups), loaders=loaders
                 ),
-                x_label=x_label_many_groups,
                 legend=legend_many_groups,
             )
             json_dump(

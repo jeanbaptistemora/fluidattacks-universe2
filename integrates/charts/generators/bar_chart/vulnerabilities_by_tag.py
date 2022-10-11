@@ -69,6 +69,7 @@ async def generate_all() -> None:
             column=column,
             tick_rotation=utils.TICK_ROTATION,
             categories=number_of_categories,
+            axis_rotated=True,
         )
         utils.json_dump(
             document=document,
@@ -87,6 +88,7 @@ async def generate_all() -> None:
             column=column,
             tick_rotation=utils.TICK_ROTATION,
             categories=number_of_categories,
+            axis_rotated=True,
         )
         utils.json_dump(
             document=document,
@@ -104,6 +106,7 @@ async def generate_all() -> None:
                 column=column,
                 tick_rotation=utils.TICK_ROTATION,
                 categories=number_of_categories,
+                axis_rotated=True,
             )
             utils.json_dump(
                 document=document,

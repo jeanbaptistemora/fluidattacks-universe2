@@ -16,9 +16,6 @@ from charts.generators.bar_chart.utils import (
     format_csv_data,
     format_vulnerabilities_by_data,
 )
-from charts.generators.common.colors import (
-    VULNERABILITIES_COUNT,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -73,7 +70,6 @@ async def generate_all() -> None:
             column=column,
             tick_rotation=0,
             categories=number_of_categories,
-            color=VULNERABILITIES_COUNT,
         )
         utils.json_dump(
             document=document,
@@ -92,7 +88,6 @@ async def generate_all() -> None:
             column=column,
             tick_rotation=0,
             categories=number_of_categories,
-            color=VULNERABILITIES_COUNT,
         )
         utils.json_dump(
             document=document,
@@ -110,7 +105,6 @@ async def generate_all() -> None:
                 column=column,
                 tick_rotation=0,
                 categories=number_of_categories,
-                color=VULNERABILITIES_COUNT,
             )
             utils.json_dump(
                 document=document,

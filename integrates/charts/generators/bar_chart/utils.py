@@ -9,7 +9,7 @@ from async_lru import (
     alru_cache,
 )
 from charts.generators.common.colors import (
-    RISK,
+    VULNERABILITIES_COUNT,
 )
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
@@ -293,7 +293,7 @@ def format_vulnerabilities_by_data(
     column: str,
     tick_rotation: int,
     categories: int,
-    color: str = RISK.neutral,
+    axis_rotated: bool = False,
 ) -> Dict[str, Any]:
     data = counters.most_common()[:categories]
 
@@ -303,7 +303,7 @@ def format_vulnerabilities_by_data(
                 [column, *[value for _, value in data]],
             ],
             colors={
-                column: color,
+                column: VULNERABILITIES_COUNT,
             },
             labels=None,
             type="bar",
@@ -312,6 +312,7 @@ def format_vulnerabilities_by_data(
             show=False,
         ),
         axis=dict(
+            rotate=axis_rotated,
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
@@ -329,6 +330,14 @@ def format_vulnerabilities_by_data(
         ),
         barChartYTickFormat=True,
         maxValue=format_value(data),
+        **(
+            dict(
+                exposureTrendsByCategories=True,
+                keepToltipColor=True,
+            )
+            if axis_rotated
+            else {}
+        ),
     )
 
 

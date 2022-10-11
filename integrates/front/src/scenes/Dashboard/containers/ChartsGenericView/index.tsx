@@ -558,8 +558,6 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               title={t("tagIndicator.vulnerabilitiesByType")}
             />
           </Col50>
-        </RowCenter>
-        <Row>
           <Col50>
             <Graphic
               bsHeight={160}
@@ -575,7 +573,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               title={t("analytics.pieChart.resources.title")}
             />
           </Col50>
-        </Row>
+        </RowCenter>
         <Row>
           <Col33>
             <Graphic
@@ -850,7 +848,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
                 documentType={"barChart"}
                 entity={entity}
                 generatorName={"generic"}
-                generatorType={"c3"}
+                generatorType={"barChart"}
                 infoLink={`${graphInfoLink}${entity}#days-since-groups-are-failing`}
                 reportMode={reportMode}
                 subject={subject}
@@ -888,7 +886,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
                 documentType={"barChart"}
                 entity={entity}
                 generatorName={"generic"}
-                generatorType={"c3"}
+                generatorType={"barChart"}
                 infoLink={`${graphInfoLink}groups#days-since-group-is-failing`}
                 reportMode={reportMode}
                 subject={subject}
