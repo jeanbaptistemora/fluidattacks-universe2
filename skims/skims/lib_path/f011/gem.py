@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from gemfileparser import (
+    GemfileParser,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -11,6 +14,9 @@ from model.core_model import (
     MethodsEnum,
     Platform,
 )
+from parse_gemfile import (
+    parse_line,
+)
 import re
 from typing import (
     Iterator,
@@ -18,7 +24,8 @@ from typing import (
     Pattern,
 )
 
-GEMFILE_DEP: Pattern[str] = re.compile(
+GEMFILE_DEP: Pattern[str] = re.compile(r"^\s*gem (.*)")
+GEMFILE_DEP_UNIQUE: Pattern[str] = re.compile(
     r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
 )
 NOT_PROD_DEP: Pattern[str] = re.compile(
@@ -30,7 +37,9 @@ GEM_LOCK_DEP: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
 
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE)
-def gem_gemfile(content: str, path: str) -> Iterator[DependencyType]:
+def gem_gemfile(  # NOSONAR
+    content: str, path: str
+) -> Iterator[DependencyType]:
     line_group: bool = False
     end_line: str = ""
     for line_number, line in enumerate(content.splitlines(), 1):
@@ -42,11 +51,18 @@ def gem_gemfile(content: str, path: str) -> Iterator[DependencyType]:
             line_group = True
             blank = match_group.group(1)
             end_line = f"{blank}end"
-        elif matched := re.search(GEMFILE_DEP, line):
+        elif matched := re.search(GEMFILE_DEP_UNIQUE, line):
             if re.search(NOT_PROD_DEP, line):
                 continue
             pkg_name = matched.group(1)
             version = matched.group(2)
+            yield format_pkg_dep(pkg_name, version, line_number, line_number)
+        elif re.search(GEMFILE_DEP, line):
+            line = GemfileParser.preprocess(line)
+            line = line[3:]
+            line_items = parse_line(line)
+            pkg_name = line_items.get("name")
+            version = line_items.get("requirement")
             yield format_pkg_dep(pkg_name, version, line_number, line_number)
 
 

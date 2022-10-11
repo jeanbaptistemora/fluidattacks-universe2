@@ -34,6 +34,12 @@ def parse_line(in_line: str) -> Dict[str, str]:
         for criteria, criteria_regex in GemfileParser.gemfile_regexes.items():
             match = criteria_regex.match(column)
             if match:
-                setattr(dep, criteria, match.group(criteria))
+                if criteria == "requirement":
+                    dep.requirement.append(match.group(criteria))
+                else:
+                    setattr(dep, criteria, match.group(criteria))
                 break
-    return dep.to_dict()
+
+    deps_dict = dep.to_dict()
+    deps_dict["requirement"] = " ".join(deps_dict["requirement"])
+    return deps_dict
