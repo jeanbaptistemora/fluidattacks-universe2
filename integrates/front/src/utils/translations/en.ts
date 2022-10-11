@@ -1763,6 +1763,9 @@ export const enTranslations: ResourceKey = {
             tooltip: "Overview of the compliance with the standards",
           },
           standards: {
+            cards: {
+              requirement: "Requirement",
+            },
             text: "Standards",
             tooltip: "Compliance information for standards",
             unfulfilledStandards: {
