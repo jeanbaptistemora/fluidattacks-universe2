@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import _ from "lodash";
 import React, {
   useCallback,
@@ -46,7 +46,7 @@ import type {
 } from "scenes/Dashboard/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { useTabTracking } from "utils/hooks";
+import { useStoredState, useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -62,6 +62,11 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
   const attributesContext: PureAbility<string> = useContext(authzGroupContext);
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
+  );
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "TodoListTable-columnFilters",
+    [],
+    localStorage
   );
 
   const { data: userData } = useQuery<IGetUserOrganizationsGroups>(
@@ -348,6 +353,12 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       meta: { filterType: "select" },
     },
     {
+      accessorFn: (row): string | null => row.severity,
+      header: t("searchFindings.tabDescription.severity"),
+      id: "severity",
+      meta: { filterType: "select" },
+    },
+    {
       accessorKey: "tag",
       header: t("searchFindings.tabVuln.vulnTable.tags"),
     },
@@ -435,6 +446,8 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
         <div>
           <VulnComponent
             changePermissions={changePermissions}
+            columnFilterSetter={setColumnFilters}
+            columnFilterState={columnFilters}
             columns={columns}
             extraButtons={
               <ButtonToolbarRow>
