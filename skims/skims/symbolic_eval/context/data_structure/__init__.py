@@ -35,11 +35,15 @@ def search_data_element(
         return None
 
     m_path = get_lookup_path(graph, path, method_id)
-
-    if graph.nodes[access_id].get("value_type") == "number":
+    access_nid = graph.nodes[access_id]
+    if access_nid.get("value_type") == "number":
         with suppress(ValueError):
-            access_val = int(graph.nodes[access_id].get("value"))
+            access_val = int(access_nid.get("value"))
             return get_element_by_idx(graph, m_path, var_name, access_val)
+    elif access_nid.get("value_type") == "string":
+        access_key = str(access_nid["value"])
+        el_id = get_element_by_key(graph, m_path, var_name, access_key)
+        return el_id
 
     return None
 
@@ -57,7 +61,7 @@ def get_element_by_idx(
             and (al_id := n_attrs["arguments_id"])
             and (arg_id := g.match_ast(graph, al_id).get("__0__"))
         ):
-            if n_attrs.get("expression") in {"add", "push", "put"}:
+            if n_attrs.get("expression") in {"add", "push"}:
                 d_nodes.append(arg_id)
             elif n_attrs.get("expression") in {"remove"} and (
                 idx := graph.nodes[arg_id].get("value")
@@ -70,4 +74,26 @@ def get_element_by_idx(
     if len(d_nodes) >= access_val:
         return d_nodes[access_val]
 
+    return None
+
+
+def get_element_by_key(
+    graph: Graph, path: Path, var_name: str, access_key: str
+) -> Optional[NId]:
+    for n_id in path:
+        n_attrs = graph.nodes[n_id]
+        if (
+            n_attrs["label_type"] != "MethodInvocation"
+            or not n_attrs.get("object_id")
+            or n_attrs.get("expression") not in {"put"}
+        ):
+            continue
+
+        if (
+            graph.nodes[n_attrs["object_id"]].get("symbol") == var_name
+            and (arg_ids := g.adj_ast(graph, n_attrs["arguments_id"]))
+            and len(arg_ids) >= 2
+            and graph.nodes[arg_ids[0]].get("value") == access_key
+        ):
+            return arg_ids[1]
     return None
