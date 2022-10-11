@@ -185,7 +185,6 @@ async def update_state(
     try:
         await operations.update_item(
             condition_expression=Attr(key_structure.partition_key).exists()
-            & Attr("state.status").ne(FindingStateStatus.DELETED.value)
             & Attr("state.modified_date").eq(current_value.modified_date),
             item=metadata_item,
             key=metadata_key,
@@ -258,8 +257,7 @@ async def update_historic_state(
     )
     try:
         await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists()
-            & Attr("state.status").ne(FindingStateStatus.DELETED.value),
+            condition_expression=Attr(key_structure.partition_key).exists(),
             item=item,
             key=primary_key,
             table=TABLE,

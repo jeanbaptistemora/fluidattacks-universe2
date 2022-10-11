@@ -204,7 +204,7 @@ async def remove_finding(
     source: Source,
 ) -> None:
     finding: Finding = await loaders.finding.load(finding_id)
-    new_state = FindingState(
+    deletion_state = FindingState(
         justification=justification,
         modified_by=email,
         modified_date=datetime_utils.get_iso_date(),
@@ -215,7 +215,7 @@ async def remove_finding(
         current_value=finding.state,
         finding_id=finding.id,
         group_name=finding.group_name,
-        state=new_state,
+        state=deletion_state,
     )
     file_names = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
@@ -247,13 +247,23 @@ async def remove_finding(
     )
 
     if (
-        not email.endswith("@fluidattacks.com")
+        not email.endswith(authz.FLUID_IDENTIFIER)
         and finding.state.status == FindingStateStatus.APPROVED
     ):
-        await _send_to_redshift(
-            loaders=loaders,
-            finding=finding,
+        # Findings in the MASKED state will be archived
+        await findings_model.update_state(
+            current_value=deletion_state,
+            finding_id=finding.id,
+            group_name=finding.group_name,
+            state=FindingState(
+                justification=justification,
+                modified_by=email,
+                modified_date=datetime_utils.get_iso_date(),
+                source=source,
+                status=FindingStateStatus.MASKED,
+            ),
         )
+        await _send_to_redshift(loaders=loaders, finding=finding)
     await findings_model.remove(
         group_name=finding.group_name, finding_id=finding.id
     )
@@ -539,7 +549,7 @@ def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
 
 
-async def mask_finding(loaders: Any, finding: Finding) -> None:
+async def mask_finding(loaders: Dataloaders, finding: Finding) -> None:
     comments_and_observations: list[
         FindingComment
     ] = await loaders.finding_comments.load(
@@ -560,7 +570,7 @@ async def mask_finding(loaders: Any, finding: Finding) -> None:
     )
 
     finding_all_vulns_loader = loaders.finding_vulnerabilities_all
-    vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
+    vulns: tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
     )
     await collect(
@@ -577,8 +587,22 @@ async def mask_finding(loaders: Any, finding: Finding) -> None:
 
     if (
         finding.state.status != FindingStateStatus.DELETED
-        or not finding.state.modified_by.endswith("@fluidattacks.com")
+        or not finding.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
     ):
+        if finding.state.status == FindingStateStatus.DELETED:
+            # Findings in the MASKED state will be archived
+            await findings_model.update_state(
+                current_value=finding.state,
+                finding_id=finding.id,
+                group_name=finding.group_name,
+                state=FindingState(
+                    justification=finding.state.justification,
+                    modified_by=finding.state.modified_by,
+                    modified_date=datetime_utils.get_iso_date(),
+                    source=finding.state.source,
+                    status=FindingStateStatus.MASKED,
+                ),
+            )
         await _send_to_redshift(loaders=loaders, finding=finding)
 
     await findings_model.remove(

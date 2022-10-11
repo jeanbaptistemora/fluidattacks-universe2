@@ -9,9 +9,6 @@ from . import (
 from .operations import (
     db_cursor,
 )
-from dynamodb.context import (
-    FI_ENVIRONMENT,
-)
 from dynamodb.types import (
     Item,
     Record,
@@ -29,16 +26,9 @@ FLUID_IDENTIFIER = "@fluidattacks.com"
 LOGGER = logging.getLogger(__name__)
 
 
-def _process_metadata(cursor: cursor_cls, item: Item) -> None:
+def _process_finding_metadata(cursor: cursor_cls, item: Item) -> None:
     state: Item = item["state"]
-    if (
-        state["status"] == "DELETED"
-        and not str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
-        and item.get("approval")
-    ) or (
-        state["status"] != "DELETED"
-        or not str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
-    ):
+    if state["status"] != "DELETED":
         findings_ops.insert_finding(cursor=cursor, item=item)
         LOGGER.info(
             "Finding metadata stored",
@@ -51,7 +41,7 @@ def _process_metadata(cursor: cursor_cls, item: Item) -> None:
         )
 
 
-def _process_state(
+def _process_finding_state(
     cursor: cursor_cls, finding_id: str, items: list[Item]
 ) -> None:
     findings_ops.insert_historic_state(
@@ -59,7 +49,7 @@ def _process_state(
     )
 
 
-def _process_verification(
+def _process_finding_verification(
     cursor: cursor_cls, finding_id: str, items: list[Item]
 ) -> None:
     findings_ops.insert_historic_verification(
@@ -75,9 +65,6 @@ def _process_verification(
 
 
 def process_findings(records: tuple[Record, ...]) -> None:
-    if FI_ENVIRONMENT != "prod":
-        return
-
     with db_cursor() as cursor:
         metadata_items: list[Item] = [
             record.old_image
@@ -85,7 +72,7 @@ def process_findings(records: tuple[Record, ...]) -> None:
             if record.old_image and record.sk.startswith("GROUP#")
         ]
         for item in metadata_items:
-            _process_metadata(cursor, item)
+            _process_finding_metadata(cursor, item)
 
         state_items: list[Item] = [
             record.old_image
@@ -95,7 +82,7 @@ def process_findings(records: tuple[Record, ...]) -> None:
         state_iterator = itertools.groupby(state_items, itemgetter("pk"))
         for key, items in state_iterator:
             finding_id = str(key).split("#")[1]
-            _process_state(cursor, finding_id, list(items))
+            _process_finding_state(cursor, finding_id, list(items))
 
         verification_items: list[Item] = [
             record.old_image
@@ -107,4 +94,4 @@ def process_findings(records: tuple[Record, ...]) -> None:
         )
         for key, items in verification_iterator:
             finding_id = str(key).split("#")[1]
-            _process_verification(cursor, finding_id, list(items))
+            _process_finding_verification(cursor, finding_id, list(items))
