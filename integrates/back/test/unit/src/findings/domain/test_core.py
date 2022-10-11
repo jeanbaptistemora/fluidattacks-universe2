@@ -376,9 +376,10 @@ async def test_add_comment() -> None:
 @pytest.mark.changes_db
 async def test_mask_finding() -> None:
     finding_id = "475041524"
+    email = "unittest@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    await mask_finding(loaders, finding)
+    await mask_finding(loaders, finding, email)
     loaders.finding.clear(finding_id)
     with pytest.raises(FindingNotFound):
         await loaders.finding.load(finding_id)

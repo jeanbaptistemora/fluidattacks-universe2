@@ -1308,7 +1308,7 @@ async def remove_resources(
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
-            findings_domain.mask_finding(loaders, finding)
+            findings_domain.mask_finding(loaders, finding, user_email)
             for finding in all_findings
         ),
         workers=4,

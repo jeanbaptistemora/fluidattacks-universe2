@@ -58,7 +58,9 @@ async def main() -> None:
     else:
         are_findings_masked = all(
             await collect(
-                findings_domain.mask_finding(get_new_context(), finding_id)
+                findings_domain.mask_finding_legacy(
+                    get_new_context(), finding_id
+                )
                 for finding_id in findings
             )
         )

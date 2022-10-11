@@ -255,11 +255,8 @@ async def remove_finding(
             current_value=deletion_state,
             finding_id=finding.id,
             group_name=finding.group_name,
-            state=FindingState(
-                justification=justification,
-                modified_by=email,
+            state=deletion_state._replace(
                 modified_date=datetime_utils.get_iso_date(),
-                source=source,
                 status=FindingStateStatus.MASKED,
             ),
         )
@@ -549,7 +546,9 @@ def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
 
 
-async def mask_finding(loaders: Dataloaders, finding: Finding) -> None:
+async def mask_finding(
+    loaders: Dataloaders, finding: Finding, email: str
+) -> None:
     comments_and_observations: list[
         FindingComment
     ] = await loaders.finding_comments.load(
@@ -595,11 +594,9 @@ async def mask_finding(loaders: Dataloaders, finding: Finding) -> None:
                 current_value=finding.state,
                 finding_id=finding.id,
                 group_name=finding.group_name,
-                state=FindingState(
-                    justification=finding.state.justification,
-                    modified_by=finding.state.modified_by,
+                state=finding.state._replace(
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
-                    source=finding.state.source,
                     status=FindingStateStatus.MASKED,
                 ),
             )
