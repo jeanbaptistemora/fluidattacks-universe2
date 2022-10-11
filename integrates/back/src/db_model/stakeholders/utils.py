@@ -6,6 +6,7 @@ from ..enums import (
     Notification,
 )
 from .types import (
+    NotificationsParameters,
     NotificationsPreferences,
     Stakeholder,
     StakeholderAccessToken,
@@ -14,6 +15,9 @@ from .types import (
     StakeholderSessionToken,
     StakeholderTours,
     StateSessionType,
+)
+from decimal import (
+    Decimal,
 )
 from dynamodb.types import (
     Item,
@@ -61,11 +65,11 @@ def format_notifications_preferences(
 ) -> NotificationsPreferences:
     if not item:
         return NotificationsPreferences(
-            email=[],
-            sms=[],
+            email=[], sms=[], parameters=NotificationsParameters()
         )
     email_preferences: list[str] = []
     sms_preferences: list[str] = []
+    parameters_preferences = NotificationsParameters()
     if "email" in item:
         email_preferences = [
             item for item in item["email"] if item in Notification.__members__
@@ -74,9 +78,17 @@ def format_notifications_preferences(
         sms_preferences = [
             item for item in item["sms"] if item in Notification.__members__
         ]
+    if "parameters" in item:
+        parameters_preferences = NotificationsParameters(
+            **{
+                field: Decimal(item["parameters"][field])
+                for field in NotificationsParameters._fields
+            }
+        )
     return NotificationsPreferences(
         email=email_preferences,
         sms=sms_preferences,
+        parameters=parameters_preferences,
     )
 
 

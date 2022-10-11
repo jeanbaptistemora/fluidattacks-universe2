@@ -6,6 +6,8 @@
 type NotificationsPreferences {
   "Email channel to notifications preferences"
   email: [NotificationsName!]!
+  "Configuration parameters for sending notifications"
+  parameters: NotificationsParameters
   "SMS channel to notifications preferences"
   sms: [NotificationsName]
 }

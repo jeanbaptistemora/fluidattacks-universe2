@@ -14,10 +14,14 @@ from .utils import (
 from db_model import (
     TABLE,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb import (
     keys,
     operations,
 )
+import simplejson as json
 
 
 async def update_metadata(
@@ -44,7 +48,9 @@ async def update_metadata(
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         "email": email,
-        **format_metadata_item(metadata),
+        **json.loads(
+            json.dumps(format_metadata_item(metadata)), parse_float=Decimal
+        ),
     }
     await operations.update_item(
         item=item,

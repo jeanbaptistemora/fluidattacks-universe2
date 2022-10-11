@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
@@ -11,9 +14,14 @@ from typing import (
 )
 
 
+class NotificationsParameters(NamedTuple):
+    min_severity: Decimal = Decimal("7.0")
+
+
 class NotificationsPreferences(NamedTuple):
     email: list[str] = []
     sms: list[str] = []
+    parameters: NotificationsParameters = NotificationsParameters()
 
 
 class StakeholderAccessToken(NamedTuple):
