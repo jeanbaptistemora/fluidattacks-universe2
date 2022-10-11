@@ -267,7 +267,7 @@ class FindingEnum(Enum):
         requirements=[26],
     )
     F037: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F037",
         cwe=200,
         execution_queue=ExecutionQueue.leak,
@@ -288,7 +288,7 @@ class FindingEnum(Enum):
         requirements=[62],
     )
     F046: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F046",
         cwe=1269,
         execution_queue=ExecutionQueue.apk,
@@ -358,7 +358,7 @@ class FindingEnum(Enum):
         requirements=[75],
     )
     F065: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F065",
         cwe=200,
         execution_queue=ExecutionQueue.none,
@@ -414,7 +414,7 @@ class FindingEnum(Enum):
         requirements=[185],
     )
     F082: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F082",
         cwe=459,
         execution_queue=ExecutionQueue.apk,
@@ -470,7 +470,7 @@ class FindingEnum(Enum):
         requirements=[173, 321],
     )
     F097: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F097",
         cwe=502,
         execution_queue=ExecutionQueue.none,
@@ -533,7 +533,7 @@ class FindingEnum(Enum):
         requirements=[323],
     )
     F120: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F120",
         cwe=829,
         execution_queue=ExecutionQueue.f117,
@@ -596,7 +596,7 @@ class FindingEnum(Enum):
         requirements=[62, 266, 349],
     )
     F143: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F143",
         cwe=676,
         execution_queue=ExecutionQueue.injection,
@@ -659,7 +659,7 @@ class FindingEnum(Enum):
         requirements=[96, 176, 264, 320],
     )
     F206: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F206",
         cwe=295,
         execution_queue=ExecutionQueue.apk,
@@ -806,7 +806,7 @@ class FindingEnum(Enum):
         requirements=[227, 228, 229, 231, 235, 264, 323],
     )
     F313: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F313",
         cwe=295,
         execution_queue=ExecutionQueue.apk,
@@ -883,7 +883,7 @@ class FindingEnum(Enum):
         requirements=[266],
     )
     F371: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F371",
         cwe=79,
         execution_queue=ExecutionQueue.none,
@@ -932,7 +932,7 @@ class FindingEnum(Enum):
         requirements=[266],
     )
     F398: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F398",
         cwe=470,
         execution_queue=ExecutionQueue.apk,
