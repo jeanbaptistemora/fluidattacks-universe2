@@ -57,59 +57,6 @@ def filter_repo(
     return True
 
 
-def filter_report(
-    report: dict[str, Any],
-    verbose_level: int,
-) -> dict[str, Any]:
-    # Set finding exploitability level
-    for finding in report["findings"]:
-        finding.pop("id")
-    # Filter findings without vulnerabilities
-    report["findings"] = [
-        finding for finding in report["findings"] if finding["vulnerabilities"]
-    ]
-
-    # Remove extra info not needed for the formatted report
-    if verbose_level == 1:
-        # Filter level 1, do not show vulnerabilities details
-        filter_vulns(report["findings"], set())
-    elif verbose_level == 2:
-        # Filter level 2, only show open vulnerabilities
-        filter_vulns(report["findings"], {VulnerabilityState.OPEN})
-    elif verbose_level == 3:
-        # Filter level 3, only show open and closed vulnerabilities
-        filter_vulns(
-            report["findings"],
-            {VulnerabilityState.OPEN, VulnerabilityState.CLOSED},
-        )
-    else:
-        # If filter level is 4 show open, closed and accepted vulnerabilities
-        filter_vulns(report["findings"], set(VulnerabilityState))
-    return report
-
-
-def filter_vulns(
-    findings: list[dict[str, Any]],
-    allowed_vuln_states: set[VulnerabilityState],
-) -> list[dict[str, Any]]:
-    """Helper method to filter vulns in findings based on the requested vuln
-    states set by the verbosity level of the report"""
-    # Verbosity level of 1
-    if allowed_vuln_states == set():
-        for finding in findings:
-            finding.pop("vulnerabilities")
-    # Verbosity levels of 2, 3 and 4
-    else:
-        for finding in findings:
-            finding["vulnerabilities"] = tuple(
-                filter(
-                    lambda vuln: vuln.state in allowed_vuln_states,
-                    finding["vulnerabilities"],
-                )
-            )
-    return findings
-
-
 def filter_vulnerabilities(
     vulnerabilities: list[Vulnerability],
     verbose_level: int,
