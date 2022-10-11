@@ -10,7 +10,7 @@ import {
   faKey,
   faMobileAlt,
   faSignOutAlt,
-  faUserCircle,
+  faUser,
   faUserCog,
   faUserPlus,
   faUserTimes,
@@ -132,7 +132,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       button={
         <Button size={"sm"}>
           <Text size={"medium"}>
-            <FontAwesomeIcon icon={faUserCircle} />
+            <FontAwesomeIcon icon={faUser} />
           </Text>
         </Button>
       }

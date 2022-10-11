@@ -9,7 +9,7 @@ import {
   faKey,
   faMobileAlt,
   faSignOutAlt,
-  faUserCircle,
+  faUser,
   faUserCog,
   faUserPlus,
   faUserTimes,
@@ -129,7 +129,7 @@ const UserProfile: FC<IUserProfileProps> = ({
     <Dropdown
       align={"left"}
       button={
-        <Button icon={faUserCircle} size={"md"}>
+        <Button icon={faUser} size={"md"}>
           {userName.split(" ")[0]}
         </Button>
       }
