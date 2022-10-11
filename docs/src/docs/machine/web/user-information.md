@@ -121,7 +121,7 @@ message will appear, reminding
 you that you will not be able
 to restore your account afterward.
 
-![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1665498003/docs/web/edit_mobile.png)
+![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1665498032/docs/web/delete_account.png)
 
 Lastly, the **Log out**
 option will allow you to end
