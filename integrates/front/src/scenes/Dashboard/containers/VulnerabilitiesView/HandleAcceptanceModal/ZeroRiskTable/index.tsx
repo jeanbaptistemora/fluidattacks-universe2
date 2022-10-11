@@ -4,14 +4,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 
+import { changeZeroRiskFormatter } from "./changeZeroRiskFormatter";
 import type { IZeroRiskTableProps } from "./types";
 
 import type { IVulnDataAttr } from "../types";
-import { Table } from "components/Table";
-import { changeZeroRiskFormatter } from "components/Table/formatters/changeZeroRiskFormatter";
-import type { IHeaderConfig } from "components/Table/types";
+import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 
 const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps
@@ -22,9 +23,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     setAcceptanceVulns,
   } = props;
 
-  const handleRejectZeroRisk: (vulnInfo?: Record<string, string>) => void = (
-    vulnInfo?: Record<string, string>
-  ): void => {
+  const handleRejectZeroRisk = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
@@ -39,9 +38,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     }
   };
 
-  const handleConfirmZeroRisk: (vulnInfo?: Record<string, string>) => void = (
-    vulnInfo?: Record<string, string>
-  ): void => {
+  const handleConfirmZeroRisk = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
@@ -56,30 +53,24 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     }
   };
 
-  const vulnsHeader: IHeaderConfig[] = [
+  const columns: ColumnDef<IVulnDataAttr>[] = [
     {
-      dataField: "where",
+      accessorKey: "where",
       header: "Where",
-      width: "45%",
-      wordBreak: "break-word",
-      wrapped: true,
     },
     {
-      dataField: "specific",
+      accessorKey: "specific",
       header: "Specific",
-      width: "25%",
-      wordBreak: "break-word",
-      wrapped: true,
     },
     {
-      approveFunction: handleConfirmZeroRisk,
-      dataField: "acceptance",
-      deleteFunction: handleRejectZeroRisk,
-      formatter: changeZeroRiskFormatter,
+      accessorKey: "acceptance",
+      cell: (cell: ICellHelper<IVulnDataAttr>): JSX.Element =>
+        changeZeroRiskFormatter(
+          cell.row.original,
+          handleConfirmZeroRisk,
+          handleRejectZeroRisk
+        ),
       header: "Acceptance",
-      width: "30%",
-      wordBreak: "break-word",
-      wrapped: true,
     },
   ];
 
@@ -87,12 +78,9 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     <React.StrictMode>
       {isConfirmRejectZeroRiskSelected ? (
         <Table
-          dataset={acceptanceVulns}
-          exportCsv={false}
-          headers={vulnsHeader}
+          columns={columns}
+          data={acceptanceVulns}
           id={"vulnsToHandleAcceptance"}
-          pageSize={10}
-          search={false}
         />
       ) : undefined}
     </React.StrictMode>

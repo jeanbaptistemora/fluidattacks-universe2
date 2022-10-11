@@ -544,6 +544,11 @@ describe("handle vulns acceptance modal", (): void => {
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+    );
     userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
     userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
@@ -698,6 +703,11 @@ describe("handle vulns acceptance modal", (): void => {
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+    );
     userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
@@ -868,6 +878,11 @@ describe("handle vulns acceptance modal", (): void => {
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+    );
     userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
     userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
@@ -953,6 +968,12 @@ describe("handle vulns acceptance modal", (): void => {
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
+    );
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
 
     userEvent.click(
@@ -1059,6 +1080,12 @@ describe("handle vulns acceptance modal", (): void => {
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
+    );
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
 
     userEvent.click(
