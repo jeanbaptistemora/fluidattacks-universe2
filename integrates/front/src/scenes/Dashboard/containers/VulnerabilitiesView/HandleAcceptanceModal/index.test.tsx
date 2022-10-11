@@ -134,7 +134,13 @@ describe("handle vulns acceptance modal", (): void => {
       screen.getByRole("textbox", { name: "justification" }),
       "This is a justification test"
     );
-    userEvent.click(screen.getByRole("checkbox"));
+
+    expect(screen.getByRole("checkbox")).toBeChecked();
+
+    userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
+
+    expect(screen.getByRole("checkbox")).not.toBeChecked();
 
     await waitFor((): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
