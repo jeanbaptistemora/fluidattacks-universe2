@@ -220,7 +220,7 @@ and if those vulnerabilities
 have low, medium, high or critical
 severities.
 
-## Mean (average) days to remediate
+## Mean time to remediate (MTTR) by CVSS severity
 
 ![Mean Days To Remediate](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/mean_average_days_to_remediate_eyfowf.png)
 
@@ -286,7 +286,7 @@ closed, accepted and open vulnerabilities
 over time, based on our standard
 [CVSSF](/about/faq/#severity-vs-vulnerabilities).
 
-## Open exposure by type
+## Exposure by type
 
 ![Exposure By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
 
