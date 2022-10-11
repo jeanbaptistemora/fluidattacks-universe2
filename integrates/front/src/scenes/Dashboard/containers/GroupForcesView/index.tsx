@@ -164,7 +164,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       fetchPolicy: "cache-first",
       onError: handleQryErrors,
-      variables: { first: 100, groupName, search: "" },
+      variables: { first: 1000, groupName, search: "" },
     }
   );
 
