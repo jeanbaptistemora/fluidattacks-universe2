@@ -153,7 +153,11 @@ def filter_non_deleted(
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.state.status != VulnerabilityStateStatus.DELETED
+        if vuln.state.status
+        not in {
+            VulnerabilityStateStatus.DELETED,
+            VulnerabilityStateStatus.MASKED,
+        }
     )
 
 
@@ -735,7 +739,10 @@ def validate_zero_risk_requested(
 def format_vulnerability_state_item(
     state: VulnerabilityState,
 ) -> Item:
-    if state.status == VulnerabilityStateStatus.DELETED:
+    if state.status in {
+        VulnerabilityStateStatus.DELETED,
+        VulnerabilityStateStatus.MASKED,
+    }:
         formatted_status = state.status.value
     else:
         formatted_status = str(state.status.value).lower()

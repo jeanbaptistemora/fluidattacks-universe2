@@ -130,7 +130,11 @@ async def _process_finding(
                 vulnerability=vulnerability,
             )
             for vulnerability in filter_vulnerabililities
-            if vulnerability.state.status != VulnerabilityStateStatus.DELETED
+            if vulnerability.state.status
+            not in {
+                VulnerabilityStateStatus.DELETED,
+                VulnerabilityStateStatus.MASKED,
+            }
         ),
         workers=10,
     )

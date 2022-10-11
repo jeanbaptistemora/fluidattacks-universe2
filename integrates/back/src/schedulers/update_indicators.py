@@ -918,7 +918,8 @@ def get_found_vulnerabilities(
     )
     if (
         first_day <= vulnerability.state.modified_date <= last_day
-        and vulnerability.state.status == VulnerabilityStateStatus.DELETED
+        and vulnerability.state.status
+        in {VulnerabilityStateStatus.DELETED, VulnerabilityStateStatus.MASKED}
     ):
         found = VulnerabilityStatusByTimeRange(
             vulnerabilities=found.vulnerabilities - 1,

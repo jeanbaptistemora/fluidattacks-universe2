@@ -292,7 +292,11 @@ async def test_update_group_indicators() -> None:
         [
             vulnerability
             for vulnerability in vulnerabilities
-            if vulnerability.state.status != VulnerabilityStateStatus.DELETED
+            if vulnerability.state.status
+            not in {
+                VulnerabilityStateStatus.DELETED,
+                VulnerabilityStateStatus.MASKED,
+            }
         ]
     )
     assert accepted == len(

@@ -975,6 +975,7 @@ async def close_by_exclusion(
     if vulnerability.state.status not in {
         VulnerabilityStateStatus.CLOSED,
         VulnerabilityStateStatus.DELETED,
+        VulnerabilityStateStatus.MASKED,
     }:
         await vulns_model.update_historic_entry(
             current_value=vulnerability,

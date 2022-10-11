@@ -336,7 +336,11 @@ async def _process_finding(
                 item_subject=item_subject,
             )
             for vuln in vulns
-            if vuln.state.status != VulnerabilityStateStatus.DELETED
+            if vuln.state.status
+            not in {
+                VulnerabilityStateStatus.DELETED,
+                VulnerabilityStateStatus.MASKED,
+            }
             and vuln.state.justification != StateRemovalJustification.EXCLUSION
         ),
         workers=100,

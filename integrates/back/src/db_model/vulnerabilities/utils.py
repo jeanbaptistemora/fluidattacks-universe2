@@ -57,7 +57,11 @@ def filter_non_deleted(
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.state.status != VulnerabilityStateStatus.DELETED
+        if vuln.state.status
+        not in {
+            VulnerabilityStateStatus.DELETED,
+            VulnerabilityStateStatus.MASKED,
+        }
     )
 
 
