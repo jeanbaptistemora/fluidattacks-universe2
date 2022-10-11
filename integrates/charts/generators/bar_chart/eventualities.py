@@ -19,7 +19,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    OTHER_COUNT,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
@@ -86,7 +86,7 @@ async def get_data_many_groups(
 
 
 def format_data(data: List[PortfoliosGroupsInfo]) -> dict[str, Any]:
-    limited_data = [group for group in data if group.value > 0]
+    limited_data = [group for group in data[:15] if group.value > 0]
 
     return dict(
         data=dict(
@@ -94,22 +94,23 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict[str, Any]:
                 ["Unsolved Events"] + [group.value for group in limited_data],
             ],
             colors={
-                "Unsolved Events": RISK.neutral,
+                "Unsolved Events": OTHER_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.group_name for group in limited_data],
                 type="category",
                 tick=dict(
                     multiline=False,
                     outer=False,
-                    rotate=utils.TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(
@@ -121,6 +122,8 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict[str, Any]:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(limited_data),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 
