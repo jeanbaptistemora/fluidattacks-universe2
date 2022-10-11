@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint fp/no-mutation: 0 */
 import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useCallback } from "react";
@@ -118,7 +119,27 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
         : data.group.vulnerabilities.pageInfo;
 
     if (pageInfo.hasNextPage) {
-      await fetchMore({ variables: { after: pageInfo.endCursor } });
+      await fetchMore({
+        updateQuery: (
+          previousResult,
+          { fetchMoreResult }
+        ): IGroupVulnerabilities => {
+          if (!fetchMoreResult) {
+            return previousResult;
+          }
+
+          const previousEdges = previousResult.group.vulnerabilities.edges;
+          const fetchMoreEdges = fetchMoreResult.group.vulnerabilities.edges;
+
+          fetchMoreResult.group.vulnerabilities.edges = [
+            ...previousEdges,
+            ...fetchMoreEdges,
+          ];
+
+          return { ...fetchMoreResult };
+        },
+        variables: { after: pageInfo.endCursor },
+      });
     }
   }, [data, fetchMore]);
 
