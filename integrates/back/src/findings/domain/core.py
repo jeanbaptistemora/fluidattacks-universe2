@@ -576,6 +576,7 @@ async def mask_finding(
         tuple(
             vulns_domain.mask_vulnerability(
                 loaders=loaders,
+                email=email,
                 finding_id=finding.id,
                 vulnerability=vuln,
             )

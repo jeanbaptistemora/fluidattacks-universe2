@@ -309,6 +309,7 @@ async def test_mask_vulnerability() -> None:
     )
     await mask_vulnerability(
         loaders=loaders,
+        email="integratesuser@gmail.com",
         finding_id=vuln.finding_id,
         vulnerability=vuln,
     )

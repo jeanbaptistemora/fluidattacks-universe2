@@ -7,10 +7,14 @@ from aioextensions import (
     collect,
     schedule,
 )
+import authz
 from custom_exceptions import (
     InvalidRemovalVulnState,
     VulnNotFound,
     VulnNotInFinding,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model import (
     utils as db_model_utils,
@@ -258,11 +262,11 @@ async def remove_vulnerability_tags(
 
 
 async def remove_vulnerability(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     vulnerability_id: str,
     justification: StateRemovalJustification,
-    user_email: str,
+    email: str,
     source: Source,
     include_closed_vuln: bool = False,
 ) -> None:
@@ -275,20 +279,30 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     ):
         raise InvalidRemovalVulnState.new()
 
+    deletion_state = VulnerabilityState(
+        modified_by=email,
+        modified_date=datetime_utils.get_iso_date(),
+        source=source,
+        status=VulnerabilityStateStatus.DELETED,
+        justification=justification,
+        tool=vulnerability.state.tool,
+    )
+    await vulns_model.update_historic_entry(
+        current_value=vulnerability,
+        entry=deletion_state,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+    )
     finding: Finding = await loaders.finding.load(finding_id)
     if (
-        not user_email.endswith("@fluidattacks.com")
+        not email.endswith(authz.FLUID_IDENTIFIER)
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         await vulns_model.update_historic_entry(
-            current_value=vulnerability,
-            entry=VulnerabilityState(
-                modified_by=user_email,
+            current_value=vulnerability._replace(state=deletion_state),
+            entry=deletion_state._replace(
                 modified_date=datetime_utils.get_iso_date(),
-                source=source,
-                status=VulnerabilityStateStatus.DELETED,
-                justification=justification,
-                tool=vulnerability.state.tool,
+                status=VulnerabilityStateStatus.MASKED,
             ),
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
@@ -499,6 +513,7 @@ def group_vulnerabilities(
 async def mask_vulnerability(
     *,
     loaders: Any,
+    email: str,
     finding_id: str,
     vulnerability: Vulnerability,
 ) -> None:
@@ -506,10 +521,21 @@ async def mask_vulnerability(
     if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
         finding: Finding = await loaders.finding.load(finding_id)
         if (
-            vulnerability.state.modified_by.endswith("@fluidattacks.com")
+            vulnerability.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
             or finding.state.status != FindingStateStatus.APPROVED
         ):
             store_vuln = False
+        else:
+            await vulns_model.update_historic_entry(
+                current_value=vulnerability,
+                entry=vulnerability.state._replace(
+                    modified_by=email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    status=VulnerabilityStateStatus.MASKED,
+                ),
+                finding_id=finding_id,
+                vulnerability_id=vulnerability.id,
+            )
 
     if store_vuln:
         await _send_to_redshift(

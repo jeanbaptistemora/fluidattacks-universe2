@@ -205,7 +205,7 @@ async def process_group(  # pylint: disable=too-many-locals
                         finding.id,
                         vuln.id,
                         justification=StateRemovalJustification.DUPLICATED,
-                        user_email="drestrepo@fluidattacks.com",
+                        email="drestrepo@fluidattacks.com",
                         source=Source.MACHINE,
                     )
                     for vuln in vulns_to_delete

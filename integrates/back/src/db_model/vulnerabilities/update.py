@@ -243,13 +243,9 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
                 zr_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
 
-        base_condition = (
-            Attr(key_structure.partition_key).exists()
-            & Attr("state.status").ne(VulnerabilityStateStatus.DELETED.value)
-            & Attr(zr_index.primary_key.sort_key).eq(
-                current_zr_index_key.sort_key
-            )
-        )
+        base_condition = Attr(key_structure.partition_key).exists() & Attr(
+            zr_index.primary_key.sort_key
+        ).eq(current_zr_index_key.sort_key)
         await operations.update_item(
             condition_expression=(
                 base_condition
@@ -324,9 +320,7 @@ async def update_historic(  # pylint: disable=too-many-locals
                 zr_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
 
-        base_condition = Attr(key_structure.partition_key).exists() & Attr(
-            "state.status"
-        ).ne(VulnerabilityStateStatus.DELETED.value)
+        base_condition = Attr(key_structure.partition_key).exists()
         await operations.update_item(
             condition_expression=(
                 base_condition
