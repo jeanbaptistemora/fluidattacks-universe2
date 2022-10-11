@@ -18,6 +18,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enrollment.types import (
+    Enrollment,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -94,11 +97,17 @@ async def test_remove_stakeholder(
     assert "errors" not in result
     assert result["data"]["removeStakeholder"]["success"]
 
+    old_enrollment: Enrollment = await old_loaders.enrollment.load(email)
+    assert old_enrollment.enrolled
+
     await confirm_deletion(loaders=get_new_context(), email=email)
 
     new_loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await new_loaders.stakeholder.load(email)
+
+    new_enrollment: Enrollment = await new_loaders.enrollment.load(email)
+    assert new_enrollment.enrolled
 
     result_stakeholder_query = await get_result_stakeholder_query(
         user=admin_email, stakeholder=email, group_name=group_name

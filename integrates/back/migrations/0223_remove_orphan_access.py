@@ -80,7 +80,7 @@ async def _process_user(
         await collect(
             [
                 _delete_subject_policy(email, group_name),
-                remove(loaders=loaders, email=email),
+                remove(email),
             ]
         )
 

@@ -135,7 +135,7 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    await stakeholders_domain.remove(loaders=loaders, email=email)
+    await stakeholders_domain.remove(email)
 
 
 async def complete_deletion(*, loaders: Dataloaders, email: str) -> None:

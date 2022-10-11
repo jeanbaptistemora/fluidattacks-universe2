@@ -238,7 +238,7 @@ def generic_data(  # pylint: disable=too-many-locals
         "db_data": {
             "enrollments": (
                 Enrollment(
-                    email="admin@gmail.com",
+                    email=admin_email,
                     enrolled=True,
                     trial=Trial(
                         completed=True,
@@ -248,10 +248,20 @@ def generic_data(  # pylint: disable=too-many-locals
                     ),
                 ),
                 Enrollment(
-                    email="admin@fluidattacks.com",
+                    email=admin_fluid_email,
                     enrolled=True,
                     trial=Trial(
                         completed=True,
+                        extension_date="",
+                        extension_days=0,
+                        start_date="",
+                    ),
+                ),
+                Enrollment(
+                    email=customer_manager_fluid_email,
+                    enrolled=True,
+                    trial=Trial(
+                        completed=False,
                         extension_date="",
                         extension_days=0,
                         start_date="",

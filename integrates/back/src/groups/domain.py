@@ -1371,7 +1371,7 @@ async def remove_user(
     )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
-        await stakeholders_domain.remove(loaders, email)
+        await stakeholders_domain.remove(email)
 
 
 async def unsubscribe_from_group(

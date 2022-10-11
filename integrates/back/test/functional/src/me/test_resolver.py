@@ -242,7 +242,7 @@ from typing import (
             1,
             [],
             {
-                "enrolled": False,
+                "enrolled": True,
                 "trial": {
                     "completed": False,
                     "extensionDate": "",

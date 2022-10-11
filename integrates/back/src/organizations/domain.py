@@ -622,7 +622,7 @@ async def remove_access(
 
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
     if not has_orgs:
-        await stakeholders_domain.remove(loaders, email)
+        await stakeholders_domain.remove(email)
     user_credentials: tuple[
         Credentials, ...
     ] = await loaders.user_credentials.load(email)
