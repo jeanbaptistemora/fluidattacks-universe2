@@ -19,7 +19,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    EXPOSURE,
 )
 from charts.generators.common.utils import (
     get_finding_name,
@@ -54,15 +54,12 @@ from newutils.validations import (
 from typing import (
     Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
     Union,
 )
 
 
 def get_finding_severity(
-    findings: Tuple[Finding, ...], finding_id: str
+    findings: tuple[Finding, ...], finding_id: str
 ) -> Decimal:
     return findings_domain.get_severity_score(
         next(
@@ -73,12 +70,12 @@ def get_finding_severity(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    finding_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
+    finding_vulns: tuple[
+        tuple[Vulnerability, ...], ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     counter: Counter[str] = Counter(
         [
@@ -106,7 +103,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders
+    groups: list[str], loaders: Dataloaders
 ) -> Counter[str]:
 
     groups_data = await collect(
@@ -117,9 +114,9 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> Dict[str, Any]:
-    data: List[Tuple[str, int]] = counters.most_common()
-    merged_data: List[List[Union[int, str]]] = []
+def format_data(counters: Counter[str]) -> dict[str, Any]:
+    data: list[tuple[str, int]] = counters.most_common()
+    merged_data: list[list[Union[int, str]]] = []
     for axis, columns in groupby(
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         key=lambda x: get_finding_name([x[0]]),
@@ -140,45 +137,44 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ],
             ],
             colors={
-                "Open Exposure": RISK.more_agressive,
+                "Open Exposure": EXPOSURE,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="inset",
-            inset=dict(
-                anchor="top-right",
-                step=1.3,
-                x=10,
-                y=-5,
-            ),
+            show=False,
         ),
         padding=dict(
-            bottom=30,
+            bottom=0,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[
                     get_finding_name([str(key)]) for key, _ in merged_data
                 ],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
-                    rotate=utils.TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(
                 label=dict(
                     text="CVSSF",
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(
                     bottom=0,
+                    top=0,
                 ),
             ),
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in merged_data]
         ),

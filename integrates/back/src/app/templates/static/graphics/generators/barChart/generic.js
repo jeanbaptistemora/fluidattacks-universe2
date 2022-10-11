@@ -187,7 +187,8 @@ function render(dataDocument, height, width) {
   dataDocument.paddingRatioLeft = 0.065;
 
   if (dataDocument.axis.rotated) {
-    dataDocument.paddingRatioLeft = 0.2;
+    dataDocument.paddingRatioLeft = 0.35;
+    dataDocument.paddingRatioRight = 0.03;
   }
 
   if (dataDocument.barChartYTickFormat) {

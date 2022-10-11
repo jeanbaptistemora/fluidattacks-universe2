@@ -12,7 +12,7 @@ from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
 from charts.generators.common.colors import (
-    RISK,
+    EXPOSURE,
 )
 from charts.utils import (
     format_cvssf,
@@ -22,7 +22,6 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -123,36 +122,31 @@ def format_data(
                 ],
             ],
             colors={
-                legend: RISK.more_agressive,
+                legend: EXPOSURE,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="inset",
-            inset=dict(
-                anchor="top-right",
-                step=1.3,
-                x=10,
-                y=-5,
-            ),
+            show=False,
         ),
         padding=dict(
-            bottom=30,
+            bottom=0,
         ),
         axis=dict(
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(
                 label=dict(
                     text="CVSSF",
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(
@@ -167,6 +161,8 @@ def format_data(
             [(key, format_cvssf_log(Decimal(value))) for key, value in data]
         ),
         originalValues=[format_cvssf(Decimal(value)) for _, value in data],
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 
