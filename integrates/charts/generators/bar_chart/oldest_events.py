@@ -16,14 +16,13 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    OTHER_COUNT,
 )
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -115,7 +114,7 @@ def format_data(
                 [legend] + [str(group.days) for group in limited_data],
             ],
             colors={
-                legend: RISK.neutral,
+                legend: OTHER_COUNT,
             },
             labels=None,
             type="bar",
@@ -124,22 +123,22 @@ def format_data(
             show=False,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.name for group in limited_data],
                 label=dict(
-                    position="inner-right",
                     text=x_label,
                 ),
                 tick=dict(
                     multiline=False,
                     outer=False,
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                 ),
                 type="category",
             ),
             y=dict(
                 label=dict(
-                    position="inner-top",
+                    position="outer-top",
                     text="Days open",
                 ),
                 min=0,
@@ -148,6 +147,8 @@ def format_data(
                 ),
             ),
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
         barChartYTickFormat=True,
         maxValue=format_max_value(limited_data),
     )

@@ -19,7 +19,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    TYPES_COUNT,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
@@ -29,6 +29,9 @@ from dataloaders import (
 )
 from db_model.findings.types import (
     Finding,
+)
+from decimal import (
+    Decimal,
 )
 from operator import (
     attrgetter,
@@ -62,27 +65,30 @@ async def get_data_many_groups(
 
 
 def format_data(all_data: List[PortfoliosGroupsInfo]) -> dict:
-    data = all_data[:15]
+    data = [group for group in all_data[:15] if group.value > Decimal("0.0")]
 
     return dict(
         data=dict(
             columns=[
-                ["Vulnerabilities"] + [group.value for group in data],
+                ["Types of Vulnerabilities"] + [group.value for group in data],
             ],
             colors={
-                "Vulnerabilities": RISK.neutral,
+                "Types of Vulnerabilities": TYPES_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.group_name for group in data],
                 type="category",
-                tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
+                tick=dict(rotate=0, multiline=False),
             ),
             y=dict(
                 min=0,

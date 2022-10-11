@@ -309,7 +309,7 @@ def format_vulnerabilities_by_data(
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         axis=dict(
             x=dict(
