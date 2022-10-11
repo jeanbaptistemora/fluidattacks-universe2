@@ -540,6 +540,7 @@ def _build_vulnerabilities_stream_from_integrates(
     vulnerabilities: Tuple[Vulnerability, ...],
     git_root: GitRoot,
     state: Optional[str] = None,
+    commit: Optional[str] = None,
 ) -> Dict[str, Any]:
     state = state or "closed"
     return {
@@ -560,7 +561,7 @@ def _build_vulnerabilities_stream_from_integrates(
         ],
         "lines": [
             {
-                "commit_hash": vuln.commit,
+                "commit_hash": commit or vuln.commit,
                 "line": vuln.specific,
                 "path": vuln.where,
                 "repo_nickname": git_root.state.nickname,
@@ -929,6 +930,9 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         ),
         git_root,
         state="closed",
+        commit=sarif_log["runs"][0]["versionControlProvenance"][0][
+            "revisionId"
+        ],
     )
     new_vulns_to_add = _filter_vulns_already_reported(
         _build_vulnerabilities_stream_from_sarif(

@@ -199,14 +199,21 @@ async def test_persist_result(populate: bool) -> None:
                 and vuln.state.source == Source.MACHINE
                 and vuln.root_id == "88637616-41d4-4242-854a-db8ff7fe1ab6"
             )
-            # te execution must close a vulnerability but are in the scope
             assert len(integrates_vulnerabilities) == 3
             loaders = get_new_context()
+            # te execution must close a vulnerability but are in the scope
             assert (
                 await loaders.vulnerability.load(
                     "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"
                 )
             ).state.status == VulnerabilityStateStatus.CLOSED
+            vuln_state = await loaders.vulnerability_historic_state.load(
+                "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"
+            )
+            assert (
+                vuln_state[-1].commit
+                == "7fd232de194916018c4ba68f5cb6dc595e99df7e"
+            )
             assert finding.evidences.evidence5 is not None
             assert finding.evidences.evidence1 is None
             assert (
