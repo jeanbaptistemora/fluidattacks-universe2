@@ -8,10 +8,17 @@ import type { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
 type TSize = "lg" | "md" | "sm" | "xl" | "xs";
-type TVariant = "ghost" | "primary" | "secondary" | "tertiary";
+type TVariant =
+  | "ghost"
+  | "input"
+  | "primary"
+  | "secondary"
+  | "selected-input"
+  | "tertiary";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disp?: "block" | "inline-block" | "inline";
+  selected?: boolean;
   size?: TSize;
   variant?: TVariant;
 }
@@ -26,6 +33,8 @@ interface IVariant {
   bgColor: string;
   bgColorHover: string;
   borderColor: string;
+  borderRadius: number;
+  borderSize: number;
   color: string;
   colorHover: string;
 }
@@ -63,13 +72,26 @@ const variants: Record<TVariant, IVariant> = {
     bgColor: "#80808000",
     bgColorHover: "#80808040",
     borderColor: "#80808000",
+    borderRadius: 4,
+    borderSize: 2,
     color: "inherit",
     colorHover: "inherit",
+  },
+  input: {
+    bgColor: "transparent",
+    bgColorHover: "#d2d2da",
+    borderColor: "#d2d2da",
+    borderRadius: 0,
+    borderSize: 1,
+    color: "#121216",
+    colorHover: "#fff",
   },
   primary: {
     bgColor: "#bf0b1a",
     bgColorHover: "#f2182a",
     borderColor: "#bf0b1a",
+    borderRadius: 4,
+    borderSize: 2,
     color: "#fff",
     colorHover: "#fff",
   },
@@ -77,13 +99,26 @@ const variants: Record<TVariant, IVariant> = {
     bgColor: "#2e2e38",
     bgColorHover: "#49495a",
     borderColor: "#2e2e38",
+    borderRadius: 4,
+    borderSize: 2,
     color: "#d2d2da",
     colorHover: "#f4f4f6",
+  },
+  "selected-input": {
+    bgColor: "#e9e9ed",
+    bgColorHover: "#d2d2da",
+    borderColor: "#2e2e38",
+    borderRadius: 0,
+    borderSize: 1,
+    color: "#121216",
+    colorHover: "#fff",
   },
   tertiary: {
     bgColor: "transparent",
     bgColorHover: "#bf0b1a",
     borderColor: "#bf0b1a",
+    borderRadius: 4,
+    borderSize: 2,
     color: "#bf0b1a",
     colorHover: "#fff",
   },
@@ -97,13 +132,20 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
 )<IStyledButtonProps>`
   ${({ disp = "inline-block", size = "md", variant = "ghost" }): string => {
     const { ph, pv } = sizes[size];
-    const { bgColor, bgColorHover, borderColor, color, colorHover } =
-      variants[variant];
+    const {
+      bgColor,
+      bgColorHover,
+      borderColor,
+      borderRadius,
+      borderSize,
+      color,
+      colorHover,
+    } = variants[variant];
 
     return `
     background-color: ${bgColor};
-    border: 2px solid ${borderColor};
-    border-radius: 4px;
+    border: ${borderSize}px solid ${borderColor};
+    border-radius: ${borderRadius}px;
     color: ${color};
     display: ${disp};
     font-weight: 400;
