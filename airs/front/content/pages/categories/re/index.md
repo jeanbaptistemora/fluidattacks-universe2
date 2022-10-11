@@ -46,8 +46,8 @@ is not available to our ethical hackers.
 
 ### An element of a comprehensive test
 
-The RE technique can be complemented by other techniques used in Fluid
-Attacks, such as DAST, SAST, IAST and SCA, to constitute a comprehensive
+The RE technique can be complemented by other techniques used in Fluid Attacks,
+such as DAST, SAST, IAST and SCA, to constitute a comprehensive
 application security testing. This way, we guarantee minimal rates of
 false positives and false negatives in your software’s assessments.
 

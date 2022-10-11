@@ -23,8 +23,8 @@ used.
 <div class="paragraph fw3 f5 lh-2">
 
 It is in these types of systems, which collect data from sensors and
-send it to central systems, that we perform security testing at Fluid
-Attacks, considering the possible risks that your company may face
+send it to central systems, that we perform security testing at Fluid Attacks,
+considering the possible risks that your company may face
 related to the connection between OT and IT networks with the Internet.
 The OT security testing by our ethical hackers involves mainly the DAST
 and the Manual Pentesting techniques. Our network and system assessments

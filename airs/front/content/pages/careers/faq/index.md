@@ -546,8 +546,8 @@ roles and responsibilities, as needed, within `Fluid Attacks`.
 
 <div class="paragraph">
 
-It is not negotiable. All the certifications sponsored by `Fluid
-Attacks` follow the same funding model. However, this model allows
+It is not negotiable. All the certifications sponsored by `Fluid Attacks`
+follow the same funding model. However, this model allows
 certain variations. For example, an employee can decide to not pursue a
 professional certificate or to pay for the certifications or the
 materials themselves, in which case the funding is not required. It is
@@ -570,12 +570,13 @@ Nothing happens if you do not pass the certification test unless you are
 not willing to keep trying. While `Fluid Attacks` values the results of
 a test, we also highly value the experience and knowledge you gain by
 going through the process; this is why there is no salary adjustment
-when you obtain certification nor when you fail to obtain it. `Fluid
-Attacks` may sponsor your retests indefinitely, as long as there is
+when you obtain certification nor when you fail to obtain it. `Fluid Attacks`
+may sponsor your retests indefinitely, as long as there is
 evidence, as reflected in your training time reports, of your continued
 effort to gain certification. We have people who have taken the same
-certification test multiple times, always with the sponsorship of `Fluid
-Attacks`. Finally, if you don’t pass and don’t want to keep trying to
+certification test multiple times,
+always with the sponsorship of `Fluid Attacks`.
+Finally, if you don’t pass and don’t want to keep trying to
 pass, there would be a monthly salary deduction during the following
 `24` months and in case of your resigning your position, this amount
 will be subtracted from the settlement pending balance.
@@ -817,8 +818,9 @@ of `Fluid Attacks` to fulfill commitments on a long-term basis.
 
 Your salary is not affected by factors such as your academic
 achievement, professional certifications, seniority, work experience
-inside or outside `Fluid Attacks`, professional position within `Fluid
-Attacks'` hierarchy, previous salaries you may have received in
+inside or outside `Fluid Attacks`,
+professional position within `Fluid Attacks'` hierarchy,
+previous salaries you may have received in
 different companies, or your current salary expectations. See the
 question above for the factors that determine salaries. This means that
 there could be hackers or programmers with higher salaries than their
@@ -997,8 +999,8 @@ short and the learning is constant. In the security and hacking area, we
 have the experience and the track record to be considered the largest
 hacking company in Latin America.
 
-Growth in money tends to be in the midrange because salaries at `Fluid
-Attacks` are not only attached to the growth in authority (non-technical
+Growth in money tends to be in the midrange because salaries at `Fluid Attacks`
+are not only attached to the growth in authority (non-technical
 scale) but also to the growth in knowledge (technical scale). This is
 why it is common to find engineers with higher salaries than their
 bosses (see [question 23](#q23)).

@@ -54,8 +54,8 @@ by companies that depend exclusively on tools.
 
 ### An element of a comprehensive test
 
-The IAST technique can be complemented by other methods used in Fluid
-Attacks, such as SAST, DAST, SCA, RE, and Manual Pentesting, to
+The IAST technique can be complemented by other methods used in Fluid Attacks,
+such as SAST, DAST, SCA, RE, and Manual Pentesting, to
 constitute a comprehensive application security testing.
 
 </div>

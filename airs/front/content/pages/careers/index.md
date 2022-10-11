@@ -32,10 +32,10 @@ an estimated time of 3 to 5 minutes to complete. To begin, please click
 ## 3\. Openings
 
 The goal of this stage is for you to understand the roles you can have
-in `Fluid Attacks`, or in openings handled by Autonomic Mind, a `Fluid
-Attacks` spin-off in charge of the recruitment process. This is
-mandatory and requires an estimated effort of 3 to 5 minutes. To begin,
-please click [here](openings/).
+in `Fluid Attacks`, or in openings handled by Autonomic Mind, a `Fluid Attacks`
+spin-off in charge of the recruitment process.
+This is mandatory and requires an estimated effort of 3 to 5 minutes.
+To begin, please click [here](openings/).
 
 ## 4\. Portfolio
 
@@ -135,8 +135,8 @@ To begin, please follow these detailed
 ## 10\. Immersion
 
 The goal of this stage is to take part in an intensive self-training
-period in programming and hacking challenges, paid for by `Fluid
-Attacks`. This is mandatory and requires an effort that is determined
+period in programming and hacking challenges, paid for by `Fluid Attacks`.
+This is mandatory and requires an effort that is determined
 based on your knowledge. To begin, please write us an email at
 <careers@fluidattacks.com> and read these detailed
 [instructions](https://gitlab.com/autonomicmind/challenges/-/wikis/immersion).

@@ -2,7 +2,7 @@
 slug: terms-use/
 title: Terms of Use
 description: The following are restrictions, intellectual property rights, limitations, agreements, and all related to the Terms of Use of Fluid Attacks website content.
-keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions, Terms of Use, Ethical Hacking, Pentesting
+keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions, Terms Of Use, Ethical Hacking, Pentesting
 ---
 
 #### *This document was last updated on September 2, 2022*

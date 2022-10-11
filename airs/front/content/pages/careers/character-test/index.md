@@ -3,11 +3,11 @@ slug: careers/character-test/
 title: Character Evaluation
 category: careers
 description: The following page is to inform potential talents and people interested in working with us about our selection process.
-keywords: Fluid Attacks, Careers, Selection, Character, Test, Strengths.
+keywords: Fluid Attacks, Careers, Selection, Character, Test, Strengths
 ---
 
-The next step in the selection process to become a part of the `Fluid
-Attacks` team is taking a test that looks to quantify the 4 main
+The next step in the selection process to become a part of the `Fluid Attacks`
+team is taking a test that looks to quantify the 4 main
 strengths that we look for in a candidate. Our philosophy is based on
 putting together a very talented team in which ethics and respect are a
 priority, where we will work to better your strengths instead of trying

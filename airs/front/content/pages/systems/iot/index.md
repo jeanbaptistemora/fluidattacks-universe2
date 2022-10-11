@@ -2,7 +2,7 @@
 slug: systems/iot/
 title: Internet of Things (IoT)
 description: Internet of Things is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
-keywords: Fluid Attacks, Internet of Things, IoT, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
+keywords: Fluid Attacks, Internet Of Things, IoT, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
 template: system
 ---

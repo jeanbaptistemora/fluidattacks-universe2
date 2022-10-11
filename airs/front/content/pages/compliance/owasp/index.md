@@ -242,7 +242,6 @@ against the OWASP Benchmark:
 A TPR (True Positive Rate) of 100%
 and an FPR (False Positive Rate) of 0%.
 
-![OWASP benchmark
-clnlip](https://res.cloudinary.com/fluid-attacks/image/upload/v1619725547/airs/compliance/OWASP_benchmark_clnlip.webp)
+![OWASP benchmark clnlip](https://res.cloudinary.com/fluid-attacks/image/upload/v1619725547/airs/compliance/OWASP_benchmark_clnlip.webp)
 
 </div>

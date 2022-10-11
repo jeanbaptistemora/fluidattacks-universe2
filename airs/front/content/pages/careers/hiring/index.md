@@ -3,7 +3,7 @@ slug: careers/hiring/
 title: Hiring Documents
 category: careers
 description: In this page we present the required documentation to formally legalize your selection once you have successfully finished all the previous stages.
-keywords: Fluid Attacks, Careers, Legalization, Selection, Process, Requirements.
+keywords: Fluid Attacks, Careers, Legalization, Selection, Process, Requirements
 ---
 
 When you accept `Fluid Attacks'` job offer, you must send us an

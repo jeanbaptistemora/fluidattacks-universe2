@@ -63,9 +63,9 @@ more.
 Our most valuable asset is our people and we are proud of our amazing
 team. In fact, it is a very young team with an average age of `25`. We
 believe our talented team makes `Fluid Attacks` a competitive place to
-work and, at the same time, a great place to learn and develop your
-skills. The first three `Debian` developers in Colombia work with `Fluid
-Attacks`. Compared to other companies, `Fluid Attacks` has the highest
+work and, at the same time, a great place to learn and develop your skills.
+The first three `Debian` developers in Colombia work with `Fluid Attacks`.
+Compared to other companies, `Fluid Attacks` has the highest
 percentage of employees certified in
 [`CEH`](../../about-us/certifications/#certified-ethical-hacker-\(ceh\))
 and

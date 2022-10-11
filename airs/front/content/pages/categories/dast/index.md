@@ -79,9 +79,10 @@ by companies that depend exclusively on tools.
 
 ### An element of a comprehensive test
 
-The DAST technique can be complemented by other techniques used in Fluid
-Attacks, such as SAST, IAST, SCA, RE, and Manual Pentesting, to
-constitute a comprehensive application security testing.
+The DAST technique can be complemented
+by other techniques used in Fluid Attacks,
+such as SAST, IAST, SCA, RE, and Manual Pentesting,
+to constitute a comprehensive application security testing.
 
 </div>
  

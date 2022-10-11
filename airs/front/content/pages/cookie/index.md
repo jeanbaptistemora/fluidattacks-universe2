@@ -2,15 +2,15 @@
 slug: cookie/
 title: Cookie Policy
 description: This Cookie Policy describes what cookies are and how Fluid Attacks uses them on its website and any of its products or services.
-keywords: Fluid Attacks, Cookie, Policy, Information, Website, Right.
+keywords: Fluid Attacks, Cookie, Policy, Information, Website, Right
 ---
 
 #### *This document was last updated on July 2, 2020*
 
-This cookie policy ("Policy") describes what cookies are and how `Fluid
-Attacks` ("Fluid Attacks", "we", "us" or "our") uses them on the
-fluidattacks.com website and any of its products or services
-(collectively, "Website" or "Services").
+This cookie policy ("Policy") describes what cookies are
+and how `Fluid Attacks` ("Fluid Attacks", "we", "us" or "our")
+uses them on the fluidattacks.com website
+and any of its products or services (collectively, "Website" or "Services").
 
 You should read this Policy so you can understand what type of cookies
 we use, the information we collect using cookies and how that
