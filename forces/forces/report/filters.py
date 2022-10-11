@@ -5,6 +5,7 @@
 import fnmatch
 from forces.model import (
     KindEnum,
+    Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
 )
@@ -107,3 +108,27 @@ def filter_vulns(
                 )
             )
     return findings
+
+
+def filter_vulnerabilities(
+    vulnerabilities: list[Vulnerability],
+    verbose_level: int,
+) -> tuple[Vulnerability, ...]:
+    """Helper method to filter vulns in findings based on the requested vuln
+    states set by the verbosity level of the report"""
+    verbosity: dict[int, set[VulnerabilityState]] = {
+        1: set(),
+        2: {VulnerabilityState.OPEN},
+        3: {VulnerabilityState.OPEN, VulnerabilityState.CLOSED},
+        4: set(VulnerabilityState),
+    }
+    return (
+        tuple(
+            filter(
+                lambda vuln: vuln.state in verbosity[verbose_level],
+                vulnerabilities,
+            )
+        )
+        if verbose_level != 1
+        else tuple()
+    )

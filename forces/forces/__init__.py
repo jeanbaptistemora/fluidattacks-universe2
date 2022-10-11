@@ -7,7 +7,6 @@
 from aioextensions import (
     in_thread,
 )
-import copy
 from forces.apis.git import (
     check_remotes,
     get_repository_metadata,
@@ -26,9 +25,6 @@ from forces.model import (
 from forces.report import (
     format_rich_report,
     generate_raw_report,
-)
-from forces.report.filters import (
-    filter_report,
 )
 from forces.utils.logs import (
     CONSOLE_INTERFACE,
@@ -102,12 +98,9 @@ async def entrypoint(
             await log("info", f"{tasks.pop(0)}{footer}")
 
             if report["summary"]["total"] > 0:
-                filtered_report = filter_report(
-                    copy.deepcopy(report), verbose_level=config.verbose_level
-                )
                 await log("info", f"{tasks.pop(0)}{footer}")
                 forces_report: ForcesReport = format_rich_report(
-                    filtered_report, config.verbose_level, config.kind
+                    report, config.verbose_level, config.kind
                 )
                 await log("info", f"{tasks.pop(0)}{footer}")
                 rich_log(forces_report.findings_report)

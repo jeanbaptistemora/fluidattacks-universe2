@@ -18,6 +18,7 @@ from forces.model import (
 from forces.report.filters import (
     filter_kind,
     filter_repo,
+    filter_vulnerabilities,
 )
 from forces.report.formatters import (
     create_findings_dict,
@@ -191,33 +192,37 @@ def format_rich_report(
     report_table.add_column("Data")
     findings = report["findings"]
     for find in findings:
-        for key, value in find.items():
-            # Real state is precious within CI pipelines' 80 character limit
-            if is_exploit := key == "exploitability":
-                key = "exploit"
-            # Vulns can come as an empty tuple depending on the verbosity level
-            if key == "vulnerabilities":
-                vulns_data: Table | str = ""
-                if value:
-                    vulns_data = format_vuln_table(value)
-                elif verbose_level == 2:
-                    vulns_data = "None currently open"
-                elif verbose_level == 3:
-                    vulns_data = "None currently open or closed"
-                else:
-                    vulns_data = "None currently open, closed or accepted"
-                report_table.add_row("vulns", vulns_data, end_section=True)
-            else:
-                report_table.add_row(
-                    key,
-                    style_report(
+        del find["id"]
+        if find["vulnerabilities"]:
+            for key, value in find.items():
+                if is_exploit := key == "exploitability":
+                    key = "exploit"
+
+                if key == "vulnerabilities" and verbose_level != 1:
+                    filtered_vulns: tuple[
+                        Vulnerability, ...
+                    ] = filter_vulnerabilities(value, verbose_level)
+                    vulns_data: Table | str = ""
+                    if filtered_vulns:
+                        vulns_data = format_vuln_table(filtered_vulns)
+                    elif verbose_level == 2:
+                        vulns_data = "None currently open"
+                    elif verbose_level == 3:
+                        vulns_data = "None currently open or closed"
+                    else:
+                        vulns_data = "None currently open, closed or accepted"
+                    report_table.add_row("vulns", vulns_data, end_section=True)
+                elif key != "vulnerabilities":
+                    report_table.add_row(
                         key,
-                        get_exploitability_measure(value)
-                        if is_exploit
-                        else str(value),
-                    ),
-                    end_section=key == last_key,
-                )
+                        style_report(
+                            key,
+                            get_exploitability_measure(value)
+                            if is_exploit
+                            else str(value),
+                        ),
+                        end_section=key == last_key,
+                    )
     # Summary report table
     summary = report["summary"]
     summary_table = format_summary_report(summary, kind)
