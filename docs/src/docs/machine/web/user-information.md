@@ -22,7 +22,7 @@ Your username,
 email address and role
 are shown as well.
 
-![User Drop Down Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_dropdown_menu.png)
+![User Drop Down Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1665497903/docs/web/drop_menu.png)
 
 The first information on
 this menu is your username,
@@ -76,7 +76,7 @@ Learn more about how you
 can manage notifications
 [here](/machine/web/notifications).
 
-![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
+![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1665497944/docs/web/matrix_notification.png)
 
 Next is **Mobile**,
 which allows you to
@@ -86,7 +86,7 @@ This registration is
 required to access
 the ARM reports.
 
-![Mobile Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073721/docs/web/web_asm-user_mobile_menu.png)
+![Mobile Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1665497976/docs/web/mobile.png)
 
 When you click on
 the Mobile option,
@@ -107,7 +107,7 @@ you will need to click on
 Edit and follow a verification
 procedure.
 
-![Enter Mobile](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073722/docs/web/web_asm-user_mobile_window.png)
+![Enter Mobile](https://res.cloudinary.com/fluid-attacks/image/upload/v1665498003/docs/web/edit_mobile.png)
 
 Next on the menu is the
 **Delete account** option.
@@ -121,7 +121,7 @@ message will appear, reminding
 you that you will not be able
 to restore your account afterward.
 
-![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_delete_account.png)
+![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1665498003/docs/web/edit_mobile.png)
 
 Lastly, the **Log out**
 option will allow you to end
