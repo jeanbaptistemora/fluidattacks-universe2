@@ -1,6 +1,6 @@
 ---
 slug: solutions/devsecops/
-title: DevSecOps
+title: 'DevSecOps: Integration of security in the SDLC'
 description: Fluid Attacks integrates security in your development and operations processes (from any SDLC stage) to achieve the reliable DevSecOps methodology.
 keywords: Fluid Attacks, Solutions, DevSecOps, DevOps, Ethical Hacking, SDLC, Security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-devsecops_jgeyje.webp
@@ -61,7 +61,7 @@ that covers your entire SDLC.
 
 <div class="tc">
 
-## Benefits
+## Benefits of DevSecOps
 
 </div>
 
@@ -69,7 +69,7 @@ that covers your entire SDLC.
 
 <div class="sect2">
 
-### Optimal integration
+### Optimal integration of security testing
 
 Our security testing,
 integrating DevSecOps techniques
@@ -126,12 +126,12 @@ such as Waterfall, Agile and DevOps.
 
 <div class="sect2">
 
-### Early detection
+### Early detection of vulnerabilities in code
 
-Vulnerabilities in your code are quickly identified
+Since our continuous hacking advances
+simultaneously with the developers' work,
+vulnerabilities in your code are quickly identified
 at early development stages.
-This is because
-our continuous hacking advances simultaneously with the developers' work.
 
 </div>
 
@@ -153,7 +153,7 @@ and tracking progress within your organization.
 ### Break the build
 
 At `Fluid Attacks`,
-we have a **DevSecOps agent** to break the build.
+we have a DevSecOps agent to break the build.
 Within our DevSecOps solution,
 we can break the build
 in any continuous integration pipeline
@@ -164,7 +164,7 @@ with false positives or lies.
 
 <div class="sect2">
 
-### High remediation rates
+### High vulnerability remediation rates
 
 At `Fluid Attacks`,
 we help you ensure high vulnerability remediation rates
@@ -177,3 +177,54 @@ that can generate severe impacts to your business.
 </div>
 
 </div>
+
+## DevSecOps FAQs
+
+The following are a few FAQs regarding DevSecOps:
+
+### What does DevSecOps stand for?
+
+DevSecOps stands for "development," "security" and "operations."
+
+### What is DevSecOps methodology?
+
+Teams doing DevSecOps focus on bringing security
+to every stage of the development and operations cycle,
+implementing practices
+that ensure that software is secure before every deployment.
+
+### What are the advantages of DevSecOps vs. DevOps?
+
+DevOps enables collaboration between the development and operations teams
+to increase the frequency of deployments,
+but security is usually left to be assessed
+only at the end of each release.
+DevSecOps brings the security team's work
+from the very beginning of the project.
+Some advantages include a decrease in remediation costs,
+as vulnerabilities are found and fixed earlier,
+continuous improvement in secure coding
+and greater expansion of shared responsibility.
+
+### How to implement DevSecOps?
+
+DevSecOps is a whole culture
+in which you will need to incrementally enable the development,
+operations and security teams
+to collaborate,
+shift security considerations to earlier stages of development,
+conduct training on secure coding,
+perform security assessments and remediation,
+decide on security-driven policies,
+among other practices.
+We offer a detailed roadmap
+in our [dedicated blog post](../../blog/how-to-implement-devsecops/).
+
+## Get started with Fluid Attacks' DevSecOps right now
+
+This culture is gaining strength
+as an increasing number of organizations are building more secure software
+day by day.
+Don't miss out on the benefits,
+and ask us about our [21-day free trial](../../free-trial/)
+for a taste of our DevSecOps solution.
