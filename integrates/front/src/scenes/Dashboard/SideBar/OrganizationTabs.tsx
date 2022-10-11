@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import {
-  faChartColumn,
+  faChartSimple,
   faFileLines,
   faFolder,
   faShield,
@@ -30,7 +30,7 @@ const OrganizationTabs: FC = (): JSX.Element => {
           <GroupTabs />
         </Route>
       </SideBarSubTabs>
-      <SideBarTab icon={faChartColumn} to={`/orgs/${org}/analytics`}>
+      <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`}>
         {"Analytics"}
       </SideBarTab>
       <SideBarTab icon={faShield} to={`/orgs/${org}/policies`}>

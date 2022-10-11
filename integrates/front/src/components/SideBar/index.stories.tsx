@@ -7,7 +7,7 @@
 /* eslint-disable fp/no-mutation, import/no-default-export, react/jsx-props-no-spreading, react/no-multi-comp */
 import {
   faBell,
-  faChartColumn,
+  faChartSimple,
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import type { Meta, Story } from "@storybook/react";
@@ -39,7 +39,7 @@ const Default: Story = (): JSX.Element => (
             {"Locations"}
           </SideBarTab>
         </SideBarSubTabs>
-        <SideBarTab icon={faChartColumn} to={"/analytics"}>
+        <SideBarTab icon={faChartSimple} to={"/analytics"}>
           {"Analytics"}
         </SideBarTab>
         <SideBarTab icon={faBell} to={"/alerts"}>
