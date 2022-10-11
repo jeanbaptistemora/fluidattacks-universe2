@@ -9,6 +9,7 @@ digraph status {
   concentrate="true"
   layout="dot"
   scale="scalexy"
+  rankdir="LR"
   ranksep="2.0"
 
   node[style="filled"]
@@ -45,7 +46,45 @@ digraph status {
     subgraph cluster_cloudflare_zones {
       label="Zones"
 
-      cloudflare_zones_dnssec[label="DNSSEC"]
+      subgraph cluster_cloudflare_zone_fluid_la {
+        label="fluid.la"
+
+        cluster_cloudflare_zone_fluid_la[label="" style="invis"]
+        cloudflare_zone_fluid_la_dnssec[label="DNSSEC"]
+
+        subgraph cluster_cloudflare_zone_fluid_la_dns {
+          label="DNS"
+
+          cloudflare_zone_fluid_la_dns_cname[label="CNAME"]
+          cloudflare_zone_fluid_la_dns_mx[label="MX (Google)" peripheries="2"]
+        }
+      }
+
+      subgraph cluster_cloudflare_zone_fluidattacks_co {
+        label="fluidattacks.co"
+
+        cluster_cloudflare_zone_fluidattacks_co[label="" style="invis"]
+        cloudflare_zone_fluidattacks_co_dnssec[label="DNSSEC"]
+
+        subgraph cluster_cloudflare_zone_fluidattacks_co_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_co_dns_cname[label="CNAME"]
+          cloudflare_zone_fluidattacks_co_dns_mx[label="MX (Google)" peripheries="2"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_co_rules {
+          label="Rules"
+
+          subgraph cluster_cloudflare_zone_fluidattacks_co_rules_page {
+            label="Page Rules"
+
+            cloudflare_zone_fluidattacks_co_rules_page[label="fluidattacks.co/*"]
+            cloudflare_zone_fluidattacks_co_rules_page_www[label="www.fluidattacks.co/*"]
+            cloudflare_zone_fluidattacks_co_rules_page_forward[label="fluidattacks.com/$1"]
+          }
+        }
+      }
 
       subgraph cluster_cloudflare_zone_fluidattacks_com {
         label="fluidattacks.com"
@@ -63,6 +102,7 @@ digraph status {
         label="fluidsignal.com"
 
         cluster_cloudflare_zone_fluidsignal_com[label="" style="invis"]
+        cloudflare_zone_fluidsignal_com_dnssec[label="DNSSEC"]
 
         subgraph cluster_cloudflare_zone_fluidsignal_com_dns {
           label="DNS"
@@ -85,12 +125,16 @@ digraph status {
       }
     }
   }
+
   edge[color="0.6 1.0 1.0"]
+  cloudflare_zone_fluid_la_dns_cname -> cluster_cloudflare_zone_fluidattacks_com[lhead="cluster_cloudflare_zone_fluidattacks_com"]
+  cloudflare_zone_fluidattacks_co_dns_cname -> cluster_cloudflare_zone_fluidattacks_com[lhead="cluster_cloudflare_zone_fluidattacks_com"]
+  cloudflare_zone_fluidattacks_co_rules_page -> cloudflare_zone_fluidattacks_co_rules_page_forward[]
+  cloudflare_zone_fluidattacks_co_rules_page_www -> cloudflare_zone_fluidattacks_co_rules_page_forward[]
   cloudflare_zone_fluidsignal_com_dns_cname -> cluster_cloudflare_zone_fluidattacks_com[lhead="cluster_cloudflare_zone_fluidattacks_com"]
   cloudflare_zone_fluidsignal_com_rules_page -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
   cloudflare_zone_fluidsignal_com_rules_page_www -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
   cluster_cloudflare_zone_fluidsignal_com -> cloudflare_argo[ltail="cluster_cloudflare_zone_fluidsignal_com"]
-  cluster_cloudflare_zone_fluidsignal_com -> cloudflare_zones_dnssec[ltail="cluster_cloudflare_zone_fluidsignal_com"]
 
   edge[color="0.8 1.0 1.0"]
   gitlab_git_common_dns -> gitlab_git_common_dns_terraform[]
@@ -101,6 +145,10 @@ digraph status {
 
   edge[color="0.0 0.0 0.0"]
   developer -> gitlab_git_common_dns[]
+  end_user -> cloudflare_zone_fluid_la_dns_cname[]
+  end_user -> cloudflare_zone_fluid_la_dns_mx[]
+  end_user -> cloudflare_zone_fluidattacks_co_dns_cname[]
+  end_user -> cloudflare_zone_fluidattacks_co_dns_mx[]
   end_user -> cloudflare_zone_fluidattacks_com_dns_cname[]
   end_user -> cloudflare_zone_fluidsignal_com_dns_cname[]
   end_user -> cloudflare_zone_fluidsignal_com_dns_mx[]
