@@ -87,4 +87,4 @@ that will provide you
 with the complete information
 we offer in that section.
 
-![Information Report Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1647615060/docs/web/analytics/reports/information_example.png)
+![Information Report Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1665510093/docs/web/analytics/reports/download_report.png)
