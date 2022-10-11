@@ -56,7 +56,7 @@ def _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
                     )
                 )
                 and (isinstance(sse, Node))
-                and ((effect == "Allow" and sse.raw in FALSE_OPTIONS))
+                and (effect == "Allow" and sse.raw in FALSE_OPTIONS)
             ):
                 yield sse
 
