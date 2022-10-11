@@ -4,6 +4,9 @@
 
 """Fluid Forces report module"""
 
+from collections import (
+    Counter,
+)
 from forces.apis.integrates.api import (
     vulns_generator,
 )
@@ -192,9 +195,19 @@ def format_rich_report(
     report_table.add_column("Data")
     findings = report["findings"]
     for find in findings:
-        del find["id"]
         if find["vulnerabilities"]:
-            for key, value in find.items():
+            find_summary: Counter = Counter(
+                [vuln.state for vuln in find["vulnerabilities"]]
+            )
+            for key in (
+                "title",
+                "state",
+                "exploitability",
+                "severity",
+                *VulnerabilityState,
+                "vulnerabilities",
+            ):
+                value = {**find | find_summary}[key]
                 if is_exploit := key == "exploitability":
                     key = "exploit"
 
