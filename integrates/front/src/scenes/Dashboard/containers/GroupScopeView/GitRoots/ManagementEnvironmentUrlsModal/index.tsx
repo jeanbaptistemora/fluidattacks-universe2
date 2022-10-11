@@ -20,6 +20,7 @@ import type { IEnvironmentUrl, ISecret } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/TableNew";
+import type { ICellHelper } from "components/TableNew/types";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 
@@ -141,6 +142,8 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
             },
             {
               accessorKey: "element",
+              cell: (cell: ICellHelper<ISecretItem>): JSX.Element =>
+                cell.getValue(),
               header: String(
                 t("group.scope.git.repo.credentials.secrets.value")
               ),
