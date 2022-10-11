@@ -6,10 +6,11 @@
 
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useFormikContext } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { GET_FINDING_VULNS_TO_REATTACK } from "./queries";
 import type {
@@ -20,9 +21,7 @@ import type {
 } from "./types";
 
 import type { IFormValues } from "../../AddModal";
-import type { IReattackVuln } from "../types";
-import { Table } from "components/Table";
-import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
+import { Table as Tablez } from "components/TableNew";
 import { Logger } from "utils/logger";
 
 const VulnerabilitiesToReattackTable: React.FC<IVulnerabilitiesToReattackTableProps> =
@@ -62,6 +61,10 @@ const VulnerabilitiesToReattackTable: React.FC<IVulnerabilitiesToReattackTablePr
       (vulnEdge: IVulnerabilityEdge): IVulnerabilityAttr => vulnEdge.node
     );
 
+    const [selectedVulns, setSelectedVulns] = useState<IVulnerabilityAttr[]>(
+      []
+    );
+
     useEffect((): void => {
       if (!_.isUndefined(pageInfo)) {
         if (pageInfo.hasNextPage) {
@@ -72,66 +75,30 @@ const VulnerabilitiesToReattackTable: React.FC<IVulnerabilitiesToReattackTablePr
       }
     }, [pageInfo, fetchMore]);
 
-    const columns: IHeaderConfig[] = [
-      { dataField: "where", header: "Where" },
-      { dataField: "specific", header: "Specific" },
+    const columnsz: ColumnDef<IVulnerabilityAttr>[] = [
+      { accessorKey: "where", header: "Where" },
+      { accessorKey: "specific", header: "Specific" },
     ];
 
-    function onSelect(vuln: IReattackVuln, isSelected: boolean): void {
+    useEffect((): void => {
       setFieldTouched("affectedReattacks", true);
-      const selectedId = `${vuln.findingId} ${vuln.id}`;
-      if (isSelected) {
-        setFieldValue(
-          "affectedReattacks",
-          _.union(values.affectedReattacks, [selectedId])
-        );
-      } else {
-        setFieldValue(
-          "affectedReattacks",
-          values.affectedReattacks.filter(
-            (item: string): boolean => item !== selectedId
-          )
-        );
-      }
-    }
-
-    function onSelectAll(isSelected: boolean, vulns: IReattackVuln[]): void {
-      setFieldTouched("affectedReattacks", true);
-      const selectedIds = vulns.map(
+      const selectedIds = selectedVulns.map(
         (vuln): string => `${vuln.findingId} ${vuln.id}`
       );
-      if (isSelected) {
-        setFieldValue(
-          "affectedReattacks",
-          _.union(values.affectedReattacks, selectedIds)
-        );
-      } else {
-        setFieldValue(
-          "affectedReattacks",
-          values.affectedReattacks.filter(
-            (identifier: string): boolean => !selectedIds.includes(identifier)
-          )
-        );
-      }
-    }
-
-    const selectionMode: ISelectRowProps = {
-      clickToSelect: true,
-      mode: "checkbox",
-      onSelect,
-      onSelectAll,
-    };
+      setFieldValue(
+        "affectedReattacks",
+        _.union(values.affectedReattacks, selectedIds)
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedVulns]);
 
     return (
-      <Table
-        dataset={vulnsToReattack}
-        exportCsv={false}
-        headers={columns}
+      <Tablez
+        columns={columnsz}
+        data={vulnsToReattack}
         id={finding.id}
-        pageSize={10}
-        rowSize={"thin"}
-        search={false}
-        selectionMode={selectionMode}
+        rowSelectionSetter={setSelectedVulns}
+        rowSelectionState={selectedVulns}
       />
     );
   };
