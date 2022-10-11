@@ -12,4 +12,19 @@ interface IOrganizationComplianceStandardsProps {
   organizationId: string;
 }
 
-export type { IGroupAttr, IOrganizationComplianceStandardsProps };
+interface IUnfulfilledRequirementAttr {
+  id: string;
+  title: string;
+}
+
+interface IUnfulfilledStandardAttr {
+  title: string;
+  unfulfilledRequirements: IUnfulfilledRequirementAttr[];
+}
+
+export type {
+  IGroupAttr,
+  IOrganizationComplianceStandardsProps,
+  IUnfulfilledStandardAttr,
+  IUnfulfilledRequirementAttr,
+};
