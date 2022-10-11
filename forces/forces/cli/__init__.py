@@ -50,27 +50,6 @@ def get_group_from_email(email: str) -> str:
     return re.match(USER_PATTERN, email).group("group")  # type: ignore
 
 
-async def validate_severity(severity: float | None) -> bool:
-    """Ensure that the inserted local breaking severity is valid"""
-    min_severity: float = 0.0
-    max_severity: float = 10.0
-    fail_msg: str = (
-        "Please make to sure input a number between "
-        f"{min_severity} and {max_severity} in --breakable"
-    )
-    if severity is not None:
-        try:
-            float(severity)
-        except ValueError:
-            await log("warning", fail_msg)
-            return False
-        if min_severity <= float(severity) <= max_severity:
-            return True
-        await log("warning", fail_msg)
-        return False
-    return True
-
-
 def show_banner() -> None:
     """Show forces banner"""
     name: str = (
@@ -101,7 +80,14 @@ def show_banner() -> None:
 
 @click.command(name="forces")
 @click.option("--token", required=True, help="Integrates valid token")
-@click.option("-v", "--verbose", count=True, default=3, required=False)
+@click.option(
+    "-v",
+    "--verbose",
+    count=True,
+    default=3,
+    required=False,
+    type=click.IntRange(min=1, max=4),
+)
 @click.option(
     "--output",
     "-O",
@@ -127,6 +113,7 @@ def show_banner() -> None:
     help="""Minimum CVSS score of an open vulnerability to return an error in
     strict mode. This overrides the global minimum breaking severity set in
     ASM""",
+    type=click.FloatRange(min=0.0, max=10.0),
 )  # pylint: disable=too-many-arguments
 def main(
     token: str,
@@ -187,8 +174,6 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     ) = await get_forces_user_and_org_data(api_token=token)
     if not group:
         await log("warning", "Please make sure that you use a forces user")
-        return 1
-    if not await validate_severity(local_breaking):
         return 1
 
     configure_bugsnag(group=group or "")

@@ -23,8 +23,8 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 # Options
 
 - `--token`: Your DevSecOps agent token [required]
-- `-v`, `-vv`, `-vvv`, `-vvvv`: Declare the level of detail of the report (default 3)
-  - 1: It only shows the number of open, closed and accepted vulnerabilities
+- `-v`, `-vv`, `-vvv`, `-vvvv`: Declare the level of detail of the report (defaults to 3)
+  - 1: Only show the number of open, closed and accepted vulnerabilities
   - 2: Only show open vulnerabilities
   - 3: Show open and closed vulnerabilities
   - 4: Show open, closed and accepted vulnerabilities
