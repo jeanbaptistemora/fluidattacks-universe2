@@ -26161,7 +26161,8 @@
             "modified_by",
             "source",
             "justification",
-            "tool"
+            "tool",
+            "commit"
           ],
           "DataAccess": {
             "MySql": {}
