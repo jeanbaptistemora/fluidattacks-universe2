@@ -5,6 +5,7 @@
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
+    StakeholderNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -39,8 +40,12 @@ async def remove_session_token(content: Dict[str, Any], email: str) -> None:
 
 
 async def verify_session_token(content: Dict[str, Any], email: str) -> None:
-    loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    try:
+        loaders: Dataloaders = get_new_context()
+        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    except StakeholderNotFound as ex:
+        raise InvalidAuthorization() from ex
+
     if stakeholder.session_token:
         if stakeholder.session_token.state == StateSessionType.REVOKED:
             raise ExpiredToken()
