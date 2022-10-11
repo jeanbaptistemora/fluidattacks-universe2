@@ -577,11 +577,11 @@ def _build_vulnerabilities_stream_from_integrates(
 
 
 def _machine_vulns_to_close(
-    machine_vulnerabilities: List[Dict[str, Any]],
-    integrates_vulns: Tuple[Vulnerability, ...],
+    sarif_vulns: List[Dict[str, Any]],
+    existing_open_machine_vulns: Tuple[Vulnerability, ...],
     execution_config: Dict[str, Any],
 ) -> Tuple[Vulnerability, ...]:
-    machine_hashes = {
+    sarif_hashes = {
         hash(
             (
                 _get_path_from_sarif_vulnerability(vuln, True),
@@ -592,12 +592,12 @@ def _machine_vulns_to_close(
                 ),
             )
         )
-        for vuln in machine_vulnerabilities
+        for vuln in sarif_vulns
     }
 
     return tuple(
         vuln
-        for vuln in integrates_vulns
+        for vuln in existing_open_machine_vulns
         # his result was not found by Skims
         if hash(
             (
@@ -607,7 +607,7 @@ def _machine_vulns_to_close(
                 vuln.specific,
             )
         )
-        not in machine_hashes
+        not in sarif_hashes
         and (
             # the result path is included in the current analysis
             path_is_include(
@@ -674,11 +674,8 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
         LOGGER.info(
             "%s vulns to modify for the finding %s", length, finding.id
         )
-        loaders.toe_input.clear_all()
-        loaders.toe_lines.clear_all()
         await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
         loaders.toe_input.clear_all()
-        loaders.toe_lines.clear_all()
         result = await map_vulnerabilities_to_dynamo(
             loaders=loaders,
             vulns_data_from_file=stream,
@@ -796,24 +793,16 @@ async def upload_evidences(
     for (evidence_id, _), evidence_stream, evidence_description in zip(
         evidence_ids, evidence_streams, evidence_descriptions
     ):
-        try:
+        # Exception may happen
+        # due to two reports trying to update the evidence concurrently
+        # or trying to upload the same evidence
+        with suppress(ConditionalCheckFailedException):
             await update_evidence(
                 loaders,
                 finding.id,
                 evidence_id,
                 evidence_stream,
                 description=evidence_description,
-            )
-        except ConditionalCheckFailedException:
-            success = False
-            LOGGER.error(
-                "Cloud not upload evidence for a finding",
-                extra={
-                    "extra": {
-                        "finding_id": finding.id,
-                        "group_name": finding.group_name,
-                    }
-                },
             )
 
     return success
@@ -828,31 +817,30 @@ async def release_finding(
         in (FindingStateStatus.APPROVED, FindingStateStatus.SUBMITTED)
     ):
         return
-    try:
+
+    # Several process may try to submit the same finding concurrently.
+    # Handle the exception in case one already did it
+    with suppress(AlreadySubmitted):
         await findings_domain.submit_draft(
             loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
         )
-    except AlreadySubmitted:
-        # Several process may try to submit the same finding concurrently.
-        # Handle the exception in case one already did it
-        pass
+
     if auto_approve:
         loaders.finding.clear(finding.id)
-        try:
+
+        # Several process may try to approve the same finding concurrently.
+        # Handle the exception in case one already did it
+        with suppress(AlreadyApproved):
             await findings_domain.approve_draft(
                 loaders, finding_id, "machine@fluidattacks.com", Source.MACHINE
             )
-        except AlreadyApproved:
-            # Several process may try to approve the same finding concurrently.
-            # Handle the exception in case one already did it
-            pass
 
 
-def _filter_vulns_to_open(
-    vulns_to_open: Dict[str, Any],
-    integrates_vulnerabilities: Tuple[Vulnerability, ...],
+def _filter_vulns_already_reported(
+    sarif_vulns: Dict[str, Any],
+    existing_open_machine_vulns: Tuple[Vulnerability, ...],
 ) -> Any:
-    must_not_open = {
+    vulns_already_reported = {
         hash(
             (
                 get_path_from_integrates_vulnerability(
@@ -861,12 +849,12 @@ def _filter_vulns_to_open(
                 vuln.specific,
             )
         )
-        for vuln in integrates_vulnerabilities
+        for vuln in existing_open_machine_vulns
     }
     return {
         "inputs": [
             vuln
-            for vuln in vulns_to_open["inputs"]
+            for vuln in sarif_vulns["inputs"]
             if hash(
                 (
                     get_path_from_integrates_vulnerability(
@@ -875,11 +863,11 @@ def _filter_vulns_to_open(
                     vuln["field"],
                 )
             )
-            not in must_not_open
+            not in vulns_already_reported
         ],
         "lines": [
             vuln
-            for vuln in vulns_to_open["lines"]
+            for vuln in sarif_vulns["lines"]
             if hash(
                 (
                     get_path_from_integrates_vulnerability(
@@ -888,7 +876,7 @@ def _filter_vulns_to_open(
                     vuln["line"],
                 )
             )
-            not in must_not_open
+            not in vulns_already_reported
         ],
     }
 
@@ -908,13 +896,12 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
 ) -> None:
-    machine_vulnerabilities = [
+    sarif_vulns = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-    draft_created: bool = False
-    if finding is None and len(machine_vulnerabilities) > 0:
+    if finding is None and len(sarif_vulns) > 0:
         finding = await _create_draft(
             group_name,
             vulnerability_id,
@@ -922,13 +909,11 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             criteria_vulnerability,
             criteria_requirements,
         )
-        draft_created = True
-        loaders.finding.clear(finding.id)
         loaders.group_findings.clear(group_name)
     if not finding:
         return
 
-    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+    existing_open_machine_vulns: Tuple[Vulnerability, ...] = tuple(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
         if vuln.state.status == VulnerabilityStateStatus.OPEN
@@ -936,67 +921,71 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         and vuln.root_id == git_root.id
     )
 
-    vulns_to_close = _build_vulnerabilities_stream_from_integrates(
+    existing_vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
-            machine_vulnerabilities,
-            integrates_vulnerabilities,
+            sarif_vulns,
+            existing_open_machine_vulns,
             execution_config,
         ),
         git_root,
         state="closed",
     )
-    vulns_to_open = _build_vulnerabilities_stream_from_sarif(
-        machine_vulnerabilities,
-        sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
-        git_root.state.nickname,
-    )
-    vulns_to_open = _filter_vulns_to_open(
-        vulns_to_open,
-        integrates_vulnerabilities,
+    new_vulns_to_add = _filter_vulns_already_reported(
+        _build_vulnerabilities_stream_from_sarif(
+            sarif_vulns,
+            sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
+            git_root.state.nickname,
+        ),
+        existing_open_machine_vulns,
     )
 
     reattack_future = add_reattack_justification(
         finding.id,
         _get_vulns_with_reattack(
-            vulns_to_open, integrates_vulnerabilities, "open"
+            new_vulns_to_add, existing_open_machine_vulns, "open"
         ),
         _get_vulns_with_reattack(
-            vulns_to_close, integrates_vulnerabilities, "closed"
+            existing_vulns_to_close, existing_open_machine_vulns, "closed"
         ),
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
     )
 
-    if processed_vulns := await persist_vulnerabilities(
+    if persisted_vulns := await persist_vulnerabilities(
         loaders,
         group_name,
         git_root,
         finding,
         {
-            "inputs": [*vulns_to_open["inputs"], *vulns_to_close["inputs"]],
-            "lines": [*vulns_to_open["lines"], *vulns_to_close["lines"]],
+            "inputs": [
+                *new_vulns_to_add["inputs"],
+                *existing_vulns_to_close["inputs"],
+            ],
+            "lines": [
+                *new_vulns_to_add["lines"],
+                *existing_vulns_to_close["lines"],
+            ],
         },
         organization,
     ):
-        # We must ensure the evidences are loaded before trying to release
-        if (
-            await upload_evidences(loaders, finding, machine_vulnerabilities)
-            and draft_created
-        ):
-            # Clear cache to take into account recent vulnerabilities
-            # and evidence updates
-            loaders.finding.clear(finding.id)
-            loaders.finding_vulnerabilities.clear(finding.id)
-            await release_finding(loaders, finding.id, auto_approve)
         await reattack_future
+        await upload_evidences(loaders, finding, sarif_vulns)
+
+        # Clear cache to take into account recent vulnerabilities
+        # and evidence updates
+        loaders.finding.clear(finding.id)
+        loaders.finding_vulnerabilities.clear(finding.id)
 
         # Update all finding indicators with latest information
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
             finding_ids=[finding.id],
-            vulnerability_ids=list(processed_vulns),
+            vulnerability_ids=list(persisted_vulns),
         )
     else:
         reattack_future.close()
+
+    if len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0:
+        await release_finding(loaders, finding.id, auto_approve)
 
 
 async def process_execution(
