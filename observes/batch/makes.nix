@@ -121,7 +121,7 @@ in {
     };
 
     observesMailchimpEtl = scheduled_job {
-      size = "nano";
+      size = "medium";
       attempts = 1;
       timeout = 864000;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
