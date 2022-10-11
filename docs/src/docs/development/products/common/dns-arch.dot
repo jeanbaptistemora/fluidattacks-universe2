@@ -1,0 +1,107 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph status {
+  label="Common's /dns Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  layout="dot"
+  scale="scalexy"
+  ranksep="2.0"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_git_common {
+        label="/common"
+
+        subgraph cluster_gitlab_git_common_dns {
+          label="/dns"
+
+          gitlab_git_common_dns[label="Source Code"]
+          gitlab_git_common_dns_terraform[label="Terraform"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
+
+    cloudflare_argo[label="Argo"]
+
+    subgraph cluster_cloudflare_zones {
+      label="Zones"
+
+      cloudflare_zones_dnssec[label="DNSSEC"]
+
+      subgraph cluster_cloudflare_zone_fluidattacks_com {
+        label="fluidattacks.com"
+
+        cluster_cloudflare_zone_fluidattacks_com[label="" style="invis"]
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_com_dns_cname[label="CNAME"]
+        }
+      }
+
+      subgraph cluster_cloudflare_zone_fluidsignal_com {
+        label="fluidsignal.com"
+
+        cluster_cloudflare_zone_fluidsignal_com[label="" style="invis"]
+
+        subgraph cluster_cloudflare_zone_fluidsignal_com_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidsignal_com_dns_cname[label="CNAME"]
+          cloudflare_zone_fluidsignal_com_dns_mx[label="MX (Google)" peripheries="2"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidsignal_com_rules {
+          label="Rules"
+
+          subgraph cluster_cloudflare_zone_fluidsignal_com_rules_page {
+            label="Page Rules"
+
+            cloudflare_zone_fluidsignal_com_rules_page[label="fluidsignal.com/*"]
+            cloudflare_zone_fluidsignal_com_rules_page_www[label="www.fluidsignal.com/*"]
+            cloudflare_zone_fluidsignal_com_rules_page_forward[label="fluidattacks.com/$1"]
+          }
+        }
+      }
+    }
+  }
+  edge[color="0.6 1.0 1.0"]
+  cloudflare_zone_fluidsignal_com_dns_cname -> cluster_cloudflare_zone_fluidattacks_com[lhead="cluster_cloudflare_zone_fluidattacks_com"]
+  cloudflare_zone_fluidsignal_com_rules_page -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
+  cloudflare_zone_fluidsignal_com_rules_page_www -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
+  cluster_cloudflare_zone_fluidsignal_com -> cloudflare_argo[ltail="cluster_cloudflare_zone_fluidsignal_com"]
+  cluster_cloudflare_zone_fluidsignal_com -> cloudflare_zones_dnssec[ltail="cluster_cloudflare_zone_fluidsignal_com"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_git_common_dns -> gitlab_git_common_dns_terraform[]
+
+  node[fillcolor="0.0 0.0 0.8"]
+  developer[label="Developer"]
+  end_user[label="End User"]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> gitlab_git_common_dns[]
+  end_user -> cloudflare_zone_fluidattacks_com_dns_cname[]
+  end_user -> cloudflare_zone_fluidsignal_com_dns_cname[]
+  end_user -> cloudflare_zone_fluidsignal_com_dns_mx[]
+}
