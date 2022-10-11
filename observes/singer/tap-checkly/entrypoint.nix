@@ -34,8 +34,8 @@
   fa-singer-io = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/singer_io";
-      rev = "d35487441ba37e2a98dca789741407231576e481";
-      ref = "refs/tags/v1.4.0";
+      rev = "cf1721ee2115ef0bc21f69d1c7e9c50ada125c00";
+      ref = "refs/tags/v1.5.0";
     };
   in
     import src {
