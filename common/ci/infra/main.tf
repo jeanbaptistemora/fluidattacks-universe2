@@ -14,10 +14,6 @@ terraform {
       source  = "hashicorp/archive"
       version = "~> 2.2.0"
     }
-    buildkite = {
-      source  = "buildkite/buildkite"
-      version = "~> 0.11.0"
-    }
     local = {
       source  = "hashicorp/local"
       version = "~> 2.1.0"
@@ -48,9 +44,4 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
-}
-
-provider "buildkite" {
-  api_token    = var.buildkiteApiToken
-  organization = "fluidattacks"
 }

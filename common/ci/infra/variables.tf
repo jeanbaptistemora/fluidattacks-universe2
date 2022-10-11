@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-variable "buildkiteApiToken" {}
 variable "gitlabTokenFluidattacks" {}
 
 data "local_file" "init_runner" {
