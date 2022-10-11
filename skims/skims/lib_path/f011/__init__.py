@@ -93,13 +93,11 @@ def run_pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
 
 def _is_pom_xml(content: str) -> bool:
     root = bs4.BeautifulSoup(content, features="html.parser")
-    if root.project:
-        if root.project.get("xmlns"):
-            is_pom_xml = (
-                str(root.project["xmlns"])
-                == "http://maven.apache.org/POM/4.0.0"
-            )
-            return is_pom_xml
+    if root.project and root.project.get("xmlns"):
+        is_pom_xml = (
+            str(root.project["xmlns"]) == "http://maven.apache.org/POM/4.0.0"
+        )
+        return is_pom_xml
     return False
 
 
@@ -113,9 +111,8 @@ def analyze(  # noqa: MC0001
 ) -> Tuple[Vulnerabilities, ...]:
     # pylint: disable=too-many-return-statements
 
-    if file_extension == "xml":
-        if _is_pom_xml(content_generator()):
-            return (run_maven_pom_xml(content_generator(), path),)
+    if file_extension == "xml" and _is_pom_xml(content_generator()):
+        return (run_maven_pom_xml(content_generator(), path),)
 
     if file_extension == "gradle":
         return (run_maven_gradle(content_generator(), path),)
