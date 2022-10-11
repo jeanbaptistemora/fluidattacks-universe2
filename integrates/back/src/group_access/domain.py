@@ -309,6 +309,7 @@ async def remove_access(loaders: Any, email: str, group_name: str) -> None:
             {
                 FindingStateStatus.APPROVED,
                 FindingStateStatus.DELETED,
+                FindingStateStatus.MASKED,
             },
         )
 

@@ -162,6 +162,7 @@ class GroupDraftsLoader(DataLoader):
                 {
                     FindingStateStatus.APPROVED,
                     FindingStateStatus.DELETED,
+                    FindingStateStatus.MASKED,
                 },
             )
             for drafts_and_findings in drafts_and_findings_by_groups
@@ -192,6 +193,7 @@ class GroupFindingsLoader(DataLoader):
                 {
                     FindingStateStatus.CREATED,
                     FindingStateStatus.DELETED,
+                    FindingStateStatus.MASKED,
                     FindingStateStatus.REJECTED,
                     FindingStateStatus.SUBMITTED,
                 },

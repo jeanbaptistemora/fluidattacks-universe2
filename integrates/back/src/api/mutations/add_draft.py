@@ -105,6 +105,7 @@ async def mutate(
             {
                 FindingStateStatus.APPROVED,
                 FindingStateStatus.DELETED,
+                FindingStateStatus.MASKED,
             },
         )
         findings: tuple[Finding, ...] = filter_non_state_status_findings(
@@ -112,6 +113,7 @@ async def mutate(
             {
                 FindingStateStatus.CREATED,
                 FindingStateStatus.DELETED,
+                FindingStateStatus.MASKED,
                 FindingStateStatus.REJECTED,
                 FindingStateStatus.SUBMITTED,
             },
