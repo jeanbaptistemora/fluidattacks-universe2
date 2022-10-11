@@ -1,6 +1,6 @@
 ---
 slug: solutions/secure-code-review/
-title: Secure Code Review
+title: 'Secure Code Review: In-depth analysis of your source code'
 description: Through Fluid Attacks' Secure Code Review solution, you will know if your code fulfills the required standards and if it has vulnerabilities to be remediated.
 keywords: Fluid Attacks, Solutions, Code Audit, Ethical Hacking, Secure Code Review, Security, Standards
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1622577351/airs/solutions/solution-secure-code-review_dyaluj.webp
@@ -38,7 +38,7 @@ we invite you to read our blog post,
 
 <div class="tc">
 
-## Benefits
+## Benefits of Secure Code Review
 
 </div>
 
@@ -46,7 +46,7 @@ we invite you to read our blog post,
 
 <div class="sect2">
 
-### Updated security
+### Updated source code security
 
 Early and constant secure source code review can allow the system,
 in general,
@@ -60,12 +60,12 @@ and confidentiality of the information.
 
 <div class="sect2">
 
-### Accuracy
+### Accurate security assessments
 
 Our Secure Code Review solution offers a combination
 of the advantages of secure code review tools
 and manual code review.
-This approach allows for a detailed examination
+This approach allows for an accurate examination
 of your software's source code structure and functionality
 in order to detect every type of error and weakness,
 so you can then diligently remedy them
@@ -75,7 +75,7 @@ to ensure code quality and security.
 
 <div class="sect2">
 
-### Full tracking
+### Full tracking of vulnerabilities in code
 
 Our Attack Resistance Management platform (ARM)
 allows you to access general
@@ -83,19 +83,64 @@ and specific data for each finding in your code
 reported by our expert security analysts.
 Furthermore, it enables your team
 to follow the entire vulnerability remediation process with detailed,
-real-time information.
+up-to-date information.
 
 </div>
 
 <div class="sect2">
 
-### Compliance
+### Secure coding compliance assessments
 
-We check
-that you comply with best practices
-laid out in application security code review guidelines
+We check that you comply with best practices laid out in secure coding guides
 by reliable sources such as the OWASP.
 
 </div>
 
 </div>
+
+## Secure code review FAQs
+
+The following are a few FAQs regarding secure code review:
+
+### How to do code review?
+
+Your team should be reviewing source code
+from the very moment they start writing it.
+The main goal is to reduce the risk of successful cyberattacks
+due to code vulnerabilities that emerge during the development cycle.
+The source code review process should be constant
+and involve a combination of scanning by automated tool
+and manual assessments
+so that every vulnerability is found and properly confirmed.
+Automation helps find known and simple vulnerabilities,
+saving time for security analysts,
+while the manual technique helps examine the code in context and intention
+to identify unknown and complex vulnerabilities
+and validate the tool scan results.
+
+### What security requirements do you check when doing source code review?
+
+At `Fluid Attacks`,
+we compile our own
+list of requirements —which are written as specific objectives— upon revision
+of several international standards related to information security.
+Among these standards are
+the OWASP Secure Coding Practices Reference Guide (OWASP SCP),
+the Health Insurance Portability and Accountability Act (HIPAA)
+and the Payment Card Industry Data Security Standard (PCI DSS).
+Some of the requirements we check are:
+removing commented-out code,
+excluding unverifiable files (e.g., binaries),
+verifying that the versions of third-party components in use are stable,
+tested and up to date,
+and many others.
+
+## Get started with Fluid Attacks' Secure Code Review right now
+
+Join the organizations
+that are preventing cyberattacks
+by letting us look at their source code
+and guide them through the remediation of vulnerabilities.
+Don't miss out on the benefits,
+and ask us about our [21-day free trial](../../free-trial/)
+for a taste of our Secure Code Review solution.

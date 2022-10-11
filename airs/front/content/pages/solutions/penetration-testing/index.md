@@ -1,6 +1,6 @@
 ---
 slug: solutions/penetration-testing/
-title: Penetration Testing
+title: 'Penetration Testing: Security testing through the eyes of the attacker'
 description: Fluid Attacks' skilled and experienced ethical hackers are responsible for simulating real attacks on your systems to find complex and varied vulnerabilities.
 keywords: Fluid Attacks, Solutions, Pen Testing, Manual Security Testing, Manual Penetration Testing, Manual Pentesting, Ethical Hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-penetration-testing_ty3kro.webp
@@ -11,8 +11,8 @@ template: solution
 is based on our certified pentesters' ability
 to simulate real-world cyberattacks
 in order to infiltrate companies' software and information assets.
-Our pentesters look for
-and try to exploit security vulnerabilities in your systems
+Our pentesters look for and try to exploit security vulnerabilities
+in your systems
 and then provide you with detailed reports
 that can assist you in their proper elimination.
 
@@ -48,7 +48,7 @@ when choosing among service providers to evaluate your systems.
 
 <div class="tc">
 
-## Benefits
+## Benefits of Penetration Testing
 
 </div>
 
@@ -67,7 +67,7 @@ if these flaws are not promptly remediated.
 
 <div class="sect2">
 
-### Manual and precise work
+### Manual and precise security testing
 
 Our ethical hackers go beyond using automated tools,
 exerting their expertise
@@ -80,7 +80,7 @@ and false negatives in our projects.
 
 <div class="sect2">
 
-### Enhanced security
+### Enhanced cybersecurity
 
 You can have an updated status of your systems' security
 through continuous penetration testing,
@@ -102,3 +102,44 @@ no matter how many reattacks are necessary.
 </div>
 
 </div>
+
+## Penetration testing FAQs
+
+The following are a few FAQs regarding penetration testing:
+
+### What is penetration testing?
+
+It is the simulation of genuine attacks
+to test the security of a system with the permission of its owners.
+This method often involves creating custom exploits
+with the goal of bypassing defenses.
+That is why
+it can be as accurate
+as the skills of the ethical hackers performing it allow it to be.
+
+### What is the primary purpose of penetration testing?
+
+It is to find business-critical vulnerabilities in information systems
+by using the same techniques and way of thinking of malicious hackers.
+
+### What is the end result of a penetration test?
+
+Penetration tests reveal complex vulnerabilities
+that are often more severe than those found by automated tools alone.
+The result is a more realistic view of the security of information systems.
+If it is performed continuously and early in the SDLC,
+as we do not tire of recommending,
+then you can eliminate spots through which malicious hackers could get in
+before moving into production.
+
+## Get started with Fluid Attacks' Penetration Testing right now
+
+As cyberattacks keep multiplying,
+organizations that continuously test their systems,
+predicting the moves of threat actors,
+have a better chance of succeeding against them.
+Don't miss out on the benefits,
+and ask us about our Penetration Testing solution.
+If first you'd like a taste of our automated security testing,
+check out the [21-day free trial](../../free-trial/)
+and upgrade to include Penetration Testing at any time.
