@@ -11,7 +11,7 @@ export const enTranslations: ResourceKey = {
     barChart: {
       eventualities: "Unsolved events by groups",
       exposureBenchmarkingCvssf: "Exposure benchmark",
-      exposureByGroups: "Open Exposure by groups",
+      exposureByGroups: "Exposure by group",
       exposureTrendsByCategories: "Exposure trends by vulnerability category",
       meanTimeToRemediate: {
         tooltip: {
@@ -37,7 +37,7 @@ export const enTranslations: ResourceKey = {
           infra: "Infra Open Exposure (CVSSF)",
           vulnerabilities: "Top vulnerabilities",
         },
-        title: "Open Exposure by type",
+        title: "Exposure by type",
         tooltip: {
           app: "Source of exposure of type App",
           code: "Source of exposure of type Code",
@@ -3565,7 +3565,7 @@ export const enTranslations: ResourceKey = {
     assignedVulnerabilitiesStatus: "Status of assigned vulnerabilities",
     findingsGroup: "Types of Vulnerabilities by Group",
     groupsAvailability: "Groups availability",
-    meanRemediate: "Mean (average) days to remediate",
+    meanRemediate: "Mean time to remediate (MTTR) by CVSS severity",
     oldestEvent: "Days since group is failing",
     oldestGroupEvent: "Days since groups are failing",
     openFindingsGroup: "Open Types of Vulnerabilities by Group",

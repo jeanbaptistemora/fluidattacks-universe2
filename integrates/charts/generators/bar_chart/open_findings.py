@@ -14,6 +14,7 @@ from charts import (
 )
 from charts.generators.bar_chart.utils import (
     format_csv_data,
+    LIMIT,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
@@ -66,7 +67,9 @@ async def get_data_many_groups(
 
 
 def format_data(all_data: List[PortfoliosGroupsInfo]) -> dict:
-    data = [group for group in all_data[:15] if group.value > Decimal("0.0")]
+    data = [
+        group for group in all_data[:LIMIT] if group.value > Decimal("0.0")
+    ]
 
     return dict(
         data=dict(

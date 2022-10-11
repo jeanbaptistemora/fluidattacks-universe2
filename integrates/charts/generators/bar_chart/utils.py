@@ -95,6 +95,8 @@ PORTFOLIO_CATEGORIES: List[str] = [
     "Worst portfolio",
 ]
 
+LIMIT: int = 12
+
 
 Remediate = NamedTuple(
     "Remediate",

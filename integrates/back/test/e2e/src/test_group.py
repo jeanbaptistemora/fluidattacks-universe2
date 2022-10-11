@@ -121,7 +121,7 @@ def test_group_analytics(
         (
             "Mean time to remediate (MTTR) benchmark",
             "Exposure over time",
-            "Open Exposure by type",
+            "Exposure by type",
             "Exposure benchmark",
             "Exposure management over time",
             "Exposure management over time (%)",
@@ -151,7 +151,7 @@ def test_group_analytics(
             "Accepted vulnerabilities by severity",
             "Exposure by assignee",
             "Files with open vulnerabilities in the last 20 weeks",
-            "Mean (average) days to remediate",
+            "Mean time to remediate (MTTR) by CVSS severity",
             "Days since group is failing",
             "Finding by tags",
             "Your commitment towards security",

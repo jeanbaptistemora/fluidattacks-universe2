@@ -11,6 +11,7 @@ from async_lru import (
 )
 from charts.generators.bar_chart.utils import (
     format_csv_data,
+    LIMIT,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
@@ -93,7 +94,7 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
     ):
         merged_data.append([axis, max([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:15]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:LIMIT]
 
     return dict(
         data=dict(
