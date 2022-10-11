@@ -24,7 +24,9 @@ from typing import (
     Pattern,
 )
 
-GEMFILE_DEP: Pattern[str] = re.compile(r"^\s*gem (.*)")
+GEMFILE_DEP: Pattern[str] = re.compile(
+    r'^\s*(?P<gem>gem ".*?",?( "[><~=]{1,2}\s?[\d\.]+",?){0,2})'
+)
 GEMFILE_DEP_UNIQUE: Pattern[str] = re.compile(
     r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
 )
@@ -57,8 +59,8 @@ def gem_gemfile(  # NOSONAR
             pkg_name = matched.group(1)
             version = matched.group(2)
             yield format_pkg_dep(pkg_name, version, line_number, line_number)
-        elif re.search(GEMFILE_DEP, line):
-            line = GemfileParser.preprocess(line)
+        elif matched := re.search(GEMFILE_DEP, line):
+            line = GemfileParser.preprocess(matched.group("gem"))
             line = line[3:]
             line_items = parse_line(line)
             pkg_name = line_items.get("name")

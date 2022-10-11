@@ -41,5 +41,6 @@ def parse_line(in_line: str) -> Dict[str, str]:
                 break
 
     deps_dict = dep.to_dict()
-    deps_dict["requirement"] = " ".join(deps_dict["requirement"])
+    quit_spaces = [req.replace(" ", "") for req in deps_dict["requirement"]]
+    deps_dict["requirement"] = " ".join(quit_spaces)
     return deps_dict
