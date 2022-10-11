@@ -4,16 +4,23 @@
 
 from ._core import (
     Check,
+    CheckConf1,
+    CheckConf2,
     CheckObj,
 )
-from dateutil.parser import (
-    isoparse,
+from dataclasses import (
+    dataclass,
 )
 from fa_purity import (
     JsonObj,
+    ResultE,
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from tap_checkly.api2._utils import (
+    ExtendedUnfolder,
+    isoparse,
 )
 from tap_checkly.api2.id_objs import (
     CheckGroupId,
@@ -22,33 +29,127 @@ from tap_checkly.api2.id_objs import (
 )
 
 
-def from_raw(raw: JsonObj) -> Check:
-    return Check(
-        Unfolder(raw["name"]).to_primitive(str).unwrap(),
-        Unfolder(raw["activated"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["muted"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["doubleCheck"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["sslCheck"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["shouldFail"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["locations"]).to_list_of(str).unwrap(),
-        Unfolder(raw["useGlobalAlertSettings"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["groupId"]).to_primitive(str).map(CheckGroupId).unwrap(),
-        Unfolder(raw["groupOrder"]).to_primitive(int).unwrap(),
-        Unfolder(raw["runtimeId"]).to_primitive(str).unwrap(),
-        Unfolder(raw["checkType"]).to_primitive(str).unwrap(),
-        Unfolder(raw["frequency"]).to_primitive(int).unwrap(),
-        Unfolder(raw["frequencyOffset"]).to_primitive(int).unwrap(),
-        Unfolder(raw["degradedResponseTime"]).to_primitive(int).unwrap(),
-        Unfolder(raw["maxResponseTime"]).to_primitive(int).unwrap(),
-        Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["updated_at"]).to_primitive(str).map(isoparse).unwrap(),
+def _decode_conf_1(raw: JsonObj) -> ResultE[CheckConf1]:
+    unfolder = ExtendedUnfolder(raw)
+    return unfolder.require_primitive("activated", bool).bind(
+        lambda activated: unfolder.require_primitive("muted", bool).bind(
+            lambda muted: unfolder.require_primitive("doubleCheck", bool).bind(
+                lambda double_check: unfolder.require_primitive(
+                    "sslCheck", bool
+                ).bind(
+                    lambda ssl_check: unfolder.require_primitive(
+                        "shouldFail", bool
+                    ).bind(
+                        lambda should_fail: unfolder.require_primitive(
+                            "useGlobalAlertSettings", bool
+                        ).map(
+                            lambda global_alert: CheckConf1(
+                                activated,
+                                muted,
+                                double_check,
+                                ssl_check,
+                                should_fail,
+                                global_alert,
+                            )
+                        )
+                    )
+                )
+            )
+        )
     )
 
 
-def id_from_raw(raw: JsonObj) -> CheckId:
-    return Unfolder(raw["id"]).to_primitive(str).map(CheckId).unwrap()
+def _decode_conf_2(raw: JsonObj) -> ResultE[CheckConf2]:
+    unfolder = ExtendedUnfolder(raw)
+    return (
+        unfolder.require_primitive("groupId", str)
+        .map(CheckGroupId)
+        .bind(
+            lambda group_id: unfolder.require_primitive(
+                "groupOrder", int
+            ).bind(
+                lambda group_order: unfolder.require_primitive(
+                    "runtimeId", str
+                ).bind(
+                    lambda runtime_ver: unfolder.require_primitive(
+                        "checkType", str
+                    ).bind(
+                        lambda check_type: unfolder.require_primitive(
+                            "frequency", int
+                        ).bind(
+                            lambda frequency: unfolder.require_primitive(
+                                "frequencyOffset", int
+                            ).bind(
+                                lambda frequency_offset: unfolder.require_primitive(
+                                    "degradedResponseTime", int
+                                ).bind(
+                                    lambda degraded_response_time: unfolder.require_primitive(
+                                        "maxResponseTime", int
+                                    ).map(
+                                        lambda max_response_time: CheckConf2(
+                                            group_id,
+                                            group_order,
+                                            runtime_ver,
+                                            check_type,
+                                            frequency,
+                                            frequency_offset,
+                                            degraded_response_time,
+                                            max_response_time,
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
 
 
-def from_raw_obj(raw: JsonObj) -> CheckObj:
-    _id = id_from_raw(raw)
-    return IndexedObj(_id, from_raw(raw))
+@dataclass(frozen=True)
+class CheckDecoder:
+    raw: JsonObj
+
+    def decode_check(self) -> ResultE[Check]:
+        unfolder = ExtendedUnfolder(self.raw)
+        return unfolder.require_primitive("name", str).bind(
+            lambda name: _decode_conf_1(self.raw).bind(
+                lambda conf_1: _decode_conf_2(self.raw).bind(
+                    lambda conf_2: unfolder.get_required("locations")
+                    .map(Unfolder)
+                    .bind(lambda u: u.to_list_of(str).alt(Exception))
+                    .bind(
+                        lambda locations: unfolder.require_primitive(
+                            "created_at", str
+                        )
+                        .bind(isoparse)
+                        .bind(
+                            lambda created_at: unfolder.require_primitive(
+                                "update_at", str
+                            )
+                            .bind(isoparse)
+                            .map(
+                                lambda updated_at: Check(
+                                    name,
+                                    conf_1,
+                                    conf_2,
+                                    locations,
+                                    created_at,
+                                    updated_at,
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+    def decode_id(self) -> ResultE[CheckId]:
+        unfolder = ExtendedUnfolder(self.raw)
+        return unfolder.require_primitive("id", str).map(CheckId)
+
+    def decode_obj(self) -> ResultE[CheckObj]:
+        return self.decode_id().bind(
+            lambda cid: self.decode_check().map(lambda c: IndexedObj(cid, c))
+        )

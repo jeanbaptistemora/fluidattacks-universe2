@@ -5,12 +5,19 @@
 from dataclasses import (
     dataclass,
 )
+from datetime import (
+    datetime,
+)
+from dateutil.parser import (
+    isoparse as _isoparse,
+)
 from fa_purity import (
     Cmd,
     FrozenList,
     JsonObj,
     JsonValue,
     Maybe,
+    Result,
     ResultE,
     Stream,
 )
@@ -36,6 +43,14 @@ from typing import (
     Type,
     TypeVar,
 )
+
+
+def isoparse(raw: str) -> ResultE[datetime]:
+    try:
+        return Result.success(_isoparse(raw))
+    except ValueError as err:
+        return Result.failure(err)
+
 
 _T = TypeVar("_T")
 

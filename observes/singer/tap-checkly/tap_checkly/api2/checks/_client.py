@@ -6,12 +6,12 @@ from __future__ import (
     annotations,
 )
 
-from . import (
-    _decode,
-)
 from ._core import (
     CheckId,
     CheckObj,
+)
+from ._decode import (
+    CheckDecoder,
 )
 from .results import (
     CheckResultClient,
@@ -30,6 +30,9 @@ from fa_purity import (
 )
 from fa_purity.json.factory import (
     from_prim_dict,
+)
+from fa_purity.pure_iter.factory import (
+    pure_map,
 )
 from tap_checkly.api2 import (
     _utils,
@@ -51,7 +54,11 @@ class ChecksClient:
         return self._raw.get_list(
             "/v1/checks",
             from_prim_dict({"limit": self._per_page, "page": page}),
-        ).map(lambda l: tuple(map(_decode.id_from_raw, l)))
+        ).map(
+            lambda l: pure_map(
+                lambda i: CheckDecoder(i).decode_id().unwrap(), l
+            ).to_list()
+        )
 
     def list_ids(self) -> Stream[CheckId]:
         return _utils.paginate_all(self._list_ids)
@@ -60,7 +67,11 @@ class ChecksClient:
         return self._raw.get_list(
             "/v1/checks",
             from_prim_dict({"limit": self._per_page, "page": page}),
-        ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
+        ).map(
+            lambda l: pure_map(
+                lambda i: CheckDecoder(i).decode_obj().unwrap(), l
+            ).to_list()
+        )
 
     def list_checks(self) -> Stream[CheckObj]:
         return _utils.paginate_all(self._list_checks)

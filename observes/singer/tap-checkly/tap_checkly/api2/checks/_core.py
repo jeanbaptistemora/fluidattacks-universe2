@@ -19,15 +19,17 @@ from tap_checkly.api2.id_objs import (
 
 
 @dataclass(frozen=True)
-class Check:
-    name: str
+class CheckConf1:
     activated: bool
     muted: bool
     double_check: bool
     ssl_check: bool
     should_fail: bool
-    locations: FrozenList[str]
     use_global_alert_settings: bool
+
+
+@dataclass(frozen=True)
+class CheckConf2:
     group_id: CheckGroupId
     group_order: int
     runtime_ver: str
@@ -36,6 +38,14 @@ class Check:
     frequency_offset: int
     degraded_response_time: int
     max_response_time: int
+
+
+@dataclass(frozen=True)
+class Check:
+    name: str
+    conf_1: CheckConf1
+    conf_2: CheckConf2
+    locations: FrozenList[str]
     created_at: datetime
     updated_at: datetime
 
