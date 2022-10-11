@@ -27,7 +27,7 @@ you can enable or disable the
 delivery of each notification to
 your registered email or mobile phone.
 
-![Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_matrix.png)
+![Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1665508622/docs/web/notifications/matrix_notification.png)
 
 The following are the kinds
 of notifications we send
