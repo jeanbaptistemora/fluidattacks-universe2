@@ -558,6 +558,8 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               title={t("tagIndicator.vulnerabilitiesByType")}
             />
           </Col50>
+        </RowCenter>
+        <Row>
           <Col50>
             <Graphic
               bsHeight={160}
@@ -573,7 +575,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               title={t("analytics.pieChart.resources.title")}
             />
           </Col50>
-        </RowCenter>
+        </Row>
         <Row>
           <Col33>
             <Graphic
