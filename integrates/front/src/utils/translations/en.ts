@@ -1765,6 +1765,7 @@ export const enTranslations: ResourceKey = {
           standards: {
             cards: {
               requirement: "Requirement",
+              showAll: "Show all",
             },
             text: "Standards",
             tooltip: "Compliance information for standards",
