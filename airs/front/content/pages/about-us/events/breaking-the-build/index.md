@@ -4,7 +4,7 @@ title: Breaking the Build
 subtitle: Our SecDevOps Habits
 category: events
 description: The conference Breaking the Build presents Fluid Attacks' SecDevOps habits that allow us to keep improving every day, and how to implement them in your company.
-keywords: Fluid Attacks, SecDevOps, Habits, Breaking the Build, CI-CD, Conference, Pentesting, Ethical Hacking
+keywords: Fluid Attacks, SecDevOps, Habits, Breaking The Build, CI-CD, Conference, Pentesting, Ethical Hacking
 eventspage: yes
 banner: events-bg
 ---
@@ -212,8 +212,8 @@ your company, it is important to include people with decision-making
 power.
 
 The **workshop** is designed for an audience of between **12 and 14**
-people on the customer side, plus `4` additional participants on `Fluid
-Attacks'` side.
+people on the customer side, plus `4` additional participants
+on `Fluid Attacks'` side.
 
 ## 9\. Speakers
 

@@ -18,8 +18,7 @@ Companies](https://clutch.co/it-services/cybersecurity) in the world\!
 
 <div class="imgblock">
 
-![Fluid Attacks Clutch
-Profile](https://res.cloudinary.com/fluid-attacks/image/upload/v1620228368/airs/about-us/reviews/rank_nmekly.webp)
+![Fluid Attacks Clutch Profile](https://res.cloudinary.com/fluid-attacks/image/upload/v1620228368/airs/about-us/reviews/rank_nmekly.webp)
 
 </div>
 

@@ -4,7 +4,7 @@ title: Burn the Datacenter
 subtitle: From pets to cattle
 category: events
 description: Future of technologies, software development, security testing and management of development lifecycle in one talk. Find out more about it here.
-keywords: Fluid Attacks, Burn the Datacenter, Technology, Continuous Integration Security Testing, Software Development, Development Lifecycle, Pentesting, Ethical Hacking
+keywords: Fluid Attacks, Burn The Datacenter, Technology, Continuous Integration Security Testing, Software Development, Development Lifecycle, Pentesting, Ethical Hacking
 eventspage: yes
 banner: events-bg
 ---
