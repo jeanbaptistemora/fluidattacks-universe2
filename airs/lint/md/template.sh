@@ -110,25 +110,29 @@ function check_md_lix {
   local msg="Document Lix must be under ${max_lix}"
   local lix
 
-  lix="$(
-    sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
-      | sed 's|](https://.*)|]|g' \
-      | sed 's|](http://.*)|]|g' \
-      | sed 's|<div.*>||g' \
-      | sed 's|<p.*>||g' \
-      | sed 's|</div.*>||g' \
-      | sed 's|</p.*>||g' \
-      | sed '/^---/,/^\---/{/^---/!{/^\---/!d}}' \
-      | sed 's|Figure [0-9].||g' \
-      | sed 's|](../.*)|]|g' \
-      | sed 's|](./.*)|]|g' \
-      | sed 's|](/.*)|]|g' \
-      | style \
-      | grep -oP '(?<=Lix: )[0-9]+'
-  )" \
-    && if test "${lix}" -gt "${max_lix}"; then
-      abort "[ERROR] ${msg}, current: ${lix}: ${target}"
-    fi
+  if check_empty_md "${target}"; then
+    return 0
+  else
+    lix="$(
+      sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
+        | sed 's|](https://.*)|]|g' \
+        | sed 's|](http://.*)|]|g' \
+        | sed 's|<div.*>||g' \
+        | sed 's|<p.*>||g' \
+        | sed 's|</div.*>||g' \
+        | sed 's|</p.*>||g' \
+        | sed '/^---/,/^\---/{/^---/!{/^\---/!d}}' \
+        | sed 's|Figure [0-9].||g' \
+        | sed 's|](../.*)|]|g' \
+        | sed 's|](./.*)|]|g' \
+        | sed 's|](/.*)|]|g' \
+        | style \
+        | grep -oP '(?<=Lix: )[0-9]+'
+    )" \
+      && if test "${lix}" -gt "${max_lix}"; then
+        abort "[ERROR] ${msg}, current: ${lix}: ${target}"
+      fi
+  fi
 }
 
 function check_md_main_title {
@@ -301,23 +305,57 @@ function check_md_word_count {
   local msg="Document must have between ${min_words} and ${max_words} words"
   local words
 
-  words="$(
-    sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
-      | sed 's|](https://.*)|]|g' \
-      | sed 's|](http://.*)|]|g' \
-      | sed 's|<div.*>||g' \
-      | sed 's|<p.*>||g' \
-      | sed 's|</div.*>||g' \
-      | sed 's|</p.*>||g' \
-      | sed '/^---/,/^\---/{/^---/!{/^\---/!d}}' \
-      | sed 's|Figure [0-9].||g' \
-      | sed 's|](../.*)|]|g' \
-      | sed 's|](./.*)|]|g' \
-      | sed 's|](/.*)|]|g' \
-      | style \
-      | grep -oP '[0-9]+(?= words,)'
+  if check_empty_md "${target}"; then
+    return 0
+  else
+    words="$(
+      sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
+        | sed 's|](https://.*)|]|g' \
+        | sed 's|](http://.*)|]|g' \
+        | sed 's|<div.*>||g' \
+        | sed 's|<p.*>||g' \
+        | sed 's|</div.*>||g' \
+        | sed 's|</p.*>||g' \
+        | sed '/^---/,/^\---/{/^---/!{/^\---/!d}}' \
+        | sed 's|Figure [0-9].||g' \
+        | sed 's|](../.*)|]|g' \
+        | sed 's|](./.*)|]|g' \
+        | sed 's|](/.*)|]|g' \
+        | style \
+        | grep -oP '[0-9]+(?= words,)'
+    )" \
+      && if test "${words}" -lt "${min_words}" || test "${words}" -gt "${max_words}"; then
+        abort "[ERROR] ${msg}: ${target} ${words}"
+      fi
+  fi
+}
+
+function check_empty_md {
+  local target="${1}"
+  local empty_msg="Document is empty"
+  local md_content
+  local metadata
+
+  metadata="$(
+    echo -e '---\n---'
   )" \
-    && if test "${words}" -lt "${min_words}" || test "${words}" -gt "${max_words}"; then
-      abort "[ERROR] ${msg}: ${target} ${words}"
+    && md_content="$(
+      sed '/^```/,/^\```/{/^```/!{/^\```/!d}}' "${target}" \
+        | sed 's|](https://.*)|]|g' \
+        | sed 's|](http://.*)|]|g' \
+        | sed 's|<div.*>||g' \
+        | sed 's|<p.*>||g' \
+        | sed 's|</div.*>||g' \
+        | sed 's|</p.*>||g' \
+        | sed '/^---/,/^\---/{/^---/!{/^\---/!d}}' \
+        | sed 's|Figure [0-9].||g' \
+        | sed 's|](../.*)|]|g' \
+        | sed 's|](./.*)|]|g' \
+        | sed 's|](/.*)|]|g'
+    )" \
+    && if test -z "${md_content}"; then
+      abort "[ERROR] ${empty_msg}"
+    elif test "${md_content}" != "${metadata}"; then
+      return 1
     fi
 }
