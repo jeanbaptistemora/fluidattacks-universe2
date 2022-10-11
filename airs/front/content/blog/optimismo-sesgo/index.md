@@ -1,6 +1,6 @@
 ---
 slug: optimismo-sesgo/
-title: "¡No, no nos hackearán!"
+title: '''¡No, no nos hackearán!'''
 date: 2020-10-07
 subtitle: Y, "por supuesto, siempre podré proteger mi compañía".
 category: philosophy
@@ -8,7 +8,7 @@ tags: cybersecurity, risk, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330962/blog/optimism-bias/cover_or7kk2.webp
 alt: Photo by Charles Deluvio on Unsplash
 description: En el ámbito de la ciberseguridad, el sesgo optimista y el exceso de confianza pueden tener consecuencias generalizadas. Lo comento en este post.
-keywords: Ciberseguridad, Error, Riesgo, Optimismo, Sesgo, Exceso de Confianza, Ethical Hacking, Pentesting
+keywords: Ciberseguridad, Error, Riesgo, Optimismo, Sesgo, Exceso De Confianza, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 spanish: yes

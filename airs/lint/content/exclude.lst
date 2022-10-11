@@ -13,7 +13,9 @@ airs/front/content/blog/insensato-reporte/index.md
 airs/front/content/blog/interview-safety-detectives/index.md
 airs/front/content/blog/is-csv-secure/index.md
 airs/front/content/blog/libssh-bypass-cve/index.md
+airs/front/content/blog/optimismo-sesgo/index.md
 airs/front/content/blog/pii-leakage-whitehat/index.md
+airs/front/content/blog/relleno-credenciales/index.md
 airs/front/content/blog/risk-indicator-roundup/index.md
 airs/front/content/blog/stand-shoulders-giants/index.md
 airs/front/content/blog/storing-password-safely/index.md
@@ -141,16 +143,10 @@ airs/front/content/pages/systems/ot/index.md
 airs/front/content/pages/systems/web-apps/index.md
 airs/front/content/pages/terms-use/index.md
 airs/front/content/pages/topics/index.md
-airs/front/content/blog/optimismo-sesgo/index.md
 airs/front/content/pages/about-us/certifications/crte/index.md
 airs/front/content/pages/about-us/people/index.md
 airs/front/content/pages/faq/index.md
-airs/front/content/blog/ciberseguridad-estrategia/index.md
-airs/front/content/blog/oss-seguridad/index.md
 airs/front/content/pages/partners/mi-group/index.md
 airs/front/content/pages/plans/index.md
 airs/front/content/pages/resources/index.md
-airs/front/content/blog/choosing-pentesting-team/index.md
-airs/front/content/blog/relleno-credenciales/index.md
-airs/front/content/blog/secdevops-security-champions-spa/index.md
 airs/front/content/pages/qr-events/index.md
