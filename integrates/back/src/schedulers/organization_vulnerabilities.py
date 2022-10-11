@@ -153,7 +153,7 @@ async def _get_group_data(
         min_release_date=None,
         max_release_date=None,
         location="",
-        generate_raw_data=False,
+        generate_raw_data=True,
     )
     await report.generate_data()
 
@@ -207,7 +207,7 @@ async def get_data(
         min_release_date=None,
         max_release_date=None,
         location="",
-        generate_raw_data=False,
+        generate_raw_data=True,
     )
     await report.generate_data()
 

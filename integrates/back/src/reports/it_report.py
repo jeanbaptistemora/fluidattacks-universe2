@@ -4,6 +4,7 @@
 
 from .typing import (
     GroupVulnsReportHeader,
+    OrgVulnsReportHeader,
 )
 from aioextensions import (
     collect,
@@ -133,16 +134,6 @@ class ITReport:
     lang = None
     result_filename = ""
     row = 1
-    vulnerability = {
-        col_name: index + 1
-        for index, col_name in enumerate(GroupVulnsReportHeader.labels())
-    }
-    raw_data: list[list[Any]] = []
-    workbook: Workbook
-
-    row_values: List[Union[str, int, float, datetime]] = [
-        EMPTY for _ in range(len(vulnerability) + 1)
-    ]
 
     # pylint: disable=too-many-arguments, too-many-locals
     def __init__(  # NOSONAR
@@ -162,9 +153,23 @@ class ITReport:
         max_release_date: Optional[datetime],
         location: str,
         loaders: Dataloaders,
-        generate_raw_data: bool = True,
+        generate_raw_data: bool = False,
     ) -> None:
         """Initialize variables."""
+
+        self.vulnerability = {
+            col_name: index + 1
+            for index, col_name in enumerate(
+                GroupVulnsReportHeader.labels()
+                + (OrgVulnsReportHeader.labels() if generate_raw_data else [])
+            )
+        }
+        self.raw_data: list[list[Any]] = []
+        self.workbook: Workbook
+
+        self.row_values: List[Union[str, int, float, datetime]] = [
+            EMPTY for _ in range(len(self.vulnerability) + 1)
+        ]
         self.generate_raw_data = generate_raw_data
         self.data = data
         self.loaders = loaders
@@ -492,9 +497,11 @@ class ITReport:
 
         return description
 
-    @classmethod
-    def get_row_range(cls, row: int) -> List[str]:
+    def get_row_range(self, row: int) -> List[str]:
         # AX is the 50th column
+        if self.generate_raw_data:
+            return [f"A{row}", f"AY{row}"]
+
         return [f"A{row}", f"AX{row}"]
 
     def parse_template(self) -> None:
@@ -537,7 +544,7 @@ class ITReport:
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
         )
         self.row_values[vuln[cvss_key]] = (
-            cell_content if self.generate_raw_data else cvss_calculator_url
+            cvss_calculator_url if self.generate_raw_data else cell_content
         )
 
     def set_finding_data(self, finding: Finding, vuln: Vulnerability) -> None:
@@ -822,6 +829,8 @@ class ITReport:
         self.row_values[vuln["Tags"]] = tags
         self.row_values[vuln["Stream"]] = stream
         self.row_values[vuln["Root Nickname"]] = nickname
+        if self.generate_raw_data:
+            self.row_values[vuln["Group"]] = row.group_name
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)
@@ -851,9 +860,9 @@ class ITReport:
             "Report Moment": vuln_date,
             "Age in days": vuln_age_days,
             "Close Moment": vuln_close_date,
-            "External BTS": f'=HYPERLINK("{external_bts}", "{external_bts}")'
+            "External BTS": external_bts
             if self.generate_raw_data
-            else external_bts,
+            else f'=HYPERLINK("{external_bts}", "{external_bts}")',
         }
         for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value
@@ -867,7 +876,11 @@ class ITReport:
         header.style.alignment.wrap_text = True
 
         for column, col_width in enumerate(
-            GroupVulnsReportHeader.widths(), start=1
+            GroupVulnsReportHeader.widths()
+            + (
+                OrgVulnsReportHeader.widths() if self.generate_raw_data else []
+            ),
+            start=1,
         ):
             self.current_sheet.set_col_style(
                 column,

@@ -36,6 +36,10 @@ class GenericHeader(Enum):
         return [member.value.width for member in cls]
 
 
+class OrgVulnsReportHeader(GenericHeader):
+    GROUP: ColumnConfig = ColumnConfig(label="Group", width=65)
+
+
 class GroupVulnsReportHeader(GenericHeader):
     NUMBER: ColumnConfig = ColumnConfig(label="#", width=4)
     FINDING: ColumnConfig = ColumnConfig(label="Related Finding", width=55)

@@ -63,6 +63,7 @@
     ["move_root"]
     ["organization"]
     ["organization_id"]
+    ["organization_vulnerabilities"]
     ["refresh_toe_inputs"]
     ["refresh_toe_lines"]
     ["reject_draft"]

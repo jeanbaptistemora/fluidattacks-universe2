@@ -97,6 +97,7 @@ TEST_GROUPS: set[str] = {
     "old",
     "organization",
     "organization_id",
+    "organization_vulnerabilities",
     "group_s3",
     "refresh_toe_inputs",
     "refresh_toe_lines",
