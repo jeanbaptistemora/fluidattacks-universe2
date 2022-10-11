@@ -169,7 +169,6 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
                 min=0,
                 padding=dict(
                     bottom=0,
-                    top=0,
                 ),
             ),
         ),

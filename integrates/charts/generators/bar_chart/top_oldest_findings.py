@@ -16,7 +16,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    OTHER_COUNT,
 )
 from charts.generators.common.utils import (
     get_finding_name,
@@ -25,7 +25,6 @@ from charts.utils import (
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     get_new_context,
@@ -105,32 +104,28 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
                 ],
             ],
             colors={
-                "Open Age (days)": RISK.neutral,
+                "Open Age (days)": OTHER_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="inset",
-            inset=dict(
-                anchor="top-right",
-                step=1.3,
-                x=10,
-                y=-5,
-            ),
+            show=False,
         ),
         padding=dict(
-            bottom=30,
+            bottom=0,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[
                     get_finding_name([str(title)]) for title, _ in merged_data
                 ],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(
@@ -144,6 +139,8 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in merged_data]
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 
