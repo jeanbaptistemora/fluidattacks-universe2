@@ -424,6 +424,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
     ],
     alternative: str,
+    y_label: str = "Days per unit of exposure (CVSSF)",
 ) -> None:
     loaders: Dataloaders = get_new_context()
     list_days: List[int] = [30, 90]
@@ -737,6 +738,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                     ],
                 ),
                 categories=GROUP_CATEGORIES,
+                y_label=y_label,
             )
             json_dump(
                 document=document,
@@ -774,6 +776,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                     ],
                 ),
                 categories=ORGANIZATION_CATEGORIES,
+                y_label=y_label,
             )
             json_dump(
                 document=document,
@@ -818,6 +821,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                         ],
                     ),
                     categories=PORTFOLIO_CATEGORIES,
+                    y_label=y_label,
                 )
                 json_dump(
                     document=document,
