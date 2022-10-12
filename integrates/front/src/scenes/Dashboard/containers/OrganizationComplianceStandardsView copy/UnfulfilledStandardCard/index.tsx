@@ -50,9 +50,9 @@ const UnfulfilledStandardCard: FC<IUnfulfilledStandardCardProps> = (
   }
   function getButtonAngle(selected: boolean): JSX.Element {
     return selected ? (
-      <FontAwesomeIcon icon={faAngleDown} />
-    ) : (
       <FontAwesomeIcon icon={faAngleUp} />
+    ) : (
+      <FontAwesomeIcon icon={faAngleDown} />
     );
   }
   function getRequirementsAlignment(areManyItems: boolean): "center" | "start" {
