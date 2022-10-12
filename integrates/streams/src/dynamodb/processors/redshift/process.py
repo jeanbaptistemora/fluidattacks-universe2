@@ -22,9 +22,24 @@ from operator import (
 from psycopg2.extensions import (
     cursor as cursor_cls,
 )
+from typing import (
+    Iterator,
+)
 
 FLUID_IDENTIFIER = "@fluidattacks.com"
 LOGGER = logging.getLogger(__name__)
+
+
+def _get_items_iterator(
+    records: tuple[Record, ...], sk_prefix: str
+) -> Iterator:
+    filtered_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.startswith(sk_prefix)
+    ]
+
+    return itertools.groupby(filtered_items, itemgetter("pk"))
 
 
 def _process_finding_metadata(cursor: cursor_cls, item: Item) -> None:
@@ -70,26 +85,10 @@ def process_findings(records: tuple[Record, ...]) -> None:
         ]
         for item in metadata_items:
             _process_finding_metadata(cursor, item)
-
-        state_items: list[Item] = [
-            record.old_image
-            for record in records
-            if record.old_image and record.sk.startswith("STATE#")
-        ]
-        state_iterator = itertools.groupby(state_items, itemgetter("pk"))
-        for key, items in state_iterator:
+        for key, items in _get_items_iterator(records, "STATE#"):
             finding_id = str(key).split("#")[1]
             _process_finding_state(cursor, finding_id, list(items))
-
-        verification_items: list[Item] = [
-            record.old_image
-            for record in records
-            if record.old_image and record.sk.startswith("VERIFICATION#")
-        ]
-        verification_iterator = itertools.groupby(
-            verification_items, itemgetter("pk")
-        )
-        for key, items in verification_iterator:
+        for key, items in _get_items_iterator(records, "STATE#"):
             finding_id = str(key).split("#")[1]
             _process_finding_verification(cursor, finding_id, list(items))
 
@@ -114,3 +113,27 @@ def process_vulnerabilities(records: tuple[Record, ...]) -> None:
         ]
         for item in metadata_items:
             _process_vulnerability_metadata(cursor, item)
+        for key, items in _get_items_iterator(records, "STATE#"):
+            vulns_ops.insert_historic_state(
+                cursor=cursor,
+                vulnerability_id=str(key).split("#")[1],
+                historic_state=tuple(items),
+            )
+        for key, items in _get_items_iterator(records, "TREATMENT#"):
+            vulns_ops.insert_historic_treatment(
+                cursor=cursor,
+                vulnerability_id=str(key).split("#")[1],
+                historic_treatment=tuple(items),
+            )
+        for key, items in _get_items_iterator(records, "VERIFICATION#"):
+            vulns_ops.insert_historic_verification(
+                cursor=cursor,
+                vulnerability_id=str(key).split("#")[1],
+                historic_verification=tuple(items),
+            )
+        for key, items in _get_items_iterator(records, "ZERORISK#"):
+            vulns_ops.insert_historic_zero_risk(
+                cursor=cursor,
+                vulnerability_id=str(key).split("#")[1],
+                historic_zero_risk=tuple(items),
+            )
