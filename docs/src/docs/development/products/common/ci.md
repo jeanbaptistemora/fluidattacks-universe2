@@ -15,7 +15,7 @@ of a Continuous Integration and Continuous Delivery system (CI/CD).
    - They are able to run jobs, but for no longer than 30 minutes.
    - They can access the internet.
    - They are of x86_64-linux architecture.
-   - Their tag names do not change,
+   - Their tag names (`small` and `large`) do not change,
      and for a given tag name the associated
      RAM and Disk capacity is never decreased.
    - They start running the job within a few seconds (short queue time).
