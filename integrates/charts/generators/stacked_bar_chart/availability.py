@@ -24,7 +24,6 @@ from charts.utils import (
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -130,15 +129,16 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
             position="bottom",
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.name for group in sorted_data],
                 type="category",
-                tick=dict(rotate=TICK_ROTATION, multiline=False),
+                tick=dict(rotate=0, multiline=False),
             ),
             y=dict(
                 label=dict(
                     text="Availability",
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(

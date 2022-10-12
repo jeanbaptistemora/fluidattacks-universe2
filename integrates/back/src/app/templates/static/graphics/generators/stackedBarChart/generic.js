@@ -34,6 +34,14 @@ function formatYTick(x, tick) {
 // eslint-disable-next-line complexity
 function render(dataDocument, height, width) {
   dataDocument.paddingRatioLeft = 0.065;
+
+  if (dataDocument.axis.rotated) {
+    dataDocument.paddingRatioLeft = 0.35;
+    dataDocument.paddingRatioRight = 0.05;
+    dataDocument.paddingRatioTop = 0.02;
+    dataDocument.paddingRatioBottom = 0.03;
+  }
+
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
     const { percentageValues, maxPercentageValues } = dataDocument;
     dataDocument.tooltip.format.value = (_datum, _r, id, index) =>
@@ -130,6 +138,29 @@ function load() {
           .select('line')
           .style('visibility', 'hidden');
       });
+  }
+
+  if (dataDocument.axis.rotated) {
+    d3.select('.c3-axis-y').select('.domain')
+      .style('visibility', 'hidden');
+    d3.select('.c3-axis-y').selectAll('line')
+      .style('visibility', 'hidden');
+    d3.select('.c3-axis-x').select('.domain')
+      .style('visibility', 'hidden');
+    d3.select('.c3-axis-x').selectAll('line')
+      .style('visibility', 'hidden');
+    d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
+      const text = d3.select(textList[index]).text();
+      const value = text.replace(',', '');
+      const pixels = '-50';
+
+      if (parseFloat(value) === 0) {
+        d3.select(textList[index])
+          .style('visibility', 'hidden');
+      } else {
+        d3.select(textList[index]).style('transform', `translate(${ pixels }px, -1px)`);
+      }
+    });
   }
 }
 

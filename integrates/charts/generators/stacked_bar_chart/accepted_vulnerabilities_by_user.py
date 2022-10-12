@@ -23,7 +23,6 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     get_new_context,
@@ -162,11 +161,12 @@ def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
             position="bottom",
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
                 tick=dict(
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                     multiline=False,
                 ),
             ),
