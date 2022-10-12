@@ -33,9 +33,9 @@ of all organizations.
 Number of vulnerabilities
 categorized by group.
 
-## Open Types of Vulnerabilities by Group
+## Open vulnerability types by group
 
-![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_open_types_vuln_by_group.png)
+![Open vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_open_types_vuln_by_group.png)
 
 Number of open vulnerabilities
 categorized by group.
@@ -92,9 +92,9 @@ For each of your groups,
 you can find out the exposure (CVSSF)
 of open vulnerabilities.
 
-## Unsolved events by groups
+## Unsolved events by group
 
-![Unsolved Events By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
+![Unsolved events by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
 
 Unsolved [events](/machine/web/groups/events)
 refer to situations that

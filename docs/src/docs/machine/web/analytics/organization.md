@@ -59,9 +59,9 @@ by group.
 Number of vulnerabilities
 categorized by group.
 
-## Open types of vulnerabilities by group
+## Open vulnerability types by group
 
-![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_open_types_vuln_by_group.png)
+![Open vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_open_types_vuln_by_group.png)
 
 Number of open vulnerabilities
 categorized by group.
@@ -74,9 +74,9 @@ These graph shows the vulnerabilities
 that have been open for the
 highest amount of days.
 
-## Unsolved events by groups
+## Unsolved events by group
 
-![Unsolved Events By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
+![Unsolved events by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
 
 Unsolved [events](/machine/web/groups/events)
 refer to situations that arise
