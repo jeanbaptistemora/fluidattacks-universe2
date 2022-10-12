@@ -9,7 +9,7 @@ import type { ResourceKey } from "i18next";
 export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
-      eventualities: "Unsolved events by groups",
+      eventualities: "Unsolved events by group",
       exposureBenchmarkingCvssf: "Exposure benchmark",
       exposureByGroups: "Exposure by group",
       exposureTrendsByCategories: "Exposure trends by vulnerability category",
@@ -3569,7 +3569,7 @@ export const enTranslations: ResourceKey = {
     meanRemediate: "Mean time to remediate (MTTR) by CVSS severity",
     oldestEvent: "Days since group is failing",
     oldestGroupEvent: "Days since groups are failing",
-    openFindingsGroup: "Open Types of Vulnerabilities by Group",
+    openFindingsGroup: "Open vulnerability types by group",
     openVulnsGroups: "Open vulnerabilities by group",
     remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
