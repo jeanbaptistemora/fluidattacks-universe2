@@ -3564,7 +3564,7 @@ export const enTranslations: ResourceKey = {
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
     assignedVulnerabilities: "Vulnerabilities by assignment",
     assignedVulnerabilitiesStatus: "Status of assigned vulnerabilities",
-    findingsGroup: "Types of Vulnerabilities by Group",
+    findingsGroup: "Vulnerability types by group",
     groupsAvailability: "Groups availability",
     meanRemediate: "Mean time to remediate (MTTR) by CVSS severity",
     oldestEvent: "Days since group is failing",
@@ -3574,7 +3574,7 @@ export const enTranslations: ResourceKey = {
     remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
     reportTechnique: "Report Technique",
-    topOldestFindings: "Top Oldest Types of Vulnerabilities",
+    topOldestFindings: "Oldest vulnerability types",
     undefinedTitle: "Undefined Treatment by Group",
     vulnerabilitiesByLevel: "Vulnerabilities by level",
     vulnerabilitiesByTag: "Vulnerabilities by tag",
