@@ -88,7 +88,7 @@ async def send_mail_free_trial_start(
     )
     await send_mails_async(
         loaders,
-        email_to=[FI_MAIL_PRODUCTION],
+        email_to=FI_MAIL_PRODUCTION.split(","),
         context=context,
         tags=[],
         subject=f"[ARM] New enrolled user [{email_to}]",

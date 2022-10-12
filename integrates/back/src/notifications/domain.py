@@ -127,7 +127,7 @@ async def delete_group(
             roles=roles,
         )
     )
-    users_email.append(FI_MAIL_PRODUCTION)
+    users_email.extend(FI_MAIL_PRODUCTION.split(","))
     await groups_mail.send_mail_group_alert(
         loaders,
         users_email,
