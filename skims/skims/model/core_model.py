@@ -1214,6 +1214,7 @@ class DeveloperEnum(Enum):
     LEWIS_CONTRERAS: str = "lcontreras@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
     JULIAN_GOMEZ: str = "ugomez@fluidattacks.com"
+    JHON_ROMERO: str = "jromero@fluidattacks.com"
 
 
 class TechniqueEnum(Enum):
@@ -1502,6 +1503,14 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F012,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JMX_HEADER_BASIC = MethodInfo(
+        file_name="conf_files",
+        name="jmx_header_basic",
+        module="lib_path",
+        finding=FindingEnum.F015,
+        developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_VM_INSEC_AUTH = MethodInfo(
