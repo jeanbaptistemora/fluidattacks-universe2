@@ -9,7 +9,6 @@ import type {
   Column,
   ColumnDef,
   ColumnFiltersState,
-  InitialTableState,
   PaginationState,
   Row,
   RowData,
@@ -48,7 +47,6 @@ interface ITableProps<TData extends RowData> {
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
   id: string;
-  initState?: InitialTableState;
   onNextPage?: () => Promise<void>;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
   onSearch?: (search: string) => void;

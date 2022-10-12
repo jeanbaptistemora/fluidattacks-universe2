@@ -10,7 +10,7 @@ import type { FormEvent } from "react";
 import React, { StrictMode } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,

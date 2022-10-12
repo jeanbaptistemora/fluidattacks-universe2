@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { areMutationsValid } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/helpers";

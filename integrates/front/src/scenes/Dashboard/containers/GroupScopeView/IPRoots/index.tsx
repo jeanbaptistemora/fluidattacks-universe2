@@ -22,8 +22,8 @@ import { InternalSurfaceButton } from "../InternalSurfaceButton";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table as Tablez } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table as Tablez } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import {
   ACTIVATE_ROOT,

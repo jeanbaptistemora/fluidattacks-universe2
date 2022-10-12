@@ -19,8 +19,8 @@ import { SecretValue } from "../../Secrets/secretValue";
 import type { IEnvironmentUrl, ISecret } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 

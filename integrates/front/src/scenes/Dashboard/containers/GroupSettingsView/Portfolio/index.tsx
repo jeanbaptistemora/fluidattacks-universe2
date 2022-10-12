@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Gap } from "components/Layout";
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {

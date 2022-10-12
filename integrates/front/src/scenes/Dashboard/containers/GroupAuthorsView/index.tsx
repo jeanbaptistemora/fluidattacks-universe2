@@ -35,8 +35,8 @@ import type {
   IGetStakeholdersAttrs,
 } from "../GroupStakeholdersView/types";
 import { Button } from "components/Button";
-import { Table } from "components/TableNew/index";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table/index";
+import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";

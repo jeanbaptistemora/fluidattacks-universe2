@@ -9,8 +9,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 
-import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import { Table } from "components/Table";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 
 interface IRandomData {
   color: string;

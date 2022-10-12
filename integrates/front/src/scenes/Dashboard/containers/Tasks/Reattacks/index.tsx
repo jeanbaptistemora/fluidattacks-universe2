@@ -10,7 +10,7 @@ import _ from "lodash";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 import type {
   IFindingFormatted,

@@ -58,7 +58,6 @@ const Table = <TData extends RowData>({
   exportCsv = false,
   extraButtons = undefined,
   id,
-  initState = undefined,
   onNextPage = undefined,
   onRowClick = undefined,
   onSearch = undefined,
@@ -75,19 +74,11 @@ const Table = <TData extends RowData>({
     pageIndex: 0,
     pageSize: 10,
   });
-  const [columnVisibility, setColumnVisibility] = useState(
-    initState?.columnVisibility ?? {}
-  );
-  const [sorting, setSorting] = useState<SortingState>(
-    initState?.sorting ?? []
-  );
-  const [globalFilter, setGlobalFilter] = useState(
-    initState?.globalFilter ?? ""
-  );
-  const [expanded, setExpanded] = useState(initState?.expanded ?? {});
-  const [rowSelection, setRowSelection] = useState(
-    initState?.rowSelection ?? {}
-  );
+  const [columnVisibility, setColumnVisibility] = useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [expanded, setExpanded] = useState({});
+  const [rowSelection, setRowSelection] = useState({});
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
@@ -156,6 +147,18 @@ const Table = <TData extends RowData>({
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function helper(val1: any, val2: any): boolean | undefined {
+    if (
+      (_.isFunction(val1) && _.isFunction(val2)) ||
+      (_.isObject(val1) && isValidElement(val1))
+    ) {
+      return true;
+    }
+
+    return undefined;
+  }
+
   /*
    * Next useEffect() takes the information of rowSelectionState
    * (row originals) and selects the equivalent rows in the rowSelection so
@@ -169,20 +172,7 @@ const Table = <TData extends RowData>({
     table.getRowModel().rows.forEach((row: Row<TData>): void => {
       if (
         _.some(rowSelectionState, (selected): boolean =>
-          _.isEqualWith(
-            row.original,
-            selected,
-            (val1, val2): boolean | undefined => {
-              if (
-                (_.isFunction(val1) && _.isFunction(val2)) ||
-                (_.isObject(val1) && isValidElement(val1))
-              ) {
-                return true;
-              }
-
-              return undefined;
-            }
-          )
+          _.isEqualWith(row.original, selected, helper)
         )
       ) {
         if (row.getIsSelected()) {

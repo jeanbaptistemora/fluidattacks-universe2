@@ -21,7 +21,7 @@ import type {
 } from "./types";
 
 import type { IFormValues } from "../../AddModal";
-import { Table as Tablez } from "components/TableNew";
+import { Table as Tablez } from "components/Table";
 import { Logger } from "utils/logger";
 
 const VulnerabilitiesToReattackTable: React.FC<IVulnerabilitiesToReattackTableProps> =

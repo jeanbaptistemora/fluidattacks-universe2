@@ -36,8 +36,8 @@ import {
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
-import { Table } from "components/TableNew/";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
 import { GraphicButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";

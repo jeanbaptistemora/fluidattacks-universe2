@@ -25,8 +25,8 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 

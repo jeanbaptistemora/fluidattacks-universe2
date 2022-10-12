@@ -33,9 +33,9 @@ import {
 import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
-import { Table } from "components/TableNew";
-import { deleteFormatter } from "components/TableNew/formatters/deleteFormatter";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import { deleteFormatter } from "components/Table/formatters/deleteFormatter";
+import type { ICellHelper } from "components/Table/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
   IVulnComponentProps,

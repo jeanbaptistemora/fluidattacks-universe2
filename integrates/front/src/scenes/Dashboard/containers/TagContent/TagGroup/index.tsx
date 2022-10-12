@@ -13,7 +13,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
 import { Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";

@@ -15,8 +15,8 @@ import { GET_TOE_LANGUAGES } from "./queries";
 import type { ICodeLanguage } from "./types";
 
 import { formatPercentage } from "../GroupToeLinesView/utils";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
 import { Logger } from "utils/logger";
 

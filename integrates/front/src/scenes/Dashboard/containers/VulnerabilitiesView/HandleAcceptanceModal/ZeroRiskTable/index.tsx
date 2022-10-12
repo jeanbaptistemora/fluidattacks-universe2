@@ -11,8 +11,8 @@ import { changeZeroRiskFormatter } from "./changeZeroRiskFormatter";
 import type { IZeroRiskTableProps } from "./types";
 
 import type { IVulnDataAttr } from "../types";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 
 const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps

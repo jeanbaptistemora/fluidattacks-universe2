@@ -13,8 +13,8 @@ import React from "react";
 import { statusFormatter } from "./Formatter";
 import type { IVulnRowAttr } from "./types";
 
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { authzPermissionsContext } from "utils/authz/config";
 

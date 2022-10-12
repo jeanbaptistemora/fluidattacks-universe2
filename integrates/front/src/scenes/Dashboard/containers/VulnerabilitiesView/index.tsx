@@ -20,8 +20,8 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Modal, ModalConfirm } from "components/Modal";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";

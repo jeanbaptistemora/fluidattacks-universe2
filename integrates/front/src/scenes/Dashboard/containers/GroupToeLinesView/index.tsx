@@ -31,9 +31,9 @@ import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
 import { SortsSuggestionsButton } from "./styles";
 import { formatBePresent, formatPercentage, formatRootId } from "./utils";
 
-import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import {
   GET_TOE_LINES,
   VERIFY_TOE_LINES,

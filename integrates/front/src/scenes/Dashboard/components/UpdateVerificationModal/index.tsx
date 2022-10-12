@@ -25,7 +25,7 @@ import type {
 
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../Navbar/Tasks/queries";
 import { Switch } from "components/Switch";
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {

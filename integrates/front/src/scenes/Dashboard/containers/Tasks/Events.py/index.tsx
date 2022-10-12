@@ -17,9 +17,9 @@ import { GET_TODO_EVENTS } from "./queries";
 import type { IEventAttr, ITodoEvents } from "./types";
 import { formatTodoEvents } from "./utils";
 
-import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { useDebouncedCallback } from "utils/hooks";
 

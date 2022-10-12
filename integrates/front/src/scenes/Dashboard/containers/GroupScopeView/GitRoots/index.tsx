@@ -52,8 +52,8 @@ import type {
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import { BaseStep, Tour } from "components/Tour/index";

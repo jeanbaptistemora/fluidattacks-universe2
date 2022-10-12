@@ -27,7 +27,7 @@ import { GET_ME_VULNERABILITIES_ASSIGNED } from "./queries";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";

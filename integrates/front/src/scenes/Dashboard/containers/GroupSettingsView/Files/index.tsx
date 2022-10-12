@@ -18,7 +18,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Table as Tablez } from "components/TableNew";
+import { Table as Tablez } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";

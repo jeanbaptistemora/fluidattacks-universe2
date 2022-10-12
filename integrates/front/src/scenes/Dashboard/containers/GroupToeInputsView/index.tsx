@@ -27,9 +27,9 @@ import { editableBePresentFormatter } from "./formatters/editableBePresentFormat
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { getNonSelectableToeInputIndex } from "./utils";
 
-import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import {
   GET_TOE_INPUTS,
   UPDATE_TOE_INPUT,

@@ -27,7 +27,7 @@ import type {
 } from "./types";
 
 import { GET_ROOTS } from "../GroupScopeView/queries";
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";

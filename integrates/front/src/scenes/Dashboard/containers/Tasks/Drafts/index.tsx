@@ -10,9 +10,9 @@ import _ from "lodash";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Table } from "components/TableNew";
-import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/Table/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/Drafts/queries";
 import type {

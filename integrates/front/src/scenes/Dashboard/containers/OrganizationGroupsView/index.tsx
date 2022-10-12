@@ -16,8 +16,8 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { Table } from "components/TableNew";
-import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import { Table } from "components/Table";
+import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";

@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { Table } from "components/TableNew";
+import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import {
   REMOVE_EVIDENCE_MUTATION,

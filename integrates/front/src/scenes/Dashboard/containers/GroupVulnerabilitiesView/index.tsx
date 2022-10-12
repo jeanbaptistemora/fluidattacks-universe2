@@ -15,7 +15,7 @@ import type { IGroupVulnerabilities } from "./types";
 
 import type { IHistoricTreatment } from "../DescriptionView/types";
 import { formatState } from "../GroupFindingsView/utils";
-import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";

@@ -12,8 +12,8 @@ import ReactAnsi from "react-ansi";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
 
-import { Table } from "components/TableNew";
-import type { ICellHelper } from "components/TableNew/types";
+import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Tab, Tabs } from "components/Tabs";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
