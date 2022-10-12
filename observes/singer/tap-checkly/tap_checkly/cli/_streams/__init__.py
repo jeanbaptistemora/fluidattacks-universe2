@@ -40,11 +40,11 @@ from tap_checkly.api import (
     ApiClient,
     ApiPage,
 )
+from tap_checkly.singer._checks.results.records import (
+    encode_result,
+)
 from tap_checkly.singer.alert_channels.records import (
     alert_ch_records,
-)
-from tap_checkly.singer.checks.results.records import (
-    encode_result,
 )
 from typing import (
     Iterator,

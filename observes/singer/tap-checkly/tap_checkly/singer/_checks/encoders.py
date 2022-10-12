@@ -35,6 +35,9 @@ from tap_checkly.api2.checks import (
     CheckId,
     CheckObj,
 )
+from tap_checkly.singer._encoder import (
+    ObjEncoder,
+)
 from tap_checkly.singer.core import (
     SingerStreams,
 )
@@ -166,12 +169,14 @@ def _locations_encoder_fx() -> SingerEncoder[LocationItem]:
 _locations_encoder = _locations_encoder_fx()
 
 
-def schemas() -> PureIter[SingerSchema]:
-    return from_flist((_check_encoder.schema, _locations_encoder.schema))
-
-
-def records(item: CheckObj) -> PureIter[SingerRecord]:
+def _to_records(item: CheckObj) -> PureIter[SingerRecord]:
     _records = LocationItem.from_check_obj(item).map(
         lambda l: _locations_encoder.record(l)
     ).to_list() + (_check_encoder.record(item),)
     return from_flist(_records)
+
+
+encoder: ObjEncoder[CheckObj] = ObjEncoder.new(
+    from_flist((_check_encoder.schema, _locations_encoder.schema)),
+    _to_records,
+)
