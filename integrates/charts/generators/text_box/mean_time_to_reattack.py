@@ -32,10 +32,12 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
     VulnerabilityVerification,
 )
 from decimal import (
@@ -44,21 +46,49 @@ from decimal import (
 )
 from newutils.datetime import (
     get_datetime_from_iso_str,
+    get_minus_delta,
     get_now,
+    get_plus_delta,
 )
 from typing import (
     Optional,
 )
-
-# Constants
-SECONDS_IN_24_HOURS = Decimal("86400.0")
-SECONDS_IN_1_HOUR = Decimal("3600.0")
 
 
 def format_decimal(value: Decimal) -> Decimal:
     if value >= MAX_WITH_DECIMALS:
         return value.to_integral_exact(rounding=ROUND_CEILING)
     return value.quantize(Decimal("0.1"))
+
+
+def _get_next_open(
+    historic_state: tuple[VulnerabilityState, ...], verification: datetime
+) -> datetime:
+    for state in historic_state:
+        if state.status == VulnerabilityStateStatus.OPEN:
+            return get_datetime_from_iso_str(state.modified_date)
+    return verification
+
+
+def _get_in_between_state(
+    historic_state: tuple[VulnerabilityState, ...], verification: datetime
+) -> datetime:
+    reverse_historic_state = tuple(reversed(historic_state))
+    before_limit = get_minus_delta(verification, minutes=30)
+    after_limit = get_plus_delta(verification, minutes=30)
+    for index, state in enumerate(reverse_historic_state):
+        if (
+            state.status == VulnerabilityStateStatus.CLOSED
+            and before_limit
+            <= get_datetime_from_iso_str(state.modified_date)
+            <= after_limit
+        ):
+            return _get_next_open(
+                reverse_historic_state[len(historic_state) - index :],
+                verification,
+            )
+
+    return verification
 
 
 async def _get_mean_time_to_reattack(
@@ -69,41 +99,48 @@ async def _get_mean_time_to_reattack(
     ] = await loaders.vulnerability_historic_verification.load_many(
         vulnerability.id for vulnerability in filtered_vulnerabilities
     )
-    number_of_hours: Decimal = Decimal("0.0")
+    historic_states: tuple[
+        tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        vulnerability.id for vulnerability in filtered_vulnerabilities
+    )
+
+    number_of_days: int = 0
     current_date: datetime = get_now()
     number_of_reattacks: int = 0
-    for historic_verification in historic_verifications:
-        start: Optional[str] = None
+    for vulnerability, historic_verification, historic_state in zip(
+        filtered_vulnerabilities, historic_verifications, historic_states
+    ):
+        start: Optional[datetime] = get_datetime_from_iso_str(
+            vulnerability.created_date
+        )
         for verification in historic_verification:
             if (
                 verification.status
                 == VulnerabilityVerificationStatus.REQUESTED
-                and start is None
-            ):
-                start = verification.modified_date
-                number_of_reattacks += 1
-            if (
-                verification.status == VulnerabilityVerificationStatus.VERIFIED
                 and start is not None
             ):
-                diff = get_datetime_from_iso_str(
-                    verification.modified_date
-                ) - get_datetime_from_iso_str(start)
-                number_of_hours += Decimal(
-                    (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
-                    / SECONDS_IN_1_HOUR
+                number_of_reattacks += 1
+                diff = (
+                    get_datetime_from_iso_str(verification.modified_date)
+                    - start
                 )
+                number_of_days += diff.days
                 start = None
+            if (
+                verification.status == VulnerabilityVerificationStatus.VERIFIED
+                and start is None
+            ):
+                start = _get_in_between_state(
+                    historic_state,
+                    get_datetime_from_iso_str(verification.modified_date),
+                )
 
         if start is not None:
-            diff = current_date - get_datetime_from_iso_str(start)
-            number_of_hours += Decimal(
-                (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
-                / SECONDS_IN_1_HOUR
-            )
+            number_of_days += (current_date - start).days
 
     return (
-        format_decimal(number_of_hours / number_of_reattacks)
+        format_decimal(Decimal(number_of_days / number_of_reattacks))
         if number_of_reattacks > 0
         else Decimal("0.0")
     )
