@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from gemfileparser import (
+    GemfileParser,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -11,6 +14,9 @@ from model.core_model import (
     MethodsEnum,
     Platform,
 )
+from parse_gemfile import (
+    parse_line,
+)
 import re
 from typing import (
     Iterator,
@@ -18,7 +24,7 @@ from typing import (
 )
 
 GEMFILE_DEP: Pattern[str] = re.compile(
-    r'\s*gem\s*"(.*)",\s*?"=?\s?([\d+\.?]+)'
+    r'^\s*(?P<gem>gem ".*?",?( "[><~=]{0,2}\s?[\d\.]+",?){0,2})'
 )
 NOT_PROD_DEP: Pattern[str] = re.compile(
     r":group => \[?[:\w\-, ]*(:development|:test)"
@@ -37,10 +43,11 @@ def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
                 line_group = False
                 end_line = ""
             elif matched := re.search(GEMFILE_DEP, line):
-                pkg_name = matched.group(1)
-                version = matched.group(2)
+                line = GemfileParser.preprocess(matched.group("gem"))
+                line = line[3:]
+                product, version = parse_line(line, gem_file=True)
                 yield format_pkg_dep(
-                    pkg_name, version, line_number, line_number
+                    product, version, line_number, line_number
                 )
         elif match_group := re.search(NOT_PROD_GROUP, line):
             line_group = True
@@ -49,6 +56,7 @@ def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
         elif matched := re.search(GEMFILE_DEP, line):
             if not re.search(NOT_PROD_DEP, line):
                 continue
-            pkg_name = matched.group(1)
-            version = matched.group(2)
-            yield format_pkg_dep(pkg_name, version, line_number, line_number)
+            line = GemfileParser.preprocess(matched.group("gem"))
+            line = line[3:]
+            product, version = parse_line(line, gem_file=True)
+            yield format_pkg_dep(product, version, line_number, line_number)
