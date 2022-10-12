@@ -9,51 +9,35 @@ from forces.model import (
     VulnerabilityState,
     VulnerabilityType,
 )
-from typing import (
-    Any,
-    cast,
-)
 
 
 def filter_kind(
-    vuln: dict[str, Any],
+    vuln: Vulnerability,
     kind: KindEnum,
 ) -> bool:
-    vuln_type = (
-        VulnerabilityType.SAST
-        if vuln["vulnerabilityType"] == "lines"
-        else VulnerabilityType.DAST
-    )
     return (
-        (kind == KindEnum.DYNAMIC and vuln_type == VulnerabilityType.DAST)
-        or (kind == KindEnum.STATIC and vuln_type == VulnerabilityType.SAST)
+        (kind == KindEnum.DYNAMIC and vuln.type == VulnerabilityType.DAST)
+        or (kind == KindEnum.STATIC and vuln.type == VulnerabilityType.SAST)
         or kind == KindEnum.ALL
     )
 
 
 def filter_repo(
-    vuln: dict[str, Any],
+    vuln: Vulnerability,
     kind: KindEnum,
     repo_name: str | None = None,
 ) -> bool:
-    vuln_type: VulnerabilityType = (
-        VulnerabilityType.SAST
-        if vuln["vulnerabilityType"] == "lines"
-        else VulnerabilityType.DAST
-    )
-
     if (
         kind in (KindEnum.ALL, KindEnum.STATIC)
-        and vuln_type == VulnerabilityType.SAST
+        and vuln.type == VulnerabilityType.SAST
         and repo_name
     ):
-        return fnmatch.fnmatch(cast(str, vuln["where"]), f"{repo_name}/*")
+        return fnmatch.fnmatch(vuln.where, f"{repo_name}/*")
     if (
         kind in (KindEnum.ALL, KindEnum.DYNAMIC)
-        and vuln_type == VulnerabilityType.DAST
+        and vuln.type == VulnerabilityType.DAST
     ):
-        root_nickname: str | None = vuln.get("rootNickname", "")
-        return root_nickname == repo_name or not root_nickname
+        return vuln.root_nickname == repo_name or not vuln.root_nickname
     return True
 
 

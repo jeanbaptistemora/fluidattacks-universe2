@@ -5,7 +5,9 @@
 from forces.model import (
     ForcesConfig,
     KindEnum,
+    Vulnerability,
     VulnerabilityState,
+    VulnerabilityType,
 )
 from forces.report import (
     generate_raw_report,
@@ -110,12 +112,23 @@ def test_style_report() -> None:
 
 
 def test_filter_repo() -> None:
+    vuln: Vulnerability = Vulnerability(
+        type=VulnerabilityType.DAST,
+        where="somewhere",
+        specific="port 21",
+        url="https://app.fluidattacks.com/groups/testGroup/vulns/111",
+        state=VulnerabilityState.OPEN,
+        severity=6.0,
+        report_date="",
+        exploitability=4.5,
+        root_nickname=None,
+    )
     assert filter_repo(
-        vuln={"vulnerabilityType": "inputs"},
+        vuln=vuln,
         repo_name="root_test",
         kind=KindEnum.DYNAMIC,
     )
     assert filter_repo(
-        vuln={"vulnerabilityType": "inputs"},
+        vuln=vuln,
         kind=KindEnum.DYNAMIC,
     )

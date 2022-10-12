@@ -300,12 +300,15 @@ async def generate_raw_report(
             else None,
             report_date=str(vuln["reportDate"]),
             exploitability=exploitability,
+            root_nickname=str(vuln["rootNickname"])
+            if vuln.get("rootNickName")
+            else None,
         )
 
-        if not filter_kind(vuln, config.kind):
+        if not filter_kind(vulnerability, config.kind):
             continue
         if config.repository_name and not filter_repo(
-            vuln, config.kind, config.repository_name
+            vulnerability, config.kind, config.repository_name
         ):
             continue
 
