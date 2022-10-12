@@ -5,6 +5,7 @@
 
 from . import (
     findings as findings_ops,
+    vulnerabilities as vulns_ops,
 )
 from .operations import (
     db_cursor,
@@ -95,3 +96,29 @@ def process_findings(records: tuple[Record, ...]) -> None:
         for key, items in verification_iterator:
             finding_id = str(key).split("#")[1]
             _process_finding_verification(cursor, finding_id, list(items))
+
+
+def _process_vulnerability_metadata(cursor: cursor_cls, item: Item) -> None:
+    state: Item = item["state"]
+    if state["status"] != "DELETED":
+        vulns_ops.insert_vulnerability(cursor=cursor, item=item)
+        LOGGER.info(
+            "Vulnerability metadata stored",
+            extra={
+                "extra": {
+                    "finding_id": item["finding_id"],
+                    "id": item.get("id") or str(item["pk"]).split("#")[1],
+                }
+            },
+        )
+
+
+def process_vulnerabilities(records: tuple[Record, ...]) -> None:
+    with db_cursor() as cursor:
+        metadata_items: list[Item] = [
+            record.old_image
+            for record in records
+            if record.old_image and record.sk.startswith("FIN#")
+        ]
+        for item in metadata_items:
+            _process_vulnerability_metadata(cursor, item)

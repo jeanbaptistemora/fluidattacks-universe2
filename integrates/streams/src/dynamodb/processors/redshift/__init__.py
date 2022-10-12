@@ -4,8 +4,10 @@
 
 from .process import (
     process_findings,
+    process_vulnerabilities,
 )
 
 __all__ = [
     "process_findings",
+    "process_vulnerabilities",
 ]
