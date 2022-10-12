@@ -12,9 +12,6 @@ from authz.model import (
     get_organization_level_roles_model,
     get_user_level_roles_model,
 )
-from authz.policy import (
-    get_organization_level_role,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -96,30 +93,48 @@ async def test_get_group_level_actions_model(
 
 
 @pytest.mark.parametrize(
-    ["email", "organization_id"],
+    ["email", "organization_id", "organization_level_role"],
     [
         [
             "org_testgroupmanager1@gmail.com",
             "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
+            "customer_manager",
         ],
         [
             "unittest2@fluidattacks.com",
             "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            "customer_manager",
         ],
     ],
 )
-async def test_get_organization_level_actions_model(
-    email: str, organization_id: str
+async def test_get_organization_level_actions(
+    email: str,
+    organization_id: str,
+    organization_level_role: str,
+    dynamo_resource: ServiceResource,
 ) -> None:
-    loaders: Dataloaders = get_new_context()
-    organization_level_role = await get_organization_level_role(
-        loaders, email, organization_id
-    )
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
 
-    assert await get_organization_level_actions(
-        loaders, email, organization_id
-    ) == get_organization_level_roles_model(email).get(
-        organization_level_role, {}
-    ).get(
-        "actions"
+    loaders: Dataloaders = get_new_context()
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        with mock.patch(
+            "authz.enforcer.get_user_level_role", new_callable=mock.AsyncMock
+        ) as mock_get_user_level_role:
+            mock_get_user_level_role.return_value = organization_level_role
+            organization_level_actions = await get_organization_level_actions(
+                loaders, email, organization_id
+            )
+    assert mock_table_resource.called is True
+    assert mock_get_user_level_role.called is True
+
+    expected_actions = (
+        get_organization_level_roles_model(email)
+        .get(organization_level_role, {})
+        .get("actions")
     )
+    assert organization_level_actions == expected_actions

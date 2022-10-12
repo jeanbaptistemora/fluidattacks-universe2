@@ -39,7 +39,7 @@ pytestmark = [
     ["table", "length"],
     [
         ["fi_authz", 7],
-        ["integrates_vms", 13],
+        ["integrates_vms", 15],
     ],
 )
 def test_create_tables(

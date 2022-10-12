@@ -163,6 +163,20 @@ data: Dict[str, List[Any]] = dict(
             email="integratesuser@gmail.com",
         ),
         dict(
+            role="customer_manager",
+            sk="ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
+            pk="USER#org_testgroupmanager1@gmail.com",
+            email="org_testgroupmanager1@gmail.com",
+            organization_id="f2e2777d-a168-4bea-93cd-d79142b294d2",
+        ),
+        dict(
+            role="customer_manager",
+            sk="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            pk="USER#unittest2@fluidattacks.com",
+            email="unittest2@fluidattacks.com",
+            organization_id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+        ),
+        dict(
             is_concurrent_session=False,
             is_registered=True,
             role="hacker",
