@@ -88,7 +88,7 @@ def process_findings(records: tuple[Record, ...]) -> None:
         for key, items in _get_items_iterator(records, "STATE#"):
             finding_id = str(key).split("#")[1]
             _process_finding_state(cursor, finding_id, list(items))
-        for key, items in _get_items_iterator(records, "STATE#"):
+        for key, items in _get_items_iterator(records, "VERIFICATION#"):
             finding_id = str(key).split("#")[1]
             _process_finding_verification(cursor, finding_id, list(items))
 
