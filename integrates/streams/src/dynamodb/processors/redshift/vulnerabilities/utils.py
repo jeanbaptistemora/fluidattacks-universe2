@@ -15,9 +15,9 @@ def format_row_metadata(
 ) -> Item:
     return dict(
         id=item.get("id") or str(item["pk"]).split("#")[1],
-        custom_severity=item["custom_severity"],
-        finding_id=item["finding_id"],
-        skims_method=item["skims_method"],
+        custom_severity=item.get("custom_severity"),
+        finding_id=item.get("finding_id") or str(item["sk"]).split("#")[1],
+        skims_method=item.get("skims_method"),
         type=item["type"],
     )
 
@@ -46,9 +46,7 @@ def format_row_treatment(
         accepted_until=datetime.fromisoformat(treatment["accepted_until"])
         if treatment.get("accepted_until")
         else None,
-        acceptance_status=treatment["acceptance_status"]
-        if treatment.get("acceptance_status")
-        else None,
+        acceptance_status=treatment.get("acceptance_status"),
     )
 
 

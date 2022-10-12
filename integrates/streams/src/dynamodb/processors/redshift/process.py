@@ -32,13 +32,9 @@ def _process_finding_metadata(cursor: cursor_cls, item: Item) -> None:
     if state["status"] != "DELETED":
         findings_ops.insert_finding(cursor=cursor, item=item)
         LOGGER.info(
-            "Finding metadata stored",
-            extra={
-                "extra": {
-                    "group_name": item["group_name"],
-                    "finding_id": item["id"],
-                }
-            },
+            "Finding metadata stored, group: %s, id: %s",
+            item["group_name"],
+            item["id"],
         )
 
 
@@ -103,13 +99,9 @@ def _process_vulnerability_metadata(cursor: cursor_cls, item: Item) -> None:
     if state["status"] != "DELETED":
         vulns_ops.insert_vulnerability(cursor=cursor, item=item)
         LOGGER.info(
-            "Vulnerability metadata stored",
-            extra={
-                "extra": {
-                    "finding_id": item["finding_id"],
-                    "id": item.get("id") or str(item["pk"]).split("#")[1],
-                }
-            },
+            "Vulnerability metadata stored, finding_id: %s, id: %s",
+            item.get("finding_id") or str(item["sk"]).split("#")[1],
+            item.get("id") or str(item["pk"]).split("#")[1],
         )
 
 
