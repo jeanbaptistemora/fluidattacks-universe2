@@ -5,10 +5,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f107.parameter.c_sharp import (
-    cs_ldap_injection,
-)
-from symbolic_eval.f107.parameter.java import (
+from symbolic_eval.f107.method_invocation.java import (
     java_ldap_injection,
 )
 from symbolic_eval.types import (
@@ -21,7 +18,6 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_LDAP_INJECTION: cs_ldap_injection,
     MethodsEnum.JAVA_LDAP_INJECTION: java_ldap_injection,
 }
 
