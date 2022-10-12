@@ -16,13 +16,16 @@ from symbolic_eval.context.method import (
     solve_invocation,
 )
 from symbolic_eval.f004.method_invocation import (
-    evaluate as evaluate_parameter_f004,
+    evaluate as evaluate_method_f004,
 )
 from symbolic_eval.f091.method_invocation import (
-    evaluate as evaluate_parameter_f091,
+    evaluate as evaluate_method_f091,
 )
 from symbolic_eval.f338.method_invocation import (
-    evaluate as evaluate_parameter_f338,
+    evaluate as evaluate_method_f338,
+)
+from symbolic_eval.f368.method_invocation import (
+    evaluate as evaluate_method_f368,
 )
 from symbolic_eval.types import (
     BadMethodInvocation,
@@ -45,9 +48,10 @@ from utils import (
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
-    FindingEnum.F004: evaluate_parameter_f004,
-    FindingEnum.F091: evaluate_parameter_f091,
-    FindingEnum.F338: evaluate_parameter_f338,
+    FindingEnum.F004: evaluate_method_f004,
+    FindingEnum.F091: evaluate_method_f091,
+    FindingEnum.F338: evaluate_method_f338,
+    FindingEnum.F368: evaluate_method_f368,
 }
 
 ACCESSING_METHODS: Set[str] = set()

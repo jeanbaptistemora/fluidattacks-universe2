@@ -35792,6 +35792,30 @@ F335,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   22 | }
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
+F368,lines,namespace/skims/test/data/lib_root/f368/host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/host_key.java,"
+   1 | import com.jcraft.jsch.JSch;
+   2 | import com.jcraft.jsch.Session;
+   3 |
+   4 | public class Test {
+   5 |  public static void connectionSFTP(List<String> date){
+   6 |   JSch ssh = new JSch();
+   7 |   Session session = ssh.getSession(ManagementProperties.getValues(""USER""), ManagementProperties.getValues(""SERVERNAME""),
+   8 |   java.util.Properties config = new java.util.Properties();
+   9 |   String check = ""No"";
+  10 |   config.put(""StrictHostKeyChecking"", check);
+> 11 |   session.setConfig(config);
+  12 |  }
+  13 | }
+  14 |
+  15 | public class Test2 {
+  16 |  public static void connectionSFTP(List<String> date){
+  17 |   JSch ssh = new JSch();
+  18 |   Session session = ssh.getSession(ManagementProperties.getValues(""USER""), ManagementProperties.getValues(""SERVERNAME""),
+  19 |   java.util.Properties config = new java.util.Properties();
+  20 |   config.put(""StrictHostKeyChecking"", ""Yes"");
+  21 |   config.put(""SomethingElse"", ""No"");
+     ^ Col 0
+",java.java_host_key_checking
 F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to deny in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
 >  1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""

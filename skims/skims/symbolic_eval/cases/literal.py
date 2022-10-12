@@ -41,6 +41,9 @@ from symbolic_eval.f211.literal import (
 from symbolic_eval.f239.literal import (  # type: ignore
     evaluate as evaluate_literal_f239,
 )
+from symbolic_eval.f368.literal import (
+    evaluate as evaluate_literal_f368,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -63,6 +66,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F160: evaluate_literal_f160,
     FindingEnum.F211: evaluate_literal_f211,
     FindingEnum.F239: evaluate_literal_f239,
+    FindingEnum.F368: evaluate_literal_f368,
 }
 
 
