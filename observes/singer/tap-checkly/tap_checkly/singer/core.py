@@ -11,4 +11,6 @@ from enum import (
 @unique
 class SingerStreams(Enum):
     alert_channels = "alert_channels"
+    checks = "checks"
+    check_locations = "check_locations"
     check_results = "check_results"
