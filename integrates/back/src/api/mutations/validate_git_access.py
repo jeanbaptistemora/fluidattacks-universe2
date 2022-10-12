@@ -8,6 +8,12 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.enrollment.types import (
+    Enrollment,
+)
 from decorators import (
     require_login,
 )
@@ -15,6 +21,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    analytics,
     logs as logs_utils,
     token as token_utils,
 )
@@ -35,11 +42,22 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     url = kwargs["url"]
     branch = kwargs["branch"]
     secret = orgs_utils.format_credentials_secret_type(kwargs["credentials"])
+
+    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    if not enrollment.enrolled:
+        await analytics.mixpanel_track(
+            user_email,
+            "AutoenrollCheckAccess",
+            credential_type=kwargs["credentials"]["type"],
+            url=url,
+        )
+
     await roots_validations.validate_git_access(
         url=url, branch=branch, secret=secret
     )

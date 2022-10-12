@@ -9,9 +9,6 @@ import { Buffer } from "buffer";
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Form, Formik } from "formik";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -79,12 +76,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
           url: values.url,
         },
       });
-      mixpanel.track("AutoenrollCheckAccess", {
-        credentialType: values.credentials.type,
-        formErrors: 0,
-        success: true,
-        url: values.url,
-      });
       setShowSubmitAlert(false);
       setRepositoryValues(values);
       setRootMessages({
@@ -93,12 +84,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
       });
       onCompleted();
     } catch (error) {
-      mixpanel.track("AutoenrollCheckAccess", {
-        credentialType: values.credentials.type,
-        formErrors: 0,
-        success: false,
-        url: values.url,
-      });
       setShowSubmitAlert(false);
       const { graphQLErrors } = error as ApolloError;
       handleValidationError(graphQLErrors, setRootMessages);

@@ -52,7 +52,7 @@ async def mutate(
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Created enrollment user {user_email} successfully",
+        f"Security: Enrolled user {user_email} successfully",
     )
 
     return SimplePayload(success=True)

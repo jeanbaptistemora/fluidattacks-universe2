@@ -43,6 +43,7 @@ from mailer.groups import (
     send_mail_free_trial_start,
 )
 from newutils import (
+    analytics,
     datetime as datetime_utils,
 )
 from newutils.validations import (
@@ -113,12 +114,17 @@ async def add_enrollment(
         )
     )
 
-    group_name = await group_access_domain.get_stakeholder_groups_names(
+    group_names = await group_access_domain.get_stakeholder_groups_names(
         loaders, user_email, True
     )
 
     schedule(
-        mail_free_trial_start(loaders, user_email, full_name, group_name[0])
+        mail_free_trial_start(loaders, user_email, full_name, group_names[0])
+    )
+    await analytics.mixpanel_track(
+        user_email,
+        "AutoenrollSubmit",
+        group=group_names[0],
     )
 
 

@@ -11,7 +11,7 @@ import type { ApolloError } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddOrganization } from "./components/AddOrganization";
@@ -50,10 +50,6 @@ type TEnrollPages = "organization" | "repository" | "standBy";
 
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-
-  useEffect((): void => {
-    mixpanel.track("AutoenrollmentWelcome");
-  }, []);
 
   const [page, setPage] = useState<TEnrollPages>("repository");
   const [rootMessages, setRootMessages] = useState({
@@ -310,28 +306,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             localStorage.clear();
             sessionStorage.clear();
             setSuccessValues(true, true, true);
-            mixpanel.track("AutoenrollSubmit", {
-              addGroup: true,
-              addOrg: true,
-              addRoot: true,
-              group: values.groupName.toLowerCase(),
-              organization: values.organizationName.toLowerCase(),
-              url: url.trim(),
-            });
             await addEnrollment();
             setRedirectPath(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
             setPage("standBy");
           } else {
-            mixpanel.track("AutoenrollSubmit", {
-              addGroup: true,
-              addOrg: true,
-              addRoot: false,
-              group: values.groupName.toLowerCase(),
-              organization: values.organizationName.toLowerCase(),
-              url: url.trim(),
-            });
             setPage("repository");
             setRootMessages({
               message: t("autoenrollment.messages.error.repository"),
@@ -342,14 +322,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           setOrgMessages({
             message: t("autoenrollment.messages.error.group"),
             type: "error",
-          });
-          mixpanel.track("AutoenrollSubmit", {
-            addGroup: false,
-            addOrg: true,
-            addRoot: false,
-            group: values.groupName.toLowerCase(),
-            organization: values.organizationName.toLowerCase(),
-            url: url.trim(),
           });
         }
       } else {
