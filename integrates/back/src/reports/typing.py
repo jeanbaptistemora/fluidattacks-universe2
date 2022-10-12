@@ -183,6 +183,22 @@ class CertFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     title: str
 
 
+class UnfulfilledRequirementInfo(
+    NamedTuple
+):  # pylint: disable=too-few-public-methods
+    description: str
+    id: str
+    title: str
+
+
+class UnfulfilledStandardInfo(
+    NamedTuple
+):  # pylint: disable=too-few-public-methods
+    title: str
+    summary: str
+    unfulfilled_requirements: list[UnfulfilledRequirementInfo]
+
+
 class WordlistItem(NamedTuple):  # pylint: disable=too-few-public-methods
     key: str
     label: Union[str, List[str]]
@@ -255,6 +271,8 @@ class PDFWordlistEn(Wordlist):
     REQUISITE_TITLE: WordlistItem = WordlistItem(
         "requisite_title", "Requirement"
     )
+    REQUIREMENT: WordlistItem = WordlistItem("requirement", "Requirement")
+
     RESUME_PAGE_TITLE: WordlistItem = WordlistItem(
         "resume_page_title", "General View"
     )
@@ -291,7 +309,11 @@ class PDFWordlistEn(Wordlist):
     SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
     SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solution")
     STATE_TITLE: WordlistItem = WordlistItem("state_title", "Status")
+    STANDAR: WordlistItem = WordlistItem("standard", "Standard")
     TECH: WordlistItem = WordlistItem("tech", "Technical Report")
+    UNFULFILLED_STANDARDS: WordlistItem = WordlistItem(
+        "unfulfilled_standards", "Unfulfilled Standards"
+    )
     THREAT_TITLE: WordlistItem = WordlistItem("threat_title", "Threat")
     TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
         "total_vulns_title", "Found Vulnerabilities"

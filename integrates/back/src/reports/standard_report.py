@@ -11,6 +11,7 @@ from dataloaders import (
 )
 from db_model.groups.types import (
     Group,
+    GroupUnreliableIndicators,
 )
 import jinja2
 from jinja2.utils import (
@@ -18,8 +19,18 @@ from jinja2.utils import (
 )
 import logging
 import matplotlib
+from newutils.compliance import (
+    get_compliance_file,
+)
+from newutils.findings import (
+    get_requirements_file,
+)
 from reports.pdf import (
     CreatorPdf,
+)
+from reports.typing import (
+    UnfulfilledRequirementInfo,
+    UnfulfilledStandardInfo,
 )
 import subprocess  # nosec
 from typing import (
@@ -35,7 +46,9 @@ LOGGER = logging.getLogger(__name__)
 StandardReportContext = TypedDict(
     "StandardReportContext",
     {
+        "fluid_tpl": dict[str, str],
         "group_name": str,
+        "unfulfilled_standards": list[UnfulfilledStandardInfo],
         "words": dict[str, str],
     },
 )
@@ -60,9 +73,48 @@ class StandardReportCreator(CreatorPdf):
     ) -> None:
         """Fetch information and fill out the context."""
         words = self.wordlist[self.lang]
+        fluid_tpl_content = self.make_content(words)
         group: Group = await loaders.group.load(group_name)
+        group_indicators: GroupUnreliableIndicators = (
+            await loaders.group_unreliable_indicators.load(group_name)
+        )
+        compliance_file = await get_compliance_file()
+        requirements_file = await get_requirements_file()
+        unfulfilled_standards = sorted(
+            [
+                UnfulfilledStandardInfo(
+                    title=str(
+                        compliance_file[unfulfilled_standard.name]["title"]
+                    ).upper(),
+                    summary=compliance_file[unfulfilled_standard.name]["en"][
+                        "summary"
+                    ],
+                    unfulfilled_requirements=[
+                        UnfulfilledRequirementInfo(
+                            id=requirement_id,
+                            title=requirements_file[requirement_id]["en"][
+                                "title"
+                            ],
+                            description=requirements_file[requirement_id][
+                                "en"
+                            ]["description"],
+                        )
+                        for requirement_id in (
+                            unfulfilled_standard.unfulfilled_requirements
+                        )
+                    ],
+                )
+                for unfulfilled_standard in (
+                    group_indicators.unfulfilled_standards
+                )
+                or []
+            ],
+            key=lambda standard: standard.title,
+        )
         self.standard_report_context = {
+            "fluid_tpl": fluid_tpl_content,
             "group_name": group.name,
+            "unfulfilled_standards": unfulfilled_standards,
             "words": words,
         }
 
