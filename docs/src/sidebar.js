@@ -660,6 +660,13 @@ const Machine = [
       "machine/web/portfolios",
       "machine/web/stakeholders",
       "machine/web/global-credentials",
+      {
+        type: "category",
+        label: "Why choose Fluid",
+        items: [
+          "machine/web/arm-vs-faraday",
+        ],
+      },
     ],
   },
   {
