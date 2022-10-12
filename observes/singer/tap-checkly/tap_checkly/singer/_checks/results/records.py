@@ -35,7 +35,7 @@ from tap_checkly.api2.id_objs import (
     CheckId,
     IndexedObj,
 )
-from tap_checkly.singer.core import (
+from tap_checkly.singer._core import (
     SingerStreams,
 )
 

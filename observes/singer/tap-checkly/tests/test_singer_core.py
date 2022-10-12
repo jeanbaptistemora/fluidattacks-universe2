@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from tap_checkly.singer.core import (
+from tap_checkly.singer import (
     SingerStreams,
 )
 

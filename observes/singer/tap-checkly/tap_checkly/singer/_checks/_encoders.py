@@ -35,11 +35,11 @@ from tap_checkly.api2.checks import (
     CheckId,
     CheckObj,
 )
+from tap_checkly.singer._core import (
+    SingerStreams,
+)
 from tap_checkly.singer._encoder import (
     ObjEncoder,
-)
-from tap_checkly.singer.core import (
-    SingerStreams,
 )
 from typing import (
     Dict,

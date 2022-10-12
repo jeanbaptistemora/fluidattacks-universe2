@@ -6,6 +6,9 @@ from . import (
     _alert_channels,
     _checks,
 )
+from ._core import (
+    SingerStreams,
+)
 from ._encoder import (
     ObjEncoder,
 )
@@ -28,3 +31,8 @@ class ObjsEncoders:
 
 def encoders() -> ObjsEncoders:
     return ObjsEncoders(_checks.encoder, _alert_channels.encoder)
+
+
+__all__ = [
+    "SingerStreams",
+]

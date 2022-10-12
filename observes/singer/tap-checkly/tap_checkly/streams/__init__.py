@@ -83,13 +83,6 @@ def _stream_data(
     return Cmd.from_cmd(action)
 
 
-def all_checks(api: ApiClient) -> Cmd[None]:
-    return _stream_data(
-        SupportedStreams.CHECKS,
-        api.checks.list_checks(ALL),
-    )
-
-
 def all_chk_groups(api: ApiClient) -> Cmd[None]:
     return _stream_data(
         SupportedStreams.CHECK_GROUPS,
@@ -148,6 +141,17 @@ class Streams:
     creds: Credentials
     old_date: datetime
     now: datetime
+
+    def all_checks(self) -> Cmd[None]:
+        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
+        schemas = ObjsEncoders.checks.schemas.map(
+            lambda s: emitter.emit(sys.stdout, s)
+        ).transform(PIterTransform.consume)
+        return schemas + _emit_stream(
+            client.list_checks()
+            .map(ObjsEncoders.checks.record)
+            .transform(chain)
+        )
 
     def check_results(self) -> Cmd[None]:
         client = ChecksClient.new(self.creds, 100, self.old_date, self.now)

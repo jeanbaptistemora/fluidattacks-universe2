@@ -21,11 +21,11 @@ from fa_singer_io.singer.schema.core import (
 from tap_checkly.api2.alert_channels import (
     AlertChannelObj,
 )
+from tap_checkly.singer._core import (
+    SingerStreams,
+)
 from tap_checkly.singer._encoder import (
     ObjEncoder,
-)
-from tap_checkly.singer.core import (
-    SingerStreams,
 )
 from typing import (
     Dict,
