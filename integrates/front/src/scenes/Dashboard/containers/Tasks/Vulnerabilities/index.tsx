@@ -353,7 +353,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       meta: { filterType: "select" },
     },
     {
-      accessorFn: (row): string | null => row.severity,
+      accessorFn: (row): number | undefined => row.finding?.severityScore,
       header: t("searchFindings.tabDescription.severity"),
       id: "severity",
       meta: { filterType: "select" },
