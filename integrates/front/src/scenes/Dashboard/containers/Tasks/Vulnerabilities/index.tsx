@@ -8,7 +8,11 @@ import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  ColumnFilter,
+  ColumnFiltersState,
+} from "@tanstack/react-table";
 import _ from "lodash";
 import React, {
   useCallback,
@@ -63,8 +67,14 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
   );
+
+  const [vulnFilters, setVulnFilters] = useStoredState<ColumnFiltersState>(
+    "vulnerabilitiesTable-columnFilters",
+    [],
+    localStorage
+  );
   const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "TodoListTable-columnFilters",
+    "tblTodoVulns-columnFilters",
     [],
     localStorage
   );
@@ -310,7 +320,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
             : cell.row.original.finding.id;
         const link =
           `../orgs/${orgName}/groups/${cell.row.original.groupName}` +
-          `/vulns/${findingId}/description`;
+          `/vulns/${findingId}/locations`;
         const text = cell.getValue<string>();
 
         return formatLinkHandler(link, text);
@@ -349,7 +359,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       accessorFn: (row): string =>
         row.verification === null ? "-" : row.verification,
       header: t("searchFindings.tabVuln.vulnTable.verification"),
-      id: "reattacks",
+      id: "verification",
       meta: { filterType: "select" },
     },
     {
@@ -363,6 +373,51 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       header: t("searchFindings.tabVuln.vulnTable.tags"),
     },
   ];
+
+  useEffect((): void => {
+    if (
+      columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "verification"
+      ).length > 0
+    ) {
+      const filtervalue = columnFilters.filter(
+        (element: ColumnFilter): boolean => element.id === "verification"
+      )[0].value;
+      if (
+        vulnFilters.filter(
+          (element: ColumnFilter): boolean => element.id === "verification"
+        ).length > 0
+      ) {
+        setVulnFilters(
+          vulnFilters.map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "verification") {
+              return { id: "verification", value: filtervalue };
+            }
+
+            return element;
+          })
+        );
+      } else {
+        setVulnFilters([
+          ...vulnFilters,
+          { id: "verification", value: filtervalue },
+        ]);
+      }
+    } else {
+      setVulnFilters(
+        vulnFilters
+          .map((element: ColumnFilter): ColumnFilter => {
+            if (element.id === "verification") {
+              return { id: "", value: "" };
+            }
+
+            return element;
+          })
+          .filter((element: ColumnFilter): boolean => element.id !== "")
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columnFilters]);
 
   const toggleEdit = useCallback((): void => {
     setIscurrentOpen(
