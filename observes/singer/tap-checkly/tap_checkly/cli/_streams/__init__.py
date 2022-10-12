@@ -40,11 +40,11 @@ from tap_checkly.api import (
     ApiClient,
     ApiPage,
 )
+from tap_checkly.singer import (
+    ObjsEncoders,
+)
 from tap_checkly.singer._checks.results.records import (
     encode_result,
-)
-from tap_checkly.singer.alert_channels.records import (
-    alert_ch_records,
 )
 from typing import (
     Iterator,
@@ -146,7 +146,7 @@ def check_results(client: ChecksClient) -> Cmd[None]:
 
 def alert_chs(client: AlertChannelsClient) -> Cmd[None]:
     return _emit_stream(
-        client.list_all().map(alert_ch_records).transform(chain),
+        client.list_all().map(ObjsEncoders.alerts.record).transform(chain),
     )
 
 
