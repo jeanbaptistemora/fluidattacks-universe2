@@ -57,6 +57,9 @@ from itertools import (
 from jose import (
     JWTError,
 )
+from jwcrypto.jwt import (
+    JWTExpired,
+)
 from newutils import (
     datetime as datetime_utils,
     token as token_utils,
@@ -89,10 +92,10 @@ async def add_access(
 
 async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
     try:
-        token_content = token_utils.decode_jwt(url_token)
+        token_content = token_utils.decode_token(url_token)
         group_name: str = token_content["group_name"]
         email: str = token_content["user_email"]
-    except (JWTError, KeyError) as ex:
+    except (JWTError, KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     return await loaders.group_access.load(

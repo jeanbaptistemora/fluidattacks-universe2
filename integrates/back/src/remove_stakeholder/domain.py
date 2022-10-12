@@ -43,6 +43,9 @@ from jose import (
 from jwcrypto.jwe import (
     JWException,
 )
+from jwcrypto.jwt import (
+    JWTExpired,
+)
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
@@ -54,7 +57,7 @@ from newutils.datetime import (
     get_now_plus_delta,
 )
 from newutils.token import (
-    decode_jwt,
+    decode_token,
     new_encoded_jwt,
 )
 from newutils.validations import (
@@ -160,8 +163,8 @@ async def get_email_from_url_token(
     url_token: str,
 ) -> str:
     try:
-        token_content = decode_jwt(url_token)
-    except (JWTError, JWException) as ex:
+        token_content = decode_token(url_token)
+    except (JWTError, JWException, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     email: str = token_content["user_email"]

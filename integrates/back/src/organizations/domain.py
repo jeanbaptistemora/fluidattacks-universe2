@@ -101,6 +101,9 @@ from group_access import (
 from jose import (
     JWTError,
 )
+from jwcrypto.jwt import (
+    JWTExpired,
+)
 from mailer import (
     groups as groups_mail,
 )
@@ -325,10 +328,10 @@ async def get_access_by_url_token(
     url_token: str,
 ) -> OrganizationAccess:
     try:
-        token_content = token_utils.decode_jwt(url_token)
+        token_content = token_utils.decode_token(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
-    except (JWTError, KeyError) as ex:
+    except (JWTError, KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     return await loaders.organization_access.load(
