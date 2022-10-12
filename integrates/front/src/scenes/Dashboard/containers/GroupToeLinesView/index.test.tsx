@@ -126,6 +126,7 @@ describe("groupToeLinesView", (): void => {
       { action: "api_resolvers_toe_lines_comments_resolve" },
       { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
       { action: "see_toe_lines_coverage" },
+      // { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
@@ -143,41 +144,45 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
-    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
+    expect(
+      screen.getAllByRole("row")[0].textContent?.replace(/[^a-zA-Z ]/gu, "")
+    ).toStrictEqual(
       [
         "group.toe.lines.root",
-        "group.toe.lines.coverage",
         "group.toe.lines.loc",
-        "group.toe.lines.attackedLines",
         "group.toe.lines.hasVulnerabilities",
         "group.toe.lines.modifiedDate",
         "group.toe.lines.lastCommit",
+        "group.toe.lines.coverage",
+        "group.toe.lines.attackedLines",
         "group.toe.lines.attackedAt",
         "group.toe.lines.comments",
-      ].join("")
+      ]
+        .join("")
+        .replace(/[^a-zA-Z ]/gu, "")
     );
-    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
+    expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
       [
         "integrates_1",
-        "70%",
         "172",
-        "120",
         "group.toe.lines.yes",
         "2020-11-16",
         "f9e4beb",
+        "70%",
+        "120",
         "",
         "comment 2",
       ].join("")
     );
-    expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
+    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
       [
         "universe",
-        "50%",
         "8",
-        "4",
         "group.toe.lines.no",
         "2020-11-15",
         "f9e4beb",
+        "50%",
+        "4",
         "2021-02-20",
         "comment 1",
       ].join("")
@@ -525,16 +530,16 @@ describe("groupToeLinesView", (): void => {
 
     const newValue = 6;
 
-    userEvent.type(screen.getAllByRole("spinbutton")[1], "{backspace}");
-    userEvent.type(screen.getAllByRole("spinbutton")[1], newValue.toString());
-    userEvent.type(screen.getAllByRole("spinbutton")[1], "{enter}");
+    userEvent.type(screen.getAllByRole("spinbutton")[0], "{backspace}");
+    userEvent.type(screen.getAllByRole("spinbutton")[0], newValue.toString());
+    userEvent.type(screen.getAllByRole("spinbutton")[0], "{enter}");
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "group.toe.lines.alerts.verifyToeLines.success",
         "groupAlerts.updatedTitle"
       );
-      expect(screen.getAllByRole("spinbutton")[1]).toHaveValue(newValue);
+      expect(screen.getAllByRole("spinbutton")[0]).toHaveValue(newValue);
     });
   });
 });

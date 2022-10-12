@@ -4,17 +4,22 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint-disable complexity */
+
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
-import type { ChangeEvent } from "react";
 import React, { useCallback, useEffect, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
-import { dateFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -24,28 +29,16 @@ import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
 import { SortsSuggestionsButton } from "./styles";
-import {
-  formatBePresent,
-  formatPercentage,
-  formatRootId,
-  getFilteredData,
-  getToeLinesIndex,
-  onSelectSeveralToeLinesHelper,
-} from "./utils";
+import { formatBePresent, formatPercentage, formatRootId } from "./utils";
 
-import { Table } from "components/Table";
-import { commitFormatter } from "components/Table/formatters";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-  ISelectRowProps,
-} from "components/Table/types";
+import { Table } from "components/TableNew";
+import { filterDate } from "components/TableNew/filters/filterFunctions/filterDate";
+import type { ICellHelper } from "components/TableNew/types";
 import {
   GET_TOE_LINES,
   VERIFY_TOE_LINES,
 } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
-  IFilterSet,
   IGroupToeLinesViewProps,
   ISortsSuggestionAttr,
   IToeLinesAttr,
@@ -54,8 +47,6 @@ import type {
   IToeLinesEdge,
   IVerifyToeLinesResultAttr,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
-import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
-import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
@@ -102,7 +93,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
     IToeLinesData[]
   >([]);
@@ -116,76 +106,38 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     setIsSortsSuggestionsModalOpen(false);
   }, []);
 
-  const [checkedItems, setCheckedItems] = useStoredState<
-    Record<string, boolean>
-  >(
-    "toeLinesTableSet",
-    {
-      attackedAt: true,
-      attackedBy: false,
-      attackedLines: true,
-      bePresent: false,
-      bePresentUntil: false,
-      comments: true,
-      coverage: true,
-      daysToAttack: false,
-      filename: false,
-      firstAttackAt: false,
-      hasVulnerabilities: true,
-      lastAuthor: false,
-      lastCommit: true,
-      loc: true,
-      modifiedDate: true,
-      rootNickname: true,
-      seenAt: false,
-      sortsRiskLevel: false,
-      sortsSuggestions: false,
-    },
+  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
+    "tblToeLines-columnFilters",
+    [],
     localStorage
   );
-  const [filterGroupToeLinesTable, setFilterGroupToeLinesTable] =
-    useStoredState<IFilterSet>(
-      `filterGroupToeLinesSet-${groupName}`,
+  const [columnVisibility, setColumnVisibility] =
+    useStoredState<VisibilityState>(
+      "tblToeLines-visibilityState",
       {
-        bePresent: "",
-        coverage: { max: "", min: "" },
-        filenameExtension: "",
-        hasVulnerabilities: "",
-        modifiedDate: { max: "", min: "" },
-        priority: { max: "", min: "" },
-        rootId: "",
-        seenAt: { max: "", min: "" },
+        attackedBy: false,
+        bePresent: false,
+        bePresentUntil: false,
+        daysToAttack: false,
+        filename: false,
+        firstAttackAt: false,
+        lastAuthor: false,
+        seenAt: false,
+        sortsRiskLevel: false,
+        sortsSuggestions: false,
       },
       localStorage
     );
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("toeLinesCustomFilters", false);
-
-  const handleChange: (columnName: string) => void = useCallback(
-    (columnName: string): void => {
-      if (
-        Object.values(checkedItems).filter((val: boolean): boolean => val)
-          .length === 1 &&
-        checkedItems[columnName]
-      ) {
-        // eslint-disable-next-line no-alert
-        alert(t("validations.columns"));
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: true,
-        });
-      } else {
-        setCheckedItems({
-          ...checkedItems,
-          [columnName]: !checkedItems[columnName],
-        });
-      }
-    },
-    [checkedItems, setCheckedItems, t]
+  const [sorting, setSorting] = useStoredState<SortingState>(
+    "tblToeLines-sortingState",
+    []
   );
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
+
+  function commitFormatter(value: string): string {
+    const COMMIT_LENGTH: number = 7;
+
+    return value.slice(0, COMMIT_LENGTH);
+  }
 
   const formatDate: (date: Date | undefined) => string = (
     date: Date | undefined
@@ -198,13 +150,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   };
   const formatBoolean = (value: boolean): string =>
     value ? t("group.toe.lines.yes") : t("group.toe.lines.no");
-  const onSort: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
-    const newSorted = { dataField, order };
-    sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
-  };
   const formatSortsRiskLevel = (sortsRiskLevel: number): string =>
     sortsRiskLevel >= 0 ? `${sortsRiskLevel.toString()} %` : "n/a";
 
@@ -265,7 +210,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     canGetComments,
     canGetFirstAttackAt,
     groupName,
-    rootId: formatRootId(filterGroupToeLinesTable.rootId),
+    rootId: formatRootId(""),
   };
   const { data, fetchMore, refetch } = useQuery<{
     group: {
@@ -281,18 +226,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
     variables: {
       ...getToeLinesVariables,
-      bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
+      bePresent: formatBePresent(""),
       first: 150,
-    },
-  });
-  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group root ids", error);
-      });
-    },
-    variables: {
-      groupName,
     },
   });
   const pageInfo =
@@ -345,8 +280,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
-
-  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
 
   const handleUpdateAttackedLines: (
     rootId: string,
@@ -401,7 +334,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
           query: GET_TOE_LINES,
           variables: {
             ...getToeLinesVariables,
-            bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
+            bePresent: formatBePresent(""),
             first: 150,
           },
         });
@@ -409,166 +342,192 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     }
   };
 
-  const headersToeLinesTable: IHeaderConfig[] = [
+  const columns: ColumnDef<IToeLinesData>[] = [
     {
-      dataField: "rootNickname",
+      accessorKey: "rootNickname",
       header: t("group.toe.lines.root"),
-      onSort,
-      visible: checkedItems.rootNickname,
+      meta: { filterType: "select" },
     },
     {
-      dataField: "filename",
+      accessorKey: "filename",
       header: t("group.toe.lines.filename"),
-      onSort,
-      visible: checkedItems.filename,
     },
     {
-      dataField: "coverage",
-      formatter: formatPercentage,
-      header: t("group.toe.lines.coverage"),
-      omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
-      onSort,
-      visible: checkedItems.coverage,
-    },
-    {
-      dataField: "loc",
+      accessorKey: "loc",
       header: t("group.toe.lines.loc"),
-      onSort,
-      visible: checkedItems.loc,
+      meta: { filterType: "numberRange" },
     },
     {
-      dataField: "attackedLines",
-      formatter: editableAttackedLinesFormatter(
-        canUpdateAttackedLines,
-        handleUpdateAttackedLines
-      ),
-      header: t("group.toe.lines.attackedLines"),
-      omit: !isInternal || !canGetAttackedLines,
-      onSort,
-      visible: checkedItems.attackedLines,
-    },
-    {
-      dataField: "hasVulnerabilities",
-      formatter: formatBoolean,
+      accessorFn: (row: IToeLinesData): string =>
+        formatBoolean(row.hasVulnerabilities),
       header: t("group.toe.lines.hasVulnerabilities"),
-      onSort,
-      visible: checkedItems.hasVulnerabilities,
+      id: "hasVulnerabilities",
+      meta: { filterType: "select" },
     },
     {
-      dataField: "modifiedDate",
-      filter: dateFilter({}),
-      formatter: formatDate,
+      accessorKey: "modifiedDate",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
       header: t("group.toe.lines.modifiedDate"),
-      onSort,
-      visible: checkedItems.modifiedDate,
+      meta: { filterType: "dateRange" },
     },
     {
-      dataField: "lastCommit",
+      accessorKey: "lastCommit",
       header: t("group.toe.lines.lastCommit"),
-      onSort,
-      visible: checkedItems.lastCommit,
     },
     {
-      dataField: "lastAuthor",
+      accessorKey: "lastAuthor",
       header: t("group.toe.lines.lastAuthor"),
-      onSort,
-      visible: checkedItems.lastAuthor,
     },
     {
-      dataField: "daysToAttack",
-      header: t("group.toe.lines.daysToAttack"),
-      omit: !isInternal || !canSeeDaysToAttack || !canGetAttackedAt,
-      onSort,
-      visible: checkedItems.daysToAttack,
-    },
-    {
-      dataField: "attackedAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.lines.attackedAt"),
-      omit: !isInternal || !canGetAttackedAt,
-      onSort,
-      visible: checkedItems.attackedAt,
-    },
-    {
-      dataField: "attackedBy",
-      header: t("group.toe.lines.attackedBy"),
-      omit: !isInternal || !canGetAttackedBy,
-      onSort,
-      visible: checkedItems.attackedBy,
-    },
-    {
-      dataField: "firstAttackAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.lines.firstAttackAt"),
-      omit: !isInternal || !canGetFirstAttackAt,
-      onSort,
-      visible: checkedItems.firstAttackAt,
-    },
-    {
-      dataField: "seenAt",
-      filter: dateFilter({}),
-      formatter: formatDate,
+      accessorKey: "seenAt",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
       header: t("group.toe.lines.seenAt"),
-      onSort,
-      visible: checkedItems.seenAt,
+      meta: { filterType: "dateRange" },
     },
     {
-      dataField: "comments",
-      header: t("group.toe.lines.comments"),
-      omit: !isInternal || !canGetComments,
-      onSort,
-      visible: checkedItems.comments,
-    },
-    {
-      dataField: "sortsRiskLevel",
-      formatter: formatSortsRiskLevel,
+      accessorKey: "sortsRiskLevel",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatSortsRiskLevel(cell.getValue()),
       header: t("group.toe.lines.sortsRiskLevel"),
-      onSort,
-      visible: checkedItems.sortsRiskLevel,
+      meta: { filterType: "numberRange" },
     },
     {
-      dataField: "sortsSuggestions",
-      formatter: formatSortsSuggestions,
-      header: t("group.toe.lines.sortsSuggestions"),
-      omit: !isInternal,
-      onSort,
-      visible: checkedItems.sortsSuggestions,
-    },
-    {
-      dataField: "bePresent",
-      formatter: formatBoolean,
+      accessorFn: (row: IToeLinesData): string => formatBoolean(row.bePresent),
       header: t("group.toe.lines.bePresent"),
-      onSort,
-      visible: checkedItems.bePresent,
-    },
-    {
-      dataField: "bePresentUntil",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: t("group.toe.lines.bePresentUntil"),
-      omit: !isInternal || !canGetBePresentUntil,
-      onSort,
-      visible: checkedItems.bePresentUntil,
+      id: "bePresent",
+      meta: { filterType: "select" },
     },
   ];
 
-  function clearFilters(): void {
-    setFilterGroupToeLinesTable(
-      (): IFilterSet => ({
-        bePresent: "",
-        coverage: { max: "", min: "" },
-        filenameExtension: "",
-        hasVulnerabilities: "",
-        modifiedDate: { max: "", min: "" },
-        priority: { max: "", min: "" },
-        rootId: "",
-        seenAt: { max: "", min: "" },
-      })
-    );
-    setSearchTextFilter("");
-  }
+  const columnsCoverage: ColumnDef<IToeLinesData>[] =
+    isInternal && canSeeCoverage && canGetAttackedLines
+      ? [
+          {
+            accessorKey: "coverage",
+            cell: (cell: ICellHelper<IToeLinesData>): string =>
+              formatPercentage(cell.getValue()),
+            header: t("group.toe.lines.coverage"),
+            meta: { filterType: "numberRange" },
+          },
+        ]
+      : [];
+
+  const columnsAttackedLines: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetAttackedLines
+      ? [
+          {
+            accessorKey: "attackedLines",
+            cell: (cell: ICellHelper<IToeLinesData>): JSX.Element | string =>
+              editableAttackedLinesFormatter(
+                canUpdateAttackedLines,
+                handleUpdateAttackedLines,
+                cell.row.original
+              ),
+            header: t("group.toe.lines.attackedLines"),
+          },
+        ]
+      : [];
+
+  const columnsDaysToAttack: ColumnDef<IToeLinesData>[] =
+    isInternal && canSeeDaysToAttack && canGetAttackedAt
+      ? [
+          {
+            accessorKey: "daysToAttack",
+            header: t("group.toe.lines.daysToAttack"),
+            meta: { filterType: "numberRange" },
+          },
+        ]
+      : [];
+
+  const columnsAttackedAt: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetAttackedAt
+      ? [
+          {
+            accessorKey: "attackedAt",
+            cell: (cell: ICellHelper<IToeLinesData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.lines.attackedAt"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+
+  const columnsAttackedBy: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetAttackedBy
+      ? [
+          {
+            accessorKey: "attackedBy",
+            header: t("group.toe.lines.attackedBy"),
+            meta: { filterType: "select" },
+          },
+        ]
+      : [];
+
+  const columnsFirstAttackAt: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetFirstAttackAt
+      ? [
+          {
+            accessorKey: "firstAttackAt",
+            cell: (cell: ICellHelper<IToeLinesData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.lines.firstAttackAt"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+
+  const columnsComments: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetComments
+      ? [
+          {
+            accessorKey: "comments",
+            header: t("group.toe.lines.comments"),
+          },
+        ]
+      : [];
+
+  const columsnSortsSuggestions: ColumnDef<IToeLinesData>[] = isInternal
+    ? [
+        {
+          accessorKey: "sortsSuggestions",
+          cell: (cell: ICellHelper<IToeLinesData>): JSX.Element =>
+            formatSortsSuggestions(cell.getValue()),
+          header: t("group.toe.lines.sortsSuggestions"),
+        },
+      ]
+    : [];
+
+  const columnsBePresentUntil: ColumnDef<IToeLinesData>[] =
+    isInternal && canGetBePresentUntil
+      ? [
+          {
+            accessorKey: "bePresentUntil",
+            cell: (cell: ICellHelper<IToeLinesData>): string =>
+              formatDate(cell.getValue()),
+            filterFn: filterDate,
+            header: t("group.toe.lines.bePresentUntil"),
+            meta: { filterType: "dateRange" },
+          },
+        ]
+      : [];
+
+  const columnsResult: ColumnDef<IToeLinesData>[] = columns
+    .concat(columnsCoverage)
+    .concat(columnsAttackedLines)
+    .concat(columnsDaysToAttack)
+    .concat(columnsAttackedAt)
+    .concat(columnsAttackedBy)
+    .concat(columnsFirstAttackAt)
+    .concat(columnsComments)
+    .concat(columsnSortsSuggestions)
+    .concat(columnsBePresentUntil);
+
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
@@ -581,11 +540,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   useEffect((): void => {
     setSelectedToeLinesDatas([]);
     void refetch();
-  }, [
-    filterGroupToeLinesTable.bePresent,
-    filterGroupToeLinesTable.rootId,
-    refetch,
-  ]);
+  }, [refetch]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -642,212 +597,19 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     setIsVerifying(false);
   }
 
-  const onBasicFilterValueChange = (
-    filterName: keyof IFilterSet
-  ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
-    return (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      event.persist();
-      setFilterGroupToeLinesTable(
-        (value): IFilterSet => ({
-          ...value,
-          [filterName]: event.target.value,
-        })
-      );
-    };
-  };
-  const onRangeFilterValueChange = (
-    filterName: keyof Pick<
-      IFilterSet,
-      "coverage" | "modifiedDate" | "priority" | "seenAt"
-    >,
-    key: "max" | "min"
-  ): ((event: ChangeEvent<HTMLInputElement>) => void) => {
-    return (event: React.ChangeEvent<HTMLInputElement>): void => {
-      event.persist();
-
-      setFilterGroupToeLinesTable(
-        (value): IFilterSet => ({
-          ...value,
-          [filterName]: { ...value[filterName], [key]: event.target.value },
-        })
-      );
-    };
-  };
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-
-  const extensionSelectOptions = Object.fromEntries(
-    toeLines
-      .map((toeLinesData: IToeLinesData): string[] => [
-        toeLinesData.extension,
-        toeLinesData.extension,
-      ])
-      // Can also be string[] but the unknown type overrides it
-      .map(([key, val]): unknown[] => [key, val === NOEXTENSION ? "" : val])
-  );
-  const rootSelectOptions = Object.fromEntries(
-    roots.map((root: IRootIdAttr): string[] => [
-      root.id,
-      `${root.nickname} (${root.state.toLowerCase()})`,
-    ])
-  );
-  const booleanSelectOptions = Object.fromEntries([
-    ["false", formatBoolean(false)],
-    ["true", formatBoolean(true)],
-  ]);
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterGroupToeLinesTable.rootId,
-      onChangeSelect: onBasicFilterValueChange("rootId"),
-      placeholder: t("group.toe.lines.filters.root.placeholder"),
-      selectOptions: rootSelectOptions,
-      tooltipId: "group.toe.lines.filters.root.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.root.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupToeLinesTable.filenameExtension,
-      onChangeSelect: onBasicFilterValueChange("filenameExtension"),
-      placeholder: t("group.toe.lines.filters.extension.placeholder"),
-      selectOptions: extensionSelectOptions,
-      tooltipId: "group.toe.lines.filters.extension.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.extension.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
-      placeholder: t("group.toe.lines.filters.coverage.placeholder"),
-      rangeProps: {
-        defaultValue: filterGroupToeLinesTable.coverage,
-        onChangeMax: onRangeFilterValueChange("coverage", "max"),
-        onChangeMin: onRangeFilterValueChange("coverage", "min"),
-        step: 1,
-      },
-      tooltipId: "group.toe.lines.filters.coverage.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.coverage.tooltip",
-      type: "range",
-    },
-    {
-      defaultValue: "",
-      placeholder: t("group.toe.lines.filters.modifiedDate.placeholder"),
-      rangeProps: {
-        defaultValue: filterGroupToeLinesTable.modifiedDate,
-        onChangeMax: onRangeFilterValueChange("modifiedDate", "max"),
-        onChangeMin: onRangeFilterValueChange("modifiedDate", "min"),
-      },
-      tooltipId: "group.toe.lines.filters.modifiedDate.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.modifiedDate.tooltip",
-      type: "dateRange",
-    },
-    {
-      defaultValue: filterGroupToeLinesTable.hasVulnerabilities,
-      onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
-      placeholder: t("group.toe.lines.filters.hasVulnerabilities.placeholder"),
-      selectOptions: booleanSelectOptions,
-      tooltipId: "group.toe.lines.filters.hasVulnerabilities.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.hasVulnerabilities.tooltip",
-      type: "select",
-    },
-    {
-      defaultValue: "",
-      placeholder: t("group.toe.lines.filters.seenAt.placeholder"),
-      rangeProps: {
-        defaultValue: filterGroupToeLinesTable.seenAt,
-        onChangeMax: onRangeFilterValueChange("seenAt", "max"),
-        onChangeMin: onRangeFilterValueChange("seenAt", "min"),
-      },
-      tooltipId: "group.toe.lines.filters.seenAt.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.seenAt.tooltip",
-      type: "dateRange",
-    },
-    {
-      defaultValue: "",
-      placeholder: t("group.toe.lines.filters.priority.placeholder"),
-      rangeProps: {
-        defaultValue: filterGroupToeLinesTable.priority,
-        onChangeMax: onRangeFilterValueChange("priority", "max"),
-        onChangeMin: onRangeFilterValueChange("priority", "min"),
-        step: 1,
-      },
-      tooltipId: "group.toe.lines.filters.priority.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.priority.tooltip",
-      type: "range",
-    },
-    {
-      defaultValue: filterGroupToeLinesTable.bePresent,
-      onChangeSelect: onBasicFilterValueChange("bePresent"),
-      placeholder: t("group.toe.lines.filters.bePresent.placeholder"),
-      selectOptions: booleanSelectOptions,
-      tooltipId: "group.toe.lines.filters.bePresent.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.bePresent.tooltip",
-      type: "select",
-    },
-  ];
-  const filteredData: IToeLinesData[] = getFilteredData(
-    filterGroupToeLinesTable,
-    searchTextFilter,
-    toeLines
-  );
-
-  function onSelectSeveralToeLinesDatas(
-    isSelect: boolean,
-    toeLinesDatasSelected: IToeLinesData[]
-  ): string[] {
-    return onSelectSeveralToeLinesHelper(
-      isSelect,
-      toeLinesDatasSelected,
-      selectedToeLinesDatas,
-      setSelectedToeLinesDatas
-    );
-  }
-  function onSelectOneToeLinesData(
-    toeLinesdata: IToeLinesData,
-    isSelect: boolean
-  ): boolean {
-    onSelectSeveralToeLinesDatas(isSelect, [toeLinesdata]);
-
-    return true;
-  }
-  const selectionMode: ISelectRowProps = {
-    clickToSelect: false,
-    hideSelectColumn: !isInternal || !canUpdateAttackedLines,
-    mode: "checkbox",
-    onSelect: onSelectOneToeLinesData,
-    onSelectAll: onSelectSeveralToeLinesDatas,
-    selected: getToeLinesIndex(selectedToeLinesDatas, filteredData),
-  };
-
-  const initialSort: string = JSON.stringify({
-    dataField: "rootNickname",
-    order: "asc",
-  });
-
   return (
     <React.StrictMode>
       <Table
-        clearFiltersButton={clearFilters}
+        columnFilterSetter={setColumnFilters}
+        columnFilterState={columnFilters}
         columnToggle={true}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filteredData}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "toeLinesSort", initialSort) as string
-        )}
+        columnVisibilitySetter={setColumnVisibility}
+        columnVisibilityState={columnVisibility}
+        columns={columnsResult}
+        data={toeLines}
+        enableColumnFilters={true}
         exportCsv={true}
-        extraButtonsRight={
+        extraButtons={
           <ActionButtons
             areToeLinesDatasSelected={selectedToeLinesDatas.length > 0}
             isAdding={isAdding}
@@ -859,15 +621,16 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
             onVerify={handleVerify}
           />
         }
-        headers={headersToeLinesTable}
         id={"tblToeLines"}
-        isFilterEnabled={undefined}
-        onColumnToggle={handleChange}
-        pageSize={100}
-        search={false}
-        selectionMode={selectionMode}
+        rowSelectionSetter={
+          isInternal && canUpdateAttackedLines
+            ? setSelectedToeLinesDatas
+            : undefined
+        }
+        rowSelectionState={selectedToeLinesDatas}
+        sortingSetter={setSorting}
+        sortingState={sorting}
       />
-
       <HandleAdditionModal
         groupName={groupName}
         handleCloseModal={toggleAdd}
