@@ -63,13 +63,10 @@ async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
 async def generate_all() -> None:
     column: str = "Level"
     header: str = "Occurrences"
-    number_of_categories: int = 12
     async for group in utils.iterate_groups():
         document = format_vulnerabilities_by_data(
             counters=await get_data_one_group(group),
             column=column,
-            tick_rotation=0,
-            categories=number_of_categories,
         )
         utils.json_dump(
             document=document,
@@ -86,8 +83,6 @@ async def generate_all() -> None:
         document = format_vulnerabilities_by_data(
             counters=await get_data_many_groups(org_groups),
             column=column,
-            tick_rotation=0,
-            categories=number_of_categories,
         )
         utils.json_dump(
             document=document,
@@ -103,8 +98,6 @@ async def generate_all() -> None:
             document = format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(groups),
                 column=column,
-                tick_rotation=0,
-                categories=number_of_categories,
             )
             utils.json_dump(
                 document=document,

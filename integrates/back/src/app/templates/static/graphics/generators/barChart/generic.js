@@ -6,6 +6,19 @@
 /* global d3 */
 
 const defaultPaddingRatio = 0.055;
+const minCvssfValue = 10;
+
+function getTooltip(datum, defaultValueFormat) {
+  return `
+    <table class="c3-tooltip" style="position: absolute; left: 250px">
+      <tbody>
+        <tr>
+          <td> ${ defaultValueFormat(datum[0].value) }</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
 
 function centerLabel(dataDocument) {
   if (dataDocument.mttrBenchmarking || dataDocument.mttrCvssf) {
@@ -48,6 +61,14 @@ function getAxisLabel(dataDocument) {
 
 function getMttrColor(d) {
   return d[0].index === 0 ? '#7f0540' : '#cc6699';
+}
+
+function getColorAdjusted(datum, originalValues) {
+  if (originalValues[datum.x] > 0) {
+    return '#da1e28';
+  }
+
+  return '#30c292';
 }
 
 function getMttrCvssfColor(d) {
@@ -104,7 +125,11 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
 
 function formatYTick(value, tick) {
   if (tick && tick.count) {
-    return d3.format(',~d')(parseFloat(parseFloat(value).toFixed(1)));
+    const valueParsed = parseFloat(parseFloat(value).toFixed(1));
+    if (valueParsed < minCvssfValue) {
+      return d3.format(',.1~f')(valueParsed);
+    }
+    return d3.format(',~d')(valueParsed);
   }
 
   return value % 1 === 0 ? d3.format(',~d')(value) : '';
@@ -134,10 +159,22 @@ function formatYTickAdjusted(value) {
   return d3.format(',.1~f')(yTick);
 }
 
-// eslint-disable-next-line max-params
-function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns) {
+function getMinLabelValueToDisplay(isRotated) {
+  const rotatedMinValue = 0.08;
   const minValue = 0.10;
-  if ((Math.abs(datum / maxValueLog) > minValue)) {
+
+  if (isRotated) {
+    return rotatedMinValue;
+  }
+
+  return minValue;
+}
+
+function formatLabelsAdjusted(datum, index, dataDocument, columns) {
+  const { maxValueLogAdjusted, originalValues } = dataDocument;
+  const minValue = getMinLabelValueToDisplay(dataDocument.axis.rotated);
+
+  if ((Math.abs(datum / maxValueLogAdjusted) > minValue) && !dataDocument.axis.rotated) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
@@ -154,13 +191,18 @@ function formatLogYTick(value) {
     return value;
   }
   const base = 100.0;
-
-  return d3.format(',~d')(parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1)));
+  const valueParsed = parseFloat(parseFloat(Math.round(Math.pow(2.0, value) * base) / base).toFixed(1));
+  if (valueParsed < minCvssfValue) {
+    return d3.format(',.1~f')(valueParsed);
+  }
+  return d3.format(',~d')(valueParsed);
 }
 
-function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
-  const minValue = 0.10;
-  if (datum / maxValueLog > minValue) {
+function formatLogLabels(datum, index, dataDocument, columns) {
+  const { maxValueLog, originalValues } = dataDocument;
+  const minValue = getMinLabelValueToDisplay(dataDocument.axis.rotated);
+
+  if (datum / maxValueLog > minValue && !dataDocument.axis.rotated) {
     if (typeof index === 'undefined') {
       const values = columns.filter((value) => value === datum);
 
@@ -173,9 +215,9 @@ function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
   return '';
 }
 
-function formatLabels(datum, maxValue) {
+function formatLabels(datum, maxValue, dataDocument) {
   const minValue = 0.15;
-  if (datum / maxValue > minValue) {
+  if (datum / maxValue > minValue && !dataDocument.axis.rotated) {
     return datum;
   }
 
@@ -205,7 +247,7 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.maxValue) {
     dataDocument.data.labels = {
-      format: (datum) => formatLabels(datum, dataDocument.maxValue),
+      format: (datum) => formatLabels(datum, dataDocument.maxValue, dataDocument),
     };
   }
 
@@ -217,12 +259,12 @@ function render(dataDocument, height, width) {
   }
 
   if (dataDocument.maxValueLog) {
-    const { originalValues, maxValueLog, data: columsData } = dataDocument;
+    const { originalValues, data: columsData } = dataDocument;
     const { columns } = columsData;
     const { tick } = dataDocument.axis.y;
     dataDocument.axis.y.tick = { ...tick, format: formatLogYTick };
     dataDocument.data.labels = {
-      format: (datum, _id, index) => formatLogLabels(datum, index, maxValueLog, originalValues, columns),
+      format: (datum, _id, index) => formatLogLabels(datum, index, dataDocument, columns),
     };
     const { tooltip } = dataDocument;
     dataDocument.tooltip = {
@@ -233,14 +275,14 @@ function render(dataDocument, height, width) {
   }
 
   if (dataDocument.maxValueLogAdjusted) {
-    const { maxValueLogAdjusted, originalValues, data: columsData } = dataDocument;
+    const { originalValues, data: columsData } = dataDocument;
     const { columns } = columsData;
     dataDocument.axis.y.tick = { format: formatYTickAdjusted };
-    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#da1e28' : '#30c292');
+    dataDocument.data.color = (_color, datum) => getColorAdjusted(datum, originalValues);
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => d3.format(',.1~f')(originalValues[index]) } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
-        datum, index, maxValueLogAdjusted, originalValues, columns[0],
+        datum, index, dataDocument, columns[0],
       ),
     };
   }
@@ -270,12 +312,16 @@ function render(dataDocument, height, width) {
     tooltip: {
       ...dataDocument.tooltip,
       contents(d, defaultTitleFormat, defaultValueFormat, color) {
-        return this.getTooltipContent(
-          d,
-          defaultTitleFormat,
-          defaultValueFormat,
-          getTooltipColorContent(dataDocument, originalValues, d, color),
-        );
+        if (!dataDocument.axis.rotated) {
+          return this.getTooltipContent(
+            d,
+            defaultTitleFormat,
+            defaultValueFormat,
+            getTooltipColorContent(dataDocument, originalValues, d, color),
+          );
+        }
+
+        return getTooltip(d, defaultValueFormat);
       },
     },
     onrendered: () => {

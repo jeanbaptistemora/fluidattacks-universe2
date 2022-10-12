@@ -293,11 +293,9 @@ def format_vulnerabilities_by_data(
     *,
     counters: Counter[str],
     column: str,
-    tick_rotation: int,
-    categories: int,
     axis_rotated: bool = False,
 ) -> Dict[str, Any]:
-    data = counters.most_common()[:categories]
+    data = counters.most_common()[:LIMIT]
 
     return dict(
         data=dict(
@@ -314,12 +312,12 @@ def format_vulnerabilities_by_data(
             show=False,
         ),
         axis=dict(
-            rotate=axis_rotated,
+            rotated=axis_rotated,
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
                 tick=dict(
-                    rotate=tick_rotation,
+                    rotate=0,
                     multiline=False,
                 ),
             ),
