@@ -7,6 +7,7 @@
 function main {
   local src="${1}"
 
+  export NODE_OPTIONS=--max-old-space-size=4096
   : \
     && aws_login "dev" "3600" \
     && sops_export_vars __argAirsSecrets__/dev.yaml \
