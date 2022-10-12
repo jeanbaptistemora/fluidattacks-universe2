@@ -984,7 +984,9 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     else:
         reattack_future.close()
 
-    if len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0:
+    if finding.state.source == Source.MACHINE and (
+        len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0
+    ):
         await release_finding(loaders, finding.id, auto_approve)
 
 
