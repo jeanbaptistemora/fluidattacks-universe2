@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import { Field, Label } from "./styles";
 
 import { Col, Row } from "components/Layout";
-import { commitFormatter } from "components/Table/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
@@ -33,6 +32,12 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   vulnerability,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
+
+  function commitFormatter(value: string): string {
+    const COMMIT_LENGTH: number = 7;
+
+    return value.slice(0, COMMIT_LENGTH);
+  }
 
   const vulnId = vulnerability.id;
 

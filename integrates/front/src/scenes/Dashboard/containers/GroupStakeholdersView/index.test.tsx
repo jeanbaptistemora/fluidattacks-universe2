@@ -10,10 +10,10 @@ import { PureAbility } from "@casl/ability";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
+import moment from "moment";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { timeFromNow } from "components/Table/formatters";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -32,6 +32,12 @@ jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
 
   return mockedNotifications;
 });
+
+const timeFromNow: (value: string) => string = (value: string): string => {
+  const result: string = moment(value, "YYYY-MM-DD hh:mm:ss").fromNow();
+
+  return result === "Invalid date" ? "-" : result;
+};
 
 describe("Group stakeholders view", (): void => {
   const mocks: readonly MockedResponse[] = [

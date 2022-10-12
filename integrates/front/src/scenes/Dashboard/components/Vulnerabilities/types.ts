@@ -7,10 +7,6 @@
 import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import type { Dispatch, SetStateAction } from "react";
 
-import type {
-  ICustomFiltersProps,
-  ICustomSearchProps,
-} from "components/Table/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IFinding } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/types";
 
@@ -81,8 +77,6 @@ interface IVulnComponentProps {
   columnFilterState?: ColumnFiltersState;
   columnToggle?: boolean;
   columns: ColumnDef<IVulnRowAttr>[];
-  customFilters?: ICustomFiltersProps;
-  customSearch?: ICustomSearchProps;
   extraButtons?: JSX.Element;
   findingState?: "closed" | "open";
   hideSelectVulnerability?: boolean;

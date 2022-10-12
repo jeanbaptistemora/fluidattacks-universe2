@@ -6,13 +6,8 @@
 
 import _ from "lodash";
 
+import { filterDateRange, filterSearchText, filterSelect } from "./filters";
 import type { IFilterSet, IToeLinesData } from "./types";
-
-import {
-  filterDateRange,
-  filterSearchText,
-  filterSelect,
-} from "components/Table/utils/filters";
 
 const PERCENTBASE = 100;
 
