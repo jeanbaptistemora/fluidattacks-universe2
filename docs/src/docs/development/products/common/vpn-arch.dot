@@ -9,7 +9,6 @@ digraph common {
   // concentrate="true"
   rankdir="LR"
   scale="scalexy"
-  splines="line"
 
   node[style="filled"]
   graph[style="dashed,rounded"]
@@ -27,8 +26,16 @@ digraph common {
 
         cluster_aws_vpc_fluid_vpc[label="" style="invis"]
 
+        subgraph cluster_aws_route53_inbound_resolver {
+          label="Route53 Inbound Resolvers"
+
+          aws_route53_inbound_resolver_vpn[label="vpn"]
+        }
+
         subgraph cluster_aws_route53_zones {
           label="Private Route53 Zones"
+
+          cluster_aws_route53_zones[label="" style="invis"]
 
           subgraph cluster_aws_route53_zones_customer_1 {
             label="customer1.com"
@@ -66,47 +73,35 @@ digraph common {
           subgraph cluster_aws_vpc_fluid_vpc_route_tables_main {
             label="main"
 
+            cluster_aws_vpc_fluid_vpc_route_tables_main[label="" style="invis"]
+
             aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1[label="$customer_1_cdir_1"]
             aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2[label="$customer_1_cdir_2"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_3[label="$customer_1_cdir_3"]
             aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1[label="$customer_2_cdir_1"]
             aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2[label="$customer_2_cdir_2"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_3[label="$customer_2_cdir_3"]
           }
         }
 
         subgraph cluster_aws_vpc_fluid_vpc_vpnc {
           label="Site-to-Site VPN Connections"
 
-          subgraph cluster_aws_vpc_fluid_vpc_vpnc1 {
-            label="Customer 1"
+          aws_vpc_fluid_vpc_vpnc1[label="Customer 1"]
+          aws_vpc_fluid_vpc_vpnc2[label="Customer 2"]
+        }
 
-            cluster_aws_vpc_fluid_vpc_vpnc1[label="" style="invis"]
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
 
-            subgraph cluster_aws_vpc_fluid_vpc_vpnc1_routes {
-              label="Routes"
-
-              aws_vpc_fluid_vpc_vpnc1_routes_1[label="$customer_1_cdir_1"]
-              aws_vpc_fluid_vpc_vpnc1_routes_2[label="$customer_1_cdir_2"]
-            }
-          }
-
-          subgraph cluster_aws_vpc_fluid_vpc_vpnc2 {
-            label="Customer 2"
-
-            cluster_aws_vpc_fluid_vpc_vpnc2[label="" style="invis"]
-
-            subgraph cluster_aws_vpc_fluid_vpc_vpnc2_routes {
-              label="Routes"
-
-              aws_vpc_fluid_vpc_vpnc2_routes_1[label="$customer_2_cdir_1"]
-              aws_vpc_fluid_vpc_vpnc2_routes_2[label="$customer_2_cdir_2"]
-            }
-          }
+          aws_vpc_fluid_vpc_subnets_batch_clone[label="batch_clone 192.168.8.0/24 us-east-1a"]
+          aws_vpc_fluid_vpc_subnets_common[label="common 192.168.10.0/23 us-east-1b"]
         }
 
         subgraph cluster_aws_vpc_fluid_vpc_vpg {
           label="Virtual Private Gateways"
 
-          aws_vpc_fluid_vpc_vpg_main[label="main (ipsec.1)"]
+          aws_vpc_fluid_vpc_vpg_main[label="main"]
         }
       }
     }
@@ -117,7 +112,8 @@ digraph common {
     bgcolor="0.0 0.0 0.95"
     node[fillcolor="0.0 0.0 0.8"]
 
-    customer1_network_gateway[label="Gateway Device (ipsec.1) (phisical)"]
+    cluster_customer1_network[label="" style="invis"]
+    customer1_network_gateway[label="Gateway Device (phisical)"]
   }
 
   subgraph cluster_customer2_network {
@@ -125,7 +121,8 @@ digraph common {
     bgcolor="0.0 0.0 0.95"
     node[fillcolor="0.0 0.0 0.8"]
 
-    customer2_network_gateway[label="Gateway Device (ipsec.1) (phisical)"]
+    cluster_customer2_network[label="" style="invis"]
+    customer2_network_gateway[label="Gateway Device (phisical)"]
   }
 
   subgraph cluster_gitlab {
@@ -152,25 +149,29 @@ digraph common {
   }
 
   edge[color="0.1 1.0 1.0"]
+  aws_vpc_fluid_vpc_subnets_batch_clone -> aws_route53_inbound_resolver_vpn[]
+  aws_vpc_fluid_vpc_subnets_common -> aws_route53_inbound_resolver_vpn[]
+  aws_route53_inbound_resolver_vpn -> cluster_aws_route53_zones[lhead="cluster_aws_route53_zones"]
   aws_route53_zones_customer_1_records_A_1 -> aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1[label="A"]
   aws_route53_zones_customer_1_records_A_2 -> aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2[label="A"]
   aws_route53_zones_customer_2_records_A_1 -> aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1[label="A"]
   aws_route53_zones_customer_2_records_A_2 -> aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2[label="A"]
   aws_vpc_fluid_vpc_cg1_main -> customer1_network_gateway[style="dashed"]
   aws_vpc_fluid_vpc_cg2_main -> customer2_network_gateway[style="dashed"]
-  aws_vpc_fluid_vpc_vpg_main -> cluster_aws_vpc_fluid_vpc_vpnc1[lhead="cluster_aws_vpc_fluid_vpc_vpnc1"]
-  aws_vpc_fluid_vpc_vpg_main -> cluster_aws_vpc_fluid_vpc_vpnc2[lhead="cluster_aws_vpc_fluid_vpc_vpnc2"]
+  aws_vpc_fluid_vpc_vpg_main -> aws_vpc_fluid_vpc_vpnc1[]
+  aws_vpc_fluid_vpc_vpg_main -> aws_vpc_fluid_vpc_vpnc2[]
   aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1 -> aws_vpc_fluid_vpc_vpg_main[]
   aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2 -> aws_vpc_fluid_vpc_vpg_main[]
+  aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_3 -> aws_vpc_fluid_vpc_vpg_main[]
   aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1 -> aws_vpc_fluid_vpc_vpg_main[]
   aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2 -> aws_vpc_fluid_vpc_vpg_main[]
-  aws_vpc_fluid_vpc_vpnc1_routes_1 -> aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1[label="Propagates Route" style="dashed" constraint="false"]
-  aws_vpc_fluid_vpc_vpnc1_routes_2 -> aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2[label="Propagates Route" style="dashed" constraint="false"]
-  aws_vpc_fluid_vpc_vpnc2_routes_1 -> aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1[label="Propagates Route" style="dashed" constraint="false"]
-  aws_vpc_fluid_vpc_vpnc2_routes_2 -> aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2[label="Propagates Route" style="dashed" constraint="false"]
-  cluster_aws_vpc_fluid_vpc_vpnc1 -> aws_vpc_fluid_vpc_cg1_main[ltail="cluster_aws_vpc_fluid_vpc_vpnc1"]
-  cluster_aws_vpc_fluid_vpc_vpnc2 -> aws_vpc_fluid_vpc_cg2_main[ltail="cluster_aws_vpc_fluid_vpc_vpnc2"]
-
+  aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_3 -> aws_vpc_fluid_vpc_vpg_main[]
+  // aws_vpc_fluid_vpc_vpnc1 -> cluster_aws_vpc_fluid_vpc_route_tables_main[label="Propagates Route" style="dashed" constraint="false" lhead="cluster_aws_vpc_fluid_vpc_route_tables_main"]
+  // aws_vpc_fluid_vpc_vpnc2 -> cluster_aws_vpc_fluid_vpc_route_tables_main[label="Propagates Route" style="dashed" constraint="false" lhead="cluster_aws_vpc_fluid_vpc_route_tables_main"]
+  aws_vpc_fluid_vpc_vpnc1 -> aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_vpc_fluid_vpc_vpnc2 -> aws_vpc_fluid_vpc_subnets_batch_clone[]
+  aws_vpc_fluid_vpc_vpnc1 -> aws_vpc_fluid_vpc_cg1_main[]
+  aws_vpc_fluid_vpc_vpnc2 -> aws_vpc_fluid_vpc_cg2_main[]
 
   edge[color="0.6 1.0 1.0"]
 
@@ -183,8 +184,8 @@ digraph common {
   end_user[label="End User"]
 
   edge[color="0.0 0.0 0.0"]
-  end_user -> customer1_network_gateway
-  end_user -> customer2_network_gateway
+  end_user -> cluster_customer1_network[lhead="cluster_customer1_network"]
+  end_user -> cluster_customer2_network[lhead="cluster_customer2_network"]
   developer -> cluster_aws_vpc_fluid_vpc[lhead="cluster_aws_vpc_fluid_vpc"]
   developer -> cluster_gitlab_git_common_vpn[lhead="cluster_gitlab_git_common_vpn"]
 }
