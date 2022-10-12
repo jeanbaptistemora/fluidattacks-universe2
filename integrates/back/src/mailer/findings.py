@@ -30,6 +30,7 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     DraftRejection,
+    Finding,
 )
 from db_model.groups.types import (
     Group,
@@ -305,6 +306,9 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     severity_level: str,
     is_closed: bool = False,
 ) -> None:
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
     group_stakeholders: tuple[
@@ -319,6 +323,11 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         for stakeholder in stakeholders
         if Notification.VULNERABILITY_REPORT
         in stakeholder.notifications_preferences.email
+        and (
+            severity_score
+            >= stakeholder.notifications_preferences.parameters.min_severity
+            or not group_findings
+        )
     ]
     email_context: dict[str, Any] = {
         "finding": finding_title,

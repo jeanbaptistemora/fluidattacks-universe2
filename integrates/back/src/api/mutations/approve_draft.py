@@ -92,9 +92,6 @@ async def mutate(  # pylint: disable=too-many-locals
             severity_score
         )
         group_name = finding.group_name
-        group_findings: tuple[
-            Finding, ...
-        ] = await loaders.group_findings.load(group_name)
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(
@@ -148,19 +145,18 @@ async def mutate(  # pylint: disable=too-many-locals
                 )
                 vulns_props[repo] = dict(sorted(vuln_dict.items()))
 
-        if severity_score >= 7.0 or not group_findings:
-            schedule(
-                findings_mail.send_mail_vulnerability_report(
-                    loaders=loaders,
-                    group_name=group_name,
-                    finding_title=finding.title,
-                    finding_id=finding_id,
-                    vulnerabilities_properties=vulns_props,
-                    responsible=finding.hacker_email,
-                    severity_score=severity_score,
-                    severity_level=severity_level,
-                )
+        schedule(
+            findings_mail.send_mail_vulnerability_report(
+                loaders=loaders,
+                group_name=group_name,
+                finding_title=finding.title,
+                finding_id=finding_id,
+                vulnerabilities_properties=vulns_props,
+                responsible=finding.hacker_email,
+                severity_score=severity_score,
+                severity_level=severity_level,
             )
+        )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context, f"Security: Attempted to approve draft {finding_id}"

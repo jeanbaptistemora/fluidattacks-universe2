@@ -798,10 +798,7 @@ async def send_vulnerability_report(
     finding: Finding = await loaders.finding.load(finding_id)
     severity_score: Decimal = get_severity_score(finding.severity)
     severity_level: str = get_severity_level(severity_score)
-    if (
-        severity_score >= 7.0
-        and finding.state.status == FindingStateStatus.APPROVED
-    ):
+    if finding.state.status == FindingStateStatus.APPROVED:
         schedule(
             findings_mail.send_mail_vulnerability_report(
                 loaders=loaders,
