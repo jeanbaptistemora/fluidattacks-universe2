@@ -25,7 +25,6 @@ from charts.utils import (
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -98,9 +97,8 @@ async def get_data_many_groups(
 
 def format_data(
     data: list[RemediatedAccepted],
-    limit: int = 0,
 ) -> dict[str, Any]:
-    limited_data: list[RemediatedAccepted] = limit_data(data, limit)
+    limited_data: list[RemediatedAccepted] = limit_data(data)
     percentage_values = [
         format_stacked_percentages(
             values={
@@ -159,10 +157,11 @@ def format_data(
             position="bottom",
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[group.group_name for group in limited_data],
                 type="category",
-                tick=dict(rotate=TICK_ROTATION, multiline=False),
+                tick=dict(rotate=0, multiline=False),
             ),
         ),
         tooltip=dict(
@@ -215,7 +214,6 @@ async def generate_all() -> None:
     async for org_id, _, org_group_names in iterate_organizations_and_groups():
         document = format_data(
             data=await get_data_many_groups(loaders, org_group_names),
-            limit=15,
         )
         json_dump(
             document=document,
@@ -228,7 +226,6 @@ async def generate_all() -> None:
         for portfolio, group_names in await get_portfolios_groups(org_name):
             document = format_data(
                 data=await get_data_many_groups(loaders, group_names),
-                limit=15,
             )
             json_dump(
                 document=document,

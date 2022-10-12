@@ -6,6 +6,9 @@ from aioextensions import (
     collect,
     run,
 )
+from charts.generators.bar_chart.utils import (
+    LIMIT,
+)
 from charts.generators.common.colors import (
     RISK,
 )
@@ -87,7 +90,7 @@ def format_availability_percentages(
 def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
     sorted_data: tuple[EventsAvailability, ...] = tuple(
         sorted(data, key=operator.attrgetter("non_available"), reverse=True)[
-            :15
+            :LIMIT
         ]
     )
     percentage_values = [

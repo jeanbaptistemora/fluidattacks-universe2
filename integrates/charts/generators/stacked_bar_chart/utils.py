@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from charts.generators.bar_chart.utils import (
+    LIMIT,
+)
 from charts.generators.common.colors import (
     RISK,
     TREATMENT,
@@ -11,7 +14,6 @@ from charts.generators.common.utils import (
 )
 from charts.utils import (
     format_cvssf,
-    TICK_ROTATION,
 )
 from datetime import (
     datetime,
@@ -919,10 +921,11 @@ def format_stacked_vulnerabilities_data(
             position="bottom",
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[assigned.user for assigned in limited_data],
                 type="category",
-                tick=dict(rotate=TICK_ROTATION, multiline=False),
+                tick=dict(rotate=0, multiline=False),
             ),
             y=dict(
                 label=dict(
@@ -979,19 +982,16 @@ def format_stacked_vulnerabilities_data(
     )
 
 
-def limit_data(data: List[Any], size_limit: int) -> List[Any]:
-    if size_limit:
-        return list(
-            sorted(
-                data,
-                key=lambda x: (
-                    x.open_vulnerabilities
-                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
-                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
-                    else 0
-                ),
-                reverse=True,
-            )
-        )[:size_limit]
-
-    return data
+def limit_data(data: List[Any]) -> List[Any]:
+    return list(
+        sorted(
+            data,
+            key=lambda x: (
+                x.open_vulnerabilities
+                / (x.closed_vulnerabilities + x.open_vulnerabilities)
+                if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
+                else 0
+            ),
+            reverse=True,
+        )
+    )[:LIMIT]

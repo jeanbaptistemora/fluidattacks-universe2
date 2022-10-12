@@ -9,6 +9,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.bar_chart.utils import (
+    LIMIT,
+)
 from charts.generators.stacked_bar_chart import (  # type: ignore
     format_csv_data,
 )
@@ -148,7 +151,6 @@ def format_assigned(
 def format_data(
     *, assigned_data: dict[str, list[tuple[Vulnerability, Decimal]]]
 ) -> dict:
-    limit: int = 15
     data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user=user, vulnerabilities=vulnerabilities)
         for user, vulnerabilities in assigned_data.items()
@@ -164,7 +166,7 @@ def format_data(
             ),
             reverse=True,
         )
-    )[:limit]
+    )[:LIMIT]
 
     return format_stacked_vulnerabilities_data(
         limited_data=limited_data, y_label="CVSSF"
