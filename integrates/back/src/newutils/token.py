@@ -48,6 +48,7 @@ from jwcrypto.jwt import (
 import logging
 import logging.config
 from newutils import (
+    datetime as datetime_utils,
     encodings,
 )
 from redis_cluster.model import (
@@ -301,6 +302,23 @@ def _get_secret(jwt_token: JWT) -> str:
     if sub == "api_token":
         return JWT_SECRET_API_NEW
     return JWT_SECRET_NEW
+
+
+def _validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
+    if "exp" not in payload:
+        return payload
+
+    exp = payload["exp"]
+    if isinstance(exp, str):
+        exp_as_datetime = datetime.strptime(exp, "%Y-%m-%dT%H:%M:%S.%f")
+        exp = datetime_utils.get_as_epoch(exp_as_datetime)
+        payload["exp"] = exp
+
+    utc_now = int(datetime_utils.get_utc_timestamp())
+    if exp < utc_now:
+        raise ExpiredToken()
+
+    return payload
 
 
 def verificate_hash_token(
