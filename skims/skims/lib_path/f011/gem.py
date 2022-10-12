@@ -31,7 +31,9 @@ NOT_PROD_DEP: Pattern[str] = re.compile(
     r":group => \[?[:\w\-, ]*(:development|:test)"
 )
 NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
-GEM_LOCK_DEP: Pattern[str] = re.compile(r"\s+(\S+)\s+\(=?\s?([^><~,]+)\)")
+GEM_LOCK_DEP: Pattern[str] = re.compile(
+    r"^\s+(?P<gem>(?P<name>\S+[^:])(\s+\(.+\))?)$"
+)
 
 
 # pylint: disable=unused-argument
@@ -55,7 +57,7 @@ def gem_gemfile(  # NOSONAR
                 continue
             line = GemfileParser.preprocess(matched.group("gem"))
             line = line[3:]
-            product, version = parse_line(line)
+            product, version = parse_line(line, gem_file=True)
             yield format_pkg_dep(product, version, line_number, line_number)
 
 
@@ -70,11 +72,13 @@ def gem_gemfile_lock(content: str, path: str) -> Iterator[DependencyType]:
         elif not line_gem:
             continue
         elif matched := re.match(GEM_LOCK_DEP, line):
-            pkg_name = matched.group(1)
+            pkg_info = matched.group("gem")
+            pkg_name = pkg_info.replace("(= ", "(")
             if pkg_name in match_arr:
                 continue
             match_arr.append(pkg_name)
-            version = matched.group(2)
-            yield format_pkg_dep(pkg_name, version, line_number, line_number)
+            line = GemfileParser.preprocess(pkg_info)
+            product, version = parse_line(line, gem_file=False)
+            yield format_pkg_dep(product, version, line_number, line_number)
         elif not line or not line.startswith(" "):
             break

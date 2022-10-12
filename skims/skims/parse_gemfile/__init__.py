@@ -38,9 +38,32 @@ def format_requirements(requirements: List[str]) -> str:
     return formatted
 
 
-def parse_line(in_line: str) -> Tuple[str, str]:
-    line = in_line.split(",")
-    column_list = []
+def match_dep_criteria(
+    column_list: List[str],
+) -> Dependency:
+    dep = Dependency()
+    for column in column_list:
+        for criteria, criteria_regex in GemfileParser.gemfile_regexes.items():
+            match = criteria_regex.match(column)
+            if match:
+                if criteria == "requirement":
+                    dep.requirement.append(match.group(criteria))
+                else:
+                    setattr(dep, criteria, match.group(criteria))
+                break
+    return dep
+
+
+def parse_line(in_line: str, gem_file: bool) -> Tuple[str, str]:
+    line: List[str] = []
+    if gem_file:
+        line = in_line.split(",")
+    else:
+        line = in_line.split(" ", maxsplit=1)
+        if len(line) > 1 and (", " in line[1]):
+            line = [line[0], *line[1].split(", ")]
+
+    column_list: List[str] = []
     for column in line:
         stripped_column = (
             column.replace("'", "")
@@ -52,22 +75,10 @@ def parse_line(in_line: str) -> Tuple[str, str]:
             .replace("]", "")
             .strip()
         )
-        if stripped_column.startswith("github: "):
-            continue
         column_list.append(stripped_column)
 
-    dep = Dependency()
-    for column in column_list:
-        for criteria, criteria_regex in GemfileParser.gemfile_regexes.items():
-            match = criteria_regex.match(column)
-            if match:
-                if criteria == "requirement":
-                    dep.requirement.append(match.group(criteria))
-                else:
-                    setattr(dep, criteria, match.group(criteria))
-                break
-
-    deps_dict = dep.to_dict()
+    deps = match_dep_criteria(column_list)
+    deps_dict = deps.to_dict()
     product: str = deps_dict["name"]
     version: str = format_requirements(deps_dict["requirement"])
     return product, version
