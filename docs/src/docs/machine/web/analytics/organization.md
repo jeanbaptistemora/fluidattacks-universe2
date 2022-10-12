@@ -52,9 +52,9 @@ temporarily accepted and permanently
 accepted vulnerabilities categorized
 by group.
 
-## Types of vulnerabilities by group​
+## Vulnerability types by group
 
-![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_types_vuln_by_group.png)
+![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_types_vuln_by_group.png)
 
 Number of vulnerabilities
 categorized by group.
@@ -66,9 +66,9 @@ categorized by group.
 Number of open vulnerabilities
 categorized by group.
 
-## Top oldest types of vulnerabilities
+## Oldest vulnerability types
 
-![Top Oldest Types of Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_top_oldest_finding.png)
+![Oldest vulnerability types](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_top_oldest_finding.png)
 
 These graph shows the vulnerabilities
 that have been open for the

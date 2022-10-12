@@ -26,9 +26,9 @@ compared to  the average
 and the worst portfolios
 of all organizations.
 
-## Types of Vulnerabilities by Group
+## Vulnerability types by group
 
-![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
+![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
 
 Number of vulnerabilities
 categorized by group.
@@ -56,9 +56,9 @@ The percentage of open vulnerabilities
 that each group has
 compared with the whole portfolio.
 
-## Top oldest types of vulnerabilities
+## Oldest vulnerability types
 
-![Top Oldest Types of Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
+![Oldest vulnerability types](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
 
 These graph shows
 the vulnerabilities
