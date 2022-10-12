@@ -1,13 +1,5 @@
 {
-  "name": "integrates",
-  "version": "1.0.0",
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/fluidattacks/universe.git"
-  },
   "author": "development@fluidattacks.com",
-  "license": "MPL-2.0",
   "bugs": {
     "url": "https://gitlab.com/fluidattacks/universe/issues"
   },
@@ -59,7 +51,7 @@
     "react-image-lightbox": "5.1.4",
     "react-joyride": "2.4.0",
     "react-linkify": "1.0.0-alpha",
-    "react-loading-overlay-ts": "^2.0.0",
+    "react-loading-overlay-ts": "2.0.0",
     "react-lottie-player": "1.4.3",
     "react-notification-system": "0.4.0",
     "react-phone-input-2": "2.15.0",
@@ -78,11 +70,10 @@
     "subscriptions-transport-ws": "0.11.0",
     "tachyons": "4.12.0",
     "tachyons-word-break": "3.0.5",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-visit": "4.1.0"
   },
+  "description": "",
   "devDependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/preset-env": "7.16.0",
     "@storybook/addon-a11y": "6.5.9",
     "@storybook/addon-actions": "6.5.9",
     "@storybook/addon-essentials": "6.5.9",
@@ -121,7 +112,6 @@
     "@typescript-eslint/eslint-plugin": "5.22.0",
     "@typescript-eslint/parser": "5.22.0",
     "babel-jest": "27.3.1",
-    "babel-loader": "8.2.3",
     "compression-webpack-plugin": "10.0.0",
     "css-loader": "5.2.7",
     "css-minimizer-webpack-plugin": "3.4.1",
@@ -157,15 +147,13 @@
     "typed-css-modules": "0.7.0",
     "typescript": "4.6.2",
     "webpack": "5.63.0",
-    "webpack-cli": "^4.10.0",
+    "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.7.3",
     "yup": "0.32.11"
   },
+  "license": "MPL-2.0",
+  "name": "integrates",
   "overrides": {
-    "react-notification-system": {
-      "react": "17.0.2",
-      "react-dom": "17.0.2"
-    },
     "react-bootstrap-table-next": {
       "react": "17.0.2",
       "react-dom": "17.0.2"
@@ -182,19 +170,32 @@
       "react": "17.0.2",
       "react-dom": "17.0.2"
     },
+    "react-notification-system": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    },
+    "react-virtualized": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    },
+    "trim": "0.0.3",
     "underscore": "1.13.3",
-    "unset-value": "2.0.1",
-    "trim": "0.0.3"
+    "unset-value": "2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fluidattacks/universe.git"
   },
   "scripts": {
     "build": "npm run css && webpack --config webpack.prod.config.ts",
+    "build-storybook": "build-storybook",
     "css": "tcm src/ --silent",
-    "plot": "ts-node src/graphics/cli.ts",
-    "start": "webpack-cli serve --config webpack.dev.config.ts",
-    "test": "npm run css && jest --maxWorkers=1",
     "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "lint:stylelint": "stylelint '**/*.css' --output-file",
+    "plot": "ts-node src/graphics/cli.ts",
+    "start": "webpack-cli serve --config webpack.dev.config.ts",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  }
+    "test": "npm run css && jest --maxWorkers=1"
+  },
+  "version": "1.0.0"
 }
