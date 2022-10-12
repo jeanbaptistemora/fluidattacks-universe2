@@ -32,13 +32,15 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    List,
+    Tuple,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_argument_vuln(
+def is_object_vuln(
     graph: Graph,
     n_id: NId,
 ) -> bool:
@@ -47,6 +49,34 @@ def is_argument_vuln(
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and evaluation.danger:
             return True
+    return False
+
+
+def is_config_vuln(
+    graph: Graph,
+    config_ids: Tuple[NId, ...],
+) -> bool:
+    method = MethodsEnum.JAVA_HOST_KEY_CHECKING
+    conditions: List[str] = []
+    for n_id in config_ids:
+        for path in get_backward_paths(graph, n_id):
+            evaluation = evaluate(method, graph, path, n_id)
+            if evaluation and evaluation.triggers in [{"hostkey"}, {"no"}]:
+                conditions = conditions + list(evaluation.triggers)
+
+    if conditions == ["hostkey", "no"]:
+        return True
+    return False
+
+
+def is_session_vuln(
+    graph: Graph,
+    session_args: Tuple[NId, ...],
+) -> bool:
+    if len(session_args) == 1 and is_object_vuln(graph, session_args[0]):
+        return True
+    if len(session_args) == 2 and is_config_vuln(graph, session_args):
+        return True
     return False
 
 
@@ -68,7 +98,7 @@ def host_key_checking(
                     (al_list := graph.nodes[n_id].get("arguments_id"))
                     and (args_nodes := g.adj_ast(graph, al_list))
                     and len(args_nodes) > 0
-                    and is_argument_vuln(graph, args_nodes[0])
+                    and is_session_vuln(graph, args_nodes)
                 ):
                     yield shard, n_id
 
