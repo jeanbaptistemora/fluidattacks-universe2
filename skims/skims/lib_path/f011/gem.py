@@ -55,10 +55,8 @@ def gem_gemfile(  # NOSONAR
                 continue
             line = GemfileParser.preprocess(matched.group("gem"))
             line = line[3:]
-            line_items = parse_line(line)
-            pkg_name = line_items.get("name")
-            version = line_items.get("requirement")
-            yield format_pkg_dep(pkg_name, version, line_number, line_number)
+            product, version = parse_line(line)
+            yield format_pkg_dep(product, version, line_number, line_number)
 
 
 # pylint: disable=unused-argument

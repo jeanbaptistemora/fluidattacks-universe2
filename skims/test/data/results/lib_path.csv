@@ -36431,7 +36431,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0
   36 |               ""version"": ""5.0.0.6""
      ^ Col 0
 ",npm.npm_package_lock_json
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (image_processing v~>1.2) [CVE-2022-24720, GHSA-cxf7-qrc5-9446]",96,937,skims,011. Use of software with known vulnerabilities,"Use of image_processing at version >1.2 with ['CVE-2022-24720', 'GHSA-cxf7-qrc5-9446'] in namespace/skims/test/data/lib_path/f011/Gemfile","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (image_processing v^1.2) [CVE-2022-24720, GHSA-cxf7-qrc5-9446]",96,937,skims,011. Use of software with known vulnerabilities,"Use of image_processing at version 1.2 with ['CVE-2022-24720', 'GHSA-cxf7-qrc5-9446'] in namespace/skims/test/data/lib_path/f011/Gemfile","
    86 |
    87 |   gem ""websocket-client-simple"", github: ""matthewd/websocket-client-simple"", branch: ""close-race"", require: false
    88 | end
@@ -36611,7 +36611,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (mini_magick v3
       ^ Col 0
 ",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (mini_magick v4.9.0) [CVE-2019-13574, GHSA-r7j3-vvh2-xrpj]",175,937,skims,011. Use of software with known vulnerabilities,"Use of mini_magick at version 4.9.0 with ['CVE-2019-13574', 'GHSA-r7j3-vvh2-xrpj'] in namespace/skims/test/data/lib_path/f011/Gemfile","
-  162 |   end
   163 | end
   164 |
   165 | # Gems that are necessary for Active Record tests with Oracle.
@@ -36625,13 +36624,14 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (mini_magick v4.9.0)
   173 | gem ""tzinfo-data"", platforms: [:windows, :jruby]
   174 | gem ""wdm"", "">= 0.1.0"", platforms: [:windows]
 > 175 | gem ""mini_magick"", ""4.9.0""
-  176 |
-  177 | # The error_highlight gem only works on CRuby 3.1 or later.
-  178 | # Also, Rails depends on a new API available since error_highlight 0.4.0.
-  179 | # (Note that Ruby 3.1 bundles error_highlight 0.3.0.)
-  180 | if RUBY_VERSION >= ""3.1""
-  181 |   gem ""error_highlight"", "">= 0.4.0"", platforms: [:ruby]
-  182 | end
+  176 | gem ""rails-html-sanitizer"", ""~> 1.0"", "">= 1.2.0""
+  177 |
+  178 | # The error_highlight gem only works on CRuby 3.1 or later.
+  179 | # Also, Rails depends on a new API available since error_highlight 0.4.0.
+  180 | # (Note that Ruby 3.1 bundles error_highlight 0.3.0.)
+  181 | if RUBY_VERSION >= ""3.1""
+  182 |   gem ""error_highlight"", "">= 0.4.0"", platforms: [:ruby]
+  183 | end
       ^ Col 0
 ",gem.gem_gemfile
 F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (net.minidev:json-smart v1.3.1) [CVE-2021-27568, CVE-2021-31684, GHSA-fg2v-w576-w4v3, GHSA-v528-7hrm-frqp]",19,937,skims,011. Use of software with known vulnerabilities,"Use of net.minidev:json-smart at version 1.3.1 with ['CVE-2021-27568', 'CVE-2021-31684', 'GHSA-fg2v-w576-w4v3', 'GHSA-v528-7hrm-frqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
@@ -37029,6 +37029,30 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (puma v=5.1.0) [CVE-
    37 |
       ^ Col 0
 ",gem.gem_gemfile
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rails-html-sanitizer v^1.2.0) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",176,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile","
+  163 | end
+  164 |
+  165 | # Gems that are necessary for Active Record tests with Oracle.
+  166 | if ENV[""ORACLE_ENHANCED""]
+  167 |   platforms :ruby do
+  168 |     gem ""ruby-oci8"", ""~> 2.2""
+  169 |   end
+  170 |   gem ""activerecord-oracle_enhanced-adapter"", github: ""rsim/oracle-enhanced"", branch: ""master""
+  171 | end
+  172 |
+  173 | gem ""tzinfo-data"", platforms: [:windows, :jruby]
+  174 | gem ""wdm"", "">= 0.1.0"", platforms: [:windows]
+  175 | gem ""mini_magick"", ""4.9.0""
+> 176 | gem ""rails-html-sanitizer"", ""~> 1.0"", "">= 1.2.0""
+  177 |
+  178 | # The error_highlight gem only works on CRuby 3.1 or later.
+  179 | # Also, Rails depends on a new API available since error_highlight 0.4.0.
+  180 | # (Note that Ruby 3.1 bundles error_highlight 0.3.0.)
+  181 | if RUBY_VERSION >= ""3.1""
+  182 |   gem ""error_highlight"", "">= 0.4.0"", platforms: [:ruby]
+  183 | end
+      ^ Col 0
+",gem.gem_gemfile
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails-html-sanitizer v1.4.2) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",184,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.4.2 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
   174 |       activejob (= 7.0.2.3)
   175 |       activemodel (= 7.0.2.3)
@@ -37101,7 +37125,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rdoc v3.11) [CVE-20
    38 | # Explicitly avoid 1.x that doesn't support Ruby 2.4+
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (redcarpet v~>3.2.3) [CVE-2015-5147, CVE-2020-26298, GHSA-q3wr-qw3g-3p4h]",51,937,skims,011. Use of software with known vulnerabilities,"Use of redcarpet at version >3.2.3 with ['CVE-2015-5147', 'CVE-2020-26298', 'GHSA-q3wr-qw3g-3p4h'] in namespace/skims/test/data/lib_path/f011/Gemfile","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (redcarpet v~3.2.3) [CVE-2015-5147, CVE-2020-26298, GHSA-q3wr-qw3g-3p4h]",51,937,skims,011. Use of software with known vulnerabilities,"Use of redcarpet at version 3.2.3 with ['CVE-2015-5147', 'CVE-2020-26298', 'GHSA-q3wr-qw3g-3p4h'] in namespace/skims/test/data/lib_path/f011/Gemfile","
    41 | group :rubocop do
    42 |   gem ""rubocop"", "">= 1.25.1"", require: false
    43 |   gem ""rubocop-minitest"", require: false
@@ -37239,7 +37263,31 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE
   406 |   integrity sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==
       ^ Col 0
 ",npm.npm_yarn_lock
-F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/package.json","
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (sqlite3 v^1.4) [GHSA-mgvv-5mxp-xq67],140,937,skims,011. Use of software with known vulnerabilities,Use of sqlite3 at version 1.4 with ['GHSA-mgvv-5mxp-xq67'] in namespace/skims/test/data/lib_path/f011/Gemfile,"
+  130 | platforms :ruby, :windows do
+  131 |   gem ""nokogiri"", ""= 1.8.1""
+  132 |   gem ""devise"", ""= 1.4.2"", :group => :development
+  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
+  134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
+  135 |
+  136 |   # Needed for compiling the ActionDispatch::Journey parser.
+  137 |   gem ""racc"", "">=1.4.6"", require: false
+  138 |
+  139 |   # Active Record.
+> 140 |   gem ""sqlite3"", ""~> 1.4""
+  141 |
+  142 |   group :development do
+  143 |     gem ""pg"", ""~> 1.3""
+  144 |     gem ""mysql2"", ""~> 0.5""
+  145 |     gem ""pry"", ""= 1.0.1""
+  146 |   end
+  147 | end
+  148 |
+  149 | platforms :jruby do
+  150 |   if ENV[""AR_JDBC""]
+      ^ Col 0
+",gem.gem_gemfile
+F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/package.json","
    1 | {
    2 |   ""name"": ""test"",
    3 |   ""version"": ""1.0.0"",
@@ -37260,7 +37308,7 @@ F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0)
   18 | }
      ^ Col 0
 ",npm.npm_pkg_json
-F393,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-h6q6-9hqw-rwfv]",482,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
+F393,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-h6q6-9hqw-rwfv]",482,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   465 |   resolved ""https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131""
   466 |   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
   467 |
