@@ -8,9 +8,18 @@ from . import (
 from ._objs import (
     SupportedStreams,
 )
+from dataclasses import (
+    dataclass,
+)
+from datetime import (
+    datetime,
+)
 from fa_purity import (
     Cmd,
     Stream,
+)
+from fa_purity.pure_iter import (
+    transform as PIterTransform,
 )
 from fa_purity.stream.transform import (
     chain,
@@ -27,6 +36,9 @@ from returns.io import (
     IO,
 )
 import sys
+from tap_checkly.api2 import (
+    Credentials,
+)
 from tap_checkly.api2.alert_channels import (
     AlertChannelsClient,
 )
@@ -131,23 +143,33 @@ def all_snippets(api: ApiClient) -> Cmd[None]:
     )
 
 
-def check_results(client: ChecksClient) -> Cmd[None]:
-    return _emit_stream(
-        client.list_ids()
-        .bind(
-            lambda c: client.list_check_results(c).map(
-                lambda r: IndexedObj(c, r)
+@dataclass(frozen=True)
+class Streams:
+    creds: Credentials
+    old_date: datetime
+    now: datetime
+
+    def check_results(self) -> Cmd[None]:
+        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
+        return _emit_stream(
+            client.list_ids()
+            .bind(
+                lambda c: client.list_check_results(c).map(
+                    lambda r: IndexedObj(c, r)
+                )
             )
+            .map(encode_result)
+            .transform(chain),
         )
-        .map(encode_result)
-        .transform(chain),
-    )
 
-
-def alert_chs(client: AlertChannelsClient) -> Cmd[None]:
-    return _emit_stream(
-        client.list_all().map(ObjsEncoders.alerts.record).transform(chain),
-    )
+    def alert_chs(self) -> Cmd[None]:
+        client = AlertChannelsClient.new(self.creds, 100)
+        schemas = ObjsEncoders.alerts.schemas.map(
+            lambda s: emitter.emit(sys.stdout, s)
+        ).transform(PIterTransform.consume)
+        return schemas + _emit_stream(
+            client.list_all().map(ObjsEncoders.alerts.record).transform(chain),
+        )
 
 
 __all__ = [

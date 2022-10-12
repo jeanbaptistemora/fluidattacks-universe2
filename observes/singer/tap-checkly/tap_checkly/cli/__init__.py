@@ -5,15 +5,15 @@
 from . import (
     _executor,
 )
-from ._streams import (
-    SupportedStreams,
-)
 import click
 from fa_purity import (
     Maybe,
 )
 from tap_checkly.api2 import (
     Credentials,
+)
+from tap_checkly.streams import (
+    SupportedStreams,
 )
 from typing import (
     NoReturn,
