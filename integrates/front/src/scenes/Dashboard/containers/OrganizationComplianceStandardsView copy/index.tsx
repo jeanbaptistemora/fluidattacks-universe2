@@ -18,6 +18,7 @@ import type {
   IOrganizationComplianceStandardsProps,
   IUnfulfilledStandardAttr,
 } from "./types";
+import { UnfulfilledStandardCard } from "./UnfulfilledStandardCard";
 
 import { Select } from "components/Input";
 import { Col } from "components/Layout/Col";
@@ -140,6 +141,28 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
           <Col lg={50} md={50} sm={50}>
             <Row justify={"end"}>
               <div />
+            </Row>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col lg={100} md={100} sm={100}>
+            <Row>
+              {_.sortBy(
+                unfulfilledStandards,
+                (unfulfilledStandard: IUnfulfilledStandardAttr): string =>
+                  unfulfilledStandard.title.toUpperCase()
+              ).map(
+                (
+                  unfulfilledStandard: IUnfulfilledStandardAttr
+                ): JSX.Element => (
+                  <Col key={unfulfilledStandard.title} lg={25} md={50} sm={100}>
+                    <UnfulfilledStandardCard
+                      unfulfilledStandard={unfulfilledStandard}
+                    />
+                  </Col>
+                )
+              )}
             </Row>
           </Col>
         </Row>
