@@ -849,6 +849,8 @@ async def update_metadata_and_state(
                 justification=vulnerability.state.justification,
                 tool=vulnerability.state.tool,
                 commit=vulnerability.state.commit,
+                where=vulnerability.state.where,
+                specific=vulnerability.state.specific,
             ),
         )
     elif vulnerability.state.status != new_state.status or (

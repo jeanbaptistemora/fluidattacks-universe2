@@ -43,6 +43,8 @@ class VulnerabilityState(NamedTuple):
     commit: Optional[str] = None
     justification: Optional[StateRemovalJustification] = None
     tool: Optional[VulnerabilityTool] = None
+    specific: Optional[str] = None
+    where: Optional[str] = None
 
 
 class VulnerabilityTreatment(NamedTuple):

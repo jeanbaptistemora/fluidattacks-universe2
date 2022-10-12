@@ -26162,7 +26162,9 @@
             "source",
             "justification",
             "tool",
-            "commit"
+            "commit",
+            "where",
+            "specific"
           ],
           "DataAccess": {
             "MySql": {}
