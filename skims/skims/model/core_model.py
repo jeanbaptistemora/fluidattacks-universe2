@@ -882,6 +882,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
     )
+    F368: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F368",
+        cwe=923,
+        execution_queue=ExecutionQueue.ssl,
+        requirements=[255],
+    )
     F371: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F371",
@@ -3680,6 +3687,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F366,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_HOST_KEY_CHECKING = MethodInfo(
+        file_name="java",
+        name="java_host_key_checking",
+        module="lib_root",
+        finding=FindingEnum.F368,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     HTML_IS_HEADER_CONTENT_TYPE_MISSING = MethodInfo(
         file_name="html",

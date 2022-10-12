@@ -1,0 +1,4 @@
+---
+lib_root.f368.insecure_host_key_checking:
+  en: Connections should not be made to unknown servers or servers that have changed their keys
+  es: Las conexiones no deberian ser permitidas a servidores desconocidos o aquellos que hayan cambiado sus llaves

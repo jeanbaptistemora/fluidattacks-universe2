@@ -815,6 +815,14 @@
       "title": "366. Inappropriate coding practices - Transparency Conflict"
     }
   },
+  "F368": {
+    "EN": {
+      "title": "368. Unrestricted access between network segments - StrictHostKeyChecking"
+    },
+    "ES": {
+      "title": "368. Unrestricted access between network segments - StrictHostKeyChecking"
+    }
+  },
   "F372": {
     "EN": {
       "title": "372. Use of an insecure channel - HTTP"
