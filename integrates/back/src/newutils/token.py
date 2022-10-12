@@ -245,14 +245,17 @@ def new_encoded_jwt(payload: Dict[str, Any], api: bool = False) -> str:
     return token
 
 
-def encode_session_token(
-    expiration_time: int, payload: Dict[str, Any], api: bool = False
+def encode_token(
+    expiration_time: int,
+    payload: Dict[str, Any],
+    subject: str,
+    api: bool = False,
 ) -> str:
     """Encrypts the payload into a jwe token and returns its encoded version"""
     secret = JWT_SECRET_API_NEW if api else JWT_SECRET_NEW
     jws_key = JWK.from_json(secret)
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    default_claims = dict(exp=expiration_time, sub=payload.get("sub"))
+    default_claims = dict(exp=expiration_time, sub=subject)
     jwt_object = JWT(
         default_claims=default_claims,
         claims=JWE(
@@ -274,7 +277,8 @@ def encode_session_token(
     return jwt_object.serialize()
 
 
-def decode_jwe(payload: str) -> Dict[str, Any]:
+def _decode_jwe(payload: str) -> Dict[str, Any]:
+    """Decodes a jwe token and returns its decrypted payload"""
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     jwe_token = JWE()
     jwe_token.deserialize(payload)
@@ -291,8 +295,9 @@ def decode_token(token: str) -> Dict[str, Any]:
     jws_key = JWK.from_json(secret)
     jwt_token.validate(jws_key)
     claims = json.loads(jwt_token.claims)
-    decoded_payload = decode_jwe(jwt_token.token.payload)
+    decoded_payload = _decode_jwe(jwt_token.token.payload)
 
+    # Old token
     if not claims.get("exp"):
         payload = _validate_expiration_time(decoded_payload)
         return payload
@@ -309,7 +314,7 @@ def _get_secret(jwt_token: JWT) -> str:
     sub = deserialized_payload.get("sub")
 
     if sub is None:
-        sub = decode_jwe(payload).get("sub")
+        sub = _decode_jwe(payload).get("sub")
 
     if sub == "api_token":
         return JWT_SECRET_API_NEW
