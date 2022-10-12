@@ -40,21 +40,17 @@ const Pagination = <TData extends RowData>({
 }: Readonly<IPaginationProps<TData>>): JSX.Element => {
   const pageCount = table.getPageCount();
   const { pageIndex, pageSize } = table.getState().pagination;
-  const isInFirst = pageIndex === 0;
-  const isInLast = pageIndex === pageCount - 1;
+  const isInLast = pageIndex === pageCount - 2;
 
   const goToNext = useCallback((): void => {
     if (isInLast && onNextPage) {
-      void onNextPage().then((): void => {
+      void onNextPage().finally((): void => {
         table.setPageIndex(pageIndex + 1);
       });
     } else {
       table.setPageIndex(pageIndex + 1);
     }
   }, [isInLast, onNextPage, pageIndex, table]);
-  const goToPrev = useCallback((): void => {
-    table.setPageIndex(pageIndex - 1);
-  }, [table, pageIndex]);
 
   const indexes = _.range(
     Math.max(pageIndex - 2, 0),
@@ -70,7 +66,13 @@ const Pagination = <TData extends RowData>({
             <Button
               key={el}
               onClick={function fn(): void {
-                table.setPageSize(el);
+                if (el === size && onNextPage) {
+                  void onNextPage().finally((): void => {
+                    table.setPageSize(el);
+                  });
+                } else {
+                  table.setPageSize(el);
+                }
               }}
               size={"sm"}
               variant={"secondary"}
@@ -86,8 +88,10 @@ const Pagination = <TData extends RowData>({
         )} of ${size} items`}
       </Text>
       <Button
-        disabled={isInFirst}
-        onClick={goToPrev}
+        disabled={!table.getCanPreviousPage()}
+        onClick={function fn(): void {
+          table.previousPage();
+        }}
         size={"sm"}
         variant={"secondary"}
       >
@@ -98,7 +102,13 @@ const Pagination = <TData extends RowData>({
           <Button
             key={el}
             onClick={function fn(): void {
-              table.setPageIndex(el);
+              if (el === pageCount - 1 && onNextPage) {
+                void onNextPage().finally((): void => {
+                  table.setPageIndex(el);
+                });
+              } else {
+                table.setPageIndex(el);
+              }
             }}
             size={"sm"}
             variant={"secondary"}
@@ -108,7 +118,7 @@ const Pagination = <TData extends RowData>({
         )
       )}
       <Button
-        disabled={isInLast && onNextPage === undefined}
+        disabled={!table.getCanNextPage()}
         onClick={goToNext}
         size={"sm"}
         variant={"secondary"}
