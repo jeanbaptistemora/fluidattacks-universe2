@@ -63,7 +63,7 @@ authors as a CSV (comma-separated
 values) file by clicking on
 the **Export** button.
 
-## Filters
+### Filters
 
 By clicking the **Filters** button,
 which you can find on the
@@ -98,7 +98,7 @@ invitations to contributors
 who do not have an ARM account yet
 by clicking the **Invite** button.
 
-![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1648072503/docs/web/groups/authors/authors_tab.png)
+![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1665676244/docs/web/groups/authors/invite_authors.png)
 
 The ARM will email the author
 showing them two possible options:
@@ -110,7 +110,7 @@ you will see the Registration status
 column showing a Pending status
 for the author in question.
 
-![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1648072503/docs/web/groups/authors/authors_pending_status.png)
+![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1665676275/docs/web/groups/authors/pending_status.png)
 
 If the author rejects
 the invitation,
