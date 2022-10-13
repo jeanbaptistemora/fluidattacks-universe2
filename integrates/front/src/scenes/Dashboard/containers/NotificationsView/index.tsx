@@ -14,6 +14,7 @@ import React, { useCallback } from "react";
 
 import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
+import { NumberInput } from "components/NumberInput";
 import { Switch } from "components/Switch";
 import { Tooltip } from "components/Tooltip";
 import {
@@ -28,13 +29,15 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+const { t } = translate;
+
 const NotificationsView: React.FC = (): JSX.Element => {
   const { data: dataEnum, refetch } = useQuery<ISubscriptionsNames>(
     GET_SUBSCRIPTIONS,
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("configuration.errorText"));
+          msgError(t("configuration.errorText"));
           Logger.warning(
             "An error occurred loading the subscriptions info",
             error
@@ -50,7 +53,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        msgError(translate.t("configuration.errorText"));
+        msgError(t("configuration.errorText"));
         Logger.warning(
           "An error occurred changing the subscriptions info",
           message
@@ -60,10 +63,11 @@ const NotificationsView: React.FC = (): JSX.Element => {
   });
 
   const handleSubmit = useCallback(
-    (email: string[], sms: string[]): void => {
+    (email: string[], severity: number, sms: string[]): void => {
       void updateSubscription({
         variables: {
           email,
+          severity,
           sms,
         },
       });
@@ -77,6 +81,8 @@ const NotificationsView: React.FC = (): JSX.Element => {
       : dataEnum.Notifications.enumValues.map(
           (subscription: ISubscriptionName): ISubscriptionName => {
             const listSubscription = dataEnum.me.notificationsPreferences;
+            const severity =
+              dataEnum.me.notificationsPreferences.parameters.minSeverity;
 
             const isSubscribe = (sub: string[] | string): boolean =>
               sub.includes(subscription.name);
@@ -86,10 +92,20 @@ const NotificationsView: React.FC = (): JSX.Element => {
                 ? listSub.filter((sub: string): boolean => !isSubscribe(sub))
                 : [subscription.name, ...listSub];
 
+            function onChangeSeverity(newValue: number | undefined): void {
+              if (!_.isUndefined(newValue)) {
+                handleSubmit(
+                  listSubscription.email,
+                  newValue,
+                  listSubscription.sms
+                );
+              }
+            }
+
             const onChangeMail = (listSub: string[]): (() => void) => {
               const newListMail = (): void => {
                 const newListEmailSubs = newListSubs(listSub);
-                handleSubmit(newListEmailSubs, listSubscription.sms);
+                handleSubmit(newListEmailSubs, severity, listSubscription.sms);
               };
 
               return newListMail;
@@ -98,16 +114,22 @@ const NotificationsView: React.FC = (): JSX.Element => {
             const onChangeSms = (listSub: string[]): (() => void) => {
               const newListSms = (): void => {
                 const newListSmsSubs = newListSubs(listSub);
-                handleSubmit(listSubscription.email, newListSmsSubs);
+                handleSubmit(listSubscription.email, severity, newListSmsSubs);
               };
 
               return newListSms;
             };
 
             return {
-              name: translate.t(
-                `searchFindings.enumValues.${subscription.name}.name`
+              minSeverity: (
+                <NumberInput
+                  defaultValue={severity}
+                  max={10}
+                  min={0}
+                  onEnter={onChangeSeverity}
+                />
               ),
+              name: t(`searchFindings.enumValues.${subscription.name}.name`),
               subscribeEmail: (
                 <Switch
                   checked={isSubscribe(listSubscription.email)}
@@ -122,7 +144,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
                   onChange={onChangeSms(listSubscription.sms)}
                 />
               ),
-              tooltip: translate.t(
+              tooltip: t(
                 `searchFindings.enumValues.${subscription.name}.tooltip`
               ),
             };
@@ -151,23 +173,50 @@ const NotificationsView: React.FC = (): JSX.Element => {
       <Row>
         {subscriptionsFiltered.map(
           (item: ISubscriptionName): JSX.Element => (
-            <Col key={item.name} lg={25} md={50} sm={100}>
-              <Tooltip
-                id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
-                tip={item.tooltip}
-              >
-                <Card title={item.name}>
-                  <div className={"flex justify-between mt1"}>
-                    {translate.t("searchFindings.notificationTable.email")}
-                    {item.subscribeEmail}
-                  </div>
-                  <div className={"flex justify-between mt1"}>
-                    {translate.t("searchFindings.notificationTable.sms")}
-                    {item.subscribeSms}
-                  </div>
-                </Card>
-              </Tooltip>
-            </Col>
+            <React.Fragment key={item.name}>
+              <Col lg={25} md={50} sm={100}>
+                <Tooltip
+                  id={`${item.name.toLowerCase().replace(" ", "_")}_tooltip`}
+                  tip={item.tooltip}
+                >
+                  <Card title={item.name}>
+                    <div className={"flex justify-between mt1"}>
+                      {t("searchFindings.notificationTable.email")}
+                      {item.subscribeEmail}
+                    </div>
+                    <div className={"flex justify-between mt1"}>
+                      {t("searchFindings.notificationTable.sms")}
+                      {item.subscribeSms}
+                    </div>
+                  </Card>
+                </Tooltip>
+              </Col>
+              {item.name ===
+                t("searchFindings.enumValues.VULNERABILITY_REPORT.name") && (
+                <Col key={item.name} lg={25} md={50} sm={100}>
+                  <Tooltip
+                    id={`${t(
+                      "searchFindings.notificationTable.parameters.minimumSeverity.name"
+                    )
+                      .toLowerCase()
+                      .replace(" ", "_")}_tooltip`}
+                    tip={t(
+                      "searchFindings.notificationTable.parameters.minimumSeverity.tooltip"
+                    )}
+                  >
+                    <Card
+                      title={t(
+                        "searchFindings.notificationTable.parameters.minimumSeverity.name"
+                      )}
+                    >
+                      <div className={"flex justify-between mt1"}>
+                        {item.minSeverity}
+                      </div>
+                    </Card>
+                  </Tooltip>
+                </Col>
+              )}
+            </React.Fragment>
           )
         )}
       </Row>

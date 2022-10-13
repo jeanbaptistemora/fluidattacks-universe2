@@ -18,6 +18,9 @@ const GET_SUBSCRIPTIONS: DocumentNode = gql`
       notificationsPreferences {
         email
         sms
+        parameters {
+          minSeverity
+        }
       }
       userEmail
     }
@@ -27,10 +30,15 @@ const GET_SUBSCRIPTIONS: DocumentNode = gql`
 const UPDATE_NOTIFICATIONS_PREFERENCES: DocumentNode = gql`
   mutation UpdateNotificationsPreferences(
     $email: [NotificationsName!]!
+    $severity: Float!
     $sms: [NotificationsName]
   ) {
     updateNotificationsPreferences(
-      notificationsPreferences: { email: $email, sms: $sms }
+      notificationsPreferences: {
+        email: $email
+        parameters: { minSeverity: $severity }
+        sms: $sms
+      }
     ) {
       success
     }

@@ -2436,6 +2436,14 @@ export const enTranslations: ResourceKey = {
     notificationTable: {
       email: "Email",
       notification: "Notification",
+      parameters: {
+        minimumSeverity: {
+          name: "Minimum severity",
+          tooltip:
+            "Minimum severity value to send the vulnerability alert " +
+            "notification. Press enter key to save.",
+        },
+      },
       push: "Push",
       sms: "SMS",
       voice: "Voice",

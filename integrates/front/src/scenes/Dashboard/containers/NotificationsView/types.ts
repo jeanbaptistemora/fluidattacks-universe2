@@ -7,9 +7,13 @@
 interface INotificationsPreferences {
   email: string[];
   sms: string[];
+  parameters: {
+    minSeverity: number;
+  };
 }
 
 interface ISubscriptionName {
+  minSeverity: JSX.Element;
   name: string;
   subscribeEmail: JSX.Element;
   subscribeSms: JSX.Element;
