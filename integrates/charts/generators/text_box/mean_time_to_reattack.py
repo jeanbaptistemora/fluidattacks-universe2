@@ -9,9 +9,6 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.common.utils import (
-    MAX_WITH_DECIMALS,
-)
 from charts.generators.text_box.utils import (
     format_csv_data,
 )
@@ -56,9 +53,7 @@ from typing import (
 
 
 def format_decimal(value: Decimal) -> Decimal:
-    if value >= MAX_WITH_DECIMALS:
-        return value.to_integral_exact(rounding=ROUND_CEILING)
-    return value.quantize(Decimal("0.1"))
+    return value.to_integral_exact(rounding=ROUND_CEILING)
 
 
 def _get_next_open(
