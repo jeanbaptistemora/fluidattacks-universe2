@@ -17,7 +17,7 @@ import type { IGetStakeholderEnrollmentResult } from "./types";
 import { Welcome } from ".";
 import { GET_STAKEHOLDER_GROUPS } from "scenes/Autoenrollment/queries";
 import type { IGetStakeholderGroupsResult } from "scenes/Autoenrollment/types";
-import { DATA_URL } from "scenes/Autoenrollment/utils";
+import { EMAIL_DOMAINS_URL } from "scenes/Autoenrollment/utils";
 import { getCache } from "utils/apollo";
 
 describe("Welcome", (): void => {
@@ -59,7 +59,7 @@ describe("Welcome", (): void => {
     };
 
     const mockedFetch = fetch as FetchMockStatic & typeof fetch;
-    mockedFetch.mock(DATA_URL, { status: 200, text: "" });
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { status: 200, text: "" });
 
     render(
       <MemoryRouter initialEntries={["/"]}>

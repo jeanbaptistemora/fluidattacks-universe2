@@ -14,7 +14,7 @@ import React from "react";
 import { ADD_NEW_ORGANIZATION } from "./queries";
 
 import { AddOrganizationModal } from ".";
-import { DATA_URL } from "utils/countries";
+import { COUNTRIES_URL } from "utils/countries";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
@@ -62,7 +62,7 @@ describe("Add organization modal", (): void => {
 
     const mockedFetch: FetchMockStatic = fetch as FetchMockStatic &
       typeof fetch;
-    mockedFetch.mock(DATA_URL, {
+    mockedFetch.mock(COUNTRIES_URL, {
       body: [{ id: "CO", name: "Colombia" }],
       status: 200,
     });
