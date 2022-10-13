@@ -28,6 +28,9 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityVerificationStatus,
@@ -93,7 +96,9 @@ def get_diff(start: datetime, end: datetime) -> int:
 
 
 async def _get_mean_time_to_reattack(
-    filtered_vulnerabilities: tuple[Vulnerability, ...], loaders: Dataloaders
+    filtered_vulnerabilities: tuple[Vulnerability, ...],
+    loaders: Dataloaders,
+    current_date: datetime,
 ) -> Decimal:
     historic_verifications: tuple[
         tuple[VulnerabilityVerification, ...], ...
@@ -107,7 +112,6 @@ async def _get_mean_time_to_reattack(
     )
 
     number_of_days: int = 0
-    current_date: datetime = get_now()
     number_of_reattacks: int = 0
     for vulnerability, historic_verification, historic_state in zip(
         filtered_vulnerabilities, historic_verifications, historic_states
@@ -148,43 +152,78 @@ async def _get_mean_time_to_reattack(
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
+    group_: Group = await loaders.group.load(group)
     findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+
+    if not group_.state.has_squad:
+        return Decimal("Infinity")
+
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
-    filtered_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+    filtered_reattack_vulnerabilities: tuple[Vulnerability, ...] = tuple(
         vulnerability
         for vulnerability in vulnerabilities
         if vulnerability.verification
     )
-    if filtered_vulnerabilities:
-        return await _get_mean_time_to_reattack(
-            filtered_vulnerabilities, loaders
+
+    current_date: datetime = get_now()
+    filtered_non_reattack_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+        vulnerability
+        for vulnerability in vulnerabilities
+        if not vulnerability.verification
+    )
+    sum_of_days: Decimal = (
+        Decimal(
+            sum(
+                [
+                    (
+                        current_date
+                        - get_datetime_from_iso_str(vulnerability.created_date)
+                    ).days
+                    for vulnerability in filtered_non_reattack_vulnerabilities
+                ]
+            )
+            / len(filtered_non_reattack_vulnerabilities)
+        )
+        if filtered_non_reattack_vulnerabilities
+        else Decimal("0.0")
+    )
+    if filtered_reattack_vulnerabilities:
+        return format_decimal(
+            sum_of_days
+            + await _get_mean_time_to_reattack(
+                filtered_reattack_vulnerabilities, loaders, current_date
+            )
         )
 
-    return Decimal("0.0")
+    return format_decimal(sum_of_days)
 
 
 async def get_many_groups(
     groups: tuple[str, ...], loaders: Dataloaders
 ) -> Decimal:
-    groups_data: tuple[Decimal, ...] = await collect(
+    groups_data_: tuple[Decimal, ...] = await collect(
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 
+    groups_data: tuple[Decimal, ...] = tuple(
+        group for group in groups_data_ if group != Decimal("Infinity")
+    )
+
     return (
-        format_decimal(Decimal(sum(groups_data)) / len(groups))
-        if len(groups_data)
-        else Decimal("0.0")
+        format_decimal(Decimal(sum(groups_data)) / len(groups_data))
+        if groups_data
+        else Decimal("Infinity")
     )
 
 
 def format_data(mean_time: Decimal) -> dict:
     return {
         "fontSizeRatio": 0.5,
-        "text": mean_time,
+        "text": mean_time if mean_time != Decimal("Infinity") else "",
     }
 
 

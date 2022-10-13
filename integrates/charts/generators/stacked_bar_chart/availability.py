@@ -140,7 +140,6 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
             ),
             y=dict(
                 label=dict(
-                    text="Availability",
                     position="outer-top",
                 ),
                 min=0,

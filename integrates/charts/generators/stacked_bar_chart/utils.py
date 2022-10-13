@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint:disable=too-many-lines
+
 from charts.generators.bar_chart.utils import (
     LIMIT,
 )
@@ -862,8 +864,7 @@ def format_stacked_percentages(
 
 def format_stacked_vulnerabilities_data(
     *,
-    limited_data: List[AssignedFormatted],
-    y_label: str,
+    limited_data: list[AssignedFormatted],
 ) -> dict[str, Any]:
     percentage_values = [
         format_stacked_percentages(
@@ -929,8 +930,7 @@ def format_stacked_vulnerabilities_data(
             ),
             y=dict(
                 label=dict(
-                    text=y_label,
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(
@@ -982,10 +982,20 @@ def format_stacked_vulnerabilities_data(
     )
 
 
-def limit_data(data: List[Any]) -> List[Any]:
+def limit_data(data: list[RemediatedAccepted]) -> list[RemediatedAccepted]:
     return list(
         sorted(
-            data,
+            [
+                group
+                for group in data
+                if Decimal(
+                    Decimal(group.closed_vulnerabilities)
+                    + Decimal(group.remaining_open_vulnerabilities)
+                    + Decimal(group.accepted)
+                    + Decimal(group.accepted_undefined)
+                )
+                > Decimal("0.0")
+            ],
             key=lambda x: (
                 x.open_vulnerabilities
                 / (x.closed_vulnerabilities + x.open_vulnerabilities)

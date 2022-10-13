@@ -142,9 +142,7 @@ def format_data(
         )
     )[:LIMIT]
 
-    return format_stacked_vulnerabilities_data(
-        limited_data=limited_data, y_label="Vulnerabilities"
-    )
+    return format_stacked_vulnerabilities_data(limited_data=limited_data)
 
 
 async def generate_all() -> None:
