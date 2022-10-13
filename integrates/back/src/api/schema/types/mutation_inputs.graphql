@@ -36,10 +36,18 @@ input MachineFindingResultInput {
   open: Int!
 }
 
+"Notifications parameters input definition"
+input NotificationParameters {
+  "Minimum severity to send the vulnerability alert notification"
+  minSeverity: Float!
+}
+
 "Notifications preferences input definition"
 input NotificationPreferences {
   "Email channel to notifications preferences"
   email: [NotificationsName!]!
+  "Configuration parameters for sending notifications"
+  parameters: NotificationParameters
   "Sms channel to notifications preferences"
   sms: [NotificationsName]
 }
