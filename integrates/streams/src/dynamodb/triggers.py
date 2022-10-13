@@ -123,6 +123,14 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.event_name == EventName.REMOVE
+            and record.pk.startswith("VULN#")
+        ),
+        records_processor=redshift.process_vulnerabilities,
+    ),
+    Trigger(
+        records_filter=(
             lambda record: record.pk.startswith("EVENT#")
             and record.sk.startswith("GROUP#")
         ),
