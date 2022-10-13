@@ -65,13 +65,13 @@ def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
 
 def get_model_performance_metrics(
     model: ModelType, features: DataFrame, labels: DataFrame
-) -> Tuple[float, float, float, float]:
+) -> Tuple[float, float, float, float, float]:
     """Get performance metrics to compare different models"""
     scores = cross_validate(
         model,
         features,
         labels,
-        scoring=["precision", "recall", "f1"],
+        scoring=["precision", "recall", "f1", "accuracy"],
         n_jobs=-1,
     )
     _, train_results, test_results = learning_curve(
@@ -88,6 +88,7 @@ def get_model_performance_metrics(
         scores["test_precision"].mean() * 100,
         scores["test_recall"].mean() * 100,
         scores["test_f1"].mean() * 100,
+        scores["test_accuracy"].mean() * 100,
         is_overfit(train_results, test_results) * 100,
     )
 
@@ -205,7 +206,8 @@ def train_combination(
     print(f"Precision: {metrics[0]}%")
     print(f"Recall: {metrics[1]}%")
     print(f"F1-Score: {metrics[2]}%")
-    print(f"Overfit: {metrics[3]}%")
+    print(f"Accuracy: {metrics[3]}%")
+    print(f"Overfit: {metrics[4]}%")
     combination_train_results = dict(
         model=model.__class__.__name__,
         features=" ".join(
@@ -214,7 +216,8 @@ def train_combination(
         precision=round(metrics[0], 1),
         recall=round(metrics[1], 1),
         f_score=round(metrics[2], 1),
-        overfit=round(metrics[3], 1),
+        accuracy=round(metrics[3], 1),
+        overfit=round(metrics[4], 1),
         tuned_parameters=tuned_hyperparameters,
         training_time=training_time,
     )

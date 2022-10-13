@@ -84,6 +84,7 @@ RESULT_HEADERS: List[str] = [
     "Precision",
     "Recall",
     "F1",
+    "Accuracy",
     "Overfit",
     "TunedParams",
     "Time",
