@@ -22,7 +22,6 @@ from fa_singer_io.json_schema import (
 )
 from fa_singer_io.singer import (
     SingerRecord,
-    SingerSchema,
 )
 from fa_singer_io.singer.encoder import (
     EncodeItem,

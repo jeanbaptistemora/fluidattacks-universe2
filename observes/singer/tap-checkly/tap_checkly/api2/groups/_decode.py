@@ -142,7 +142,7 @@ class CheckGroupDecoder:
 
     def decode_id(self) -> ResultE[CheckGroupId]:
         unfolder = ExtendedUnfolder(self.raw)
-        return unfolder.require_primitive("id", int).map(CheckGroupId)
+        return unfolder.require_primitive("id", str).map(CheckGroupId)
 
     def decode_obj(self) -> ResultE[CheckGroupObj]:
         return self.decode_id().bind(

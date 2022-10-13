@@ -16,13 +16,9 @@ from tap_checkly.api2.alert_channels import (
     ChannelSubscription,
 )
 from tap_checkly.api2.id_objs import (
+    CheckGroupId,
     IndexedObj,
 )
-
-
-@dataclass(frozen=True)
-class CheckGroupId:
-    raw_id: int
 
 
 @dataclass(frozen=True)
@@ -51,3 +47,8 @@ class CheckGroup:
 
 
 CheckGroupObj = IndexedObj[CheckGroupId, CheckGroup]
+
+
+__all__ = [
+    "CheckGroupId",
+]
