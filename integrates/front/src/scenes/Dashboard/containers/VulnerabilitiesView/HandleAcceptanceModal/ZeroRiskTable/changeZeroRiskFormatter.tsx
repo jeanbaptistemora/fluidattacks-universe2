@@ -23,16 +23,18 @@ export const changeZeroRiskFormatter = (
   }
 
   return (
-    <MixedCheckBoxButton
-      fontSize={"fs-checkbox"}
-      id={"zeroRiskCheckBox"}
-      isNoEnabled={row.acceptance !== "APPROVED"}
-      isSelected={row.acceptance !== ""}
-      isYesEnabled={row.acceptance !== "REJECTED"}
-      noLabel={row.acceptance === "REJECTED" ? "REJECTED" : "REJECT"}
-      onApprove={handleOnApprove}
-      onDelete={handleOnDelete}
-      yesLabel={row.acceptance === "APPROVED" ? "CONFIRMED" : "CONFIRM"}
-    />
+    <div style={{ width: "150px" }}>
+      <MixedCheckBoxButton
+        fontSize={"fs-checkbox"}
+        id={"zeroRiskCheckBox"}
+        isNoEnabled={row.acceptance !== "APPROVED"}
+        isSelected={row.acceptance !== ""}
+        isYesEnabled={row.acceptance !== "REJECTED"}
+        noLabel={row.acceptance === "REJECTED" ? "REJECTED" : "REJECT"}
+        onApprove={handleOnApprove}
+        onDelete={handleOnDelete}
+        yesLabel={row.acceptance === "APPROVED" ? "CONFIRMED" : "CONFIRM"}
+      />
+    </div>
   );
 };
