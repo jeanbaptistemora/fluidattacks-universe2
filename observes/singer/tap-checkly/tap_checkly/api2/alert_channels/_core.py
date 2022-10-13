@@ -18,6 +18,12 @@ from tap_checkly.api2.id_objs import (
 
 
 @dataclass(frozen=True)
+class ChannelSubscription:
+    activated: bool
+    channel: AlertChannelId
+
+
+@dataclass(frozen=True)
 class AlertChannel:
     alert_type: str
     send_recovery: bool
