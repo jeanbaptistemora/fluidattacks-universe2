@@ -136,12 +136,15 @@ function formatYTick(value, tick) {
 }
 
 function formatXTick(index, categories) {
-  const slicedSize = -40;
-  if (Math.abs(slicedSize) > categories[index].length) {
-    return categories[index];
-  }
+  if (categories.length > 0) {
+    const slicedSize = -40;
+    if (Math.abs(slicedSize) > categories[index].length) {
+      return categories[index];
+    }
 
-  return `...${ categories[index].slice(slicedSize) }`;
+    return `...${ categories[index].slice(slicedSize) }`;
+  }
+  return '';
 }
 
 function formatYTickAdjusted(value) {

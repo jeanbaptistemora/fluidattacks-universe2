@@ -91,6 +91,12 @@ def _get_in_between_state(
     return verification
 
 
+def get_diff(start: datetime, end: datetime) -> int:
+    diff = end - start
+
+    return diff.days if end > start else 0
+
+
 async def _get_mean_time_to_reattack(
     filtered_vulnerabilities: tuple[Vulnerability, ...], loaders: Dataloaders
 ) -> Decimal:
@@ -121,11 +127,10 @@ async def _get_mean_time_to_reattack(
                 and start is not None
             ):
                 number_of_reattacks += 1
-                diff = (
-                    get_datetime_from_iso_str(verification.modified_date)
-                    - start
+                number_of_days += get_diff(
+                    start,
+                    get_datetime_from_iso_str(verification.modified_date),
                 )
-                number_of_days += diff.days
                 start = None
             if (
                 verification.status == VulnerabilityVerificationStatus.VERIFIED
@@ -137,7 +142,7 @@ async def _get_mean_time_to_reattack(
                 )
 
         if start is not None:
-            number_of_days += (current_date - start).days
+            number_of_days += get_diff(start, current_date)
 
     return (
         format_decimal(Decimal(number_of_days / number_of_reattacks))

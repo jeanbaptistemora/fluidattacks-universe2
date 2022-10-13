@@ -11,19 +11,19 @@ from async_lru import (
 )
 from charts.generators.bar_chart.utils import (
     format_csv_data,
+    LIMIT,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    VULNERABILITIES_COUNT,
 )
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
-    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -109,7 +109,7 @@ async def get_data_many_groups(
 
 
 def format_data(*, counters: Counter[str]) -> dict:
-    merged_data: list[tuple[str, int]] = counters.most_common()[:15]
+    merged_data: list[tuple[str, int]] = counters.most_common()[:LIMIT]
 
     return dict(
         data=dict(
@@ -120,34 +120,28 @@ def format_data(*, counters: Counter[str]) -> dict:
                 ],
             ],
             colors={
-                "# Vulnerabilities": RISK.neutral,
+                "# Vulnerabilities": VULNERABILITIES_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="inset",
-            inset=dict(
-                anchor="top-right",
-                step=1.25,
-                x=10,
-                y=-5,
-            ),
+            show=False,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[key for key, _ in merged_data],
                 type="category",
                 tick=dict(
                     multiline=False,
                     outer=False,
-                    rotate=TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(
                 label=dict(
-                    text="Vulnerabilities",
-                    position="inner-top",
+                    position="outer-top",
                 ),
                 min=0,
                 padding=dict(
@@ -165,6 +159,8 @@ def format_data(*, counters: Counter[str]) -> dict:
                 value=None,
             ),
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
     )
 
 

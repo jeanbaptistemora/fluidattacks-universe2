@@ -35,7 +35,7 @@ export const enTranslations: ResourceKey = {
           app: "App Open Exposure (CVSSF)",
           code: "Code Open Exposure (CVSSF)",
           infra: "Infra Open Exposure (CVSSF)",
-          vulnerabilities: "Top vulnerabilities",
+          vulnerabilities: "Vulnerabilities by type",
         },
         title: "Exposure by type",
         tooltip: {

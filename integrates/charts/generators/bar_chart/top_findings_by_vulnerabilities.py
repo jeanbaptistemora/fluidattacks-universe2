@@ -15,12 +15,13 @@ from charts import (
 from charts.generators.bar_chart.utils import (
     format_csv_data,
     generate_all_top_vulnerabilities,
+    LIMIT,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    RISK,
+    VULNERABILITIES_COUNT,
 )
 from charts.generators.common.utils import (
     get_finding_name,
@@ -93,7 +94,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     ):
         merged_data.append([axis, sum([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:15]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:LIMIT]
 
     return dict(
         data=dict(
@@ -104,24 +105,21 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ],
             ],
             colors={
-                "# Open Vulnerabilities": RISK.neutral,
+                "# Open Vulnerabilities": VULNERABILITIES_COUNT,
             },
             labels=None,
             type="bar",
         ),
         legend=dict(
-            position="inset",
-            inset=dict(
-                anchor="top-right",
-                step=1.3,
-                x=10,
-                y=-5,
-            ),
+            show=False,
         ),
         padding=dict(
-            bottom=30,
+            bottom=0,
         ),
+        exposureTrendsByCategories=True,
+        keepToltipColor=True,
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[
                     get_finding_name([str(key)]) for key, _ in merged_data
@@ -129,7 +127,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 type="category",
                 tick=dict(
                     outer=False,
-                    rotate=utils.TICK_ROTATION,
+                    rotate=0,
                 ),
             ),
             y=dict(

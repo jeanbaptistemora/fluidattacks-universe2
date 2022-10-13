@@ -11,6 +11,9 @@ from async_lru import (
 from charts.generators.bar_chart import (  # type: ignore
     format_csv_data,
 )
+from charts.generators.bar_chart.utils import (
+    LIMIT,
+)
 from charts.generators.common.colors import (
     EXPOSURE,
 )
@@ -110,7 +113,7 @@ def format_data(
         VulnerabilityType.LINES: "Code",
         VulnerabilityType.PORTS: "Infra",
     }
-    data: List[Tuple[str, int]] = counters.most_common()[:15]
+    data: List[Tuple[str, int]] = counters.most_common()[:LIMIT]
     legend: str = f"{translations[source]} open exposure"
 
     return dict(
@@ -134,6 +137,7 @@ def format_data(
             bottom=0,
         ),
         axis=dict(
+            rotated=True,
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
