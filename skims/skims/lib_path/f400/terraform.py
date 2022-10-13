@@ -5,6 +5,7 @@
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
+    AWSLambdaFunction,
     AWSS3Bucket,
     AWSS3LogginConfig,
 )
@@ -23,6 +24,7 @@ from model.core_model import (
 from parse_hcl2.common import (
     get_argument,
     get_attribute,
+    get_block_attribute,
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
@@ -30,6 +32,7 @@ from parse_hcl2.structure.aws import (
     iter_aws_cloudtrail,
     iter_aws_elb,
     iter_aws_instance,
+    iter_aws_lambda_function,
     iter_s3_buckets,
     iter_s3_logging_configuration,
 )
@@ -121,6 +124,19 @@ def _tfm_trails_not_multiregion_iter_vulns(
             yield multi_reg
 
 
+def _tfm_lambda_tracing_disabled_iter_vulns(
+    resource_iterator: Iterator[AWSLambdaFunction],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        trace = get_argument(body=resource.data, key="tracing_config")
+        if not trace:
+            yield resource
+        elif (mode := get_block_attribute(trace, "mode")) and (
+            mode.val != "Active"
+        ):
+            yield trace
+
+
 def tfm_elb_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -199,4 +215,20 @@ def tfm_trails_not_multiregion(
         ),
         path=path,
         method=MethodsEnum.TFM_TRAILS_NOT_MULTIREGION,
+    )
+
+
+def tfm_lambda_tracing_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f400.tfm_lambda_func_has_trace_disabled",
+        iterator=get_cloud_iterator(
+            _tfm_lambda_tracing_disabled_iter_vulns(
+                resource_iterator=iter_aws_lambda_function(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_LAMBDA_TRACING_DISABLED,
     )

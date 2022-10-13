@@ -24,6 +24,7 @@ from aws.model import (
     AWSIamRole,
     AWSInstance,
     AWSKmsKey,
+    AWSLambdaFunction,
     AWSLaunchConfiguration,
     AWSLaunchTemplate,
     AWSLbTargetGroup,
@@ -561,6 +562,16 @@ def iter_aws_default_network_acl(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_default_network_acl")
     for bucket in iterator:
         yield AWSDefaultNetworkAcl(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_lambda_function(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_lambda_function")
+    for bucket in iterator:
+        yield AWSLambdaFunction(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

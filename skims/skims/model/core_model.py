@@ -1210,6 +1210,7 @@ class DeveloperEnum(Enum):
     BRIAM_AGUDELO: str = "bagudelo@fluidattacks.com"
     DEFAULT: str = "machine@fluidattacks.com"
     DIEGO_RESTREPO: str = "drestrepo@fluidattacks.com"
+    FLOR_CALDERON: str = "fcalderon@fluidattacks.com"
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
     LEWIS_CONTRERAS: str = "lcontreras@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
@@ -3974,7 +3975,7 @@ class MethodsEnum(Enum):
         name="cfn_lambda_function_has_tracing_disabled",
         module="lib_path",
         finding=FindingEnum.F400,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_ELB_LOGGING_DISABLED = MethodInfo(
@@ -4015,6 +4016,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_LAMBDA_TRACING_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_lambda_tracing_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = MethodInfo(
