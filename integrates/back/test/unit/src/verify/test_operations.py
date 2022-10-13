@@ -76,15 +76,63 @@ async def test_check_verification() -> None:
             await check_verification(phone_number="", code=test_code)
 
 
-@pytest.mark.skip(reason="Test should mock the Twilio response")
 async def test_start_verification() -> None:
+    class MockedTwilioObject(NamedTuple):
+        sid: str
+        service_sid: str
+        account_sid: str
+        to: str
+        channel: str
+        status: str
+        valid: bool
+        date_created: str
+        date_updated: str
+        lookup: dict
+        amount: str
+        payee: str
+        send_code_attempts: list
+        sna: str
+        url: str
+
     test_phone_number = "12345678"
     test_result = await start_verification(
         phone_number=test_phone_number  # type: ignore
     )
     assert test_result is None
+    mocked_response = MockedTwilioObject(
+        sid="VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        service_sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        account_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        to="+15017122661",
+        channel="sms",
+        status="pending",
+        valid=False,
+        date_created="2015-07-30T20:00:00Z",
+        date_updated="2015-07-30T20:00:00Z",
+        lookup=dict(test_key="test_value"),
+        amount="0",
+        payee="test",
+        send_code_attempts=[
+            dict(
+                time="2015-07-30T20:00:00Z",
+                channel="SMS",
+                attempt_sid="VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ),
+        ],
+        sna="test",
+        url="""https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXX
+            XXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX""",
+    )
     with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
-        await start_verification(phone_number="+15108675310")
+        with mock.patch("verify.operations.client"):
+            with mock.patch(
+                "verify.operations.client.verify.services"
+            ) as mock_twilio:
+                mock_twilio.return_value.verifications.create.return_value = (
+                    mocked_response
+                )
+                await start_verification(phone_number="+15017122661")
+    assert mock_twilio.called is True
 
 
 async def test_validate_mobile() -> None:
