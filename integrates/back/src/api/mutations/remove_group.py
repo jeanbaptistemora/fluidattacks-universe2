@@ -12,6 +12,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    AlreadyPendingDeletion,
     PermissionDenied,
 )
 from dataloaders import (
@@ -19,6 +20,7 @@ from dataloaders import (
 )
 from db_model.groups.enums import (
     GroupStateRemovalJustification,
+    GroupStateStatus,
     GroupTier,
 )
 from db_model.groups.types import (
@@ -57,8 +59,14 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    group: Group = await loaders.group.load(group_name)
     requester_email = user_info["user_email"]
+    group: Group = await loaders.group.load(group_name)
+    if group.state.status == GroupStateStatus.DELETED:
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"Security: Group {group_name} already in deleted state",
+        )
+        raise AlreadyPendingDeletion()
 
     try:
         await groups_domain.update_group(
