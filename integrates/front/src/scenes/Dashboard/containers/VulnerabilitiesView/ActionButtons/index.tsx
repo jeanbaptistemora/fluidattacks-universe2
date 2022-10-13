@@ -22,15 +22,14 @@ interface IActionButtonsProps {
   areVulnerabilitiesPendingToAcceptance: boolean;
   isEditing: boolean;
   isFindingReleased?: boolean;
-  isNotifyDisabled?: boolean;
   isOpen: boolean;
-  isReattackRequestedInAllVuln: boolean;
+  isReattackRequestedInAllVuln?: boolean;
   isRequestingReattack: boolean;
-  isVerified: boolean;
+  isVerified?: boolean;
   isVerifying: boolean;
-  state: "closed" | "open";
+  state?: "closed" | "open";
   onEdit: () => void;
-  onNotify: () => void;
+  onNotify?: () => void;
   onRequestReattack: () => void;
   onVerify: () => void;
   openHandleAcceptance: () => void;
@@ -42,13 +41,12 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnerabilitiesPendingToAcceptance,
   isEditing,
   isFindingReleased = true,
-  isNotifyDisabled = false,
   isOpen,
-  isReattackRequestedInAllVuln,
+  isReattackRequestedInAllVuln = false,
   isRequestingReattack,
-  isVerified,
+  isVerified = false,
   isVerifying,
-  state,
+  state = "open",
   onEdit,
   onNotify,
   onRequestReattack,
@@ -77,7 +75,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
-      {state === "open" && !isNotifyDisabled && (
+      {state === "open" && onNotify && (
         <NotifyButton
           isDisabled={false}
           isFindingReleased={isFindingReleased}
