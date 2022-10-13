@@ -8,6 +8,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.pie_chart.utils import (
+    PortfoliosGroupsInfo,
+)
 from charts.generators.text_box.utils import (
     format_csv_data,
 )
@@ -42,7 +45,9 @@ LINES_ADJUSTMENT: Decimal = Decimal("1000.0")
 
 
 @alru_cache(maxsize=None, typed=True)
-async def generate_one(group_name: str, loaders: Dataloaders) -> Decimal:
+async def generate_one(
+    group_name: str, loaders: Dataloaders
+) -> PortfoliosGroupsInfo:
     group: Group = await loaders.group.load(group_name)
     toe_lines: tuple[ToeLines, ...] = await loaders.group_toe_lines.load_nodes(
         GroupToeLinesRequest(
@@ -64,15 +69,21 @@ async def generate_one(group_name: str, loaders: Dataloaders) -> Decimal:
     )
     target_tested: Decimal = (tested_lines / LINES_ADJUSTMENT) + tested_inputs
     if group.state.has_squad:
-        return format_cvssf(PENDING + (target_tested * TARGET))
+        return PortfoliosGroupsInfo(
+            group_name=group_name,
+            value=format_cvssf(PENDING + (target_tested * TARGET)),
+        )
 
-    return format_cvssf((PENDING + (target_tested * TARGET)) / ADJUSTMENT)
+    return PortfoliosGroupsInfo(
+        group_name=group_name,
+        value=format_cvssf((PENDING + (target_tested * TARGET)) / ADJUSTMENT),
+    )
 
 
-def format_data(mean_time: Decimal) -> dict:
+def format_data(mean_time: PortfoliosGroupsInfo) -> dict:
     return {
         "fontSizeRatio": 0.5,
-        "text": mean_time,
+        "text": mean_time.value,
     }
 
 
