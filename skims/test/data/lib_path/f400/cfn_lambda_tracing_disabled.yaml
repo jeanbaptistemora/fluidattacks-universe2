@@ -1,0 +1,18 @@
+---
+Resources:
+  Function1:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: MyLambdaFunction1
+      TracingConfig:
+        Mode: Active
+  Function2:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: MyLambdaFunction2
+      TracingConfig:
+        Mode: PassThrough
+  Function3:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: MyLambdaFunction3

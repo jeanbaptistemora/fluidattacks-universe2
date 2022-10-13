@@ -219,3 +219,9 @@ class AWSDefaultNetworkAcl(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSLambdaFunction(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

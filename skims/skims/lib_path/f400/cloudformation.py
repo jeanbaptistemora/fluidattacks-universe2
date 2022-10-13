@@ -8,6 +8,7 @@ from aws.model import (
     AWSEC2,
     AWSElb,
     AWSElbV2,
+    AWSLambdaFunction,
     AWSS3Bucket,
 )
 from lib_path.common import (
@@ -30,6 +31,7 @@ from parse_cfn.structure import (
     iter_ec2_instances,
     iter_elb2_load_balancers,
     iter_elb_load_balancers,
+    iter_lambda_functions,
     iter_s3_buckets,
 )
 from typing import (
@@ -152,6 +154,22 @@ def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
                 )
 
 
+def _cfn_lambda_function_has_tracing_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    lambda_iterator: Iterator[Node],
+) -> Iterator[Union[AWSLambdaFunction, Node]]:
+    for lamb in lambda_iterator:
+        tracing_config = get_node_by_keys(lamb, ["TracingConfig", "Mode"])
+        if not isinstance(tracing_config, Node):
+            yield AWSLambdaFunction(
+                column=lamb.start_column,
+                data=lamb.data,
+                line=get_line_by_extension(lamb.start_line, file_ext),
+            )
+        elif tracing_config.raw != "Active":
+            yield tracing_config
+
+
 def cfn_bucket_has_logging_conf_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -257,4 +275,21 @@ def cfn_elb2_has_access_logs_s3_disabled(
         ),
         path=path,
         method=MethodsEnum.CFN_ELB2_LOGS_S3_DISABLED,
+    )
+
+
+def cfn_lambda_function_has_tracing_disabled(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f400.lambda_function_has_trace_disabled",
+        iterator=get_cloud_iterator(
+            _cfn_lambda_function_has_tracing_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                lambda_iterator=iter_lambda_functions(template=template),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.CFN_LAMBDA_TRACING_DISABLED,
     )

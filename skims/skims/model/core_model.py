@@ -3961,6 +3961,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_LAMBDA_TRACING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_lambda_function_has_tracing_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_ELB_LOGGING_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_elb_logging_disabled",

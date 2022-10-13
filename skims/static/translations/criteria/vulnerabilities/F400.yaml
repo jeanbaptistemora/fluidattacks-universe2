@@ -20,3 +20,6 @@ src.lib_path.f400.has_monitoring_disabled:
 src.lib_path.f400.tfm_has_logging_config_disabled:
   en: Missing logging_config property to make traceability
   es: Falta la propiedad logging_config para hacer trazabilidad
+src.lib_path.f400.lambda_function_has_trace_disabled:
+  en: Missing TracingConfig property or is misconfigured to make traceability
+  es: Falta la propiedad TracingConfig o esta mal configurada para hacer trazabilidad
