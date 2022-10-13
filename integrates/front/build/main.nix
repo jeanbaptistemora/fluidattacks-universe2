@@ -22,7 +22,10 @@ makeDerivation {
   builder = ./builder.sh;
   name = "integrates-front-build";
   searchPaths = {
-    bin = [inputs.nixpkgs.patch];
+    bin = [
+      inputs.nixpkgs.bash
+      inputs.nixpkgs.patch
+    ];
     source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
 }

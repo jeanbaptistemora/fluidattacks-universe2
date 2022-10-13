@@ -8,7 +8,7 @@
 }:
 makeNodeJsModules {
   name = "integrates-front-dev-runtime";
-  nodeJsVersion = "14";
+  nodeJsVersion = "16";
   packageJson = projectPath "/integrates/front/package.json";
   packageLockJson = projectPath "/integrates/front/package-lock.json";
 }
