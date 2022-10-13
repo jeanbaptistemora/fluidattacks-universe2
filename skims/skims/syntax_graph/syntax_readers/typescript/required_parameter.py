@@ -22,7 +22,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    ignore_types = {"?", ","}
+    ignore_types = {"?", ",", "="}
 
     valid_childs = [
         child

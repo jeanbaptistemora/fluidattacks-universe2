@@ -56,6 +56,7 @@ from syntax_graph.syntax_readers.typescript import (
     generic_type as typescript_generic_type,
     index_signature as typescript_index_signature,
     interface_declaration as typescript_interface_declaration,
+    internal_module as typescript_internal_module,
     intersection_type as typescript_intersection_type,
     parenthesized_type as typescript_parenthesized_type,
     predefined_type as typescript_predefined_type,
@@ -262,6 +263,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "interface_declaration",
         },
         syntax_reader=typescript_interface_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "internal_module",
+        },
+        syntax_reader=typescript_internal_module.reader,
     ),
     Dispatcher(
         applicable_types={
