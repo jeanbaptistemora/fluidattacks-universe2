@@ -26,6 +26,12 @@ digraph common {
 
         cluster_aws_vpc_fluid_vpc[label="" style="invis"]
 
+        subgraph cluster_aws_client_vpn {
+          label="Client VPN Endpoints"
+
+          aws_client_vpn[label="main"]
+        }
+
         subgraph cluster_aws_route53_inbound_resolver {
           label="Route53 Inbound Resolvers"
 
@@ -149,6 +155,8 @@ digraph common {
   }
 
   edge[color="0.1 1.0 1.0"]
+  aws_client_vpn -> aws_route53_inbound_resolver_vpn[]
+  aws_client_vpn -> cluster_aws_vpc_fluid_vpc_route_tables_main[lhead="cluster_aws_vpc_fluid_vpc_route_tables_main" ]
   aws_vpc_fluid_vpc_subnets_batch_clone -> aws_route53_inbound_resolver_vpn[]
   aws_vpc_fluid_vpc_subnets_common -> aws_route53_inbound_resolver_vpn[]
   aws_route53_inbound_resolver_vpn -> cluster_aws_route53_zones[lhead="cluster_aws_route53_zones"]
@@ -181,11 +189,13 @@ digraph common {
 
   node[fillcolor="0.0 0.0 0.8"]
   developer[label="Developer"]
-  end_user[label="End User"]
+  end_user_customer[label="End User (Customer)"]
+  end_user_hacker[label="End User (Fluid Attacks Hacker)"]
 
   edge[color="0.0 0.0 0.0"]
-  end_user -> cluster_customer1_network[lhead="cluster_customer1_network"]
-  end_user -> cluster_customer2_network[lhead="cluster_customer2_network"]
+  end_user_customer -> cluster_customer1_network[lhead="cluster_customer1_network"]
+  end_user_customer -> cluster_customer2_network[lhead="cluster_customer2_network"]
+  end_user_hacker -> aws_client_vpn[]
   developer -> cluster_aws_vpc_fluid_vpc[lhead="cluster_aws_vpc_fluid_vpc"]
   developer -> cluster_gitlab_git_common_vpn[lhead="cluster_gitlab_git_common_vpn"]
 }

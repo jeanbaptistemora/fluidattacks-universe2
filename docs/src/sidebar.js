@@ -388,6 +388,7 @@ const Development = [
           "development/products/common/status",
           "development/products/common/users",
           "development/products/common/vpc",
+          "development/products/common/vpn",
         ],
       },
       "development/products/docs",
