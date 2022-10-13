@@ -19,6 +19,7 @@ from syntax_graph.syntax_readers.javascript import (
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
+    import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
@@ -50,6 +51,8 @@ from syntax_graph.syntax_readers.typescript import (
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
+    export_clause as typescript_export_clause,
+    export_specifier as typescript_export_specifier,
     export_statement as typescript_export_statement,
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
@@ -181,6 +184,18 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "export_clause",
+        },
+        syntax_reader=typescript_export_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "export_specifier",
+        },
+        syntax_reader=typescript_export_specifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "export_statement",
         },
         syntax_reader=typescript_export_statement.reader,
@@ -251,6 +266,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "if_statement",
         },
         syntax_reader=javascript_if_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "import_statement",
+        },
+        syntax_reader=javascript_import_statement.reader,
     ),
     Dispatcher(
         applicable_types={
