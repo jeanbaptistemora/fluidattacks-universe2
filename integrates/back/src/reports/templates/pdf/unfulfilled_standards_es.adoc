@@ -1,0 +1,22 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+= {{group_name}}
+
+=== Unfulfilled Standards
+El grupo no cumple con los siguientes estándares ya que tiene requisitos relacionados sin cumplir.
+
+{% for unfulfilled_standard in unfulfilled_standards %}
+==== {{unfulfilled_standard.title}}
+{{unfulfilled_standard.summary}} +
+[cols="1*<",options=header]
+|===
+|Unfulfilled Requirements
+{% for unfulfilled_requirement in unfulfilled_standard.unfulfilled_requirements %}
+        |https://docs.fluidattacks.com/criteria/requirements/{{unfulfilled_requirement.id}}[{{unfulfilled_requirement.id}}. {{unfulfilled_requirement.title}}] +
+    {%- endfor %}
+|===
+{%- endfor %}
+
+<<< {{fluid_tpl['footer_adoc']}}
