@@ -436,6 +436,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         header: String(t("group.scope.git.repo.branch")),
                       },
                       {
+                        accessorFn: (row): string => {
+                          return _.capitalize(row.state);
+                        },
                         accessorKey: "state",
                         cell: (cell: ICellHelper<IGitRootData>): JSX.Element =>
                           canUpdateRootState
@@ -444,6 +447,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                                 handleStateUpdate
                               )
                             : statusFormatter(cell.getValue()),
+                        filterFn: "equalsString",
                         header: String(t("group.scope.common.state")),
                         meta: { filterType: "select" },
                       },
