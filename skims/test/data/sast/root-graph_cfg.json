@@ -30707,7 +30707,8 @@
           },
           "185": {
             "block_id": "191",
-            "label_type": "LambdaExpression"
+            "label_type": "LambdaExpression",
+            "parameters_id": "191"
           },
           "186": {
             "label_type": "ParameterList"

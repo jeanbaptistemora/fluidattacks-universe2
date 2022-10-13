@@ -22,7 +22,6 @@ def build_lambda_expression_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        block_id=block_id,
         label_type="LambdaExpression",
     )
 
@@ -34,6 +33,7 @@ def build_lambda_expression_node(
         )
 
     if parameters:
+        args.syntax_graph.nodes[args.n_id]["parameters_id"] = block_id
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(parameters)),
@@ -41,6 +41,7 @@ def build_lambda_expression_node(
         )
 
     if block_id:
+        args.syntax_graph.nodes[args.n_id]["block_id"] = block_id
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(block_id)),
