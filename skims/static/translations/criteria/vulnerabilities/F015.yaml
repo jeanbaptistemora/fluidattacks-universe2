@@ -8,3 +8,6 @@ lib_path.f015.tfm_azure_linux_vm_insecure_authentication:
 lib_http.analyze_headers.www_authenticate.basic:
   en: The application uses Basic authentication over HTTP
   es: La aplicación usa autenticación de tipo Basic sobre HTTP
+lib_path.f015.jmx_header_basic:
+  en: The basic method is used in the headers
+  es: Se utiliza el metodo basic en los headers

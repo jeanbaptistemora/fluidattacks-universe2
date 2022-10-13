@@ -6,6 +6,9 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
+from lib_path.f015.conf_files import (
+    jmx_header_basic,
+)
 from lib_path.f015.terraform import (
     tfm_azure_linux_vm_insecure_authentication,
     tfm_azure_virtual_machine_insecure_authentication,
@@ -44,6 +47,17 @@ def run_tfm_azure_linux_vm_insecure_authentication(
 
 
 @SHIELD_BLOCKING
+def run_jmx_header_basic(
+    content: str,
+    path: str,
+) -> Vulnerabilities:
+    return jmx_header_basic(
+        content=content,
+        path=path,
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -63,6 +77,12 @@ def analyze(
             run_tfm_azure_linux_vm_insecure_authentication(
                 content, path, model
             ),
+        )
+    elif file_extension == "jmx":
+        content = content_generator()
+        results = (
+            *results,
+            run_jmx_header_basic(content, path),
         )
 
     return results
