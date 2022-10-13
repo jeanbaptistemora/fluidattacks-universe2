@@ -16,23 +16,36 @@ You can access the
 **Authors** section when you
 enter one of your groups.
 
-![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622745748/docs/web/groups/authors/authors_section_vlq2um.png)
+![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1665669498/docs/web/groups/authors/authors_table.png)
 
-You can see a list of
-authors that contributed
-in the last month.
-It presents you their
-name and email,
-the groups they contribute to,
-their latest commit,
-the name of the repository
-where they made that commit,
-and whether or not they are
-registered to the ARM.
-See below how to invite them
-to open an account in our
-Attacks Resistance Management
-platform.
+## Authors table
+
+The Authors table shows us who has
+contributed to the project or group.
+
+- **Author:**
+  The author name and the email
+  registered in the ARM.
+- **Groups Contributed:**
+  Name of the group to which the
+  author contributes.
+- **Commit:**
+  The first author commit of the month.
+- **Repository:**
+  The first repository that was
+  detected in the month.
+- **Registration status:**
+  The registration status can be:
+  Registered,
+  pending,
+  or invite.
+
+## Functionalities
+
+In this section of the **ARM**
+we find the following functionalities:
+
+### Filter per month
 
 When you need to see the list
 of authors for a specific month,
@@ -41,29 +54,35 @@ top left to drop down a menu
 with all the months of work
 in that group.
 
-![Authors Specific Month](https://res.cloudinary.com/fluid-attacks/image/upload/v1655823957/docs/web/groups/authors/authors_date.png)
+![Authors Specific Month](https://res.cloudinary.com/fluid-attacks/image/upload/v1665672041/docs/web/groups/authors/filter_date.png)
 
-## Export list of authors
+### Export
 
 You can download the list of
 authors as a CSV (comma-separated
 values) file by clicking on
 the **Export** button.
 
-## Filter list​ of authors
+## Filters
 
 By clicking the **Filters** button,
-you have four filters available
-to apply to the list:
-**Authors**,
-**Groups contributed**,
-**Repository** and **Invitation**.
-In addition,
-you can search for any data
-contained in the list using
-the box at the top right.
+which you can find on the
+upper right-hand side,
+next to the search bar;
+you have six filters enabled to
+apply to your listing:
+**Author**,
+**Groups Contributed**,
+**Commit**,
+**Repository**,
+**Registration status**.
 
-![Filter List Authors](https://res.cloudinary.com/fluid-attacks/image/upload/v1655823957/docs/web/groups/authors/filter_list_authors.png)
+![Filter List Authors](https://res.cloudinary.com/fluid-attacks/image/upload/v1665672117/docs/web/groups/authors/filters.png)
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
 
 ## Invite authors
 
