@@ -503,6 +503,14 @@
       "title": "143. Inappropriate coding practices - Eval function"
     }
   },
+  "F148": {
+    "EN": {
+      "title": "148. Use of an insecure channel - FTP"
+    },
+    "ES": {
+      "title": "148. Use of an insecure channel - FTP"
+    }
+  },
   "F157": {
     "EN": {
       "title": "157. Unrestricted access between network segments"

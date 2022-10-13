@@ -602,6 +602,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[266],
     )
+    F148: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F148",
+        cwe=319,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[181],
+    )
     F157: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F157",
@@ -3113,6 +3120,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F143,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    CS_INSECURE_CHANNEL = MethodInfo(
+        file_name="c_sharp",
+        name="cs_insecure_channel",
+        module="lib_root",
+        finding=FindingEnum.F148,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
