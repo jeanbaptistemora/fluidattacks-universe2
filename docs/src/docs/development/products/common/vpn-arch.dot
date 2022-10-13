@@ -81,12 +81,12 @@ digraph common {
 
             cluster_aws_vpc_fluid_vpc_route_tables_main[label="" style="invis"]
 
-            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1[label="$customer_1_cdir_1"]
-            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2[label="$customer_1_cdir_2"]
-            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_3[label="$customer_1_cdir_3"]
-            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1[label="$customer_2_cdir_1"]
-            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2[label="$customer_2_cdir_2"]
-            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_3[label="$customer_2_cdir_3"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_1[label="$customer_1_CIDR_1"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_2[label="$customer_1_CIDR_2"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_1_cidr_3[label="$customer_1_CIDR_3"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_1[label="$customer_2_CIDR_1"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_2[label="$customer_2_CIDR_2"]
+            aws_vpc_fluid_vpc_route_tables_main_customer_2_cidr_3[label="$customer_2_CIDR_3"]
           }
         }
 
