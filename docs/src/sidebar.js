@@ -134,6 +134,13 @@ const About = [
     ],
   },
   "about/glossary",
+  {
+    type: "category",
+    label: "Compare",
+    items: [
+      "about/compare/faraday",
+    ],
+  },
 ];
 
 const Criteria = [
@@ -661,13 +668,6 @@ const Machine = [
       "machine/web/portfolios",
       "machine/web/stakeholders",
       "machine/web/global-credentials",
-      {
-        type: "category",
-        label: "Why choose Fluid",
-        items: [
-          "machine/web/arm-vs-faraday",
-        ],
-      },
     ],
   },
   {

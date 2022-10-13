@@ -1,8 +1,8 @@
 ---
-id: arm-vs-faraday
-title: ARM vs Faraday
-sidebar_label: ARM vs Faraday
-slug: /machine/web/arm-vs-faraday
+id: faraday
+title: Fluid vs Faraday
+sidebar_label: Faraday
+slug: /about/compare/faraday
 ---
 
 Here is a feature comparison
