@@ -1,8 +1,8 @@
 ---
-id: vulnerabilities-download
-title: Vulnerabilities download for the entire organization
-sidebar_label: Vulnerabilities download
-slug: /machine/web/vulnerabilities-download
+id: export
+title: Export
+sidebar_label: Export
+slug: /machine/web/export
 ---
 
 To download all of your organization's

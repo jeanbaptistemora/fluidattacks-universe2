@@ -166,7 +166,7 @@ edit or remove users.
   (including all vulnerability statuses)
   in a .CSV file.
   For more information,
-  click [here](/machine/web/vulnerabilities-download/)
+  click [here](/machine/web/export)
 
 ## Roles table
 

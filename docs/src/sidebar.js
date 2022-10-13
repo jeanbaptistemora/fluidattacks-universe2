@@ -572,7 +572,7 @@ const Machine = [
       "machine/web/self-enrollment",
       "machine/web/creating-organization",
       "machine/web/user-information",
-      "machine/web/vulnerabilities-download",
+      "machine/web/export",
       "machine/web/notifications",
       {
         type: "category",
