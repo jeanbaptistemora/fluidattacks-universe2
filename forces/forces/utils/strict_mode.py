@@ -7,12 +7,14 @@ from datetime import (
     timedelta,
 )
 from forces.model import (
-    Finding,
     ForcesConfig,
     VulnerabilityState,
 )
 from forces.utils.logs import (
     log,
+)
+from typing import (
+    Any,
 )
 
 
@@ -30,7 +32,7 @@ def choose_min_breaking_severity(
 
 
 async def set_forces_exit_code(
-    config: ForcesConfig, findings: list[Finding]
+    config: ForcesConfig, findings: list[dict[str, Any]]
 ) -> int:
     if config.strict:
         await log(
@@ -49,11 +51,11 @@ async def set_forces_exit_code(
             ),
         )
         for finding in findings:
-            for vuln in finding.vulnerabilities:
+            for vuln in finding["vulnerabilities"]:
                 severity: float = (
-                    vuln.severity
+                    float(vuln.severity)
                     if vuln.severity is not None
-                    else finding.severity
+                    else float(finding["severity"])
                 )
                 current_date: datetime = datetime.utcnow()
                 report_date: datetime = datetime.strptime(

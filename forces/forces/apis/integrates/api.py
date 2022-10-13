@@ -289,7 +289,7 @@ async def upload_report(
     closed_vulns: list[dict[str, str]] = []
     accepted_vulns: list[dict[str, str]] = []
     for vuln in [
-        vuln for find in report["findings"] for vuln in find.vulnerabilities
+        vuln for find in report["findings"] for vuln in find["vulnerabilities"]
     ]:
         vuln_state = {
             "kind": vuln.type,

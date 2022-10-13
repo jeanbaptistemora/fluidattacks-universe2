@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from forces.model import (
-    Finding,
     ForcesConfig,
     KindEnum,
     Vulnerability,
@@ -36,10 +35,15 @@ async def test_create_findings_dict(
         group=test_group, api_token=test_token
     )
     for find in findings_dict_1.values():
-        assert find.identifier
-        assert find.title
-        assert find.state
-        assert find.exploitability
+        for key in ("open", "closed", "accepted"):
+            assert key in find
+
+    findings_dict_2 = await create_findings_dict(
+        group=test_group, api_token=test_token
+    )
+    for find in findings_dict_2.values():
+        for key in ("open", "closed", "accepted"):
+            assert key in find
 
 
 @pytest.mark.asyncio
@@ -57,8 +61,8 @@ async def test_generate_report1(
     assert report["summary"]["open"]["total"] == 7
     assert report["summary"]["closed"]["total"] == 2
 
-    findings: list[Finding] = [
-        find for find in report["findings"] if find.identifier == test_finding
+    findings = [
+        find for find in report["findings"] if find["id"] == test_finding
     ]
     assert len(findings) == 1
 
@@ -74,10 +78,10 @@ async def test_generate_report2(
         config=config,
         api_token=test_token,
     )
-    findings: list[Finding] = [
-        find for find in report["findings"] if find.identifier == test_finding
+    findings = [
+        find for find in report["findings"] if find["id"] == test_finding
     ]
-    assert len(findings[0].vulnerabilities) == 60
+    assert len(findings[0]["vulnerabilities"]) == 5
 
 
 def test_get_summary_template() -> None:

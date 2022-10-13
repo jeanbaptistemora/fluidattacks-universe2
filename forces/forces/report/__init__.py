@@ -11,7 +11,6 @@ from forces.apis.integrates.api import (
     vulns_generator,
 )
 from forces.model import (
-    Finding,
     ForcesConfig,
     ForcesReport,
     KindEnum,
@@ -132,7 +131,7 @@ def format_rich_report(
     """Outputs a rich-formatted table containing the reported data of findings
     and associated vulns of an ASM group\n
     @param `report`: A dict containing the list of findings and summary data of
-    an ARM group\n
+    an ASM group\n
     @param `verbose_level`: An int from 1 to 4 of the desired verbosity level,
     with more data being shown the higher the number\n
     @param `kind`: A kind from the `KindEnum`, can be
@@ -150,11 +149,11 @@ def format_rich_report(
     last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data")
-    findings: list[Finding] = report["findings"]
+    findings = report["findings"]
     for find in findings:
-        if find.vulnerabilities:
+        if find["vulnerabilities"]:
             find_summary: Counter = Counter(
-                [vuln.state for vuln in find.vulnerabilities]
+                [vuln.state for vuln in find["vulnerabilities"]]
             )
             for key in (
                 "title",
@@ -164,11 +163,7 @@ def format_rich_report(
                 *VulnerabilityState,
                 "vulnerabilities",
             ):
-                value = (
-                    find_summary[key]
-                    if key in set(VulnerabilityState)
-                    else attrgetter(key)(find)
-                )
+                value = {**find | find_summary}[key]
                 if is_exploit := key == "exploitability":
                     key = "exploit"
 
@@ -193,7 +188,7 @@ def format_rich_report(
                             key,
                             get_exploitability_measure(value)
                             if is_exploit
-                            else value,
+                            else str(value),
                         ),
                         end_section=key == last_key,
                     )
@@ -240,6 +235,8 @@ async def generate_raw_report(
 
     async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = str(vuln["findingId"])
+        exploitability: float = float(findings_dict[find_id]["exploitability"])
+        findings_dict[find_id]["exploitability"] = exploitability
 
         vulnerability: Vulnerability = Vulnerability(
             type=(
@@ -258,7 +255,7 @@ async def generate_raw_report(
             if vuln["severity"] is not None
             else None,
             report_date=str(vuln["reportDate"]),
-            exploitability=findings_dict[find_id].exploitability,
+            exploitability=exploitability,
             root_nickname=str(vuln["rootNickname"])
             if vuln.get("rootNickName")
             else None,
@@ -279,8 +276,9 @@ async def generate_raw_report(
             _summary_dict[vulnerability.state]["SAST"] += bool(
                 vulnerability.type == VulnerabilityType.SAST
             )
+        findings_dict[find_id][vulnerability.state] += 1
 
-        findings_dict[find_id].vulnerabilities.append(vulnerability)
+        findings_dict[find_id]["vulnerabilities"].append(vulnerability)
 
     for find in findings_dict.values():
         raw_report["findings"].append(find)
