@@ -15,7 +15,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "integrates-front-lint-stylelint";
   searchPaths = {
-    bin = [inputs.nixpkgs.nodejs-14_x];
+    bin = [inputs.nixpkgs.nodejs-16_x];
     source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
 }

@@ -17,7 +17,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash
-      inputs.nixpkgs.nodejs-14_x
+      inputs.nixpkgs.nodejs-16_x
     ];
     source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
