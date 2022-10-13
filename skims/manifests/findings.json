@@ -607,6 +607,14 @@
       "title": "236. Technical information leak - SourceMap"
     }
   },
+  "F237": {
+    "EN": {
+      "title": "237. Technical information leak - Print Functions"
+    },
+    "ES": {
+      "title": "237. Technical information leak - Print Functions"
+    }
+  },
   "F239": {
     "EN": {
       "title": "239. Technical information leak - Errors"

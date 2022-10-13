@@ -693,6 +693,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.leak,
         requirements=[77, 176],
     )
+    F237: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F237",
+        cwe=200,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[77, 176],
+    )
     F239: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F239",
@@ -1216,6 +1223,7 @@ class DeveloperEnum(Enum):
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
     JULIAN_GOMEZ: str = "ugomez@fluidattacks.com"
     JHON_ROMERO: str = "jromero@fluidattacks.com"
+    LUIS_PATINO: str = "lpatino@fluidattacks.com"
 
 
 class TechniqueEnum(Enum):
@@ -4144,5 +4152,13 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F423,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_HAS_PRINT_STATEMENTS = MethodInfo(
+        file_name="java",
+        name="java_has_print_statements",
+        module="lib_root",
+        finding=FindingEnum.F237,
+        developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
