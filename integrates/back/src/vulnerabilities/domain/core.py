@@ -82,7 +82,6 @@ from newutils import (
 from notifications import (
     domain as notifications_domain,
 )
-import redshift.vulnerabilities as redshift_vulns
 from settings import (
     LOGGING,
 )
@@ -108,43 +107,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _send_to_redshift(
-    *,
-    loaders: Any,
-    vulnerability: Vulnerability,
-) -> None:
-    historic_state = await loaders.vulnerability_historic_state.load(
-        vulnerability.id
-    )
-    historic_treatment = await loaders.vulnerability_historic_treatment.load(
-        vulnerability.id
-    )
-    historic_verification = (
-        await loaders.vulnerability_historic_verification.load(
-            vulnerability.id
-        )
-    )
-    historic_zero_risk = await loaders.vulnerability_historic_zero_risk.load(
-        vulnerability.id
-    )
-    await redshift_vulns.insert_vulnerability(
-        vulnerability=vulnerability,
-        historic_state=historic_state,
-        historic_treatment=historic_treatment,
-        historic_verification=historic_verification,
-        historic_zero_risk=historic_zero_risk,
-    )
-    LOGGER.info(
-        "Vulnerability stored in redshift",
-        extra={
-            "extra": {
-                "vulnerability_id": vulnerability.id,
-                "finding_id": vulnerability.finding_id,
-            }
-        },
-    )
 
 
 async def confirm_vulnerabilities_zero_risk(
@@ -306,10 +268,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
             ),
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
-        )
-        await _send_to_redshift(
-            loaders=loaders,
-            vulnerability=vulnerability,
         )
     await vulns_model.remove(vulnerability_id=vulnerability_id)
 
@@ -517,30 +475,23 @@ async def mask_vulnerability(
     finding_id: str,
     vulnerability: Vulnerability,
 ) -> None:
-    store_vuln: bool = True
-    if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
-        finding: Finding = await loaders.finding.load(finding_id)
-        if (
-            vulnerability.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
-            or finding.state.status != FindingStateStatus.APPROVED
-        ):
-            store_vuln = False
-        else:
-            await vulns_model.update_historic_entry(
-                current_value=vulnerability,
-                entry=vulnerability.state._replace(
-                    modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
-                    status=VulnerabilityStateStatus.MASKED,
-                ),
-                finding_id=finding_id,
-                vulnerability_id=vulnerability.id,
-            )
-
-    if store_vuln:
-        await _send_to_redshift(
-            loaders=loaders,
-            vulnerability=vulnerability,
+    finding: Finding = await loaders.finding.load(finding_id)
+    if (
+        vulnerability.state.status == VulnerabilityStateStatus.DELETED
+        and not vulnerability.state.modified_by.endswith(
+            authz.FLUID_IDENTIFIER
+        )
+        and finding.state.status == FindingStateStatus.APPROVED
+    ):
+        await vulns_model.update_historic_entry(
+            current_value=vulnerability,
+            entry=vulnerability.state._replace(
+                modified_by=email,
+                modified_date=datetime_utils.get_iso_date(),
+                status=VulnerabilityStateStatus.MASKED,
+            ),
+            finding_id=finding_id,
+            vulnerability_id=vulnerability.id,
         )
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
