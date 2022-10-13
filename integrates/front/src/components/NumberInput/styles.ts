@@ -14,7 +14,7 @@ const StyledInputContainer = styled.div`
   border-radius: 0;
   background: none;
   color: #2e2e38;
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
 `;
 

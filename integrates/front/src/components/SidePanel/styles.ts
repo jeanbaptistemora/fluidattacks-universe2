@@ -13,7 +13,7 @@ const Container = styled.aside.attrs({
   border-radius: 4px;
   border: solid 1px #d2d2da;
   bottom: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   padding: 24px;
   right: 0;

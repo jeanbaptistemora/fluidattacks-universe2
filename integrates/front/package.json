@@ -12,7 +12,7 @@
     "@casl/react": "2.3.0",
     "@datapunt/matomo-tracker-js": "0.5.1",
     "@datapunt/matomo-tracker-react": "0.5.1",
-    "@fontsource/poppins": "4.5.9",
+    "@fontsource/roboto": "4.5.7",
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-brands-svg-icons": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "6.2.0",

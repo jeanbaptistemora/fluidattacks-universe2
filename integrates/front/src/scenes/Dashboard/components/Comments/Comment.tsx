@@ -38,7 +38,7 @@ const CommentChildren = styled.div`
 `;
 
 const CommentContent = styled.pre`
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   white-space: pre-wrap;
 `;
 
