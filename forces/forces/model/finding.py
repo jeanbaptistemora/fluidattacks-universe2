@@ -16,8 +16,8 @@ from typing import (
 class FindingState(str, Enum):
     """Enum to represent the possible Finding states"""
 
-    CLOSED: str = "closed"
     OPEN: str = "open"
+    CLOSED: str = "closed"
 
 
 class Finding(NamedTuple):
@@ -27,5 +27,5 @@ class Finding(NamedTuple):
     title: str
     state: FindingState
     exploitability: float
-    severity: float | str
+    severity: float
     vulnerabilities: list[Vulnerability] = []
