@@ -62,12 +62,21 @@
     "rehype-react": "7.1.1",
     "sass": "1.53.0",
     "styled-components": "5.3.5",
-    "tachyons": "4.12.0"
+    "tachyons": "4.12.0",
+    "ts-node": "10.9.1"
   },
   "devDependencies": {
     "@babel/core": "7.18.6",
     "@babel/eslint-parser": "7.18.2",
     "@babel/parser": "7.18.6",
+    "@storybook/addon-actions": "6.5.12",
+    "@storybook/addon-essentials": "6.5.12",
+    "@storybook/addon-interactions": "6.5.12",
+    "@storybook/addon-links": "6.5.12",
+    "@storybook/builder-webpack5": "6.5.12",
+    "@storybook/manager-webpack5": "6.5.12",
+    "@storybook/react": "6.5.12",
+    "@storybook/testing-library": "0.0.13",
     "@types/he": "1.1.2",
     "@types/prop-types": "15.7.5",
     "@types/react": "17.0.39",
@@ -79,6 +88,7 @@
     "@types/styled-components": "5.1.15",
     "@typescript-eslint/eslint-plugin": "5.30.5",
     "@typescript-eslint/parser": "5.30.5",
+    "babel-loader": "8.2.5",
     "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-formatter-codeframe": "7.32.1",
@@ -95,6 +105,9 @@
     "typescript": "4.7.4"
   },
   "overrides": {
+    "@mdx-js/react": {
+      "react": "18.1.0"
+    },
     "ansi-html": "0.0.9",
     "async": "3.2.2",
     "cross-fetch": "3.1.5",
@@ -105,6 +118,13 @@
     "immer": "9.0.15",
     "node-fetch": "2.6.7",
     "nth-check": "2.0.1",
+    "react-element-to-jsx-string": {
+      "react": "18.1.0",
+      "react-dom": "18.1.0"
+    },
+    "react-inspector": {
+      "react": "18.1.0"
+    },
     "react-share": {
       "react": "18.1.0",
       "react-dom": "18.1.0"
@@ -127,6 +147,8 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "lint:stylelint": "stylelint '**/*.scss' --output-file",
-    "lint:eslint": "tsc --noEmit -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe"
+    "lint:eslint": "tsc --noEmit -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   }
 }
