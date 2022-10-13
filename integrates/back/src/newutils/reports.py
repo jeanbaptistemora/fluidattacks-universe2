@@ -41,13 +41,13 @@ async def expose_bytes_as_url(
         uploaded_file,
         f"reports/{file_name}",
     )
-    return await sign_url(path=file_name, minutes=ttl)
+    return await sign_url(path=file_name, seconds=ttl)
 
 
 # Default ttl for reports is 1 hour = 3600 seconds
-async def sign_url(path: str, minutes: float = 3600) -> str:
+async def sign_url(path: str, seconds: float = 3600) -> str:
     return await s3_ops.sign_url(
-        f"reports/{path}", minutes, FI_AWS_S3_MAIN_BUCKET
+        f"reports/{path}", seconds, FI_AWS_S3_MAIN_BUCKET
     )
 
 

@@ -5,6 +5,9 @@
 from dataloaders import (
     Dataloaders,
 )
+from db_model.groups.types import (
+    Group,
+)
 import logging
 import logging.config
 from reports.secure_pdf import (
@@ -30,21 +33,27 @@ async def generate_pdf_file(
     *,
     loaders: Dataloaders,
     group_name: str,
-    lang: str,
-    user_email: str,
+    stakeholder_email: str,
 ) -> str:
+    group: Group = await loaders.group.load(group_name)
+    lang = str(group.language.value).lower()
     secure_pdf = SecurePDF()
     report_filename = ""
     with TemporaryDirectory() as tempdir:
         pdf_maker = StandardReportCreator(
-            lang, "unfulfilled_standards", tempdir, group_name, user_email
+            lang,
+            "unfulfilled_standards",
+            tempdir,
+            group_name,
+            stakeholder_email,
         )
         await pdf_maker.unfulfilled_standards(
-            group_name,
             loaders,
+            group_name,
+            lang,
         )
     report_filename = await secure_pdf.create_full(
-        loaders, user_email, pdf_maker.out_name, group_name
+        loaders, stakeholder_email, pdf_maker.out_name, group_name
     )
 
     return report_filename

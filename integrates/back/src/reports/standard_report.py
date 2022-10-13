@@ -70,12 +70,13 @@ class StandardReportCreator(CreatorPdf):
     async def fill_context(
         self,
         group_name: str,
+        lang: str,
         loaders: Dataloaders,
     ) -> None:
         """Fetch information and fill out the context."""
-        words = self.wordlist[self.lang]
-        fluid_tpl_content = self.make_content(words)
         group: Group = await loaders.group.load(group_name)
+        words = self.wordlist[lang]
+        fluid_tpl_content = self.make_content(words)
         group_indicators: GroupUnreliableIndicators = (
             await loaders.group_unreliable_indicators.load(group_name)
         )
@@ -121,11 +122,12 @@ class StandardReportCreator(CreatorPdf):
 
     async def unfulfilled_standards(
         self,
-        group_name: str,
         loaders: Dataloaders,
+        group_name: str,
+        lang: str,
     ) -> None:
         """Create the template to render and apply the context."""
-        await self.fill_context(group_name, loaders)
+        await self.fill_context(group_name, lang, loaders)
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         template_loader = jinja2.FileSystemLoader(searchpath=self.path)
         template_env = jinja2.Environment(

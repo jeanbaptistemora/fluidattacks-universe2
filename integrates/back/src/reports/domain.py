@@ -6,6 +6,7 @@ from .report_types import (
     certificate as cert_report,
     data as data_report,
     technical as technical_report,
+    unfulfilled_standards as unfulfilled_standards_report,
 )
 from dataloaders import (
     Dataloaders,
@@ -30,6 +31,10 @@ from decimal import (
 )
 from findings import (
     domain as findings_domain,
+)
+from newutils.reports import (
+    sign_url,
+    upload_report,
 )
 from typing import (
     Optional,
@@ -117,3 +122,18 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
         )
 
     return None
+
+
+async def get_signed_unfulfilled_standard_report_url(
+    loaders: Dataloaders,
+    group_name: str,
+    stakeholder_email: str,
+    seconds: float = 300,
+) -> str:
+    filename = await unfulfilled_standards_report.generate_pdf_file(
+        loaders=loaders,
+        group_name=group_name,
+        stakeholder_email=stakeholder_email,
+    )
+    filename_to_store = await upload_report(filename)
+    return await sign_url(filename_to_store, seconds=seconds)
