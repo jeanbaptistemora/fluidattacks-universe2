@@ -10,6 +10,7 @@ from datetime import (
 )
 from fa_purity import (
     FrozenList,
+    Maybe,
 )
 from tap_checkly.api2.alert_channels import (
     ChannelSubscription,
@@ -34,7 +35,7 @@ class CheckGroup:
     alert_channels: FrozenList[ChannelSubscription]
     # ~alertSettings~
     created_at: datetime
-    updated_at: datetime
+    updated_at: Maybe[datetime]
     double_check: bool
     # ~environmentVariables~
     # ~localSetupScript~

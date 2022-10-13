@@ -34,25 +34,16 @@ from fa_purity.result.transform import (
 import logging
 from tap_checkly.api2._utils import (
     ExtendedUnfolder,
+    switch_maybe,
 )
 from tap_checkly.api2.id_objs import (
     IndexedObj,
 )
 from typing import (
     cast,
-    TypeVar,
 )
 
 LOG = logging.getLogger(__name__)
-_S = TypeVar("_S")
-_F = TypeVar("_F")
-
-
-def _switch_maybe(item: Maybe[Result[_S, _F]]) -> Result[Maybe[_S], _F]:
-    _empty: Result[Maybe[_S], _F] = Result.success(Maybe.empty())
-    return item.map(lambda r: r.map(lambda x: Maybe.from_value(x))).value_or(
-        _empty
-    )
 
 
 def _decode_timings(raw: JsonObj) -> ResultE[Timings]:
@@ -84,7 +75,7 @@ def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
     unfolder = ExtendedUnfolder(raw)
     status = unfolder.require_primitive("status", int)
     status_txt = unfolder.require_primitive("statusText", str)
-    timings = _switch_maybe(
+    timings = switch_maybe(
         unfolder.get("timings").map(
             lambda j: Unfolder(j)
             .to_json()
@@ -93,7 +84,7 @@ def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
             .alt(lambda err: TypeError(f"At `timings` i.e. {str(err)}")),
         )
     ).alt(Exception)
-    timing_phases = _switch_maybe(
+    timing_phases = switch_maybe(
         unfolder.get("timingPhases").map(
             lambda j: Unfolder(j)
             .to_json()
@@ -115,7 +106,7 @@ def _decode_response(raw: JsonObj) -> ResultE[CheckResponse]:
 
 def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
     unfolder = ExtendedUnfolder(raw)
-    error = _switch_maybe(
+    error = switch_maybe(
         unfolder.get("requestError").map(
             lambda x: Unfolder(x)
             .to_optional(lambda u: u.to_primitive(str))
@@ -124,7 +115,7 @@ def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
         )
     ).map(lambda m: m.bind_optional(lambda x: x))
     response = (
-        _switch_maybe(
+        switch_maybe(
             unfolder.get("response").map(
                 lambda x: Unfolder(x)
                 .to_json()
@@ -140,7 +131,7 @@ def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
                 lambda d: None if d == FrozenDict({}) else d
             ).map(_decode_response)
         )
-        .bind(lambda m: _switch_maybe(m))
+        .bind(lambda m: switch_maybe(m))
     )
     return error.bind(lambda e: response.map(lambda r: ApiCheckResult(e, r)))
 
@@ -148,7 +139,7 @@ def _decode_result_api(raw: JsonObj) -> ResultE[ApiCheckResult]:
 def from_raw_result(raw: JsonObj) -> ResultE[CheckResult]:
     unfolder = ExtendedUnfolder(raw)
     try:
-        api_result = _switch_maybe(
+        api_result = switch_maybe(
             unfolder.get("apiCheckResult").map(
                 lambda j: Unfolder(j)
                 .to_json()
@@ -157,7 +148,7 @@ def from_raw_result(raw: JsonObj) -> ResultE[CheckResult]:
                 .alt(lambda e: Exception(f"At `apiCheckResult` i.e. {e}"))
             )
         )
-        browser_result = _switch_maybe(
+        browser_result = switch_maybe(
             unfolder.get("browserCheckResult").map(
                 lambda j: Unfolder(j).to_json()
             )

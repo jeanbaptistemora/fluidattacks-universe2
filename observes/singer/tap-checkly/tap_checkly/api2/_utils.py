@@ -53,6 +53,8 @@ def isoparse(raw: str) -> ResultE[datetime]:
 
 
 _T = TypeVar("_T")
+_S = TypeVar("_S")
+_F = TypeVar("_F")
 
 
 def paginate_all(
@@ -69,9 +71,19 @@ def paginate_all(
     )
 
 
+def switch_maybe(item: Maybe[Result[_S, _F]]) -> Result[Maybe[_S], _F]:
+    _empty: Result[Maybe[_S], _F] = Result.success(Maybe.empty())
+    return item.map(lambda r: r.map(lambda x: Maybe.from_value(x))).value_or(
+        _empty
+    )
+
+
 @dataclass(frozen=True)
 class ExtendedUnfolder:
     json: JsonObj
+
+    def unfolder(self) -> Unfolder:
+        return Unfolder(JsonValue(self.json))
 
     def get(self, key: str) -> Maybe[JsonValue]:
         return Maybe.from_optional(self.json.get(key))
@@ -110,4 +122,18 @@ class ExtendedUnfolder:
                     .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
                 )
             )
+        )
+
+    def require_datetime(self, key: str) -> ResultE[datetime]:
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(lambda u: u.to_primitive(str).alt(Exception).bind(isoparse))
+        )
+
+    def opt_datetime(self, key: str) -> ResultE[Maybe[datetime]]:
+        return switch_maybe(
+            self.get(key)
+            .map(Unfolder)
+            .map(lambda u: u.to_primitive(str).alt(Exception).bind(isoparse))
         )
