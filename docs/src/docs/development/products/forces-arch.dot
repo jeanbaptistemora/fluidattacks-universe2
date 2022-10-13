@@ -1,0 +1,96 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph forces {
+  label="Forces Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  ranksep="3.0"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_bugsnag {
+    label="Bugsnag"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    bugsnag[label="Stability Reports"]
+  }
+
+  subgraph cluster_common {
+    label="Common"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    subgraph cluster_common_compute {
+      label="Compute"
+
+      subgraph cluster_common_compute_schedules {
+        label="Schedules"
+
+        common_compute_schedules_break[label="/forces/process-groups/break"]
+        common_compute_schedules_pass[label="/forces/process-groups/pass"]
+      }
+    }
+  }
+
+  subgraph cluster_docker_hub {
+    label="Docker Hub"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    docker_hub_new[label="fluidattacks/forces:new"]
+    docker_hub_dev[label="fluidattacks/forces:*atfluid" peripheries="2"]
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_forces {
+        label="Forces"
+
+        gitlab_forces[label="Source Code"]
+        gitlab_forces_container_image[label="Container Image"]
+        gitlab_forces_python[label="Python"]
+      }
+    }
+  }
+
+  subgraph cluster_integrates {
+    label="Integrates"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    integrates_api[label="API (app.fluidattacks.com/api)"]
+  }
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+  docker_hub_new -> gitlab_forces_container_image[]
+  docker_hub_dev -> gitlab_forces_container_image[]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_forces -> bugsnag[]
+  gitlab_forces -> common_compute_schedules_break[]
+  gitlab_forces -> common_compute_schedules_pass[]
+  gitlab_forces -> gitlab_forces_container_image[]
+  gitlab_forces -> gitlab_forces_python[]
+  gitlab_forces -> integrates_api[]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> bugsnag[]
+  developer -> docker_hub_dev[]
+  developer -> gitlab_forces[]
+  end_user -> docker_hub_new[]
+}
