@@ -230,13 +230,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         cell: ICellHelper<IAuthors & { invitationState: string }>
       ): JSX.Element => cell.getValue(),
       header: t("searchFindings.usersTable.invitationState"),
-    },
-  ];
-
-  const columnsExtra: ColumnDef<IAuthors & { invitationState: string }>[] = [
-    {
-      accessorKey: "invitationState",
-      header: t("searchFindings.usersTable.invitationState"),
       meta: { filterType: "select" },
     },
   ];
@@ -397,10 +390,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         columnFilterState={columnFilters}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
-        columns={[
-          ...columns,
-          ...(hasInvitationPermissions ? columnsExtra : []),
-        ]}
+        columns={columns}
         data={datasetText}
         enableColumnFilters={true}
         exportCsv={true}

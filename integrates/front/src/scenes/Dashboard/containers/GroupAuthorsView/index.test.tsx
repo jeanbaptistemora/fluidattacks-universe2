@@ -195,7 +195,7 @@ describe("AuthorsView", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    const TEST_COLUMN_LENGTH = 6;
+    const TEST_COLUMN_LENGTH = 5;
     await waitFor((): void => {
       expect(screen.queryAllByRole("columnheader")).toHaveLength(
         TEST_COLUMN_LENGTH
@@ -212,7 +212,6 @@ describe("AuthorsView", (): void => {
         "group.authors.commit",
         "group.authors.repository",
         "searchFindings.usersTable.invitationState",
-        "searchFindings.usersTable.invitationState",
       ]
         .join("")
         .replace(/[^a-zA-Z ]/gu, "")
@@ -221,15 +220,15 @@ describe("AuthorsView", (): void => {
     expect(screen.getAllByRole("cell")[1].textContent).toBe("test, test2");
     expect(screen.getAllByRole("cell")[2].textContent).toBe("123");
     expect(
-      screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 3].textContent
+      screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2].textContent
     ).toBe("test_repository");
     expect(
-      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 3]).queryByText(
+      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2]).queryByText(
         "group.authors.sendInvitation"
       )
     ).not.toBeInTheDocument();
     expect(
-      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2]).getByText(
+      within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 1]).getByText(
         "group.authors.sendInvitation"
       )
     ).toBeInTheDocument();
