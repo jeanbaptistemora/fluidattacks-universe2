@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+
+from lib_sast.types import (
+    ShardDb,
+)
+from model import (
+    core_model,
+    graph_model,
+)
+from sast.query import (
+    get_vulnerabilities_from_n_ids,
+)
+from typing import (
+    Iterable,
+)
+from utils import (
+    graph as g,
+)
+
+
+def has_print_statements(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    def n_ids() -> Iterable[graph_model.GraphShardNode]:
+
+        print_methods = {"print", "println"}
+
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+            ):
+                n_expr = graph.nodes[n_id].get("expression")
+
+                if n_expr in print_methods:
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f237.has_print_statements",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=core_model.MethodsEnum.JAVA_HAS_PRINT_STATEMENTS,
+    )

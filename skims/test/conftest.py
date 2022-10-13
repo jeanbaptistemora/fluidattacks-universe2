@@ -100,11 +100,6 @@ def test_group() -> Iterator[str]:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def test_integrates_api_token() -> Iterator[str]:
-    yield os.environ["INTEGRATES_API_TOKEN"]
-
-
-@pytest.fixture(autouse=True, scope="session")
 def test_prepare_cfn_json_data() -> None:
     for path in chain(
         iglob("skims/test/data/lib_path/**/*.yaml", recursive=True),
