@@ -22,6 +22,7 @@ from api.resolvers.query import (
     root,
     stakeholder,
     tag,
+    unfulfilled_standard_report_url,
     vulnerabilities_to_reattack,
     vulnerability,
 )
@@ -48,6 +49,9 @@ QUERY.set_field("resources", resources.resolve)
 QUERY.set_field("root", root.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
+QUERY.set_field(
+    "unfulfilledStandardReportUrl", unfulfilled_standard_report_url.resolve
+)
 QUERY.set_field("vulnerability", vulnerability.resolve)
 QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve

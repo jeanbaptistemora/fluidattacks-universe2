@@ -5,9 +5,6 @@
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 import logging
 import logging.config
 from reports.secure_pdf import (
@@ -35,8 +32,8 @@ async def generate_pdf_file(
     group_name: str,
     stakeholder_email: str,
 ) -> str:
-    group: Group = await loaders.group.load(group_name)
-    lang = str(group.language.value).lower()
+    # The standard file is only available in English
+    lang = "en"
     secure_pdf = SecurePDF()
     report_filename = ""
     with TemporaryDirectory() as tempdir:

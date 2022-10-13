@@ -170,6 +170,14 @@ type Query {
     tag: String!
   ): Tag
 
+  "Get the url for the unfulfilled standard report"
+  unfulfilledStandardReportUrl(
+    "Name of the group to which the report belongs"
+    groupName: String!
+    "OTP code to verify the stakeholder"
+    verificationCode: String!
+  ): String!
+
   "Gets vulnerabilities pending to reattack"
   vulnerabilitiesToReattack(
     "Name of the group to which the vulnerabilities belong to"

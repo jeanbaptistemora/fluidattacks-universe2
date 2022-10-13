@@ -88,17 +88,17 @@ class StandardReportCreator(CreatorPdf):
                     title=str(
                         compliance_file[unfulfilled_standard.name]["title"]
                     ).upper(),
-                    summary=compliance_file[unfulfilled_standard.name]["en"][
+                    summary=compliance_file[unfulfilled_standard.name][lang][
                         "summary"
                     ],
                     unfulfilled_requirements=[
                         UnfulfilledRequirementInfo(
                             id=requirement_id,
-                            title=requirements_file[requirement_id]["en"][
+                            title=requirements_file[requirement_id][lang][
                                 "title"
                             ],
                             description=requirements_file[requirement_id][
-                                "en"
+                                lang
                             ]["description"],
                         )
                         for requirement_id in (

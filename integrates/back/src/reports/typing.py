@@ -272,7 +272,6 @@ class PDFWordlistEn(Wordlist):
         "requisite_title", "Requirement"
     )
     REQUIREMENT: WordlistItem = WordlistItem("requirement", "Requirement")
-
     RESUME_PAGE_TITLE: WordlistItem = WordlistItem(
         "resume_page_title", "General View"
     )
@@ -308,8 +307,8 @@ class PDFWordlistEn(Wordlist):
     ROOT_URL: WordlistItem = WordlistItem("root_url", "URL")
     SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
     SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solution")
+    STANDARD: WordlistItem = WordlistItem("standard", "Standard")
     STATE_TITLE: WordlistItem = WordlistItem("state_title", "Status")
-    STANDAR: WordlistItem = WordlistItem("standard", "Standard")
     TECH: WordlistItem = WordlistItem("tech", "Technical Report")
     UNFULFILLED_STANDARDS: WordlistItem = WordlistItem(
         "unfulfilled_standards", "Unfulfilled Standards"
@@ -339,6 +338,17 @@ class PDFWordlistEn(Wordlist):
 
 
 class PDFWordlistEs(Wordlist):
+    CONTENT_LIST: WordlistItem = WordlistItem(
+        "content_list",
+        [
+            "1. Metas",
+            "2. Alcance",
+            "3. Tabla de hallazgos",
+            "4. Visión general",
+            "5. Resumen de hallazgos",
+        ],
+    )
+    CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Contenido")
     CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
         "closed_vulns_title", "Vulnerabilidades Remediadas"
     )
@@ -349,6 +359,7 @@ class PDFWordlistEs(Wordlist):
     FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
         "finding_number_title", "Cantidad de Tipologías"
     )
+    GOALS_TITLE: WordlistItem = WordlistItem("goals_title", "Metas")
     RESUME_PERC_TITLE: WordlistItem = WordlistItem(
         "resume_perc_title", "Porcentaje de Remediación"
     )
