@@ -7,7 +7,9 @@
 /* eslint fp/no-mutation: 0 */
 import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
-import React, { useCallback } from "react";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
@@ -15,12 +17,23 @@ import type { IGroupVulnerabilities } from "./types";
 
 import type { IHistoricTreatment } from "../DescriptionView/types";
 import { formatState } from "../GroupFindingsView/utils";
+import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
+import type { IModalConfig } from "../VulnerabilitiesView/types";
+import { isPendingToAcceptance } from "../VulnerabilitiesView/utils";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
+import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import {
+  filterOutVulnerabilities,
+  filterZeroRisk,
+  formatHistoricTreatment,
+  getNonSelectableVulnerabilitiesOnReattackIds,
+  getNonSelectableVulnerabilitiesOnVerifyIds,
+} from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { formatTreatment } from "utils/formatHelpers";
 import { useDebouncedCallback } from "utils/hooks";
+import { msgError } from "utils/notifications";
 
 const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   {
@@ -90,6 +103,37 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
 
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { t } = useTranslation();
+  const [remediationModal, setRemediationModal] = useState<IModalConfig>({
+    clearSelected: (): void => undefined,
+    selectedVulnerabilities: [],
+  });
+  const [isRequestingVerify, setIsRequestingVerify] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const openRemediationModal = useCallback(
+    (
+      selectedVulnerabilities: IVulnRowAttr[],
+      clearSelected: () => void
+    ): void => {
+      setRemediationModal({ clearSelected, selectedVulnerabilities });
+    },
+    []
+  );
+  function closeRemediationModal(): void {
+    setIsOpen(false);
+  }
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  function toggleEdit(): void {
+    setIsEditing(!isEditing);
+  }
+
+  const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
+    useState(false);
+  function toggleHandleAcceptanceModal(): void {
+    setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
+  }
+
   const { data, fetchMore, refetch } = useQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
@@ -143,24 +187,107 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     }
   }, [data, fetchMore]);
 
+  function toggleModal(): void {
+    setIsOpen(true);
+  }
+  function toggleRequestVerify(): void {
+    if (isRequestingVerify) {
+      setIsRequestingVerify(!isRequestingVerify);
+    } else {
+      const { selectedVulnerabilities } = remediationModal;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnReattackIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setIsRequestingVerify(!isRequestingVerify);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setIsOpen(true);
+        setIsRequestingVerify(!isRequestingVerify);
+      } else {
+        setIsRequestingVerify(!isRequestingVerify);
+      }
+    }
+  }
+
+  function toggleVerify(): void {
+    if (isVerifying) {
+      setIsVerifying(!isVerifying);
+    } else {
+      const { selectedVulnerabilities } = remediationModal;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnVerifyIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setIsVerifying(!isVerifying);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setIsOpen(true);
+        setIsVerifying(!isVerifying);
+      } else {
+        setIsVerifying(!isVerifying);
+      }
+    }
+  }
+
   const handleSearch = useDebouncedCallback((search: string): void => {
     void refetch({ search });
   }, 500);
 
   return (
-    <div>
-      <VulnComponent
-        columnToggle={true}
-        columns={tableColumns}
-        isEditing={false}
-        isRequestingReattack={false}
-        isVerifyingRequest={false}
-        onNextPage={handleNextPage}
-        onSearch={handleSearch}
-        refetchData={refetch}
-        vulnerabilities={vulnerabilities}
-      />
-    </div>
+    <React.StrictMode>
+      <React.Fragment>
+        <div>
+          <VulnComponent
+            columnToggle={true}
+            columns={tableColumns}
+            extraButtons={
+              <ActionButtons
+                areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
+                  vulnerabilities
+                )}
+                areVulnsSelected={
+                  remediationModal.selectedVulnerabilities.length > 0
+                }
+                isEditing={isEditing}
+                isOpen={isOpen}
+                isRequestingReattack={isRequestingVerify}
+                isVerifying={isVerifying}
+                onEdit={toggleEdit}
+                onRequestReattack={toggleRequestVerify}
+                onVerify={toggleVerify}
+                openHandleAcceptance={toggleHandleAcceptanceModal}
+                openModal={toggleModal}
+              />
+            }
+            isEditing={isEditing}
+            isRequestingReattack={isRequestingVerify}
+            isVerifyingRequest={isVerifying}
+            onNextPage={handleNextPage}
+            onSearch={handleSearch}
+            onVulnSelect={openRemediationModal}
+            refetchData={refetch}
+            vulnerabilities={vulnerabilities}
+          />
+        </div>
+        {isOpen && (
+          <UpdateVerificationModal
+            clearSelected={_.get(remediationModal, "clearSelected")}
+            handleCloseModal={closeRemediationModal}
+            isReattacking={isRequestingVerify}
+            isVerifying={isVerifying}
+            refetchData={refetch}
+            setRequestState={toggleRequestVerify}
+            setVerifyState={toggleVerify}
+            vulns={remediationModal.selectedVulnerabilities}
+          />
+        )}
+      </React.Fragment>
+    </React.StrictMode>
   );
 };
 
