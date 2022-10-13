@@ -721,10 +721,10 @@ class SkimsMethods(Enum):
         file_name="c_sharp",
         name="c_sharp_insecure_cipher",
     )
-    CS_AES_SECURE_MODE = SkimsMethodInfo(
+    CS_MANAGED_SECURE_MODE = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="c_sharp",
-        name="c_sharp_aesmanaged_secure_mode",
+        name="c_sharp_managed_secure_mode",
     )
     CS_RSA_SECURE_MODE = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",

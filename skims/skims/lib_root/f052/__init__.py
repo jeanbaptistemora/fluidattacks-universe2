@@ -3,11 +3,11 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_root.f052.c_sharp import (
-    c_sharp_aesmanaged_secure_mode,
     c_sharp_disabled_strong_crypto,
     c_sharp_insecure_cipher,
     c_sharp_insecure_hash,
     c_sharp_insecure_keys,
+    c_sharp_managed_secure_mode,
     c_sharp_obsolete_key_derivation,
     c_sharp_rsa_secure_mode,
 )
@@ -41,7 +41,7 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_insecure_hash),
     (FINDING, c_sharp_insecure_cipher),
-    (FINDING, c_sharp_aesmanaged_secure_mode),
+    (FINDING, c_sharp_managed_secure_mode),
     (FINDING, c_sharp_rsa_secure_mode),
     (FINDING, c_sharp_insecure_keys),
     (FINDING, c_sharp_disabled_strong_crypto),

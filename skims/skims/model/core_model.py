@@ -2433,9 +2433,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CS_AES_SECURE_MODE = MethodInfo(
+    CS_MANAGED_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
-        name="c_sharp_aesmanaged_secure_mode",
+        name="c_sharp_managed_secure_mode",
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JUAN_ECHEVERRI,

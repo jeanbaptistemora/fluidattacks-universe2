@@ -8,11 +8,12 @@ from symbolic_eval.types import (
 )
 
 
-def cs_aes_secure_mode(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_managed_secure_mode(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     unsafe_modes = {
         "CipherMode.ECB",
         "CipherMode.OFB",
         "CipherMode.CFB",
+        "CipherMode.CBC",
     }
 
     node = args.graph.nodes[args.n_id]
