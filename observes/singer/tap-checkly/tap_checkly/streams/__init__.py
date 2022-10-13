@@ -45,6 +45,9 @@ from tap_checkly.api2.alert_channels import (
 from tap_checkly.api2.checks import (
     ChecksClient,
 )
+from tap_checkly.api2.groups import (
+    CheckGroupClient,
+)
 from tap_checkly.api2.id_objs import (
     IndexedObj,
 )
@@ -81,13 +84,6 @@ def _stream_data(
             _emitter.emit_iopage(stream, page)
 
     return Cmd.from_cmd(action)
-
-
-def all_chk_groups(api: ApiClient) -> Cmd[None]:
-    return _stream_data(
-        SupportedStreams.CHECK_GROUPS,
-        api.checks.list_check_groups(ALL),
-    )
 
 
 def all_chk_reports(api: ApiClient) -> Cmd[None]:
@@ -151,6 +147,15 @@ class Streams:
             client.list_checks()
             .map(ObjsEncoders.checks.record)
             .transform(chain)
+        )
+
+    def check_groups(self) -> Cmd[None]:
+        client = CheckGroupClient.new(self.creds, 100)
+        schemas = ObjsEncoders.groups.schemas.map(
+            lambda s: emitter.emit(sys.stdout, s)
+        ).transform(PIterTransform.consume)
+        return schemas + _emit_stream(
+            client.list_all().map(ObjsEncoders.groups.record).transform(chain)
         )
 
     def check_results(self) -> Cmd[None]:

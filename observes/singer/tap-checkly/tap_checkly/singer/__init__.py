@@ -5,6 +5,7 @@
 from . import (
     _alert_channels,
     _checks,
+    _groups,
 )
 from ._core import (
     SingerStreams,
@@ -21,16 +22,22 @@ from tap_checkly.api2.alert_channels import (
 from tap_checkly.api2.checks import (
     CheckObj,
 )
+from tap_checkly.api2.groups import (
+    CheckGroupObj,
+)
 
 
 @dataclass(frozen=True)
 class ObjsEncoders:
     checks: ObjEncoder[CheckObj]
     alerts: ObjEncoder[AlertChannelObj]
+    groups: ObjEncoder[CheckGroupObj]
 
 
 def encoders() -> ObjsEncoders:
-    return ObjsEncoders(_checks.encoder, _alert_channels.encoder)
+    return ObjsEncoders(
+        _checks.encoder, _alert_channels.encoder, _groups.encoder
+    )
 
 
 __all__ = [

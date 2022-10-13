@@ -40,7 +40,6 @@ from typing import (
 
 LOG = logging.getLogger(__name__)
 _legacy: Mapping[SupportedStreams, Callable[[ApiClient], Cmd[None]]] = {
-    SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
     SupportedStreams.CHECK_STATUS: streams.all_chk_status,
     SupportedStreams.DASHBOARD: streams.all_dashboards,
     SupportedStreams.ENV_VARS: streams.all_env_vars,
@@ -60,6 +59,8 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
     ) -> ResultE[Cmd[None]]:  # return type should be Cmd[None]
         if item is SupportedStreams.CHECKS:
             return Result.success(_streams.all_checks())
+        if item is SupportedStreams.CHECK_GROUPS:
+            return Result.success(_streams.check_groups())
         if item is SupportedStreams.CHECK_RESULTS:
             return Result.success(_streams.check_results())
         if item is SupportedStreams.ALERT_CHS:
