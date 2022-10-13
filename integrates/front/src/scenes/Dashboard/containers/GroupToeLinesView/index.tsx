@@ -407,10 +407,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     isInternal && canSeeCoverage && canGetAttackedLines
       ? [
           {
-            accessorKey: "coverage",
+            accessorFn: (row): number => row.coverage * 100,
             cell: (cell: ICellHelper<IToeLinesData>): string =>
-              formatPercentage(cell.getValue()),
+              formatPercentage(cell.row.original.coverage),
             header: t("group.toe.lines.coverage"),
+            id: "coverage",
             meta: { filterType: "numberRange" },
           },
         ]
