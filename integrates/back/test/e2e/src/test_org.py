@@ -46,7 +46,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Vulnerabilities by level",
     "Accepted vulnerabilities by user",
     "Unsolved events by group",
-    "How many vulnerabilities are remediated and accepted?",
+    "Distribution of vulnerabilities by group",
     "Vulnerability types by group",
     "Open vulnerability types by group",
     "Oldest vulnerability types",
@@ -60,7 +60,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Exposure by assignee",
     "Files with open vulnerabilities in the last 20 weeks",
     "Mean time to remediate (MTTR) by CVSS severity",
-    "Groups availability",
+    "Overall availability of groups",
     "Days since groups are failing",
     "Tags by groups",
 ]
