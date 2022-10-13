@@ -5,9 +5,9 @@ sidebar_label: Portfolio
 slug: /machine/web/analytics/portfolio
 ---
 
-## How many vulnerabilities are remediated and accepted?
+## Distribution of vulnerabilities by group
 
-![Vulns Remediated And Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986556/docs/web/analytics/portfolios/portfolio_vulners_remed_accept.png)
+![Distribution of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986556/docs/web/analytics/portfolios/portfolio_vulners_remed_accept.png)
 
 The percentage of
 closed, open, temporarily accepted
@@ -107,9 +107,9 @@ The above chart shows you how
 many of these are in each of
 your groups.
 
-## Groups availability
+## Overall availability of groups
 
-![Groups Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159283/docs/web/analytics/portfolios/portfolio_availability.png)
+![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159283/docs/web/analytics/portfolios/portfolio_availability.png)
 
 The percentage of time that
 each group of your portfolio

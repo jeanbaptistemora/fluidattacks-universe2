@@ -43,7 +43,7 @@ excluding yours.
 For each of your groups, you can find out
 the exposure (CVSSF) of open vulnerabilities.
 
-## How many vulnerabilities are remediated and accepted?
+## Distribution of vulnerabilities by group
 
 ![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_acceptd.png)
 
@@ -104,9 +104,9 @@ The percentage of vulnerabilities
 that each group has compared with
 the whole organization.
 
-## Groups availability
+## Overall availability of groups
 
-![Groups Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159320/docs/web/analytics/organizations/organization_availability.png)
+![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159320/docs/web/analytics/organizations/organization_availability.png)
 
 The percentage of time that
 each group in your organization
