@@ -52,7 +52,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
   const [validateGitAccess] =
@@ -97,11 +96,9 @@ const AddRoot: React.FC<IAddRootProps> = ({
         initialValues={initialValues}
         name={"newRoot"}
         onSubmit={validateAndSubmit}
-        validationSchema={rootSchema(isDirty)}
+        validationSchema={rootSchema}
       >
-        {({ dirty, isSubmitting, values }): JSX.Element => {
-          setIsDirty(dirty);
-
+        {({ isSubmitting, values }): JSX.Element => {
           return (
             <Form>
               <Row justify={"start"}>

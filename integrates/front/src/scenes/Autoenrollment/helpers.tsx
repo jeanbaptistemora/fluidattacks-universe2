@@ -7,9 +7,8 @@
 /* eslint-disable react/forbid-prop-types */
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import type { BaseSchema, InferType } from "yup";
+import type { BaseSchema } from "yup";
 import { array, lazy, object, string } from "yup";
-import type { TypedSchema } from "yup/lib/util/types";
 
 import type { IAlertMessages, IRootAttr } from "./types";
 
@@ -136,111 +135,82 @@ const handleValidationError = (
           message: t("groupAlerts.errorTextsad"),
           type: "error",
         });
-        Logger.error("Couldn't activate root", error);
+        Logger.error("Couldn't validate git access", error);
     }
   });
 };
 
-const rootSchema = (isDirty: boolean): InferType<TypedSchema> =>
-  lazy(
-    (values: IRootAttr): BaseSchema =>
-      object().shape({
-        branch: string()
-          .required(t("validations.required"))
-          .matches(regExps.alphanumeric, t("validations.alphanumeric")),
-        credentials: object({
-          auth: string(),
-          key: string()
-            .when("type", {
-              is: "SSH",
-              otherwise: string(),
-              then: string().required(t("validations.required")),
-            })
-            .test(
-              "hasSshFormat",
-              t("validations.invalidSshFormat"),
-              (value): boolean => {
-                const regex =
-                  /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u;
-
-                return (
-                  value === undefined ||
-                  values.credentials.type !== "SSH" ||
-                  regex.test(value)
-                );
-              }
-            ),
-          name: string().when("type", {
-            is: undefined,
-            otherwise: string().required(t("validations.required")),
-            then: string(),
-          }),
-          password: string()
-            .when("type", {
-              is: values.credentials.auth === "USER" ? "HTTPS" : "",
-              otherwise: string(),
-              then: string().required(t("validations.required")),
-            })
-            .test(
-              "isGitAccesible",
-              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean =>
-                isDirty ||
-                value === undefined ||
-                values.credentials.type !== "HTTPS"
-            ),
-          token: string().when("type", {
-            is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
-            otherwise: string(),
-            then: string().required(t("validations.required")),
-          }),
-          type: string().required(t("validations.required")),
-          user: string()
-            .when("type", {
-              is: values.credentials.auth === "USER" ? "HTTPS" : "",
-              otherwise: string(),
-              then: string().required(t("validations.required")),
-            })
-            .test(
-              "isGitAccesible",
-              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean =>
-                isDirty ||
-                value === undefined ||
-                values.credentials.type !== "HTTPS"
+const rootSchema = lazy(
+  (values: IRootAttr): BaseSchema =>
+    object().shape({
+      branch: string()
+        .required(t("validations.required"))
+        .matches(regExps.alphanumeric, t("validations.alphanumeric")),
+      credentials: object({
+        auth: string(),
+        key: string().when("type", {
+          is: "SSH",
+          otherwise: string(),
+          then: string()
+            .required(t("validations.required"))
+            .matches(
+              /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u,
+              t("validations.invalidSshFormat")
             ),
         }),
-        env: string().required(t("validations.required")),
-        exclusions: array().of(
-          string()
-            .required(t("validations.required"))
-            .test(
-              "excludeFormat",
-              t("validations.excludeFormat"),
-              (value): boolean => {
-                const repoUrl = values.url;
+        name: string().when("type", {
+          is: undefined,
+          otherwise: string().required(t("validations.required")),
+          then: string(),
+        }),
+        password: string().when("type", {
+          is: values.credentials.auth === "USER" ? "HTTPS" : "",
+          otherwise: string(),
+          then: string().required(t("validations.required")),
+        }),
+        token: string().when("type", {
+          is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
+          otherwise: string(),
+          then: string().required(t("validations.required")),
+        }),
+        type: string().required(t("validations.required")),
+        user: string().when("type", {
+          is: values.credentials.auth === "USER" ? "HTTPS" : "",
+          otherwise: string(),
+          then: string().required(t("validations.required")),
+        }),
+      }),
+      env: string().required(t("validations.required")),
+      exclusions: array().of(
+        string()
+          .required(t("validations.required"))
+          .test(
+            "excludeFormat",
+            t("validations.excludeFormat"),
+            (value): boolean => {
+              const repoUrl = values.url;
 
-                if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
-                  const [urlBasename] = repoUrl.split("/").slice(-1);
-                  const repoName: string = urlBasename.endsWith(".git")
-                    ? urlBasename.replace(".git", "")
-                    : urlBasename;
+              if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
+                const [urlBasename] = repoUrl.split("/").slice(-1);
+                const repoName: string = urlBasename.endsWith(".git")
+                  ? urlBasename.replace(".git", "")
+                  : urlBasename;
 
-                  return (
-                    value
-                      .toLowerCase()
-                      .split("/")
-                      .indexOf(repoName.toLowerCase()) !== 0
-                  );
-                }
-
-                return false;
+                return (
+                  value
+                    .toLowerCase()
+                    .split("/")
+                    .indexOf(repoName.toLowerCase()) !== 0
+                );
               }
-            )
-        ),
-        url: string().required(t("validations.required")),
-      })
-  );
+
+              return false;
+            }
+          )
+      ),
+      url: string().required(t("validations.required")),
+    })
+);
 
 export {
   handleEnrollmentCreateError,

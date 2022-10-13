@@ -255,3 +255,4 @@ async def log_stakeholder_in(
         await stakeholders_domain.update_last_login(email)
     else:
         await autoenroll_stakeholder(email, first_name, last_name)
+        await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
