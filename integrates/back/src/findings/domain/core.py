@@ -106,9 +106,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from redshift import (
-    findings as redshift_findings,
-)
 from settings import (
     LOGGING,
 )
@@ -136,31 +133,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _send_to_redshift(
-    *,
-    loaders: Any,
-    finding: Finding,
-) -> None:
-    historic_state = await loaders.finding_historic_state.load(finding.id)
-    historic_verification = await loaders.finding_historic_verification.load(
-        finding.id
-    )
-    await redshift_findings.insert_finding(
-        finding=finding,
-        historic_state=historic_state,
-        historic_verification=historic_verification,
-    )
-    LOGGER.info(
-        "Finding stored in redshift",
-        extra={
-            "extra": {
-                "finding_id": finding.id,
-                "group_name": finding.group_name,
-            }
-        },
-    )
 
 
 async def add_comment(
@@ -260,7 +232,7 @@ async def remove_finding(
                 status=FindingStateStatus.MASKED,
             ),
         )
-        await _send_to_redshift(loaders=loaders, finding=finding)
+
     await findings_model.remove(
         group_name=finding.group_name, finding_id=finding.id
     )
@@ -273,20 +245,23 @@ async def remove_vulnerabilities(
     source: Source,
     user_email: str,
 ) -> None:
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_all.load(finding_id)
     await collect(
-        vulns_domain.remove_vulnerability(
-            loaders,
-            finding_id,
-            vuln.id,
-            justification,
-            user_email,
-            source,
-            include_closed_vuln=True,
-        )
-        for vuln in vulnerabilities
+        tuple(
+            vulns_domain.remove_vulnerability(
+                loaders,
+                finding_id,
+                vuln.id,
+                justification,
+                user_email,
+                source,
+                include_closed_vuln=True,
+            )
+            for vuln in vulnerabilities
+        ),
+        workers=8,
     )
 
 
@@ -582,26 +557,24 @@ async def mask_finding(
             )
             for vuln in vulns
         ),
-        workers=4,
+        workers=8,
     )
 
     if (
-        finding.state.status != FindingStateStatus.DELETED
-        or not finding.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
+        finding.state.status == FindingStateStatus.DELETED
+        and not finding.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
     ):
-        if finding.state.status == FindingStateStatus.DELETED:
-            # Findings in the MASKED state will be archived
-            await findings_model.update_state(
-                current_value=finding.state,
-                finding_id=finding.id,
-                group_name=finding.group_name,
-                state=finding.state._replace(
-                    modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
-                    status=FindingStateStatus.MASKED,
-                ),
-            )
-        await _send_to_redshift(loaders=loaders, finding=finding)
+        # Findings in the MASKED state will be archived
+        await findings_model.update_state(
+            current_value=finding.state,
+            finding_id=finding.id,
+            group_name=finding.group_name,
+            state=finding.state._replace(
+                modified_by=email,
+                modified_date=datetime_utils.get_iso_date(),
+                status=FindingStateStatus.MASKED,
+            ),
+        )
 
     await findings_model.remove(
         group_name=finding.group_name, finding_id=finding.id
