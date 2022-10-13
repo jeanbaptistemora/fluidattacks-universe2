@@ -14,21 +14,28 @@ from syntax_graph.types import (
 from utils.graph import (
     match_ast,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
+    n_attrs = args.ast_graph.nodes[args.n_id]
+    body_id = n_attrs["label_field_body"]
     match_childs = match_ast(
         args.ast_graph,
         args.n_id,
         "parameter_list",
         "identifier",
-        "block",
-        "invocation_expression",
     )
-    var_name = match_childs.get("identifier")
-    parameters = match_childs.get("parameter_list")
-    block_node = match_childs.get("block")
-    invocation_exp = match_childs.get("invocation_expression")
+    var_id = match_childs.get("identifier")
+    if var_id:
+        identifier = node_to_str(args.ast_graph, var_id)
+    else:
+        identifier = "Unnamed"
+
+    parameters_id = match_childs.get("parameter_list")
+
     return build_lambda_expression_node(
-        args, var_name, parameters, block_node, invocation_exp
+        args, identifier, body_id, parameters_id
     )

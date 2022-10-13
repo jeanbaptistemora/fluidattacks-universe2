@@ -11,20 +11,14 @@ from syntax_graph.syntax_nodes.lambda_expression import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from utils.graph import (
-    match_ast,
-)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    match_childs = match_ast(
-        args.ast_graph,
-        args.n_id,
-        "inferred_parameters",
-        "block",
-    )
-    parameters = match_childs.get("inferred_parameters")
-    block_node = match_childs.get("block")
+    n_attrs = args.ast_graph.nodes[args.n_id]
+    body_id = n_attrs["label_field_body"]
+    parameters_id = n_attrs["label_field_parameters"]
+    identifier = "Unnamed"
+
     return build_lambda_expression_node(
-        args, None, parameters, block_node, None
+        args, identifier, body_id, parameters_id
     )

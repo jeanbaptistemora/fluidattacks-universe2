@@ -22473,9 +22473,6 @@
             }
           },
           "370": {
-            "371": {
-              "label_ast": "AST"
-            },
             "373": {
               "label_ast": "AST"
             }
@@ -24094,11 +24091,9 @@
             "label_type": "ArgumentList"
           },
           "370": {
+            "block_id": "373",
+            "identifier": "x",
             "label_type": "LambdaExpression"
-          },
-          "371": {
-            "label_type": "SymbolLookup",
-            "symbol": "x"
           },
           "373": {
             "arguments_id": "378",
@@ -33704,7 +33699,7 @@
             }
           },
           "107": {
-            "108": {
+            "110": {
               "label_ast": "AST"
             }
           },
@@ -34080,7 +34075,25 @@
             }
           },
           "376": {
-            "377": {
+            "379": {
+              "label_ast": "AST"
+            }
+          },
+          "379": {
+            "380": {
+              "label_ast": "AST"
+            },
+            "385": {
+              "label_ast": "AST"
+            }
+          },
+          "380": {
+            "381": {
+              "label_ast": "AST"
+            }
+          },
+          "385": {
+            "386": {
               "label_ast": "AST"
             }
           },
@@ -34344,7 +34357,20 @@
             }
           },
           "539": {
-            "540": {
+            "542": {
+              "label_ast": "AST"
+            }
+          },
+          "542": {
+            "543": {
+              "label_ast": "AST"
+            },
+            "548": {
+              "label_ast": "AST"
+            }
+          },
+          "543": {
+            "544": {
               "label_ast": "AST"
             }
           },
@@ -34507,7 +34533,20 @@
             }
           },
           "91": {
-            "92": {
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "94": {
+            "100": {
+              "label_ast": "AST"
+            },
+            "95": {
+              "label_ast": "AST"
+            }
+          },
+          "95": {
+            "96": {
               "label_ast": "AST"
             }
           }
@@ -34519,15 +34558,21 @@
           "10": {
             "label_type": "DeclarationBlock"
           },
+          "100": {
+            "label_type": "SymbolLookup",
+            "symbol": "id"
+          },
           "104": {
             "label_type": "ArgumentList"
           },
           "107": {
+            "block_id": "110",
+            "identifier": "s",
             "label_type": "LambdaExpression"
           },
-          "108": {
-            "label_type": "SymbolLookup",
-            "symbol": "s"
+          "110": {
+            "label_type": "ObjectCreation",
+            "name": "StudentViewModel"
           },
           "12": {
             "block_id": "19",
@@ -34876,11 +34921,35 @@
             "label_type": "ArgumentList"
           },
           "376": {
+            "block_id": "379",
+            "identifier": "s",
             "label_type": "LambdaExpression"
           },
-          "377": {
+          "379": {
+            "label_type": "BinaryOperation",
+            "left_id": "380",
+            "operator": "==",
+            "right_id": "385"
+          },
+          "380": {
+            "expression": "s",
+            "expression_id": "381",
+            "label_type": "MemberAccess",
+            "member": "StudentID"
+          },
+          "381": {
             "label_type": "SymbolLookup",
             "symbol": "s"
+          },
+          "385": {
+            "expression": "student",
+            "expression_id": "386",
+            "label_type": "MemberAccess",
+            "member": "Id"
+          },
+          "386": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
           },
           "401": {
             "condition_id": "404",
@@ -35138,15 +35207,33 @@
             "label_type": "ArgumentList"
           },
           "539": {
+            "block_id": "542",
+            "identifier": "s",
             "label_type": "LambdaExpression"
           },
           "54": {
             "label_type": "ObjectCreation",
             "name": "SchoolDBEntities"
           },
-          "540": {
+          "542": {
+            "label_type": "BinaryOperation",
+            "left_id": "543",
+            "operator": "==",
+            "right_id": "548"
+          },
+          "543": {
+            "expression": "s",
+            "expression_id": "544",
+            "label_type": "MemberAccess",
+            "member": "StudentID"
+          },
+          "544": {
             "label_type": "SymbolLookup",
             "symbol": "s"
+          },
+          "548": {
+            "label_type": "SymbolLookup",
+            "symbol": "id"
           },
           "557": {
             "label_type": "Assignment",
@@ -35321,9 +35408,23 @@
             "label_type": "ArgumentList"
           },
           "91": {
+            "block_id": "94",
+            "identifier": "s",
             "label_type": "LambdaExpression"
           },
-          "92": {
+          "94": {
+            "label_type": "BinaryOperation",
+            "left_id": "95",
+            "operator": "==",
+            "right_id": "100"
+          },
+          "95": {
+            "expression": "s",
+            "expression_id": "96",
+            "label_type": "MemberAccess",
+            "member": "StudentID"
+          },
+          "96": {
             "label_type": "SymbolLookup",
             "symbol": "s"
           }

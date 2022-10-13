@@ -63,15 +63,14 @@ def is_insecure_use_cors(graph: Graph, nid: NId) -> bool:
     if not arg_nid:
         return False
 
-    node_type = graph.nodes[arg_nid]["label_type"]
+    n_attrs = graph.nodes[arg_nid]
     if (
-        node_type == "MemberAccess"
-        and graph.nodes[arg_nid].get("member") == "AllowAll"
+        n_attrs["label_type"] == "MemberAccess"
+        and n_attrs.get("member") == "AllowAll"
     ) or (
-        node_type == "LambdaExpression"
-        and (method_id := g.adj_ast(graph, arg_nid)[1])
-        and "AllowAnyOrigin"
-        in graph.nodes[method_id].get("expression").split(".")
+        n_attrs["label_type"] == "LambdaExpression"
+        and (m_id := n_attrs["block_id"])
+        and "AllowAnyOrigin" in graph.nodes[m_id].get("expression").split(".")
     ):
         return True
 
@@ -125,14 +124,8 @@ def is_vulnerable_policy(graph: Graph, n_id: NId) -> bool:
         and len(al_list) >= 2
         and graph.nodes[al_list[1]]["label_type"] == "LambdaExpression"
     ):
-        if block_id := graph.nodes[al_list[1]].get("block_id"):
-            m_id = g.match_ast(graph, block_id).get("__0__")
-        elif (lambda_childs := g.adj_ast(graph, al_list[1])) and len(
-            lambda_childs
-        ) == 2:
-            m_id = lambda_childs[1]
-        else:
-            return False
+        block_id = graph.nodes[al_list[1]]["block_id"]
+        m_id = g.match_ast(graph, block_id).get("__0__")
         expr = graph.nodes[m_id].get("expression")
         if "AllowAnyOrigin" in expr:
             return True
