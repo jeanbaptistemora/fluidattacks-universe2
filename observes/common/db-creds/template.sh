@@ -48,18 +48,6 @@ function json_db_creds {
       > "${target}"
 }
 
-function export_snowflake {
-  sops_export_vars 'observes/secrets/prod.yaml' \
-    snowflake_database \
-    snowflake_admin_user \
-    snowflake_admin_password \
-    snowflake_account \
-    && export SNOWFLAKE_DB="${snowflake_database}" \
-    && export SNOWFLAKE_USER="${snowflake_admin_user}" \
-    && export SNOWFLAKE_PASSWORD="${snowflake_admin_password}" \
-    && export SNOWFLAKE_ACCOUNT="${snowflake_account}"
-}
-
 function export_notifier_key {
   sops_export_vars 'observes/secrets/prod.yaml' \
     bugsnag_notifier_key
