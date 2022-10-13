@@ -65,12 +65,12 @@ at the [Development Environment](/development/setup) section of our documentatio
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `airs`.
 
-### Local Deployment
+### Local Environment
 
 Just run:
 
 ```sh
-$ m . /airs/dev
+universe $ m . /airs/dev
 ```
 
 This will launch a replica of [fluidattacks.com](https://fluidattacks.com)

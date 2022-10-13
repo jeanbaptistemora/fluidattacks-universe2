@@ -64,12 +64,12 @@ at the [Development Environment](/development/setup) section of our documentatio
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `docs`.
 
-### Local Deployment
+### Local Environment
 
 Just run:
 
 ```sh
-$ m . /docs start
+universe $ m . /docs start
 ```
 
 This will launch a replica of [docs.fluidattacks.com](https://docs.fluidattacks.com)

@@ -70,3 +70,34 @@ at the [Development Environment](/development/setup) section of our documentatio
 
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `forces`.
+
+### Local Environment
+
+#### CLI Application
+
+Just run:
+
+```sh
+universe $ m . /forces
+```
+
+This will build and run the Forces CLI application,
+including the changes you've made to the source code.
+
+#### Container
+
+Just run:
+
+```bash
+# Build the container image (a tarball):
+universe $ m . /forces/container
+
+# Load the tarball into the local Docker repository:
+universe $ docker load < ~/.makes/out-forces-container
+
+# Run the container image:
+universe $ docker run container-image:latest forces
+```
+
+This will build and run the Forces container image,
+including the changes you've made to the source code.
