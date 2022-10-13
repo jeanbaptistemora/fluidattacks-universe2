@@ -12,14 +12,16 @@ from forces.model import (
 from forces.report import (
     generate_raw_report,
     get_summary_template,
-    style_report,
-    style_summary,
 )
 from forces.report.filters import (
     filter_repo,
 )
 from forces.report.formatters import (
     create_findings_dict,
+)
+from forces.report.styles import (
+    style_report,
+    style_summary,
 )
 import pytest
 
