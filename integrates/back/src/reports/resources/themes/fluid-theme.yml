@@ -48,11 +48,11 @@ heading:
   margin_bottom: $vertical_rhythm * 0.9
 title_page:
   align: right
-  background_image: image:title.jpg[]
+  background_image: image:title.png[]
   title:
     top: 18%
     font_size: $heading_h1_font_size
-    font_color: 999999
+    font_color: e9e9ed
     line_height: 0.9
   subtitle:
     font_size: 9

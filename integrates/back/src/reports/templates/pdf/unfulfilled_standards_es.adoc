@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 = {{group_name}}
+:doctype: book
 
 === Unfulfilled Standards
 El grupo no cumple con los siguientes estándares ya que tiene requisitos relacionados sin cumplir.
