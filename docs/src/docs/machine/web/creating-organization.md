@@ -21,7 +21,7 @@ you can access this one.
 To find out which role you
 have in the ARM you can
 view it in the
-[User information drop-down menu.](/machine/web/user-information/)
+[User information drop-down menu.](/machine/web/user)
 If you want to know more about roles,
 click [here](/machine/web/groups/roles/)
 

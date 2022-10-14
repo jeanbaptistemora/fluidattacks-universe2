@@ -19,7 +19,7 @@ code that will be sent to you via SMS.
 If you have not yet registered
 your phone number to ARM,
 we invite you to enter
-[here](/machine/web/user-information) and register.
+[here](/machine/web/user) and register.
 
 ![Verification Code](https://res.cloudinary.com/fluid-attacks/image/upload/v1663089476/docs/web/vuln_download_verification_code.png)
 

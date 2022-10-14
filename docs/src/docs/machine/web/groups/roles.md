@@ -13,7 +13,7 @@ you are granted access to certain
 functions for your daily use
 of the ARM.
 You can see your role on the ARM in the
-[drop-down menu](/machine/web/user-information)
+[drop-down menu](/machine/web/user)
 that appears when you click the
 user icon on the upper-right
 part of your screen.

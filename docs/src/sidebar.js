@@ -571,7 +571,7 @@ const Machine = [
       "machine/web/arm",
       "machine/web/self-enrollment",
       "machine/web/creating-organization",
-      "machine/web/user-information",
+      "machine/web/user",
       "machine/web/export",
       "machine/web/notifications",
       {

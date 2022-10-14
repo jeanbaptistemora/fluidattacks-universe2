@@ -66,7 +66,7 @@ number in the ARM,
 you will see a message
 asking you to do so.
 You just have to go to the
-[user information drop-down menu](/machine/web/user-information)
+[user information drop-down menu](/machine/web/user)
 and select the Mobile option.
 A verification code will
 be sent via SMS to the

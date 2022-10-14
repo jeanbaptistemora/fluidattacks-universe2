@@ -1,8 +1,8 @@
 ---
-id: user-information
-title: User information drop-down menu
-sidebar_label: User information
-slug: /machine/web/user-information
+id: user
+title: User
+sidebar_label: User
+slug: /machine/web/user
 ---
 
 On the ARM, it is quite easy to
