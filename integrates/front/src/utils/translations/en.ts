@@ -1770,7 +1770,10 @@ export const enTranslations: ResourceKey = {
               generatedReport: "The report has been generated",
             },
             buttons: {
-              generateReport: "Generate report",
+              generateReport: {
+                text: "Generate report",
+                tooltip: "Download a report of the unfulfilled standards",
+              },
             },
             cards: {
               requirement: "Requirement",

@@ -38,6 +38,7 @@ import { GET_ORGANIZATION_GROUP_NAMES } from "scenes/Dashboard/components/Navbar
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
 
 const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStandardsProps> =
   (props: IOrganizationComplianceStandardsProps): JSX.Element => {
@@ -92,11 +93,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     }>(GET_UNFULFILLED_STANDARD_REPORT_URL, {
       onCompleted: (data): void => {
         setDisableVerify(false);
-        window.open(
-          data.unfulfilledStandardReportUrl,
-          "_blank",
-          "noopener noreferrer"
-        );
+        openUrl(data.unfulfilledStandardReportUrl);
         msgSuccess(
           t(
             "organization.tabs.compliance.tabs.standards.alerts.generatedReport"
@@ -206,7 +203,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
             </Formik>
           </Col>
           <Col lg={50} md={50} sm={50}>
-            <Row justify={"end"}>
+            <div className={"flex flex-row  justify-end items-end "}>
               <VerifyDialog disable={disableVerify} isOpen={isVerifyDialogOpen}>
                 {(setVerifyCallbacks): JSX.Element => {
                   function onRequestReport(): void {
@@ -225,8 +222,12 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
 
                   return (
                     <Tooltip
-                      id={"group.findings.report.pdfTooltip.id"}
-                      tip={t("group.findings.report.pdfTooltip")}
+                      id={
+                        "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
+                      }
+                      tip={t(
+                        "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
+                      )}
                     >
                       <Button
                         id={"unfulfilled-standard-report-pdf"}
@@ -234,7 +235,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
                         variant={"primary"}
                       >
                         {t(
-                          "organization.tabs.compliance.tabs.standards.buttons.generateReport"
+                          "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
                         )}
                         &nbsp;
                         <FontAwesomeIcon
@@ -247,7 +248,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
                   );
                 }}
               </VerifyDialog>
-            </Row>
+            </div>
           </Col>
         </Row>
         <br />
