@@ -6,16 +6,11 @@ from __future__ import (
     annotations,
 )
 
-from ._core import (
-    CheckId,
-    CheckObj,
-)
 from ._decode import (
     CheckDecoder,
 )
 from .results import (
     CheckResultClient,
-    CheckResultObj,
 )
 from dataclasses import (
     dataclass,
@@ -40,6 +35,11 @@ from tap_checkly.api2 import (
 from tap_checkly.api2._raw import (
     Credentials,
     RawClient,
+)
+from tap_checkly.objs import (
+    CheckId,
+    CheckObj,
+    CheckResultObj,
 )
 
 

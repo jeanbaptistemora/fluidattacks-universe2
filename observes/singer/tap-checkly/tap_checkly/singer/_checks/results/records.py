@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from fa_purity import (
-    Cmd,
     JsonObj,
     PureIter,
 )
@@ -15,8 +14,6 @@ from fa_purity.json.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
-    pure_map,
-    unsafe_from_cmd,
 )
 from fa_purity.pure_iter.transform import (
     chain,
@@ -24,16 +21,14 @@ from fa_purity.pure_iter.transform import (
 from fa_singer_io.singer import (
     SingerRecord,
 )
-from tap_checkly.api2.checks.results import (
+from tap_checkly.objs import (
     ApiCheckResult,
+    CheckId,
     CheckResponse,
     CheckResultObj,
+    IndexedObj,
     TimingPhases,
     Timings,
-)
-from tap_checkly.objs import (
-    CheckId,
-    IndexedObj,
 )
 from tap_checkly.singer._core import (
     SingerStreams,

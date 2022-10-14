@@ -5,9 +5,6 @@
 from . import (
     _decode,
 )
-from ._core import (
-    CheckResultObj,
-)
 from .time_range import (
     date_ranges_dsc,
     DateRange,
@@ -48,6 +45,7 @@ from tap_checkly.api2._raw import (
 )
 from tap_checkly.objs import (
     CheckId,
+    CheckResultObj,
 )
 from typing import (
     Callable,

@@ -75,6 +75,3 @@ class CheckResult:
     run_location: str
     started_at: datetime
     stopped_at: datetime
-
-
-CheckResultObj = IndexedObj[CheckResultId, CheckResult]

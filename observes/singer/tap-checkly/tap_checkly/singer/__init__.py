@@ -16,14 +16,10 @@ from ._encoder import (
 from dataclasses import (
     dataclass,
 )
-from tap_checkly.api2.alert_channels import (
+from tap_checkly.objs import (
     AlertChannelObj,
-)
-from tap_checkly.api2.checks import (
-    CheckObj,
-)
-from tap_checkly.api2.groups import (
     CheckGroupObj,
+    CheckObj,
 )
 
 

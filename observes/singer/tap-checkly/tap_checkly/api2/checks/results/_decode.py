@@ -2,16 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    ApiCheckResult,
-    CheckResponse,
-    CheckResult,
-    CheckResultId,
-    CheckResultObj,
-    CheckRunId,
-    TimingPhases,
-    Timings,
-)
 from dateutil.parser import (
     isoparse,
 )
@@ -36,7 +26,15 @@ from tap_checkly.api2._utils import (
     switch_maybe,
 )
 from tap_checkly.objs import (
+    ApiCheckResult,
+    CheckResponse,
+    CheckResult,
+    CheckResultId,
+    CheckResultObj,
+    CheckRunId,
     IndexedObj,
+    TimingPhases,
+    Timings,
 )
 from typing import (
     cast,

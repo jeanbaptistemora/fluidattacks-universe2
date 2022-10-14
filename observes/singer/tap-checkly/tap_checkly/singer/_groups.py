@@ -5,6 +5,12 @@ from __future__ import (
     annotations,
 )
 
+from ._core import (
+    SingerStreams,
+)
+from ._encoder import (
+    ObjEncoder,
+)
 from dataclasses import (
     dataclass,
 )
@@ -30,20 +36,10 @@ from fa_singer_io.singer.encoder import (
 from fa_singer_io.singer.schema.core import (
     Property,
 )
-from tap_checkly.api2.alert_channels import (
-    ChannelSubscription,
-)
-from tap_checkly.api2.groups import (
-    CheckGroupObj,
-)
 from tap_checkly.objs import (
+    ChannelSubscription,
     CheckGroupId,
-)
-from tap_checkly.singer._core import (
-    SingerStreams,
-)
-from tap_checkly.singer._encoder import (
-    ObjEncoder,
+    CheckGroupObj,
 )
 from typing import (
     Dict,

@@ -6,9 +6,6 @@ from __future__ import (
     annotations,
 )
 
-from ._core import (
-    CheckGroupObj,
-)
 from ._decode import (
     CheckGroupDecoder,
 )
@@ -38,6 +35,9 @@ from fa_purity.stream.transform import (
 from tap_checkly.api2._raw import (
     Credentials,
     RawClient,
+)
+from tap_checkly.objs import (
+    CheckGroupObj,
 )
 
 

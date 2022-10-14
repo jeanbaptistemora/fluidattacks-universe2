@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    CheckId,
-    CheckStatus,
-    CheckStatusObj,
-)
 from dataclasses import (
     dataclass,
 )
@@ -14,18 +9,14 @@ from fa_purity import (
     JsonObj,
     ResultE,
 )
-from fa_purity.result.transform import (
-    all_ok,
-)
 from tap_checkly.api2._utils import (
     ExtendedUnfolder,
 )
 from tap_checkly.objs import (
+    CheckId,
+    CheckStatus,
+    CheckStatusObj,
     IndexedObj,
-)
-from typing import (
-    Tuple,
-    TypeVar,
 )
 
 

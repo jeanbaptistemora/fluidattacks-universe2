@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    CheckGroup,
-    CheckGroupId,
-    CheckGroupObj,
-)
 from dataclasses import (
     dataclass,
 )
@@ -28,11 +23,12 @@ from fa_purity.result.transform import (
 from tap_checkly.api2._utils import (
     ExtendedUnfolder,
 )
-from tap_checkly.api2.alert_channels import (
-    ChannelSubscription,
-)
 from tap_checkly.objs import (
     AlertChannelId,
+    ChannelSubscription,
+    CheckGroup,
+    CheckGroupId,
+    CheckGroupObj,
     IndexedObj,
 )
 

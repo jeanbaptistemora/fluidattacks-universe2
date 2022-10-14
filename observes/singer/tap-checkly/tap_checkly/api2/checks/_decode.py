@@ -2,12 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    Check,
-    CheckConf1,
-    CheckConf2,
-    CheckObj,
-)
 from dataclasses import (
     dataclass,
 )
@@ -23,8 +17,11 @@ from tap_checkly.api2._utils import (
     isoparse,
 )
 from tap_checkly.objs import (
-    CheckGroupId,
+    Check,
+    CheckConf1,
+    CheckConf2,
     CheckId,
+    CheckObj,
     IndexedObj,
 )
 

@@ -9,9 +9,6 @@ from __future__ import (
 from . import (
     _decode,
 )
-from ._core import (
-    AlertChannelObj,
-)
 from dataclasses import (
     dataclass,
 )
@@ -37,6 +34,9 @@ from fa_purity.stream.transform import (
 from tap_checkly.api2._raw import (
     Credentials,
     RawClient,
+)
+from tap_checkly.objs import (
+    AlertChannelObj,
 )
 
 

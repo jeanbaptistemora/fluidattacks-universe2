@@ -18,7 +18,7 @@ from fa_singer_io.singer.encoder import (
 from fa_singer_io.singer.schema.core import (
     Property,
 )
-from tap_checkly.api2.alert_channels import (
+from tap_checkly.objs import (
     AlertChannelObj,
 )
 from tap_checkly.singer._core import (

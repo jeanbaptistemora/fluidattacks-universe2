@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    AlertChannel,
-    AlertChannelId,
-    AlertChannelObj,
-)
 from dateutil.parser import (
     isoparse,
 )
@@ -18,6 +13,9 @@ from fa_purity.json.value.transform import (
     Unfolder,
 )
 from tap_checkly.objs import (
+    AlertChannel,
+    AlertChannelId,
+    AlertChannelObj,
     IndexedObj,
 )
 

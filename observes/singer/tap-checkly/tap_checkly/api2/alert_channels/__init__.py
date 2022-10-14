@@ -5,17 +5,7 @@
 from ._client import (
     AlertChannelsClient,
 )
-from ._core import (
-    AlertChannel,
-    AlertChannelId,
-    AlertChannelObj,
-    ChannelSubscription,
-)
 
 __all__ = [
     "AlertChannelsClient",
-    "AlertChannel",
-    "AlertChannelObj",
-    "AlertChannelId",
-    "ChannelSubscription",
 ]

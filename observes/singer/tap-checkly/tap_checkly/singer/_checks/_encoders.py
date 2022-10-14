@@ -30,7 +30,7 @@ from fa_singer_io.singer.encoder import (
 from fa_singer_io.singer.schema.core import (
     Property,
 )
-from tap_checkly.api2.checks import (
+from tap_checkly.objs import (
     CheckId,
     CheckObj,
 )
