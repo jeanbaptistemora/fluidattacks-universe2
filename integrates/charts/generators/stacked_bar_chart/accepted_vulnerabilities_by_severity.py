@@ -141,10 +141,10 @@ def format_percentages(
 
 def format_data(data: Counter[str]) -> dict:
     translations: dict[str, str] = {
-        "critical_severity": "Critical Severity",
-        "high_severity": "High Severity",
-        "medium_severity": "Medium Severity",
-        "low_severity": "Low Severity",
+        "critical_severity": "Critical",
+        "high_severity": "High",
+        "medium_severity": "Medium",
+        "low_severity": "Low",
     }
     percentage_values = [
         format_percentages(
@@ -194,7 +194,7 @@ def format_data(data: Counter[str]) -> dict:
         ),
         grid=dict(
             y=dict(
-                show=True,
+                show=False,
             ),
         ),
         axis=dict(
@@ -202,6 +202,15 @@ def format_data(data: Counter[str]) -> dict:
                 categories=[value for _, value in translations.items()],
                 type="category",
                 tick=dict(multiline=False),
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+                tick=dict(
+                    count=2,
+                ),
             ),
         ),
         bar=dict(
@@ -235,6 +244,8 @@ def format_data(data: Counter[str]) -> dict:
                 for percentage_value in percentage_values
             ],
         ),
+        hideXTickLine=True,
+        hideYAxisLine=True,
     )
 
 
