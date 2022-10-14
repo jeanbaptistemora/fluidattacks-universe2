@@ -11,6 +11,13 @@ and remove jrestrepo from all vulnerability reports.
 
 Execution Time:    2022-09-21 at 00:00:00 UTC
 Finalization Time: 2022-09-22 at 01:17:30 UTC
+
+Second execution to include vulnerabilities reported by Machine
+but with a state modified through ARM
+
+Execution Time:    2022-10-13 at 23:35:59 UTC
+Finalization Time: 2022-10-14 at 00:02:28 UTC
+
 """
 from aioextensions import (
     collect,
@@ -63,8 +70,8 @@ class SkimsMethods(Enum):
     )
     QUERY_F001 = SkimsMethodInfo(
         developer="drestrepo@fluidattacks.com",
-        file_name="query",
-        name="query_f001",
+        file_name="c_sharp",
+        name="c_sharp_sql_user_params",
     )
     QUERY_F004 = SkimsMethodInfo(
         developer="drestrepo@fluidattacks.com",
@@ -75,6 +82,16 @@ class SkimsMethods(Enum):
         developer="jecheverri@fluidattacks.com",
         file_name="c_sharp",
         name="c_sharp_remote_command_execution",
+    )
+    JAVA_REMOTE_COMMAND_EXECUTION = SkimsMethodInfo(
+        developer="machine@fluidattacks.com",
+        file_name="java",
+        name="java_remote_command_execution",
+    )
+    JS_REMOTE_COMMAND_EXECUTION = SkimsMethodInfo(
+        developer="machine@fluidattacks.com",
+        file_name="javascript",
+        name="javascript_remote_command_execution",
     )
     QUERY_F008 = SkimsMethodInfo(
         developer="drestrepo@fluidattacks.com",
@@ -210,6 +227,11 @@ class SkimsMethods(Enum):
         developer="drestrepo@fluidattacks.com",
         file_name="java",
         name="java_jpa_like",
+    )
+    JMX_HEADER_BASIC = SkimsMethodInfo(
+        developer="jromero@fluidattacks.com",
+        file_name="conf_files",
+        name="jmx_header_basic",
     )
     TFM_AZURE_VM_INSEC_AUTH = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
@@ -416,6 +438,11 @@ class SkimsMethods(Enum):
         file_name="aws",
         name="group_with_inline_policies",
     )
+    AWS_USER_WITH_INLINE_POLICY = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="user_with_inline_policies",
+    )
     AWS_OPEN_PASSROLE = SkimsMethodInfo(
         developer="lsaavedra@fluidattacks.com",
         file_name="aws",
@@ -435,6 +462,61 @@ class SkimsMethods(Enum):
         developer="lsaavedra@fluidattacks.com",
         file_name="aws",
         name="negative_statement",
+    )
+    AWS_INSECURE_PROTOCOLS = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="serves_content_over_insecure_protocols",
+    )
+    AWS_INSECURE_SECURITY_POLICY = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="uses_insecure_security_policy",
+    )
+    AWS_GROUP_INSECURE_PORT = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="target_group_insecure_port",
+    )
+    AWS_HAS_PUBLIC_INSTANCES = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="has_public_instances",
+    )
+    AWS_UNENCRYPTED_BUCKETS = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="unencrypted_buckets",
+    )
+    AWS_BUCKET_POLICY_ENCRYPTION_DISABLE = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="bucket_policy_has_server_side_encryption_disable",
+    )
+    AWS_NOT_INSIDE_A_DB_SUBNET_GROUP = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="is_not_inside_a_db_subnet_group",
+    )
+    AWS_DEFAULT_SECURITY_GROUP = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="use_default_security_group",
+    )
+    AWS_ACL_PUBLIC_BUCKETS = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="acl_public_buckets",
+    )
+    AWS_RDS_HAS_UNENCRYPTED_STORAGE = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="rds_has_unencrypted_storage",
+    )
+    AWS_EBS_IS_ENCRYPTION_DISABLED = SkimsMethodInfo(
+        developer="lsaavedra@fluidattacks.com",
+        file_name="aws",
+        name="ebs_is_encryption_disabled",
     )
     CFN_EC2_SEC_GROUPS_RFC1918 = SkimsMethodInfo(
         developer="atrujillo@fluidattacks.com",
@@ -1051,6 +1133,11 @@ class SkimsMethods(Enum):
         file_name="c_sharp",
         name="c_sharp_ldap_injection",
     )
+    JAVA_LDAP_INJECTION = SkimsMethodInfo(
+        developer="machine@fluidattacks.com",
+        file_name="java",
+        name="java_ldap_injection",
+    )
     CFN_RDS_NOT_INSIDE_DB_SUBNET = SkimsMethodInfo(
         developer="atrujillo@fluidattacks.com",
         file_name="cloudformation",
@@ -1105,6 +1192,11 @@ class SkimsMethods(Enum):
         developer="machine@fluidattacks.com",
         file_name="analyze_headers",
         name="strict_transport_security",
+    )
+    CHECK_DEFAULT_USEHSTS = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="c_sharp",
+        name="check_default_usehsts",
     )
     X_CONTENT_TYPE_OPTIONS = SkimsMethodInfo(
         developer="machine@fluidattacks.com",
@@ -1221,6 +1313,11 @@ class SkimsMethods(Enum):
         file_name="java",
         name="java_insecure_logging",
     )
+    TSCONFIG_SOURCEMAP_ENABLED = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="tsconfig",
+        name="tsconfig_sourcemap_enabled",
+    )
     CS_INFO_LEAK_ERRORS = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="csharp",
@@ -1331,15 +1428,15 @@ class SkimsMethods(Enum):
         file_name="terraform",
         name="tfm_db_no_point_in_time_recovery",
     )
-    CONTAINER_WHITOUR_USER = SkimsMethodInfo(
+    CONTAINER_WITHOUT_USER = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="docker",
-        name="container_whitout_user",
+        name="container_without_user",
     )
-    DOCKER_COMPOSE_WHITOUR_USER = SkimsMethodInfo(
+    DOCKER_COMPOSE_WITHOUT_USER = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="docker",
-        name="docker_compose_whitout_user",
+        name="docker_compose_without_user",
     )
     K8S_CHECK_ADD_CAPABILITY = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
@@ -1466,6 +1563,16 @@ class SkimsMethods(Enum):
         file_name="terraform",
         name="tfm_ec2_has_terminate_shutdown_behavior",
     )
+    JAVA_CSRF_PROTECTIONS_DISABLED = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="java",
+        name="csrf_protections_disabled",
+    )
+    KUBERNETES_INSECURE_PORT = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="kubernetes",
+        name="kubernetes_insecure_port",
+    )
     TFM_EC2_ASSOC_PUB_IP = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="terraform",
@@ -1505,6 +1612,11 @@ class SkimsMethods(Enum):
         developer="jecheverri@fluidattacks.com",
         file_name="c_sharp",
         name="csharp_conflicting_annotations",
+    )
+    JAVA_HOST_KEY_CHECKING = SkimsMethodInfo(
+        developer="machine@fluidattacks.com",
+        file_name="java",
+        name="java_host_key_checking",
     )
     HTML_IS_HEADER_CONTENT_TYPE_MISSING = SkimsMethodInfo(
         developer="lsaavedra@fluidattacks.com",
@@ -1560,6 +1672,11 @@ class SkimsMethods(Enum):
         developer="lsaavedra@fluidattacks.com",
         file_name="analyze_bytecodes",
         name="uses_http_resources",
+    )
+    GEM_GEMFILE_DEV = SkimsMethodInfo(
+        developer="lcontreras@fluidattacks.com",
+        file_name="gem",
+        name="gem_gemfile_dev",
     )
     NPM_PKG_JSON = SkimsMethodInfo(
         developer="machine@fluidattacks.com",
@@ -1646,6 +1763,11 @@ class SkimsMethods(Enum):
         file_name="cloudformation",
         name="cfn_elb2_has_access_logs_s3_disabled",
     )
+    CFN_LAMBDA_TRACING_DISABLED = SkimsMethodInfo(
+        developer="fcalderon@fluidattacks.com",
+        file_name="cloudformation",
+        name="cfn_lambda_function_has_tracing_disabled",
+    )
     TFM_ELB_LOGGING_DISABLED = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="terraform",
@@ -1670,6 +1792,11 @@ class SkimsMethods(Enum):
         developer="atrujillo@fluidattacks.com",
         file_name="terraform",
         name="tfm_trails_not_multiregion",
+    )
+    TFM_LAMBDA_TRACING_DISABLED = SkimsMethodInfo(
+        developer="fcalderon@fluidattacks.com",
+        file_name="terraform",
+        name="tfm_lambda_tracing_disabled",
     )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
@@ -1731,10 +1858,41 @@ class SkimsMethods(Enum):
         file_name="docker",
         name="docker_compose_read_only",
     )
+    DOCKER_USING_ADD_COMMAND = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="docker",
+        name="docker_using_add_command",
+    )
+    DOCKER_PORT_22_EXPOSED = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="docker",
+        name="docker_port_22_exposed",
+    )
     JAVA_USES_SYSTEM_EXIT = SkimsMethodInfo(
         developer="lsaavedra@fluidattacks.com",
         file_name="java",
         name="java_uses_exit_method",
+    )
+    JAVA_HAS_PRINT_STATEMENTS = SkimsMethodInfo(
+        developer="lpatino@fluidattacks.com",
+        file_name="java",
+        name="java_has_print_statements",
+    )
+    # Legacy methods that were renamed
+    CONTAINER_WHITOUR_USER = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="docker",
+        name="container_whitout_user",
+    )
+    DOCKER_COMPOSE_WHITOUR_USER = SkimsMethodInfo(
+        developer="jecheverri@fluidattacks.com",
+        file_name="docker",
+        name="docker_compose_whitout_user",
+    )
+    QUERY_F001_2 = SkimsMethodInfo(
+        developer="drestrepo@fluidattacks.com",
+        file_name="query",
+        name="query_f001",
     )
 
 
@@ -1745,8 +1903,9 @@ async def main() -> None:
         for method in SkimsMethods
     }
     groups = await orgs_domain.get_all_active_group_names(loaders=loaders)
-    for group in groups:
-        print(f"Processing group {group}")
+    total_groups: int = len(groups)
+    for idx, group in enumerate(groups):
+        print(f"Processing group {group} ({idx+1}/{total_groups})...")
         findings: Tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load(group)
@@ -1756,7 +1915,9 @@ async def main() -> None:
             [fin.id for fin in findings]
         )
         machine_vulns: List[Vulnerability] = [
-            vuln for vuln in vulns if vuln.state.source == Source.MACHINE
+            vuln
+            for vuln in vulns
+            if (vuln.state.source == Source.MACHINE) or vuln.skims_method
         ]
         if machine_vulns:
             vulns_developers: List[Optional[str]] = [
@@ -1773,22 +1934,25 @@ async def main() -> None:
                     or vuln.developer != developer
                 )
             ]
-            print(f"{len(vulns_to_update)} vulnerabilities will be updated")
-            await collect(
-                (
-                    update_metadata(
-                        finding_id=vuln.finding_id,
-                        metadata=VulnerabilityMetadataToUpdate(
-                            created_by="machine@fluidattacks.com",
-                            hacker_email="machine@fluidattacks.com",
-                            developer=developer,
-                        ),
-                        vulnerability_id=vuln.id,
-                    )
-                    for vuln, developer in vulns_to_update
-                ),
-                workers=15,
-            )
+            if vulns_to_update:
+                print(
+                    f"{len(vulns_to_update)} vulnerabilities will be updated"
+                )
+                await collect(
+                    (
+                        update_metadata(
+                            finding_id=vuln.finding_id,
+                            metadata=VulnerabilityMetadataToUpdate(
+                                created_by="machine@fluidattacks.com",
+                                hacker_email="machine@fluidattacks.com",
+                                developer=developer,
+                            ),
+                            vulnerability_id=vuln.id,
+                        )
+                        for vuln, developer in vulns_to_update
+                    ),
+                    workers=15,
+                )
 
 
 if __name__ == "__main__":
