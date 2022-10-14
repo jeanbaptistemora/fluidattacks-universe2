@@ -35,4 +35,17 @@ const GET_GROUP_UNFULFILLED_STANDARDS: DocumentNode = gql`
   }
 `;
 
-export { GET_ORGANIZATION_GROUP_NAME, GET_GROUP_UNFULFILLED_STANDARDS };
+const GET_UNFULFILLED_STANDARD_REPORT_URL: DocumentNode = gql`
+  query RequestGroupReport($groupName: String!, $verificationCode: String!) {
+    unfulfilledStandardReportUrl(
+      groupName: $groupName
+      verificationCode: $verificationCode
+    )
+  }
+`;
+
+export {
+  GET_ORGANIZATION_GROUP_NAME,
+  GET_GROUP_UNFULFILLED_STANDARDS,
+  GET_UNFULFILLED_STANDARD_REPORT_URL,
+};

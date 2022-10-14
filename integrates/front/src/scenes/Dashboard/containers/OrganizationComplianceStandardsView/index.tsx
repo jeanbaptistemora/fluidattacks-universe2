@@ -5,14 +5,22 @@
  */
 
 import type { ApolloError } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { GET_GROUP_UNFULFILLED_STANDARDS } from "./queries";
+import {
+  GET_GROUP_UNFULFILLED_STANDARDS,
+  GET_UNFULFILLED_STANDARD_REPORT_URL,
+} from "./queries";
 import type {
   IGroupAttr,
   IOrganizationComplianceStandardsProps,
@@ -20,13 +28,16 @@ import type {
 } from "./types";
 import { UnfulfilledStandardCard } from "./UnfulfilledStandardCard";
 
+import { Button } from "components/Button";
 import { Select } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
+import { Tooltip } from "components/Tooltip";
 import { GET_ORGANIZATION_GROUP_NAMES } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
+import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStandardsProps> =
   (props: IOrganizationComplianceStandardsProps): JSX.Element => {
@@ -37,6 +48,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     const [selectedGroupName, setSelectedGroupName] = useState<
       string | undefined
     >(undefined);
+    const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
     // GraphQL queries
     const { data: groupsData } = useQuery<{
@@ -74,6 +86,46 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
         groupName: selectedGroupName,
       },
     });
+    const [requestUnfulfilledStandardReport] = useLazyQuery<{
+      unfulfilledStandardReportUrl: string;
+    }>(GET_UNFULFILLED_STANDARD_REPORT_URL, {
+      onCompleted: (data): void => {
+        window.open(
+          data.unfulfilledStandardReportUrl,
+          "_blank",
+          "noopener noreferrer"
+        );
+        msgSuccess(
+          t(
+            "organization.tabs.compliance.tabs.standards.alerts.generatedReport"
+          ),
+          t("groupAlerts.titleSuccess")
+        );
+        setIsVerifyDialogOpen(false);
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - Stakeholder could not be verified":
+              msgError(
+                t("group.findings.report.alerts.nonVerifiedStakeholder")
+              );
+              break;
+            case "Exception - The verification code is invalid":
+              msgError(
+                t("group.findings.report.alerts.invalidVerificationCode")
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred requesting group report",
+                error
+              );
+          }
+        });
+      },
+    });
 
     // Format data
     const groups = useMemo(
@@ -99,6 +151,17 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     }
     function onSubmit(): void {
       // OnSubmit
+    }
+    function handleRequestUnfulfilledStandardReport(
+      verificationCode: string
+    ): void {
+      requestUnfulfilledStandardReport({
+        variables: {
+          groupName: selectedGroupName,
+          verificationCode,
+        },
+      });
+      mixpanel.track("UnfulfilledStandardReportRequest");
     }
 
     return (
@@ -140,7 +203,46 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
           </Col>
           <Col lg={50} md={50} sm={50}>
             <Row justify={"end"}>
-              <div />
+              <VerifyDialog isOpen={isVerifyDialogOpen}>
+                {(setVerifyCallbacks): JSX.Element => {
+                  function onRequestReport(): void {
+                    setVerifyCallbacks(
+                      (verificationCode: string): void => {
+                        handleRequestUnfulfilledStandardReport(
+                          verificationCode
+                        );
+                      },
+                      (): void => {
+                        setIsVerifyDialogOpen(false);
+                      }
+                    );
+                    setIsVerifyDialogOpen(true);
+                  }
+
+                  return (
+                    <Tooltip
+                      id={"group.findings.report.pdfTooltip.id"}
+                      tip={t("group.findings.report.pdfTooltip")}
+                    >
+                      <Button
+                        id={"unfulfilled-standard-report-pdf"}
+                        onClick={onRequestReport}
+                        variant={"primary"}
+                      >
+                        {t(
+                          "organization.tabs.compliance.tabs.standards.buttons.generateReport"
+                        )}
+                        &nbsp;
+                        <FontAwesomeIcon
+                          fontSize={17}
+                          fontWeight={40}
+                          icon={faArrowRight}
+                        />
+                      </Button>
+                    </Tooltip>
+                  );
+                }}
+              </VerifyDialog>
             </Row>
           </Col>
         </Row>

@@ -11,7 +11,7 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import type { IComplianceContentProps } from "./types";
 
 import { OrganizationComplianceOverviewView } from "../OrganizationComplianceOverviewView";
-import { OrganizationComplianceStandardsView } from "../OrganizationComplianceStandardsView copy";
+import { OrganizationComplianceStandardsView } from "../OrganizationComplianceStandardsView";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
 

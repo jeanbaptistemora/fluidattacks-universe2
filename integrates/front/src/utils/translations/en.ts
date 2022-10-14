@@ -1763,6 +1763,12 @@ export const enTranslations: ResourceKey = {
             tooltip: "Overview of the compliance with the standards",
           },
           standards: {
+            alerts: {
+              generatedReport: "The report has been generated",
+            },
+            buttons: {
+              generateReport: "Generate report",
+            },
             cards: {
               requirement: "Requirement",
               showAll: "Show all",
