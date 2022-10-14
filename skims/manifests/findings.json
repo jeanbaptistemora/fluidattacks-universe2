@@ -743,6 +743,14 @@
       "title": "300. Authentication mechanism absence or evasion - Azure"
     }
   },
+  "F309": {
+    "EN": {
+      "title": "309. Insecurely generated token - JWT"
+    },
+    "ES": {
+      "title": "309. Insecurely generated token - JWT"
+    }
+  },
   "F313": {
     "EN": {
       "title": "313. Insecure service configuration - Certificates"

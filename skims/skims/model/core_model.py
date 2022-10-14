@@ -819,6 +819,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[227, 228, 229, 231, 235, 264, 323],
     )
+    F309: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F309",
+        cwe=287,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[228],
+    )
     F313: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F313",
@@ -3583,6 +3590,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_INSECURE_JWT_TOKEN = MethodInfo(
+        file_name="javascript",
+        name="js_uses_insecure_jwt_token",
+        module="lib_root",
+        finding=FindingEnum.F309,
+        developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
     IMPROPER_CERTIFICATE_VALIDATION = MethodInfo(
