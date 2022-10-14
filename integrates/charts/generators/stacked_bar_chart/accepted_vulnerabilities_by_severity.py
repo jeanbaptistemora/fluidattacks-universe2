@@ -209,6 +209,7 @@ def format_data(data: Counter[str]) -> dict:
                 ratio=BAR_RATIO_WIDTH,
             ),
         ),
+        centerLabel=True,
         tooltip=dict(
             format=dict(
                 value=None,

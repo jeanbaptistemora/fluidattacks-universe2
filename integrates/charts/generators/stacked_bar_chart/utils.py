@@ -407,6 +407,7 @@ def format_distribution_document(
             ],
         ),
         hideXTickLine=True,
+        centerLabel=True,
     )
 
 

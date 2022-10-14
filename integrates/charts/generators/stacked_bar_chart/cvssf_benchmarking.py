@@ -468,6 +468,7 @@ def format_data(
                 ratio=BAR_RATIO_WIDTH,
             ),
         ),
+        centerLabel=True,
         maxPercentageValues=max_percentage_values,
         hideXTickLine=True,
         hideYAxisLine=True,

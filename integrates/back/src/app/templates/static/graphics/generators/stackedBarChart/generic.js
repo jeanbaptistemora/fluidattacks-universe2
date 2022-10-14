@@ -5,6 +5,27 @@
 /* global c3 */
 /* global d3 */
 
+function centerLabel(dataDocument) {
+  if (dataDocument.centerLabel) {
+    const transformText = 12;
+    d3.selectAll('.c3-chart-texts .c3-text').each((datum, index, textList) => {
+      const dTag = d3.selectAll(`.c3-bars-${ datum.id }`).select(`path.c3-bar-${ datum.index }`).attr('d').split(',');
+      const rectHeight = parseFloat(parseFloat(dTag[dTag.length - 1]).toFixed(2));
+      const haveDiffToMove = parseFloat(parseFloat(d3.select(textList[index]).attr('diffToMoveY')).toFixed(2));
+      if (haveDiffToMove) {
+        d3.select(textList[index]).attr('y', haveDiffToMove);
+      } else {
+        const textHeight = parseFloat(parseFloat(d3.select(textList[index]).attr('y')).toFixed(2));
+        const diffHeight = parseFloat(parseFloat((rectHeight - textHeight) / 2).toFixed(2));
+        if (diffHeight > transformText) {
+          const diffToMove = (textHeight + diffHeight - transformText).toFixed(2);
+          d3.select(textList[index]).attr('y', diffToMove).attr('diffToMoveY', diffToMove);
+        }
+      }
+    });
+  }
+}
+
 const defaultPaddingRatio = 0.055;
 
 function getTooltipPercentage(id, index, maxPercentageValues) {
@@ -81,6 +102,9 @@ function render(dataDocument, height, width) {
 
   c3.generate({
     ...dataDocument,
+    onrendered: () => {
+      centerLabel(dataDocument);
+    },
     bindto: 'div',
     padding: {
       bottom: (dataDocument.paddingRatioBottom ? dataDocument.paddingRatioBottom : defaultPaddingRatio) * height,
@@ -91,6 +115,9 @@ function render(dataDocument, height, width) {
     size: {
       height,
       width,
+    },
+    transition: {
+      duration: 0,
     },
   });
 }
