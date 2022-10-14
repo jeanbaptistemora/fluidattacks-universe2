@@ -1,6 +1,6 @@
 ---
 slug: why-is-cloud-devsecops-important/
-title: Why Is Cloud Devsecops Important?
+title: Why Is Cloud DevSecOps Important?
 date: 2022-10-13
 subtitle: Benefits of shifting cloud security left
 category: philosophy
