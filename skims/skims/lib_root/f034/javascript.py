@@ -12,8 +12,9 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
-    GraphShardNodes,
+    GraphShardMetadataLanguage as GraphLanguage,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -24,10 +25,13 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+)
 import utils.graph as g
 
 
-def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         if (
             evaluation := evaluate(method, graph, path, n_id)
@@ -37,14 +41,14 @@ def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 
 
 def weak_random(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_WEAK_RANDOM
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVASCRIPT,
+            GraphLanguage.JAVASCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
@@ -52,13 +56,11 @@ def weak_random(
             for n_id in g.filter_nodes(
                 graph,
                 nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="CallExpression"),
+                predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                if "cookie" not in graph.nodes[n_id]["function_name"]:
-                    continue
-
                 if (
-                    (al_id := graph.nodes[n_id]["arguments_id"])
+                    "cookie" in graph.nodes[n_id]["expression"]
+                    and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (test_node := g.match_ast(graph, al_id).get("__1__"))
                     and get_eval_danger(graph, test_node, method)
                 ):

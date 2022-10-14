@@ -5,9 +5,16 @@
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
+)
+from model.graph_model import (
+    Graph,
+    GraphDB,
+    GraphShardMetadataLanguage as GraphLanguage,
+    GraphShardNode,
+    NId,
 )
 import re
 from sast.query import (
@@ -20,6 +27,7 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Iterable,
     Set,
     Tuple,
 )
@@ -28,7 +36,7 @@ from utils import (
 )
 
 
-def _could_be_boolean(key: str) -> bool:
+def could_be_boolean(key: str) -> bool:
     prefixes = {"is", "has", "es"}
     match = re.search("[a-z]", key, re.I)
     if match:
@@ -37,10 +45,8 @@ def _could_be_boolean(key: str) -> bool:
     return False
 
 
-def client_storage(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
+def is_insecure_storage(graph: Graph, nid: NId) -> bool:
+    method = MethodsEnum.JS_CLIENT_STORAGE
     conditions: Tuple[Set[str], ...] = (
         # All items in the set must be present to consider it sensitive info
         {"auth"},
@@ -61,7 +67,36 @@ def client_storage(
         {"nombre", "usuario"},
         {"mail", "user"},
     )
-    method = core_model.MethodsEnum.JS_CLIENT_STORAGE
+    f_name = graph.nodes[nid]["expression"]
+    al_id = graph.nodes[nid]["arguments_id"]
+    opc_nid = g.match_ast(graph, al_id)
+
+    if "getItem" in f_name.split("."):
+        test_node = opc_nid.get("__0__")
+    else:
+        test_node = opc_nid.get("__1__")
+
+    if not test_node:
+        return False
+
+    for path in get_backward_paths(graph, test_node):
+        evaluation = evaluate(method, graph, path, test_node)
+        if evaluation and any(
+            all(smell in key_str.lower() for smell in smells)
+            and not could_be_boolean(key_str.lower())
+            for key_str in evaluation.triggers
+            for smells in conditions
+        ):
+            return True
+
+    return False
+
+
+def client_storage(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JS_CLIENT_STORAGE
     danger_names = {
         "localStorage.getItem",
         "localStorage.setItem",
@@ -69,9 +104,9 @@ def client_storage(
         "sessionStorage.setItem",
     }
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            GraphLanguage.JAVASCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
@@ -80,35 +115,11 @@ def client_storage(
             for nid in g.filter_nodes(
                 graph,
                 graph.nodes,
-                predicate=g.pred_has_labels(label_type="CallExpression"),
+                predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                f_name = graph.nodes[nid]["function_name"]
-                al_id = g.match_ast(graph, nid, "ArgumentList").get(
-                    "ArgumentList"
-                )
-                if f_name not in danger_names or not al_id:
-                    continue
-
-                opc_nid = g.match_ast(graph, al_id)
-
-                if "getItem" in f_name.split("."):
-                    test_node = opc_nid.get("__0__")
-                else:
-                    test_node = opc_nid.get("__1__")
-
-                if not test_node:
-                    continue
-
-                for path in get_backward_paths(graph, test_node):
-                    if (
-                        evaluation := evaluate(method, graph, path, test_node)
-                    ) and any(
-                        all(smell in key_str.lower() for smell in smells)
-                        and not _could_be_boolean(key_str.lower())
-                        for key_str in evaluation.triggers
-                        for smells in conditions
-                    ):
-                        yield shard, nid
+                f_name = graph.nodes[nid]["expression"]
+                if f_name in danger_names and is_insecure_storage(graph, nid):
+                    yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f085.client_storage.description",

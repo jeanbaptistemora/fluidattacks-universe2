@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.call_expression import (
-    build_call_expression_node,
+from syntax_graph.syntax_nodes.method_invocation import (
+    build_method_invocation_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -18,12 +18,7 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     call_node = args.ast_graph.nodes[args.n_id]
-    function_id = call_node["label_field_function"]
-    fn_name = node_to_str(args.ast_graph, function_id)
-
-    func_type = args.ast_graph.nodes[function_id]["label_type"]
-    if func_type not in {"member_expression", "call_expression"}:
-        function_id = None
-
+    method_id = call_node["label_field_function"]
+    expr = node_to_str(args.ast_graph, method_id)
     args_id = call_node["label_field_arguments"]
-    return build_call_expression_node(args, fn_name, function_id, args_id)
+    return build_method_invocation_node(args, expr, method_id, args_id, None)

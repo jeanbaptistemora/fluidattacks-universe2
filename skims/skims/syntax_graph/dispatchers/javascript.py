@@ -25,6 +25,7 @@ from syntax_graph.syntax_readers.javascript import (
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
+    import_node as javascript_import,
     import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
@@ -180,6 +181,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "import",
+        },
+        syntax_reader=javascript_import.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "import_statement",
         },
         syntax_reader=javascript_import_statement.reader,
@@ -282,9 +289,9 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "regex",
             "string",
             "template_string",
-            "regex",
             "undefined",
         },
         syntax_reader=javascript_string_literal.reader,

@@ -84990,12 +84990,10 @@
           },
           "1075": {
             "1076": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1080": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1076": {
@@ -85013,8 +85011,7 @@
           },
           "1080": {
             "1082": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1086": {
@@ -85097,6 +85094,9 @@
             }
           },
           "113": {
+            "114": {
+              "label_ast": "AST"
+            },
             "116": {
               "label_ast": "AST"
             }
@@ -85121,6 +85121,9 @@
             }
           },
           "1143": {
+            "1144": {
+              "label_ast": "AST"
+            },
             "1145": {
               "label_ast": "AST"
             }
@@ -85209,6 +85212,9 @@
             }
           },
           "1203": {
+            "1204": {
+              "label_ast": "AST"
+            },
             "1205": {
               "label_ast": "AST"
             }
@@ -85235,6 +85241,9 @@
             }
           },
           "1215": {
+            "1216": {
+              "label_ast": "AST"
+            },
             "1217": {
               "label_ast": "AST"
             }
@@ -85316,6 +85325,9 @@
             }
           },
           "1269": {
+            "1270": {
+              "label_ast": "AST"
+            },
             "1271": {
               "label_ast": "AST"
             }
@@ -85354,8 +85366,7 @@
           },
           "1291": {
             "1292": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1296": {
               "label_ast": "AST",
@@ -85448,12 +85459,10 @@
           },
           "1327": {
             "1328": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1332": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1328": {
@@ -85466,12 +85475,10 @@
           },
           "1332": {
             "1334": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1336": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1336": {
@@ -85489,12 +85496,10 @@
           },
           "1349": {
             "1350": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1361": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "135": {
@@ -85528,18 +85533,15 @@
           },
           "1361": {
             "1363": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1366": {
             "1367": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1371": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1367": {
@@ -85560,8 +85562,7 @@
           },
           "1371": {
             "1373": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1376": {
@@ -85570,6 +85571,9 @@
             }
           },
           "1384": {
+            "1385": {
+              "label_ast": "AST"
+            },
             "1386": {
               "label_ast": "AST"
             }
@@ -85669,6 +85673,9 @@
             }
           },
           "143": {
+            "144": {
+              "label_ast": "AST"
+            },
             "145": {
               "label_ast": "AST"
             }
@@ -85697,6 +85704,9 @@
             }
           },
           "1446": {
+            "1447": {
+              "label_ast": "AST"
+            },
             "1448": {
               "label_ast": "AST"
             }
@@ -85715,6 +85725,9 @@
             }
           },
           "1455": {
+            "1456": {
+              "label_ast": "AST"
+            },
             "1457": {
               "label_ast": "AST"
             }
@@ -85726,12 +85739,10 @@
           },
           "1466": {
             "1467": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1471": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1467": {
@@ -85752,12 +85763,10 @@
           },
           "1471": {
             "1473": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1480": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1473": {
@@ -85769,15 +85778,16 @@
             }
           },
           "1480": {
+            "1481": {
+              "label_ast": "AST"
+            },
             "1482": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1482": {
             "1484": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1484": {
@@ -85863,6 +85873,9 @@
             }
           },
           "155": {
+            "156": {
+              "label_ast": "AST"
+            },
             "157": {
               "label_ast": "AST"
             }
@@ -85916,12 +85929,10 @@
           },
           "1578": {
             "1579": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1583": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1579": {
@@ -85934,12 +85945,10 @@
           },
           "1583": {
             "1585": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1587": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "1592": {
@@ -86004,8 +86013,7 @@
           },
           "1624": {
             "1625": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "1634": {
               "label_ast": "AST",
@@ -86021,6 +86029,9 @@
             }
           },
           "1626": {
+            "1627": {
+              "label_ast": "AST"
+            },
             "1628": {
               "label_ast": "AST"
             }
@@ -86177,11 +86188,12 @@
           },
           "181": {
             "182": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "186": {
-              "label_ast": "AST",
+              "label_ast": "AST"
+            },
+            "191": {
               "label_cfg": "CFG"
             }
           },
@@ -86201,9 +86213,6 @@
             },
             "185": {
               "label_ast": "AST"
-            },
-            "191": {
-              "label_cfg": "CFG"
             }
           },
           "1824": {
@@ -86213,13 +86222,7 @@
           },
           "186": {
             "188": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "188": {
-            "191": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "191": {
@@ -86236,17 +86239,21 @@
             }
           },
           "198": {
+            "199": {
+              "label_ast": "AST"
+            },
             "200": {
               "label_ast": "AST"
             }
           },
           "205": {
             "206": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "210": {
-              "label_ast": "AST",
+              "label_ast": "AST"
+            },
+            "215": {
               "label_cfg": "CFG"
             }
           },
@@ -86256,26 +86263,19 @@
             },
             "209": {
               "label_ast": "AST"
-            },
-            "215": {
-              "label_cfg": "CFG"
             }
           },
           "210": {
             "212": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "212": {
-            "215": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "218": {
+            "219": {
+              "label_ast": "AST"
+            },
             "220": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "225": {
@@ -86321,12 +86321,10 @@
           },
           "263": {
             "264": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "268": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "264": {
@@ -86339,18 +86337,15 @@
           },
           "268": {
             "270": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "275": {
             "276": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "280": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "276": {
@@ -86363,8 +86358,7 @@
           },
           "280": {
             "282": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "287": {
@@ -86447,12 +86441,10 @@
           },
           "331": {
             "332": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "336": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "332": {
@@ -86465,8 +86457,7 @@
           },
           "336": {
             "338": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "343": {
@@ -86530,12 +86521,10 @@
           },
           "373": {
             "374": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "378": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "374": {
@@ -86548,8 +86537,7 @@
           },
           "378": {
             "380": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "380": {
@@ -86647,12 +86635,10 @@
           },
           "436": {
             "437": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "441": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "437": {
@@ -86665,8 +86651,7 @@
           },
           "441": {
             "443": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "448": {
@@ -86750,12 +86735,10 @@
           },
           "499": {
             "500": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "504": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "500": {
@@ -86768,8 +86751,7 @@
           },
           "504": {
             "506": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "510": {
@@ -86984,6 +86966,9 @@
             }
           },
           "621": {
+            "622": {
+              "label_ast": "AST"
+            },
             "623": {
               "label_ast": "AST"
             }
@@ -87024,6 +87009,9 @@
             }
           },
           "644": {
+            "645": {
+              "label_ast": "AST"
+            },
             "646": {
               "label_ast": "AST"
             }
@@ -87076,11 +87064,12 @@
           },
           "668": {
             "669": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "673": {
-              "label_ast": "AST",
+              "label_ast": "AST"
+            },
+            "678": {
               "label_cfg": "CFG"
             }
           },
@@ -87090,20 +87079,11 @@
             },
             "672": {
               "label_ast": "AST"
-            },
-            "678": {
-              "label_cfg": "CFG"
             }
           },
           "673": {
             "675": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "675": {
-            "678": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "678": {
@@ -87117,15 +87097,16 @@
             }
           },
           "685": {
+            "686": {
+              "label_ast": "AST"
+            },
             "687": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "687": {
             "689": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "693": {
@@ -87281,12 +87262,10 @@
           },
           "782": {
             "783": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "787": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "783": {
@@ -87299,8 +87278,7 @@
           },
           "787": {
             "789": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "797": {
@@ -87353,12 +87331,10 @@
           },
           "828": {
             "829": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "833": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "829": {
@@ -87371,8 +87347,7 @@
           },
           "833": {
             "835": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "840": {
@@ -87419,11 +87394,12 @@
           },
           "863": {
             "864": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "868": {
-              "label_ast": "AST",
+              "label_ast": "AST"
+            },
+            "873": {
               "label_cfg": "CFG"
             }
           },
@@ -87433,20 +87409,11 @@
             },
             "867": {
               "label_ast": "AST"
-            },
-            "873": {
-              "label_cfg": "CFG"
             }
           },
           "868": {
             "870": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "870": {
-            "873": {
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "876": {
@@ -87548,12 +87515,10 @@
           },
           "925": {
             "926": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             },
             "930": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "926": {
@@ -87566,20 +87531,20 @@
           },
           "930": {
             "932": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "932": {
+            "933": {
+              "label_ast": "AST"
+            },
             "934": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "934": {
             "936": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
+              "label_ast": "AST"
             }
           },
           "936": {
@@ -87695,9 +87660,9 @@
           },
           "1000": {
             "arguments_id": "1005",
+            "expression": "console.log",
             "expression_id": "1001",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1001": {
             "expression": "log",
@@ -87727,9 +87692,9 @@
           },
           "1018": {
             "arguments_id": "1023",
+            "expression": "console.log",
             "expression_id": "1019",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1019": {
             "expression": "log",
@@ -87767,9 +87732,9 @@
           },
           "1040": {
             "arguments_id": "1045",
+            "expression": "console.log",
             "expression_id": "1041",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1041": {
             "expression": "log",
@@ -87798,9 +87763,9 @@
           },
           "1057": {
             "arguments_id": "1062",
+            "expression": "console.log",
             "expression_id": "1058",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1058": {
             "expression": "log",
@@ -87847,9 +87812,9 @@
           },
           "1075": {
             "arguments_id": "1080",
+            "expression": "console.log",
             "expression_id": "1076",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1076": {
             "expression": "log",
@@ -87964,8 +87929,9 @@
           },
           "113": {
             "arguments_id": "116",
-            "function_name": "import",
-            "label_type": "CallExpression"
+            "expression": "import",
+            "expression_id": "114",
+            "label_type": "MethodInvocation"
           },
           "1130": {
             "label_type": "Literal",
@@ -87987,14 +87953,23 @@
           "1139": {
             "label_type": "StatementBlock"
           },
+          "114": {
+            "expression": "import",
+            "label_type": "Import"
+          },
           "1141": {
             "comment": "// statements to handle any exceptions",
             "label_type": "Comment"
           },
           "1143": {
             "arguments_id": "1145",
-            "function_name": "logMyErrors",
-            "label_type": "CallExpression"
+            "expression": "logMyErrors",
+            "expression_id": "1144",
+            "label_type": "MethodInvocation"
+          },
+          "1144": {
+            "label_type": "SymbolLookup",
+            "symbol": "logMyErrors"
           },
           "1145": {
             "label_type": "ArgumentList"
@@ -88102,8 +88077,13 @@
           },
           "1203": {
             "arguments_id": "1205",
-            "function_name": "setTimeout",
-            "label_type": "CallExpression"
+            "expression": "setTimeout",
+            "expression_id": "1204",
+            "label_type": "MethodInvocation"
+          },
+          "1204": {
+            "label_type": "SymbolLookup",
+            "symbol": "setTimeout"
           },
           "1205": {
             "label_type": "ArgumentList"
@@ -88126,8 +88106,13 @@
           },
           "1215": {
             "arguments_id": "1217",
-            "function_name": "resolve",
-            "label_type": "CallExpression"
+            "expression": "resolve",
+            "expression_id": "1216",
+            "label_type": "MethodInvocation"
+          },
+          "1216": {
+            "label_type": "SymbolLookup",
+            "symbol": "resolve"
           },
           "1217": {
             "label_type": "ArgumentList"
@@ -88220,8 +88205,13 @@
           },
           "1269": {
             "arguments_id": "1271",
-            "function_name": "require",
-            "label_type": "CallExpression"
+            "expression": "require",
+            "expression_id": "1270",
+            "label_type": "MethodInvocation"
+          },
+          "1270": {
+            "label_type": "SymbolLookup",
+            "symbol": "require"
           },
           "1271": {
             "label_type": "ArgumentList"
@@ -88241,9 +88231,9 @@
           },
           "1281": {
             "arguments_id": "1286",
+            "expression": "express.Router",
             "expression_id": "1282",
-            "function_name": "express.Router",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1282": {
             "expression": "Router",
@@ -88264,9 +88254,9 @@
           },
           "1291": {
             "arguments_id": "1296",
+            "expression": "router.get",
             "expression_id": "1292",
-            "function_name": "router.get",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1292": {
             "expression": "get",
@@ -88354,9 +88344,9 @@
           },
           "1327": {
             "arguments_id": "1332",
+            "expression": "res.render",
             "expression_id": "1328",
-            "function_name": "res.render",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1328": {
             "expression": "render",
@@ -88403,9 +88393,9 @@
           },
           "1349": {
             "arguments_id": "1361",
+            "expression": "express.Router().call",
             "expression_id": "1350",
-            "function_name": "express.Router().call",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "135": {
             "label_type": "ArgumentList"
@@ -88418,9 +88408,9 @@
           },
           "1351": {
             "arguments_id": "1356",
+            "expression": "express.Router",
             "expression_id": "1352",
-            "function_name": "express.Router",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1352": {
             "expression": "Router",
@@ -88453,9 +88443,9 @@
           },
           "1366": {
             "arguments_id": "1371",
+            "expression": "console.log",
             "expression_id": "1367",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1367": {
             "expression": "log",
@@ -88496,8 +88486,13 @@
           },
           "1384": {
             "arguments_id": "1386",
-            "function_name": "require",
-            "label_type": "CallExpression"
+            "expression": "require",
+            "expression_id": "1385",
+            "label_type": "MethodInvocation"
+          },
+          "1385": {
+            "label_type": "SymbolLookup",
+            "symbol": "require"
           },
           "1386": {
             "label_type": "ArgumentList"
@@ -88562,9 +88557,9 @@
           },
           "1424": {
             "arguments_id": "1429",
+            "expression": "st.startTimer",
             "expression_id": "1425",
-            "function_name": "st.startTimer",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1425": {
             "expression": "startTimer",
@@ -88585,8 +88580,9 @@
           },
           "143": {
             "arguments_id": "145",
-            "function_name": "setTimeout",
-            "label_type": "CallExpression"
+            "expression": "setTimeout",
+            "expression_id": "144",
+            "label_type": "MethodInvocation"
           },
           "1431": {
             "label_type": "Object"
@@ -88609,14 +88605,23 @@
             "value_id": "1444",
             "variable": "res"
           },
+          "144": {
+            "label_type": "SymbolLookup",
+            "symbol": "setTimeout"
+          },
           "1444": {
             "expression_id": "1446",
             "label_type": "AwaitExpression"
           },
           "1446": {
             "arguments_id": "1448",
-            "function_name": "func",
-            "label_type": "CallExpression"
+            "expression": "func",
+            "expression_id": "1447",
+            "label_type": "MethodInvocation"
+          },
+          "1447": {
+            "label_type": "SymbolLookup",
+            "symbol": "func"
           },
           "1448": {
             "label_type": "ArgumentList"
@@ -88630,8 +88635,13 @@
           },
           "1455": {
             "arguments_id": "1457",
-            "function_name": "end",
-            "label_type": "CallExpression"
+            "expression": "end",
+            "expression_id": "1456",
+            "label_type": "MethodInvocation"
+          },
+          "1456": {
+            "label_type": "SymbolLookup",
+            "symbol": "end"
           },
           "1457": {
             "label_type": "ArgumentList"
@@ -88646,9 +88656,9 @@
           },
           "1466": {
             "arguments_id": "1471",
+            "expression": "app.use",
             "expression_id": "1467",
-            "function_name": "app.use",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1467": {
             "expression": "use",
@@ -88691,8 +88701,13 @@
           },
           "1480": {
             "arguments_id": "1482",
-            "function_name": "securityTxt",
-            "label_type": "CallExpression"
+            "expression": "securityTxt",
+            "expression_id": "1481",
+            "label_type": "MethodInvocation"
+          },
+          "1481": {
+            "label_type": "SymbolLookup",
+            "symbol": "securityTxt"
           },
           "1482": {
             "label_type": "ArgumentList"
@@ -88711,9 +88726,9 @@
           },
           "1489": {
             "arguments_id": "1494",
+            "expression": "config.get",
             "expression_id": "1490",
-            "function_name": "config.get",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1490": {
             "expression": "get",
@@ -88748,9 +88763,9 @@
           },
           "1502": {
             "arguments_id": "1542",
+            "expression": "[...newSet(locales.map(locale=>locale.key.substr(0,2)))].join",
             "expression_id": "1503",
-            "function_name": "[...newSet(locales.map(locale=>locale.key.substr(0,2)))].join",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1503": {
             "expression": "join",
@@ -88787,14 +88802,15 @@
           },
           "155": {
             "arguments_id": "157",
-            "function_name": "resolve",
-            "label_type": "CallExpression"
+            "expression": "resolve",
+            "expression_id": "156",
+            "label_type": "MethodInvocation"
           },
           "1550": {
             "arguments_id": "1555",
+            "expression": "security.toUTCString",
             "expression_id": "1551",
-            "function_name": "security.toUTCString",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1551": {
             "expression": "toUTCString",
@@ -88812,6 +88828,10 @@
           },
           "1555": {
             "label_type": "ArgumentList"
+          },
+          "156": {
+            "label_type": "SymbolLookup",
+            "symbol": "resolve"
           },
           "1562": {
             "block_id": "1575",
@@ -88842,9 +88862,9 @@
           },
           "1578": {
             "arguments_id": "1583",
+            "expression": "console.log",
             "expression_id": "1579",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1579": {
             "expression": "log",
@@ -88898,9 +88918,9 @@
           },
           "1599": {
             "arguments_id": "1608",
+            "expression": "arguments[0].replace",
             "expression_id": "1600",
-            "function_name": "arguments[0].replace",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1600": {
             "expression": "replace",
@@ -88949,9 +88969,9 @@
           },
           "1624": {
             "arguments_id": "1634",
+            "expression": "$(\"#generate-wait\").fadeOut",
             "expression_id": "1625",
-            "function_name": "$(\"#generate-wait\").fadeOut",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1625": {
             "expression": "fadeOut",
@@ -88961,8 +88981,13 @@
           },
           "1626": {
             "arguments_id": "1628",
-            "function_name": "$",
-            "label_type": "CallExpression"
+            "expression": "$",
+            "expression_id": "1627",
+            "label_type": "MethodInvocation"
+          },
+          "1627": {
+            "label_type": "SymbolLookup",
+            "symbol": "$"
           },
           "1628": {
             "label_type": "ArgumentList"
@@ -89158,9 +89183,9 @@
           },
           "181": {
             "arguments_id": "186",
+            "expression": "console.log",
             "expression_id": "182",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "1814": {
             "comment": "// Default exports",
@@ -89227,8 +89252,13 @@
           },
           "198": {
             "arguments_id": "200",
-            "function_name": "resolveAfter2Seconds",
-            "label_type": "CallExpression"
+            "expression": "resolveAfter2Seconds",
+            "expression_id": "199",
+            "label_type": "MethodInvocation"
+          },
+          "199": {
+            "label_type": "SymbolLookup",
+            "symbol": "resolveAfter2Seconds"
           },
           "2": {
             "expression": "\"module-name\"",
@@ -89239,9 +89269,9 @@
           },
           "205": {
             "arguments_id": "210",
+            "expression": "console.log",
             "expression_id": "206",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "206": {
             "expression": "log",
@@ -89270,8 +89300,13 @@
           },
           "218": {
             "arguments_id": "220",
-            "function_name": "asyncCall",
-            "label_type": "CallExpression"
+            "expression": "asyncCall",
+            "expression_id": "219",
+            "label_type": "MethodInvocation"
+          },
+          "219": {
+            "label_type": "SymbolLookup",
+            "symbol": "asyncCall"
           },
           "220": {
             "label_type": "ArgumentList"
@@ -89335,9 +89370,9 @@
           },
           "263": {
             "arguments_id": "268",
+            "expression": "console.log",
             "expression_id": "264",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "264": {
             "expression": "log",
@@ -89366,9 +89401,9 @@
           },
           "275": {
             "arguments_id": "280",
+            "expression": "console.log",
             "expression_id": "276",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "276": {
             "expression": "log",
@@ -89488,9 +89523,9 @@
           },
           "331": {
             "arguments_id": "336",
+            "expression": "console.log",
             "expression_id": "332",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "332": {
             "expression": "log",
@@ -89585,9 +89620,9 @@
           },
           "373": {
             "arguments_id": "378",
+            "expression": "console.log",
             "expression_id": "374",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "374": {
             "expression": "log",
@@ -89691,9 +89726,9 @@
           },
           "422": {
             "arguments_id": "427",
+            "expression": "console.log",
             "expression_id": "423",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "423": {
             "expression": "log",
@@ -89730,9 +89765,9 @@
           },
           "436": {
             "arguments_id": "441",
+            "expression": "console.log",
             "expression_id": "437",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "437": {
             "expression": "log",
@@ -89873,9 +89908,9 @@
           },
           "499": {
             "arguments_id": "504",
+            "expression": "console.log",
             "expression_id": "500",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "500": {
             "expression": "log",
@@ -89925,9 +89960,9 @@
           },
           "526": {
             "arguments_id": "531",
+            "expression": "stream.getReader",
             "expression_id": "527",
-            "function_name": "stream.getReader",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "527": {
             "expression": "getReader",
@@ -89976,9 +90011,9 @@
           },
           "559": {
             "arguments_id": "564",
+            "expression": "reader.read",
             "expression_id": "560",
-            "function_name": "reader.read",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "560": {
             "expression": "read",
@@ -90029,9 +90064,9 @@
           },
           "592": {
             "arguments_id": "597",
+            "expression": "reader.releaseLock",
             "expression_id": "593",
-            "function_name": "reader.releaseLock",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "593": {
             "expression": "releaseLock",
@@ -90081,8 +90116,13 @@
           },
           "621": {
             "arguments_id": "623",
-            "function_name": "fetch",
-            "label_type": "CallExpression"
+            "expression": "fetch",
+            "expression_id": "622",
+            "label_type": "MethodInvocation"
+          },
+          "622": {
+            "label_type": "SymbolLookup",
+            "symbol": "fetch"
           },
           "623": {
             "label_type": "ArgumentList"
@@ -90121,8 +90161,13 @@
           },
           "644": {
             "arguments_id": "646",
-            "function_name": "streamAsyncIterable",
-            "label_type": "CallExpression"
+            "expression": "streamAsyncIterable",
+            "expression_id": "645",
+            "label_type": "MethodInvocation"
+          },
+          "645": {
+            "label_type": "SymbolLookup",
+            "symbol": "streamAsyncIterable"
           },
           "646": {
             "label_type": "ArgumentList"
@@ -90174,9 +90219,9 @@
           },
           "668": {
             "arguments_id": "673",
+            "expression": "console.log",
             "expression_id": "669",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "669": {
             "expression": "log",
@@ -90214,8 +90259,13 @@
           },
           "685": {
             "arguments_id": "687",
-            "function_name": "getResponseSize",
-            "label_type": "CallExpression"
+            "expression": "getResponseSize",
+            "expression_id": "686",
+            "label_type": "MethodInvocation"
+          },
+          "686": {
+            "label_type": "SymbolLookup",
+            "symbol": "getResponseSize"
           },
           "687": {
             "label_type": "ArgumentList"
@@ -90381,9 +90431,9 @@
           },
           "769": {
             "arguments_id": "774",
+            "expression": "obj.hasOwnProperty",
             "expression_id": "770",
-            "function_name": "obj.hasOwnProperty",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "770": {
             "expression": "hasOwnProperty",
@@ -90411,9 +90461,9 @@
           },
           "782": {
             "arguments_id": "787",
+            "expression": "console.log",
             "expression_id": "783",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "783": {
             "expression": "log",
@@ -90506,9 +90556,9 @@
           },
           "828": {
             "arguments_id": "833",
+            "expression": "console.log",
             "expression_id": "829",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "829": {
             "expression": "log",
@@ -90578,9 +90628,9 @@
           },
           "863": {
             "arguments_id": "868",
+            "expression": "console.log",
             "expression_id": "864",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "864": {
             "expression": "log",
@@ -90710,9 +90760,9 @@
           },
           "925": {
             "arguments_id": "930",
+            "expression": "console.log",
             "expression_id": "926",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "926": {
             "expression": "log",
@@ -90733,8 +90783,13 @@
           },
           "932": {
             "arguments_id": "934",
-            "function_name": "testNum",
-            "label_type": "CallExpression"
+            "expression": "testNum",
+            "expression_id": "933",
+            "label_type": "MethodInvocation"
+          },
+          "933": {
+            "label_type": "SymbolLookup",
+            "symbol": "testNum"
           },
           "934": {
             "label_type": "ArgumentList"
@@ -90785,9 +90840,9 @@
           },
           "964": {
             "arguments_id": "969",
+            "expression": "console.log",
             "expression_id": "965",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "965": {
             "expression": "log",
@@ -90817,9 +90872,9 @@
           },
           "982": {
             "arguments_id": "987",
+            "expression": "console.log",
             "expression_id": "983",
-            "function_name": "console.log",
-            "label_type": "CallExpression"
+            "label_type": "MethodInvocation"
           },
           "983": {
             "expression": "log",

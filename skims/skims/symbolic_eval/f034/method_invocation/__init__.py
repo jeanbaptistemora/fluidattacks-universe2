@@ -5,7 +5,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f034.call_expression.javascript import (
+from symbolic_eval.f034.method_invocation.javascript import (
     js_weak_random,
 )
 from symbolic_eval.types import (

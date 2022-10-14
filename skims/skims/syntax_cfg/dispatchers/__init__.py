@@ -7,6 +7,7 @@ from syntax_cfg.dispatchers import (
     connect_to_next,
     end_node,
     if_node,
+    method_invocation_node,
     multi_path,
     step_by_step,
 )
@@ -65,6 +66,12 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "MethodInvocation",
+        },
+        cfg_builder=method_invocation_node.build,
+    ),
+    Dispatcher(
+        applicable_types={
             "ArrayInitializer",
             "ArrowExpressionClause",
             "Assignment",
@@ -83,7 +90,6 @@ DISPATCHERS: Dispatchers = (
             "LexicalDeclaration",
             "Literal",
             "MemberAccess",
-            "MethodInvocation",
             "MethodSignature",
             "MissingNode",
             "NewExpression",
