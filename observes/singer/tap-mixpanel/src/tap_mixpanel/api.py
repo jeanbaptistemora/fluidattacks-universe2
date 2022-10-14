@@ -40,13 +40,13 @@ class Credentials(NamedTuple):
         )
 
 
-def _export(auth: Tuple[str, str], params: JSON) -> Any:
+def _export(auth: Tuple[str, str], params: JSON) -> Iterator[Any]:
     with rate_limiter:
         result = requests.get(
-            f"{API_BASE_URL}/export/", auth=auth, params=params
+            f"{API_BASE_URL}/export/", auth=auth, params=params, stream=True
         )
         result.raise_for_status()
-        return result
+        return result.iter_lines()
 
 
 def _load_data(
@@ -60,7 +60,8 @@ def _load_data(
     auth = (creds.api_secret, creds.token)
     result = _export(auth, params)
     with tempfile.NamedTemporaryFile("w+") as tmp:
-        tmp.write(result.text)
+        for item in result:
+            tmp.write(item)
         yield tmp
 
 
