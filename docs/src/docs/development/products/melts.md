@@ -17,7 +17,7 @@ among other functions.
 ## Public Oath
 
 1. Code repositories
-   can be downloading by passing:
+   can be downloaded by passing:
    `drills --pull-repos`
    to Melts.
 
@@ -80,7 +80,7 @@ among other functions.
    Feel free to pass the --help flag
    to learn more about the things it can do for you.
 
-## Troubleshooting
+### Troubleshooting
 
 In case you encounter
 any errors while using Melts,
@@ -134,3 +134,14 @@ at the [Development Environment](/development/setup) section of our documentatio
 
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `melts`.
+
+### Local Environment
+
+Just run:
+
+```sh
+universe $ m . /melts
+```
+
+This will build and run the Melts CLI application,
+including the changes you've made to the source code.
