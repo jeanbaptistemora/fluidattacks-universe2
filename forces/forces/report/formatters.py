@@ -7,6 +7,10 @@ from forces.apis.integrates.api import (
     get_finding,
     get_findings,
 )
+from forces.model import (
+    Finding,
+    FindingState,
+)
 from typing import (
     Any,
 )
@@ -15,9 +19,9 @@ from typing import (
 async def create_findings_dict(
     group: str,
     **kwargs: str,
-) -> dict[str, dict[str, Any]]:
+) -> dict[str, Finding]:
     """Returns a dictionary containing as key the findings of a project."""
-    findings_dict: dict[str, dict[str, Any]] = {}
+    findings_dict: dict[str, Finding] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
     ]
@@ -25,12 +29,14 @@ async def create_findings_dict(
         find: dict[str, Any] = await _find
         severity: dict[str, Any] = find.pop("severity", {})
         find["exploitability"] = severity.get("exploitability", 0)
-        find["severity"] = find.pop("severityScore", "N/A")
-        findings_dict[find["id"]] = find
-        findings_dict[find["id"]].update(
-            {"open": 0, "closed": 0, "accepted": 0}
+        findings_dict[find["id"]] = Finding(
+            identifier=str(find["id"]),
+            title=str(find["title"]),
+            state=FindingState[str(find["state"]).upper()],
+            exploitability=float(find["exploitability"]),
+            severity=float(find["severityScore"]),
+            vulnerabilities=[],
         )
-        findings_dict[find["id"]]["vulnerabilities"] = []
     return findings_dict
 
 

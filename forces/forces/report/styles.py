@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 from forces.model import (
+    FindingState,
     VulnerabilityState,
     VulnerabilityType,
 )
@@ -12,6 +13,8 @@ def style_report(key: str, value: str) -> str:
     style_data = {
         "title": "[yellow]",
         "state": {
+            FindingState.OPEN: "[red]",
+            FindingState.CLOSED: "[green]",
             VulnerabilityState.OPEN: "[red]",
             VulnerabilityState.CLOSED: "[green]",
         },
