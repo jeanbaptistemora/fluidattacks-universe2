@@ -12,8 +12,8 @@ certificationid: 21
 [CRTP](https://www.pentesteracademy.com/activedirectorylab)
 is a fully hands-on certification
 issued by Pentester Academy.
-This certification guarantees
-that the person has the expertise
+This certification guarantees that
+the person has the expertise
 to assess the security of an Active Directory environment.
 Professionals compromise Active Directory
 by abusing features and functionalities

@@ -10,10 +10,11 @@ certificationid: 22
 ---
 
 [CARTP](https://www.credential.net/group/283019)
-is a fully hands-on certification issued by Pentester Academy.
+is a fully hands-on certification
+issued by Pentester Academy.
 Candidates must pass a 24-hour exam.
 Their task is to compromise all the resources
 across a multi-tenant Azure environment.
-This certification guarantees
-that the person has the expertise to understand
+This certification guarantees that
+the person has the expertise to understand
 and assess the security of this type of environment.

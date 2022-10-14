@@ -11,11 +11,11 @@ certificationid: 18
 
 [eCMAP](https://elearnsecurity.com/product/ecmap-certification/)
 is a certification created by eLearnSecurity.
-It is the most practical
-and professionally-oriented certification in malware analysis.
+It is the most practical and professionally-oriented certification
+in malware analysis.
 In order to achieve it,
 candidates have to analyze a malware sample,
 demonstrate its functionality,
-write a signature
-that can be used to detect the malware in other systems or networks,
+write a signature that can be used
+to detect the malware in other systems or networks,
 and provide a detailed professional report.

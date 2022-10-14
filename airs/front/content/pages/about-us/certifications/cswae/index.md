@@ -13,8 +13,8 @@ certificationid: 27
 is a certification created by Mile2.
 In order to earn it,
 candidates must pass a theoretical exam,
-proving they know how to design and build web applications
+proving they know
+how to design and build web applications
 that do not have common vulnerabilities,
 as well as how to test and validate a web application's security,
-reliability
-and resistance.
+reliability and resistance.

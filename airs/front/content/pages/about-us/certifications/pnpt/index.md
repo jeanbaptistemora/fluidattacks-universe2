@@ -11,7 +11,8 @@ certificationid: 23
 
 [PNPT](https://certifications.tcm-sec.com/pnpt/)
 is a certification created by TCM Security.
-Candidates must prove their ability to perform a network penetration test
+Candidates must prove their ability
+to perform a network penetration test
 at a professional level.
 This involves expertly gathering OSINT
 and using internal and external penetration testing techniques.

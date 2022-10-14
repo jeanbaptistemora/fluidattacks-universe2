@@ -16,7 +16,8 @@ candidates must prove their expertise in penetration testing
 by exploiting zero-day vulnerabilities,
 bypassing security mechanisms such as ASLR and DEP,
 personalizing existing exploits
-and chaining vulnerabilities together to elevate privileges.
+and chaining vulnerabilities together
+to elevate privileges.
 Additionally,
-they must pass a theoretical exam focused on advanced penetration testing
-and exploitation concepts.
+they must pass a theoretical exam
+focused on advanced penetration testing and exploitation concepts.

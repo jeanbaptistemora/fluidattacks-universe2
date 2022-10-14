@@ -13,5 +13,7 @@ certificationid: 5
 is a certification created by Offensive Security.
 Candidates have to prove
 they are skilled in advanced penetration testing techniques.
-The challenges include bypassing security mechanisms and evading defenses
-while executing advanced organized attacks in a focused manner.
+The challenges include bypassing security mechanisms
+and evading defenses
+while executing advanced organized attacks
+in a focused manner.

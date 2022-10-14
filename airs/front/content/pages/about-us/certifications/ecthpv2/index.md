@@ -13,10 +13,12 @@ certificationid: 17
 is a certification created by eLearnSecurity.
 Candidates have to prove their threat hunting
 and threat identification capabilities
-in a practical test modeled after real-world corporate network vulnerabilities.
+in a practical test
+modeled after real-world corporate network vulnerabilities.
 Up-to-date knowledge of advanced attack techniques,
 as well as proficiency in event analysis
 and network traffic inspection
 are required to complete the test successfully.
 In addition,
-candidates must prove that they can propose suitable defense strategies.
+candidates must prove that
+they can propose suitable defense strategies.

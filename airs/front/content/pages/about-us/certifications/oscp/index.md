@@ -14,7 +14,7 @@ is a professional certification in ethical hacking
 developed by Offensive Security.
 It is the first fully hands-on offensive information security certification
 in the world.
-It requires the professionals to prove
-that they have a clear understanding of the penetration testing process
+It requires the professionals to prove that
+they have a clear understanding of the penetration testing process
 and lifecycle
 through an arduous 24-hour exam.

@@ -12,7 +12,6 @@ certificationid: 20
 [CRTE](https://www.pentesteracademy.com/redteamlab)
 is a fully hands-on certification
 issued by Pentester Academy.
-This certification guarantees a person
-with the expertise to assess the security
-of an unknown Windows infrastructure
+This certification guarantees a person with the expertise
+to assess the security of an unknown Windows infrastructure
 and recognize misconfigurations and abuses.

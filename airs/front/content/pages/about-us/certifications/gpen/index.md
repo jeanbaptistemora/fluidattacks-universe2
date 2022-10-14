@@ -14,8 +14,8 @@ is a certification
 issued by Global Information Assurance Certification (GIAC).
 Candidates must pass an exam
 proving their advanced knowledge on the phases of pentesting,
-vulnerability scanning
-and techniques including password attacks,
+vulnerability scanning and techniques
+including password attacks,
 attacks on Azure environments,
 Windows privilege escalation attacks
 and attacks against Active Directory.

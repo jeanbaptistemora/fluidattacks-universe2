@@ -15,8 +15,9 @@ issued by Global Information Assurance Certification (GIAC).
 Candidates must pass an exam
 proving their advanced penetration testing skills
 and knowledge about exploitation.
-These include bypassing network access control systems and
-using protocol fuzzing to discover weaknesses in a target system,
+These include bypassing network access control systems
+and using protocol fuzzing
+to discover weaknesses in a target system,
 as well as attacking and exploiting common flaws
 in cryptographic implementations.
 Completing the exam questions requires hands-on skills

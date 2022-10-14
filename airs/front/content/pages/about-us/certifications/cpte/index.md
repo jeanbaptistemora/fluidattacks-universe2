@@ -16,9 +16,8 @@ candidates must pass a theoretical exam,
 proving in-depth knowledge in penetration testing key elements,
 such as information gathering,
 network scanning and enumeration,
-vulnerability exploitation,
+vulnerability exploitation
 and reporting.
 Apart from these skills,
 candidates must also have advanced conceptual knowledge in technology,
-engineering
-and programming.
+engineering and programming.
