@@ -57,7 +57,7 @@ to the public. Among the exposed data are:
 ![image.png](https://user-images.githubusercontent.com/51862990/195862599-c66cafc2-09a1-457d-88ba-c4b2fabdf24a.png)
 
 The ID exposed in this vulnerability will help us to exploit even a
-[broken access control](../tiesto/index.md)
+[broken access control](../tiesto/)
 present in this application.
 
 ## Exploitation
