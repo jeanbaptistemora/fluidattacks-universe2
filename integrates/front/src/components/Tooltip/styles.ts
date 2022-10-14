@@ -40,7 +40,7 @@ const TooltipBox = styled.div.attrs(
     padding: 5px;
     text-align: center;
     white-space: pre-line;
-    width: 300px;
+    width: 200px;
     z-index: 10000;
   }
   `}

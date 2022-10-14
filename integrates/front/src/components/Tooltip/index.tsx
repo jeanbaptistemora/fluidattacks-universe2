@@ -35,6 +35,7 @@ const Tooltip: FC<ITooltipProps> = ({
     {hide ? undefined : (
       <ReactTooltip
         delayShow={500}
+        effect={"solid"}
         id={id}
         overridePosition={(
           { left, top }: ITooltipPosition,
