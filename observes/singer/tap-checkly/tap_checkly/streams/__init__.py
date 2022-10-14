@@ -48,12 +48,12 @@ from tap_checkly.api2.checks import (
 from tap_checkly.api2.groups import (
     CheckGroupClient,
 )
-from tap_checkly.api2.id_objs import (
-    IndexedObj,
-)
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
+)
+from tap_checkly.objs import (
+    IndexedObj,
 )
 from tap_checkly.singer import (
     ObjsEncoders,

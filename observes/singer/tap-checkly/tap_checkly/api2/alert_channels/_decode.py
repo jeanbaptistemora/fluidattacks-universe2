@@ -17,7 +17,7 @@ from fa_purity import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     IndexedObj,
 )
 

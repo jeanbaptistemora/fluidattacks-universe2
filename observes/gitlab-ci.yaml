@@ -1,4 +1,3 @@
----
 /deployTerraform/observes:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

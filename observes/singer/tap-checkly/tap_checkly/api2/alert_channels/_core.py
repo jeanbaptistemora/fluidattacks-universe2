@@ -1,41 +1,16 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
-from dataclasses import (
-    dataclass,
-)
-from datetime import (
-    datetime,
-)
-from fa_purity import (
-    Maybe,
-)
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
+    AlertChannel,
     AlertChannelId,
+    ChannelSubscription,
     IndexedObj,
 )
-
-
-@dataclass(frozen=True)
-class ChannelSubscription:
-    activated: bool
-    channel: AlertChannelId
-
-
-@dataclass(frozen=True)
-class AlertChannel:
-    alert_type: str
-    send_recovery: bool
-    send_failure: bool
-    send_degraded: bool
-    ssl_expiry: bool
-    ssl_expiry_threshold: int
-    created_at: datetime
-    updated_at: Maybe[datetime]
-
 
 AlertChannelObj = IndexedObj[AlertChannelId, AlertChannel]
 __all__ = [
     "AlertChannelId",
+    "AlertChannel",
+    "ChannelSubscription",
 ]

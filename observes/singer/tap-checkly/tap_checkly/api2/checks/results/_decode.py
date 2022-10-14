@@ -36,7 +36,7 @@ from tap_checkly.api2._utils import (
     ExtendedUnfolder,
     switch_maybe,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     IndexedObj,
 )
 from typing import (

@@ -46,7 +46,7 @@ from fa_purity.stream.transform import (
 from tap_checkly.api2._raw import (
     RawClient,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     CheckId,
 )
 from typing import (

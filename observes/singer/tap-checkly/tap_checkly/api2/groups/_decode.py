@@ -31,7 +31,7 @@ from tap_checkly.api2._utils import (
 from tap_checkly.api2.alert_channels import (
     ChannelSubscription,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     AlertChannelId,
     IndexedObj,
 )

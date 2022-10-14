@@ -31,7 +31,7 @@ from tap_checkly.api2.checks.results import (
     TimingPhases,
     Timings,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     CheckId,
     IndexedObj,
 )

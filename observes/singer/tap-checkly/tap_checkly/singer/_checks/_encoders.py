@@ -89,14 +89,6 @@ def _core_encoder_fx() -> SingerEncoder[CheckObj]:
             lambda x: x.obj.conf_1.use_global_alert_settings,
             Property(_bool_type, False, False),
         ),
-        "group_id": EncodeItem.new(
-            lambda x: x.obj.conf_2.group_id.id_str,
-            Property(_int_type, False, False),
-        ),
-        "group_order": EncodeItem.new(
-            lambda x: x.obj.conf_2.group_order,
-            Property(_int_type, False, False),
-        ),
         "runtime_ver": EncodeItem.new(
             lambda x: x.obj.conf_2.runtime_ver,
             Property(_str_type, False, False),

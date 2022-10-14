@@ -12,7 +12,7 @@ from fa_purity import (
     JsonObj,
     Maybe,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     IndexedObj,
 )
 

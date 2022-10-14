@@ -36,7 +36,7 @@ from tap_checkly.api2.alert_channels import (
 from tap_checkly.api2.groups import (
     CheckGroupObj,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     CheckGroupId,
 )
 from tap_checkly.singer._core import (

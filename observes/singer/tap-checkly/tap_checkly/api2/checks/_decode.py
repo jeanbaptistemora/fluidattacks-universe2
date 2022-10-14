@@ -22,7 +22,7 @@ from tap_checkly.api2._utils import (
     ExtendedUnfolder,
     isoparse,
 )
-from tap_checkly.api2.id_objs import (
+from tap_checkly.objs import (
     CheckGroupId,
     CheckId,
     IndexedObj,
@@ -61,43 +61,27 @@ def _decode_conf_1(raw: JsonObj) -> ResultE[CheckConf1]:
 
 def _decode_conf_2(raw: JsonObj) -> ResultE[CheckConf2]:
     unfolder = ExtendedUnfolder(raw)
-    return (
-        unfolder.require_primitive("groupId", str)
-        .map(CheckGroupId)
-        .bind(
-            lambda group_id: unfolder.require_primitive(
-                "groupOrder", int
+    return unfolder.require_primitive("runtimeId", str).bind(
+        lambda runtime_ver: unfolder.require_primitive("checkType", str).bind(
+            lambda check_type: unfolder.require_primitive(
+                "frequency", int
             ).bind(
-                lambda group_order: unfolder.require_primitive(
-                    "runtimeId", str
+                lambda frequency: unfolder.require_primitive(
+                    "frequencyOffset", int
                 ).bind(
-                    lambda runtime_ver: unfolder.require_primitive(
-                        "checkType", str
+                    lambda frequency_offset: unfolder.require_primitive(
+                        "degradedResponseTime", int
                     ).bind(
-                        lambda check_type: unfolder.require_primitive(
-                            "frequency", int
-                        ).bind(
-                            lambda frequency: unfolder.require_primitive(
-                                "frequencyOffset", int
-                            ).bind(
-                                lambda frequency_offset: unfolder.require_primitive(
-                                    "degradedResponseTime", int
-                                ).bind(
-                                    lambda degraded_response_time: unfolder.require_primitive(
-                                        "maxResponseTime", int
-                                    ).map(
-                                        lambda max_response_time: CheckConf2(
-                                            group_id,
-                                            group_order,
-                                            runtime_ver,
-                                            check_type,
-                                            frequency,
-                                            frequency_offset,
-                                            degraded_response_time,
-                                            max_response_time,
-                                        )
-                                    )
-                                )
+                        lambda degraded_response_time: unfolder.require_primitive(
+                            "maxResponseTime", int
+                        ).map(
+                            lambda max_response_time: CheckConf2(
+                                runtime_ver,
+                                check_type,
+                                frequency,
+                                frequency_offset,
+                                degraded_response_time,
+                                max_response_time,
                             )
                         )
                     )
