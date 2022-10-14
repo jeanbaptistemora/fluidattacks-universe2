@@ -12,6 +12,8 @@ register your mobile phone number,
 access the platform’s API,
 configure what notifications you
 want to receive in your email,
+configure from which CVSS score
+you want to receive email,
 delete your account,
 and log out.
 These are shown on a drop-down
@@ -77,6 +79,20 @@ can manage notifications
 [here](/machine/web/notifications).
 
 ![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1665497944/docs/web/matrix_notification.png)
+
+You also find in this same view
+**Minimum Severity**,
+which helps you to configure the
+CVSS (Common Vulnerability Scoring System)
+severity range that you want to
+receive in the
+[Vulnerability Alert notification](/machine/web/notifications#vulnerability-alert).
+According to the number you leave
+in this section,
+vulnerabilities with a severity higher
+than the limit you set will be reported.
+
+![Minimum Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1665777823/docs/web/minimum_severity.png)
 
 Next is **Mobile**,
 which allows you to
