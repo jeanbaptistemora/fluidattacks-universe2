@@ -46,7 +46,7 @@ def _export(auth: Tuple[str, str], params: JSON) -> Iterator[Any]:
             f"{API_BASE_URL}/export/", auth=auth, params=params, stream=True
         )
         result.raise_for_status()
-        return result.iter_lines()
+        return result.iter_lines(decode_unicode=True)
 
 
 def _load_data(
