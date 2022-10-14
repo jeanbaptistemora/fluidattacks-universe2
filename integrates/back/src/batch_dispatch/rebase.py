@@ -37,6 +37,7 @@ from db_model.roots.types import (
     GitRoot,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
@@ -117,6 +118,7 @@ async def _get_vulnerabilities_to_rebase(
         if vuln.root_id == git_root.id
         and vuln.commit is not None
         and vuln.type == VulnerabilityType.LINES
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
     )
     return vulnerabilities
 
