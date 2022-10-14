@@ -15,6 +15,7 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.stakeholders.types import (
+    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from db_model.stakeholders.utils import (
@@ -42,6 +43,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     notifications_preferences: Dict[str, Any],
 ) -> SimplePayload:
+    loaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
@@ -56,8 +58,10 @@ async def mutate(
         except InvalidOperation as ex:
             raise InvalidCvssField() from ex
     else:
+        stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+        cvss = stakeholder.notifications_preferences.parameters.min_severity
         notifications_preferences.update(
-            {"parameters": {"min_severity": Decimal("7.0")}}
+            {"parameters": {"min_severity": Decimal(cvss)}}
         )
 
     await stakeholders_model.update_metadata(
