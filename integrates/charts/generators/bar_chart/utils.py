@@ -294,8 +294,14 @@ def format_vulnerabilities_by_data(
     counters: Counter[str],
     column: str,
     axis_rotated: bool = False,
-) -> Dict[str, Any]:
+) -> dict:
     data = counters.most_common()[:LIMIT]
+    max_value = format_value(data)
+    max_axis_value: Decimal = (
+        get_max_axis(value=max_value)
+        if max_value > Decimal("0.0") and not axis_rotated
+        else Decimal("0.0")
+    )
 
     return dict(
         data=dict(
@@ -316,6 +322,16 @@ def format_vulnerabilities_by_data(
             x=dict(
                 categories=[key for key, _ in data],
                 type="category",
+                **(
+                    {}
+                    if axis_rotated
+                    else dict(
+                        label=dict(
+                            text="Level",
+                            position="outer-top",
+                        )
+                    )
+                ),
                 tick=dict(
                     rotate=0,
                     multiline=False,
@@ -326,17 +342,43 @@ def format_vulnerabilities_by_data(
                 padding=dict(
                     bottom=0,
                 ),
+            )
+            if max_axis_value == Decimal("0.0")
+            else dict(
+                min=0,
+                max=max_axis_value,
+                tick=dict(
+                    count=5,
+                ),
+                padding=dict(
+                    bottom=0,
+                    top=0,
+                ),
             ),
         ),
         barChartYTickFormat=True,
-        maxValue=format_value(data),
+        maxValue=max_value,
         **(
             dict(
                 exposureTrendsByCategories=True,
                 keepToltipColor=True,
+                grid=dict(
+                    y=dict(
+                        show=False,
+                    ),
+                ),
             )
             if axis_rotated
-            else {}
+            else dict(
+                grid=dict(
+                    y=dict(
+                        show=True,
+                    ),
+                ),
+                hideYAxisLine=True,
+                hideXTickLine=True,
+                byLevel=True,
+            )
         ),
     )
 

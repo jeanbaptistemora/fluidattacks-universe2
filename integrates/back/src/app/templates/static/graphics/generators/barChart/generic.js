@@ -21,7 +21,7 @@ function getTooltip(datum, defaultValueFormat) {
 }
 
 function centerLabel(dataDocument) {
-  if (dataDocument.mttrBenchmarking || dataDocument.mttrCvssf) {
+  if (dataDocument.mttrBenchmarking || dataDocument.mttrCvssf || dataDocument.byLevel) {
     const rectHeight = parseFloat(parseFloat(d3.select('.c3-event-rect').attr('height')).toFixed(2));
     const transformText = 12;
     d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
@@ -123,8 +123,8 @@ function getTooltipColorContent(dataDocument, originalValues, d, color) {
   return color;
 }
 
-function formatYTick(value, tick) {
-  if (tick && tick.count) {
+function formatYTick(value, tick, dataDocument) {
+  if (tick && tick.count && !dataDocument.byLevel) {
     const valueParsed = parseFloat(parseFloat(value).toFixed(1));
     if (valueParsed < minCvssfValue) {
       return d3.format(',.1~f')(valueParsed);
@@ -240,7 +240,7 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.barChartYTickFormat) {
     const { tick } = dataDocument.axis.y;
-    dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick) };
+    dataDocument.axis.y.tick = { ...tick, format: (x) => formatYTick(x, tick, dataDocument) };
   }
 
   if (dataDocument.barChartXTickFormat) {
