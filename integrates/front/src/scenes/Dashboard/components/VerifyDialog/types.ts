@@ -34,6 +34,7 @@ interface IVerifyFormValues {
 }
 
 interface IVerifyDialogProps {
+  disable?: boolean;
   isOpen: boolean;
   message?: React.ReactNode;
   children: (verify: IVerifyFn) => React.ReactNode;

@@ -49,6 +49,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
       string | undefined
     >(undefined);
     const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+    const [disableVerify, setDisableVerify] = useState(false);
 
     // GraphQL queries
     const { data: groupsData } = useQuery<{
@@ -90,6 +91,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
       unfulfilledStandardReportUrl: string;
     }>(GET_UNFULFILLED_STANDARD_REPORT_URL, {
       onCompleted: (data): void => {
+        setDisableVerify(false);
         window.open(
           data.unfulfilledStandardReportUrl,
           "_blank",
@@ -104,6 +106,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
         setIsVerifyDialogOpen(false);
       },
       onError: (errors: ApolloError): void => {
+        setDisableVerify(false);
         errors.graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Stakeholder could not be verified":
@@ -155,6 +158,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     function handleRequestUnfulfilledStandardReport(
       verificationCode: string
     ): void {
+      setDisableVerify(true);
       requestUnfulfilledStandardReport({
         variables: {
           groupName: selectedGroupName,
@@ -203,7 +207,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
           </Col>
           <Col lg={50} md={50} sm={50}>
             <Row justify={"end"}>
-              <VerifyDialog isOpen={isVerifyDialogOpen}>
+              <VerifyDialog disable={disableVerify} isOpen={isVerifyDialogOpen}>
                 {(setVerifyCallbacks): JSX.Element => {
                   function onRequestReport(): void {
                     setVerifyCallbacks(

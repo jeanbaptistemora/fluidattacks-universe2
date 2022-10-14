@@ -6,10 +6,11 @@
 
 import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
+import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { GET_STAKEHOLDER_PHONE, VERIFY_STAKEHOLDER_MUTATION } from "./queries";
@@ -30,11 +31,13 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
 
 const VerifyDialog: React.FC<IVerifyDialogProps> = ({
+  disable = false,
   isOpen,
   children,
   message,
 }: Readonly<IVerifyDialogProps>): JSX.Element => {
   const { t } = useTranslation();
+  const formRef = useRef<FormikProps<{ verificationCode: string }>>(null);
   const [verifyCallback, setVerifyCallback] = useState(
     (): ((verificationCode: string) => void) =>
       (_verificationCode: string): void =>
@@ -107,6 +110,9 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
 
   function handleProceed(values: IVerifyFormValues): void {
     verifyCallback(values.verificationCode);
+    if (!_.isNull(formRef) && !_.isNull(formRef.current)) {
+      formRef.current.setSubmitting(false);
+    }
   }
 
   return (
@@ -137,6 +143,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
           initialValues={{
             verificationCode: "",
           }}
+          innerRef={formRef}
           name={"verify"}
           onSubmit={handleProceed}
         >
@@ -158,7 +165,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
                 </Row>
                 <br />
                 <ModalConfirm
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || disable}
                   txtConfirm={t("verifyDialog.verify")}
                 />
               </Form>
