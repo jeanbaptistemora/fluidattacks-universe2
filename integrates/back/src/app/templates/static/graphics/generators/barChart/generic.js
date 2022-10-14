@@ -79,7 +79,7 @@ function getMttrCvssfColor(d) {
       case '1':
         return '#fb7a80';
       case '2':
-        return '#ffccff';
+        return '#cc6699';
       case '3':
         return '#bcbcc8';
       default:

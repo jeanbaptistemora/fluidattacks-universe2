@@ -244,7 +244,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
   function buildFileName(size: IComponentSizeProps): string {
-    return `${subject}-${currentTitle}-${size.width}x${size.height}.html`;
+    return `${currentTitle}-${subject}-${size.width}x${size.height}.html`;
   }
   const csvFileName: string = useMemo(
     (): string => `${subject}-${currentTitle}.csv`,
