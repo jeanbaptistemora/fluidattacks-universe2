@@ -25024,6 +25024,54 @@ F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skim
   9 | </configuration>
     ^ Col 0
 ",dotnetconfig.dotnetconfig_has_ssl_disabled
+F060,lines,namespace/skims/test/data/lib_root/f060/cert_validation.cs,8,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/cert_validation.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |
+   6 |   public static void unsafe1() {
+   7 |     //There is an option in the callback method that sets all certificates to true
+>  8 |     ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => {return true;};
+   9 |   }
+  10 |
+  11 |   public static void unsafe2() {
+  12 |     // Directly setting the validation to all true
+  13 |     ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+  14 |   }
+  15 |
+  16 |   public static void safe() {
+  17 |     // Trust only some certificates
+  18 |     ServicePointManager.ServerCertificateValidationCallback +=
+  19 |     (sender, certificate, chain, errors) =>
+  20 |     {
+  21 |         if (development) return true; // for development, trust all certificates
+     ^ Col 0
+",c_sharp.c_sharp_insecure_certificate_validation
+F060,lines,namespace/skims/test/data/lib_root/f060/cert_validation.cs,13,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/cert_validation.cs,"
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |
+   6 |   public static void unsafe1() {
+   7 |     //There is an option in the callback method that sets all certificates to true
+   8 |     ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => {return true;};
+   9 |   }
+  10 |
+  11 |   public static void unsafe2() {
+  12 |     // Directly setting the validation to all true
+> 13 |     ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+  14 |   }
+  15 |
+  16 |   public static void safe() {
+  17 |     // Trust only some certificates
+  18 |     ServicePointManager.ServerCertificateValidationCallback +=
+  19 |     (sender, certificate, chain, errors) =>
+  20 |     {
+  21 |         if (development) return true; // for development, trust all certificates
+  22 |         return errors == SslPolicyErrors.None && validCerts.Contains(certificate.GetCertHashString());
+  23 |     };
+     ^ Col 0
+",c_sharp.c_sharp_insecure_certificate_validation
 F211,lines,namespace/skims/test/data/lib_root/f211/regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
  in namespace/skims/test/data/lib_root/f211/regex_injection.cs","
    1 | using System;
