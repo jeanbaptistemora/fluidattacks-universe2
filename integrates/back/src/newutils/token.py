@@ -332,7 +332,7 @@ def _validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
         payload["exp"] = exp
 
     utc_now = int(datetime_utils.get_utc_timestamp())
-    if exp < utc_now:
+    if payload.get("sub") != "api_token" and exp < utc_now:
         raise ExpiredToken()
 
     return payload
