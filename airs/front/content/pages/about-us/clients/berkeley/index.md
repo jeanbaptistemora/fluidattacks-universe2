@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Berkeley Payment** is a Canadian company that manages over a billion
-dollars for organizations, governments, and corporations.
+**Berkeley Payment** is a Canadian company
+that manages over a billion dollars for organizations,
+governments and corporations.

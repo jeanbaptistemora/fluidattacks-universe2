@@ -10,5 +10,5 @@ client: yes
 filter: oil-energy
 ---
 
-**Terpel** is a Colombian oil and gas company with distribution in more
-than five Latin American countries.
+**Terpel** is a Colombian oil and gas company
+with distribution in more than five Latin American countries.

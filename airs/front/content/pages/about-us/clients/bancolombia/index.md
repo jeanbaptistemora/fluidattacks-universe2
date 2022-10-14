@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Bancolombia** is a multinational financial group with a wide range of
-products and services, mainly for Latin America.
+**Bancolombia** is a multinational financial group
+with a wide range of products and services,
+mainly for Latin America.

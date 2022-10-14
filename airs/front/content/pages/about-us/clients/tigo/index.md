@@ -10,5 +10,5 @@ client: yes
 filter: telecommunications
 ---
 
-**Tigo** is a trademark of Millicom International Cellular with a wide
-presence in Latin America as a telecommunications company.
+**Tigo** is a trademark of Millicom International Cellular
+with a wide presence in Latin America as a telecommunications company.

@@ -11,5 +11,4 @@ filter: fintech
 ---
 
 **Payválida** is a fintech company
-whose online platform serves as a third-party hub
-for digital payment.
+whose online platform serves as a third-party hub for digital payment.

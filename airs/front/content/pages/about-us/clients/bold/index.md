@@ -11,6 +11,6 @@ filter: fintech
 ---
 
 **Bold** is a Colombian fintech
-whose software makes it possible
-for enterprises to generate payment links
+whose software makes it possible for enterprises
+to generate payment links
 that support credit and debit.

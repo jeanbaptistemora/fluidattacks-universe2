@@ -11,6 +11,4 @@ filter: technology
 ---
 
 **Arus** is a technological solutions firm
-that has payroll
-and pension savings applications
-among its products.
+that has payroll and pension savings applications among its products.

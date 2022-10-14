@@ -11,4 +11,4 @@ filter: banking
 ---
 
 **Protección** is a Colombian pension and severance fund administrator
-that manages and invests millions of workers’ contributions.
+that manages and invests millions of workers' contributions.

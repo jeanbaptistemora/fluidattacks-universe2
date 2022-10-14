@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Banco General** is the largest private bank in Panama, also active in
-Costa Rica and with representation in other countries.
+**Banco General** is the largest private bank in Panama,
+also active in Costa Rica
+and with representation in other countries.

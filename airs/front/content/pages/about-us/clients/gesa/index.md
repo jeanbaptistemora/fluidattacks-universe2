@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Gesa Credit Union** is the largest financial cooperative in
-Southeastern Washington and supports diversity, equity, and inclusion.
+**Gesa Credit Union** is the largest financial cooperative
+in Southeastern Washington
+and supports diversity, equity and inclusion.

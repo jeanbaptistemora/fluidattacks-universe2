@@ -10,5 +10,5 @@ client: yes
 filter: human-resources
 ---
 
-**Manpower** is a brand of ManpowerGroup, a world leader in innovative
-human capital solutions.
+**Manpower** is a brand of ManpowerGroup,
+a world leader in innovative human capital solutions.

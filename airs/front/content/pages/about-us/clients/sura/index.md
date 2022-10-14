@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Grupo Sura** is a Latin American holding company present in eleven
-countries and focused on the diverse financial services sector.
+**Grupo Sura** is a Latin American holding company
+present in eleven countries
+and focused on the diverse financial services sector.

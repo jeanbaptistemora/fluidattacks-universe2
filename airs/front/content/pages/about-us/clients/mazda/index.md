@@ -10,5 +10,5 @@ client: yes
 filter: automotive
 ---
 
-**Mazda** is a Japanese multinational automotive company and is among
-the world’s leading automakers.
+**Mazda** is a Japanese multinational automotive company
+and is among the world's leading automakers.

@@ -10,5 +10,5 @@ client: yes
 filter: banking
 ---
 
-**Itaú** is the largest Brazilian private bank with presence in Latin
-America, USA, Europe, and Asia.
+**Itaú** is the largest Brazilian private bank
+with presence in Latin America, USA, Europe and Asia.

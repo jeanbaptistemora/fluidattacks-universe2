@@ -12,5 +12,4 @@ filter: healthcare
 
 **AXA Colpatria** is a Colombian company
 that offers insurance plans
-to cover medical expenses,
-vehicle damage and money loss.
+to cover medical expenses, vehicle damage and money loss.

@@ -10,5 +10,6 @@ client: yes
 filter: banking
 ---
 
-**Redeban** is a Colombian firm that facilitates processes in the
-electronic payment sector through innovative and secure solutions.
+**Redeban** is a Colombian firm
+that facilitates processes in the electronic payment sector
+through innovative and secure solutions.

@@ -10,5 +10,6 @@ client: yes
 filter: airlines
 ---
 
-**Avianca** is the largest airline in Colombia and one of the leading
-airlines in Latin America, as well as a member of Star Alliance.
+**Avianca** is the largest airline in Colombia
+and one of the leading airlines in Latin America,
+as well as a member of Star Alliance.

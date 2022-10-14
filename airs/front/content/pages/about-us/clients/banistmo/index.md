@@ -10,5 +10,5 @@ client: yes
 filter: banking
 ---
 
-**Banistmo** is one of the leading banks in Panama and is part of the
-Bancolombia Group.
+**Banistmo** is one of the leading banks in Panama
+and is part of the Bancolombia Group.

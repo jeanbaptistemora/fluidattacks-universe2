@@ -12,5 +12,5 @@ filter: technology
 
 **SoyYo** is a software solution provider
 whose application helps users
-create a digital identity for validation purposes
-with a person or business.
+create a digital identity
+for validation purposes with a person or business.

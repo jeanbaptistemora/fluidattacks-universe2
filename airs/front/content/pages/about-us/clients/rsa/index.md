@@ -10,5 +10,6 @@ client: yes
 filter: technology
 ---
 
-**RSA** Security is an American cybersecurity company that focuses on
-encryption and offers assistance in managing digital risks.
+**RSA Security** is an American cybersecurity company
+that focuses on encryption
+and offers assistance in managing digital risks.

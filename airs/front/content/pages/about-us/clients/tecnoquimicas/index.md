@@ -10,5 +10,6 @@ client: yes
 filter: pharmaceuticals
 ---
 
-**Tecnoquímicas** (TQ) is a leading Colombian business group in the
-pharmaceutical industry developing innovative health products.
+**Tecnoquímicas** (TQ) is a leading Colombian business group
+in the pharmaceutical industry
+developing innovative health products.
