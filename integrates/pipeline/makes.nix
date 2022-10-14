@@ -101,6 +101,7 @@
     ["toe_lines"]
     ["unsubscribe_from_group"]
     ["update_access_token"]
+    ["update_compliance"]
     ["update_credentials"]
     ["update_event"]
     ["update_event_evidence_s3"]
@@ -143,11 +144,10 @@
   functionalCoverageCombine = (
     builtins.genList
     (x: [(builtins.toString (x + 1))])
-    ((
-        builtins.floor
-        ((builtins.length functionalTests) / gitlabJobDependencies)
-      )
-      + 1)
+    (
+      builtins.ceil
+      ((builtins.length functionalTests) / gitlabJobDependencies)
+    )
   );
   gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
   gitlabBranchTrunk = gitlabCi.rules.branch "trunk";

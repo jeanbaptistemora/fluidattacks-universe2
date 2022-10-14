@@ -138,6 +138,7 @@ TEST_GROUPS: set[str] = {
     "toe_lines",
     "unsubscribe_from_group",
     "update_access_token",
+    "update_compliance",
     "update_credentials",
     "update_event",
     "update_event_evidence_s3",
