@@ -8,7 +8,6 @@ from model.graph_model import (
 )
 from symbolic_eval.context.search import (
     assignment,
-    call_expression,
     class_body,
     declaration_block,
     for_each,
@@ -34,7 +33,6 @@ from typing import (
 
 SEARCHERS: Dict[str, Searcher] = {
     "Assignment": assignment.search,
-    "CallExpression": call_expression.search,
     "ClassBody": class_body.search,
     "DeclarationBlock": declaration_block.search,
     "ForEachStatement": for_each.search,

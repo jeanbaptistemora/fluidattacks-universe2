@@ -38,7 +38,6 @@ DISPATCHERS: Dispatchers = (
         applicable_types={
             "ArgumentList",
             "BinaryOperation",
-            "CallExpression",
             "DeclarationBlock",
             "File",
             "FileNamespace",
