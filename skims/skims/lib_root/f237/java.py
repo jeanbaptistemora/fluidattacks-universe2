@@ -41,9 +41,19 @@ def has_print_statements(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
+
                 n_expr = graph.nodes[n_id].get("expression")
 
-                if n_expr in print_methods:
+                if (
+                    n_expr in print_methods
+                    and (n_args_id := graph.nodes[n_id].get("arguments_id"))
+                    and (
+                        args_childs := g.match_ast_group(
+                            graph, n_args_id, "SymbolLookup", depth=-1
+                        )
+                    )
+                    and (args_childs.get("SymbolLookup"))
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
