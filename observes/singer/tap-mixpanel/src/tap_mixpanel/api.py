@@ -62,6 +62,7 @@ def _load_data(
     with tempfile.NamedTemporaryFile("w+") as tmp:
         for item in result:
             tmp.write(item)
+            tmp.write("\n")
         yield tmp
 
 
