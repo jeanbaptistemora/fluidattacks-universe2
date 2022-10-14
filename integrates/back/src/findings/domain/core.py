@@ -721,17 +721,19 @@ async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals
         reattack_requester = (
             vuln.unreliable_indicators.unreliable_last_reattack_requester
         )
-        root: Root = await loaders.root.load((group_name, vuln.root_id))
-        nickname = (
-            root.state.nickname
-            if isinstance(root.state.nickname, str)
-            else "Vulnerabilities"
-        )
-        repo = (
-            f"{nickname}/{root.state.branch}"
-            if isinstance(root.state, (GitRootState, str))
-            else nickname
-        )
+        repo = "Vulnerabilities"
+        if vuln.root_id is not None:
+            root: Root = await loaders.root.load((group_name, vuln.root_id))
+            nickname = (
+                root.state.nickname
+                if isinstance(root.state.nickname, str)
+                else repo
+            )
+            repo = (
+                f"{nickname}/{root.state.branch}"
+                if isinstance(root.state, (GitRootState, str))
+                else nickname
+            )
         vuln_dict = vulns_closed_props.get(repo, {})
         vuln_dict.update(
             {
