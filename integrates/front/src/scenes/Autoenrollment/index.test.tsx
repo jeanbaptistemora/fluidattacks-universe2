@@ -51,7 +51,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ groups: [{ name: "test" }], name: "test" }],
+            organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -146,7 +146,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ groups: [{ name: "test" }], name: "test" }],
+            organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -208,6 +208,99 @@ describe("Autoenrollment", (): void => {
       "autoenrollment.credentials.password"
     );
     userEvent.type(credentialsPasswordInput, variables.credentials.password);
+
+    const environmentInput = await screen.findByRole("textbox", {
+      name: "env",
+    });
+    userEvent.type(environmentInput, "production");
+
+    const submitButton = await screen.findByText("autoenrollment.next");
+    userEvent.click(submitButton);
+
+    await expect(
+      screen.findByText("autoenrollment.step2")
+    ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
+  });
+
+  it("should validate with SSH", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const variables = {
+      branch: "main",
+      credentials: {
+        key: "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KdGVzdAotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0=",
+        name: "test-creds",
+        password: "",
+        token: "",
+        type: "SSH",
+        user: "",
+      },
+      url: "https://gitlab.com/fluidattacks/universe",
+    };
+    const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
+      request: {
+        query: GET_STAKEHOLDER_GROUPS,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [],
+            userEmail: "jdoe@fluidattacks.com",
+          },
+        },
+      },
+    };
+    const accessMock: MockedResponse<ICheckGitAccessResult> = {
+      request: {
+        query: VALIDATE_GIT_ACCESS,
+        variables,
+      },
+      result: {
+        data: {
+          validateGitAccess: { success: true },
+        },
+      },
+    };
+
+    const mockedFetch = fetch as FetchMockStatic & typeof fetch;
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { status: 200, text: "" });
+    mockedFetch.mock(COUNTRIES_URL, { body: "[]", status: 200 });
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MockedProvider cache={getCache()} mocks={[groupsMock, accessMock]}>
+          <Autoenrollment />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const urlInput = await screen.findByRole("textbox", { name: "url" });
+    userEvent.type(urlInput, variables.url);
+
+    const branchInput = await screen.findByRole("textbox", { name: "branch" });
+    userEvent.type(branchInput, variables.branch);
+
+    const credentialsTypeSelect = await screen.findByRole("combobox", {
+      name: "credentials.type",
+    });
+    userEvent.selectOptions(credentialsTypeSelect, [
+      variables.credentials.type,
+    ]);
+
+    const credentialsNameInput = await screen.findByRole("textbox", {
+      name: "credentials.name",
+    });
+    userEvent.type(credentialsNameInput, variables.credentials.name);
+
+    const credentialsKeyInput = await screen.findByRole("textbox", {
+      name: "credentials.key",
+    });
+    userEvent.type(
+      credentialsKeyInput,
+      "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
+    );
 
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
