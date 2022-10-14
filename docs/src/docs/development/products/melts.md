@@ -5,22 +5,13 @@ sidebar_label: Melts
 slug: /development/melts
 ---
 
-Melts is a `Fluid Attacks` tool
-that has many functions
-for consulting and managing
-the resources that every group has.
-These functions allows us to
-download and upload
-a group's repository,
-securely read and edit a group's secrets,
-check certain important bits of information
-about a group,
-e.g.,
-check if the group is active,
+Melts is the product
+that allows to download End Users (Fluid Attacks customers) code repositories
+and a few other utilities
+that End Users (Fluid Attacks hackers) require now and them
+like checking if a group is active,
 if it has forces,
-the language of the group,
-the latest fingerprint for each
-of the group's repositories,
+its language,
 among other functions.
 
 ## Using Melts
