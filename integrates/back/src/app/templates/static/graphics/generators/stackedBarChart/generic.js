@@ -11,11 +11,11 @@ function adjustTopLabel(value, maxValue, element, elementClass) {
   if (value / maxValue > maxValuePercentage) {
     d3.select(element)
       .style('transform', 'translate(5px, 28px)')
-      .attr('class', `${ elementClass } exposureTrendsByCategories`);
+      .attr('class', `${ elementClass } exposedOverTime`);
   } else {
     d3.select(element)
       .style('transform', 'translate(10px, 2px)')
-      .attr('class', `${ elementClass } exposureTrendsByCategories`);
+      .attr('class', `${ elementClass } exposedOverTime`);
   }
 }
 
