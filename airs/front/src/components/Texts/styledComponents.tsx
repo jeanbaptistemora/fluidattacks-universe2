@@ -90,4 +90,5 @@ const Paragraph = styled.p.attrs({
   }
 `;
 
+export type { ITextProps };
 export { Paragraph, Title };
