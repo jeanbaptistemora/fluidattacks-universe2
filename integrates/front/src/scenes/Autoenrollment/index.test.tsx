@@ -29,6 +29,42 @@ describe("Autoenrollment", (): void => {
     expect(typeof Autoenrollment).toBe("function");
   });
 
+  it("should render corporate only", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
+      request: {
+        query: GET_STAKEHOLDER_GROUPS,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [],
+            userEmail: "jdoe@personal.com",
+          },
+        },
+      },
+    };
+
+    const mockedFetch = fetch as FetchMockStatic & typeof fetch;
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { body: "personal.com", status: 200 });
+    mockedFetch.mock(COUNTRIES_URL, { body: "[]", status: 200 });
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MockedProvider cache={getCache()} mocks={[groupsMock]}>
+          <Autoenrollment />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await expect(
+      screen.findByText("autoenrollment.corporateOnly")
+    ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
+  });
+
   it("should validate with HTTPS access token", async (): Promise<void> => {
     expect.hasAssertions();
 
