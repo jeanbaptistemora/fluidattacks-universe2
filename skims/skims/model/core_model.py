@@ -2641,6 +2641,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.BRIAM_AGUDELO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_INSECURE_CERTIFICATE_VALIDATION = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_certificate_validation",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     NOT_VERIFIES_SSL_HOSTNAME = MethodInfo(
         file_name="analyze_bytecodes",
         name="not_verifies_ssl_hostname",
