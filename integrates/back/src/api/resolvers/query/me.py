@@ -12,6 +12,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    datetime as datetime_utils,
     token as token_utils,
 )
 from typing import (
@@ -26,10 +27,13 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Dict[str, Any]:
     caller_origin: str = kwargs.get("caller_origin", "API")
-    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_data: Dict[str, Any] = await token_utils.get_jwt_content(info.context)
+    exp: str = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_from_epoch(user_data["exp"])
+    )
     return {
         "caller_origin": caller_origin,
-        "session_expiration": user_data["exp"],
+        "session_expiration": exp,
         "user_email": user_data["user_email"],
         "user_name": " ".join(
             [user_data.get("first_name", ""), user_data.get("last_name", "")]

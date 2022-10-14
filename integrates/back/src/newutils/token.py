@@ -44,6 +44,7 @@ from jwcrypto.jwk import (
 )
 from jwcrypto.jwt import (
     JWT,
+    JWTExpired,
 )
 import logging
 import logging.config
@@ -166,25 +167,25 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
         if not token:
             raise InvalidAuthorization()
 
-        if jwt_has_api_token(token):
-            content = decode_jwt(token, api=True)
-        else:
-            content = decode_jwt(token)
-            email = content["user_email"]
-            if content.get("sub") == "starlette_session":
-                await sessions_domain.verify_session_token(content, email)
-                await sessions_dal.check_jwt_token_validity(context, email)
-                try:
-                    session_jti: str = await redis_get_entity_attr(
-                        entity="session",
-                        attr="jti",
-                        email=email,
-                    )
-                    if session_jti != content["jti"]:
-                        raise ExpiredToken()
-                except RedisKeyNotFound:
-                    # Session expired (user logged out)
-                    raise ExpiredToken() from None
+        content = decode_token(token)
+        email = content["user_email"]
+        if content.get("sub") == "starlette_session":
+            await sessions_domain.verify_session_token(content, email)
+            await sessions_dal.check_jwt_token_validity(context, email)
+            try:
+                session_jti: str = await redis_get_entity_attr(
+                    entity="session",
+                    attr="jti",
+                    email=email,
+                )
+                if session_jti != content["jti"]:
+                    raise ExpiredToken()
+            except RedisKeyNotFound:
+                # Session expired (user logged out)
+                raise ExpiredToken() from None
+    except JWTExpired:
+        # Session expired
+        raise InvalidAuthorization() from None
     except jwt.ExpiredSignatureError:
         # Session expired
         raise InvalidAuthorization() from None

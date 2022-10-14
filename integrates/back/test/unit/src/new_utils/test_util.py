@@ -160,7 +160,9 @@ async def test_get_jwt_content() -> None:
     jti = token_utils.calculate_hash_token()["jti"]
     payload = {
         "user_email": user_email,
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "exp": datetime_utils.get_as_epoch(
+            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+        ),
         "sub": "starlette_session",
         "jti": jti,
     }
@@ -202,7 +204,9 @@ async def test_valid_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "exp": datetime_utils.get_as_epoch(
+            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+        ),
         "sub": "session_token",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
@@ -232,8 +236,10 @@ async def test_valid_api_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
-        "iat": datetime.utcnow().timestamp(),
+        "exp": datetime_utils.get_as_epoch(
+            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+        ),
+        "iat": int(datetime.utcnow().timestamp()),
         "sub": "api_token",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
@@ -264,7 +270,9 @@ async def test_expired_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "exp": datetime_utils.get_as_epoch(
+            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+        ),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
@@ -304,7 +312,9 @@ async def test_revoked_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "exp": datetime_utils.get_as_epoch(
+            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+        ),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
