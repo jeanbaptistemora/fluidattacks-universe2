@@ -33,8 +33,6 @@ function main {
     finding_unreliable_indicators
     finding_verification
     forces_execution
-    git_environment_secret
-    git_root_environment_url
     git_root_historic_cloning
     git_root_historic_state
     git_root_metadata
@@ -53,6 +51,8 @@ function main {
     organization_metadata
     organization_unreliable_indicators
     portfolio_metadata
+    root_environment_secret
+    root_environment_url
     root_secret
     root_services_toe_lines
     stakeholder_metadata
