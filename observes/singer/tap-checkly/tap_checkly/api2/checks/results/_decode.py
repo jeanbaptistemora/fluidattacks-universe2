@@ -18,7 +18,6 @@ from dateutil.parser import (
 from fa_purity import (
     FrozenDict,
     JsonObj,
-    Maybe,
     Result,
     ResultE,
 )

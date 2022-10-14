@@ -65,7 +65,9 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
             return Result.success(_streams.check_results())
         if item is SupportedStreams.ALERT_CHS:
             return Result.success(_streams.alert_chs())
-        return Result.failure(NotImplementedError(item))
+        return Result.failure(NotImplementedError(item), Cmd[None]).alt(
+            Exception
+        )
 
     def _execute(item: SupportedStreams) -> ResultE[Cmd[None]]:
         info = Cmd.from_cmd(lambda: LOG.info("Executing stream: %s", item))
