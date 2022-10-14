@@ -25,17 +25,18 @@ interface ITooltipProps extends ITooltipBoxProps {
 const Tooltip: FC<ITooltipProps> = ({
   children,
   disp,
+  effect = "solid",
   id,
   place,
   tip = "",
   hide = tip === "",
 }: Readonly<ITooltipProps>): JSX.Element => (
-  <TooltipBox disp={disp} id={id} place={place} tip={tip}>
+  <TooltipBox disp={disp} effect={effect} id={id} place={place} tip={tip}>
     {children}
     {hide ? undefined : (
       <ReactTooltip
         delayShow={500}
-        effect={"solid"}
+        effect={effect}
         id={id}
         overridePosition={(
           { left, top }: ITooltipPosition,

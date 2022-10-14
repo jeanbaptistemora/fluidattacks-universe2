@@ -11,6 +11,7 @@ type TPlace = "bottom" | "left" | "right" | "top";
 interface ITooltipBoxAttrs {
   className: string;
   "data-for": string;
+  "data-effect": string;
   "data-html": boolean;
   "data-place": TPlace;
   "data-tip": string;
@@ -19,13 +20,20 @@ interface ITooltipBoxAttrs {
 interface ITooltipBoxProps {
   disp?: "block" | "flex" | "inline-block" | "inline";
   id: string;
+  effect?: "float" | "solid";
   place?: TPlace;
   tip?: string;
 }
 
 const TooltipBox = styled.div.attrs(
-  ({ id, place = "bottom", tip = "" }: ITooltipBoxProps): ITooltipBoxAttrs => ({
+  ({
+    id,
+    effect = "solid",
+    place = "bottom",
+    tip = "",
+  }: ITooltipBoxProps): ITooltipBoxAttrs => ({
     className: "comp-tooltip",
+    "data-effect": effect,
     "data-for": id,
     "data-html": true,
     "data-place": place,

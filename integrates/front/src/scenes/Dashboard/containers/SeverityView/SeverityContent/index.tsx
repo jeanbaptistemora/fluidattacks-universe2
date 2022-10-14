@@ -137,6 +137,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
             <FlexCol>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"userInteractionTooltip"}
                   tip={getTooltips(
                     userInteractionOptions,
@@ -154,6 +155,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"privilegesRequiredTooltip"}
                   tip={getTooltips(
                     castPrivileges(severityScope),
@@ -177,6 +179,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
             <FlexCol>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"attackVectorTooltip"}
                   tip={getTooltips(
                     attackVectorOptions,
@@ -194,6 +197,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"attackComplexityTooltip"}
                   tip={getTooltips(
                     attackComplexityOptions,
@@ -211,6 +215,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"exploitabilityTooltip"}
                   tip={getTooltips(
                     exploitabilityOptions,
@@ -228,6 +233,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"severityScopeTooltip"}
                   tip={getTooltips(
                     severityScopeOptions,
@@ -249,6 +255,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
             <FlexCol>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"availabilityImpactTooltip"}
                   tip={getTooltips(
                     availabilityImpactOptions,
@@ -266,6 +273,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"integrityImpactTooltip"}
                   tip={getTooltips(
                     integrityImpactOptions,
@@ -283,6 +291,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"confidentialityImpactTooltip"}
                   tip={getTooltips(
                     confidentialityImpactOptions,
@@ -306,6 +315,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
             <FlexCol>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"remediationLevelTooltip"}
                   tip={getTooltips(
                     remediationLevelOptions,
@@ -323,6 +333,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
               </Col>
               <Col>
                 <Tooltip
+                  effect={"float"}
                   id={"reportConfidenceTooltip"}
                   tip={getTooltips(
                     reportConfidenceOptions,
