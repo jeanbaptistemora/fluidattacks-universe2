@@ -12,7 +12,7 @@ import type {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 
 interface IUpdateDescriptionProps {
-  findingId: string;
+  findingId?: string;
   groupName?: string;
   isOpen?: boolean;
   changePermissions?: (groupName: string) => void;

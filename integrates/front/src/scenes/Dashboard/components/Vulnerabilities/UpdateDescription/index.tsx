@@ -29,7 +29,7 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 
 export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
   changePermissions,
-  findingId,
+  findingId = "",
   isOpen = false,
   groupName,
   vulnerabilities,

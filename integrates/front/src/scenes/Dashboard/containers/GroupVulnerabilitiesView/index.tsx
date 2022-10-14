@@ -20,10 +20,12 @@ import { formatState } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "../VulnerabilitiesView/utils";
+import { Modal } from "components/Modal";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   filterOutVulnerabilities,
   filterZeroRisk,
@@ -126,6 +128,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const [isEditing, setIsEditing] = useState(false);
   function toggleEdit(): void {
     setIsEditing(!isEditing);
+  }
+  function handleCloseUpdateModal(): void {
+    setIsEditing(false);
   }
 
   const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
@@ -285,6 +290,21 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             setVerifyState={toggleVerify}
             vulns={remediationModal.selectedVulnerabilities}
           />
+        )}
+        {isEditing && (
+          <Modal
+            onClose={handleCloseUpdateModal}
+            open={isEditing}
+            title={t("searchFindings.tabDescription.editVuln")}
+          >
+            <UpdateDescription
+              groupName={groupName}
+              handleClearSelected={_.get(remediationModal, "clearSelected")}
+              handleCloseModal={handleCloseUpdateModal}
+              refetchData={refetch}
+              vulnerabilities={remediationModal.selectedVulnerabilities}
+            />
+          </Modal>
         )}
       </React.Fragment>
     </React.StrictMode>
