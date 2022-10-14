@@ -26,9 +26,9 @@ def _initialize_metadata_table() -> None:
                 first_attack_at TIMESTAMPTZ,
                 group_name VARCHAR,
                 has_vulnerabilities BOOLEAN,
+                root_id VARCHAR,
                 seen_at TIMESTAMPTZ,
                 seen_first_time_by VARCHAR,
-                unreliable_root_id VARCHAR,
 
                 UNIQUE (
                     id

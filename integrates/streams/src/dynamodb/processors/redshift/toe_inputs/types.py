@@ -24,6 +24,6 @@ class MetadataTableRow:
     first_attack_at: Optional[datetime]
     group_name: str
     has_vulnerabilities: Optional[bool]
+    root_id: str
     seen_at: Optional[datetime]
     seen_first_time_by: str
-    unreliable_root_id: str
