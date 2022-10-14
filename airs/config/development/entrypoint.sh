@@ -6,6 +6,7 @@
 
 function main {
   local src="${1}"
+  local action="${2}"
 
   export NODE_OPTIONS=--max-old-space-size=4096
   : \
@@ -22,7 +23,7 @@ function main {
     && copy __argAirsNpm__ node_modules \
     && install_scripts \
     && popd \
-    && npm run develop --prefix airs/front/
+    && npm run "${action}" --prefix airs/front/
 }
 
 main "${@}"

@@ -97,8 +97,9 @@ function sync_files {
 
 function deploy_dev {
   local src="${1}"
+  local action="${2}"
 
-  __argAirsDevelopment__/bin/airs-config-development "${src}" \
+  __argAirsDevelopment__/bin/airs-config-development "${src}" "${action}" \
     || return 1
 }
 
@@ -136,6 +137,7 @@ function announce_to_bugsnag {
 
 function main {
   local env="${1:-}"
+  local action="${2:-develop}"
   local out='airs/front'
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
@@ -147,7 +149,7 @@ function main {
     *) abort '[ERROR] Second argument must be one of: dev, eph, prod' ;;
   esac \
     && case "${env}" in
-      dev) deploy_dev "${out}" ;;
+      dev) deploy_dev "${out}" "${action}" ;;
       eph) deploy_eph "${out}" ;;
       prod) deploy_prod "${out}" ;;
     esac \
