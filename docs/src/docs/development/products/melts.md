@@ -14,169 +14,71 @@ if it has forces,
 its language,
 among other functions.
 
+## Public Oath
+
+1. Code repositories
+   can be downloading by passing:
+   `drills --pull-repos`
+   to Melts.
+
+1. An Okta login and AWS credentials
+   can be gotten by passing:
+   `resources --login`
+   to Melts.
+
 ## Using Melts
 
-Before starting to use Melts,
-first you must do two things,
-set your `INTEGRATES_API_TOKEN`
-and login to AWS.
+1. Make sure you have the following tools installed in your system:
 
-### Set the INTEGRATES_API_TOKEN environment variable
+   - [Nix](/development/stack/nix).
+   - [Makes](/development/stack/makes).
 
-This is the first thing you have to do,
-without doing this you won't be able to
-use Melts at all, not even to log in.
-Luckily,
-we already have a guide
-for getting your INTEGRATES_API_TOKEN,
-you can check it out
-[here](/machine/api#using-the-arm-api-token).
-After obtaining the token,
-you must set it as an environment variable,
-in order to do this,
-you have to open the file `~/.bashrc`
-and then add this at the end of it.
+1. Make sure you have
+   [an API token](/machine/api#authentication-with-the-arm-api-token)
+   from the ARM,
+   and that you put its value
+   in an environment variable named `INTEGRATES_API_TOKEN`.
 
-```bash
-export INTEGRATES_API_TOKEN="your-integrates-api-token"
-```
+   You can export this variable permanently
+   by adding the following line at the end of your shell startup file
+   (usually `~/.bashrc`):
 
-Replace `your-integrates-api-token`
-for the api token you previously obtained
-to complete this step.
+   ```bash
+   export INTEGRATES_API_TOKEN="your-integrates-api-token"
+   ```
 
-### Logging into AWS
+   Now close the terminal and open it again,
+   or run:
 
-We use okta for logging into AWS
-and there is a function in Melts
-to do this easily,
-just use the following command to login:
+   ```bash
+   $ source ~/.bashrc
+   ```
 
-```bash
-m gitlab:fluidattacks/universe@trunk /melts resources --login
-```
+1. Make sure you have logged in to AWS with:
 
-After which you will be prompted
-to input your credentials,
-which are the same ones you use
-when logging into okta
-through the web page.
-Following this,
-depending on what roles you have access to,
-you may be prompted to
-choose a specific role to use Melts,
-the roles are self-explanatory
-so you will have no problem
-knowing which one you need.
+   ```bash
+   $ m gitlab:fluidattacks/universe@trunk /melts resources --login
+   ```
 
-There is also another way
-of logging into AWS,
-which is more familiar for developers,
-you only need to follow the steps
-described in this
-[guide](/development/stack/aws#get-development-keys)
-but instead of using the `dev` role
-you should use the `continuous-admin` role
-which will allow you to use the functionalities
-with admin privileges,
-useful for developer purposes.
+   You will be prompted
+   to input your Okta credentials.
 
-## Creating secrets as a resourcer
+   Following this,
+   depending on what roles you have access to,
+   you may be prompted to
+   choose a specific role to use Melts,
+   the roles are self-explanatory
+   so you will have no problem
+   knowing which one you need.
 
-By using the login function
-that Melts provides,
-resourcers can access a role
-with enough privileges
-to create a project's configuration files,
-specifically,
-those that contain said project's secrets.
-The following are the steps
-needed to create these files:
+1. Now you can use melts by calling:
 
-- The first thing to do
-  is add a function
-  that we will call `switch_aws`
-  to your `~/.bashrc` file,
-  something you only need to do once.
+   ```bash
+   $ m gitlab:fluidattacks/universe@trunk /melts
+   ```
 
-  ```bash
-  function switch_aws(){
-    project="$1"
-    local key=$(aws configure get aws_access_key_id --profile ${project})
-    local secret=$(aws configure get aws_secret_access_key --profile ${project})
-    local token=$(aws configure get aws_session_token --profile ${project})
-    export AWS_ACCESS_KEY_ID=$key
-    export AWS_SECRET_ACCESS_KEY=$secret
-    export AWS_SESSION_TOKEN=$token
-    aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-    aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-    aws configure set aws_session_token "$AWS_SESSION_TOKEN"
-  }
-  ```
-
-- Go into your local `services` repository folder
-  and then use the following command
-  that uses Melts
-  to log in with the admin role:
-
-  ```bash
-  m gitlab:fluidattacks/universe@trunk /melts resources --login admin
-  ```
-
-  Enter your credentials
-  when asked for them
-  and then use these two commands
-  in succession:
-
-  ```bash
-  aws sts get-caller-identity --profile continuous-admin
-  switch_aws continuous-admin
-  ```
-
-  These allow you to
-  get the necessary AWS credentials.
-
-- After this is done
-  you need to open
-  the file `~/.aws/credentials`
-  with your favorite editor.
-- This file will have
-  two sets of credentials,
-  one under `continuous-admin`
-  and another one under `default`,
-  you need to copy
-  all the information of `continuous-admin`
-  and paste it under `default`
-  replacing what `default` already has.
-  This step is necessary
-  in case the file has been modified
-  while you utilize
-  other Melts functions
-  that interact with it.
-- After that's done,
-  go to the config folder
-  of the group you want
-  to create a secrets file for
-  (`services/groups/{group}/config`)
-  and create a dummy yaml file
-  with a single line containing
-  this: `{}`
-- Then open a terminal
-  in the folder
-  and run this command:
-
-  ```bash
-  sops -e --kms arn:aws:kms:us-east-1:{account_id}:alias/continuous-{group} dummy.yaml > secrets-dev.yaml
-  ```
-
-  With this you will create
-  the group's secrets-dev file.
-
-- Creating the secrets-prod file
-  requires a little more customization
-  so you need to
-  talk to the group's PM
-  to create it.
+   Feel free to pass the --help flag
+   to learn more about the things it can do for you.
 
 ## Troubleshooting
 
@@ -208,7 +110,7 @@ you can try to fix them:
   if that doesn't work
   then use `rm -rf ~/.okta*` as well.
   After doing this and logging in
-  with the appropiate credentials
+  with the appropriate credentials
   and choosing the correct role,
   if applicable,
   you should have solved any problems
