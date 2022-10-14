@@ -183,6 +183,14 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                         current_date
                         - get_datetime_from_iso_str(vulnerability.created_date)
                     ).days
+                    if vulnerability.state.status
+                    == VulnerabilityStateStatus.OPEN
+                    else (
+                        get_datetime_from_iso_str(
+                            vulnerability.state.modified_date
+                        )
+                        - get_datetime_from_iso_str(vulnerability.created_date)
+                    ).days
                     for vulnerability in filtered_non_reattack_vulnerabilities
                 ]
             )
@@ -205,17 +213,17 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
 async def get_many_groups(
     groups: tuple[str, ...], loaders: Dataloaders
 ) -> Decimal:
-    groups_data_: tuple[Decimal, ...] = await collect(
+    groups_data: tuple[Decimal, ...] = await collect(
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 
-    groups_data: tuple[Decimal, ...] = tuple(
-        group for group in groups_data_ if group != Decimal("Infinity")
+    groups_filtered: tuple[Decimal, ...] = tuple(
+        group for group in groups_data if group != Decimal("Infinity")
     )
 
     return (
-        format_decimal(Decimal(sum(groups_data)) / len(groups_data))
-        if groups_data
+        format_decimal(Decimal(sum(groups_filtered)) / len(groups_filtered))
+        if groups_filtered
         else Decimal("Infinity")
     )
 
@@ -229,7 +237,7 @@ def format_data(mean_time: Decimal) -> dict:
 
 async def generate_all() -> None:
     loaders = get_new_context()
-    text: str = "Mean time to reattack"
+    text: str = "Mean time to request reattacks"
     async for group in iterate_groups():
         document = format_data(mean_time=await generate_one(group, loaders))
         json_dump(
