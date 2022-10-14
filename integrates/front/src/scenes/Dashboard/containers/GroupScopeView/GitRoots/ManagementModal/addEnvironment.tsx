@@ -152,7 +152,7 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
                 >
                   <option value={""}>{""}</option>
                   <option value={"CLOUD"}>{"Cloud"}</option>
-                  <option value={"APK"}>{"APK"}</option>
+                  <option value={"APK"}>{"Mobile App"}</option>
                   <option value={"URL"}>{"URL"}</option>
                 </Select>
               </Col>
