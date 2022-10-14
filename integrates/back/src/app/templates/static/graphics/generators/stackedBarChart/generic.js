@@ -5,6 +5,20 @@
 /* global c3 */
 /* global d3 */
 
+function adjustTopLabel(value, maxValue, element, elementClass) {
+  const maxValuePercentage = 0.91;
+
+  if (value / maxValue > maxValuePercentage) {
+    d3.select(element)
+      .style('transform', 'translate(5px, 28px)')
+      .attr('class', `${ elementClass } exposureTrendsByCategories`);
+  } else {
+    d3.select(element)
+      .style('transform', 'translate(10px, 2px)')
+      .attr('class', `${ elementClass } exposureTrendsByCategories`);
+  }
+}
+
 function centerLabel(dataDocument) {
   if (dataDocument.centerLabel) {
     const transformText = 12;
@@ -135,13 +149,14 @@ function load() {
     const currentClass = d3.select('.c3-line').attr('class');
     d3.select('.c3-line').attr('class', `${ currentClass } exposed-over-time-cvssf-line`);
 
-    if (dataDocument.data.labels) {
+    if (dataDocument.data.labels && dataDocument.axis.y.max) {
       d3.selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
         const itemClass = d3.select(textList[index]).attr('class');
+        const text = d3.select(textList[index]).text();
+        const value = parseFloat(text.replace(',', ''));
+        const maxValue = parseFloat(dataDocument.axis.y.max);
 
-        d3.select(textList[index])
-          .style('transform', 'translate(10px, 2px)')
-          .attr('class', `${ itemClass } exposureTrendsByCategories`);
+        adjustTopLabel(value, maxValue, textList[index], itemClass);
       });
     }
   }
