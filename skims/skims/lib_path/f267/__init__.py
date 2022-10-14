@@ -13,6 +13,7 @@ from lib_path.f267.kubernetes import (
     k8s_check_privileged_used,
     k8s_check_run_as_user,
     k8s_check_seccomp_profile,
+    k8s_container_without_securitycontext,
     k8s_root_container,
     k8s_root_filesystem_read_only,
 )
@@ -98,6 +99,15 @@ def run_k8s_check_drop_capability(
 
 
 @SHIELD_BLOCKING
+def run_k8s_container_without_securitycontext(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return k8s_container_without_securitycontext(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -122,5 +132,8 @@ def analyze(
                 run_k8s_check_seccomp_profile(content, path, template),
                 run_k8s_check_privileged_used(content, path, template),
                 run_k8s_check_drop_capability(content, path, template),
+                run_k8s_container_without_securitycontext(
+                    content, path, template
+                ),
             )
     return results

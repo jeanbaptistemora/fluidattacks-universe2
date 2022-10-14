@@ -4,11 +4,15 @@
 
 from kubernetes.structure import (
     get_containers_capabilities,
+    iter_containers_type,
     iter_security_context,
 )
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
+)
+from metaloaders.model import (
+    Node,
 )
 from model.core_model import (
     MethodsEnum,
@@ -139,6 +143,17 @@ def _k8s_check_drop_capability(
             yield cap_drop[0]
 
 
+def _k8s_container_without_securitycontext(
+    template: Any,
+) -> Iterator[Any]:
+    for container in iter_containers_type(template):
+        for elem in container:
+            if isinstance(elem, Node) and not elem.inner.get(
+                "securityContext"
+            ):
+                yield elem
+
+
 def k8s_check_add_capability(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -246,4 +261,20 @@ def k8s_check_drop_capability(
         ),
         path=path,
         method=MethodsEnum.K8S_CHECK_DROP_CAPABILITY,
+    )
+
+
+def k8s_container_without_securitycontext(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "lib_path.f267.k8s_container_without_securitycontext"
+        ),
+        iterator=get_cloud_iterator(
+            _k8s_container_without_securitycontext(template=template)
+        ),
+        path=path,
+        method=MethodsEnum.K8S_CONTAINER_WITHOUT_SECURITYCONTEXT,
     )

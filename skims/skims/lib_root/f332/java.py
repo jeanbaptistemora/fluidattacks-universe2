@@ -47,7 +47,9 @@ def csrf_protections_disabled(
                 if (
                     graph.nodes[expr_id].get("symbol") == "csrf"
                     and (me_pred := g.pred_ast(graph, n_id)[0])
-                    and (upper_expr := graph.nodes[me_pred]["expression_id"])
+                    and (
+                        upper_expr := graph.nodes[me_pred].get("expression_id")
+                    )
                     and graph.nodes[upper_expr].get("symbol") in csrf_methods
                 ):
                     yield shard, n_id

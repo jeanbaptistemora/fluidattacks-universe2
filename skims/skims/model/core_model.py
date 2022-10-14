@@ -701,7 +701,7 @@ class FindingEnum(Enum):
         requirements=[77, 176],
     )
     F239: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F239",
         cwe=200,
         execution_queue=ExecutionQueue.leak,
@@ -757,14 +757,14 @@ class FindingEnum(Enum):
         requirements=[186, 265],
     )
     F258: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F258",
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
     )
     F259: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F259",
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
@@ -890,7 +890,7 @@ class FindingEnum(Enum):
         requirements=[266],
     )
     F368: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F368",
         cwe=923,
         execution_queue=ExecutionQueue.ssl,
@@ -3517,6 +3517,14 @@ class MethodsEnum(Enum):
     K8S_CHECK_DROP_CAPABILITY = MethodInfo(
         file_name="kubernetes",
         name="k8s_check_drop_capability",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    K8S_CONTAINER_WITHOUT_SECURITYCONTEXT = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_container_without_securitycontext",
         module="lib_path",
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,

@@ -50,3 +50,8 @@ lib_path.f267.k8s_check_drop_capability:
   es: >-
     Asegúrese de que la propiedad securityContext.capabilities.drop contenga el valor
     all
+lib_path.f267.k8s_container_without_securitycontext:
+  en: >
+    No securityContext is applied to pods or containers
+  es: >
+    No se aplica securityContext a los pods o containers
