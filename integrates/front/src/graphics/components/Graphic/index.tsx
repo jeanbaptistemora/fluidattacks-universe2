@@ -63,6 +63,7 @@ const glyphPadding: number = 15;
 const fontSize: number = 16;
 const pixelsSensitivity: number = 5;
 const minWidthToShowButtons: number = 320;
+const minModalSize: number = 40;
 const bigGraphicSize: ComponentSize = {
   height: 400,
   width: 1000,
@@ -196,6 +197,13 @@ export const Graphic: React.FC<IGraphicProps> = (
       ),
     [modalSize, props, secureStore, subjectName, currentDocumentName]
   );
+
+  const minModalWidth = useMemo((): number => {
+    const roundedWidth: number =
+      pixelsSensitivity * Math.floor(bodySize.width / pixelsSensitivity);
+
+    return roundedWidth + minModalSize;
+  }, [bodySize]);
 
   function panelOnMouseEnter(): void {
     setExpanded(true);
@@ -427,7 +435,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   return (
     <React.Fragment>
       <Modal
-        minWidth={1100}
+        minWidth={minModalWidth}
         onClose={frameOnFullScreenExit}
         open={fullScreen}
         title={
