@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 /* eslint-disable react/forbid-component-props */
+import "tachyons";
 import { Parameters } from "@storybook/api";
 
 const parameters: Parameters = {
