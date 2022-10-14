@@ -14,12 +14,12 @@ from syntax_graph.syntax_readers.javascript import (
     comment as javascript_comment,
     do_statement as javascript_do_statement,
     else_clause as javascript_else_clause,
+    export_statement as javascript_export_statement,
     expression_statement as javascript_expression_statement,
     for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
-    import_statement as javascript_import_statement,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
@@ -51,12 +51,10 @@ from syntax_graph.syntax_readers.typescript import (
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
-    export_clause as typescript_export_clause,
-    export_specifier as typescript_export_specifier,
-    export_statement as typescript_export_statement,
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
     generic_type as typescript_generic_type,
+    import_statement as typescript_import_statement,
     index_signature as typescript_index_signature,
     interface_declaration as typescript_interface_declaration,
     internal_module as typescript_internal_module,
@@ -184,21 +182,9 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "export_clause",
-        },
-        syntax_reader=typescript_export_clause.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "export_specifier",
-        },
-        syntax_reader=typescript_export_specifier.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "export_statement",
         },
-        syntax_reader=typescript_export_statement.reader,
+        syntax_reader=javascript_export_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -271,7 +257,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "import_statement",
         },
-        syntax_reader=javascript_import_statement.reader,
+        syntax_reader=typescript_import_statement.reader,
     ),
     Dispatcher(
         applicable_types={
