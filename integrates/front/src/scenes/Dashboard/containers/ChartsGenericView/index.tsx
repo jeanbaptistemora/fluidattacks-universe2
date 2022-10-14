@@ -8,7 +8,7 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Col100, Col33, Col50 } from "./components/ChartCols";
+import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
@@ -193,7 +193,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
           </Col100>
         </RowCenter>
         <RowCenter>
-          <Col33>
+          <Col25>
             <Graphic
               bsHeight={80}
               className={"g3"}
@@ -207,8 +207,22 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               subject={subject}
               title={t("analytics.textBox.daysSinceLastRemediation.title")}
             />
-          </Col33>
-          <Col33>
+          </Col25>
+          <Col25>
+            <Graphic
+              bsHeight={80}
+              className={"g3"}
+              documentName={"meanTimeToReattack"}
+              documentType={"textBox"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"textBox"}
+              reportMode={reportMode}
+              subject={subject}
+              title={t("analytics.textBox.meanTimeToReattack.title")}
+            />
+          </Col25>
+          <Col25>
             <Graphic
               bsHeight={80}
               className={"g3"}
@@ -222,8 +236,8 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               subject={subject}
               title={t("analytics.textBox.findingsBeingReattacked.title")}
             />
-          </Col33>
-          <Col33>
+          </Col25>
+          <Col25>
             <Graphic
               bsHeight={80}
               className={"g3"}
@@ -237,7 +251,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               subject={subject}
               title={t("analytics.textBox.daysUntilZeroExposition.title")}
             />
-          </Col33>
+          </Col25>
         </RowCenter>
       </div>
       {doesEntityMatch(["organization", "portfolio"]) ? (

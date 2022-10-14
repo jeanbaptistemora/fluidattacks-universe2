@@ -244,6 +244,9 @@ export const enTranslations: ResourceKey = {
       forcesUsage: {
         title: "Service usage",
       },
+      meanTimeToReattack: {
+        title: "Mean time to request reattacks",
+      },
       openVulnerabilities: {
         title: "Open vulnerabilities",
       },

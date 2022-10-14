@@ -47,3 +47,7 @@ html, body, #root {
 .exposureTrendsByCategories {
   fill: #8f8fa3 !important;
 }
+
+.exposedOverTime {
+  fill: #2e2e38 !important;
+}
