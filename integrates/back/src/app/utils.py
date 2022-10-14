@@ -28,6 +28,7 @@ from httpx import (
     ConnectTimeout,
 )
 from newutils import (
+    datetime as datetime_utils,
     token as token_utils,
 )
 from redis_cluster.operations import (
@@ -53,15 +54,18 @@ from typing import (
 async def create_session_token(user: UserAccessInfo) -> str:
     jti = token_utils.calculate_hash_token()["jti"]
     user_email = user.user_email
-    jwt_token: str = token_utils.new_encoded_jwt(
-        dict(
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    jwt_token: str = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=dict(
             user_email=user_email,
             first_name=user.first_name,
             last_name=user.last_name,
-            exp=datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
-            sub="starlette_session",
             jti=jti,
-        )
+        ),
+        subject="starlette_session",
     )
     await stakeholders_model.update_metadata(
         email=user_email,

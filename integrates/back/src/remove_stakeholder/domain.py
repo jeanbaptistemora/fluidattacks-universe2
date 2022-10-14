@@ -58,7 +58,7 @@ from newutils.datetime import (
 )
 from newutils.token import (
     decode_token,
-    new_encoded_jwt,
+    encode_token,
 )
 from newutils.validations import (
     validate_email_address,
@@ -205,10 +205,12 @@ async def confirm_deletion_mail(
     email: str,
 ) -> None:
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
-    url_token = new_encoded_jwt(
-        {
+    url_token = encode_token(
+        expiration_time=expiration_time,
+        payload={
             "user_email": email,
         },
+        subject="starlette_session",
     )
     validate_email_address(email)
     await group_access_model.update_metadata(

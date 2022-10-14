@@ -210,15 +210,15 @@ async def update_access_token(
 
     if token_utils.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
-        session_jwt = token_utils.new_encoded_jwt(
-            {
+        session_jwt = token_utils.encode_token(
+            expiration_time=expiration_time,
+            payload={
                 "user_email": email,
                 "jti": token_data["jti"],
                 "iat": iat,
-                "exp": expiration_time,
-                "sub": "api_token",
                 **kwargs_token,
             },
+            subject="api_token",
             api=True,
         )
         access_token = StakeholderAccessToken(

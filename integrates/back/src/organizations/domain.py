@@ -520,11 +520,13 @@ async def invite_to_organization(
             organization_name
         )
         organization_id = organization.id
-        url_token = token_utils.new_encoded_jwt(
-            {
+        url_token = token_utils.encode_token(
+            expiration_time=expiration_time,
+            payload={
                 "organization_id": organization_id,
                 "user_email": email,
             },
+            subject="starlette_session",
         )
         await org_access_model.update_metadata(
             email=email,

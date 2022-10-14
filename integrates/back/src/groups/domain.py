@@ -1042,11 +1042,13 @@ async def invite_to_group(
     expiration_time = datetime_utils.get_as_epoch(
         datetime_utils.get_now_plus_delta(weeks=1)
     )
-    url_token = token_utils.new_encoded_jwt(
-        {
+    url_token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload={
             "group_name": group_name,
             "user_email": email,
         },
+        subject="starlette_session",
     )
     invitation = GroupInvitation(
         is_used=False,
