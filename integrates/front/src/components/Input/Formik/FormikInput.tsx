@@ -60,7 +60,7 @@ const FormikInput: FC<TInputProps> = ({
         aria-label={name}
         autoComplete={"off"}
         disabled={disabled}
-        id={id}
+        id={label === undefined ? id : id ?? name}
         list={list}
         name={name}
         onBlur={handleBlur}

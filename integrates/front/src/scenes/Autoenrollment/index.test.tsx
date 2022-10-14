@@ -29,7 +29,7 @@ describe("Autoenrollment", (): void => {
     expect(typeof Autoenrollment).toBe("function");
   });
 
-  it("should validate repo access with https credentials", async (): Promise<void> => {
+  it("should validate with HTTPS access token", async (): Promise<void> => {
     expect.hasAssertions();
 
     const variables = {
@@ -120,5 +120,107 @@ describe("Autoenrollment", (): void => {
     await expect(
       screen.findByText("autoenrollment.step2")
     ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
+  });
+
+  it("should validate with HTTPS user", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const variables = {
+      branch: "main",
+      credentials: {
+        key: undefined,
+        name: "test-creds",
+        password: "test-password",
+        token: "",
+        type: "HTTPS",
+        user: "test-user",
+      },
+      url: "https://gitlab.com/fluidattacks/universe",
+    };
+    const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
+      request: {
+        query: GET_STAKEHOLDER_GROUPS,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ groups: [{ name: "test" }], name: "test" }],
+            userEmail: "jdoe@fluidattacks.com",
+          },
+        },
+      },
+    };
+    const accessMock: MockedResponse<ICheckGitAccessResult> = {
+      request: {
+        query: VALIDATE_GIT_ACCESS,
+        variables,
+      },
+      result: {
+        data: {
+          validateGitAccess: { success: true },
+        },
+      },
+    };
+
+    const mockedFetch = fetch as FetchMockStatic & typeof fetch;
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { status: 200, text: "" });
+    mockedFetch.mock(COUNTRIES_URL, { body: "[]", status: 200 });
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MockedProvider cache={getCache()} mocks={[groupsMock, accessMock]}>
+          <Autoenrollment />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const urlInput = await screen.findByRole("textbox", { name: "url" });
+    userEvent.type(urlInput, variables.url);
+
+    const branchInput = await screen.findByRole("textbox", { name: "branch" });
+    userEvent.type(branchInput, variables.branch);
+
+    const credentialsTypeSelect = await screen.findByRole("combobox", {
+      name: "credentials.type",
+    });
+    userEvent.selectOptions(credentialsTypeSelect, [
+      variables.credentials.type,
+    ]);
+
+    const credentialsNameInput = await screen.findByRole("textbox", {
+      name: "credentials.name",
+    });
+    userEvent.type(credentialsNameInput, variables.credentials.name);
+
+    const credentialsAuthSelect = await screen.findByRole("combobox", {
+      name: "credentials.auth",
+    });
+    userEvent.selectOptions(credentialsAuthSelect, ["USER"]);
+
+    const credentialsUserInput = await screen.findByRole("textbox", {
+      name: "credentials.user",
+    });
+    userEvent.type(credentialsUserInput, variables.credentials.user);
+
+    const credentialsPasswordInput = await screen.findByLabelText(
+      "autoenrollment.credentials.password"
+    );
+    userEvent.type(credentialsPasswordInput, variables.credentials.password);
+
+    const environmentInput = await screen.findByRole("textbox", {
+      name: "env",
+    });
+    userEvent.type(environmentInput, "production");
+
+    const submitButton = await screen.findByText("autoenrollment.next");
+    userEvent.click(submitButton);
+
+    await expect(
+      screen.findByText("autoenrollment.step2")
+    ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
   });
 });
