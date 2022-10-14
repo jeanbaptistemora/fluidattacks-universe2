@@ -23,6 +23,8 @@ import {
 import { Tooltip } from "components/Tooltip";
 
 interface INumberInputProps {
+  autoUpdate?: boolean;
+  decimalPlaces?: number;
   defaultValue: number;
   max: number;
   min: number;
@@ -31,25 +33,42 @@ interface INumberInputProps {
 }
 
 const NumberInput: React.FC<INumberInputProps> = ({
+  autoUpdate = false,
+  decimalPlaces = 0,
   defaultValue,
   max,
   min,
   onEnter,
   tooltipMessage,
 }): JSX.Element => {
-  const [value, setValue] = useState(_.toString(defaultValue));
+  const decPlaces = decimalPlaces < 0 ? 0 : decimalPlaces;
+  const [value, setValue] = useState(defaultValue.toFixed(decPlaces));
   const [spin, setSpin] = useState(false);
   const inputReference: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);
 
   const getCurrentNumber = (): number => _.toNumber(value);
 
+  function updateValue(newValue: number): void {
+    if (newValue >= min && newValue <= max) {
+      setValue(newValue.toFixed(decPlaces));
+      if (autoUpdate) {
+        onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+      }
+    }
+  }
+
   function handleOnInputChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     const newValue = _.toNumber(event.target.value);
-    if (newValue >= min && newValue <= max) {
+    if (event.target.value.endsWith(".")) {
       setValue(event.target.value);
+    } else if (newValue >= min && newValue <= max) {
+      setValue(_.toString(newValue));
+      if (autoUpdate) {
+        onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+      }
     }
     event.stopPropagation();
   }
@@ -58,7 +77,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
     event: React.FocusEvent<HTMLInputElement>
   ): void {
     if (!event.currentTarget.contains(event.relatedTarget)) {
-      setValue(_.toString(defaultValue));
+      setValue(defaultValue.toFixed(decPlaces));
     }
     event.stopPropagation();
   }
@@ -86,7 +105,8 @@ const NumberInput: React.FC<INumberInputProps> = ({
       event.key.length > 1 ||
       /\d/u.test(event.key) ||
       event.key === "Control" ||
-      event.key.toLocaleLowerCase() === "c"
+      event.key.toLocaleLowerCase() === "c" ||
+      (decPlaces > 0 && event.key === ".")
     )
       return;
     event.preventDefault();
@@ -94,19 +114,13 @@ const NumberInput: React.FC<INumberInputProps> = ({
 
   function handleOnMinusClick(event: React.MouseEvent<HTMLInputElement>): void {
     event.stopPropagation();
-    const newNumber = getCurrentNumber() - 1;
-    if (newNumber >= min && newNumber <= max) {
-      setValue(_.toString(newNumber));
-    }
+    updateValue(getCurrentNumber() - 10 ** -decPlaces);
     setSpin(true);
   }
 
   function handleOnPlusClick(event: React.MouseEvent<HTMLDivElement>): void {
     event.stopPropagation();
-    const newNumber = getCurrentNumber() + 1;
-    if (newNumber >= min && newNumber <= max) {
-      setValue(_.toString(newNumber));
-    }
+    updateValue(getCurrentNumber() + 10 ** -decPlaces);
     setSpin(true);
   }
 

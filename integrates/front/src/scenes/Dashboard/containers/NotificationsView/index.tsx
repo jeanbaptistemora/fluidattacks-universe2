@@ -123,6 +123,8 @@ const NotificationsView: React.FC = (): JSX.Element => {
             return {
               minSeverity: (
                 <NumberInput
+                  autoUpdate={true}
+                  decimalPlaces={1}
                   defaultValue={severity}
                   max={10}
                   min={0}

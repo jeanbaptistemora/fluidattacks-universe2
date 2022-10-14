@@ -2441,7 +2441,7 @@ export const enTranslations: ResourceKey = {
           name: "Minimum severity",
           tooltip:
             "Minimum severity value to send the vulnerability alert " +
-            "notification. Press enter key to save.",
+            "notification.",
         },
       },
       push: "Push",
