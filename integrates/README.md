@@ -4,18 +4,24 @@ SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 SPDX-License-Identifier: MPL-2.0
 -->
 
+# Integrates
+
+All development documentation
+can be found at:
+<https://docs.fluidattacks.com/development/integrates>.
+
 # Table of contents
 
 - [Architecture](#architecture)
 - [Contributing](#contributing)
-  * [Requirements](#requirements)
-  * [Installing Nix](#installing-nix)
-  * [Git repository](#git-repository)
-  * [Git configuration](#git-configuration)
-  * [Build system](#build-system)
-  * [Credentials / Authentication](#credentials---authentication)
-  * [Local back-end server](#local-back-end-server)
-  * [Local web application](#local-web-application)
+  - [Requirements](#requirements)
+  - [Installing Nix](#installing-nix)
+  - [Git repository](#git-repository)
+  - [Git configuration](#git-configuration)
+  - [Build system](#build-system)
+  - [Credentials / Authentication](#credentials---authentication)
+  - [Local back-end server](#local-back-end-server)
+  - [Local web application](#local-web-application)
 
 <!-- http://ecotrust-canada.github.io/markdown-toc -->
 
@@ -47,31 +53,32 @@ curl -sL https://nixos.org/nix/install | sh
    instructions to generate a GPG key pair
 1. Clone the repository into any folder
 
-    ```bash
-    $ git clone git@gitlab.com:fluidattacks/universe.git
-    Cloning into 'product'...
-    # ...
-    ```
+   ```bash
+   $ git clone git@gitlab.com:fluidattacks/universe.git
+   Cloning into 'product'...
+   # ...
+   ```
 
 ## Git configuration
 
 1. Tell Git who you are:
 
-    ```bash
-    $ git config --global user.name "Benito Martinez"
-    $ git config --global user.email bmartinez@fluidattacks.com
+   ```bash
+   $ git config --global user.name "Benito Martinez"
+   $ git config --global user.email bmartinez@fluidattacks.com
 
-    # These settings are useful, too
-    $ git config --global commit.gpgsign true
-    ```
+   # These settings are useful, too
+   $ git config --global commit.gpgsign true
+   ```
+
 2. Check if the changes were successfully registered with:
 
-    ```bash
-    $ git config --list
-    commit.gpgsign=true
-    user.email=bmartinez@fluidattacks.com
-    user.name=Benito Martinez
-    ```
+   ```bash
+   $ git config --list
+   commit.gpgsign=true
+   user.email=bmartinez@fluidattacks.com
+   user.name=Benito Martinez
+   ```
 
 ## Build system
 
