@@ -34,3 +34,29 @@ and its [API](/machine/api).
 
 Please read the
 [contributing](/development/contributing) page first.
+
+### Development Environment
+
+Follow the steps
+in the [Development Environment](/development/setup) section
+of our documentation.
+
+When prompted for an AWS role, choose `dev`,
+and when prompted for a Development Environment, pick `integratesBack`.
+
+### Local Environment
+
+Run each of the following commands in different terminals:
+
+```sh
+universe $ m . /integrates/back
+universe $ m . /integrates/cache
+universe $ m . /integrates/db
+universe $ m . /integrates/front
+universe $ m . /integrates/storage
+```
+
+This will launch a replica of
+[app.fluidattacks.com](https://fluidattacks.com)
+and [app.fluidattacks.com/api](https://fluidattacks.com/api)
+on your [localhost:8001](https://localhost:8001).
