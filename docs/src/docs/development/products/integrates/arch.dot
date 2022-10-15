@@ -1,0 +1,158 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph integates {
+  label="Integrates Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  rankdir="LR"
+  ranksep="3.0"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_opensearch {
+      label="OpenSearch"
+
+      subgraph cluster_aws_opensearch_domains {
+        label="Domains"
+
+        aws_opensearch_domains_integrates[label="integrates"]
+      }
+    }
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_integrates {
+        label="integrates"
+
+        aws_s3_integrates[label="?"]
+      }
+
+      subgraph cluster_aws_s3_integrates_front_dev {
+        label="integrates.front.development.fluidattacks.com"
+
+        cluster_aws_s3_integrates_front_dev[label="" style="invis"]
+        aws_s3_integrates_front_dev_atfluid[label="*atfluid/" peripheries="2"]
+      }
+
+      subgraph cluster_aws_s3_integrates_front_prod {
+        label="integrates.front.production.fluidattacks.com"
+
+        cluster_aws_s3_integrates_front_prod[label="" style="invis"]
+        aws_s3_integrates_front_production_trunk[label="trunk/"]
+      }
+
+      subgraph cluster_aws_s3_machine_data {
+        label="machine.data"
+
+        aws_s3_machine_data[label="?"]
+      }
+    }
+
+    subgraph cluster_aws_sqs {
+      label="SQS"
+
+      subgraph cluster_aws_sqs_queues {
+        label="Queues"
+
+        aws_sqs_queues_celery[label="celery"]
+      }
+    }
+
+    subgraph cluster_aws_vpc {
+      label="VPC"
+
+      subgraph cluster_aws_vpc_fluid_vpc {
+        label="fluid-vpc (192.168.0.0/16)"
+
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
+
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_1[label="k8s_1 192.168.12.0/22 us-east-1b"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_2[label="k8s_2 192.168.16.0/22 us-east-1a"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s_3[label="k8s_3 192.168.20.0/22 us-east-1d"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_cloudflare {
+    label="Cloudflare"
+    bgcolor="0.6 0.1 1.0"
+    node[fillcolor="0.6 0.5 1.0"]
+
+    subgraph cluster_cloudflare_zones {
+      label="Zones"
+
+      subgraph cluster_cloudflare_zone_fluidattacks_com {
+        label="fluidattacks.com"
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_com_dns_cname_app[label="CNAME app"]
+          cloudflare_zone_fluidattacks_com_dns_cname_atfluid_app[label="CNAME *atfluid.app"]
+          cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_development[label="CNAME integrates.front.development"]
+          cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_production[label="CNAME integrates.front.production"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_com_rules {
+          label="Rules"
+
+          subgraph cluster_cloudflare_zone_fluidattacks_com_page_rules {
+            label="Page Rules"
+
+            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev[label="integrates.front.development.fluidattacks.com/*"]
+            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev_cache[label="cache"]
+          }
+        }
+      }
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_integrates {
+        label="/integrates"
+
+        gitlab_integrates[label="Source Code"]
+      }
+    }
+  }
+
+  edge[color="0.1 1.0 1.0"]
+  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_1[]
+  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_2[]
+  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_3[]
+
+  edge[color="0.6 1.0 1.0"]
+  cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_development -> cluster_aws_s3_integrates_front_dev[lhead="cluster_aws_s3_integrates_front_dev"]
+  cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_production -> cluster_aws_s3_integrates_front_prod[lhead="cluster_aws_s3_integrates_front_prod"]
+  cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev -> cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev_cache[]
+
+  edge[color="0.8 1.0 1.0"]
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="0.0 0.0 0.0"]
+  end_user -> cloudflare_zone_fluidattacks_com_dns_cname_app[]
+  developer -> cloudflare_zone_fluidattacks_com_dns_cname_atfluid_app[]
+}

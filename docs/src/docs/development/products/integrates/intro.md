@@ -30,6 +30,20 @@ and its [API](/machine/api).
    changes in the authentication or authorization system,
    and so on.
 
+## Architecture
+
+:::tip
+You can right-click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+
+:::warning
+Work in progress.
+:::
+
+![Architecture of Integrates](./arch.dot.svg)
+
 ## Contributing
 
 Please read the
