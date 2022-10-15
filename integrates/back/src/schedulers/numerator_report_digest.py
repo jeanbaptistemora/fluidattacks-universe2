@@ -124,6 +124,7 @@ def _generate_count_fields() -> Dict[str, Any]:
 def _generate_fields() -> Dict[str, Any]:
     fields: Dict[str, Any] = {
         "enumerated": _generate_count_fields(),
+        "evidences": _generate_count_fields(),
         "verified": _generate_count_fields(),
         "loc": _generate_count_fields(),
         "reattacked": _generate_count_fields(),
@@ -141,6 +142,7 @@ def _generate_group_fields() -> Dict[str, Any]:
     fields: Dict[str, Any] = {
         "verified": 0,
         "enumerated": 0,
+        "evidences": 0,
         "loc": 0,
         "reattacked": 0,
         "released": 0,
@@ -407,6 +409,25 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
                     user_email=state.modified_by,
                     allowed_users=users_email,
                     cvss=cvss,
+                )
+                evidences = len(
+                    [
+                        evidence_id
+                        for evidence_id in finding.evidences._fields
+                        if getattr(finding.evidences, evidence_id) is not None
+                    ]
+                )
+                _common_generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        state.modified_date
+                    ),
+                    field="evidences",
+                    group=group,
+                    user_email=state.modified_by,
+                    allowed_users=users_email,
+                    to_add=evidences,
                 )
 
 

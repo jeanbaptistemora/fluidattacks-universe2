@@ -39,7 +39,13 @@ SPDX-License-Identifier: MPL-2.0
             <li>
               <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
               ({{ count_var_report["released"]["variation"] }},
-              max: {{ max_cvss }} severity)
+              max: {{ max_cvss }} severity,
+              {% if count_var_report["released"]["count"] == 0 %}
+              0
+              {%- else -%}
+                {{ "%d"|format((count_var_report["evidences"]["count"] * 100) / (count_var_report["released"]["count"] * 7)) -}}
+              {%- endif -%}
+              % completeness)
             </li>
           </ul>
         </p>
