@@ -3696,6 +3696,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSON_PRINCIPAL_WILDCARD = MethodInfo(
+        file_name="cloudformation",
+        name="json_principal_wildcard",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     WEBVIEW_VULNS = MethodInfo(
         file_name="analyze_bytecodes",
         name="webview_vulnerabilities",

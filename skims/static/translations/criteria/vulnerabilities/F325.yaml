@@ -63,3 +63,8 @@ src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone:
     Amazon KMS master keys are exposed to everyone
   es: >-
     Las llaves de Amazon KMS están expuestas a todos
+lib_path.f325.json_principal_wildcard:
+  en: >
+    The wildcard (*) is used to give access to any user, including anonymous users.
+  es: >
+    Se usa el comodín (*) para brindar acceso a cualquier usuario, incluyendo usuarios anónimos
