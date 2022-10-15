@@ -6,11 +6,11 @@ slug: /development/melts
 ---
 
 Melts is the product
-that allows to download End Users (Fluid Attacks customers) code repositories
+that allows downloading the End Users (Fluid Attacks customers) code repositories
 and a few other utilities
-that End Users (Fluid Attacks hackers) require now and them
+that End Users (Fluid Attacks hackers) require now and then
 like checking if a group is active,
-if it has forces,
+if it has Forces,
 its language,
 among other functions.
 
@@ -88,14 +88,14 @@ there are a couple of things
 you can try to fix them:
 
 - The first thing you should do
-  is to follow the installation instructions again.
+  is follow the installation instructions again.
 - The next thing you can check
   is if your `INTEGRATES_API_TOKEN`
   hasn't expired,
   for this you only need to
   repeat the steps shown
   [here](/machine/api#using-the-arm-api-token)
-  for updating your api token,
+  for updating your API token,
   and be aware of when
   it will expire next.
 - Another thing that
@@ -130,7 +130,7 @@ Please read the
 ### Development Environment
 
 Follow the steps
-at the [Development Environment](/development/setup) section of our documentation.
+in the [Development Environment](/development/setup) section of our documentation.
 
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `melts`.
