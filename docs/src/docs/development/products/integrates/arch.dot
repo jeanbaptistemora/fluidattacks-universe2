@@ -19,6 +19,52 @@ digraph integates {
     bgcolor="0.1 0.1 1.0"
     node[fillcolor="0.1 0.5 1.0"]
 
+    subgraph cluster_aws_backup {
+      label="Backup"
+
+      subgraph cluster_aws_backup_vaults {
+        label="Backup Vaults"
+
+        aws_backup_vaults_integrates_dynamodb_backup_vault[label="integrates-dynamodb-backup-vault"]
+      }
+    }
+
+    subgraph cluster_aws_dynamodb {
+      label="DynamoDB"
+
+      subgraph cluster_aws_dynamodb_tables {
+        label="Tables"
+
+        aws_dynamodb_tables_integrates[label="integrates"]
+        aws_dynamodb_tables_integrates_vms[label="integrates_vms"]
+        aws_dynamodb_tables_integrates_vms_consumer[label="integrates_vms_consumer"]
+        aws_dynamodb_tables_fi_async_processing[label="fi_async_processing"]
+        aws_dynamodb_tables_fi_authz[label="fi_authz"]
+        aws_dynamodb_tables_fi_subscriptions[label="fi_subscriptions"]
+        aws_dynamodb_tables_fi_project_comments[label="fi_project_comments"]
+        aws_dynamodb_tables_fi_events[label="fi_events"]
+        aws_dynamodb_tables_fi_projects[label="FI_projects"]
+        aws_dynamodb_tables_fi_users[label="FI_users"]
+        aws_dynamodb_tables_fi_project_access[label="FI_project_access"]
+        aws_dynamodb_tables_fi_findings[label="FI_findings"]
+        aws_dynamodb_tables_fi_finding_comments[label="fi_finding_comments"]
+        aws_dynamodb_tables_fi_vulnerabilities[label="FI_vulnerabilities"]
+        aws_dynamodb_tables_fi_portfolios[label="fi_portfolios"]
+        aws_dynamodb_tables_fi_organizations[label="fi_organizations"]
+        aws_dynamodb_tables_fi_forces[label="FI_forces"]
+      }
+    }
+
+    subgraph cluster_aws_elasticache {
+      label="ElastiCache"
+
+      subgraph cluster_aws_elasticache_redis_clusters {
+        label="Redis Clusters"
+
+        aws_elasticache_redis_clusters_integrates_cache[label="integrates-cache"]
+      }
+    }
+
     subgraph cluster_aws_opensearch {
       label="OpenSearch"
 
@@ -112,8 +158,8 @@ digraph integates {
           subgraph cluster_cloudflare_zone_fluidattacks_com_page_rules {
             label="Page Rules"
 
-            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev[label="integrates.front.development.fluidattacks.com/*"]
-            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev_cache[label="cache"]
+            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev[label="CACHE integrates.front.development.fluidattacks.com/*"]
+            cloudflare_zone_fluidattacks_com_page_rules_integrates_front_prod[label="CACHE integrates.front.production.fluidattacks.com/*"]
           }
         }
       }
@@ -137,6 +183,21 @@ digraph integates {
   }
 
   edge[color="0.1 1.0 1.0"]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_async_processing[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_authz[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_events[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_findings[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_portfolios[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_project_access[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_project_comments[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_projects[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_users[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_vulnerabilities[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_integrates[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_integrates_vms[]
+  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_1[]
+  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_2[]
+  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_3[]
   aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_1[]
   aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_2[]
   aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_3[]
@@ -144,7 +205,6 @@ digraph integates {
   edge[color="0.6 1.0 1.0"]
   cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_development -> cluster_aws_s3_integrates_front_dev[lhead="cluster_aws_s3_integrates_front_dev"]
   cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_production -> cluster_aws_s3_integrates_front_prod[lhead="cluster_aws_s3_integrates_front_prod"]
-  cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev -> cloudflare_zone_fluidattacks_com_page_rules_integrates_front_dev_cache[]
 
   edge[color="0.8 1.0 1.0"]
 
