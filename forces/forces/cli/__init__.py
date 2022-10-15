@@ -7,6 +7,7 @@
 # pylint: disable=import-outside-toplevel
 
 
+import aioextensions
 from aioextensions import (
     run,
 )
@@ -132,6 +133,14 @@ def main(
         kind = "dynamic"
     elif static:
         kind = "static"
+
+    # Use only one worker,
+    # some customers are experiencing threads exhaustion
+    # and we suspect it could be this
+    assert not aioextensions.PROCESS_POOL.initialized
+    assert not aioextensions.THREAD_POOL.initialized
+    aioextensions.PROCESS_POOL.initialize(max_workers=1)
+    aioextensions.THREAD_POOL.initialize(max_workers=1)
 
     result = run(
         main_wrapped(
