@@ -16,7 +16,7 @@ def test_cli_strict_no_breaking(test_token: str) -> None:
     result = runner.invoke(
         main, ["--token", test_token, "--strict", "--repo-name", "forces"]
     )
-    assert result.exit_code == 1
+    assert result.exit_code == 1, result.exception
 
 
 def test_cli_strict_breaking_low(test_token: str) -> None:
@@ -33,7 +33,7 @@ def test_cli_strict_breaking_low(test_token: str) -> None:
             "2",
         ],
     )
-    assert result.exit_code == 1
+    assert result.exit_code == 1, result.exception
 
 
 def test_cli_strict_breaking_high(test_token: str) -> None:
@@ -50,7 +50,7 @@ def test_cli_strict_breaking_high(test_token: str) -> None:
             "10",
         ],
     )
-    assert result.exit_code == 0
+    assert result.exit_code == 0, result.exception
 
 
 def test_cli_lax(test_token: str) -> None:
@@ -58,7 +58,7 @@ def test_cli_lax(test_token: str) -> None:
     result = runner.invoke(
         main, ["--token", test_token, "--lax", "--repo-path", "../"]
     )
-    assert result.exit_code == 0
+    assert result.exit_code == 0, result.exception
 
 
 def test_cli_invalid_group(test_token: str) -> None:
@@ -66,12 +66,12 @@ def test_cli_invalid_group(test_token: str) -> None:
     result = runner.invoke(
         main, ["--token", test_token, "--lax", "--repo-path", "../"]
     )
-    assert result.exit_code == 0
+    assert result.exit_code == 0, result.exception
 
 
 def test_cli_out_to_file(test_token: str) -> None:
     runner = CliRunner()
-    runner.invoke(
+    result = runner.invoke(
         main,
         [
             "--token",
@@ -83,4 +83,4 @@ def test_cli_out_to_file(test_token: str) -> None:
             "../",
         ],
     )
-    assert os.path.exists(f"{os.getcwd()}/test.yml")
+    assert os.path.exists(f"{os.getcwd()}/test.yml"), result.exception

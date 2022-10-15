@@ -16,8 +16,8 @@ function main {
     --cov-report "html:${PWD}/forces/coverage/"
     --cov-report "xml:${PWD}/forces/coverage.xml"
     --disable-pytest-warnings
-    --capture 'no'
     --no-cov-on-fail
+    --verbose
   )
   if ! test -z "${CI_COMMIT_REF_NAME:-}"; then
     API_ENDPOINT="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
