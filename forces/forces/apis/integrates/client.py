@@ -13,10 +13,6 @@ from aiohttp.client_exceptions import (
 )
 import asyncio
 import contextlib
-from contextvars import (
-    ContextVar,
-    Token,
-)
 from forces.apis.integrates import (
     get_api_token,
 )
@@ -34,7 +30,6 @@ from typing import (
 )
 
 # Context
-SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
 LOCAL_ENDPOINT = "https://127.0.0.1:8001/api"
 ENDPOINT: str = (
     "https://app.fluidattacks.com/api"
@@ -60,28 +55,20 @@ async def session(
     **kwargs: str,
 ) -> AsyncIterator[GraphQLClient]:
     """Returns an Async GraphQL Client."""
-    try:
-        yield SESSION.get()
-    except LookupError:
-        api_token = api_token or get_api_token()
-        async with aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(
-                # A local integrates uses self-signed certificates,
-                # but other than that the certificate should be valid,
-                # particularly in production.
-                verify_ssl=(ENDPOINT != LOCAL_ENDPOINT),
-            ),
-            headers={
-                "authorization": f"Bearer {api_token}",
-                **kwargs,
-            },
-        ) as client_session:
-            client = GraphQLClient(ENDPOINT, session=client_session)
-            token: Token[Any] = SESSION.set(client)
-            try:
-                yield SESSION.get()
-            finally:
-                SESSION.reset(token)
+    api_token = api_token or get_api_token()
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(
+            # A local integrates uses self-signed certificates,
+            # but other than that the certificate should be valid,
+            # particularly in production.
+            verify_ssl=(ENDPOINT != LOCAL_ENDPOINT),
+        ),
+        headers={
+            "authorization": f"Bearer {api_token}",
+            **kwargs,
+        },
+    ) as client_session:
+        yield GraphQLClient(ENDPOINT, session=client_session)
 
 
 async def execute(
