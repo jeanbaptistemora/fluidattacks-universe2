@@ -10,6 +10,20 @@ from typing import (
 )
 
 
+class SummaryItem(NamedTuple):
+    dast: int
+    sast: int
+    total: int
+
+
+class ReportSummary(NamedTuple):
+    open: SummaryItem
+    closed: SummaryItem
+    accepted: SummaryItem
+    elapsed_time: str
+    total: int
+
+
 class ForcesReport(NamedTuple):
     findings_report: Table
     summary: Table

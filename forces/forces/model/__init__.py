@@ -14,6 +14,8 @@ from .finding import (
 )
 from .report import (
     ForcesReport,
+    ReportSummary,
+    SummaryItem,
 )
 from .vulnerability import (
     Vulnerability,
@@ -27,6 +29,8 @@ __all__ = [
     "ForcesConfig",
     "ForcesReport",
     "KindEnum",
+    "ReportSummary",
+    "SummaryItem",
     "Vulnerability",
     "VulnerabilityState",
     "VulnerabilityType",
