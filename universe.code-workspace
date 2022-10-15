@@ -19,7 +19,8 @@
       "shardulm94.trailing-spaces",
       "streetsidesoftware.code-spell-checker",
       "tamasfe.even-better-toml",
-      "usernamehw.errorlens"
+      "usernamehw.errorlens",
+      "znck.grammarly"
     ],
     "unwantedRecommendations": [
       "b4dm4n.nixpkgs-fmt",
