@@ -68,7 +68,7 @@ digraph common {
       label="Git"
 
       subgraph cluster_gitlab_git_common {
-        label="Common"
+        label="/common"
 
         gitlab_git_common[label="Source Code"]
         gitlab_git_common_ci[label="/ci"]

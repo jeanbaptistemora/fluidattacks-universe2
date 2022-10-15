@@ -42,7 +42,7 @@ of a Continuous Integration and Continuous Delivery system (CI/CD).
    helping prevent state corruption.
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::

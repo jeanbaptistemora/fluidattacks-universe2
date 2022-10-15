@@ -78,7 +78,7 @@ from what port, protocol, and so on.
    and allows income traffic from the CloudFlare IP addresses.
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::

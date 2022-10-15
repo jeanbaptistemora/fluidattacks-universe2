@@ -57,7 +57,7 @@ digraph forces {
       label="Git"
 
       subgraph cluster_gitlab_forces {
-        label="Forces"
+        label="/forces"
 
         gitlab_forces[label="Source Code"]
         gitlab_forces_container_image[label="Container Image"]

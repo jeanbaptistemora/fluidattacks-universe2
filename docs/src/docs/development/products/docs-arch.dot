@@ -103,7 +103,7 @@ digraph docs {
       label="Git"
 
       subgraph cluster_gitlab_docs {
-        label="Docs"
+        label="/docs"
 
         gitlab_docs[label="Source Code"]
         gitlab_docs_docasaurus[label="Docasaurus"]

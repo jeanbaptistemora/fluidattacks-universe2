@@ -40,7 +40,7 @@ and on-schedule.
 1. On failure, an email is sent to development@fluidattacks.com
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::

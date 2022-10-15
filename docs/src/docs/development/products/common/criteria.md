@@ -41,7 +41,7 @@ but both are different things and have different guarantees.
    and transforms it into the [online version of Criteria](/criteria).
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::

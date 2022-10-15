@@ -34,7 +34,7 @@ slug: /development/common/status
    some users receive an alert by SMS or Email.
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::

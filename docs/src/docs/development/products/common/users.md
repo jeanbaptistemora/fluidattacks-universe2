@@ -58,7 +58,7 @@ slug: /development/common/users
    - The `dev` role can access the `dev` KMS key only.
 
 :::tip
-You can right click on the image below
+You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
 :::
