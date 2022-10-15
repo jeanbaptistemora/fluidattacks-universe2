@@ -68,4 +68,7 @@ async def test_session_bad_token(test_group: str) -> None:
             api_token="bad_token",
         )
     except ApiError as exc:
-        assert "Login required" in exc.messages
+        assert (
+            "Login required" in exc.messages
+            or "Token format unrecognized" in exc.messages
+        )

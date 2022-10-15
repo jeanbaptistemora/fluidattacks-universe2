@@ -44,7 +44,10 @@ async def test_get_group_access() -> None:
     try:
         await get_groups_access(api_token="bad_token")
     except ApiError as exc:
-        assert "Login required" in exc.messages
+        assert (
+            "Login required" in exc.messages
+            or "Token format unrecognized" in exc.messages
+        )
 
 
 @pytest.mark.asyncio

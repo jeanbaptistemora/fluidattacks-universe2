@@ -137,25 +137,29 @@ def main(
     # Use only one worker,
     # some customers are experiencing threads exhaustion
     # and we suspect it could be this
-    assert not aioextensions.PROCESS_POOL.initialized
-    assert not aioextensions.THREAD_POOL.initialized
-    aioextensions.PROCESS_POOL.initialize(max_workers=1)
-    aioextensions.THREAD_POOL.initialize(max_workers=1)
+    try:
+        assert not aioextensions.PROCESS_POOL.initialized
+        assert not aioextensions.THREAD_POOL.initialized
+        aioextensions.PROCESS_POOL.initialize(max_workers=1)
+        aioextensions.THREAD_POOL.initialize(max_workers=1)
 
-    result = run(
-        main_wrapped(
-            token=token,
-            verbose=verbose,
-            strict=strict,
-            output=output,
-            repo_path=repo_path,
-            kind=kind,
-            repo_name=repo_name,
-            local_breaking=breaking,
+        result = run(
+            main_wrapped(
+                token=token,
+                verbose=verbose,
+                strict=strict,
+                output=output,
+                repo_path=repo_path,
+                kind=kind,
+                repo_name=repo_name,
+                local_breaking=breaking,
+            )
         )
-    )
 
-    sys.exit(result)
+        sys.exit(result)
+    finally:
+        aioextensions.PROCESS_POOL.shutdown(wait=True)
+        aioextensions.THREAD_POOL.shutdown(wait=True)
 
 
 @shield(on_error_return=1)

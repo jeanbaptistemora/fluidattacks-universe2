@@ -367,7 +367,10 @@ async def get_groups_access(
             **kwargs,
         )
     except ApiError as exc:
-        if "Login required" in exc.messages:
+        if (
+            "Login required" in exc.messages
+            or "Token format unrecognized" in exc.messages
+        ):
             await log(
                 "error",
                 "The token has expired or the token has no permissions",

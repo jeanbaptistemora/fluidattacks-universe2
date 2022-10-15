@@ -36,13 +36,11 @@
     stage = "lint-code";
     tags = ["small"];
   };
-  # TODO: Enable again, once we solve:
-  # https://gitlab.com/fluidattacks/universe/-/issues/7817
-  # gitlabTest = {
-  #   rules = gitlabOnlyDev;
-  #   stage = "post-deploy";
-  #   tags = ["small"];
-  # };
+  gitlabTest = {
+    rules = gitlabOnlyDev;
+    stage = "post-deploy";
+    tags = ["small"];
+  };
 in {
   pipelines = {
     forces = {
@@ -56,16 +54,14 @@ in {
           output = "/deployContainerImage/forcesProd";
           gitlabExtra = gitlabDeployApp;
         }
-        # TODO: Enable again, once we solve:
-        # https://gitlab.com/fluidattacks/universe/-/issues/7817
-        # {
-        #   output = "/forces/test";
-        #   gitlabExtra =
-        #     gitlabTest
-        #     // {
-        #       needs = ["/integrates/back/deploy/dev"];
-        #     };
-        # }
+        {
+          output = "/forces/test";
+          gitlabExtra =
+            gitlabTest
+            // {
+              needs = ["/integrates/back/deploy/dev"];
+            };
+        }
         {
           output = "/lintPython/module/forces";
           gitlabExtra = gitlabLint;

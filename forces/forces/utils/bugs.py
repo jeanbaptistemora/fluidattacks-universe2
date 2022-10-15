@@ -63,7 +63,11 @@ def customize_bugsnag_error_reports(
         login_error = any(
             (
                 err in str(notification.exception)
-                for err in ("Login required", "Access denied")
+                for err in (
+                    "Login required",
+                    "Access denied",
+                    "Token format unrecognized",
+                )
             )
         )
         if login_error:
