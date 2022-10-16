@@ -18,13 +18,6 @@ digraph common {
     bgcolor="0.1 0.1 1.0"
     node[fillcolor="0.1 0.5 1.0"]
 
-    subgraph cluster_aws_ec2 {
-      label="EC2"
-
-      aws_ec2_dev[label="dev" peripheries="2"]
-      aws_ec2_prod_integrates[label="prod_integrates" peripheries="2"]
-    }
-
     subgraph cluster_aws_eks {
       label="EKS"
 
@@ -46,12 +39,6 @@ digraph common {
             label="dev"
 
             cluster_aws_eks_common_namespaces_dev[label="" style="invis"]
-
-            subgraph cluster_aws_eks_common_namespaces_dev_deployments {
-              label="Deployments"
-
-              aws_eks_common_namespaces_dev_deployments_integrates_atfluid[label="integrates-*atfluid" peripheries="2"]
-            }
           }
 
           subgraph cluster_aws_eks_common_namespaces_kube_system {
@@ -62,29 +49,8 @@ digraph common {
 
           subgraph cluster_aws_eks_common_namespaces_prod_integrates {
             label="prod-integrates"
-            cluster_aws_eks_common_namespaces_prod_integrates[label="" style="invis"]
-
-            subgraph cluster_aws_eks_common_namespaces_prod_integrates_deployments {
-              label="Deployments"
-
-              aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[label="integrates-trunk"]
-              aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[label="machine-report-trunk"]
-            }
+            cluster_aws_eks_common_namespaces_prod_integrates[label="" style="invis" width="3.0"]
           }
-        }
-      }
-    }
-
-    subgraph cluster_aws_vpc {
-      label="VPC"
-
-      subgraph cluster_aws_vpc_fluid_vpc {
-        label="fluid-vpc"
-
-        subgraph cluster_aws_vpc_fluid_vpc_subnets {
-          label="Subnets"
-
-          cluster_aws_vpc_fluid_vpc_subnets_k8s[label="k8s_*", peripheries="2"]
         }
       }
     }
@@ -132,18 +98,12 @@ digraph common {
     helm_nri_bundle[label="helm-charts.newrelic.com//nri-bundle"]
   }
 
-  cluster_aws_vpc_fluid_vpc_subnets_k8s -> cluster_helm[style="invis"]
-
   edge[color="0.1 1.0 1.0"]
-  aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
-  aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
-  cluster_aws_eks_common_namespaces_dev -> aws_ec2_dev[ltail="cluster_aws_eks_common_namespaces_dev"]
   cluster_aws_eks_common_namespaces_kube_system -> helm_aws_load_balancer_controller[ltail="cluster_aws_eks_common_namespaces_kube_system"]
   cluster_aws_eks_common_namespaces_kube_system -> helm_cluster_autoscaler[ltail="cluster_aws_eks_common_namespaces_kube_system"]
   cluster_aws_eks_common_namespaces_kube_system -> helm_metrics_server[ltail="cluster_aws_eks_common_namespaces_kube_system"]
   cluster_aws_eks_common_namespaces_kube_system -> helm_external_dns[ltail="cluster_aws_eks_common_namespaces_kube_system"]
   cluster_aws_eks_common_namespaces_kube_system -> helm_nri_bundle[ltail="cluster_aws_eks_common_namespaces_kube_system"]
-  cluster_aws_eks_common_namespaces_prod_integrates -> aws_ec2_prod_integrates[ltail="cluster_aws_eks_common_namespaces_prod_integrates"]
 
   edge[color="0.6 1.0 1.0"]
 
