@@ -6,9 +6,8 @@ digraph integates {
   label="Integrates Architecture"
   labelloc="t"
   compound="true"
-  concentrate="true"
   rankdir="LR"
-  ranksep="3.0"
+  ranksep="6.0"
   scale="scalexy"
 
   node[style="filled"]
@@ -32,26 +31,85 @@ digraph integates {
     subgraph cluster_aws_dynamodb {
       label="DynamoDB"
 
+      cluster_aws_dynamodb[label="" style="invis"]
+
       subgraph cluster_aws_dynamodb_tables {
         label="Tables"
 
-        aws_dynamodb_tables_integrates[label="integrates"]
-        aws_dynamodb_tables_integrates_vms[label="integrates_vms"]
-        aws_dynamodb_tables_integrates_vms_consumer[label="integrates_vms_consumer"]
-        aws_dynamodb_tables_fi_async_processing[label="fi_async_processing"]
-        aws_dynamodb_tables_fi_authz[label="fi_authz"]
-        aws_dynamodb_tables_fi_subscriptions[label="fi_subscriptions"]
-        aws_dynamodb_tables_fi_project_comments[label="fi_project_comments"]
-        aws_dynamodb_tables_fi_events[label="fi_events"]
-        aws_dynamodb_tables_fi_projects[label="FI_projects"]
-        aws_dynamodb_tables_fi_users[label="FI_users"]
-        aws_dynamodb_tables_fi_project_access[label="FI_project_access"]
-        aws_dynamodb_tables_fi_findings[label="FI_findings"]
-        aws_dynamodb_tables_fi_finding_comments[label="fi_finding_comments"]
-        aws_dynamodb_tables_fi_vulnerabilities[label="FI_vulnerabilities"]
-        aws_dynamodb_tables_fi_portfolios[label="fi_portfolios"]
-        aws_dynamodb_tables_fi_organizations[label="fi_organizations"]
-        aws_dynamodb_tables_fi_forces[label="FI_forces"]
+        aws_dynamodb_tables_integrates[label="integrates*" peripheries="2"]
+        aws_dynamodb_tables_fi[label="fi*" peripheries="2"]
+        aws_dynamodb_tables_FI[label="FI*" peripheries="2"]
+      }
+    }
+
+    subgraph cluster_aws_ec2 {
+      label="EC2 Instances"
+
+      aws_ec2_dev[label="dev" peripheries="2"]
+      aws_ec2_prod_integrates[label="prod_integrates" peripheries="2"]
+    }
+
+    subgraph cluster_aws_ec2_elb {
+      label="ELB"
+
+      aws_ec2_elb_prod[label="integrates-trunk"]
+      aws_ec2_elb_dev[label="integrates-*atfluid" peripheries="2"]
+    }
+
+    // certain api calls -> batch /integrates/jobs/execute_machine
+    // schedulers requeue_actions -> batch /integrates/jobs/execute_machine
+    // schedulers review_machine_executions -> batch /integrates/jobs/execute_machine
+
+    // /integrates/jobs/execute_machine
+    //    submit_task --execution-id
+    //      -> submits process-machine-result to celery queue (upload vulns in sarifs)
+
+    //    finish_execution
+    //    start_execution
+    //    start_execution
+
+    subgraph cluster_aws_eks {
+      label="EKS"
+
+      subgraph cluster_aws_eks_common {
+        label="common"
+
+        subgraph cluster_aws_eks_common_namespaces {
+          label="Namespaces"
+
+          subgraph cluster_aws_eks_common_namespaces_dev {
+            label="dev"
+
+            subgraph cluster_aws_eks_common_namespaces_dev_deployments {
+              label="Deployments"
+
+              aws_eks_common_namespaces_dev_deployments_integrates_atfluid[label="integrates-*atfluid" peripheries="2"]
+            }
+
+            subgraph cluster_aws_eks_common_namespaces_dev_ingress {
+              label="Ingresses"
+
+              aws_eks_common_namespaces_dev_ingress_dev[label="integrates-*atfluid" peripheries="2"]
+            }
+          }
+
+          subgraph cluster_aws_eks_common_namespaces_prod_integrates {
+            label="prod-integrates"
+
+            subgraph cluster_aws_eks_common_namespaces_prod_integrates_deployments {
+              label="Deployments"
+
+              aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[label="integrates-trunk"]
+              aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[label="machine-report-trunk"]
+            }
+
+            subgraph cluster_aws_eks_common_namespaces_prod_integrates_ingress {
+              label="Ingresses"
+
+              aws_eks_common_namespaces_prod_integrates_ingress_integrates_trunk[label="integrates-trunk"]
+            }
+          }
+        }
       }
     }
 
@@ -78,24 +136,27 @@ digraph integates {
     subgraph cluster_aws_s3 {
       label="S3"
 
+      cluster_aws_s3[label="" style="invis"]
+
       subgraph cluster_aws_s3_integrates {
         label="integrates"
 
-        aws_s3_integrates[label="?"]
+        aws_s3_integrates_analytics_branch_documents[label="/analytics/<branch>/documents"]
+        aws_s3_integrates_analytics_branch_snapshots[label="/analytics/<branch>/snapshots"]
       }
 
       subgraph cluster_aws_s3_integrates_front_dev {
         label="integrates.front.development.fluidattacks.com"
 
-        cluster_aws_s3_integrates_front_dev[label="" style="invis"]
-        aws_s3_integrates_front_dev_atfluid[label="*atfluid/" peripheries="2"]
+        cluster_aws_s3_integrates_front_dev[label="" style="invis" width="6.0"]
+        aws_s3_integrates_front_dev_atfluid[label="/<branch>/*" peripheries="2"]
       }
 
       subgraph cluster_aws_s3_integrates_front_prod {
         label="integrates.front.production.fluidattacks.com"
 
-        cluster_aws_s3_integrates_front_prod[label="" style="invis"]
-        aws_s3_integrates_front_production_trunk[label="trunk/"]
+        cluster_aws_s3_integrates_front_prod[label="" style="invis" width="6.0"]
+        aws_s3_integrates_front_production_trunk[label="/trunk/*"]
       }
 
       subgraph cluster_aws_s3_machine_data {
@@ -124,9 +185,7 @@ digraph integates {
         subgraph cluster_aws_vpc_fluid_vpc_subnets {
           label="Subnets"
 
-          cluster_aws_vpc_fluid_vpc_subnets_k8s_1[label="k8s_1 192.168.12.0/22 us-east-1b"]
-          cluster_aws_vpc_fluid_vpc_subnets_k8s_2[label="k8s_2 192.168.16.0/22 us-east-1a"]
-          cluster_aws_vpc_fluid_vpc_subnets_k8s_3[label="k8s_3 192.168.20.0/22 us-east-1d"]
+          cluster_aws_vpc_fluid_vpc_subnets_k8s[label="k8s_* 192.168.[12-20].0/22 us-east-1*" peripheries="2"]
         }
       }
     }
@@ -166,6 +225,24 @@ digraph integates {
     }
   }
 
+  subgraph cluster_common {
+    label="Common"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    subgraph cluster_common_compute {
+      label="Compute"
+
+      subgraph cluster_common_compute_schedules {
+        label="Schedules"
+
+        common_compute_schedules_integrates_charts_documents[label="/integrates/charts/documents"]
+        common_compute_schedules_integrates_charts_snapshots[label="/integrates/charts/snapshots"]
+        common_compute_schedules_integrates_utils_scheduler[label="/integrates/utils/scheduler"]
+      }
+    }
+  }
+
   subgraph cluster_gitlab {
     label="GitLab"
     bgcolor="0.8 0.1 1.0"
@@ -178,41 +255,59 @@ digraph integates {
         label="/integrates"
 
         gitlab_integrates[label="Source Code"]
+        gitlab_integrates_back[label="/back"]
+        gitlab_integrates_charts[label="/charts"]
+        gitlab_integrates_front[label="/front"]
       }
     }
   }
 
   edge[color="0.1 1.0 1.0"]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_async_processing[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_authz[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_events[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_findings[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_portfolios[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_project_access[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_project_comments[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_projects[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_users[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_fi_vulnerabilities[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_integrates[]
-  aws_backup_vaults_integrates_dynamodb_backup_vault -> aws_dynamodb_tables_integrates_vms[]
-  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_1[]
-  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_2[]
-  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s_3[]
-  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_1[]
-  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_2[]
-  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s_3[]
+  aws_ec2_elb_dev -> aws_eks_common_namespaces_dev_deployments_integrates_atfluid[]
+  aws_ec2_elb_prod -> aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[]
+  aws_eks_common_namespaces_dev_ingress_dev -> aws_ec2_elb_dev[]
+  aws_eks_common_namespaces_prod_integrates_ingress_integrates_trunk -> aws_ec2_elb_prod[]
+  aws_ec2_dev -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
+  aws_ec2_prod_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
+  aws_backup_vaults_integrates_dynamodb_backup_vault -> cluster_aws_dynamodb[lhead="cluster_aws_dynamodb"]
+  aws_eks_common_namespaces_dev_deployments_integrates_atfluid -> aws_ec2_dev[]
+  aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk -> aws_ec2_prod_integrates[]
+  aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk -> aws_ec2_prod_integrates[]
+  aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
+  aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
 
   edge[color="0.6 1.0 1.0"]
+  cloudflare_zone_fluidattacks_com_dns_cname_app -> aws_ec2_elb_prod[]
+  cloudflare_zone_fluidattacks_com_dns_cname_atfluid_app -> aws_ec2_elb_dev[]
   cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_development -> cluster_aws_s3_integrates_front_dev[lhead="cluster_aws_s3_integrates_front_dev"]
   cloudflare_zone_fluidattacks_com_dns_cname_integrates_front_production -> cluster_aws_s3_integrates_front_prod[lhead="cluster_aws_s3_integrates_front_prod"]
 
   edge[color="0.8 1.0 1.0"]
+  gitlab_integrates -> gitlab_integrates_back[]
+  gitlab_integrates -> gitlab_integrates_charts[]
+  gitlab_integrates -> gitlab_integrates_front[]
+  gitlab_integrates_back -> aws_sqs_queues_celery[]
+  gitlab_integrates_back -> aws_elasticache_redis_clusters_integrates_cache[]
+  gitlab_integrates_back -> aws_opensearch_domains_integrates[]
+  gitlab_integrates_back -> aws_eks_common_namespaces_dev_deployments_integrates_atfluid[]
+  gitlab_integrates_back -> aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk[]
+  gitlab_integrates_back -> aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk[]
+  gitlab_integrates_back -> cluster_aws_dynamodb[lhead="cluster_aws_dynamodb"]
+  gitlab_integrates_back -> cluster_aws_s3[lhead="cluster_aws_s3"]
+  gitlab_integrates_front -> aws_s3_integrates_front_dev_atfluid[]
+  gitlab_integrates_front -> aws_s3_integrates_front_production_trunk[]
 
   node[fillcolor="0.0 0.0 0.8"]
   end_user[label="End User"]
   developer[label="Developer"]
 
   edge[color="0.0 0.0 0.0"]
+  common_compute_schedules_integrates_charts_documents -> aws_s3_integrates_analytics_branch_documents[]
+  common_compute_schedules_integrates_charts_documents -> gitlab_integrates_charts[]
+  common_compute_schedules_integrates_charts_snapshots -> aws_s3_integrates_analytics_branch_snapshots[]
+  common_compute_schedules_integrates_charts_snapshots -> gitlab_integrates_charts[]
+  common_compute_schedules_integrates_utils_scheduler -> aws_sqs_queues_celery[]
   end_user -> cloudflare_zone_fluidattacks_com_dns_cname_app[]
   developer -> cloudflare_zone_fluidattacks_com_dns_cname_atfluid_app[]
+  developer -> gitlab_integrates[]
 }
