@@ -153,6 +153,7 @@ def test_group_analytics(
             "Files with open vulnerabilities in the last 20 weeks",
             "Mean time to remediate (MTTR) by CVSS severity",
             "Days since group is failing",
+            "Mean time to request reattacks",
             "Finding by tags",
             "Your commitment towards security",
             "Builds risk",

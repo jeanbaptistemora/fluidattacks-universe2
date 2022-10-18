@@ -62,6 +62,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Mean time to remediate (MTTR) by CVSS severity",
     "Overall availability of groups",
     "Days since groups are failing",
+    "Mean time to request reattacks",
     "Tags by groups",
 ]
 
