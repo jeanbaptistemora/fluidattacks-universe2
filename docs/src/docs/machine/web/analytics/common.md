@@ -33,6 +33,7 @@ Number of vulnerabilities without
 a remediation plan specified by
 one of your managers.
 
+![Vulnerabilities no treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1666124094/docs/web/analytics/common/vulnerabilities_with_no_treatment.png)
 ## Open vulnerabilities
 
 ![Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/open_vulnerabilities.png)
