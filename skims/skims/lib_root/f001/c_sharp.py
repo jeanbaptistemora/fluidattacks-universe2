@@ -38,6 +38,20 @@ from utils import (
 )
 
 
+def is_sql_injection(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+    al_id = graph.nodes[n_id].get("arguments_id")
+    if not al_id:
+        return False
+    test_nid = g.adj_ast(graph, al_id)[0]
+
+    for path in get_backward_paths(graph, test_nid):
+        evaluation = evaluate(method, graph, path, test_nid)
+        if evaluation and evaluation.danger:
+            return True
+
+    return False
+
+
 def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     danger_methods = {
         "ExecuteNonQuery",
@@ -79,14 +93,8 @@ def sql_injection(
                 *search_method_invocation_naive(graph, danger_methods),
                 *yield_syntax_graph_object_creation(graph, danger_objects),
             ]:
-                test_nid = g.adj_ast(
-                    graph,
-                    graph.nodes[nid].get("arguments_id"),
-                )[0]
-                for path in get_backward_paths(graph, test_nid):
-                    evaluation = evaluate(method, graph, path, test_nid)
-                    if evaluation and evaluation.danger:
-                        yield shard, nid
+                if is_sql_injection(graph, nid, method):
+                    yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.001.description",

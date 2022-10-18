@@ -10,15 +10,22 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.utils import (
     get_object_identifiers,
+)
+from typing import (
+    Iterable,
+    List,
+    Optional,
 )
 from utils import (
     graph as g,
@@ -28,27 +35,47 @@ from utils.string import (
 )
 
 
+def is_insec_squema(
+    graph: Graph, n_id: str, identifiers: List[str]
+) -> Optional[NId]:
+    if not (
+        (split_expr := split_last(graph.nodes[n_id].get("expression")))
+        and split_expr[0] in identifiers
+        and split_expr[1] == "Add"
+    ):
+        return None
+
+    if (args := g.match_ast_d(graph, n_id, "ArgumentList")) and all(
+        (
+            graph.nodes[elem].get("label_type") == "Literal"
+            for elem in g.match_ast(graph, args).values()
+        )
+    ):
+        return args
+
+    return None
+
+
 def xsl_transform_object(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XSL_TRANSFORM_OBJECT
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> GraphShardNodes:
-
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
-
             if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
             for obj_nid in g.filter_nodes(
-                shard.syntax_graph,
-                nodes=shard.syntax_graph.nodes,
+                graph,
+                nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
                 if (
-                    obj_type := shard.syntax_graph.nodes[obj_nid].get("name")
+                    obj_type := graph.nodes[obj_nid].get("name")
                 ) and obj_type == "XslTransform":
                     yield shard, obj_nid
 
@@ -61,46 +88,27 @@ def xsl_transform_object(
 
 
 def schema_by_url(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_SCHEMA_BY_URL
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
-
             if shard.syntax_graph is None:
                 continue
-            s_graph = shard.syntax_graph
-
+            graph = shard.syntax_graph
             obj_identifiers = get_object_identifiers(
-                s_graph, {"XmlSchemaCollection"}
+                graph, {"XmlSchemaCollection"}
             )
 
             for m_id in g.filter_nodes(
-                s_graph,
-                s_graph.nodes,
+                graph,
+                graph.nodes,
                 g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                if not (
-                    (
-                        split_expr := split_last(
-                            s_graph.nodes[m_id].get("expression")
-                        )
-                    )
-                    and split_expr[0] in obj_identifiers
-                    and split_expr[1] == "Add"
-                ):
-                    continue
-                if (
-                    args := g.match_ast_d(s_graph, m_id, "ArgumentList")
-                ) and all(
-                    (
-                        s_graph.nodes[elem].get("label_type") == "Literal"
-                        for elem in g.match_ast(s_graph, args).values()
-                    )
-                ):
+                if args := is_insec_squema(graph, m_id, obj_identifiers):
                     yield shard, args
 
     return get_vulnerabilities_from_n_ids(

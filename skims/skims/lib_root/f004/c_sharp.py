@@ -34,15 +34,14 @@ from typing import (
 
 def is_execute_danger(graph: Graph, n_id: str, check: str) -> bool:
     method = MethodsEnum.CS_REMOTE_COMMAND_EXECUTION
-
     danger_p1 = {"UserConnection", "UserParams"}
     danger_p2 = {"Executor", "UserConnection", "UserParams"}
 
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and (
-            (check == "Start" and evaluation.triggers == danger_p1)
-            or (check == "Execute" and evaluation.triggers == danger_p2)
+            (check == "start" and evaluation.triggers == danger_p1)
+            or (check == "execute" and evaluation.triggers == danger_p2)
         ):
             return True
     return False
@@ -60,12 +59,11 @@ def remote_command_execution(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in search_method_invocation_naive(graph, {"Start"}):
-                if is_execute_danger(graph, n_id, "Start"):
-                    yield shard, n_id
-
-            for n_id in search_method_invocation_naive(graph, {"Execute"}):
-                if is_execute_danger(graph, n_id, "Execute"):
+            for n_id in search_method_invocation_naive(
+                graph, {"Start", "Execute"}
+            ):
+                check = graph.nodes[n_id]["expression"].split(".")[-1].lower()
+                if is_execute_danger(graph, n_id, check):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
