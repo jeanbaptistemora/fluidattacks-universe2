@@ -829,6 +829,10 @@ async def release_finding(
     if auto_approve:
         loaders.finding.clear(finding.id)
 
+        # Ensure that submission and approval date are not the same
+        # For analytics purposes
+        await asyncio.sleep(2)
+
         # Several process may try to approve the same finding concurrently.
         # Handle the exception in case one already did it
         with suppress(AlreadyApproved):
