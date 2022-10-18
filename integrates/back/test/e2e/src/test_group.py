@@ -148,7 +148,7 @@ def test_group_analytics(
             "Status of assigned vulnerabilities",
             "Report Technique",
             "Group availability",
-            "Accepted vulnerabilities by severity",
+            "Accepted vulnerabilities by CVSS severity",
             "Exposure by assignee",
             "Files with open vulnerabilities in the last 20 weeks",
             "Mean time to remediate (MTTR) by CVSS severity",

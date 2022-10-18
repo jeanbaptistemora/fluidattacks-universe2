@@ -3580,7 +3580,8 @@ export const enTranslations: ResourceKey = {
     tooltip: "Search filters for the table",
   },
   tagIndicator: {
-    acceptedVulnerabilitiesBySeverity: "Accepted vulnerabilities by severity",
+    acceptedVulnerabilitiesBySeverity:
+      "Accepted vulnerabilities by CVSS severity",
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
     assignedVulnerabilities: "Vulnerabilities by assignment",
     assignedVulnerabilitiesStatus: "Status of assigned vulnerabilities",

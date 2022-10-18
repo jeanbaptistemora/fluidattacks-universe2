@@ -56,7 +56,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Report Technique",
     "Vulnerabilities by assignment",
     "Status of assigned vulnerabilities",
-    "Accepted vulnerabilities by severity",
+    "Accepted vulnerabilities by CVSS severity",
     "Exposure by assignee",
     "Files with open vulnerabilities in the last 20 weeks",
     "Mean time to remediate (MTTR) by CVSS severity",
