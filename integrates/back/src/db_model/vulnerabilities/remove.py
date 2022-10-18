@@ -22,14 +22,13 @@ async def remove(*, vulnerability_id: str) -> None:
         facet=TABLE.facets["vulnerability_metadata"],
         values={"id": vulnerability_id},
     )
-
+    await operations.delete_item(key=primary_key, table=TABLE)
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
         ),
         facets=(
-            TABLE.facets["vulnerability_metadata"],
             TABLE.facets["vulnerability_historic_state"],
             TABLE.facets["vulnerability_historic_treatment"],
             TABLE.facets["vulnerability_historic_verification"],
