@@ -79,12 +79,12 @@
       user_interaction: N
       scope: U
       confidentiality: N
-      integrity: N
+      integrity: L
       availability: N
     temporal:
-      exploit_code_maturity: X
-      remediation_level: X
-      report_confidence: X
+      exploit_code_maturity: P
+      remediation_level: O
+      report_confidence: R
   requirements: ['169', '173']
   metadata:
     en:
@@ -8038,7 +8038,7 @@
       and destruction of sensitive information
       (Policies).
     threat: >
-      Authenticated attacker from local network.
+      Anonymous attacker from local network.
   es:
     title: Insecurely deleted files
     description: >
@@ -8056,7 +8056,7 @@
       y destrucción de información sensible
       (Políticas).
     threat: >
-      Atacante autenticado desde red local.
+      Atacante anónimo desde red local.
   category: Collect Information
   examples:
     non_compliant: |
@@ -8081,18 +8081,18 @@
   remediation_time: '15'
   score:
     base:
-      attack_vector: N
+      attack_vector: L
       attack_complexity: L
       privileges_required: N
       user_interaction: N
       scope: U
-      confidentiality: N
+      confidentiality: L
       integrity: N
       availability: N
     temporal:
-      exploit_code_maturity: X
-      remediation_level: X
-      report_confidence: X
+      exploit_code_maturity: U
+      remediation_level: U
+      report_confidence: R
   requirements: ['183']
   metadata:
     en:
@@ -10005,17 +10005,17 @@
   score:
     base:
       attack_vector: N
-      attack_complexity: L
+      attack_complexity: H
       privileges_required: N
       user_interaction: N
       scope: U
       confidentiality: N
-      integrity: N
+      integrity: L
       availability: N
     temporal:
-      exploit_code_maturity: X
-      remediation_level: X
-      report_confidence: X
+      exploit_code_maturity: P
+      remediation_level: O
+      report_confidence: C
   requirements: ['122', '173', '178', '320']
   metadata:
     en:
