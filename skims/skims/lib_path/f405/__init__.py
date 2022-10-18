@@ -6,7 +6,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f405.bash import (
-    not_suppress_vuln_header,
+    excessive_privileges_for_others,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -18,8 +18,10 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
-    return not_suppress_vuln_header(content=content, path=path)
+def run_excessive_privileges_for_others(
+    content: str, path: str
+) -> Vulnerabilities:
+    return excessive_privileges_for_others(content=content, path=path)
 
 
 @SHIELD_BLOCKING
@@ -34,7 +36,7 @@ def analyze(
     if file_extension == "sh":
         results = (
             *results,
-            run_not_suppress_vuln_header(content_generator(), path),
+            run_excessive_privileges_for_others(content_generator(), path),
         )
 
     return results

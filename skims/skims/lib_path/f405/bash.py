@@ -17,18 +17,20 @@ from typing import (
 )
 
 
-def not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
+def excessive_privileges_for_others(
+    content: str, path: str
+) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
-        for lines in content.splitlines():
+        for index, lines in enumerate(content.splitlines(), 1):
             if lines.startswith("chmod"):
-                for index, item in enumerate(lines.split(" ")):
+                for item in lines.split(" "):
                     if re.match(r"^\d{3}$", item) and not item.endswith("0"):
                         yield index, 0
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.dotnetconfig.not_suppress_vuln_header",
+        description_key="lib_root.f405.excessive_privileges_for_others",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.DOTNETCONFIG_NOT_SUPPRESS_VULN_HEADER,
+        method=MethodsEnum.BASH_EXCESSIVE_PRIVILEGES_FOR_OTHERS,
     )
