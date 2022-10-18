@@ -74,6 +74,27 @@ async def get_toe_input_item(request: ToeInputRequest) -> Item:
     return {**response.items[0], "group_name": request.group_name}
 
 
+async def get_toe_inputs_items_by_group(group_name: str) -> tuple[Item, ...]:
+    facet = TABLE.facets["toe_input_metadata"]
+    primary_key = keys.build_key(
+        facet=facet,
+        values={"group_name": group_name},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.sort_key.replace("#ROOT#COMPONENT#ENTRYPOINT", "")
+            )
+        ),
+        facets=(TABLE.facets["toe_input_metadata"],),
+        table=TABLE,
+    )
+
+    return tuple(response.items)
+
+
 async def _get_toe_input(request: ToeInputRequest) -> ToeInput:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_metadata"],

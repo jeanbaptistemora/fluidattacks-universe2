@@ -60,6 +60,7 @@ from db_model import (
     enrollment as enrollment_model,
     group_access as group_access_model,
     groups as groups_model,
+    toe_inputs as toe_inputs_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
@@ -110,6 +111,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
+)
+from db_model.toe_inputs.get import (
+    get_toe_inputs_items_by_group,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -169,6 +173,9 @@ from organizations import (
     domain as orgs_domain,
 )
 import re
+from redshift import (
+    toe_inputs as redshift_toe_inputs,
+)
 from roots import (
     domain as roots_domain,
 )
@@ -440,12 +447,6 @@ async def remove_group(
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
-    if FI_ENVIRONMENT == "development":
-        await remove_resources(
-            loaders=loaders,
-            group_name=group_name,
-            user_email=user_email,
-        )
     if validate_pending_actions:
         cancelable_actions = {
             Action.EXECUTE_MACHINE.value,
@@ -483,6 +484,13 @@ async def remove_group(
                 for action in actions_to_delete
                 if action.batch_job_id
             ]
+        )
+
+    if FI_ENVIRONMENT == "development":
+        await remove_resources(
+            loaders=loaders,
+            group_name=group_name,
+            user_email=user_email,
         )
     await batch_dal.put_action(
         action=Action.REMOVE_GROUP_RESOURCES,
@@ -1330,6 +1338,9 @@ async def remove_resources(
         other="",
         reason="GROUP_DELETED",
     )
+    toe_inputs_items = await get_toe_inputs_items_by_group(group_name)
+    await redshift_toe_inputs.insert_batch_metadata(items=toe_inputs_items)
+    await toe_inputs_model.remove_items(items=toe_inputs_items)
 
 
 async def remove_user(
