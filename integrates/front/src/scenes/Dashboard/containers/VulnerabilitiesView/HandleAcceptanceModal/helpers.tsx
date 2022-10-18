@@ -7,6 +7,7 @@
 import type {
   ApolloError,
   FetchResult,
+  InternalRefetchQueriesInclude,
   MutationFunctionOptions,
   MutationHookOptions,
 } from "@apollo/client";
@@ -53,7 +54,7 @@ const onTreatmentChangeHelper = (
 const acceptanceProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  findingId: string
+  findingId?: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IHandleVulnerabilitiesAcceptanceResultAttr): void => {
@@ -88,22 +89,25 @@ const acceptanceProps = (
         }
       });
     },
-    refetchQueries: [
-      {
-        query: GET_FINDING_AND_GROUP_INFO,
-        variables: {
-          findingId,
-        },
-      },
-    ],
+    refetchQueries: (): InternalRefetchQueriesInclude =>
+      findingId === undefined
+        ? []
+        : [
+            {
+              query: GET_FINDING_AND_GROUP_INFO,
+              variables: {
+                findingId,
+              },
+            },
+          ],
   };
 };
 
 const confirmZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  findingId: string,
-  groupName: string
+  groupName: string,
+  findingId?: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IConfirmVulnZeroRiskResultAttr): void => {
@@ -129,29 +133,32 @@ const confirmZeroRiskProps = (
         }
       });
     },
-    refetchQueries: [
-      {
-        query: GET_FINDING_AND_GROUP_INFO,
-        variables: {
-          findingId,
-          groupName,
-        },
-      },
-      {
-        query: GET_FINDING_HEADER,
-        variables: {
-          findingId,
-        },
-      },
-    ],
+    refetchQueries: (): InternalRefetchQueriesInclude =>
+      findingId === undefined
+        ? []
+        : [
+            {
+              query: GET_FINDING_AND_GROUP_INFO,
+              variables: {
+                findingId,
+                groupName,
+              },
+            },
+            {
+              query: GET_FINDING_HEADER,
+              variables: {
+                findingId,
+              },
+            },
+          ],
   };
 };
 
 const rejectZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  findingId: string,
-  groupName: string
+  groupName: string,
+  findingId?: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
@@ -177,27 +184,30 @@ const rejectZeroRiskProps = (
         }
       });
     },
-    refetchQueries: [
-      {
-        query: GET_FINDING_AND_GROUP_INFO,
-        variables: {
-          findingId,
-          groupName,
-        },
-      },
-      {
-        query: GET_FINDING_HEADER,
-        variables: {
-          findingId,
-        },
-      },
-      {
-        query: GET_FINDING_LOCATIONS,
-        variables: {
-          findingId,
-        },
-      },
-    ],
+    refetchQueries: (): InternalRefetchQueriesInclude =>
+      findingId === undefined
+        ? []
+        : [
+            {
+              query: GET_FINDING_AND_GROUP_INFO,
+              variables: {
+                findingId,
+                groupName,
+              },
+            },
+            {
+              query: GET_FINDING_HEADER,
+              variables: {
+                findingId,
+              },
+            },
+            {
+              query: GET_FINDING_LOCATIONS,
+              variables: {
+                findingId,
+              },
+            },
+          ],
   };
 };
 

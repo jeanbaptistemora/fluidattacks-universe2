@@ -84,11 +84,11 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
       CONFIRM_VULNERABILITIES_ZERO_RISK,
-      confirmZeroRiskProps(refetchData, handleCloseModal, findingId, groupName)
+      confirmZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
     );
     const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
       REJECT_VULNERABILITIES_ZERO_RISK,
-      rejectZeroRiskProps(refetchData, handleCloseModal, findingId, groupName)
+      rejectZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
     );
 
     function getInitialTreatment(
