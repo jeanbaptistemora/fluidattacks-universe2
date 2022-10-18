@@ -23,6 +23,7 @@ from forces.utils.function import (
     shield,
 )
 from forces.utils.logs import (
+    blocking_log,
     log,
     log_banner,
     LogInterface,
@@ -37,6 +38,9 @@ from io import (
 import re
 import sys
 import textwrap
+from time import (
+    sleep,
+)
 
 # Constants
 USER_PATTERN = r"forces.(?P<group>\w+)@fluidattacks.com"
@@ -143,18 +147,26 @@ def main(
         aioextensions.PROCESS_POOL.initialize(max_workers=1)
         aioextensions.THREAD_POOL.initialize(max_workers=1)
 
-        result = run(
-            main_wrapped(
-                token=token,
-                verbose=verbose,
-                strict=strict,
-                output=output,
-                repo_path=repo_path,
-                kind=kind,
-                repo_name=repo_name,
-                local_breaking=breaking,
-            )
-        )
+        result: int = 1
+        for _ in range(6):
+            try:
+                result = run(
+                    main_wrapped(
+                        token=token,
+                        verbose=verbose,
+                        strict=strict,
+                        output=output,
+                        repo_path=repo_path,
+                        kind=kind,
+                        repo_name=repo_name,
+                        local_breaking=breaking,
+                    )
+                )
+            except RuntimeError as err:
+                blocking_log(
+                    "warning", "An error ocurred: %s. Retrying...", err
+                )
+                sleep(10.0)
 
         sys.exit(result)
     finally:
