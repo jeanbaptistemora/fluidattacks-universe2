@@ -349,7 +349,7 @@ already assigned,
 it is shown what percentage
 are Open or Close.
 
-![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1660756441/docs/web/analytics/common/status_assigned_vuln.png)
+![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666130296/docs/web/analytics/common/status_of_assigned_vulnerabilities.png)
 
 ## Sprint exposure change overall
 
