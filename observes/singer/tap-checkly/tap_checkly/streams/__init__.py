@@ -56,7 +56,7 @@ from tap_checkly.objs import (
     IndexedObj,
 )
 from tap_checkly.singer import (
-    ObjsEncoders,
+    encoders,
 )
 from tap_checkly.singer._checks.results.records import (
     encode_result,
@@ -140,22 +140,20 @@ class Streams:
 
     def all_checks(self) -> Cmd[None]:
         client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
-        schemas = ObjsEncoders.checks.schemas.map(
+        schemas = encoders.checks.schemas.map(
             lambda s: emitter.emit(sys.stdout, s)
         ).transform(PIterTransform.consume)
         return schemas + _emit_stream(
-            client.list_checks()
-            .map(ObjsEncoders.checks.record)
-            .transform(chain)
+            client.list_checks().map(encoders.checks.record).transform(chain)
         )
 
     def check_groups(self) -> Cmd[None]:
         client = CheckGroupClient.new(self.creds, 100)
-        schemas = ObjsEncoders.groups.schemas.map(
+        schemas = encoders.groups.schemas.map(
             lambda s: emitter.emit(sys.stdout, s)
         ).transform(PIterTransform.consume)
         return schemas + _emit_stream(
-            client.list_all().map(ObjsEncoders.groups.record).transform(chain)
+            client.list_all().map(encoders.groups.record).transform(chain)
         )
 
     def check_results(self) -> Cmd[None]:
@@ -173,11 +171,11 @@ class Streams:
 
     def alert_chs(self) -> Cmd[None]:
         client = AlertChannelsClient.new(self.creds, 100)
-        schemas = ObjsEncoders.alerts.schemas.map(
+        schemas = encoders.alerts.schemas.map(
             lambda s: emitter.emit(sys.stdout, s)
         ).transform(PIterTransform.consume)
         return schemas + _emit_stream(
-            client.list_all().map(ObjsEncoders.alerts.record).transform(chain),
+            client.list_all().map(encoders.alerts.record).transform(chain),
         )
 
 

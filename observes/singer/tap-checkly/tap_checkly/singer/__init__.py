@@ -21,6 +21,9 @@ from tap_checkly.objs import (
     CheckGroupObj,
     CheckObj,
 )
+from typing import (
+    NamedTuple,
+)
 
 
 @dataclass(frozen=True)
@@ -30,10 +33,9 @@ class ObjsEncoders:
     groups: ObjEncoder[CheckGroupObj]
 
 
-def encoders() -> ObjsEncoders:
-    return ObjsEncoders(
-        _checks.encoder, _alert_channels.encoder, _groups.encoder
-    )
+encoders = ObjsEncoders(
+    _checks.encoder, _alert_channels.encoder, _groups.encoder
+)
 
 
 __all__ = [
