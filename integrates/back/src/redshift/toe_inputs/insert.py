@@ -22,6 +22,7 @@ from dynamodb.types import (
 )
 from redshift.operations import (
     execute,
+    execute_batch,
 )
 
 
@@ -32,6 +33,22 @@ async def insert_metadata(
     _fields, values = format_query_fields(MetadataTableRow)
     sql_values = format_row_metadata(item)
     await execute(
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_metadata(
+    *,
+    items: tuple[Item, ...],
+) -> None:
+    _fields, values = format_query_fields(MetadataTableRow)
+    sql_values = [format_row_metadata(finding) for finding in items]
+    await execute_batch(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
             fields=_fields,
