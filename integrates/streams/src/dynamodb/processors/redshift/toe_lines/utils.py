@@ -8,18 +8,14 @@ from datetime import (
 from dynamodb.types import (
     Item,
 )
+import hashlib
 
 
 def format_row_metadata(
     item: Item,
 ) -> Item:
     return dict(
-        id=hash(
-            (
-                item["root_id"],
-                item["filename"],
-            )
-        ),
+        id=hashlib.sha256(item["sk"].encode("utf-8")).hexdigest(),
         attacked_at=datetime.fromisoformat(item["attacked_at"])
         if item.get("attacked_at")
         else None,

@@ -5,6 +5,8 @@
 
 from . import (
     findings as findings_ops,
+    toe_inputs as toe_inputs_ops,
+    toe_lines as toe_lines_ops,
     vulnerabilities as vulns_ops,
 )
 from .operations import (
@@ -91,6 +93,34 @@ def process_findings(records: tuple[Record, ...]) -> None:
         for key, items in _get_items_iterator(records, "VERIFICATION#"):
             finding_id = str(key).split("#")[1]
             _process_finding_verification(cursor, finding_id, list(items))
+
+
+def process_toe_inputs(records: tuple[Record, ...]) -> None:
+    with db_cursor() as cursor:
+        metadata_items: list[Item] = [
+            record.old_image for record in records if record.old_image
+        ]
+        for item in metadata_items:
+            toe_inputs_ops.insert_metadata(cursor=cursor, item=item)
+            LOGGER.info(
+                "Toe inputs metadata stored, sk: %s, group: %s",
+                item["sk"],
+                item["group_name"],
+            )
+
+
+def process_toe_lines(records: tuple[Record, ...]) -> None:
+    with db_cursor() as cursor:
+        metadata_items: list[Item] = [
+            record.old_image for record in records if record.old_image
+        ]
+        for item in metadata_items:
+            toe_lines_ops.insert_metadata(cursor=cursor, item=item)
+            LOGGER.info(
+                "Toe lines metadata stored, sk: %s, group: %s",
+                item["sk"],
+                item["group_name"],
+            )
 
 
 def _process_vulnerability_metadata(cursor: cursor_cls, item: Item) -> None:
