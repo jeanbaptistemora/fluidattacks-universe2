@@ -1,0 +1,11 @@
+---
+lib_root.f148.cs_insecure_channel:
+  en: Customer information is transmitted
+    over a channel that does not use
+    encryption, so credentials and confidential
+    information can be captured in plain text.
+  es: La información de los clientes es
+    transmitida por un canal que no usa
+    cifrado, por lo cual pueden ser
+    capturadas en texto plano credenciales
+    e información confidencial.

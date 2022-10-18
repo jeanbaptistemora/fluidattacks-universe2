@@ -24000,6 +24000,24 @@ F250,lines,namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volum
   17 | }
      ^ Col 0
 ",terraform.tfm_ebs_unencrypted_volumes
+F148,lines,namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs,8,319,skims,148. Use of an insecure channel - FTP,"Customer information is transmitted over a channel that does not use encryption, so credentials and confidential information can be captured in plain text. in namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs","
+   1 | sing System;
+   2 | ystem.Net;
+   3 | ystem.Net.FtpClient;
+   4 |
+   5 | ce Examples {
+   6 | lic static class ConnectExample {
+   7 |  public static void Connect() {
+>  8 |      using (FtpClient conn = new FtpClient()) {
+   9 |          conn.Host = ""localhost"";
+  10 |          conn.Credentials = new NetworkCredential(""ftptest"", ""ftptest"");
+  11 |          conn.Connect();
+  12 |      }
+  13 |  }
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.cs_insecure_channel
 F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,11,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
    1 | import java.net.URI;
    2 | import java.net.URISyntaxException;
