@@ -23,6 +23,13 @@ from typing import (
     Dict,
     List,
 )
+from unittest import (
+    mock,
+)
+
+pytestmark = [
+    pytest.mark.asyncio,
+]
 
 
 def test_get_percent() -> None:
@@ -292,9 +299,15 @@ def test_common_generate_count_report(
 async def test_send_mail_numerator_report(
     content: Dict[str, Any],
 ) -> None:
-    await _send_mail_report(
-        loaders=get_new_context(),
-        content=content,
-        report_date="2022-07-08T06:00:00+00:00",  # type: ignore
-        responsible="integratesmanager@gmail.com",
-    )
+    with mock.patch(
+        "schedulers.numerator_report_digest.mail_numerator_report",
+        new_callable=mock.AsyncMock,
+    ) as mock_mail_numerator_report:
+        mock_mail_numerator_report.return_value = True
+        await _send_mail_report(
+            loaders=get_new_context(),
+            content=content,
+            report_date="2022-07-08T06:00:00+00:00",  # type: ignore
+            responsible="integratesmanager@gmail.com",
+        )
+    assert mock_mail_numerator_report.called is True

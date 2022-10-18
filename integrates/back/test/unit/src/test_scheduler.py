@@ -115,13 +115,6 @@ async def test_get_status_vulns_by_time_range() -> None:
     )
 
 
-def test_create_weekly_date() -> None:
-    first_date = "2019-09-19 13:23:32"
-    test_data = update_indicators.create_weekly_date(first_date)
-    expected_output = "Sep 16 - 22, 2019"
-    assert test_data == expected_output
-
-
 async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"
@@ -233,15 +226,6 @@ async def test_get_first_week_dates() -> None:
     vulns = await loaders.finding_vulnerabilities.load(finding_id)
     test_data = update_indicators.get_first_week_dates(vulns)
     expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
-    assert test_data == expected_output
-
-
-async def test_get_date_last_vulns() -> None:
-    loaders: Dataloaders = get_new_context()
-    finding_id = "422286126"
-    vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    test_data = update_indicators.get_date_last_vulns(vulns)
-    expected_output = "2020-09-07 16:01:26"
     assert test_data == expected_output
 
 
