@@ -37,11 +37,13 @@ from syntax_graph.syntax_readers.javascript import (
     switch_case as javascript_switch_case,
     switch_statement as javascript_switch_statement,
     this as javascript_this,
+    throw_statement as javascript_throw_statement,
     try_statement as javascript_try_statement,
     unary_expression as javascript_unary_expression,
     update_expression as javascript_update_expression,
     variable_declaration as javascript_variable_declaration,
     while_statement as javascript_while_statement,
+    yield_expression as javascript_yield_expression,
 )
 from syntax_graph.syntax_readers.typescript import (
     ambient_declaration as typescript_ambient_declaration,
@@ -292,6 +294,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "function_declaration",
+            "generator_function_declaration",
             "method_definition",
         },
         syntax_reader=javascript_method_declaration.reader,
@@ -431,6 +434,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "throw_statement",
+        },
+        syntax_reader=javascript_throw_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "try_statement",
         },
         syntax_reader=javascript_try_statement.reader,
@@ -492,5 +501,11 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "while_statement",
         },
         syntax_reader=javascript_while_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "yield_expression",
+        },
+        syntax_reader=javascript_yield_expression.reader,
     ),
 )
