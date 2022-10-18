@@ -84,20 +84,25 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         if (errorObject.values.length > 0 || errorObject.keys.length > 0) {
           const listValuesFormated: string[] = Array.from(
             new Set(
-              errorObject.values.map((valX: string): string =>
-                t("searchFindings.tabVuln.alerts.uploadFile.value", {
-                  pattern: valX,
-                })
-              )
+              errorObject.values.map((valX: string): string => {
+                return t("searchFindings.tabVuln.alerts.uploadFile.value", {
+                  path: valX[1],
+                  pattern: valX[0],
+                });
+              })
             )
           );
           const listKeysFormated: string[] = Array.from(
             new Set(
-              errorObject.keys.map((valY: string): string =>
-                t("searchFindings.tabVuln.alerts.uploadFile.key", {
-                  key: valY,
-                })
-              )
+              errorObject.keys.map((valY: string): string => {
+                const key = valY.split(",")[0].trim();
+                const path = valY.split(",")[1].trim();
+
+                return t("searchFindings.tabVuln.alerts.uploadFile.key", {
+                  key,
+                  path,
+                });
+              })
             )
           );
           msgErrorStick(
