@@ -13,6 +13,7 @@ from .common import (
 import authz
 from context import (
     BASE_URL,
+    FI_MAIL_CUSTOMER_EXPERIENCE,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_PRODUCTION,
     FI_MAIL_REVIEWERS,
@@ -86,9 +87,11 @@ async def send_mail_free_trial_start(
         ),
         template_name="free_trial",
     )
+    enrolled_email_to: list = FI_MAIL_PRODUCTION.split(",")
+    enrolled_email_to.extend(FI_MAIL_CUSTOMER_EXPERIENCE.split(","))
     await send_mails_async(
         loaders,
-        email_to=FI_MAIL_PRODUCTION.split(","),
+        email_to=enrolled_email_to,
         context=context,
         tags=[],
         subject=f"[ARM] New enrolled user [{email_to}]",
