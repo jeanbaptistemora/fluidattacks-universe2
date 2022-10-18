@@ -30,7 +30,7 @@ def choose_min_breaking_severity(
 
 
 async def set_forces_exit_code(
-    config: ForcesConfig, findings: list[Finding]
+    config: ForcesConfig, findings: tuple[Finding, ...]
 ) -> int:
     if config.strict:
         await log(

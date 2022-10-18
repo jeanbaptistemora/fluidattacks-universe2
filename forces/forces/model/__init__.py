@@ -13,6 +13,7 @@ from .finding import (
     FindingState,
 )
 from .report import (
+    ForcesData,
     ForcesReport,
     ReportSummary,
     SummaryItem,
@@ -27,6 +28,7 @@ __all__ = [
     "Finding",
     "FindingState",
     "ForcesConfig",
+    "ForcesData",
     "ForcesReport",
     "KindEnum",
     "ReportSummary",

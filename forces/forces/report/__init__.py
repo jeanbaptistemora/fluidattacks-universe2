@@ -13,6 +13,7 @@ from forces.apis.integrates.api import (
 from forces.model import (
     Finding,
     ForcesConfig,
+    ForcesData,
     ForcesReport,
     KindEnum,
     ReportSummary,
@@ -129,7 +130,7 @@ def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
 
 
 def format_rich_report(
-    report: dict[str, list[Finding] | ReportSummary],
+    report: ForcesData,
     verbose_level: int,
     kind: KindEnum,
 ) -> ForcesReport:
@@ -154,8 +155,7 @@ def format_rich_report(
     last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data")
-    findings: list[Finding] = report["findings"]  # type: ignore
-    for find in findings:
+    for find in report.findings:
         if find.vulnerabilities:
             find_summary: Counter = Counter(
                 [vuln.state for vuln in find.vulnerabilities]
@@ -201,16 +201,17 @@ def format_rich_report(
                         ),
                         end_section=key == last_key,
                     )
-    # Summary report table
-    summary: ReportSummary = report["summary"]  # type: ignore
-    summary_table = format_summary_report(summary, kind)
-    return ForcesReport(findings_report=report_table, summary=summary_table)
+
+    summary_table = format_summary_report(report.summary, kind)
+    return ForcesReport(
+        findings_report=report_table, summary_report=summary_table
+    )
 
 
 async def generate_raw_report(
     config: ForcesConfig,
     **kwargs: Any,
-) -> dict[str, list[Finding] | ReportSummary]:
+) -> ForcesData:
     """
     Generate a group vulnerability report.
 
@@ -218,7 +219,7 @@ async def generate_raw_report(
     """
     _start_time: float = timer()
 
-    raw_report: dict[str, list[Finding] | ReportSummary] = {"findings": []}
+    raw_report: dict[str, list[Finding]] = {"findings": []}
     _summary_dict: dict[VulnerabilityState, dict[str, int]] = {
         VulnerabilityState.OPEN: {"DAST": 0, "SAST": 0, "total": 0},
         VulnerabilityState.CLOSED: {"DAST": 0, "SAST": 0, "total": 0},
@@ -274,9 +275,9 @@ async def generate_raw_report(
         findings_dict[find_id].vulnerabilities.append(vulnerability)
 
     for find in findings_dict.values():
-        raw_report["findings"].append(find)  # type: ignore
+        raw_report["findings"].append(find)
 
-    raw_report["summary"] = ReportSummary(
+    summary = ReportSummary(
         open=SummaryItem(
             dast=_summary_dict[VulnerabilityState.OPEN]["DAST"],
             sast=_summary_dict[VulnerabilityState.OPEN]["SAST"],
@@ -298,4 +299,4 @@ async def generate_raw_report(
         elapsed_time=f"{(timer() - _start_time):.4f} seconds",
     )
 
-    return raw_report
+    return ForcesData(findings=tuple(raw_report["findings"]), summary=summary)

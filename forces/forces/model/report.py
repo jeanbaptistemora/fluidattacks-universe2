@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from forces.model.finding import (
+    Finding,
+)
 from rich.table import (
     Table,
 )
@@ -24,6 +27,11 @@ class ReportSummary(NamedTuple):
     total: int
 
 
+class ForcesData(NamedTuple):
+    findings: tuple[Finding, ...]
+    summary: ReportSummary
+
+
 class ForcesReport(NamedTuple):
     findings_report: Table
-    summary: Table
+    summary_report: Table

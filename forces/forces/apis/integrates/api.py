@@ -13,6 +13,7 @@ from forces.apis.integrates.client import (
     execute,
 )
 from forces.model import (
+    ForcesData,
     VulnerabilityState,
 )
 from forces.utils.env import (
@@ -220,7 +221,7 @@ async def vulns_generator(
 @SHIELD
 async def upload_report(
     group: str,
-    report: dict[str, Any],
+    report: ForcesData,
     log_file: str,
     git_metadata: dict[str, str],
     severity_threshold: float,
@@ -285,14 +286,14 @@ async def upload_report(
             }
         }
         """
-    open_vulns: list[dict[str, str]] = []
-    closed_vulns: list[dict[str, str]] = []
-    accepted_vulns: list[dict[str, str]] = []
+    open_vulns: list[dict[str, float | str]] = []
+    closed_vulns: list[dict[str, float | str]] = []
+    accepted_vulns: list[dict[str, float | str]] = []
     for vuln in [
-        vuln for find in report["findings"] for vuln in find.vulnerabilities
+        vuln for find in report.findings for vuln in find.vulnerabilities
     ]:
-        vuln_state = {
-            "kind": vuln.type,
+        vuln_state: dict[str, float | str] = {
+            "kind": str(vuln.type.value),
             "who": vuln.specific,
             "where": vuln.where,
             "state": str(vuln.state.value).upper(),

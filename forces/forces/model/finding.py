@@ -14,15 +14,11 @@ from typing import (
 
 
 class FindingState(str, Enum):
-    """Enum to represent the possible Finding states"""
-
     OPEN: str = "open"
     CLOSED: str = "closed"
 
 
 class Finding(NamedTuple):
-    """Data structure to represent a Finding"""
-
     identifier: str
     title: str
     state: FindingState

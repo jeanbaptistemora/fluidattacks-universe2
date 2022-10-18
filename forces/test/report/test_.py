@@ -6,7 +6,6 @@ from forces.model import (
     Finding,
     ForcesConfig,
     KindEnum,
-    ReportSummary,
     Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
@@ -43,31 +42,7 @@ async def test_create_findings_dict(
 
 
 @pytest.mark.asyncio
-async def test_generate_report1(
-    test_group: str,
-    test_token: str,
-    test_finding: str,
-) -> None:
-    config = ForcesConfig(group=test_group)
-    report = await generate_raw_report(
-        config=config,
-        api_token=test_token,
-    )
-    summary: ReportSummary = report["summary"]  # type: ignore
-    assert summary.total == 9
-    assert summary.open.total == 7
-    assert summary.closed.total == 2
-
-    findings: list[Finding] = [
-        find  # type: ignore
-        for find in report["findings"]
-        if find.identifier == test_finding  # type: ignore
-    ]
-    assert len(findings) == 1
-
-
-@pytest.mark.asyncio
-async def test_generate_report2(
+async def test_generate_report(
     test_group: str,
     test_token: str,
     test_finding: str,
@@ -78,16 +53,20 @@ async def test_generate_report2(
         api_token=test_token,
     )
     find: Finding = next(
-        find
-        for find in report["findings"]  # type: ignore
-        if find.identifier == test_finding  # type: ignore
+        find for find in report.findings if find.identifier == test_finding
     )
     assert len(find.vulnerabilities) == 5
-    assert report["summary"].total == sum(  # type: ignore
-        [
-            len(finding.vulnerabilities)  # type: ignore
-            for finding in report["findings"]
-        ]
+
+    identifiers: set[str] = {find.identifier for find in report.findings}
+    assert len(identifiers) == len(report.findings)
+
+    assert report.summary.open.total == 7
+    assert report.summary.closed.total == 2
+    assert report.summary.accepted.total == 0
+    assert (
+        report.summary.total
+        == sum([len(finding.vulnerabilities) for finding in report.findings])
+        == 9
     )
 
 
