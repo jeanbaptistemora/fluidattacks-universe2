@@ -97,7 +97,7 @@ over other alternatives are:
 1. [AWS Athena](https://aws.amazon.com/athena/):
     It is a [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service)
     database, meaning that no infrastructure
-    maintainance is required.
+    maintenance is required.
     Its [pricing model](https://aws.amazon.com/athena/pricing/)
     is based on the
     `number of TBs of data scaned by each query`,
@@ -107,25 +107,25 @@ over other alternatives are:
 1. [Google BigQuery](https://cloud.google.com/bigquery):
     Pending to review.
 1. [Snowflake](https://www.snowflake.com/):
-    Pending to review.
+    Very similar to redshift; it offers no infrastructure
+    maintenance and high scalability.
+    The pricing model is pay-by-use increasing the costs when
+    the database is at high pressure (queried very often).
 
 ## Usage
 
 1. We use [Redshift][REDSHIFT]
     for storing data
     from [many of our services](https://gitlab.com/fluidattacks/universe/-/tree/56b145a05ca4ff05cec79a65c6b1cab16d16fba3/observes/singer)
-    and then visualizing it using [ChartIO](https://chartio.com/).
+    and then visualizing it using [Grow](https://app.gogrow.com).
 1. Our [Redshift][REDSHIFT] architecture
     is not documented.
     Pending to implement.
 1. Our [Redshift][REDSHIFT] cluster
-    is not written as code
-    using [Terraform](/development/stack/terraform/).
-    Pending to implement.
+    is written as code using [Terraform](/development/stack/terraform/).
 1. Our [Redshift][REDSHIFT]
-    is not encrypted at rest
+    is encrypted at rest
     using [KMS](/development/stack/aws/kms/).
-    Pending to implement.
 
 ## Guidelines
 

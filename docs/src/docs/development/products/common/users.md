@@ -14,8 +14,6 @@ slug: /development/common/users
    and can access the keys of other less privileged roles,
    `prod_common` being the super-admin,
    and `dev` the less privileged user)
-1. There is a `snowflake-user` user with a corresponding access key
-   and the access key value doesn't change.
 1. There is an `erika.bayona` user.
 1. The ARN of the previous entities
    (IAM roles, IAM users, and KMS keys)
@@ -42,8 +40,7 @@ slug: /development/common/users
 
    We have one external user
    as part of our subscription with [Clouxter](https://clouxter.com/)
-   called `erika.bayona`,
-   and a user for accessing Snowflake by Amazon Web Services (AWS).
+   called `erika.bayona`.
 
 1. Secrets are encrypted
    and managed with [Mozilla's Secrets OPerationS (SOPS)](/development/stack/sops).
