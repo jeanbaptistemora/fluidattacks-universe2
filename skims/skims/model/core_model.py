@@ -4135,6 +4135,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    BASH_EXCESSIVE_PRIVILEGES_FOR_OTHERS = MethodInfo(
+        file_name="bash",
+        name="excessive_privileges_for_others",
+        module="lib_path",
+        finding=FindingEnum.F405,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_EFS_UNENCRYPTED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_efs_unencrypted",

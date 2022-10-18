@@ -1,0 +1,6 @@
+---
+lib_root.f405.excessive_privileges_for_others:
+  en: The system files or directories have an access mode too permissive
+  es: >-
+    Los archivos o directorios del sistema
+    cuentan con un modo de acceso demasiado permisivo.
