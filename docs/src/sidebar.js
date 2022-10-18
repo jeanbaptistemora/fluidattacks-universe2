@@ -137,9 +137,7 @@ const About = [
   {
     type: "category",
     label: "Compare",
-    items: [
-      "about/compare/faraday",
-    ],
+    items: ["about/compare/faraday"],
   },
 ];
 
@@ -410,8 +408,8 @@ const Development = [
             label: "Guidelines",
             items: [
               "development/products/integrates/guidelines/front",
+              "development/products/integrates/guidelines/async-python",
               "development/products/integrates/guidelines/graphql-api",
-              "development/products/integrates/guidelines/writing-code-suggestions",
             ],
           },
         ],

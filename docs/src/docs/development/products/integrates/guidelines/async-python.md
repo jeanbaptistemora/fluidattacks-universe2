@@ -1,7 +1,7 @@
 ---
-id: writing-code-suggestions
-title: Writing fast and concurrent code, even at architectural windward
-sidebar_label: Writing fast and concurrent code, even at architectural windward
+id: async-python
+title: Asynchronous Python
+sidebar_label: Asynchronous Python
 slug: /development/writing-code-suggestions
 ---
 
@@ -18,16 +18,22 @@ however,
 catchy because:
 
 - Writing async/await statements
-    do not make your code faster
+  do not make your code faster
 - Writing async/await statements
-    do not make your code concurrent
+  do not make your code concurrent
 
 This has to be done intelligently
 taking into account the concepts
 and using high-level language features
 that I'll explain below.
 
-## **The current architecture**
+We currently use
+[Aioextensions](https://pypi.org/project/aioextensions/)
+for simplifying the use of async python in our code.
+They have very good docs over there,
+so please read them.
+
+## The current architecture
 
 There are N **main** event loops,
 each one is a separate thread
@@ -49,12 +55,12 @@ by adding nodes to the cluster,
 and processes into the ASGI
 depending on the resources of every instance
 
-## **Blocking tasks**
+## Blocking tasks
 
 Everything you are used to,
 code runs sequentially,
 and do not let the main event loop
-do other things in the mean time:
+do other things in the meantime:
 
 ```py
 import time
@@ -122,7 +128,7 @@ not being able to handle incoming requests
 from other people (it's blocked!)
 which means performance bottlenecks.
 
-## **Blocking code examples**
+## Blocking code examples
 
 Boto3 is blocking,
 which means all our current access to the database
@@ -144,7 +150,7 @@ python code is synchronous (blocking)
 The way to avoid blocking
 the main event loop
 is to dispatch it into the executor pools
-with `sync_to_async`.
+with `aioextensions.in_thread`.
 These executor pools may get blocked too
 and work in FIFO mode
 when they are blocked,
@@ -156,16 +162,19 @@ but they are better than nothing.
 Example:
 
 ```py
-from asgiref.sync import sync_to_async
+import aioextensions
 
 async def _do_remove_evidence(...):
-    success = await \
-        sync_to_async(finding_domain.remove_evidence)(evidence_id, finding_id)
+    success = await aioextensions.in_thread(
+        finding_domain.remove_evidence,
+        evidence_id,
+        finding_id,
+    )
 
     return success
 ```
 
-## **Coroutines**
+## Coroutines
 
 When you call an `async def function`
 it returns a coroutine.
@@ -178,7 +187,7 @@ which means they are
 the same thing we are used to
 (slow serial classic code)
 
-## **Tasks**
+## Tasks
 
 This is where your code
 starts getting faster,
@@ -237,7 +246,7 @@ to write **really asynchronous code**.
 Code that can be run in the background,
 as long as it's non-blocking.
 
-## **Unleashing concurrency**
+## Unleashing concurrency
 
 Mix `asyncio.create_task`
 with `asyncio.gather`
