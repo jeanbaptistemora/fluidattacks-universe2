@@ -14,7 +14,6 @@ from fa_purity.json.value.transform import (
 )
 from tap_checkly.api2._utils import (
     ExtendedUnfolder,
-    isoparse,
 )
 from tap_checkly.objs import (
     Check,
@@ -101,16 +100,12 @@ class CheckDecoder:
                     .map(Unfolder)
                     .bind(lambda u: u.to_list_of(str).alt(Exception))
                     .bind(
-                        lambda locations: unfolder.require_primitive(
-                            "created_at", str
-                        )
-                        .bind(isoparse)
-                        .bind(
-                            lambda created_at: unfolder.require_primitive(
-                                "update_at", str
-                            )
-                            .bind(isoparse)
-                            .map(
+                        lambda locations: unfolder.require_datetime(
+                            "created_at"
+                        ).bind(
+                            lambda created_at: unfolder.opt_datetime(
+                                "update_at",
+                            ).map(
                                 lambda updated_at: Check(
                                     name,
                                     conf_1,

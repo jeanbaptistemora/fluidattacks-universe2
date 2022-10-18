@@ -53,64 +53,84 @@ _date_type = JSchemaFactory.datetime_schema()
 def _core_encoder_fx() -> SingerEncoder[CheckObj]:
     _mapper: Dict[str, EncodeItem[CheckObj]] = {
         "id": EncodeItem.new(
-            lambda x: x.id_obj.id_str, Property(_str_type, True, False)
+            lambda x: x.id_obj.id_str,
+            Property(_str_type, True, False),
+            CheckObj,
         ),
         "name": EncodeItem.new(
-            lambda x: x.obj.name, Property(_str_type, False, False)
+            lambda x: x.obj.name, Property(_str_type, False, False), CheckObj
         ),
         "created_at": EncodeItem.new(
             lambda x: x.obj.created_at.isoformat(),
             Property(_date_type, False, False),
+            CheckObj,
         ),
         "updated_at": EncodeItem.new(
-            lambda x: x.obj.updated_at.isoformat(),
-            Property(_date_type, False, False),
+            lambda x: x.obj.updated_at.map(lambda d: d.isoformat()).value_or(
+                None
+            ),
+            Property(JSchemaFactory.opt_datetime_schema(), False, False),
+            CheckObj,
         ),
         "activated": EncodeItem.new(
             lambda x: x.obj.conf_1.activated,
             Property(_bool_type, False, False),
+            CheckObj,
         ),
         "muted": EncodeItem.new(
-            lambda x: x.obj.conf_1.muted, Property(_bool_type, False, False)
+            lambda x: x.obj.conf_1.muted,
+            Property(_bool_type, False, False),
+            CheckObj,
         ),
         "double_check": EncodeItem.new(
             lambda x: x.obj.conf_1.double_check,
             Property(_bool_type, False, False),
+            CheckObj,
         ),
         "ssl_check": EncodeItem.new(
             lambda x: x.obj.conf_1.ssl_check,
             Property(_bool_type, False, False),
+            CheckObj,
         ),
         "should_fail": EncodeItem.new(
             lambda x: x.obj.conf_1.should_fail,
             Property(_bool_type, False, False),
+            CheckObj,
         ),
         "use_global_alert_settings": EncodeItem.new(
             lambda x: x.obj.conf_1.use_global_alert_settings,
             Property(_bool_type, False, False),
+            CheckObj,
         ),
         "runtime_ver": EncodeItem.new(
             lambda x: x.obj.conf_2.runtime_ver,
             Property(_str_type, False, False),
+            CheckObj,
         ),
         "check_type": EncodeItem.new(
             lambda x: x.obj.conf_2.check_type,
             Property(_str_type, False, False),
+            CheckObj,
         ),
         "frequency": EncodeItem.new(
-            lambda x: x.obj.conf_2.frequency, Property(_int_type, False, False)
+            lambda x: x.obj.conf_2.frequency,
+            Property(_int_type, False, False),
+            CheckObj,
         ),
         "frequency_offset": EncodeItem.new(
             lambda x: x.obj.conf_2.frequency_offset,
             Property(_int_type, False, False),
+            CheckObj,
         ),
         "degraded_response_time": EncodeItem.new(
             lambda x: x.obj.conf_2.degraded_response_time,
             Property(_int_type, False, False),
+            CheckObj,
         ),
         "max_response_time": EncodeItem.new(
             lambda x: x.obj.conf_2.max_response_time,
             Property(_int_type, False, False),
+            CheckObj,
         ),
     }
     return SingerEncoder.new(SingerStreams.checks.value, freeze(_mapper))
@@ -143,13 +163,17 @@ class LocationItem:
 def _locations_encoder_fx() -> SingerEncoder[LocationItem]:
     _mapper: Dict[str, EncodeItem[LocationItem]] = {
         "id": EncodeItem.new(
-            lambda x: x.check_id.id_str, Property(_str_type, True, False)
+            lambda x: x.check_id.id_str,
+            Property(_str_type, True, False),
+            LocationItem,
         ),
         "index": EncodeItem.new(
-            lambda x: x.index, Property(_int_type, True, False)
+            lambda x: x.index, Property(_int_type, True, False), LocationItem
         ),
         "location": EncodeItem.new(
-            lambda x: x.location, Property(_str_type, False, False)
+            lambda x: x.location,
+            Property(_str_type, False, False),
+            LocationItem,
         ),
     }
     return SingerEncoder.new(

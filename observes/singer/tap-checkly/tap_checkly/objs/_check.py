@@ -41,7 +41,7 @@ class Check:
     conf_2: CheckConf2
     locations: FrozenList[str]
     created_at: datetime
-    updated_at: datetime
+    updated_at: Maybe[datetime]
 
 
 @dataclass(frozen=True)

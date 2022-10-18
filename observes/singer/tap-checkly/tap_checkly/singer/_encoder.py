@@ -19,6 +19,8 @@ from fa_singer_io.singer import (
 from typing import (
     Callable,
     Generic,
+    Optional,
+    Type,
     TypeVar,
 )
 
@@ -42,5 +44,6 @@ class ObjEncoder(Generic[_T]):
     def new(
         schemas: PureIter[SingerSchema],
         records: Callable[[_T], PureIter[SingerRecord]],
+        _type: Optional[Type[_T]] = None,
     ) -> ObjEncoder[_T]:
         return ObjEncoder(schemas, _Patch(records))
