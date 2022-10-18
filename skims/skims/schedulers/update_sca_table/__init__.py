@@ -77,7 +77,7 @@ def clone_repo(url: str) -> Optional[str]:
 
 async def update_sca() -> None:
     # cloning repositories
-    log_blocking("info", "Cloning neccesary repositories")
+    log_blocking("info", "Cloning necessary repositories")
     tmp_repositories = [
         (fun, repo) for fun, url in REPOSITORIES if (repo := clone_repo(url))
     ]
@@ -88,7 +88,7 @@ async def update_sca() -> None:
         get_ad(advisories, repo)
 
     # adding to table
-    log_blocking("info", "Adding advisories to skima_sca table")
+    log_blocking("info", "Adding advisories to skims_sca table")
     to_storage: List[Advisory] = []
     for advisory in advisories:
         await advisories_model.add(
@@ -96,7 +96,7 @@ async def update_sca() -> None:
         )
 
     # adding to s3 bucket
-    log_blocking("info", "Adding advisories to skima.sca bucket")
+    log_blocking("info", "Adding advisories to skims.sca bucket")
     await s3_start_resource()
     await upload_advisories(to_storage)
     await s3_shutdown()

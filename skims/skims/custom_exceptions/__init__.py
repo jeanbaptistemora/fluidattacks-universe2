@@ -25,7 +25,7 @@ class AdvisoryAlreadyCreated(_SingleMessageException):
 
 
 class AdvisoryDoesNotExist(_SingleMessageException):
-    msg: str = "This advisory does not exists, use 'create' instead"
+    msg: str = "This advisory does not exists, use 'add' instead"
 
 
 class AdvisoryNotModified(_SingleMessageException):
@@ -57,7 +57,7 @@ class InvalidPatchItem(_SingleMessageException):
     msg: str = (
         "Invalid item, "
         "if 'add/update' then all attributes except 'source' are required, "
-        "if 'delete' then 'vulnerable_version', 'severity' are not required"
+        "if 'remove' then 'vulnerable_version', 'severity' are not required"
     )
 
 
