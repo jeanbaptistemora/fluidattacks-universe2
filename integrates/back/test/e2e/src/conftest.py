@@ -39,7 +39,7 @@ def branch() -> str:
 
 @pytest.fixture(autouse=True, scope="session")
 def jwt_secret() -> str:
-    return os.environ["JWT_SECRET"]
+    return os.environ["JWT_SECRET_NEW"]
 
 
 @pytest.fixture(autouse=True, scope="session")

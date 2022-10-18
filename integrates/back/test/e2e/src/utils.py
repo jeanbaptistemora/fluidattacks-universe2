@@ -27,7 +27,7 @@ from selenium.webdriver.support.ui import (
 )
 from session_token import (
     calculate_hash_token,
-    new_encoded_jwt,
+    encode_token,
 )
 
 
@@ -131,17 +131,20 @@ def login(
 ) -> None:
     driver.get(asm_endpoint)
     jti = calculate_hash_token()["jti"]
-    jwt_token: str = new_encoded_jwt(
-        dict(
+    expiration_time = int(
+        (datetime.utcnow() + timedelta(seconds=1800)).timestamp()
+    )
+    jwt_token: str = encode_token(
+        expiration_time=expiration_time,
+        jwt_encryption_key=jwt_encryption_key,
+        jwt_secret=jwt_secret,
+        payload=dict(
             user_email=credentials.user,
-            first_name="",
-            last_name="",
-            exp=datetime.utcnow() + timedelta(seconds=86400),
-            sub="test_e2e_session",
+            first_name="Test",
+            last_name="Session",
             jti=jti,
         ),
-        jwt_encryption_key,
-        jwt_secret,
+        subject="test_e2e_session",
     )
 
     driver.add_cookie(

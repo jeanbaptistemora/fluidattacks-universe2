@@ -11,7 +11,7 @@ function main {
     && aws_login "dev" "3600" \
     && sops_export_vars integrates/secrets/development.yaml \
       JWT_ENCRYPTION_KEY \
-      JWT_SECRET \
+      JWT_SECRET_NEW \
       STARLETTE_SESSION_KEY \
       TEST_E2E_USER_1 \
       TEST_E2E_USER_2 \

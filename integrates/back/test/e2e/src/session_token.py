@@ -22,6 +22,9 @@ from jwcrypto.jwe import (
 from jwcrypto.jwk import (
     JWK,
 )
+from jwcrypto.jwt import (
+    JWT,
+)
 import pytz
 import secrets
 from typing import (
@@ -132,3 +135,35 @@ def calculate_hash_token() -> Dict[str, str]:
         "jti": binascii.hexlify(jti_token).decode(),
         "salt": binascii.hexlify(salt).decode(),
     }
+
+
+def encode_token(
+    expiration_time: int,
+    jwt_encryption_key: str,
+    jwt_secret: str,
+    payload: Dict[str, Any],
+    subject: str,
+) -> str:
+    """Encrypts the payload into a jwe token and returns its encoded version"""
+    jws_key = JWK.from_json(jwt_secret)
+    jwe_key = JWK.from_json(jwt_encryption_key)
+    default_claims = dict(exp=expiration_time, sub=subject)
+    jwt_object = JWT(
+        default_claims=default_claims,
+        claims=JWE(
+            algs=[
+                "A256GCM",
+                "A256GCMKW",
+            ],
+            plaintext=json.dumps(payload).encode("utf-8"),
+            protected={
+                "alg": "A256GCMKW",
+                "enc": "A256GCM",
+            },
+            recipient=jwe_key,
+        ).serialize(),
+        header={"alg": "HS512"},
+    )
+    jwt_object.make_signed_token(jws_key)
+
+    return jwt_object.serialize()
