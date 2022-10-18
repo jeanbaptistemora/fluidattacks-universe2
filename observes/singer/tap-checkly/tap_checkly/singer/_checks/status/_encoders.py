@@ -108,7 +108,7 @@ def _core_encoder_fx() -> SingerEncoder[CheckStatusObj]:
             CheckStatusObj,
         ),
     }
-    return SingerEncoder.new(SingerStreams.checks.value, freeze(_mapper))
+    return SingerEncoder.new(SingerStreams.check_status.value, freeze(_mapper))
 
 
 _status_encoder = _core_encoder_fx()

@@ -7,6 +7,9 @@ from . import (
     _checks,
     _groups,
 )
+from ._checks import (
+    status,
+)
 from ._core import (
     SingerStreams,
 )
@@ -20,9 +23,7 @@ from tap_checkly.objs import (
     AlertChannelObj,
     CheckGroupObj,
     CheckObj,
-)
-from typing import (
-    NamedTuple,
+    CheckStatusObj,
 )
 
 
@@ -31,13 +32,15 @@ class ObjsEncoders:
     checks: ObjEncoder[CheckObj]
     alerts: ObjEncoder[AlertChannelObj]
     groups: ObjEncoder[CheckGroupObj]
+    status: ObjEncoder[CheckStatusObj]
 
 
 encoders = ObjsEncoders(
-    _checks.encoder, _alert_channels.encoder, _groups.encoder
+    _checks.encoder, _alert_channels.encoder, _groups.encoder, status.encoder
 )
 
 
 __all__ = [
+    "ObjEncoder",
     "SingerStreams",
 ]

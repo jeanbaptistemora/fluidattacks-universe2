@@ -45,6 +45,9 @@ from tap_checkly.api2.alert_channels import (
 from tap_checkly.api2.checks import (
     ChecksClient,
 )
+from tap_checkly.api2.checks.status import (
+    CheckStatusClient,
+)
 from tap_checkly.api2.groups import (
     CheckGroupClient,
 )
@@ -57,12 +60,14 @@ from tap_checkly.objs import (
 )
 from tap_checkly.singer import (
     encoders,
+    ObjEncoder,
 )
 from tap_checkly.singer._checks.results.records import (
     encode_result,
 )
 from typing import (
     Iterator,
+    TypeVar,
 )
 
 ALL = AllPages()
@@ -93,17 +98,6 @@ def all_chk_reports(api: ApiClient) -> Cmd[None]:
     )
 
 
-def all_chk_status(api: ApiClient) -> Cmd[None]:
-    stream = SupportedStreams.CHECK_STATUS
-
-    def action() -> None:
-        api.checks.list_check_status().map(
-            lambda status: _emitter.emit_records(stream, status.data)
-        )
-
-    return Cmd.from_cmd(action)
-
-
 def all_dashboards(api: ApiClient) -> Cmd[None]:
     return _stream_data(
         SupportedStreams.DASHBOARD,
@@ -132,29 +126,39 @@ def all_snippets(api: ApiClient) -> Cmd[None]:
     )
 
 
+_T = TypeVar("_T")
+
+
 @dataclass(frozen=True)
 class Streams:
     creds: Credentials
     old_date: datetime
     now: datetime
 
-    def all_checks(self) -> Cmd[None]:
-        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
-        schemas = encoders.checks.schemas.map(
+    @staticmethod
+    def _from_encoder(encoder: ObjEncoder[_T], items: Stream[_T]) -> Cmd[None]:
+        schemas = encoder.schemas.map(
             lambda s: emitter.emit(sys.stdout, s)
         ).transform(PIterTransform.consume)
         return schemas + _emit_stream(
-            client.list_checks().map(encoders.checks.record).transform(chain)
+            items.map(encoder.record).transform(chain)
         )
+
+    def alert_chs(self) -> Cmd[None]:
+        client = AlertChannelsClient.new(self.creds, 100)
+        return self._from_encoder(encoders.alerts, client.list_all())
+
+    def all_checks(self) -> Cmd[None]:
+        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
+        return self._from_encoder(encoders.checks, client.list_checks())
 
     def check_groups(self) -> Cmd[None]:
         client = CheckGroupClient.new(self.creds, 100)
-        schemas = encoders.groups.schemas.map(
-            lambda s: emitter.emit(sys.stdout, s)
-        ).transform(PIterTransform.consume)
-        return schemas + _emit_stream(
-            client.list_all().map(encoders.groups.record).transform(chain)
-        )
+        return self._from_encoder(encoders.groups, client.list_all())
+
+    def check_status(self) -> Cmd[None]:
+        client = CheckStatusClient.new(self.creds, 100)
+        return self._from_encoder(encoders.status, client.list_all())
 
     def check_results(self) -> Cmd[None]:
         client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
@@ -167,15 +171,6 @@ class Streams:
             )
             .map(encode_result)
             .transform(chain),
-        )
-
-    def alert_chs(self) -> Cmd[None]:
-        client = AlertChannelsClient.new(self.creds, 100)
-        schemas = encoders.alerts.schemas.map(
-            lambda s: emitter.emit(sys.stdout, s)
-        ).transform(PIterTransform.consume)
-        return schemas + _emit_stream(
-            client.list_all().map(encoders.alerts.record).transform(chain),
         )
 
 

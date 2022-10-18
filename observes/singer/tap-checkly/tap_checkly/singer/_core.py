@@ -12,6 +12,7 @@ from enum import (
 class SingerStreams(Enum):
     alert_channels = "alert_channels"
     checks = "checks"
+    check_status = "check_status"
     check_groups = "check_groups"
     check_groups_alerts = "check_groups_alerts"
     check_groups_locations = "check_groups_locations"
