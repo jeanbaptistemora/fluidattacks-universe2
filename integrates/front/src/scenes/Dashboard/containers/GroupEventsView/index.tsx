@@ -152,7 +152,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     useStoredState<ColumnFiltersState>("tblEvents-columnFilters", []);
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblEvents-visibilityState", {
-      Asignees: false,
+      Assignees: false,
       Locations: false,
       Treatment: false,
       description: false,

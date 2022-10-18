@@ -87,7 +87,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblFindings-visibilityState", {
-      Asignees: false,
+      Assignees: false,
       Locations: false,
       Treatment: false,
       description: false,
@@ -194,7 +194,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       accessorFn: (row: IFindingAttr): string[] =>
         Array.from(row.locationsInfo.treatmentAssignmentEmails.values()),
       filterFn: "arrIncludes",
-      header: "Asignees",
+      header: "Assignees",
       meta: { filterType: "select" },
     },
     {

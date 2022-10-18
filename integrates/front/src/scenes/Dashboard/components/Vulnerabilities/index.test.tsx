@@ -59,7 +59,7 @@ describe("VulnComponent", (): void => {
     },
     {
       accessorKey: "treatmentAssigned",
-      header: "Asignees",
+      header: "Assignees",
       meta: { filterType: "select" },
     },
   ];

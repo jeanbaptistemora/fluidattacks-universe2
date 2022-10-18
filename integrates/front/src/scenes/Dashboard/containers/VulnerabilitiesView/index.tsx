@@ -441,7 +441,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "treatmentAssigned",
-      header: "Asignees",
+      header: "Assignees",
       meta: { filterType: "select" },
     },
   ];
