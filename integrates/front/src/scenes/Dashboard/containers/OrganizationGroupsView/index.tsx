@@ -121,12 +121,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               ).length
             } need(s) attention`
           : "None";
+      const startDate: string = "N/A";
 
       return {
         ...group,
         description,
         eventFormat,
         plan,
+        startDate,
       };
     });
 
@@ -171,6 +173,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       },
       enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.events.text"),
+    },
+    {
+      accessorKey: "startDate",
+      header: "Start date",
     },
   ];
 

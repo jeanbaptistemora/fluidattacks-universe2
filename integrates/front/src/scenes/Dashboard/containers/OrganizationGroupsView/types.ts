@@ -13,6 +13,7 @@ interface IGroupData {
   machine: string;
   squad: string;
   service: string;
+  startDate: string;
   hasMachine: boolean;
   hasSquad: boolean;
   name: string;
