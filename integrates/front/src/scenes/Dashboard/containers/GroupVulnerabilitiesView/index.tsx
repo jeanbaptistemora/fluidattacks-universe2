@@ -276,7 +276,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             onSearch={handleSearch}
             onVulnSelect={openRemediationModal}
             refetchData={refetch}
-            vulnerabilities={vulnerabilities}
+            vulnerabilities={filterZeroRisk(vulnerabilities)}
           />
         </div>
         {isOpen && (
