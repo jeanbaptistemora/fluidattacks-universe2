@@ -33,6 +33,7 @@ from db_model.groups.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -183,11 +184,22 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     if not group_.state.has_squad:
         return Decimal("Infinity")
 
-    vulnerabilities: tuple[
+    all_vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
+    vulnerabilities: tuple[Vulnerability, ...] = tuple(
+        vulnerability
+        for vulnerability in all_vulnerabilities
+        if not vulnerability.treatment
+        or (
+            vulnerability.treatment
+            and vulnerability.treatment.status
+            != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        )
+    )
+
     filtered_reattack_vulnerabilities: tuple[Vulnerability, ...] = tuple(
         vulnerability
         for vulnerability in vulnerabilities
