@@ -208,7 +208,7 @@ whether they come
 directly from an app,
 code or the infrastructure.
 
-## Accepted vulnerabilities by severity
+## Accepted vulnerabilities by CVSS severity
 
 ![Accepted By Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1645810726/docs/web/analytics/common/common_vuln_by_severity.png)
 
