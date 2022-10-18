@@ -45,7 +45,7 @@ the exposure (CVSSF) of open vulnerabilities.
 
 ## Distribution of vulnerabilities by group
 
-![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_acceptd.png)
+![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1666126909/docs/web/analytics/common/distribution_of_vulnerabilities_by_group.png)
 
 The percentage of closed, open,
 temporarily accepted and permanently
