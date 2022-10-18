@@ -89,11 +89,23 @@ and its [API](/machine/api).
 
    - [DynamoDB by Amazon Web Services (AWS)](/development/stack/aws/dynamodb/introduction)
      as a database.
+
+     We also have enabled [DynamoDB Streams](https://aws.amazon.com/blogs/database/dynamodb-streams-use-cases-and-design-patterns/)
+     on some of our tables,
+     to respond to item changes within the database
+     and perform actions like updating OpenSearch indexes,
+     or put items into [Redshift by Amazon Web Services (AWS)](/development/stack/aws/redshift).
+
    - [OpenSearch by Amazon Web Services (AWS)](/development/stack/aws/opensearch)
      (previously known as ElasticSearch)
      as a search provider.
    - [ElastiCache by Amazon Web Services (AWS)](/development/stack/aws/redis)
      as an in-memory, intranet, and therefore low-latency volatile database.
+   - [S3 by Amazon Web Services (AWS)](/development/stack/aws/s3):
+     - As durable file system,
+     - As an ephemeral file system whose objects are deleted after some time.
+     - As a staging area for file uploads/downloads
+       (using presigned URLs).
 
 1. The Database is backed up
    using Backup Vaults by Amazon Web Services (AWS)
@@ -102,23 +114,16 @@ and its [API](/machine/api).
 
 1. The [Compute component of Common](/development/common/compute)
    provides us out-of-band processing power
-   that we use for things like:
-
-   - The charts,
-     which we upload to an [S3 bucket on Amazon Web Services (AWS)](/development/stack/aws/s3)
-     where the back-end can present them through the front-end,
-     and downloadable versions of those charts
-     that the End User can download
-     or receive periodically in their e-mail.
+   that we use for things like
+   periodic tasks (schedules),
+   or tasks that can be computed outside of the request/response lifecycle
+   and/or that require more beefy machines
+   (like generating PDF reports).
 
 :::tip
 You can right-click on the image below
 to open it in a new tab,
 or save it to your computer.
-:::
-
-:::warning
-Work in progress.
 :::
 
 ![Architecture of Integrates](./arch.dot.svg)

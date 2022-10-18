@@ -40,6 +40,12 @@ digraph integates {
         aws_dynamodb_tables_fi[label="fi*" peripheries="2"]
         aws_dynamodb_tables_FI[label="FI*" peripheries="2"]
       }
+
+      subgraph cluster_aws_dynamodb_streams {
+        label="Streams"
+
+        aws_dynamodb_streams_integrates[label="integrates_vms"]
+      }
     }
 
     subgraph cluster_aws_ec2 {
@@ -308,6 +314,8 @@ digraph integates {
   common_compute_schedules_integrates_charts_snapshots -> aws_s3_integrates_analytics_branch_snapshots[]
   common_compute_schedules_integrates_charts_snapshots -> gitlab_integrates_charts[]
   common_compute_schedules_integrates_utils_scheduler -> aws_sqs_queues_celery[]
+  common_compute_schedules_integrates_utils_scheduler -> aws_opensearch_domains_integrates[]
+  common_compute_schedules_integrates_utils_scheduler -> aws_dynamodb_streams_integrates
   end_user -> cloudflare_zone_fluidattacks_com_dns_cname_app[]
   developer -> cloudflare_zone_fluidattacks_com_dns_cname_atfluid_app[]
   developer -> gitlab_integrates[]
