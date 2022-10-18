@@ -16,6 +16,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNodes,
@@ -32,8 +33,16 @@ from symbolic_eval.utils import (
 )
 
 
+def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
+            return True
+    return False
+
+
 def xpath_injection(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XPATH_INJECTION
@@ -44,19 +53,17 @@ def xpath_injection(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
             graph = shard.syntax_graph
+
             xpath_obj = get_object_identifiers(graph, {"XPathNavigator"})
 
             for n_id in search_method_invocation_naive(graph, danger_meths):
                 if (
-                    memb := get_first_member_syntax_graph(graph, n_id)
-                ) and graph.nodes[memb].get("symbol") in xpath_obj:
-                    for path in get_backward_paths(graph, n_id):
-                        if (
-                            evaluation := evaluate(method, graph, path, n_id)
-                        ) and evaluation.danger:
-                            yield shard, n_id
+                    (memb := get_first_member_syntax_graph(graph, n_id))
+                    and graph.nodes[memb].get("symbol") in xpath_obj
+                    and get_eval_danger(graph, n_id, method)
+                ):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f021.xpath_injection",

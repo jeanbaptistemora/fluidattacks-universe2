@@ -32,6 +32,14 @@ namespace AspNet5SQLite
                     });
             });
         }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+            });
+        }
     }
 
     //Enabling insecure cors policy via attribute

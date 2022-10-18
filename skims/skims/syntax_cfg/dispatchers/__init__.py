@@ -9,6 +9,7 @@ from syntax_cfg.dispatchers import (
     if_node,
     method_invocation_node,
     multi_path,
+    return_node,
     step_by_step,
 )
 from syntax_cfg.types import (
@@ -26,6 +27,7 @@ DISPATCHERS: Dispatchers = (
             "ForStatement",
             "ElseClause",
             "InterfaceDeclaration",
+            "LambdaExpression",
             "MethodDeclaration",
             "Namespace",
             "SwitchStatement",
@@ -110,8 +112,13 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "Import",
             "Return",
+        },
+        cfg_builder=return_node.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "Import",
         },
         cfg_builder=end_node.build,
     ),

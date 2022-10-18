@@ -11,8 +11,9 @@ from lib_root.utilities.c_sharp import (
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
     Graph,
@@ -82,7 +83,7 @@ def get_eval_danger(
     n_id: NId,
     check: str = "danger",
 ) -> bool:
-    method = core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN
+    method = MethodsEnum.CS_INSECURE_CORS_ORIGIN
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if not evaluation:
@@ -125,10 +126,16 @@ def is_vulnerable_policy(graph: Graph, n_id: NId) -> bool:
         and graph.nodes[al_list[1]]["label_type"] == "LambdaExpression"
     ):
         block_id = graph.nodes[al_list[1]]["block_id"]
-        m_id = g.match_ast(graph, block_id).get("__0__")
+
+        if graph.nodes[block_id]["label_type"] == "ExecutionBlock":
+            m_id = g.match_ast(graph, block_id).get("__0__")
+        else:
+            m_id = block_id
+
         expr = graph.nodes[m_id].get("expression")
         if "AllowAnyOrigin" in expr:
             return True
+
     return False
 
 
@@ -152,7 +159,7 @@ def is_vulnerable_origin(graph: Graph, nid: NId, expr: str) -> bool:
 def insecure_cors(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
-) -> core_model.Vulnerabilities:
+) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -182,15 +189,15 @@ def insecure_cors(
         desc_key="lib_root.f134.cors_policy_allows_any_origin",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_INSECURE_CORS,
+        method=MethodsEnum.CS_INSECURE_CORS,
     )
 
 
 def insecure_cors_origin(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
-) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN
+) -> Vulnerabilities:
+    method = MethodsEnum.CS_INSECURE_CORS_ORIGIN
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(

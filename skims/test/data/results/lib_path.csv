@@ -6078,32 +6078,56 @@ F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,26,16
   32 |                     });
   33 |             });
   34 |         }
-  35 |     }
-  36 |
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
      ^ Col 0
 ",c_sharp.csharp_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,38,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-  23 |         {
-  24 |             services.AddCors(options =>
-  25 |             {
-  26 |                 options.AddPolicy(name: ""corsGlobalPolicy"",
-  27 |                     builder =>
-  28 |                     {
-  29 |                         builder.WithOrigins(Configuration[""Origins:localdev""])
+F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,40,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
   30 |                             .AllowAnyOrigin()
   31 |                             .AllowAnyMethod();
   32 |                     });
   33 |             });
   34 |         }
-  35 |     }
-  36 |
-  37 |     //Enabling insecure cors policy via attribute
-> 38 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
-  39 |     public class ItemsController : ApiController
-  40 |     {
-  41 |         public HttpResponseMessage GetAll() {}
-  42 |     }
-  43 | }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+> 40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+  46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,46,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+  40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+> 46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+  51 | }
      ^ Col 0
 ",c_sharp.csharp_insecure_cors_origin
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
