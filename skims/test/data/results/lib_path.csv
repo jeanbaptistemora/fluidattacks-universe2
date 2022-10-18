@@ -9631,6 +9631,252 @@ F236,lines,namespace/skims/test/data/lib_path/f236/tsconfig.json,19,200,skims,23
   29 |       ""jest"",
      ^ Col 0
 ",tsconfig.tsconfig_sourcemap_enabled
+F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f037/Test.java","
+   1 | import org.apache.logging.log4j.Logger;
+   2 | import org.apache.logging.log4j.LogManager;
+   3 |
+   4 | public class Test {
+   5 |
+   6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
+   7 |
+   8 |   public static void main(String[ ] args) {
+   9 |     try {
+  10 |       int[] myNumbers = {1, 2, 3};
+> 11 |       System.out.println(myNumbers[10]);
+  12 |     } catch (IndexException e) {
+  13 |       if (e.toString() == ""Error""){
+  14 |         System.out.println(""Error"");
+  15 |       }
+  16 |       e.printStackTrace();
+  17 |     }
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,35,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f037/Test.java","
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+  22 |       logger.info(exc);
+  23 |     }
+  24 |
+  25 |     try {
+  26 |       int a = 1 / 0;
+  27 |     } catch (ArithmeticException exc) {
+  28 |       System.out.println(""An error has occurred"");
+  29 |       logger.error(String.format(""Ocurred error %s"", exc.getMessage()));
+  30 |     }
+  31 |
+  32 |     try {
+  33 |       int a = 1 / 0;
+  34 |     } catch (ArithmeticException exc) {
+> 35 |       System.out.println(exc);
+  36 |     }
+  37 |   }
+  38 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f160/Test.java","
+   1 | import java.io.File;
+   2 | import java.nio.file.Files.*;
+   3 |
+   4 | public class Test {
+   5 |     public static void main(String[] args){
+   6 |         try {
+   7 |         // Insecure
+>  8 |         System.out.println(createTempFile(""xxx"", null));
+   9 |         } catch (Exception e) {}
+  10 |
+  11 |         try {
+  12 |         // Secure
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+  18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,13,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f160/Test.java","
+   3 |
+   4 | public class Test {
+   5 |     public static void main(String[] args){
+   6 |         try {
+   7 |         // Insecure
+   8 |         System.out.println(createTempFile(""xxx"", null));
+   9 |         } catch (Exception e) {}
+  10 |
+  11 |         try {
+  12 |         // Secure
+> 13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+  18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+  22 |         // Insecure
+  23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f160/Test.java","
+   8 |         System.out.println(createTempFile(""xxx"", null));
+   9 |         } catch (Exception e) {}
+  10 |
+  11 |         try {
+  12 |         // Secure
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+> 18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+  22 |         // Insecure
+  23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
+  24 |         } catch (Exception e) {}
+  25 |     }
+  26 | }
+  27 |
+  28 | /*
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,23,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_path/f160/Test.java","
+  13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
+  14 |         } catch (Exception e) {}
+  15 |
+  16 |         try {
+  17 |         // Insecure
+  18 |         System.out.println(File.createTempFile(""xxx"", null));
+  19 |         } catch (Exception e) {}
+  20 |
+  21 |         try {
+  22 |         // Insecure
+> 23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
+  24 |         } catch (Exception e) {}
+  25 |     }
+  26 | }
+  27 |
+  28 | /*
+  29 |  * $ ls -al $(javac Test.java && java Test)
+  30 |  *
+  31 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+  32 |  *
+  33 |  */
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,16,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+> 16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,15,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+> 15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+>  8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,7,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+>  7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
 F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
    1 |
    2 | try {
