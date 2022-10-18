@@ -7,9 +7,12 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
+  faAngleLeft,
+  faAngleRight,
   faImage,
   faPen,
   faRotateRight,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
@@ -19,9 +22,10 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import ImageViewer from "react-simple-image-viewer";
 
 import {
   handleUpdateDescriptionError,
@@ -46,6 +50,7 @@ import type { IGetFindingEvidences } from "scenes/Dashboard/containers/EvidenceV
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { featurePreviewContext } from "utils/featurePreview";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
@@ -70,7 +75,23 @@ const EvidenceView: React.FC = (): JSX.Element => {
     setIsEditing(!isEditing);
   }, [isEditing]);
 
+  const { featurePreview } = useContext(featurePreviewContext);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+  const closeImageViewer = (): void => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
+
+  const setOpenImageViewer: (index: number) => void = useCallback(
+    (index): void => {
+      setCurrentImage(index);
+      setIsViewerOpen(true);
+    },
+    []
+  );
 
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery<IGetFindingEvidences>(
@@ -167,6 +188,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       };
 
       await Promise.all(_.map(values, updateChanges));
+      setCurrentImage(0);
       setLightboxIndex(-1);
       await refetch();
     };
@@ -239,7 +261,11 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
                       const openImage = (): void => {
                         if (!isEditing && !isRefetching) {
-                          setLightboxIndex(index);
+                          if (featurePreview) {
+                            setOpenImageViewer(index);
+                          } else {
+                            setLightboxIndex(index);
+                          }
                         }
                       };
 
@@ -264,7 +290,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           key={name}
                           name={name}
                           // Next annotations needed due to nested callbacks
-                          onClick={openImage} // eslint-disable-line react/jsx-no-bind
+                          // eslint-disable-next-line react/jsx-no-bind
+                          onClick={openImage}
                           onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
                           validate={composeValidators([
                             validEvidenceImage,
@@ -280,13 +307,35 @@ const EvidenceView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       )}
-      <EvidenceLightbox
-        evidenceImages={evidenceList.map(
-          (name: string): IEvidenceItem => evidenceImages[name]
-        )}
-        index={lightboxIndex}
-        onChange={setLightboxIndex}
-      />
+      {featurePreview ? (
+        isViewerOpen && (
+          <ImageViewer
+            backgroundStyle={{
+              backgroundColor: "rgba(0,0,0,0.9)",
+              zIndex: "100",
+            }}
+            closeComponent={<FontAwesomeIcon icon={faXmark} />}
+            closeOnClickOutside={true}
+            currentIndex={currentImage}
+            disableScroll={true}
+            leftArrowComponent={<FontAwesomeIcon icon={faAngleLeft} />}
+            onClose={closeImageViewer} // eslint-disable-line react/jsx-no-bind
+            rightArrowComponent={<FontAwesomeIcon icon={faAngleRight} />}
+            src={evidenceList.map(
+              (name: string): string =>
+                `${location.href}/${evidenceImages[name].url}`
+            )}
+          />
+        )
+      ) : (
+        <EvidenceLightbox
+          evidenceImages={evidenceList.map(
+            (name: string): IEvidenceItem => evidenceImages[name]
+          )}
+          index={lightboxIndex}
+          onChange={setLightboxIndex}
+        />
+      )}
     </React.StrictMode>
   );
 };

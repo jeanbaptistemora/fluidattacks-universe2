@@ -240,7 +240,7 @@ describe("eventEvidenceView", (): void => {
       screen.getByRole("dialog", { hidden: true, name: "Lightbox" })
     );
 
-    const ReactImageLightboxButtons: number = 5;
+    const ReactImageLightboxButtons: number = 3;
     await waitFor((): void => {
       expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(
         ReactImageLightboxButtons

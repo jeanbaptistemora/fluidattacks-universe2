@@ -56,6 +56,7 @@
     "react-phone-input-2": "2.15.0",
     "react-router-dom": "5.3.0",
     "react-scroll-up": "1.3.7",
+    "react-simple-image-viewer": "1.2.2",
     "react-spinners": "0.11.0",
     "react-svg": "11.2.5",
     "react-tag-input": "6.8.0",
@@ -151,6 +152,10 @@
   "overrides": {
     "immer": "9.0.15",
     "react-notification-system": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    },
+    "react-simple-image-viewer": {
       "react": "17.0.2",
       "react-dom": "17.0.2"
     },

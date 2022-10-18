@@ -47,6 +47,7 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
 
   return index > -1 ? (
     <Lightbox
+      enableZoom={false}
       imagePadding={50}
       imageTitle={evidenceImages[index].description}
       mainSrc={`${location.href}/${evidenceImages[index].url}`}
