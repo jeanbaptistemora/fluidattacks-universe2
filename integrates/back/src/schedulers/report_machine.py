@@ -851,6 +851,13 @@ def _filter_vulns_already_reported(
             )
         )
         for vuln in existing_open_machine_vulns
+        if (
+            vuln.verification is None
+            or (
+                vuln.verification.status
+                != VulnerabilityVerificationStatus.REQUESTED
+            )
+        )
     }
     return {
         "inputs": [
