@@ -10,7 +10,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityEdge,
 )
 from db_model.vulnerabilities.utils import (
-    filter_non_zero_risk,
+    filter_non_zero_risk_confirmed,
     format_vulnerability,
 )
 from graphql import (
@@ -58,7 +58,7 @@ async def resolve(
     draft_ids = tuple(
         draft.id for draft in await loaders.group_drafts.load(parent.name)
     )
-    vulnerabilities = filter_non_zero_risk(
+    vulnerabilities = filter_non_zero_risk_confirmed(
         tuple(format_vulnerability(result) for result in results.items)
     )
 

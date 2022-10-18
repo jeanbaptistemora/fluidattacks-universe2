@@ -80,6 +80,17 @@ def filter_non_zero_risk(
     )
 
 
+def filter_non_zero_risk_confirmed(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if not vuln.zero_risk
+        or vuln.zero_risk.status not in VulnerabilityZeroRiskStatus.CONFIRMED
+    )
+
+
 def filter_zero_risk(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
