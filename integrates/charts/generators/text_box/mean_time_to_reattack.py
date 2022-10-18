@@ -60,17 +60,17 @@ def format_decimal(value: Decimal) -> Decimal:
 
 
 def _get_next_open(
-    historic_state: tuple[VulnerabilityState, ...], verification: datetime
-) -> datetime:
+    historic_state: tuple[VulnerabilityState, ...]
+) -> Optional[datetime]:
     for state in historic_state:
         if state.status == VulnerabilityStateStatus.OPEN:
             return get_datetime_from_iso_str(state.modified_date)
-    return verification
+    return None
 
 
 def _get_in_between_state(
     historic_state: tuple[VulnerabilityState, ...], verification: datetime
-) -> datetime:
+) -> Optional[datetime]:
     reverse_historic_state = tuple(reversed(historic_state))
     before_limit = get_minus_delta(verification, minutes=30)
     after_limit = get_plus_delta(verification, minutes=30)
@@ -82,17 +82,45 @@ def _get_in_between_state(
             <= after_limit
         ):
             return _get_next_open(
-                reverse_historic_state[len(historic_state) - index :],
-                verification,
+                reverse_historic_state[len(historic_state) - index :]
             )
 
     return verification
 
 
-def get_diff(start: datetime, end: datetime) -> int:
-    diff = end - start
+def get_diff(*, start: Optional[datetime], end: datetime) -> int:
+    if start is None:
+        return 0
 
+    diff = end - start
     return diff.days if end > start else 0
+
+
+def is_requested(
+    verification: VulnerabilityVerification, start: Optional[datetime]
+) -> bool:
+    return (
+        verification.status == VulnerabilityVerificationStatus.REQUESTED
+        and start is not None
+    )
+
+
+def is_on_hold(
+    verification: VulnerabilityVerification, start: Optional[datetime]
+) -> bool:
+    return (
+        verification.status == VulnerabilityVerificationStatus.ON_HOLD
+        and start is not None
+    )
+
+
+def is_verifying(
+    verification: VulnerabilityVerification, start: Optional[datetime]
+) -> bool:
+    return (
+        verification.status == VulnerabilityVerificationStatus.VERIFIED
+        and start is None
+    )
 
 
 async def _get_mean_time_to_reattack(
@@ -120,28 +148,25 @@ async def _get_mean_time_to_reattack(
             vulnerability.created_date
         )
         for verification in historic_verification:
-            if (
-                verification.status
-                == VulnerabilityVerificationStatus.REQUESTED
-                and start is not None
-            ):
+            if is_requested(verification, start):
                 number_of_reattacks += 1
                 number_of_days += get_diff(
-                    start,
-                    get_datetime_from_iso_str(verification.modified_date),
+                    start=start,
+                    end=get_datetime_from_iso_str(verification.modified_date),
                 )
                 start = None
-            if (
-                verification.status == VulnerabilityVerificationStatus.VERIFIED
-                and start is None
-            ):
+            if is_on_hold(verification, start):
+                start = None
+                number_of_reattacks -= 1
+            if is_verifying(verification, start):
                 start = _get_in_between_state(
                     historic_state,
                     get_datetime_from_iso_str(verification.modified_date),
                 )
 
         if start is not None:
-            number_of_days += get_diff(start, current_date)
+            number_of_days += get_diff(start=start, end=current_date)
+            number_of_reattacks += 1
 
     return (
         format_decimal(Decimal(number_of_days / number_of_reattacks))
@@ -179,18 +204,22 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
         Decimal(
             sum(
                 [
-                    (
-                        current_date
-                        - get_datetime_from_iso_str(vulnerability.created_date)
-                    ).days
+                    get_diff(
+                        start=get_datetime_from_iso_str(
+                            vulnerability.created_date
+                        ),
+                        end=current_date,
+                    )
                     if vulnerability.state.status
                     == VulnerabilityStateStatus.OPEN
-                    else (
-                        get_datetime_from_iso_str(
+                    else get_diff(
+                        start=get_datetime_from_iso_str(
+                            vulnerability.created_date
+                        ),
+                        end=get_datetime_from_iso_str(
                             vulnerability.state.modified_date
-                        )
-                        - get_datetime_from_iso_str(vulnerability.created_date)
-                    ).days
+                        ),
+                    )
                     for vulnerability in filtered_non_reattack_vulnerabilities
                 ]
             )
@@ -199,6 +228,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
         if filtered_non_reattack_vulnerabilities
         else Decimal("0.0")
     )
+
     if filtered_reattack_vulnerabilities:
         return format_decimal(
             sum_of_days
