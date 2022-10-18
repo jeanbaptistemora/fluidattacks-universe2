@@ -32,6 +32,85 @@ and its [API](/machine/api).
 
 ## Architecture
 
+1. Integrates is a standard client-server application
+   divided into a front-end, a back-end,
+   and out-of-band computing tasks.
+
+1. Integrates has three environments:
+
+   - The productive environment (`prod_integrates`)
+     is used by the End Users
+     and is deployed by the [CI](/development/stack/gitlab-ci)
+     from the `trunk` branch on [GitLab](/development/stack/gitlab).
+
+   - The development environment (`dev`)
+     is used by developers
+     and is deployed
+     by the [CI](/development/stack/gitlab-ci)
+     from each developer's branch on [GitLab](/development/stack/gitlab)
+     with a name equal to the branch it was deployed from.
+
+   - The local environment
+     is deployed by each developer on their personal computers.
+     However, this environment is not represented
+     or further explained in this architecture,
+     but instructions can be found [below](#local-environment).
+
+1. The front-end is deployed into [AWS S3](/development/stack/aws/s3) buckets,
+   using the corresponding bucket for the environment
+   (`development`, or `production`).
+
+1. Static [DNS](/development/stack/cloudflare) entries
+   point to the corresponding
+   [S3 buckets on Amazon Web Services (AWS)](/development/stack/aws/s3),
+   allowing [Cloudflare](/development/stack/cloudflare)
+   to cache their content for a while.
+
+1. The back-end is deployed
+   into the [Kubernetes](/development/stack/kubernetes) cluster
+   provided by the [Cluster component of Common](/development/common/cluster),
+   into the corresponding namespace for the environment
+   (`dev` or `prod_integrates`).
+
+1. Dynamic [DNS](/development/stack/cloudflare) entries
+   are generated automatically for each back-end deployment
+   using the [Kubernetes](/development/stack/kubernetes)
+   ingress controller for AWS,
+   which essentially binds the corresponding domain
+   to an AWS Elastic Load Balancer (ELB)
+   that routes traffic from the internet
+   into the corresponding cluster nodes,
+   allowing [Cloudflare](/development/stack/cloudflare)
+   to act as a firewall between the internet
+   and the web application,
+   and providing rate-limiting.
+
+1. The backend uses:
+
+   - [DynamoDB by Amazon Web Services (AWS)](/development/stack/aws/dynamodb/introduction)
+     as a database.
+   - [OpenSearch by Amazon Web Services (AWS)](/development/stack/aws/opensearch)
+     (previously known as ElasticSearch)
+     as a search provider.
+   - [ElastiCache by Amazon Web Services (AWS)](/development/stack/aws/redis)
+     as an in-memory, intranet, and therefore low-latency volatile database.
+
+1. The Database is backed up
+   using Backup Vaults by Amazon Web Services (AWS)
+   as promised in [1](/about/security/availability/everything-backed-up)
+   and [2](/about/security/availability/recovery-objective).
+
+1. The [Compute component of Common](/development/common/compute)
+   provides us out-of-band processing power
+   that we use for things like:
+
+   - The charts,
+     which we upload to an [S3 bucket on Amazon Web Services (AWS)](/development/stack/aws/s3)
+     where the back-end can present them through the front-end,
+     and downloadable versions of those charts
+     that the End User can download
+     or receive periodically in their e-mail.
+
 :::tip
 You can right-click on the image below
 to open it in a new tab,

@@ -272,6 +272,7 @@ digraph integates {
   aws_backup_vaults_integrates_dynamodb_backup_vault -> cluster_aws_dynamodb[lhead="cluster_aws_dynamodb"]
   aws_eks_common_namespaces_dev_deployments_integrates_atfluid -> aws_ec2_dev[]
   aws_eks_common_namespaces_prod_integrates_deployments_integrates_trunk -> aws_ec2_prod_integrates[]
+  aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk -> aws_sqs_queues_celery[]
   aws_eks_common_namespaces_prod_integrates_deployments_machine_report_trunk -> aws_ec2_prod_integrates[]
   aws_elasticache_redis_clusters_integrates_cache -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
   aws_opensearch_domains_integrates -> cluster_aws_vpc_fluid_vpc_subnets_k8s[]
