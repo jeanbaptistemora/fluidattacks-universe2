@@ -100,7 +100,7 @@ was effectively closed.
 
 ## Severity
 
-![Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/severity_pftfig.png)
+![Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1666127996/docs/web/analytics/common/severity.png)
 
 Security vulnerabilities are ranked
 based on [CVSS v3.1](/about/glossary#cvss).
