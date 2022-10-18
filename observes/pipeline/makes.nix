@@ -65,7 +65,6 @@
     tap.gitlab
     tap.mandrill
     target.s3
-    target.snowflake
   ];
   _if_exists = attrs: key: gitlabExtra:
     if builtins.hasAttr key attrs

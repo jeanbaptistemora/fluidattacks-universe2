@@ -19,7 +19,6 @@
     observesTapGitlab = tap.gitlab;
     observesTapMandrill = tap.mandrill;
     observesTargetRedshift = target.redshift_2;
-    observesTargetSnowflake = target.snowflake;
     observesTargetS3 = target.s3;
     observesEtlDynamoConf = etl.dynamo;
     observesUtilsLogger2 = common.utils_logger_2;
