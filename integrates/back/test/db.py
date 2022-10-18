@@ -15,6 +15,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
+    compliance as compliance_model,
     credentials as creds_model,
     enrollment as enrollment_model,
     event_comments as event_comments_model,
@@ -546,6 +547,16 @@ async def populate_credentials(data: tuple[Credentials, ...]) -> bool:
 
 async def populate_actions(data: tuple[dict[str, Any], ...]) -> bool:
     await collect((put_action_to_dynamodb(**action)) for action in data)
+    return True
+
+
+async def populate_compliances(data: list[dict[str, Any]]) -> bool:
+    await collect(
+        compliance_model.update_unreliable_indicators(
+            indicators=compliance["compliance"]["unreliable_indicators"]
+        )
+        for compliance in data
+    )
     return True
 
 
