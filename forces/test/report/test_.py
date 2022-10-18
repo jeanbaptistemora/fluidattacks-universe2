@@ -6,13 +6,13 @@ from forces.model import (
     Finding,
     ForcesConfig,
     KindEnum,
+    ReportSummary,
     Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
 )
 from forces.report import (
     generate_raw_report,
-    get_summary_template,
 )
 from forces.report.filters import (
     filter_repo,
@@ -53,12 +53,15 @@ async def test_generate_report1(
         config=config,
         api_token=test_token,
     )
-    assert report["summary"]["total"] == 9
-    assert report["summary"]["open"]["total"] == 7
-    assert report["summary"]["closed"]["total"] == 2
+    summary: ReportSummary = report["summary"]  # type: ignore
+    assert summary.total == 9
+    assert summary.open.total == 7
+    assert summary.closed.total == 2
 
     findings: list[Finding] = [
-        find for find in report["findings"] if find.identifier == test_finding
+        find  # type: ignore
+        for find in report["findings"]
+        if find.identifier == test_finding  # type: ignore
     ]
     assert len(findings) == 1
 
@@ -75,25 +78,17 @@ async def test_generate_report2(
         api_token=test_token,
     )
     find: Finding = next(
-        find for find in report["findings"] if find.identifier == test_finding
+        find
+        for find in report["findings"]  # type: ignore
+        if find.identifier == test_finding  # type: ignore
     )
     assert len(find.vulnerabilities) == 5
-    assert report["summary"]["total"] == sum(
-        [len(finding.vulnerabilities) for finding in report["findings"]]
+    assert report["summary"].total == sum(  # type: ignore
+        [
+            len(finding.vulnerabilities)  # type: ignore
+            for finding in report["findings"]
+        ]
     )
-
-
-def test_get_summary_template() -> None:
-    assert get_summary_template(KindEnum.ALL) == {
-        "open": {"DAST": 0, "SAST": 0, "total": 0},
-        "closed": {"DAST": 0, "SAST": 0, "total": 0},
-        "accepted": {"DAST": 0, "SAST": 0, "total": 0},
-    }
-    assert get_summary_template(KindEnum.DYNAMIC) == {
-        "open": {"total": 0},
-        "closed": {"total": 0},
-        "accepted": {"total": 0},
-    }
 
 
 def test_style_summary() -> None:

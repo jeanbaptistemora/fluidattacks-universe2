@@ -15,6 +15,8 @@ from forces.model import (
     ForcesConfig,
     ForcesReport,
     KindEnum,
+    ReportSummary,
+    SummaryItem,
     Vulnerability,
     VulnerabilityState,
     VulnerabilityType,
@@ -49,16 +51,12 @@ from typing import (
 )
 
 
-def format_summary_report(
-    summary: dict[VulnerabilityState | str, Any], kind: KindEnum
-) -> Table:
+def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
     """Helper method to create the findings summary table from the report's
     summary data\n
     @param `summary`: A dictionary with the summary data\n
     @param `kind`: A kind from the `KindEnum`, can be `ALL`, `STATIC` or
     `DYNAMIC`"""
-    total: str = summary.pop("total")
-    time_elapsed: str = summary.pop("time")
     summary_table = Table(
         title="Summary",
         show_header=False,
@@ -66,7 +64,10 @@ def format_summary_report(
         box=MINIMAL,
         border_style="blue",
         width=35,
-        caption=f"Total: {total} finding(s)\nTime elapsed: {time_elapsed}",
+        caption=(
+            f"Total: {summary.total} vulnerabilities\n"
+            f"Elapsed time: {summary.elapsed_time}"
+        ),
     )
     # open, closed and/or accepted
     summary_table.add_column("Vuln state", style="cyan")
@@ -74,28 +75,31 @@ def format_summary_report(
         # DAST, SAST and total vulns
         summary_table.add_column("Vuln type", style="magenta1")
         summary_table.add_column("Value")
-        for vuln_state, vuln_type in summary.items():
-            label: VulnerabilityState | None = vuln_state  # type: ignore
-            for key, value in vuln_type.items():
+        for state in tuple(VulnerabilityState):
+            put_state_label: bool = True
+            for vuln_sum in ("DAST", "SAST", "total"):
                 summary_table.add_row(
-                    label,
-                    key,
-                    style_summary(vuln_state, value),  # type: ignore
-                    end_section=key == "total",
+                    state if put_state_label else None,
+                    vuln_sum,
+                    style_summary(
+                        state,
+                        attrgetter(f"{state.value}.{vuln_sum.lower()}")(
+                            summary
+                        ),
+                    ),
+                    end_section=vuln_sum == "total",
                 )
-                # Blank label from now on to avoid redundancy
-                label = None
-    # dynamic or static flags were set
+                put_state_label = False
     else:
-        # No need for a type column, they all have the same
         summary_table.add_column("Value")
-        for vuln_state, vuln_type in summary.items():
-            for key, value in vuln_type.items():
-                summary_table.add_row(
-                    vuln_state,
-                    style_summary(vuln_state, value),  # type: ignore
-                    end_section=key == "total",
-                )
+        for state in tuple(VulnerabilityState):
+            summary_table.add_row(
+                state,
+                style_summary(
+                    state, attrgetter(f"{state.value}.total")(summary)
+                ),
+                end_section=True,
+            )
     return summary_table
 
 
@@ -125,7 +129,7 @@ def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
 
 
 def format_rich_report(
-    report: dict[str, Any],
+    report: dict[str, list[Finding] | ReportSummary],
     verbose_level: int,
     kind: KindEnum,
 ) -> ForcesReport:
@@ -150,7 +154,7 @@ def format_rich_report(
     last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data")
-    findings: list[Finding] = report["findings"]
+    findings: list[Finding] = report["findings"]  # type: ignore
     for find in findings:
         if find.vulnerabilities:
             find_summary: Counter = Counter(
@@ -198,31 +202,15 @@ def format_rich_report(
                         end_section=key == last_key,
                     )
     # Summary report table
-    summary = report["summary"]
+    summary: ReportSummary = report["summary"]  # type: ignore
     summary_table = format_summary_report(summary, kind)
     return ForcesReport(findings_report=report_table, summary=summary_table)
-
-
-def get_summary_template(
-    kind: KindEnum,
-) -> dict[str | VulnerabilityState, dict[str, int]]:
-    _summary_dict: dict[str | VulnerabilityState, dict[str, int]] = {
-        VulnerabilityState.OPEN: {"total": 0},
-        VulnerabilityState.CLOSED: {"total": 0},
-        VulnerabilityState.ACCEPTED: {"total": 0},
-    }
-
-    return (
-        _summary_dict
-        if kind != KindEnum.ALL
-        else {key: {"DAST": 0, "SAST": 0, "total": 0} for key in _summary_dict}
-    )
 
 
 async def generate_raw_report(
     config: ForcesConfig,
     **kwargs: Any,
-) -> dict[str, Any]:
+) -> dict[str, list[Finding] | ReportSummary]:
     """
     Generate a group vulnerability report.
 
@@ -230,9 +218,13 @@ async def generate_raw_report(
     """
     _start_time: float = timer()
 
-    _summary_dict = get_summary_template(config.kind)
+    raw_report: dict[str, list[Finding] | ReportSummary] = {"findings": []}
+    _summary_dict: dict[VulnerabilityState, dict[str, int]] = {
+        VulnerabilityState.OPEN: {"DAST": 0, "SAST": 0, "total": 0},
+        VulnerabilityState.CLOSED: {"DAST": 0, "SAST": 0, "total": 0},
+        VulnerabilityState.ACCEPTED: {"DAST": 0, "SAST": 0, "total": 0},
+    }
 
-    raw_report: dict[str, list[Any]] = {"findings": []}
     findings_dict = await create_findings_dict(
         config.group,
         **kwargs,
@@ -272,27 +264,38 @@ async def generate_raw_report(
             continue
 
         _summary_dict[vulnerability.state]["total"] += 1
-        if config.kind == KindEnum.ALL:
-            _summary_dict[vulnerability.state]["DAST"] += bool(
-                vulnerability.type == VulnerabilityType.DAST
-            )
-            _summary_dict[vulnerability.state]["SAST"] += bool(
-                vulnerability.type == VulnerabilityType.SAST
-            )
+        _summary_dict[vulnerability.state]["DAST"] += bool(
+            vulnerability.type == VulnerabilityType.DAST
+        )
+        _summary_dict[vulnerability.state]["SAST"] += bool(
+            vulnerability.type == VulnerabilityType.SAST
+        )
 
         findings_dict[find_id].vulnerabilities.append(vulnerability)
 
     for find in findings_dict.values():
-        raw_report["findings"].append(find)
+        raw_report["findings"].append(find)  # type: ignore
 
-    summary = {
-        "summary": {
-            "total": _summary_dict["open"]["total"]
-            + _summary_dict["closed"]["total"]
-            + _summary_dict["accepted"]["total"],
-            **_summary_dict,
-            "time": f"{(timer() - _start_time):.4f} seconds",
-        }
-    }
-    raw_report.update(summary)  # type: ignore
+    raw_report["summary"] = ReportSummary(
+        open=SummaryItem(
+            dast=_summary_dict[VulnerabilityState.OPEN]["DAST"],
+            sast=_summary_dict[VulnerabilityState.OPEN]["SAST"],
+            total=_summary_dict[VulnerabilityState.OPEN]["total"],
+        ),
+        closed=SummaryItem(
+            dast=_summary_dict[VulnerabilityState.CLOSED]["DAST"],
+            sast=_summary_dict[VulnerabilityState.CLOSED]["SAST"],
+            total=_summary_dict[VulnerabilityState.CLOSED]["total"],
+        ),
+        accepted=SummaryItem(
+            dast=_summary_dict[VulnerabilityState.ACCEPTED]["DAST"],
+            sast=_summary_dict[VulnerabilityState.ACCEPTED]["SAST"],
+            total=_summary_dict[VulnerabilityState.ACCEPTED]["total"],
+        ),
+        total=_summary_dict[VulnerabilityState.OPEN]["total"]
+        + _summary_dict[VulnerabilityState.CLOSED]["total"]
+        + _summary_dict[VulnerabilityState.ACCEPTED]["total"],
+        elapsed_time=f"{(timer() - _start_time):.4f} seconds",
+    )
+
     return raw_report

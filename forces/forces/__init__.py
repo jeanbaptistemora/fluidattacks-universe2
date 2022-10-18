@@ -97,7 +97,7 @@ async def entrypoint(
             report = await generate_raw_report(config)
             await log("info", f"{tasks.pop(0)}{footer}")
 
-            if report["summary"]["total"] > 0:
+            if report["summary"].total > 0:  # type: ignore
                 await log("info", f"{tasks.pop(0)}{footer}")
                 forces_report: ForcesReport = format_rich_report(
                     report, config.verbose_level, config.kind
@@ -119,7 +119,9 @@ async def entrypoint(
             if output := config.output:
                 temp_file.seek(os.SEEK_SET)
                 await in_thread(output.write, temp_file.read())
-            exit_code = await set_forces_exit_code(config, report["findings"])
+            exit_code = await set_forces_exit_code(
+                config, report["findings"]  # type: ignore
+            )
             execution_id = str(uuid.uuid4()).replace("-", "")
             await upload_report(
                 group=config.group,
