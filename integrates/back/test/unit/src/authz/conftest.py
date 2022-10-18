@@ -16,6 +16,7 @@ import os
 import pytest
 from typing import (
     Any,
+    AsyncGenerator,
     Dict,
     List,
 )
@@ -349,7 +350,7 @@ def aws_credentials() -> None:
 
 
 @pytest.fixture(name="dynamo_resource", scope="module")
-async def dynamodb() -> ServiceResource:  # type: ignore
+async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")
