@@ -927,6 +927,14 @@
       "title": "402. Traceability Loss - Azure"
     }
   },
+  "F405": {
+    "EN": {
+      "title": "405. Excessive privileges - Access Mode"
+    },
+    "ES": {
+      "title": "405. Excessive privileges - Access Mode"
+    }
+  },
   "F406": {
     "EN": {
       "title": "406. Non-encrypted confidential information - EFS"
