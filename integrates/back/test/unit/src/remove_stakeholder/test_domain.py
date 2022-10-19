@@ -28,7 +28,7 @@ from newutils.datetime import (
     get_now_plus_delta,
 )
 from newutils.token import (
-    new_encoded_jwt,
+    encode_token,
 )
 import pytest
 from remove_stakeholder.domain import (
@@ -63,11 +63,13 @@ async def confirm_deletion_mail(
     *,
     email: str,
 ) -> str:
-    expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
-    url_token = new_encoded_jwt(
-        {
+    expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
+    url_token = encode_token(
+        expiration_time=expiration_time,
+        payload={
             "user_email": email,
         },
+        subject="starlette_session",
     )
     await group_access_domain.update(
         email=email,
@@ -130,10 +132,13 @@ async def test_confirm_deletion_mail() -> None:
 @pytest.mark.changes_db
 async def test_confirm_deletion() -> None:
     email: str = "unittest2@test.test"
-    url_token = new_encoded_jwt(
-        {
+    expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
+    url_token = encode_token(
+        expiration_time=expiration_time,
+        payload={
             "user_email": email,
         },
+        subject="starlette_session",
     )
 
     template = await confirm_deletion(
