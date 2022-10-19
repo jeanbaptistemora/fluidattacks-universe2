@@ -124,7 +124,7 @@ existence of the group.
 
 ## Days since group is failing
 
-![Days since group is failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1658250127/docs/web/analytics/groups/group_oldest_event.png)
+![Days since group is failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1666195061/docs/web/analytics/groups/days_since_group_is_failing.png)
 
 Here you can see the
 number of days since
