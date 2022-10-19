@@ -25,19 +25,12 @@ from db_model.roots.types import (
     Root,
     URLRoot,
 )
-from db_model.toe_inputs.get import (
-    get_toe_input_item,
-)
 from db_model.toe_inputs.types import (
     ToeInput,
     ToeInputMetadataToUpdate,
-    ToeInputRequest,
 )
 from newutils import (
     datetime as datetime_utils,
-)
-from redshift import (
-    toe_inputs as redshift_toe_inputs,
 )
 from roots.validations import (
     validate_active_root,
@@ -242,15 +235,6 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
 async def remove(
     current_value: ToeInput,
 ) -> None:
-    item = await get_toe_input_item(
-        ToeInputRequest(
-            entry_point=current_value.entry_point,
-            component=current_value.component,
-            group_name=current_value.group_name,
-            root_id=current_value.unreliable_root_id,
-        )
-    )
-    await redshift_toe_inputs.insert_metadata(item=item)
     await toe_inputs_model.remove(
         entry_point=current_value.entry_point,
         component=current_value.component,
