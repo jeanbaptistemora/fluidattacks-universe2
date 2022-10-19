@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from collections import (
-    OrderedDict,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -190,43 +187,6 @@ async def test_create_register_by_week() -> None:
         assert isinstance(item, list)
         assert isinstance(item[0], dict)
         assert item[0] is not None
-
-
-def test_create_data_format_chart() -> None:
-    registers = OrderedDict(
-        [
-            (
-                "Sep 24 - 30, 2018",  # NOSONAR
-                {
-                    "found": 2,
-                    "accepted": 0,
-                    "closed": 0,
-                    "assumed_closed": 0,
-                    "opened": 2,
-                },
-            )
-        ]
-    )
-    test_data = update_indicators.create_data_format_chart(
-        registers  # type: ignore
-    )
-    expected_output = [
-        [{"y": 2, "x": "Sep 24 - 30, 2018"}],
-        [{"y": 0, "x": "Sep 24 - 30, 2018"}],
-        [{"y": 0, "x": "Sep 24 - 30, 2018"}],
-        [{"y": 0, "x": "Sep 24 - 30, 2018"}],
-        [{"y": 2, "x": "Sep 24 - 30, 2018"}],
-    ]
-    assert test_data == expected_output
-
-
-async def test_get_first_week_dates() -> None:
-    loaders: Dataloaders = get_new_context()
-    finding_id = "422286126"
-    vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    test_data = update_indicators.get_first_week_dates(vulns)
-    expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
-    assert test_data == expected_output
 
 
 @pytest.mark.changes_db
