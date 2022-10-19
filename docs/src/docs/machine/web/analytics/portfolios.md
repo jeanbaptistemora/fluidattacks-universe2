@@ -107,6 +107,15 @@ The above chart shows you how
 many of these are in each of
 your groups.
 
+## Pending exposure by group
+
+![Pending cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1666189342/docs/web/analytics/portfolios/pending_cvssf_portfolio.png)
+
+This figure shows
+how much exposure is pending
+to find in the groups
+of your portfolio.
+
 ## Overall availability of groups
 
 ![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159283/docs/web/analytics/portfolios/portfolio_availability.png)
