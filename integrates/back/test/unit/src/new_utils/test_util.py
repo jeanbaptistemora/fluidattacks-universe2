@@ -18,6 +18,7 @@ from collections import (
 )
 from custom_exceptions import (
     ExpiredToken,
+    InvalidAuthorization,
 )
 from dataloaders import (
     Dataloaders,
@@ -35,6 +36,9 @@ from db_model.stakeholders.types import (
     StakeholderMetadataToUpdate,
     StakeholderSessionToken,
     StateSessionType,
+)
+from freezegun import (
+    freeze_time,
 )
 from jwcrypto.jwe import (
     InvalidJWEData,
@@ -158,15 +162,18 @@ async def test_get_jwt_content() -> None:
     request = create_dummy_simple_session()
     user_email = "unittest"
     jti = token_utils.calculate_hash_token()["jti"]
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
     payload = {
         "user_email": user_email,
-        "exp": datetime_utils.get_as_epoch(
-            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-        ),
-        "sub": "starlette_session",
         "jti": jti,
     }
-    token = token_utils.new_encoded_jwt(payload)
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="starlette_session",
+    )
     request.cookies[JWT_COOKIE_NAME] = token
     await stakeholders_model.update_metadata(
         email=user_email,
@@ -179,23 +186,23 @@ async def test_get_jwt_content() -> None:
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],  # type: ignore
-        value=payload["jti"],
+        email=user_email,
+        value=jti,
         ttl=SESSION_COOKIE_AGE,
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
-        email=payload["user_email"],  # type: ignore
+        email=user_email,
         value=token,
         ttl=SESSION_COOKIE_AGE,
     )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
-        "user_email": "unittest",
-        "exp": payload["exp"],
+        "user_email": user_email,
+        "exp": expiration_time,
         "sub": "starlette_session",
-        "jti": payload["jti"],
+        "jti": jti,
     }
     assert test_data == expected_output
 
@@ -266,17 +273,24 @@ async def test_valid_api_token() -> None:
     assert test_data == expected_output
 
 
+@freeze_time("2022-10-19")
 async def test_expired_token() -> None:
     request = create_dummy_simple_session()
+    date = "2022-10-18 00:00:00"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime_utils.get_from_str(date)
+    )
     payload = {
         "user_email": "unittest",
-        "exp": datetime_utils.get_as_epoch(
-            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-        ),
-        "sub": "starlette_session",
+        "iat": int(datetime_utils.get_from_str(date).timestamp()),
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.new_encoded_jwt(payload)
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="api_token",
+        api=True,
+    )
     request.cookies[JWT_COOKIE_NAME] = token
     await redis_set_entity_attr(
         entity="session",
@@ -285,8 +299,7 @@ async def test_expired_token() -> None:
         value=payload["jti"],
         ttl=5,
     )
-    time.sleep(6)
-    with pytest.raises(ExpiredToken):
+    with pytest.raises(InvalidAuthorization):
         assert await token_utils.get_jwt_content(request)
 
 
@@ -310,27 +323,31 @@ async def test_token_expired() -> None:
 
 async def test_revoked_token() -> None:
     request = create_dummy_simple_session()
+    user_email = "unittest"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
     payload = {
-        "user_email": "unittest",
-        "exp": datetime_utils.get_as_epoch(
-            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-        ),
-        "sub": "starlette_session",
+        "user_email": user_email,
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.new_encoded_jwt(payload)
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="starlette_session",
+    )
     request.cookies[JWT_COOKIE_NAME] = token
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],  # type: ignore
+        email=user_email,
         value=payload["jti"],
         ttl=SESSION_COOKIE_AGE,
     )
     await redis_del_entity_attr(
         entity="session",
         attr="jti",
-        email=payload["user_email"],  # type: ignore
+        email=user_email,
     )
     with pytest.raises(ExpiredToken):
         assert await token_utils.get_jwt_content(request)
