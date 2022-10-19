@@ -52,15 +52,8 @@ from newutils import (
     datetime as datetime_utils,
     encodings,
 )
-from redis_cluster.model import (
-    KeyNotFound as RedisKeyNotFound,
-)
-from redis_cluster.operations import (
-    redis_get_entity_attr,
-)
 import secrets
 from sessions import (
-    dal as sessions_dal,
     domain as sessions_domain,
 )
 from settings import (
@@ -171,18 +164,6 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
         email = content["user_email"]
         if content.get("sub") == "starlette_session":
             await sessions_domain.verify_session_token(content, email)
-            await sessions_dal.check_jwt_token_validity(context, email)
-            try:
-                session_jti: str = await redis_get_entity_attr(
-                    entity="session",
-                    attr="jti",
-                    email=email,
-                )
-                if session_jti != content["jti"]:
-                    raise ExpiredToken()
-            except RedisKeyNotFound:
-                # Session expired (user logged out)
-                raise ExpiredToken() from None
     except JWTExpired:
         # Session expired
         raise InvalidAuthorization() from None

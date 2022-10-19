@@ -31,9 +31,6 @@ from newutils import (
     datetime as datetime_utils,
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_set_entity_attr,
-)
 from settings import (
     JWT_COOKIE_NAME,
     JWT_COOKIE_SAMESITE,
@@ -76,20 +73,6 @@ async def create_session_token(user: UserAccessInfo) -> str:
         ),
     )
 
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jti",
-        email=user_email,
-        value=jti,
-        ttl=SESSION_COOKIE_AGE,
-    )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jwt",
-        email=user_email,
-        value=jwt_token,
-        ttl=SESSION_COOKIE_AGE,
-    )
     return jwt_token
 
 
