@@ -40,10 +40,14 @@ SPDX-License-Identifier: MPL-2.0
               <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
               ({{ count_var_report["released"]["variation"] }},
               max: {{ max_cvss }} severity,
-              {% if count_var_report["released"]["count"] == 0 %}
+              {% if "evidences" in count_var_report.keys() and "released" in count_var_report.keys() %}
+                {%- if count_var_report["released"]["count"] == 0 %}
               0
-              {%- else -%}
-                {{ "%d"|format((count_var_report["evidences"]["count"] * 100) / (count_var_report["released"]["count"] * 7)) -}}
+                {%- else %}
+              {{ "%d"|format((count_var_report["evidences"]["count"] * 100) / (count_var_report["released"]["count"] * 7)) -}}
+                {%- endif -%}
+              {%- else %}
+              0
               {%- endif -%}
               % completeness)
             </li>
@@ -62,7 +66,18 @@ SPDX-License-Identifier: MPL-2.0
               {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
               {{ fields["reattacked"] }} reattacked,
               {{ fields["draft_created"] }} drafts,
-              {{ fields["released"] }} released.<br />
+              {{ fields["released"] }} released (
+              {%- if "evidences" in fields.keys() and "released" in fields.keys() -%}
+                {%- if fields["released"] == 0 -%}
+              0
+                {%- else -%}
+              {{- "%d"|format((fields["evidences"] * 100) / (fields["released"] * 7)) -}}
+                {%- endif -%}
+              {%- else -%}
+              0
+              {%- endif -%}
+              % completeness).
+              <br />
             </li>
             {% endfor %}
           </ul>
