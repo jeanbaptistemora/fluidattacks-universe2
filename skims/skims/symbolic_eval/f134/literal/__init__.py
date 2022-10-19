@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f134.literal.c_sharp import (
     cs_insecure_cors_origin,
 )
+from symbolic_eval.f134.literal.java import (
+    java_insecure_cors_origin,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_INSECURE_CORS_ORIGIN: cs_insecure_cors_origin,
+    MethodsEnum.JAVA_INSECURE_CORS_ORIGIN: java_insecure_cors_origin,
 }
 
 

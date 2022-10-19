@@ -6034,6 +6034,78 @@ F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,
   4 | }
     ^ Col 0
 ",terraform.tfm_aws_efs_unencrypted
+F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
+   3 |
+   4 |  private static final String ALL_ORIGINS = ""*"";
+   5 |
+   6 |  public WebFilter insecure1(){
+   7 |   return (ServerWebExchange ctx, WebFilterChain chain)-> {
+   8 |    ServerHttpRequest req = ctx.getRequest();
+   9 |
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+> 13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,20,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+  13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+> 20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+  25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+> 25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+  31 |   config.addAllowedOrigin(ALLOWED_ORIGIN); // Safe
+  32 |   }
+  33 |
+  34 | }
+     ^ Col 0
+",java.java_insecure_cors_origin
 F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
    3 |
    4 | namespace AspNet5SQLite
