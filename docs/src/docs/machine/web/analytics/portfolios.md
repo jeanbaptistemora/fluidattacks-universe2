@@ -118,7 +118,7 @@ of your portfolio.
 
 ## Overall availability of groups
 
-![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159283/docs/web/analytics/portfolios/portfolio_availability.png)
+![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1666197752/docs/web/analytics/portfolios/overall_port.png)
 
 The percentage of time that
 each group of your portfolio
