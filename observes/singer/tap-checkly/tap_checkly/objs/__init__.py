@@ -11,6 +11,9 @@ from ._check import (
     CheckConf2,
     CheckStatus,
 )
+from ._dashboard import (
+    Dashboard,
+)
 from ._group import (
     CheckGroup,
     CheckId,
@@ -37,6 +40,8 @@ from ._root import (
     CheckObj,
     CheckResultObj,
     CheckStatusObj,
+    DashboardId,
+    DashboardObj,
 )
 from ._subscriptions import (
     AlertChannelId,
@@ -68,4 +73,7 @@ __all__ = [
     "CheckResultObj",
     "CheckGroupObj",
     "CheckReport",
+    "DashboardObj",
+    "DashboardId",
+    "Dashboard",
 ]

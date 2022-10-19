@@ -9,6 +9,9 @@ from ._check import (
     Check,
     CheckStatus,
 )
+from ._dashboard import (
+    Dashboard,
+)
 from ._group import (
     CheckGroup,
     CheckId,
@@ -30,7 +33,12 @@ from dataclasses import (
 
 @dataclass(frozen=True)
 class CheckGroupId:
-    id_str: str
+    raw_str: str
+
+
+@dataclass(frozen=True)
+class DashboardId:
+    raw_id: str
 
 
 CheckStatusObj = IndexedObj[CheckId, CheckStatus]
@@ -38,3 +46,4 @@ CheckObj = IndexedObj[CheckId, Check]
 AlertChannelObj = IndexedObj[AlertChannelId, AlertChannel]
 CheckResultObj = IndexedObj[CheckResultId, CheckResult]
 CheckGroupObj = IndexedObj[CheckGroupId, CheckGroup]
+DashboardObj = IndexedObj[DashboardId, Dashboard]
