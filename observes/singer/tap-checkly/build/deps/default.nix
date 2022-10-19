@@ -10,45 +10,34 @@
     buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
     fetchPypi = nixpkgs.python3Packages.fetchPypi;
   };
-  pythonPkgs =
-    nixpkgs."${python_version}Packages"
+  # overrides
+  pkg_override = names: (import ./pkg_override.nix) (x: (x ? overridePythonAttrs && builtins.elem x.pname names));
+  pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
+  overrides = map pkgs_overrides [
+    pytz_override
+  ];
+  # layers
+  layer_1 = python_pkgs:
+    python_pkgs
     // {
+      pytz = import ./pytz {inherit lib python_pkgs;};
+      import-linter = import ./import-linter {
+        inherit lib;
+        pythonPkgs = python_pkgs;
+      };
+      types-python-dateutil = import ./dateutil/stubs.nix lib;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
     };
-  pythonPkgs2 =
-    pythonPkgs
-    // {
-      click = pythonPkgs.click.overridePythonAttrs (
-        old: rec {
-          version = "7.1.2";
-          src = lib.fetchPypi {
-            inherit version;
-            pname = old.pname;
-            sha256 = "0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-          };
-        }
-      );
-      types-requests = pythonPkgs.types-requests.overridePythonAttrs (
-        old: rec {
-          version = "2.27.20";
-          src = lib.fetchPypi {
-            inherit version;
-            pname = old.pname;
-            sha256 = "YzRFc83mxO/UTYZ8AVjZ+35r65VyHL6YgvP4V+6KU5g=";
-          };
-        }
-      );
-    };
-  python_pkgs =
-    pythonPkgs2
-    // {
-      import-linter = import ./import-linter {
-        inherit lib;
-        pythonPkgs = pythonPkgs2;
-      };
-      types-click = import ./click/stubs.nix lib;
-      types-python-dateutil = import ./dateutil/stubs.nix lib;
-      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
-    };
-in {inherit lib python_pkgs;}
+  # integrate all
+  compose = let
+    apply = x: f: f x;
+  in
+    functions: val: builtins.foldl' apply val functions;
+  final_nixpkgs = compose ([layer_1] ++ overrides) (nixpkgs."${python_version}Packages");
+in {
+  inherit lib;
+  python_pkgs = final_nixpkgs;
+}

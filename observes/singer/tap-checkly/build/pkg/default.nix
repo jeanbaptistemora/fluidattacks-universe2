@@ -13,7 +13,6 @@
     fa-singer-io
     python-dateutil
     requests
-    types-click
     types-python-dateutil
     types-requests
     utils-logger

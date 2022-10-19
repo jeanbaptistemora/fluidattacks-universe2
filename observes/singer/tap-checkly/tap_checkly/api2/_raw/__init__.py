@@ -75,11 +75,14 @@ class RawClient:
         def _action() -> Result[
             JsonObj | FrozenList[JsonObj], HTTPError | UnexpectedServerResponse
         ]:
+            union: UnionFactory[
+                HTTPError, UnexpectedServerResponse
+            ] = UnionFactory()
             target = self._full_endpoint(endpoint)
             LOG.info("API call (get): %s\nparams = %s", target, params)
             response = requests.get(
                 target,
-                headers={  # type: ignore[misc]
+                headers={
                     "X-Checkly-Account": self._auth.account,
                     "Authorization": f"Bearer {self._auth.api_key}",
                 },
@@ -94,7 +97,7 @@ class RawClient:
                     lambda e: UnexpectedServerResponse(f"error: {str(e)}; raw response: {str(raw)}")  # type: ignore[misc]
                 )
             except HTTPError as err:  # type: ignore[misc]
-                return Result.failure(err)
+                return Result.failure(union.inl(err))
 
         return Cmd.from_cmd(_action)
 

@@ -25,10 +25,10 @@ from utils_logger.v2 import (
 
 
 @click.command()  # type: ignore[misc]
-@click.option("--api-user", type=str, required=True)
-@click.option("--api-key", type=str, required=True)
-@click.option("--all-streams", is_flag=True, default=False)
-@click.argument(
+@click.option("--api-user", type=str, required=True)  # type: ignore[misc]
+@click.option("--api-key", type=str, required=True)  # type: ignore[misc]
+@click.option("--all-streams", is_flag=True, default=False)  # type: ignore[misc]
+@click.argument(  # type: ignore[misc]
     "name",
     type=click.Choice(
         [x.value for x in iter(SupportedStreams)], case_sensitive=False

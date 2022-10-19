@@ -48,8 +48,9 @@ class DateRange(_DateRange):
             item = DateRange(_DateRange(from_date, to_date))
             return Result.success(item)
         return Result.failure(
-            OutOfRange("time delta of DateRange must be <= 6h")
-        )
+            OutOfRange("time delta of DateRange must be <= 6h"),
+            DateRange,
+        ).alt(Exception)
 
 
 def _lower_limit(date: datetime, limit: datetime) -> datetime:

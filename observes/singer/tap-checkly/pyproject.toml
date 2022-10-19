@@ -13,7 +13,7 @@ classifiers = [
 requires-python = ">=3.8"
 dependencies = [
     "python-dateutil >=2.8.2, <3.0.0",
-    "click >=7.1.2, <8.0.0",
+    "click >=8.1.2, <9.0.0",
     "requests >=2.25.1, <3.0.0",
     "fa-purity >=1.24.0, <2.0.0",
     "fa-singer-io >=1.6.1, <2.0.0",
