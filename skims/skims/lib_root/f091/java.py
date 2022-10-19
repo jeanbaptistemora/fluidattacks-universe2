@@ -2,19 +2,21 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from lib_root.utilities.common import (
-    search_method_invocation_naive,
+from lib_root.utilities.java import (
+    yield_method_invocation_syntax_graph,
 )
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -25,15 +27,38 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+)
+
+
+def is_logger_unsafe(graph: Graph, n_id: str) -> bool:
+    method = MethodsEnum.JAVA_INSECURE_LOGGING
+    if test_node := graph.nodes[n_id].get("arguments_id"):
+        for path in get_backward_paths(graph, test_node):
+            evaluation = evaluate(method, graph, path, test_node)
+            if (
+                evaluation
+                and evaluation.danger
+                and "userparams" in evaluation.triggers
+                and not (
+                    "sanitized" in evaluation.triggers
+                    and "characters" in evaluation.triggers
+                )
+            ):
+                return True
+
+    return False
 
 
 def insecure_logging(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
-) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.JAVA_INSECURE_LOGGING
+) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_INSECURE_LOGGING
+    danger_methods = {"logger.info", "log.debug"}
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -41,24 +66,11 @@ def insecure_logging(
                 continue
             graph = shard.syntax_graph
 
-            for nid in search_method_invocation_naive(graph, {"info"}):
-                if (
-                    graph.nodes[graph.nodes[nid]["object_id"]].get("symbol")
-                    != "Logger"
+            for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                if m_name.lower() in danger_methods and is_logger_unsafe(
+                    graph, m_id
                 ):
-                    continue
-                if test_node := graph.nodes[nid].get("arguments_id"):
-                    for path in get_backward_paths(graph, test_node):
-                        evaluation = evaluate(method, graph, path, test_node)
-                        if (
-                            evaluation
-                            and evaluation.danger
-                            and not (
-                                "replaceAll" in evaluation.triggers
-                                and "Sanitize" in evaluation.triggers
-                            )
-                        ):
-                            yield shard, nid
+                    yield shard, m_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.091.description",
