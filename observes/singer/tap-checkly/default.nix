@@ -2,22 +2,24 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  extras,
-  legacyPkgs,
-  pythonVersion,
+  nixpkgs,
+  python_version,
   src,
 }: let
-  metadata = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).tool.poetry;
-  lib = {
-    buildEnv = legacyPkgs."${pythonVersion}".buildEnv.override;
-    buildPythonPackage = legacyPkgs."${pythonVersion}".pkgs.buildPythonPackage;
-    fetchPypi = legacyPkgs.python3Packages.fetchPypi;
-  };
-  pythonPkgs = import ./build/deps {
-    inherit extras legacyPkgs lib pythonVersion;
+  metadata = let
+    _metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).project;
+    file_str = builtins.readFile "${src}/${_metadata.name}/__init__.py";
+    match = builtins.match ".*__version__ *= *\"(.+?)\"\n.*" file_str;
+    version = builtins.elemAt match 0;
+  in
+    _metadata // {inherit version;};
+  deps = import ./build/deps {
+    inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata pythonPkgs;
+    inherit src metadata;
+    lib = deps.lib;
+    python_pkgs = deps.python_pkgs;
   };
   checks = import ./check {self_pkg = self_pkgs.pkg;};
 in

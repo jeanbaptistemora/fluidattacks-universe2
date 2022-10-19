@@ -7,7 +7,6 @@
   observesIndex,
 }: let
   python_version = "python310";
-  system = "x86_64-linux";
   nixpkgs = fetchNixpkgs {
     rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
@@ -47,39 +46,10 @@
         };
     };
 
-  _legacy_purity_src = projectPath "/observes/common/purity";
-  legacy-purity."${python_version}" = import _legacy_purity_src {
-    inherit system;
-    legacyPkgs = nixpkgs;
-    src = _legacy_purity_src;
-    pythonVersion = python_version;
-  };
-
-  _legacy_paginator_src = projectPath "/observes/common/paginator";
-  legacy-paginator."${python_version}" = import _legacy_paginator_src {
-    inherit python_version;
-    local_pkgs = {
-      inherit legacy-purity;
-    };
-    pkgs = nixpkgs;
-    src = _legacy_paginator_src;
-  };
-
-  _legacy_singer_io = projectPath "/observes/common/singer-io";
-  legacy-singer-io."${python_version}" = import _legacy_singer_io {
-    inherit python_version;
-    local_pkgs = {
-      inherit legacy-purity;
-    };
-    pkgs = nixpkgs;
-    src = _legacy_singer_io;
-  };
-
-  extras = {inherit fa-purity fa-singer-io legacy-purity legacy-paginator legacy-singer-io utils-logger;};
+  extras = {inherit fa-purity fa-singer-io utils-logger;};
   out = import ./. {
-    inherit extras;
-    legacyPkgs = nixpkgs;
-    pythonVersion = python_version;
+    inherit python_version;
+    nixpkgs = nixpkgs // extras;
     src = ./.;
   };
 in

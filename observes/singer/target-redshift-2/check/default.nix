@@ -5,7 +5,7 @@
   build_check = check:
     self_pkg.overridePythonAttrs (
       old: {
-        installCheckPhase = [old."${check}"];
+        checkPhase = [old."${check}"]; # TODO
       }
     );
 in {

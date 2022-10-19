@@ -2,20 +2,20 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  extras,
-  legacyPkgs,
-  lib,
-  pythonVersion,
+  nixpkgs,
+  python_version,
 }: let
-  pythonPkgs =
-    legacyPkgs."${pythonVersion}Packages"
-    // {
-      fa-purity = extras.fa-purity."${pythonVersion}".pkg;
-      fa-singer-io = extras.fa-singer-io."${pythonVersion}".pkg;
-    };
-  legacy = import ./legacy {
-    inherit extras pythonPkgs pythonVersion;
+  lib = {
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
   };
+  pythonPkgs =
+    nixpkgs."${python_version}Packages"
+    // {
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
+    };
   pythonPkgs2 =
     pythonPkgs
     // {
@@ -40,15 +40,15 @@
         }
       );
     };
-in
-  pythonPkgs2
-  // {
-    import-linter = import ./import-linter {
-      inherit lib;
-      pythonPkgs = pythonPkgs2;
+  python_pkgs =
+    pythonPkgs2
+    // {
+      import-linter = import ./import-linter {
+        inherit lib;
+        pythonPkgs = pythonPkgs2;
+      };
+      types-click = import ./click/stubs.nix lib;
+      types-python-dateutil = import ./dateutil/stubs.nix lib;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
-    types-click = import ./click/stubs.nix lib;
-    types-python-dateutil = import ./dateutil/stubs.nix lib;
-    utils-logger = extras.utils-logger."${pythonVersion}".pkg;
-  }
-  // legacy
+in {inherit lib python_pkgs;}

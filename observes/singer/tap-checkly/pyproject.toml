@@ -2,29 +2,30 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-[tool.poetry]
+[project]
 name = "tap_checkly"
-version = "1.1.0"
+authors = [
+    {name = "Product Team", email = "development@fluidattacks.com"},
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "python-dateutil >=2.8.2, <3.0.0",
+    "click >=7.1.2, <8.0.0",
+    "requests >=2.25.1, <3.0.0",
+    "fa-purity >=1.24.0, <2.0.0",
+    "fa-singer-io >=1.6.1, <2.0.0",
+    "types-requests >=2.27.20, <3.0.0",
+    "types-python-dateutil >=2.8.12, <3.0.0",
+]
 description = "tap checkly - data extractor"
-authors = ["Product Team <development@fluidattacks.com>"]
+dynamic = ["version"]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-python-dateutil = "^2.8.2"
-click = "^7.1.2"
-requests = "^2.25.1"
-returns = "^0.19.0"
-fa-purity = "^1.24.0"
-fa-singer-io = "^1.6.1"
-paginator = "^1.0.0"
-purity = "^1.0.0"
-singer-io = "^1.0.0"
-types-requests = "^2.27.20"
-types-python-dateutil = "^2.8.12"
-
-[tool.poetry.scripts]
-tap-checkly = 'tap_checkly.cli:main'
+[project.scripts]
+tap-checkly = "tap_checkly.cli:main"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
