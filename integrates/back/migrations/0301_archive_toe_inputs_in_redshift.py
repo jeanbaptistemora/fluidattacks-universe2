@@ -7,8 +7,8 @@
 From deleted groups, send TOE inputs to redshift for analytics purposes and
 remove them from dynamodb.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-18 at 21:49:45 UTC
+Finalization Time: 2022-10-19 at 00:02:48 UTC
 """
 
 from aioextensions import (
@@ -49,8 +49,9 @@ async def _process_group(
     progress: float,
 ) -> None:
     items = await get_toe_inputs_items_by_group(group_name)
-    await redshift_toe_inputs.insert_batch_metadata(items=items)
-    await toe_inputs_model.remove_items(items=items)
+    if items:
+        await redshift_toe_inputs.insert_batch_metadata(items=items)
+        await toe_inputs_model.remove_items(items=items)
     LOGGER_CONSOLE.info(
         "Group processed",
         extra={
@@ -79,7 +80,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(deleted_group_names)
         ),
-        workers=4,
+        workers=1,
     )
 
 
