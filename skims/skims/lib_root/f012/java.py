@@ -5,13 +5,15 @@
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
     Graph,
+    GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
+    GraphShardNode,
     NId,
 )
 import re
@@ -23,6 +25,9 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
+)
+from typing import (
+    Iterable,
 )
 from utils import (
     graph as g,
@@ -72,7 +77,7 @@ def is_argument_vuln(
     graph: Graph,
     n_id: NId,
 ) -> bool:
-    method = core_model.MethodsEnum.JAVA_JPA_LIKE
+    method = MethodsEnum.JAVA_JPA_LIKE
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and has_like_injection(
@@ -82,10 +87,28 @@ def is_argument_vuln(
     return False
 
 
+def analyze_jpa_node(graph: Graph, annotation_id: str) -> bool:
+    _, *c_ids = g.adj_ast(graph, annotation_id, depth=2)
+    results_vuln = []
+    for n_id in c_ids:
+        results_vuln.append(is_argument_vuln(graph, n_id))
+
+    if any(results_vuln):
+        m_id = g.pred_ast(graph, annotation_id, depth=2)[1]
+        pm_id = g.adj_ast(graph, m_id, label_type="ParameterList")[0]
+        annotations = g.adj_ast(graph, pm_id, depth=3, label_type="Annotation")
+        if not any(
+            graph.nodes[annotation]["name"] == "Bind"
+            for annotation in annotations
+        ):
+            return True
+    return False
+
+
 def jpa_like(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     danger_decorators = complete_attrs_on_set(
         {
             "org.springframework.data.jpa.repository.Query",
@@ -93,7 +116,7 @@ def jpa_like(
         }
     )
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
@@ -105,30 +128,14 @@ def jpa_like(
                 predicate=g.pred_has_labels(label_type="Annotation"),
             ):
                 identifier_text = graph.nodes[annotation_id]["name"]
-                if identifier_text not in danger_decorators:
-                    continue
-                _, *c_ids = g.adj_ast(graph, annotation_id, depth=2)
-                results_vuln = []
-                for n_id in c_ids:
-                    results_vuln.append(is_argument_vuln(graph, n_id))
-
-                if any(results_vuln):
-                    m_id = g.pred_ast(graph, annotation_id, depth=2)[1]
-                    pm_id = g.adj_ast(graph, m_id, label_type="ParameterList")[
-                        0
-                    ]
-                    annotations = g.adj_ast(
-                        graph, pm_id, depth=3, label_type="Annotation"
-                    )
-                    if not any(
-                        graph.nodes[annotation]["name"] == "Bind"
-                        for annotation in annotations
-                    ):
-                        yield shard, annotation_id
+                if identifier_text in danger_decorators and analyze_jpa_node(
+                    graph, annotation_id
+                ):
+                    yield shard, annotation_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f001_jpa.java_like.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.JAVA_JPA_LIKE,
+        method=MethodsEnum.JAVA_JPA_LIKE,
     )

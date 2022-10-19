@@ -14,7 +14,7 @@ from model.core_model import (
 )
 from model.graph_model import (
     GraphDB,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -23,6 +23,7 @@ from sast_syntax_readers.kotlin.common import (
     get_composite_name,
 )
 from typing import (
+    Iterable,
     Set,
 )
 from utils import (
@@ -35,7 +36,7 @@ from utils.string import (
 
 def _kotlin_yield_unencrypted_channels(
     graph_db: GraphDB,
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     unencrypted_methods = complete_attrs_on_set(
         {
             "org.apache.commons.net.ftp.FTPClient",
@@ -67,7 +68,7 @@ def _kotlin_yield_unencrypted_channels(
 
 
 def unencrypted_channel(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(

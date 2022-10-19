@@ -18,7 +18,7 @@ from model.core_model import (
 from model.graph_model import (
     GraphDB,
     GraphShard,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -28,6 +28,7 @@ from sast_syntax_readers.kotlin.common import (
 )
 from typing import (
     Any,
+    Iterable,
     List,
     Set,
 )
@@ -45,7 +46,7 @@ from utils.string import (
 
 def security_yield_insecure_key(
     shard: GraphShard, type_name: str, parameters: List[Any]
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     insecure_rsa_spec = complete_attrs_on_set(
         {"security.spec.RSAKeyGenParameterSpec"}
     )
@@ -72,7 +73,7 @@ def yield_insecure_hash(
     method_name: str,
     method_id: str,
     parameters: List[Any],
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     insecure_digests = {
         "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
         "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
@@ -118,7 +119,7 @@ def yield_insecure_hash(
 
 def yield_insecure_ciphers(
     shard: GraphShard, method_name: str, parameters: List[Any]
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     ciphers: Set[str] = complete_attrs_on_set(
         {
             "javax.crypto.Cipher.getInstance",
@@ -162,7 +163,7 @@ def yield_insecure_ciphers(
 
 def _yield_insecure_key(
     graph_db: GraphDB,
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
@@ -176,7 +177,7 @@ def _yield_insecure_key(
 
 def _yield_insecure_hash(
     graph_db: GraphDB,
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
@@ -192,7 +193,7 @@ def _yield_insecure_hash(
 
 def _okhttp_yield_insecure_ciphers(
     shard: GraphShard, method_name: str, parameters: List[Any]
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     ssl_cipher_method: Set[str] = complete_attrs_on_set(
         {"ConnectionSpec.Builder.tlsVersions"}
     )
@@ -213,7 +214,7 @@ def _okhttp_yield_insecure_ciphers(
 
 def _yield_insecure_ciphers(
     graph_db: GraphDB,
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     for shard, method_id, method_name in yield_method_invocation(graph_db):
         match = g.match_ast_group(
             shard.graph, method_id, "value_argument", depth=3
@@ -229,7 +230,7 @@ def _yield_insecure_ciphers(
 
 
 def kotlin_insecure_hash(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -241,7 +242,7 @@ def kotlin_insecure_hash(
 
 
 def kotlin_insecure_cipher(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -253,7 +254,7 @@ def kotlin_insecure_cipher(
 
 
 def kotlin_insecure_key(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(

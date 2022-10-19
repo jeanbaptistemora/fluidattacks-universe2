@@ -9,9 +9,16 @@ from lib_root.utilities.c_sharp import (
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
+)
+from model.graph_model import (
+    Graph,
+    GraphDB,
+    GraphShardMetadataLanguage as GraphLanguage,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -22,25 +29,50 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+    Optional,
+)
 from utils import (
     graph as g,
 )
 
 
-def insecurely_generated_cookies(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.CS_INSEC_COOKIES
-    object_name = {"HttpCookie"}
-    security_props = {
-        "HttpOnly",
-        "Secure",
-    }
+def is_insecure_cookie_object(graph: Graph, object_nid: str) -> Optional[NId]:
+    method = MethodsEnum.CS_INSEC_COOKIES
+    security_props = {"HttpOnly", "Secure"}
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    pred = g.pred(graph, object_nid)[0]
+    var_name = {graph.nodes[pred].get("variable")}
+
+    sec_access = []
+    for nid in yield_syntax_graph_member_access(graph, var_name):
+        if graph.nodes[nid].get("member") not in security_props:
+            continue
+        parent_id = g.pred(graph, nid)[0]
+        test_nid = graph.nodes[parent_id].get("value_id")
+        sec_access.append(nid)
+        for path in get_backward_paths(graph, test_nid):
+            evaluation = evaluate(method, graph, path, test_nid)
+            if evaluation and evaluation.danger:
+                return pred
+
+    if len(sec_access) < 2:
+        return pred
+
+    return None
+
+
+def insecurely_generated_cookies(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CS_INSEC_COOKIES
+    object_name = {"HttpCookie"}
+
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
+            GraphLanguage.CSHARP,
         ):
             if shard.syntax_graph is None:
                 continue
@@ -49,23 +81,7 @@ def insecurely_generated_cookies(
             for object_nid in yield_syntax_graph_object_creation(
                 graph, object_name
             ):
-                insecure = False
-                sec_access = []
-                pred = g.pred(graph, object_nid)[0]
-                var = {graph.nodes[pred].get("variable")}
-
-                for nid in yield_syntax_graph_member_access(graph, var):
-                    if graph.nodes[nid].get("member") not in security_props:
-                        continue
-                    test_nid = graph.nodes[g.pred(graph, nid)[0]].get(
-                        "value_id"
-                    )
-                    sec_access.append(nid)
-                    for path in get_backward_paths(graph, test_nid):
-                        evaluation = evaluate(method, graph, path, test_nid)
-                        if evaluation and evaluation.danger:
-                            insecure = True
-                if insecure or len(sec_access) < 2:
+                if pred := is_insecure_cookie_object(graph, object_nid):
                     yield shard, pred
 
     return get_vulnerabilities_from_n_ids(

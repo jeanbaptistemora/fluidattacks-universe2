@@ -19,7 +19,7 @@ from model.graph_model import (
     Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -30,6 +30,9 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
+)
+from typing import (
+    Iterable,
 )
 
 
@@ -49,7 +52,7 @@ def xpath_injection(
     c_sharp = GraphLanguage.CSHARP
     danger_meths = {"SelectSingleNode"}
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

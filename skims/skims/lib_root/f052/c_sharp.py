@@ -68,6 +68,24 @@ def get_eval_triggers(
     return False
 
 
+def is_insecure_keys(graph: Graph, n_id: str) -> bool:
+    method = MethodsEnum.CS_INSECURE_KEYS
+    n_attrs = graph.nodes[n_id]
+    unsafe_method = "RSACryptoServiceProvider"
+
+    if n_attrs["name"] == unsafe_method and is_rsa_insecure(graph, n_id):
+        return True
+
+    if (
+        n_attrs["name"] in {"DSACng", "RSACng"}
+        and (a_id := n_attrs.get("arguments_id"))
+        and (test_nid := g.match_ast(graph, a_id).get("__0__"))
+    ):
+        return get_eval_danger(graph, test_nid, method)
+
+    return False
+
+
 def get_crypto_var_names(
     graph: Graph,
 ) -> List[NId]:
@@ -146,21 +164,7 @@ def c_sharp_insecure_keys(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                n_attrs = graph.nodes[n_id]
-
-                if n_attrs[
-                    "name"
-                ] == "RSACryptoServiceProvider" and is_rsa_insecure(
-                    graph, n_id
-                ):
-                    yield shard, n_id
-
-                if (
-                    n_attrs["name"] in {"DSACng", "RSACng"}
-                    and (a_id := n_attrs.get("arguments_id"))
-                    and (test_nid := g.match_ast(graph, a_id).get("__0__"))
-                    and get_eval_danger(graph, test_nid, method)
-                ):
+                if is_insecure_keys(graph, n_id):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
@@ -341,11 +345,12 @@ def c_sharp_disabled_strong_crypto(
             for member in yield_syntax_graph_member_access(
                 graph, {"AppContext"}
             ):
-                if graph.nodes[member]["member"] != "SetSwitch":
-                    continue
-
                 test_nid = g.pred_ast(graph, member)[0]
-                if get_eval_triggers(graph, test_nid, method, rules):
+                if graph.nodes[member][
+                    "member"
+                ] == "SetSwitch" and get_eval_triggers(
+                    graph, test_nid, method, rules
+                ):
                     yield shard, test_nid
 
     return get_vulnerabilities_from_n_ids(

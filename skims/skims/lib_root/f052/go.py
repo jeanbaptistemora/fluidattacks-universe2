@@ -16,20 +16,23 @@ from model.core_model import (
 from model.graph_model import (
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from typing import (
+    Iterable,
+)
 
 
 def go_insecure_hash(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {"md4", "md5", "ripemd160", "sha1"}
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.GO):
             for node in yield_shard_object_creation(shard, insecure_ciphers):
                 yield shard, node
@@ -43,7 +46,7 @@ def go_insecure_hash(
 
 
 def go_insecure_cipher(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {
@@ -51,7 +54,7 @@ def go_insecure_cipher(
         "NewTripleDESCipher",
     }
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.GO):
             for node in [
                 *yield_shard_member_access(shard, insecure_ciphers),
