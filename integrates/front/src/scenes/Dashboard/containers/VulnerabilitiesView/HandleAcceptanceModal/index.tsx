@@ -121,10 +121,9 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       isAcceptedUndefinedSelectedHelper(
         isAcceptedUndefinedSelected,
         handleAcceptance,
-        acceptedVulnIds,
-        findingId,
+        acceptedVulns,
         formValues,
-        rejectedVulnIds
+        rejectedVulns
       );
       await isConfirmZeroRiskSelectedHelper(
         acceptedVulnIds.length !== 0,

@@ -22,6 +22,7 @@ interface IGetFindingVulnInfoAttr {
 }
 
 interface IVulnerabilitiesAttr {
+  findingId: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
   specific: string;

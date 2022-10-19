@@ -216,41 +216,69 @@ const isAcceptedUndefinedSelectedHelper = (
   handleAcceptance: (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
-  acceptedVulnIds: string[],
-  findingId: string,
+  acceptedVulns: IVulnDataAttr[],
   values: {
     justification: string;
   },
-  rejectedVulnIds: string[]
+  rejectedVulns: IVulnDataAttr[]
 ): void => {
   if (isAcceptedUndefinedSelected) {
     const chunksize = 10;
-
-    if (!_.isEmpty(acceptedVulnIds)) {
-      const acceptedChunks = _.chunk(acceptedVulnIds, chunksize);
-      acceptedChunks.map(async (acceptedChunk): Promise<void> => {
-        await handleAcceptance({
-          variables: {
-            acceptedVulnerabilities: acceptedChunk,
-            findingId,
-            justification: values.justification,
-            rejectedVulnerabilities: [],
-          },
-        });
-      });
+    if (!_.isEmpty(acceptedVulns)) {
+      Object.entries(
+        _.groupBy(
+          acceptedVulns,
+          (vuln: IVulnDataAttr): string => vuln.findingId
+        )
+      ).forEach(
+        ([findingId, chunkedVulnerabilities]: [
+          string,
+          IVulnDataAttr[]
+        ]): void => {
+          const acceptedVulnIds: string[] = chunkedVulnerabilities.map(
+            (vuln: IVulnDataAttr): string => vuln.id
+          );
+          const acceptedChunks = _.chunk(acceptedVulnIds, chunksize);
+          acceptedChunks.map(async (acceptVulns): Promise<void> => {
+            await handleAcceptance({
+              variables: {
+                acceptedVulnerabilities: acceptVulns,
+                findingId,
+                justification: values.justification,
+                rejectedVulnerabilities: [],
+              },
+            });
+          });
+        }
+      );
     }
-    if (!_.isEmpty(rejectedVulnIds)) {
-      const rejectedChunks = _.chunk(rejectedVulnIds, chunksize);
-      rejectedChunks.map(async (rejectedChunk): Promise<void> => {
-        await handleAcceptance({
-          variables: {
-            acceptedVulnerabilities: [],
-            findingId,
-            justification: values.justification,
-            rejectedVulnerabilities: rejectedChunk,
-          },
-        });
-      });
+    if (!_.isEmpty(rejectedVulns)) {
+      Object.entries(
+        _.groupBy(
+          rejectedVulns,
+          (vuln: IVulnDataAttr): string => vuln.findingId
+        )
+      ).forEach(
+        ([findingId, chunkedVulnerabilities]: [
+          string,
+          IVulnDataAttr[]
+        ]): void => {
+          const rejectedVulnIds: string[] = chunkedVulnerabilities.map(
+            (vuln: IVulnDataAttr): string => vuln.id
+          );
+          const rejectedChunks = _.chunk(rejectedVulnIds, chunksize);
+          rejectedChunks.map(async (rejectVulns): Promise<void> => {
+            await handleAcceptance({
+              variables: {
+                acceptedVulnerabilities: [],
+                findingId,
+                justification: values.justification,
+                rejectedVulnerabilities: rejectVulns,
+              },
+            });
+          });
+        }
+      );
     }
   }
 };
