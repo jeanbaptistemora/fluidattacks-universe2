@@ -17,7 +17,7 @@ from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
 from charts.generators.common.colors import (
-    EXPOSURE,
+    OTHER_COUNT,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
@@ -63,7 +63,7 @@ def format_data(data: list[PortfoliosGroupsInfo]) -> dict[str, Any]:
                 ],
             ],
             colors={
-                "Pending CVSSF": EXPOSURE,
+                "Pending CVSSF": OTHER_COUNT,
             },
             labels=None,
             type="bar",
