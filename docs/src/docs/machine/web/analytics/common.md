@@ -201,7 +201,7 @@ that accepted the vulnerabilities.
 
 ## Vulnerabilities by source
 
-![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_by_type_x6vnga.png)
+![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1666183901/docs/web/analytics/common/vulnerabilities_by_source.png)
 
 These are the vulnerabilities
 categorized based on
