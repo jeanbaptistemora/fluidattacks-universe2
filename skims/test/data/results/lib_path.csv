@@ -9297,6 +9297,19 @@ F176,lines,namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,8,16,sk
   11 | EOF
      ^ Col 0
 ",bash.bash_using_sshpass
+F176,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,7,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f405/Dockerfile,"
+   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+   2 | ARG DEBIAN_FRONTEND=noninteractive
+   3 | RUN apt update
+   4 | RUN apt install -y nginx php-fpm supervisor && \
+   5 |     useradd -ms /bin/bash newuser \
+   6 |     rm -rf /var/lib/apt/lists/* && \
+>  7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
+   8 |     apt clean
+   9 |     chmod 750 testfile
+  10 |     chmod 754 testfile
+     ^ Col 0
+",docker.container_using_sshpass
 F418,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,Using the ADD command to automatically extract files to the destination directory adds the risk of exploiting vulnerabilities such as zip bombs and Zip Slip that could then be activated automatically. in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 |
@@ -31738,6 +31751,19 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
+F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
+   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+   2 | ARG DEBIAN_FRONTEND=noninteractive
+   3 | RUN apt update
+   4 | RUN apt install -y nginx php-fpm supervisor && \
+   5 |     useradd -ms /bin/bash newuser \
+   6 |     rm -rf /var/lib/apt/lists/* && \
+   7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
+   8 |     apt clean
+   9 |     chmod 750 testfile
+> 10 |     chmod 754 testfile
+     ^ Col 0
+",bash.excessive_privileges_for_others
 F405,lines,namespace/skims/test/data/lib_path/f405/bash.sh,9,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/bash.sh,"
   1 | # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
   2 | #

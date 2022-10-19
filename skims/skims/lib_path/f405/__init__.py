@@ -28,12 +28,13 @@ def run_excessive_privileges_for_others(
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
+    file_name: str,
     path: str,
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if file_extension == "sh":
+    if file_extension == "sh" or file_name == "Dockerfile":
         results = (
             *results,
             run_excessive_privileges_for_others(content_generator(), path),
