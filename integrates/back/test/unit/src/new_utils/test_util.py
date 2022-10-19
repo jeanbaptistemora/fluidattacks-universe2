@@ -209,48 +209,68 @@ async def test_get_jwt_content() -> None:
 
 async def test_valid_token() -> None:
     request = create_dummy_simple_session()
-    payload = {
-        "user_email": "unittest",
-        "exp": datetime_utils.get_as_epoch(
-            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-        ),
-        "sub": "session_token",
-        "jti": token_utils.calculate_hash_token()["jti"],
-    }
-    token = token_utils.new_encoded_jwt(payload)
+    user_email = "unittest"
+    jti = token_utils.calculate_hash_token()["jti"]
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload={
+            "user_email": user_email,
+            "jti": jti,
+        },
+        subject="starlette_session",
+    )
     request.cookies[JWT_COOKIE_NAME] = token
-    await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE  # type: ignore
+    await stakeholders_model.update_metadata(
+        email=user_email,
+        metadata=StakeholderMetadataToUpdate(
+            session_token=StakeholderSessionToken(
+                jti=jti, state=StateSessionType.IS_VALID
+            )
+        ),
+    )
+    await redis_set_entity_attr(
+        entity="session",
+        attr="jti",
+        email=user_email,
+        value=jti,
+        ttl=SESSION_COOKIE_AGE,
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
-        email=payload["user_email"],  # type: ignore
+        email=user_email,
         value=token,
         ttl=SESSION_COOKIE_AGE,
     )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
-        "exp": payload["exp"],
-        "sub": "session_token",
-        "jti": payload["jti"],
+        "exp": expiration_time,
+        "sub": "starlette_session",
+        "jti": jti,
     }
     assert test_data == expected_output
 
 
 async def test_valid_api_token() -> None:
     request = create_dummy_simple_session()
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
     payload = {
         "user_email": "unittest",
-        "exp": datetime_utils.get_as_epoch(
-            datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-        ),
         "iat": int(datetime.utcnow().timestamp()),
-        "sub": "api_token",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.new_encoded_jwt(payload, api=True)
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="api_token",
+        api=True,
+    )
     request.cookies[JWT_COOKIE_NAME] = token
     await sessions_dal.add_element(
         f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE  # type: ignore
@@ -265,7 +285,7 @@ async def test_valid_api_token() -> None:
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
-        "exp": payload["exp"],
+        "exp": expiration_time,
         "iat": payload["iat"],
         "sub": "api_token",
         "jti": payload["jti"],
