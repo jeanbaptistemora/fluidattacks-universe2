@@ -61,6 +61,7 @@ from db_model import (
     group_access as group_access_model,
     groups as groups_model,
     toe_inputs as toe_inputs_model,
+    toe_lines as toe_lines_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
@@ -114,6 +115,9 @@ from db_model.stakeholders.types import (
 )
 from db_model.toe_inputs.get import (
     get_toe_inputs_items_by_group,
+)
+from db_model.toe_lines.get import (
+    get_toe_lines_items_by_group,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -175,6 +179,7 @@ from organizations import (
 import re
 from redshift import (
     toe_inputs as redshift_toe_inputs,
+    toe_lines as redshift_toe_lines,
 )
 from roots import (
     domain as roots_domain,
@@ -1341,6 +1346,9 @@ async def remove_resources(
     toe_inputs_items = await get_toe_inputs_items_by_group(group_name)
     await redshift_toe_inputs.insert_batch_metadata(items=toe_inputs_items)
     await toe_inputs_model.remove_items(items=toe_inputs_items)
+    toe_lines_items = await get_toe_lines_items_by_group(group_name)
+    await redshift_toe_lines.insert_batch_metadata(items=toe_lines_items)
+    await toe_lines_model.remove_items(items=toe_lines_items)
 
 
 async def remove_user(
