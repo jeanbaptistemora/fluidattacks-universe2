@@ -368,6 +368,7 @@ describe("organization credentials view", (): void => {
         "organization.tabs.credentials.credentialsModal.form.auth.user"
       ),
     ]);
+    userEvent.clear(screen.getByRole("textbox", { name: "user" }));
     userEvent.type(screen.getByRole("textbox", { name: "user" }), "User test");
 
     userEvent.clear(screen.getByRole("textbox", { name: "password" }));
