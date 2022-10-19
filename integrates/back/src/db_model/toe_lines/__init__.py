@@ -7,6 +7,8 @@ from .add import (
 )
 from .remove import (
     remove,
+    remove_group_toe_lines,
+    remove_items,
 )
 from .update import (
     update_metadata,
@@ -15,5 +17,7 @@ from .update import (
 __all__ = [
     "add",
     "remove",
+    "remove_group_toe_lines",
+    "remove_items",
     "update_metadata",
 ]

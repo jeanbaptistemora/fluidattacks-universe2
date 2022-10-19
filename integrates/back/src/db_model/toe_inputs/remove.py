@@ -38,7 +38,7 @@ async def remove(
     await operations.delete_item(key=toe_input_key, table=TABLE)
 
 
-async def remove_group_toe_lines(
+async def remove_group_toe_inputs(
     *,
     group_name: str,
 ) -> None:
