@@ -106,7 +106,7 @@ the whole organization.
 
 ## Overall availability of groups
 
-![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159320/docs/web/analytics/organizations/organization_availability.png)
+![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1666187102/docs/web/analytics/organizations/overall_availability_of_groups.png)
 
 The percentage of time that
 each group in your organization
