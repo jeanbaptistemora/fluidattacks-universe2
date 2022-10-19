@@ -51,6 +51,9 @@ from tap_checkly.api2.checks.status import (
 from tap_checkly.api2.groups import (
     CheckGroupClient,
 )
+from tap_checkly.api2.report import (
+    CheckReportClient,
+)
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
@@ -89,13 +92,6 @@ def _stream_data(
             _emitter.emit_iopage(stream, page)
 
     return Cmd.from_cmd(action)
-
-
-def all_chk_reports(api: ApiClient) -> Cmd[None]:
-    return _stream_data(
-        SupportedStreams.REPORTS,
-        iter([api.checks.list_reports()]),
-    )
 
 
 def all_dashboards(api: ApiClient) -> Cmd[None]:
@@ -151,6 +147,10 @@ class Streams:
     def all_checks(self) -> Cmd[None]:
         client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
         return self._from_encoder(encoders.checks, client.list_checks())
+
+    def check_reports(self) -> Cmd[None]:
+        client = CheckReportClient.new(self.creds)
+        return self._from_encoder(encoders.report, client.reports_stream())
 
     def check_groups(self) -> Cmd[None]:
         client = CheckGroupClient.new(self.creds, 100)

@@ -20,15 +20,10 @@ from fa_purity import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
-    infinite_range,
     pure_map,
 )
 from fa_purity.stream.factory import (
-    from_piter,
-)
-from fa_purity.stream.transform import (
-    chain,
-    until_none,
+    unsafe_from_cmd,
 )
 from tap_checkly.api2._raw import (
     Credentials,
@@ -49,6 +44,9 @@ class CheckReportClient:
                 lambda i: CheckReportDecoder(i).decode_report().unwrap(), l
             ).to_list()
         )
+
+    def reports_stream(self) -> Stream[CheckReport]:
+        return unsafe_from_cmd(self.get_reports().map(from_flist))
 
     @staticmethod
     def new(

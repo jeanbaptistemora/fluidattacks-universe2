@@ -43,7 +43,6 @@ _legacy: Mapping[SupportedStreams, Callable[[ApiClient], Cmd[None]]] = {
     SupportedStreams.DASHBOARD: streams.all_dashboards,
     SupportedStreams.ENV_VARS: streams.all_env_vars,
     SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
-    SupportedStreams.REPORTS: streams.all_chk_reports,
     SupportedStreams.SNIPPETS: streams.all_snippets,
 }
 OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
@@ -66,6 +65,8 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
             return Result.success(_streams.alert_chs())
         if item is SupportedStreams.CHECK_STATUS:
             return Result.success(_streams.check_status())
+        if item is SupportedStreams.REPORTS:
+            return Result.success(_streams.check_reports())
         return Result.failure(NotImplementedError(item), Cmd[None]).alt(
             Exception
         )

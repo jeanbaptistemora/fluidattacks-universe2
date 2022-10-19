@@ -6,6 +6,7 @@ from . import (
     _alert_channels,
     _checks,
     _groups,
+    _report,
 )
 from ._checks import (
     status,
@@ -23,6 +24,7 @@ from tap_checkly.objs import (
     AlertChannelObj,
     CheckGroupObj,
     CheckObj,
+    CheckReport,
     CheckStatusObj,
 )
 
@@ -33,10 +35,15 @@ class ObjsEncoders:
     alerts: ObjEncoder[AlertChannelObj]
     groups: ObjEncoder[CheckGroupObj]
     status: ObjEncoder[CheckStatusObj]
+    report: ObjEncoder[CheckReport]
 
 
 encoders = ObjsEncoders(
-    _checks.encoder, _alert_channels.encoder, _groups.encoder, status.encoder
+    _checks.encoder,
+    _alert_channels.encoder,
+    _groups.encoder,
+    status.encoder,
+    _report.encoder,
 )
 
 
