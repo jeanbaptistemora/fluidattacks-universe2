@@ -46,6 +46,7 @@ from operator import (
 from typing import (
     Any,
     NamedTuple,
+    Optional,
 )
 
 
@@ -105,7 +106,7 @@ async def get_data_many_groups(
 
 
 def format_data(
-    *, data: tuple[EventsInfo, ...], legend: str
+    *, data: tuple[EventsInfo, ...], legend: str, x_label: Optional[str] = None
 ) -> dict[str, Any]:
     limited_data = [group for group in data if group.days > 0][:LIMIT]
 
@@ -127,6 +128,11 @@ def format_data(
             rotated=True,
             x=dict(
                 categories=[group.name for group in limited_data],
+                **(
+                    dict(label=dict(text=x_label, position="outer-top"))
+                    if x_label
+                    else {}
+                ),
                 tick=dict(
                     multiline=False,
                     outer=False,
@@ -160,6 +166,7 @@ async def generate_all() -> None:
         document = format_data(
             data=await get_data_one_group(group=group, loaders=loaders),
             legend="Days since the event was reported",
+            x_label="Event ID",
         )
         json_dump(
             document=document,
