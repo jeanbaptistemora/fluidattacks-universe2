@@ -102,6 +102,9 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
                     "searchFindings.servicesTable.deleteGroup.reason.diffSectst"
                   )}
                 </option>
+                <option value={"RENAME"}>
+                  {t("searchFindings.servicesTable.deleteGroup.reason.rename")}
+                </option>
                 <option value={"MIGRATION"}>
                   {t(
                     "searchFindings.servicesTable.deleteGroup.reason.migration"

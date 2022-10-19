@@ -100,6 +100,7 @@ def translate_group_reason(reason: str) -> str:
         GroupReason.NO_SECTST.value: "No more security testing",
         GroupReason.NO_SYSTEM.value: "System will be deprecated",
         GroupReason.OTHER.value: "Other reason not mentioned",
+        GroupReason.RENAME.value: "Group rename",
     }
     if reason in translation:
         return translation[reason]

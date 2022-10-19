@@ -30,6 +30,7 @@ class GroupStateRemovalJustification(str, Enum):
     NO_SECTST: str = "NO_SECTST"
     NO_SYSTEM: str = "NO_SYSTEM"
     OTHER: str = "OTHER"
+    RENAME: str = "RENAME"
 
 
 class GroupStateStatus(str, Enum):

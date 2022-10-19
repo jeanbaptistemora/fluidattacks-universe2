@@ -483,6 +483,8 @@ enum RemoveGroupReason {
   NO_SYSTEM
   "Other reason not mentioned above"
   OTHER
+  "Group rename"
+  RENAME
 }
 
 "Language for Group Reports enum definition"

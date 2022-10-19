@@ -2489,6 +2489,7 @@ export const enTranslations: ResourceKey = {
           noSectst: "No more security testing",
           noSystem: "System will be deprecated",
           other: "Other reason not mentioned here",
+          rename: "Group rename",
           title: "Please select the reason why you want to delete this group.",
           tooltip: "Reason of group deletion",
         },
