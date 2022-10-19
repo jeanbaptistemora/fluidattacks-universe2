@@ -23,9 +23,6 @@ from graphql import (
 from newutils import (
     token as token_utils,
 )
-from redis_cluster.operations import (
-    redis_set_entity_attr,
-)
 from requests import (
     Request,
 )
@@ -87,22 +84,6 @@ async def create_dummy_session(
                 )
             ),
         )
-
-        await redis_set_entity_attr(
-            entity="session",
-            attr="jti",
-            email=username,
-            value=payload["jti"],
-            ttl=SESSION_COOKIE_AGE,
-        )
-        await redis_set_entity_attr(
-            entity="session",
-            attr="jwt",
-            email=username,
-            value=token,
-            ttl=SESSION_COOKIE_AGE,
-        )
-
     return request
 
 
