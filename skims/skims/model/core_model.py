@@ -2398,6 +2398,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.DAST,
     )
+    DOTNETCONFIG_BASIC_AUTH_METHOD = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_basic_auth_method",
+        module="lib_path",
+        finding=FindingEnum.F015,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     DOTNETCONFIG_NOT_SUPPRESS_VULN_HEADER = MethodInfo(
         file_name="dotnetconfig",
         name="dotnetconfig_not_suppress_vuln_header",

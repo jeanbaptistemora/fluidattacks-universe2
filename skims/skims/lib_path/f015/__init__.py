@@ -9,6 +9,9 @@ from lib_path.common import (
 from lib_path.f015.conf_files import (
     jmx_header_basic,
 )
+from lib_path.f015.dotnetconfig import (
+    basic_auth_method,
+)
 from lib_path.f015.terraform import (
     tfm_azure_linux_vm_insecure_authentication,
     tfm_azure_virtual_machine_insecure_authentication,
@@ -58,6 +61,11 @@ def run_jmx_header_basic(
 
 
 @SHIELD_BLOCKING
+def run_basic_auth_method(content: str, path: str) -> Vulnerabilities:
+    return basic_auth_method(content=content, path=path)
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -83,6 +91,12 @@ def analyze(
         results = (
             *results,
             run_jmx_header_basic(content, path),
+        )
+    elif file_extension in ("config", "xml"):
+        content = content_generator()
+        results = (
+            *results,
+            run_basic_auth_method(content, path),
         )
 
     return results

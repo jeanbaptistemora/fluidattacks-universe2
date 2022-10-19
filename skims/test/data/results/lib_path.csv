@@ -20307,6 +20307,16 @@ F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,0
   21 |     disable_password_authentication = false
      ^ Col 0
 ",terraform.tfm_azure_virtual_machine_insecure_authentication
+F015,lines,namespace/skims/test/data/lib_path/f015/basic_auth_method.config,2,287,skims,015. Insecure authentication method - Basic,The basic method is used in the XML config in namespace/skims/test/data/lib_path/f015/basic_auth_method.config,"
+  1 | <login-config>
+> 2 |     <auth-method>BASIC</auth-method>
+  3 | </login-config>
+  4 |
+  5 | <login-config>
+  6 |     <auth-method>FORM</auth-method>
+  7 | </login-config>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_basic_auth_method
 F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,273,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
    263 |               <stringProp name=""outputFormat""></stringProp>
    264 |               <boolProp name=""perThread"">true</boolProp>

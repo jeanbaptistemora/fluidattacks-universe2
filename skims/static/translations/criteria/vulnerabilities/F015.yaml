@@ -11,3 +11,6 @@ lib_http.analyze_headers.www_authenticate.basic:
 lib_path.f015.jmx_header_basic:
   en: The basic method is used in the headers
   es: Se utiliza el metodo basic en los headers
+lib_path.f015.basic_auth_method:
+  en: The basic method is used in the XML config
+  es: Se utiliza el metodo basic en la configuracion XML
