@@ -1,13 +1,13 @@
 ---
 slug: solutions/red-teaming/
-title: Red Teaming
-description: Fluid Attacks' certified red team specializes in attacking your company's systems to help it identify the security controls it needs to implement or improve.
+title: 'Red Teaming: A broad view of your company''s security'
+description: Fluid Attacks' certified red team attacks your company's systems to identify the security controls it needs to implement or improve.
 keywords: Fluid Attacks, Solutions, Read Team, Red Teaming, Ethical Hacking, Security, Vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735155/airs/solutions/solution-red-teaming_trx6rr.webp
 template: solution
 ---
 
-Fluid Attacks is 100% a red team.
+`Fluid Attacks` is 100% a red team.
 We establish with your organization specific objectives
 and set out to attack its systems and security controls
 to find out the effectiveness of its attack prevention,
@@ -66,7 +66,7 @@ and try to go unnoticed
 to test your organization's security.
 These exercises are holistic
 in that they assess the effectiveness of security strategies
-both at the technological and the human level.
+both at the technological and human level.
 
 </div>
 
@@ -78,18 +78,6 @@ Our ethical hackers have received [various certifications](../../about-us/certif
 including OSEE, OSCE, eCPTXv2, CRTO, CRTE and CARTP.
 This expertise will allow you to remain confident
 that the red team attack simulations will be effective.
-
-</div>
-
-<div class="sect2">
-
-### Exploitation in production environments
-
-Commonly,
-security testing is done in pre-production environments.
-But red teaming allows ethical hackers
-to attack systems in production environments,
-proving what can realistically be exploited by threat actors.
 
 </div>
 
@@ -125,7 +113,9 @@ in turn,
 must respond defensively.
 The red team simulations are done with the consent
 of the organization's executive leadership,
-although ideally the incident response team,
+although,
+ideally,
+the incident response team,
 employees and security staff do not know this.
 
 ## Get started with Fluid Attacks' Red Teaming right now

@@ -1,6 +1,6 @@
 ---
 slug: solutions/ethical-hacking/
-title: Ethical Hacking
+title: 'Ethical Hacking: Security testing by expert intelligence'
 description: The Ethical Hacking solution consists of our team thoroughly evaluating your systems to identify vulnerabilities that could be exploited by malicious hackers.
 keywords: Fluid Attacks, Solutions, Ethical Hacking, Security, Continuous Hacking, Vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-ethical-hacking_zuhkms.webp

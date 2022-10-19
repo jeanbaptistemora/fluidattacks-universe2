@@ -1,6 +1,6 @@
 ---
 slug: solutions/attack-simulation/
-title: Breach and Attack Simulation
+title: 'Breach and Attack Simulation: Realistic tests of defenses'
 description: Our certified team of ethical hackers understands malicious intentions and knows how to perform simulated attacks to assess your IT systems' security.
 keywords: Fluid Attacks, Solutions, Attack Simulation, Ethical Hacking, Cyberattack, Security, Vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-attack-simulation_asqzhr.webp
