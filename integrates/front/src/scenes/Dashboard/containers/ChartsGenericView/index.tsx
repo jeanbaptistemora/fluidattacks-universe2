@@ -217,6 +217,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               entity={entity}
               generatorName={"generic"}
               generatorType={"textBox"}
+              infoLink={`${graphInfoLink}common#mean-time-to-request-reattacks`}
               reportMode={reportMode}
               subject={subject}
               title={t("analytics.textBox.meanTimeToReattack.title")}
