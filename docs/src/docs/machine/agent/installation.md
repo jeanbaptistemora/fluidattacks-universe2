@@ -113,3 +113,51 @@ Run the Docker image:
      ```sh
      docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token> --breaking 4.5
      ```
+
+## Troubleshooting
+
+1. Please make sure that your Docker engine version is >= 20.10.10.
+
+   ```sh
+   $ docker --version
+
+   Docker version 20.10.10, build v20.10.10
+   ```
+
+   This is important because the agent
+   uses a [GNU libc](https://www.gnu.org/software/libc/) version >= 2.34,
+   and the
+   default [seccomp](https://en.wikipedia.org/wiki/Seccomp) profile
+   of Docker <= 20.10.9
+   [is not adjusted to support the clone syscall](https://github.com/moby/moby/blob/v20.10.9/profiles/seccomp/default.json)
+   of GNU libc
+   [introduced in version 2.34](https://sourceware.org/git/?p=glibc.git;a=commit;h=d8ea0d0168b190bdf138a20358293c939509367f).
+
+1. Please check that your Docker installation is working.
+
+   If it is, you should be able to run a Hello World:
+
+   ```sh
+   $ docker run hello-world
+
+   Hello from Docker!
+   This message shows that your installation appears to be working correctly.
+   ...
+   ```
+
+   Otherwise,
+   please refer to the Docker documentation
+   and the Docker installation steps.
+
+1. If after following the steps above
+   you still experience issues running the agent,
+   feel free to contact us at [help@fluidattacks.com](mailto:help@fluidattacks.com)
+   and we'll do our best to help.
+
+   Please include in the report as much information as possible
+   to help us reproduce the problem, for example:
+
+   - The Docker Engine and Server version: `$ docker info`.
+   - The host fingerprint: `$ uname -a`.
+   - The value of `$ docker inspect fluidattacks/forces:new`.
+   - The organization, group, and repository name you are executing the agent on.
