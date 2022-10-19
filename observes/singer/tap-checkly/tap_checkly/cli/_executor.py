@@ -19,32 +19,15 @@ from fa_purity.pure_iter.transform import (
     consume,
 )
 import logging
-from tap_checkly import (
-    streams,
-)
 from tap_checkly.api2 import (
     Credentials,
-)
-from tap_checkly.api import (
-    ApiClient,
-    Credentials as LegacyCreds,
 )
 from tap_checkly.streams import (
     Streams,
     SupportedStreams,
 )
-from typing import (
-    Callable,
-    Mapping,
-)
 
 LOG = logging.getLogger(__name__)
-_legacy: Mapping[SupportedStreams, Callable[[ApiClient], Cmd[None]]] = {
-    SupportedStreams.DASHBOARD: streams.all_dashboards,
-    SupportedStreams.ENV_VARS: streams.all_env_vars,
-    SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
-    SupportedStreams.SNIPPETS: streams.all_snippets,
-}
 OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
 NOW = datetime.now(tz=timezone.utc)
 
@@ -75,11 +58,7 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
         info = Cmd.from_cmd(lambda: LOG.info("Executing stream: %s", item))
         return stream_mapper(item).map(lambda a: info + a)
 
-    return _execute(selection).or_else_call(
-        lambda: _legacy[selection](
-            ApiClient.new(LegacyCreds(creds.account, creds.api_key))
-        )
-    )
+    return _execute(selection).unwrap()
 
 
 def emit_streams(
