@@ -162,6 +162,7 @@ def main(
                         local_breaking=breaking,
                     )
                 )
+                break
             except RuntimeError as err:
                 blocking_log(
                     "warning", "An error ocurred: %s. Retrying...", err
