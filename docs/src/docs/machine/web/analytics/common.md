@@ -27,6 +27,7 @@ A type is a group of vulnerabilities
 on your system related to the same
 attack vector.
 
+![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
 ## Vulnerabilities with no treatment
 
 Number of vulnerabilities without
@@ -111,7 +112,7 @@ and the easier it is to carry it on.
 
 ## Active resources distribution
 
-![Active Resources Distribution](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/common/active_resources_distribution_kqmp7h.png)
+![Active Resources Distribution](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184470/docs/web/analytics/common/active_resources_distribution.png)
 
 Resources can be of two types:
 Repository and Environment.
