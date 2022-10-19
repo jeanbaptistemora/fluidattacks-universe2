@@ -55,84 +55,81 @@ async def entrypoint(
     with CONSOLE_INTERFACE.status(
         "[bold green]Working on reports...[/]", spinner="aesthetic"
     ):
-        tasks = [
-            "Resolving repo",
-            "Gathering findings data",
-            "Processing findings data",
-            "Formatting findings data",
-            "Uploading Report to ASM",
-        ]
+        tasks: dict[str, str] = {
+            "resolving": "Resolving repo",
+            "gathering": "Gathering findings data",
+            "processing": "Processing findings data",
+            "formatting": "Formatting findings data",
+            "uploading": "Uploading Report to ASM",
+        }
         footer: str = ": [green]Complete[/]"
-        while tasks:
-            if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
-                if not config.repository_name:
-                    await log(
-                        "warning",
-                        (
-                            "The vulnerabilities of [bright_yellow]all[/] "
-                            "repositories will be scanned"
-                        ),
-                    )
-
-                metadata["git_repo"] = (
-                    config.repository_name or metadata["git_repo"]
-                )
-                if config.repository_name:
-                    await log(
-                        "info",
-                        (
-                            "Running forces on the repository: "
-                            f"[bright_yellow]{config.repository_name}[/]"
-                        ),
-                    )
-
-                # check if repo is in roots
-                if (
-                    config.repository_name is not None
-                    and not await check_remotes(config)
-                    and config.kind != KindEnum.ALL
-                ):
-                    return 1
-            await log("info", f"{tasks.pop(0)}{footer}")
-            report = await generate_raw_report(config)
-            await log("info", f"{tasks.pop(0)}{footer}")
-
-            if report.summary.total > 0:
-                await log("info", f"{tasks.pop(0)}{footer}")
-                forces_report: ForcesReport = format_rich_report(
-                    report, config.verbose_level, config.kind
-                )
-                await log("info", f"{tasks.pop(0)}{footer}")
-                rich_log(forces_report.findings_report)
-                rich_log(forces_report.summary_report)
-            else:
-                tasks.pop(0)
-                tasks.pop(0)
+        if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
+            if not config.repository_name:
                 await log(
-                    "info",
+                    "warning",
                     (
-                        "[green]The current repository has no reported "
-                        "vulnerabilities[/]"
+                        "The vulnerabilities of [bright_yellow]all[/] "
+                        "repositories will be scanned"
                     ),
                 )
 
-            if output := config.output:
-                temp_file.seek(os.SEEK_SET)
-                await in_thread(output.write, temp_file.read())
-            exit_code = await set_forces_exit_code(config, report.findings)
-            execution_id = str(uuid.uuid4()).replace("-", "")
-            await upload_report(
-                group=config.group,
-                execution_id=execution_id,
-                exit_code=str(exit_code),
-                report=report,
-                log_file=temp_file.name,
-                strictness="strict" if config.strict else "lax",
-                git_metadata=metadata,
-                kind=config.kind.value,
-                grace_period=config.grace_period,
-                severity_threshold=config.breaking_severity,
+            metadata["git_repo"] = (
+                config.repository_name or metadata["git_repo"]
             )
-            await log("info", f"{tasks.pop(0)}{footer}")
-            await log("info", f"Success execution: {exit_code == 0}")
+            if config.repository_name:
+                await log(
+                    "info",
+                    (
+                        "Running forces on the repository: "
+                        f"[bright_yellow]{config.repository_name}[/]"
+                    ),
+                )
+
+            # check if repo is in roots
+            if (
+                config.repository_name is not None
+                and not await check_remotes(config)
+                and config.kind != KindEnum.ALL
+            ):
+                return 1
+        await log("info", f"{tasks['resolving']}{footer}")
+        report = await generate_raw_report(config)
+        await log("info", f"{tasks['gathering']}{footer}")
+
+        if report.summary.total > 0:
+            await log("info", f"{tasks['processing']}{footer}")
+            forces_report: ForcesReport = format_rich_report(
+                report, config.verbose_level, config.kind
+            )
+            await log("info", f"{tasks['formatting']}{footer}")
+            rich_log(forces_report.findings_report)
+            rich_log(forces_report.summary_report)
+        else:
+            await log(
+                "info",
+                (
+                    "[green]The current repository has no reported "
+                    "vulnerabilities[/]"
+                ),
+            )
+
+        if output := config.output:
+            temp_file.seek(os.SEEK_SET)
+            await in_thread(output.write, temp_file.read())
+        exit_code = await set_forces_exit_code(config, report.findings)
+        execution_id = str(uuid.uuid4()).replace("-", "")
+        await upload_report(
+            group=config.group,
+            execution_id=execution_id,
+            exit_code=str(exit_code),
+            report=report,
+            log_file=temp_file.name,
+            strictness="strict" if config.strict else "lax",
+            git_metadata=metadata,
+            kind=config.kind.value,
+            grace_period=config.grace_period,
+            severity_threshold=config.breaking_severity,
+        )
+        await log("info", f"{tasks['uploading']}{footer}")
+        await log("info", f"Success execution: {exit_code == 0}")
     return exit_code

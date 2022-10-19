@@ -11,7 +11,6 @@ from forces.apis.integrates.api import (
     vulns_generator,
 )
 from forces.model import (
-    Finding,
     ForcesConfig,
     ForcesData,
     ForcesReport,
@@ -213,19 +212,17 @@ async def generate_raw_report(
     **kwargs: Any,
 ) -> ForcesData:
     """
-    Generate a group vulnerability report.
+    Parses and compiles the data needed for the Forces Report.
 
-    :param `group`: Group Name
+    @param `config`: Valid Forces Config
     """
     _start_time: float = timer()
 
-    raw_report: dict[str, list[Finding]] = {"findings": []}
     _summary_dict: dict[VulnerabilityState, dict[str, int]] = {
         VulnerabilityState.OPEN: {"DAST": 0, "SAST": 0, "total": 0},
         VulnerabilityState.CLOSED: {"DAST": 0, "SAST": 0, "total": 0},
         VulnerabilityState.ACCEPTED: {"DAST": 0, "SAST": 0, "total": 0},
     }
-
     findings_dict = await create_findings_dict(
         config.group,
         **kwargs,
@@ -274,9 +271,6 @@ async def generate_raw_report(
 
         findings_dict[find_id].vulnerabilities.append(vulnerability)
 
-    for find in findings_dict.values():
-        raw_report["findings"].append(find)
-
     summary = ReportSummary(
         open=SummaryItem(
             dast=_summary_dict[VulnerabilityState.OPEN]["DAST"],
@@ -299,4 +293,7 @@ async def generate_raw_report(
         elapsed_time=f"{(timer() - _start_time):.4f} seconds",
     )
 
-    return ForcesData(findings=tuple(raw_report["findings"]), summary=summary)
+    return ForcesData(
+        findings=tuple(find for find in findings_dict.values()),
+        summary=summary,
+    )
