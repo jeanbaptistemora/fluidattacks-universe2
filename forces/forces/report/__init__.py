@@ -119,10 +119,10 @@ def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
-        for key in ("type", "where", "specific", "URL", "state"):
+        for key in ("type", "where", "specific", "state"):
             vuln_table.add_row(
                 key,
-                style_report(key, attrgetter(key.lower())(vuln)),
+                style_report(key, attrgetter(key)(vuln)),
                 end_section=key == "state",
             )
     return vuln_table
@@ -161,6 +161,7 @@ def format_rich_report(
             )
             for key in (
                 "title",
+                "URL",
                 "state",
                 "exploitability",
                 "severity",
@@ -170,7 +171,7 @@ def format_rich_report(
                 value = (
                     find_summary[key]
                     if key in set(VulnerabilityState)
-                    else attrgetter(key)(find)
+                    else attrgetter(str(key).lower())(find)
                 )
                 if is_exploit := key == "exploitability":
                     key = "exploit"
@@ -239,10 +240,6 @@ async def generate_raw_report(
             ),
             where=str(vuln["where"]),
             specific=str(vuln["specific"]),
-            url=(
-                "https://app.fluidattacks.com/groups/"
-                f"{config.group}/vulns/{find_id}"
-            ),
             state=VulnerabilityState[str(vuln["currentState"]).upper()],
             severity=float(str(vuln["severity"]))
             if vuln["severity"] is not None

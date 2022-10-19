@@ -35,6 +35,10 @@ async def create_findings_dict(
             state=FindingState[str(find["state"]).upper()],
             exploitability=float(find["exploitability"]),
             severity=float(find["severityScore"]),
+            url=(
+                "https://app.fluidattacks.com/groups/"
+                f"{group}/vulns/{find['id']}"
+            ),
             vulnerabilities=[],
         )
     return findings_dict

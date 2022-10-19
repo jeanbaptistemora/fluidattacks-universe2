@@ -24,4 +24,5 @@ class Finding(NamedTuple):
     state: FindingState
     exploitability: float
     severity: float
+    url: str
     vulnerabilities: list[Vulnerability]

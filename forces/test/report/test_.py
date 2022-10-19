@@ -84,6 +84,10 @@ def test_style_report() -> None:
     assert style_report("title", "some_value") == "[yellow]some_value[/]"
     assert style_report("state", "open") == "[red]open[/]"
     assert style_report("state", "openn") == "openn"
+    assert (
+        style_report("URL", "https://app.fluidattacks.com")
+        == "[link=https://app.fluidattacks.com]https://app.fluidattacks.com[/]"
+    )
 
 
 def test_filter_repo() -> None:
@@ -91,7 +95,6 @@ def test_filter_repo() -> None:
         type=VulnerabilityType.DAST,
         where="somewhere",
         specific="port 21",
-        url="https://app.fluidattacks.com/groups/testGroup/vulns/111",
         state=VulnerabilityState.OPEN,
         severity=6.0,
         report_date="",
