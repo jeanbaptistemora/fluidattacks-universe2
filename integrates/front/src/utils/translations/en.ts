@@ -250,6 +250,9 @@ export const enTranslations: ResourceKey = {
       openVulnerabilities: {
         title: "Open vulnerabilities",
       },
+      pendingCvssf: {
+        title: "Pending exposure",
+      },
       remediationCreated: {
         title: "Sprint exposure increment",
       },
@@ -3594,6 +3597,7 @@ export const enTranslations: ResourceKey = {
     oldestGroupEvent: "Days since groups are failing",
     openFindingsGroup: "Open vulnerability types by group",
     openVulnsGroups: "Open vulnerabilities by group",
+    pendingCvssf: "Pending exposure by group",
     remediatedAcceptedVuln: "Distribution of vulnerabilities by group",
     reportTechnique: "Report Technique",
     topOldestFindings: "Oldest vulnerability types",

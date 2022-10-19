@@ -37,8 +37,8 @@ describe("ChartsGenericView", (): void => {
   it("should render a component and number of graphics of entity", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const groupGraphics: number = 41;
-    const organizationAndPortfolioGraphics: number = 46;
+    const groupGraphics: number = 42;
+    const organizationAndPortfolioGraphics: number = 47;
 
     const { container, rerender } = render(
       <MockedProvider addTypename={true} mocks={[mocks]}>
