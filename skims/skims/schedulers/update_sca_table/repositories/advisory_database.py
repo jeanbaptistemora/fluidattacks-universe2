@@ -24,6 +24,7 @@ PLATFORMS = {
     "npm": "npm",
     "pypi": "pip",
     "rubygems": "gem",
+    "go": "go",
 }
 
 
