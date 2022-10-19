@@ -37,28 +37,25 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
 
     def stream_mapper(
         item: SupportedStreams,
-    ) -> ResultE[Cmd[None]]:  # return type should be Cmd[None]
+    ) -> Cmd[None]:  # return type should be Cmd[None]
         if item is SupportedStreams.CHECKS:
-            return Result.success(_streams.all_checks())
+            return _streams.all_checks()
         if item is SupportedStreams.CHECK_GROUPS:
-            return Result.success(_streams.check_groups())
+            return _streams.check_groups()
         if item is SupportedStreams.CHECK_RESULTS:
-            return Result.success(_streams.check_results())
+            return _streams.check_results()
         if item is SupportedStreams.ALERT_CHS:
-            return Result.success(_streams.alert_chs())
+            return _streams.alert_chs()
         if item is SupportedStreams.CHECK_STATUS:
-            return Result.success(_streams.check_status())
+            return _streams.check_status()
         if item is SupportedStreams.REPORTS:
-            return Result.success(_streams.check_reports())
-        return Result.failure(NotImplementedError(item), Cmd[None]).alt(
-            Exception
-        )
+            return _streams.check_reports()
 
-    def _execute(item: SupportedStreams) -> ResultE[Cmd[None]]:
+    def _execute(item: SupportedStreams) -> Cmd[None]:
         info = Cmd.from_cmd(lambda: LOG.info("Executing stream: %s", item))
-        return stream_mapper(item).map(lambda a: info + a)
+        return info + stream_mapper(item)
 
-    return _execute(selection).unwrap()
+    return _execute(selection)
 
 
 def emit_streams(
