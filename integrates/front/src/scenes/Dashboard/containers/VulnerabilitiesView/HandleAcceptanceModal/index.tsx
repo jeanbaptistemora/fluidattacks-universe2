@@ -112,9 +112,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
         justification,
       }))(values);
 
-      const acceptedVulnIds: string[] = acceptedVulns.map(
-        (vuln: IVulnDataAttr): string => vuln.id
-      );
       const rejectedVulnIds: string[] = rejectedVulns.map(
         (vuln: IVulnDataAttr): string => vuln.id
       );
@@ -125,12 +122,10 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
         formValues,
         rejectedVulns
       );
-      await isConfirmZeroRiskSelectedHelper(
-        acceptedVulnIds.length !== 0,
+      isConfirmZeroRiskSelectedHelper(
         isConfirmRejectZeroRiskSelected,
         confirmZeroRisk,
-        acceptedVulnIds,
-        findingId,
+        acceptedVulns,
         formValues
       );
       await isRejectZeroRiskSelectedHelper(

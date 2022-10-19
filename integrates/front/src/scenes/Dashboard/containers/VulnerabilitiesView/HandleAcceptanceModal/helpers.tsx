@@ -283,26 +283,36 @@ const isAcceptedUndefinedSelectedHelper = (
   }
 };
 
-const isConfirmZeroRiskSelectedHelper = async (
-  existAcceptedVulns: boolean,
+const isConfirmZeroRiskSelectedHelper = (
   isConfirmZeroRiskSelected: boolean,
   confirmZeroRisk: (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
-  acceptedVulnIds: string[],
-  findingId: string,
+  acceptedVulns: IVulnDataAttr[],
   values: {
     justification: string;
   }
-): Promise<void> => {
-  if (isConfirmZeroRiskSelected && existAcceptedVulns) {
-    await confirmZeroRisk({
-      variables: {
-        findingId,
-        justification: values.justification,
-        vulnerabilities: acceptedVulnIds,
-      },
-    });
+): void => {
+  if (isConfirmZeroRiskSelected && !_.isEmpty(acceptedVulns)) {
+    Object.entries(
+      _.groupBy(acceptedVulns, (vuln: IVulnDataAttr): string => vuln.findingId)
+    ).forEach(
+      async ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataAttr[]
+      ]): Promise<void> => {
+        const acceptedVulnIds: string[] = chunkedVulnerabilities.map(
+          (vuln: IVulnDataAttr): string => vuln.id
+        );
+        await confirmZeroRisk({
+          variables: {
+            findingId,
+            justification: values.justification,
+            vulnerabilities: acceptedVulnIds,
+          },
+        });
+      }
+    );
   }
 };
 
