@@ -7,7 +7,7 @@ slug: /machine/web/analytics/portfolio
 
 ## Distribution of vulnerabilities by group
 
-![Distribution of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986556/docs/web/analytics/portfolios/portfolio_vulners_remed_accept.png)
+![Distribution of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666196319/docs/web/analytics/portfolios/distribution_port.png)
 
 The percentage of
 closed, open, temporarily accepted
