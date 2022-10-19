@@ -437,3 +437,11 @@ organizations,
 groups or portfolios (the best,
 the average,
 and the worst).
+
+## Mean time to request reattacks
+
+This metric shows the average number
+of days it takes customers to request
+a reattack.
+
+![Mean time to request](https://res.cloudinary.com/fluid-attacks/image/upload/v1666199798/docs/web/analytics/common/mean_time_to_request_reattacks.png)
