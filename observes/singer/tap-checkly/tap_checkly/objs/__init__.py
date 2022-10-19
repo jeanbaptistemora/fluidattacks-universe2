@@ -18,6 +18,9 @@ from ._group import (
 from ._id_objs import (
     IndexedObj,
 )
+from ._report import (
+    CheckReport,
+)
 from ._result import (
     ApiCheckResult,
     CheckResponse,
@@ -64,4 +67,5 @@ __all__ = [
     "AlertChannelObj",
     "CheckResultObj",
     "CheckGroupObj",
+    "CheckReport",
 ]

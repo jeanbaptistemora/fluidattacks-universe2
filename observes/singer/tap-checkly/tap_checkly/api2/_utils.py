@@ -103,9 +103,9 @@ class ExtendedUnfolder:
             self.get_required(key)
             .map(Unfolder)
             .bind(
-                lambda u: u.to_primitive(prim_type).alt(
-                    lambda e: TypeError(f"At `{key}` i.e. {e}")
-                )
+                lambda u: u.to_primitive(prim_type)
+                .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
+                .alt(Exception)
             )
         )
 
