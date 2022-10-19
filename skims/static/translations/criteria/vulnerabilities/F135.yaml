@@ -1,0 +1,8 @@
+---
+lib_path.dotnetconfig.has_x_xss_protection_header:
+  en: >
+    Ensure that your Web.config source file or package
+    suppress 'X-XSS-Protection' headers.
+  es: >-
+    Asegúrese de que su paquete o archivo fuente de Web.config
+    elimine los encabezados 'X-XSS-Protection'.

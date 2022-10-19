@@ -495,6 +495,14 @@
       "title": "134. Insecure or unset HTTP headers - CORS"
     }
   },
+  "F135": {
+    "EN": {
+      "title": "135. Insecure or unset HTTP headers - X-XSS Protection"
+    },
+    "ES": {
+      "title": "135. Insecure or unset HTTP headers - X-XSS Protection"
+    }
+  },
   "F143": {
     "EN": {
       "title": "143. Inappropriate coding practices - Eval function"

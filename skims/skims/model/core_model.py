@@ -596,6 +596,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.http,
         requirements=[62, 266, 349],
     )
+    F135: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F135",
+        cwe=200,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[77, 176],
+    )
     F143: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F143",
@@ -4269,6 +4276,14 @@ class MethodsEnum(Enum):
         name="java_has_print_statements",
         module="lib_root",
         finding=FindingEnum.F237,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DOTNETCONFIG_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_has_x_xss_protection_header",
+        module="lib_path",
+        finding=FindingEnum.F135,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
