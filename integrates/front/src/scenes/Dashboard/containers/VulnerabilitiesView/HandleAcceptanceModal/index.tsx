@@ -102,7 +102,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       return canConfirmZeroRisk ? "CONFIRM_REJECT_ZERO_RISK" : "";
     }
 
-    async function handleSubmit(values: IFormValues): Promise<void> {
+    function handleSubmit(values: IFormValues): void {
       const isAcceptedUndefinedSelected: boolean =
         values.treatment === "ACCEPTED_UNDEFINED";
       const isConfirmRejectZeroRiskSelected: boolean =
@@ -112,9 +112,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
         justification,
       }))(values);
 
-      const rejectedVulnIds: string[] = rejectedVulns.map(
-        (vuln: IVulnDataAttr): string => vuln.id
-      );
       isAcceptedUndefinedSelectedHelper(
         isAcceptedUndefinedSelected,
         handleAcceptance,
@@ -128,13 +125,11 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
         acceptedVulns,
         formValues
       );
-      await isRejectZeroRiskSelectedHelper(
-        rejectedVulnIds.length !== 0,
+      isRejectZeroRiskSelectedHelper(
         isConfirmRejectZeroRiskSelected,
         rejectZeroRisk,
-        findingId,
         formValues,
-        rejectedVulnIds
+        rejectedVulns
       );
     }
 

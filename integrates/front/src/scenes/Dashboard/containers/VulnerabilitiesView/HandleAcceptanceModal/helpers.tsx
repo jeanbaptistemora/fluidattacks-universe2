@@ -316,26 +316,36 @@ const isConfirmZeroRiskSelectedHelper = (
   }
 };
 
-const isRejectZeroRiskSelectedHelper = async (
-  existRejectedVulns: boolean,
+const isRejectZeroRiskSelectedHelper = (
   isRejectZeroRiskSelected: boolean,
   rejectZeroRisk: (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
-  findingId: string,
   values: {
     justification: string;
   },
-  rejectedVulnIds: string[]
-): Promise<void> => {
-  if (isRejectZeroRiskSelected && existRejectedVulns) {
-    await rejectZeroRisk({
-      variables: {
-        findingId,
-        justification: values.justification,
-        vulnerabilities: rejectedVulnIds,
-      },
-    });
+  rejectedVulns: IVulnDataAttr[]
+): void => {
+  if (isRejectZeroRiskSelected && !_.isEmpty(rejectedVulns)) {
+    Object.entries(
+      _.groupBy(rejectedVulns, (vuln: IVulnDataAttr): string => vuln.findingId)
+    ).forEach(
+      async ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataAttr[]
+      ]): Promise<void> => {
+        const rejectedVulnIds: string[] = chunkedVulnerabilities.map(
+          (vuln: IVulnDataAttr): string => vuln.id
+        );
+        await rejectZeroRisk({
+          variables: {
+            findingId,
+            justification: values.justification,
+            vulnerabilities: rejectedVulnIds,
+          },
+        });
+      }
+    );
   }
 };
 
