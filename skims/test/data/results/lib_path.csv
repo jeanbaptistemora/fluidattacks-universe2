@@ -20614,6 +20614,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivati
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_obsolete_key_derivation
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/insecure_connection.java,"
+   1 | @Component
+   2 | public class InsecureConnection {
+   3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
+   4 |  public void TlsVerification() {
+   5 |   try {
+>  6 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+   7 |          .tlsVersions(TlsVersion.TLS_1_1) // Noncompliant
+   8 |          .build();
+   9 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  10 |         //Do something
+  11 |   }
+  12 |   try {
+  13 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  14 |          .tlsVersions(TLS_1_1) // Noncompliant
+  15 |          .build();
+  16 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  17 |    //Do something
+  18 |   }
+  19 |  }
+  20 | }
+  21 |
+     ^ Col 0
+",java.java_insecure_connection
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/insecure_connection.java,"
+   3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
+   4 |  public void TlsVerification() {
+   5 |   try {
+   6 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+   7 |          .tlsVersions(TlsVersion.TLS_1_1) // Noncompliant
+   8 |          .build();
+   9 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  10 |         //Do something
+  11 |   }
+  12 |   try {
+> 13 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  14 |          .tlsVersions(TLS_1_1) // Noncompliant
+  15 |          .build();
+  16 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  17 |    //Do something
+  18 |   }
+  19 |  }
+  20 | }
+  21 |
+  22 | @Component
+  23 | public class SecureConnection {
+     ^ Col 0
+",java.java_insecure_connection
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false

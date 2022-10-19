@@ -2552,6 +2552,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_CONNECTION = MethodInfo(
+        file_name="java",
+        name="java_insecure_connection",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_INSECURE_HASH = MethodInfo(
         file_name="java",
         name="java_insecure_hash",

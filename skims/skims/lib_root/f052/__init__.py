@@ -17,6 +17,7 @@ from lib_root.f052.go import (
 )
 from lib_root.f052.java import (
     java_insecure_cipher,
+    java_insecure_connection,
     java_insecure_hash,
     java_insecure_key,
     java_insecure_pass,
@@ -49,6 +50,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cipher),
+    (FINDING, java_insecure_connection),
     (FINDING, java_insecure_hash),
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),

@@ -8,6 +8,9 @@ src.lib_path.f052.java_properties_weak_cipher_suite:
 src.lib_path.f052.insecure_cipher.description:
   en: Use of insecure encryption algorithm
   es: Uso de algoritmo de cifrado inseguro
+src.lib_path.f052.insecure_connection.description:
+  en: Use of insecure TLS version in connection spec
+  es: Uso de version TLS insegura en connection spec
 src.lib_path.f052.insecure_hash.description:
   en: Use of insecure hashing function
   es: Uso de función resumen insegura

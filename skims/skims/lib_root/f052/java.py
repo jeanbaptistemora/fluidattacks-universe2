@@ -5,6 +5,9 @@
 from contextlib import (
     suppress,
 )
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
+)
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
@@ -147,10 +150,8 @@ def eval_insecure_hash(graph: Graph, m_id: NId, m_name: str) -> bool:
 def is_insecure_cipher_argument(graph: Graph, param: NId, check: str) -> bool:
     method = MethodsEnum.JAVA_INSECURE_CIPHER
     ssl_safe_methods = {
-        "tls",
         "tlsv1.2",
         "tlsv1.3",
-        "dtls",
         "dtlsv1.2",
         "dtlsv1.3",
     }
@@ -193,6 +194,15 @@ def eval_insecure_cipher(graph: Graph, m_id: NId, m_name: str) -> bool:
 
     if any(is_insecure):
         return True
+    return False
+
+
+def is_insecure_connection(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.JAVA_INSECURE_CONNECTION
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
+            return True
     return False
 
 
@@ -311,4 +321,30 @@ def java_insecure_cipher(
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.JAVA_INSECURE_CIPHER,
+    )
+
+
+def java_insecure_connection(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in search_method_invocation_naive(graph, {"tlsVersions"}):
+                if (args_id := graph.nodes[nid].get("arguments_id")) and (
+                    is_insecure_connection(graph, args_id)
+                ):
+                    yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_connection.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=MethodsEnum.JAVA_INSECURE_CONNECTION,
     )
