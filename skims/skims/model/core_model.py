@@ -27,6 +27,7 @@ class Platform(Enum):
     MAVEN: str = "MAVEN"
     NUGET: str = "NUGET"
     GEM: str = "GEM"
+    GO: str = "GO"
 
 
 class DependenciesTypeEnum(Enum):
@@ -1434,6 +1435,14 @@ class MethodsEnum(Enum):
     GEM_GEMFILE_LOCK = MethodInfo(
         file_name="gem",
         name="gem_gemfile_lock",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
+    GO_MOD = MethodInfo(
+        file_name="go",
+        name="go_mod",
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.LEWIS_CONTRERAS,
