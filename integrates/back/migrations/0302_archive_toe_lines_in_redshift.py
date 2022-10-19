@@ -22,7 +22,7 @@ from dataloaders import (
 from db_model import (
     toe_lines as toe_lines_model,
 )
-from db_model.toe_lines.get import (
+from db_model.toe_lines.get import (  # type: ignore
     get_toe_lines_items_by_group,
 )
 import logging
@@ -51,7 +51,7 @@ async def _process_group(
     items = await get_toe_lines_items_by_group(group_name)
     if items:
         await redshift_toe_lines.insert_batch_metadata(items=items)
-        await toe_lines_model.remove_items(items=items)
+        await toe_lines_model.remove_items(items=items)  # type: ignore
     LOGGER_CONSOLE.info(
         "Group processed",
         extra={

@@ -113,9 +113,6 @@ from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
 )
-from db_model.toe_lines.get import (
-    get_toe_lines_items_by_group,
-)
 from db_model.types import (
     PoliciesToUpdate,
 )
@@ -174,9 +171,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import re
-from redshift import (
-    toe_lines as redshift_toe_lines,
-)
 from roots import (
     domain as roots_domain,
 )
@@ -1340,9 +1334,7 @@ async def remove_resources(
         reason="GROUP_DELETED",
     )
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
-    toe_lines_items = await get_toe_lines_items_by_group(group_name)
-    await redshift_toe_lines.insert_batch_metadata(items=toe_lines_items)
-    await toe_lines_model.remove_items(items=toe_lines_items)
+    await toe_lines_model.remove_group_toe_lines(group_name=group_name)
 
 
 async def remove_user(

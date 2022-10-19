@@ -13,7 +13,6 @@ from dynamodb.model import (
     TABLE,
 )
 from dynamodb.types import (
-    Item,
     PrimaryKey,
 )
 
@@ -57,19 +56,6 @@ async def remove_group_toe_lines(
                 sort_key=item["sk"],
             )
             for item in response.items
-        ),
-        table=TABLE,
-    )
-
-
-async def remove_items(*, items: tuple[Item, ...]) -> None:
-    await operations.batch_delete_item(
-        keys=tuple(
-            PrimaryKey(
-                partition_key=item["pk"],
-                sort_key=item["sk"],
-            )
-            for item in items
         ),
         table=TABLE,
     )
