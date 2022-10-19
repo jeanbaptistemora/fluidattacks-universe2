@@ -131,6 +131,15 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.event_name == EventName.REMOVE
+            and record.pk.startswith("GROUP#")
+            and record.sk.startswith("INPUTS#")
+        ),
+        records_processor=redshift.process_toe_inputs,
+    ),
+    Trigger(
+        records_filter=(
             lambda record: record.pk.startswith("EVENT#")
             and record.sk.startswith("GROUP#")
         ),
