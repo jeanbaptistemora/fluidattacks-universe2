@@ -3143,6 +3143,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_CORS_ORIGIN = MethodInfo(
+        file_name="java",
+        name="java_insecure_cors_origin",
+        module="lib_root",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_USES_EVAL = MethodInfo(
         file_name="javascript",
         name="js_uses_eval",

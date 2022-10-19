@@ -8,11 +8,14 @@ from model.graph_model import (
 from syntax_cfg.types import (
     SyntaxCfgArgs,
 )
+from utils import (
+    graph as g,
+)
 
 
 def build(args: SyntaxCfgArgs) -> NId:
-    val_id = args.graph.nodes[args.n_id].get("value_id")
-    if val_id and args.graph.nodes[val_id]["label_type"] == "LambdaExpression":
+    childs = g.match_ast(args.graph, args.n_id, "LambdaExpression")
+    if val_id := childs.get("LambdaExpression"):
         args.graph.add_edge(
             args.n_id,
             args.generic(args.fork(val_id, args.nxt_id)),
