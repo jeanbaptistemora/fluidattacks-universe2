@@ -492,6 +492,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "any",
             "null",
             "undefined",
+            "unknown",
             "void",
         },
         syntax_reader=typescript_void.reader,

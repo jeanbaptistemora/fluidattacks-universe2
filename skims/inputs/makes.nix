@@ -103,8 +103,8 @@
     skimsTreeSitterTsx = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-typescript";
-      rev = "3e897ea5925f037cfae2e551f8e6b12eec2a201a";
-      sha256 = "1qJsaeJzcbSTDe9hqc9SjPhGG0RNaolTYQLuwgryIsw=";
+      rev = "0ab9d99867435a7667c5548a6617a6bf73dbd830";
+      sha256 = "Nx+K7Ic/ePKAXPIMlrRn6zELYE59f/FnnZ/LM5ELaU8=";
     };
   };
 }
