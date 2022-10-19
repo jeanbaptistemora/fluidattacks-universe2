@@ -7,8 +7,8 @@
 From deleted groups, send TOE lines to redshift for analytics purposes and
 remove them from dynamodb.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-19 at 02:10:35 UTC
+Finalization Time: 2022-10-19 at 17:18:51 UTC
 """
 
 from aioextensions import (
