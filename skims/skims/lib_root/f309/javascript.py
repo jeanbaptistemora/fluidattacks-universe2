@@ -57,7 +57,11 @@ def has_algorithm_insecure(
     if args_id := graph.nodes[g.pred(graph, n_id)[0]].get("arguments_id"):
         for node in filter_ast(graph, args_id, {"SymbolLookup"}):
             if graph.nodes[node]["symbol"] in attrs and (
-                (test_id := g.adj_ast(graph, g.pred(graph, node)[0])[1])
+                (
+                    test_id := g.match_ast(graph, g.pred(graph, node)[0]).get(
+                        "__1__"
+                    )
+                )
                 and is_filter_insecure(graph, test_id, method)
             ):
                 return True
