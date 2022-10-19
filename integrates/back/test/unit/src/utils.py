@@ -59,15 +59,20 @@ async def create_dummy_session(
 ) -> Request:
     request = create_dummy_simple_session(username)
     jti = token_utils.calculate_hash_token()["jti"]
+    expiration_time = int(
+        (datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)).timestamp()
+    )
     payload = {
         "user_email": username,
         "first_name": "unit",
         "last_name": "test",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
-        "sub": "starlette_session",
         "jti": jti,
     }
-    token = token_utils.new_encoded_jwt(payload)
+    token = token_utils.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="starlette_session",
+    )
     if session_jwt:
         request.headers["Authorization"] = f"Bearer {session_jwt}"
     else:
@@ -86,14 +91,14 @@ async def create_dummy_session(
         await redis_set_entity_attr(
             entity="session",
             attr="jti",
-            email=payload["user_email"],  # type: ignore
+            email=username,
             value=payload["jti"],
             ttl=SESSION_COOKIE_AGE,
         )
         await redis_set_entity_attr(
             entity="session",
             attr="jwt",
-            email=payload["user_email"],  # type: ignore
+            email=username,
             value=token,
             ttl=SESSION_COOKIE_AGE,
         )
