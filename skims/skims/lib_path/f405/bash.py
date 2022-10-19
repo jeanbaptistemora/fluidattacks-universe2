@@ -22,7 +22,7 @@ def excessive_privileges_for_others(
 ) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for index, lines in enumerate(content.splitlines(), 1):
-            if lines.startswith("chmod"):
+            if "chmod" in lines:
                 for item in lines.split(" "):
                     if re.match(r"^\d{3}$", item) and not item.endswith("0"):
                         yield index, 0
