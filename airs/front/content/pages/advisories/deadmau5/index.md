@@ -67,7 +67,7 @@ clicks `preview`.
 <img src="1" onerror='fetch("file:///etc/private").then(data => data.text()).then(leak => alert(leak));'/>
 ```
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-40275 to refer to this issue from now on.
 
@@ -86,8 +86,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
