@@ -93,8 +93,8 @@ and its [API](/machine/api).
      We also have enabled [DynamoDB Streams](https://aws.amazon.com/blogs/database/dynamodb-streams-use-cases-and-design-patterns/)
      on some of our tables,
      to respond to item changes within the database
-     and perform actions like updating OpenSearch indexes,
-     or put items into [Redshift by Amazon Web Services (AWS)](/development/stack/aws/redshift).
+     and perform actions like updating OpenSearch indexes
+     or putting items into [Redshift by Amazon Web Services (AWS)](/development/stack/aws/redshift).
 
    - [OpenSearch by Amazon Web Services (AWS)](/development/stack/aws/opensearch)
      (previously known as ElasticSearch)
@@ -102,10 +102,10 @@ and its [API](/machine/api).
    - [ElastiCache by Amazon Web Services (AWS)](/development/stack/aws/redis)
      as an in-memory, intranet, and therefore low-latency volatile database.
    - [S3 by Amazon Web Services (AWS)](/development/stack/aws/s3):
-     - As durable file system,
+     - As a durable file system,
      - As an ephemeral file system whose objects are deleted after some time.
      - As a staging area for file uploads/downloads
-       (using presigned URLs).
+       (using pre-signed URLs).
 
 1. The Database is backed up
    using Backup Vaults by Amazon Web Services (AWS)
@@ -113,7 +113,7 @@ and its [API](/machine/api).
    and [2](/about/security/availability/recovery-objective).
 
 1. The [Compute component of Common](/development/common/compute)
-   provides us out-of-band processing power
+   provides us with out-of-band processing power
    that we use for things like
    periodic tasks (schedules),
    or tasks that can be computed outside of the request/response lifecycle
