@@ -8,9 +8,16 @@ from lib_root.utilities.common import (
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
+)
+from model.graph_model import (
+    Graph,
+    GraphDB,
+    GraphShardMetadataLanguage,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -22,6 +29,7 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Iterable,
     Iterator,
     Set,
 )
@@ -34,7 +42,7 @@ from utils.string import (
 )
 
 
-def validate_import(graph: graph_model.Graph, check: str) -> Iterator[str]:
+def validate_import(graph: Graph, check: str) -> Iterator[str]:
     for node in g.filter_nodes(
         graph, graph.nodes, predicate=g.pred_has_labels(label_type="Import")
     ):
@@ -48,49 +56,53 @@ def is_secure(options: Iterator[str], pattern: Set[str]) -> bool:
     return False
 
 
-def java_file_create_temp_file(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
+def is_method_danger(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.JAVA_CREATE_TEMP_FILE
     lib = {"java.nio.file.Files.createTempFile"}
-    method = core_model.MethodsEnum.JAVA_CREATE_TEMP_FILE
+    exp = graph.nodes[n_id].get("expression")
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    if obj := graph.nodes[n_id].get("object_id"):
+        imp_check = graph.nodes[obj].get("symbol") + "." + exp
+    else:
+        imp_check = exp
+
+    lib_safe = is_secure(validate_import(graph, imp_check), lib)
+    if not lib_safe:
+        return True
+
+    if lib_safe and (
+        (al_id := graph.nodes[n_id].get("arguments_id"))
+        and (test_nid := g.match_ast(graph, al_id).get("__1__"))
+    ):
+        for path in get_backward_paths(graph, test_nid):
+            evaluation = evaluate(method, graph, path, test_nid)
+            if evaluation and evaluation.danger:
+                return True
+
+    return False
+
+
+def java_file_create_temp_file(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
+    method = MethodsEnum.JAVA_CREATE_TEMP_FILE
+
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.JAVA,
+            GraphShardMetadataLanguage.JAVA,
         ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
 
             for n_id in search_method_invocation_naive(graph, danger_methods):
-                exp = graph.nodes[n_id].get("expression")
-                imp_check = ""
-                insecure = False
-                if obj := graph.nodes[n_id].get("object_id"):
-                    imp_check = graph.nodes[obj].get("symbol") + "." + exp
-                else:
-                    imp_check = exp
-                lib_safe = is_secure(validate_import(graph, imp_check), lib)
-
-                if lib_safe and (
-                    (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and (test_nid := g.match_ast(graph, al_id).get("__1__"))
-                ):
-                    for path in get_backward_paths(graph, test_nid):
-                        evaluation = evaluate(method, graph, path, test_nid)
-                        if evaluation and evaluation.danger:
-                            insecure = True
-
-                if insecure or not lib_safe:
+                if is_method_danger(graph, n_id):
                     yield shard, n_id
 
-    translation_key = (
-        "src.lib_path.f160.java_file_create_temp_file.description"
-    )
     return get_vulnerabilities_from_n_ids(
-        desc_key=translation_key,
+        desc_key="src.lib_path.f160.java_file_create_temp_file.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

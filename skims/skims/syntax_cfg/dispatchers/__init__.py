@@ -4,12 +4,12 @@
 
 from syntax_cfg.dispatchers import (
     connect_to_block,
+    connect_to_declarations,
     connect_to_next,
     end_node,
     if_node,
     method_invocation_node,
     multi_path,
-    return_node,
     step_by_step,
 )
 from syntax_cfg.types import (
@@ -83,7 +83,6 @@ DISPATCHERS: Dispatchers = (
             "Continue",
             "Comment",
             "ElementAccess",
-            "Export",
             "FieldAccess",
             "FieldDeclaration",
             "FinallyClause",
@@ -113,8 +112,9 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "Return",
+            "Export",
         },
-        cfg_builder=return_node.build,
+        cfg_builder=connect_to_declarations.build,
     ),
     Dispatcher(
         applicable_types={

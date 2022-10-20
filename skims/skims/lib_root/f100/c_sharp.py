@@ -13,9 +13,11 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -26,6 +28,9 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+)
 from utils import (
     graph as g,
 )
@@ -34,15 +39,27 @@ from utils.string import (
 )
 
 
+def is_insecure_create(graph: Graph, member: NId, nid: NId) -> bool:
+    method = MethodsEnum.CS_INSEC_CREATE
+    paths = build_attr_paths("System", "Net", "WebRequest", "Create")
+    expr = graph.nodes[member].get("expression")
+    memb = graph.nodes[member].get("member")
+
+    if expr and memb and f"{expr}.{memb}" in paths:
+        for path in get_backward_paths(graph, nid):
+            evaluation = evaluate(method, graph, path, nid)
+            if evaluation and evaluation.danger:
+                return True
+    return False
+
+
 def insec_create(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.CS_INSEC_CREATE
     c_sharp = GraphLanguage.CSHARP
-    paths = build_attr_paths("System", "Net", "WebRequest", "Create")
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -50,21 +67,13 @@ def insec_create(
 
             for n_id in search_method_invocation_naive(graph, {"Create"}):
                 if (
-                    (member := g.match_ast_d(graph, n_id, "MemberAccess"))
-                    and (expr := graph.nodes[member].get("expression"))
-                    and (memb := graph.nodes[member].get("member"))
-                    and (f"{expr}.{memb}" not in paths)
-                ):
-                    continue
-                for path in get_backward_paths(graph, n_id):
-                    if (
-                        evaluation := evaluate(method, graph, path, n_id)
-                    ) and evaluation.danger:
-                        yield shard, n_id
+                    member := g.match_ast_d(graph, n_id, "MemberAccess")
+                ) and is_insecure_create(graph, member, n_id):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f100.insec_create.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=method,
+        method=MethodsEnum.CS_INSEC_CREATE,
     )

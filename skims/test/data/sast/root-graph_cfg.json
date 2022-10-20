@@ -85186,9 +85186,6 @@
             }
           },
           "1192": {
-            "1194": {
-              "label_ast": "AST"
-            },
             "1195": {
               "label_ast": "AST"
             }
@@ -85450,9 +85447,6 @@
             }
           },
           "132": {
-            "134": {
-              "label_ast": "AST"
-            },
             "135": {
               "label_ast": "AST"
             }
@@ -86128,47 +86122,56 @@
           },
           "1710": {
             "1712": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1712": {
             "1718": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1718": {
             "1720": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1722": {
             "1724": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1724": {
             "1727": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1727": {
             "1729": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1731": {
             "1733": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1733": {
             "1740": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1740": {
             "1742": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "178": {
@@ -86199,12 +86202,14 @@
           },
           "1815": {
             "1818": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1818": {
             "1824": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "182": {
@@ -86217,7 +86222,8 @@
           },
           "1824": {
             "1826": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "186": {
@@ -86549,9 +86555,6 @@
             }
           },
           "381": {
-            "383": {
-              "label_ast": "AST"
-            },
             "384": {
               "label_ast": "AST"
             }
@@ -87199,9 +87202,6 @@
             }
           },
           "748": {
-            "750": {
-              "label_ast": "AST"
-            },
             "751": {
               "label_ast": "AST"
             }
@@ -88052,12 +88052,8 @@
           },
           "1192": {
             "arguments_id": "1195",
-            "constructor_id": "1194",
-            "label_type": "NewExpression"
-          },
-          "1194": {
-            "label_type": "SymbolLookup",
-            "symbol": "Promise"
+            "label_type": "ObjectCreation",
+            "name": "Promise"
           },
           "1195": {
             "label_type": "ArgumentList"
@@ -88330,8 +88326,8 @@
           },
           "132": {
             "arguments_id": "135",
-            "constructor_id": "134",
-            "label_type": "NewExpression"
+            "label_type": "ObjectCreation",
+            "name": "Promise"
           },
           "1321": {
             "label_type": "SymbolLookup",
@@ -88381,10 +88377,6 @@
           "1339": {
             "label_type": "SymbolLookup",
             "symbol": "title"
-          },
-          "134": {
-            "label_type": "SymbolLookup",
-            "symbol": "Promise"
           },
           "1341": {
             "label_type": "Literal",
@@ -89649,12 +89641,8 @@
           },
           "381": {
             "arguments_id": "384",
-            "constructor_id": "383",
-            "label_type": "NewExpression"
-          },
-          "383": {
-            "label_type": "SymbolLookup",
-            "symbol": "Polygon"
+            "label_type": "ObjectCreation",
+            "name": "Polygon"
           },
           "384": {
             "label_type": "ArgumentList"
@@ -90393,12 +90381,8 @@
           },
           "748": {
             "arguments_id": "751",
-            "constructor_id": "750",
-            "label_type": "NewExpression"
-          },
-          "750": {
-            "label_type": "SymbolLookup",
-            "symbol": "ColoredTriangle"
+            "label_type": "ObjectCreation",
+            "name": "ColoredTriangle"
           },
           "751": {
             "label_type": "ArgumentList"
