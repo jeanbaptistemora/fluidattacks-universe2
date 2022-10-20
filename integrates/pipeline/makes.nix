@@ -147,7 +147,7 @@
     (x: [(builtins.toString (x + 1))])
     (
       builtins.ceil
-      ((builtins.length functionalTests) / gitlabJobDependencies)
+      ((builtins.length functionalTests) / (gitlabJobDependencies * 1.0))
     )
   );
   gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";

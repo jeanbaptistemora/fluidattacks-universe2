@@ -3826,6 +3826,7 @@
     - /integrates/coverage/combine__1
     - /integrates/coverage/combine__2
     - /integrates/coverage/combine__3
+    - /integrates/coverage/combine__4
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4040,6 +4041,35 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/coverage/combine '3'
+  stage: external
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/coverage/combine__4:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs:
+    - /integrates/back/test/functional__vulnerability
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/coverage/combine '4'
   stage: external
   tags:
     - small
