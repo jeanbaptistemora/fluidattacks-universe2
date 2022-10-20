@@ -20302,7 +20302,7 @@ F015,lines,namespace/skims/test/data/lib_path/f015/basic_auth_method.config,2,28
   6 |     <auth-method>FORM</auth-method>
   7 | </login-config>
     ^ Col 0
-",dotnetconfig.dotnetconfig_basic_auth_method
+",conf_files.xml_basic_auth_method
 F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,273,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
    263 |               <stringProp name=""outputFormat""></stringProp>
    264 |               <boolProp name=""perThread"">true</boolProp>

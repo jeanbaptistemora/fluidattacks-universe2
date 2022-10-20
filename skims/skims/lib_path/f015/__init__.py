@@ -7,10 +7,8 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f015.conf_files import (
-    jmx_header_basic,
-)
-from lib_path.f015.dotnetconfig import (
     basic_auth_method,
+    jmx_header_basic,
 )
 from lib_path.f015.terraform import (
     tfm_azure_linux_vm_insecure_authentication,
