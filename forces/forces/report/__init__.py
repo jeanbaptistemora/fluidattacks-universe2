@@ -153,7 +153,7 @@ def format_rich_report(
     )
     last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
     report_table.add_column("Attributes", style="cyan")
-    report_table.add_column("Data")
+    report_table.add_column("Data", overflow="fold")
     for find in report.findings:
         if find.vulnerabilities:
             find_summary: Counter = Counter(

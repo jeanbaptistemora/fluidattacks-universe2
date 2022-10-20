@@ -28,7 +28,6 @@ def style_report(key: str, value: str) -> str:
             VulnerabilityType.DAST: "[thistle3]",
             VulnerabilityType.SAST: "[light_steel_blue1]",
         },
-        "URL": f"[link={value}]",
     }
     if key in style_data:
         value_style = style_data[key]

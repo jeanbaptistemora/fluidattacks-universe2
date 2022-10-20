@@ -84,10 +84,6 @@ def test_style_report() -> None:
     assert style_report("title", "some_value") == "[yellow]some_value[/]"
     assert style_report("state", "open") == "[red]open[/]"
     assert style_report("state", "openn") == "openn"
-    assert (
-        style_report("URL", "https://app.fluidattacks.com")
-        == "[link=https://app.fluidattacks.com]https://app.fluidattacks.com[/]"
-    )
 
 
 def test_filter_repo() -> None:
