@@ -8,13 +8,16 @@ from itertools import (
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
-    graph_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
     Graph,
+    GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -26,6 +29,7 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Iterable,
     List,
 )
 from utils import (
@@ -70,11 +74,30 @@ def get_insecure_vars(graph: Graph) -> List[str]:
     return insecure_vars
 
 
+def is_insecure_logging(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.CS_INSECURE_LOGGING
+    sanitize = {"\\n", "\\t", "\\r"}
+
+    al_id = graph.nodes[g.pred(graph, n_id)[0]].get("arguments_id")
+    if test_node := g.match_ast(graph, al_id).get("__0__"):
+        for path in get_backward_paths(graph, test_node):
+            evaluation = evaluate(method, graph, path, test_node)
+            if (
+                evaluation
+                and evaluation.danger
+                and not (
+                    "Replace" in evaluation.triggers
+                    and all(char in evaluation.triggers for char in sanitize)
+                )
+            ):
+                return True
+    return False
+
+
 def insecure_logging(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.CS_INSECURE_LOGGING
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
     logging_methods = {
         "Info",
@@ -84,9 +107,8 @@ def insecure_logging(
         "TraceEvent",
         "Debug",
     }
-    sanitize = {"\\n", "\\t", "\\r"}
 
-    def n_ids() -> graph_model.GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -98,31 +120,16 @@ def insecure_logging(
                 graph.nodes,
                 g.pred_has_labels(label_type="MemberAccess"),
             ):
-                if not (
+                if (
                     graph.nodes[nid].get("member") in logging_methods
                     and graph.nodes[nid].get("expression") in insecure_vars
+                    and is_insecure_logging(graph, nid)
                 ):
-                    continue
-                al_id = graph.nodes[g.pred(graph, nid)[0]].get("arguments_id")
-                if test_node := g.match_ast(graph, al_id).get("__0__"):
-                    for path in get_backward_paths(graph, test_node):
-                        evaluation = evaluate(method, graph, path, test_node)
-                        if (
-                            evaluation
-                            and evaluation.danger
-                            and not (
-                                "Replace" in evaluation.triggers
-                                and all(
-                                    char in evaluation.triggers
-                                    for char in sanitize
-                                )
-                            )
-                        ):
-                            yield shard, nid
+                    yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="criteria.vulns.091.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=method,
+        method=MethodsEnum.CS_INSECURE_LOGGING,
     )
