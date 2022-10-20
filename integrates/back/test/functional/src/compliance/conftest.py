@@ -22,6 +22,7 @@ from db_model.groups.types import (
     Group,
     GroupState,
     GroupUnreliableIndicators,
+    UnfulfilledStandard,
 )
 from decimal import (
     Decimal,
@@ -60,7 +61,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         type=GroupSubscriptionType.CONTINUOUS,
                         service=GroupService.WHITE,
                     ),
-                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     tags={"testing"},
                     business_id="1867",
                     business_name="Testing Company",
@@ -78,6 +79,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     mean_remediate=Decimal("2.0"),
                     mean_remediate_low_severity=Decimal("3.0"),
                     mean_remediate_medium_severity=Decimal("4.0"),
+                    unfulfilled_standards=[
+                        UnfulfilledStandard(
+                            name="bsimm",
+                            unfulfilled_requirements=["155", "159", "273"],
+                        )
+                    ],
                 ),
             },
         ],

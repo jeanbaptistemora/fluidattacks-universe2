@@ -23,6 +23,17 @@ async def get_result(
         query {{
             organization(organizationId: "{organization_id}"){{
                 id
+                groups {{
+                    name
+                    compliance {{
+                        unfulfilledStandards {{
+                            title
+                            unfulfilledRequirements {{
+                                id
+                            }}
+                        }}
+                    }}
+                }}
                 compliance {{
                 complianceLevel
                 complianceWeeklyTrend
@@ -34,6 +45,35 @@ async def get_result(
                     standardTitle
                     worstOrganizationComplianceLevel
                 }}
+                }}
+
+            }}
+        }}
+    """
+    data: dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
+async def get_group(
+    *,
+    user: str,
+    group: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        query {{
+            group(groupName: "{group}"){{
+                name
+                compliance {{
+                    unfulfilledStandards {{
+                        title
+                        unfulfilledRequirements {{
+                            id
+                        }}
+                    }}
                 }}
             }}
         }}

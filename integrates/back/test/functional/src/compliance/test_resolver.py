@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from . import (
+    get_group,
     get_result,
 )
 import pytest
@@ -43,3 +44,23 @@ async def test_get_compliance(populate: bool, email: str) -> None:
     assert (
         standard_1 in result["data"]["organization"]["compliance"]["standards"]
     )
+    group_1: dict[str, Any] = await get_group(user=email, group="group1")
+    assert group_1 == {
+        "data": {
+            "group": {
+                "name": "group1",
+                "compliance": {
+                    "unfulfilledStandards": [
+                        {
+                            "title": "BSIMM",
+                            "unfulfilledRequirements": [
+                                {"id": "155"},
+                                {"id": "159"},
+                                {"id": "273"},
+                            ],
+                        }
+                    ]
+                },
+            }
+        }
+    }
