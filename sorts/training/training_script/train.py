@@ -152,13 +152,16 @@ def train_model(
 ) -> List[List[str]]:
     all_combinations = get_features_combinations(list(FEATURES_DICTS.keys()))
     training_data: DataFrame = load_training_data(training_dir)
+    shuffled_training_data = training_data.sample(frac=1).reset_index(
+        drop=True
+    )
     training_output: List[List[str]] = [RESULT_HEADERS]
 
     # Train the model
     for combination in all_combinations:
         model = get_model_instance(model_class)
         training_combination_output: List[str] = train_combination(
-            model, training_data, combination
+            model, shuffled_training_data, combination
         )
         training_output.append(training_combination_output)
 
@@ -170,6 +173,9 @@ def inc_train_model(
     training_dir: str,
 ) -> List[List[str]]:
     training_data: DataFrame = load_training_data(training_dir)
+    shuffled_training_data = training_data.sample(frac=1).reset_index(
+        drop=True
+    )
     training_output: List[List[str]] = [RESULT_HEADERS]
 
     # Incremental training with the best feature combination
@@ -178,7 +184,9 @@ def inc_train_model(
         f"{os.environ['SM_CHANNEL_MODEL']}/{model_name}-inc-training.joblib"
     )
     training_combination_output: List[str] = train_combination(
-        model, training_data, INC_TRAINING_BEST_COMBINATIONS[model_name]
+        model,
+        shuffled_training_data,
+        INC_TRAINING_BEST_COMBINATIONS[model_name],
     )
     training_output.append(training_combination_output)
 

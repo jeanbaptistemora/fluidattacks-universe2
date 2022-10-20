@@ -63,6 +63,7 @@ SAGEMAKER_METRIC_DEFINITIONS: List[Dict[str, str]] = [
     {"Name": "precision", "Regex": "Precision: (.*?)%"},
     {"Name": "recall", "Regex": "Recall: (.*?)%"},
     {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
+    {"Name": "accuracy", "Regex": "Accuracy: (.*?)%"},
     {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
 ]
 
