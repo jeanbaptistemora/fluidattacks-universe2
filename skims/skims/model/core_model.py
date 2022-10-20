@@ -288,6 +288,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.http,
         requirements=[62],
     )
+    F044: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F044",
+        cwe=650,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[266],
+    )
     F046: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F046",
@@ -2492,6 +2499,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F043,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
+    )
+    CNF_HTTP_METHODS_ENABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cnf_http_methods_enabled",
+        module="lib_path",
+        finding=FindingEnum.F044,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     NO_OBFUSCATION = MethodInfo(
         file_name="analyze_bytecodes",

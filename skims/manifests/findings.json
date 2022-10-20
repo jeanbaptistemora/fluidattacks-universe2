@@ -175,6 +175,14 @@
       "title": "043. Insecure or unset HTTP headers - Content-Security-Policy"
     }
   },
+  "F044": {
+    "EN": {
+      "title": "044. Insecure HTTP methods enabled"
+    },
+    "ES": {
+      "title": "044. Insecure HTTP methods enabled"
+    }
+  },
   "F046": {
     "EN": {
       "title": "046. Missing secure obfuscation - APK"
