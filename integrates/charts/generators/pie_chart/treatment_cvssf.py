@@ -73,19 +73,21 @@ async def get_data_one_group(group: str) -> Treatment:
         finding_ids
     )
 
-    treatment: Counter[VulnerabilityTreatmentStatus] = Counter()
-    for vulnerability in vulnerabilities:
-        status = (
-            vulnerability.treatment.status if vulnerability.treatment else None
+    treatments: tuple[Counter[VulnerabilityTreatmentStatus], ...] = tuple(
+        Counter(
+            {
+                vulnerability.treatment.status: Decimal(
+                    finding_cvssf[vulnerability.finding_id]
+                ).quantize(Decimal("0.001"))
+            }
         )
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
-            treatment.update(
-                {
-                    status: Decimal(  # type: ignore
-                        finding_cvssf[vulnerability.finding_id]
-                    ).quantize(Decimal("0.001"))
-                }
-            )
+        for vulnerability in vulnerabilities
+        if vulnerability.treatment
+        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+    )
+    treatment: Counter[VulnerabilityTreatmentStatus] = sum(
+        treatments, Counter()
+    )
 
     return Treatment(
         acceptedUndefined=treatment[

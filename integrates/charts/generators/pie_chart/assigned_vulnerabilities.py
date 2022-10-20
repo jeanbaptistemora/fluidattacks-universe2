@@ -30,7 +30,6 @@ from db_model.vulnerabilities.types import (
 )
 from typing import (
     NamedTuple,
-    Tuple,
 )
 
 
@@ -42,11 +41,11 @@ class AssignedVulnerabilities(NamedTuple):
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> AssignedVulnerabilities:
     loaders: Dataloaders = get_new_context()
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         finding_ids
@@ -80,9 +79,9 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
 
 
 async def get_data_many_groups(
-    groups: Tuple[str, ...]
+    groups: tuple[str, ...]
 ) -> AssignedVulnerabilities:
-    groups_data: Tuple[AssignedVulnerabilities, ...] = await collect(
+    groups_data: tuple[AssignedVulnerabilities, ...] = await collect(
         map(get_data_one_group, groups), workers=32
     )
 
