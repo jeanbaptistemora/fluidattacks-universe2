@@ -45,23 +45,19 @@ from itertools import (
     groupby,
 )
 from typing import (
-    Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
     Union,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    finding_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
+    finding_vulns: tuple[
+        tuple[Vulnerability, ...], ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     counter = Counter(
         [
@@ -76,18 +72,18 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders
+    groups: list[str], loaders: Dataloaders
 ) -> Counter[str]:
-    groups_data: Tuple[Counter[str], ...] = await collect(
+    groups_data: tuple[Counter[str], ...] = await collect(
         tuple(get_data_one_group(group, loaders) for group in groups),
         workers=32,
     )
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> Dict[str, Any]:
-    data: List[Tuple[str, int]] = counters.most_common()
-    merged_data: List[List[Union[int, str]]] = []
+def format_data(counters: Counter[str]) -> dict:
+    data: list[tuple[str, int]] = counters.most_common()
+    merged_data: list[list[Union[int, str]]] = []
     for axis, columns in groupby(
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         key=lambda x: get_finding_name([x[0]]),

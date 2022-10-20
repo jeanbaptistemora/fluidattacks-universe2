@@ -42,10 +42,6 @@ from decimal import (
 from operator import (
     attrgetter,
 )
-from typing import (
-    Any,
-    List,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -74,7 +70,7 @@ async def get_data_many_groups(
     *,
     groups: tuple[str, ...],
     loaders: Dataloaders,
-) -> List[PortfoliosGroupsInfo]:
+) -> list[PortfoliosGroupsInfo]:
     groups_data = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders)
@@ -86,7 +82,7 @@ async def get_data_many_groups(
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
 
-def format_data(data: List[PortfoliosGroupsInfo]) -> dict[str, Any]:
+def format_data(data: list[PortfoliosGroupsInfo]) -> dict:
     limited_data = [group for group in data[:LIMIT] if group.value > 0]
 
     return dict(

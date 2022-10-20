@@ -128,7 +128,7 @@ def get_vulnerability_reattacks(
 
 def get_vulnerability_reattacks_date(
     *,
-    historic_verification: Tuple[VulnerabilityVerification, ...],
+    historic_verification: tuple[VulnerabilityVerification, ...],
     min_date: datetype,
 ) -> int:
     return sum(
@@ -406,11 +406,11 @@ async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
 
 
 async def get_oldest_open_age(
-    *, groups: List[str], loaders: Dataloaders
+    *, groups: list[str], loaders: Dataloaders
 ) -> Decimal:
-    oldest_open_age: Tuple[int, ...] = await collect(
+    oldest_open_age: tuple[Decimal, ...] = await collect(
         tuple(
-            _get_oldest_open_age(group=group, loaders=loaders)  # type: ignore
+            _get_oldest_open_age(group=group, loaders=loaders)
             for group in groups
         ),
         workers=24,

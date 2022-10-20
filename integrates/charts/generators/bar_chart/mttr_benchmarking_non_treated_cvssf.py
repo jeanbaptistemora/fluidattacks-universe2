@@ -69,11 +69,11 @@ async def get_data_one_group(
         if not is_accepted_undefined_vulnerability(vulnerability)
     )
 
-    historics_verification: tuple[
-        VulnerabilityVerification, ...
+    historics_verifications: tuple[
+        tuple[VulnerabilityVerification, ...], ...
     ] = await collect(
         tuple(
-            get_historic_verification(loaders, vulnerability)  # type: ignore
+            get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities_excluding_permanently_accepted
         ),
         workers=32,
@@ -84,12 +84,12 @@ async def get_data_one_group(
             get_vulnerability_reattacks_date(
                 historic_verification=historic, min_date=min_date
             )
-            for historic in historics_verification
+            for historic in historics_verifications
         )
     else:
         number_of_reattacks = sum(
             get_vulnerability_reattacks(historic_verification=historic)
-            for historic in historics_verification
+            for historic in historics_verifications
         )
 
     mttr: Decimal = await get_mean_remediate_non_treated_severity_cvssf(
