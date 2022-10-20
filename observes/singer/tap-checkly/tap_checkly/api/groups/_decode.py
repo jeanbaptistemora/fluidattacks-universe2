@@ -20,7 +20,7 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result.transform import (
     all_ok,
 )
-from tap_checkly.api2._utils import (
+from tap_checkly.api._utils import (
     ExtendedUnfolder,
 )
 from tap_checkly.objs import (

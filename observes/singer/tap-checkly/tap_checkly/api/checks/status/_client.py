@@ -6,8 +6,8 @@ from __future__ import (
     annotations,
 )
 
-from . import (
-    _decode,
+from ._decode import (
+    CheckStatusDecoder,
 )
 from dataclasses import (
     dataclass,
@@ -23,6 +23,7 @@ from fa_purity.json.factory import (
 from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
+    pure_map,
 )
 from fa_purity.stream.factory import (
     from_piter,
@@ -31,32 +32,36 @@ from fa_purity.stream.transform import (
     chain,
     until_none,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     Credentials,
     RawClient,
 )
 from tap_checkly.objs import (
-    AlertChannelObj,
+    CheckStatusObj,
 )
 
 
 @dataclass(frozen=True)
-class AlertChannelsClient:
+class CheckStatusClient:
     _client: RawClient
     _per_page: int
 
-    def _get_page(self, page: int) -> Cmd[FrozenList[AlertChannelObj]]:
+    def _get_page(self, page: int) -> Cmd[FrozenList[CheckStatusObj]]:
         return self._client.get_list(
-            "/v1/alert-channels",
+            "/v1/check-statuses",
             from_prim_dict(
                 {
                     "limit": self._per_page,
                     "page": page,
                 }
             ),
-        ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
+        ).map(
+            lambda l: pure_map(
+                lambda i: CheckStatusDecoder(i).decode_obj().unwrap(), l
+            ).to_list()
+        )
 
-    def list_all(self) -> Stream[AlertChannelObj]:
+    def list_all(self) -> Stream[CheckStatusObj]:
         return (
             infinite_range(1, 1)
             .map(self._get_page)
@@ -71,5 +76,5 @@ class AlertChannelsClient:
     def new(
         auth: Credentials,
         per_page: int,
-    ) -> AlertChannelsClient:
-        return AlertChannelsClient(RawClient(auth), per_page)
+    ) -> CheckStatusClient:
+        return CheckStatusClient(RawClient(auth), per_page)

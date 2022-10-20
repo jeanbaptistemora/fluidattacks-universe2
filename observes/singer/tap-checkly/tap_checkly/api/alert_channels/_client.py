@@ -6,8 +6,8 @@ from __future__ import (
     annotations,
 )
 
-from ._decode import (
-    CheckGroupDecoder,
+from . import (
+    _decode,
 )
 from dataclasses import (
     dataclass,
@@ -23,7 +23,6 @@ from fa_purity.json.factory import (
 from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
-    pure_map,
 )
 from fa_purity.stream.factory import (
     from_piter,
@@ -32,36 +31,32 @@ from fa_purity.stream.transform import (
     chain,
     until_none,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     Credentials,
     RawClient,
 )
 from tap_checkly.objs import (
-    CheckGroupObj,
+    AlertChannelObj,
 )
 
 
 @dataclass(frozen=True)
-class CheckGroupClient:
+class AlertChannelsClient:
     _client: RawClient
     _per_page: int
 
-    def _get_page(self, page: int) -> Cmd[FrozenList[CheckGroupObj]]:
+    def _get_page(self, page: int) -> Cmd[FrozenList[AlertChannelObj]]:
         return self._client.get_list(
-            "/v1/check-groups",
+            "/v1/alert-channels",
             from_prim_dict(
                 {
                     "limit": self._per_page,
                     "page": page,
                 }
             ),
-        ).map(
-            lambda l: pure_map(
-                lambda i: CheckGroupDecoder(i).decode_obj().unwrap(), l
-            ).to_list()
-        )
+        ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
 
-    def list_all(self) -> Stream[CheckGroupObj]:
+    def list_all(self) -> Stream[AlertChannelObj]:
         return (
             infinite_range(1, 1)
             .map(self._get_page)
@@ -76,5 +71,5 @@ class CheckGroupClient:
     def new(
         auth: Credentials,
         per_page: int,
-    ) -> CheckGroupClient:
-        return CheckGroupClient(RawClient(auth), per_page)
+    ) -> AlertChannelsClient:
+        return AlertChannelsClient(RawClient(auth), per_page)

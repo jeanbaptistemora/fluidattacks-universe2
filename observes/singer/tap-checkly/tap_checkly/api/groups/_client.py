@@ -7,7 +7,7 @@ from __future__ import (
 )
 
 from ._decode import (
-    CheckStatusDecoder,
+    CheckGroupDecoder,
 )
 from dataclasses import (
     dataclass,
@@ -32,23 +32,23 @@ from fa_purity.stream.transform import (
     chain,
     until_none,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     Credentials,
     RawClient,
 )
 from tap_checkly.objs import (
-    CheckStatusObj,
+    CheckGroupObj,
 )
 
 
 @dataclass(frozen=True)
-class CheckStatusClient:
+class CheckGroupClient:
     _client: RawClient
     _per_page: int
 
-    def _get_page(self, page: int) -> Cmd[FrozenList[CheckStatusObj]]:
+    def _get_page(self, page: int) -> Cmd[FrozenList[CheckGroupObj]]:
         return self._client.get_list(
-            "/v1/check-statuses",
+            "/v1/check-groups",
             from_prim_dict(
                 {
                     "limit": self._per_page,
@@ -57,11 +57,11 @@ class CheckStatusClient:
             ),
         ).map(
             lambda l: pure_map(
-                lambda i: CheckStatusDecoder(i).decode_obj().unwrap(), l
+                lambda i: CheckGroupDecoder(i).decode_obj().unwrap(), l
             ).to_list()
         )
 
-    def list_all(self) -> Stream[CheckStatusObj]:
+    def list_all(self) -> Stream[CheckGroupObj]:
         return (
             infinite_range(1, 1)
             .map(self._get_page)
@@ -76,5 +76,5 @@ class CheckStatusClient:
     def new(
         auth: Credentials,
         per_page: int,
-    ) -> CheckStatusClient:
-        return CheckStatusClient(RawClient(auth), per_page)
+    ) -> CheckGroupClient:
+        return CheckGroupClient(RawClient(auth), per_page)

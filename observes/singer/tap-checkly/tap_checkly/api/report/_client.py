@@ -25,7 +25,7 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.stream.factory import (
     unsafe_from_cmd,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     Credentials,
     RawClient,
 )

@@ -19,7 +19,7 @@ from fa_purity.pure_iter.transform import (
     consume,
 )
 import logging
-from tap_checkly.api2 import (
+from tap_checkly.api import (
     Credentials,
 )
 from tap_checkly.streams import (

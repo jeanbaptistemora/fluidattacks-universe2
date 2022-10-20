@@ -12,7 +12,7 @@ from fa_purity import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
-from tap_checkly.api2._utils import (
+from tap_checkly.api._utils import (
     ExtendedUnfolder,
 )
 from tap_checkly.objs import (

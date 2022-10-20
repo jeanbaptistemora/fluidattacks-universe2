@@ -27,22 +27,22 @@ from fa_singer_io.singer import (
     SingerRecord,
 )
 import sys
-from tap_checkly.api2 import (
+from tap_checkly.api import (
     Credentials,
 )
-from tap_checkly.api2.alert_channels import (
+from tap_checkly.api.alert_channels import (
     AlertChannelsClient,
 )
-from tap_checkly.api2.checks import (
+from tap_checkly.api.checks import (
     ChecksClient,
 )
-from tap_checkly.api2.checks.status import (
+from tap_checkly.api.checks.status import (
     CheckStatusClient,
 )
-from tap_checkly.api2.groups import (
+from tap_checkly.api.groups import (
     CheckGroupClient,
 )
-from tap_checkly.api2.report import (
+from tap_checkly.api.report import (
     CheckReportClient,
 )
 from tap_checkly.objs import (

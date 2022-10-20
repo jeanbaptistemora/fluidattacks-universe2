@@ -9,7 +9,7 @@ from fa_purity import (
     JsonObj,
     ResultE,
 )
-from tap_checkly.api2._utils import (
+from tap_checkly.api._utils import (
     ExtendedUnfolder,
 )
 from tap_checkly.objs import (

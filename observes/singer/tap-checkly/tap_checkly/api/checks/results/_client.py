@@ -40,7 +40,7 @@ from fa_purity.stream.transform import (
     until_empty,
     until_none,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     RawClient,
 )
 from tap_checkly.objs import (

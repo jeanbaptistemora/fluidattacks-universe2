@@ -29,10 +29,10 @@ from fa_purity.json.factory import (
 from fa_purity.pure_iter.factory import (
     pure_map,
 )
-from tap_checkly.api2 import (
+from tap_checkly.api import (
     _utils,
 )
-from tap_checkly.api2._raw import (
+from tap_checkly.api._raw import (
     Credentials,
     RawClient,
 )

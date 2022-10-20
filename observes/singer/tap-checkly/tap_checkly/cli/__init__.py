@@ -9,7 +9,7 @@ import click
 from fa_purity import (
     Maybe,
 )
-from tap_checkly.api2 import (
+from tap_checkly.api import (
     Credentials,
 )
 from tap_checkly.streams import (

@@ -21,7 +21,7 @@ from fa_purity.result.transform import (
     all_ok,
 )
 import logging
-from tap_checkly.api2._utils import (
+from tap_checkly.api._utils import (
     ExtendedUnfolder,
     switch_maybe,
 )
