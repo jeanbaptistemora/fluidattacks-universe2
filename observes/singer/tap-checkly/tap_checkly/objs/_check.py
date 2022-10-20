@@ -19,7 +19,6 @@ class CheckConf1:
     activated: bool
     muted: bool
     double_check: bool
-    ssl_check: bool
     should_fail: bool
     use_global_alert_settings: bool
 

@@ -36,7 +36,7 @@ from tap_checkly.objs import (
 def _decode_ch_sub(raw: JsonObj) -> ResultE[ChannelSubscription]:
     unfolder = ExtendedUnfolder(raw)
     return unfolder.require_primitive("activated", bool).bind(
-        lambda activated: unfolder.require_primitive("channel", int)
+        lambda activated: unfolder.require_primitive("alertChannelId", int)
         .map(AlertChannelId)
         .map(lambda channel: ChannelSubscription(activated, channel))
     )
@@ -104,7 +104,7 @@ class CheckGroupDecoder:
                                         lambda locations: unfolder.require_primitive(
                                             "muted", bool
                                         ).bind(
-                                            lambda muted: unfolder.require_primitive(
+                                            lambda muted: unfolder.maybe_primitive(
                                                 "runtimeId", str
                                             ).bind(
                                                 lambda runtime_id: unfolder.require_primitive(
@@ -138,7 +138,7 @@ class CheckGroupDecoder:
 
     def decode_id(self) -> ResultE[CheckGroupId]:
         unfolder = ExtendedUnfolder(self.raw)
-        return unfolder.require_primitive("id", str).map(CheckGroupId)
+        return unfolder.require_primitive("id", int).map(CheckGroupId)
 
     def decode_obj(self) -> ResultE[CheckGroupObj]:
         return self.decode_id().bind(

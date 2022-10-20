@@ -54,7 +54,7 @@ _date_type = JSchemaFactory.datetime_schema()
 def _core_encoder_fx() -> SingerEncoder[CheckGroupObj]:
     _mapper: Dict[str, EncodeItem[CheckGroupObj]] = {
         "group_id": EncodeItem.new(
-            lambda x: x.id_obj.raw_str,
+            lambda x: x.id_obj.raw_id,
             Property(_int_type, True, False),
             CheckGroupObj,
         ),
@@ -98,7 +98,7 @@ def _core_encoder_fx() -> SingerEncoder[CheckGroupObj]:
             CheckGroupObj,
         ),
         "runtime_id": EncodeItem.new(
-            lambda x: x.obj.runtime_id,
+            lambda x: x.obj.runtime_id.value_or(None),
             Property(_str_type, False, False),
             CheckGroupObj,
         ),
@@ -126,7 +126,7 @@ class GroupAlert:
 def _group_alert_encoder_fx() -> SingerEncoder[GroupAlert]:
     _mapper: Dict[str, EncodeItem[GroupAlert]] = {
         "group_id": EncodeItem.new(
-            lambda x: x.group.raw_str,
+            lambda x: x.group.raw_id,
             Property(_int_type, True, False),
             GroupAlert,
         ),
@@ -170,7 +170,7 @@ class LocationItem:
 def _locations_encoder_fx() -> SingerEncoder[LocationItem]:
     _mapper: Dict[str, EncodeItem[LocationItem]] = {
         "group_id": EncodeItem.new(
-            lambda x: x.group_id.raw_str,
+            lambda x: x.group_id.raw_id,
             Property(_str_type, True, False),
             LocationItem,
         ),

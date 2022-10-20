@@ -33,7 +33,7 @@ class CheckGroup:
     double_check: bool
     locations: FrozenList[str]
     muted: bool
-    runtime_id: str
+    runtime_id: Maybe[str]
     use_global_alert_settings: bool
     # ~apiCheckDefaults~
     # ~browserCheckDefaults~

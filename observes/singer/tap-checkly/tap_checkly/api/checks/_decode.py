@@ -31,22 +31,17 @@ def _decode_conf_1(raw: JsonObj) -> ResultE[CheckConf1]:
         lambda activated: unfolder.require_primitive("muted", bool).bind(
             lambda muted: unfolder.require_primitive("doubleCheck", bool).bind(
                 lambda double_check: unfolder.require_primitive(
-                    "sslCheck", bool
+                    "shouldFail", bool
                 ).bind(
-                    lambda ssl_check: unfolder.require_primitive(
-                        "shouldFail", bool
-                    ).bind(
-                        lambda should_fail: unfolder.require_primitive(
-                            "useGlobalAlertSettings", bool
-                        ).map(
-                            lambda global_alert: CheckConf1(
-                                activated,
-                                muted,
-                                double_check,
-                                ssl_check,
-                                should_fail,
-                                global_alert,
-                            )
+                    lambda should_fail: unfolder.require_primitive(
+                        "useGlobalAlertSettings", bool
+                    ).map(
+                        lambda global_alert: CheckConf1(
+                            activated,
+                            muted,
+                            double_check,
+                            should_fail,
+                            global_alert,
                         )
                     )
                 )

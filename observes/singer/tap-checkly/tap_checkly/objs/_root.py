@@ -33,7 +33,7 @@ from dataclasses import (
 
 @dataclass(frozen=True)
 class CheckGroupId:
-    raw_str: str
+    raw_id: int
 
 
 @dataclass(frozen=True)

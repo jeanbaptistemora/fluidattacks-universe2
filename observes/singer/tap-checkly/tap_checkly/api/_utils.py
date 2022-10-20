@@ -96,6 +96,19 @@ class ExtendedUnfolder:
             .alt(Exception)
         )
 
+    def maybe_primitive(
+        self, key: str, prim_type: Type[NotNonePrimTvar]
+    ) -> ResultE[Maybe[NotNonePrimTvar]]:
+        return switch_maybe(
+            self.get(key)
+            .map(Unfolder)
+            .map(
+                lambda u: u.to_primitive(prim_type)
+                .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
+                .alt(Exception)
+            )
+        )
+
     def require_primitive(
         self, key: str, prim_type: Type[NotNonePrimTvar]
     ) -> ResultE[NotNonePrimTvar]:

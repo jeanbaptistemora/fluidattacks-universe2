@@ -87,11 +87,6 @@ def _core_encoder_fx() -> SingerEncoder[CheckObj]:
             Property(_bool_type, False, False),
             CheckObj,
         ),
-        "ssl_check": EncodeItem.new(
-            lambda x: x.obj.conf_1.ssl_check,
-            Property(_bool_type, False, False),
-            CheckObj,
-        ),
         "should_fail": EncodeItem.new(
             lambda x: x.obj.conf_1.should_fail,
             Property(_bool_type, False, False),
