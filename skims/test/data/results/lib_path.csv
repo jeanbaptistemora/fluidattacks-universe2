@@ -20519,7 +20519,7 @@ F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,1465,287
   1475 |           <objProp>
        ^ Col 0
 ",conf_files.jmx_header_basic
-F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,10,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,10,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 | function nonSecureSign() {
    3 |     // Noncompliant
@@ -20543,7 +20543,7 @@ F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,10,287,skim
   21 |
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 | function nonSecureSign() {
    3 |     // Noncompliant
@@ -20567,7 +20567,7 @@ F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,8,287,skims
   21 |
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,6,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,6,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 | function nonSecureSign() {
    3 |     // Noncompliant
@@ -20591,7 +20591,7 @@ F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,6,287,skims
   21 |
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/insecure_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    2 | function nonSecureSign() {
    3 |     // Noncompliant
    4 |     let none_val = ""none""
@@ -32136,6 +32136,63 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,749,skims,338. Ins
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F094,lines,namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,13,757,skims,094. Insecure encryption algorithm - Cipher Block Chaining,The encryption mode is not specified or an insecure mode is chosen. in namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,"
+   1 | function insecureModes() {
+   2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CFB, // Insecure
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.OFB
+   8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto, // Insecure
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+> 13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+     ^ Col 0
+",javascript.js_uses_insecure_encrypt
+F094,lines,namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,8,757,skims,094. Insecure encryption algorithm - Cipher Block Chaining,The encryption mode is not specified or an insecure mode is chosen. in namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,"
+   1 | function insecureModes() {
+   2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CFB, // Insecure
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.OFB
+>  8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto, // Insecure
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+  13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+     ^ Col 0
+",javascript.js_uses_insecure_encrypt
+F094,lines,namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,2,757,skims,094. Insecure encryption algorithm - Cipher Block Chaining,The encryption mode is not specified or an insecure mode is chosen. in namespace/skims/test/data/lib_root/f094/uses_insecure_encrypt.js,"
+   1 | function insecureModes() {
+>  2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CFB, // Insecure
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.OFB
+   8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto, // Insecure
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+  13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+     ^ Col 0
+",javascript.js_uses_insecure_encrypt
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Traceability Loss - Azure,"Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
  in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","
   12 |     storage_account_access_key_is_secondary = true

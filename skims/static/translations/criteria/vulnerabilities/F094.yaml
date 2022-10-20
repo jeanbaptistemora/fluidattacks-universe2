@@ -9,3 +9,6 @@ lib_ssl.analyze_protocol.cbc_enabled:
 lib_ssl.analyze_protocol.sweet32_possible:
   en: server is vulnerable to SWEET32 attacks
   es: el servidor es vulnerable a ataques SWEET32
+lib_root.f094.js_uses_insecure_encrypt:
+  en: The encryption mode is not specified or an insecure mode is chosen.
+  es: No se especifica el modo de cifrado o se elige un modo inseguro.
