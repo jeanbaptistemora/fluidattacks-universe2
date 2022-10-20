@@ -25,7 +25,6 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
-import { getNonSelectableToeInputIndex } from "./utils";
 
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
@@ -454,12 +453,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   }
 
   function enabledRows(row: Row<IToeInputData>): boolean {
-    const indexes = getNonSelectableToeInputIndex(toeInputs);
-    const nonselectables = indexes.map(
-      (index: number): IToeInputData => toeInputs[index]
-    );
-
-    return !nonselectables.includes(row.original);
+    return row.original.bePresent;
   }
 
   return (
