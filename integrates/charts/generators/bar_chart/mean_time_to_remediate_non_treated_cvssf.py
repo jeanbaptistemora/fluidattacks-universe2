@@ -132,7 +132,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
             ),
             y=dict(
                 label=dict(
-                    text="Days per unit of exposure (CVSSF)",
+                    text="Days",
                     position="inner-top",
                 ),
                 min=0,

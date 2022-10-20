@@ -138,7 +138,7 @@ def format_data(data: Remediate) -> dict:
                     top=0,
                 ),
                 label=dict(
-                    text="Days per unit of exposure (CVSSF)",
+                    text="Days",
                     position="inner-top",
                 ),
                 tick=dict(

@@ -175,7 +175,7 @@ def format_data_non_cvssf(data: Remediate) -> dict:
                     top=0,
                 ),
                 label=dict(
-                    text="Calendar days per exposure",
+                    text="Days",
                     position="inner-top",
                 ),
                 **(

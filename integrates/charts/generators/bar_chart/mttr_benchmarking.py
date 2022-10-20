@@ -103,6 +103,5 @@ if __name__ == "__main__":
         generate_all_mttr_benchmarking(
             get_data_one_group=get_data_one_group,
             alternative="Mean time to remediate benchmarking",
-            y_label="Calendar days",
         )
     )

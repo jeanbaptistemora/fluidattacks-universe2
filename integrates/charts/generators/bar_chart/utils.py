@@ -142,7 +142,7 @@ def get_vulnerability_reattacks_date(
 def format_mttr_data(
     data: Tuple[Decimal, Decimal, Decimal, Decimal],
     categories: List[str],
-    y_label: str = "Days per unit of exposure (CVSSF)",
+    y_label: str = "Days",
 ) -> Dict[str, Any]:
 
     max_value: Decimal = list(
@@ -466,7 +466,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
     ],
     alternative: str,
-    y_label: str = "Days per unit of exposure (CVSSF)",
+    y_label: str = "Days",
 ) -> None:
     loaders: Dataloaders = get_new_context()
     list_days: List[int] = [30, 90]
