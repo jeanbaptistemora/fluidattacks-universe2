@@ -98,7 +98,7 @@ Type=Application
 
 ![RCE-Joplin](https://user-images.githubusercontent.com/51862990/189775676-83553248-0452-4df4-a9c1-7b65bbbe4792.gif)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-40277 to refer to this issue from now on.
 
@@ -117,8 +117,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
