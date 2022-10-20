@@ -36,7 +36,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
   ({
-    findingId,
+    findingId = undefined,
     groupName,
     vulns,
     handleCloseModal,

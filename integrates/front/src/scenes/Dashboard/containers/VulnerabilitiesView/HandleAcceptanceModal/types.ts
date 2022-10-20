@@ -20,7 +20,7 @@ interface IFormValues {
 }
 
 interface IHandleVulnerabilitiesAcceptanceModalProps {
-  findingId: string;
+  findingId?: string;
   groupName: string;
   vulns: IVulnerabilitiesAttr[];
   handleCloseModal: () => void;

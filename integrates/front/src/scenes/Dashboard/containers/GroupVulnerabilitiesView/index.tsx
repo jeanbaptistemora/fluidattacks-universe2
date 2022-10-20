@@ -18,6 +18,7 @@ import type { IGroupVulnerabilities } from "./types";
 import type { IHistoricTreatment } from "../DescriptionView/types";
 import { formatState } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
+import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "../VulnerabilitiesView/utils";
 import { Modal } from "components/Modal";
@@ -289,6 +290,14 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
             vulns={remediationModal.selectedVulnerabilities}
+          />
+        )}
+        {isHandleAcceptanceModalOpen && (
+          <HandleAcceptanceModal
+            groupName={groupName}
+            handleCloseModal={toggleHandleAcceptanceModal}
+            refetchData={refetch}
+            vulns={vulnerabilities}
           />
         )}
         {isEditing && (
