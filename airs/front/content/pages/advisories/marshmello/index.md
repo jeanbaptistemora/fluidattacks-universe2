@@ -67,7 +67,7 @@ simply clicks `preview`.
 
 ![RCE-Gridea](https://user-images.githubusercontent.com/51862990/189430881-5d6db562-d650-42c1-af7b-bc0626d9dc89.gif)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-40274 to refer to this issue from now on.
 
@@ -86,8 +86,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
