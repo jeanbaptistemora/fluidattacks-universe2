@@ -23,6 +23,7 @@ import dast.aws.f203
 import dast.aws.f246
 import dast.aws.f250
 import dast.aws.f256
+import dast.aws.f257
 from model import (
     core_model,
 )
@@ -59,6 +60,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F246, [*dast.aws.f246.CHECKS]),
     (core_model.FindingEnum.F250, [*dast.aws.f250.CHECKS]),
     (core_model.FindingEnum.F256, [*dast.aws.f256.CHECKS]),
+    (core_model.FindingEnum.F257, [*dast.aws.f257.CHECKS]),
 )
 
 
