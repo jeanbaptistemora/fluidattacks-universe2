@@ -1842,3 +1842,26 @@ async def start_machine_execution(
         )
         return False
     return True
+
+
+async def remove_root(
+    *,
+    email: str,
+    group_name: str,
+    reason: str,
+    root: Root,
+) -> None:
+    await collect(
+        (
+            deactivate_root(
+                group_name=group_name,
+                other="",
+                reason=reason,
+                root=root,
+                user_email=email,
+            ),
+            roots_model.remove_root_environment_urls(root_id=root.id),
+            roots_model.remove_root_machine_executions(root_id=root.id),
+            roots_model.remove_root_secrets(root_id=root.id),
+        )
+    )

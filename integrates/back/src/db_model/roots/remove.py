@@ -39,7 +39,7 @@ async def remove_environment_url_secret(url_id: str, secret_key: str) -> None:
     await operations.delete_item(key=primary_key, table=TABLE)
 
 
-async def remove_root_environment_url_secrets(
+async def _remove_environment_url_secrets(
     *,
     url_id: str,
 ) -> None:
@@ -90,9 +90,7 @@ async def remove_root_environment_urls(
     if not response.items:
         return
     await collect(
-        remove_root_environment_url_secrets(
-            url_id=item["sk"].split("URL#")[-1]
-        )
+        _remove_environment_url_secrets(url_id=item["sk"].split("URL#")[-1])
         for item in response.items
     )
     await operations.batch_delete_item(

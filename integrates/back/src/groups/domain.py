@@ -1305,6 +1305,25 @@ async def remove_all_users(
     )
 
 
+async def remove_all_roots(
+    *,
+    loaders: Dataloaders,
+    email: str,
+    group_name: str,
+) -> None:
+    await collect(
+        tuple(
+            roots_domain.remove_root(
+                email=email,
+                group_name=group_name,
+                reason="GROUP_DELETED",
+                root=root,
+            )
+            for root in await loaders.group_roots.load(group_name)
+        )
+    )
+
+
 async def remove_resources(
     *,
     loaders: Any,
@@ -1327,12 +1346,10 @@ async def remove_resources(
     )
     await mask_comments(loaders, group_name)
     await mask_files(loaders, group_name)
-    await deactivate_all_roots(
+    await remove_all_roots(
         loaders=loaders,
+        email=email,
         group_name=group_name,
-        user_email=email,
-        other="",
-        reason="GROUP_DELETED",
     )
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
     await toe_lines_model.remove_group_toe_lines(group_name=group_name)
