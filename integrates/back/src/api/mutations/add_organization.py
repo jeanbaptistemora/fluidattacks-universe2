@@ -37,7 +37,7 @@ async def mutate(
     loaders = info.context.loaders
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    country = kwargs.get("country", "")
+    country = kwargs.get("country")
     name = kwargs["name"]
 
     TRANSACTIONS_LOGGER.info(

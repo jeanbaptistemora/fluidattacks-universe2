@@ -57,11 +57,11 @@ class OrganizationUnreliableIndicators(NamedTuple):
 
 
 class Organization(NamedTuple):
-    country: str
     id: str
     name: str
     policies: Policies
     state: OrganizationState
+    country: Optional[str] = None
     payment_methods: Optional[list[OrganizationPaymentMethods]] = None
     billing_customer: Optional[str] = None
     vulnerabilities_url: Optional[str] = None

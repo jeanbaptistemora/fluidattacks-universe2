@@ -142,6 +142,7 @@ import sys
 from typing import (
     Any,
     AsyncIterator,
+    Optional,
     Union,
 )
 import uuid
@@ -393,7 +394,10 @@ async def exists(loaders: Any, organization_name: str) -> bool:
 
 
 async def add_organization(
-    loaders: Dataloaders, organization_name: str, email: str, country: str
+    loaders: Dataloaders,
+    organization_name: str,
+    email: str,
+    country: Optional[str],
 ) -> Organization:
     if await exists(loaders, organization_name):
         raise InvalidOrganization("Name taken")

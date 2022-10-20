@@ -15,6 +15,8 @@ type Organization {
   billingPortal: String
   "Compliance with the standards in the organization"
   compliance: OrganizationCompliance!
+  "Country where the organization is based"
+  country: String
   "Credentials associated to the organization"
   credentials: [Credentials!]
   "Enacted and pending Finding policies within the organization"
