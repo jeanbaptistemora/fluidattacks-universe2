@@ -18,7 +18,7 @@ in the top bar or follow
 [this link](https://app.fluidattacks.com/todos)
 (/todos).
 
-![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1664998109/docs/web/vulnerabilities/management/todolist.png)
+![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1666266012/docs/web/vulnerabilities/management/todo_list.png)
 
 However,
 an initial question could be:
@@ -36,6 +36,10 @@ and I am responsible
 for solving them.
 You find the following information:
 
+- **Organization:**
+  The name of the [organization](/machine/web/creating-organization)
+  where the specific
+  vulnerabiity is found.
 - **Group name:**
   The name of the [group](/machine/web/groups)
   where that specific
@@ -56,6 +60,13 @@ You find the following information:
   redirect you to the
   [evidence](/machine/web/vulnerabilities/management/vulnerability-description#evidence)
   tab in the locations tab.
+- **Last reattack:**
+  The [Reattack](/squad/reattacks)
+  status requested
+  in the list of vulnerabilities
+  assigned to the user.
+- **Severity:**
+  Severity level based on the CVSS.
 - **Tags:**
   The tags that you put at the
   time of assigning the vulnerability.
@@ -72,7 +83,7 @@ you must select it in the
 check box on the left,
 followed by the **Edit button**.
 
-![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1665056466/docs/web/vulnerabilities/management/edit_todolist.png)
+![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267252/docs/web/vulnerabilities/management/edit_todo_list.png)
 
 A pop-up window will appear
 for you to edit the vulnerability,
@@ -112,7 +123,7 @@ to validate by clicking
 on the check box on the left,
 followed by the **Reattack button**.
 
-![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060237/docs/web/vulnerabilities/management/reattack_todolist.png)
+![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267352/docs/web/vulnerabilities/management/reattack_todo_list.png)
 
 A pop-up window will appear asking
 you for the justification you applied
@@ -140,17 +151,20 @@ The filters in this section are
 located on the right side next
 to the search bar.
 
-![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060898/docs/web/vulnerabilities/management/filters_todolist.png)
+![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267669/docs/web/vulnerabilities/management/filters_todo_list.png)
 
-Here you can filter by **Group name**,
+Here you can filter by **Organization**,
+**Group name**,
 **type**,
-and **tags**.
+**Last reattack**,
+**Severity** and
+**tags**.
 Note that you must set clear filters
 since the filter you apply will
 be maintained until you change
 any of these.
 
-![Filters options](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060977/docs/web/vulnerabilities/management/filters.png)
+![Filters options](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267778/docs/web/vulnerabilities/management/filters_options_todo_list.png)
 
 ### Table refresh
 
@@ -160,7 +174,7 @@ you can do so with the button
 on the left next to the
 reattack button.
 
-![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1665061085/docs/web/vulnerabilities/management/reload.png)
+![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267848/docs/web/vulnerabilities/management/refresh.png)
 
 ### Search bar
 
