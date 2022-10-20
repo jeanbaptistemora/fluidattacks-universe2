@@ -137,7 +137,10 @@ const About = [
   {
     type: "category",
     label: "Compare",
-    items: ["about/compare/faraday"],
+    items: [
+        "about/compare/faraday",
+        "about/compare/snyk",
+    ],
   },
 ];
 
