@@ -56,8 +56,8 @@ def basic_auth_method(content: str, path: str) -> Vulnerabilities:
         for tag in soup.find_all("auth-method"):
             if isinstance(tag, Tag):
                 tag_name = tag.name
-                tag_content = str(tag.string)
-                if tag_name == "auth-method" and "BASIC" in tag_content:
+                tag_content = str(tag.string).lower()
+                if tag_name == "auth-method" and "basic" in tag_content:
                     line_no: int = tag.sourceline
                     col_no: int = tag.sourcepos
                     yield line_no, col_no
