@@ -5,6 +5,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f052.object import (
+    evaluate as evaluate_object_f052,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -17,7 +20,9 @@ from utils import (
     graph as g,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+    FindingEnum.F052: evaluate_object_f052,
+}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:

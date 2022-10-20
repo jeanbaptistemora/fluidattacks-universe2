@@ -31,12 +31,11 @@ from symbolic_eval.utils import (
 from typing import (
     Iterable,
     Iterator,
-    List,
+    Optional,
     Tuple,
 )
 from utils.crypto import (
     insecure_elliptic_curve as eval_elliptic_curve,
-    is_vulnerable_cipher as eval_cipher_config,
 )
 import utils.graph as g
 from utils.languages.javascript import (
@@ -54,6 +53,22 @@ def split_function_name(f_names: str) -> Tuple[str, str]:
     return name_l[-2], name_l[-1]
 
 
+def eval_cipher_config(alg: str, mode: str, pad: Optional[str] = None) -> bool:
+    pad = pad or ""
+    alg = alg.lower()
+    mode = mode.lower()
+    pad = pad.lower()
+    return any(
+        (
+            alg == "aes" and mode == "ecb",
+            alg == "aes" and mode == "ofb",
+            alg == "aes" and mode == "cfb",
+            alg == "aes" and mode == "cbc",
+            alg == "rsa" and "oaep" not in pad,
+        )
+    )
+
+
 def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         if (
@@ -63,38 +78,62 @@ def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     return False
 
 
-def get_eval_triggers(
+def get_node_values(
     graph: Graph, n_id: str, method: MethodsEnum
-) -> Iterator[List[str]]:
+) -> Iterator[str]:
     for path in get_backward_paths(graph, n_id):
         if (
             evaluation := evaluate(method, graph, path, n_id)
         ) and evaluation.triggers != set():
-            yield list(evaluation.triggers)
+            yield "".join(list(evaluation.triggers))
 
 
-def eval_insecure_cipher(graph: Graph, obj_id: NId) -> bool:
+def eval_insecure_cipher(graph: Graph, n_id: NId) -> bool:
     method = MethodsEnum.JS_INSECURE_CIPHER
-    for triggers in get_eval_triggers(graph, obj_id, method):
-        cipher_value = "".join(triggers)
-        return eval_cipher_value(cipher_value)
+    for cipher_val in get_node_values(graph, n_id, method):
+        if eval_cipher_value(cipher_val):
+            return True
     return False
 
 
-def eval_insecure_crypto(graph: Graph, obj_id: NId, algo: str) -> bool:
-    method = MethodsEnum.JS_INSECURE_CIPHER
-    algo = algo.lower()
-    mode = ""
-    padding = None
-    for triggers in get_eval_triggers(graph, obj_id, method):
-        options = "".join(triggers).split(".")
-        if "mode" in options and len(options) > options.index("mode"):
-            mode = options[options.index("mode") + 1]
-        if "padding" in options and len(options) > options.index("padding"):
-            padding = options[options.index("padding") + 1]
-        return eval_cipher_config(algo, mode, padding)
+def analyze_crypto_config(
+    algo: str,
+    mode_values: Iterator[str],
+    pad_values: Optional[Iterator[str]],
+) -> bool:
+    for mode in mode_values:
+        if pad_values:
+            for pad in pad_values:
+                if eval_cipher_config(algo, mode, pad):
+                    return True
+        else:
+            if eval_cipher_config(algo, mode, None):
+                return True
 
     return False
+
+
+def eval_insecure_crypto(graph: Graph, obj_id: NId, algorithm: str) -> bool:
+    method = MethodsEnum.JS_INSECURE_CIPHER
+    algo = algorithm.lower()
+    mode_values = None
+    pad_values = None
+    for pair_id in g.match_ast_group_d(graph, obj_id, "Pair"):
+        pair_node = graph.nodes[pair_id]
+        key = pair_node["key_id"]
+        value = pair_node["value_id"]
+        if graph.nodes[key].get("symbol") == "mode":
+            mode_values = get_node_values(graph, value, method)
+        if graph.nodes[key].get("symbol") == "padding":
+            pad_values = get_node_values(graph, value, method)
+
+    if algo == "aes" and not mode_values:
+        return True
+
+    if not mode_values:
+        return False
+
+    return analyze_crypto_config(algo, mode_values, pad_values)
 
 
 def is_insecure_cipher(graph: Graph, n_id: NId) -> bool:
@@ -134,8 +173,7 @@ def eval_insecure_key(algo: str, key: str) -> bool:
 
 def eval_insecure_curve(graph: Graph, obj_id: NId) -> bool:
     method = MethodsEnum.JS_INSECURE_KEY
-    for triggers in get_eval_triggers(graph, obj_id, method):
-        curve_value = "".join(triggers)
+    for curve_value in get_node_values(graph, obj_id, method):
         if eval_elliptic_curve(curve_value):
             return True
     return False
@@ -143,12 +181,14 @@ def eval_insecure_curve(graph: Graph, obj_id: NId) -> bool:
 
 def eval_insecure_options(graph: Graph, algo_id: NId, options_id: NId) -> bool:
     method = MethodsEnum.JS_INSECURE_KEY
-    for algo_trig in get_eval_triggers(graph, algo_id, method):
-        algo = "".join(algo_trig)
-        for opt_trig in get_eval_triggers(graph, options_id, method):
-            key = "".join(opt_trig)
+    algo_values = get_node_values(graph, algo_id, method)
+    key_values = get_node_values(graph, options_id, method)
+
+    for algo in algo_values:
+        for key in key_values:
             if eval_insecure_key(algo, key):
                 return True
+
     return False
 
 
