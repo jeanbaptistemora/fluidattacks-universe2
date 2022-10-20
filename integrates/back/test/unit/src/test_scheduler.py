@@ -53,65 +53,6 @@ pytestmark = [
 ]
 
 
-async def test_get_status_vulns_by_time_range() -> None:
-    first_day = "2019-01-01 12:00:00"
-    last_day = "2019-06-30 23:59:59"
-    loaders = get_new_context()
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        "unittesting"
-    )
-    vulns = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        [finding.id for finding in findings]
-    )
-    findings_severity: dict[str, Decimal] = {
-        finding.id: get_severity_score(finding.severity)
-        for finding in findings
-    }
-    vulnerabilities_severity = [
-        findings_severity[vulnerability.finding_id] for vulnerability in vulns
-    ]
-    historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulns]
-    )
-    historic_treatments = (
-        await loaders.vulnerability_historic_treatment.load_many(
-            [vuln.id for vuln in vulns]
-        )
-    )
-
-    test_data = update_indicators.get_status_vulns_by_time_range(
-        vulnerabilities=vulns,
-        vulnerabilities_severity=vulnerabilities_severity,
-        vulnerabilities_historic_states=historic_states,
-        vulnerabilities_historic_treatments=historic_treatments,
-        first_day=first_day,
-        last_day=last_day,
-    )
-    expected_output = {"found": 4, "accepted": 2, "closed": 1, "opened": 2}
-    output = {
-        "found": test_data.found_vulnerabilities,
-        "accepted": test_data.accepted_vulnerabilities,
-        "closed": test_data.closed_vulnerabilities,
-        "opened": test_data.open_vulnerabilities,
-    }
-    expected_output_cvssf = {
-        "found": Decimal("51.534"),
-        "accepted": Decimal("25.767"),
-        "closed": Decimal("1.516"),
-        "opened": Decimal("25.122"),
-    }
-    output_cvssf = {
-        "found": test_data.found_cvssf,
-        "accepted": test_data.accepted_cvssf,
-        "closed": test_data.closed_cvssf,
-        "opened": test_data.open_cvssf,
-    }
-    assert sorted(output.items()) == sorted(expected_output.items())
-    assert sorted(output_cvssf.items()) == sorted(
-        expected_output_cvssf.items()
-    )
-
-
 async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"

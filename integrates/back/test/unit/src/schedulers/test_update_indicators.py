@@ -9,6 +9,15 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding,
+)
+from decimal import (
+    Decimal,
+)
+from findings.domain import (
+    get_severity_score,
+)
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
@@ -18,6 +27,7 @@ from schedulers.update_indicators import (
     create_weekly_date,
     get_date_last_vulns,
     get_first_week_dates,
+    get_status_vulns_by_time_range,
 )
 from typing import (
     Any,
@@ -77,7 +87,7 @@ async def test_get_date_last_vulns(dynamo_resource: ServiceResource) -> None:
         mock_table_resource.return_value.query.side_effect = mock_query
         vulns = await loaders.finding_vulnerabilities.load(finding_id)
     test_data = get_date_last_vulns(vulns)
-    expected_output = "2020-09-07 16:01:26"
+    expected_output = "2019-12-30 12:46:10"
     assert mock_table_resource.called is True
     assert test_data == expected_output
 
@@ -98,3 +108,77 @@ async def test_get_first_week_dates(dynamo_resource: ServiceResource) -> None:
     expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
     assert mock_table_resource.called is True
     assert test_data == expected_output
+
+
+async def test_get_status_vulns_by_time_range(
+    # pylint: disable=too-many-locals
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
+    first_day = "2019-06-01 12:00:00"
+    last_day = "2020-02-28 23:59:59"
+    loaders = get_new_context()
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        findings: tuple[Finding, ...] = await loaders.group_findings.load(
+            "unittesting"
+        )
+        vulnerabilities = (
+            await loaders.finding_vulnerabilities_nzr.load_many_chained(
+                [finding.id for finding in findings]
+            )
+        )
+        findings_severity: dict[str, Decimal] = {
+            finding.id: get_severity_score(finding.severity)
+            for finding in findings
+        }
+        vulnerabilities_severity = [
+            findings_severity[vulnerabilities.finding_id]
+            for vulnerabilities in vulnerabilities
+        ]
+        historic_states = await loaders.vulnerability_historic_state.load_many(
+            [vulnerabilities.id for vulnerabilities in vulnerabilities]
+        )
+        historic_treatments = (
+            await loaders.vulnerability_historic_treatment.load_many(
+                [vulnerabilities.id for vulnerabilities in vulnerabilities]
+            )
+        )
+    assert mock_table_resource.called is True
+    test_data = get_status_vulns_by_time_range(
+        vulnerabilities=vulnerabilities,
+        vulnerabilities_severity=vulnerabilities_severity,
+        vulnerabilities_historic_states=historic_states,
+        vulnerabilities_historic_treatments=historic_treatments,
+        first_day=first_day,
+        last_day=last_day,
+    )
+
+    expected_output = {"found": 2, "accepted": 0, "closed": 0, "opened": 2}
+    output = {
+        "found": test_data.found_vulnerabilities,
+        "accepted": test_data.accepted_vulnerabilities,
+        "closed": test_data.closed_vulnerabilities,
+        "opened": test_data.open_vulnerabilities,
+    }
+    expected_output_cvssf = {
+        "found": Decimal("0.362"),
+        "accepted": Decimal("0"),
+        "closed": Decimal("0"),
+        "opened": Decimal("0.362"),
+    }
+    output_cvssf = {
+        "found": test_data.found_cvssf,
+        "accepted": test_data.accepted_cvssf,
+        "closed": test_data.closed_cvssf,
+        "opened": test_data.open_cvssf,
+    }
+    assert sorted(output.items()) == sorted(expected_output.items())
+    assert sorted(output_cvssf.items()) == sorted(
+        expected_output_cvssf.items()
+    )
