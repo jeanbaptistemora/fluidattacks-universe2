@@ -18,6 +18,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_REGION_NAME,
+    FI_AWS_S3_MAIN_BUCKET,
     FI_ENVIRONMENT,
 )
 from custom_exceptions import (
@@ -1808,7 +1809,7 @@ async def is_in_s3(group_name: str, root_nickname: str) -> tuple[str, bool]:
         root_nickname,
         bool(
             await s3_operations.list_files(
-                bucket="integrates",
+                bucket=FI_AWS_S3_MAIN_BUCKET,
                 name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
             )
         ),

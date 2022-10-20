@@ -164,12 +164,6 @@ digraph integates {
         cluster_aws_s3_integrates_front_prod[label="" style="invis" width="6.0"]
         aws_s3_integrates_front_production_trunk[label="/trunk/*"]
       }
-
-      subgraph cluster_aws_s3_machine_data {
-        label="machine.data"
-
-        aws_s3_machine_data[label="?"]
-      }
     }
 
     subgraph cluster_aws_sqs {
