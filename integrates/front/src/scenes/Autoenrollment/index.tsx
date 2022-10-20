@@ -7,7 +7,6 @@
 import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -33,7 +32,7 @@ import {
 import {
   ADD_ENROLLMENT,
   ADD_GIT_ROOT,
-  ADD_GROUP_MUTATION,
+  ADD_GROUP,
   ADD_ORGANIZATION,
   GET_STAKEHOLDER_GROUPS,
 } from "scenes/Autoenrollment/queries";
@@ -157,7 +156,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     }
   );
 
-  const [addGroup] = useMutation<IAddGroupResult>(ADD_GROUP_MUTATION, {
+  const [addGroup] = useMutation<IAddGroupResult>(ADD_GROUP, {
     onCompleted: (result): void => {
       if (result.addGroup.success) {
         msgSuccess(
@@ -166,8 +165,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         );
       }
     },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleGroupCreateError(graphQLErrors, setOrgMessages);
+    onError: (error): void => {
+      handleGroupCreateError(error.graphQLErrors, setOrgMessages);
     },
   });
 
@@ -180,15 +179,15 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         );
       }
     },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleRootCreateError(graphQLErrors, setOrgMessages);
+    onError: (error): void => {
+      handleRootCreateError(error.graphQLErrors, setOrgMessages);
       setShowSubmitAlert(false);
     },
   });
 
   const [addEnrollment] = useMutation(ADD_ENROLLMENT, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleEnrollmentCreateError(graphQLErrors, setOrgMessages);
+    onError: (error): void => {
+      handleEnrollmentCreateError(error.graphQLErrors, setOrgMessages);
     },
   });
 
