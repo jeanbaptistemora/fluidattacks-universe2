@@ -1,0 +1,335 @@
+{
+  "runs": [
+    {
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "nickname"
+        }
+      },
+      "results": [
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "MyJar.jar"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000META-INF/��\u0000\u0000\u0003\u0000PK\u0007\b\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000META-INF/MANIFEST.MF�M��LK-.�\n   2 | K-*��ϳR0�3��r.JM,IM�u�\u0004\n   3 | \u0018+h�&�敔j�r�r\u0001\u0000PK\u0007\b�\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n   4 | \u0000\u0000\u0000MyJar.class;�o�>\u0006\u0006\u0006K\u0006~.\u0006f\u0006\n   5 | v\u0006^v\u0006>F\u00066�̼�\u0012;F\u0006f\n   6 | �0F\u0006\u0016���TF\u0006~�̼T��ܤԢ�Ĥ\n   7 | �\bKnbf\n   8 | #��F�OVbY�~Nb^�~pIQf^�5H#Wp~iQr�[&H1�o�Wb�\n   9 | H!\u000f\u0003\n  10 | \u0003+#\u0003+X��A\u0000��?)+5��A�� �\n  11 | \u0010`b`\u0004)\u0006�l@�,�f\u0004ҬZ�\u0019\u00187\u0002\u0019�\n  12 | �@�\n  13 | ,�����\u0001�\u0010��`Y\u0006Le �\n  14 | l27\u0000PK\u0007\b}1���\u0000\u0000\u0000�\u0000\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000META-INF/��\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000�[%O�\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n  15 | \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000MyJar.classPK\u0005\u0006\u0000\u0000\u0000\u0000\u0003\u0000\u0003\u0000�\u0000\u0000\u0000�\u0001\u0000\u0000\u0000\u0000\n     ^ Col 0"
+                  },
+                  "startLine": 0
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Unverifiable file in nickname/MyJar.jar"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "machine@fluidattacks.com",
+            "source_method": "generic.unverifiable_files",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "117",
+          "taxa": [
+            {
+              "id": "323",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "MyJar.class"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "  1 | ����\u0000\u0000\u00009\u0000\u000f\n  2 | \u0000\u0003\u0000\n  3 | \u0007\u0000\n  4 | \u0007\u0000\u000e\u0001\u0000\u0006<init>\u0001\u0000\u0003()V\u0001\u0000\u0004Code\u0001\u0000\u000fLineNumberTable\u0001\u0000\u0004main\u0001\u0000\u0016([Ljava/lang/String;)V\u0001\u0000\n  5 | SourceFile\u0001\u0000\n  6 | MyJar.java\n  7 | \u0000\u0004\u0000\u0005\u0001\u0000\u0005MyJar\u0001\u0000\u0010java/lang/Object\u0000!\u0000\u0002\u0000\u0003\u0000\u0000\u0000\u0000\u0000\u0002\u0000\u0001\u0000\u0004\u0000\u0005\u0000\u0001\u0000\u0006\u0000\u0000\u0000\n  8 | \u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0005*�\u0000\u0001�\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0003\u0000 \u0000\b\u0000 \u0000\u0001\u0000\u0006\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0001�\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0006\u0000\u0001\u0000\n  9 | \u0000\u0000\u0000\u0002\u0000\n    ^ Col 0"
+                  },
+                  "startLine": 0
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Unverifiable file in nickname/MyJar.class"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "machine@fluidattacks.com",
+            "source_method": "generic.unverifiable_files",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "117",
+          "taxa": [
+            {
+              "id": "323",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "java_has_print_statements.java"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | import System.out;\n   2 |\n   3 | class printer {\n   4 |     public static void main(String[] args) {\n   5 |         String message = \"Variable\";\n   6 |         System.out.print(\"String Literal\");\n>  7 |         out.print(message);\n   8 |         print(\"Have\" + message + \"concatenation\");\n   9 |         System.out.print();\n  10 |         System.out.print(\"\");\n  11 |     }\n  12 |     public static void print(String[] args) {\n  13 |         String message = \"Variable\";\n  14 |         System.out.println(\"String Literal\");\n  15 |         out.println(message);\n  16 |         println(\"Have\" + message + \"concatenation\");\n  17 |         System.out.println();\n  18 |         System.out.println(\"\");\n  19 |     }\n  20 | }\n     ^ Col 0"
+                  },
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Using print or println on production exposes data what could increase the attack surface.\n in nickname/java_has_print_statements.java"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "lpatino@fluidattacks.com",
+            "source_method": "java.java_has_print_statements",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "237",
+          "taxa": [
+            {
+              "id": "077",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            },
+            {
+              "id": "176",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "java_has_print_statements.java"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | import System.out;\n   2 |\n   3 | class printer {\n   4 |     public static void main(String[] args) {\n   5 |         String message = \"Variable\";\n   6 |         System.out.print(\"String Literal\");\n   7 |         out.print(message);\n   8 |         print(\"Have\" + message + \"concatenation\");\n   9 |         System.out.print();\n  10 |         System.out.print(\"\");\n  11 |     }\n  12 |     public static void print(String[] args) {\n  13 |         String message = \"Variable\";\n  14 |         System.out.println(\"String Literal\");\n  15 |         out.println(message);\n> 16 |         println(\"Have\" + message + \"concatenation\");\n  17 |         System.out.println();\n  18 |         System.out.println(\"\");\n  19 |     }\n  20 | }\n     ^ Col 0"
+                  },
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Using print or println on production exposes data what could increase the attack surface.\n in nickname/java_has_print_statements.java"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "lpatino@fluidattacks.com",
+            "source_method": "java.java_has_print_statements",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "237",
+          "taxa": [
+            {
+              "id": "077",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            },
+            {
+              "id": "176",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "java_has_print_statements.java"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | import System.out;\n   2 |\n   3 | class printer {\n   4 |     public static void main(String[] args) {\n   5 |         String message = \"Variable\";\n   6 |         System.out.print(\"String Literal\");\n   7 |         out.print(message);\n   8 |         print(\"Have\" + message + \"concatenation\");\n   9 |         System.out.print();\n  10 |         System.out.print(\"\");\n  11 |     }\n  12 |     public static void print(String[] args) {\n  13 |         String message = \"Variable\";\n  14 |         System.out.println(\"String Literal\");\n> 15 |         out.println(message);\n  16 |         println(\"Have\" + message + \"concatenation\");\n  17 |         System.out.println();\n  18 |         System.out.println(\"\");\n  19 |     }\n  20 | }\n     ^ Col 0"
+                  },
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Using print or println on production exposes data what could increase the attack surface.\n in nickname/java_has_print_statements.java"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "lpatino@fluidattacks.com",
+            "source_method": "java.java_has_print_statements",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "237",
+          "taxa": [
+            {
+              "id": "077",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            },
+            {
+              "id": "176",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": false,
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [
+            {
+              "fullDescription": {
+                "text": "Binary files usually have a file size greater than their source counterpart, which can eventually affect a repositorys performance. Changes done to them are often hard to track for versioning tools or make no sense for a reviewer. Furthermore, security audits on binary files are more complicated or simply not performed, and these could contain serious vulnerabilities such as backdoors, rootkits and exposed sensitive information.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/323",
+              "id": "323",
+              "name": "Exclude unverifiable files",
+              "shortDescription": {
+                "text": "Binary and other types of files, which are often not audited for security purposes, should not be stored in the source code repository.\n"
+              }
+            },
+            {
+              "fullDescription": {
+                "text": "Applications should fail safely whenever an unexpected event occurs. Error message presentation is part of this safe management. Therefore, specific technical information should not be presented to unauthorized users, as this could be leveraged by attackers to further exploit other vulnerabilities.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/077",
+              "id": "077",
+              "name": "Avoid disclosing technical information",
+              "shortDescription": {
+                "text": "The application must not disclose internal system information such as stack traces, SQL sentence fragments, database names or table names.\n"
+              }
+            },
+            {
+              "fullDescription": {
+                "text": "Applications usually handle personal and confidential information, such as personal identifications, social security numbers, credentials and health histories. This data should be protected as a fundamental right, and therefore be stored and transmitted using secure mechanisms that prevent access to it by unauthorized actors. Furthermore, the access control model and role assignment policy must be implemented taking these restrictions into consideration.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/176",
+              "id": "176",
+              "name": "Restrict system objects",
+              "shortDescription": {
+                "text": "The system must restrict access to system objects that have sensitive content. It should only allow access to authorized users.\n"
+              }
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "Technical information is obtained from the application due to the use of print functions (Print, PrinStackTrace, Println, among others) whose outputs are normally shown in the stdout (standard output). In development environment it is acceptable to use these functions to see errors (Debug), but using them in production environment is the same as exposing yourself to show sensitive information of the application.\n"
+              },
+              "help": {
+                "text": "The application must securely report all possible events that may occur, it must not provide technical or sensitive information to unauthorized users, as they could exploit it to extend the knowledge of the attack surface.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/237#details",
+              "id": "237",
+              "name": "Technical information leak - Print Functions",
+              "properties": {
+                "auto_approve": true
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "The repository is storing files that either can not be verified nor should be versioned, such as binary files, logs or temporary files.\n"
+              },
+              "help": {
+                "text": "- Remove the files that should not be versioned from the repository.\n- Include the affected extensions in the .gitignore file.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/117#details",
+              "id": "117",
+              "name": "Unverifiable files",
+              "properties": {
+                "auto_approve": true
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "acuberosatfluid",
+          "repositoryUri": "ssh://git@gitlab.com:fluidattacks/universe.git",
+          "revisionId": "399fbeffe4a3ae8f1c8f211c8cf16440f6565801"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+}

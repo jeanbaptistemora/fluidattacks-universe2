@@ -272,6 +272,80 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_where="192.168.1.2",
                 ),
             },
+            {
+                "finding": Finding(
+                    id="4629a805-7ce5-4cd1-a39a-4579ec6fd985",
+                    group_name="group1",
+                    state=FindingState(
+                        modified_by="hacker@fluidattacks.com",
+                        modified_date="2022-10-19T05:00:00+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                    ),
+                    title="117. Unverifiable files",
+                    recommendation="Recommendation",
+                    description="Description",
+                    hacker_email="hacker@fluidattacks.com",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.2"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1.5"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("0.5"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_severity_scope=Decimal("0"),
+                        modified_privileges_required=Decimal("0.27"),
+                        modified_attack_vector=Decimal("0.85"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        privileges_required=Decimal("0.62"),
+                        severity_scope=Decimal("1.2"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("1"),
+                        user_interaction=Decimal("0.85"),
+                    ),
+                    requirements="Requirement",
+                    threat="Threat",
+                    attack_vector_description="Attack vector",
+                    evidences=FindingEvidences(
+                        evidence5=FindingEvidence(
+                            description="evidence5",
+                            url="group1-4629a805-7ce5-4cd1-a39a-4579ec6fd985-evidence5",
+                            modified_date="2022-10-19T05:00:05+00:00",
+                        ),
+                    ),
+                ),
+                "historic_state": [
+                    FindingState(
+                        modified_by="hacker@fluidattacks.com",
+                        modified_date="2022-10-19T05:00:15+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                    ),
+                    FindingState(
+                        modified_by="hacker@fluidattacks.com",
+                        modified_date="2022-10-19T05:00:10+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                    ),
+                ],
+                "historic_verification": [],
+                "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
+                    unreliable_closed_vulnerabilities=0,
+                    unreliable_open_vulnerabilities=1,
+                    unreliable_newest_vulnerability_report_date="2022-10-19T05:00:15+00:00",
+                    unreliable_oldest_open_vulnerability_report_date="2022-10-19T05:00:15+00:00",
+                    unreliable_oldest_vulnerability_report_date="2022-10-19T05:00:15+00:00",
+                    unreliable_status=FindingStatus.OPEN,
+                    unreliable_where=".project",
+                ),
+            },
         ],
         "vulnerabilities": [
             {
@@ -402,6 +476,34 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 ),
             },
+            {
+                "vulnerability": Vulnerability(
+                    created_by="hacker@fluidattacks.com",
+                    created_date="2022-10-19T05:00:20+00:00",
+                    finding_id="4629a805-7ce5-4cd1-a39a-4579ec6fd985",
+                    group_name="group1",
+                    hacker_email="hacker@fluidattacks.com",
+                    id="dadb5c43-90ab-47ea-a80f-db89a940cd54",
+                    specific="0",
+                    state=VulnerabilityState(
+                        modified_by="hacker@fluidattacks.com",
+                        modified_date="2022-10-19T05:00:20+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2022-10-19T05:00:20+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.LINES,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                    where=".project",
+                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                ),
+            },
         ],
         "toe_lines": (
             ToeLines(
@@ -510,6 +612,81 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 be_present_until=None,
                 comments="",
                 filename="skims/test/data/lib_path/f011/build.gradle",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                loc=180,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+                sorts_risk_level=-1,
+            ),
+            ToeLines(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
+                attacked_by="machine@fluidattacks.com",
+                attacked_lines=1,
+                be_present=True,
+                be_present_until=None,
+                comments="",
+                filename="MyJar.jar",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                loc=180,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+                sorts_risk_level=-1,
+            ),
+            ToeLines(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
+                attacked_by="machine@fluidattacks.com",
+                attacked_lines=1,
+                be_present=True,
+                be_present_until=None,
+                comments="",
+                filename="MyJar.class",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                loc=180,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+                sorts_risk_level=-1,
+            ),
+            ToeLines(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
+                attacked_by="machine@fluidattacks.com",
+                attacked_lines=30,
+                be_present=True,
+                be_present_until=None,
+                comments="",
+                filename="java_has_print_statements.java",
                 first_attack_at=datetime.fromisoformat(
                     "2020-02-19T15:41:04+00:00"
                 ),

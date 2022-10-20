@@ -283,3 +283,76 @@ async def test_duplicated_reports(populate: bool) -> None:
 
         where_2 = integrates_vulnerabilities_2[0].where
         assert where_1 == where_2
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report_machine_s3")
+async def test_approval(populate: bool) -> None:
+    assert populate
+    with open(
+        "back/test/functional/src/report_machine/sarif/approval.sarif",
+        "rb",
+    ) as sarif:
+        sarif_report = json.load(sarif)
+
+    with mock.patch(
+        "schedulers.report_machine.get_config",
+        side_effect=mock.AsyncMock(
+            return_value={
+                "namespace": "nickname",
+                "language": "EN",
+                "path": {"include": ["."], "exclude": []},
+                "apk": {"include": [], "exclude": []},
+            },
+        ),
+    ), mock.patch(
+        "schedulers.report_machine.get_sarif_log",
+        side_effect=mock.AsyncMock(return_value=sarif_report),
+    ):
+        loaders = get_new_context()
+        findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_drafts_and_findings.load("group1")
+        f_117: Optional[Finding] = next(
+            (fin for fin in findings if fin.title.startswith("117")), None
+        )
+        f_237: Optional[Finding] = next(
+            (fin for fin in findings if fin.title.startswith("237")), None
+        )
+        assert f_117 is not None
+        assert f_237 is None
+
+        f_117_vulns: Tuple[
+            Vulnerability, ...
+        ] = await loaders.finding_vulnerabilities.load(f_117.id)
+        assert len(f_117_vulns) == 1
+        assert (f_117_vulns[0].where, f_117_vulns[0].specific) == (
+            ".project",
+            "0",
+        )
+
+        await process_execution("group1_")
+        loaders.group_drafts_and_findings.clear("group1")
+        loaders.finding_vulnerabilities.clear(f_117.id)
+
+        findings = await loaders.group_drafts_and_findings.load("group1")
+        f_117 = next(
+            (fin for fin in findings if fin.title.startswith("117")), None
+        )
+        f_237 = next(
+            (fin for fin in findings if fin.title.startswith("237")), None
+        )
+        assert f_117 is not None
+        assert f_237 is not None
+
+        f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
+        f_237_vulns: Tuple[
+            Vulnerability, ...
+        ] = await loaders.finding_vulnerabilities.load(f_237.id)
+        assert len(f_117_vulns) == 3
+        assert len(f_237_vulns) == 3
+
+        assert f_117.approval is None
+        assert f_237.approval is not None
+        assert f_237.approval.status == FindingStateStatus.APPROVED
+        assert f_237.approval.source == Source.MACHINE

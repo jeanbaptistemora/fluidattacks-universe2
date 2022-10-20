@@ -62,6 +62,7 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
+    FindingState,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -893,6 +894,19 @@ def _filter_vulns_already_reported(
     }
 
 
+async def _is_machine_finding(loaders: Dataloaders, finding_id: str) -> bool:
+    is_machine_finding: bool = False
+    historic_state: Tuple[
+        FindingState, ...
+    ] = await loaders.finding_historic_state.load(finding_id)
+    for state in reversed(historic_state):
+        if state.status == FindingStateStatus.CREATED:
+            is_machine_finding = state.source == Source.MACHINE
+            break
+
+    return is_machine_finding
+
+
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
@@ -999,7 +1013,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     else:
         reattack_future.close()
 
-    if finding.state.source == Source.MACHINE and (
+    if await _is_machine_finding(loaders, finding.id) and (
         len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0
     ):
         await release_finding(loaders, finding.id, auto_approve)

@@ -15,6 +15,7 @@ function main {
     --disable-warnings
     --exitfirst
     --no-cov-on-fail
+    --showlocals
     --resolver-test-group "${resolver_test_group}"
     --verbose
   )
