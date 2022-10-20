@@ -22,14 +22,11 @@
     python_pkgs
     // {
       pytz = import ./pytz {inherit lib python_pkgs;};
-      import-linter = import ./import-linter {
-        inherit lib;
-        pythonPkgs = python_pkgs;
-      };
       types-python-dateutil = import ./dateutil/stubs.nix lib;
-      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       fa-singer-io = nixpkgs.fa-singer-io."${python_version}".pkg;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
   # integrate all
   compose = let

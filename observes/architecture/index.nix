@@ -85,7 +85,7 @@ in {
   tap = {
     announcekit = standard_1 "${singerPath}/tap-announcekit";
     bugsnag = standard_3 "${singerPath}/tap-bugsnag";
-    checkly = standard_2 "${singerPath}/tap-checkly";
+    checkly = standard_3 "${singerPath}/tap-checkly";
     csv = standard_1 "${singerPath}/tap-csv";
     delighted = standard_1 "${singerPath}/tap-delighted";
     dynamo = standard_3 "${singerPath}/tap-dynamo";

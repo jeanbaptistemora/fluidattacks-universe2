@@ -9,7 +9,6 @@
       }
     );
 in {
-  arch = build_check "arch_check";
   tests = build_check "test_check";
   types = build_check "type_check";
 }

@@ -12,9 +12,6 @@ from fa_purity import (
     JsonObj,
     Maybe,
 )
-from tap_checkly.objs import (
-    IndexedObj,
-)
 
 
 @dataclass(frozen=True)
