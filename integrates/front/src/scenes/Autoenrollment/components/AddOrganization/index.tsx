@@ -29,7 +29,6 @@ const MAX_ORG_LENGTH = 10;
 const MIN_ORG_LENGTH = 4;
 
 interface IAddOrganizationProps {
-  isSubmitting: boolean;
   orgMessages: {
     message: string;
     type: string;
@@ -53,7 +52,6 @@ interface IAddOrganizationProps {
 }
 
 const AddOrganization: React.FC<IAddOrganizationProps> = ({
-  isSubmitting,
   orgMessages,
   orgValues,
   onSubmit,
@@ -102,13 +100,13 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   });
 
   return (
-    <div>
-      <Formik
-        initialValues={orgValues}
-        name={"newOrganization"}
-        onSubmit={onSubmit}
-        validationSchema={validations}
-      >
+    <Formik
+      initialValues={orgValues}
+      name={"newOrganization"}
+      onSubmit={onSubmit}
+      validationSchema={validations}
+    >
+      {({ isSubmitting }): JSX.Element => (
         <Form>
           <Row justify={"start"}>
             <Col lg={100} md={100} sm={100}>
@@ -195,8 +193,8 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             </ExternalLink>
           </Text>
         </Form>
-      </Formik>
-    </div>
+      )}
+    </Formik>
   );
 };
 

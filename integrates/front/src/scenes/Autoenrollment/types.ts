@@ -4,6 +4,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+interface IAddGitRootResult {
+  addGitRoot: {
+    success: boolean;
+  };
+}
+
+interface IAddGroupResult {
+  addGroup: {
+    success: boolean;
+  };
+}
+
 interface IAddOrganizationResult {
   addOrganization: {
     organization: {
@@ -43,7 +55,6 @@ interface IRootAttr {
   branch: string;
   credentials: {
     auth: "TOKEN" | "USER";
-    id: string;
     key: string;
     name: string;
     password: string;
@@ -66,6 +77,8 @@ interface IOrgAttr {
 }
 
 export type {
+  IAddGitRootResult,
+  IAddGroupResult,
   IAddOrganizationResult,
   IAlertMessages,
   ICheckGitAccessResult,

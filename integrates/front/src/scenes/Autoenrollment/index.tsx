@@ -38,6 +38,8 @@ import {
   GET_STAKEHOLDER_GROUPS,
 } from "scenes/Autoenrollment/queries";
 import type {
+  IAddGitRootResult,
+  IAddGroupResult,
   IAddOrganizationResult,
   IGetStakeholderGroupsResult,
   IOrgAttr,
@@ -51,6 +53,7 @@ type TEnrollPages = "organization" | "repository" | "standBy";
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
+  // State management
   const [page, setPage] = useState<TEnrollPages>("repository");
   const [rootMessages, setRootMessages] = useState({
     message: "",
@@ -61,18 +64,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     type: "success",
   });
 
-  const goToOrg = useCallback((): void => {
-    setOrgMessages({ message: "", type: "success" });
-    setPage("organization");
-  }, [setPage]);
-
   const [redirectPath, setRedirectPath] = useState("/logout");
 
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
     credentials: {
       auth: "TOKEN",
-      id: "",
       key: "",
       name: "",
       password: "",
@@ -104,6 +101,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     undefined
   );
 
+  const [showSubmitAlert, setShowSubmitAlert] = useState(false);
+
+  // API operations
   const { data } = useQuery<IGetStakeholderGroupsResult>(
     GET_STAKEHOLDER_GROUPS,
     {
@@ -117,9 +117,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           organizationName: organization,
         });
         setSuccessMutation({
-          ...successMutation,
           group: group !== "",
           organization: organization !== "",
+          repository: false,
         });
         setHasPersonalEmail(await isPersonalEmail(me.userEmail));
       },
@@ -130,20 +130,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       },
     }
   );
-
-  const setSuccessValues = useCallback(
-    (groupValue: boolean, orgValue: boolean, repoValue: boolean): void => {
-      setSuccessMutation({
-        group: groupValue,
-        organization: orgValue,
-        repository: repoValue,
-      });
-    },
-    [setSuccessMutation]
-  );
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
   const [addOrganization] = useMutation<IAddOrganizationResult>(
     ADD_ORGANIZATION,
@@ -171,8 +157,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     }
   );
 
-  const [addGroup] = useMutation(ADD_GROUP_MUTATION, {
-    onCompleted: (result: { addGroup: { success: boolean } }): void => {
+  const [addGroup] = useMutation<IAddGroupResult>(ADD_GROUP_MUTATION, {
+    onCompleted: (result): void => {
       if (result.addGroup.success) {
         msgSuccess(
           t("organization.tabs.groups.newGroup.success"),
@@ -185,8 +171,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
   });
 
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
-    onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
+  const [addGitRoot] = useMutation<IAddGitRootResult>(ADD_GIT_ROOT, {
+    onCompleted: (result): void => {
       if (result.addGitRoot.success) {
         msgSuccess(
           t("autoenrollment.messages.success.body"),
@@ -206,6 +192,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
   });
 
+  // Callbacks
+  const goToOrg = useCallback((): void => {
+    setOrgMessages({ message: "", type: "success" });
+    setPage("organization");
+  }, [setPage]);
+
   const handleSubmit = useCallback(
     async (values: {
       groupDescription: string;
@@ -215,14 +207,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       reportLanguage: string;
       terms: string[];
     }): Promise<void> => {
-      setIsSubmitting(true);
       setOrgMessages({
         message: "",
         type: "success",
       });
       setShowSubmitAlert(false);
       setOrganizationValues(values);
-      async function successOrg(): Promise<boolean> {
+
+      async function addNewOrganization(): Promise<boolean> {
         try {
           mixpanel.track("AddOrganization");
           const response = await addOrganization({
@@ -231,54 +223,52 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               name: values.organizationName.toUpperCase(),
             },
           });
-          const orgResult = response.data as IAddOrganizationResult;
-          setSuccessValues(
-            successMutation.group,
-            orgResult.addOrganization.success,
-            successMutation.repository
-          );
+          const orgResult = response.data;
 
-          return orgResult.addOrganization.success;
+          return orgResult ? orgResult.addOrganization.success : false;
         } catch {
           return false;
         }
       }
-      if (successMutation.organization ? true : await successOrg()) {
-        mixpanel.track("AddGroup");
-        const groupResult = successMutation.group
-          ? { data: undefined }
-          : await addGroup({
-              variables: {
-                description: values.groupDescription,
-                groupName: values.groupName.toUpperCase(),
-                hasMachine: true,
-                hasSquad: false,
-                language: values.reportLanguage,
-                organizationName: values.organizationName,
-                service: "WHITE",
-                subscription: "CONTINUOUS",
-              },
-            });
-        const { branch, credentials, env, exclusions, url } = repository;
-        const groupSuccess =
-          groupResult.data === null || groupResult.data === undefined
-            ? false
-            : groupResult.data.addGroup.success;
-        if (successMutation.group || groupSuccess) {
-          setSuccessValues(true, true, successMutation.repository);
+
+      async function addNewGroup(): Promise<boolean> {
+        try {
+          mixpanel.track("AddGroup");
+          const response = await addGroup({
+            variables: {
+              description: values.groupDescription,
+              groupName: values.groupName.toUpperCase(),
+              hasMachine: true,
+              hasSquad: false,
+              language: values.reportLanguage,
+              organizationName: values.organizationName,
+              service: "WHITE",
+              subscription: "CONTINUOUS",
+            },
+          });
+          const groupResult = response.data;
+
+          return groupResult ? groupResult.addGroup.success : false;
+        } catch {
+          return false;
+        }
+      }
+
+      async function addNewRoot(): Promise<boolean> {
+        try {
+          const { branch, credentials, env, exclusions, url } = repository;
+
           mixpanel.track("AddGitRoot");
-          const rootResult = await addGitRoot({
+          const response = await addGitRoot({
             variables: {
               branch: branch.trim(),
               credentials:
                 credentials.key === "" &&
                 credentials.user === "" &&
                 credentials.password === "" &&
-                credentials.id === "" &&
                 credentials.token === ""
                   ? null
                   : {
-                      id: credentials.id,
                       key:
                         credentials.key === ""
                           ? undefined
@@ -298,14 +288,19 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               useVpn: false,
             },
           });
-          const rootSuccess =
-            rootResult.data === null || rootResult.data === undefined
-              ? false
-              : rootResult.data.addGitRoot.success;
-          if (rootSuccess) {
+          const rootResult = response.data;
+
+          return rootResult ? rootResult.addGitRoot.success : false;
+        } catch {
+          return false;
+        }
+      }
+
+      if (successMutation.organization ? true : await addNewOrganization()) {
+        if (successMutation.group ? true : await addNewGroup()) {
+          if (await addNewRoot()) {
             localStorage.clear();
             sessionStorage.clear();
-            setSuccessValues(true, true, true);
             await addEnrollment();
             setRedirectPath(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
@@ -338,7 +333,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           url: repository.url.trim(),
         });
       }
-      setIsSubmitting(false);
     },
     [
       addEnrollment,
@@ -349,7 +343,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       setRedirectPath,
       setOrganizationValues,
       setPage,
-      setSuccessValues,
       successMutation,
       t,
     ]
@@ -387,7 +380,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           <Col lg={40} md={60} sm={90}>
             <Card>
               <AddOrganization
-                isSubmitting={isSubmitting}
                 onSubmit={handleSubmit}
                 orgMessages={orgMessages}
                 orgValues={organizationValues}
