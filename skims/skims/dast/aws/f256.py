@@ -29,6 +29,42 @@ from zone import (
 )
 
 
+async def rds_has_not_deletion_protection(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="rds", function="describe_db_instances"
+    )
+    db_instances = response.get("DBInstances", []) if response else []
+    method = core_model.MethodsEnum.AWS_RDS_HAS_NOT_DELETION_PROTECTION
+    vulns: core_model.Vulnerabilities = ()
+    if db_instances:
+        for instance in db_instances:
+            locations: List[Location] = []
+            if not instance["DeletionProtection"]:
+                instance_arn = instance["DBInstanceArn"]
+                locations = [
+                    Location(
+                        access_patterns=("/DeletionProtection",),
+                        arn=(f"{instance_arn}"),
+                        values=(instance.get("DeletionProtection"),),
+                        description=t(
+                            "src.lib_path.f256."
+                            "rds_has_not_termination_protection"
+                        ),
+                    )
+                ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=instance,
+                ),
+            )
+    return vulns
+
+
 async def rds_has_not_automated_backups(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -67,4 +103,7 @@ async def rds_has_not_automated_backups(
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (rds_has_not_automated_backups,)
+] = (
+    rds_has_not_deletion_protection,
+    rds_has_not_automated_backups,
+)
