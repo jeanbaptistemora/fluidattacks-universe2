@@ -89,7 +89,7 @@ In our case, we managed to exploit a broken access control thanks to the data
 leaked in this vulnerability. Thanks to this I was able to access all the
 internal chat logs of all registered users.
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-41707 to refer to this issue from now on.
 
@@ -108,8 +108,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
