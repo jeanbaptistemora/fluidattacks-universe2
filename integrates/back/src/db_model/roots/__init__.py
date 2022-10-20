@@ -12,6 +12,7 @@ from .add import (
 from .remove import (
     remove_environment_url,
     remove_environment_url_secret,
+    remove_root_environment_url_secrets,
     remove_root_environment_urls,
     remove_root_machine_executions,
     remove_secret,
@@ -34,6 +35,7 @@ __all__ = [
     # remove
     "remove_environment_url",
     "remove_environment_url_secret",
+    "remove_root_environment_url_secrets",
     "remove_root_environment_urls",
     "remove_root_machine_executions",
     "remove_secret",
