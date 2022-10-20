@@ -173,7 +173,9 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       ? []
       : data.group.executionsConnections.edges.map((execution): IExecution => {
           const date: string = formatDate(execution.node.date);
-          const kind: string = t(`group.forces.kind.${execution.node.kind}`);
+          const kind: string = t(
+            `group.forces.kind.${execution.node.kind.toLowerCase()}`
+          );
           const strictness: string = toTitleCase(
             t(
               execution.node.strictness === "lax"
