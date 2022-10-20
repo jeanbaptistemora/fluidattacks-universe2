@@ -70,7 +70,7 @@ obtain the internal chat logs of other users of the application:
 An authenticated remote attacker can access internal chat logs of arbitrary
 users of the application.
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-41708 to refer to this issue from now on.
 
@@ -89,8 +89,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
