@@ -213,6 +213,15 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   >
                     {translate.t("organization.tabs.credentials.text")}
                   </Tab>
+                  <Tab
+                    id={"complianceTab"}
+                    link={`${url}/compliance`}
+                    tooltip={translate.t(
+                      "organization.tabs.compliance.tooltip"
+                    )}
+                  >
+                    {translate.t("organization.tabs.compliance.text")}
+                  </Tab>
                 </Tabs>
               )}
             </div>

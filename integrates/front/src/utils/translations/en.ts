@@ -1770,12 +1770,14 @@ export const enTranslations: ResourceKey = {
           },
           standards: {
             alerts: {
-              generatedReport: "The report has been generated",
+              generatedReport:
+                "The report has been generated (Allow the redirects to download the file)",
             },
             buttons: {
               generateReport: {
                 text: "Generate report",
-                tooltip: "Download a report of the unfulfilled standards",
+                tooltip:
+                  "Download a report of the unfulfilled standards (Allow the redirects to download the file)",
               },
             },
             cards: {
@@ -1789,6 +1791,8 @@ export const enTranslations: ResourceKey = {
             },
           },
         },
+        text: "Compliance",
+        tooltip: "Compliance with the standards in your organization",
       },
       credentials: {
         actionButtons: {
