@@ -146,7 +146,7 @@ Java.perform(() => exploit());
 
 ![applock-fingerprint-bypass](https://user-images.githubusercontent.com/51862990/192392091-e6ff1169-93d4-4c5b-ba61-59fdbf7841a8.gif)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-1959 to refer to this issue from now on.
 
@@ -165,8 +165,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
