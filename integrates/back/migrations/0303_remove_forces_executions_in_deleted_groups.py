@@ -6,8 +6,8 @@
 """
 From deleted groups, remove unneeded forces executions items.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-20 at 13:00:00 UTC
+Finalization Time: 2022-10-20 at 13:02:40 UTC
 """
 
 from aioextensions import (
