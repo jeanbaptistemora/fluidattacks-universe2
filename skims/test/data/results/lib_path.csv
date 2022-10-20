@@ -9405,6 +9405,19 @@ F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,03
   8 | </configuration>
     ^ Col 0
 ",dotnetconfig.dotnetconfig_not_suppress_vuln_header
+F037,lines,namespace/skims/test/data/lib_path/f152/xFrameOptions.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
+ in namespace/skims/test/data/lib_path/f152/xFrameOptions.config","
+  1 | <configuration>
+  2 |     <system.webServer>
+  3 |         <httpProtocol>
+  4 |             <customHeaders>
+  5 |                 <add name=""X-Frame-Options"" value=""SAMEORIGIN"" />
+  6 |             </customHeaders>
+  7 |         </httpProtocol>
+  8 |     </system.webServer>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_not_suppress_vuln_header
 F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,200,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
  in namespace/skims/test/data/lib_path/f135/webVuln.config","
    1 | <configuration>
@@ -31872,6 +31885,18 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
+F152,lines,namespace/skims/test/data/lib_path/f152/xFrameOptions.config,5,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"El encabezado de respuesta HTTP X-Frame-Options puede ser usado para indicar si debería permitírsele a un navegador renderizar una página en un <frame>, <iframe>, <embed> u <object>. Las páginas web pueden usarlo para evitar ataques de click-jacking, asegurándose de que su contenido no es embebido en otros sitios. in namespace/skims/test/data/lib_path/f152/xFrameOptions.config","
+  1 | <configuration>
+  2 |     <system.webServer>
+  3 |         <httpProtocol>
+  4 |             <customHeaders>
+> 5 |                 <add name=""X-Frame-Options"" value=""SAMEORIGIN"" />
+  6 |             </customHeaders>
+  7 |         </httpProtocol>
+  8 |     </system.webServer>
+  9 | </configuration>
+    ^ Col 0
+",conf_files.xml_x_frame_options
 F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 | ARG DEBIAN_FRONTEND=noninteractive

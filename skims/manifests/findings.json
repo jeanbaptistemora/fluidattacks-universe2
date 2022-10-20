@@ -519,6 +519,14 @@
       "title": "148. Use of an insecure channel - FTP"
     }
   },
+  "F152": {
+    "EN": {
+      "title": "152. Insecure or unset HTTP headers - X-Frame Options"
+    },
+    "ES": {
+      "title": "152. Insecure or unset HTTP headers - X-Frame Options"
+    }
+  },
   "F157": {
     "EN": {
       "title": "157. Unrestricted access between network segments"

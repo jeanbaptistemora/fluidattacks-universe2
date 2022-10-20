@@ -617,6 +617,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.crypto,
         requirements=[181],
     )
+    F152: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F152",
+        cwe=693,
+        execution_queue=ExecutionQueue.http,
+        requirements=[62, 175, 266, 349],
+    )
     F157: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F157",
@@ -3204,6 +3211,14 @@ class MethodsEnum(Enum):
         name="cs_insecure_channel",
         module="lib_root",
         finding=FindingEnum.F148,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    XML_X_FRAME_OPTIONS = MethodInfo(
+        file_name="conf_files",
+        name="xml_x_frame_options",
+        module="lib_root",
+        finding=FindingEnum.F152,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
