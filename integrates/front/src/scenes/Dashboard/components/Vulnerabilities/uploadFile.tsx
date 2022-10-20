@@ -54,6 +54,29 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
 }: IUploadVulnProps): JSX.Element => {
   const { t } = useTranslation();
 
+  function handleFinalElse(message: string): void {
+    const destructMsg: { msg: string; path: string } = JSON.parse(message);
+    if (
+      message.includes(
+        "Exception - The vulnerability path does not exist in the toe lines"
+      )
+    ) {
+      msgError(
+        t("searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist", {
+          path: destructMsg.path,
+        })
+      );
+    } else if (
+      message.includes(
+        "Exception -  The vulnerability URL and field do not exist in the toe inputs"
+      )
+    ) {
+      t("searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist");
+    } else {
+      errorMessageHelper(message);
+    }
+  }
+
   function handleUploadError(updateError: ApolloError): void {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message.includes("Exception - Error in range limit numbers")) {
@@ -113,24 +136,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           msgError(t("groupAlerts.invalidSchema"));
         }
       } else {
-        switch (message) {
-          case "Exception - The vulnerability path does not exist in the toe lines":
-            msgError(
-              t(
-                "searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist"
-              )
-            );
-            break;
-          case "Exception -  The vulnerability URL and field do not exist in the toe inputs":
-            msgError(
-              t(
-                "searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist"
-              )
-            );
-            break;
-          default:
-            errorMessageHelper(message);
-        }
+        handleFinalElse(message);
       }
     });
   }

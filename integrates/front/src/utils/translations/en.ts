@@ -3434,13 +3434,13 @@ export const enTranslations: ResourceKey = {
             "Active root not found for the repo. Verify the nickname in the scope tab\n",
           invalidStream:
             "Invalid stream, it must start with 'home' or 'query'\n",
-          key: "Key '{{key}}' located at {{path}} is missing or invalid.\n",
+          key: "Key '{{key}}' located at '{{path}}' is missing or invalid.\n",
           lineDoesNotExistInLoc:
             "The line '{{line}}' does not exist in the range of 0 and lines of code from the lines surface\n",
           linesPathDoesNotExist:
-            "Path for the new vulnerabilities of lines type must exist on the lines surface\n",
+            "Path for the new vulnerabilities of lines type must exist on the lines surface, error is located at '{{path}}'\n",
           value:
-            "Value is invalid, pattern '{{pattern}}' is not followed in {{path}}.\n",
+            "Value is invalid, pattern '{{pattern}}' is not followed at '{{path}}'.\n",
         },
       },
       assignedTooltip: "Filter locations based on who is the assigned",

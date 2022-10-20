@@ -1539,10 +1539,10 @@ class SamePhoneNumber(CustomBaseException):
 
 
 class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
-    def __init__(self) -> None:
+    def __init__(self, expr: str = "") -> None:
         msg = (
-            "Exception - The vulnerability path does not exist in the toe "
-            "lines"
+            f'{{"msg": "Exception - The vulnerability path does not exist in '
+            f'the toe lines", "path": "/lines/{expr}"}}'
         )
         super(VulnerabilityPathDoesNotExistInToeLines, self).__init__(msg)
 
