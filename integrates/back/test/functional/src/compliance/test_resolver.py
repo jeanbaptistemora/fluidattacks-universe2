@@ -34,10 +34,23 @@ async def test_get_compliance(populate: bool, email: str) -> None:
     result: dict[str, Any] = await get_result(
         user=email, organization_id=org_id
     )
+    assert (
+        result["data"]["organization"]["compliance"]["complianceLevel"] == 0.8
+    )
+    assert (
+        result["data"]["organization"]["compliance"]["complianceWeeklyTrend"]
+        == 0.02
+    )
+    assert (
+        result["data"]["organization"]["compliance"][
+            "estimatedDaysToFullCompliance"
+        ]
+        == 3.0
+    )
     standard_1 = {
         "avgOrganizationComplianceLevel": 0.5,
         "bestOrganizationComplianceLevel": 0.5,
-        "complianceLevel": 0.0,
+        "complianceLevel": 0.3,
         "standardTitle": "BSIMM",
         "worstOrganizationComplianceLevel": 0.5,
     }

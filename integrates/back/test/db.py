@@ -60,6 +60,9 @@ from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -148,12 +151,27 @@ async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
     return True
 
 
+async def _populate_organization_unreliable_indicators(
+    data: dict[str, Any]
+) -> None:
+    organization: Organization = data["organization"]
+    if data.get("unreliable_indicators"):
+        await orgs_model.update_unreliable_indicators(
+            organization_id=organization.id,
+            organization_name=organization.name,
+            indicators=data["unreliable_indicators"],
+        )
+
+
 async def populate_organizations(data: list[Any]) -> bool:
     await collect(
         orgs_model.add(
             organization=item["organization"],
         )
         for item in data
+    )
+    await collect(
+        [_populate_organization_unreliable_indicators(item) for item in data]
     )
     return True
 

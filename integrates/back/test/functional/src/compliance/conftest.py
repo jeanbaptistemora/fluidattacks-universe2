@@ -24,6 +24,18 @@ from db_model.groups.types import (
     GroupUnreliableIndicators,
     UnfulfilledStandard,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationStandardCompliance,
+    OrganizationState,
+    OrganizationUnreliableIndicators,
+)
+from db_model.types import (
+    Policies,
+)
 from decimal import (
     Decimal,
 )
@@ -38,6 +50,28 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "compliances": [
+            {
+                "compliance": {
+                    "unreliable_indicators": ComplianceUnreliableIndicators(
+                        standards=[
+                            ComplianceStandard(
+                                avg_organization_compliance_level=Decimal(
+                                    "0.5"
+                                ),
+                                best_organization_compliance_level=Decimal(
+                                    "0.5"
+                                ),
+                                standard_name="bsimm",
+                                worst_organization_compliance_level=Decimal(
+                                    "0.5"
+                                ),
+                            ),
+                        ]
+                    )
+                }
+            }
+        ],
         "groups": [
             {
                 "group": Group(
@@ -88,27 +122,36 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "compliances": [
+        "organizations": [
             {
-                "compliance": {
-                    "unreliable_indicators": ComplianceUnreliableIndicators(
-                        standards=[
-                            ComplianceStandard(
-                                avg_organization_compliance_level=Decimal(
-                                    "0.5"
-                                ),
-                                best_organization_compliance_level=Decimal(
-                                    "0.5"
-                                ),
-                                standard_name="bsimm",
-                                worst_organization_compliance_level=Decimal(
-                                    "0.5"
-                                ),
-                            ),
-                        ]
-                    )
-                }
-            }
+                "organization": Organization(
+                    country="Colombia",
+                    id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    name="orgtest",
+                    policies=Policies(
+                        modified_by="admin@gmail.com",
+                        max_acceptance_days=7,
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        vulnerability_grace_period=5,
+                    ),
+                    state=OrganizationState(
+                        modified_by="admin@gmail.com",
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+                "unreliable_indicators": OrganizationUnreliableIndicators(
+                    compliance_level=Decimal("0.8"),
+                    compliance_weekly_trend=Decimal("0.02"),
+                    estimated_days_to_full_compliance=Decimal("3"),
+                    standard_compliances=[
+                        OrganizationStandardCompliance(
+                            standard_name="bsimm",
+                            compliance_level=Decimal("0.3"),
+                        )
+                    ],
+                ),
+            },
         ],
     }
 
