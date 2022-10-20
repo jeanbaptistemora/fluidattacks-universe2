@@ -67,7 +67,7 @@ user to be opened with Markdownify.
 
 ![rce-markdownify.gif](https://user-images.githubusercontent.com/51862990/195938731-203e6071-b5c1-4258-95ee-0242880f9eb1.gif)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-41709 to refer to this issue from now on.
 
@@ -86,8 +86,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
