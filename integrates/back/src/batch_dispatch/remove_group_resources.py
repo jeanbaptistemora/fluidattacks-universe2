@@ -37,10 +37,8 @@ LOGGER = logging.getLogger(__name__)
 
 async def remove_group_resources(*, item: BatchProcessing) -> None:
     group_name = item.entity
-    user_email = item.subject
-    message = (
-        f"Removing resources requested by {user_email} for group {group_name}"
-    )
+    email = item.subject
+    message = f"Removing resources requested by {email} for group {group_name}"
     LOGGER.info(
         ":".join([item.subject, message]), extra={"extra": {"action": item}}
     )
@@ -53,14 +51,14 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     await groups_domain.remove_resources(
         loaders=loaders,
         group_name=group_name,
-        user_email=user_email,
+        email=email,
     )
     # Delete roots and related cloned repos
     if group_roots:
         root_removal = await put_action(
             action=Action.REMOVE_ROOTS,
             entity=group_name,
-            subject=user_email,
+            subject=email,
             additional_info=",".join(
                 [root.state.nickname for root in group_roots]
             ),

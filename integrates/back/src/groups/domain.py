@@ -58,6 +58,7 @@ from datetime import (
 )
 from db_model import (
     enrollment as enrollment_model,
+    forces as forces_model,
     group_access as group_access_model,
     groups as groups_model,
     toe_inputs as toe_inputs_model,
@@ -485,7 +486,7 @@ async def remove_group(
         await remove_resources(
             loaders=loaders,
             group_name=group_name,
-            user_email=user_email,
+            email=user_email,
         )
     await batch_dal.put_action(
         action=Action.REMOVE_GROUP_RESOURCES,
@@ -1308,12 +1309,12 @@ async def remove_resources(
     *,
     loaders: Any,
     group_name: str,
-    user_email: str,
+    email: str,
 ) -> None:
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
-            findings_domain.mask_finding(loaders, finding, user_email)
+            findings_domain.mask_finding(loaders, finding, email)
             for finding in all_findings
         ),
         workers=4,
@@ -1329,12 +1330,13 @@ async def remove_resources(
     await deactivate_all_roots(
         loaders=loaders,
         group_name=group_name,
-        user_email=user_email,
+        user_email=email,
         other="",
         reason="GROUP_DELETED",
     )
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
     await toe_lines_model.remove_group_toe_lines(group_name=group_name)
+    await forces_model.remove_group_forces_executions(group_name=group_name)
 
 
 async def remove_user(

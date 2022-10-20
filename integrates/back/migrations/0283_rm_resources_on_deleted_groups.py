@@ -47,7 +47,7 @@ async def main() -> None:
             await groups_domain.remove_resources(
                 loaders=loaders,
                 group_name=group.name,
-                user_email="integrates@fluidattacks.com",
+                email="integrates@fluidattacks.com",
             )
             print(
                 f"Group processed: {group.name=}, "
