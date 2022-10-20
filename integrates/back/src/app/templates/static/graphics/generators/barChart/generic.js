@@ -136,7 +136,7 @@ function formatYTick(value, tick, dataDocument) {
 }
 
 function formatXTick(index, categories) {
-  if (categories.length > 0) {
+  if (categories.length > 0 && index % 1 === 0) {
     const slicedSize = -60;
     if (Math.abs(slicedSize) > categories[index].length) {
       return categories[index];
