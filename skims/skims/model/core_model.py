@@ -792,6 +792,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
     )
+    F262: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F262",
+        cwe=310,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[148, 150],
+    )
     F266: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F266",
@@ -3244,6 +3251,14 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F148,
         developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CS_INSECURE_ENCRYPTION_METHOD = MethodInfo(
+        file_name="c_sharp",
+        name="cs_insecure_encryption_method",
+        module="lib_root",
+        finding=FindingEnum.F262,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
     XML_X_FRAME_OPTIONS = MethodInfo(
