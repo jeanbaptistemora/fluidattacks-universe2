@@ -33,6 +33,10 @@ const ResourcesMenuElements: React.FC<IProps> = ({
       text: "webinar",
       type: "webinar-card",
     },
+    {
+      text: "white paper",
+      type: "whitepaper-card",
+    },
   ];
 
   const [selectedFilter, setSelectedFilter] = useState("all-card");

@@ -934,6 +934,11 @@ const pageTexts: ResourceKey = {
           "account.",
         webinar8Title: "Attacks on AWS Using Asserts OSS",
       },
+      whitePaper: {
+        whitePaper1Description:
+          "Learn about our risk-exposure-based metric to measure cybersecurity success.",
+        whitePaper1Title: "White Paper: Fluid Attacks' CVSSF Metric",
+      },
     },
     elementsText: {
       banner: {
