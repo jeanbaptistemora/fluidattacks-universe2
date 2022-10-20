@@ -73,7 +73,7 @@ presses `CTRL+P` or simply clicks `print`.
 
 ![LocalFileRead](https://user-images.githubusercontent.com/51862990/189765853-1b6e5c13-5ec2-4062-8b35-c4a1c46cbc3a.gif)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-40276 to refer to this issue from now on.
 
@@ -92,8 +92,8 @@ There is currently no patch available for this vulnerability.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello) from Fluid Attacks'
+Offensive Team.
 
 ## References
 
