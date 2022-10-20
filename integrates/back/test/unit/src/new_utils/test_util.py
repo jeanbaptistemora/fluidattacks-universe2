@@ -57,13 +57,6 @@ from organizations import (
 import os
 import pytest
 import pytz
-from redis_cluster.operations import (
-    redis_del_entity_attr,
-    redis_set_entity_attr,
-)
-from sessions import (
-    dal as sessions_dal,
-)
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
@@ -183,20 +176,6 @@ async def test_get_jwt_content() -> None:
             )
         ),
     )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jti",
-        email=user_email,
-        value=jti,
-        ttl=SESSION_COOKIE_AGE,
-    )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jwt",
-        email=user_email,
-        value=token,
-        ttl=SESSION_COOKIE_AGE,
-    )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
         "user_email": user_email,
@@ -231,20 +210,6 @@ async def test_valid_token() -> None:
             )
         ),
     )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jti",
-        email=user_email,
-        value=jti,
-        ttl=SESSION_COOKIE_AGE,
-    )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jwt",
-        email=user_email,
-        value=token,
-        ttl=SESSION_COOKIE_AGE,
-    )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
@@ -272,16 +237,6 @@ async def test_valid_api_token() -> None:
         api=True,
     )
     request.cookies[JWT_COOKIE_NAME] = token
-    await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE  # type: ignore
-    )
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jwt",
-        email=payload["user_email"],  # type: ignore
-        value=token,
-        ttl=SESSION_COOKIE_AGE,
-    )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
@@ -312,13 +267,7 @@ async def test_expired_token() -> None:
         api=True,
     )
     request.cookies[JWT_COOKIE_NAME] = token
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jti",
-        email=payload["user_email"],  # type: ignore
-        value=payload["jti"],
-        ttl=5,
-    )
+
     with pytest.raises(InvalidAuthorization):
         assert await token_utils.get_jwt_content(request)
 
@@ -357,18 +306,7 @@ async def test_revoked_token() -> None:
         subject="starlette_session",
     )
     request.cookies[JWT_COOKIE_NAME] = token
-    await redis_set_entity_attr(
-        entity="session",
-        attr="jti",
-        email=user_email,
-        value=payload["jti"],
-        ttl=SESSION_COOKIE_AGE,
-    )
-    await redis_del_entity_attr(
-        entity="session",
-        attr="jti",
-        email=user_email,
-    )
+
     with pytest.raises(ExpiredToken):
         assert await token_utils.get_jwt_content(request)
 
