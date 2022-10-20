@@ -107,17 +107,19 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     GET_STAKEHOLDER_GROUPS,
     {
       onCompleted: async ({ me }): Promise<void> => {
-        const organization = me.organizations[0]?.name || "";
+        const organizationCountry = me.organizations[0]?.country || "";
+        const organizationName = me.organizations[0]?.name || "";
         const group = me.organizations[0]?.groups[0]?.name || "";
 
         setOrganizationValues({
           ...organizationValues,
           groupName: group,
-          organizationName: organization,
+          organizationCountry,
+          organizationName,
         });
         setSuccessMutation({
           group: group !== "",
-          organization: organization !== "",
+          organization: organizationName !== "",
           repository: false,
         });
         setHasPersonalEmail(await isPersonalEmail(me.userEmail));

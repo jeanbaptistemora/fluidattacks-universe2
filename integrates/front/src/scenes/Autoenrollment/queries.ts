@@ -84,6 +84,7 @@ const GET_STAKEHOLDER_GROUPS = gql`
   query GetStakeholderGroups {
     me {
       organizations {
+        country
         groups {
           name
         }

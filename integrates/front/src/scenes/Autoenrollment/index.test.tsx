@@ -556,4 +556,164 @@ describe("Autoenrollment", (): void => {
 
     mockedFetch.reset();
   });
+
+  it("should restore incomplete process", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const variables = {
+      branch: "main",
+      credentials: {
+        key: "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KdGVzdAotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0=",
+        name: "test-creds",
+        password: "",
+        token: "",
+        type: "SSH",
+        user: "",
+      },
+      url: "https://gitlab.com/fluidattacks/universe",
+    };
+    const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
+      request: {
+        query: GET_STAKEHOLDER_GROUPS,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [
+              {
+                country: "Colombia",
+                groups: [{ name: "testGroup" }],
+                name: "testOrg",
+              },
+            ],
+            userEmail: "jdoe@fluidattacks.com",
+          },
+        },
+      },
+    };
+    const accessMock: MockedResponse<ICheckGitAccessResult> = {
+      request: {
+        query: VALIDATE_GIT_ACCESS,
+        variables,
+      },
+      result: {
+        data: {
+          validateGitAccess: { success: true },
+        },
+      },
+    };
+    const rootMock: MockedResponse<IAddGitRootResult> = {
+      request: {
+        query: ADD_GIT_ROOT,
+        variables: {
+          branch: "main",
+          credentials: {
+            key: variables.credentials.key,
+            name: variables.credentials.name,
+            password: variables.credentials.password,
+            token: variables.credentials.token,
+            type: variables.credentials.type,
+            user: variables.credentials.user,
+          },
+          environment: "production",
+          gitignore: [],
+          groupName: "TESTGROUP",
+          includesHealthCheck: false,
+          nickname: "",
+          url: variables.url,
+          useVpn: false,
+        },
+      },
+      result: {
+        data: {
+          addGitRoot: { success: true },
+        },
+      },
+    };
+
+    const mockedFetch = fetch as FetchMockStatic & typeof fetch;
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { status: 200, text: "" });
+    mockedFetch.mock(COUNTRIES_URL, {
+      body: [{ id: 48, name: "Colombia" }],
+      status: 200,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MockedProvider
+          cache={getCache()}
+          mocks={[groupsMock, accessMock, rootMock]}
+        >
+          <Autoenrollment />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const urlInput = await screen.findByRole("textbox", { name: "url" });
+    userEvent.type(urlInput, variables.url);
+
+    const branchInput = await screen.findByRole("textbox", { name: "branch" });
+    userEvent.type(branchInput, variables.branch);
+
+    const credentialsTypeSelect = await screen.findByRole("combobox", {
+      name: "credentials.type",
+    });
+    userEvent.selectOptions(credentialsTypeSelect, [
+      variables.credentials.type,
+    ]);
+
+    const credentialsNameInput = await screen.findByRole("textbox", {
+      name: "credentials.name",
+    });
+    userEvent.type(credentialsNameInput, variables.credentials.name);
+
+    const credentialsKeyInput = await screen.findByRole("textbox", {
+      name: "credentials.key",
+    });
+    userEvent.type(
+      credentialsKeyInput,
+      "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
+    );
+
+    const environmentInput = await screen.findByRole("textbox", {
+      name: "env",
+    });
+    userEvent.type(environmentInput, "production");
+
+    const nextButton = await screen.findByText("autoenrollment.next");
+    userEvent.click(nextButton);
+
+    const orgNameInput = await screen.findByRole("textbox", {
+      name: "organizationName",
+    });
+    const groupNameInput = await screen.findByRole("textbox", {
+      name: "groupName",
+    });
+    const countrySelect = await screen.findByRole("combobox", {
+      name: "organizationCountry",
+    });
+
+    expect(orgNameInput).toHaveDisplayValue("testOrg");
+    expect(groupNameInput).toHaveDisplayValue("testGroup");
+    expect(countrySelect).toHaveDisplayValue("Colombia");
+
+    const languageSelect = await screen.findByRole("combobox", {
+      name: "reportLanguage",
+    });
+    userEvent.selectOptions(languageSelect, ["EN"]);
+
+    const groupDescriptionInput = await screen.findByRole("textbox", {
+      name: "groupDescription",
+    });
+    userEvent.type(groupDescriptionInput, "test description");
+
+    const startTrialButton = await screen.findByText("autoenrollment.proceed");
+    userEvent.click(startTrialButton);
+
+    await expect(
+      screen.findByText("autoenrollment.standby.title")
+    ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
+  });
 });

@@ -51,7 +51,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ groups: [{ name: "test" }], name: "test" }],
+            organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
         },

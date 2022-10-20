@@ -42,6 +42,7 @@ interface ICheckGitAccessResult {
 interface IGetStakeholderGroupsResult {
   me: {
     organizations: {
+      country: string;
       groups: {
         name: string;
       }[];
