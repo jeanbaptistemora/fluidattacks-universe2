@@ -55,6 +55,9 @@ from tap_checkly.singer import (
 from tap_checkly.singer._checks.results.records import (
     encode_result,
 )
+from tap_checkly.state import (
+    EtlState,
+)
 from typing import (
     Iterator,
     TypeVar,
@@ -105,8 +108,9 @@ class Streams:
         client = CheckStatusClient.new(self.creds, 100)
         return self._from_encoder(encoders.status, client.list_all())
 
-    def check_results(self) -> Cmd[None]:
-        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
+    def check_results(self, state: EtlState) -> Cmd[None]:
+        start_date = state.results.value_or(self.old_date)
+        client = ChecksClient.new(self.creds, 100, start_date, self.now)
         return _emit_stream(
             client.list_ids()
             .bind(

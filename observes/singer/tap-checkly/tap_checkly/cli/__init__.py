@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from . import (
-    _executor,
+from ._emitter import (
+    Emitter,
 )
 import click
 from fa_purity import (
@@ -11,6 +11,9 @@ from fa_purity import (
 )
 from tap_checkly.api import (
     Credentials,
+)
+from tap_checkly.state import (
+    EtlState,
 )
 from tap_checkly.streams import (
     SupportedStreams,
@@ -48,7 +51,8 @@ def stream(
         .map(lambda i: (i,))
         .unwrap()
     )
-    _executor.emit_streams(creds, selection).compute()
+    emitter = Emitter(EtlState(Maybe.empty()), creds)
+    emitter.emit_streams(selection).compute()
 
 
 @click.group()  # type: ignore[misc]
