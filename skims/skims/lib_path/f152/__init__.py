@@ -36,7 +36,6 @@ def analyze(
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
-    print("analice")
 
     if file_extension == "config":
         content = content_generator()
