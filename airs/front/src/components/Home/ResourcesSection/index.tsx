@@ -26,8 +26,8 @@ const ResourcesSection: React.FC = (): JSX.Element => {
       url: "https://try.fluidattacks.com/us/ebook/",
     },
     {
-      image: "resource-2",
-      url: "https://try.fluidattacks.com/report/owasp-benchmark/",
+      image: "resource-2n",
+      url: "https://try.fluidattacks.com/report/cvssf/",
     },
     {
       image: "report-2022",
