@@ -9418,20 +9418,6 @@ F037,lines,namespace/skims/test/data/lib_path/f152/xFrameOptions.config,0,200,sk
   9 | </configuration>
     ^ Col 0
 ",dotnetconfig.dotnetconfig_not_suppress_vuln_header
-F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,200,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_path/f135/webVuln.config","
-   1 | <configuration>
-   2 |     <system.webServer>
-   3 |         <httpProtocol>
-   4 |             <customHeaders>
->  5 |                 <add name=""X-XSS-Protection"" value=""1"" />
-   6 |                 <remove name=""X-Powered-By""/>
-   7 |             </customHeaders>
-   8 |         </httpProtocol>
-   9 |     </system.webServer>
-  10 | </configuration>
-     ^ Col 0
-",dotnetconfig.dotnetconfig_has_x_xss_protection_header
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,12,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html","
    1 | <html>
@@ -28681,6 +28667,20 @@ F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12
   14 |
      ^ Col 1
 ",c_sharp.c_sharp_xpath_injection
+F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_path/f135/webVuln.config","
+   1 | <configuration>
+   2 |     <system.webServer>
+   3 |         <httpProtocol>
+   4 |             <customHeaders>
+>  5 |                 <add name=""X-XSS-Protection"" value=""1"" />
+   6 |                 <remove name=""X-Powered-By""/>
+   7 |             </customHeaders>
+   8 |         </httpProtocol>
+   9 |     </system.webServer>
+  10 | </configuration>
+     ^ Col 0
+",dotnetconfig.dotnetconfig_has_x_xss_protection_header
 F131,lines,namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs,21,644,skims,131. Insecure or unset HTTP headers - Strict Transport Security,"The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small in namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs","
    8 | namespace codetest
    9 | {
