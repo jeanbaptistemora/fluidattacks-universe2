@@ -551,6 +551,14 @@
       "title": "160. Excessive privileges - Temporary Files"
     }
   },
+  "F164": {
+    "EN": {
+      "title": "164. Insecure service configuration"
+    },
+    "ES": {
+      "title": "164. Insecure service configuration"
+    }
+  },
   "F176": {
     "EN": {
       "title": "176. Insecure service configuration - SSH"

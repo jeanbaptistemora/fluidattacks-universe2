@@ -645,6 +645,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[95, 96, 186],
     )
+    F164: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F164",
+        cwe=16,
+        execution_queue=ExecutionQueue.control,
+        requirements=[185, 266],
+    )
     F176: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F176",
@@ -2738,6 +2745,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F055,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JSON_SSL_PORT_MISSING = MethodInfo(
+        file_name="conf_files",
+        name="json_ssl_port_missing",
+        module="lib_path",
+        finding=FindingEnum.F164,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JSON_ANON_CONNECTION_CONFIG = MethodInfo(
