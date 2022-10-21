@@ -3260,6 +3260,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TSX_UNSAFE_HTTP_XSS_PROTECTION = MethodInfo(
+        file_name="typescript",
+        name="typescript_unsafe_http_xss_protection",
+        module="lib_root",
+        finding=FindingEnum.F135,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_USES_EVAL = MethodInfo(
         file_name="javascript",
         name="js_uses_eval",
