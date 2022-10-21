@@ -8,14 +8,14 @@ from fa_purity import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
-    from_range,
+    infinite_range,
 )
 from fa_purity.stream.factory import (
     from_piter,
 )
 from fa_purity.stream.transform import (
     consume,
-    filter_maybe,
+    until_empty,
 )
 import logging
 from redshift_client.id_objs import (
@@ -48,13 +48,13 @@ def merge_parts(
     client: SchemaClient, schema_part_prefix: str, target: SchemaId
 ) -> Cmd[None]:
     schemas = (
-        from_range(range(0, 10))
+        infinite_range(0, 1)
         .map(
             lambda i: _exist(
                 client, SchemaId(f"{schema_part_prefix.lower()}{i}")
             )
         )
-        .transform(lambda p: filter_maybe(from_piter(p)))
+        .transform(lambda p: until_empty(from_piter(p)))
     )
     return consume(
         schemas.map(lambda s: _print(s, f"Moving {s} -> {target}")).map(
