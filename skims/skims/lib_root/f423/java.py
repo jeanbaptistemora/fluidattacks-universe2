@@ -15,10 +15,13 @@ from model.graph_model import (
     Graph,
     GraphDB,
     GraphShardMetadataLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from typing import (
+    Iterable,
 )
 from utils import (
     graph as g,
@@ -38,7 +41,7 @@ def get_parent_method_name(graph: Graph, n_id: str) -> str:
 
 
 def uses_exit_method(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JAVA_USES_SYSTEM_EXIT
@@ -48,7 +51,7 @@ def uses_exit_method(
         "Runtime.getRuntime.halt",
     }
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):

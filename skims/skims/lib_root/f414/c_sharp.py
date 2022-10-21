@@ -12,7 +12,7 @@ from model.core_model import (
 from model.graph_model import (
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -21,28 +21,31 @@ from symbolic_eval.utils import (
     get_object_identifiers,
     get_value_member_access,
 )
+from typing import (
+    Iterable,
+)
 
 
 def disabled_http_header_check(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_DISABLED_HTTP_HEADER_CHECK
     c_sharp = GraphLanguage.CSHARP
+    http_obj = {"HttpRuntimeSection"}
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
-            s_graph = shard.syntax_graph
-            http_obj = {"HttpRuntimeSection"}
-            for ident in get_object_identifiers(s_graph, http_obj):
+            for ident in get_object_identifiers(graph, http_obj):
                 if (
                     value := get_value_member_access(
-                        s_graph, ident, "EnableHeaderChecking"
+                        graph, ident, "EnableHeaderChecking"
                     )
-                ) and s_graph.nodes[value].get("value") == "false":
+                ) and graph.nodes[value].get("value") == "false":
                     yield shard, value
 
     return get_vulnerabilities_from_n_ids(

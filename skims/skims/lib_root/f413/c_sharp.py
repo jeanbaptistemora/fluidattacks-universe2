@@ -13,9 +13,11 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
-    GraphShardNodes,
+    GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -26,6 +28,9 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    Iterable,
+)
 from utils import (
     graph as g,
 )
@@ -34,22 +39,26 @@ from utils.string import (
 )
 
 
+def eval_insecure_assembly(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.CS_INSECURE_ASSEMBLY_LOAD
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
+            return True
+    return False
+
+
 def insecure_assembly_load(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.CS_INSECURE_ASSEMBLY_LOAD
     c_sharp = GraphLanguage.CSHARP
+    paths = build_attr_paths("System", "Reflection", "Assembly", "Load")
 
-    def n_ids() -> GraphShardNodes:
-
+    def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
-            paths = build_attr_paths(
-                "System", "Reflection", "Assembly", "Load"
-            )
             graph = shard.syntax_graph
 
             for n_id in search_method_invocation_naive(graph, {"Load"}):
@@ -57,18 +66,14 @@ def insecure_assembly_load(
                     (member := g.match_ast_d(graph, n_id, "MemberAccess"))
                     and (expr := graph.nodes[member].get("expression"))
                     and (memb := graph.nodes[member].get("member"))
-                    and (f"{expr}.{memb}" not in paths)
+                    and (f"{expr}.{memb}" in paths)
+                    and eval_insecure_assembly(graph, n_id)
                 ):
-                    continue
-                for path in get_backward_paths(graph, n_id):
-                    if (
-                        evaluation := evaluate(method, graph, path, n_id)
-                    ) and evaluation.danger:
-                        yield shard, n_id
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f413.insecure_assembly_load",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=method,
+        method=MethodsEnum.CS_INSECURE_ASSEMBLY_LOAD,
     )

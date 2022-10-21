@@ -28,7 +28,6 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
-    List,
     Set,
 )
 from utils import (
@@ -70,8 +69,8 @@ def check_no_password_argument(triggers: Set[str]) -> bool:
     return False
 
 
-def get_weak_policies_ids(graph: Graph, n_id: NId) -> List[NId]:
-    weak_nodes = []
+def get_weak_policies_ids(graph: Graph, n_id: NId) -> Set[NId]:
+    weak_nodes: Set[NId] = set()
     parent_id = g.pred(graph, n_id)[0]
     al_id = graph.nodes[parent_id].get("arguments_id")
     opt_id = g.match_ast(graph, al_id).get("__0__")
@@ -87,8 +86,23 @@ def get_weak_policies_ids(graph: Graph, n_id: NId) -> List[NId]:
                 and (member := memb_n.get("member"))
                 and is_danger_value(graph, arg_list[1], member)
             ):
-                weak_nodes.append(arg_list[0])
+                weak_nodes.add(arg_list[0])
     return weak_nodes
+
+
+def get_vuln_nodes(graph: Graph) -> Set[NId]:
+    config_options = "Configure<IdentityOptions>"
+    vuln_nodes: Set[NId] = set()
+    for nid in g.filter_nodes(
+        graph,
+        graph.nodes,
+        g.pred_has_labels(label_type="MemberAccess"),
+    ):
+        if graph.nodes[nid].get("member") != config_options:
+            continue
+        vuln_nodes.update(get_weak_policies_ids(graph, nid))
+
+    return vuln_nodes
 
 
 def get_eval_danger(graph: Graph, n_id: NId) -> bool:
@@ -105,8 +119,6 @@ def weak_credential_policy(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    config_options = "Configure<IdentityOptions>"
-
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.CSHARP,
@@ -115,17 +127,8 @@ def weak_credential_policy(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MemberAccess"),
-            ):
-                if graph.nodes[nid].get("member") != config_options:
-                    continue
-
-                weak_policies_ids = get_weak_policies_ids(graph, nid)
-                for res_nid in weak_policies_ids:
-                    yield shard, res_nid
+            for res_nid in get_vuln_nodes(graph):
+                yield shard, res_nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_root.f035.csharp_weak_credential_policy.description",

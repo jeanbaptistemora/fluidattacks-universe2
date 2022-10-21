@@ -6,10 +6,11 @@ from model.graph_model import (
     GraphDB,
     GraphShard,
     GraphShardMetadataLanguage,
-    GraphShardNodes,
+    GraphShardNode,
     NId,
 )
 from typing import (
+    Iterable,
     Iterator,
     Set,
 )
@@ -22,7 +23,7 @@ from utils.graph import (
 
 def yield_object_creation(
     graph_db: GraphDB, members: Set[str]
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     for shard in graph_db.shards_by_language(
         GraphShardMetadataLanguage.GO,
     ):
@@ -47,7 +48,7 @@ def yield_shard_object_creation(
 
 def yield_member_access(
     graph_db: GraphDB, members: Set[str]
-) -> GraphShardNodes:
+) -> Iterable[GraphShardNode]:
     for shard in graph_db.shards_by_language(
         GraphShardMetadataLanguage.GO,
     ):
