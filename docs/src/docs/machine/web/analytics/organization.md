@@ -33,7 +33,7 @@ accepted and open risk exposure
 in your organization,
 as well as these percentages in
 the best and the worst organization
-and averaged across organizations.
+and the average across all organizations.
 
 ## Exposure by group
 
