@@ -126,6 +126,7 @@ def format_stakeholder(item: Item) -> Stakeholder:
         push_tokens=item.get("push_tokens"),
         registration_date=item.get("registration_date"),
         role=item.get("role"),
+        session_key=item.get("session_key"),
         session_token=format_session_token(item["session_token"])
         if item.get("session_token")
         else None,
