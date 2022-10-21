@@ -38468,3 +38468,64 @@
   metadata:
     en:
       details: __empty__
+'424':
+  en:
+    title: sideloaded
+    description: >
+      The installation of any application outside of a legitimate infrastructure such as the app
+      store for the operating system in question is considered sideloading.
+    impact: >
+      - Allow installation from unknown media, increasing the possibility of infection by malware.
+    recommendation: >
+      Use only the official application distribution store or private platforms with access controls
+      that prevent unauthorized personnel from access controls that prevent unauthorized personnel from
+      accessing application installation packages.
+    threat: >
+      Unprivileged attacker from the internet impersonating the application.
+  category: Manipulate System
+  examples:
+    non_compliant: |
+      
+      ```
+      NA
+
+      ```
+    compliant: |
+      
+      ```
+      NA
+
+      ```
+  remediation_time: '1440'
+  es:
+    title: sideloaded
+    description: >
+      La instalación de cualquier aplicación fuera de una infraestructura legítima como la tienda de
+      aplicaciones para el sistema operativo en cuestión se considera sideloading.
+    impact: >
+      - Permitir la instalación desde medios desconocidos, incrementando la posibilidad de infección
+      por casos de malware.
+    recommendation: >
+      Usar solo la tienda oficial de distribución de aplicaciones o plataformas privadas con controles
+      de acceso que impidan que personal no autorizado pueda acceder a los paquetes de instalación de
+      las aplicaciones.
+    threat: >
+      Atacante sin privilegios desde internet suplantando la aplicación.
+  score:
+    base:
+      attack_vector: N
+      attack_complexity: H
+      privileges_required: N
+      user_interaction: R
+      scope: C
+      confidentiality: L
+      integrity: L
+      availability: L
+    temporal:
+      exploit_code_maturity: U
+      remediation_level: U
+      report_confidence: R
+  requirements: ['041', '155']
+  metadata:
+    en:
+      details: __empty__
