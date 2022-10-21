@@ -93,13 +93,15 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           })
         );
       } else if (
-        message.startsWith(
+        message.includes(
           "Exception -  The line does not exist in the range of 0 and lines of code"
         )
       ) {
+        const destructMsg: { msg: string; path: string } = JSON.parse(message);
         msgError(
           t("searchFindings.tabVuln.alerts.uploadFile.lineDoesNotExistInLoc", {
-            line: message.split("code: ")[1],
+            line: destructMsg.msg.split("code: ")[1],
+            path: destructMsg.path,
           })
         );
       } else if (message.includes("Exception - Invalid Schema")) {

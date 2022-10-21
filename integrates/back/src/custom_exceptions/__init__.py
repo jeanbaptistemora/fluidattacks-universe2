@@ -1539,10 +1539,10 @@ class SamePhoneNumber(CustomBaseException):
 
 
 class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
-    def __init__(self, expr: str = "") -> None:
+    def __init__(self, index: str = "") -> None:
         msg = (
             f'{{"msg": "Exception - The vulnerability path does not exist in '
-            f'the toe lines", "path": "/lines/{expr}"}}'
+            f'the toe lines", "path": "/lines/{index}"}}'
         )
         super(VulnerabilityPathDoesNotExistInToeLines, self).__init__(msg)
 
@@ -1557,10 +1557,10 @@ class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
 
 
 class LineDoesNotExistInTheLinesOfCodeRange(CustomBaseException):
-    def __init__(self, line: str) -> None:
+    def __init__(self, line: str, index: str) -> None:
         msg = (
-            "Exception -  The line does not exist in the range of 0 and "
-            f"lines of code: {line}"
+            f'{{"msg": "Exception -  The line does not exist in the range '
+            f'of 0 and lines of code: {line}", "path": "/lines/{index}"}}'
         )
         super(LineDoesNotExistInTheLinesOfCodeRange, self).__init__(msg)
 
