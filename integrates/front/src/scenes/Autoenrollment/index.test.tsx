@@ -554,6 +554,19 @@ describe("Autoenrollment", (): void => {
       screen.findByText("autoenrollment.standby.title")
     ).resolves.toBeInTheDocument();
 
+    // eslint-disable-next-line fp/no-mutating-methods
+    Object.defineProperty(window, "location", {
+      value: { replace: jest.fn() },
+      writable: true,
+    });
+
+    const closeButton = await screen.findByRole("button");
+    userEvent.click(closeButton);
+
+    expect(window.location.replace).toHaveBeenCalledWith(
+      "/orgs/testorg/groups/testgroup/scope"
+    );
+
     mockedFetch.reset();
   });
 
@@ -713,6 +726,19 @@ describe("Autoenrollment", (): void => {
     await expect(
       screen.findByText("autoenrollment.standby.title")
     ).resolves.toBeInTheDocument();
+
+    // eslint-disable-next-line fp/no-mutating-methods
+    Object.defineProperty(window, "location", {
+      value: { replace: jest.fn() },
+      writable: true,
+    });
+
+    const closeButton = await screen.findByRole("button");
+    userEvent.click(closeButton);
+
+    expect(window.location.replace).toHaveBeenCalledWith(
+      "/orgs/testorg/groups/testgroup/scope"
+    );
 
     mockedFetch.reset();
   });
