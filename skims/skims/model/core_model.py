@@ -3012,14 +3012,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )
-    JS_INSECURE_ENCRYPT = MethodInfo(
-        file_name="javascript",
-        name="js_uses_insecure_encrypt",
-        module="lib_root",
-        finding=FindingEnum.F094,
-        developer=DeveloperEnum.FLOR_CALDERON,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CS_INSECURE_DESERIAL = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_deserialization",
