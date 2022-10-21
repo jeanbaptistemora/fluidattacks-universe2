@@ -502,7 +502,9 @@ async def get_git_environment_urls(
             created_at=datetime.fromisoformat(item["created_at"])
             if "created_at" in item
             else None,
-            url_type=RootEnvironmentUrlType[item["type"]],
+            url_type=RootEnvironmentUrlType[item["type"]]
+            if "type" in item
+            else RootEnvironmentUrlType.URL,
             cloud_name=RootEnvironmentCloud[item["cloud_name"]]
             if "cloud_name" in item
             else None,
