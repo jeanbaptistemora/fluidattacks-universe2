@@ -3433,7 +3433,7 @@ export const enTranslations: ResourceKey = {
           invalidRoot:
             "Active root not found for the repo. Verify the nickname in the scope tab\n",
           invalidStream:
-            "Invalid stream, it must start with 'home' or 'query'\n",
+            "Invalid stream, it must start with 'home' or 'query', error is located at {{path}}\n",
           key: "Key '{{key}}' located at '{{path}}' is missing or invalid.\n",
           lineDoesNotExistInLoc:
             "The line '{{line}}' does not exist in the range of 0 and lines of code from the lines surface, error is located at '{{path}}'\n",

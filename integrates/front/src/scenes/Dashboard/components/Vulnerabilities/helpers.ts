@@ -68,10 +68,15 @@ const errorMessageHelper = (message: string): void => {
   } else if (message === "Exception - Error Uploading File to S3") {
     msgError(translate.t("groupAlerts.errorTextsad"));
   } else if (
-    message === "Exception - Invalid stream should start 'home' or 'query'"
+    message.includes(
+      "Exception - Invalid stream should start 'home' or 'query'"
+    )
   ) {
+    const destructMsg: { msg: string; path: string } = JSON.parse(message);
     msgError(
-      translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream")
+      translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream", {
+        path: destructMsg.path,
+      })
     );
   } else if (message === "Exception - Access denied or root not found") {
     msgError(

@@ -910,9 +910,12 @@ class InvalidSpecific(CustomBaseException):
 class InvalidStream(CustomBaseException):
     """Exception to control stream validation."""
 
-    def __init__(self) -> None:
+    def __init__(self, vuln_type: str = "", index: str = "") -> None:
         """Constructor"""
-        msg = "Exception - Invalid stream should start 'home' or 'query'"
+        msg = (
+            f'{{"msg": "Exception - Invalid stream should start \'home\' or '
+            f'\'query\'", "path": "/{vuln_type}/{index}"}}'
+        )
         super(InvalidStream, self).__init__(msg)
 
 
