@@ -38470,7 +38470,7 @@
       details: __empty__
 '424':
   en:
-    title: sideloaded
+    title: Sideloaded
     description: >
       The installation of any application outside of a legitimate infrastructure such as the app
       store for the operating system in question is considered sideloading.
@@ -38498,7 +38498,7 @@
       ```
   remediation_time: '1440'
   es:
-    title: sideloaded
+    title: Sideloaded
     description: >
       La instalación de cualquier aplicación fuera de una infraestructura legítima como la tienda de
       aplicaciones para el sistema operativo en cuestión se considera sideloading.
