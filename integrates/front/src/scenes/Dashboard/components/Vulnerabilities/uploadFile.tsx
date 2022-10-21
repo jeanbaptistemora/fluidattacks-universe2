@@ -55,12 +55,12 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   const { t } = useTranslation();
 
   function handleFinalElse(message: string): void {
-    const destructMsg: { msg: string; path: string } = JSON.parse(message);
     if (
       message.includes(
         "Exception - The vulnerability path does not exist in the toe lines"
       )
     ) {
+      const destructMsg: { msg: string; path: string } = JSON.parse(message);
       msgError(
         t("searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist", {
           path: destructMsg.path,
@@ -71,7 +71,15 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         "Exception -  The vulnerability URL and field do not exist in the toe inputs"
       )
     ) {
-      t("searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist");
+      const destructMsg: { msg: string; path: string } = JSON.parse(message);
+      msgError(
+        t(
+          "searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist",
+          {
+            path: destructMsg.path,
+          }
+        )
+      );
     } else {
       errorMessageHelper(message);
     }

@@ -1548,10 +1548,10 @@ class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
 
 
 class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
-    def __init__(self) -> None:
+    def __init__(self, index: str = "") -> None:
         msg = (
-            "Exception -  The vulnerability URL and field do not exist in the "
-            "toe inputs"
+            f'{{"msg": "Exception -  The vulnerability URL and field do not '
+            f'exist in the toe inputs", "path": "/inputs/{index}"}}'
         )
         super(VulnerabilityUrlFieldDoNotExistInToeInputs, self).__init__(msg)
 

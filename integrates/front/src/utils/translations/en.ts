@@ -3429,7 +3429,7 @@ export const enTranslations: ResourceKey = {
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
           inputUrlAndFieldDoNotExist:
-            "URL and field for the new vulnerabilities of input type must exist on the input surface\n",
+            "URL and field for the new vulnerabilities of input type must exist on the input surface, error is located at '{{path}}'\n",
           invalidRoot:
             "Active root not found for the repo. Verify the nickname in the scope tab\n",
           invalidStream:
