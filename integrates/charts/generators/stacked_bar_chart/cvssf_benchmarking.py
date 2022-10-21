@@ -65,7 +65,6 @@ from statistics import (
     mean,
 )
 from typing import (
-    Any,
     Counter,
     NamedTuple,
 )
@@ -263,15 +262,9 @@ def get_mean_organizations(
 
 def get_valid_organizations(
     *,
-    organizations: tuple[OrganizationCvssfBenchmarking, ...],
-    organization_id: str,
+    subjects: tuple[OrganizationCvssfBenchmarking, ...],
 ) -> list[OrganizationCvssfBenchmarking]:
-    return [
-        organization
-        for organization in organizations
-        if organization_id != organization.organization_id
-        and organization.is_valid
-    ]
+    return [subject for subject in subjects if subject.is_valid]
 
 
 def format_data(
@@ -281,7 +274,7 @@ def format_data(
     mean_cvssf: OrganizationCvssfBenchmarking,
     worst_cvssf: OrganizationCvssfBenchmarking,
     categories: list[str],
-) -> dict[str, Any]:
+) -> dict:
     total_bar: list[Decimal] = [
         (organization.closed + organization.accepted + organization.open)
         if organization.total > Decimal("0.0")
@@ -559,8 +552,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             best_cvssf=best_cvssf,
             mean_cvssf=get_mean_organizations(
                 organizations=get_valid_organizations(
-                    organizations=all_organizations_data,
-                    organization_id=org_id,
+                    subjects=all_organizations_data,
                 )
             ),
             worst_cvssf=worst_cvssf,
@@ -584,8 +576,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 best_cvssf=best_portfolio_cvssf,
                 mean_cvssf=get_mean_organizations(
                     organizations=get_valid_organizations(
-                        organizations=all_portfolios_data,
-                        organization_id=f"{org_id}PORTFOLIO#{portfolio}",
+                        subjects=all_portfolios_data,
                     )
                 ),
                 worst_cvssf=worst_portfolio_cvssf,
