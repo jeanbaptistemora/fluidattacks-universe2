@@ -3660,6 +3660,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CONTAINER_WITH_USER_ROOT = MethodInfo(
+        file_name="docker",
+        name="container_with_user_root",
+        module="lib_path",
+        finding=FindingEnum.F266,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     DOCKER_COMPOSE_WITHOUT_USER = MethodInfo(
         file_name="docker",
         name="docker_compose_without_user",

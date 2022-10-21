@@ -8,6 +8,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f266.docker import (
+    container_with_user_root,
     container_without_user,
     docker_compose_without_user,
 )
@@ -38,6 +39,11 @@ def run_docker_compose_without_user(
     )
 
 
+@SHIELD_BLOCKING
+def run_container_with_user_root(content: str, path: str) -> Vulnerabilities:
+    return container_with_user_root(content=content, path=path)
+
+
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -47,11 +53,16 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
+    content = content_generator()
+
     if file_name in NAMES_DOCKERFILE:
-        results = (run_container_without_user(content_generator(), path),)
+        results = (
+            *results,
+            run_container_without_user(content, path),
+            run_container_with_user_root(content, path),
+        )
 
     if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
-        content = content_generator()
         results = (
             *results,
             *(

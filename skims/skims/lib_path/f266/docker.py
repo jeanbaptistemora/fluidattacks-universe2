@@ -56,6 +56,21 @@ def container_without_user(content: str, path: str) -> Vulnerabilities:
     )
 
 
+def container_with_user_root(content: str, path: str) -> Vulnerabilities:
+    def iterator() -> Iterator[Tuple[int, int]]:
+        for line_number, line in enumerate(content.splitlines(), start=1):
+            if re.match(r"^USER root", line):
+                yield (line_number, 0)
+
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="lib_path.f266.docker_with_user_root",
+        iterator=iterator(),
+        path=path,
+        method=MethodsEnum.CONTAINER_WITH_USER_ROOT,
+    )
+
+
 def _docker_compose_without_user(template: Node) -> Iterator[Tuple[int, int]]:
     if (
         isinstance(template, Node)

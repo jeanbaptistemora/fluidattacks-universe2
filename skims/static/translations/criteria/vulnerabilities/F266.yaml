@@ -9,3 +9,6 @@ lib_path.f266.container_without_user:
 lib_path.f266.docker_compose_without_user:
   en: Property user is either missing or misconfigured
   es: La propiedad user no está presente o se encuentra mal configurada
+lib_path.f266.docker_with_user_root:
+  en: Make sure the container is running as non-root
+  es: Asegúrese de que el contenedor este corriendo como non-root
