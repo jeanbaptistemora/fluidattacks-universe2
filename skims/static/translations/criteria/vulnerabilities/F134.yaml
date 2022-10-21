@@ -2,3 +2,6 @@
 lib_root.f134.cors_policy_allows_any_origin:
   en: The cors policy allows any origin
   es: La política de cors permite cualquier origen
+lib_path.f134.cfn_wildcard_in_allowed_origins:
+  en: The cors policy allows any origin
+  es: La política de cors permite cualquier origen

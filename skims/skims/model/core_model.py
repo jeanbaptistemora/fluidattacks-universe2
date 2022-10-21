@@ -1644,6 +1644,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CFN_WILDCARD_IN_ALLOWED_ORIGINS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_wildcard_in_allowed_origins",
+        module="lib_path",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_insecure_protocols",
