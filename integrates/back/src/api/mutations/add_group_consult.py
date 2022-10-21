@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from aioextensions import (
-    schedule,
-)
 from api.mutations import (
     AddConsultPayload,
 )
@@ -27,14 +24,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access.domain import (
-    get_stakeholders_subscribed_to_consult,
-)
 from group_comments import (
     domain as group_comments_domain,
-)
-from mailer import (
-    groups as groups_mail,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -46,26 +37,6 @@ import time
 from typing import (
     Any,
 )
-
-
-async def send_group_consult_mail(
-    *,
-    loaders: Dataloaders,
-    comment_data: GroupComment,
-    user_email: str,
-    group_name: str,
-) -> None:
-    await groups_mail.send_mail_comment(
-        loaders=loaders,
-        comment_data=comment_data,
-        user_mail=user_email,
-        recipients=await get_stakeholders_subscribed_to_consult(
-            loaders=loaders,
-            group_name=group_name,
-            comment_type="group",
-        ),
-        group_name=group_name,
-    )
 
 
 @convert_kwargs_to_snake_case
@@ -100,18 +71,7 @@ async def mutate(
         parent_id=str(parameters.get("parent_comment")),
         email=user_email,
     )
-    await group_comments_domain.add_comment(
-        loaders, group_name, user_email, comment_data
-    )
-    if content.strip() not in {"#external", "#internal"}:
-        schedule(
-            send_group_consult_mail(
-                loaders=loaders,
-                comment_data=comment_data,
-                user_email=user_email,
-                group_name=group_name,
-            )
-        )
+    await group_comments_domain.add_comment(loaders, group_name, comment_data)
 
     logs_utils.cloudwatch_log(
         info.context,

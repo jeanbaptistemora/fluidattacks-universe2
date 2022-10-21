@@ -46,7 +46,6 @@ async def test_add_comment() -> None:
     await add_comment(
         info.context.loaders,
         group_name,
-        "unittest@fluidattacks.com",
         comment_data,
     )
     loaders = get_new_context()
