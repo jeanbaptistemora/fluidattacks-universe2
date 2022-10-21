@@ -6,8 +6,10 @@ from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
     assignment_expression as javascript_assignment_expression,
+    await_expression as javascript_await_expression,
     binary_expression as javascript_binary_expression,
     boolean_literal as javascript_boolean_literal,
+    break_statement as javascript_break_statement,
     call_expression as javascript_call_expression,
     catch_clause as javascript_catch_clause,
     class_declaration as javascript_class_declaration,
@@ -16,6 +18,7 @@ from syntax_graph.syntax_readers.javascript import (
     else_clause as javascript_else_clause,
     export_statement as javascript_export_statement,
     expression_statement as javascript_expression_statement,
+    finally_clause as javascript_finally_clause,
     for_each_statement as javascript_for_each_statement,
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
@@ -35,6 +38,7 @@ from syntax_graph.syntax_readers.javascript import (
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
     switch_case as javascript_switch_case,
+    switch_default as javascript_switch_default,
     switch_statement as javascript_switch_statement,
     this as javascript_this,
     throw_statement as javascript_throw_statement,
@@ -113,14 +117,27 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "assignment_expression",
+            "augmented_assignment_expression",
         },
         syntax_reader=javascript_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "await_expression",
+        },
+        syntax_reader=javascript_await_expression.reader,
     ),
     Dispatcher(
         applicable_types={
             "binary_expression",
         },
         syntax_reader=javascript_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "break_statement",
+        },
+        syntax_reader=javascript_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -193,6 +210,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "expression_statement",
         },
         syntax_reader=javascript_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=javascript_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -412,6 +435,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "switch_case",
         },
         syntax_reader=javascript_switch_case.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_default",
+        },
+        syntax_reader=javascript_switch_default.reader,
     ),
     Dispatcher(
         applicable_types={

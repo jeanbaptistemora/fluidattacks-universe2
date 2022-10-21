@@ -3,7 +3,8 @@
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F004": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -11,7 +12,8 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F008": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -19,55 +21,64 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F009": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F010": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F011": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F012": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F015": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F016": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F017": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F020": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F021": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -75,55 +86,64 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F022": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F023": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F024": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F031": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F034": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F035": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F036": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F037": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F042": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -131,67 +151,78 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F043": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F044": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F046": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F048": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F052": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F055": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F056": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F058": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F060": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F061": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F063": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -199,139 +230,162 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F064": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F065": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F066": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F070": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F071": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F073": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F075": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F079": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F080": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F082": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F085": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F086": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F089": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F091": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F092": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F094": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F096": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F097": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F098": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F099": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F100": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F103": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F107": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -339,13 +393,15 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F109": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F112": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -353,19 +409,22 @@
     "skims/test/data/sast/test_cfg.js": {
       "1": {}
     },
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F117": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F120": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F127": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -375,474 +434,553 @@
       "908": {}
     },
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F128": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F129": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F130": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F131": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F132": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F133": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F134": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F135": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F143": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F148": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F152": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F157": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F160": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F164": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F176": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F177": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F182": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F183": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F200": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F203": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F206": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F207": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F211": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F234": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F236": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F237": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F239": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F241": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F246": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F247": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F250": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F252": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F256": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F257": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F258": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F259": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F266": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F267": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F268": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F277": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F281": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F300": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F309": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F313": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F320": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F325": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F332": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F333": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F335": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F338": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F343": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F346": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F363": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F366": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F368": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F371": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F372": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F380": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F381": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F393": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F394": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F396": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F398": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F400": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F401": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F402": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F405": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F406": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F407": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F408": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F409": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F411": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F412": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F413": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F414": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F416": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F418": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   },
   "F423": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {},
-    "skims/test/data/sast/test_cfg.kt": {}
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
   }
 }

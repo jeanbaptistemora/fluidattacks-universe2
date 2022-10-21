@@ -19,9 +19,11 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     n_attrs = args.ast_graph.nodes[args.n_id]
     var_name = node_to_str(args.ast_graph, n_attrs["label_field_name"])
-    val_id = n_attrs["label_field_value"]
 
-    if args.ast_graph.nodes[val_id]["label_type"] == "conditional_type":
-        val_id = args.ast_graph.nodes[val_id]["label_field_consequence"]
+    type_id = n_attrs["label_field_value"]
+    if args.ast_graph.nodes[type_id]["label_type"] == "generic_type":
+        var_type = node_to_str(args.ast_graph, type_id)
+    else:
+        var_type = args.ast_graph.nodes[type_id]["label_type"]
 
-    return build_variable_declaration_node(args, var_name, None, val_id)
+    return build_variable_declaration_node(args, var_name, var_type, None)
