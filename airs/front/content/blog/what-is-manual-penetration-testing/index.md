@@ -16,7 +16,7 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/iD5aVJFCXJg
 ---
 
-[Penetration](../../solutions/penetration-testing/) testing or pentesting
+[Penetration testing](../../solutions/penetration-testing/) or pentesting
 is a type of [security testing](../../solutions/security-testing/)
 in which one or more ethical hackers attack an information system
 with the authorization of its owner
@@ -31,7 +31,7 @@ some of us consider and affirm that
 what happens in the latter
 doesn't comply with what *pentesting* really is
 and that this name was just a fruit of a marketing strategy.
-Manual penetration testing,"
+Manual penetration testing,
 as we'll see,
 is the only pentesting.
 
