@@ -9,7 +9,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.heat_map_chart import (  # type: ignore
+from charts.generators.heat_map_chart.common import (
     format_csv_data,
 )
 from charts.utils import (

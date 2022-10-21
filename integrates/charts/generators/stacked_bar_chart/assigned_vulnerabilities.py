@@ -92,10 +92,11 @@ def format_assigned(
     )
 
     treatment: Counter[str] = Counter(
-        vulnerability.treatment.status  # type: ignore
+        vulnerability.treatment.status
         for vulnerability in vulnerabilities
         if vulnerability.state.status == VulnerabilityStateStatus.OPEN
-        and vulnerability.treatment.status  # type: ignore
+        and vulnerability.treatment
+        and vulnerability.treatment.status
         in {
             VulnerabilityTreatmentStatus.ACCEPTED,
             VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
