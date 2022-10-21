@@ -186,7 +186,7 @@ from typing import (
 
 
 async def _has_repeated_tags(
-    loaders: Any, group_name: str, tags: list[str]
+    loaders: Dataloaders, group_name: str, tags: list[str]
 ) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
@@ -198,7 +198,7 @@ async def _has_repeated_tags(
 
 
 async def complete_register_for_group_invitation(
-    loaders: Any,
+    loaders: Dataloaders,
     group_access: GroupAccess,
 ) -> None:
     invitation = group_access.invitation
@@ -277,7 +277,7 @@ async def complete_register_for_group_invitation(
 
 
 async def reject_register_for_group_invitation(
-    loaders: Any,
+    loaders: Dataloaders,
     group_access: GroupAccess,
 ) -> None:
     invitation = group_access.invitation
@@ -295,11 +295,11 @@ async def add_group(
     *,
     loaders: Dataloaders,
     description: str,
+    email: str,
+    granted_role: str,
     group_name: str,
     organization_name: str,
     service: GroupService,
-    user_email: str,
-    user_role: str,
     has_machine: bool = False,
     has_squad: bool = False,
     language: GroupLanguage = GroupLanguage.EN,
@@ -322,13 +322,13 @@ async def add_group(
     organization: Organization = await loaders.organization.load(
         organization_name
     )
-    if not await orgs_domain.has_access(loaders, organization.id, user_email):
+    if not await orgs_domain.has_access(loaders, organization.id, email):
         raise StakeholderNotInOrganization(organization.id)
 
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    if await enrollment_domain.is_trial(loaders, user_email, organization):
+    if await enrollment_domain.is_trial(loaders, email, organization):
         managed = GroupManaged.TRIAL
         if (
             await loaders.organization_groups.load(organization.id)
@@ -343,7 +343,7 @@ async def add_group(
 
     await groups_model.add(
         group=Group(
-            created_by=user_email,
+            created_by=email,
             created_date=datetime_utils.get_iso_date(),
             description=description,
             language=language,
@@ -352,7 +352,7 @@ async def add_group(
                 has_machine=has_machine,
                 has_squad=has_squad,
                 managed=managed,
-                modified_by=user_email,
+                modified_by=email,
                 modified_date=datetime_utils.get_iso_date(),
                 service=service,
                 status=GroupStateStatus.ACTIVE,
@@ -370,9 +370,9 @@ async def add_group(
 
     # Admins are not granted access to the group
     # they are omnipresent
-    if user_role != "admin":
+    if granted_role != "admin":
         await group_access_model.update_metadata(
-            email=user_email,
+            email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
                 has_access=True,
@@ -382,30 +382,29 @@ async def add_group(
         # Customers are granted the user manager role
         role: str = (
             "customer_manager"
-            if stakeholders_domain.is_fluid_staff(user_email)
+            if stakeholders_domain.is_fluid_staff(email)
             else "user_manager"
         )
-        await authz.grant_group_level_role(
-            loaders, user_email, group_name, role
-        )
+        await authz.grant_group_level_role(loaders, email, group_name, role)
 
-    # Notify us in case the user wants any Fluid Service
+    # Notify us in case the stakeholder wants any Fluid Service
     await notifications_domain.new_group(
         description=description,
         group_name=group_name,
         has_machine=has_machine,
         has_squad=has_squad,
         organization=organization_name,
-        requester_email=user_email,
+        requester_email=email,
         service=service,
         subscription=subscription,
     )
 
 
 async def deactivate_all_roots(
-    loaders: Any,
+    *,
+    loaders: Dataloaders,
+    email: str,
     group_name: str,
-    user_email: str,
     other: str = "",
     reason: str = "",
 ) -> None:
@@ -418,7 +417,7 @@ async def deactivate_all_roots(
                 other=other,
                 reason=reason,
                 root=root,
-                user_email=user_email,
+                email=email,
             )
             for root in all_group_roots
         ]
@@ -427,16 +426,17 @@ async def deactivate_all_roots(
 
 async def remove_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
+    email: str,
     group_name: str,
     justification: GroupStatusJustification,
-    user_email: str,
     validate_pending_actions: bool = True,
 ) -> None:
     """
     Update group state to DELETED and update some related resources.
     For production, remember to remove additional resources
-    (user, findings, vulns ,etc) via the batch action remove_group_resources.
+    (stakeholder, findings, vulns ,etc) via the batch action
+    remove_group_resources.
     """
     loaders.group.clear(group_name)
     group: Group = await loaders.group.load(group_name)
@@ -486,20 +486,20 @@ async def remove_group(
         await remove_resources(
             loaders=loaders,
             group_name=group_name,
-            email=user_email,
+            email=email,
         )
     await batch_dal.put_action(
         action=Action.REMOVE_GROUP_RESOURCES,
         entity=group_name,
-        subject=user_email,
+        subject=email,
         additional_info="remove_group",
         queue="small",
         product_name=Product.INTEGRATES,
     )
-    await remove_all_users(
+    await remove_all_stakeholders(
         loaders=loaders,
         group_name=group_name,
-        modified_by=user_email,
+        modified_by=email,
     )
     await groups_model.update_state(
         group_name=group_name,
@@ -509,7 +509,7 @@ async def remove_group(
             has_machine=False,
             has_squad=False,
             justification=justification,
-            modified_by=user_email,
+            modified_by=email,
             status=GroupStateStatus.DELETED,
         ),
     )
@@ -517,11 +517,11 @@ async def remove_group(
 
 async def update_group_managed(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comments: str,
+    email: str,
     group_name: str,
     managed: GroupManaged,
-    user_email: str,
 ) -> None:
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
@@ -547,7 +547,7 @@ async def update_group_managed(
                     managed=managed,
                     payment_id=group.state.payment_id,
                     justification=GroupStateUpdationJustification["NONE"],
-                    modified_by=user_email,
+                    modified_by=email,
                     service=group.state.service,
                     status=GroupStateStatus.ACTIVE,
                     tier=group.state.tier,
@@ -565,7 +565,7 @@ async def update_group_managed(
                 group_name=group_name,
                 managed=managed,
                 organization_name=organization.name,
-                requester_email=user_email,
+                requester_email=email,
             )
 
 
@@ -573,10 +573,10 @@ async def update_group_payment_id(
     *,
     group: Group,
     comments: str,
+    email: str,
     group_name: str,
     payment_id: str,
     managed: GroupManaged,
-    user_email: str,
 ) -> None:
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
@@ -591,7 +591,7 @@ async def update_group_payment_id(
                 has_squad=group.state.has_squad,
                 managed=managed,
                 justification=GroupStateUpdationJustification["NONE"],
-                modified_by=user_email,
+                modified_by=email,
                 payment_id=payment_id,
                 service=group.state.service,
                 status=GroupStateStatus.ACTIVE,
@@ -605,6 +605,7 @@ async def update_group(
     *,
     loaders: Dataloaders,
     comments: str,
+    email: str,
     group_name: str,
     has_arm: bool,
     has_machine: bool,
@@ -613,7 +614,6 @@ async def update_group(
     service: Optional[GroupService],
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
-    user_email: str,
 ) -> None:
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
@@ -627,9 +627,7 @@ async def update_group(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    if await enrollment_domain.is_trial(
-        loaders, user_email, organization
-    ) and (
+    if await enrollment_domain.is_trial(loaders, email, organization) and (
         has_squad
         or not has_machine
         or service != GroupService.WHITE
@@ -640,8 +638,8 @@ async def update_group(
     if service != group.state.service:
         await deactivate_all_roots(
             loaders=loaders,
+            email=email,
             group_name=group_name,
-            user_email=user_email,
             other=comments,
             reason=justification.value,
         )
@@ -658,7 +656,7 @@ async def update_group(
             has_squad=has_squad,
             managed=group.state.managed,
             justification=justification,
-            modified_by=user_email,
+            modified_by=email,
             service=service,
             status=GroupStateStatus.ACTIVE,
             tier=tier,
@@ -676,7 +674,7 @@ async def update_group(
             has_machine=has_machine,
             has_squad=has_squad,
             reason=justification.value,
-            requester_email=user_email,
+            requester_email=email,
             service=service.value if service else "",
             subscription=str(subscription.value).lower(),
         )
@@ -686,67 +684,67 @@ async def update_group(
         loaders=loaders,
         group_name=group_name,
         justification=justification,
-        user_email=user_email,
+        email=email,
     )
     await notifications_domain.delete_group(
         loaders=loaders,
         deletion_date=datetime_utils.get_now_as_str(),
         group_name=group_name,
-        requester_email=user_email,
+        requester_email=email,
         reason=justification.value,
     )
 
 
 async def update_group_tier(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comments: str,
+    email: str,
     group_name: str,
     tier: GroupTier,
-    user_email: str,
 ) -> None:
     """Set a new tier for a group."""
-    data = {
-        "loaders": loaders,
-        "comments": comments,
-        "group_name": group_name,
-        "has_arm": True,
-        "has_machine": False,
-        "has_squad": False,
-        "justification": GroupStateUpdationJustification.OTHER,
-        "service": GroupService.WHITE,
-        "subscription": GroupSubscriptionType.CONTINUOUS,
-        "tier": tier,
-        "user_email": user_email,
-    }
-
     if tier == GroupTier.MACHINE:
-        data["subscription"] = GroupSubscriptionType.CONTINUOUS
-        data["has_machine"] = True
-        data["has_squad"] = False
-        data["service"] = GroupService.WHITE
+        subscription = GroupSubscriptionType.CONTINUOUS
+        has_machine = True
+        has_squad = False
+        service = GroupService.WHITE
     elif tier == GroupTier.SQUAD:
-        data["subscription"] = GroupSubscriptionType.CONTINUOUS
-        data["has_machine"] = True
-        data["has_squad"] = True
-        data["service"] = GroupService.WHITE
+        subscription = GroupSubscriptionType.CONTINUOUS
+        has_machine = True
+        has_squad = True
+        service = GroupService.WHITE
     elif tier == GroupTier.ONESHOT:
-        data["subscription"] = GroupSubscriptionType.ONESHOT
-        data["has_machine"] = False
-        data["has_squad"] = False
-        data["service"] = GroupService.BLACK
+        subscription = GroupSubscriptionType.ONESHOT
+        has_machine = False
+        has_squad = False
+        service = GroupService.BLACK
     elif tier == GroupTier.FREE:
-        data["subscription"] = GroupSubscriptionType.CONTINUOUS
-        data["has_machine"] = False
-        data["has_squad"] = False
-        data["service"] = GroupService.WHITE
+        subscription = GroupSubscriptionType.CONTINUOUS
+        has_machine = False
+        has_squad = False
+        service = GroupService.WHITE
     else:
         raise InvalidGroupTier()
 
-    await update_group(**data)
+    await update_group(
+        loaders=loaders,
+        comments=comments,
+        email=email,
+        group_name=group_name,
+        justification=GroupStateUpdationJustification.OTHER,
+        has_arm=True,
+        has_machine=has_machine,
+        has_squad=has_squad,
+        service=service,
+        subscription=subscription,
+        tier=tier,
+    )
 
 
-async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
+async def get_closed_vulnerabilities(
+    loaders: Dataloaders, group_name: str
+) -> int:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
@@ -761,7 +759,7 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
 
 
 async def get_groups_by_stakeholder(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     active: bool = True,
     organization_id: str = "",
@@ -796,7 +794,7 @@ async def get_groups_by_stakeholder(
 
 async def get_vulnerabilities_with_pending_attacks(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> int:
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -819,7 +817,7 @@ async def get_vulnerabilities_with_pending_attacks(
 
 
 async def get_max_severity(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> Decimal:
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -838,7 +836,7 @@ async def get_max_severity(
 
 
 async def get_mean_remediate_severity_cvssf(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
@@ -876,7 +874,7 @@ async def get_mean_remediate_severity_cvssf(
 
 
 async def get_mean_remediate_non_treated_severity_cvssf(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
@@ -922,7 +920,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
 
 
 async def get_mean_remediate_severity(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
@@ -955,7 +953,7 @@ async def get_mean_remediate_severity(
 
 
 async def get_mean_remediate_non_treated_severity(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
@@ -992,7 +990,7 @@ async def get_mean_remediate_non_treated_severity(
     )
 
 
-async def get_open_findings(loaders: Any, group_name: str) -> int:
+async def get_open_findings(loaders: Dataloaders, group_name: str) -> int:
     group_findings_loader = loaders.group_findings
     group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group_name
@@ -1008,7 +1006,7 @@ async def get_open_findings(loaders: Any, group_name: str) -> int:
 
 
 async def get_open_vulnerabilities(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> int:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -1026,7 +1024,7 @@ async def get_open_vulnerabilities(
 
 async def invite_to_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     responsibility: str,
     role: str,
@@ -1102,7 +1100,7 @@ async def invite_to_group(
 
 
 async def exists(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> bool:
     try:
@@ -1113,7 +1111,7 @@ async def exists(
 
 
 async def is_valid(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> bool:
     if await exists(loaders, group_name):
@@ -1124,7 +1122,7 @@ async def is_valid(
 
 
 async def mask_files(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
@@ -1153,11 +1151,11 @@ async def mask_files(
 
 async def add_file(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     description: str,
+    email: str,
     file_name: str,
     group_name: str,
-    user_email: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     modified_date: str = datetime_utils.get_iso_date()
@@ -1168,7 +1166,7 @@ async def add_file(
     group_file_to_add = GroupFile(
         description=description,
         file_name=file_name,
-        modified_by=user_email,
+        modified_by=email,
         modified_date=modified_date,
     )
     if not group.files:
@@ -1178,7 +1176,7 @@ async def add_file(
         await send_mail_file_report(
             loaders=loaders,
             group_name=group_name,
-            responsible=user_email,
+            responsible=email,
             file_name=file_name,
             file_description=description,
             is_added=True,
@@ -1196,10 +1194,10 @@ async def add_file(
 
 async def remove_file(
     *,
-    loaders: Any,
-    group_name: str,
+    loaders: Dataloaders,
+    email: str,
     file_name: str,
-    user_email: str,
+    group_name: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     if not group.files:
@@ -1232,7 +1230,7 @@ async def remove_file(
     await send_mail_file_report(
         loaders=loaders,
         group_name=group_name,
-        responsible=user_email,
+        responsible=email,
         file_name=file_name,
         file_description=file_to_remove.description,
         modified_date=datetime_utils.get_iso_date(),
@@ -1242,7 +1240,7 @@ async def remove_file(
 
 async def send_mail_file_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     file_name: str,
@@ -1257,7 +1255,7 @@ async def send_mail_file_report(
         "user_manager",
         "hacker",
     }
-    users_email = (
+    stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=group_name,
@@ -1274,19 +1272,19 @@ async def send_mail_file_report(
         file_name=file_name,
         file_description=file_description,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
-        email_to=users_email,
+        email_to=stakeholders_email,
         uploaded_date=uploaded_date,
     )
 
 
-async def remove_all_users(
+async def remove_all_stakeholders(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     modified_by: str,
 ) -> None:
-    """Remove user access to group."""
-    user_active, user_suspended = await collect(
+    """Revoke stakeholders access to group."""
+    active, suspended = await collect(
         [
             group_access_domain.get_group_stakeholders_emails(
                 loaders, group_name, True
@@ -1296,11 +1294,16 @@ async def remove_all_users(
             ),
         ]
     )
-    all_users = user_active + user_suspended
+    all_stakeholders_email = active + suspended
     await collect(
         [
-            remove_user(loaders, group_name, user, modified_by)
-            for user in all_users
+            remove_stakeholder(
+                loaders=loaders,
+                email_to_revoke=email,
+                group_name=group_name,
+                modified_by=modified_by,
+            )
+            for email in all_stakeholders_email
         ]
     )
 
@@ -1326,7 +1329,7 @@ async def remove_all_roots(
 
 async def remove_resources(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     email: str,
 ) -> None:
@@ -1356,78 +1359,83 @@ async def remove_resources(
     await forces_model.remove_group_forces_executions(group_name=group_name)
 
 
-async def remove_user(
-    loaders: Any,
+async def remove_stakeholder(
+    *,
+    loaders: Dataloaders,
+    email_to_revoke: str,
     group_name: str,
-    email: str,
     modified_by: str,
 ) -> None:
-    """Remove user access to group."""
-    await group_access_domain.remove_access(loaders, email, group_name)
+    """Remove stakeholder access to group."""
+    await group_access_domain.remove_access(
+        loaders, email_to_revoke, group_name
+    )
 
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    has_org_access, user_groups_names = await collect(
+    has_org_access, stakeholder_groups_names = await collect(
         (
-            orgs_domain.has_access(loaders, organization_id, email),
-            get_groups_by_stakeholder(loaders, email),
+            orgs_domain.has_access(loaders, organization_id, email_to_revoke),
+            get_groups_by_stakeholder(loaders, email_to_revoke),
         )
     )
     org_groups_names = set(
         group.name
         for group in await loaders.organization_groups.load(organization_id)
     )
-    user_org_groups_names = set(
-        user_groups_names  # type: ignore
+    stakeholder_org_groups_names = set(
+        stakeholder_groups_names  # type: ignore
     ).intersection(org_groups_names)
-    user_org_groups: tuple[Group, ...] = await loaders.group.load_many(
-        user_org_groups_names
+    stakeholder_org_groups: tuple[Group, ...] = await loaders.group.load_many(
+        stakeholder_org_groups_names
     )
     has_groups_in_org = bool(
-        groups_utils.filter_active_groups(user_org_groups)
+        groups_utils.filter_active_groups(stakeholder_org_groups)
     )
     if has_org_access and not has_groups_in_org:
         await orgs_domain.remove_access(
-            loaders, organization_id, email, modified_by
+            loaders, organization_id, email_to_revoke, modified_by
         )
 
-    all_groups_by_user = await loaders.group.load_many(user_groups_names)
-    all_active_groups_by_user = groups_utils.filter_active_groups(
-        all_groups_by_user
+    all_groups_by_stakeholder = await loaders.group.load_many(
+        stakeholder_groups_names
     )
-    has_groups_in_asm = bool(all_active_groups_by_user)
+    all_active_groups_by_stakeholder = groups_utils.filter_active_groups(
+        all_groups_by_stakeholder
+    )
+    has_groups_in_asm = bool(all_active_groups_by_stakeholder)
     if not has_groups_in_asm:
-        await stakeholders_domain.remove(email)
+        await stakeholders_domain.remove(email_to_revoke)
 
 
 async def unsubscribe_from_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     email: str,
 ) -> None:
-    await remove_user(
+    await remove_stakeholder(
         loaders=loaders,
+        email_to_revoke=email,
         group_name=group_name,
-        email=email,
         modified_by=email,
     )
     await send_mail_unsubscribed(
         loaders=loaders,
         group_name=group_name,
-        user_email=email,
+        email=email,
     )
 
 
 async def send_mail_unsubscribed(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
+    email: str,
     group_name: str,
-    user_email: str,
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
+    stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=group_name,
@@ -1436,12 +1444,12 @@ async def send_mail_unsubscribed(
         )
     )
 
-    await groups_mail.send_mail_user_unsubscribed(
+    await groups_mail.send_mail_stakeholder_unsubscribed(
         loaders=loaders,
+        email=email,
+        email_to=stakeholders_email,
         group_name=group_name,
-        user_email=user_email,
         report_date=datetime_utils.get_datetime_from_iso_str(report_date),
-        email_to=users_email,
     )
 
 
@@ -1460,15 +1468,15 @@ async def update_metadata(
 
 async def update_group_info(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     metadata: GroupMetadataToUpdate,
-    user_email: str,
+    email: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
 
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
+    stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=group_name,
@@ -1487,17 +1495,17 @@ async def update_group_info(
         await groups_mail.send_mail_updated_group_information(
             loaders=loaders,
             group_name=group_name,
-            responsible=user_email,
+            responsible=email,
             group=group,
             metadata=metadata,
             report_date=datetime_utils.get_iso_date(),
-            email_to=users_email,
+            email_to=stakeholders_email,
         )
 
 
 async def update_forces_access_token(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     email: str,
     expiration_time: int,
@@ -1521,14 +1529,14 @@ async def update_forces_access_token(
 
 async def send_mail_devsecops_agent(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     had_token: bool,
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
+    stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=group_name,
@@ -1539,11 +1547,11 @@ async def send_mail_devsecops_agent(
 
     await groups_mail.send_mail_devsecops_agent_token(
         loaders=loaders,
+        email=responsible,
+        email_to=stakeholders_email,
         group_name=group_name,
-        user_email=responsible,
-        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
-        email_to=users_email,
         had_token=had_token,
+        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
     )
 
 
@@ -1602,10 +1610,11 @@ async def remove_pending_deletion_date(
 
 
 async def add_tags(
-    loaders: Any,
+    *,
+    loaders: Dataloaders,
+    email: str,
     group: Group,
     tags_to_add: set[str],
-    user_email: str,
 ) -> None:
     updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
     await update_metadata(
@@ -1618,7 +1627,7 @@ async def add_tags(
     await send_mail_portfolio_report(
         loaders=loaders,
         group_name=group.name,
-        responsible=user_email,
+        responsible=email,
         portfolio=", ".join(tags_to_add),
         is_added=True,
         modified_date=datetime_utils.get_iso_date(),
@@ -1626,10 +1635,11 @@ async def add_tags(
 
 
 async def remove_tag(
-    loaders: Any,
+    *,
+    loaders: Dataloaders,
+    email: str,
     group: Group,
     tag_to_remove: str,
-    user_email: str,
 ) -> None:
     if group.tags:
         group.tags.remove(tag_to_remove)
@@ -1643,7 +1653,7 @@ async def remove_tag(
         await send_mail_portfolio_report(
             loaders=loaders,
             group_name=group.name,
-            responsible=user_email,
+            responsible=email,
             portfolio=tag_to_remove,
             modified_date=datetime_utils.get_iso_date(),
         )
@@ -1651,7 +1661,7 @@ async def remove_tag(
 
 async def send_mail_portfolio_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     portfolio: str,
@@ -1659,7 +1669,7 @@ async def send_mail_portfolio_report(
     modified_date: str,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
+    stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=group_name,
@@ -1675,7 +1685,7 @@ async def send_mail_portfolio_report(
         is_added=is_added,
         portfolio=portfolio,
         report_date=datetime_utils.get_date_from_iso_str(modified_date),
-        email_to=users_email,
+        email_to=stakeholders_email,
     )
 
 
@@ -1696,7 +1706,7 @@ def validate_group_services_config(
 
 
 async def validate_group_tags(
-    loaders: Any, group_name: str, tags: list[str]
+    loaders: Dataloaders, group_name: str, tags: list[str]
 ) -> list[str]:
     """Validate tags array."""
     pattern = re.compile("^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -1706,15 +1716,16 @@ async def validate_group_tags(
 
 
 async def request_upgrade(
-    loaders: Any,
+    *,
+    loaders: Dataloaders,
+    email: str,
     group_names: list[str],
-    user_email: str,
 ) -> None:
     """
-    Lead the user towards a subscription upgrade managed by our team.
+    Lead the stakeholder towards a subscription upgrade managed by our team.
     This is meant to be a temporary flow while the billing module gets ready.
     """
-    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, email)
     if not all(
         enforcer(group_name, "request_group_upgrade")
         for group_name in group_names
@@ -1725,13 +1736,11 @@ async def request_upgrade(
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
-    await notifications_domain.request_groups_upgrade(
-        loaders, user_email, groups
-    )
+    await notifications_domain.request_groups_upgrade(loaders, email, groups)
 
 
 async def filter_groups_with_org(
-    loaders: Any, group_names: tuple[str, ...]
+    loaders: Dataloaders, group_names: tuple[str, ...]
 ) -> tuple[str, ...]:
     """
     In current group's data, there are legacy groups with no org assigned.
@@ -1745,7 +1754,7 @@ async def filter_groups_with_org(
 
 
 async def get_treatment_summary(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> GroupTreatmentSummary:
     """Get the total vulnerability treatment."""
@@ -1780,7 +1789,7 @@ async def get_treatment_summary(
 
 
 async def get_oldest_finding_date(
-    loaders: Any, group_name: str
+    loaders: Dataloaders, group_name: str
 ) -> Optional[datetime]:
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
@@ -1799,11 +1808,11 @@ async def get_oldest_finding_date(
 
 async def update_policies(
     *,
+    loaders: Dataloaders,
+    email: str,
     group_name: str,
-    loaders: Any,
     organization_id: str,
     policies_to_update: PoliciesToUpdate,
-    user_email: str,
 ) -> None:
     validated_policies: dict[str, Any] = {}
     for attr, value in policies_to_update._asdict().items():
@@ -1824,7 +1833,7 @@ async def update_policies(
         today = datetime_utils.get_iso_date()
         await groups_model.update_policies(
             group_name=group_name,
-            modified_by=user_email,
+            modified_by=email,
             modified_date=today,
             organization_id=organization_id,
             policies=policies_to_update,
@@ -1835,13 +1844,13 @@ async def update_policies(
                 loaders=loaders,
                 modified_date=today,
                 new_policies=policies_to_update._asdict(),
-                responsible=user_email,
+                responsible=email,
             )
         )
 
 
 async def validate_acceptance_severity_range(
-    *, group_name: str, loaders: Any, values: PoliciesToUpdate
+    *, group_name: str, loaders: Dataloaders, values: PoliciesToUpdate
 ) -> bool:
     success: bool = True
     group: Group = await loaders.group.load(group_name)
@@ -1879,7 +1888,7 @@ async def validate_acceptance_severity_range(
 async def send_mail_policies(
     *,
     group_name: str,
-    loaders: Any,
+    loaders: Dataloaders,
     modified_date: str,
     new_policies: dict[str, Any],
     responsible: str,

@@ -120,7 +120,7 @@ async def mutate(
                 if sprint_start_date
                 else None,
             ),
-            user_email=user_email,
+            email=user_email,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

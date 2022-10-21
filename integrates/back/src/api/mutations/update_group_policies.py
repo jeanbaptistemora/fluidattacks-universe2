@@ -45,20 +45,21 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data["user_email"]
+    email = user_data["user_email"]
     group: Group = await loaders.group.load(group_name.lower())
     policies_to_update = format_policies_to_update(kwargs)
 
     await update_policies(
-        group_name=group.name,
         loaders=loaders,
+        email=email,
+        group_name=group.name,
         organization_id=group.organization_id,
         policies_to_update=policies_to_update,
-        user_email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: User {user_email} updated policies for group {group.name}",
+        f"Security: Stakeholder {email} "
+        f"updated policies for group {group.name}",
     )
 
     return SimplePayload(success=True)

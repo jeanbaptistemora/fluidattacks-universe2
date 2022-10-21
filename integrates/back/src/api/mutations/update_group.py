@@ -61,7 +61,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
+    email = user_info["user_email"]
     has_arm: bool = kwargs["has_asm"]
     has_machine: bool = kwargs["has_machine"]
     has_squad: bool = kwargs["has_squad"]
@@ -80,6 +80,7 @@ async def mutate(
         await groups_domain.update_group(
             loaders=loaders,
             comments=comments,
+            email=email,
             group_name=group_name,
             justification=GroupStateUpdationJustification[reason.upper()],
             has_arm=has_arm,
@@ -88,7 +89,6 @@ async def mutate(
             service=service,
             subscription=subscription_type,
             tier=tier,
-            user_email=user_email,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

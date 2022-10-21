@@ -67,7 +67,7 @@ async def mutate(
             loaders=loaders,
             group_name=group_name,
             file_name=file_name,
-            user_email=user_email,
+            email=user_email,
         )
     except ErrorUpdatingGroup:
         LOGGER.error(

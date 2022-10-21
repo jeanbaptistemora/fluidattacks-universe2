@@ -90,7 +90,7 @@ from vulnerabilities import (
 async def deactivate_root(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
     root: Root,
-    user_email: str,
+    email: str,
     **kwargs: Any,
 ) -> None:
     group_name: str = kwargs["group_name"]
@@ -139,7 +139,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         tuple(
             vulns_domain.close_by_exclusion(
                 vulnerability=vuln,
-                modified_by=user_email,
+                modified_by=email,
                 source=source,
             )
             for vuln in root_vulnerabilities
@@ -147,18 +147,18 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         workers=32,
     )
     await roots_domain.deactivate_root(
+        email=email,
         group_name=group_name,
         other=other,
         reason=reason,
         root=root,
-        user_email=user_email,
     )
     if root.state.status != RootStatus.INACTIVE:
         if isinstance(root, GitRoot):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,
                 entity=group_name,
-                subject=user_email,
+                subject=email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
                 dependsOn=[
@@ -167,7 +167,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                             await batch_dal.put_action(
                                 action=Action.REMOVE_ROOTS,
                                 entity=group_name,
-                                subject=user_email,
+                                subject=email,
                                 additional_info=root.state.nickname,
                                 product_name=Product.INTEGRATES,
                             )
@@ -181,7 +181,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
                 entity=group_name,
-                subject=user_email,
+                subject=email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
             )
@@ -212,7 +212,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root_nickname=root.state.nickname,
         sast_vulns=len(sast_vulns),
         dast_vulns=len(dast_vulns),
-        responsible=user_email,
+        responsible=email,
     )
 
 
@@ -227,17 +227,17 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
+    email: str = user_info["user_email"]
     root_loader: DataLoader = info.context.loaders.root
     root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRoot):
         await require_service_white(deactivate_root)(
-            info, root, user_email, **kwargs
+            info, root, email, **kwargs
         )
     else:
         await require_service_black(deactivate_root)(
-            info, root, user_email, **kwargs
+            info, root, email, **kwargs
         )
 
     return SimplePayload(success=True)

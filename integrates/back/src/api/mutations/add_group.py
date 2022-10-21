@@ -68,12 +68,14 @@ async def mutate(
             else GroupService.BLACK
         )
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data["user_email"]
-    user_role = await authz.get_user_level_role(loaders, user_email)
+    email = user_data["user_email"]
+    granted_role = await authz.get_user_level_role(loaders, email)
 
     await groups_domain.add_group(
         loaders=loaders,
         description=description,
+        email=email,
+        granted_role=granted_role,
         group_name=group_name,
         has_machine=has_machine,
         has_squad=has_squad,
@@ -81,8 +83,6 @@ async def mutate(
         organization_name=organization_name,
         service=service,
         subscription=subscription_type,
-        user_email=user_email,
-        user_role=user_role,
     )
     await forces_domain.add_forces_user(info, group_name)
     logs_utils.cloudwatch_log(

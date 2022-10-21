@@ -64,22 +64,22 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_create_group_not_user_admin() -> None:
-    user_email = "integratesuser@gmail.com"
-    user_role = "user_manager"
+    email = "integratesuser@gmail.com"
+    granted_role = "user_manager"
     loaders: Dataloaders = get_new_context()
     active_groups = await orgs_domain.get_all_active_group_names(loaders)
     assert len(active_groups) == 15
     await add_group(
         loaders=loaders,
         description="This is a new group",
+        email=email,
+        granted_role=granted_role,
         group_name="newavailablename",
         has_machine=True,
         has_squad=True,
         organization_name="okada",
         service=GroupService.WHITE,
         subscription=GroupSubscriptionType.CONTINUOUS,
-        user_email=user_email,
-        user_role=user_role,
     )
     active_groups = await orgs_domain.get_all_active_group_names(
         loaders=get_new_context()
@@ -89,7 +89,7 @@ async def test_create_group_not_user_admin() -> None:
         loaders=get_new_context(),
         group_name="newavailablename",
         justification=GroupStateRemovalJustification.OTHER,
-        user_email=user_email,
+        email=email,
     )
     active_groups = await orgs_domain.get_all_active_group_names(
         loaders=get_new_context()
@@ -352,6 +352,7 @@ async def test_update_group(
     await update_group(
         loaders=get_new_context(),
         comments="",
+        email="integratesmanager@fluidattacks.com",
         group_name=group_name,
         justification=GroupStateUpdationJustification.NONE,
         has_arm=has_arm,
@@ -360,7 +361,6 @@ async def test_update_group(
         service=service,
         subscription=subscription,
         tier=tier,
-        user_email="integratesmanager@fluidattacks.com",
     )
 
 

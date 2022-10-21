@@ -83,7 +83,7 @@ async def process_group(
     all_resources_removed = await groups_domain.remove_resources(
         loaders=loaders, group_name=group_name, email=user_deletion
     )
-    are_users_removed = await groups_domain.remove_all_users(
+    are_users_removed = await groups_domain.remove_all_stakeholders(
         loaders=loaders, group_name=group_name
     )
     try:

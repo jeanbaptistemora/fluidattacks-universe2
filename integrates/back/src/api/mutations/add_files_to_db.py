@@ -67,7 +67,7 @@ async def mutate(
                 description=file_data["description"],
                 file_name=file_data["fileName"],
                 group_name=group_name,
-                user_email=user_email,
+                email=user_email,
             )
     except (InvalidChar, ErrorFileNameAlreadyExists):
         LOGGER.error(

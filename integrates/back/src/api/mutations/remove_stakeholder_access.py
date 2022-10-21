@@ -40,8 +40,11 @@ async def mutate(
 ) -> RemoveStakeholderAccessPayload:
     user_data = await token_utils.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
-    await groups_domain.remove_user(
-        info.context.loaders, group_name, user_email, requester_email
+    await groups_domain.remove_stakeholder(
+        loaders=info.context.loaders,
+        email_to_revoke=user_email,
+        group_name=group_name,
+        modified_by=requester_email,
     )
     msg = (
         f"Security: Removed stakeholder: {user_email} from {group_name} "

@@ -948,7 +948,7 @@ async def webhook(request: Request) -> JSONResponse:
                 comments=f"Triggered by Stripe with event {event.id}",
                 group_name=str(event.data.object.metadata.group).lower(),
                 tier=GroupTier[tier.upper()],
-                user_email="development@fluidattacks.com",
+                email="development@fluidattacks.com",
             )
             message = "Success"
 

@@ -72,6 +72,7 @@ async def mutate(
         await groups_domain.update_group(
             loaders=loaders,
             comments="",
+            email=requester_email,
             group_name=group_name,
             justification=GroupStateRemovalJustification[reason.upper()],
             has_arm=False,
@@ -80,7 +81,6 @@ async def mutate(
             service=group.state.service,
             subscription=group.state.type,
             tier=GroupTier.FREE,
-            user_email=requester_email,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

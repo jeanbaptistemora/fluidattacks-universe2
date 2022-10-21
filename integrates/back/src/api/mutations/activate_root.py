@@ -65,7 +65,7 @@ async def activate_git_root(
         loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
-        user_email=user_email,
+        email=user_email,
     )
 
 
@@ -80,7 +80,7 @@ async def activate_ip_root(
         loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
-        user_email=user_email,
+        email=user_email,
     )
 
 
@@ -95,7 +95,7 @@ async def activate_url_root(
         loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
-        user_email=user_email,
+        email=user_email,
     )
 
 

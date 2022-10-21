@@ -46,14 +46,14 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group = await loaders.group.load(group_name)
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
+    email: str = user_info["user_email"]
 
     if await groups_domain.is_valid(loaders, group_name) and group.tags:
         await groups_domain.remove_tag(
             loaders=loaders,
+            email=email,
             group=group,
             tag_to_remove=tag,
-            user_email=user_email,
         )
         logs_utils.cloudwatch_log(
             info.context,

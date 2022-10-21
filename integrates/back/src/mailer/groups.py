@@ -756,23 +756,21 @@ async def send_mail_updated_services(
 async def send_mail_devsecops_agent_token(
     *,
     loaders: Any,
-    group_name: str,
-    user_email: str,
-    report_date: date,
+    email: str,
     email_to: List[str],
+    group_name: str,
     had_token: bool,
+    report_date: date,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     token_status: str = "reset" if had_token else "generated"
-    user_role = await authz.get_group_level_role(
-        loaders, user_email, group_name
-    )
+    user_role = await authz.get_group_level_role(loaders, email, group_name)
 
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
         "report_date": report_date.strftime("on %Y-%m-%d at %H:%M:%S"),
-        "responsible": user_email,
+        "responsible": email,
         "user_role": user_role.replace("_", " "),
         "had_token": had_token,
     }
@@ -786,18 +784,18 @@ async def send_mail_devsecops_agent_token(
     )
 
 
-async def send_mail_user_unsubscribed(
+async def send_mail_stakeholder_unsubscribed(
     *,
     loaders: Any,
-    group_name: str,
-    user_email: str,
-    report_date: date,
+    email: str,
     email_to: List[str],
+    group_name: str,
+    report_date: date,
 ) -> None:
     email_context: dict[str, Any] = {
         "group_name": group_name,
         "report_date": report_date.strftime("on %Y-%m-%d at %H:%M:%S"),
-        "user_email": user_email,
+        "user_email": email,
     }
     await send_mails_async(
         loaders,

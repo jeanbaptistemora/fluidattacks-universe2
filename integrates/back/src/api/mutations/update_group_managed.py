@@ -54,14 +54,14 @@ async def mutate(
     managed = GroupManaged(managed)
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
+    email = user_info["user_email"]
 
     await groups_domain.update_group_managed(
         loaders=loaders,
         comments=comments,
+        email=email,
         group_name=group_name,
         managed=managed,
-        user_email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,

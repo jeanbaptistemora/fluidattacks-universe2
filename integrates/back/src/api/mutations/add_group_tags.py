@@ -45,7 +45,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
+    email = user_info["user_email"]
 
     if not await groups_domain.is_valid(loaders, group_name):
         logs_utils.cloudwatch_log(
@@ -61,12 +61,11 @@ async def mutate(
         )
         raise ErrorUpdatingGroup.new()
 
-    group = await loaders.group.load(group_name)
     await groups_domain.add_tags(
         loaders=loaders,
-        group=group,
+        email=email,
+        group=await loaders.group.load(group_name),
         tags_to_add=set(tags),
-        user_email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,

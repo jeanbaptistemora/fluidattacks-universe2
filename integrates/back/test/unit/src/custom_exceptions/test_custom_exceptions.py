@@ -219,6 +219,7 @@ async def test_update_group_attrs_fail(
         await update_group(
             loaders=get_new_context(),
             comments="",
+            email="test@test.test",
             group_name=group_name,
             justification=GroupStateUpdationJustification.NONE,
             has_arm=has_arm,
@@ -227,7 +228,6 @@ async def test_update_group_attrs_fail(
             service=service,
             subscription=subscription,
             tier=tier,
-            user_email="test@test.test",
         )
 
 

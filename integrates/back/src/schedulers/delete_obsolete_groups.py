@@ -43,9 +43,9 @@ async def _remove_group(
 ) -> None:
     await groups_domain.remove_group(
         loaders=loaders,
+        email=user_email,
         group_name=group_name,
         justification=GroupStateRemovalJustification.OTHER,
-        user_email=user_email,
         validate_pending_actions=False,
     )
 

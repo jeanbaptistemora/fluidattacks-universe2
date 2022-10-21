@@ -33,11 +33,12 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
+    email = user_info["user_email"]
     group_names: list[str] = kwargs["group_names"]
-
     await groups_domain.request_upgrade(
-        info.context.loaders, group_names, user_email
+        loaders=info.context.loaders,
+        email=email,
+        group_names=group_names,
     )
 
     return SimplePayload(success=True)

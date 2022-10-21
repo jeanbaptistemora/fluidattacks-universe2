@@ -59,22 +59,22 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
+    email = user_info["user_email"]
     group_name: str = kwargs["group_name"].lower()
     root_id: str = kwargs["id"]
     target_group_name: str = kwargs["target_group_name"].lower()
 
     new_root_id = await roots_domain.move_root(
-        info.context.loaders,
-        user_email,
-        group_name,
-        root_id,
-        target_group_name,
+        loaders=loaders,
+        email=email,
+        group_name=group_name,
+        root_id=root_id,
+        target_group_name=target_group_name,
     )
     await batch_dal.put_action(
         action=Action.MOVE_ROOT,
         entity=group_name,
-        subject=user_email,
+        subject=email,
         additional_info=json.dumps(
             {
                 "target_group_name": target_group_name,
@@ -91,7 +91,7 @@ async def mutate(
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,
             entity=group_name,
-            subject=user_email,
+            subject=email,
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
         )
@@ -99,7 +99,7 @@ async def mutate(
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_INPUTS,
             entity=group_name,
-            subject=user_email,
+            subject=email,
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
         )

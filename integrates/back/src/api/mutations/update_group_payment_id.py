@@ -95,7 +95,7 @@ async def mutate(
         group_name=group_name,
         managed=managed,
         payment_id=payment_id,
-        user_email=user_email,
+        email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,

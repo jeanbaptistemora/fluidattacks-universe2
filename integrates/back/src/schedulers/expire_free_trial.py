@@ -78,9 +78,9 @@ async def expire(
         await groups_domain.update_group_managed(
             loaders=loaders,
             comments="Trial period has expired",
+            email="integrates@fluidattacks.com",
             group_name=group.name,
             managed=GroupManaged.UNDER_REVIEW,
-            user_email="integrates@fluidattacks.com",
         )
         await groups_mail.send_mail_free_trial_over(
             loaders=loaders,

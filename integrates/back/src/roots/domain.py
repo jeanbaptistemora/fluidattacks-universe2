@@ -1112,7 +1112,11 @@ async def send_mail_root_cloning_status(
 
 
 async def activate_root(
-    *, loaders: Any, group_name: str, root: Root, user_email: str
+    *,
+    loaders: Dataloaders,
+    email: str,
+    group_name: str,
+    root: Root,
 ) -> None:
     new_status = RootStatus.ACTIVE
 
@@ -1142,7 +1146,7 @@ async def activate_root(
                     git_environment_urls=[],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=None,
@@ -1158,7 +1162,7 @@ async def activate_root(
                     branch=root.state.branch,
                     group_name=group_name,
                     repo_url=root.state.url,
-                    requester_email=user_email,
+                    requester_email=email,
                 )
 
         elif isinstance(root, IPRoot):
@@ -1173,7 +1177,7 @@ async def activate_root(
                 root_id=root.id,
                 state=IPRootState(
                     address=root.state.address,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=None,
@@ -1200,7 +1204,7 @@ async def activate_root(
                 root_id=root.id,
                 state=URLRootState(
                     host=root.state.host,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=None,
@@ -1215,11 +1219,11 @@ async def activate_root(
 
 async def deactivate_root(
     *,
+    email: str,
     group_name: str,
     other: Optional[str],
     reason: str,
     root: Root,
-    user_email: str,
 ) -> None:
     new_status = RootStatus.INACTIVE
 
@@ -1237,7 +1241,7 @@ async def deactivate_root(
                     git_environment_urls=[],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=other,
@@ -1253,7 +1257,7 @@ async def deactivate_root(
                     branch=root.state.branch,
                     group_name=group_name,
                     repo_url=root.state.url,
-                    requester_email=user_email,
+                    requester_email=email,
                 )
 
         elif isinstance(root, IPRoot):
@@ -1263,7 +1267,7 @@ async def deactivate_root(
                 root_id=root.id,
                 state=IPRootState(
                     address=root.state.address,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=other,
@@ -1280,7 +1284,7 @@ async def deactivate_root(
                 root_id=root.id,
                 state=URLRootState(
                     host=root.state.host,
-                    modified_by=user_email,
+                    modified_by=email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=other,
@@ -1291,31 +1295,6 @@ async def deactivate_root(
                     status=new_status,
                 ),
             )
-
-
-async def update_root_state(
-    loaders: Any,
-    user_email: str,
-    group_name: str,
-    root_id: str,
-    state: str,
-) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
-    if state == "ACTIVE":
-        await activate_root(
-            loaders=loaders,
-            group_name=group_name,
-            root=root,
-            user_email=user_email,
-        )
-    else:
-        await deactivate_root(
-            group_name=group_name,
-            other=None,
-            reason="UNKNOWN",
-            root=root,
-            user_email=user_email,
-        )
 
 
 def get_root_id_by_nickname(
@@ -1475,8 +1454,9 @@ async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
 
 
 async def move_root(
-    loaders: Any,
-    user_email: str,
+    *,
+    loaders: Dataloaders,
+    email: str,
     group_name: str,
     root_id: str,
     target_group_name: str,
@@ -1511,7 +1491,7 @@ async def move_root(
 
         new_root = await add_git_root(
             loaders,
-            user_email,
+            email,
             ensure_org_uniqueness=False,
             branch=root.state.branch,
             environment=root.state.environment,
@@ -1538,7 +1518,7 @@ async def move_root(
 
         new_root_id = await add_ip_root(
             loaders,
-            user_email,
+            email,
             ensure_org_uniqueness=False,
             address=root.state.address,
             group_name=target_group_name,
@@ -1561,7 +1541,7 @@ async def move_root(
         path = "" if root.state.path == "/" else root.state.path
         new_root_id = await add_url_root(
             loaders,
-            user_email,
+            email,
             ensure_org_uniqueness=False,
             group_name=target_group_name,
             nickname=root.state.nickname,
@@ -1576,7 +1556,7 @@ async def move_root(
         other=target_group_name,
         reason="MOVED_TO_ANOTHER_GROUP",
         root=root,
-        user_email=user_email,
+        email=email,
     )
 
     return new_root_id
@@ -1858,7 +1838,7 @@ async def remove_root(
                 other="",
                 reason=reason,
                 root=root,
-                user_email=email,
+                email=email,
             ),
             roots_model.remove_root_environment_urls(root_id=root.id),
             roots_model.remove_root_machine_executions(root_id=root.id),
