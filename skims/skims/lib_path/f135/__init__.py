@@ -5,7 +5,7 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
-from lib_path.f135.dotnetconfig import (
+from lib_path.f135.conf_files import (
     has_x_xss_protection_header,
 )
 from model.core_model import (

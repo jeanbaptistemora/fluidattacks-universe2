@@ -4395,9 +4395,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    DOTNETCONFIG_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
-        file_name="dotnetconfig",
-        name="dotnetconfig_has_x_xss_protection_header",
+    XML_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
+        file_name="conf_files",
+        name="xml_has_x_xss_protection_header",
         module="lib_path",
         finding=FindingEnum.F135,
         developer=DeveloperEnum.LUIS_PATINO,

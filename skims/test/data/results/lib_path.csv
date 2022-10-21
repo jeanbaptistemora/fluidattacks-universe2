@@ -28780,7 +28780,7 @@ F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,644,skims,13
    9 |     </system.webServer>
   10 | </configuration>
      ^ Col 0
-",dotnetconfig.dotnetconfig_has_x_xss_protection_header
+",conf_files.xml_has_x_xss_protection_header
 F131,lines,namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs,21,644,skims,131. Insecure or unset HTTP headers - Strict Transport Security,"The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small in namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs","
    8 | namespace codetest
    9 | {
