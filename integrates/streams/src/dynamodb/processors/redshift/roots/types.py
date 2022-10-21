@@ -24,17 +24,17 @@ class MetadataTableRow:
 
 
 @dataclass(frozen=True)
-class EnvironmentUrlTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    cloud_name: Optional[str]
-    created_at: datetime
-    url_type: Optional[str]
-
-
-@dataclass(frozen=True)
 class RootCodeLanguagesTableRow:
     # pylint: disable=invalid-name
     id: str
     language: str
     loc: int
+
+
+@dataclass(frozen=True)
+class RootEnvironmentUrlTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    cloud_name: Optional[str]
+    created_at: datetime
+    url_type: Optional[str]
