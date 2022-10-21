@@ -39,7 +39,9 @@ async def resolve(
                 for requirement_id in (
                     unfulfilled_standard.unfulfilled_requirements
                 )
+                if requirement_id in requirements_file
             ],
         )
         for unfulfilled_standard in parent.unfulfilled_standards or []
+        if unfulfilled_standard.name in compliance_file
     ]
