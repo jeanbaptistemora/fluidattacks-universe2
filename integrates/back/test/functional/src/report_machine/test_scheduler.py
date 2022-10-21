@@ -356,3 +356,54 @@ async def test_approval(populate: bool) -> None:
         assert f_237.approval is not None
         assert f_237.approval.status == FindingStateStatus.APPROVED
         assert f_237.approval.source == Source.MACHINE
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report_machine_s3")
+async def test_report_inputs(populate: bool) -> None:
+    assert populate
+    with open(
+        "back/test/functional/src/report_machine/sarif/report_inputs.sarif",
+        "rb",
+    ) as sarif:
+        sarif_report = json.load(sarif)
+
+    with mock.patch(
+        "schedulers.report_machine.get_config",
+        side_effect=mock.AsyncMock(
+            return_value={
+                "namespace": "nickname",
+                "language": "EN",
+                "dast": {"http": {"include": ["http://localhost:48000/"]}},
+                "path": {"include": [], "exclude": []},
+                "apk": {"include": [], "exclude": []},
+            },
+        ),
+    ), mock.patch(
+        "schedulers.report_machine.get_sarif_log",
+        side_effect=mock.AsyncMock(return_value=sarif_report),
+    ):
+        loaders = get_new_context()
+        findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_drafts_and_findings.load("group1")
+        f_128: Optional[Finding] = next(
+            (fin for fin in findings if fin.title.startswith("128")), None
+        )
+        assert f_128 is None
+
+        await process_execution("group1_")
+        loaders.group_drafts_and_findings.clear("group1")
+
+        findings = await loaders.group_drafts_and_findings.load("group1")
+        f_128 = next(
+            (fin for fin in findings if fin.title.startswith("128")), None
+        )
+        assert f_128 is not None
+        assert f_128.submission is not None
+        assert f_128.submission.status == FindingStateStatus.SUBMITTED
+        assert f_128.submission.source == Source.MACHINE
+        assert f_128.approval is None
+
+        f_128_vulns = await loaders.finding_vulnerabilities.load(f_128.id)
+        assert len(f_128_vulns) == 2

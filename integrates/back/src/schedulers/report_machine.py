@@ -491,6 +491,16 @@ def _get_vulns_with_reattack(
     return result
 
 
+def _get_input_url(vuln: Dict[str, Any], repo_nickname: str) -> str:
+    url: str = vuln["locations"][0]["physicalLocation"]["artifactLocation"][
+        "uri"
+    ]
+    while url.endswith("/"):
+        url = url.rstrip("/")
+
+    return f"{url} ({repo_nickname})"
+
+
 def _build_vulnerabilities_stream_from_sarif(
     vulnerabilities: List[Dict[str, Any]],
     commit_hash: str,
@@ -503,10 +513,7 @@ def _build_vulnerabilities_stream_from_sarif(
                 "repo_nickname": repo_nickname,
                 "state": "open",
                 "stream": vuln["properties"]["stream"],
-                "url": (
-                    f"{vuln['locations'][0]['physicalLocation']['artifactLocation']['uri']}"  # noqa
-                    f" ({repo_nickname})"
-                ),
+                "url": _get_input_url(vuln, repo_nickname),
                 "skims_method": vuln["properties"]["source_method"],
                 "skims_technique": vuln["properties"]["technique"],
                 "developer": vuln["properties"]["method_developer"],
@@ -643,6 +650,7 @@ async def ensure_toe_inputs(
     for vuln in stream["inputs"]:
         if vuln["state"] != "open" or vuln["skims_technique"] == "APK":
             continue
+
         with suppress(RepeatedToeInput):
             await toe_inputs_domain.add(
                 loaders=loaders,

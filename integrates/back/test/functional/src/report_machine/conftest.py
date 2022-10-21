@@ -47,6 +47,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+    RootEnvironmentUrl,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -122,7 +123,13 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         branch="master",
                         environment_urls=[],
                         environment="production",
-                        git_environment_urls=[],
+                        git_environment_urls=[
+                            RootEnvironmentUrl(
+                                url="http://localhost:48000/",
+                                id="3aca06ef047ca0195f8ffc7ea5b64605b3f779cb",
+                                secrets=[],
+                            )
+                        ],
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
