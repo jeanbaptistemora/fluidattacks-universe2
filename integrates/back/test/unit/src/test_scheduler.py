@@ -53,49 +53,6 @@ pytestmark = [
 ]
 
 
-async def test_get_accepted_vulns() -> None:
-    loaders = get_new_context()
-    last_day = "2019-06-30 23:59:59"
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        "unittesting"
-    )
-    vulnerabilities = (
-        await loaders.finding_vulnerabilities_nzr.load_many_chained(
-            [finding.id for finding in findings]
-        )
-    )
-    findings_severity: dict[str, Decimal] = {
-        finding.id: get_severity_score(finding.severity)
-        for finding in findings
-    }
-    vulnerabilities_severity = [
-        findings_severity[vulnerability.finding_id]
-        for vulnerability in vulnerabilities
-    ]
-    historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulnerabilities]
-    )
-    historic_treatments = (
-        await loaders.vulnerability_historic_treatment.load_many(
-            [vuln.id for vuln in vulnerabilities]
-        )
-    )
-    test_data = sum(
-        [
-            update_indicators.get_accepted_vulns(
-                historic_state, historic_treatment, severity, last_day
-            ).vulnerabilities
-            for historic_state, historic_treatment, severity in zip(
-                historic_states,
-                historic_treatments,
-                vulnerabilities_severity,
-            )
-        ]
-    )
-    expected_output = 2
-    assert test_data == expected_output
-
-
 async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"

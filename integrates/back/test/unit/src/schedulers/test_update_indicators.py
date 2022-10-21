@@ -25,6 +25,7 @@ import pytest
 from schedulers.update_indicators import (
     create_data_format_chart,
     create_weekly_date,
+    get_accepted_vulns,
     get_date_last_vulns,
     get_first_week_dates,
     get_status_vulns_by_time_range,
@@ -71,6 +72,57 @@ def test_create_weekly_date() -> None:
     first_date = "2019-09-19 13:23:32"
     test_data = create_weekly_date(first_date)
     expected_output = "Sep 16 - 22, 2019"
+    assert test_data == expected_output
+
+
+async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
+    loaders = get_new_context()
+    last_day = "2019-06-30 23:59:59"
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        findings: tuple[Finding, ...] = await loaders.group_findings.load(
+            "unittesting"
+        )
+        vulnerabilities = (
+            await loaders.finding_vulnerabilities_nzr.load_many_chained(
+                [finding.id for finding in findings]
+            )
+        )
+        findings_severity: dict[str, Decimal] = {
+            finding.id: get_severity_score(finding.severity)
+            for finding in findings
+        }
+        vulnerabilities_severity = [
+            findings_severity[vulnerability.finding_id]
+            for vulnerability in vulnerabilities
+        ]
+        historic_states = await loaders.vulnerability_historic_state.load_many(
+            [vuln.id for vuln in vulnerabilities]
+        )
+        historic_treatments = (
+            await loaders.vulnerability_historic_treatment.load_many(
+                [vuln.id for vuln in vulnerabilities]
+            )
+        )
+    test_data = sum(
+        [
+            get_accepted_vulns(
+                historic_state, historic_treatment, severity, last_day
+            ).vulnerabilities
+            for historic_state, historic_treatment, severity in zip(
+                historic_states,
+                historic_treatments,
+                vulnerabilities_severity,
+            )
+        ]
+    )
+    expected_output = 1
     assert test_data == expected_output
 
 
@@ -159,7 +211,7 @@ async def test_get_status_vulns_by_time_range(
         last_day=last_day,
     )
 
-    expected_output = {"found": 2, "accepted": 0, "closed": 0, "opened": 2}
+    expected_output = {"found": 2, "accepted": 1, "closed": 0, "opened": 2}
     output = {
         "found": test_data.found_vulnerabilities,
         "accepted": test_data.accepted_vulnerabilities,
@@ -168,7 +220,7 @@ async def test_get_status_vulns_by_time_range(
     }
     expected_output_cvssf = {
         "found": Decimal("0.362"),
-        "accepted": Decimal("0"),
+        "accepted": Decimal("24.251"),
         "closed": Decimal("0"),
         "opened": Decimal("0.362"),
     }
