@@ -33,9 +33,7 @@ from findings import (
     domain as findings_domain,
 )
 from typing import (
-    List,
     NamedTuple,
-    Tuple,
 )
 
 
@@ -49,7 +47,7 @@ class Severity(NamedTuple):
     max_severity_found: MaxSeverity
 
 
-def get_max_severity_one(findings: Tuple[Finding, ...]) -> Tuple[int, Decimal]:
+def get_max_severity_one(findings: tuple[Finding, ...]) -> tuple[int, Decimal]:
     return max(
         enumerate(
             map(
@@ -62,7 +60,7 @@ def get_max_severity_one(findings: Tuple[Finding, ...]) -> Tuple[int, Decimal]:
     )
 
 
-def get_max_severity_many(groups: List[Decimal]) -> Tuple[int, Decimal]:
+def get_max_severity_many(groups: list[Decimal]) -> tuple[int, Decimal]:
     max_index, max_value = (
         (-1, Decimal("0.0"))
         if not groups
@@ -75,7 +73,7 @@ def get_max_severity_many(groups: List[Decimal]) -> Tuple[int, Decimal]:
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Severity:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group.lower()
     )
     max_found_index, max_found_value = get_max_severity_one(group_findings)
@@ -112,9 +110,9 @@ async def generate_one(group: str, loaders: Dataloaders) -> Severity:
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders
+    groups: list[str], loaders: Dataloaders
 ) -> Severity:
-    groups_data: List[Severity] = await collect(  # type: ignore
+    groups_data: tuple[Severity, ...] = await collect(
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 

@@ -68,7 +68,7 @@ async def generate_one(*, group: str) -> dict:
     successful_executions_in_strict_mode = tuple(
         execution
         for execution in executions_in_strict_mode
-        if execution.exit_code == 0  # type: ignore
+        if int(execution.exit_code) == 0
     )
 
     return {
