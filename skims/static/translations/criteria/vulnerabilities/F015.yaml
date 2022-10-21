@@ -14,3 +14,6 @@ lib_path.f015.jmx_header_basic:
 lib_path.f015.basic_auth_method:
   en: The basic method is used in the XML config
   es: Se utiliza el metodo basic en la configuracion XML
+lib_root.f015.java_insecure_authentication:
+  en: The server uses Basic authentication over an insecure channel.
+  es: Se utiliza autenticación básica a través de un canal inseguro.
