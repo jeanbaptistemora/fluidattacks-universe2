@@ -136,7 +136,7 @@ export const HelpModal: FC<IHelpModalProps> = ({
                   {t("navbar.help.extra.expert")}
                   <ExternalLink
                     href={
-                      "https://docs.fluidattacks.com/squad/support/talk-expert"
+                      "https://docs.fluidattacks.com/squad/support/talk-hacker"
                     }
                   >
                     <Button
