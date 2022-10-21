@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import { Route, useParams } from "react-router-dom";
 
 import { GroupTabs } from "./GroupTabs";
-import { GET_GROUP_VULNS } from "./queries";
+import { GET_ORG_GROUPS } from "./queries";
 import type { IGetOrganizationGroups, IGroupData } from "./types";
 
 import { SideBarSubTabs, SideBarTab } from "components/SideBar";
@@ -29,7 +29,7 @@ const OrganizationTabs: FC = (): JSX.Element => {
   const { org } = useParams<{ org: string }>();
   const { t } = useTranslation();
 
-  const { data } = useQuery<IGetOrganizationGroups>(GET_GROUP_VULNS, {
+  const { data: DataOrgs } = useQuery<IGetOrganizationGroups>(GET_ORG_GROUPS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(t("groupAlerts.errorTextsad"));
@@ -38,13 +38,16 @@ const OrganizationTabs: FC = (): JSX.Element => {
     },
     variables: { org },
   });
-  const dataset: IGroupData[] = data ? data.organizationId.groups : [];
+
+  const dataGroups: IGroupData[] = DataOrgs
+    ? DataOrgs.organizationId.groups
+    : [];
 
   return (
     <Fragment>
       <SideBarSubTabs>
         <SideBarTab icon={faFolder} to={`/orgs/${org}/groups`}>
-          {`Groups (${dataset.length})`}
+          {`Groups (${dataGroups.length})`}
         </SideBarTab>
         <Route path={"/orgs/:org/groups/:group/"}>
           <GroupTabs />
