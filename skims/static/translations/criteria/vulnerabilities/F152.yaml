@@ -3,3 +3,10 @@ lib_path.f152.xml_x_frame_options:
   en: El encabezado de respuesta HTTP X-Frame-Options puede ser usado para indicar si debería permitírsele a un navegador renderizar una página en un <frame>, <iframe>, <embed> u <object>. Las páginas web pueden usarlo para evitar ataques de click-jacking, asegurándose de que su contenido no es embebido en otros sitios.
 
   es: The X-Frame-Options HTTP response header can be used to indicate whether a browser should be allowed to render a page in a <frame>, <iframe>, <embed>, or <object>. Websites can use it to prevent click-jacking attacks by making sure their content is not embedded on other sites.
+lib_root.f152.tsx_unsafe_http_xframe_options:
+  en: >
+    Ensure that the HttpHeaders constructor
+    suppresses 'X-Frame-Options' headers.
+  es: >-
+    Asegúrese de que el constructor HttpHeaders
+    elimine los encabezados 'X-Frame-Options'.

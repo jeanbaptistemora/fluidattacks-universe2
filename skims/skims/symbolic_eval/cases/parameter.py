@@ -61,7 +61,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F063: evaluate_parameter_f063,
     FindingEnum.F091: evaluate_parameter_f091,
     FindingEnum.F096: evaluate_parameter_f096,
-    FindingEnum.F008: evaluate_parameter_f098,
+    FindingEnum.F098: evaluate_parameter_f098,
     FindingEnum.F100: evaluate_parameter_f100,
     FindingEnum.F107: evaluate_parameter_f107,
     FindingEnum.F211: evaluate_parameter_f211,
