@@ -19,16 +19,20 @@ from ._group import (
 from ._id_objs import (
     IndexedObj,
 )
-from ._result import (
-    CheckResult,
-    CheckResultId,
-)
 from ._subscriptions import (
     AlertChannelId,
+)
+from .result import (
+    CheckResult,
 )
 from dataclasses import (
     dataclass,
 )
+
+
+@dataclass(frozen=True)
+class CheckResultId:
+    id_str: str
 
 
 @dataclass(frozen=True)

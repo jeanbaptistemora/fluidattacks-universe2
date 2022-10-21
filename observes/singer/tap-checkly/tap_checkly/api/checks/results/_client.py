@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from . import (
-    _decode,
-)
 from .time_range import (
     date_ranges_dsc,
     DateRange,
@@ -42,6 +39,9 @@ from fa_purity.stream.transform import (
 )
 from tap_checkly.api._raw import (
     RawClient,
+)
+from tap_checkly.api.checks.results import (
+    _decode,
 )
 from tap_checkly.objs import (
     CheckId,

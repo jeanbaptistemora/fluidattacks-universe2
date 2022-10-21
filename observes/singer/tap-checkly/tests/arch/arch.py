@@ -64,7 +64,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_report",
         "_group",
         "_subscriptions",
-        ("_check", "_alert", "_dashboard", "_result"),
+        ("_check", "_alert", "_dashboard", "result"),
         "_id_objs",
     ),
 }

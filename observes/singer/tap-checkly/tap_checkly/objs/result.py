@@ -9,6 +9,8 @@ from datetime import (
     datetime,
 )
 from fa_purity import (
+    FrozenDict,
+    FrozenList,
     JsonObj,
     Maybe,
 )
@@ -17,11 +19,6 @@ from fa_purity import (
 @dataclass(frozen=True)
 class CheckRunId:
     id_num: int
-
-
-@dataclass(frozen=True)
-class CheckResultId:
-    id_str: str
 
 
 @dataclass(frozen=True)
@@ -55,6 +52,40 @@ class CheckResponse:
 class ApiCheckResult:
     request_error: Maybe[str]
     response: Maybe[CheckResponse]
+
+
+@dataclass(frozen=True)
+class TraceSummary:
+    console_errors: int
+    network_errors: int
+    document_errors: int
+    user_script_errors: int
+
+
+@dataclass(frozen=True)
+class WebVitalMetric:
+    score: str
+    value: float
+
+
+@dataclass(frozen=True)
+class WebVitals:
+    # some web vitals may not appear
+    # https://www.checklyhq.com/docs/browser-checks/tracing-web-vitals/#why-are-some-web-vitals-not-reported
+    CLS: Maybe[WebVitalMetric]
+    FCP: Maybe[WebVitalMetric]
+    LCP: Maybe[WebVitalMetric]
+    TBT: Maybe[WebVitalMetric]
+    TTFB: Maybe[WebVitalMetric]
+
+
+@dataclass(frozen=True)
+class BrowserCheckResult:
+    framework: str
+    errors: FrozenList[str]
+    runtime_ver: str
+    summary: TraceSummary
+    pages: FrozenDict[str, WebVitals]  # url-metrics map
 
 
 @dataclass(frozen=True)

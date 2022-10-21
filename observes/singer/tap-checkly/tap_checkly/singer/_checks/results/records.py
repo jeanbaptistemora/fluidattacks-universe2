@@ -22,11 +22,13 @@ from fa_singer_io.singer import (
     SingerRecord,
 )
 from tap_checkly.objs import (
-    ApiCheckResult,
     CheckId,
-    CheckResponse,
     CheckResultObj,
     IndexedObj,
+)
+from tap_checkly.objs.result import (
+    ApiCheckResult,
+    CheckResponse,
     TimingPhases,
     Timings,
 )

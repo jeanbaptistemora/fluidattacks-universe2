@@ -47,9 +47,9 @@ from typing import (
 
 def isoparse(raw: str) -> ResultE[datetime]:
     try:
-        return Result.success(_isoparse(raw))
+        return Result.success(_isoparse(raw), Exception)
     except ValueError as err:
-        return Result.failure(err)
+        return Result.failure(err, datetime).alt(Exception)
 
 
 _T = TypeVar("_T")
@@ -72,9 +72,10 @@ def paginate_all(
 
 
 def switch_maybe(item: Maybe[Result[_S, _F]]) -> Result[Maybe[_S], _F]:
-    _empty: Result[Maybe[_S], _F] = Result.success(Maybe.empty())
+    _empty: Maybe[_S] = Maybe.empty()
+    _empty_result: Result[Maybe[_S], _F] = Result.success(_empty)
     return item.map(lambda r: r.map(lambda x: Maybe.from_value(x))).value_or(
-        _empty
+        _empty_result
     )
 
 
@@ -103,11 +104,12 @@ class ExtendedUnfolder:
             self.get(key)
             .map(Unfolder)
             .map(
-                lambda u: u.to_primitive(prim_type)
+                lambda u: u.to_optional(lambda uu: uu.to_primitive(prim_type))
+                .map(lambda m: Maybe.from_optional(m))
                 .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
                 .alt(Exception)
             )
-        )
+        ).map(lambda m: m.bind(lambda x: x))
 
     def require_primitive(
         self, key: str, prim_type: Type[NotNonePrimTvar]
