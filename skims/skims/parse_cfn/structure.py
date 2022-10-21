@@ -408,3 +408,14 @@ def iter_lambda_functions(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_severless_api(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::Serverless::Api",
+            exact=True,
+        )
+    )

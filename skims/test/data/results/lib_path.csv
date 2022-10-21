@@ -28892,6 +28892,54 @@ F414,lines,namespace/skims/test/data/lib_root/f414/disabled_http_header_check.cs
   11 |
      ^ Col 21
 ",csharp.csharp_disabled_http_header_check
+F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml,34,650,skims,044. Insecure HTTP methods enabled,All http methods are enabled in namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml,"
+  24 |           [
+  25 |             {
+  26 |               ""Effect"": ""Allow"",
+  27 |               ""Principal"": ""*"",
+  28 |               ""Action"": ""execute-api: Invoke"",
+  29 |               ""Resource"": [""execute-api: /*""],
+  30 |             },
+  31 |           ]
+  32 |       MethodSettings:
+  33 |         - ResourcePath: ""/*""
+> 34 |           HttpMethod: ""*""
+  35 |           MetricsEnabled: ""true""
+  36 |           DataTraceEnabled: ""false""
+  37 |           LoggingLevel: !Ref LogLevel
+  38 |       Tags:
+  39 |         ORGANIZATION: !Ref Organization
+  40 |         PACKAGE: !Ref Package
+  41 |   ApiGateway2:
+  42 |     Type: AWS::Serverless::Api
+  43 |     Properties:
+  44 |       StageName: v1
+     ^ Col 0
+",cloudformation.cnf_http_methods_enabled
+F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json,53,650,skims,044. Insecure HTTP methods enabled,All http methods are enabled in namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json,"
+   43 |               ""Action"": ""execute-api: Invoke"",
+   44 |               ""Resource"": [
+   45 |                 ""execute-api: /*""
+   46 |               ]
+   47 |             }
+   48 |           ]
+   49 |         },
+   50 |         ""MethodSettings"": [
+   51 |           {
+   52 |             ""ResourcePath"": ""/*"",
+>  53 |             ""HttpMethod"": ""*"",
+   54 |             ""MetricsEnabled"": ""true"",
+   55 |             ""DataTraceEnabled"": ""false"",
+   56 |             ""LoggingLevel"": {
+   57 |               ""Ref"": ""LogLevel""
+   58 |             }
+   59 |           }
+   60 |         ],
+   61 |         ""Tags"": {
+   62 |           ""ORGANIZATION"": {
+   63 |             ""Ref"": ""Organization""
+      ^ Col 0
+",cloudformation.cnf_http_methods_enabled
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,11,650,skims,372. Use of an insecure channel - HTTP,An insecure protocol (HTTP) is being used in namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,"
    1 | resource ""aws_security_group"" ""allow_tls"" {
    2 |

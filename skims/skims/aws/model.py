@@ -225,3 +225,9 @@ class AWSLambdaFunction(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSServerlessApi(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

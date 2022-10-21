@@ -1,0 +1,78 @@
+---
+Resources:
+  ApiGateway1:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+      TracingEnabled: TracingMode
+      Variables:
+        version_alias: LambdaAliasProduction
+      EndpointConfiguration:
+        Type: !Ref ApiGatewayType
+        VPCEndpointIds: !If
+          - IsPrivate
+          - - !Ref VPCEndpointId
+          - !Ref "AWS::NoValue"
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ../specs/executor/v1/COBISExecutorapigateway.yaml
+      Auth:
+        ResourcePolicy:
+        CustomStatements:
+          [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "execute-api: Invoke",
+              "Resource": ["execute-api: /*"],
+            },
+          ]
+      MethodSettings:
+        - ResourcePath: "/*"
+          HttpMethod: "*"
+          MetricsEnabled: "true"
+          DataTraceEnabled: "false"
+          LoggingLevel: !Ref LogLevel
+      Tags:
+        ORGANIZATION: !Ref Organization
+        PACKAGE: !Ref Package
+  ApiGateway2:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+      TracingEnabled: TracingMode
+      Variables:
+        version_alias: LambdaAliasProduction
+      EndpointConfiguration:
+        Type: !Ref ApiGatewayType
+        VPCEndpointIds: !If
+          - IsPrivate
+          - - !Ref VPCEndpointId
+          - !Ref "AWS::NoValue"
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ../specs/executor/v1/COBISExecutorapigateway.yaml
+      Auth:
+        ResourcePolicy:
+        CustomStatements:
+          [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "execute-api: Invoke",
+              "Resource": ["execute-api: /*"],
+            },
+          ]
+      MethodSettings:
+        - ResourcePath: "/*"
+          HttpMethod: "GET"
+          MetricsEnabled: "true"
+          DataTraceEnabled: "false"
+          LoggingLevel: !Ref LogLevel
+      Tags:
+        ORGANIZATION: !Ref Organization
+        PACKAGE: !Ref Package
