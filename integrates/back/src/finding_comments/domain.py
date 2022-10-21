@@ -61,15 +61,14 @@ def _fill_vuln_info(
 
 
 def _is_scope_comment(comment: FindingComment) -> bool:
-    return comment.content.strip() not in {"#external", "#internal"}
+    return str(comment.content).strip() not in {"#external", "#internal"}
 
 
 async def send_finding_consult_mail(
     loaders: Dataloaders,
     comment_data: FindingComment,
 ) -> None:
-    content = comment_data.content
-    if content.strip() not in {"#external", "#internal"}:
+    if _is_scope_comment(comment_data):
         finding_id = comment_data.finding_id
         finding: Finding = await loaders.finding.load(finding_id)
         group_name: str = finding.group_name

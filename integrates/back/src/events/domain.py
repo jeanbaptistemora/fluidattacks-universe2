@@ -104,9 +104,6 @@ from findings import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access.domain import (
-    get_stakeholders_subscribed_to_consult,
-)
 import logging
 from mailer import (
     events as events_mail,
@@ -190,22 +187,7 @@ async def add_comment(
         event_comments_ids = [comment.id for comment in event_comments]
         if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
-    await event_comments_domain.add(comment_data)
-    if _is_scope_comment(comment_data):
-        schedule(
-            events_mail.send_mail_comment(
-                loaders=loaders,
-                comment_data=comment_data,
-                event_id=event_id,
-                recipients=await get_stakeholders_subscribed_to_consult(
-                    loaders=loaders,
-                    group_name=event.group_name,
-                    comment_type="event",
-                ),
-                user_mail=email,
-                group_name=event.group_name,
-            )
-        )
+    await event_comments_domain.add(loaders, comment_data, group_name)
 
 
 async def add_event(
@@ -824,7 +806,3 @@ async def get_unsolved_events_by_root(
         for root_id, events in unsolved_events_by_root.items()
         if root_id
     }
-
-
-def _is_scope_comment(comment: EventComment) -> bool:
-    return comment.content.strip() not in {"#external", "#internal"}

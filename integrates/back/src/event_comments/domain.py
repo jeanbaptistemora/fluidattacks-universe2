@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from aioextensions import (
+    schedule,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -12,6 +15,12 @@ from db_model import (
 from db_model.event_comments.types import (
     EventComment,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
+from mailer import (
+    events as events_mail,
+)
 
 
 def _is_scope_comment(comment: EventComment) -> bool:
@@ -19,9 +28,26 @@ def _is_scope_comment(comment: EventComment) -> bool:
 
 
 async def add(
+    loaders: Dataloaders,
     comment_data: EventComment,
+    group_name: str,
 ) -> None:
     await event_comments_model.add(event_comment=comment_data)
+    if _is_scope_comment(comment_data):
+        schedule(
+            events_mail.send_mail_comment(
+                loaders=loaders,
+                comment_data=comment_data,
+                event_id=comment_data.event_id,
+                recipients=await get_stakeholders_subscribed_to_consult(
+                    loaders=loaders,
+                    group_name=group_name,
+                    comment_type="event",
+                ),
+                user_mail=comment_data.email,
+                group_name=group_name,
+            )
+        )
 
 
 async def remove(comment_id: str, event_id: str) -> None:
