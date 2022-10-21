@@ -6015,6 +6015,19 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F164,lines,namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json","
+   1 | {
+   2 |     ""iisSettings"": {
+   3 |         ""windowsAuthentication"": false,
+   4 |         ""anonymousAuthentication"": false,
+   5 |         ""iisExpress"": {
+   6 |             ""applicationUrl"": ""http://localhost:7287"",
+>  7 |             ""sslPort"": 0
+   8 |         }
+   9 |     }
+  10 | }
+     ^ Col 0
+",conf_files.json_ssl_port_missing
 F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,19,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
    2 | Resources:
    3 |   FileSystemResource:
