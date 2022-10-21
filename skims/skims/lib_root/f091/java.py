@@ -56,7 +56,7 @@ def insecure_logging(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_LOGGING
-    danger_methods = {"logger.info", "log.debug"}
+    danger_methods = {"logger.info", "log.debug", "log.info"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(

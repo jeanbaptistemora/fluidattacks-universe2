@@ -277,16 +277,16 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,9,117,skims,091. Lo
 >  9 |   log.debug(""Dangerous"" + param); // Insecure
   10 |  }
   11 |
-  12 |     @Path(""/subscription/list/{collectorId}"")
-  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
-  14 |   log.debug(""Something dangerous:"" + collectorId);
-  15 |  }
+  12 |     public void insecure3(Object input){
+  13 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  14 |  }
+  15 |
   16 |
-  17 |     public void safe(HttpServletRequest req) {
-  18 |         String param2 = req.getParameter(""param2"");
-  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
-  20 |         logger.info(""Param1: "" + param2); //Safe
-  21 |     }
+  17 |     @Path(""/subscription/list/{collectorId}"")
+  18 |  public List<Affiliation> insecure4(@PathParam(value = ""collectorId"") String collectorId) {
+  19 |   log.debug(""Something dangerous:"" + collectorId);
+  20 |  }
+  21 |
      ^ Col 0
 ",java.java_insecure_logging
 F091,lines,namespace/skims/test/data/lib_root/f091/test.java,4,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
@@ -302,21 +302,20 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,4,117,skims,091. Lo
    9 |   log.debug(""Dangerous"" + param); // Insecure
   10 |  }
   11 |
-  12 |     @Path(""/subscription/list/{collectorId}"")
-  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
-  14 |   log.debug(""Something dangerous:"" + collectorId);
-  15 |  }
+  12 |     public void insecure3(Object input){
+  13 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  14 |  }
+  15 |
   16 |
-  17 |     public void safe(HttpServletRequest req) {
-  18 |         String param2 = req.getParameter(""param2"");
-  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
-  20 |         logger.info(""Param1: "" + param2); //Safe
-  21 |     }
+  17 |     @Path(""/subscription/list/{collectorId}"")
+  18 |  public List<Affiliation> insecure4(@PathParam(value = ""collectorId"") String collectorId) {
+  19 |   log.debug(""Something dangerous:"" + collectorId);
+  20 |  }
+  21 |
      ^ Col 0
 ",java.java_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.java,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+F091,lines,namespace/skims/test/data/lib_root/f091/test.java,13,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.java","
-   2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
    3 |         String param1 = req.getParameter(""param"");
    4 |         Logger.info(""Param1: "" + param1); // Insecure
    5 |     }
@@ -326,17 +325,43 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,14,117,skims,091. L
    9 |   log.debug(""Dangerous"" + param); // Insecure
   10 |  }
   11 |
-  12 |     @Path(""/subscription/list/{collectorId}"")
-  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
-> 14 |   log.debug(""Something dangerous:"" + collectorId);
-  15 |  }
+  12 |     public void insecure3(Object input){
+> 13 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  14 |  }
+  15 |
   16 |
-  17 |     public void safe(HttpServletRequest req) {
-  18 |         String param2 = req.getParameter(""param2"");
-  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
-  20 |         logger.info(""Param1: "" + param2); //Safe
-  21 |     }
-  22 | }
+  17 |     @Path(""/subscription/list/{collectorId}"")
+  18 |  public List<Affiliation> insecure4(@PathParam(value = ""collectorId"") String collectorId) {
+  19 |   log.debug(""Something dangerous:"" + collectorId);
+  20 |  }
+  21 |
+  22 |     public void safe(HttpServletRequest req) {
+  23 |         String param2 = req.getParameter(""param2"");
+     ^ Col 0
+",java.java_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/test.java,19,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/test.java","
+   7 |     public void insecure2(HttpServletRequest request){
+   8 |   param = request.getHeader(""header"");
+   9 |   log.debug(""Dangerous"" + param); // Insecure
+  10 |  }
+  11 |
+  12 |     public void insecure3(Object input){
+  13 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  14 |  }
+  15 |
+  16 |
+  17 |     @Path(""/subscription/list/{collectorId}"")
+  18 |  public List<Affiliation> insecure4(@PathParam(value = ""collectorId"") String collectorId) {
+> 19 |   log.debug(""Something dangerous:"" + collectorId);
+  20 |  }
+  21 |
+  22 |     public void safe(HttpServletRequest req) {
+  23 |         String param2 = req.getParameter(""param2"");
+  24 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
+  25 |         logger.info(""Param1: "" + param2); //Safe
+  26 |     }
+  27 | }
      ^ Col 0
 ",java.java_insecure_logging
 F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,10,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled

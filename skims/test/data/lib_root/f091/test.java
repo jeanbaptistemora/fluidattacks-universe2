@@ -9,8 +9,13 @@ public class Test{
 		log.debug("Dangerous" + param); // Insecure
 	}
 
+    public void insecure3(Object input){
+		log.info("Dangerous" + System.getenv()); // Insecure
+	}
+
+
     @Path("/subscription/list/{collectorId}")
-	public List<Affiliation> insecure3(@PathParam(value = "collectorId") String collectorId) {
+	public List<Affiliation> insecure4(@PathParam(value = "collectorId") String collectorId) {
 		log.debug("Something dangerous:" + collectorId);
 	}
 
