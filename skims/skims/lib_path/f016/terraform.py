@@ -22,11 +22,13 @@ from model.core_model import (
 )
 from parse_hcl2.common import (
     get_argument,
+    get_attribute,
     get_attribute_by_block,
     get_block_attribute,
 )
 from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
+    iter_aws_elb2_listener,
 )
 from parse_hcl2.structure.azure import (
     iter_azurerm_storage_account,
@@ -101,6 +103,14 @@ def _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
             yield resource
 
 
+def _tfm_aws_elb_without_sslpolicy(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if not get_attribute(resource.data, "ssl_policy"):
+            yield resource
+
+
 def tfm_aws_serves_content_over_insecure_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -134,4 +144,20 @@ def tfm_azure_serves_content_over_insecure_protocols(
         ),
         path=path,
         method=MethodsEnum.TFM_AZURE_INSEC_PROTO,
+    )
+
+
+def tfm_aws_elb_without_sslpolicy(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f016.aws_elb_without_sslpolicy"),
+        iterator=get_cloud_iterator(
+            _tfm_aws_elb_without_sslpolicy(
+                resource_iterator=iter_aws_elb2_listener(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_AWS_ELB_WITHOUT_SSLPOLICY,
     )

@@ -101,7 +101,7 @@ def cfn_elb_without_sslpolicy(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("lib_path.f016.cfn_elb_without_sslpolicy"),
+        description_key=("lib_path.f016.aws_elb_without_sslpolicy"),
         iterator=get_cloud_iterator(
             _cfn_elb_without_sslpolicy(
                 listener_iterator=iter_elb2_load_listeners(template=template)

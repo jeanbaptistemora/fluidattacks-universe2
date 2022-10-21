@@ -1676,6 +1676,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_AWS_ELB_WITHOUT_SSLPOLICY = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_elb_without_sslpolicy",
+        module="lib_path",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     SSLV3_ENABLED = MethodInfo(
         file_name="analyze_protocol",
         name="sslv3_enabled",

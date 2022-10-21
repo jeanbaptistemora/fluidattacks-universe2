@@ -56,6 +56,6 @@ lib_root.f016.httpclient_no_revocation_list:
   es: >-
     Using System.Net.Http.HttpClient with its CheckCertificateRevocationList property
     not set to true will allow HttpClient to accept revoked certificates as valid.
-lib_path.f016.cfn_elb_without_sslpolicy:
+lib_path.f016.aws_elb_without_sslpolicy:
   en: Property SslPolicy is either missing or misconfigured
   es: Falta la propiedad SslPolicy o está mal configurada

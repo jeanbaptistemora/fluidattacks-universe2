@@ -25104,6 +25104,20 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yam
   21 |         ""Protocol"": ""HTTPS""
      ^ Col 0
 ",cloudformation.cfn_elb_without_sslpolicy
+F016,lines,namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,1,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,"
+>  1 | resource ""aws_lb_listener"" ""front_end"" {
+   2 |   load_balancer_arn = aws_lb.front_end.arn
+   3 |   port              = ""443""
+   4 |   protocol          = ""HTTPS""
+   5 |   certificate_arn   = ""arn:aws:acm:eu-west-2:999999999:certificate/77777777-5d4a-457f-8888-02550c8c9244""
+   6 |
+   7 |   default_action {
+   8 |     type             = ""forward""
+   9 |     target_group_arn = aws_lb_target_group.front_end.arn
+  10 |   }
+  11 | }
+     ^ Col 0
+",terraform.tfm_aws_elb_without_sslpolicy
 F016,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
    1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""
