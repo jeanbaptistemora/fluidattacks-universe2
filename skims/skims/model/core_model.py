@@ -1652,6 +1652,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_ELB_WITHOUT_SSLPOLICY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb_without_sslpolicy",
+        module="lib_path",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_INSEC_PROTO = MethodInfo(
         file_name="terraform",
         name="tfm_aws_serves_content_over_insecure_protocols",
