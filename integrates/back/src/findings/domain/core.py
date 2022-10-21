@@ -165,7 +165,7 @@ async def add_comment(
         ]
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
-    await comments_domain.add(comment_data)
+    await comments_domain.add(loaders, comment_data, True)
 
 
 async def remove_finding(
@@ -681,7 +681,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
         creation_date=current_time,
     )
-    await comments_domain.add(comment_data)
+    await comments_domain.add(loaders, comment_data)
     await collect(map(vulns_domain.request_verification, vulnerabilities))
     if any(not check_hold(vuln) for vuln in vulnerabilities):
         schedule(
@@ -928,7 +928,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         creation_date=current_time,
     )
     if is_reattack_open is None:
-        await comments_domain.add(comment_data)
+        await comments_domain.add(loaders, comment_data)
     # Modify the verification state to mark all passed vulns as verified
     await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
     # Open vulns that remain open are not modified in the DB

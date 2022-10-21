@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from aioextensions import (
+    schedule,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -16,13 +19,20 @@ from db_model.finding_comments.types import (
     FindingComment,
 )
 from db_model.findings.types import (
+    Finding,
     FindingVerification,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from group_access.domain import (
+    get_stakeholders_subscribed_to_consult,
+)
 from itertools import (
     filterfalse,
+)
+from mailer import (
+    findings as findings_mail,
 )
 
 
@@ -54,8 +64,41 @@ def _is_scope_comment(comment: FindingComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
-async def add(comment_data: FindingComment) -> None:
+async def send_finding_consult_mail(
+    loaders: Dataloaders,
+    comment_data: FindingComment,
+) -> None:
+    content = comment_data.content
+    if content.strip() not in {"#external", "#internal"}:
+        finding_id = comment_data.finding_id
+        finding: Finding = await loaders.finding.load(finding_id)
+        group_name: str = finding.group_name
+        is_finding_released = bool(finding.approval)
+        finding_title = finding.title
+        user_email = comment_data.email
+        await findings_mail.send_mail_comment(
+            loaders=loaders,
+            comment_data=comment_data,
+            user_mail=user_email,
+            finding_id=finding_id,
+            finding_title=finding_title,
+            recipients=await get_stakeholders_subscribed_to_consult(
+                loaders=loaders,
+                group_name=group_name,
+                comment_type=comment_data.comment_type.value.lower(),
+                is_finding_released=is_finding_released,
+            ),
+            group_name=group_name,
+            is_finding_released=is_finding_released,
+        )
+
+
+async def add(
+    loaders: Dataloaders, comment_data: FindingComment, notify: bool = False
+) -> None:
     await finding_comments_model.add(finding_comment=comment_data)
+    if notify:
+        schedule(send_finding_consult_mail(loaders, comment_data))
 
 
 async def remove(comment_id: str, finding_id: str) -> None:

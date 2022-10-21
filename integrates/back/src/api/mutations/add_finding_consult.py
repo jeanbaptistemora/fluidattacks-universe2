@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from aioextensions import (
-    schedule,
-)
 from api.mutations import (
     AddConsultPayload,
 )
@@ -39,12 +36,6 @@ from graphql import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access.domain import (
-    get_stakeholders_subscribed_to_consult,
-)
-from mailer import (
-    findings as findings_mail,
-)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
@@ -57,33 +48,6 @@ from time import (
 from typing import (
     Any,
 )
-
-
-async def send_finding_consult_mail(
-    *,
-    info: GraphQLResolveInfo,
-    comment_data: FindingComment,
-    user_email: str,
-    group_name: str,
-    finding_id: str,
-    finding_title: str,
-    is_finding_released: bool,
-) -> None:
-    await findings_mail.send_mail_comment(
-        loaders=info.context.loaders,
-        comment_data=comment_data,
-        user_mail=user_email,
-        finding_id=finding_id,
-        finding_title=finding_title,
-        recipients=await get_stakeholders_subscribed_to_consult(
-            loaders=info.context.loaders,
-            group_name=group_name,
-            comment_type=comment_data.comment_type.value.lower(),
-            is_finding_released=is_finding_released,
-        ),
-        group_name=group_name,
-        is_finding_released=is_finding_released,
-    )
 
 
 async def _add_finding_consult(
@@ -127,19 +91,6 @@ async def _add_finding_consult(
             "Security: Unauthorized role attempted to add observation",
         )
         raise GraphQLError("Access denied") from None
-
-    if content.strip() not in {"#external", "#internal"}:
-        schedule(
-            send_finding_consult_mail(
-                info=info,
-                comment_data=comment_data,
-                user_email=user_email,
-                group_name=group_name,
-                finding_id=finding_id,
-                finding_title=finding.title,
-                is_finding_released=is_finding_released,
-            )
-        )
 
     logs_utils.cloudwatch_log(
         info.context,

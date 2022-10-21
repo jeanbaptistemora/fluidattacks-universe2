@@ -805,7 +805,7 @@ async def request_vulnerabilities_hold(
         ),
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
     )
-    await finding_comments_domain.add(comment_data)
+    await finding_comments_domain.add(loaders, comment_data)
 
 
 async def get_unsolved_events_by_root(

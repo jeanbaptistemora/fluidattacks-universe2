@@ -143,7 +143,7 @@ async def confirm_vulnerabilities_zero_risk(
         creation_date=current_time,
         parent_id="0",
     )
-    await comments_domain.add(comment_data)
+    await comments_domain.add(loaders, comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,
@@ -530,7 +530,7 @@ async def reject_vulnerabilities_zero_risk(
         creation_date=current_time,
         parent_id="0",
     )
-    await comments_domain.add(comment_data)
+    await comments_domain.add(loaders, comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,
@@ -612,7 +612,7 @@ async def request_vulnerabilities_zero_risk(
         creation_date=current_time,
         parent_id="0",
     )
-    await comments_domain.add(comment_data)
+    await comments_domain.add(loaders, comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,

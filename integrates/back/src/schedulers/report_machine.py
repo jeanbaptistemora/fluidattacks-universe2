@@ -696,6 +696,7 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
 
 
 async def add_reattack_justification(
+    loaders: Dataloaders,
     finding_id: str,
     open_vulnerabilities: Tuple[Vulnerability, ...],
     closed_vulnerabilities: Tuple[Vulnerability, ...],
@@ -751,6 +752,7 @@ async def add_reattack_justification(
     for justification in [open_justification, closed_justification]:
         if justification:
             await comments_domain.add(
+                loaders,
                 FindingComment(
                     finding_id=finding_id,
                     id=str(round(time() * 1000)),
@@ -762,7 +764,7 @@ async def add_reattack_justification(
                     full_name="Machine Services",
                     content=justification,
                     email="machine@fluidttacks.com",
-                )
+                ),
             )
 
 
@@ -969,6 +971,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     )
 
     reattack_future = add_reattack_justification(
+        loaders,
         finding.id,
         _get_vulns_with_reattack(
             new_vulns_to_add, existing_open_machine_vulns, "open"
