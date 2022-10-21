@@ -53,6 +53,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
 
         return (
           <Form id={"credentials"}>
+            <div style={{ maxWidth: "97%", width: "1100px" }} />
             <Row justify={"start"}>
               <Col lg={100} md={100} sm={100}>
                 <Input

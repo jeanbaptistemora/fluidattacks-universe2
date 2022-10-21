@@ -175,7 +175,6 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
 
   return (
     <Modal
-      minWidth={1100}
       onClose={onClose}
       open={true}
       title={t("profile.credentialsModal.title")}
