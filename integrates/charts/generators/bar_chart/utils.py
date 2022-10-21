@@ -234,16 +234,13 @@ def format_mttr_data(
 
 def get_valid_subjects(
     *,
-    all_subjects: Tuple[Benchmarking, ...],
-    subject: str,
-) -> List[Benchmarking]:
+    all_subjects: tuple[Benchmarking, ...],
+) -> list[Benchmarking]:
 
     return [
-        _subject
-        for _subject in all_subjects
-        if subject != _subject.subject
-        and _subject.is_valid
-        and _subject.mttr != Decimal("Infinity")
+        subject
+        for subject in all_subjects
+        if subject.is_valid and subject.mttr != Decimal("Infinity")
     ]
 
 
@@ -772,7 +769,6 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                             all_subjects=_all_groups_data[
                                 "all_groups_data" + get_subject_days(days)
                             ],
-                            subject=group,
                         )
                     ),
                     worst_group_mttr[
@@ -810,7 +806,6 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                                 "all_organizations_data"
                                 + get_subject_days(days)
                             ],
-                            subject=org_id,
                         )
                     ),
                     worst_organazation_mttr[
@@ -855,7 +850,6 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                                     "all_portfolios_data"
                                     + get_subject_days(days)
                                 ],
-                                subject=f"{org_id}PORTFOLIO#{portfolio}",
                             )
                         ),
                         worst_portfolio_mttr[

@@ -385,7 +385,6 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                 get_average_entities(
                     entities=get_valid_subjects(
                         all_subjects=all_groups_data,
-                        subject=group,
                     )
                 ),
                 worst_group_exposure,
@@ -415,7 +414,6 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                 get_average_entities(
                     entities=get_valid_subjects(
                         all_subjects=all_organizations_data,
-                        subject=org_id,
                     )
                 ),
                 worst_organazation_exposure,
@@ -446,7 +444,6 @@ async def generate() -> None:  # pylint: disable=too-many-locals
                     get_average_entities(
                         entities=get_valid_subjects(
                             all_subjects=all_portfolios_data,
-                            subject=f"{org_id}PORTFOLIO#{portfolio}",
                         )
                     ),
                     worst_portfolio_exposure,
