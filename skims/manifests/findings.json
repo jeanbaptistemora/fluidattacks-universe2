@@ -727,14 +727,6 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
-  "F262": {
-    "EN": {
-      "title": "262. Insecure encryption algorithm - SHA1"
-    },
-    "ES": {
-      "title": "262. Insecure encryption algorithm - SHA1"
-    }
-  },
   "F266": {
     "EN": {
       "title": "266. Excessive Privileges - Docker"
