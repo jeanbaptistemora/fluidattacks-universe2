@@ -18,7 +18,7 @@ from typing import (
 )
 
 GO_DEP: Pattern[str] = re.compile(
-    r"\s+.+/(?P<product>[\w\-\.~]+)(/v.+)?\sv(?P<version>\S+)"
+    r"\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
 
 
