@@ -31,7 +31,16 @@ Resources:
           ]
       MethodSettings:
         - ResourcePath: "/*"
+          HttpMethod: "Get"
+          MetricsEnabled: "true"
+          DataTraceEnabled: "false"
+          LoggingLevel: !Ref LogLevel
+        - ResourcePath: "/*"
           HttpMethod: "*"
+          MetricsEnabled: "true"
+          DataTraceEnabled: "false"
+          LoggingLevel: !Ref LogLevel
+        - ResourcePath: "/*"
           MetricsEnabled: "true"
           DataTraceEnabled: "false"
           LoggingLevel: !Ref LogLevel

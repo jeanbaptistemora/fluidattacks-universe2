@@ -34,13 +34,14 @@ def _method_sethings_has_http_methods_enabled(
     for bucket in buckets_iterator:
         methods = get_node_by_keys(bucket, ["MethodSettings"])
         if methods:
-            http_method = get_node_by_keys(methods.data[0], ["HttpMethod"])
-            if http_method and http_method.data == "*":
-                yield AWSServerlessApi(
-                    column=http_method.start_column,
-                    data=http_method.data,
-                    line=http_method.start_line,
-                )
+            for meth in methods.data:
+                http_method = get_node_by_keys(meth, ["HttpMethod"])
+                if http_method and http_method.data == "*":
+                    yield AWSServerlessApi(
+                        column=http_method.start_column,
+                        data=http_method.data,
+                        line=http_method.start_line,
+                    )
 
 
 def severless_bucket_has_https_methos_enabled(
