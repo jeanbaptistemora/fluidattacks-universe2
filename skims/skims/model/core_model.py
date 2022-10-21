@@ -2092,6 +2092,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_DYNAMODB_HAS_NOT_POINT_IN_TIME_RECOVERY = MethodInfo(
+        file_name="aws",
+        name="dynamodb_has_not_point_in_time_recovery",
+        module="dast",
+        finding=FindingEnum.F259,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
