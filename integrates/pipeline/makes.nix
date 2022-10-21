@@ -24,6 +24,7 @@
     ["activate_root"]
     ["add_credentials"]
     ["add_draft"]
+    ["add_enrollment"]
     ["add_event"]
     ["add_event_consult"]
     ["add_files_to_db"]
