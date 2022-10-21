@@ -1,0 +1,104 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph skims {
+  label="Skims Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  ranksep="3.0"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_dynamodb {
+      label="DynamoDB"
+
+      subgraph cluster_aws_dynamodb_tables {
+        label="Tables"
+
+        aws_dynamodb_tables_skims_sca[label="skims_sca"]
+      }
+    }
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_skims_data {
+        label="skims.data"
+
+        cluster_aws_s3_skims_data[label="" style="invis"]
+
+        aws_s3_skims_data_config[label="Machine execution configs"]
+      }
+
+      aws_s3_common_logging[label="common.logging"]
+    }
+  }
+
+  subgraph cluster_bugsnag {
+    label="Bugsnag"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    bugsnag[label="Stability Reports"]
+  }
+
+  subgraph cluster_common {
+    label="Common"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    subgraph cluster_common_compute {
+      label="Compute"
+
+      subgraph cluster_common_compute_schedules {
+        label="Schedules"
+
+        common_compute_schedules_break[label="/skims/process-groups/break"]
+        common_compute_schedules_pass[label="/skims/process-groups/pass"]
+      }
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_skims {
+        label="/skims"
+
+        gitlab_skims[label="Source Code"]
+      }
+    }
+  }
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="0.1 1.0 1.0"]
+  cluster_aws_s3_skims_data -> aws_s3_common_logging[ltail="cluster_aws_s3_skims_data"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_skims -> bugsnag[]
+  gitlab_skims -> common_compute_schedules_break[]
+  gitlab_skims -> common_compute_schedules_pass[]
+  gitlab_skims -> integrates_api[]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> bugsnag[]
+  developer -> gitlab_skims[]
+}

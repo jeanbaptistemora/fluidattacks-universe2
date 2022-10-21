@@ -24,6 +24,16 @@ with the security vulnerabilities found.
    over reporting a vulnerability that has no impact.
    The rationale for this is that the [Squad Service](/squad/reattacks)
 
+## Architecture
+
+:::tip
+You can right-click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+
+![Architecture of Skims](./skims-arch.dot.svg)
+
 ## Contributing
 
 Please read the
