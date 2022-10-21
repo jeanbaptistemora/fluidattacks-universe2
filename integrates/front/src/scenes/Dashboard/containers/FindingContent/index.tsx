@@ -9,7 +9,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Redirect,
@@ -56,6 +56,7 @@ import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index
 import { ControlLabel, FormGroup, TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
+import { featurePreviewContext } from "utils/featurePreview";
 import { FormikDropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -68,6 +69,7 @@ const FindingContent: React.FC = (): JSX.Element => {
     groupName: string;
     organizationName: string;
   }>();
+  const { featurePreview } = useContext(featurePreviewContext);
   const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const { pathname } = useLocation();
@@ -315,13 +317,15 @@ const FindingContent: React.FC = (): JSX.Element => {
                   status={headerData.finding.state}
                 />
                 <Tabs>
-                  <Tab
-                    id={"vulnItem"}
-                    link={`${url}/locations`}
-                    tooltip={t("searchFindings.tabVuln.tooltip")}
-                  >
-                    {t("searchFindings.tabVuln.tabTitle")}
-                  </Tab>
+                  {featurePreview ? undefined : (
+                    <Tab
+                      id={"vulnItem"}
+                      link={`${url}/locations`}
+                      tooltip={t("searchFindings.tabVuln.tooltip")}
+                    >
+                      {t("searchFindings.tabVuln.tabTitle")}
+                    </Tab>
+                  )}
                   <Tab
                     id={"infoItem"}
                     link={`${url}/description`}
