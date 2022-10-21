@@ -37,9 +37,11 @@ digraph skims {
 
         cluster_aws_s3_skims_data[label="" style="invis"]
 
-        aws_s3_skims_data_config[label="Machine execution configs"]
+        aws_s3_skims_data_config[label="/config (Machine execution configurations)" width="6.0"]
+        aws_s3_skims_data_results[label="/results (Machine execution vulnerabilities)" width="6.0"]
       }
 
+      aws_s3_skims_sca[label="skims.sca"]
       aws_s3_common_logging[label="common.logging"]
     }
   }
@@ -90,7 +92,8 @@ digraph skims {
   developer[label="Developer"]
 
   edge[color="0.1 1.0 1.0"]
-  cluster_aws_s3_skims_data -> aws_s3_common_logging[ltail="cluster_aws_s3_skims_data"]
+  aws_dynamodb_tables_skims_sca -> aws_s3_skims_sca[]
+  aws_s3_skims_sca -> aws_s3_common_logging[]
 
   edge[color="0.8 1.0 1.0"]
   gitlab_skims -> bugsnag[]
@@ -99,6 +102,8 @@ digraph skims {
   gitlab_skims -> integrates_api[]
 
   edge[color="0.0 0.0 0.0"]
+  developer -> aws_dynamodb_tables_skims_sca[]
   developer -> bugsnag[]
   developer -> gitlab_skims[]
+  end_user -> aws_s3_skims_sca[]
 }
