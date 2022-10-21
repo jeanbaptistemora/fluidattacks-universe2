@@ -225,12 +225,60 @@ def test_org_stakeholder(
     )
 
     driver.get(f"{asm_endpoint}/orgs/okada/stakeholders")
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
-        "forces.unittesting@fluidattacks.com",
+        "customer_manager@fluidattacks.com",
         timeout,
     )
-    assert "First login" in driver.page_source
+
+
+def test_org_standard_compliance(
+    driver: WebDriver,
+    credentials: Credentials,
+    asm_endpoint: str,
+    timeout: int,
+    jwt_secret: str,
+    jwt_encryption_key: str,
+) -> None:
+    # Login
+    utils.login(
+        driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
+    )
+
+    # Enter compliance
+    driver.get(f"{asm_endpoint}/orgs/okada/compliance")
+
+    assert utils.wait_for_text(
+        driver,
+        "Organization compliance",
+        timeout,
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Standard with lowest compliance",
+        timeout,
+    )
+    standards_button = utils.wait_for_text(
+        driver,
+        "Standards",
+        timeout,
+    )
+    standards_button.click()
+    assert utils.wait_for_text(
+        driver,
+        "Unfulfilled standards",
+        timeout,
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Requirement",
+        timeout,
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Generate report",
+        timeout,
+    )
 
 
 def test_org_portfolios(
