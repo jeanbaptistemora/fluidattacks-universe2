@@ -129,7 +129,7 @@ allows us to obtain benefits from each of them.
 Automated tools' fast and superficial work enables pentesters
 to invest time in complex assessments.
 In fact,
-his is how proper pentesting is usually done.
+this is how proper pentesting is usually done.
 The tools contribute in one of its phases
 to what we could say they actually do:
 **vulnerability scanning**.
