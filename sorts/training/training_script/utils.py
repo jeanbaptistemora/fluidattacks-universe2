@@ -236,7 +236,7 @@ def get_best_combination(
     # Sort results in descending order by F1 and Overfit
     sorted_results: List[List[str]] = sorted(
         training_results[1:],
-        key=lambda results_row: (float(results_row[4]), float(results_row[5])),
+        key=lambda results_row: (float(results_row[4]), float(results_row[6])),
         reverse=True,
     )
     best_f1_score: float = float(sorted_results[0][4])
@@ -244,7 +244,7 @@ def get_best_combination(
     best_combination_candidates: List[List[str]] = []
     for results_row in sorted_results:
         f1_score = float(results_row[4])
-        overfit = float(results_row[5])
+        overfit = float(results_row[6])
         if overfit < overfit_limit and f1_score >= best_f1_score:
             best_f1_score = f1_score
             best_combination_candidates.append(results_row)
@@ -253,7 +253,7 @@ def get_best_combination(
     best_f1: str = ""
     min_overfit: float = overfit_limit
     for candidate in best_combination_candidates:
-        overfit = float(candidate[5])
+        overfit = float(candidate[6])
         if overfit < min_overfit:
             best_features = tuple(  # pylint: disable=consider-using-generator
                 [
