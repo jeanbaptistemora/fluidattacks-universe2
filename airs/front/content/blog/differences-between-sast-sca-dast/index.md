@@ -23,7 +23,7 @@ hardly a day passes
 without us using some sort of software application.
 This is why software security is essential.
 When an application is proven to be insecure,
-all hell breaks loose
+all hell breaks loose.
 
 There are different kinds of security tests in the market.
 This is due to the fact
