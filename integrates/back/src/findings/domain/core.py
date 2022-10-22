@@ -31,6 +31,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from db_model import (
     findings as findings_model,
@@ -106,8 +107,12 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+import pytz
 from settings import (
     LOGGING,
+)
+from settings.various import (
+    TIME_ZONE,
 )
 from time import (
     time,
@@ -165,7 +170,7 @@ async def add_comment(
         ]
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
-    await comments_domain.add(loaders, comment_data, True)
+    await comments_domain.add(loaders, comment_data, notify=True)
 
 
 async def remove_finding(
@@ -851,6 +856,79 @@ async def update_severity(
         finding_id=finding.id,
         metadata=metadata,
     )
+
+
+async def add_reattack_justification(
+    loaders: Dataloaders,
+    finding_id: str,
+    open_vulnerabilities: Tuple[Vulnerability, ...],
+    closed_vulnerabilities: Tuple[Vulnerability, ...],
+    commit_hash: str,
+) -> None:
+    today = datetime.now(tz=timezone.utc)
+    format_date = today.astimezone(tz=pytz.timezone(TIME_ZONE)).strftime(
+        "%Y/%m/%d %H:%M"
+    )
+    open_justification: str = ""
+    open_vulns_strs = [f"  - {vuln.where}" for vuln in open_vulnerabilities]
+    str_open_vulns = "\n ".join(open_vulns_strs) if open_vulns_strs else ""
+    open_justification = (
+        (
+            "A reattack request was executed on "
+            f"{format_date.replace(' ', ' at ')}.\n"
+            "Reported vulnerabilities are still open in commit "
+            f"{commit_hash}:\n"
+            f"{str_open_vulns}"
+        )
+        if open_vulns_strs
+        else ""
+    )
+
+    closed_justification: str = ""
+    closed_vulns_strs = [
+        f"  - {vuln.where}" for vuln in closed_vulnerabilities
+    ]
+    str_closed_vulns = (
+        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
+    )
+    closed_justification = (
+        (
+            "A reattack request was executed on "
+            f"{format_date.replace(' ', ' at ')}. \n"
+            f"Reported vulnerabilities were solved in commit {commit_hash}: \n"
+            f"{str_closed_vulns}"
+        )
+        if closed_vulns_strs
+        else ""
+    )
+
+    LOGGER.info(
+        "%s Vulnerabilities were verified and found open in finding %s",
+        len(open_vulnerabilities),
+        finding_id,
+    )
+    LOGGER.info(
+        "%s Vulnerabilities were verified and found closed in finding %s",
+        len(closed_vulnerabilities),
+        finding_id,
+    )
+    for justification in [open_justification, closed_justification]:
+        if justification:
+            await comments_domain.add(
+                loaders,
+                FindingComment(
+                    finding_id=finding_id,
+                    id=str(round(time() * 1000)),
+                    comment_type=CommentType.COMMENT,
+                    parent_id="0",
+                    creation_date=datetime_utils.get_as_utc_iso_format(
+                        datetime_utils.get_now()
+                    ),
+                    full_name="Machine Services",
+                    content=justification,
+                    email="machine@fluidttacks.com",
+                ),
+            )
 
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals

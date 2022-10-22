@@ -32,18 +32,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-    timezone,
-)
 from db_model.enums import (
     Source,
-)
-from db_model.finding_comments.enums import (
-    CommentType,
-)
-from db_model.finding_comments.types import (
-    FindingComment,
 )
 from db_model.findings.enums import (
     AttackComplexity,
@@ -84,9 +74,6 @@ from decorators import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-from finding_comments import (
-    domain as comments_domain,
-)
 from findings import (
     domain as findings_domain,
 )
@@ -104,9 +91,6 @@ from io import (
 )
 import json
 import logging
-from newutils import (
-    datetime as datetime_utils,
-)
 from newutils.files import (
     path_is_include,
 )
@@ -121,13 +105,9 @@ from organizations_finding_policies import (
     domain as policies_domain,
 )
 import os
-import pytz
 import random
 from s3.resource import (
     get_s3_resource,
-)
-from settings.various import (
-    TIME_ZONE,
 )
 from signal import (
     SIGINT,
@@ -140,9 +120,6 @@ from starlette.datastructures import (
 import tempfile
 from tempfile import (
     SpooledTemporaryFile,
-)
-from time import (
-    time,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -703,79 +680,6 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
     return None
 
 
-async def add_reattack_justification(
-    loaders: Dataloaders,
-    finding_id: str,
-    open_vulnerabilities: Tuple[Vulnerability, ...],
-    closed_vulnerabilities: Tuple[Vulnerability, ...],
-    commit_hash: str,
-) -> None:
-    today = datetime.now(tz=timezone.utc)
-    format_date = today.astimezone(tz=pytz.timezone(TIME_ZONE)).strftime(
-        "%Y/%m/%d %H:%M"
-    )
-    open_justification: str = ""
-    open_vulns_strs = [f"  - {vuln.where}" for vuln in open_vulnerabilities]
-    str_open_vulns = "\n ".join(open_vulns_strs) if open_vulns_strs else ""
-    open_justification = (
-        (
-            "A reattack request was executed on "
-            f"{format_date.replace(' ', ' at ')}.\n"
-            "Reported vulnerabilities are still open in commit "
-            f"{commit_hash}:\n"
-            f"{str_open_vulns}"
-        )
-        if open_vulns_strs
-        else ""
-    )
-
-    closed_justification: str = ""
-    closed_vulns_strs = [
-        f"  - {vuln.where}" for vuln in closed_vulnerabilities
-    ]
-    str_closed_vulns = (
-        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
-    )
-    closed_justification = (
-        (
-            "A reattack request was executed on "
-            f"{format_date.replace(' ', ' at ')}. \n"
-            f"Reported vulnerabilities were solved in commit {commit_hash}: \n"
-            f"{str_closed_vulns}"
-        )
-        if closed_vulns_strs
-        else ""
-    )
-
-    LOGGER.info(
-        "%s Vulnerabilities were verified and found open in finding %s",
-        len(open_vulnerabilities),
-        finding_id,
-    )
-    LOGGER.info(
-        "%s Vulnerabilities were verified and found closed in finding %s",
-        len(closed_vulnerabilities),
-        finding_id,
-    )
-    for justification in [open_justification, closed_justification]:
-        if justification:
-            await comments_domain.add(
-                loaders,
-                FindingComment(
-                    finding_id=finding_id,
-                    id=str(round(time() * 1000)),
-                    comment_type=CommentType.COMMENT,
-                    parent_id="0",
-                    creation_date=datetime_utils.get_as_utc_iso_format(
-                        datetime_utils.get_now()
-                    ),
-                    full_name="Machine Services",
-                    content=justification,
-                    email="machine@fluidttacks.com",
-                ),
-            )
-
-
 async def upload_evidences(
     loaders: Dataloaders,
     finding: Finding,
@@ -978,7 +882,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         existing_open_machine_vulns,
     )
 
-    reattack_future = add_reattack_justification(
+    reattack_future = findings_domain.core.add_reattack_justification(
         loaders,
         finding.id,
         _get_vulns_with_reattack(
