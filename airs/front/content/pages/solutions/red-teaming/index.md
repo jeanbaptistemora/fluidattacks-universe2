@@ -33,17 +33,17 @@ constant internal and external threats in cybersecurity.
 We have detailed information about red teaming in our blog.
 If you want to understand the basics of this approach,
 we recommend that you read our posts
-"[What Is Red Team in Cyber Security?](../what-is-red-team-in-cyber-security/)"
-and "[Red Team Exercise](../red-team-exercise/)."
+"[What Is Red Team in Cyber Security?](../../blog/what-is-red-team-in-cyber-security/)"
+and "[Red Team Exercise](../../blog/red-team-exercise/)."
 Further,
 to learn what policies we encourage you to create
 in regard to testing your organization's response
 to "real-world" cyberattacks,
-read "[Attacking Without Announcing](../attacking-without-announcing/)."
+read "[Attacking Without Announcing](../../blog/attacking-without-announcing/)."
 We have also talked about the standard phases of red teaming
 according to an initiative by the European Central Bank
-in "[Have You Heard About the TIBER-EU?](../tiber-eu-framework/)"
-And in "[TIBER Advice on Choosing Providers](../tiber-eu-providers/)"
+in "[Have You Heard About the TIBER-EU?](../../blog/tiber-eu-framework/)"
+And in "[TIBER Advice on Choosing Providers](../../blog/tiber-eu-providers/)"
 we have summarized what this initiative says
 about what you should look for
 in those that offer red teaming services.
