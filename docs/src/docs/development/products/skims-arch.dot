@@ -44,6 +44,16 @@ digraph skims {
       aws_s3_skims_sca[label="skims.sca"]
       aws_s3_common_logging[label="common.logging"]
     }
+
+    subgraph cluster_aws_sqs {
+      label="SQS"
+
+      subgraph cluster_aws_sqs_queues {
+        label="Queues"
+
+        aws_sqs_queues_skims_report_queue[label="skims-report-queue"]
+      }
+    }
   }
 
   subgraph cluster_bugsnag {
