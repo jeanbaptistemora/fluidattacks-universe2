@@ -89,6 +89,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
+  const canSeeSource: boolean = permissions.can("see_vulnerability_source");
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );
@@ -303,6 +304,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           canDisplayHacker={canRetrieveHacker}
           canRemoveVulnsTags={canRemoveVulnsTags}
           canRequestZeroRiskVuln={canRequestZeroRiskVuln}
+          canSeeSource={canSeeSource}
           canUpdateVulnsTreatment={canUpdateVulnsTreatment}
           clearSelectedVulns={clearSelectedVulns}
           closeAdditionalInfoModal={closeAdditionalInfoModal}

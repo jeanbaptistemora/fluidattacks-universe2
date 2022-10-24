@@ -112,6 +112,7 @@ describe("AdditionalInfo", (): void => {
         >
           <AdditionalInfo
             canRetrieveHacker={false}
+            canSeeSource={true}
             vulnerability={formatVulnerabilities([mockVuln])[0]}
           />
         </MockedProvider>

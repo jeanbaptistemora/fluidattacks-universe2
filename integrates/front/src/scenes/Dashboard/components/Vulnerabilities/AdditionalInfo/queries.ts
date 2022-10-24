@@ -20,6 +20,7 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
       lastTreatmentDate
       reportDate
       severity
+      source
       stream
       treatment
       treatmentAcceptanceDate

@@ -24,11 +24,13 @@ import { msgError } from "utils/notifications";
 
 interface IAdditionalInfoProps {
   canRetrieveHacker: boolean;
+  canSeeSource: boolean;
   vulnerability: IVulnRowAttr;
 }
 
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canRetrieveHacker,
+  canSeeSource,
   vulnerability,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
@@ -132,6 +134,12 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   }
                 />
               </Field>
+              {canSeeSource ? (
+                <Field>
+                  <Label>{t("searchFindings.tabVuln.vulnTable.source")}</Label>
+                  <Value value={data.vulnerability.source} />
+                </Field>
+              ) : undefined}
               {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
                 <Field>
                   <Label>{t("searchFindings.tabVuln.commitHash")}</Label>

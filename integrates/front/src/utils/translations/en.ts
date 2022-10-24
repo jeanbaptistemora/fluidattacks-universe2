@@ -3519,6 +3519,7 @@ export const enTranslations: ResourceKey = {
           "Filter vulnerabilities based on the status of their reattack requests",
         reportDate: "Report date",
         requester: "Requester",
+        source: "Source",
         specific: "Specific",
         specificType: {
           app: "Input",
