@@ -107,7 +107,6 @@ async def rebase(
             vulnerability_specific=vulnerability_specific,
             vulnerability_type=vulnerability_type,
             vulnerability_id=vulnerability_id,
-            vulnerability_commit=vulnerability_commit,
         )
     except InvalidVulnerabilityAlreadyExists as exc:
         for vuln in finding_vulns_data:

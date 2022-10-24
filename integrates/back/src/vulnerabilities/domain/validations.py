@@ -44,7 +44,6 @@ def validate_uniqueness(
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
     vulnerability_id: str,
-    vulnerability_commit: str,
 ) -> None:
     current_vuln = next(
         (item for item in finding_vulns_data if item.id == vulnerability_id),
@@ -64,10 +63,7 @@ def validate_uniqueness(
     )
     for vuln in finding_vulns_data:
         vuln_hash = get_hash_from_typed(vuln)
-        if (
-            vuln_hash == new_vuln_hash
-            and current_vuln.commit == vulnerability_commit
-        ):
+        if vuln_hash == new_vuln_hash:
             raise InvalidVulnerabilityAlreadyExists.new()
 
 
