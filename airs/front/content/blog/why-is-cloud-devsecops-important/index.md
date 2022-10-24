@@ -201,7 +201,7 @@ At `Fluid Attacks`,
 we assess [cloud security](../../systems/cloud-infrastructure/)
 with comprehensive security testing
 [throughout the entire SDLC](../../solutions/devsecops/).
-(Check out our [DevSecOps tools](../devsecops-tools/))
+(Check out our [DevSecOps tools](../devsecops-tools/).)
 We look at your source code
 combining the advantages of automated and manual methods
 to find exposed secrets and credentials for cloud services.
