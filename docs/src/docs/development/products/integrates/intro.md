@@ -136,7 +136,7 @@ Please read the
 ### Development Environment
 
 Follow the steps
-in the [Development Environment](/development/setup) section
+in the [Development Environment](/development/setup/environment) section
 of our documentation.
 
 When prompted for an AWS role, choose `dev`,

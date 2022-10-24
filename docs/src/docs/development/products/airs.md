@@ -60,7 +60,7 @@ Please read the
 ### Development Environment
 
 Follow the steps
-in the [Development Environment](/development/setup) section of our documentation.
+in the [Development Environment](/development/setup/environment) section of our documentation.
 
 When prompted for an AWS role, choose `dev`,
 and when prompted for a Development Environment, pick `airs`.

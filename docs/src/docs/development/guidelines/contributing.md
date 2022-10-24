@@ -14,7 +14,7 @@ or to our [Support Email](mailto:help@fluidattacks.com).
 
 ### Checklist
 
-1. Make sure you have a working [Development Environment](/development/setup).
+1. Make sure you have a working [Development Environment](/development/setup/environment).
 
 1. Make sure that your contribution has an associated issue in the bug tracker,
    or create one.

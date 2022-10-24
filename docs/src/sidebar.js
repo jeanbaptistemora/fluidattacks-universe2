@@ -498,9 +498,9 @@ const Development = [
   },
   {
     type: "category",
-    label: "Development Environment",
+    label: "Environment",
     items: [
-      "development/setup/introduction",
+      "development/setup/environment",
       "development/setup/terminal",
       "development/setup/editor",
     ],

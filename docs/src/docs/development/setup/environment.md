@@ -1,8 +1,8 @@
 ---
-id: introduction
+id: environment
 title: Introduction
 sidebar_label: Introduction
-slug: /development/setup
+slug: /development/setup/environment
 ---
 
 This section will guide you through setting up
