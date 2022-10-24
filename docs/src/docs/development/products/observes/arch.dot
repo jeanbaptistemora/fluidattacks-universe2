@@ -7,7 +7,7 @@ digraph observes {
   labelloc="t"
   compound="true"
   concentrate="true"
-  ranksep="3.0"
+  ranksep="6.0"
   rankdir="LR"
   scale="scalexy"
 
@@ -47,6 +47,22 @@ digraph observes {
 
         aws_s3_observes_cache_dynamo_etl[label="/dynamoEtl (DynamoDB Table Schemas)"]
       }
+
+      subgraph cluster_aws_s3_observes_etl_data {
+        label="observes.etl-data"
+
+        cluster_aws_s3_observes_etl_data[label="" style="invis"]
+
+        aws_s3_observes_etl_data_dynamodb[label="/dynamodb (Data to load into Redshift)"]
+      }
+
+      subgraph cluster_aws_s3_observes_state {
+        label="observes.state"
+
+        cluster_aws_s3_observes_state[label="" style="invis"]
+
+        aws_s3_observes_state_gitlab_etl[label="/gitlab_etl (Data to load into Redshift)"]
+      }
     }
 
     subgraph cluster_aws_vpc {
@@ -72,9 +88,30 @@ digraph observes {
     subgraph cluster_common_compute {
       label="Compute"
 
+      subgraph cluster_common_compute_job_queues {
+        label="Jobs Queues"
+
+        common_compute_schedules_observes_etl_announcekit[label="/observes/etl/announcekit"]
+        common_compute_schedules_observes_job_batch_stability[label="/observes/job/batch-stability"]
+        common_compute_schedules_observes_etl_bugsnag[label="/observes/etl/bugsnag"]
+        common_compute_schedules_observes_etl_code_mirror_all_on_aws[label="/observes/etl/code/mirror/all-on-aws"]
+        common_compute_schedules_observes_etl_code_upload_all_on_aws[label="/observes/etl/code/upload/all-on-aws"]
+        common_compute_schedules_observes_etl_checkly[label="/observes/etl/checkly"]
+        common_compute_schedules_observes_etl_delighted[label="/observes/etl/delighted"]
+        common_compute_schedules_observes_etl_dynamo_conf[label="/observes/etl/dynamo/conf"]
+        common_compute_schedules_observes_etl_formstack[label="/observes/etl/formstack"]
+        common_compute_schedules_observes_etl_gitlab_challenges[label="/observes/etl/gitlab/challenges"]
+        common_compute_schedules_observes_etl_gitlab_default[label="/observes/etl/gitlab/default"]
+        common_compute_schedules_observes_etl_gitlab_universe[label="/observes/etl/gitlab/universe"]
+        common_compute_schedules_observes_etl_gitlab_services[label="/observes/etl/gitlab/services"]
+        common_compute_schedules_observes_etl_mailchimp[label="/observes/etl/mailchimp"]
+        common_compute_schedules_observes_etl_mandrill[label="/observes/etl/mandrill"]
+      }
+
       subgraph cluster_common_compute_schedules {
         label="Schedules"
 
+        common_compute_schedules_observes_job_scheduler[label="/observes/job/scheduler"]
       }
     }
   }
@@ -106,4 +143,19 @@ digraph observes {
 
   edge[color="0.0 0.0 0.0"]
   developer -> gitlab_observes[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_announcekit[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_job_batch_stability[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_bugsnag[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_code_mirror_all_on_aws[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_code_upload_all_on_aws[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_checkly[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_delighted[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_dynamo_conf[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_formstack[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_gitlab_challenges[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_gitlab_default[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_gitlab_universe[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_gitlab_services[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_mailchimp[]
+  common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_mandrill[]
 }
