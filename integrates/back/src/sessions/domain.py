@@ -2,9 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+import contextlib
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
+    SecureAccessException,
     StakeholderNotFound,
 )
 from dataloaders import (
@@ -20,9 +22,13 @@ from db_model.stakeholders.types import (
     StakeholderSessionToken,
     StateSessionType,
 )
+from starlette.requests import (
+    Request,
+)
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 
@@ -51,7 +57,70 @@ async def verify_session_token(content: Dict[str, Any], email: str) -> None:
             raise ExpiredToken()
 
         if stakeholder.session_token.jti != content["jti"]:
-            await remove_session_token(content, email)
             raise ExpiredToken()
     else:
         raise InvalidAuthorization()
+
+
+async def create_session_web_new(request: Request, email: str) -> None:
+    session_key: str = request.session["session_key"]
+
+    # Check if there is a session already
+    request.session["is_concurrent"] = bool(await get_session_key_new(email))
+
+    # Proccede overwritting the user session
+    # This means that if a session did exist before, this one will
+    # take place and the other will be removed
+    return await stakeholders_model.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            session_key=session_key,
+        ),
+        email=email,
+    )
+
+
+async def get_session_key_new(email: str) -> Optional[str]:
+    session_key: Optional[str] = None
+    with contextlib.suppress(StakeholderNotFound):
+        loaders: Dataloaders = get_new_context()
+        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+        session_key = stakeholder.session_key
+    return session_key
+
+
+async def remove_session_key_new(email: str) -> None:
+    await stakeholders_model.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            session_key="",
+        ),
+        email=email,
+    )
+
+
+async def check_session_web_validity_new(request: Request, email: str) -> None:
+    try:
+        session_key: str = request.session["session_key"]
+
+        # Check if the stakeholder has a concurrent session and in case they do
+        # raise the concurrent session modal flag
+        if request.session.get("is_concurrent"):
+            request.session.pop("is_concurrent")
+            await stakeholders_model.update_metadata(
+                metadata=StakeholderMetadataToUpdate(
+                    is_concurrent_session=True,
+                ),
+                email=email,
+            )
+        # Check if the stakeholder has an active session but it's different
+        # than the one in the cookie
+        if await get_session_key_new(email) == session_key:
+            # Session and cookie are ok and up to date
+            pass
+        else:
+            # Session or the cookie are expired, let's logout the stakeholder
+            await remove_session_key_new(email)
+            request.session.clear()
+            raise SecureAccessException()
+    except (KeyError, StakeholderNotFound):
+        # Stakeholder do not even has an active session
+        raise SecureAccessException() from None
