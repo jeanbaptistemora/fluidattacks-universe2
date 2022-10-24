@@ -7,6 +7,7 @@
 /* eslint react/forbid-component-props:0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { CategoriesList } from "../../components/CategoriesList";
 import { Layout } from "../../components/Layout";
@@ -15,18 +16,20 @@ import { Seo } from "../../components/Seo";
 import { InternalContainer, PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
-const categoriesIndex: React.FC<IQueryData> = ({
+const CategoriesIndex: React.FC<IQueryData> = ({
   pageContext,
 }: IQueryData): JSX.Element => {
   const {
     breadcrumb: { crumbs },
   } = pageContext;
 
+  const { t } = useTranslation();
+
   return (
     <React.Fragment>
       <Seo
-        description={""}
-        keywords={""}
+        description={t("blog.listDescriptions.categories.description")}
+        keywords={t("blog.keywords")}
         title={`Categories | Fluid Attacks`}
         url={"https://fluidattacks.com/blog/authors/"}
       />
@@ -52,4 +55,4 @@ const categoriesIndex: React.FC<IQueryData> = ({
 };
 
 // eslint-disable-next-line import/no-default-export
-export default categoriesIndex;
+export default CategoriesIndex;

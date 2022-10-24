@@ -33,6 +33,25 @@ const pageTexts: ResourceKey = {
     keywords:
       "Blog, Articles, Opinion, Challenge, Pentesting, Security," +
       "Ethical Hacking, Trends",
+    listDescriptions: {
+      authors: {
+        description:
+          "Several authors contribute to Fluid Attacks' blog, " +
+          "sharing the most valuable knowledge and " +
+          "interesting content on cybersecurity.",
+      },
+      categories: {
+        description:
+          "Fluid Attacks publishes blog posts " +
+          "covering multiple engaging topics, " +
+          "which are grouped into different categories.",
+      },
+      tags: {
+        description:
+          "Tags in Fluid Attacks' blog posts help " +
+          "you discover similar content more easily.",
+      },
+    },
   },
   blogFooter: {
     authorHeader: "Author",
