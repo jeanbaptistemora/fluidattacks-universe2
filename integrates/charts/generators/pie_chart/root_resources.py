@@ -11,7 +11,7 @@ from charts import (
 from charts.generators.common.colors import (
     OTHER,
 )
-from charts.generators.pie_chart import (  # type: ignore
+from charts.generators.pie_chart.common import (
     format_csv_data,
 )
 from dataloaders import (
