@@ -20770,6 +20770,31 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivati
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_obsolete_key_derivation
+F350,lines,namespace/skims/test/data/lib_root/f350/insecure_trust_manager.java,9,310,skims,350. Insecure digital certificates - Chain of trust,"The application uses an insecure trust manager for the ssl context
+ in namespace/skims/test/data/lib_root/f350/insecure_trust_manager.java","
+   1 | rt javax.net.ssl.TrustManagerFactory;
+   2 |
+   3 | ic class Test {
+   4 |
+   5 | lic WebClient insecureClient() {
+   6 | y{
+   7 |
+   8 | rustManager my_manager = InsecureTrustManagerFactory.INSTANCE;
+>  9 | slContext insecure_context = SslContextBuilder.forClient().trustManager(my_manager).build();
+  10 | eturn insecure_context;
+  11 |
+  12 | catch (Exception e){
+  13 |
+  14 | hrow new RuntimeException("":: An error ocurred in ssl"", e);
+  15 |
+  16 |
+  17 |
+  18 |
+  19 | lic WebClient secureClient() {
+  20 | y{
+  21 | rustManager my_sec_manager = trustManagerFactory.getTrustManagers();
+     ^ Col 4
+",java.java_use_insecure_trust_manager
 F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/insecure_connection.java,"
    1 | @Component
    2 | public class InsecureConnection {

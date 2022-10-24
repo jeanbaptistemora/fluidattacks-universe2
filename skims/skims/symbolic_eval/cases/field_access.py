@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f052.field_access import (
     evaluate as evaluate_field_access_f052,
 )
+from symbolic_eval.f350.field_access import (
+    evaluate as evaluate_field_access_f350,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,7 @@ from typing import (
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F052: evaluate_field_access_f052,
+    FindingEnum.F350: evaluate_field_access_f350,
 }
 
 
