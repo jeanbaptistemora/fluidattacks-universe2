@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Introduction
+title: Products
 sidebar_label: Introduction
 slug: /development/products
 ---

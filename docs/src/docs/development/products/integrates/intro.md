@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Introduction
+title: Integrates
 sidebar_label: Introduction
 slug: /development/integrates
 ---

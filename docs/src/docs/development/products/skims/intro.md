@@ -1,7 +1,7 @@
 ---
-id: skims
+id: intro
 title: Skims
-sidebar_label: Skims
+sidebar_label: Introduction
 slug: /development/skims
 ---
 
@@ -23,6 +23,8 @@ with the security vulnerabilities found.
    it favors failing to report a vulnerability that has a real impact
    over reporting a vulnerability that has no impact.
    The rationale for this is that the [Squad Service](/squad/reattacks)
+   (which is powered by Human Hackers and manual security testing)
+   will be able to catch the vulnerability.
 
 ## Architecture
 
@@ -32,7 +34,7 @@ to open it in a new tab,
 or save it to your computer.
 :::
 
-![Architecture of Skims](./skims-arch.dot.svg)
+![Architecture of Skims](./arch.dot.svg)
 
 ## Contributing
 

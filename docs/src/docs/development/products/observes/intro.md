@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Introduction
+title: Observes
 sidebar_label: Introduction
 slug: /development/observes
 ---
