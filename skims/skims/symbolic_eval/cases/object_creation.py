@@ -11,6 +11,9 @@ from symbolic_eval.f001.object_creation import (
 from symbolic_eval.f004.object_creation import (
     evaluate as evaluate_parameter_f004,
 )
+from symbolic_eval.f015.object_creation import (
+    evaluate as evaluate_parameter_f015,
+)
 from symbolic_eval.f016.object_creation import (
     evaluate as evaluate_parameter_f016,
 )
@@ -35,6 +38,7 @@ from typing import (
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F001: evaluate_parameter_f001,
     FindingEnum.F004: evaluate_parameter_f004,
+    FindingEnum.F015: evaluate_parameter_f015,
     FindingEnum.F016: evaluate_parameter_f016,
     FindingEnum.F021: evaluate_parameter_f021,
     FindingEnum.F096: evaluate_parameter_f096,
