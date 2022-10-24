@@ -10,6 +10,9 @@ from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
 )
+from lib_path.f011.go import (
+    go_mod,
+)
 from lib_path.f011.maven import (
     maven_gradle,
     maven_pom_xml,
@@ -44,6 +47,11 @@ def run_gem_gemfile(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
     return gem_gemfile_lock(content, path)
+
+
+@SHIELD_BLOCKING
+def run_go_mod(content: str, path: str) -> Vulnerabilities:
+    return go_mod(content, path)
 
 
 @SHIELD_BLOCKING
@@ -143,5 +151,8 @@ def analyze(  # noqa: MC0001
 
     if file_name == "Gemfile":
         return (run_gem_gemfile(content_generator(), path),)
+
+    if (file_name, file_extension) == ("go", "mod"):
+        return (run_go_mod(content_generator(), path),)
 
     return ()

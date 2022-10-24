@@ -20,6 +20,7 @@ require (
 	github.com/peterbourgon/ff/v3 v3.3.0
 	github.com/stretchr/testify v1.8.0
 	go.uber.org/atomic v1.9.0
+	gogs.io/gogs v0.6.5
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
 	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
 	golang.org/x/text v0.3.8
