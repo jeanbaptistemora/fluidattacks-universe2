@@ -25,6 +25,7 @@ from retry import (  # type: ignore
     retry,
 )
 import subprocess
+import sys
 from typing import (
     Any,
     cast,
@@ -183,9 +184,18 @@ def _request_asm(
             data=json.dumps(payload),
             headers=headers,
         )
-        if response.status_code == 200:
+        try:
             result = response.json()
-
+        except json.JSONDecodeError:
+            logging.error(response.text)
+            return result
+        if response.status_code >= 400:
+            if result:
+                for error in result.get("errors", []):
+                    logging.error(error)
+            else:
+                logging.error(response.text)
+            response.raise_for_status()
     return result
 
 
@@ -666,7 +676,8 @@ def start_execution(
         commit_hash=commit_hash,
     )
     if not result:
-        print(f"Failed to start {job_id}")
+        logging.error("Failed to start %s", job_id)
+    sys.exit(0)
 
 
 @cli.command()
@@ -698,7 +709,8 @@ def finish_execution(
         ),
     )
     if not result:
-        print(f"Failed to finish {job_id}")
+        logging.error("Failed to finish %s", job_id)
+    sys.exit(0)
 
 
 @cli.command()
@@ -720,6 +732,7 @@ def submit_task(execution_id: str) -> None:
         }
         queue.put(message)
         queue.close()
+    sys.exit(0)
 
 
 if __name__ == "__main__":

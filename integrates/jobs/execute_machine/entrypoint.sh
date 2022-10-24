@@ -54,17 +54,17 @@ function main() {
             --recursive \
             "groups/${group_name}/fusion/${root}/execution_configs/" \
             s3://skims.data/configs \
+          && python3 __argScript__ start-execution \
+            --group-name "${group_name}" \
+            --root-nickname "${root}" \
+            --api-token "${INTEGRATES_API_TOKEN}" \
+            --commit-hash "${current_commit}" \
           && find "groups/${group_name}/fusion/${root}/execution_configs/" \
             -name "*.yaml" \
           | while read -r file_config; do
             pushd "groups/${group_name}/fusion/${root}" \
               && current_commit="$(git rev-parse HEAD)" \
               && popd \
-              && python3 __argScript__ start-execution \
-                --group-name "${group_name}" \
-                --root-nickname "${root}" \
-                --api-token "${INTEGRATES_API_TOKEN}" \
-                --commit-hash "${current_commit}" \
               && skims scan --group "${group_name}" "${file_config}" \
               && filename="$(basename "${file_config}")" \
               && execution_id="${filename%.*}" \
