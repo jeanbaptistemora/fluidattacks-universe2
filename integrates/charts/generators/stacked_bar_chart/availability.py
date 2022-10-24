@@ -146,6 +146,9 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
                 padding=dict(
                     bottom=0,
                 ),
+                tick=dict(
+                    count=2,
+                ),
             ),
         ),
         tooltip=dict(

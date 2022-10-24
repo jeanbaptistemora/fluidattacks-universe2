@@ -937,6 +937,9 @@ def format_stacked_vulnerabilities_data(
                 padding=dict(
                     bottom=0,
                 ),
+                tick=dict(
+                    count=2,
+                ),
             ),
         ),
         tooltip=dict(

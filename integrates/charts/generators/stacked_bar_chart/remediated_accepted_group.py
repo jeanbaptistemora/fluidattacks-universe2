@@ -163,6 +163,12 @@ def format_data(
                 type="category",
                 tick=dict(rotate=0, multiline=False),
             ),
+            y=dict(
+                min=0,
+                tick=dict(
+                    count=2,
+                ),
+            ),
         ),
         tooltip=dict(
             format=dict(
