@@ -73,8 +73,8 @@ function render(dataDocument, height, width) {
   if (dataDocument.axis.rotated) {
     dataDocument.paddingRatioLeft = 0.35;
     dataDocument.paddingRatioRight = 0.05;
-    dataDocument.paddingRatioTop = 0.02;
-    dataDocument.paddingRatioBottom = 0.02;
+    dataDocument.paddingRatioTop = 0.001;
+    dataDocument.paddingRatioBottom = 0.001;
   }
 
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
