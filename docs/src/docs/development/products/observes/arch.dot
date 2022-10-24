@@ -80,6 +80,14 @@ digraph observes {
     }
   }
 
+  subgraph cluster_bugsnag {
+    label="Bugsnag"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    bugsnag[label="Stability Reports"]
+  }
+
   subgraph cluster_common {
     label="Common"
     bgcolor="0.0 0.0 0.95"
@@ -153,6 +161,17 @@ digraph observes {
 
   edge[color="0.0 0.0 0.0"]
   developer -> gitlab_observes[]
+  common_compute_schedules_observes_etl_announcekit -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_job_batch_stability -> bugsnag[]
+  common_compute_schedules_observes_etl_bugsnag -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_checkly -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_delighted -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_formstack -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_gitlab_challenges -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_gitlab_default -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_gitlab_services -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_gitlab_universe -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_gitlab_universe_ephemeral -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_announcekit[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_job_batch_stability[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_bugsnag[]
