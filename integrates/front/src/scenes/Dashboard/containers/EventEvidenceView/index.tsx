@@ -20,7 +20,7 @@ import { Form, Formik } from "formik";
 import type { FieldValidator } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import ImageViewer from "react-simple-image-viewer";
@@ -35,7 +35,6 @@ import type {
 import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
-import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
@@ -45,7 +44,6 @@ import {
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { featurePreviewContext } from "utils/featurePreview";
 import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -67,8 +65,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     setIsEditing(!isEditing);
   }, [isEditing]);
 
-  const { featurePreview } = useContext(featurePreviewContext);
-  const [lightboxIndex, setLightboxIndex] = useState(-1);
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
 
@@ -164,7 +160,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         );
       }
       setCurrentImage(0);
-      setLightboxIndex(-1);
 
       await refetch();
     },
@@ -276,11 +271,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
                   const openImage = (): void => {
                     if (!isEditing && !isRefetching) {
-                      if (featurePreview) {
-                        setOpenImageViewer(index);
-                      } else {
-                        setLightboxIndex(index);
-                      }
+                      setOpenImageViewer(index);
                     }
                   };
 
@@ -363,8 +354,8 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             </Form>
           )}
         </Formik>
-        {featurePreview ? (
-          isViewerOpen && (
+        {isViewerOpen && (
+          <div aria-label={"ImageViewer"} role={"dialog"}>
             <ImageViewer
               backgroundStyle={{
                 backgroundColor: "rgba(0,0,0,0.9)",
@@ -382,15 +373,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   `${location.href}/${evidenceImages[name].fileName}`
               )}
             />
-          )
-        ) : (
-          <EvidenceLightbox
-            evidenceImages={imageList.map((name: string): { url: string } => ({
-              url: evidenceImages[name].fileName,
-            }))}
-            index={lightboxIndex}
-            onChange={setLightboxIndex}
-          />
+          </div>
         )}
       </React.Fragment>
     </React.StrictMode>

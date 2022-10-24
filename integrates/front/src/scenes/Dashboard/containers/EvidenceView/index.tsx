@@ -22,7 +22,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import ImageViewer from "react-simple-image-viewer";
@@ -39,7 +39,6 @@ import {
 import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
-import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import {
   GET_FINDING_EVIDENCES,
   REMOVE_EVIDENCE_MUTATION,
@@ -50,7 +49,6 @@ import type { IGetFindingEvidences } from "scenes/Dashboard/containers/EvidenceV
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { featurePreviewContext } from "utils/featurePreview";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
@@ -75,8 +73,6 @@ const EvidenceView: React.FC = (): JSX.Element => {
     setIsEditing(!isEditing);
   }, [isEditing]);
 
-  const { featurePreview } = useContext(featurePreviewContext);
-  const [lightboxIndex, setLightboxIndex] = useState(-1);
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
 
@@ -189,7 +185,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
       await Promise.all(_.map(values, updateChanges));
       setCurrentImage(0);
-      setLightboxIndex(-1);
+
       await refetch();
     };
 
@@ -261,11 +257,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
                       const openImage = (): void => {
                         if (!isEditing && !isRefetching) {
-                          if (featurePreview) {
-                            setOpenImageViewer(index);
-                          } else {
-                            setLightboxIndex(index);
-                          }
+                          setOpenImageViewer(index);
                         }
                       };
 
@@ -307,8 +299,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       )}
-      {featurePreview ? (
-        isViewerOpen && (
+      {isViewerOpen && (
+        <div aria-label={"ImageViewer"} role={"dialog"}>
           <ImageViewer
             backgroundStyle={{
               backgroundColor: "rgba(0,0,0,0.9)",
@@ -326,15 +318,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                 `${location.href}/${evidenceImages[name].url}`
             )}
           />
-        )
-      ) : (
-        <EvidenceLightbox
-          evidenceImages={evidenceList.map(
-            (name: string): IEvidenceItem => evidenceImages[name]
-          )}
-          index={lightboxIndex}
-          onChange={setLightboxIndex}
-        />
+        </div>
       )}
     </React.StrictMode>
   );

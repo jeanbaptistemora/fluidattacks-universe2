@@ -117,7 +117,7 @@ describe("FindingEvidenceView", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should render image lightbox", async (): Promise<void> => {
+  it("should render image viewer", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -136,17 +136,20 @@ describe("FindingEvidenceView", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(0);
+    expect(screen.queryAllByRole("span", { hidden: true })).toHaveLength(0);
 
     userEvent.click(screen.getAllByRole("img")[0]);
     userEvent.hover(
-      screen.getByRole("dialog", { hidden: true, name: "Lightbox" })
+      screen.getByRole("dialog", {
+        hidden: true,
+        name: "ImageViewer",
+      })
     );
 
-    const ReactImageLightboxButtons: number = 3;
+    const ReactImageViewerButtons: number = 3;
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(
-        ReactImageLightboxButtons
+      expect(screen.queryAllByRole("img", { hidden: true })).toHaveLength(
+        ReactImageViewerButtons
       );
     });
 
