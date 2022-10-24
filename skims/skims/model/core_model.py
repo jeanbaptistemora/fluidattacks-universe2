@@ -2123,6 +2123,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_S3_HAS_INSECURE_TRANSPORT = MethodInfo(
+        file_name="aws",
+        name="s3_has_insecure_transport",
+        module="dast",
+        finding=FindingEnum.F281,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
