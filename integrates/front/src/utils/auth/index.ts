@@ -35,9 +35,9 @@ const authContext: React.Context<IAuthContext> = createContext<IAuthContext>({
 
 const setupSessionCheck: (expDate: string) => void = (expDate): void => {
   setTimeout((): void => {
+    location.replace("/logout");
     // eslint-disable-next-line no-alert -- Deliberate usage
     alert(translate.t("validations.validSessionDate"));
-    location.replace(`https://${window.location.host}`);
   }, utc(expDate).diff(utc()));
 };
 

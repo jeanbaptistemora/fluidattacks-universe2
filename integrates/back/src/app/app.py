@@ -103,7 +103,6 @@ from search.client import (
     search_startup,
 )
 from sessions import (
-    dal as sessions_dal,
     domain as sessions_domain,
 )
 from settings import (
@@ -111,9 +110,6 @@ from settings import (
     JWT_COOKIE_NAME,
     LOGGING,
     TEMPLATES_DIR,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from starlette.applications import (
     Starlette,
@@ -157,11 +153,11 @@ async def app(request: Request) -> HTMLResponse:
     email = user_info["user_email"]
     try:
         if FI_ENVIRONMENT == "production":
-            await stakeholders_domain.check_session_web_validity(
+            await sessions_domain.check_session_web_validity_new(
                 request, email
             )
         response = templates.main_app(request)
-    except (ExpiredToken, SecureAccessException):
+    except SecureAccessException:
         response = await logout(request)
     return response
 
@@ -330,7 +326,7 @@ async def logout(request: Request) -> HTMLResponse:
 
     user_email = user_info["user_email"]
     await sessions_domain.remove_session_token(user_info, user_email)
-    await sessions_dal.remove_session_key(user_email, "web")
+    await sessions_domain.remove_session_key_new(user_email)
     await analytics.mixpanel_track(user_email, "Logout")
 
     request.session.clear()
