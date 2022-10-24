@@ -46,15 +46,10 @@ class CheckStatusClient:
     _client: RawClient
     _per_page: int
 
-    def _get_page(self, page: int) -> Cmd[FrozenList[CheckStatusObj]]:
+    def get_page(self) -> Cmd[FrozenList[CheckStatusObj]]:
         return self._client.get_list(
             "/v1/check-statuses",
-            from_prim_dict(
-                {
-                    "limit": self._per_page,
-                    "page": page,
-                }
-            ),
+            from_prim_dict({}),
         ).map(
             lambda l: pure_map(
                 lambda i: CheckStatusDecoder(i).decode_obj().unwrap(), l
@@ -63,11 +58,7 @@ class CheckStatusClient:
 
     def list_all(self) -> Stream[CheckStatusObj]:
         return (
-            infinite_range(1, 1)
-            .map(self._get_page)
-            .transform(lambda x: from_piter(x))
-            .map(lambda i: i if bool(i) else None)
-            .transform(lambda x: until_none(x))
+            from_piter(from_flist((self.get_page(),)))
             .map(lambda x: from_flist(x))
             .transform(lambda x: chain(x))
         )

@@ -54,5 +54,5 @@ class CheckStatus:
     last_run_location: str
     longest_run: int
     shortest_run: int
-    ssl_days_remaining: int
+    ssl_days_remaining: Maybe[int]
     updated_at: Maybe[datetime]

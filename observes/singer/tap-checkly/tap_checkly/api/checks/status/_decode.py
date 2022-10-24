@@ -49,7 +49,7 @@ class CheckStatusDecoder:
                                         lambda longest_run: unfolder.require_primitive(
                                             "shortestRun", int
                                         ).bind(
-                                            lambda shortest_run: unfolder.require_primitive(
+                                            lambda shortest_run: unfolder.maybe_primitive(
                                                 "sslDaysRemaining", int
                                             ).bind(
                                                 lambda ssl_days_remaining: unfolder.opt_datetime(

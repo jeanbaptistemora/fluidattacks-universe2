@@ -40,6 +40,7 @@ from typing import (
 _str_type = JSchemaFactory.from_prim_type(str)
 _int_type = JSchemaFactory.from_prim_type(int)
 _bool_type = JSchemaFactory.from_prim_type(bool)
+_opt_int_type = JSchemaFactory.opt_prim_type(int)
 _date_type = JSchemaFactory.datetime_schema()
 
 
@@ -96,8 +97,8 @@ def _core_encoder_fx() -> SingerEncoder[CheckStatusObj]:
             CheckStatusObj,
         ),
         "ssl_days_remaining": EncodeItem.new(
-            lambda x: x.obj.ssl_days_remaining,
-            Property(_int_type, False, False),
+            lambda x: x.obj.ssl_days_remaining.value_or(None),
+            Property(_opt_int_type, False, False),
             CheckStatusObj,
         ),
         "updated_at": EncodeItem.new(
