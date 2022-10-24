@@ -348,8 +348,3 @@ def _run_no_group(
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
     check_that_csv_results_match(suite, snippet_filter=snippet_filter)
-
-    # Execute it again to verify that cache retrievals work as expected
-    # and are reproducible
-    code, stdout, stderr = skims("scan", get_suite_config(suite))
-    check_that_csv_results_match(suite, snippet_filter=snippet_filter)

@@ -58,6 +58,7 @@ from lib_root import (
     f423,
 )
 from lib_sast.types import (
+    Paths,
     ShardDb,
 )
 from model import (
@@ -69,6 +70,9 @@ from os import (
 )
 from sast import (
     query as sast_query,
+)
+from sast.parse import (
+    get_graph_db,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -132,14 +136,15 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    paths: Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in QUERIES):
         # No findings will be executed, early abort
         return
 
+    graph_db = get_graph_db(paths.ok_paths)
+    shard_db = ShardDb(paths=paths)
     queries: graph_model.Queries = tuple(
         (finding, query)
         for finding, query in QUERIES
