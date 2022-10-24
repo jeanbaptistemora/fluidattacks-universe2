@@ -20,6 +20,7 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { ResourcesPage } from "../components/ResourcesPage";
@@ -45,6 +46,14 @@ const ResourcesIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632049/airs/resources/resources-main_u1gggc.png"
         }
         keywords={keywords}
+        title={`${title} | Fluid Attacks`}
+        url={slug}
+      />
+      <BlogSeo
+        description={description}
+        image={
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632049/airs/resources/resources-main_u1gggc.png"
+        }
         title={`${title} | Fluid Attacks`}
         url={slug}
       />

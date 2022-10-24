@@ -19,6 +19,7 @@ import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
+import { BlogSeo } from "../components/BlogSeo";
 import { FreeTrialPage } from "../components/FreeTrialPage";
 import { Layout } from "../components/Layout";
 import { Seo } from "../components/Seo";
@@ -36,6 +37,12 @@ const FreeTrialIndex: React.FC<IQueryData> = ({
         description={description}
         image={image}
         keywords={keywords}
+        title={`${title} | Fluid Attacks`}
+        url={slug}
+      />
+      <BlogSeo
+        description={description}
+        image={image}
         title={`${title} | Fluid Attacks`}
         url={slug}
       />

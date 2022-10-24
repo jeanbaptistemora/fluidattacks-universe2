@@ -20,6 +20,7 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -45,6 +46,12 @@ const ServicesIndex: React.FC<IQueryData> = ({
         description={description}
         image={image}
         keywords={keywords}
+        title={`${title} | Fluid Attacks`}
+        url={slug}
+      />
+      <BlogSeo
+        description={description}
+        image={image}
         title={`${title} | Fluid Attacks`}
         url={slug}
       />
