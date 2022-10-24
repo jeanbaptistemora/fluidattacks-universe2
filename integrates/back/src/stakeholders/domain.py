@@ -7,13 +7,11 @@ from authz.validations import (
     validate_role_fluid_reqs,
 )
 from custom_exceptions import (
-    ExpiredToken,
     InvalidExpirationTime,
     InvalidPushToken,
     RequiredNewPhoneNumber,
     RequiredVerificationCode,
     SamePhoneNumber,
-    SecureAccessException,
     StakeholderNotFound,
 )
 from datetime import (
@@ -50,23 +48,11 @@ from newutils.validations import (
     validate_field_length,
 )
 import re
-from redis_cluster.model import (
-    KeyNotFound as RedisKeyNotFound,
-)
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
-from sessions import (
-    dal as sessions_dal,
-)
 from stakeholders.utils import (
     get_international_format_phone_number,
 )
 from stakeholders.validations import (
     validate_phone,
-)
-from starlette.requests import (
-    Request,
 )
 from typing import (
     Any,
@@ -104,39 +90,8 @@ async def add_push_token(loaders: Any, email: str, push_token: str) -> None:
         )
 
 
-async def check_session_web_validity(request: Request, email: str) -> None:
-    session_key: str = request.session["session_key"]
-    attr: str = "web"
-
-    # Check if the stakeholder has a concurrent session and in case they do
-    # raise the concurrent session modal flag
-    if request.session.get("is_concurrent"):
-        request.session.pop("is_concurrent")
-        await stakeholders_model.update_metadata(
-            metadata=StakeholderMetadataToUpdate(
-                is_concurrent_session=True,
-            ),
-            email=email,
-        )
-    try:
-        # Check if the stakeholder has an active session but it's different
-        # than the one in the cookie
-        if await sessions_dal.get_session_key(email, attr) == session_key:
-            # Session and cookie are ok and up to date
-            pass
-        else:
-            # Session or the cookie are expired, let's logout the stakeholder
-            await sessions_dal.remove_session_key(email, attr)
-            request.session.clear()
-            raise ExpiredToken()
-    except RedisKeyNotFound:
-        # Stakeholder do not even has an active session
-        raise SecureAccessException() from None
-
-
 async def remove(email: str) -> None:
     await stakeholders_model.remove(email=email)
-    await redis_del_by_deps("session_logout", session_email=email)
 
 
 async def update_information(
