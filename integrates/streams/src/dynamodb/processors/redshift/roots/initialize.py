@@ -43,6 +43,7 @@ def _initialize_environment_url_table() -> None:
                 id VARCHAR,
                 cloud_name VARCHAR,
                 created_at TIMESTAMPTZ,
+                root_id VARCHAR,
                 url_type VARCHAR,
 
                 UNIQUE (

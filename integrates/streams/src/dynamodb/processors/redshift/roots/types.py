@@ -37,4 +37,5 @@ class RootEnvironmentUrlTableRow:
     id: str
     cloud_name: Optional[str]
     created_at: datetime
+    root_id: str
     url_type: Optional[str]
