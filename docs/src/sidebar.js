@@ -433,7 +433,14 @@ const Development = [
       {
         type: "category",
         label: "Skims",
-        items: ["development/products/skims/intro"],
+        items: [
+          "development/products/skims/intro",
+          {
+            type: "category",
+            label: "Guidelines",
+            items: ["development/products/skims/guidelines/sca"],
+          },
+        ],
       },
       "development/products/sorts",
     ],
