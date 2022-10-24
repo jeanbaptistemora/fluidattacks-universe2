@@ -4420,3 +4420,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_AUTHENTICATION = MethodInfo(
+        file_name="java",
+        name="java_insecure_authentication",
+        module="lib_root",
+        finding=FindingEnum.F015,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
