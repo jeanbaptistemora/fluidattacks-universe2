@@ -111,6 +111,16 @@ digraph observes {
       subgraph cluster_common_compute_schedules {
         label="Schedules"
 
+        common_compute_schedules_observes_etl_code_compute_bills[label="/observes/etl/code/compute-bills"]
+        common_compute_schedules_observes_etl_dynamo_centralize[label="/observes/etl/dynamo/centralize"]
+        common_compute_schedules_observes_etl_gitlab_universe_ephemeral[label="/observes/etl/gitlab/universe/ephemeral"]
+        common_compute_schedules_observes_etl_matomo[label="/observes/etl/matomo"]
+        common_compute_schedules_observes_etl_mixpanel[label="/observes/etl/mixpanel"]
+        common_compute_schedules_observes_etl_timedoctor[label="/observes/etl/timedoctor"]
+        common_compute_schedules_observes_etl_timedoctor_backup[label="/observes/etl/timedoctor/backup"]
+        common_compute_schedules_observes_etl_zoho_crm_fluid[label="/observes/etl/zoho-crm/fluid"]
+        common_compute_schedules_observes_etl_zoho_crm_fluid_prepare[label="/observes/etl/zoho-crm/fluid/prepare"]
+        common_compute_schedules_observes_job_cancel_ci_jobs[label="/observes/job/cancel-ci-jobs"]
         common_compute_schedules_observes_job_scheduler[label="/observes/job/scheduler"]
       }
     }
