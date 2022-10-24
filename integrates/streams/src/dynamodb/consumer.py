@@ -16,6 +16,9 @@ from amazon_kclpy.messages import (
 from amazon_kclpy.v2 import (
     processor,
 )
+from botocore.exceptions import (
+    ClientError,
+)
 from dynamodb.triggers import (
     TRIGGERS,
 )
@@ -105,6 +108,7 @@ class RecordProcessor(processor.RecordProcessorBase):
                 if matching_records:
                     trigger.records_processor(matching_records)
             except (
+                ClientError,
                 OpenSearchException,
                 Psycopg2Error,
                 RequestException,
