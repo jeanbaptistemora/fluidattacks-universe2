@@ -105,6 +105,7 @@ const Head = <TData extends RowData>({
                       )}
                       &nbsp;
                       <FontAwesomeIcon
+                        color={"#b0b0bf"}
                         icon={
                           {
                             asc: faSortUp,
