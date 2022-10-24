@@ -2802,6 +2802,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSON_SOURCEMAP_IN_BUILD = MethodInfo(
+        file_name="conf_files",
+        name="json_sourcemap_in_build",
+        module="lib_path",
+        finding=FindingEnum.F236,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JSON_ANON_CONNECTION_CONFIG = MethodInfo(
         file_name="conf_files",
         name="json_anon_connection_config",
