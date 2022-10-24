@@ -855,6 +855,14 @@
       "title": "346. Excessive privileges - Mobile App"
     }
   },
+  "F350": {
+    "EN": {
+      "title": "350. Insecure digital certificates - Chain of trust"
+    },
+    "ES": {
+      "title": "350. Insecure digital certificates - Chain of trust"
+    }
+  },
   "F363": {
     "EN": {
       "title": "363. Weak credential policy - Password strength"

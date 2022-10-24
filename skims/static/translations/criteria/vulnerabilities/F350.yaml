@@ -1,0 +1,6 @@
+---
+lib_root.f350.insecure_trust_manager:
+  en: >
+    The application uses an insecure trust manager for the ssl context
+  es: >-
+    La aplicación utiliza un trust manager inseguro

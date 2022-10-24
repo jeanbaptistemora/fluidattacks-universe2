@@ -918,6 +918,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.apk,
         requirements=[95, 96, 186],
     )
+    F350: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F350",
+        cwe=310,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[88, 89, 90, 91, 92, 93],
+    )
     F363: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F363",
@@ -3938,6 +3945,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F335,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_TRUST_MANAGER = MethodInfo(
+        file_name="java",
+        name="java_use_insecure_trust_manager",
+        module="lib_root",
+        finding=FindingEnum.F350,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
