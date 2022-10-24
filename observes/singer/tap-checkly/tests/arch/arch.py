@@ -39,6 +39,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         ("results", "status"),
     ),
     "tap_checkly.api.checks.results": ("_client", "_decode", "time_range"),
+    "tap_checkly.api.checks.results._decode": (("_api_result", "_browser"),),
     "tap_checkly.api.checks.status": (
         "_client",
         "_decode",
