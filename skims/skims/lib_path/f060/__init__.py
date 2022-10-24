@@ -7,6 +7,7 @@ from lib_path.common import (
 )
 from lib_path.f060.conf_files import (
     json_allowed_hosts,
+    json_disable_host_check,
 )
 from lib_path.f060.dotnetconfig import (
     has_ssl_disabled,
@@ -27,6 +28,15 @@ from typing import (
 @SHIELD_BLOCKING
 def run_has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
     return has_ssl_disabled(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_json_disable_host_check(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return json_disable_host_check(
+        content=content, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -56,6 +66,7 @@ def analyze(
             results = (
                 *results,
                 run_json_allowed_hosts(content, path, template),
+                run_json_disable_host_check(content, path, template),
             )
 
     return results
