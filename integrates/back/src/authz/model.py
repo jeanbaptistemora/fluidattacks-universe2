@@ -839,6 +839,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_group_services_info",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["admin"]["tags"],
@@ -873,6 +874,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_group_services_info",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["hacker"]["tags"],
@@ -890,6 +892,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_lines_resolve",
             "api_resolvers_query_environment_url_resolve",
             "see_group_services_info",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["reattacker"]["tags"],
@@ -904,6 +907,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_group_services_info",
             "api_resolvers_group_drafts_resolve",
             "api_resolvers_finding_hacker_resolve",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["user"]["tags"],
@@ -918,6 +922,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
             "see_group_services_info",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["user_manager"]["tags"],
@@ -948,6 +953,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_internal_toe",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["customer_manager"]["tags"],
@@ -980,6 +986,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_group_services_info",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["resourcer"]["tags"],
@@ -1008,6 +1015,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_group_services_info",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["reviewer"]["tags"],
@@ -1022,6 +1030,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
             "see_group_services_info",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["architect"]["tags"],
@@ -1035,6 +1044,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
             "see_group_services_info",
+            "see_vulnerability_source",
         },
         tags={
             *GROUP_LEVEL_ROLES["vulnerability_manager"]["tags"],
