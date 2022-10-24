@@ -1,0 +1,109 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph observes {
+  label="Observes Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  ranksep="3.0"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_redshift {
+      label="Redshift"
+
+      subgraph cluster_aws_redshift_clusters {
+        label="Clusters"
+
+        aws_redshift_clusters_observes[label="observes"]
+      }
+    }
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_fluidanalytics {
+        label="fluidanalytics"
+
+        cluster_aws_s3_fluidanalytics[label="" style="invis"]
+
+        aws_s3_fluidanalytics_backup_timedoctor[label="/backup_timedoctor (Timedoctor Data)"]
+      }
+
+      subgraph cluster_aws_s3_observes_cache {
+        label="observes.cache"
+
+        cluster_aws_s3_observes_cache[label="" style="invis"]
+
+        aws_s3_observes_cache_dynamo_etl[label="/dynamoEtl (DynamoDB Table Schemas)"]
+      }
+    }
+
+    subgraph cluster_aws_vpc {
+      label="VPC"
+
+      subgraph cluster_aws_vpc_fluid_vpc {
+        label="fluid-vpc (192.168.0.0/16)"
+
+        subgraph cluster_aws_vpc_fluid_vpc_subnets {
+          label="Subnets"
+
+          cluster_aws_vpc_fluid_vpc_subnets_observes[label="observes_* 192.168.4.0/23 us-east-1*" peripheries="2"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_common {
+    label="Common"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    subgraph cluster_common_compute {
+      label="Compute"
+
+      subgraph cluster_common_compute_schedules {
+        label="Schedules"
+
+      }
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_observes {
+        label="/observes"
+
+        gitlab_observes[label="Source Code"]
+      }
+    }
+  }
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="0.1 1.0 1.0"]
+  aws_redshift_clusters_observes -> cluster_aws_vpc_fluid_vpc_subnets_observes[]
+
+  edge[color="0.8 1.0 1.0"]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> gitlab_observes[]
+}
