@@ -11,8 +11,6 @@ from .types import (
     EventUnreliableIndicators,
 )
 from db_model.events.enums import (
-    EventActionsAfterBlocking,
-    EventActionsBeforeBlocking,
     EventSolutionReason,
     EventStateStatus,
     EventType,
@@ -98,18 +96,7 @@ def format_evidences(evidences: Item) -> EventEvidences:
 
 def format_event(item: Item) -> Event:
     return Event(
-        action_after_blocking=EventActionsAfterBlocking[
-            item["action_after_blocking"]
-        ]
-        if item.get("action_after_blocking")
-        else None,
-        action_before_blocking=EventActionsBeforeBlocking[
-            item["action_before_blocking"]
-        ]
-        if item.get("action_before_blocking")
-        else None,
         client=item["client"],
-        context=item.get("context"),
         created_by=item["created_by"],
         created_date=item["created_date"],
         description=item["description"],
@@ -149,13 +136,6 @@ def format_event_item(event: Event) -> Item:
         "id": event.id,
         "state": json.loads(json.dumps(event.state)),
         "type": event.type.value,
-        "action_after_blocking": event.action_after_blocking.value
-        if event.action_after_blocking
-        else None,
-        "action_before_blocking": event.action_before_blocking.value
-        if event.action_before_blocking
-        else None,
-        "context": event.context,
         "root_id": event.root_id,
         "unreliable_indicators": json.loads(
             json.dumps(event.unreliable_indicators)

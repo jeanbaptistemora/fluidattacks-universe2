@@ -7,21 +7,6 @@ from enum import (
 )
 
 
-class EventActionsAfterBlocking(str, Enum):
-    EXECUTE_OTHER_GROUP_OTHER_CLIENT: str = "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
-    EXECUTE_OTHER_GROUP_SAME_CLIENT: str = "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-    NONE: str = "NONE"
-    OTHER: str = "OTHER"
-    TRAINING: str = "TRAINING"
-
-
-class EventActionsBeforeBlocking(str, Enum):
-    DOCUMENT_GROUP: str = "DOCUMENT_GROUP"
-    NONE: str = "NONE"
-    OTHER: str = "OTHER"
-    TEST_OTHER_PART_TOE: str = "TEST_OTHER_PART_TOE"
-
-
 class EventEvidenceId(str, Enum):
     FILE_1: str = "FILE_1"
     IMAGE_1: str = "IMAGE_1"

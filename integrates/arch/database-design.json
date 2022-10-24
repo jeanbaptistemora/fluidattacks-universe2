@@ -831,14 +831,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "action_after_blocking",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "action_before_blocking",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "completed",
           "AttributeType": "BOOL"
         },
@@ -19891,12 +19883,9 @@
             "sk_2",
             "state",
             "unreliable_indicators",
-            "context",
             "client",
             "hacker",
             "event_date",
-            "action_after_blocking",
-            "action_before_blocking",
             "created_by"
           ],
           "DataAccess": {

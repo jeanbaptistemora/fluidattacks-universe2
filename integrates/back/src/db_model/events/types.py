@@ -3,8 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from .enums import (
-    EventActionsAfterBlocking,
-    EventActionsBeforeBlocking,
     EventSolutionReason,
     EventStateStatus,
     EventType,
@@ -55,13 +53,6 @@ class Event(NamedTuple):
     id: str
     state: EventState
     type: EventType
-    action_after_blocking: Optional[
-        EventActionsAfterBlocking
-    ] = None  # Deprecated
-    action_before_blocking: Optional[
-        EventActionsBeforeBlocking
-    ] = None  # Deprecated
-    context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None
     unreliable_indicators: EventUnreliableIndicators = (
         EventUnreliableIndicators()
