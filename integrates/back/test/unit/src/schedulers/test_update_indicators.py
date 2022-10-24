@@ -12,6 +12,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -26,6 +32,7 @@ from schedulers.update_indicators import (
     create_data_format_chart,
     create_weekly_date,
     get_accepted_vulns,
+    get_by_time_range,
     get_date_last_vulns,
     get_first_week_dates,
     get_status_vulns_by_time_range,
@@ -123,6 +130,37 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         ]
     )
     expected_output = 1
+    assert test_data == expected_output
+
+
+async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
+    loaders = get_new_context()
+    last_day = "2020-09-09 23:59:59"
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        vulnerability: Vulnerability = await loaders.vulnerability.load(
+            "15375781-31f2-4953-ac77-f31134225747"
+        )
+        finding: Finding = await loaders.finding.load(vulnerability.finding_id)
+
+        historic_state = await loaders.vulnerability_historic_state.load(
+            vulnerability.id
+        )
+    assert mock_table_resource.called is True
+    vulnerability_severity = get_severity_score(finding.severity)
+    test_data = get_by_time_range(
+        historic_state,
+        VulnerabilityStateStatus.OPEN,
+        vulnerability_severity,
+        last_day,
+    )
+    expected_output = (1, Decimal("0.144"))
     assert test_data == expected_output
 
 

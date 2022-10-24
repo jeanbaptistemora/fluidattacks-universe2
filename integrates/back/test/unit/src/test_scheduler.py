@@ -23,14 +23,8 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
-)
-from findings.domain import (
-    get_severity_score,
 )
 from freezegun import (
     freeze_time,
@@ -51,27 +45,6 @@ from schedulers import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-async def test_get_by_time_range() -> None:
-    loaders = get_new_context()
-    last_day = "2020-09-09 23:59:59"
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
-    )
-    finding: Finding = await loaders.finding.load(vulnerability.finding_id)
-    vulnerability_severity = get_severity_score(finding.severity)
-    historic_state = await loaders.vulnerability_historic_state.load(
-        vulnerability.id
-    )
-    test_data = update_indicators.get_by_time_range(
-        historic_state,
-        VulnerabilityStateStatus.OPEN,
-        vulnerability_severity,
-        last_day,
-    )
-    expected_output = 1
-    assert test_data.vulnerabilities == expected_output
 
 
 async def test_create_register_by_week() -> None:
