@@ -91,6 +91,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const canUpdateRootState: boolean = permissions.can(
     "api_mutations_activate_root_mutate"
   );
+  const canShowModal: boolean =
+    permissions.can("api_resolvers_git_root_secrets_resolve") ||
+    permissions.can("api_mutations_update_git_root_mutate");
   const roots = rootsAttr.map(
     (root: IGitRootAttr): IGitRootData => ({
       ...root,
@@ -537,7 +540,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     </Fragment>
                   }
                   id={"tblGitRoots"}
-                  onRowClick={handleRowClick}
+                  onRowClick={canShowModal ? handleRowClick : undefined}
                   sortingSetter={setSorting}
                   sortingState={sorting}
                 />
