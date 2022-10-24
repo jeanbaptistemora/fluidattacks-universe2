@@ -337,6 +337,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.apk,
         requirements=[77, 78],
     )
+    F059: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F059",
+        cwe=209,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[83],
+    )
     F060: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F060",
@@ -2817,6 +2824,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F058,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_SENSITIVE_INFO_IN_LOGS = MethodInfo(
+        file_name="java",
+        name="java_sensitive_log_info",
+        module="lib_root",
+        finding=FindingEnum.F059,
+        developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_CERTIFICATE_VALIDATION = MethodInfo(

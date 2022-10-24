@@ -231,6 +231,14 @@
       "title": "058. Debugging enabled in production - APK"
     }
   },
+  "F059": {
+    "EN": {
+      "title": "059. Sensitive information stored in logs"
+    },
+    "ES": {
+      "title": "059. Sensitive information stored in logs"
+    }
+  },
   "F063": {
     "EN": {
       "title": "063. Lack of data validation - Path Traversal"

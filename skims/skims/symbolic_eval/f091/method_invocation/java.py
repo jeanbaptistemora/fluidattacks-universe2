@@ -30,12 +30,4 @@ def java_insecure_logging(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if m_attr["expression"] in DANGER_METHODS:
         args.triggers.add("userparams")
 
-    if (
-        (obj_id := m_attr.get("object_id"))
-        and (obj_name := args.graph.nodes[obj_id].get("symbol"))
-        and f"{obj_name}.{m_attr['expression']}".lower() == "system.getenv"
-    ):
-        args.triggers.add("userparams")
-        args.evaluation[args.n_id] = True
-
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
