@@ -2,7 +2,7 @@
 id: front
 title: Front
 sidebar_label: Front
-slug: /development/products/integrates/guidelines/front
+slug: /development/integrates/guidelines/front
 ---
 
 ## Technology stack

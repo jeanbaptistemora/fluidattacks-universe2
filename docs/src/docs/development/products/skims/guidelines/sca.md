@@ -2,7 +2,7 @@
 id: sca
 title: SCA
 sidebar_label: SCA
-slug: /development/products/skims/guidelines/sca
+slug: /development/skims/guidelines/sca
 ---
 
 To detect vulnerable packages,

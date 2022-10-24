@@ -75,8 +75,8 @@ digraph skims {
       subgraph cluster_common_compute_schedules {
         label="Schedules"
 
-        common_compute_schedules_break[label="/skims/process-groups/break"]
-        common_compute_schedules_pass[label="/skims/process-groups/pass"]
+        common_compute_schedules_skims_benchmark_owasp_upload[label="/skims/benchmark/owasp/upload"]
+        common_compute_schedules_skims_sca_scheduler[label="/skims/sca/scheduler"]
       }
     }
   }
@@ -102,17 +102,18 @@ digraph skims {
   developer[label="Developer"]
 
   edge[color="0.1 1.0 1.0"]
-  aws_dynamodb_tables_skims_sca -> aws_s3_skims_sca[]
   aws_s3_skims_sca -> aws_s3_common_logging[]
 
   edge[color="0.8 1.0 1.0"]
   gitlab_skims -> bugsnag[]
-  gitlab_skims -> common_compute_schedules_break[]
-  gitlab_skims -> common_compute_schedules_pass[]
-  gitlab_skims -> integrates_api[]
+  gitlab_skims -> common_compute_schedules_skims_benchmark_owasp_upload[]
+  gitlab_skims -> common_compute_schedules_skims_sca_scheduler[]
+  common_compute_schedules_skims_sca_scheduler -> aws_dynamodb_tables_skims_sca[]
+  common_compute_schedules_skims_sca_scheduler -> aws_s3_skims_sca[]
 
   edge[color="0.0 0.0 0.0"]
   developer -> aws_dynamodb_tables_skims_sca[]
+  developer -> aws_s3_skims_sca[]
   developer -> bugsnag[]
   developer -> gitlab_skims[]
   end_user -> aws_s3_skims_sca[]

@@ -5,28 +5,87 @@ sidebar_label: Introduction
 slug: /development/skims
 ---
 
-Skims is the product responsible
-for the security vulnerability scanner
-used in the [Machine's Scanner](/machine/scanner).
-It is configured to analyze the desired attack surface,
-and then it produces detailed reports
+Skims is a CLI application
+that can be configured to analyze source code, web services,
+and other attack surfaces,
+and produces detailed reports
 with the security vulnerabilities found.
+
+End Users are allowed to run Skims
+as a Free and Open Source vulnerability detection tool.
+
+[Integrates](/development/integrates)
+configures and runs Skims periodically
+to find vulnerabilities
+over the surface of Fluid Attacks customers
+as part of the [Machine Plan](https://fluidattacks.com/plans/).
+
+Externally the [Scanner](/machine/scanner) can be an alias of:
+
+- Skims, when run by End Users.
+- The combination of efforts
+  between Skims and Integrates,
+  when part of the [Machine Plan](https://fluidattacks.com/plans/).
+
+Skims refers only to the CLI application.
 
 ## Public Oath
 
+1. Skims can be used by End Users
+   as a Free and Open Source vulnerability detection tool.
+   In other words: it can be used without authentication
+   or manual intervention by Fluid Attacks staff.
+
 1. Skims has a low rate of [False Positives](https://en.wikipedia.org/wiki/Binary_classification),
    meaning that it only reports vulnerabilities that have an impact.
-1. When deciding between a False Positive and a False Negative,
-   Skims will favor the False Negative.
 
+1. When the existence of a vulnerability cannot be deterministically decided,
+   Skims will favor a False Negative over a False Positive.
    In other words,
-   it favors failing to report a vulnerability that has a real impact
-   over reporting a vulnerability that has no impact.
-   The rationale for this is that the [Squad Service](/squad/reattacks)
-   (which is powered by Human Hackers and manual security testing)
-   will be able to catch the vulnerability.
+   it will prefer failing to report a vulnerability
+   that may have a real impact
+   over reporting a vulnerability that may have no impact.
 
 ## Architecture
+
+1. Skims is a CLI application written in Python.
+1. Most of Skims' code is related to finding vulnerabilities.
+   Therefore, the best way to understand how everything works
+   is by reading the source code of the CLI first
+   and then following the control flow.
+   You'll eventually get to the different security checks
+   Skims performs.
+
+1. The vulnerability advisories used in the
+   [Source Composition Analysis (SCA) component of Skims](/development/skims/guidelines/sca)
+   are added, deleted, or updated, by:
+
+   - A Scheduler in the
+     [Compute component of Common](/development/common/compute),
+     which fetches the information from public vulnerability databases,
+     and populates the data with new information periodically.
+   - Manually by a Developer.
+
+   The vulnerability advisories used to perform the analysis are downloaded
+   from a [DynamoDB table](/development/stack/aws/dynamodb/introduction)
+   or a [public S3 bucket](/development/stack/aws/s3),
+   depending on what privileges the user running Skims has.
+
+   Since access to the S3 bucket is public,
+   access logs are dumped for security reasons into the `common.logging` bucket
+   owned by the [Users component of Common](/development/common/users).
+
+1. Some cloud resources are owned by Skims,
+   but they are either unused
+   or used by Integrates
+   when running Skims
+   as part of the Machine plan.
+   See [Issue #7886](https://gitlab.com/fluidattacks/universe/-/issues/7886),
+   and [Issue #7873](https://gitlab.com/fluidattacks/universe/-/issues/7873).
+
+1. The [OWASP Benchmark](/machine/scanner/benchmark)
+   is used to measure the quality of Skims
+   when analyzing certain kinds of Java applications.
 
 :::tip
 You can right-click on the image below
@@ -59,3 +118,17 @@ universe $ m . /skims
 
 This will build and run the Skims CLI application,
 including the changes you've made to the source code.
+
+### Local Tests
+
+Some tests require a local instance of [Integrates](/development/integrates).
+
+To deploy a local instance of integrates,
+run each command in a different terminal.
+
+```sh
+universe $ m . /integrates/back
+universe $ m . /integrates/cache
+universe $ m . /dynamoDb/skims
+universe $ m . /integrates/storage
+```
