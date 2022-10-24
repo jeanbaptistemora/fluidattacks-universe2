@@ -46,6 +46,40 @@ Skims refers only to the CLI application.
    that may have a real impact
    over reporting a vulnerability that may have no impact.
 
+## Using Skims
+
+1. Make sure you are in a Linux x86_64 system:
+
+   ```sh
+   $ uname -ms
+   Linux x86_64
+   ```
+
+1. Make sure you have the following tools installed in your system:
+
+   - [Nix](/development/stack/nix).
+   - [Makes](/development/stack/makes).
+
+1. Now you can use Skims by calling:
+
+   ```sh
+   $ m gitlab:fluidattacks/universe@trunk /skims
+   ```
+
+   Feel free to pass the --help flag
+   to learn more about the things it can do for you.
+
+   You can run the scanner with:
+
+   ```sh
+    $ m gitlab:fluidattacks/universe@trunk /skims scan /path/to/config.yaml
+
+    ... 🚀 !!
+   ```
+
+   The configuration format is explained in the
+   [Configuration guidelines](/development/skims/guidelines/configuration).
+
 ## Architecture
 
 1. Skims is a CLI application written in Python.
