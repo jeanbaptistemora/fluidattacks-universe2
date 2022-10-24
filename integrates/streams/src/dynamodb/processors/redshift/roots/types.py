@@ -14,17 +14,7 @@ from typing import (
 
 
 @dataclass(frozen=True)
-class MetadataTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    created_date: str
-    group_name: str
-    organization_name: str
-    type: str
-
-
-@dataclass(frozen=True)
-class RootCodeLanguagesTableRow:
+class CodeLanguagesTableRow:
     # pylint: disable=invalid-name
     id: str
     language: str
@@ -32,10 +22,20 @@ class RootCodeLanguagesTableRow:
 
 
 @dataclass(frozen=True)
-class RootEnvironmentUrlTableRow:
+class EnvironmentUrlTableRow:
     # pylint: disable=invalid-name
     id: str
     cloud_name: Optional[str]
     created_at: datetime
     root_id: str
     url_type: Optional[str]
+
+
+@dataclass(frozen=True)
+class MetadataTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    created_date: str
+    group_name: str
+    organization_name: str
+    type: str

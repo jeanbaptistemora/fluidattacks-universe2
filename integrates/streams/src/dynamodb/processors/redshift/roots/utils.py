@@ -10,23 +10,6 @@ from dynamodb.types import (
 )
 
 
-def format_row_metadata(
-    item: Item,
-) -> Item:
-    root_id = item["pk"].split("#")[1]
-    group_name = item["sk"].split("#")[1]
-    organization_name = item["pk_2"].split("#")[1] if "pk_2" in item else None
-    return dict(
-        id=root_id,
-        created_date=datetime.fromisoformat(item["created_date"])
-        if item.get("created_date")
-        else None,
-        group_name=group_name,
-        organization_name=organization_name,
-        type=str(item["type"]).upper(),
-    )
-
-
 def format_row_code_languages(
     item: Item,
 ) -> list[Item]:
@@ -57,4 +40,21 @@ def format_row_environment_url(
         else None,
         root_id=item["pk"].split("#")[1],
         url_type=item.get("url_type"),
+    )
+
+
+def format_row_metadata(
+    item: Item,
+) -> Item:
+    root_id = item["pk"].split("#")[1]
+    group_name = item["sk"].split("#")[1]
+    organization_name = item["pk_2"].split("#")[1] if "pk_2" in item else None
+    return dict(
+        id=root_id,
+        created_date=datetime.fromisoformat(item["created_date"])
+        if item.get("created_date")
+        else None,
+        group_name=group_name,
+        organization_name=organization_name,
+        type=str(item["type"]).upper(),
     )
