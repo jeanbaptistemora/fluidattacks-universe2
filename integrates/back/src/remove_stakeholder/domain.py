@@ -66,9 +66,6 @@ from newutils.validations import (
 from organizations import (
     domain as orgs_domain,
 )
-from sessions.dal import (
-    remove_session_key,
-)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -148,13 +145,6 @@ async def complete_deletion(*, loaders: Dataloaders, email: str) -> None:
         email=email,
         modified_by=email,
     )
-    await collect(
-        [
-            remove_session_key(email, "jti"),
-            remove_session_key(email, "web"),
-            remove_session_key(email, "jwt"),
-        ]
-    )
 
 
 async def get_email_from_url_token(
@@ -225,6 +215,7 @@ async def confirm_deletion_mail(
         ),
     )
     confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
+    print(f"\n\t\t confirm {confirm_access_url}\n")
     mail_to = [email]
     email_context: dict[str, Any] = {
         "email": email,
