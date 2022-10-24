@@ -22,4 +22,16 @@ const filterByTreatment = (
   };
 };
 
-export { filterByState, filterByTreatment };
+const formatVulnAttribute: (state: string) => string = (
+  state: string
+): string => {
+  const vulnParameters: Record<string, string> = {
+    currentState: "stateStatus",
+    treatment: "treatment",
+    verification: "verificationStatus",
+  };
+
+  return vulnParameters[state];
+};
+
+export { filterByState, filterByTreatment, formatVulnAttribute };
