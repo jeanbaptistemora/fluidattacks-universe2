@@ -160,8 +160,8 @@ def _get_missing_dependency(what: str) -> Optional[Dict[str, Any]]:
 
 
 def _format_what(what: str) -> str:
-    if " " in what:
-        return what.split(" ")[0]
+    if match := re.match(r"(?P<what>.*)(\s\(.*\)(\s\[.*\])?)?$", what):
+        what = match.groupdict()["what"]
     return what
 
 
