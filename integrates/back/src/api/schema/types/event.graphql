@@ -11,20 +11,6 @@ type Event {
       This field will be removed after 2023/01/11.
       """
     )
-  "Actions after getting blocked by an event"
-  actionAfterBlocking: ActionsAfterBlocking
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/21.
-      """
-    )
-  "Actions before getting blocked by an event"
-  actionBeforeBlocking: ActionsBeforeBlocking
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/21.
-      """
-    )
   "Components involved or affected by the event, if applicable"
   affectedComponents: [AffectedComponents!]!
     @deprecated(
@@ -43,13 +29,6 @@ type Event {
   closingDate: String
   "Comment/consult array regarding the event"
   consulting: [Consult!]
-  "Where the hacker physically was when the event happened"
-  context: String
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/21.
-      """
-    )
   "Comment laying out or explaining the event"
   detail: String
   "Datetime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"

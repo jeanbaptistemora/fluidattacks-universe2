@@ -11,29 +11,6 @@ from typing import (
 
 ENUMS: Tuple[EnumType, ...] = (
     EnumType(
-        "ActionsAfterBlocking",
-        {
-            "EXECUTE_OTHER_GROUP_OTHER_CLIENT": (
-                "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
-            ),
-            "EXECUTE_OTHER_GROUP_SAME_CLIENT": (
-                "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-            ),
-            "NONE": "NONE",
-            "OTHER": "OTHER",
-            "TRAINING": "TRAINING",
-        },
-    ),
-    EnumType(
-        "ActionsBeforeBlocking",
-        {
-            "DOCUMENT_GROUP": "DOCUMENT_GROUP",
-            "NONE": "NONE",
-            "OTHER": "OTHER",
-            "TEST_OTHER_PART_TOE": "TEST_OTHER_PART_TOE",
-        },
-    ),
-    EnumType(
         "AffectedComponents",
         {
             "CLIENT_STATION": "CLIENT_STATION",

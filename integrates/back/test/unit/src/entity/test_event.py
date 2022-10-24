@@ -68,7 +68,6 @@ async def test_event() -> None:
             eventDate
             eventStatus
             historicState
-            context
             subscription
             evidenceFile
             closingDate

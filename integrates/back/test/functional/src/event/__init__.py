@@ -32,7 +32,6 @@ async def get_result(
                 fullName
                 created
             }}
-            context
             detail
             eventDate
             eventStatus

@@ -2,32 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-"Actions after getting blocked by an event"
-enum ActionsAfterBlocking {
-  "The hacker started working on another group from another client"
-  EXECUTE_OTHER_GROUP_OTHER_CLIENT
-  "The hacker started working on another group from the same client"
-  EXECUTE_OTHER_GROUP_SAME_CLIENT
-  "The hacker stopped their work"
-  NONE
-  "The hacker started doing something else"
-  OTHER
-  "The hacker started training"
-  TRAINING
-}
-
-"Actions before getting blocked by an event"
-enum ActionsBeforeBlocking {
-  "Document group"
-  DOCUMENT_GROUP
-  "None"
-  NONE
-  "Other"
-  OTHER
-  "Testing another part of the Target of Evaluation"
-  TEST_OTHER_PART_TOE
-}
-
 "Components affected during an Event"
 enum AffectedComponents {
   "Client test station"
