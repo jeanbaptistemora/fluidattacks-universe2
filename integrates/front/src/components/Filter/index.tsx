@@ -7,7 +7,12 @@
 import React from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-import { FormikDate, FormikInput, FormikSelect } from "components/Input/Formik";
+import {
+  FormikDate,
+  FormikInput,
+  FormikNumber,
+  FormikSelect,
+} from "components/Input/Formik";
 import { Col, Row } from "components/Layout";
 
 interface IFilter {
@@ -64,6 +69,64 @@ export const Filters = ({
                 label={filter.label}
                 name={filter.id}
               />
+            );
+          }
+          case "number": {
+            return (
+              <FormikNumber
+                field={{
+                  name: filter.id,
+                  onBlur: (): void => undefined,
+                  onChange: onValueChangeHandler(filter.id),
+                  value:
+                    filter.rangeValues?.[0] === undefined
+                      ? ""
+                      : String(filter.rangeValues[0]),
+                }}
+                form={{ errors: {}, touched: {} }}
+                label={filter.label}
+                name={filter.id}
+              />
+            );
+          }
+          case "numberRange": {
+            return (
+              <Row>
+                <Col lg={50} md={50}>
+                  <FormikNumber
+                    field={{
+                      name: filter.id,
+                      onBlur: (): void => undefined,
+                      onChange: onValueChangeHandler(filter.id),
+                      value:
+                        filter.rangeValues?.[0] === undefined
+                          ? ""
+                          : String(filter.rangeValues[0]),
+                    }}
+                    form={{ errors: {}, touched: {} }}
+                    label={filter.label}
+                    name={filter.id}
+                    placeholder={"Min"}
+                  />
+                </Col>
+                <Col lg={50} md={50}>
+                  <FormikNumber
+                    field={{
+                      name: filter.id,
+                      onBlur: (): void => undefined,
+                      onChange: onValueChangeHandler(filter.id),
+                      value:
+                        filter.rangeValues?.[1] === undefined
+                          ? ""
+                          : String(filter.rangeValues[1]),
+                    }}
+                    form={{ errors: {}, touched: {} }}
+                    label={""}
+                    name={filter.id}
+                    placeholder={"Max"}
+                  />
+                </Col>
+              </Row>
             );
           }
           case "select": {
