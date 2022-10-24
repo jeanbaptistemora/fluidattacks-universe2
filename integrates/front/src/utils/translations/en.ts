@@ -565,26 +565,7 @@ export const enTranslations: ResourceKey = {
         editTooltip: "Modify the evidence for this event",
         noData: "There are no evidences",
       },
-      filtersTooltips: {
-        actAfterBlock: "Filter by action after blocking",
-        actBefBlock: "Filter by action before blocking",
-        closingDate: "Filter by date closed",
-        date: "Filter by date",
-        status: "Filter by status",
-        type: "Filter by type",
-      },
       form: {
-        actionAfter: {
-          otherOther: "Execute another group of a different client",
-          otherSame: "Execute another group of the same client",
-          title: "Action after getting blocked",
-          training: "Training",
-        },
-        actionBefore: {
-          document: "Document group",
-          testOther: "Test other part of ToE",
-          title: "Action before blocking",
-        },
         affectedReattacks: {
           alreadyClosed:
             "At least one of the selected reattacks was closed already",
@@ -2745,21 +2726,6 @@ export const enTranslations: ResourceKey = {
       zeroRisk: "Zero risk",
     },
     tabEvents: {
-      actionAfterBlocking: "Action after blocking",
-      actionAfterBlockingValues: {
-        none: "None",
-        other: "Other",
-        otherOther: "Execute another group of a different client",
-        otherSame: "Execute another group of the same client",
-        training: "Training",
-      },
-      actionBeforeBlocking: "Action before blocking",
-      actionBeforeBlockingValues: {
-        documentGroup: "Document group",
-        none: "None",
-        other: "Other",
-        testOtherPartToe: "Test other part ToE",
-      },
       affectedReattacks: "Reattacks on hold",
       client: "Client",
       comments: "Comments",
