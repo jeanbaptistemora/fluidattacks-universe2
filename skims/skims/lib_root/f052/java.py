@@ -36,6 +36,7 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Optional,
     Set,
 )
 from utils.crypto import (
@@ -50,15 +51,17 @@ from utils.string import (
 )
 
 
-def is_insecure_key_argument(triggers: Set[str], check: str) -> bool:
+def is_insecure_key_argument(triggers: Set[str], check: Optional[str]) -> bool:
     eval_str = "".join(list(triggers))
     if check == "RSA":
         with suppress(TypeError):
             key_length = int(eval_str)
             if key_length < 2048:
                 return True
-    if check == "EC":
+    elif check == "EC":
         return insecure_elliptic_curve(eval_str)
+    elif check == "SEC":
+        return java_cipher_vulnerable(eval_str)
     return False
 
 
@@ -70,18 +73,30 @@ def eval_insecure_key(graph: Graph, n_id: NId) -> bool:
     insecure_ec_spec = complete_attrs_on_set(
         {"java.security.spec.ECGenParameterSpec"}
     )
+    insecure_secure_spec = complete_attrs_on_set(
+        {"javax.crypto.spec.SecretKeySpec"}
+    )
 
     oc_attrs = graph.nodes[n_id]
     check = None
     if oc_attrs["name"] in insecure_ec_spec:
         check = "EC"
-    if oc_attrs["name"] in insecure_rsa_spec:
+    elif oc_attrs["name"] in insecure_rsa_spec:
         check = "RSA"
+    elif oc_attrs["name"] in insecure_secure_spec:
+        check = "SEC"
 
-    if (
-        check
-        and (al_id := oc_attrs.get("arguments_id"))
+    if (al_id := oc_attrs.get("arguments_id")) and (
+        check != "SEC"
         and (param := g.match_ast(graph, al_id).get("__0__"))
+        or (
+            check == "SEC"
+            and (
+                param := g.match_ast(graph, al_id).get(
+                    f"__{len(g.match_ast(graph, al_id)) - 1}__"
+                )
+            )
+        )
     ):
         for path in get_backward_paths(graph, param):
             evaluation = evaluate(method, graph, path, param)

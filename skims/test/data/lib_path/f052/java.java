@@ -1,5 +1,6 @@
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 public class Main {
+    private static final String secretkey="imcE7A89BqBlT6BgttOBGJJv3";
     public static void main(String[] args) {
         MessageDigest md = MessageDigest.getInstance("ShA-256");
         MessageDigest md = MessageDigest.getInstance("ShA-1", provider);
@@ -38,5 +39,8 @@ public class Main {
         javax.crypto.KeyGenerator.getInstance("HmacSHA256").generateKey();
         javax.crypto.KeyGenerator.getInstance("AES").generateKey();
         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
+        byte[] digestOfPassword = md.digest(secretkey.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+        SecretKey key = new SecretKeySpec(keyBytes, "DESede");
     }
   }
