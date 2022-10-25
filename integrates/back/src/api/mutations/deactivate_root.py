@@ -60,7 +60,6 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    requests as requests_utils,
     token as token_utils,
 )
 from newutils.vulnerabilities import (
@@ -97,7 +96,6 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     loaders: Dataloaders = info.context.loaders
     reason: str = kwargs["reason"]
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
-    source = requests_utils.get_source_new(info.context)
     last_status_update = await roots_domain.get_last_status_update(
         loaders,
         root.id,
@@ -140,7 +138,6 @@ async def deactivate_root(  # pylint: disable=too-many-locals
             vulns_domain.close_by_exclusion(
                 vulnerability=vuln,
                 modified_by=email,
-                source=source,
             )
             for vuln in root_vulnerabilities
         ),

@@ -21,7 +21,6 @@ from db_model import (
     vulnerabilities as vulns_model,
 )
 from db_model.enums import (
-    Source,
     StateRemovalJustification,
 )
 from db_model.finding_comments.enums import (
@@ -919,7 +918,6 @@ async def verify_vulnerability(vulnerability: Vulnerability) -> None:
 async def close_by_exclusion(
     vulnerability: Vulnerability,
     modified_by: str,
-    source: Source,
 ) -> None:
     if vulnerability.state.status not in {
         VulnerabilityStateStatus.CLOSED,
@@ -933,7 +931,7 @@ async def close_by_exclusion(
             entry=VulnerabilityState(
                 modified_by=modified_by,
                 modified_date=datetime_utils.get_iso_date(),
-                source=source,
+                source=vulnerability.state.source,
                 status=VulnerabilityStateStatus.CLOSED,
                 justification=StateRemovalJustification.EXCLUSION,
             ),

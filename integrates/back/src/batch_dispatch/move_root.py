@@ -32,7 +32,6 @@ from db_model import (
 )
 from db_model.enums import (
     Notification,
-    Source,
     StateRemovalJustification,
 )
 from db_model.findings.enums import (
@@ -203,7 +202,6 @@ async def _process_vuln(
     await vulns_domain.close_by_exclusion(
         vulnerability=vuln,
         modified_by=item_subject,
-        source=Source.ASM,
     )
     LOGGER.info(
         "Old vuln closed by exclusion",
