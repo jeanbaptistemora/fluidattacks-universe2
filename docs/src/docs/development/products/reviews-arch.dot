@@ -1,0 +1,62 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph reviews {
+  label="Reviews Architecture"
+  labelloc="t"
+  compound="true"
+  concentrate="true"
+  ranksep="3.0"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_reviews {
+        label="/reviews"
+
+        gitlab_reviews[label="Source Code"]
+        gitlab_reviews_python[label="Python"]
+      }
+    }
+
+    subgraph cluster_gitlab_api {
+      label="API"
+
+      gitlab_api_rest[label="REST"]
+      gitlab_api_graphql[label="GraphQL"]
+    }
+  }
+
+  subgraph cluster_makes {
+    label="github.comfluidattacks/makes"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    makes_cli[label="Makes CLI" width="4.0"]
+  }
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_reviews -> gitlab_api_graphql[]
+  gitlab_reviews -> gitlab_reviews_python[]
+  gitlab_reviews -> integrates_api[]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> gitlab_reviews[]
+  end_user -> makes_cli[]
+  makes_cli -> gitlab_reviews[]
+}

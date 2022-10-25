@@ -18,6 +18,24 @@ Among others.
 
 End Users are given the option to configure what checks run.
 
+## Architecture
+
+1. Reviews is a CLI written in Python.
+   It communicates with the [GitLab GraphQL API](/development/integrates)
+   to get information about a Merge Request
+   and the associated Pipelines and Git Commits to it,
+   and then performs checks over the information.
+1. Melts is distributed to the End Users
+   using [Makes](/development/stack/makes).
+
+:::tip
+You can right-click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+
+![Architecture of Reviews](./reviews-arch.dot.svg)
+
 ## Contributing
 
 Please read the
