@@ -99,9 +99,7 @@ def process_findings(records: tuple[Record, ...]) -> None:
 def process_roots(records: tuple[Record, ...]) -> None:
     with db_cursor() as cursor:
         metadata_items: list[Item] = [
-            record.old_image
-            for record in records
-            if record.old_image and record.sk.startswith("GROUP#")
+            record.old_image for record in records if record.old_image
         ]
         for item in metadata_items:
             roots_ops.insert_root(cursor=cursor, item=item)

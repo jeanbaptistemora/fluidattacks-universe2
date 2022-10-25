@@ -39,8 +39,7 @@ def insert_code_languages(
         return
     cursor.executemany(  # nosec
         SQL_INSERT_METADATA.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=CODE_LANGUAGES_TABLE,
+            table=CODE_LANGUAGES_TABLE,
             fields=_fields,
             values=values,
         ),

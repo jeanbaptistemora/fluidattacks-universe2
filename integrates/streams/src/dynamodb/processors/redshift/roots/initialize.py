@@ -22,6 +22,7 @@ def _initialize_code_languages_table() -> None:
                 id VARCHAR,
                 language VARCHAR,
                 loc INTEGER,
+                root_id VARCHAR,
 
                 UNIQUE (
                     id

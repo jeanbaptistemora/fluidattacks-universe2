@@ -8,6 +8,7 @@ from datetime import (
 from dynamodb.types import (
     Item,
 )
+import hashlib
 
 
 def format_row_code_languages(
@@ -19,11 +20,15 @@ def format_row_code_languages(
     unreliable_code_languages = unreliable_indicators.get(
         "unreliable_code_languages", []
     )
+    root_id = item["pk"].split("#")[1]
     return [
         dict(
-            id=item["pk"].split("#")[1],
+            id=hashlib.sha256(
+                (root_id + language_item["language"]).encode("utf-8")
+            ).hexdigest(),
             language=language_item["language"],
             loc=int(language_item["loc"]),
+            root_id=root_id,
         )
         for language_item in unreliable_code_languages
     ]

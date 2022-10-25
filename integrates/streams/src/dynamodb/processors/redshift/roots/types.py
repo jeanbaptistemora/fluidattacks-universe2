@@ -13,6 +13,7 @@ class CodeLanguagesTableRow:
     id: str
     language: str
     loc: int
+    root_id: str
 
 
 @dataclass(frozen=True)
