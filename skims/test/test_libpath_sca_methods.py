@@ -9,6 +9,9 @@ from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
 )
+from lib_path.f011.go import (
+    go_mod,
+)
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
@@ -132,6 +135,38 @@ def test_gem_gemfile_dev() -> None:
         line = report[0].get("line")
         version = report[1].get("item")
         if (product, version, line) != expected[num]:
+            assertion = not assertion
+            break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_go_mod() -> None:
+    path: str = "skims/test/data/lib_path/f011/go.mod"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    resolv_deps_fun = go_mod.__wrapped__  # type: ignore
+    content: List[str] = file_contents.splitlines()
+    generator_dep: Iterator[DependencyType] = resolv_deps_fun(
+        file_contents, path
+    )
+    assertion: bool = True
+    lines_deps = [*range(5, 29), *range(32, 87)]
+    for line_num in lines_deps:
+        version: str = content[line_num].strip().split()[1][1:]
+
+        try:
+            line, item = itemgetter("line", "item")(next(generator_dep)[1])
+        except StopIteration:
+            assertion = not assertion
+            break
+        equal_props: bool = version == item and line_num + 1 == line
+        if not equal_props:
             assertion = not assertion
             break
 
