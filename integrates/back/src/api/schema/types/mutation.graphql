@@ -373,7 +373,7 @@ type Mutation {
   addPushToken("Expo login token to be added" token: String!): SimplePayload
     @deprecated(
       reason: """
-      This field will be removed after 2023/01/01.
+      This field will be removed today 2022/10/25.
       """
     )
 
@@ -830,6 +830,11 @@ type Mutation {
     "OAuth provider"
     provider: AuthProvider!
   ): SignInPayload!
+    @deprecated(
+      reason: """
+      This field will be removed today 2022/10/25.
+      """
+    )
 
   "Signs a POST URL to upload files to a Group's resources bucket"
   signPostUrl(
