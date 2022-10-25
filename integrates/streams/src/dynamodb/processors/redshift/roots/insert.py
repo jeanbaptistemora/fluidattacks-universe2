@@ -10,17 +10,14 @@ from ..utils import (
 )
 from .initialize import (
     CODE_LANGUAGES_TABLE,
-    ENVIRONMENT_URL_TABLE,
     METADATA_TABLE,
 )
 from .types import (
     CodeLanguagesTableRow,
-    EnvironmentUrlTableRow,
     MetadataTableRow,
 )
 from .utils import (
     format_row_code_languages,
-    format_row_environment_url,
     format_row_metadata,
 )
 from dynamodb.types import (
@@ -38,27 +35,12 @@ def insert_code_languages(
 ) -> None:
     _fields, values = format_query_fields(CodeLanguagesTableRow)
     sql_values = format_row_code_languages(item=item)
+    if not sql_values:
+        return
     cursor.executemany(  # nosec
         SQL_INSERT_METADATA.substitute(
             table_metadata=METADATA_TABLE,
             table_historic=CODE_LANGUAGES_TABLE,
-            fields=_fields,
-            values=values,
-        ),
-        sql_values,
-    )
-
-
-def insert_environment_url(
-    *,
-    cursor: cursor_cls,
-    item: Item,
-) -> None:
-    _fields, values = format_query_fields(EnvironmentUrlTableRow)
-    sql_values = format_row_environment_url(item)
-    cursor.execute(
-        SQL_INSERT_METADATA.substitute(
-            table=ENVIRONMENT_URL_TABLE,
             fields=_fields,
             values=values,
         ),
@@ -73,7 +55,7 @@ def insert_metadata(
 ) -> None:
     _fields, values = format_query_fields(MetadataTableRow)
     sql_values = format_row_metadata(item)
-    cursor.execute(
+    cursor.execute(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
             fields=_fields,
@@ -81,3 +63,12 @@ def insert_metadata(
         ),
         sql_values,
     )
+
+
+def insert_root(
+    *,
+    cursor: cursor_cls,
+    item: Item,
+) -> None:
+    insert_metadata(cursor=cursor, item=item)
+    insert_code_languages(cursor=cursor, item=item)

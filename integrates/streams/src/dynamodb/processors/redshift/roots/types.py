@@ -5,12 +5,6 @@
 from dataclasses import (
     dataclass,
 )
-from datetime import (
-    datetime,
-)
-from typing import (
-    Optional,
-)
 
 
 @dataclass(frozen=True)
@@ -19,16 +13,6 @@ class CodeLanguagesTableRow:
     id: str
     language: str
     loc: int
-
-
-@dataclass(frozen=True)
-class EnvironmentUrlTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    cloud_name: Optional[str]
-    created_at: datetime
-    root_id: str
-    url_type: Optional[str]
 
 
 @dataclass(frozen=True)

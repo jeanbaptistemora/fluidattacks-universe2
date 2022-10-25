@@ -29,20 +29,6 @@ def format_row_code_languages(
     ]
 
 
-def format_row_environment_url(
-    item: Item,
-) -> Item:
-    return dict(
-        id=item["sk"].split("URL#")[-1],
-        cloud_name=item.get("cloud_name"),
-        created_at=datetime.fromisoformat(item["created_at"])
-        if "created_at" in item
-        else None,
-        root_id=item["pk"].split("#")[1],
-        url_type=item.get("url_type"),
-    )
-
-
 def format_row_metadata(
     item: Item,
 ) -> Item:
