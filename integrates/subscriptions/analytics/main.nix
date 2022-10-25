@@ -15,7 +15,6 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.python39
-      outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"
     ];

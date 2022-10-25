@@ -23,7 +23,6 @@ function main {
   source __argIntegratesBackEnv__/template dev \
     && sops_export_vars integrates/secrets/development.yaml \
       TEST_SSH_KEY \
-    && DAEMON=true integrates-cache \
     && if [[ ${resolver_test_group} =~ "s3"$ ]]; then DAEMON=true integrates-storage; fi \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
     && BATCH_BIN="$(command -v integrates-batch)" \

@@ -12,8 +12,7 @@ function main {
       ensure_gitlab_env_vars \
         INTEGRATES_API_TOKEN
     else
-      DAEMON=true integrates-cache \
-        && DAEMON=true integrates-db \
+      DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

@@ -26,7 +26,6 @@ function main {
   source __argIntegratesBackEnv__/template "${env}" \
     && if test "${env}" = "dev"; then
       : \
-        && DAEMON=true integrates-cache \
         && DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     elif test "${env}" = "prod"; then

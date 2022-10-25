@@ -20,7 +20,6 @@ function main {
   )
 
   source __argIntegratesBackEnv__/template dev \
-    && DAEMON=true integrates-cache \
     && DAEMON=true integrates-db \
     && DAEMON=true integrates-storage \
     && pushd integrates \

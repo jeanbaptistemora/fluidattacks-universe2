@@ -23,7 +23,6 @@ makeScript {
       inputs.nixpkgs.python39
       inputs.nixpkgs.roboto
       inputs.nixpkgs.roboto-mono
-      outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"
     ];

@@ -18,7 +18,6 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.python39
-      outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"
     ];

@@ -23,7 +23,6 @@ in
       bin = [
         inputs.nixpkgs.tokei
         outputs."/integrates/batch"
-        outputs."/integrates/cache"
         outputs."/integrates/db"
         outputs."/integrates/storage"
       ];

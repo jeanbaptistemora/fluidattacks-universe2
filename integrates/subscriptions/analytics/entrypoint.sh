@@ -9,11 +9,8 @@ function main {
   local report_frequency="${2:-}"
 
   source __argIntegratesBackEnv__/template "${env}" \
-    && if test "${env}" = 'prod'; then
-      DAEMON=true integrates-cache
-    else
-      DAEMON=true integrates-cache \
-        && DAEMON=true integrates-db \
+    && if test "${env}" = 'dev'; then
+      DAEMON=true integrates-db \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

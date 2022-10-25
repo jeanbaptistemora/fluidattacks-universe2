@@ -24,7 +24,6 @@ function main {
     && aws_login "dev" "3600" \
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
-    && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true integrates-db \
     && echo "[INFO] Running DevSecOps agent check..." \
