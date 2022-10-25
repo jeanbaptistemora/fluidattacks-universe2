@@ -1063,6 +1063,14 @@
       "title": "418. Insecure service configuration - Docker"
     }
   },
+  "F419": {
+    "EN": {
+      "title": "419. Traceability Loss - Kubernetes"
+    },
+    "ES": {
+      "title": "419. Traceability Loss - Kubernetes"
+    }
+  },
   "F423": {
     "EN": {
       "title": "423. Inappropriate coding practices - System exit"
