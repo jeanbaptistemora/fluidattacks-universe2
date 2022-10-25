@@ -10,7 +10,7 @@ that allows downloading the End Users (Fluid Attacks customers) code repositorie
 and a few other utilities
 that End Users (Fluid Attacks hackers) require now and then
 like checking if a group is active,
-if it has Forces,
+if it has [Forces](/development/forces),
 its language,
 among other functions.
 
@@ -121,6 +121,24 @@ you can try to fix them:
   sending an e-mail to
   help@fluidattacks.com
   to assist you with any problems.
+
+## Architecture
+
+1. Melts is a CLI written in Python.
+   It communicates with the [Integrates API](/development/integrates)
+   and reports stability problems
+   in the source code
+   to [Bugsnag](https://www.bugsnag.com/).
+1. Melts is distributed to the End Users
+   using [Makes](/development/stack/makes).
+
+:::tip
+You can right-click on the image below
+to open it in a new tab,
+or save it to your computer.
+:::
+
+![Architecture of Melts](./melts-arch.dot.svg)
 
 ## Contributing
 
