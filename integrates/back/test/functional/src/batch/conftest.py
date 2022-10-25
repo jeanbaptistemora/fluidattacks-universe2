@@ -729,7 +729,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="",
-                filename="REDME.md",
+                filename="README.md",
                 first_attack_at=None,
                 group_name="unittesting",
                 has_vulnerabilities=False,

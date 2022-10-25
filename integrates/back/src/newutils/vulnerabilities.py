@@ -14,11 +14,16 @@ from custom_exceptions import (
     AlreadyZeroRiskRequested,
     InvalidJustificationMaxLength,
     InvalidRange,
+    LineDoesNotExistInTheLinesOfCodeRange,
     NotVerificationRequested,
     NotZeroRiskRequested,
     OutdatedRepository,
     RootNotFound,
+    ToeInputNotFound,
+    ToeLinesNotFound,
     VulnAlreadyClosed,
+    VulnerabilityPathDoesNotExistInToeLines,
+    VulnerabilityUrlFieldDoNotExistInToeInputs,
 )
 from datetime import (
     date as datetype,
@@ -30,6 +35,12 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+)
+from db_model.toe_inputs.types import (
+    ToeInputRequest,
+)
+from db_model.toe_lines.types import (
+    ToeLinesRequest,
 )
 from db_model.utils import (
     adjust_historic_dates,
@@ -66,6 +77,7 @@ from newutils.datetime import (
 from operator import (
     attrgetter,
 )
+import re
 from typing import (
     Any,
     cast,
@@ -799,3 +811,69 @@ def format_vulnerability_zero_risk_item(
         "status": zero_risk.status.value,
     }
     return item
+
+
+async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
+    loaders: Any,
+    group_name: str,
+    vulnerability: Vulnerability,
+    index: int,
+    raises: bool = True,
+) -> Optional[Vulnerability]:
+    if vulnerability.root_id:
+        where = html.unescape(vulnerability.where)
+        # There are cases, like SCA vulns, where the `where` attribute
+        # has additional information `filename (package) [CVE]`
+        if match := re.match(r"(?P<where>.*)\s\(.*\)(\s\[.*\])?$", where):
+            where = match.groupdict()["where"]
+
+        if vulnerability.type == VulnerabilityType.LINES:
+            try:
+                toe_lines = await loaders.toe_lines.load(
+                    ToeLinesRequest(
+                        filename=where,
+                        group_name=group_name,
+                        root_id=vulnerability.root_id,
+                    )
+                )
+            except ToeLinesNotFound as exc:
+                if raises:
+                    raise VulnerabilityPathDoesNotExistInToeLines(
+                        index=f"{index}"
+                    ) from exc
+                return None
+
+            if not 0 <= int(vulnerability.specific) <= toe_lines.loc:
+                if raises:
+                    raise LineDoesNotExistInTheLinesOfCodeRange(
+                        line=vulnerability.specific, index=f"{index}"
+                    )
+                return None
+
+        if vulnerability.type == VulnerabilityType.INPUTS:
+            specific = html.unescape(vulnerability.specific)
+            if match_specific := re.match(
+                r"(?P<specific>.*)\s\(.*\)(\s\[.*\])?$", specific
+            ):
+                specific = match_specific.groupdict()["specific"]
+
+            try:
+                await loaders.toe_input.load(
+                    ToeInputRequest(
+                        component=where,
+                        entry_point=""
+                        if vulnerability.state.source == Source.MACHINE
+                        else specific,
+                        group_name=group_name,
+                        root_id=vulnerability.root_id,
+                    )
+                )
+            except ToeInputNotFound as exc:
+                if vulnerability.skims_technique not in {"APK"}:
+                    if raises:
+                        raise VulnerabilityUrlFieldDoNotExistInToeInputs(
+                            index=f"{index}"
+                        ) from exc  # noqa
+                    return None
+        return vulnerability
+    return None

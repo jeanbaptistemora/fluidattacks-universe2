@@ -79,7 +79,6 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
@@ -729,13 +728,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="",
-                filename="REDME.md",
+                filename="README.md",
                 first_attack_at=None,
                 group_name="unittesting",
                 has_vulnerabilities=False,
                 last_author="customer1@gmail.com",
                 last_commit="be8d00f5fe64d59dc463adb34f9fabdf262e1ed9",
-                loc=10,
+                loc=11,
                 modified_date=datetime.fromisoformat(
                     "2022-09-05T00:45:11+00:00"
                 ),

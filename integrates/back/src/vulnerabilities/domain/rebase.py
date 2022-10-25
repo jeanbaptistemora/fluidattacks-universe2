@@ -17,10 +17,14 @@ from db_model.vulnerabilities.types import (
     VulnerabilityMetadataToUpdate,
 )
 import logging
+from newutils.vulnerabilities import (
+    validate_vulnerability_in_toe,
+)
 from settings.logger import (
     LOGGING,
 )
 from typing import (
+    Any,
     Tuple,
 )
 from vulnerabilities.domain.utils import (
@@ -42,6 +46,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def rebase(
     *,
+    loaders: Any,
     finding_id: str,
     finding_vulns_data: Tuple[Vulnerability, ...],
     vulnerability_commit: str,
@@ -57,6 +62,16 @@ async def rebase(
     validate_specific(vulnerability_specific)
     current_vuln: Vulnerability = next(
         vuln for vuln in finding_vulns_data if vuln.id == vulnerability_id
+    )
+    await validate_vulnerability_in_toe(
+        loaders,
+        current_vuln.group_name,
+        current_vuln._replace(
+            specific=vulnerability_specific,
+            where=vulnerability_where,
+            commit=vulnerability_commit,
+        ),
+        index=0,
     )
     current_vuln_hash = get_hash(
         specific=current_vuln.specific,

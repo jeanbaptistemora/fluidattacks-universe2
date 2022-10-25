@@ -22,6 +22,9 @@ from contextlib import (
 )
 from custom_exceptions import (
     InvalidVulnerabilityAlreadyExists,
+    LineDoesNotExistInTheLinesOfCodeRange,
+    VulnerabilityPathDoesNotExistInToeLines,
+    VulnerabilityUrlFieldDoNotExistInToeInputs,
 )
 from dataloaders import (
     Dataloaders,
@@ -65,6 +68,7 @@ from settings import (
 )
 import tempfile
 from typing import (
+    Any,
     Optional,
     Tuple,
 )
@@ -152,6 +156,7 @@ def _rebase_vulnerability(
 
 async def _rebase_vulnerability_integrates(
     *,
+    loaders: Any,
     finding_id: str,
     finding_vulns_data: Tuple[Vulnerability, ...],
     vulnerability_commit: str,
@@ -160,16 +165,26 @@ async def _rebase_vulnerability_integrates(
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
 ) -> None:
-    with suppress(InvalidVulnerabilityAlreadyExists):
-        await rebase_vulnerability(
-            finding_id=finding_id,
-            finding_vulns_data=finding_vulns_data,
-            vulnerability_commit=vulnerability_commit,
-            vulnerability_id=vulnerability_id,
-            vulnerability_where=vulnerability_where,
-            vulnerability_specific=vulnerability_specific,
-            vulnerability_type=vulnerability_type,
-        )
+    with suppress(
+        InvalidVulnerabilityAlreadyExists,
+    ):
+        try:
+            await rebase_vulnerability(
+                loaders=loaders,
+                finding_id=finding_id,
+                finding_vulns_data=finding_vulns_data,
+                vulnerability_commit=vulnerability_commit,
+                vulnerability_id=vulnerability_id,
+                vulnerability_where=vulnerability_where,
+                vulnerability_specific=vulnerability_specific,
+                vulnerability_type=vulnerability_type,
+            )
+        except (
+            VulnerabilityPathDoesNotExistInToeLines,
+            LineDoesNotExistInTheLinesOfCodeRange,
+            VulnerabilityUrlFieldDoNotExistInToeInputs,
+        ) as ex:
+            LOGGER.exception(ex)
 
 
 async def rebase_root(
@@ -189,6 +204,7 @@ async def rebase_root(
         )
     futures = [
         _rebase_vulnerability_integrates(
+            loaders=loaders,
             finding_id=vuln.finding_id,
             finding_vulns_data=tuple(
                 item
