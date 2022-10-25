@@ -91,7 +91,6 @@
     ["report_machine_s3"]
     ["reset_expired_accepted_findings"]
     ["resources"]
-    ["sign_in"]
     ["solve_event"]
     ["stakeholder"]
     ["submit_draft"]

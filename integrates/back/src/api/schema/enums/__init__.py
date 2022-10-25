@@ -34,14 +34,6 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
-        "AuthProvider",
-        {
-            "BITBUCKET": "bitbucket",
-            "GOOGLE": "google",
-            "MICROSOFT": "microsoft",
-        },
-    ),
-    EnumType(
         "BillingSubscriptionType",
         {
             "FREE": "free",

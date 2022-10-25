@@ -128,7 +128,6 @@ TEST_GROUPS: set[str] = {
     "reset_expired_accepted_findings",
     "resources",
     "sign_post_url",
-    "sign_in",
     "solve_event",
     "stakeholder",
     "submit_draft",

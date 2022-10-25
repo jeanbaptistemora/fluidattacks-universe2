@@ -149,14 +149,6 @@ type SimpleGroupPayload implements Payload {
   success: Boolean!
 }
 
-"Sign in Payload type definition"
-type SignInPayload implements Payload {
-  "Front API access token"
-  sessionJwt: String
-  "Did the query succeed?"
-  success: Boolean!
-}
-
 "Sign post URLs Payload Payload type definition"
 type SignPostUrlsPayload implements Payload {
   "Did the query succeed?"

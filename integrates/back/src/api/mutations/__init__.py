@@ -89,11 +89,6 @@ class RemoveStakeholderAccessPayload(NamedTuple):
     removed_email: str
 
 
-class SignInPayload(NamedTuple):
-    success: bool
-    session_jwt: str
-
-
 class SimpleFindingPayload(NamedTuple):
     success: bool
     finding: dict[str, Any]

@@ -815,19 +815,6 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
-  "Signs an user in"
-  signIn(
-    "OAuth token"
-    authToken: String!
-    "OAuth provider"
-    provider: AuthProvider!
-  ): SignInPayload!
-    @deprecated(
-      reason: """
-      This field will be removed today 2022/10/25.
-      """
-    )
-
   "Signs a POST URL to upload files to a Group's resources bucket"
   signPostUrl(
     "A JSON with description and fileName keys"

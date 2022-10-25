@@ -20,7 +20,6 @@ from .logger import (
     LOGGING,
 )
 from .session import (
-    MOBILE_SESSION_AGE,
     SESSION_COOKIE_AGE,
 )
 from .statics import (
@@ -43,7 +42,6 @@ __all__ = [
     "JWT_SECRET_API_NEW",
     "JWT_SECRET_NEW",
     "LOGGING",
-    "MOBILE_SESSION_AGE",
     "SESSION_COOKIE_AGE",
     "STATIC_URL",
     "TEMPLATES_DIR",

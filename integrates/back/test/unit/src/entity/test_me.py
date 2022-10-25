@@ -67,27 +67,6 @@ async def test_me() -> None:
 
 
 @pytest.mark.changes_db
-async def test_sign_in() -> None:
-    """Check for signIn mutation."""
-    query = """
-        mutation {
-            signIn(
-                authToken: "badtoken",
-                provider: GOOGLE
-            ) {
-                sessionJwt
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert not result["data"]["signIn"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_update_access_token() -> None:
     """Check for updateAccessToken mutation."""
     query = """

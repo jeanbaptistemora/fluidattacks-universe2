@@ -107,16 +107,6 @@ enum AffectedComponents {
     )
 }
 
-"OAuth providers"
-enum AuthProvider {
-  "Bitbucket"
-  BITBUCKET
-  "Google"
-  GOOGLE
-  "Microsoft"
-  MICROSOFT
-}
-
 "Billing subscription type enum definition"
 enum BillingSubscriptionType {
   "Free"
