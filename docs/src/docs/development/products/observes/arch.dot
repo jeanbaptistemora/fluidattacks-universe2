@@ -9,7 +9,6 @@ digraph observes {
   concentrate="true"
   ranksep="10.0"
   rankdir="LR"
-  splines="polyline"
   scale="scalexy"
 
   node[style="filled"]
@@ -164,6 +163,7 @@ digraph observes {
     bgcolor="0.0 0.0 0.95"
 
     cluster_grow[label="" style="invis" width="6.0"]
+    grow_dashboards[label="Dashboards"]
   }
 
   subgraph cluster_melts {
@@ -195,6 +195,7 @@ digraph observes {
   common_compute_schedules_observes_etl_code_upload_all_on_aws -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_delighted -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_dynamo_centralize -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_dynamo_conf -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_dynamo_conf -> aws_s3_observes_cache_dynamo_etl[]
   common_compute_schedules_observes_etl_dynamo_conf -> aws_s3_observes_etl_data_dynamodb[]
   common_compute_schedules_observes_etl_formstack -> aws_redshift_clusters_observes[]
