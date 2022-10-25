@@ -34,7 +34,6 @@ import {
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import { formatTreatment } from "utils/formatHelpers";
 import { useDebouncedCallback } from "utils/hooks";
 import { msgError } from "utils/notifications";
 
@@ -63,8 +62,6 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   },
   {
     accessorKey: "treatment",
-    cell: (cell): string =>
-      formatTreatment(cell.getValue(), cell.row.original.currentState),
     header: "Treatment",
     meta: { filterType: "select" },
   },
