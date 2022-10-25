@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 import {
@@ -16,7 +16,9 @@ import {
 import { Col, Row } from "components/Layout";
 
 interface IFilter {
+  filterFn?: string;
   id: string;
+  key: string | ((arg0: object) => boolean);
   label?: string;
   rangeValues?: [string | undefined, string | undefined];
   selectOptions?: string[];
@@ -24,15 +26,41 @@ interface IFilter {
   value?: string;
 }
 
-interface IFiltersProps {
+interface IFiltersProps<IData extends object> {
+  data: IData[];
   filters: IFilter[];
+  setData: Dispatch<SetStateAction<IData[]>>;
   setFilters: Dispatch<SetStateAction<IFilter[]>>;
 }
 
-export const Filters = ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Filters = <IData extends Record<string, any>>({
+  data,
   filters,
+  setData,
   setFilters,
-}: IFiltersProps): JSX.Element => {
+}: IFiltersProps<IData>): JSX.Element => {
+  function checkAllFilters(dataPoint: IData): boolean {
+    filters.forEach((filter): boolean => {
+      if (typeof filter.key !== "string") {
+        return filter.key(dataPoint);
+      }
+
+      return dataPoint[filter.key] === filter.value;
+    });
+
+    return true;
+  }
+
+  useEffect((): void => {
+    setData(
+      data.filter((entry: IData): boolean => {
+        return checkAllFilters(entry);
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, filters]);
+
   function onValueChangeHandler(
     id: string
   ): (event: React.ChangeEvent<HTMLInputElement>) => void {
