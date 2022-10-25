@@ -14,16 +14,20 @@ Carrasco](https://res.cloudinary.com/fluid-attacks/image/upload/v1620228142/airs
 
 </div>
 
-Electronic Engineer specialized in Management. `Fluid Attacks` Senior
-Project Manager; she is responsible for the project management team and
-also for the management of projects related to the operation of the red
-team. Carolina has been part of our team for almost four years and has
-also helped in the security architecture area. She has over eight years
-of experience in project management, four years specifically managing
-information security-related projects. Carolina has managed projects in
-English and Spanish as she is fluent in both languages; she also has an
-intermediate level of French.
+Electronic Engineer specialized in Management.
+`Fluid Attacks` Senior Project Manager;
+she is responsible for the project management team
+and also for the management of projects
+related to the operation of the red team.
+Carolina has been part of our team for almost four years
+and has also helped in the security architecture area.
+She has over eight years of experience in project management,
+four years specifically managing information security-related projects.
+Carolina has managed projects in English and Spanish
+as she is fluent in both languages;
+she also has an intermediate level of French.
 
-Before being part of `Fluid Attacks`, she was project manager for a
-telecommunication company. She worked in the telecommunication industry
+Before being part of `Fluid Attacks`,
+she was project manager for a telecommunication company.
+She worked in the telecommunication industry
 in both technical and coordination activities.

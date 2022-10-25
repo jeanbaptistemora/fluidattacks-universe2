@@ -15,12 +15,14 @@ Roldan](https://res.cloudinary.com/fluid-attacks/image/upload/v1620228133/airs/a
 </div>
 
 Cybersecurity Specialist from the University of Maryland.
-`Fluid Attacks` partner and Offensive Team Leader with **20** years of
-experience in security-related tasks, responsible for leading advanced
-ethical hackings and red team engagements.
+`Fluid Attacks` partner and Offensive Team Leader
+with **20** years of experience in security-related tasks,
+responsible for leading advanced ethical hackings
+and red team engagements.
 
-He has held `CEH` certification several times and currently holds `OSCP`
-and `OSCE` certifications. He has been an active official Debian
-Developer for **14** years and had frequently attended cutting-edge
-security conferences and training in countries like the `USA`, `Israel`,
-`Argentina`, and `Colombia`.
+He has held CEH certification several times
+and currently holds OSCP and OSCE certifications.
+He has been an active official Debian Developer for **14** years
+and had frequently attended cutting-edge security conferences and training
+in countries like the USA,
+Israel, Argentina and Colombia.
