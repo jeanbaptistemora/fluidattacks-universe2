@@ -5,9 +5,7 @@ sidebar_label: Commit
 slug: /development/stack/commitlint/syntax/commit
 ---
 
-## Developer commits
-
-### Syntax
+## Syntax
 
 Valid commit messages
 have the structure:
@@ -19,19 +17,19 @@ have the structure:
 ```
 
 - **[variable]** are **required** variables
-    that must be replaced
-    in a final commit message
-    (**[]** symbols must be removed)
+  that must be replaced
+  in a final commit message
+  (**[]** symbols must be removed)
 - **{variable}** are **optional** variables
-    that must be replaced
-    or removed
-    in a final commit message
-    (**{}** symbols must be removed)
+  that must be replaced
+  or removed
+  in a final commit message
+  (**{}** symbols must be removed)
 - **// Comment** are comments
-    that must be removed
-    in a final commit message
+  that must be removed
+  in a final commit message
 
-### Rules
+## Rules
 
 The following rules must be met
 for a commit message to be valid,
@@ -41,42 +39,42 @@ for the integrates repository:
 1. **[type]** variable has to be
    one of the following:
 
-    ```markup
-    rever  // Revert to a previous commit in history
-    feat   // New feature
-    perf   // Improves performance
-    fix    // Bug fix
-    refac  // Neither fixes a bug or adds a feature
-    test   // Adding missing tests or correcting existing tests
-    style  // Do not affect the meaning of the code (formatting, etc)
-    sol    // Hacking solution only for writepus and training repo
-    ```
+   ```markup
+   rever  // Revert to a previous commit in history
+   feat   // New feature
+   perf   // Improves performance
+   fix    // Bug fix
+   refac  // Neither fixes a bug or adds a feature
+   test   // Adding missing tests or correcting existing tests
+   style  // Do not affect the meaning of the code (formatting, etc)
+   sol    // Hacking solution only for writepus and training repo
+   ```
 
 1. **[scope]** variable has to be
    one of the following:
 
-    ```markup
-    front  // Front-End change
-    back   // Back-End change
-    infra  // Infrastructure change
-    conf   // Configuration files change
-    build  // Build system, CI, compilers, etc (scons, webpack...)
-    job    // asynchronous or schedule tasks (backups, maintenance...)
-    cross  // Mix of two or more scopes
-    doc    // Documentation only changes
-    vbd    // Vulnerable by design hacking solution only for writeups repo
-    code   // Programming challenge solution only for training repo
-    hack   // ctf-hacking challenge solution only for training repo
-    ```
+   ```markup
+   front  // Front-End change
+   back   // Back-End change
+   infra  // Infrastructure change
+   conf   // Configuration files change
+   build  // Build system, CI, compilers, etc (scons, webpack...)
+   job    // asynchronous or schedule tasks (backups, maintenance...)
+   cross  // Mix of two or more scopes
+   doc    // Documentation only changes
+   vbd    // Vulnerable by design hacking solution only for writeups repo
+   code   // Programming challenge solution only for training repo
+   hack   // ctf-hacking challenge solution only for training repo
+   ```
 
 1. **[product]** variable has to be
    one of the following:
 
-    ```markup
-    forces // Changes in forces
-    integrates // Changes in Integrates
-    all // Changes that affect both integrates and forces
-    ```
+   ```markup
+   forces // Changes in forces
+   integrates // Changes in Integrates
+   all // Changes that affect both integrates and forces
+   ```
 
 1. A **Commit title**
    must exist.
@@ -106,23 +104,23 @@ for the integrates repository:
    `feat(build)[integrates]: #5.1 feature`.
 
 1. If **commit title**
-    has **sol** type,
-    it must reference
-    issue **#0**.
+   has **sol** type,
+   it must reference
+   issue **#0**.
 
 1. A **blank line**
-    between commit title
-    and commit body
-    must exist.
+   between commit title
+   and commit body
+   must exist.
 
 1. A **commit body**
-    must exist.
+   must exist.
 
 1. Lines in **commit body**
-    must have 72 characters
-    or less.
+   must have 72 characters
+   or less.
 
-#### Possible combinations
+### Possible combinations
 
 Below is a table explaining
 all the possible combinations
@@ -149,15 +147,15 @@ Where:
 - **doc** is documentation.
 - **NA** is not applicable.
 
-### Recommendations
+## Recommendations
 
 - Try to itemize your commit body:
 
-    ```
-    - Add feature X in file Y
-    - Run script Z
-    - Remove file A with B purpose
-    ```
+  ```text
+  - Add feature X in file Y
+  - Run script Z
+  - Remove file A with B purpose
+  ```
 
 - Do **not** use the word '**part**'
   for splitting commits
@@ -165,7 +163,7 @@ Where:
   Use **#[issue-number]{.issue-part}**
   instead as shown in [Example](#Example)
 
-### Example
+## Example
 
 Here is an example
 of a compliant commit message
@@ -181,100 +179,3 @@ integrates\feat(build): #13.1 add type_check
 - Add type_check function
 - Remove unnecessary print_output function
 ```
-
-## Analyst commits
-
-Commit messages are divided into three categories:
-
-- Drills
-- Forces exploits
-- Others
-
-The following templates contain the following symbols:
-
-- [variable] are required variables that must be replaced in a final commit message
-    ([] symbols must be removed)
-- {variable} are optional variables
-    that must be replaced or removed
-    in a final commit message
-    ({} symbols must be removed)
-- // Comment are comments
-    that must be removed
-    in a final commit message
-
-General rules:
-
-- Commit title must be meaningful. Avoid using things like `feat(build): #5.1 feature`.
-- Lines in commit body must have 72 characters or less.
-
-### Drills daily commit
-
-```markup
-drills([scope]): [subscription] - [coverage]%, [tested_lines] el, [tested_inputs] ei
-                      // This blank line separates the commit title from the commit body
-- [#] el, [#] ei      // Commit body
-- [#] vl, [#] vi      // Commit body
-- [#]% Total coverage // Commit body
-```
-
-- [scope] is one of:
-    - lines
-    - inputs
-    - cross
-
-### Drills enumeration commit
-
-```markup
-drills(enum): [subscription] - [coverage]%, [new_lines] nl, [new_inputs] ni
-```
-
-### Drills configuration/resources commit
-
-```markup
-drills(conf): [subscription] - [comments]
-```
-
-### Forces fix exploits commits
-
-```markup
-fix(exp): #[issue_number] [subscription] [tag]
-```
-
-- [tag] is one of:
-    - asserts-ch, Change in asserts
-    - asserts-fn, False negative in a product
-    - asserts-fp, False positive in a product
-    - service-logic, Error in exploit construction
-    - toe-availability, If the ToE is no longer reachable or available
-    - toe-location, Change in the ToE, like path deletion/movement, etc
-    - toe-resource, Change in the environment, like renaming or deletion
-
-### Other commits
-
-```markup
-[type]([scope]): #[issue_number].[issue_part] [comment]
-                      // This blank line separates the commit title from the commit body
-- Comment 1           // Commit body
-- Comment 2           // Commit body
-```
-
-[type] variable has to be one of the following:
-
-- rever  // Revert to a previous commit in history
-- feat   // New feature
-- perf   // Improves performance
-- fix    // Bug fix
-- refac  // Neither fixes a bug or adds a feature
-- test   // Adding missing tests or correcting existing tests
-- style  // Do not affect the meaning of the code (formatting, etc)
-
-[scope] variable has to be one of the following:
-
-- front  // Front-End change
-- back   // Back-End change
-- infra  // Infrastructure change
-- conf   // Configuration files change
-- build  // Build system, CI, compilers, etc (scons, webpack...)
-- job    // asynchronous or schedule tasks (backups, maintenance...)
-- cross  // Mix of two or more scopes
-- exp    // Changes over exploits
