@@ -7,8 +7,9 @@ digraph observes {
   labelloc="t"
   compound="true"
   concentrate="true"
-  ranksep="6.0"
+  ranksep="10.0"
   rankdir="LR"
+  splines="polyline"
   scale="scalexy"
 
   node[style="filled"]
@@ -38,6 +39,12 @@ digraph observes {
         cluster_aws_s3_fluidanalytics[label="" style="invis"]
 
         aws_s3_fluidanalytics_backup_timedoctor[label="/backup_timedoctor (Timedoctor Data)"]
+      }
+
+      subgraph cluster_aws_s3_integrates {
+        label="integrates"
+
+        aws_s3_integrates_continuous_data_bills[label="/continuous-data/bills"]
       }
 
       subgraph cluster_aws_s3_observes_cache {
@@ -96,6 +103,8 @@ digraph observes {
     subgraph cluster_common_compute {
       label="Compute"
 
+      cluster_common_compute[label="" style="invis"]
+
       subgraph cluster_common_compute_job_queues {
         label="Jobs Queues"
 
@@ -150,6 +159,20 @@ digraph observes {
     }
   }
 
+  subgraph cluster_grow {
+    label="Grow (Business Inteligence Software)"
+    bgcolor="0.0 0.0 0.95"
+
+    cluster_grow[label="" style="invis" width="6.0"]
+  }
+
+  subgraph cluster_melts {
+    label="Melts"
+    bgcolor="0.0 0.0 0.95"
+
+    melts_cli[label="CLI"]
+  }
+
   node[fillcolor="0.0 0.0 0.8"]
   end_user[label="End User"]
   developer[label="Developer"]
@@ -161,17 +184,33 @@ digraph observes {
 
   edge[color="0.0 0.0 0.0"]
   developer -> gitlab_observes[]
+  end_user -> cluster_grow[lhead="cluster_grow"]
+  cluster_grow -> aws_redshift_clusters_observes[ltail="cluster_grow"]
+  cluster_common_compute -> gitlab_observes[ltail="cluster_common_compute"]
   common_compute_schedules_observes_etl_announcekit -> aws_redshift_clusters_observes[]
-  common_compute_schedules_observes_job_batch_stability -> bugsnag[]
   common_compute_schedules_observes_etl_bugsnag -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_checkly -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_code_mirror_all_on_aws -> melts_cli[]
+  common_compute_schedules_observes_etl_code_compute_bills -> aws_s3_integrates_continuous_data_bills[]
+  common_compute_schedules_observes_etl_code_upload_all_on_aws -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_delighted -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_dynamo_centralize -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_dynamo_conf -> aws_s3_observes_cache_dynamo_etl[]
   common_compute_schedules_observes_etl_formstack -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_gitlab_challenges -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_gitlab_default -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_gitlab_services -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_gitlab_universe -> aws_redshift_clusters_observes[]
   common_compute_schedules_observes_etl_gitlab_universe_ephemeral -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_mandrill -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_matomo -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_mailchimp -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_mixpanel -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_timedoctor -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_etl_timedoctor -> aws_s3_fluidanalytics_backup_timedoctor[]
+  common_compute_schedules_observes_etl_timedoctor_backup -> aws_s3_fluidanalytics_backup_timedoctor[]
+  common_compute_schedules_observes_etl_zoho_crm_fluid -> aws_redshift_clusters_observes[]
+  common_compute_schedules_observes_job_batch_stability -> bugsnag[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_announcekit[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_job_batch_stability[]
   common_compute_schedules_observes_job_scheduler -> common_compute_schedules_observes_etl_bugsnag[]
