@@ -5,6 +5,7 @@
 
 from . import (
     findings as findings_ops,
+    roots as roots_ops,
     toe_inputs as toe_inputs_ops,
     toe_lines as toe_lines_ops,
     vulnerabilities as vulns_ops,
@@ -93,6 +94,22 @@ def process_findings(records: tuple[Record, ...]) -> None:
         for key, items in _get_items_iterator(records, "VERIFICATION#"):
             finding_id = str(key).split("#")[1]
             _process_finding_verification(cursor, finding_id, list(items))
+
+
+def process_roots(records: tuple[Record, ...]) -> None:
+    with db_cursor() as cursor:
+        metadata_items: list[Item] = [
+            record.old_image
+            for record in records
+            if record.old_image and record.sk.startswith("GROUP#")
+        ]
+        for item in metadata_items:
+            roots_ops.insert_root(cursor=cursor, item=item)
+            LOGGER.info(
+                "Root metadata stored, group: %s, id: %s",
+                item["sk"].split("#")[1],
+                item["pk"].split("#")[1],
+            )
 
 
 def process_toe_inputs(records: tuple[Record, ...]) -> None:

@@ -4,6 +4,7 @@
 
 from .process import (
     process_findings,
+    process_roots,
     process_toe_inputs,
     process_toe_lines,
     process_vulnerabilities,
@@ -11,6 +12,7 @@ from .process import (
 
 __all__ = [
     "process_findings",
+    "process_roots",
     "process_toe_inputs",
     "process_toe_lines",
     "process_vulnerabilities",
