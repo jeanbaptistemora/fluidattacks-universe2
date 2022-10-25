@@ -4,7 +4,7 @@ title: Our DevSecOps Tools
 date: 2022-08-26
 subtitle: How we use DevSecOps tools for Continuous Hacking
 category: philosophy
-tags: cybersecurity, security-testing, software
+tags: cybersecurity, devsecops, security-testing, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1661525496/blog/devsecops-tools/cover_tools.webp
 alt: Photo by Syarafina Idris on Unsplash
 description: We present the DevSecOps tools that we use in combination with manual security testing in our Continuous Hacking solution.
