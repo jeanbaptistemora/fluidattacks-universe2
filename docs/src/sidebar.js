@@ -677,6 +677,7 @@ const Machine = [
       "machine/web/portfolios",
       "machine/web/stakeholders",
       "machine/web/global-credentials",
+      "machine/web/compliance",
     ],
   },
   {
