@@ -7,9 +7,10 @@ keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecu
 banner: differentiators-bg
 ---
 
-We’re an Ethical Hacking and Pentesting company offering services to
-identify cybersecurity vulnerabilities. In the following table, we
-outline what differentiates us from our competitors:
+We're an Ethical Hacking and Pentesting company
+offering services to identify cybersecurity vulnerabilities.
+In the following table,
+we outline what differentiates us from our competitors:
 
 <div class="tc">
 
@@ -41,10 +42,12 @@ outline what differentiates us from our competitors:
 
 <div id="f1">
 
-\* Data from a **3-year** experiment run by `Fluid Attacks` on **6**
-commercial tools and **6** open source tools.
+\* Data from a **3-year** experiment
+run by `Fluid Attacks`
+on **6** commercial tools
+and **6** open source tools.
 
 </div>
 
-Do you want more information about our services? Do not hesitate to
-[contact us](../../contact-us/).
+Do you want more information about our services?
+Do not hesitate to [contact us](../../contact-us/).
