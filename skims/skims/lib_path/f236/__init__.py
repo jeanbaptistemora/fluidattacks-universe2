@@ -5,6 +5,9 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
+from lib_path.f236.conf_files import (
+    json_sourcemap_in_build,
+)
 from lib_path.f236.tsconfig import (
     tsconfig_sourcemap_enabled,
 )
@@ -31,6 +34,15 @@ def run_tsconfig_sourcemap_enabled(
 
 
 @SHIELD_BLOCKING
+def run_json_sourcemap_in_build(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return json_sourcemap_in_build(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -41,11 +53,22 @@ def analyze(
     results: Tuple[Vulnerabilities, ...] = ()
     content = content_generator()
 
-    if file_name == "tsconfig" and file_extension in {"json"}:
-        for template in load_templates_blocking(content, fmt=file_extension):
-            results = (
-                *results,
-                run_tsconfig_sourcemap_enabled(content, path, template),
-            )
+    if file_extension in {"json"}:
+        if file_name == "tsconfig":
+            for template in load_templates_blocking(
+                content, fmt=file_extension
+            ):
+                results = (
+                    *results,
+                    run_tsconfig_sourcemap_enabled(content, path, template),
+                )
+        else:
+            for template in load_templates_blocking(
+                content, fmt=file_extension
+            ):
+                results = (
+                    *results,
+                    run_json_sourcemap_in_build(content, path, template),
+                )
 
     return results

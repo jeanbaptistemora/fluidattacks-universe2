@@ -9780,6 +9780,21 @@ F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,2
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_has_console_functions
+F236,lines,namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,6,200,skims,236. Technical information leak - SourceMap,"The default value for sourcemap property is set to true by npm build, which makes it easier for a malicious actor to parse the application.
+ in namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json","
+   1 | {
+   2 |     ""name"": ""holidays-component"",
+   3 |     ""version"": ""0.0.0"",
+   4 |     ""scripts"": {
+   5 |         ""start"": ""env-cmd -f ./enviroments/.env react-scripts start"",
+>  6 |         ""build"": ""env-cmd -f ./enviroments/.env react-scripts build"",
+   7 |         ""build:qa"": ""env-cmd -f ./enviroments/.env react-scripts build GENERATE_SOURCEMAP=false"",
+   8 |         ""build:prod"": ""env-cmd -f ./enviroments/.env GENERATE_SOURCEMAP=false react-scripts build"",
+   9 |         ""npm-login"": ""node npm-login.js""
+  10 |     }
+  11 | }
+     ^ Col 0
+",conf_files.json_sourcemap_in_build
 F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13,200,skims,239. Technical information leak - Errors,The error handling configuration of the server allows the visualization of detailed information of its processes through the UseSetting method. in namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,"
    1 | using System;
    2 |
