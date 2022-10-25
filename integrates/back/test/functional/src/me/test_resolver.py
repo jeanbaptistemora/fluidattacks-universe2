@@ -39,7 +39,7 @@ from typing import (
         (
             "admin@gmail.com",
             "admin",
-            18,
+            17,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
