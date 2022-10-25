@@ -8,33 +8,32 @@ import _ from "lodash";
 import React from "react";
 
 import { Label } from "./styles";
-import { Value } from "./value";
 
 export const Detail: React.FC<{
   editableField: JSX.Element | undefined;
   isEditing: boolean;
   label: string | undefined;
-  value: number | string | undefined;
+  field: JSX.Element | string | null;
 }> = ({
   isEditing,
   editableField,
   label,
-  value,
+  field,
 }: {
   editableField: JSX.Element | undefined;
   isEditing: boolean;
   label: string | undefined;
-  value: number | string | undefined;
+  field: JSX.Element | string | null;
 }): JSX.Element => {
   return (
     <React.StrictMode>
-      <div className={"flex flex-row  justify-start items-end"}>
+      <div className={"flex flex-row  justify-start items-end ma0 pv1"}>
         {_.isUndefined(label) ? undefined : (
           <div>
             <Label>{label}</Label>&nbsp;
           </div>
         )}
-        <div>{isEditing ? editableField : <Value value={value} />}</div>
+        <div>{isEditing ? editableField : field}</div>
       </div>
     </React.StrictMode>
   );

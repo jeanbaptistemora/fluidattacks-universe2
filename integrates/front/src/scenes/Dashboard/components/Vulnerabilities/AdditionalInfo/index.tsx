@@ -6,12 +6,13 @@
 
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Field, Label } from "./styles";
+import { Detail } from "./detail";
 
 import { Col, Row } from "components/Layout";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
@@ -92,179 +93,240 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
   );
 
+  // Handle action
+
+  function onSubmit(): void {
+    // OnSubmit
+  }
+
   return (
     <React.StrictMode>
-      <Row>
-        <Col lg={50} md={50} sm={50}>
-          <Row>
-            <Col>
-              <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
-              <Field>{_.unescape(vulnerability.where)}</Field>
-              {_.isEmpty(data.vulnerability.stream) ? undefined : (
-                <Field>{data.vulnerability.stream}</Field>
-              )}
-              <Field>
-                <Label>
-                  {t(
+      <Formik
+        enableReinitialize={true}
+        initialValues={{}}
+        name={"editVulnerability"}
+        onSubmit={onSubmit}
+      >
+        <Row>
+          <Col lg={50} md={50} sm={50}>
+            <Row>
+              <Col>
+                <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
+                <Detail
+                  editableField={undefined}
+                  field={_.unescape(vulnerability.where)}
+                  isEditing={false}
+                  label={undefined}
+                />
+                {_.isEmpty(data.vulnerability.stream) ? undefined : (
+                  <Detail
+                    editableField={undefined}
+                    field={data.vulnerability.stream}
+                    isEditing={false}
+                    label={undefined}
+                  />
+                )}
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={vulnerability.specific} />}
+                  isEditing={false}
+                  label={t(
                     `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
                   )}
-                </Label>
-                <Value value={vulnerability.specific} />
-              </Field>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <h4>{t("searchFindings.tabVuln.vulnTable.info")}</h4>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.reportDate")}
-                </Label>
-                <Value value={data.vulnerability.reportDate.split(" ")[0]} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.closingDate")}
-                </Label>
-                <Value
-                  value={
-                    vulnerability.currentState === "closed"
-                      ? data.vulnerability.lastStateDate.split(" ")[0]
-                      : ""
-                  }
                 />
-              </Field>
-              {canSeeSource ? (
-                <Field>
-                  <Label>{t("searchFindings.tabVuln.vulnTable.source")}</Label>
-                  <Value value={data.vulnerability.source} />
-                </Field>
-              ) : undefined}
-              {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
-                <Field>
-                  <Label>{t("searchFindings.tabVuln.commitHash")}</Label>
-                  <Value
-                    value={commitFormatter(
-                      data.vulnerability.commitHash as string
-                    )}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <h4>{t("searchFindings.tabVuln.vulnTable.info")}</h4>
+                <Detail
+                  editableField={undefined}
+                  field={
+                    <Value
+                      value={data.vulnerability.reportDate.split(" ")[0]}
+                    />
+                  }
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.reportDate")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={
+                    <Value
+                      value={
+                        vulnerability.currentState === "closed"
+                          ? data.vulnerability.lastStateDate.split(" ")[0]
+                          : ""
+                      }
+                    />
+                  }
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.closingDate")}
+                />
+                {canSeeSource ? (
+                  <Detail
+                    editableField={undefined}
+                    field={<Value value={data.vulnerability.source} />}
+                    isEditing={false}
+                    label={t("searchFindings.tabVuln.vulnTable.source")}
                   />
-                </Field>
-              )}
-              <Field>
-                <Label>{t("searchFindings.tabDescription.tag")}</Label>
-                <Value value={vulnerability.tag} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabDescription.businessCriticality")}
-                </Label>
-                <Value
-                  value={
-                    data.vulnerability.severity === null ||
-                    data.vulnerability.severity === "-1"
-                      ? ""
-                      : data.vulnerability.severity
-                  }
+                ) : undefined}
+                {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
+                  <Detail
+                    editableField={undefined}
+                    field={
+                      <Value
+                        value={commitFormatter(
+                          data.vulnerability.commitHash as string
+                        )}
+                      />
+                    }
+                    isEditing={false}
+                    label={t("searchFindings.tabVuln.commitHash")}
+                  />
+                )}
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={vulnerability.tag} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabDescription.tag")}
                 />
-              </Field>
-              <Field>
-                <Label>
-                  {t(
+                <Detail
+                  editableField={undefined}
+                  field={
+                    <Value
+                      value={
+                        data.vulnerability.severity === null ||
+                        data.vulnerability.severity === "-1"
+                          ? ""
+                          : data.vulnerability.severity
+                      }
+                    />
+                  }
+                  isEditing={false}
+                  label={t("searchFindings.tabDescription.businessCriticality")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={vulnerabilityType} />}
+                  isEditing={false}
+                  label={t(
                     "searchFindings.tabVuln.vulnTable.vulnerabilityType.title"
                   )}
-                </Label>
-                <Value value={vulnerabilityType} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabDescription.zeroRisk")}</Label>
-                {_.isEmpty(vulnerability.zeroRisk) ? (
-                  <Value value={undefined} />
-                ) : (
-                  <Status status={vulnerability.zeroRisk as string} />
-                )}
-              </Field>
-              {canRetrieveHacker ? (
-                <Field>
-                  <Label>{t("searchFindings.tabDescription.hacker")}</Label>
-                  <Value value={data.vulnerability.hacker} />
-                </Field>
-              ) : undefined}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <h4>{t("searchFindings.tabVuln.vulnTable.reattacks")}</h4>
-              <Field>
-                <Label>
-                  {t(
+                />
+                <Detail
+                  editableField={undefined}
+                  field={
+                    _.isEmpty(vulnerability.zeroRisk) ? (
+                      <Value value={undefined} />
+                    ) : (
+                      <Status status={vulnerability.zeroRisk as string} />
+                    )
+                  }
+                  isEditing={false}
+                  label={t("searchFindings.tabDescription.zeroRisk")}
+                />
+                {canRetrieveHacker ? (
+                  <Detail
+                    editableField={undefined}
+                    field={<Value value={data.vulnerability.hacker} />}
+                    isEditing={false}
+                    label={t("searchFindings.tabDescription.hacker")}
+                  />
+                ) : undefined}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <h4>{t("searchFindings.tabVuln.vulnTable.reattacks")}</h4>
+                <Detail
+                  editableField={undefined}
+                  field={
+                    <Value
+                      value={
+                        data.vulnerability.lastRequestedReattackDate?.split(
+                          " "
+                        )[0] ?? ""
+                      }
+                    />
+                  }
+                  isEditing={false}
+                  label={t(
                     "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
                   )}
-                </Label>
-                <Value
-                  value={
-                    data.vulnerability.lastRequestedReattackDate?.split(
-                      " "
-                    )[0] ?? ""
-                  }
                 />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
-                <Value value={data.vulnerability.lastReattackRequester} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
-                <Value value={data.vulnerability.cycles} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
-                <Value value={data.vulnerability.efficacy} />
-              </Field>
-            </Col>
-          </Row>
-        </Col>
-        <Col lg={50} md={50} sm={50}>
-          <Row>
-            <Col>
-              <h4>{t("searchFindings.tabVuln.vulnTable.treatments")}</h4>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.currentTreatment")}
-                </Label>
-                <Value value={vulnerability.treatment} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.assigned")}</Label>
-                <Value value={currentAssigned} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentDate")}
-                </Label>
-                <Value value={treatmentDate} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentExpiration")}
-                </Label>
-                <Value value={currentExpiration} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentJustification")}
-                </Label>
-                <Value value={currentJustification} />
-              </Field>
-              <Field>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
-                </Label>
-                <Value value={treatmentChanges} />
-              </Field>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+                <Detail
+                  editableField={undefined}
+                  field={
+                    <Value value={data.vulnerability.lastReattackRequester} />
+                  }
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.requester")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={data.vulnerability.cycles} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.cycles")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={data.vulnerability.efficacy} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.efficacy")}
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Col lg={50} md={50} sm={50}>
+            <Row>
+              <Col>
+                <h4>{t("searchFindings.tabVuln.vulnTable.treatments")}</h4>
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={vulnerability.treatment} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.currentTreatment")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={currentAssigned} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.assigned")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={treatmentDate} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.treatmentDate")}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={currentExpiration} />}
+                  isEditing={false}
+                  label={t(
+                    "searchFindings.tabVuln.vulnTable.treatmentExpiration"
+                  )}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={currentJustification} />}
+                  isEditing={false}
+                  label={t(
+                    "searchFindings.tabVuln.vulnTable.treatmentJustification"
+                  )}
+                />
+                <Detail
+                  editableField={undefined}
+                  field={<Value value={treatmentChanges} />}
+                  isEditing={false}
+                  label={t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Formik>
     </React.StrictMode>
   );
 };
