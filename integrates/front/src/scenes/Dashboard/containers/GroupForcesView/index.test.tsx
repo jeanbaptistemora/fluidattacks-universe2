@@ -218,7 +218,7 @@ describe("ForcesView", (): void => {
       screen.getByRole("cell", { name: "33e5d863252940edbfb144ede56d56cf" })
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("cell", { name: "33e5d863252940edbfb144ede56d56cf" })
     );
     await waitFor((): void => {

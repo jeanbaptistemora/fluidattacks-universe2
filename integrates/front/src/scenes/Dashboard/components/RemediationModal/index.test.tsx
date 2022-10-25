@@ -36,7 +36,7 @@ describe("Remediation modal", (): void => {
       screen.queryByRole("textbox", { name: "treatmentJustification" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
     await waitFor((): void => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });

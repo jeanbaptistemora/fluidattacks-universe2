@@ -165,12 +165,12 @@ describe("update verification component", (): void => {
         />
       </MockedProvider>
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox"),
       "This is a commenting test of a request verification in vulns"
     );
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleOnClose).toHaveBeenCalledTimes(1);
     });
@@ -235,12 +235,12 @@ describe("update verification component", (): void => {
         />
       </MockedProvider>
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox"),
       "This is a commenting test of a request verification in vulns"
     );
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(handleOnClose).toHaveBeenCalledTimes(1);
@@ -321,13 +321,15 @@ describe("update verification component", (): void => {
         />
       </MockedProvider>
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getAllByRole("textbox")[1],
       "This is a commenting test of a verifying request verification in vulns"
     );
-    userEvent.click(within(screen.getByRole("table")).getByRole("checkbox"));
+    await userEvent.click(
+      within(screen.getByRole("table")).getByRole("checkbox")
+    );
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(handleOnClose).toHaveBeenCalledTimes(1);
@@ -387,11 +389,11 @@ describe("update verification component", (): void => {
         />
       </MockedProvider>
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getAllByRole("textbox")[1],
       "This is a commenting test of a verifying request verification in vulns"
     );
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleOnClose).toHaveBeenCalledTimes(1);
     });

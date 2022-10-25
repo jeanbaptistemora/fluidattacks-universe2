@@ -110,7 +110,9 @@ describe("eventDescriptionView", (): void => {
       )
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("group.events.description.markAsSolved"));
+    await userEvent.click(
+      screen.getByText("group.events.description.markAsSolved")
+    );
     await waitFor((): void => {
       expect(
         screen.getByText(
@@ -191,20 +193,22 @@ describe("eventDescriptionView", (): void => {
       expect(screen.getByText("Something happened")).toBeInTheDocument();
       expect(screen.queryByText("Reason test")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("group.events.description.edit.text"));
-    userEvent.selectOptions(
+    await userEvent.click(
+      screen.getByText("group.events.description.edit.text")
+    );
+    await userEvent.selectOptions(
       screen.getByRole("combobox", {
         name: "eventType",
       }),
       [""]
     );
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", {
         name: "eventType",
       }),
       ["CREDENTIAL_ISSUES"]
     );
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", {
         name: "solvingReason",
       }),
@@ -217,7 +221,7 @@ describe("eventDescriptionView", (): void => {
         })
       ).not.toBeDisabled();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "group.events.description.save.text" })
     );
     await waitFor((): void => {
@@ -295,16 +299,16 @@ describe("eventDescriptionView", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("Something happened")).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: /group\.events\.description\.rejectsolution\.button\.text/iu,
       })
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: /treatmentjustification/iu }),
       "Rejection reason test"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: /components\.modal\.confirm/iu })
     );
     await waitFor((): void => {

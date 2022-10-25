@@ -236,30 +236,28 @@ describe("Organization policies view", (): void => {
       screen.queryByText("organization.tabs.policies.save")
     ).not.toBeInTheDocument();
 
-    screen.getAllByRole("textbox").forEach((textbox: Element): void => {
-      userEvent.clear(textbox);
-    });
-    userEvent.type(
+    await Promise.all(screen.getAllByRole("textbox").map(userEvent.clear));
+    await userEvent.type(
       screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
       "2"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "maxAcceptanceSeverity" }),
       "8.9"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "maxNumberAcceptances" }),
       "1"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "minAcceptanceSeverity" }),
       "0"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "minBreakingSeverity" }),
       "4"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "vulnerabilityGracePeriod" }),
       "2"
     );
@@ -270,7 +268,7 @@ describe("Organization policies view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -326,8 +324,10 @@ describe("Organization policies view", (): void => {
       screen.queryByText("organization.tabs.policies.save")
     ).not.toBeInTheDocument();
 
-    userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
       "2"
     );
@@ -534,8 +534,10 @@ describe("Organization policies view", (): void => {
       expect(screen.getAllByRole("textbox")).toHaveLength(orgPolicyFields);
     });
 
-    userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
       "1"
     );
@@ -545,7 +547,7 @@ describe("Organization policies view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
@@ -553,7 +555,7 @@ describe("Organization policies view", (): void => {
       );
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
@@ -561,14 +563,14 @@ describe("Organization policies view", (): void => {
       );
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "organization.tabs.policies.errors.acceptanceSeverityRange"
       );
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
@@ -576,7 +578,7 @@ describe("Organization policies view", (): void => {
       );
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
@@ -584,7 +586,7 @@ describe("Organization policies view", (): void => {
       );
     });
 
-    userEvent.click(screen.getByText("organization.tabs.policies.save"));
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");

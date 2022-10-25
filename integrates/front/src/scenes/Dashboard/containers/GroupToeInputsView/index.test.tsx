@@ -361,17 +361,17 @@ describe("groupToeInputsView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "group.findings.tableSet.btn.text" })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", {
         checked: false,
         name: "bePresent",
       })
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", {
         checked: false,
         name: "bePresentUntil",
@@ -399,7 +399,7 @@ describe("groupToeInputsView", (): void => {
       name: "test_nickname idTest group.toe.inputs.no 2000-01-01 bePresentSwitch Yes 2020-01-02",
     });
 
-    userEvent.click(
+    await userEvent.click(
       within(row).getByRole("checkbox", { name: "bePresentSwitch" })
     );
 
@@ -518,8 +518,8 @@ describe("groupToeInputsView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getAllByRole("checkbox", { name: "" })[0]);
-    userEvent.click(
+    await userEvent.click(screen.getAllByRole("checkbox", { name: "" })[0]);
+    await userEvent.click(
       screen.getByRole("button", {
         name: "group.toe.inputs.actionButtons.attackedButton.text",
       })

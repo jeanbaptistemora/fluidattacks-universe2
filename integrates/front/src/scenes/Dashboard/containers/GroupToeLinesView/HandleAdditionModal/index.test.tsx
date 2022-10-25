@@ -92,25 +92,23 @@ describe("handle toe lines addition modal", (): void => {
 
     await screen.findByText("group.toe.lines.addModal.title");
 
-    userEvent.paste(
-      screen.getByRole("textbox", { name: "" }),
-      "2022-05-23T07:18:00.000Z"
-    );
-    userEvent.type(
+    screen.getByRole("textbox", { name: "" }).focus();
+    await userEvent.paste("2022-05-23T07:18:00.000Z");
+    await userEvent.type(
       screen.getByRole("textbox", { name: "filename" }),
       "test/filename.py"
     );
-    userEvent.type(screen.getByRole("spinbutton", { name: "loc" }), "10");
-    userEvent.type(
+    await userEvent.type(screen.getByRole("spinbutton", { name: "loc" }), "10");
+    await userEvent.type(
       screen.getByRole("textbox", { name: "lastAuthor" }),
       "test@test.com"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "lastCommit" }),
       "2fab76140221397cabbc0eae536b41ff38e7540a"
     );
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

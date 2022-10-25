@@ -45,7 +45,7 @@ describe("Update access token modal", (): void => {
     expect(typeof APITokenModal).toBe("function");
   });
 
-  it("should render an add access token modal", (): void => {
+  it("should render an add access token modal", async (): Promise<void> => {
     expect.hasAssertions();
 
     const noAccessToken: IGetAccessTokenDictAttr = {
@@ -80,7 +80,7 @@ describe("Update access token modal", (): void => {
       screen.getByText("updateAccessToken.expirationTime")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
@@ -124,7 +124,7 @@ describe("Update access token modal", (): void => {
       screen.queryAllByText("updateAccessToken.expirationTime")
     ).toHaveLength(0);
 
-    userEvent.click(screen.getByText("updateAccessToken.invalidate"));
+    await userEvent.click(screen.getByText("updateAccessToken.invalidate"));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
@@ -200,8 +200,11 @@ describe("Update access token modal", (): void => {
       </MockedProvider>
     );
 
-    userEvent.type(screen.getByTestId("expiration-time-input"), expirationTime);
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.type(
+      screen.getByTestId("expiration-time-input"),
+      expirationTime
+    );
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(screen.getByText("updateAccessToken.message")).toBeInTheDocument();
@@ -212,7 +215,7 @@ describe("Update access token modal", (): void => {
       "updateAccessToken.success"
     );
 
-    userEvent.click(screen.getByText("updateAccessToken.copy.copy"));
+    await userEvent.click(screen.getByText("updateAccessToken.copy.copy"));
 
     expect(msgError).toHaveBeenCalledWith("updateAccessToken.copy.failed");
   });

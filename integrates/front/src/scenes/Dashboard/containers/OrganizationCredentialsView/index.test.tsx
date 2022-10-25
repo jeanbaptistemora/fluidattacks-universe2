@@ -160,19 +160,28 @@ describe("organization credentials view", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "organization.tabs.credentials.actionButtons.addButton.text",
       })
     );
-    userEvent.type(screen.getByRole("textbox", { name: "name" }), "New name");
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
-      screen.getByText(
-        "organization.tabs.credentials.credentialsModal.form.type.https"
-      ),
-    ]);
-    userEvent.type(screen.getByRole("textbox", { name: "token" }), "New token");
-    userEvent.click(
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "New name"
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "type" }),
+      [
+        screen.getByText(
+          "organization.tabs.credentials.credentialsModal.form.type.https"
+        ),
+      ]
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "token" }),
+      "New token"
+    );
+    await userEvent.click(
       screen.getByRole("button", {
         name: "organization.tabs.credentials.credentialsModal.form.add",
       })
@@ -255,13 +264,13 @@ describe("organization credentials view", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByRole("radio"));
-    userEvent.click(
+    await userEvent.click(screen.getByRole("radio"));
+    await userEvent.click(
       screen.getByRole("button", {
         name: "organization.tabs.credentials.actionButtons.removeButton.text",
       })
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "components.modal.confirm",
       })
@@ -351,32 +360,41 @@ describe("organization credentials view", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByRole("radio"));
-    userEvent.click(
+    await userEvent.click(screen.getByRole("radio"));
+    await userEvent.click(
       screen.getByRole("button", {
         name: "organization.tabs.credentials.actionButtons.editButton.text",
       })
     );
-    userEvent.click(screen.getByRole("checkbox", { name: "newSecrets" }));
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
-      screen.getByText(
-        "organization.tabs.credentials.credentialsModal.form.type.https"
-      ),
-    ]);
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "auth" }), [
-      screen.getByText(
-        "organization.tabs.credentials.credentialsModal.form.auth.user"
-      ),
-    ]);
-    userEvent.clear(screen.getByRole("textbox", { name: "user" }));
-    userEvent.type(screen.getByRole("textbox", { name: "user" }), "User test");
+    await userEvent.click(screen.getByRole("checkbox", { name: "newSecrets" }));
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "type" }),
+      [
+        screen.getByText(
+          "organization.tabs.credentials.credentialsModal.form.type.https"
+        ),
+      ]
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "auth" }),
+      [
+        screen.getByText(
+          "organization.tabs.credentials.credentialsModal.form.auth.user"
+        ),
+      ]
+    );
+    await userEvent.clear(screen.getByRole("textbox", { name: "user" }));
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "user" }),
+      "User test"
+    );
 
-    userEvent.clear(screen.getByRole("textbox", { name: "password" }));
-    userEvent.type(
+    await userEvent.clear(screen.getByRole("textbox", { name: "password" }));
+    await userEvent.type(
       screen.getByRole("textbox", { name: "password" }),
       "lorem.ipsum,Dolor.sit:am3t;consectetur@adipiscing$elit"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "organization.tabs.credentials.credentialsModal.form.edit",
       })

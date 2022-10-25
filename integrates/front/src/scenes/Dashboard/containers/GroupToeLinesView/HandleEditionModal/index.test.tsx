@@ -96,14 +96,14 @@ describe("handle toe lines edition modal", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    userEvent.clear(screen.getByRole("spinbutton"));
-    userEvent.type(screen.getByRole("spinbutton"), "5");
-    userEvent.type(
+    await userEvent.clear(screen.getByRole("spinbutton"));
+    await userEvent.type(screen.getByRole("spinbutton"), "5");
+    await userEvent.type(
       screen.getByRole("textbox"),
       "This is a test of updating toe lines"
     );
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);

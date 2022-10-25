@@ -108,14 +108,14 @@ describe("Portfolio", (): void => {
     );
 
     await screen.findByText("searchFindings.tabResources.addRepository");
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "tags[0]" }),
       "test-new-tag"
     );
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -154,8 +154,8 @@ describe("Portfolio", (): void => {
 
     await screen.findByRole("row", { name: "test-tag1" });
 
-    userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
-    userEvent.click(
+    await userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.removeRepository")
     );
 
@@ -182,13 +182,13 @@ describe("Portfolio", (): void => {
 
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test-tag1");
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("columnheader", {
         name: "searchFindings.tabResources.tags.title",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("columnheader", {
         name: "searchFindings.tabResources.tags.title",
       })
@@ -234,14 +234,14 @@ describe("Portfolio", (): void => {
       </MockedProvider>
     );
     await screen.findByText("searchFindings.tabResources.addRepository");
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "tags[0]" }),
       "test-new-tag"
     );
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(2);
@@ -280,8 +280,8 @@ describe("Portfolio", (): void => {
     );
     await screen.findByRole("row", { name: "test-tag1" });
 
-    userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
-    userEvent.click(
+    await userEvent.click(screen.getByRole("radio", { name: "test-tag1" }));
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.removeRepository")
     );
 
@@ -306,14 +306,14 @@ describe("Portfolio", (): void => {
     );
 
     await screen.findByText("searchFindings.tabResources.addRepository");
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "tags[0]" }),
       "test-tag1"
     );
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

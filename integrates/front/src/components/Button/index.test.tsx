@@ -41,7 +41,7 @@ describe("Button", (): void => {
 
     expect(screen.queryByRole("button", { name: "Test2" })).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Test2" }));
+    await userEvent.click(screen.getByRole("button", { name: "Test2" }));
     await waitFor((): void => {
       expect(clickCallback).toHaveBeenCalledTimes(1);
     });

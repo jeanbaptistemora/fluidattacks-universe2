@@ -35,7 +35,7 @@ describe("Delete Group Modal", (): void => {
       screen.queryByText("searchFindings.servicesTable.deleteGroup.deleteGroup")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
     await waitFor((): void => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });

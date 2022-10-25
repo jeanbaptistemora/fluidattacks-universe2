@@ -43,14 +43,14 @@ describe("ConfirmDialog", (): void => {
     expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(screen.queryByText("Title test")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("Test"));
+    await userEvent.click(screen.getByText("Test"));
     await waitFor((): void => {
       expect(screen.queryByText("Title test")).toBeInTheDocument();
     });
 
     expect(screen.queryByText(btnCancel)).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(btnCancel));
+    await userEvent.click(screen.getByText(btnCancel));
     await waitFor((): void => {
       expect(cancelCallback).toHaveBeenCalledTimes(1);
     });

@@ -138,7 +138,7 @@ describe("SeverityView", (): void => {
       screen.queryByText("searchFindings.tabSeverity.editable.label")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabSeverity.editable.label")
     );
     await waitFor((): void => {
@@ -195,7 +195,7 @@ describe("SeverityView", (): void => {
         screen.queryByText("searchFindings.tabSeverity.editable.label")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabSeverity.editable.label")
     );
     await waitFor((): void => {

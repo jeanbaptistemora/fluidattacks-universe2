@@ -274,7 +274,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(
       screen.queryAllByRole("spinbutton", { name: "numberrange" })[1],
@@ -284,7 +284,9 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(5);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -306,7 +308,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(
       screen.queryAllByRole("spinbutton", { name: "numberrange" })[0],
@@ -316,7 +318,9 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -338,7 +342,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(screen.getByRole("combobox", { name: "color" }), {
       target: { value: "red" },
@@ -348,7 +352,9 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(7);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -370,7 +376,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     fireEvent.change(screen.getByRole("textbox", { name: "name" }), {
       target: { value: "lareina shaffer" },
@@ -380,7 +386,9 @@ describe("Table", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -402,7 +410,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     expect(
       document.querySelectorAll(`input[name="date"]`)[0]
@@ -418,7 +426,9 @@ describe("Table", (): void => {
     expect(screen.queryByText("April Long")).toBeInTheDocument();
     expect(screen.queryByText("Desirae Bailey")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -440,7 +450,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
 
     expect(
       document.querySelectorAll(`input[name="date"]`)[1]
@@ -456,7 +466,9 @@ describe("Table", (): void => {
     expect(screen.queryByText("Amber Morgan")).toBeInTheDocument();
     expect(screen.queryByText("Desirae Bailey")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
@@ -499,53 +511,53 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(11);
 
-    userEvent.click(screen.getByRole("button", { name: "20" }));
+    await userEvent.click(screen.getByRole("button", { name: "20" }));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(21);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "27" }));
+    await userEvent.click(screen.getByRole("button", { name: "27" }));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(28);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "10" }));
+    await userEvent.click(screen.getByRole("button", { name: "10" }));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "3" }));
+    await userEvent.click(screen.getByRole("button", { name: "3" }));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
 
-    userEvent.click(screen.getByRole("button", { name: "1" }));
+    await userEvent.click(screen.getByRole("button", { name: "1" }));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(11);
     });
 
     expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
+    void userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryByText("Phyllis Garrett")).toBeInTheDocument();
     });
 
     expect(screen.queryByText("Daria Hays")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[0]);
+    void userEvent.click(screen.getAllByRole("button", { name: "" })[0]);
     await waitFor((): void => {
       expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
     });
 
     expect(screen.queryByText("Phyllis Garrett")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
+    void userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryByText("Theodore Daniels")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
+    void userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
@@ -572,7 +584,7 @@ describe("Table", (): void => {
       screen.getByRole("columnheader", { name: "Shirt Color" })
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "group.findings.tableSet.btn.text" })
     );
     await waitFor((): void => {
@@ -583,13 +595,13 @@ describe("Table", (): void => {
 
     expect(screen.getAllByRole("checkbox")).toHaveLength(5);
 
-    userEvent.click(screen.getByRole("checkbox", { name: "color" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "color" }));
 
     expect(
       screen.queryByRole("columnheader", { name: "Shirt Color" })
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("checkbox", { name: "color" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "color" }));
 
     expect(
       screen.queryByRole("columnheader", { name: "Shirt Color" })
@@ -615,13 +627,13 @@ describe("Table", (): void => {
 
     expect(screen.queryAllByRole("cell")[0].textContent).toBe("Daria Hays");
 
-    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+    await userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("cell")[0].textContent).toBe("Amber Morgan");
     });
 
-    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+    await userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("cell")[0].textContent).toBe(
@@ -629,7 +641,7 @@ describe("Table", (): void => {
       );
     });
 
-    userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
+    await userEvent.click(screen.getByRole("columnheader", { name: "Name" }));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("cell")[0].textContent).toBe("Daria Hays");
@@ -673,7 +685,7 @@ describe("Table", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
 
-    userEvent.click(screen.queryAllByRole("radio")[0]);
+    await userEvent.click(screen.queryAllByRole("radio")[0]);
     await waitFor((): void => {
       expect(
         screen.getByText(
@@ -684,7 +696,7 @@ describe("Table", (): void => {
 
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(1);
 
-    userEvent.click(screen.queryAllByRole("radio")[1]);
+    await userEvent.click(screen.queryAllByRole("radio")[1]);
     await waitFor((): void => {
       expect(
         screen.getByText(
@@ -706,14 +718,14 @@ describe("Table", (): void => {
       0
     );
 
-    userEvent.click(screen.queryAllByRole("checkbox")[0]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[0]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         11
       );
     });
 
-    userEvent.click(screen.queryAllByRole("checkbox")[0]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[0]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         0
@@ -731,21 +743,21 @@ describe("Table", (): void => {
       0
     );
 
-    userEvent.click(screen.queryAllByRole("checkbox")[1]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         2
       );
     });
 
-    userEvent.click(screen.queryAllByRole("checkbox")[2]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[2]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         3
       );
     });
 
-    userEvent.click(screen.queryAllByRole("checkbox")[3]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[3]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         4
@@ -772,7 +784,7 @@ describe("Table", (): void => {
       screen.queryByText("This is Palmer Wilcox expanded")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.queryAllByRole("button", { name: "" })[1]);
+    await userEvent.click(screen.queryAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(
         screen.queryByText("This is Daria Hays expanded")
@@ -781,7 +793,7 @@ describe("Table", (): void => {
         screen.queryByText("This is Palmer Wilcox expanded")
       ).not.toBeInTheDocument();
     });
-    userEvent.click(screen.queryAllByRole("button", { name: "" })[2]);
+    await userEvent.click(screen.queryAllByRole("button", { name: "" })[2]);
     await waitFor((): void => {
       expect(
         screen.queryByText("This is Daria Hays expanded")
@@ -790,8 +802,8 @@ describe("Table", (): void => {
         screen.queryByText("This is Palmer Wilcox expanded")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
-    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    await userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    await userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
     await waitFor((): void => {
       expect(
         screen.queryByText("This is Daria Hays expanded")
@@ -800,7 +812,7 @@ describe("Table", (): void => {
         screen.queryByText("This is Palmer Wilcox expanded")
       ).not.toBeInTheDocument();
     });
-    userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
+    await userEvent.click(screen.queryAllByRole("button", { name: "" })[0]);
     await waitFor((): void => {
       expect(
         screen.queryByText("This is Daria Hays expanded")

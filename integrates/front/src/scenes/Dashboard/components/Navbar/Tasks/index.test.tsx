@@ -72,7 +72,7 @@ describe("taskInfo component", (): void => {
       ).not.toBeInTheDocument();
     });
 
-    userEvent.hover(screen.getByRole("button"));
+    await userEvent.hover(screen.getByRole("button"));
 
     await waitFor((): void => {
       expect(
@@ -117,7 +117,7 @@ describe("taskInfo component", (): void => {
       ).not.toBeInTheDocument();
     });
 
-    userEvent.hover(screen.getByRole("button"));
+    await userEvent.hover(screen.getByRole("button"));
 
     await waitFor((): void => {
       expect(
@@ -164,7 +164,7 @@ describe("taskInfo component", (): void => {
       expect(screen.queryByRole("button")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
 
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledWith("/todos");

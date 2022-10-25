@@ -243,7 +243,7 @@ describe("Organization billing groups view", (): void => {
     expect(screen.queryByText("Tier")).toBeInTheDocument();
     expect(screen.queryByText("Service")).toBeInTheDocument();
 
-    userEvent.click(screen.getAllByText("Managed")[1]);
+    await userEvent.click(screen.getAllByText("Managed")[1]);
 
     await waitFor((): void => {
       expect(

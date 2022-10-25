@@ -39,7 +39,7 @@ describe("Add resources modal", (): void => {
       screen.queryByText("searchFindings.tabResources.files.confirm.title")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "searchFindings.tabResources.removeRepository",
       })

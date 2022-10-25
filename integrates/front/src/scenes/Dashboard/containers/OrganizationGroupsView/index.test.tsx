@@ -140,7 +140,7 @@ describe("Organization groups view", (): void => {
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
     ).toContain("userModal.roles.user");
 
-    userEvent.click(screen.getByRole("cell", { name: "Unittesting" }));
+    await userEvent.click(screen.getByRole("cell", { name: "Unittesting" }));
   });
 
   it("should show an error", async (): Promise<void> => {
@@ -330,7 +330,7 @@ describe("Organization groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(numberOfRows);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("organization.tabs.groups.newGroup.new.text")
     );
 
@@ -342,20 +342,24 @@ describe("Organization groups view", (): void => {
 
     expect(screen.getByText("components.modal.confirm")).toBeDisabled();
 
-    userEvent.type(screen.getByRole("textbox", { name: "name" }), "AKAME");
-    userEvent.type(
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "AKAME"
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test group"
     );
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
-      "CONTINUOUS",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "type" }),
+      ["CONTINUOUS"]
+    );
 
     await waitFor((): void => {
       expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor(
       (): void => {

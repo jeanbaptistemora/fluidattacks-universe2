@@ -235,8 +235,8 @@ describe("eventEvidenceView", (): void => {
 
     expect(screen.queryAllByRole("span", { hidden: true })).toHaveLength(0);
 
-    userEvent.click(screen.getAllByRole("img")[0]);
-    userEvent.hover(
+    await userEvent.click(screen.getAllByRole("img")[0]);
+    await userEvent.hover(
       screen.getByRole("dialog", {
         hidden: true,
         name: "ImageViewer",
@@ -372,7 +372,7 @@ describe("eventEvidenceView", (): void => {
     await waitFor((): void => {
       expect(container.querySelectorAll(".fa-file")).toHaveLength(1);
     });
-    userEvent.click(container.querySelectorAll(".fa-file")[0]);
+    await userEvent.click(container.querySelectorAll(".fa-file")[0]);
     await waitFor((): void => {
       expect(onOpenLink).toHaveBeenCalledWith(
         "https://localhost:9000/some_file.pdf",
@@ -476,10 +476,10 @@ describe("eventEvidenceView", (): void => {
         screen.queryByText("group.events.evidence.edit")
       ).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("group.events.evidence.edit"));
-    userEvent.upload(screen.getByTestId("image1.file"), image1);
-    userEvent.upload(screen.getByTestId("file1.file"), file);
-    userEvent.click(
+    await userEvent.click(screen.getByText("group.events.evidence.edit"));
+    await userEvent.upload(screen.getByTestId("image1.file"), image1);
+    await userEvent.upload(screen.getByTestId("file1.file"), file);
+    await userEvent.click(
       screen.getByRole("button", {
         name: /searchfindings\.tabevidence\.update/iu,
       })

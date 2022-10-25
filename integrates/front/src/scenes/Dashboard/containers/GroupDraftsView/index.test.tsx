@@ -204,7 +204,7 @@ describe("GroupDraftsView", (): void => {
 
     expect(screen.getByText("group.drafts.btn.text")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("group.drafts.btn.text"));
+    await userEvent.click(screen.getByText("group.drafts.btn.text"));
     await waitFor((): void => {
       expect(
         screen.queryByRole("textbox", { name: "title" })
@@ -213,7 +213,7 @@ describe("GroupDraftsView", (): void => {
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
 
-    userEvent.type(screen.getByRole("textbox", { name: "title" }), "002");
+    await userEvent.type(screen.getByRole("textbox", { name: "title" }), "002");
     await waitFor((): void => {
       expect(screen.queryByRole("listitem")).toBeInTheDocument();
     });
@@ -268,7 +268,7 @@ describe("GroupDraftsView", (): void => {
       screen.queryByText("group.drafts.error.hasDraftsRejected")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("group.drafts.btn.text"));
+    await userEvent.click(screen.getByText("group.drafts.btn.text"));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.error.hasDraftsRejected")

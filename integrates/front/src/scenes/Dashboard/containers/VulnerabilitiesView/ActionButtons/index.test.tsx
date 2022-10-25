@@ -144,7 +144,7 @@ describe("ActionButtons", (): void => {
       screen.queryByText("searchFindings.tabDescription.requestVerify.text")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.requestVerify.text")
     );
     rerender(
@@ -187,7 +187,7 @@ describe("ActionButtons", (): void => {
       screen.queryByText("searchFindings.tabVuln.buttons.edit")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.cancelVerify")
     );
 

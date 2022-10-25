@@ -97,7 +97,7 @@ describe("Update access token modal", (): void => {
 
     expect(screen.getByText(generateButtonText)).toBeDisabled();
 
-    userEvent.click(screen.getByText(revealButtonText));
+    await userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(beforeValue)).toBeInTheDocument();
     });
@@ -105,7 +105,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(revealButtonText)).toBeDisabled();
     expect(screen.getByText(resetButtonText)).not.toHaveAttribute("disabled");
 
-    userEvent.click(screen.getByText(resetButtonText));
+    await userEvent.click(screen.getByText(resetButtonText));
     await waitFor((): void => {
       expect(screen.queryByText(afterValue)).toBeInTheDocument();
     });
@@ -148,7 +148,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(revealButtonText)).not.toBeDisabled();
     expect(screen.getByText(copyButtonText)).toBeDisabled();
 
-    userEvent.click(screen.getByText(revealButtonText));
+    await userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(revealButtonText)).toBeDisabled();
     });
@@ -199,7 +199,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(title)).toBeInTheDocument();
 
     // When the token is revealed and does not exist, it cannot be copied
-    userEvent.click(screen.getByText(revealButtonText));
+    await userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(generateButtonText)).not.toBeDisabled();
     });
@@ -208,7 +208,7 @@ describe("Update access token modal", (): void => {
 
     expect(screen.getByText(revealButtonText)).toBeDisabled();
 
-    userEvent.click(screen.getByText(closeButtonText));
+    await userEvent.click(screen.getByText(closeButtonText));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
 

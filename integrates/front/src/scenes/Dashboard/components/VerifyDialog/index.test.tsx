@@ -82,14 +82,14 @@ describe("VerifyDialog", (): void => {
     expect(screen.queryByText("Button Test")).toBeInTheDocument();
     expect(screen.queryByText("verifyDialog.title")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("Button Test"));
-    userEvent.type(
+    await userEvent.click(screen.getByText("Button Test"));
+    await userEvent.type(
       screen.getByRole("textbox", {
         name: "verificationCode",
       }),
       "1234"
     );
-    userEvent.click(screen.getByText("verifyDialog.verify"));
+    await userEvent.click(screen.getByText("verifyDialog.verify"));
 
     await waitFor((): void => {
       expect(verifyCallback).toHaveBeenCalledTimes(1);

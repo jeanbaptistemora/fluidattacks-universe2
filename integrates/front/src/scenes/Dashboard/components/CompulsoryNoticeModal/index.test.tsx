@@ -40,7 +40,7 @@ describe("Compulsory notice modal", (): void => {
 
     expect(screen.queryByText("legalNotice.accept")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("legalNotice.accept"));
+    await userEvent.click(screen.getByText("legalNotice.accept"));
     await waitFor((): void => {
       expect(handleAccept).toHaveBeenCalledTimes(1);
     });

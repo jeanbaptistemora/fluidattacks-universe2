@@ -35,15 +35,15 @@ describe("Comments section", (): void => {
     expect(typeof Comments).toBe("function");
   });
 
-  it("should render an empty comment section", (): void => {
+  it("should render an empty comment section", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(<Comments onLoad={jest.fn()} onPostComment={jest.fn()} />);
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
 
-    userEvent.clear(screen.getByRole("textbox"));
-    userEvent.type(screen.getByRole("textbox"), "test comment");
+    await userEvent.clear(screen.getByRole("textbox"));
+    await userEvent.type(screen.getByRole("textbox"), "test comment");
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
     expect(screen.queryByText("comments.noComments")).toBeInTheDocument();
@@ -68,12 +68,12 @@ describe("Comments section", (): void => {
     expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(screen.queryByText("comments.send")).not.toBeInTheDocument();
 
-    userEvent.clear(screen.getByRole("textbox"));
-    userEvent.type(screen.getByRole("textbox"), "test comment");
+    await userEvent.clear(screen.getByRole("textbox"));
+    await userEvent.type(screen.getByRole("textbox"), "test comment");
     await waitFor((): void => {
       expect(screen.queryByText("comments.send")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("comments.send"));
+    await userEvent.click(screen.getByText("comments.send"));
     await waitFor((): void => {
       expect(onPostComment).toHaveBeenCalledTimes(1);
     });
@@ -96,7 +96,7 @@ describe("Comments section", (): void => {
 
     expect(container.querySelectorAll(".comment")).toHaveLength(1);
 
-    userEvent.click(screen.getByText("comments.reply"));
+    await userEvent.click(screen.getByText("comments.reply"));
     await waitFor((): void => {
       expect(
         screen.queryByRole("textbox", { name: "comment-editor" })

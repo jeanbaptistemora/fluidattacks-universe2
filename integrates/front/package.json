@@ -83,7 +83,7 @@
     "@storybook/react": "6.5.9",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.4",
-    "@testing-library/user-event": "13.5.0",
+    "@testing-library/user-event": "14.4.3",
     "@types/apollo-upload-client": "14.1.0",
     "@types/css-minimizer-webpack-plugin": "3.0.2",
     "@types/jest": "29.2.0",

@@ -309,7 +309,7 @@ describe("VulnerabilitiesView", (): void => {
       screen.queryByRole("combobox", { name: "treatment" })
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "searchFindings.tabVuln.buttons.handleAcceptance",
       })
@@ -372,7 +372,7 @@ describe("VulnerabilitiesView", (): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(totalButtons);
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", { name: "https://example.com/tests" })
     );
 
@@ -385,7 +385,7 @@ describe("VulnerabilitiesView", (): void => {
       screen.queryByText("searchFindings.tabVuln.buttons.edit")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: "searchFindings.tabDescription.requestVerify.text",
       })
@@ -460,7 +460,7 @@ describe("VulnerabilitiesView", (): void => {
       )
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.markVerified.text")
     );
     await waitFor((): void => {
@@ -477,10 +477,10 @@ describe("VulnerabilitiesView", (): void => {
       screen.getByRole("checkbox", { name: "https://example.com/inputs" })
     ).not.toBeDisabled();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", { name: "https://example.com/inputs" })
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.markVerified.text")
     );
     await waitFor((): void => {

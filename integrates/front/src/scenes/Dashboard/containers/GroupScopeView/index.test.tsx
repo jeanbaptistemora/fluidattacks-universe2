@@ -267,7 +267,7 @@ describe("GroupScopeView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("group.scope.common.add")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("group.scope.common.add"));
+    await userEvent.click(screen.getByText("group.scope.common.add"));
 
     await waitFor((): void => {
       expect(
@@ -277,45 +277,48 @@ describe("GroupScopeView", (): void => {
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "url" }),
       "https://gitlab.com/fluidattacks/universe"
     );
-    userEvent.type(screen.getByRole("textbox", { name: "branch" }), "master");
-    userEvent.type(
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "branch" }),
+      "master"
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "environment" }),
       "production"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "credentials.name" }),
       "credential name"
     );
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "credentials.type" }),
       ["HTTPS"]
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "credentials.token" }),
       "token-test"
     );
 
-    userEvent.click(screen.getByRole("radio", { name: "No" }));
+    await userEvent.click(screen.getByRole("radio", { name: "No" }));
     const numberOfRejectionCheckbox: number = 4;
     await waitFor((): void => {
       expect(
         screen.queryAllByRole("checkbox", { checked: false })
       ).toHaveLength(numberOfRejectionCheckbox);
     });
-    userEvent.click(screen.getByDisplayValue("rejectA"));
-    userEvent.click(screen.getByDisplayValue("rejectB"));
-    userEvent.click(screen.getByDisplayValue("rejectC"));
+    await userEvent.click(screen.getByDisplayValue("rejectA"));
+    await userEvent.click(screen.getByDisplayValue("rejectB"));
+    await userEvent.click(screen.getByDisplayValue("rejectC"));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         numberOfRejectionCheckbox - 1
       );
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
@@ -492,39 +495,41 @@ describe("GroupScopeView", (): void => {
 
     expect(screen.queryAllByRole("row")).toHaveLength(2);
 
-    userEvent.click(screen.queryAllByRole("row")[1]);
+    await userEvent.click(screen.queryAllByRole("row")[1]);
     await waitFor((): void => {
       expect(screen.getByText("group.scope.common.edit")).toBeInTheDocument();
     });
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-    userEvent.clear(screen.getByRole("textbox", { name: "environment" }));
-    userEvent.type(
+    await userEvent.clear(screen.getByRole("textbox", { name: "environment" }));
+    await userEvent.type(
       screen.getByRole("textbox", { name: "environment" }),
       "staging"
     );
-    userEvent.click(screen.getByRole("radio", { name: "Yes" }));
+    await userEvent.click(screen.getByRole("radio", { name: "Yes" }));
     await waitFor((): void => {
       expect(
         screen.queryAllByRole("checkbox", { checked: false })
       ).toHaveLength(2);
     });
-    userEvent.click(screen.getByDisplayValue("includeA"));
+    await userEvent.click(screen.getByDisplayValue("includeA"));
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         1
       );
     });
-    userEvent.clear(screen.getByRole("textbox", { name: "gitignore[0]" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "gitignore[0]" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "gitignore[0]" }),
       "node_modules/*"
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
         [
@@ -693,13 +698,13 @@ describe("GroupScopeView", (): void => {
     ).not.toBeInTheDocument();
     expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(false);
 
-    userEvent.click(screen.getByRole("checkbox"));
+    await userEvent.click(screen.getByRole("checkbox"));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.scope.common.confirm")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(true);
     });
@@ -865,7 +870,7 @@ describe("GroupScopeView", (): void => {
       ).not.toBeInTheDocument();
       expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(true);
 
-      userEvent.click(screen.getByRole("checkbox"));
+      await userEvent.click(screen.getByRole("checkbox"));
       await waitFor((): void => {
         expect(
           screen.queryByText("group.scope.common.deactivation.title")
@@ -874,7 +879,7 @@ describe("GroupScopeView", (): void => {
 
       expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-      userEvent.selectOptions(
+      await userEvent.selectOptions(
         screen.getByRole("combobox", { name: "reason" }),
         [reason]
       );
@@ -886,13 +891,13 @@ describe("GroupScopeView", (): void => {
         screen.queryByText("group.scope.common.confirm")
       ).not.toBeInTheDocument();
 
-      userEvent.click(screen.getByText(btnConfirm));
+      await userEvent.click(screen.getByText(btnConfirm));
       await waitFor((): void => {
         expect(
           screen.queryByText("group.scope.common.confirm")
         ).toBeInTheDocument();
       });
-      userEvent.click(screen.getAllByText(btnConfirm)[1]);
+      await userEvent.click(screen.getAllByText(btnConfirm)[1]);
       await waitFor((): void => {
         expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(
           false

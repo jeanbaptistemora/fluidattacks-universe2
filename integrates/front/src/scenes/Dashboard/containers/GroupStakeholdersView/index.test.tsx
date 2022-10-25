@@ -264,7 +264,9 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.title")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabUsers.addButton.text")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.title")
@@ -300,7 +302,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("user@gmail.com"));
+    await userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
@@ -311,7 +313,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabUsers.editButton.text")
     );
     await waitFor((): void => {
@@ -377,7 +379,9 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.title")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabUsers.addButton.text")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.title")
@@ -387,17 +391,18 @@ describe("Group stakeholders view", (): void => {
     fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
       target: { value: "unittest@test.com" },
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
     );
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "HACKER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["HACKER"]
+    );
     await waitFor((): void => {
       expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -486,7 +491,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("user@gmail.com"));
+    await userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
@@ -496,7 +501,7 @@ describe("Group stakeholders view", (): void => {
     expect(screen.getAllByRole("checkbox", { checked: false })).toHaveLength(1);
     expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(2);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")
     );
 
@@ -508,7 +513,7 @@ describe("Group stakeholders view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "user@gmail.com searchFindings.tabUsers.successDelete",
@@ -571,7 +576,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("user@gmail.com"));
+    await userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
@@ -582,7 +587,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabUsers.editButton.text")
     );
     await waitFor((): void => {
@@ -590,18 +595,21 @@ describe("Group stakeholders view", (): void => {
         screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
       ).toBeInTheDocument();
     });
-    userEvent.clear(screen.getByRole("textbox", { name: "responsibility" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "responsibility" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
     );
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "HACKER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["HACKER"]
+    );
     await waitFor((): void => {
       expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -670,7 +678,9 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.title")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabUsers.addButton.text")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.title")
@@ -680,17 +690,18 @@ describe("Group stakeholders view", (): void => {
     fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
       target: { value: "unittest@test.com" },
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
     );
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "HACKER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["HACKER"]
+    );
     await waitFor((): void => {
       expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
 
     const TEST_TIMES_CALLED = 7;
     await waitFor((): void => {
@@ -744,7 +755,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("user@gmail.com"));
+    await userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
@@ -756,11 +767,11 @@ describe("Group stakeholders view", (): void => {
     );
     expect(screen.getAllByRole("checkbox", { checked: true })).toHaveLength(2);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")
     );
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(1);
     });
@@ -827,7 +838,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("user@gmail.com"));
+    await userEvent.click(screen.getByLabelText("user@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabUsers.editButton.text")
@@ -838,7 +849,7 @@ describe("Group stakeholders view", (): void => {
       screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabUsers.editButton.text")
     );
     await waitFor((): void => {
@@ -846,18 +857,21 @@ describe("Group stakeholders view", (): void => {
         screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
       ).toBeInTheDocument();
     });
-    userEvent.clear(screen.getByRole("textbox", { name: "responsibility" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "responsibility" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "responsibility" }),
       "Project Manager"
     );
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "HACKER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["HACKER"]
+    );
     await waitFor((): void => {
       expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     const TEST_TIMES_CALLED = 5;
 
     await waitFor((): void => {

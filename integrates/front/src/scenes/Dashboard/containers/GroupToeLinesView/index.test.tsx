@@ -345,10 +345,10 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
-    userEvent.click(screen.getAllByRole("checkbox")[1]);
-    userEvent.click(screen.getAllByRole("checkbox")[2]);
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(screen.getAllByRole("checkbox")[2]);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("group.toe.lines.actionButtons.verifyButton.text")
     );
 
@@ -530,9 +530,12 @@ describe("groupToeLinesView", (): void => {
 
     const newValue = 6;
 
-    userEvent.type(screen.getAllByRole("spinbutton")[0], "{backspace}");
-    userEvent.type(screen.getAllByRole("spinbutton")[0], newValue.toString());
-    userEvent.type(screen.getAllByRole("spinbutton")[0], "{enter}");
+    await userEvent.type(screen.getAllByRole("spinbutton")[0], "{backspace}");
+    await userEvent.type(
+      screen.getAllByRole("spinbutton")[0],
+      newValue.toString()
+    );
+    await userEvent.type(screen.getAllByRole("spinbutton")[0], "{enter}");
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(

@@ -270,16 +270,16 @@ describe("OrganizationComplianceStandardsView", (): void => {
         )
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText(
         "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
       )
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "verificationCode" }),
       "123"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "verifyDialog.verify" })
     );
     await waitFor((): void => {

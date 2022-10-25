@@ -138,8 +138,8 @@ describe("FindingEvidenceView", (): void => {
 
     expect(screen.queryAllByRole("span", { hidden: true })).toHaveLength(0);
 
-    userEvent.click(screen.getAllByRole("img")[0]);
-    userEvent.hover(
+    await userEvent.click(screen.getAllByRole("img")[0]);
+    await userEvent.hover(
       screen.getByRole("dialog", {
         hidden: true,
         name: "ImageViewer",

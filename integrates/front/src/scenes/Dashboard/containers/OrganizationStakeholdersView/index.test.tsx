@@ -128,7 +128,7 @@ describe("Organization users view", (): void => {
       within(screen.queryAllByRole("row")[2]).getByRole("cell", { name: "-" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
+    await userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
 
     await waitFor((): void => {
       expect(
@@ -248,21 +248,24 @@ describe("Organization users view", (): void => {
       screen.queryByText("organization.tabs.users.modalAddTitle")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("organization.tabs.users.addButton.text"));
+    await userEvent.click(
+      screen.getByText("organization.tabs.users.addButton.text")
+    );
     await waitFor((): void => {
       expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
     });
     fireEvent.change(screen.getByRole("combobox", { name: "email" }), {
       target: { value: "testuser2@gmail.com" },
     });
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "USER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["USER"]
+    );
     await waitFor((): void => {
       expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "searchFindings.tabUsers.success testuser2@gmail.com",
@@ -368,13 +371,13 @@ describe("Organization users view", (): void => {
         screen.getByText("organization.tabs.users.editButton.text")
       ).toBeDisabled();
     });
-    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
+    await userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.getByText("organization.tabs.users.editButton.text")
       ).not.toBeDisabled();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("organization.tabs.users.editButton.text")
     );
 
@@ -387,11 +390,12 @@ describe("Organization users view", (): void => {
     expect(screen.getByRole("combobox", { name: "email" })).toBeDisabled();
     expect(screen.getByRole("combobox", { name: "role" })).toHaveValue("USER");
 
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-      "USER_MANAGER",
-    ]);
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "role" }),
+      ["USER_MANAGER"]
+    );
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "testuser1@gmail.com organization.tabs.users.editButton.success",
@@ -505,7 +509,7 @@ describe("Organization users view", (): void => {
       screen.getByText("organization.tabs.users.removeButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.queryAllByRole("checkbox")[2]);
+    await userEvent.click(screen.queryAllByRole("checkbox")[2]);
 
     await waitFor((): void => {
       expect(
@@ -515,7 +519,7 @@ describe("Organization users view", (): void => {
 
     expect(screen.queryAllByRole("checkbox")[2]).toBeChecked();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("organization.tabs.users.removeButton.text")
     );
     await waitFor((): void => {
@@ -524,7 +528,7 @@ describe("Organization users view", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    await userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "testuser2@gmail.com organization.tabs.users.removeButton.success",
@@ -691,7 +695,7 @@ describe("Organization users view", (): void => {
       screen.getByText("organization.tabs.users.editButton.text")
     ).toBeDisabled();
 
-    userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
+    await userEvent.click(screen.getByLabelText("testuser1@gmail.com"));
     await waitFor((): void => {
       expect(
         screen.getByText("organization.tabs.users.editButton.text")
@@ -703,7 +707,7 @@ describe("Organization users view", (): void => {
     ).not.toBeInTheDocument();
 
     const openModal = async (): Promise<void> => {
-      userEvent.click(
+      await userEvent.click(
         screen.getByText("organization.tabs.users.editButton.text")
       );
       await waitFor((): void => {
@@ -714,10 +718,11 @@ describe("Organization users view", (): void => {
     };
     const editStakeholder = async (): Promise<void> => {
       await openModal();
-      userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
-        "USER_MANAGER",
-      ]);
-      userEvent.click(screen.getByText("components.modal.confirm"));
+      await userEvent.selectOptions(
+        screen.getByRole("combobox", { name: "role" }),
+        ["USER_MANAGER"]
+      );
+      await userEvent.click(screen.getByText("components.modal.confirm"));
     };
     await editStakeholder();
     await waitFor((): void => {

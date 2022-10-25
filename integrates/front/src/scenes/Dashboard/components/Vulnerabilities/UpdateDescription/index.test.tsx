@@ -257,7 +257,7 @@ describe("Update Description component", (): void => {
 
     expect(screen.queryAllByRole("textbox")).toHaveLength(1);
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["IN_PROGRESS"]
     );
@@ -326,11 +326,11 @@ describe("Update Description component", (): void => {
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["REQUEST_ZERO_RISK"]
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a commenting test of a request zero risk in vulns"
     );
@@ -338,7 +338,7 @@ describe("Update Description component", (): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -411,11 +411,11 @@ describe("Update Description component", (): void => {
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["REQUEST_ZERO_RISK"]
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a commenting test of a request zero risk in vulns"
     );
@@ -423,7 +423,7 @@ describe("Update Description component", (): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenNthCalledWith(
@@ -557,7 +557,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["IN_PROGRESS"]
     );
@@ -567,16 +567,19 @@ describe("Update Description component", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "test justification to treatment"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "externalBugTrackingSystem" }),
       "http://test.t"
     );
-    userEvent.type(screen.getByRole("spinbutton", { name: "severity" }), "2");
-    userEvent.selectOptions(
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "severity" }),
+      "2"
+    );
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "assigned" }),
       ["manager_test@test.test"]
     );
@@ -585,7 +588,7 @@ describe("Update Description component", (): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -670,11 +673,11 @@ describe("Update Description component", (): void => {
       screen.queryByText("searchFindings.tabDescription.approvalTitle")
     ).not.toBeInTheDocument();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["ACCEPTED_UNDEFINED"]
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "test justification to treatment"
     );
@@ -683,14 +686,14 @@ describe("Update Description component", (): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabDescription.approvalTitle")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       within(
         screen.getByText("searchFindings.tabDescription.approvalMessage")
       ).getByRole("button", { name: btnConfirm })

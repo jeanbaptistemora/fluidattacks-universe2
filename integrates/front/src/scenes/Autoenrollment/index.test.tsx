@@ -127,40 +127,40 @@ describe("Autoenrollment", (): void => {
     );
 
     const urlInput = await screen.findByRole("textbox", { name: "url" });
-    userEvent.type(urlInput, variables.url);
+    await userEvent.type(urlInput, variables.url);
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
-    userEvent.type(branchInput, variables.branch);
+    await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.type",
     });
-    userEvent.selectOptions(credentialsTypeSelect, [
+    await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
     ]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
-    userEvent.type(credentialsNameInput, variables.credentials.name);
+    await userEvent.type(credentialsNameInput, variables.credentials.name);
 
     const credentialsAuthSelect = await screen.findByRole("combobox", {
       name: "credentials.auth",
     });
-    userEvent.selectOptions(credentialsAuthSelect, ["TOKEN"]);
+    await userEvent.selectOptions(credentialsAuthSelect, ["TOKEN"]);
 
     const credentialsTokenInput = await screen.findByRole("textbox", {
       name: "credentials.token",
     });
-    userEvent.type(credentialsTokenInput, variables.credentials.token);
+    await userEvent.type(credentialsTokenInput, variables.credentials.token);
 
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
     });
-    userEvent.type(environmentInput, "production");
+    await userEvent.type(environmentInput, "production");
 
     const submitButton = await screen.findByText("autoenrollment.next");
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await expect(
       screen.findByText("autoenrollment.step2")
@@ -222,45 +222,48 @@ describe("Autoenrollment", (): void => {
     );
 
     const urlInput = await screen.findByRole("textbox", { name: "url" });
-    userEvent.type(urlInput, variables.url);
+    await userEvent.type(urlInput, variables.url);
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
-    userEvent.type(branchInput, variables.branch);
+    await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.type",
     });
-    userEvent.selectOptions(credentialsTypeSelect, [
+    await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
     ]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
-    userEvent.type(credentialsNameInput, variables.credentials.name);
+    await userEvent.type(credentialsNameInput, variables.credentials.name);
 
     const credentialsAuthSelect = await screen.findByRole("combobox", {
       name: "credentials.auth",
     });
-    userEvent.selectOptions(credentialsAuthSelect, ["USER"]);
+    await userEvent.selectOptions(credentialsAuthSelect, ["USER"]);
 
     const credentialsUserInput = await screen.findByRole("textbox", {
       name: "credentials.user",
     });
-    userEvent.type(credentialsUserInput, variables.credentials.user);
+    await userEvent.type(credentialsUserInput, variables.credentials.user);
 
     const credentialsPasswordInput = await screen.findByLabelText(
       "autoenrollment.credentials.password"
     );
-    userEvent.type(credentialsPasswordInput, variables.credentials.password);
+    await userEvent.type(
+      credentialsPasswordInput,
+      variables.credentials.password
+    );
 
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
     });
-    userEvent.type(environmentInput, "production");
+    await userEvent.type(environmentInput, "production");
 
     const submitButton = await screen.findByText("autoenrollment.next");
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await expect(
       screen.findByText("autoenrollment.step2")
@@ -322,27 +325,27 @@ describe("Autoenrollment", (): void => {
     );
 
     const urlInput = await screen.findByRole("textbox", { name: "url" });
-    userEvent.type(urlInput, variables.url);
+    await userEvent.type(urlInput, variables.url);
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
-    userEvent.type(branchInput, variables.branch);
+    await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.type",
     });
-    userEvent.selectOptions(credentialsTypeSelect, [
+    await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
     ]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
-    userEvent.type(credentialsNameInput, variables.credentials.name);
+    await userEvent.type(credentialsNameInput, variables.credentials.name);
 
     const credentialsKeyInput = await screen.findByRole("textbox", {
       name: "credentials.key",
     });
-    userEvent.type(
+    await userEvent.type(
       credentialsKeyInput,
       "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
     );
@@ -350,10 +353,10 @@ describe("Autoenrollment", (): void => {
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
     });
-    userEvent.type(environmentInput, "production");
+    await userEvent.type(environmentInput, "production");
 
     const submitButton = await screen.findByText("autoenrollment.next");
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await expect(
       screen.findByText("autoenrollment.step2")
@@ -489,27 +492,27 @@ describe("Autoenrollment", (): void => {
     );
 
     const urlInput = await screen.findByRole("textbox", { name: "url" });
-    userEvent.type(urlInput, variables.url);
+    await userEvent.type(urlInput, variables.url);
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
-    userEvent.type(branchInput, variables.branch);
+    await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.type",
     });
-    userEvent.selectOptions(credentialsTypeSelect, [
+    await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
     ]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
-    userEvent.type(credentialsNameInput, variables.credentials.name);
+    await userEvent.type(credentialsNameInput, variables.credentials.name);
 
     const credentialsKeyInput = await screen.findByRole("textbox", {
       name: "credentials.key",
     });
-    userEvent.type(
+    await userEvent.type(
       credentialsKeyInput,
       "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
     );
@@ -517,38 +520,38 @@ describe("Autoenrollment", (): void => {
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
     });
-    userEvent.type(environmentInput, "production");
+    await userEvent.type(environmentInput, "production");
 
     const nextButton = await screen.findByText("autoenrollment.next");
-    userEvent.click(nextButton);
+    await userEvent.click(nextButton);
 
     const orgNameInput = await screen.findByRole("textbox", {
       name: "organizationName",
     });
-    userEvent.type(orgNameInput, "testOrg");
+    await userEvent.type(orgNameInput, "testOrg");
 
     const groupNameInput = await screen.findByRole("textbox", {
       name: "groupName",
     });
-    userEvent.type(groupNameInput, "testGroup");
+    await userEvent.type(groupNameInput, "testGroup");
 
     const countrySelect = await screen.findByRole("combobox", {
       name: "organizationCountry",
     });
-    userEvent.selectOptions(countrySelect, ["Colombia"]);
+    await userEvent.selectOptions(countrySelect, ["Colombia"]);
 
     const languageSelect = await screen.findByRole("combobox", {
       name: "reportLanguage",
     });
-    userEvent.selectOptions(languageSelect, ["EN"]);
+    await userEvent.selectOptions(languageSelect, ["EN"]);
 
     const groupDescriptionInput = await screen.findByRole("textbox", {
       name: "groupDescription",
     });
-    userEvent.type(groupDescriptionInput, "test description");
+    await userEvent.type(groupDescriptionInput, "test description");
 
     const startTrialButton = await screen.findByText("autoenrollment.proceed");
-    userEvent.click(startTrialButton);
+    await userEvent.click(startTrialButton);
 
     await expect(
       screen.findByText("autoenrollment.standby.title")
@@ -561,7 +564,7 @@ describe("Autoenrollment", (): void => {
     });
 
     const closeButton = await screen.findByRole("button");
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(window.location.replace).toHaveBeenCalledWith(
       "/orgs/testorg/groups/testgroup/scope"
@@ -663,27 +666,27 @@ describe("Autoenrollment", (): void => {
     );
 
     const urlInput = await screen.findByRole("textbox", { name: "url" });
-    userEvent.type(urlInput, variables.url);
+    await userEvent.type(urlInput, variables.url);
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
-    userEvent.type(branchInput, variables.branch);
+    await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.type",
     });
-    userEvent.selectOptions(credentialsTypeSelect, [
+    await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
     ]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
-    userEvent.type(credentialsNameInput, variables.credentials.name);
+    await userEvent.type(credentialsNameInput, variables.credentials.name);
 
     const credentialsKeyInput = await screen.findByRole("textbox", {
       name: "credentials.key",
     });
-    userEvent.type(
+    await userEvent.type(
       credentialsKeyInput,
       "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
     );
@@ -691,10 +694,10 @@ describe("Autoenrollment", (): void => {
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
     });
-    userEvent.type(environmentInput, "production");
+    await userEvent.type(environmentInput, "production");
 
     const nextButton = await screen.findByText("autoenrollment.next");
-    userEvent.click(nextButton);
+    await userEvent.click(nextButton);
 
     const orgNameInput = await screen.findByRole("textbox", {
       name: "organizationName",
@@ -713,15 +716,15 @@ describe("Autoenrollment", (): void => {
     const languageSelect = await screen.findByRole("combobox", {
       name: "reportLanguage",
     });
-    userEvent.selectOptions(languageSelect, ["EN"]);
+    await userEvent.selectOptions(languageSelect, ["EN"]);
 
     const groupDescriptionInput = await screen.findByRole("textbox", {
       name: "groupDescription",
     });
-    userEvent.type(groupDescriptionInput, "test description");
+    await userEvent.type(groupDescriptionInput, "test description");
 
     const startTrialButton = await screen.findByText("autoenrollment.proceed");
-    userEvent.click(startTrialButton);
+    await userEvent.click(startTrialButton);
 
     await expect(
       screen.findByText("autoenrollment.standby.title")
@@ -734,7 +737,7 @@ describe("Autoenrollment", (): void => {
     });
 
     const closeButton = await screen.findByRole("button");
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(window.location.replace).toHaveBeenCalledWith(
       "/orgs/testorg/groups/testgroup/scope"

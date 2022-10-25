@@ -48,14 +48,14 @@ describe("Reject draft modal", (): void => {
     // Check for the absence and then presence of the `other` field
     const reasons: HTMLElement[] = screen.getAllByLabelText("reasons");
     const otherLocation: number = reasons.length - 1;
-    userEvent.click(reasons[otherLocation]);
+    await userEvent.click(reasons[otherLocation]);
 
     await expect(screen.findByLabelText("other")).resolves.toBeInTheDocument();
 
     // Validate required field
     expect(screen.queryByText("validations.required")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByLabelText("other"));
+    await userEvent.click(screen.getByLabelText("other"));
     fireEvent.blur(screen.getByLabelText("other"));
 
     await expect(
@@ -67,7 +67,10 @@ describe("Reject draft modal", (): void => {
       screen.queryByText("Field cannot begin with the following character: '='")
     ).not.toBeInTheDocument();
 
-    userEvent.type(screen.getByLabelText("other"), "=I'm trying to sql inject");
+    await userEvent.type(
+      screen.getByLabelText("other"),
+      "=I'm trying to sql inject"
+    );
     fireEvent.blur(screen.getByLabelText("other"));
 
     await expect(

@@ -172,7 +172,7 @@ describe("eventsView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("group.events.btn.text")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("group.events.btn.text"));
+    await userEvent.click(screen.getByText("group.events.btn.text"));
     await waitFor((): void => {
       expect(screen.queryByText("group.events.new")).toBeInTheDocument();
     });
@@ -311,30 +311,28 @@ describe("eventsView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("group.events.btn.text")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("group.events.btn.text"));
+    await userEvent.click(screen.getByText("group.events.btn.text"));
     await waitFor((): void => {
       expect(screen.queryByText("group.events.new")).toBeInTheDocument();
     });
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "rootNickname" }),
       "universe"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "detail" }),
       "detail test"
     );
-    userEvent.paste(
-      screen.getByTestId("event-date-time"),
-      "09/07/2021 12:00 AM"
-    );
-    userEvent.selectOptions(
+    screen.getByTestId("event-date-time").focus();
+    await userEvent.paste("09/07/2021 12:00 AM");
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "eventType" }),
       ["group.events.type.cloningIssues"]
     );
-    userEvent.upload(screen.getByTestId("images"), images);
-    userEvent.upload(screen.getByTestId("files"), file);
-    userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
+    await userEvent.upload(screen.getByTestId("images"), images);
+    await userEvent.upload(screen.getByTestId("files"), file);
+    await userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -432,24 +430,24 @@ describe("eventsView", (): void => {
     const row = screen.getByRole("row", {
       name: /12314123 2018-10-17 00:00:00 test description network access issues unsolved -/iu,
     });
-    userEvent.click(within(row).getByRole("checkbox"));
+    await userEvent.click(within(row).getByRole("checkbox"));
     await waitFor((): void => {
       expect(
         screen.queryAllByRole("checkbox", { checked: true })[0]
       ).toBeInTheDocument();
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", {
         name: /group.events.remediationmodal.btn.text/iu,
       })
     );
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: /treatmentjustification/iu }),
       "The solution test"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: /components\.modal\.confirm/iu })
     );
 

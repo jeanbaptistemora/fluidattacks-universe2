@@ -195,7 +195,7 @@ describe("Files", (): void => {
       screen.queryByText("searchFindings.tabResources.addRepository")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
 
@@ -210,14 +210,14 @@ describe("Files", (): void => {
         target: { files: [file] },
       });
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test description"
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
@@ -241,7 +241,7 @@ describe("Files", (): void => {
       "test.zipTest2019-03-01 15:21"
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("columnheader", {
         name: "searchFindings.filesTable.file",
       })
@@ -293,13 +293,13 @@ describe("Files", (): void => {
 
     expect(screen.queryByText("test.zip")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("test.zip"));
+    await userEvent.click(screen.getByText("test.zip"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabResources.modalOptionsTitle")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.removeRepository")
     );
     await waitFor((): void => {
@@ -307,7 +307,7 @@ describe("Files", (): void => {
         screen.queryByText("searchFindings.tabResources.files.confirm.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getAllByText(btnConfirm)[1]);
+    await userEvent.click(screen.getAllByText(btnConfirm)[1]);
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -354,13 +354,15 @@ describe("Files", (): void => {
 
     expect(screen.queryByText("test.zip")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("test.zip"));
+    await userEvent.click(screen.getByText("test.zip"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabResources.modalOptionsTitle")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("searchFindings.tabResources.download"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabResources.download")
+    );
     await waitFor((): void => {
       expect(open).toHaveBeenCalledWith(
         "https://test.com/file",
@@ -451,7 +453,7 @@ describe("Files", (): void => {
       screen.queryByText("searchFindings.tabResources.addRepository")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
 
@@ -466,14 +468,14 @@ describe("Files", (): void => {
         target: { files: [file] },
       });
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test description"
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     const TEST_CALLING_TIMES = 3;
 
     await waitFor((): void => {
@@ -505,7 +507,7 @@ describe("Files", (): void => {
       screen.queryByText("searchFindings.tabResources.addRepository")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabResources.addRepository")
     );
 
@@ -520,14 +522,14 @@ describe("Files", (): void => {
         target: { files: [file] },
       });
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test description"
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

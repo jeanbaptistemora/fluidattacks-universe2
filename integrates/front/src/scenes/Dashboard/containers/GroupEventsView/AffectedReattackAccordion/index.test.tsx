@@ -22,7 +22,7 @@ describe("Affected Reattack accordion", (): void => {
     expect(typeof AffectedReattackAccordion).toBe("function");
   });
 
-  it("should render accordion component", (): void => {
+  it("should render accordion component", async (): Promise<void> => {
     expect.hasAssertions();
 
     const testFindings: IFinding[] = [
@@ -81,7 +81,7 @@ describe("Affected Reattack accordion", (): void => {
       screen.queryByText("038. Business information leak")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("038. Business information leak"));
+    await userEvent.click(screen.getByText("038. Business information leak"));
 
     expect(screen.queryByRole("table")).toBeInTheDocument();
   });

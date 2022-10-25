@@ -16,7 +16,7 @@ describe("ContentSwitcher", (): void => {
     expect(typeof ContentSwitcher).toBe("function");
   });
 
-  it("should render a content switcher", (): void => {
+  it("should render a content switcher", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -32,11 +32,11 @@ describe("ContentSwitcher", (): void => {
 
     expect(screen.queryByText("Content1")).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Tab2" }));
+    await userEvent.click(screen.getByRole("button", { name: "Tab2" }));
 
     expect(screen.queryByText("Content2")).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Tab1" }));
+    await userEvent.click(screen.getByRole("button", { name: "Tab1" }));
 
     expect(screen.queryByText("Content1")).toBeInTheDocument();
   });

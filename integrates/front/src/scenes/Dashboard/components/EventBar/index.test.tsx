@@ -90,7 +90,7 @@ describe("EventBar", (): void => {
       `/orgs/${organizationName}/groups`
     );
 
-    userEvent.hover(screen.getByText("group.events.eventBar.message"));
+    await userEvent.hover(screen.getByText("group.events.eventBar.message"));
 
     expect(
       screen.queryByText("group.events.eventBar.tooltip")

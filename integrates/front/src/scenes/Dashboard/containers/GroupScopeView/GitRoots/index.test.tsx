@@ -112,7 +112,7 @@ describe("GitRoots", (): void => {
       screen.queryByRole("textbox", { name: "url" })
     ).not.toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "group.scope.common.add" })
     );
     await waitFor((): void => {
@@ -179,8 +179,8 @@ describe("GitRoots", (): void => {
       screen.queryByRole("textbox", { name: "nickname" })
     ).not.toBeInTheDocument();
 
-    userEvent.clear(screen.getByRole("textbox", { name: "url" }));
-    userEvent.type(
+    await userEvent.clear(screen.getByRole("textbox", { name: "url" }));
+    await userEvent.type(
       screen.getByRole("textbox", { name: "url" }),
       "https://gitlab.com/fluidattacks/universe"
     );
@@ -191,7 +191,7 @@ describe("GitRoots", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByRole("radio", { name: "Yes" }));
+    await userEvent.click(screen.getByRole("radio", { name: "Yes" }));
 
     await waitFor((): void => {
       expect(
@@ -199,7 +199,7 @@ describe("GitRoots", (): void => {
       ).toHaveLength(1);
     });
 
-    userEvent.click(screen.getAllByRole("button")[3]);
+    await userEvent.click(screen.getAllByRole("button")[3]);
 
     // Filters
     await waitFor((): void => {

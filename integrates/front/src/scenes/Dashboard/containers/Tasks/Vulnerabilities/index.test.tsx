@@ -171,12 +171,14 @@ describe("todoVulnerabilitiesView", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(container.querySelector("#refresh-assigned") as Element);
+    await userEvent.click(
+      container.querySelector("#refresh-assigned") as Element
+    );
 
     expect(screen.getAllByRole("checkbox")[1]).not.toBeChecked();
 
-    userEvent.click(screen.getAllByRole("checkbox")[1]);
-    userEvent.click(screen.getAllByRole("checkbox")[2]);
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(screen.getAllByRole("checkbox")[2]);
 
     expect(screen.getAllByRole("checkbox")[1]).toBeChecked();
 
@@ -186,7 +188,7 @@ describe("todoVulnerabilitiesView", (): void => {
       ).not.toBeDisabled();
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.requestVerify.text")
     );
 
@@ -231,14 +233,16 @@ describe("todoVulnerabilitiesView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getAllByRole("checkbox")[1]);
-    userEvent.click(screen.getAllByRole("checkbox")[2]);
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(screen.getAllByRole("checkbox")[2]);
 
     await waitFor((): void => {
       expect(screen.getAllByRole("checkbox")[2]).toBeChecked();
     });
 
-    userEvent.click(screen.getByText("searchFindings.tabVuln.buttons.edit"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabVuln.buttons.edit")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabDescription.editVuln")
@@ -249,7 +253,7 @@ describe("todoVulnerabilitiesView", (): void => {
       "ACCEPTED"
     );
 
-    userEvent.click(screen.getByText("group.findings.report.modalClose"));
+    await userEvent.click(screen.getByText("group.findings.report.modalClose"));
 
     await waitFor((): void => {
       expect(screen.getByRole("combobox", { name: "treatment" })).toHaveValue(
@@ -257,7 +261,7 @@ describe("todoVulnerabilitiesView", (): void => {
       );
     });
 
-    userEvent.click(screen.getByText("group.findings.report.modalClose"));
+    await userEvent.click(screen.getByText("group.findings.report.modalClose"));
 
     await waitFor((): void => {
       expect(

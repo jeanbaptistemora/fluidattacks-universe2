@@ -50,7 +50,7 @@ describe("Add organization modal", (): void => {
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);
@@ -101,10 +101,12 @@ describe("Add organization modal", (): void => {
       );
     });
 
-    userEvent.type(screen.getByLabelText("name"), "esdeath");
-    userEvent.selectOptions(screen.getByLabelText("country"), ["Colombia"]);
+    await userEvent.type(screen.getByLabelText("name"), "esdeath");
+    await userEvent.selectOptions(screen.getByLabelText("country"), [
+      "Colombia",
+    ]);
 
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    void userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

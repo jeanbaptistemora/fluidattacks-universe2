@@ -130,24 +130,24 @@ describe("navbar", (): void => {
     expect(screen.getAllByRole("button")[0].textContent).toBe("Okada\u00a0");
     expect(screen.queryByText("bulat")).not.toBeInTheDocument();
 
-    userEvent.hover(screen.getAllByRole("button")[0]);
+    await userEvent.hover(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(screen.queryByText("Bulat")).toBeInTheDocument();
     });
-    userEvent.unhover(screen.getAllByRole("button")[0]);
+    await userEvent.unhover(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(screen.queryByText("Bulat")).not.toBeInTheDocument();
     });
 
-    userEvent.click(screen.getAllByRole("button")[0]);
+    await userEvent.click(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledTimes(0);
     });
-    userEvent.hover(screen.getAllByRole("button")[0]);
+    await userEvent.hover(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(screen.queryByText("Bulat")).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Bulat"));
+    await userEvent.click(screen.getByText("Bulat"));
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledTimes(1);
     });

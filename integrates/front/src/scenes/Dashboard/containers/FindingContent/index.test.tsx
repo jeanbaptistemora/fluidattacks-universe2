@@ -297,14 +297,14 @@ describe("FindingContent", (): void => {
 
     expect(screen.queryAllByRole("button")).toHaveLength(1);
 
-    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
+    await userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.delete.title")
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText(btnCancel));
+    await userEvent.click(screen.getByText(btnCancel));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.delete.title")
@@ -361,7 +361,7 @@ describe("FindingContent", (): void => {
       expect(screen.queryByText("group.drafts.submit.text")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("group.drafts.submit.text"));
+    void userEvent.click(screen.getByText("group.drafts.submit.text"));
 
     await waitFor((): void => {
       expect(screen.queryByText("group.drafts.submit.text")).toBeDisabled();
@@ -418,7 +418,7 @@ describe("FindingContent", (): void => {
       expect(screen.queryByText("group.drafts.submit.text")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("group.drafts.submit.text"));
+    await userEvent.click(screen.getByText("group.drafts.submit.text"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(4);
@@ -477,14 +477,14 @@ describe("FindingContent", (): void => {
       ).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("group.drafts.approve.text"));
+    await userEvent.click(screen.getByText("group.drafts.approve.text"));
 
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.approve.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.approve.text")
@@ -544,14 +544,14 @@ describe("FindingContent", (): void => {
       ).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("group.drafts.approve.text"));
+    await userEvent.click(screen.getByText("group.drafts.approve.text"));
 
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.approve.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(4);
     });
@@ -609,15 +609,15 @@ describe("FindingContent", (): void => {
       expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("group.drafts.reject.text"));
+    await userEvent.click(screen.getByText("group.drafts.reject.text"));
 
     await expect(
       screen.findByText("group.drafts.reject.title")
     ).resolves.toBeInTheDocument();
 
     const scoringLocation: number = 4;
-    userEvent.click(screen.getAllByLabelText("reasons")[scoringLocation]);
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getAllByLabelText("reasons")[scoringLocation]);
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.reject.title")
@@ -677,15 +677,17 @@ describe("FindingContent", (): void => {
       screen.findByText("group.drafts.reject.text")
     ).resolves.not.toBeDisabled();
 
-    userEvent.click(screen.getByText("group.drafts.reject.text"));
+    await userEvent.click(screen.getByText("group.drafts.reject.text"));
 
     await expect(
       screen.findByText("group.drafts.reject.title")
     ).resolves.toBeInTheDocument();
 
     const omissionLocation: number = 3;
-    userEvent.click(screen.getAllByLabelText("reasons")[omissionLocation]);
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(
+      screen.getAllByLabelText("reasons")[omissionLocation]
+    );
+    void userEvent.click(screen.getByText(btnConfirm));
 
     expect(screen.getByText("group.drafts.reject.text")).not.toBeDisabled();
   });
@@ -742,19 +744,19 @@ describe("FindingContent", (): void => {
       ).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
+    await userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
 
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.delete.title")
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "justification" }),
       ["DUPLICATED"]
     );
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -809,19 +811,19 @@ describe("FindingContent", (): void => {
       ).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
+    await userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
 
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.delete.title")
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "justification" }),
       ["DUPLICATED"]
     );
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(1);

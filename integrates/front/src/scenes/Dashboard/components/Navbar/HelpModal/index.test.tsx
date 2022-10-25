@@ -159,7 +159,7 @@ describe("helpModal", (): void => {
     await waitFor((): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(6);
     });
-    userEvent.click(screen.getAllByRole("button")[3]);
+    await userEvent.click(screen.getAllByRole("button")[3]);
 
     await waitFor((): void => {
       expect(screen.queryByText("upgrade.title")).not.toBeInTheDocument();
@@ -242,7 +242,7 @@ describe("helpModal", (): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(6);
     });
 
-    userEvent.click(screen.getAllByRole("button")[2]);
+    await userEvent.click(screen.getAllByRole("button")[2]);
 
     await waitFor((): void => {
       expect(screen.queryByText("upgrade.title")).toBeInTheDocument();

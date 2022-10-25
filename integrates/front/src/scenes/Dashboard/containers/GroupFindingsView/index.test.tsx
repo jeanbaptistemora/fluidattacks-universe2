@@ -290,14 +290,14 @@ describe("groupFindingsView", (): void => {
         screen.getByText("group.findings.report.modalTitle")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("group.findings.report.pdf"));
-    userEvent.type(
+    await userEvent.click(screen.getByText("group.findings.report.pdf"));
+    await userEvent.type(
       screen.getByRole("textbox", {
         name: "verificationCode",
       }),
       "1234"
     );
-    userEvent.click(screen.getByText("verifyDialog.verify"));
+    await userEvent.click(screen.getByText("verifyDialog.verify"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "groupAlerts.reportAlreadyRequested"
@@ -352,20 +352,20 @@ describe("groupFindingsView", (): void => {
     expect(screen.queryByText("Where")).not.toBeInTheDocument();
     expect(screen.queryByText("Reattack")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("group.findings.tableSet.btn.text"));
+    await userEvent.click(screen.getByText("group.findings.tableSet.btn.text"));
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", {
         checked: false,
         name: "Locations",
       })
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("checkbox", { checked: false, name: "reattack" })
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByText("group.findings.tableSet.modalTitle"),
-      "{esc}"
+      "{Escape}"
     );
 
     await waitFor((): void => {

@@ -58,7 +58,7 @@ describe("Unsubscribe from group", (): void => {
       screen.queryByText("searchFindings.servicesTable.unsubscribe.button")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.servicesTable.unsubscribe.button")
     );
     await waitFor((): void => {
@@ -69,14 +69,14 @@ describe("Unsubscribe from group", (): void => {
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "confirmation" }),
       "test"
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "searchFindings.servicesTable.unsubscribe.success",

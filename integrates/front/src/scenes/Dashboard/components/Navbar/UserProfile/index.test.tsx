@@ -89,13 +89,13 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    await userEvent.click(screen.getByText("navbar.deleteAccount.text"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -135,19 +135,19 @@ describe("User Profile", (): void => {
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    await userEvent.click(screen.getByText("navbar.deleteAccount.text"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
@@ -187,13 +187,13 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    await userEvent.click(screen.getByText("navbar.deleteAccount.text"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });

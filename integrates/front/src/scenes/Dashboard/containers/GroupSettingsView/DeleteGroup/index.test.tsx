@@ -41,7 +41,7 @@ describe("DeleteGroup", (): void => {
       )
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
     await waitFor((): void => {
       expect(
         screen.queryByText(

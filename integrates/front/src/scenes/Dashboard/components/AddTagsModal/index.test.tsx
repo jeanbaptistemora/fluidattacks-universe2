@@ -64,14 +64,14 @@ describe("Add Tags modal", (): void => {
     expect(screen.queryAllByRole("button")).toHaveLength(4);
     expect(container.querySelector(".fa-trash-can")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button")[1]);
+    await userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("textbox")).toHaveLength(2);
     });
 
     expect(screen.queryAllByRole("button")).toHaveLength(5);
 
-    userEvent.click(screen.getAllByRole("button")[1]);
+    await userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("textbox")).toHaveLength(1);
     });

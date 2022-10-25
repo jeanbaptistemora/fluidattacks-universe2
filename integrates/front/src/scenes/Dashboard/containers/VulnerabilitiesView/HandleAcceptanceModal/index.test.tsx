@@ -131,22 +131,22 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("textbox", { name: "justification" })
       ).toBeInTheDocument();
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a justification test"
     );
 
     expect(screen.getByRole("checkbox")).toBeChecked();
 
-    userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
-    userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
 
     expect(screen.getByRole("checkbox")).not.toBeChecked();
 
     await waitFor((): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -235,14 +235,14 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("textbox", { name: "justification" })
       ).toBeInTheDocument();
     });
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a justification test error"
     );
     await waitFor((): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     const expectedErrorMsgs: number = 3;
     await waitFor((): void => {
@@ -377,19 +377,19 @@ describe("handle vulns acceptance modal", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a test of confirming zero risk vulns"
     );
     await waitFor((): void => {
       expect(screen.queryByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
@@ -538,23 +538,25 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("combobox", { name: "treatment" })
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
-    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "justification" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a test of confirming zero risk vulns"
     );
@@ -562,7 +564,7 @@ describe("handle vulns acceptance modal", (): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "Zero risk vulnerability is not requested"
@@ -703,23 +705,25 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("combobox", { name: "treatment" })
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
-    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "justification" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a test of rejecting zero risk vulns"
     );
@@ -727,7 +731,7 @@ describe("handle vulns acceptance modal", (): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
@@ -874,23 +878,25 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("combobox", { name: "treatment" })
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
-    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
-    userEvent.type(
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "justification" })
+    );
+    await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
       "This is a test of rejecting zero risk vulns"
     );
@@ -898,7 +904,7 @@ describe("handle vulns acceptance modal", (): void => {
       expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "Zero risk vulnerability is not requested"
@@ -972,18 +978,18 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("combobox", { name: "treatment" })
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_yes")[0]
@@ -1085,18 +1091,18 @@ describe("handle vulns acceptance modal", (): void => {
         screen.queryByRole("combobox", { name: "treatment" })
       ).toBeInTheDocument();
     });
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
       ["CONFIRM_REJECT_ZERO_RISK"]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen
         .getByRole("row", { name: "CONFIRM REJECT" })
         .querySelectorAll("#zeroRiskCheckBox_no")[0]

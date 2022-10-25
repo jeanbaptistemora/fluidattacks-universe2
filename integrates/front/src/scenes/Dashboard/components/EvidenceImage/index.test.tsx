@@ -120,18 +120,18 @@ describe("Evidence image", (): void => {
 
     expect(screen.queryByRole("textbox")).toBeInTheDocument();
 
-    userEvent.clear(
+    await userEvent.clear(
       screen.getByRole("textbox", { name: "evidence1.description" })
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "evidence1.description" }),
       "New description"
     );
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleUpdate).toHaveBeenCalledTimes(1);
     });
-    userEvent.click(screen.getByRole("img"));
+    await userEvent.click(screen.getByRole("img"));
     await waitFor((): void => {
       expect(handleClick).toHaveBeenCalledTimes(1);
     });

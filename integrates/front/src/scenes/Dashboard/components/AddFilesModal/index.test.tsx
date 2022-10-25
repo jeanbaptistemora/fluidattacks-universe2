@@ -68,7 +68,7 @@ describe("Add Files modal", (): void => {
         onSubmit={jest.fn()}
       />
     );
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
     await waitFor((): void => {
       expect(handleClose).toHaveBeenCalledTimes(1);
     });

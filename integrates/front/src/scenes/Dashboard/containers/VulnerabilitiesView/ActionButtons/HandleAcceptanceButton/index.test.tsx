@@ -18,7 +18,7 @@ describe("HandleAcceptanceButtons", (): void => {
     expect(typeof HandleAcceptanceButton).toBe("function");
   });
 
-  it("should render a component", (): void => {
+  it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
     const openHandleAcceptance: jest.Mock = jest.fn();
@@ -69,7 +69,7 @@ describe("HandleAcceptanceButtons", (): void => {
 
     expect(screen.getByText(handleAcceptanceButtonText)).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(handleAcceptanceButtonText));
+    await userEvent.click(screen.getByText(handleAcceptanceButtonText));
 
     expect(openHandleAcceptance).toHaveBeenCalledTimes(1);
   });

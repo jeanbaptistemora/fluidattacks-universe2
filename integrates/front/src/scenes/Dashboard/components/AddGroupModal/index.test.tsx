@@ -39,7 +39,7 @@ describe("AddGroupModal component", (): void => {
       expect(screen.queryByText("components.modal.cancel")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("components.modal.cancel"));
+    await userEvent.click(screen.getByText("components.modal.cancel"));
 
     expect(handleOnClose.mock.calls).toHaveLength(1);
   });

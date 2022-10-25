@@ -90,7 +90,7 @@ describe("Custom utility hooks", (): void => {
       expect(screen.queryByRole("button")).toBeInTheDocument();
       expect(screen.queryByText("Hello world")).not.toBeInTheDocument();
 
-      userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByRole("button"));
       await waitFor((): void => {
         expect(screen.queryByText("Hello world")).toBeInTheDocument();
       });
@@ -104,12 +104,12 @@ describe("Custom utility hooks", (): void => {
       );
     });
 
-    it("should only trigger callbacks once", (): void => {
+    it("should only trigger callbacks once", async (): Promise<void> => {
       expect.hasAssertions();
 
       const handleChange = jest.fn();
       render(<TestComponent onChange={handleChange} />);
-      userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByRole("button"));
 
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -146,7 +146,7 @@ describe("Custom utility hooks", (): void => {
       expect(trackMock).toHaveBeenCalledWith("GroupAnalytics", { id: "grp1" });
       expect(screen.queryByRole("button")).toBeInTheDocument();
 
-      userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByRole("button"));
       await waitFor((): void => {
         expect(trackMock).toHaveBeenCalledTimes(2);
       });
@@ -223,8 +223,8 @@ describe("Custom utility hooks", (): void => {
       const handleChange = jest.fn();
       render(<TestComponent onChange={handleChange} />);
 
-      userEvent.click(screen.getByRole("button"));
-      userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByRole("button"));
       await waitFor((): void => {
         expect(handleChange).toHaveBeenCalledTimes(1);
       });

@@ -349,24 +349,27 @@ describe("Services", (): void => {
       ).toHaveLength(10);
     });
 
-    userEvent.click(screen.getByRole("checkbox", { name: "machine" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "machine" }));
 
     await waitFor((): void => {
       expect(
         screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await userEvent.type(
+      screen.getByPlaceholderText("unittesting"),
+      "unittesting"
+    );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -375,24 +378,27 @@ describe("Services", (): void => {
       );
     });
 
-    userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
         screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.clear(screen.getByPlaceholderText("unittesting"));
-    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await userEvent.clear(screen.getByPlaceholderText("unittesting"));
+    await userEvent.type(
+      screen.getByPlaceholderText("unittesting"),
+      "unittesting"
+    );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -401,24 +407,27 @@ describe("Services", (): void => {
       );
     });
 
-    userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
         screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.clear(screen.getByPlaceholderText("unittesting"));
-    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await userEvent.clear(screen.getByPlaceholderText("unittesting"));
+    await userEvent.type(
+      screen.getByPlaceholderText("unittesting"),
+      "unittesting"
+    );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(btnConfirm));
+    await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(

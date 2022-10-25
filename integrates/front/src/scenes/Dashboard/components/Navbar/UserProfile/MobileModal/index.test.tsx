@@ -203,8 +203,8 @@ describe("Mobile modal", (): void => {
       </MockedProvider>
     );
 
-    userEvent.type(screen.getByRole("textbox"), "123456789");
-    userEvent.click(
+    await userEvent.type(screen.getByRole("textbox"), "123456789");
+    await userEvent.click(
       screen.getByRole("button", { name: "profile.mobileModal.add" })
     );
     await waitFor((): void => {
@@ -218,13 +218,13 @@ describe("Mobile modal", (): void => {
       );
     });
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", {
         name: "newVerificationCode",
       }),
       "1234"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "profile.mobileModal.verify" })
     );
     await waitFor((): void => {
@@ -333,7 +333,7 @@ describe("Mobile modal", (): void => {
       expect(screen.getByDisplayValue("+57 123 456 789")).toBeInTheDocument();
     });
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "profile.mobileModal.edit" })
     );
     await waitFor((): void => {
@@ -344,14 +344,14 @@ describe("Mobile modal", (): void => {
       );
     });
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", {
         name: "verificationCode",
       }),
       "1234"
     );
-    userEvent.type(screen.getByDisplayValue("+57"), "987654321");
-    userEvent.click(
+    await userEvent.type(screen.getByDisplayValue("+57"), "987654321");
+    await userEvent.click(
       screen.getByRole("button", { name: "profile.mobileModal.edit" })
     );
     await waitFor((): void => {
@@ -362,13 +362,13 @@ describe("Mobile modal", (): void => {
       );
     });
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", {
         name: "newVerificationCode",
       }),
       "1234"
     );
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "profile.mobileModal.verify" })
     );
     await waitFor((): void => {

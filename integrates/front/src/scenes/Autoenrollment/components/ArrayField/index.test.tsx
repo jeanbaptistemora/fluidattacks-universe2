@@ -53,7 +53,7 @@ describe("Array field", (): void => {
       screen.getByRole("textbox", { name: "names[0]" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.queryAllByRole("button")[0]);
+    await userEvent.click(screen.queryAllByRole("button")[0]);
     await waitFor((): void => {
       expect(
         screen.queryByRole("textbox", { name: "names[1]" })
@@ -66,7 +66,7 @@ describe("Array field", (): void => {
 
     expect(screen.getAllByRole("button")).toHaveLength(numberOfButtons);
 
-    userEvent.click(screen.getAllByRole("button")[0]);
+    await userEvent.click(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(
         screen.queryByRole("textbox", { name: "names[1]" })
@@ -75,11 +75,11 @@ describe("Array field", (): void => {
 
     expect(screen.getAllByRole("button")).toHaveLength(2);
 
-    userEvent.click(screen.getAllByRole("button")[1]);
+    await userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(container.querySelector(".fa-trash-can")).not.toBeInTheDocument();
     });
-    userEvent.click(screen.getAllByRole("button")[1]);
+    void userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(handleSubmit).toHaveBeenCalledTimes(1);
     });

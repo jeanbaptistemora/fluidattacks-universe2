@@ -104,7 +104,7 @@ describe("Portfolio Groups", (): void => {
       expect(screen.queryAllByRole("table")).toHaveLength(1);
     });
 
-    userEvent.click(screen.getByRole("cell", { name: "test1" }));
+    await userEvent.click(screen.getByRole("cell", { name: "test1" }));
 
     expect(mockHistoryPush).toHaveBeenCalledWith("/groups/test1/analytics");
   });

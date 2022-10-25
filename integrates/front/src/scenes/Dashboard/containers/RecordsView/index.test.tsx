@@ -93,7 +93,9 @@ describe("FindingRecordsView", (): void => {
         screen.queryByText("searchFindings.tabRecords.editable")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("searchFindings.tabRecords.editable"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabRecords.editable")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabEvidence.update")
@@ -144,7 +146,9 @@ describe("FindingRecordsView", (): void => {
         screen.queryByText("searchFindings.tabRecords.editable")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("searchFindings.tabRecords.editable"));
+    await userEvent.click(
+      screen.getByText("searchFindings.tabRecords.editable")
+    );
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabEvidence.remove")

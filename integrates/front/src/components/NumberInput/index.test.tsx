@@ -28,7 +28,7 @@ describe("numberInput", (): void => {
     expect(screen.queryByRole("spinbutton")).toHaveValue(2);
   });
 
-  it("should call callback on enter with the current value", (): void => {
+  it("should call callback on enter with the current value", async (): Promise<void> => {
     expect.hasAssertions();
 
     const onEnterCallback: jest.Mock = jest.fn();
@@ -36,7 +36,7 @@ describe("numberInput", (): void => {
       <NumberInput defaultValue={2} max={3} min={1} onEnter={onEnterCallback} />
     );
 
-    userEvent.type(screen.getByRole("spinbutton"), "{enter}");
+    await userEvent.type(screen.getByRole("spinbutton"), "{enter}");
 
     expect(onEnterCallback).toHaveBeenCalledWith(2);
   });

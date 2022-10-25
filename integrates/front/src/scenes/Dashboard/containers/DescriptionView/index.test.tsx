@@ -218,13 +218,13 @@ describe("Finding Description", (): void => {
 
     expect(screen.queryAllByRole("textbox")).toHaveLength(0);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.editable.text")
     );
     await waitFor((): void => {
       expect(screen.queryAllByRole("textbox")).toHaveLength(EXPECTED_LENGTH);
     });
-    userEvent.click(
+    await userEvent.click(
       screen.getByText("searchFindings.tabDescription.editable.cancel")
     );
     await waitFor((): void => {
