@@ -182,7 +182,7 @@ for each role.
 |Add users            |    |                     |X           |
 |Approve treatments   |    |X                    |X           |
 |Change treatments    |X   |X                    |X           |
-|Deactivate/Activate root |      |X              |X           |
+|Deactivate/Activate root |      |               |X           |
 |Delete groups        |    |                     |X           |
 |Edit roots           |X   |                     |X           |
 |Edit users           |    |                     |X           |
