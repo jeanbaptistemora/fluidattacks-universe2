@@ -882,7 +882,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         existing_open_machine_vulns,
     )
 
-    reattack_future = findings_domain.core.add_reattack_justification(
+    reattack_future = findings_domain.add_reattack_justification(
         loaders,
         finding.id,
         _get_vulns_with_reattack(

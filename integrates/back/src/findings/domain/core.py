@@ -858,50 +858,44 @@ async def update_severity(
     )
 
 
-async def add_reattack_justification(
+async def add_reattack_justification(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
     open_vulnerabilities: Tuple[Vulnerability, ...],
     closed_vulnerabilities: Tuple[Vulnerability, ...],
-    commit_hash: str,
+    commit_hash: Optional[str] = None,
+    comment_type: CommentType = CommentType.COMMENT,
+    email: str = "machine@fluidttacks.com",
+    full_name: str = "Machine Services",
+    observations: Optional[str] = None,
 ) -> None:
-    today = datetime.now(tz=timezone.utc)
-    format_date = today.astimezone(tz=pytz.timezone(TIME_ZONE)).strftime(
-        "%Y/%m/%d %H:%M"
+    justification = (
+        datetime.now(tz=timezone.utc)
+        .astimezone(tz=pytz.timezone(TIME_ZONE))
+        .strftime("%Y/%m/%d %H:%M")
     )
-    open_justification: str = ""
-    open_vulns_strs = [f"  - {vuln.where}" for vuln in open_vulnerabilities]
-    str_open_vulns = "\n ".join(open_vulns_strs) if open_vulns_strs else ""
-    open_justification = (
-        (
-            "A reattack request was executed on "
-            f"{format_date.replace(' ', ' at ')}.\n"
-            "Reported vulnerabilities are still open in commit "
-            f"{commit_hash}:\n"
-            f"{str_open_vulns}"
-        )
-        if open_vulns_strs
-        else ""
+    commit_msg = f" in commit {commit_hash}" if commit_hash else ""
+    observations_msg = (
+        f"\n\nObservations: {observations}" if observations else ""
     )
-
-    closed_justification: str = ""
-    closed_vulns_strs = [
-        f"  - {vuln.where}" for vuln in closed_vulnerabilities
+    justification = (
+        "A reattack request was executed on "
+        f"{justification.replace(' ', ' at ')}{commit_msg}."
+    )
+    vulns_strs = [
+        f"  - {vuln.where} ({vuln.specific})" for vuln in open_vulnerabilities
     ]
-    str_closed_vulns = (
-        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
-    )
-    closed_justification = (
-        (
-            "A reattack request was executed on "
-            f"{format_date.replace(' ', ' at ')}. \n"
-            f"Reported vulnerabilities were solved in commit {commit_hash}: \n"
-            f"{str_closed_vulns}"
-        )
-        if closed_vulns_strs
-        else ""
-    )
-
+    if vulns_strs:
+        justification += "\n\nOpen vulnerabilities:\n"
+        justification += "\n".join(vulns_strs) if vulns_strs else ""
+    vulns_strs = [
+        f"  - {vuln.where} ({vuln.specific})"
+        for vuln in closed_vulnerabilities
+    ]
+    if vulns_strs:
+        justification += "\n\nClosed vulnerabilities:\n"
+        justification += "\n".join(vulns_strs) if vulns_strs else ""
+    justification += observations_msg
     LOGGER.info(
         "%s Vulnerabilities were verified and found open in finding %s",
         len(open_vulnerabilities),
@@ -912,23 +906,22 @@ async def add_reattack_justification(
         len(closed_vulnerabilities),
         finding_id,
     )
-    for justification in [open_justification, closed_justification]:
-        if justification:
-            await comments_domain.add(
-                loaders,
-                FindingComment(
-                    finding_id=finding_id,
-                    id=str(round(time() * 1000)),
-                    comment_type=CommentType.COMMENT,
-                    parent_id="0",
-                    creation_date=datetime_utils.get_as_utc_iso_format(
-                        datetime_utils.get_now()
-                    ),
-                    full_name="Machine Services",
-                    content=justification,
-                    email="machine@fluidttacks.com",
+    if open_vulnerabilities or closed_vulnerabilities:
+        await comments_domain.add(
+            loaders,
+            FindingComment(
+                finding_id=finding_id,
+                id=str(round(time() * 1000)),
+                comment_type=comment_type,
+                parent_id="0",
+                creation_date=datetime_utils.get_as_utc_iso_format(
+                    datetime_utils.get_now()
                 ),
-            )
+                full_name=full_name,
+                content=justification,
+                email=email,
+            ),
+        )
 
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals
@@ -953,11 +946,11 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     if context and not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
 
-    finding_vulns_loader = loaders.finding_vulnerabilities_all
+    vulnerability_loader = loaders.finding_vulnerabilities_all
     vulnerability_ids: List[str] = open_vulns_ids + closed_vulns_ids
     vulnerabilities = [
         vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
+        for vuln in await vulnerability_loader.load(finding_id)
         if vuln.id in vulnerability_ids
     ]
     # Sometimes vulns on hold end up being closed before the event is solved
@@ -992,21 +985,32 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         verification=verification,
     )
 
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
-    comment_data = FindingComment(
-        finding_id=finding_id,
-        comment_type=CommentType.VERIFICATION,
-        content=justification,
-        parent_id="0",
-        id=comment_id,
-        email=user_email,
-        full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
-        creation_date=current_time,
-    )
+    vulnerability_loader = loaders.vulnerability
+    open_vulnerabilities: Tuple[Vulnerability, ...] = ()
+    for vuln_id in open_vulns_ids:
+        open_vulnerabilities = (
+            *open_vulnerabilities,
+            await vulnerability_loader.load(vuln_id),
+        )
+    closed_vulnerabilities: Tuple[Vulnerability, ...] = ()
+    for vuln_id in closed_vulns_ids:
+        closed_vulnerabilities = (
+            *closed_vulnerabilities,
+            await vulnerability_loader.load(vuln_id),
+        )
     if is_reattack_open is None:
-        await comments_domain.add(loaders, comment_data)
+        await add_reattack_justification(
+            loaders,
+            finding_id,
+            open_vulnerabilities,
+            closed_vulnerabilities,
+            comment_type=CommentType.VERIFICATION,
+            email=user_email,
+            full_name=" ".join(
+                [user_info["first_name"], user_info["last_name"]]
+            ),
+            observations=justification,
+        )
     # Modify the verification state to mark all passed vulns as verified
     await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
     # Open vulns that remain open are not modified in the DB

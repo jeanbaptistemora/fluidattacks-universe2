@@ -444,4 +444,4 @@ async def test_verify_vulnerabilities() -> None:
     assert finding_commets[-1].finding_id == finding_id
     assert finding_commets[-1].full_name == "Miguel de Orellana"
     assert finding_commets[-1].comment_type == CommentType.VERIFICATION
-    assert finding_commets[-1].content == "Vuln verified"
+    assert finding_commets[-1].content[-13:] == "Vuln verified"
