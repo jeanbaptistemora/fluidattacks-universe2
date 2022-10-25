@@ -369,14 +369,6 @@ type Mutation {
     taxId: Upload
   ): SimplePayload!
 
-  "Authenticates an user from the mobile ARM app"
-  addPushToken("Expo login token to be added" token: String!): SimplePayload
-    @deprecated(
-      reason: """
-      This field will be removed today 2022/10/25.
-      """
-    )
-
   "Adds a machine execution to git root"
   addSecret(
     "Description of secret"

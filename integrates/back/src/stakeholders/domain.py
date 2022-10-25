@@ -8,7 +8,6 @@ from authz.validations import (
 )
 from custom_exceptions import (
     InvalidExpirationTime,
-    InvalidPushToken,
     RequiredNewPhoneNumber,
     RequiredVerificationCode,
     SamePhoneNumber,
@@ -47,7 +46,6 @@ from newutils.validations import (
     validate_email_address,
     validate_field_length,
 )
-import re
 from stakeholders.utils import (
     get_international_format_phone_number,
 )
@@ -74,20 +72,6 @@ async def acknowledge_concurrent_session(email: str) -> None:
         ),
         email=email,
     )
-
-
-async def add_push_token(loaders: Any, email: str, push_token: str) -> None:
-    if not re.match(r"^ExponentPushToken\[[a-zA-Z\d_-]+\]$", push_token):
-        raise InvalidPushToken()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    tokens: list[str] = stakeholder.push_tokens or []
-    if push_token not in tokens:
-        await stakeholders_model.update_metadata(
-            metadata=StakeholderMetadataToUpdate(
-                push_tokens=tokens + [push_token]
-            ),
-            email=email,
-        )
 
 
 async def remove(email: str) -> None:

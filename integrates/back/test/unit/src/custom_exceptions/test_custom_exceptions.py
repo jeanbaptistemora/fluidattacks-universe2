@@ -18,7 +18,6 @@ from custom_exceptions import (
     InvalidFileType,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
-    InvalidPushToken,
     InvalidRange,
     InvalidSchema,
     OrganizationNotFound,
@@ -73,9 +72,6 @@ from s3 import (
 )
 from sms.common import (
     send_sms_notification,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -341,15 +337,6 @@ async def test_validate_number_acceptances() -> None:
             historic_treatment=historic_treatment,
             loaders=get_new_context(),
             values=values_accepted,
-        )
-
-
-async def test_add_push_token() -> None:
-    loaders: Dataloaders = get_new_context()
-    user_email = "unittest@fluidattacks.com"
-    with pytest.raises(InvalidPushToken):
-        assert await stakeholders_domain.add_push_token(  # type: ignore
-            loaders, user_email, "not-a-push-token"
         )
 
 

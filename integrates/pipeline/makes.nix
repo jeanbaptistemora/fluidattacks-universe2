@@ -35,7 +35,6 @@
     ["add_group_consult"]
     ["add_group_tags"]
     ["add_organization"]
-    ["add_push_token"]
     ["add_stakeholder"]
     ["add_toe_input"]
     ["add_toe_lines"]

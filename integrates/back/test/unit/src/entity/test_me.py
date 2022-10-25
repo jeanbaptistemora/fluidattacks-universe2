@@ -144,20 +144,3 @@ async def test_accept_legal() -> None:
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "acceptLegal" in result["data"]
     assert "success" in result["data"]["acceptLegal"]
-
-
-@pytest.mark.changes_db
-async def test_add_push_token() -> None:
-    """Check add_push_token mutation"""
-    query = """
-        mutation {
-            addPushToken(token: "ExponentPushToken[something123]") {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "error" not in result
-    assert result["data"]["addPushToken"]["success"]

@@ -6,9 +6,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from stakeholders import (
     domain as stakeholders_domain,
@@ -20,18 +17,6 @@ from stakeholders.domain import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@pytest.mark.changes_db
-async def test_add_push_token() -> None:
-    loaders: Dataloaders = get_new_context()
-    user_email = "unittest@fluidattacks.com"
-    valid_token = "ExponentPushToken[something123]"
-    await stakeholders_domain.add_push_token(loaders, user_email, valid_token)
-
-    loaders = get_new_context()
-    user_attrs: Stakeholder = await loaders.stakeholder.load(user_email)
-    assert valid_token in user_attrs.push_tokens  # type: ignore
 
 
 async def test_exists() -> None:

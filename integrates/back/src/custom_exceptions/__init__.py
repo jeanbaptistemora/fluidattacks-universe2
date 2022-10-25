@@ -801,15 +801,6 @@ class InvalidPositiveArgument(CustomBaseException):
         super(InvalidPositiveArgument, self).__init__(f"Exception - {msg}")
 
 
-class InvalidPushToken(CustomBaseException):
-    """Exception to validate mobile push token format"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Exception - Invalid push token"
-        super(InvalidPushToken, self).__init__(msg)
-
-
 class InvalidRange(CustomBaseException):
     """Exception to control valid range in vulnerabilities."""
 

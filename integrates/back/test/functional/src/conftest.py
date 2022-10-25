@@ -70,7 +70,6 @@ TEST_GROUPS: set[str] = {
     "add_group_consult",
     "add_group_tags",
     "add_organization",
-    "add_push_token",
     "add_stakeholder",
     "add_toe_input",
     "add_toe_lines",
@@ -276,7 +275,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=admin_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         country_code="US",
@@ -287,7 +285,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=admin_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -298,7 +295,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=architect_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -309,7 +305,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=architect_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -324,7 +319,6 @@ def generic_data(  # pylint: disable=too-many-locals
                     registration_date="",
                     last_login_date="",
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -335,7 +329,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=user_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -346,7 +339,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=user_manager_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -357,7 +349,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=user_manager_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -368,7 +359,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=hacker_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="1",
@@ -379,7 +369,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=hacker_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -390,7 +379,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=resourcer_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -401,7 +389,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=reattacker_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -412,7 +399,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=reattacker_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -423,7 +409,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=resourcer_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -434,7 +419,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=reviewer_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -445,7 +429,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=reviewer_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -456,19 +439,16 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=service_forces_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                 ),
                 Stakeholder(
                     email=service_forces_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                 ),
                 Stakeholder(
                     email=customer_manager_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="57",
@@ -479,7 +459,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=vuln_manager_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="51",
@@ -490,7 +469,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 Stakeholder(
                     email=vuln_manager_fluid_email,
                     legal_remember=False,
-                    push_tokens=[],
                     is_registered=True,
                     phone=StakeholderPhone(
                         calling_country_code="51",
