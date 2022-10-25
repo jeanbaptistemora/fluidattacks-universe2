@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,too-many-function-args
+# type: ignore
 
 """
 Removes duplicate vulnerabilities reported by Machine, based on four criteria:

@@ -219,9 +219,7 @@ async def remove_finding(
         for comment in comments_and_observations
     )
 
-    await remove_vulnerabilities(
-        loaders, finding_id, justification, source, email
-    )
+    await remove_vulnerabilities(loaders, finding_id, justification, email)
 
     if (
         not email.endswith(authz.FLUID_IDENTIFIER)
@@ -247,7 +245,6 @@ async def remove_vulnerabilities(
     loaders: Dataloaders,
     finding_id: str,
     justification: StateRemovalJustification,
-    source: Source,
     user_email: str,
 ) -> None:
     vulnerabilities: tuple[
@@ -261,7 +258,6 @@ async def remove_vulnerabilities(
                 vuln.id,
                 justification,
                 user_email,
-                source,
                 include_closed_vuln=True,
             )
             for vuln in vulnerabilities

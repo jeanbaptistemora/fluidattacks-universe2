@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,too-many-function-args
 """
 This migration deletes all SCA vulnerabilities reported in `build.gradle` files
 where the version was assumed to be a wildcard.

@@ -228,7 +228,6 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     vulnerability_id: str,
     justification: StateRemovalJustification,
     email: str,
-    source: Source,
     include_closed_vuln: bool = False,
 ) -> None:
     vulnerability: Vulnerability = await loaders.vulnerability.load(
@@ -243,7 +242,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     deletion_state = VulnerabilityState(
         modified_by=email,
         modified_date=datetime_utils.get_iso_date(),
-        source=source,
+        source=vulnerability.state.source,
         status=VulnerabilityStateStatus.DELETED,
         justification=justification,
         tool=vulnerability.state.tool,
