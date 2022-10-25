@@ -33,7 +33,7 @@ from typing import (
 
 
 def is_log_sensitive(graph: Graph, n_id: str) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_LOGGING
+    method = MethodsEnum.JAVA_SENSITIVE_INFO_IN_LOGS
     if test_node := graph.nodes[n_id].get("arguments_id"):
         for path in get_backward_paths(graph, test_node):
             evaluation = evaluate(method, graph, path, test_node)

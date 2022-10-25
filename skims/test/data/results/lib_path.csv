@@ -10321,6 +10321,18 @@ F239,lines,namespace/skims/test/data/lib_path/f239/webVuln.config,3,200,skims,23
   5 | </configuration>
     ^ Col 0
 ",dotnetconfig.dotnetconfig_not_custom_errors
+F059,lines,namespace/skims/test/data/lib_root/f059/test.java,3,209,skims,059. Sensitive information stored in logs,The application displays sensitive info in the logs in namespace/skims/test/data/lib_root/f059/test.java,"
+  1 | public class Test{
+  2 |     public void insecure(){
+> 3 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  4 |  }
+  5 |
+  6 |     public void secure(){
+  7 |   log.info(""Hello world""); // secure
+  8 |  }
+  9 | }
+    ^ Col 0
+",java.java_sensitive_log_info
 F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
