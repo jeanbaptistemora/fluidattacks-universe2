@@ -926,7 +926,7 @@ class FindingEnum(Enum):
         requirements=[95, 96, 186],
     )
     F350: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F350",
         cwe=310,
         execution_queue=ExecutionQueue.crypto,
@@ -1281,6 +1281,7 @@ class DeveloperEnum(Enum):
     BRIAM_AGUDELO: str = "bagudelo@fluidattacks.com"
     DEFAULT: str = "machine@fluidattacks.com"
     DIEGO_RESTREPO: str = "drestrepo@fluidattacks.com"
+    FABIO_LAGOS: str = "flagos@fluidattacks.com"
     FLOR_CALDERON: str = "fcalderon@fluidattacks.com"
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
     LEWIS_CONTRERAS: str = "lcontreras@fluidattacks.com"
@@ -1351,7 +1352,7 @@ class MethodsEnum(Enum):
         name="java_remote_command_execution",
         module="lib_root",
         finding=FindingEnum.F004,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     JS_REMOTE_COMMAND_EXECUTION = MethodInfo(
@@ -2847,7 +2848,7 @@ class MethodsEnum(Enum):
         name="c_sharp_insecure_certificate_validation",
         module="lib_root",
         finding=FindingEnum.F060,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     NOT_VERIFIES_SSL_HOSTNAME = MethodInfo(
@@ -3327,7 +3328,7 @@ class MethodsEnum(Enum):
         name="java_insecure_cors_origin",
         module="lib_root",
         finding=FindingEnum.F134,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TSX_UNSAFE_HTTP_XSS_PROTECTION = MethodInfo(
@@ -3335,7 +3336,7 @@ class MethodsEnum(Enum):
         name="typescript_unsafe_http_xss_protection",
         module="lib_root",
         finding=FindingEnum.F135,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TSX_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
@@ -3343,7 +3344,7 @@ class MethodsEnum(Enum):
         name="typescript_unsafe_http_xframe_options",
         module="lib_root",
         finding=FindingEnum.F152,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JS_USES_EVAL = MethodInfo(
@@ -3983,7 +3984,7 @@ class MethodsEnum(Enum):
         name="java_use_insecure_trust_manager",
         module="lib_root",
         finding=FindingEnum.F350,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
@@ -4039,7 +4040,7 @@ class MethodsEnum(Enum):
         name="java_host_key_checking",
         module="lib_root",
         finding=FindingEnum.F368,
-        developer=DeveloperEnum.DEFAULT,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     HTML_IS_HEADER_CONTENT_TYPE_MISSING = MethodInfo(
