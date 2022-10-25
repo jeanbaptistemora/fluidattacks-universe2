@@ -7,12 +7,9 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
-  faAngleLeft,
-  faAngleRight,
   faImage,
   faPen,
   faRotateRight,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
@@ -25,7 +22,6 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import ImageViewer from "react-simple-image-viewer";
 
 import {
   handleUpdateDescriptionError,
@@ -39,6 +35,7 @@ import {
 import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
+import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import {
   GET_FINDING_EVIDENCES,
   REMOVE_EVIDENCE_MUTATION,
@@ -76,9 +73,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-  const closeImageViewer = (): void => {
-    setCurrentImage(0);
-    setIsViewerOpen(false);
+  const closeImageViewer = (index: number, isOpen: boolean): void => {
+    setCurrentImage(index);
+    setIsViewerOpen(isOpen);
   };
 
   const setOpenImageViewer: (index: number) => void = useCallback(
@@ -300,25 +297,13 @@ const EvidenceView: React.FC = (): JSX.Element => {
         </Formik>
       )}
       {isViewerOpen && (
-        <div aria-label={"ImageViewer"} role={"dialog"}>
-          <ImageViewer
-            backgroundStyle={{
-              backgroundColor: "rgba(0,0,0,0.9)",
-              zIndex: "100",
-            }}
-            closeComponent={<FontAwesomeIcon icon={faXmark} />}
-            closeOnClickOutside={true}
-            currentIndex={currentImage}
-            disableScroll={true}
-            leftArrowComponent={<FontAwesomeIcon icon={faAngleLeft} />}
-            onClose={closeImageViewer} // eslint-disable-line react/jsx-no-bind
-            rightArrowComponent={<FontAwesomeIcon icon={faAngleRight} />}
-            src={evidenceList.map(
-              (name: string): string =>
-                `${location.href}/${evidenceImages[name].url}`
-            )}
-          />
-        </div>
+        <EvidenceLightbox
+          currentImage={currentImage}
+          evidenceImages={evidenceList.map((name: string): { url: string } => ({
+            url: evidenceImages[name].url,
+          }))}
+          onClose={closeImageViewer} // eslint-disable-line react/jsx-no-bind
+        />
       )}
     </React.StrictMode>
   );
