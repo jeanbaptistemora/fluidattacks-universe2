@@ -75,7 +75,6 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    requests as requests_utils,
     token as token_utils,
     vulnerabilities as vulns_utils,
 )
@@ -868,11 +867,9 @@ async def verify(
         Vulnerability
     ] = await loaders.vulnerability.load_many(sorted(closed_vulns_ids))
     if context:
-        source: Source = requests_utils.get_source_new(context)
         user_data = await token_utils.get_jwt_content(context)
         modified_by = str(user_data["user_email"])
     else:
-        source = Source.MACHINE
         modified_by = "machine@fluidattacks.com"
     await collect(
         update_metadata_and_state(
@@ -894,7 +891,7 @@ async def verify(
             new_state=VulnerabilityState(
                 modified_by=modified_by,
                 modified_date=modified_date,
-                source=source,
+                source=vuln_to_close.state.source,  # type: ignore
                 status=VulnerabilityStateStatus.CLOSED,
                 tool=close_item.state.tool
                 if close_item
