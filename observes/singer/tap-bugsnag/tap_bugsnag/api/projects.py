@@ -46,6 +46,9 @@ from tap_bugsnag.api.common.raw import (
 from tap_bugsnag.api.orgs import (
     ProjId,
 )
+from tap_bugsnag.objs import (
+    StabilityTrend,
+)
 from typing import (
     Iterator,
     List,
@@ -128,18 +131,6 @@ class ReleasesPage(NamedTuple):
         return typed_page_builder(raw.list_releases(page, project.id_str), cls)
 
 
-class StabilityTrend(NamedTuple):
-    data: JsonObj
-
-    @classmethod
-    def new(cls, raw: RawApi, project: ProjId) -> IO[StabilityTrend]:
-        result = raw.get_trend(project.id_str)
-        data_io = result.map(lambda response: response.json())
-        if data_io.map(bool) == IO(False):
-            raise UnexpectedEmptyData()
-        return data_io.map(cls)
-
-
 class ProjectsApi(NamedTuple):
     client: RawApi
     project: ProjId
@@ -149,7 +140,13 @@ class ProjectsApi(NamedTuple):
         return cls(client, project)
 
     def get_trend(self) -> IO[StabilityTrend]:
-        return StabilityTrend.new(self.client, self.project)
+        result = self.client.get_trend(self.project.id_str)
+        data_io = result.map(
+            lambda response: response.json()
+            if response.status_code == 200
+            else {}
+        )
+        return data_io.map(StabilityTrend)
 
     def list_errors(self, page: PageOrAll[str]) -> IO[Iterator[ErrorsPage]]:
         getter = partial(ErrorsPage.new, self.client, self.project)

@@ -65,14 +65,15 @@ def _get(
 def _debug_log(
     resource: str, page: Maybe[PageId], response: IO[Response]
 ) -> None:
-    LOG.debug(
-        "%s [%s]: %s\n\theaders: %s\n\tdata: %s",
-        resource,
-        page,
-        response,
-        response.map(lambda x: x.headers),
-        response.map(lambda x: str(x.json())[0:100] + "..."),
-    )
+    if response.map(lambda r: r.status_code == 200) == IO(True):
+        LOG.debug(
+            "%s [%s]: %s\n\theaders: %s\n\tdata: %s",
+            resource,
+            page,
+            response,
+            response.map(lambda x: x.headers),
+            response.map(lambda x: str(x.json())[0:100] + "..."),
+        )
 
 
 class RawApi(NamedTuple):

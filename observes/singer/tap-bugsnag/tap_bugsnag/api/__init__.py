@@ -25,12 +25,14 @@ from tap_bugsnag.api.projects import (
     PivotsPage,
     ProjectsApi,
     ReleasesPage,
-    StabilityTrend,
 )
 from tap_bugsnag.api.user import (
     OrgId,
     OrgsPage,
     UserApi,
+)
+from tap_bugsnag.objs import (
+    StabilityTrend,
 )
 from typing import (
     NamedTuple,
