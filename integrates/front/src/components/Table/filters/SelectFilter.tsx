@@ -41,7 +41,10 @@ const SelectFilter = <TData extends RowData>({
         <option value={""}>{"All"}</option>
         {sortedUniqueValues
           .flatMap((value): string => value)
-          .filter((value, index, arr): boolean => arr.indexOf(value) === index)
+          .filter(
+            (value, index, arr): boolean =>
+              arr.indexOf(value) === index && Boolean(value) && value !== "-"
+          )
           .map(
             (value): JSX.Element => (
               <option key={value} value={value}>
