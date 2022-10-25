@@ -3193,6 +3193,117 @@
           }
         },
         {
+          "FacetName": "stakeholder_historic_subscription",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#email#ENTITY#entity#SUBJECT#subject",
+            "SortKeyAlias": "SUBS#iso8601utc"
+          },
+          "TableData": [
+            {
+              "subject": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "SUBS#2022-03-22T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.comSUBS#ENTITY#group#SUBJECT#oneshottest"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "MONTHLY"
+              },
+              "modified_date": {
+                "S": "2022-03-22T20:07:57+00:00"
+              }
+            },
+            {
+              "subject": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "SUBS#2022-01-01T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.comSUBS#ENTITY#group#SUBJECT#oneshottest"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "WEEKLY"
+              },
+              "modified_date": {
+                "S": "2022-01-01T20:07:57+00:00"
+              }
+            },
+            {
+              "subject": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "SUBS#2022-05-22T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.comSUBS#ENTITY#group#SUBJECT#unittesting"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "DAILY"
+              },
+              "modified_date": {
+                "S": "2022-05-22T20:07:57+00:00"
+              }
+            },
+            {
+              "subject": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "SUBS#2022-02-22T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.comSUBS#ENTITY#group#SUBJECT#unittesting"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "entity": {
+                "S": "GROUP"
+              },
+              "frequency": {
+                "S": "HOURLY"
+              },
+              "modified_date": {
+                "S": "2022-02-22T20:07:57+00:00"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "email",
+            "subject",
+            "entity",
+            "frequency",
+            "modified_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
           "FacetName": "organization_access",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
