@@ -95,7 +95,7 @@ describe("SeverityView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_severity_mutate" },
     ]);
     const { container } = render(
@@ -175,7 +175,7 @@ describe("SeverityView", (): void => {
   it("should render as editable", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_severity_mutate" },
     ]);
     render(

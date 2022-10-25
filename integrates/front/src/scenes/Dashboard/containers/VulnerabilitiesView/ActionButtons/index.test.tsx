@@ -63,7 +63,7 @@ describe("ActionButtons", (): void => {
   it("should render a component", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
     render(
@@ -103,11 +103,11 @@ describe("ActionButtons", (): void => {
     expect.hasAssertions();
 
     const onRequestReattack: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_request_vulnerabilities_verification_mutate" },
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
-    const mockedServices: PureAbility<string> = new PureAbility([
+    const mockedServices = new PureAbility<string>([
       { action: "is_continuous" },
       { action: "can_report_vulnerabilities" },
     ]);

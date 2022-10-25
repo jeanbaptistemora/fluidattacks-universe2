@@ -118,7 +118,7 @@ describe("groupToeLinesView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
@@ -317,7 +317,7 @@ describe("groupToeLinesView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
@@ -500,7 +500,7 @@ describe("groupToeLinesView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },

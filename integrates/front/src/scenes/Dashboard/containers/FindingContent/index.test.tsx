@@ -233,7 +233,7 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -268,7 +268,7 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
@@ -333,7 +333,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -390,7 +390,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     render(
@@ -446,7 +446,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
     ]);
     render(
@@ -514,7 +514,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
     ]);
     render(
@@ -581,7 +581,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
@@ -648,7 +648,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     render(
@@ -712,7 +712,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
@@ -779,7 +779,7 @@ describe("FindingContent", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(

@@ -92,7 +92,7 @@ describe("Organization groups view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_group_mutate" },
     ]);
     render(
@@ -295,7 +295,7 @@ describe("Organization groups view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_group_mutate" },
     ]);
 

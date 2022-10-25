@@ -43,7 +43,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
@@ -165,7 +165,7 @@ describe("handle vulns acceptance modal", (): void => {
     jest.clearAllMocks();
 
     const handleRefetchData: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
@@ -259,7 +259,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
@@ -408,7 +408,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
@@ -580,7 +580,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
@@ -746,7 +746,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
@@ -916,7 +916,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
@@ -1029,7 +1029,7 @@ describe("handle vulns acceptance modal", (): void => {
 
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },

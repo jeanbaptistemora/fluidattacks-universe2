@@ -22,7 +22,7 @@ describe("ToeContent", (): void => {
   it("should display toe tabs", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_group_toe_lines_resolve" },
       { action: "api_resolvers_group_toe_inputs_resolve" },
     ]);

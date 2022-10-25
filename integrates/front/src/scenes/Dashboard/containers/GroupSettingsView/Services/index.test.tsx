@@ -197,7 +197,7 @@ describe("Services", (): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
       expect.hasAssertions();
 
-      const mockedPermissions: PureAbility<string> = new PureAbility([
+      const mockedPermissions = new PureAbility<string>([
         { action: "api_mutations_update_group_mutate" },
       ]);
 
@@ -326,7 +326,7 @@ describe("Services", (): void => {
       },
     ];
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_group_mutate" },
     ]);
 
@@ -460,7 +460,7 @@ describe("Services", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "see_group_services_info" },
     ]);
     render(

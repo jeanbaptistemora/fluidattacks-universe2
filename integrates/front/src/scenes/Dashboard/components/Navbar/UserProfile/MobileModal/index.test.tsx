@@ -87,7 +87,7 @@ describe("Mobile modal", (): void => {
     expect.hasAssertions();
 
     const handleOnClose: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_stakeholder_phone_mutate" },
     ]);
     const mockQuery: MockedResponse[] = [
@@ -130,7 +130,7 @@ describe("Mobile modal", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_stakeholder_phone_mutate" },
     ]);
     const mockQuery: MockedResponse[] = [
@@ -246,7 +246,7 @@ describe("Mobile modal", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_stakeholder_phone_mutate" },
     ]);
     const mockQuery: MockedResponse[] = [

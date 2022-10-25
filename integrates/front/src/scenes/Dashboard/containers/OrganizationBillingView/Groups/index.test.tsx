@@ -35,7 +35,7 @@ describe("Organization billing groups view", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedInternalPermissions: PureAbility<string> = new PureAbility([
+    const mockedInternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
       { action: "api_resolvers_organization_billing_portal_resolve" },
@@ -96,7 +96,7 @@ describe("Organization billing groups view", (): void => {
     expect(screen.queryByText("Tier")).toBeInTheDocument();
     expect(screen.queryByText("Service")).toBeInTheDocument();
 
-    const mockedExternalPermissions: PureAbility<string> = new PureAbility([
+    const mockedExternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
       { action: "api_resolvers_organization_billing_portal_resolve" },
@@ -182,7 +182,7 @@ describe("Organization billing groups view", (): void => {
       },
     };
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
       { action: "api_resolvers_organization_billing_portal_resolve" },

@@ -218,7 +218,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
       { action: "api_resolvers_vulnerability_hacker_resolve" },
       { action: "api_resolvers_finding_zero_risk_connection_resolve" },
@@ -264,7 +264,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container with additional permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
       { action: "api_resolvers_vulnerability_hacker_resolve" },
       { action: "api_resolvers_finding_zero_risk_connection_resolve" },
@@ -330,13 +330,13 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container and test request_button flow", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
       { action: "api_mutations_request_vulnerabilities_verification_mutate" },
       { action: "api_resolvers_finding_zero_risk_connection_resolve" },
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
-    const mockedServices: PureAbility<string> = new PureAbility([
+    const mockedServices = new PureAbility<string>([
       { action: "is_continuous" },
       { action: "can_report_vulnerabilities" },
     ]);
@@ -407,7 +407,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container and test verify_button flow", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
       { action: "api_resolvers_finding_zero_risk_connection_resolve" },
       { action: "api_mutations_verify_vulnerabilities_request_mutate" },

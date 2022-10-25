@@ -83,7 +83,7 @@ describe("eventDescriptionView", (): void => {
   it("should render solving modal", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_solve_event_mutate" },
     ]);
     render(
@@ -168,7 +168,7 @@ describe("eventDescriptionView", (): void => {
       },
     ];
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_event_mutate" },
     ]);
     render(
@@ -274,7 +274,7 @@ describe("eventDescriptionView", (): void => {
       },
     ];
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_reject_event_solution_mutate" },
     ]);
     render(

@@ -132,7 +132,7 @@ describe("organization credentials view", (): void => {
         result: { data: { addCredentials: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_credentials_mutate" },
     ]);
     const mockedAuth = {
@@ -227,7 +227,7 @@ describe("organization credentials view", (): void => {
         result: { data: { removeCredentials: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_credentials_mutate" },
     ]);
     const mockedAuth = {
@@ -323,7 +323,7 @@ describe("organization credentials view", (): void => {
         result: { data: { updateCredentials: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_credentials_mutate" },
     ]);
     const mockedAuth = {

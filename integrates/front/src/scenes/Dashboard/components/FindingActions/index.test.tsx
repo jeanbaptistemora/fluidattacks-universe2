@@ -39,7 +39,7 @@ describe("FindingActions", (): void => {
   it("should render hacker finding actions", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
     ]);
     render(
@@ -63,7 +63,7 @@ describe("FindingActions", (): void => {
   it("should render author draft actions", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
@@ -92,7 +92,7 @@ describe("FindingActions", (): void => {
   it("should render approver draft actions", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
       { action: "api_mutations_reject_draft_mutate" },
       { action: "api_mutations_remove_finding_mutate" },
@@ -125,7 +125,7 @@ describe("FindingActions", (): void => {
   it("should disable approve button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
     ]);
     render(

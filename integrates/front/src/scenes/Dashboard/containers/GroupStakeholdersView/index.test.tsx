@@ -212,7 +212,7 @@ describe("Group stakeholders view", (): void => {
   it("should render an edit stakeholder component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
     ]);
     render(
@@ -241,7 +241,7 @@ describe("Group stakeholders view", (): void => {
   it("should open a modal to add stakeholder", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
     ]);
     render(
@@ -277,7 +277,7 @@ describe("Group stakeholders view", (): void => {
   it("should open a modal to edit stakeholder", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
     render(
@@ -353,7 +353,7 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
@@ -458,7 +458,7 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_stakeholder_access_mutate" },
       { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
@@ -547,7 +547,7 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
@@ -646,7 +646,7 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
@@ -719,7 +719,7 @@ describe("Group stakeholders view", (): void => {
         result: { errors: [new GraphQLError("Access denied")] },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_stakeholder_access_mutate" },
       { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
@@ -803,7 +803,7 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);

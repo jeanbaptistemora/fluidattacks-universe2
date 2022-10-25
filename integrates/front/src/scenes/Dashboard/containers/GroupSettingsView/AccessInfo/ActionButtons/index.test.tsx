@@ -30,7 +30,7 @@ describe("ActionButtons", (): void => {
   it("should render a component", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_group_access_info_mutate" },
     ]);
     const { editTooltip, isEditing, isPristine, onEdit, onUpdate, permission } =

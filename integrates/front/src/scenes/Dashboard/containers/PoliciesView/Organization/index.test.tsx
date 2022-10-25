@@ -210,7 +210,7 @@ describe("Organization policies view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_organization_policies_mutate" },
     ]);
     render(
@@ -515,7 +515,7 @@ describe("Organization policies view", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_organization_policies_mutate" },
     ]);
     render(

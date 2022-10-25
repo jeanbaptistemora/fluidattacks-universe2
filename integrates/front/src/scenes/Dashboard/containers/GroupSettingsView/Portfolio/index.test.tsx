@@ -93,7 +93,7 @@ describe("Portfolio", (): void => {
         result: { data: { addGroupTags: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
     render(
@@ -138,7 +138,7 @@ describe("Portfolio", (): void => {
         result: { data: { removeGroupTag: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     render(
@@ -219,7 +219,7 @@ describe("Portfolio", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
 
@@ -265,7 +265,7 @@ describe("Portfolio", (): void => {
         result: { errors: [new GraphQLError("Access denied")] },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     render(
@@ -294,7 +294,7 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
     render(

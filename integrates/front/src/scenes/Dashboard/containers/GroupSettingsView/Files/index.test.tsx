@@ -174,7 +174,7 @@ describe("Files", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_files_mutate" },
     ]);
     render(
@@ -274,7 +274,7 @@ describe("Files", (): void => {
         result: { data: { removeFiles: { success: true } } },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_files_mutate" },
     ]);
     render(
@@ -335,7 +335,7 @@ describe("Files", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_files_mutate" },
     ]);
     render(
@@ -430,7 +430,7 @@ describe("Files", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_files_mutate" },
     ]);
     render(
@@ -487,7 +487,7 @@ describe("Files", (): void => {
     expect.hasAssertions();
 
     const file: File = new File([""], "test.zip", { type: "application/zip" });
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_files_mutate" },
     ]);
     render(

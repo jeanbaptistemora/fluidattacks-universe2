@@ -142,7 +142,7 @@ describe("todoVulnerabilitiesView", (): void => {
     expect.hasAssertions();
 
     const refreshClick: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
     ]);
 
@@ -206,7 +206,7 @@ describe("todoVulnerabilitiesView", (): void => {
     expect.hasAssertions();
 
     const refreshClick: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
     ]);
 

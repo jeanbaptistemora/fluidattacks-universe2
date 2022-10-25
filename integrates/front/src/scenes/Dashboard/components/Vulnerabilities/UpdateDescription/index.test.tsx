@@ -173,7 +173,7 @@ describe("Update Description component", (): void => {
       },
     },
   };
-  const mockedPermissions: PureAbility<string> = new PureAbility([
+  const mockedPermissions = new PureAbility<string>([
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
     { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_update_vulnerability_treatment_mutate" },

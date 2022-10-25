@@ -39,7 +39,7 @@ describe("ToeInputsActionButtons", (): void => {
   it("should hide the addition button for the external view", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_toe_input_mutate" },
     ]);
     render(
@@ -61,7 +61,7 @@ describe("ToeInputsActionButtons", (): void => {
   it("should display the addition button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_toe_input_mutate" },
     ]);
     render(
@@ -86,7 +86,7 @@ describe("ToeInputsActionButtons", (): void => {
   it("should display the attacked button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_toe_input_mutate" },
     ]);
     render(

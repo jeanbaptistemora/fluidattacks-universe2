@@ -44,7 +44,7 @@ describe("AccessInfo", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_group_disambiguation_resolve" },
       { action: "api_mutations_update_group_disambiguation_mutate" },
     ]);

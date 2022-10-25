@@ -41,7 +41,7 @@ describe("ToelinesActionButtons", (): void => {
   it("should hide the edition button for the external view", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
     render(
@@ -65,7 +65,7 @@ describe("ToelinesActionButtons", (): void => {
   it("should display the edition button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
 
@@ -92,7 +92,7 @@ describe("ToelinesActionButtons", (): void => {
   it("should display the addition button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_add_toe_lines_mutate" },
     ]);
     render(
@@ -119,7 +119,7 @@ describe("ToelinesActionButtons", (): void => {
   it("should display the verify button", (): void => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
 

@@ -223,7 +223,7 @@ describe("Add user modal", (): void => {
   it("should render user level role options", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "grant_user_level_role:admin" },
       { action: "grant_user_level_role:user" },
       { action: "grant_user_level_role:hacker" },

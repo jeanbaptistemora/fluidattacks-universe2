@@ -119,7 +119,7 @@ describe("groupToeInputsView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_input_attacked_at_resolve" },
       { action: "api_resolvers_toe_input_attacked_by_resolve" },
       { action: "api_resolvers_toe_input_be_present_until_resolve" },
@@ -335,7 +335,7 @@ describe("groupToeInputsView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_input_attacked_at_resolve" },
       { action: "api_resolvers_toe_input_attacked_by_resolve" },
       { action: "api_resolvers_toe_input_be_present_until_resolve" },
@@ -492,7 +492,7 @@ describe("groupToeInputsView", (): void => {
         },
       },
     };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_input_attacked_at_resolve" },
       { action: "api_resolvers_toe_input_attacked_by_resolve" },
       { action: "api_resolvers_toe_input_be_present_until_resolve" },

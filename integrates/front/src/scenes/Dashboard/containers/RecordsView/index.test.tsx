@@ -73,7 +73,7 @@ describe("FindingRecordsView", (): void => {
   it("should render as editable", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_evidence_mutate" },
     ]);
     render(
@@ -124,7 +124,7 @@ describe("FindingRecordsView", (): void => {
   it("should render delete button", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_evidence_mutate" },
     ]);
     render(

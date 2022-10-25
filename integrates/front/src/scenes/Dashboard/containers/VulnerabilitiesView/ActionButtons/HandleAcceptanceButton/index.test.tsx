@@ -24,7 +24,7 @@ describe("HandleAcceptanceButtons", (): void => {
     const openHandleAcceptance: jest.Mock = jest.fn();
     const handleAcceptanceButtonText: string =
       "searchFindings.tabVuln.buttons.handleAcceptance";
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
     ]);
     const { rerender } = render(

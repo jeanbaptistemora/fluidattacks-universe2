@@ -67,7 +67,7 @@ describe("eventEvidenceView", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_event_evidence_mutate" },
     ]);
     render(
@@ -281,7 +281,7 @@ describe("eventEvidenceView", (): void => {
         },
       },
     ];
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_event_evidence_mutate" },
     ]);
     render(
@@ -453,7 +453,7 @@ describe("eventEvidenceView", (): void => {
       },
     ];
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_event_evidence_mutate" },
     ]);
     render(

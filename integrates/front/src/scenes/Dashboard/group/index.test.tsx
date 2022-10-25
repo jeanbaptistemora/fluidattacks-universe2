@@ -82,7 +82,7 @@ describe("groupContent", (): void => {
       },
     ];
     const numberOfLinksWithPermissions: number = 8;
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_group_consulting_resolve" },
       { action: "api_resolvers_query_stakeholder__resolve_for_group" },
       { action: "api_resolvers_group_drafts_resolve" },

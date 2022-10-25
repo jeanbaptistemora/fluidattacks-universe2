@@ -46,7 +46,7 @@ describe("navbar", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "front_can_use_groups_searchbar" },
     ]);
     const mockedQueries: MockedResponse[] = [
@@ -161,7 +161,7 @@ describe("navbar", (): void => {
   it("should display draft title", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "front_can_use_groups_searchbar" },
     ]);
     const organizationsQuery: Readonly<MockedResponse> = {
@@ -238,7 +238,7 @@ describe("navbar", (): void => {
   it("should display finding title", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "front_can_use_groups_searchbar" },
     ]);
     const organizationsQuery: Readonly<MockedResponse> = {

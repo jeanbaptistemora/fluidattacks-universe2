@@ -147,7 +147,7 @@ describe("AuthorsView", (): void => {
   it("should render table", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions: PureAbility<string> = new PureAbility([
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "api_resolvers_query_stakeholder__resolve_for_group" },
     ]);
