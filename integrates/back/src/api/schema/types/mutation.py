@@ -48,7 +48,6 @@ from api.mutations import (
     handle_organization_finding_policy_acceptance,
     handle_vulnerabilities_acceptance,
     invalidate_access_token,
-    invalidate_cache,
     move_root,
     refresh_toe_lines,
     reject_draft,
@@ -199,7 +198,6 @@ MUTATION.set_field(
     handle_vulnerabilities_acceptance.mutate,
 )
 MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
-MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
 MUTATION.set_field("moveRoot", move_root.mutate)
 MUTATION.set_field("refreshToeLines", refresh_toe_lines.mutate)
 MUTATION.set_field("rejectDraft", reject_draft.mutate)

@@ -570,14 +570,6 @@ type Mutation {
   "Revokes the current user's API access token"
   invalidateAccessToken: SimplePayload!
 
-  "Ditches a section of the cache and forces a refresh"
-  invalidateCache("Cache pattern to ditch" pattern: String!): SimplePayload!
-    @deprecated(
-      reason: """
-      This field will be removed today 2022/10/25.
-      """
-    )
-
   "Moves a root and its associations to another group"
   moveRoot(
     "Name of the source group"
