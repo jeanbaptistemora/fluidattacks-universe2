@@ -70,3 +70,27 @@ There it will list all the groups
 to which you have access.
 
 ![Standards](https://res.cloudinary.com/fluid-attacks/image/upload/v1666703818/docs/web/compliance/standards.png)
+
+By selecting the group of interest,
+you will see the standards that
+are not met in this group,
+listing the requirements
+that have not been met.
+
+![Group of interest](https://res.cloudinary.com/fluid-attacks/image/upload/v1666705109/docs/web/compliance/group_interest.png)
+
+You can also download a report of
+this information by clicking
+on **Generate Report**.
+
+![Generate Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1666705252/docs/web/compliance/generate_report.png)
+
+When you click on the button,
+you will get a **Verification code**.
+
+![Verification code](https://res.cloudinary.com/fluid-attacks/image/upload/v1666705456/docs/web/compliance/verifity_code.png)
+
+Entering the code will download
+the report at the Group level,
+listing the standards that are
+not applying to your requirements.
