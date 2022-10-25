@@ -932,6 +932,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.crypto,
         requirements=[88, 89, 90, 91, 92, 93],
     )
+    F354: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F354",
+        cwe=770,
+        execution_queue=ExecutionQueue.control,
+        requirements=[40, 41],
+    )
     F363: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F363",
@@ -4002,6 +4009,15 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_UPLOAD_SIZE_LIMIT = MethodInfo(
+        file_name="java",
+        name="java_upload_size_limit",
+        module="lib_root",
+        finding=FindingEnum.F354,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+
     TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_s3_versioning_disabled",

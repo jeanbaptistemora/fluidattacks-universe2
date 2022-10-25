@@ -871,6 +871,14 @@
       "title": "350. Insecure digital certificates - Chain of trust"
     }
   },
+  "F354": {
+    "EN": {
+      "title": "354. Insecure file upload - Files Limit"
+    },
+    "ES": {
+      "title": "354. Insecure file upload - Files Limit"
+    }
+  },
   "F363": {
     "EN": {
       "title": "363. Weak credential policy - Password strength"

@@ -815,6 +815,13 @@
     "skims/test/data/sast/test_cfg.kt": {},
     "skims/test/data/sast/test_cfg.tsx": {}
   },
+  "F354": {
+    "skims/test/data/sast/TestCFG.java": {},
+    "skims/test/data/sast/test_cfg.go": {},
+    "skims/test/data/sast/test_cfg.js": {},
+    "skims/test/data/sast/test_cfg.kt": {},
+    "skims/test/data/sast/test_cfg.tsx": {}
+  },
   "F363": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
