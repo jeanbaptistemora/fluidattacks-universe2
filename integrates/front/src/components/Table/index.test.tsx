@@ -526,26 +526,26 @@ describe("Table", (): void => {
 
     expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[2]);
+    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryByText("Phyllis Garrett")).toBeInTheDocument();
     });
 
     expect(screen.queryByText("Daria Hays")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
+    userEvent.click(screen.getAllByRole("button", { name: "" })[0]);
     await waitFor((): void => {
       expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
     });
 
     expect(screen.queryByText("Phyllis Garrett")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[2]);
+    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryByText("Theodore Daniels")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getAllByRole("button", { name: "" })[2]);
+    userEvent.click(screen.getAllByRole("button", { name: "" })[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
