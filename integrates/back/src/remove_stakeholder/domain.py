@@ -70,7 +70,7 @@ from stakeholders import (
     domain as stakeholders_domain,
 )
 from subscriptions.domain import (
-    unsubscribe,
+    remove,
 )
 from typing import (
     Any,
@@ -108,7 +108,7 @@ async def remove_stakeholder_all_organizations(
     ] = await loaders.stakeholder_subscriptions.load(email)
     await collect(
         tuple(
-            unsubscribe(
+            remove(
                 entity=subscription.entity,
                 subject=subscription.subject,
                 email=email,

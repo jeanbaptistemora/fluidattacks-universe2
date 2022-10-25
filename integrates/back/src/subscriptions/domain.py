@@ -141,7 +141,7 @@ async def _send_mail_analytics(
         group_name = subject.lower()
         group: Group = await loaders.group.load(group_name)
         if group.state.status == GroupStateStatus.DELETED:
-            await unsubscribe(
+            await remove(
                 entity=entity,
                 subject=subject,
                 email=email,
@@ -251,6 +251,19 @@ async def unsubscribe(
     )
 
 
+async def remove(
+    *,
+    entity: SubscriptionEntity,
+    subject: str,
+    email: str,
+) -> None:
+    await subscriptions_model.remove(
+        entity=entity,
+        subject=subject,
+        email=email,
+    )
+
+
 async def _validate_subscription(subscription: Subscription) -> bool:
     # A stakeholder may be subscribed but now he does not have access to the
     #   group or organization, so let's handle this case
@@ -262,9 +275,9 @@ async def _validate_subscription(subscription: Subscription) -> bool:
         email=subscription.email,
     ):
         return True
-    # Unsubscribe this stakeholder, he won't even notice as he no longer
+    # Remove this stakeholder, he won't even notice as he no longer
     #   has access to the requested resource
-    await unsubscribe(
+    await remove(
         entity=subscription.entity,
         subject=subscription.subject,
         email=subscription.email,
