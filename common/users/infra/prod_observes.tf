@@ -58,18 +58,41 @@ locals {
           ]
         },
         {
-          Sid    = "batchWrite"
+          Sid    = "batchTags"
+          Effect = "Allow"
+          Action = [
+            "batch:TagResource",
+            "batch:UntagResource",
+          ]
+          Resource = [
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
+          ]
+          "Condition" : { "StringEquals" : { "aws:RequestTag/Management:Product" : "observes" } }
+        },
+        {
+          Sid    = "batchCancel"
           Effect = "Allow"
           Action = [
             "batch:CancelJob",
-            "batch:SubmitJob",
             "batch:TerminateJob",
           ]
           Resource = [
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
+          ]
+          "Condition" : { "StringEquals" : { "aws:ResourceTag/Management:Product" : "observes" } }
+        },
+        {
+          Sid    = "batchSubmit"
+          Effect = "Allow"
+          Action = [
+            "batch:SubmitJob",
+          ]
+          Resource = [
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
           ]
+          "Condition" : { "StringEquals" : { "aws:RequestTag/Management:Product" : "observes" } }
         },
         {
           # required to rename tags
