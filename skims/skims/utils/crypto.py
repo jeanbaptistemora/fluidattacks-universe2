@@ -39,6 +39,8 @@ async def get_hmac(key: bytes, stream: bytes) -> bytes:
     return await in_process(_get_hmac, key, stream)
 
 
+# Secure cipher suites according to:
+# https://ciphersuite.info/cs/?singlepage=true&security=secure
 def _load_static_data() -> None:
     with open(CIPHER_SUITES_PATH, encoding="utf-8") as cipher_suites_file:
         for row in csv.DictReader(cipher_suites_file):

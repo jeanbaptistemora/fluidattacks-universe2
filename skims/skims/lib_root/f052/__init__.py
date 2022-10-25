@@ -17,9 +17,13 @@ from lib_root.f052.go import (
 )
 from lib_root.f052.java import (
     java_insecure_cipher,
+    java_insecure_cipher_ssl,
     java_insecure_connection,
     java_insecure_hash,
-    java_insecure_key,
+    java_insecure_hash_argument,
+    java_insecure_key_ec,
+    java_insecure_key_rsa,
+    java_insecure_key_secret,
     java_insecure_pass,
 )
 from lib_root.f052.javascript import (
@@ -50,9 +54,13 @@ QUERIES: graph_model.Queries = (
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cipher),
+    (FINDING, java_insecure_cipher_ssl),
     (FINDING, java_insecure_connection),
     (FINDING, java_insecure_hash),
-    (FINDING, java_insecure_key),
+    (FINDING, java_insecure_hash_argument),
+    (FINDING, java_insecure_key_ec),
+    (FINDING, java_insecure_key_rsa),
+    (FINDING, java_insecure_key_secret),
     (FINDING, java_insecure_pass),
     (FINDING, javascript_insecure_cipher),
     (FINDING, javascript_insecure_key),
