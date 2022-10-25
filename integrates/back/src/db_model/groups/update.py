@@ -10,6 +10,7 @@ from .types import (
 from .utils import (
     format_metadata_item,
     format_unreliable_indicators_item,
+    serialize_sets,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -76,7 +77,7 @@ async def update_state(
     state: GroupState,
 ) -> None:
     key_structure = TABLE.primary_key
-    state_item = json.loads(json.dumps(state))
+    state_item = json.loads(json.dumps(state, default=serialize_sets))
     state_item = {
         key: None if not value and value is not False else value
         for key, value in state_item.items()

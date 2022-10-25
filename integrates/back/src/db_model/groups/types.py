@@ -42,6 +42,7 @@ class GroupState(NamedTuple):
     status: GroupStateStatus
     tier: GroupTier
     type: GroupSubscriptionType
+    tags: Optional[set[str]] = None
     comments: Optional[str] = None
     justification: Optional[GroupStatusJustification] = None
     payment_id: Optional[str] = None

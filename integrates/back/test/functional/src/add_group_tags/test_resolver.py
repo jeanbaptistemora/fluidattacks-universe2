@@ -51,10 +51,12 @@ async def test_add_group_tags(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
-    if group.tags:
+    if group.tags and group.state.tags:
         assert tag_to_add in group.tags
+        assert tag_to_add in group.state.tags
     else:
         assert group.tags is None
+        assert group.state.tags is None
 
 
 @pytest.mark.asyncio

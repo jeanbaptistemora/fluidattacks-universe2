@@ -37,7 +37,8 @@ async def test_remove_group_tag(
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
-    assert tag_name in group.tags  # type: ignore
+    assert group.tags and tag_name in group.tags
+    assert group.state.tags and tag_name in group.state.tags
 
     result: dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name
@@ -48,10 +49,12 @@ async def test_remove_group_tag(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
-    if group.tags:
+    if group.tags and group.state.tags:
         assert tag_name not in group.tags
+        assert tag_name not in group.state.tags
     else:
         assert group.tags is None
+        assert group.state.tags is None
 
 
 @pytest.mark.asyncio

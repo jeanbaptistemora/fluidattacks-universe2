@@ -65,7 +65,7 @@ async def add(*, group: Group) -> None:
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
-        **json.loads(json.dumps(group.state)),
+        **json.loads(json.dumps(group.state, default=serialize_sets)),
     }
     items.append(historic_state_item)
 

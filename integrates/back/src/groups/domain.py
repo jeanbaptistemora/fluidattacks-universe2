@@ -550,6 +550,7 @@ async def update_group_managed(
                     modified_by=email,
                     service=group.state.service,
                     status=GroupStateStatus.ACTIVE,
+                    tags=group.state.tags,
                     tier=group.state.tier,
                     type=group.state.type,
                 ),
@@ -595,6 +596,7 @@ async def update_group_payment_id(
                 payment_id=payment_id,
                 service=group.state.service,
                 status=GroupStateStatus.ACTIVE,
+                tags=group.state.tags,
                 tier=group.state.tier,
                 type=group.state.type,
             ),
@@ -659,6 +661,7 @@ async def update_group(
             modified_by=email,
             service=service,
             status=GroupStateStatus.ACTIVE,
+            tags=group.state.tags,
             tier=tier,
             type=subscription,
         ),
@@ -1609,6 +1612,37 @@ async def remove_pending_deletion_date(
     )
 
 
+async def update_group_tags(
+    *,
+    loaders: Dataloaders,
+    group_name: str,
+    email: str,
+    updated_tags: set[str],
+) -> None:
+    group: Group = await loaders.group.load(group_name)
+
+    if updated_tags != group.state.tags:
+        await update_state(
+            group_name=group_name,
+            organization_id=group.organization_id,
+            state=GroupState(
+                comments=group.state.comments,
+                modified_date=datetime_utils.get_iso_date(),
+                has_machine=group.state.has_machine,
+                has_squad=group.state.has_squad,
+                managed=group.state.managed,
+                payment_id=group.state.payment_id,
+                justification=GroupStateUpdationJustification["NONE"],
+                modified_by=email,
+                service=group.state.service,
+                status=GroupStateStatus.ACTIVE,
+                tags=updated_tags,
+                tier=group.state.tier,
+                type=group.state.type,
+            ),
+        )
+
+
 async def add_tags(
     *,
     loaders: Dataloaders,
@@ -1617,20 +1651,32 @@ async def add_tags(
     tags_to_add: set[str],
 ) -> None:
     updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
-    await update_metadata(
-        group_name=group.name,
-        metadata=GroupMetadataToUpdate(
-            tags=updated_tags,
-        ),
-        organization_id=group.organization_id,
+    await collect(
+        (
+            update_metadata(
+                group_name=group.name,
+                metadata=GroupMetadataToUpdate(
+                    tags=updated_tags,
+                ),
+                organization_id=group.organization_id,
+            ),
+            update_group_tags(
+                loaders=loaders,
+                group_name=group.name,
+                email=email,
+                updated_tags=updated_tags,
+            ),
+        )
     )
-    await send_mail_portfolio_report(
-        loaders=loaders,
-        group_name=group.name,
-        responsible=email,
-        portfolio=", ".join(tags_to_add),
-        is_added=True,
-        modified_date=datetime_utils.get_iso_date(),
+    schedule(
+        send_mail_portfolio_report(
+            loaders=loaders,
+            group_name=group.name,
+            responsible=email,
+            portfolio=", ".join(tags_to_add),
+            is_added=True,
+            modified_date=datetime_utils.get_iso_date(),
+        )
     )
 
 
@@ -1643,19 +1689,31 @@ async def remove_tag(
 ) -> None:
     if group.tags:
         group.tags.remove(tag_to_remove)
-        await update_metadata(
-            group_name=group.name,
-            metadata=GroupMetadataToUpdate(
-                tags=group.tags,
-            ),
-            organization_id=group.organization_id,
+        await collect(
+            (
+                update_metadata(
+                    group_name=group.name,
+                    metadata=GroupMetadataToUpdate(
+                        tags=group.tags,
+                    ),
+                    organization_id=group.organization_id,
+                ),
+                update_group_tags(
+                    loaders=loaders,
+                    group_name=group.name,
+                    email=email,
+                    updated_tags=group.tags,
+                ),
+            )
         )
-        await send_mail_portfolio_report(
-            loaders=loaders,
-            group_name=group.name,
-            responsible=email,
-            portfolio=tag_to_remove,
-            modified_date=datetime_utils.get_iso_date(),
+        schedule(
+            send_mail_portfolio_report(
+                loaders=loaders,
+                group_name=group.name,
+                responsible=email,
+                portfolio=tag_to_remove,
+                modified_date=datetime_utils.get_iso_date(),
+            )
         )
 
 

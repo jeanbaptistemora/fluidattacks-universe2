@@ -300,6 +300,7 @@ def format_state(state: Item) -> GroupState:
         if state.get("service")
         else None,
         status=GroupStateStatus[state["status"]],
+        tags=set(state["tags"]) if state.get("tags") else None,
         tier=GroupTier[state["tier"]]
         if state.get("tier")
         else GroupTier.OTHER,

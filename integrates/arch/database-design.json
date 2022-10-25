@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 14, 2022, 11:38 AM",
+    "DateLastModified": "Oct 25, 2022, 04:20 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -15498,7 +15498,8 @@
             "pending_deletion_date",
             "service",
             "tier",
-            "managed"
+            "managed",
+            "tags"
           ],
           "DataAccess": {
             "MySql": {}
@@ -35213,13 +35214,13 @@
           "NonKeyAttributes": [
             "status",
             "modified_date",
+            "commit",
             "modified_by",
             "source",
-            "justification",
-            "tool",
-            "commit",
             "where",
-            "specific"
+            "specific",
+            "justification",
+            "tool"
           ],
           "DataAccess": {
             "MySql": {}

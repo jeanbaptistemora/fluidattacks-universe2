@@ -103,8 +103,6 @@ def graphic_view(  # pylint: disable=too-many-arguments
                 f"{generator_name}.js"
             ),
             graphic_css=f"{STATIC_URL}/styles/graphic.css",
-            c3js=f"{STATIC_URL}/external/C3/c3.min.js",
-            c3css=f"{STATIC_URL}/external/C3/c3.min.css",
         ),
     )
 
