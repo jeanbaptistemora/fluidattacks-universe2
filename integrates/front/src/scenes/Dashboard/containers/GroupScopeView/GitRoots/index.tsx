@@ -566,7 +566,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               expandedRow={handleUrlRowExpand}
               id={"tblGitRootEnvs"}
               onRowClick={
-                permissions.can("api_resolvers_query_environment_url_resolve")
+                permissions.can(
+                  "api_resolvers_git_environment_url_secrets_resolve"
+                )
                   ? handleRowUrlClick
                   : undefined
               }

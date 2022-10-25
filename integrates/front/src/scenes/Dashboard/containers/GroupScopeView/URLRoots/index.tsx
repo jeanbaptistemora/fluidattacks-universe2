@@ -257,7 +257,11 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                   </React.Fragment>
                 }
                 id={"tblURLRoots"}
-                onRowClick={handleRowClick}
+                onRowClick={
+                  permissions.can("api_mutations_update_url_root_mutate")
+                    ? handleRowClick
+                    : undefined
+                }
               />
             </Container>
           );
