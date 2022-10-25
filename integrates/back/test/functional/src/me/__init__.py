@@ -33,7 +33,6 @@ async def get_result(
                     state
                 }}
             }}
-            hasMobileApp
             isConcurrentSession
             notificationsPreferences{{
                 email

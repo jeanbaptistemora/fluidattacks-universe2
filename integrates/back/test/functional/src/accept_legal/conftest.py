@@ -26,7 +26,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="admin@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1634677195,
@@ -37,7 +36,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="hacker@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1634677195,
@@ -48,7 +46,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="reattacker@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657298463,
@@ -59,7 +56,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="user@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657298264,
@@ -70,7 +66,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="user_manager@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657298299,
@@ -81,7 +76,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="vulnerability_manager@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657298346,
@@ -92,7 +86,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="resourcer@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657298463,
@@ -103,7 +96,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="reviewer@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657295874,
@@ -114,7 +106,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="service_forces@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657278953,
@@ -125,7 +116,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             Stakeholder(
                 email="customer_manager@gmail.com",
                 legal_remember=True,
-                push_tokens=[],
                 is_registered=True,
                 access_token=StakeholderAccessToken(
                     iat=1657287433,

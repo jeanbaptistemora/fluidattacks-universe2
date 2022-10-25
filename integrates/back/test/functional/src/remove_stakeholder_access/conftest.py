@@ -95,7 +95,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 first_name="new_user",
                 last_name="new_user",
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
         ],

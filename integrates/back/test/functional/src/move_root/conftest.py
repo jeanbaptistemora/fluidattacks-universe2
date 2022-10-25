@@ -91,7 +91,6 @@ async def populate() -> bool:
                     national_number="1111111111",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
         ],

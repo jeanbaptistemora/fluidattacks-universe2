@@ -230,7 +230,6 @@ data: Dict[str, List[Any]] = dict(
             last_login_date="2019-10-29T18:40:37+00:00",
             legal_remember="True",
             registration_date="2019-02-28T16:54:12+00:00",
-            push_token="[ExponentPushToken[dummy]]",
             sk="USER#unittest@fluidattacks.com",
             pk_2="USER#all",
             pk="USER#unittest@fluidattacks.com",

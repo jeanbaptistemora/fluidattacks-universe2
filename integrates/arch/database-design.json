@@ -31,10 +31,6 @@
           "AttributeType": "M"
         },
         {
-          "AttributeName": "push_tokens",
-          "AttributeType": "L"
-        },
-        {
           "AttributeName": "registration_date",
           "AttributeType": "S"
         },
@@ -3034,13 +3030,6 @@
               "registration_date": {
                 "S": "2019-02-28T16:54:12+00:00"
               },
-              "push_tokens": {
-                "L": [
-                  {
-                    "S": "ExponentPushToken[dummy]"
-                  }
-                ]
-              },
               "sk": {
                 "S": "USER#unittest@fluidattacks.com"
               },
@@ -3074,7 +3063,6 @@
           "NonKeyAttributes": [
             "access_token",
             "session_token",
-            "push_tokens",
             "registration_date",
             "last_login_date",
             "legal_remember",

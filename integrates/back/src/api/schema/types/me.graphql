@@ -18,13 +18,6 @@ type Me {
   findingReattacks: [Finding]!
   "Indicates if user has rejected drafts"
   hasDraftsRejected: Boolean!
-  "Indicates if user has mobile app"
-  hasMobileApp: Boolean!
-    @deprecated(
-      reason: """
-      This field will be removed today 2022/10/25.
-      """
-    )
   "Indicator to see if there's more than one open session currently"
   isConcurrentSession: Boolean!
   "User preferences to notifications"

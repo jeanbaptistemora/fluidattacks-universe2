@@ -64,7 +64,6 @@ class Stakeholder(NamedTuple):
         NotificationsPreferences()
     )
     phone: Optional[StakeholderPhone] = None
-    push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
     role: Optional[str] = None
     session_key: Optional[str] = None
@@ -82,7 +81,6 @@ class StakeholderMetadataToUpdate(NamedTuple):
     legal_remember: Optional[bool] = None
     notifications_preferences: Optional[NotificationsPreferences] = None
     phone: Optional[StakeholderPhone] = None
-    push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
     role: Optional[str] = None
     session_key: Optional[str] = None

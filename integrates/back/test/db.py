@@ -128,7 +128,6 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
                     ]
                 ),
                 phone=item.phone,
-                push_tokens=item.push_tokens,
                 registration_date=item.registration_date,
                 role=item.role,
                 tours=item.tours,

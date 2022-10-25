@@ -123,7 +123,6 @@ def format_stakeholder(item: Item) -> Stakeholder:
             item.get("notifications_preferences")
         ),
         phone=format_phone(item["phone"]) if item.get("phone") else None,
-        push_tokens=item.get("push_tokens"),
         registration_date=item.get("registration_date"),
         role=item.get("role"),
         session_key=item.get("session_key"),

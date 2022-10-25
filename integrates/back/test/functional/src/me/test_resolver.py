@@ -276,7 +276,6 @@ async def test_get_me(
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert result["data"]["me"]["enrollment"] == enrollment
     assert result["data"]["me"]["vulnerabilitiesAssigned"] == assigned
-    assert not result["data"]["me"]["hasMobileApp"]
     assert not result["data"]["me"]["isConcurrentSession"]
     assert len(result["data"]["me"]["notificationsPreferences"]["email"]) == 18
     assert result["data"]["me"]["organizations"][0]["name"] == org_name

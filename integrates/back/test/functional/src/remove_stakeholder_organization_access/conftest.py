@@ -100,7 +100,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
         ],

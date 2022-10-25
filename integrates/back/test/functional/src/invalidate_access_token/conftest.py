@@ -31,7 +31,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -42,7 +41,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="32871c84b68cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -53,7 +51,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388cccc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -64,7 +61,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388ccdc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -75,7 +71,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388ccdd432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -86,7 +81,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7fccdd7cc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -97,7 +91,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388cccc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -108,7 +101,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388ccdc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -119,7 +111,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388c7cc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
             Stakeholder(
@@ -130,7 +121,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     salt="27c7f388cccc432871c84b63e78cd716739c40055253c",
                 ),
                 legal_remember=False,
-                push_tokens=[],
                 is_registered=True,
             ),
         ],
