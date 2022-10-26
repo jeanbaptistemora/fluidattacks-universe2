@@ -588,7 +588,7 @@ def generate_config(  # pylint: disable=too-many-locals
     return {
         "apk": {
             "exclude": [],
-            "include": ["glob(**/*.apk)"],
+            "include": ["glob(**/*.apk)"] if is_main else [],
         },
         "checks": list(checks),
         "commit": commit,
