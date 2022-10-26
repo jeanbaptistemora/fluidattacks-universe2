@@ -101,30 +101,6 @@ spec:
             allowPrivilegeEscalation: false
             privileged: false
             readOnlyRootFilesystem: false
-        - name: cache
-          image: ghcr.io/fluidattacks/makes:22.11
-          imagePullPolicy: Always
-          command: [m]
-          args:
-            - gitlab:fluidattacks/universe@${CI_COMMIT_SHA}
-            - /integrates/cache
-          env:
-            - name: MAKES_K8S_COMPAT
-              value: "1"
-          resources:
-            requests:
-              cpu: 600m
-              memory: 2000Mi
-            limits:
-              cpu: 4000m
-              memory: 3000Mi
-          envFrom:
-            - secretRef:
-                name: integrates-${CI_COMMIT_REF_NAME}
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-            readOnlyRootFilesystem: false
         - name: storage
           image: ghcr.io/fluidattacks/makes:22.11
           imagePullPolicy: Always
