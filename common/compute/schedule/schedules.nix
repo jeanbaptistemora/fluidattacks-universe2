@@ -26,9 +26,9 @@
 
     tags = {
       "Name" = "forces_process_groups_break";
-      "Management:Area" = "cost";
-      "Management:Product" = "forces";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "forces";
+      "management:type" = "product";
     };
   };
   forces_process_groups_pass = {
@@ -53,9 +53,9 @@
 
     tags = {
       "Name" = "forces_process_groups_pass";
-      "Management:Area" = "cost";
-      "Management:Product" = "forces";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "forces";
+      "management:type" = "product";
     };
   };
   integrates_abandoned_trial_notification = {
@@ -82,9 +82,9 @@
 
     tags = {
       "Name" = "abandoned_trial_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_add_repositories_notification = {
@@ -111,9 +111,9 @@
 
     tags = {
       "Name" = "add_repositories_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_add_stakeholders_notification = {
@@ -140,9 +140,9 @@
 
     tags = {
       "Name" = "add_stakeholders_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_analytics_notification = {
@@ -169,9 +169,9 @@
 
     tags = {
       "Name" = "analytics_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_clean_ephemerals = {
@@ -196,9 +196,9 @@
 
     tags = {
       "Name" = "integrates_clean_ephemerals";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_clone_groups_roots = {
@@ -225,9 +225,9 @@
 
     tags = {
       "Name" = "integrates_clone_groups_roots";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_clone_groups_roots_vpn = {
@@ -254,9 +254,9 @@
 
     tags = {
       "Name" = "integrates_clone_groups_roots_vpn";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_consume_dynamodb_stream = {
@@ -282,9 +282,9 @@
 
     tags = {
       "Name" = "integrates_consume_dynamodb_stream";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_define_treatments_notification = {
@@ -311,9 +311,9 @@
 
     tags = {
       "Name" = "define_treatments_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_devsecops_agent_notification = {
@@ -340,9 +340,9 @@
 
     tags = {
       "Name" = "devsecops_agent_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_groups_languages_distribution = {
@@ -399,9 +399,9 @@
 
     tags = {
       "Name" = "integrates_organization_vulnerabilities";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_delete_imamura_stakeholders = {
@@ -428,9 +428,9 @@
 
     tags = {
       "Name" = "integrates_delete_imamura_stakeholders";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_delete_obsolete_groups = {
@@ -457,9 +457,9 @@
 
     tags = {
       "Name" = "integrates_delete_obsolete_groups";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_delete_obsolete_orgs = {
@@ -486,9 +486,9 @@
 
     tags = {
       "Name" = "integrates_delete_obsolete_orgs";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_event_report = {
@@ -515,9 +515,9 @@
 
     tags = {
       "Name" = "integrates_event_report";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_expire_free_trial = {
@@ -544,9 +544,9 @@
 
     tags = {
       "Name" = "integrates_expire_free_trial";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_missing_environment_alert = {
@@ -573,9 +573,9 @@
 
     tags = {
       "Name" = "integrates_missing_environment_alert";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_numerator_report_digest = {
@@ -602,9 +602,9 @@
 
     tags = {
       "Name" = "integrates_numerator_report_digest";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_how_improve_notification = {
@@ -631,9 +631,9 @@
 
     tags = {
       "Name" = "integrates_how_improve_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_machine_queue_all = {
@@ -660,9 +660,9 @@
 
     tags = {
       "Name" = "integrates_machine_queue_all";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_machine_queue_re_attacks = {
@@ -689,9 +689,9 @@
 
     tags = {
       "Name" = "integrates_machine_queue_re_attacks";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_machine_report = {
@@ -718,9 +718,9 @@
 
     tags = {
       "Name" = "integrates_machine_report";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_refresh_toe_lines = {
@@ -747,9 +747,9 @@
 
     tags = {
       "Name" = "integrates_refresh_toe_lines";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_reminder_notification = {
@@ -776,9 +776,9 @@
 
     tags = {
       "Name" = "integrates_reminder_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_report_squad_usage = {
@@ -805,9 +805,9 @@
 
     tags = {
       "Name" = "integrates_report_squad_usage";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_requeue_actions = {
@@ -834,9 +834,9 @@
 
     tags = {
       "Name" = "integrates_requeue_actions";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_reset_expired_accepted_findings = {
@@ -863,9 +863,9 @@
 
     tags = {
       "Name" = "integrates_reset_expired_accepted_findings";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_charts_documents = rec {
@@ -950,9 +950,9 @@
 
     tags = {
       "Name" = "integrates_review_machine_executions";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_send_deprecation_notice = {
@@ -979,9 +979,9 @@
 
     tags = {
       "Name" = "integrates_send_deprecation_notice";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_subscriptions_analytics_daily = {
@@ -1008,9 +1008,9 @@
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_daily";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_subscriptions_analytics_monthly = {
@@ -1037,9 +1037,9 @@
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_monthly";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_subscriptions_analytics_weekly = {
@@ -1066,9 +1066,9 @@
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_weekly";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_support_channels_notification = {
@@ -1095,9 +1095,9 @@
 
     tags = {
       "Name" = "support_channels_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_temporal_treatment_report = {
@@ -1124,9 +1124,9 @@
 
     tags = {
       "Name" = "integrates_temporal_treatment_report";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_trial_ended_notification = {
@@ -1153,9 +1153,9 @@
 
     tags = {
       "Name" = "integrates_trial_ended_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_trial_ending_notification = {
@@ -1182,9 +1182,9 @@
 
     tags = {
       "Name" = "integrates_trial_ending_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_trial_reports_notification = {
@@ -1211,9 +1211,9 @@
 
     tags = {
       "Name" = "trial_reports_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_update_compliance = {
@@ -1240,9 +1240,9 @@
 
     tags = {
       "Name" = "integrates_update_compliance";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_update_group_toe_vulns = {
@@ -1269,9 +1269,9 @@
 
     tags = {
       "Name" = "integrates_update_group_toe_vulns";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_update_indicators = {
@@ -1298,9 +1298,9 @@
 
     tags = {
       "Name" = "integrates_update_indicators";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_update_portfolios = {
@@ -1327,9 +1327,9 @@
 
     tags = {
       "Name" = "integrates_update_portfolios";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   integrates_upgrade_squad_notification = {
@@ -1356,9 +1356,9 @@
 
     tags = {
       "Name" = "integrates_upgrade_squad_notification";
-      "Management:Area" = "cost";
-      "Management:Product" = "integrates";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
     };
   };
   cancel_stuck_jobs = {
@@ -1383,9 +1383,9 @@
 
     tags = {
       "Name" = "observes_etl_code_compute_bills";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_code_compute_bills = {
@@ -1410,9 +1410,9 @@
 
     tags = {
       "Name" = "observes_etl_code_compute_bills";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_dynamo_centralize = {
@@ -1437,9 +1437,9 @@
 
     tags = {
       "Name" = "observes_etl_dynamo_centralize";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_gitlab_ephemeral = {
@@ -1464,9 +1464,9 @@
 
     tags = {
       "Name" = "observes_etl_gitlab_issues";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_matomo = {
@@ -1491,9 +1491,9 @@
 
     tags = {
       "Name" = "observes_etl_matomo";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_mixpanel = {
@@ -1518,9 +1518,9 @@
 
     tags = {
       "Name" = "observes_etl_mixpanel";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_timedoctor = {
@@ -1545,9 +1545,9 @@
 
     tags = {
       "Name" = "observes_etl_timedoctor";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_timedoctor_backup = {
@@ -1572,9 +1572,9 @@
 
     tags = {
       "Name" = "observes_etl_timedoctor_backup";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_zoho_crm_fluid = {
@@ -1599,9 +1599,9 @@
 
     tags = {
       "Name" = "observes_etl_zoho_crm_fluid";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_etl_zoho_crm_fluid_prepare = {
@@ -1626,9 +1626,9 @@
 
     tags = {
       "Name" = "observes_etl_zoho_crm_fluid_prepare";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   observes_job_scheduler = {
@@ -1653,9 +1653,9 @@
 
     tags = {
       "Name" = "observes_job_scheduler";
-      "Management:Area" = "cost";
-      "Management:Product" = "observes";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
     };
   };
   skims_benchmark_owasp = {
@@ -1680,9 +1680,9 @@
 
     tags = {
       "Name" = "skims_benchmark_owasp";
-      "Management:Area" = "cost";
-      "Management:Product" = "skims";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "skims";
+      "management:type" = "product";
     };
   };
   skims_update_sca_table = {
@@ -1708,9 +1708,9 @@
 
     tags = {
       "Name" = "skims_update_sca_table";
-      "Management:Area" = "cost";
-      "Management:Product" = "skims";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "skims";
+      "management:type" = "product";
     };
   };
   sorts_association_rules = {
@@ -1735,9 +1735,9 @@
 
     tags = {
       "Name" = "sorts_association_rules";
-      "Management:Area" = "cost";
-      "Management:Product" = "sorts";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
     };
   };
   sorts_association_execute = rec {
@@ -1763,9 +1763,9 @@
 
     tags = {
       "Name" = "sorts_association_execute";
-      "Management:Area" = "cost";
-      "Management:Product" = "sorts";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
     };
   };
   sorts_execute = rec {
@@ -1791,9 +1791,9 @@
 
     tags = {
       "Name" = "sorts_execute";
-      "Management:Area" = "cost";
-      "Management:Product" = "sorts";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
     };
   };
   sorts_training_and_tune = {
@@ -1818,9 +1818,9 @@
 
     tags = {
       "Name" = "sorts_training_and_tune";
-      "Management:Area" = "cost";
-      "Management:Product" = "sorts";
-      "Management:Type" = "product";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
     };
   };
 }

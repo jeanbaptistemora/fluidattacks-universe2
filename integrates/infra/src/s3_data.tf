@@ -7,9 +7,9 @@ resource "aws_s3_bucket" "machine_data" {
 
   tags = {
     "Name"               = "machine.data"
-    "Management:Area"    = "cost"
-    "Management:Product" = "machine"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "machine"
+    "management:type"    = "product"
     "Access"             = "private"
   }
 }

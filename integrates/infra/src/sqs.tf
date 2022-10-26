@@ -11,8 +11,8 @@ resource "aws_sqs_queue" "celery_queue" {
 
   tags = {
     "Name"               = "celery"
-    "Management:Area"    = "cost"
-    "Management:Product" = "machine"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "machine"
+    "management:type"    = "product"
   }
 }

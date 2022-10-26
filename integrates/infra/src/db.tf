@@ -48,9 +48,9 @@ resource "aws_dynamodb_table" "integrates" {
 
   tags = {
     "Name"               = "integrates"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -170,9 +170,9 @@ resource "aws_dynamodb_table" "integrates_vms" {
 
   tags = {
     "Name"               = "integrates_vms"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -189,9 +189,9 @@ resource "aws_dynamodb_table" "integrates_vms_consumer" {
 
   tags = {
     "Name"               = "integrates_vms_consumer"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -230,9 +230,9 @@ resource "aws_dynamodb_table" "async_processing" {
   }
   tags = {
     "Name"               = "fi_async_processing"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -261,9 +261,9 @@ resource "aws_dynamodb_table" "authz" {
 
   tags = {
     "Name"               = "fi_authz"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -317,9 +317,9 @@ resource "aws_dynamodb_table" "subscriptions" {
 
   tags = {
     "Name"               = "fi_subscriptions"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -349,9 +349,9 @@ resource "aws_dynamodb_table" "project_comments" {
 
   tags = {
     "Name"               = "fi_project_comments"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -386,9 +386,9 @@ resource "aws_dynamodb_table" "events" {
 
   tags = {
     "Name"               = "fi_events"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -412,9 +412,9 @@ resource "aws_dynamodb_table" "projects" {
 
   tags = {
     "Name"               = "FI_projects"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -438,9 +438,9 @@ resource "aws_dynamodb_table" "users" {
 
   tags = {
     "Name"               = "FI_users"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -482,9 +482,9 @@ resource "aws_dynamodb_table" "project_access" {
 
   tags = {
     "Name"               = "FI_project_access"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 
   ttl {
@@ -532,9 +532,9 @@ resource "aws_dynamodb_table" "findings" {
 
   tags = {
     "Name"               = "project_findings"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -564,9 +564,9 @@ resource "aws_dynamodb_table" "finding_comments" {
 
   tags = {
     "Name"               = "fi_finding_comments"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -614,9 +614,9 @@ resource "aws_dynamodb_table" "vulnerabilities" {
 
   tags = {
     "Name"               = "FI_vulnerabilities"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -646,9 +646,9 @@ resource "aws_dynamodb_table" "portfolios" {
 
   tags = {
     "Name"               = "fi_portfolios"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -685,9 +685,9 @@ resource "aws_dynamodb_table" "organizations" {
 
   tags = {
     "Name"               = "fi_organizations"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -729,8 +729,8 @@ resource "aws_dynamodb_table" "forces" {
 
   tags = {
     "Name"               = "FI_forces"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }

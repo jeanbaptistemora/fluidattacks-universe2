@@ -51,9 +51,9 @@ resource "aws_security_group" "main" {
 
   tags = {
     "Name"               = "compute"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 
@@ -82,17 +82,17 @@ resource "aws_launch_template" "main" {
 
     tags = {
       "Name"               = "compute"
-      "Management:Area"    = "cost"
-      "Management:Product" = "common"
-      "Management:Type"    = "product"
+      "management:area"    = "cost"
+      "management:product" = "common"
+      "management:type"    = "product"
     }
   }
 
   tags = {
     "Name"               = "compute"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 
   user_data = filebase64("${path.module}/aws_batch_user_data")
@@ -124,9 +124,9 @@ resource "aws_batch_compute_environment" "main" {
 
     tags = {
       "Name"               = each.key
-      "Management:Area"    = "cost"
-      "Management:Product" = "common"
-      "Management:Type"    = "product"
+      "management:area"    = "cost"
+      "management:product" = "common"
+      "management:type"    = "product"
     }
 
     launch_template {
@@ -137,9 +137,9 @@ resource "aws_batch_compute_environment" "main" {
 
   tags = {
     "Name"               = each.key
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 
   lifecycle {
@@ -157,8 +157,8 @@ resource "aws_batch_job_queue" "main" {
 
   tags = {
     "Name"               = each.key
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }

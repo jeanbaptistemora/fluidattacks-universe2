@@ -43,9 +43,9 @@ locals {
         ]
         tags = {
           "Name"               = "prod_forces"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -60,9 +60,9 @@ module "prod_forces_aws" {
 
   tags = {
     "Name"               = "prod_forces"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

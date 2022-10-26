@@ -9,9 +9,9 @@ resource "aws_s3_bucket" "integrates" {
 
   tags = {
     "Name"               = "integrates"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 

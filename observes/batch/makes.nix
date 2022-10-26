@@ -35,9 +35,9 @@
       setup = [outputs."/secretsForAwsFromGitlab/prodObserves"];
       tags = {
         "Name" = name;
-        "Management:Area" = "cost";
-        "Management:Product" = "observes";
-        "Management:Type" = "product";
+        "management:area" = "cost";
+        "management:product" = "observes";
+        "management:type" = "product";
       };
     }
     // compute_resources size;

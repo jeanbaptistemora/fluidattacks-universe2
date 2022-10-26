@@ -224,9 +224,9 @@ locals {
         ]
         tags = {
           "Name"               = "prod_skims"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -241,9 +241,9 @@ module "prod_skims_aws" {
 
   tags = {
     "Name"               = "prod_skims"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

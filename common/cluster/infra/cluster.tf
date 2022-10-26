@@ -82,8 +82,8 @@ module "cluster" {
     "Environment"        = "production"
     "GithubRepo"         = "terraform-aws-eks"
     "GithubOrg"          = "terraform-aws-modules"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }

@@ -7,9 +7,9 @@ resource "aws_cloudwatch_log_group" "job" {
 
   tags = {
     "Name"               = "job"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 
@@ -19,8 +19,8 @@ resource "aws_cloudwatch_log_group" "skims" {
 
   tags = {
     "Name"               = "skims"
-    "Management:Area"    = "cost"
-    "Management:Product" = "skims"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
   }
 }

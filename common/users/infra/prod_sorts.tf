@@ -167,9 +167,9 @@ locals {
         ]
         tags = {
           "Name"               = "prod_sorts"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -195,9 +195,9 @@ module "prod_sorts_aws" {
 
   tags = {
     "Name"               = "prod_sorts"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

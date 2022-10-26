@@ -7,9 +7,9 @@ resource "aws_s3_bucket" "observes_cache" {
 
   tags = {
     "Name"               = "observes.cache"
-    "Management:Area"    = "cost"
-    "Management:Product" = "observes"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
     "Access"             = "private"
   }
 }

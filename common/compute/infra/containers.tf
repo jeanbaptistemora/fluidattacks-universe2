@@ -38,8 +38,8 @@ resource "aws_batch_job_definition" "main" {
 
   tags = {
     "Name"               = each.key
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }

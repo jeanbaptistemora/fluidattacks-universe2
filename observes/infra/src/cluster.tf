@@ -60,9 +60,9 @@ resource "aws_iam_role" "redshift-role" {
   assume_role_policy = data.aws_iam_policy_document.cluster-assume-role-document.json
   tags = {
     "Name"               = "redshift-role"
-    "Management:Area"    = "cost"
-    "Management:Product" = "observes"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 }
 resource "aws_iam_role_policy_attachment" "redshift-role-cluster-policy" {
@@ -96,9 +96,9 @@ resource "aws_security_group" "expose-redshift" {
   }
   tags = {
     "Name"               = "observes"
-    "Management:Area"    = "cost"
-    "Management:Product" = "observes"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 }
 resource "aws_redshift_subnet_group" "main" {
@@ -109,9 +109,9 @@ resource "aws_redshift_subnet_group" "main" {
 
   tags = {
     "Name"               = "observes"
-    "Management:Area"    = "cost"
-    "Management:Product" = "observes"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 }
 # Cluster
@@ -138,8 +138,8 @@ resource "aws_redshift_cluster" "main" {
 
   tags = {
     "Name"               = "observes"
-    "Management:Area"    = "cost"
-    "Management:Product" = "observes"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 }

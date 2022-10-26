@@ -35,8 +35,8 @@ resource "aws_dynamodb_table" "skims_sca" {
 
   tags = {
     "Name"               = "skims_sca"
-    "Management:Area"    = "cost"
-    "Management:Product" = "skims"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
   }
 }

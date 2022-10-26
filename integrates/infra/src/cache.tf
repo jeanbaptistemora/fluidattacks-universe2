@@ -29,9 +29,9 @@ resource "aws_security_group" "cache_db" {
 
   tags = {
     "Name"               = "integrates_cache"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -58,8 +58,8 @@ resource "aws_elasticache_replication_group" "cache_db" {
 
   tags = {
     "Name"               = "integrates-cache"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }

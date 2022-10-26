@@ -38,9 +38,9 @@ resource "aws_iam_role" "backup" {
 
   tags = {
     "Name"               = "integrates-backup"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -60,9 +60,9 @@ resource "aws_backup_vault" "main" {
 
   tags = {
     "Name"               = "integrates-dynamodb-backup-vault"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -71,9 +71,9 @@ resource "aws_backup_plan" "main" {
 
   tags = {
     "Name"               = "integrates-dynamodb-backup-plan"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 
   rule {

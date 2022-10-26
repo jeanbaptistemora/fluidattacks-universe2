@@ -7,9 +7,9 @@ resource "aws_s3_bucket" "skims_data" {
 
   tags = {
     "Name"               = "skims.data"
-    "Management:Area"    = "cost"
-    "Management:Product" = "skims"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
     "Access"             = "private"
   }
 }
@@ -110,9 +110,9 @@ resource "aws_s3_bucket" "skims_sca" {
 
   tags = {
     "Name"               = "skims.sca"
-    "Management:Area"    = "cost"
-    "Management:Product" = "skims"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
     "Access"             = "public-read"
   }
 }

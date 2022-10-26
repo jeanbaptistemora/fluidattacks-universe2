@@ -10,9 +10,9 @@ resource "aws_iam_user" "clouxter_erika_bayona" {
 
   tags = {
     "Name"               = "erika.bayona"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

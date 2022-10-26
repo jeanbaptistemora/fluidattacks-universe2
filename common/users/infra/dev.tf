@@ -193,9 +193,9 @@ locals {
         ]
         tags = {
           "Name"               = "dev"
-          "Management:Area"    = "innovation"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "innovation"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -226,9 +226,9 @@ module "dev_aws" {
 
   tags = {
     "Name"               = "dev"
-    "Management:Area"    = "innovation"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "innovation"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

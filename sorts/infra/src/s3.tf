@@ -7,9 +7,9 @@ resource "aws_s3_bucket" "sorts_bucket" {
 
   tags = {
     "Name"               = "sorts"
-    "Management:Area"    = "cost"
-    "Management:Product" = "sorts"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "sorts"
+    "management:type"    = "product"
     "Access"             = "private"
   }
 }

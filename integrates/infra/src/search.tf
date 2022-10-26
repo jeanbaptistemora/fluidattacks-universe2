@@ -22,9 +22,9 @@ resource "aws_security_group" "integrates-opensearch" {
 
   tags = {
     "Name"               = "integrates-opensearch"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -72,8 +72,8 @@ resource "aws_opensearch_domain" "integrates" {
 
   tags = {
     "Name"               = "integrates-opensearch"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }

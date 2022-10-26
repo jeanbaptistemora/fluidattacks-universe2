@@ -73,9 +73,9 @@ locals {
         ]
         tags = {
           "Name"               = "common_google"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
       common_okta = {
@@ -87,9 +87,9 @@ locals {
         ]
         tags = {
           "Name"               = "common_okta"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
       common_status = {
@@ -101,9 +101,9 @@ locals {
         ]
         tags = {
           "Name"               = "common_status"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
       common_vpn = {
@@ -115,9 +115,9 @@ locals {
         ]
         tags = {
           "Name"               = "common_vpn"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
       prod_common = {
@@ -127,9 +127,9 @@ locals {
         users = []
         tags = {
           "Name"               = "prod_common"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -159,9 +159,9 @@ module "prod_common_aws" {
 
   tags = {
     "Name"               = "prod_common"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

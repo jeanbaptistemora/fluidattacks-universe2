@@ -69,7 +69,7 @@ locals {
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
           ]
-          "Condition" : { "StringEquals" : { "aws:RequestTag/Management:Product" : "observes" } }
+          "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "observes" } }
         },
         {
           Sid    = "batchCancel"
@@ -81,7 +81,7 @@ locals {
           Resource = [
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
           ]
-          "Condition" : { "StringEquals" : { "aws:ResourceTag/Management:Product" : "observes" } }
+          "Condition" : { "StringEquals" : { "aws:ResourceTag/management:product" : "observes" } }
         },
         {
           Sid    = "batchSubmit"
@@ -93,7 +93,7 @@ locals {
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
           ]
-          "Condition" : { "StringEquals" : { "aws:RequestTag/Management:Product" : "observes" } }
+          "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "observes" } }
         },
         {
           # required to rename tags
@@ -262,9 +262,9 @@ locals {
         ]
         tags = {
           "Name"               = "prod_observes"
-          "Management:Area"    = "cost"
-          "Management:Product" = "common"
-          "Management:Type"    = "product"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
         }
       }
     }
@@ -279,9 +279,9 @@ module "prod_observes_aws" {
 
   tags = {
     "Name"               = "prod_observes"
-    "Management:Area"    = "cost"
-    "Management:Product" = "common"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
   }
 }
 

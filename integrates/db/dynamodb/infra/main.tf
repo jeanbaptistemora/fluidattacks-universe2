@@ -460,9 +460,9 @@ resource "aws_dynamodb_table" "integrates_vms_consumer" {
 
   tags = {
     "Name"               = "integrates_vms_consumer"
-    "Management:Area"    = "cost"
-    "Management:Product" = "integrates"
-    "Management:Type"    = "product"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
