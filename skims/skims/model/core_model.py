@@ -513,7 +513,7 @@ class FindingEnum(Enum):
         requirements=[173, 324],
     )
     F103: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F103",
         cwe=325,
         execution_queue=ExecutionQueue.apk,
