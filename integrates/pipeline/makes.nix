@@ -558,6 +558,7 @@ in {
                 needs = [
                   "/integrates/back/deploy/dev"
                 ];
+                retry = 2;
               };
           }
           {
