@@ -75,7 +75,7 @@ const Pagination = <TData extends RowData>({
                 }
               }}
               size={"sm"}
-              variant={"secondary"}
+              variant={el === pageSize ? "selected" : "secondary"}
             >
               {el}
             </Button>
@@ -111,7 +111,7 @@ const Pagination = <TData extends RowData>({
               }
             }}
             size={"sm"}
-            variant={"secondary"}
+            variant={el === pageIndex ? "selected" : "secondary"}
           >
             {el + 1}
           </Button>

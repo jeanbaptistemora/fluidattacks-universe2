@@ -14,6 +14,7 @@ type TVariant =
   | "primary"
   | "secondary"
   | "selected-input"
+  | "selected"
   | "tertiary";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -104,6 +105,15 @@ const variants: Record<TVariant, IVariant> = {
     color: "#d2d2da",
     colorHover: "#f4f4f6",
   },
+  selected: {
+    bgColor: "#49495A",
+    bgColorHover: "#49495a",
+    borderColor: "#2e2e38",
+    borderRadius: 4,
+    borderSize: 2,
+    color: "#d2d2da",
+    colorHover: "#f4f4f6",
+  },
   "selected-input": {
     bgColor: "#e9e9ed",
     bgColorHover: "#d2d2da",
@@ -169,5 +179,5 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
   }}
 `;
 
-export type { IStyledButtonProps };
+export type { IStyledButtonProps, TVariant };
 export { StyledButton };
