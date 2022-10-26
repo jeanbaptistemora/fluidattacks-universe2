@@ -7,8 +7,8 @@
 From deleted groups, archive roots metadata in redshift and
 remove all items from vms.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-26 at 17:45:07 UTC
+Finalization Time: 2022-10-26 at 22:24:44 UTC
 """
 
 from aioextensions import (
