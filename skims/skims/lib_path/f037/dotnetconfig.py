@@ -21,22 +21,24 @@ from typing import (
 )
 
 
+def has_remove_banner(soup: BeautifulSoup) -> bool:
+    for custom_headers in soup("customHeaders"):
+        for tag in custom_headers.contents:
+            if isinstance(tag, Tag):
+                tag_name = tag.name
+                tag_value = tag.attrs.get("name")
+                if tag_name == "remove" and tag_value == "X-Powered-By":
+                    return True
+    return False
+
+
 def not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         """
         Search for X-Powered-By headers in a Web.config source file or package.
         """
         soup = BeautifulSoup(content, features="xml")
-        has_remove_banner: bool = False
-        for custom_headers in soup("customHeaders"):
-            for tag in custom_headers.contents:
-                if isinstance(tag, Tag):
-                    tag_name = tag.name
-                    tag_value = tag.attrs.get("name")
-                    if tag_name == "remove" and tag_value == "X-Powered-By":
-                        has_remove_banner = True
-
-        if soup("customHeaders") and not has_remove_banner:
+        if soup("customHeaders") and not has_remove_banner(soup):
             line_no: int = 0
             col_no: int = 0
             yield line_no, col_no

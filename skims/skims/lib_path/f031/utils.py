@@ -68,6 +68,25 @@ def match_iam_passrole(action: str) -> bool:
     return match_pattern(action, "iam:PassRole")
 
 
+def get_node_open_pass_vulns(
+    stmt: Node,
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    actions = stmt.inner.get("Action")
+    resources = stmt.inner.get("Resource")
+    has_permissive_resources = any(map(is_resource_permissive, resources.raw))
+    is_iam_passrole = any(map(match_iam_passrole, actions.raw))
+
+    if has_permissive_resources and is_iam_passrole:
+        yield from (
+            resource
+            for resource in resources.data
+            if is_resource_permissive(resource.raw)
+        )
+        yield from (
+            action for action in actions.data if match_iam_passrole(action.raw)
+        )
+
+
 def open_passrole_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
@@ -77,24 +96,7 @@ def open_passrole_iterate_vulnerabilities(
             actions = stmt_raw.get("Action", [])
             resources = stmt_raw.get("Resource", [])
             if isinstance(stmt, Node) and actions and resources:
-                actions = stmt.inner.get("Action")
-                resources = stmt.inner.get("Resource")
-                has_permissive_resources = any(
-                    map(is_resource_permissive, resources.raw)
-                )
-                is_iam_passrole = any(map(match_iam_passrole, actions.raw))
-
-                if has_permissive_resources and is_iam_passrole:
-                    yield from (
-                        resource
-                        for resource in resources.data
-                        if is_resource_permissive(resource.raw)
-                    )
-                    yield from (
-                        action
-                        for action in actions.data
-                        if match_iam_passrole(action.raw)
-                    )
+                yield from get_node_open_pass_vulns(stmt)
             else:
                 if all(
                     (
@@ -105,37 +107,44 @@ def open_passrole_iterate_vulnerabilities(
                     yield stmt
 
 
+def get_node_negative_stmt_vulns(
+    stmt: Node,
+    stmt_raw: Node,
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    if "NotAction" in stmt_raw:
+        yield from (
+            action
+            for action in stmt.inner.get("NotAction").data
+            if not is_action_permissive(action.raw)
+        )
+
+    if "NotResource" in stmt_raw:
+        yield from (
+            resource
+            for resource in stmt.inner.get("NotResource").data
+            if not is_resource_permissive(resource.raw)
+        )
+
+
 def negative_statement_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
         stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
-
         if stmt_raw["Effect"] != "Allow":
             continue
 
         if isinstance(stmt, Node):
-            if "NotAction" in stmt_raw:
-                yield from (
-                    action
-                    for action in stmt.inner.get("NotAction").data
-                    if not is_action_permissive(action.raw)
-                )
-
-            if "NotResource" in stmt_raw:
-                yield from (
-                    resource
-                    for resource in stmt.inner.get("NotResource").data
-                    if not is_resource_permissive(resource.raw)
-                )
+            yield from get_node_negative_stmt_vulns(stmt, stmt_raw)
         else:
-            if "NotAction" in stmt_raw and not any(
-                map(is_action_permissive, stmt_raw["NotAction"])
-            ):
-                yield stmt
-
-            if "NotResource" in stmt_raw and not any(
-                map(is_resource_permissive, stmt_raw["NotResource"])
+            if (
+                "NotAction" in stmt_raw
+                and not any(map(is_action_permissive, stmt_raw["NotAction"]))
+            ) or (
+                "NotResource" in stmt_raw
+                and not any(
+                    map(is_resource_permissive, stmt_raw["NotResource"])
+                )
             ):
                 yield stmt
 

@@ -256,30 +256,31 @@ def _tfm_ec2_instances_without_profile_iterate_vulnerabilities(
             yield resource
 
 
+def _cfn_unrest_ipprot_awsec2_vulnerabilities(
+    resource: Any,
+) -> Iterator[Any]:
+    danger_values = ("-1", -1)
+    if ingress_block := get_argument(key="ingress", body=resource.data):
+        ingress_protocol = get_block_attribute(
+            block=ingress_block, key="protocol"
+        )
+        if ingress_protocol and ingress_protocol.val in danger_values:
+            yield ingress_protocol
+    if egress_block := get_argument(key="egress", body=resource.data):
+        egress_protocol = get_block_attribute(
+            block=egress_block, key="protocol"
+        )
+        if egress_protocol and egress_protocol.val in danger_values:
+            yield egress_protocol
+
+
 def _tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     danger_values = ("-1", -1)
     for resource in resource_iterator:
         if isinstance(resource, AWSEC2):
-            if ingress_block := get_argument(
-                key="ingress",
-                body=resource.data,
-            ):
-                ingress_protocol = get_block_attribute(
-                    block=ingress_block, key="protocol"
-                )
-                if ingress_protocol and ingress_protocol.val in danger_values:
-                    yield ingress_protocol
-            if egress_block := get_argument(
-                key="egress",
-                body=resource.data,
-            ):
-                egress_protocol = get_block_attribute(
-                    block=egress_block, key="protocol"
-                )
-                if egress_protocol and egress_protocol.val in danger_values:
-                    yield egress_protocol
+            yield from _cfn_unrest_ipprot_awsec2_vulnerabilities(resource)
         elif isinstance(resource, AWSEC2Rule):
             protocol_attr = get_attribute(body=resource.data, key="protocol")
             if protocol_attr and protocol_attr.val in danger_values:
@@ -307,34 +308,38 @@ def _insecure_ec2_tfm_cidrs(
     return False
 
 
+def _ec2_unrestricted_cidrs_awsec2_vulnerabilities(
+    resource: Any,
+) -> Iterator[Any]:
+    for item in resource.data:
+        if isinstance(item, Block) and item.namespace[0] in ("ingress"):
+            item_block = get_argument(
+                key=item.namespace[0], body=resource.data
+            )
+            ipv4_attr = get_block_attribute(
+                block=item_block,
+                key="cidr_blocks",
+            )
+            if ipv4_attr and _insecure_ec2_tfm_cidrs(
+                ipv4_attr, "ipv4", item.namespace[0]
+            ):
+                yield ipv4_attr
+            ipv6_attr = get_block_attribute(
+                block=item_block,
+                key="ipv6_cidr_blocks",
+            )
+            if ipv6_attr and _insecure_ec2_tfm_cidrs(
+                ipv6_attr, "ipv6", item.namespace[0]
+            ):
+                yield ipv6_attr
+
+
 def _tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
         if isinstance(resource, AWSEC2):
-            for item in resource.data:
-                if isinstance(item, Block) and item.namespace[0] in (
-                    "ingress",
-                ):
-                    item_block = get_argument(
-                        key=item.namespace[0], body=resource.data
-                    )
-                    ipv4_attr = get_block_attribute(
-                        block=item_block,
-                        key="cidr_blocks",
-                    )
-                    if ipv4_attr and _insecure_ec2_tfm_cidrs(
-                        ipv4_attr, "ipv4", item.namespace[0]
-                    ):
-                        yield ipv4_attr
-                    ipv6_attr = get_block_attribute(
-                        block=item_block,
-                        key="ipv6_cidr_blocks",
-                    )
-                    if ipv6_attr and _insecure_ec2_tfm_cidrs(
-                        ipv6_attr, "ipv6", item.namespace[0]
-                    ):
-                        yield ipv6_attr
+            yield from _ec2_unrestricted_cidrs_awsec2_vulnerabilities(resource)
         else:
             ipv4 = get_attribute(body=resource.data, key="cidr_blocks")
             if ipv4 and _insecure_ec2_tfm_cidrs(ipv4, "ipv4", None):
@@ -344,45 +349,47 @@ def _tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
                 yield ipv6
 
 
+def _ec2_unrestricted_ports_awsec2_vulnerabilities(
+    resource: Any,
+) -> Iterator[Any]:
+    if ingress_block := get_argument(
+        key="ingress",
+        body=resource.data,
+    ):
+        ingress_from_port = get_block_attribute(
+            block=ingress_block, key="from_port"
+        )
+        ingress_to_port = get_block_attribute(
+            block=ingress_block, key="to_port"
+        )
+        if (
+            ingress_from_port
+            and ingress_to_port
+            and float(ingress_from_port.val) != float(ingress_to_port.val)
+        ):
+            yield ingress_block
+    if egress_block := get_argument(
+        key="egress",
+        body=resource.data,
+    ):
+        egress_from_port = get_block_attribute(
+            block=egress_block, key="from_port"
+        )
+        egress_to_port = get_block_attribute(block=egress_block, key="to_port")
+        if (
+            egress_from_port
+            and egress_to_port
+            and float(egress_from_port.val) != float(egress_to_port.val)
+        ):
+            yield egress_block
+
+
 def _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
         if isinstance(resource, AWSEC2):
-            if ingress_block := get_argument(
-                key="ingress",
-                body=resource.data,
-            ):
-                ingress_from_port = get_block_attribute(
-                    block=ingress_block, key="from_port"
-                )
-                ingress_to_port = get_block_attribute(
-                    block=ingress_block, key="to_port"
-                )
-                if (
-                    ingress_from_port
-                    and ingress_to_port
-                    and float(ingress_from_port.val)
-                    != float(ingress_to_port.val)
-                ):
-                    yield ingress_block
-            if egress_block := get_argument(
-                key="egress",
-                body=resource.data,
-            ):
-                egress_from_port = get_block_attribute(
-                    block=egress_block, key="from_port"
-                )
-                egress_to_port = get_block_attribute(
-                    block=egress_block, key="to_port"
-                )
-                if (
-                    egress_from_port
-                    and egress_to_port
-                    and float(egress_from_port.val)
-                    != float(egress_to_port.val)
-                ):
-                    yield egress_block
+            yield from _ec2_unrestricted_ports_awsec2_vulnerabilities(resource)
         elif isinstance(resource, AWSEC2Rule):
             from_port_attr = get_attribute(body=resource.data, key="from_port")
             to_port_attr = get_attribute(body=resource.data, key="to_port")

@@ -16,9 +16,26 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
+    Any,
     Iterator,
     Tuple,
 )
+
+
+def analyse_tags(custom_headers: Any) -> Tuple[bool, int, int]:
+    vulnerable: bool = True
+    line_no: int = 0
+    col_no: int = 0
+    for tag in custom_headers.contents:
+        if isinstance(tag, Tag):
+            tag_name = tag.name
+            tag_value = tag.attrs.get("sslflags", "None")
+            if tag_name == "access" and tag_value != "None":
+                vulnerable = False
+            elif tag_name == "access" and tag_value == "None":
+                line_no = tag.sourceline
+                col_no = tag.sourcepos
+    return (vulnerable, line_no, col_no)
 
 
 def has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
@@ -30,23 +47,18 @@ def has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
         ``ApplicationHost.config`` source file or package.
         """
         soup = BeautifulSoup(content, features="html.parser")
-        vulnerable: bool = True
-        line_no: int = 0
-        col_no: int = 0
+        if soup("security"):
+            vulnerable: bool = True
+            line_no: int = 0
+            col_no: int = 0
 
-        for custom_headers in soup("security"):
-            for tag in custom_headers.contents:
-                if isinstance(tag, Tag):
-                    tag_name = tag.name
-                    tag_value = tag.attrs.get("sslflags", "None")
-                    if tag_name == "access" and tag_value != "None":
-                        vulnerable = False
-                    elif tag_name == "access" and tag_value == "None":
-                        line_no = tag.sourceline
-                        col_no = tag.sourcepos
+            for custom_headers in soup("security"):
+                vuln_tag, line_no, col_no = analyse_tags(custom_headers)
+                if not vuln_tag:
+                    vulnerable = False
 
-        if vulnerable and soup("security"):
-            yield line_no, col_no
+            if vulnerable:
+                yield line_no, col_no
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,

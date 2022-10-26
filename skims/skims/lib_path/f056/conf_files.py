@@ -21,13 +21,13 @@ from typing import (
 def _json_anon_connection_config(
     template: Any,
 ) -> Iterator[Any]:
-    if template.data_type == ModelType.OBJECT:
-        if (
-            (conn_str := template.inner.get("iisSettings"))
-            and (anon_conn := conn_str.inner.get("anonymousAuthentication"))
-            and anon_conn.data
-        ):
-            yield anon_conn.start_line, anon_conn.start_column
+    if (
+        template.data_type == ModelType.OBJECT
+        and (conn_str := template.inner.get("iisSettings"))
+        and (anon_conn := conn_str.inner.get("anonymousAuthentication"))
+        and anon_conn.data
+    ):
+        yield anon_conn.start_line, anon_conn.start_column
 
 
 def json_anon_connection_config(

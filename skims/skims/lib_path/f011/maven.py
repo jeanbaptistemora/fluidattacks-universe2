@@ -116,13 +116,11 @@ def maven_gradle(content: str, path: str) -> Iterator[DependencyType]:
 
 def _is_pom_xml(content: str) -> bool:
     root = bs4.BeautifulSoup(content, features="html.parser")
-    if root.project:
-        if root.project.get("xmlns"):
-            is_pom_xml = (
-                str(root.project["xmlns"])
-                == "http://maven.apache.org/POM/4.0.0"
-            )
-            return is_pom_xml
+    if root.project and root.project.get("xmlns"):
+        is_pom_xml = (
+            str(root.project["xmlns"]) == "http://maven.apache.org/POM/4.0.0"
+        )
+        return is_pom_xml
     return False
 
 
@@ -151,7 +149,6 @@ def _interpolate(path: str, value: str) -> List[Any]:
 
 def _find_vars(value: str, path: str) -> str:
     dir_paths = _get_parent_paths(path)
-    interpolated_value = value
     is_match, interpolated_value = _interpolate(path, value)
     if is_match:
         return interpolated_value

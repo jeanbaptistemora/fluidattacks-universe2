@@ -33,12 +33,17 @@ from utils.function import (
 
 
 def _helper_insecure_protocols(
-    orig_ssl_prots: Node,
+    origins: Node,
     vulnerable_origin_ssl_protocols: List[str],
 ) -> Iterator[Node]:
-    for ssl_prot in orig_ssl_prots.data:
-        if ssl_prot.raw in vulnerable_origin_ssl_protocols:
-            yield ssl_prot
+    for origin in origins.data:
+        orig_ssl_prots = get_node_by_keys(
+            origin, ["CustomOriginConfig", "OriginSSLProtocols"]
+        )
+        if isinstance(orig_ssl_prots, Node):
+            for ssl_prot in orig_ssl_prots.data:
+                if ssl_prot.raw in vulnerable_origin_ssl_protocols:
+                    yield ssl_prot
 
 
 def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
@@ -58,14 +63,9 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 yield min_prot_ver
             origins = get_node_by_keys(dist_config, ["Origins"])
             if isinstance(origins, Node):
-                for origin in origins.data:
-                    orig_ssl_prots = get_node_by_keys(
-                        origin, ["CustomOriginConfig", "OriginSSLProtocols"]
-                    )
-                    if isinstance(orig_ssl_prots, Node):
-                        yield from _helper_insecure_protocols(
-                            orig_ssl_prots, VULNERABLE_ORIGIN_SSL_PROTOCOLS
-                        )
+                yield from _helper_insecure_protocols(
+                    origins, VULNERABLE_ORIGIN_SSL_PROTOCOLS
+                )
 
 
 def _cfn_elb_without_sslpolicy(
