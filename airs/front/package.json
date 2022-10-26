@@ -1,17 +1,10 @@
 {
-  "name": "airs",
-  "version": "1.0.0",
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/fluidattacks/universe.git"
-  },
   "author": "development@fluidattacks.com",
-  "license": "MPL-2.0",
   "bugs": {
     "url": "https://gitlab.com/fluidattacks/universe/issues"
   },
   "dependencies": {
+    "@auth0/auth0-react": "1.11.0",
     "@bugsnag/js": "7.17.0",
     "@bugsnag/plugin-react": "7.17.0",
     "@datapunt/matomo-tracker-react": "0.5.1",
@@ -65,6 +58,7 @@
     "tachyons": "4.12.0",
     "ts-node": "10.9.1"
   },
+  "description": "",
   "devDependencies": {
     "@babel/core": "7.18.6",
     "@babel/eslint-parser": "7.18.2",
@@ -105,6 +99,11 @@
     "stylelint-config-sass-guidelines": "9.0.1",
     "typescript": "4.7.4"
   },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MPL-2.0",
+  "name": "airs",
   "overrides": {
     "@mdx-js/react": {
       "react": "18.1.0"
@@ -135,18 +134,16 @@
     "unset-value": "2.0.1",
     "xmlhttprequest-ssl": "2.0.0"
   },
-  "keywords": [
-    "gatsby"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fluidattacks/universe.git"
+  },
   "scripts": {
     "build": "gatsby build",
     "build:eph": "gatsby build --prefix-paths",
+    "clean": "gatsby clean",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "lint:stylelint": "stylelint '**/*.scss' --output-file",
     "lint:eslint": "tsc --noEmit -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "storybook": "start-storybook -p 6006",
