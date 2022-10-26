@@ -525,6 +525,99 @@ to your vulnerabilities to orderly
 manage them.
 
 ![Define treatments](https://res.cloudinary.com/fluid-attacks/image/upload/v1666785236/docs/web/notifications/define_treatments.png)
+
+### Devsecops agent
+
+This notification will be sent to
+you if you are a user who completed
+the ARM [free trial registration](/machine/web/self-enrollment)
+We recommend that users install the
+[agent](/machine/agent/installation)
+on their CI to avoid passing to open
+production vulnerabilities.
+
+![Devsecops agent](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789273/docs/web/notifications/devsecops_agent.png)
+
+### Trial reports
+
+If you are a user who completed the
+ARM free trial registration and are
+enjoying the Continuous Hacking service,
+you will receive this notification
+where we remind you that you can
+download the [reports](/machine/web/groups/reports)
+with information about your vulnerabilities.
+
+![Reports](https://res.cloudinary.com/fluid-attacks/image/upload/v1666791001/docs/web/notifications/trial_reports.png)
+
+### Free trial over
+
+Once you receive this notification,
+you will receive an email informing
+you that the free trial is over.
+You can continue to enjoy
+**Continuous Hacking**
+by contacting a salesperson or having
+a CS section to give us feedback on
+your experience using the platform.
+
+![Free trial over](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789419/docs/web/notifications/free_trial_over.png)
+
+### CS Improve
+
+When you receive this notification,
+you will receive an email invitation
+to a **Customer Success section**.
+In this section,
+we want to hear from our new users
+how they have experienced the platform,
+improvement areas,
+and features to highlight.
+
+![CS section](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789677/docs/web/notifications/cs_feedback.png)
+
+### Support channels
+
+This notification will be sent to you
+if you are a user who completed the
+ARM free trial registration and is
+enjoying the Continuous Hacking service.
+We will remind you that we have several
+[support channels](/machine/web/support/live-chat/)
+you can use when you have questions,
+concerns,
+or need help on the platform.
+
+![Support](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790540/docs/web/notifications/support_channels.png)
+
+### Trial ended
+
+When you receive this notification,
+you will receive an email reminding
+you that the Free Trial has ended
+and you enjoyed the 21 free days of
+the Continuous Hacking plan.
+With this reminder,
+you can continue with the service
+by contacting a salesperson,
+or you can also download the
+information on the vulnerabilities
+reported in that time of usability
+of the platform.
+
+![Trial done](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790699/docs/web/notifications/trial_ended.png)
+
+### Trial ending
+
+If you receive this notification,
+you will receive an email that your
+Free Trial plan will end in three days.
+Here you have two options: Contact
+a salesperson or download all the
+vulnerabilities reported in that time.
+
+![Trial ending soon](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790815/docs/web/notifications/trial_ending.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
