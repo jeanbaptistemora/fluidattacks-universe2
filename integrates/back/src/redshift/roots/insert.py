@@ -23,8 +23,12 @@ from .utils import (
 from dynamodb.types import (
     Item,
 )
+from itertools import (
+    chain,
+)
 from redshift.operations import (
     execute,
+    execute_batch,
     execute_many,
 )
 
@@ -69,3 +73,47 @@ async def insert_root(
 ) -> None:
     await insert_metadata(item=item)
     await insert_code_languages(item=item)
+
+
+async def insert_batch_code_languages(
+    *,
+    items: tuple[Item, ...],
+) -> None:
+    _fields, values = format_query_fields(CodeLanguagesTableRow)
+    sql_values = list(
+        chain.from_iterable(format_row_code_languages(item) for item in items)
+    )
+    if not sql_values:
+        return
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=CODE_LANGUAGES_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_metadata(
+    *,
+    items: tuple[Item, ...],
+) -> None:
+    _fields, values = format_query_fields(MetadataTableRow)
+    sql_values = [format_row_metadata(item) for item in items]
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_roots(
+    *,
+    items: tuple[Item, ...],
+) -> None:
+    await insert_batch_metadata(items=items)
+    await insert_batch_code_languages(items=items)
