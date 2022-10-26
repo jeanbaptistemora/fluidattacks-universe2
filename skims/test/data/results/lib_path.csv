@@ -21522,7 +21522,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,23,310,skims,052. I
   32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
   33 |
      ^ Col 0
-",java.java_insecure_cipher
+",java.java_insecure_cipher_ssl
 F052,lines,namespace/skims/test/data/lib_path/f052/javascript.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/javascript.js,"
    1 | const crypto = require(""crypto"");
    2 |
@@ -22037,7 +22037,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,sk
   20 |  try {
   21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
      ^ Col 1
-",java.java_insecure_cipher
+",java.java_insecure_cipher_ssl
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
    1 | using System;
    2 | using System.IO;

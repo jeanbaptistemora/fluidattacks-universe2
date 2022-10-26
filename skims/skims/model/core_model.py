@@ -2713,6 +2713,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_CIPHER_SSL = MethodInfo(
+        file_name="java",
+        name="java_insecure_cipher_ssl",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_INSECURE_CONNECTION = MethodInfo(
         file_name="java",
         name="java_insecure_connection",

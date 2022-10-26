@@ -33,61 +33,18 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
-    Iterator,
 )
 import utils.graph as g
-from utils.languages.java import (
-    is_cipher_vulnerable as java_cipher_vulnerable,
-)
 from utils.string import (
     complete_attrs_on_set,
 )
 
 
-def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and evaluation.danger:
             return True
-    return False
-
-
-def get_node_value_from_triggers(
-    graph: Graph, n_id: str, method: MethodsEnum
-) -> Iterator[str]:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.triggers != set():
-            yield "".join(list(evaluation.triggers)).lower()
-
-
-def eval_insecure_cipher(graph: Graph, m_id: NId, method: MethodsEnum) -> bool:
-    n_attrs = graph.nodes[m_id]
-    if (al_id := n_attrs.get("arguments_id")) and (
-        param := g.match_ast(graph, al_id).get("__0__")
-    ):
-        for cipher in get_node_value_from_triggers(graph, param, method):
-            if java_cipher_vulnerable(cipher):
-                return True
-    return False
-
-
-def eval_insecure_cipher_ssl(
-    graph: Graph, m_id: NId, method: MethodsEnum
-) -> bool:
-    ssl_safe_methods = {
-        "tlsv1.2",
-        "tlsv1.3",
-        "dtlsv1.2",
-        "dtlsv1.3",
-    }
-    n_attrs = graph.nodes[m_id]
-    if (al_id := n_attrs.get("arguments_id")) and (
-        param := g.match_ast(graph, al_id).get("__0__")
-    ):
-        for cipher in get_node_value_from_triggers(graph, param, method):
-            if cipher not in ssl_safe_methods:
-                return True
     return False
 
 
@@ -357,8 +314,12 @@ def java_insecure_cipher(
             graph = shard.syntax_graph
 
             for m_id, m_name in yield_method_invocation_syntax_graph(graph):
-                if m_name in ciphers and eval_insecure_cipher(
-                    graph, m_id, method
+                n_attrs = graph.nodes[m_id]
+                if (
+                    m_name in ciphers
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
                 ):
                     yield shard, m_id
 
@@ -374,7 +335,7 @@ def java_insecure_cipher_ssl(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_CIPHER
+    method = MethodsEnum.JAVA_INSECURE_CIPHER_SSL
     ssl_ciphers = complete_attrs_on_set(
         {"javax.net.ssl.SSLContext.getInstance"}
     )
@@ -388,8 +349,12 @@ def java_insecure_cipher_ssl(
             graph = shard.syntax_graph
 
             for m_id, m_name in yield_method_invocation_syntax_graph(graph):
-                if m_name in ssl_ciphers and eval_insecure_cipher_ssl(
-                    graph, m_id, method
+                n_attrs = graph.nodes[m_id]
+                if (
+                    m_name in ssl_ciphers
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
                 ):
                     yield shard, m_id
 

@@ -47,6 +47,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,"
+   42 |   response.setContentType(""text/html;charset=UTF-8"");
+   43 |
+   44 |
+   45 |   java.io.InputStream param = request.getInputStream();
+   46 |
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = param;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,"
    45 | putStream param = request.getInputStream();
    46 |
@@ -118,6 +142,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.j
    71 | trInput = new byte[1000];
    72 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,67,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,"
+   57 |      }
+   58 |     }
+   59 |    }
+   60 |   }
+   61 |
+   62 |
+   63 |   try {
+   64 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   65 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   66 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  67 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   68 |
+   69 |             // Prepare the cipher to encrypt
+   70 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   71 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   72 |
+   73 |    // encrypt and store the results
+   74 |    byte[] input = { (byte)'?' };
+   75 |    Object inputParam = param;
+   76 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   77 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,70,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,"
    60 |
@@ -383,6 +431,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.j
    97 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00059.java,82,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00059.java,"
+   72 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   73 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   74 | //     };
+   75 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   76 | //  byte[] iv = random.generateSeed(16);
+   77 |
+   78 |   try {
+   79 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   80 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   81 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  82 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   83 |
+   84 |    // Prepare the cipher to encrypt
+   85 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   86 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   87 |
+   88 |    // encrypt and store the results
+   89 |    byte[] input = { (byte)'?' };
+   90 |    Object inputParam = bar;
+   91 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   92 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,79,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,"
    69 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    70 |  8-byte initialization vector
@@ -623,6 +695,102 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.j
    79 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00127.java,79,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00127.java,"
+   69 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   70 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   71 | //     };
+   72 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   73 | //  byte[] iv = random.generateSeed(16);
+   74 |
+   75 |   try {
+   76 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   77 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   78 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  79 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   80 |
+   81 |    // Prepare the cipher to encrypt
+   82 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   83 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   84 |
+   85 |    // encrypt and store the results
+   86 |    byte[] input = { (byte)'?' };
+   87 |    Object inputParam = bar;
+   88 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   89 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00128.java,75,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00128.java,"
+   65 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   66 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   67 | //     };
+   68 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   69 | //  byte[] iv = random.generateSeed(16);
+   70 |
+   71 |   try {
+   72 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   73 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   74 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  75 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   76 |
+   77 |    // Prepare the cipher to encrypt
+   78 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   79 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   80 |
+   81 |    // encrypt and store the results
+   82 |    byte[] input = { (byte)'?' };
+   83 |    Object inputParam = bar;
+   84 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   85 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00129.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00129.java,"
+   59 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   60 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   61 | //     };
+   62 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   63 | //  byte[] iv = random.generateSeed(16);
+   64 |
+   65 |   try {
+   66 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |    // Prepare the cipher to encrypt
+   72 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   73 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00130.java,88,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00130.java,"
+   78 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   79 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   80 | //     };
+   81 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   82 | //  byte[] iv = random.generateSeed(16);
+   83 |
+   84 |   try {
+   85 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   86 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   87 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  88 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   89 |
+   90 |    // Prepare the cipher to encrypt
+   91 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   92 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   93 |
+   94 |    // encrypt and store the results
+   95 |    byte[] input = { (byte)'?' };
+   96 |    Object inputParam = bar;
+   97 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   98 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,81,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,"
    71 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    72 |      // 8-byte initialization vector
@@ -718,6 +886,54 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.j
    90 | trInput = new byte[1000];
    91 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00213.java,88,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00213.java,"
+   78 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   79 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   80 | //     };
+   81 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   82 | //  byte[] iv = random.generateSeed(16);
+   83 |
+   84 |   try {
+   85 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   86 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   87 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  88 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   89 |
+   90 |    // Prepare the cipher to encrypt
+   91 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   92 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   93 |
+   94 |    // encrypt and store the results
+   95 |    byte[] input = { (byte)'?' };
+   96 |    Object inputParam = bar;
+   97 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   98 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00214.java,78,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00214.java,"
+   68 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   69 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   70 | //     };
+   71 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   72 | //  byte[] iv = random.generateSeed(16);
+   73 |
+   74 |   try {
+   75 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   76 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   77 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  78 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   79 |
+   80 |    // Prepare the cipher to encrypt
+   81 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   82 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   83 |
+   84 |    // encrypt and store the results
+   85 |    byte[] input = { (byte)'?' };
+   86 |    Object inputParam = bar;
+   87 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   88 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,"
    62 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -911,6 +1127,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.j
    80 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,58,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,"
+   48 |   if (param != null) {
+   49 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
+   50 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
+   51 |   }
+   52 |
+   53 |
+   54 |   try {
+   55 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   56 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   57 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  58 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   59 |
+   60 |             // Prepare the cipher to encrypt
+   61 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   62 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   63 |
+   64 |    // encrypt and store the results
+   65 |    byte[] input = { (byte)'?' };
+   66 |    Object inputParam = bar;
+   67 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   68 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,61,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,"
    51 |
    52 |
@@ -934,6 +1174,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.j
    70 | ((java.io.InputStream) inputParam).read(strInput);
    71 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,67,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,"
+   57 |       org.apache.commons.codec.binary.Base64.encodeBase64( d85622.getBytes() ) )); // B64 encode and decode it
+   58 |   String f85622 = e85622.split("" "")[0]; // split it on a space
+   59 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
+   60 |   String bar = thing.doSomething(f85622); // reflection
+   61 |
+   62 |
+   63 |   try {
+   64 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   65 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   66 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  67 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   68 |
+   69 |             // Prepare the cipher to encrypt
+   70 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   71 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   72 |
+   73 |    // encrypt and store the results
+   74 |    byte[] input = { (byte)'?' };
+   75 |    Object inputParam = bar;
+   76 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   77 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,70,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,"
    60 |  = thing.doSomething(f85622); // reflection
@@ -959,6 +1223,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.j
    80 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,"
+   50 |   int num = 196;
+   51 |   if ( (500/42) + num > 200 )
+   52 |      bar = param;
+   53 |   else bar = ""This should never happen"";
+   54 |
+   55 |
+   56 |   try {
+   57 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   58 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   59 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  60 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   61 |
+   62 |             // Prepare the cipher to encrypt
+   63 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   64 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   65 |
+   66 |    // encrypt and store the results
+   67 |    byte[] input = { (byte)'?' };
+   68 |    Object inputParam = bar;
+   69 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   70 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,63,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,"
    53 |  ""This should never happen"";
    54 |
@@ -982,6 +1270,54 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.j
    72 | ((java.io.InputStream) inputParam).read(strInput);
    73 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00357.java,64,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00357.java,"
+   54 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   55 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   56 | //     };
+   57 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   58 | //  byte[] iv = random.generateSeed(16);
+   59 |
+   60 |   try {
+   61 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   62 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   63 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  64 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   65 |
+   66 |    // Prepare the cipher to encrypt
+   67 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   68 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   69 |
+   70 |    // encrypt and store the results
+   71 |    byte[] input = { (byte)'?' };
+   72 |    Object inputParam = bar;
+   73 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   74 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00358.java,65,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00358.java,"
+   55 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   56 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   57 | //     };
+   58 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   59 | //  byte[] iv = random.generateSeed(16);
+   60 |
+   61 |   try {
+   62 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   63 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   64 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  65 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   66 |
+   67 |    // Prepare the cipher to encrypt
+   68 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   69 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   70 |
+   71 |    // encrypt and store the results
+   72 |    byte[] input = { (byte)'?' };
+   73 |    Object inputParam = bar;
+   74 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   75 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,79,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,"
    69 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -1079,6 +1415,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.j
    85 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,65,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,"
+   55 |   int num = 86;
+   56 |   if ( (7*42) - num > 200 )
+   57 |      bar = ""This_should_always_happen"";
+   58 |   else bar = param;
+   59 |
+   60 |
+   61 |   try {
+   62 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   63 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   64 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  65 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   66 |
+   67 |             // Prepare the cipher to encrypt
+   68 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   69 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   70 |
+   71 |    // encrypt and store the results
+   72 |    byte[] input = { (byte)'?' };
+   73 |    Object inputParam = bar;
+   74 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   75 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,68,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,"
    58 |  param;
    59 |
@@ -1103,6 +1463,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.j
    78 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,62,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,"
+   52 |   String bar = param;
+   53 |   if (param != null && param.length() > 1) {
+   54 |       bar = param.substring(0,param.length()-1);
+   55 |   }
+   56 |
+   57 |
+   58 |   try {
+   59 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   60 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   61 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  62 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   63 |
+   64 |             // Prepare the cipher to encrypt
+   65 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   66 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   67 |
+   68 |    // encrypt and store the results
+   69 |    byte[] input = { (byte)'?' };
+   70 |    Object inputParam = bar;
+   71 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   72 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,65,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,"
    55 |
    56 |
@@ -1126,6 +1510,54 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.j
    74 | ((java.io.InputStream) inputParam).read(strInput);
    75 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00450.java,82,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00450.java,"
+   72 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   73 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   74 | //     };
+   75 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   76 | //  byte[] iv = random.generateSeed(16);
+   77 |
+   78 |   try {
+   79 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   80 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   81 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  82 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   83 |
+   84 |    // Prepare the cipher to encrypt
+   85 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   86 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   87 |
+   88 |    // encrypt and store the results
+   89 |    byte[] input = { (byte)'?' };
+   90 |    Object inputParam = bar;
+   91 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   92 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00451.java,75,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00451.java,"
+   65 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   66 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   67 | //     };
+   68 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   69 | //  byte[] iv = random.generateSeed(16);
+   70 |
+   71 |   try {
+   72 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   73 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   74 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  75 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   76 |
+   77 |    // Prepare the cipher to encrypt
+   78 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   79 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   80 |
+   81 |    // encrypt and store the results
+   82 |    byte[] input = { (byte)'?' };
+   83 |    Object inputParam = bar;
+   84 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   85 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,81,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,"
    71 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -1222,6 +1654,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.j
    92 | trInput = new byte[1000];
    93 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00524.java,91,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00524.java,"
+   81 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   82 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   83 | //     };
+   84 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   85 | //  byte[] iv = random.generateSeed(16);
+   86 |
+   87 |   try {
+   88 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   89 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   90 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  91 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   92 |
+   93 |    // Prepare the cipher to encrypt
+   94 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   95 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   96 |
+   97 |    // encrypt and store the results
+   98 |    byte[] input = { (byte)'?' };
+   99 |    Object inputParam = bar;
+  100 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+  101 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,"
    62 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -1511,6 +1967,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.j
    81 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,"
+   45 |   if (param == null) param = """";
+   46 |
+   47 |
+   48 |   String bar = org.owasp.esapi.ESAPI.encoder().encodeForHTML(param);
+   49 |
+   50 |
+   51 |   try {
+   52 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   53 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   54 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  55 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   56 |
+   57 |             // Prepare the cipher to encrypt
+   58 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   59 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   60 |
+   61 |    // encrypt and store the results
+   62 |    byte[] input = { (byte)'?' };
+   63 |    Object inputParam = bar;
+   64 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   65 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,58,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,"
    48 |  = org.owasp.esapi.ESAPI.encoder().encodeForHTML(param);
    49 |
@@ -1535,6 +2015,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.j
    68 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,56,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,"
+   46 |
+   47 |
+   48 |   StringBuilder sbxyz57328 = new StringBuilder(param);
+   49 |   String bar = sbxyz57328.append(""_SafeStuff"").toString();
+   50 |
+   51 |
+   52 |   try {
+   53 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   54 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   55 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  56 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   57 |
+   58 |             // Prepare the cipher to encrypt
+   59 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   60 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   61 |
+   62 |    // encrypt and store the results
+   63 |    byte[] input = { (byte)'?' };
+   64 |    Object inputParam = bar;
+   65 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   66 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,"
    49 |  = sbxyz57328.append(""_SafeStuff"").toString();
    50 |
@@ -1558,6 +2062,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.j
    68 | ((java.io.InputStream) inputParam).read(strInput);
    69 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00618.java,71,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00618.java,"
+   61 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   62 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   63 | //     };
+   64 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   65 | //  byte[] iv = random.generateSeed(16);
+   66 |
+   67 |   try {
+   68 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   69 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   70 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  71 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   72 |
+   73 |    // Prepare the cipher to encrypt
+   74 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   75 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   76 |
+   77 |    // encrypt and store the results
+   78 |    byte[] input = { (byte)'?' };
+   79 |    Object inputParam = bar;
+   80 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   81 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,64,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,"
    54 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -2135,6 +2663,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.j
    93 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,"
+   49 |   map87594.put(""keyA-87594"", ""a-Value""); // put some stuff in the collection
+   50 |   map87594.put(""keyB-87594"", param); // put it in a collection
+   51 |   map87594.put(""keyC"", ""another-Value""); // put some stuff in the collection
+   52 |   bar = (String)map87594.get(""keyB-87594""); // get it back out
+   53 |
+   54 |
+   55 |   try {
+   56 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   57 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   58 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  59 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   60 |
+   61 |             // Prepare the cipher to encrypt
+   62 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   63 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   64 |
+   65 |    // encrypt and store the results
+   66 |    byte[] input = { (byte)'?' };
+   67 |    Object inputParam = bar;
+   68 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   69 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,62,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,"
    52 | ing)map87594.get(""keyB-87594""); // get it back out
    53 |
@@ -2159,6 +2711,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.j
    72 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,"
+   59 |     }
+   60 |    }
+   61 |   }
+   62 |
+   63 |   String bar = new Test().doSomething(request, param);
+   64 |
+   65 |   try {
+   66 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |             // Prepare the cipher to encrypt
+   72 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   73 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,"
    62 |
    63 |  = new Test().doSomething(request, param);
@@ -2182,6 +2758,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.j
    81 | ((java.io.InputStream) inputParam).read(strInput);
    82 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,"
+   59 |     }
+   60 |    }
+   61 |   }
+   62 |
+   63 |   String bar = new Test().doSomething(request, param);
+   64 |
+   65 |   try {
+   66 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |             // Prepare the cipher to encrypt
+   72 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   73 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,"
    62 |
@@ -2399,6 +2999,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.j
    77 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,57,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,"
+   47 |
+   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+   50 |
+   51 |   String bar = new Test().doSomething(request, param);
+   52 |
+   53 |   try {
+   54 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   55 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   56 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  57 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   58 |
+   59 |             // Prepare the cipher to encrypt
+   60 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   61 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   62 |
+   63 |    // encrypt and store the results
+   64 |    byte[] input = { (byte)'?' };
+   65 |    Object inputParam = bar;
+   66 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   67 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,"
    50 |
    51 |  = new Test().doSomething(request, param);
@@ -2422,6 +3046,54 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.j
    69 | ((java.io.InputStream) inputParam).read(strInput);
    70 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01021.java,67,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01021.java,"
+   57 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   58 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   59 | //     };
+   60 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   61 | //  byte[] iv = random.generateSeed(16);
+   62 |
+   63 |   try {
+   64 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   65 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   66 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  67 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   68 |
+   69 |    // Prepare the cipher to encrypt
+   70 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   71 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   72 |
+   73 |    // encrypt and store the results
+   74 |    byte[] input = { (byte)'?' };
+   75 |    Object inputParam = bar;
+   76 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   77 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01022.java,67,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01022.java,"
+   57 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   58 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   59 | //     };
+   60 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   61 | //  byte[] iv = random.generateSeed(16);
+   62 |
+   63 |   try {
+   64 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   65 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   66 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  67 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   68 |
+   69 |    // Prepare the cipher to encrypt
+   70 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   71 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   72 |
+   73 |    // encrypt and store the results
+   74 |    byte[] input = { (byte)'?' };
+   75 |    Object inputParam = bar;
+   76 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   77 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,73,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,"
    63 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -2567,6 +3239,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.j
    86 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,"
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = new Test().doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,"
    59 |
    60 |  = new Test().doSomething(request, param);
@@ -2590,6 +3286,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
    79 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,"
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = new Test().doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,"
    59 |
@@ -2615,6 +3335,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.j
    79 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,"
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = new Test().doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,"
    59 |
    60 |  = new Test().doSomething(request, param);
@@ -2638,6 +3382,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
    79 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01108.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01108.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,"
    56 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -2783,6 +3551,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.j
    79 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01153.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01153.java,"
+   59 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   60 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   61 | //     };
+   62 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   63 | //  byte[] iv = random.generateSeed(16);
+   64 |
+   65 |   try {
+   66 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |    // Prepare the cipher to encrypt
+   72 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   73 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,"
    49 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    50 |      // 8-byte initialization vector
@@ -2878,6 +3670,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.j
    71 | trInput = new byte[1000];
    72 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,"
+   42 |
+   43 |   String param = request.getParameter(""BenchmarkTest01230"");
+   44 |   if (param == null) param = """";
+   45 |
+   46 |   String bar = new Test().doSomething(request, param);
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = bar;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,"
    45 |
@@ -3143,6 +3959,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.j
    77 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,57,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,"
+   47 |    if (values != null) param = values[0];
+   48 |   }
+   49 |
+   50 |
+   51 |   String bar = new Test().doSomething(request, param);
+   52 |
+   53 |   try {
+   54 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   55 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   56 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  57 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   58 |
+   59 |             // Prepare the cipher to encrypt
+   60 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   61 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   62 |
+   63 |    // encrypt and store the results
+   64 |    byte[] input = { (byte)'?' };
+   65 |    Object inputParam = bar;
+   66 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   67 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,"
    50 |
    51 |  = new Test().doSomething(request, param);
@@ -3214,6 +4054,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.j
    84 | trInput = new byte[1000];
    85 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01401.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01401.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,"
    50 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -3407,6 +4271,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.j
    73 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,53,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,"
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheParameter(""BenchmarkTest01489"");
+   45 |   if (param == null) param = """";
+   46 |
+   47 |   String bar = new Test().doSomething(request, param);
+   48 |
+   49 |   try {
+   50 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   51 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   52 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  53 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   54 |
+   55 |             // Prepare the cipher to encrypt
+   56 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   57 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   58 |
+   59 |    // encrypt and store the results
+   60 |    byte[] input = { (byte)'?' };
+   61 |    Object inputParam = bar;
+   62 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   63 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,56,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,"
    46 |
    47 |  = new Test().doSomething(request, param);
@@ -3479,6 +4367,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.j
    75 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,"
+   45 |   if (values != null && values.length > 0)
+   46 |     param = values[0];
+   47 |   else param = """";
+   48 |
+   49 |   String bar = new Test().doSomething(request, param);
+   50 |
+   51 |   try {
+   52 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   53 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   54 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  55 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   56 |
+   57 |             // Prepare the cipher to encrypt
+   58 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   59 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   60 |
+   61 |    // encrypt and store the results
+   62 |    byte[] input = { (byte)'?' };
+   63 |    Object inputParam = bar;
+   64 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   65 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,58,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,"
    48 |
    49 |  = new Test().doSomething(request, param);
@@ -3502,6 +4414,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.j
    67 | ((java.io.InputStream) inputParam).read(strInput);
    68 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01567.java,65,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01567.java,"
+   55 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   56 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   57 | //     };
+   58 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   59 | //  byte[] iv = random.generateSeed(16);
+   60 |
+   61 |   try {
+   62 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   63 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   64 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  65 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   66 |
+   67 |    // Prepare the cipher to encrypt
+   68 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   69 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   70 |
+   71 |    // encrypt and store the results
+   72 |    byte[] input = { (byte)'?' };
+   73 |    Object inputParam = bar;
+   74 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   75 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,73,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,"
    63 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -3695,6 +4631,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.j
    86 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,"
+   56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+   57 |   }
+   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+   59 |
+   60 |   String bar = new Test().doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,"
    59 |
    60 |  = new Test().doSomething(request, param);
@@ -3718,6 +4678,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
    79 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,"
+   42 |
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheValue(""BenchmarkTest01740"");
+   45 |
+   46 |   String bar = new Test().doSomething(request, param);
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = bar;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,"
    45 |
@@ -3743,6 +4727,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.j
    65 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,"
+   42 |
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheValue(""BenchmarkTest01741"");
+   45 |
+   46 |   String bar = new Test().doSomething(request, param);
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = bar;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,"
    45 |
    46 |  = new Test().doSomething(request, param);
@@ -3766,6 +4774,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.j
    64 | ((java.io.InputStream) inputParam).read(strInput);
    65 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,"
+   42 |
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheValue(""BenchmarkTest01742"");
+   45 |
+   46 |   String bar = new Test().doSomething(request, param);
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = bar;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,"
    45 |
@@ -3887,6 +4919,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.j
    89 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,"
+   59 |     }
+   60 |    }
+   61 |   }
+   62 |
+   63 |   String bar = doSomething(request, param);
+   64 |
+   65 |   try {
+   66 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |             // Prepare the cipher to encrypt
+   72 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   73 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,"
    62 |
    63 |  = doSomething(request, param);
@@ -3910,6 +4966,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.j
    81 | ((java.io.InputStream) inputParam).read(strInput);
    82 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,"
+   59 |     }
+   60 |    }
+   61 |   }
+   62 |
+   63 |   String bar = doSomething(request, param);
+   64 |
+   65 |   try {
+   66 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |             // Prepare the cipher to encrypt
+   72 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   73 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,72,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,"
    62 |
@@ -4079,6 +5159,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.j
    77 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,57,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,"
+   47 |
+   48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+   50 |
+   51 |   String bar = doSomething(request, param);
+   52 |
+   53 |   try {
+   54 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   55 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   56 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  57 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   58 |
+   59 |             // Prepare the cipher to encrypt
+   60 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   61 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   62 |
+   63 |    // encrypt and store the results
+   64 |    byte[] input = { (byte)'?' };
+   65 |    Object inputParam = bar;
+   66 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   67 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,"
    50 |
    51 |  = doSomething(request, param);
@@ -4102,6 +5206,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.j
    69 | ((java.io.InputStream) inputParam).read(strInput);
    70 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01901.java,67,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01901.java,"
+   57 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   58 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   59 | //     };
+   60 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   61 | //  byte[] iv = random.generateSeed(16);
+   62 |
+   63 |   try {
+   64 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   65 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   66 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  67 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   68 |
+   69 |    // Prepare the cipher to encrypt
+   70 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   71 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   72 |
+   73 |    // encrypt and store the results
+   74 |    byte[] input = { (byte)'?' };
+   75 |    Object inputParam = bar;
+   76 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   77 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,73,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,"
    63 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -4151,6 +5279,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.j
    86 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,"
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,"
    59 |
    60 |  = doSomething(request, param);
@@ -4175,6 +5327,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.j
    79 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,"
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = doSomething(request, param);
+   61 |
+   62 |   try {
+   63 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   64 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   65 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  66 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   67 |
+   68 |             // Prepare the cipher to encrypt
+   69 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   70 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   71 |
+   72 |    // encrypt and store the results
+   73 |    byte[] input = { (byte)'?' };
+   74 |    Object inputParam = bar;
+   75 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   76 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,"
    59 |
    60 |  = doSomething(request, param);
@@ -4198,6 +5374,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
    79 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01982.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01982.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,66,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,"
    56 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -4391,6 +5591,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.j
    78 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,"
+   49 |
+   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+   52 |
+   53 |   String bar = doSomething(request, param);
+   54 |
+   55 |   try {
+   56 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   57 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   58 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  59 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   60 |
+   61 |             // Prepare the cipher to encrypt
+   62 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   63 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   64 |
+   65 |    // encrypt and store the results
+   66 |    byte[] input = { (byte)'?' };
+   67 |    Object inputParam = bar;
+   68 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   69 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,62,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,"
    52 |
    53 |  = doSomething(request, param);
@@ -4415,6 +5639,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.j
    72 |  -1) {
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,"
+   49 |
+   50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+   51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+   52 |
+   53 |   String bar = doSomething(request, param);
+   54 |
+   55 |   try {
+   56 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   57 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   58 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  59 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   60 |
+   61 |             // Prepare the cipher to encrypt
+   62 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   63 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   64 |
+   65 |    // encrypt and store the results
+   66 |    byte[] input = { (byte)'?' };
+   67 |    Object inputParam = bar;
+   68 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   69 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,62,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,"
    52 |
    53 |  = doSomething(request, param);
@@ -4438,6 +5686,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.j
    71 | ((java.io.InputStream) inputParam).read(strInput);
    72 |  -1) {
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02024.java,69,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02024.java,"
+   59 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   60 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   61 | //     };
+   62 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   63 | //  byte[] iv = random.generateSeed(16);
+   64 |
+   65 |   try {
+   66 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   67 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   68 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  69 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   70 |
+   71 |    // Prepare the cipher to encrypt
+   72 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   73 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   74 |
+   75 |    // encrypt and store the results
+   76 |    byte[] input = { (byte)'?' };
+   77 |    Object inputParam = bar;
+   78 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   79 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,"
    49 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -4486,6 +5758,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.j
    70 | trInput = new byte[1000];
    71 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02103.java,62,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02103.java,"
+   52 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   53 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   54 | //     };
+   55 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   56 | //  byte[] iv = random.generateSeed(16);
+   57 |
+   58 |   try {
+   59 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   60 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   61 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  62 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   63 |
+   64 |    // Prepare the cipher to encrypt
+   65 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   66 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   67 |
+   68 |    // encrypt and store the results
+   69 |    byte[] input = { (byte)'?' };
+   70 |    Object inputParam = bar;
+   71 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   72 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,64,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,"
    54 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
@@ -4967,6 +6263,78 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.j
    86 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02296.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02296.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02297.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02297.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02298.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02298.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,60,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,"
    50 |   // http://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    51 |      // 8-byte initialization vector
@@ -5062,6 +6430,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.j
    72 | trInput = new byte[1000];
    73 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,53,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,"
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheParameter(""BenchmarkTest02375"");
+   45 |   if (param == null) param = """";
+   46 |
+   47 |   String bar = doSomething(request, param);
+   48 |
+   49 |   try {
+   50 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   51 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   52 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  53 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   54 |
+   55 |             // Prepare the cipher to encrypt
+   56 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   57 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   58 |
+   59 |    // encrypt and store the results
+   60 |    byte[] input = { (byte)'?' };
+   61 |    Object inputParam = bar;
+   62 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   63 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,56,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,"
    46 |
@@ -5279,6 +6671,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.j
    86 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
 ",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02552.java,76,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02552.java,"
+   66 | //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
+   67 | //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
+   68 | //     };
+   69 | //     java.security.SecureRandom random = new java.security.SecureRandom();
+   70 | //  byte[] iv = random.generateSeed(16);
+   71 |
+   72 |   try {
+   73 |    java.util.Properties benchmarkprops = new java.util.Properties();
+   74 |    benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   75 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg2"", ""AES/ECB/PKCS5Padding"");
+>  76 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   77 |
+   78 |    // Prepare the cipher to encrypt
+   79 |    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+   80 |    c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   81 |
+   82 |    // encrypt and store the results
+   83 |    byte[] input = { (byte)'?' };
+   84 |    Object inputParam = bar;
+   85 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   86 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
+",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,59,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,"
    49 | tp://examples.javacodegeeks.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    50 |  8-byte initialization vector
@@ -5422,6 +6838,30 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.j
    71 | trInput = new byte[1000];
    72 | ((java.io.InputStream) inputParam).read(strInput);
       ^ Col 12
+",java.java_insecure_cipher
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,52,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,"
+   42 |
+   43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
+   44 |   String param = scr.getTheValue(""BenchmarkTest02663"");
+   45 |
+   46 |   String bar = doSomething(request, param);
+   47 |
+   48 |   try {
+   49 |       java.util.Properties benchmarkprops = new java.util.Properties();
+   50 |       benchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
+   51 |    String algorithm = benchmarkprops.getProperty(""cryptoAlg1"", ""DESede/ECB/PKCS5Padding"");
+>  52 |    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
+   53 |
+   54 |             // Prepare the cipher to encrypt
+   55 |             javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+   56 |             c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+   57 |
+   58 |    // encrypt and store the results
+   59 |    byte[] input = { (byte)'?' };
+   60 |    Object inputParam = bar;
+   61 |    if (inputParam instanceof String) input = ((String) inputParam).getBytes();
+   62 |    if (inputParam instanceof java.io.InputStream) {
+      ^ Col 0
 ",java.java_insecure_cipher
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,55,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,"
    45 |

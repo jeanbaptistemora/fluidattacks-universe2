@@ -14,6 +14,24 @@ from utils import (
 )
 
 INSECURE_HASHES = {"md2", "md4", "md5", "sha1", "sha-1"}
+SSL_SAFE_METHODS = {
+    "tlsv1.2",
+    "tlsv1.3",
+    "dtlsv1.2",
+    "dtlsv1.3",
+}
+
+
+def java_insecure_hash(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    args.evaluation[args.n_id] = False
+    if args.graph.nodes[args.n_id]["value_type"] == "string":
+        member_str = args.graph.nodes[args.n_id]["value"]
+        if member_str.lower().replace('"', "") in INSECURE_HASHES:
+            args.evaluation[args.n_id] = True
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
 def java_insecure_key_rsa(
@@ -42,7 +60,7 @@ def java_insecure_key_ec(
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
-def java_insecure_key_secret(
+def java_evaluate_cipher(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
@@ -59,25 +77,13 @@ def java_insecure_key_secret(
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
-def java_insecure_hash(
+def java_insecure_cipher_ssl(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
     if args.graph.nodes[args.n_id]["value_type"] == "string":
-        member_str = args.graph.nodes[args.n_id]["value"]
-        if member_str.lower().replace('"', "") in INSECURE_HASHES:
-            args.evaluation[args.n_id] = True
-
-    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
-
-
-def java_insecure_cipher(
-    args: SymbolicEvalArgs,
-) -> SymbolicEvaluation:
-    args.evaluation[args.n_id] = False
-    if args.graph.nodes[args.n_id]["value_type"] == "string":
-        member_str = args.graph.nodes[args.n_id]["value"].replace('"', "")
-        args.triggers.add(member_str)
+        cipher_ssl = args.graph.nodes[args.n_id]["value"].replace('"', "")
+        args.evaluation[args.n_id] = cipher_ssl.lower() not in SSL_SAFE_METHODS
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
