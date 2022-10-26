@@ -164,7 +164,7 @@ technology are the most adopted technology for several companies. Some
 other trends, such as serverless computing, container technology, and
 hyperconverged infrastructure, are all technologies that we often use at
 `Fluid Attacks`. We are dabbling in [artificial
-intelligence](../categories/machine-learning/) in a cybersecurity
+intelligence](../tags/machine-learning/) in a cybersecurity
 approach for vulnerabilities [classification](../triage-hacker/), and we
 already asserts the vulnerabilities closures on our customers' pipelines
 (`CI/CD`) with our [continuous hacking
