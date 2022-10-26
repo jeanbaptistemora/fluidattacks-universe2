@@ -20,8 +20,7 @@ function main {
       eph) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod-local) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
-        && export DEBUG=True \
-        && export REDIS_SERVER=localhost ;;
+        && export DEBUG=True ;;
       *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && export CI_COMMIT_REF_NAME \

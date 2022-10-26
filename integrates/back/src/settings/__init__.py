@@ -5,9 +5,6 @@
 from .analytics import (
     MIXPANEL_API_TOKEN,
 )
-from .cache import (
-    CACHE_TTL,
-)
 from .jwt import (
     JWT_COOKIE_NAME,
     JWT_COOKIE_SAMESITE,
@@ -34,7 +31,6 @@ from .various import (
 
 __all__ = [
     "MIXPANEL_API_TOKEN",
-    "CACHE_TTL",
     "JWT_COOKIE_NAME",
     "JWT_COOKIE_SAMESITE",
     "JWT_SECRET",
