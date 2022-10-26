@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from contextlib import (
-    suppress,
-)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -38,9 +35,6 @@ from typing import (
     Iterable,
     Iterator,
 )
-from utils.crypto import (
-    insecure_elliptic_curve,
-)
 import utils.graph as g
 from utils.languages.java import (
     is_cipher_vulnerable as java_cipher_vulnerable,
@@ -67,70 +61,12 @@ def get_node_value_from_triggers(
             yield "".join(list(evaluation.triggers)).lower()
 
 
-def eval_insecure_key_rsa(graph: Graph, n_id: NId) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_KEY
-    oc_attrs = graph.nodes[n_id]
-
-    if (al_id := oc_attrs.get("arguments_id")) and (
-        param := g.match_ast(graph, al_id).get("__0__")
-    ):
-        for key_value in get_node_value_from_triggers(graph, param, method):
-            with suppress(TypeError):
-                key_length = int(key_value)
-                if key_length < 2048:
-                    return True
-    return False
-
-
-def eval_insecure_key_ec(graph: Graph, n_id: NId) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_KEY
-    oc_attrs = graph.nodes[n_id]
-
-    if (al_id := oc_attrs.get("arguments_id")) and (
-        param := g.match_ast(graph, al_id).get("__0__")
-    ):
-        for key_value in get_node_value_from_triggers(graph, param, method):
-            if insecure_elliptic_curve(key_value):
-                return True
-    return False
-
-
-def eval_insecure_key_secret(graph: Graph, n_id: NId) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_KEY
-    oc_attrs = graph.nodes[n_id]
-
-    if (
-        (al_id := oc_attrs.get("arguments_id"))
-        and (childs := g.adj_ast(graph, al_id))
-        and len(childs) > 0
-        and (param := childs[-1])
-    ):
-        for key_value in get_node_value_from_triggers(graph, param, method):
-            if java_cipher_vulnerable(key_value):
-                return True
-    return False
-
-
-def eval_insecure_hash_argument(
-    graph: Graph, m_id: NId, method: MethodsEnum
-) -> bool:
-    mi_attrs = graph.nodes[m_id]
-    m_al = g.adj_ast(graph, mi_attrs.get("arguments_id"))
-    is_insecure = []
-    for argument in m_al:
-        res = get_eval_danger(graph, argument, method)
-        is_insecure.append(res)
-    if any(is_insecure):
-        return True
-    return False
-
-
 def eval_insecure_cipher(graph: Graph, m_id: NId, method: MethodsEnum) -> bool:
-    mi_attrs = graph.nodes[m_id]
-    m_al = g.adj_ast(graph, mi_attrs.get("arguments_id"))
-
-    for argument in m_al:
-        for cipher in get_node_value_from_triggers(graph, argument, method):
+    n_attrs = graph.nodes[m_id]
+    if (al_id := n_attrs.get("arguments_id")) and (
+        param := g.match_ast(graph, al_id).get("__0__")
+    ):
+        for cipher in get_node_value_from_triggers(graph, param, method):
             if java_cipher_vulnerable(cipher):
                 return True
     return False
@@ -145,11 +81,11 @@ def eval_insecure_cipher_ssl(
         "dtlsv1.2",
         "dtlsv1.3",
     }
-    mi_attrs = graph.nodes[m_id]
-    m_al = g.adj_ast(graph, mi_attrs.get("arguments_id"))
-
-    for argument in m_al:
-        for cipher in get_node_value_from_triggers(graph, argument, method):
+    n_attrs = graph.nodes[m_id]
+    if (al_id := n_attrs.get("arguments_id")) and (
+        param := g.match_ast(graph, al_id).get("__0__")
+    ):
+        for cipher in get_node_value_from_triggers(graph, param, method):
             if cipher not in ssl_safe_methods:
                 return True
     return False
@@ -201,7 +137,7 @@ def java_insecure_key_rsa(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_KEY
+    method = MethodsEnum.JAVA_INSECURE_KEY_RSA
     insecure_rsa_spec = complete_attrs_on_set(
         {"java.security.spec.RSAKeyGenParameterSpec"}
     )
@@ -219,10 +155,13 @@ def java_insecure_key_rsa(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                oc_attrs = graph.nodes[n_id]
-                if oc_attrs[
-                    "name"
-                ] in insecure_rsa_spec and eval_insecure_key_rsa(graph, n_id):
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["name"] in insecure_rsa_spec
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
@@ -237,7 +176,7 @@ def java_insecure_key_ec(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_KEY
+    method = MethodsEnum.JAVA_INSECURE_KEY_EC
     insecure_ec_spec = complete_attrs_on_set(
         {"java.security.spec.ECGenParameterSpec"}
     )
@@ -255,10 +194,13 @@ def java_insecure_key_ec(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                oc_attrs = graph.nodes[n_id]
-                if oc_attrs[
-                    "name"
-                ] in insecure_ec_spec and eval_insecure_key_ec(graph, n_id):
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["name"] in insecure_ec_spec
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
@@ -273,7 +215,7 @@ def java_insecure_key_secret(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_KEY
+    method = MethodsEnum.JAVA_INSECURE_KEY_SECRET
     insecure_secret_spec = complete_attrs_on_set(
         {"javax.crypto.spec.SecretKeySpec"}
     )
@@ -291,11 +233,13 @@ def java_insecure_key_secret(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                oc_attrs = graph.nodes[n_id]
-                if oc_attrs[
-                    "name"
-                ] in insecure_secret_spec and eval_insecure_key_secret(
-                    graph, n_id
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["name"] in insecure_secret_spec
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (childs := g.adj_ast(graph, al_id))
+                    and (param := childs[-1])
+                    and get_eval_danger(graph, param, method)
                 ):
                     yield shard, n_id
 
@@ -375,9 +319,12 @@ def java_insecure_hash_argument(
             graph = shard.syntax_graph
 
             for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                n_attrs = graph.nodes[m_id]
                 if (
                     m_name in insecure_digests_2
-                    and eval_insecure_hash_argument(graph, m_id, method)
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
                 ):
                     yield shard, m_id
 
@@ -443,6 +390,43 @@ def java_insecure_cipher_ssl(
             for m_id, m_name in yield_method_invocation_syntax_graph(graph):
                 if m_name in ssl_ciphers and eval_insecure_cipher_ssl(
                     graph, m_id, method
+                ):
+                    yield shard, m_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def java_insecure_cipher_jmqi(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_INSECURE_CIPHER_JMQI
+    jmqi_ciphers = complete_attrs_on_set(
+        {
+            "com.ibm.mq.jmqi.JmqiUtils.toCipherSuite",
+        }
+    )
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVA,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for m_id, m_name in yield_method_invocation_syntax_graph(graph):
+                n_attrs = graph.nodes[m_id]
+                if (
+                    m_name in jmqi_ciphers
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (param := g.match_ast(graph, al_id).get("__0__"))
+                    and get_eval_danger(graph, param, method)
                 ):
                     yield shard, m_id
 

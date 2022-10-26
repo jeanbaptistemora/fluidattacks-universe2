@@ -2697,6 +2697,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_CIPHER_JMQI = MethodInfo(
+        file_name="java",
+        name="java_insecure_cipher_jmqi",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_INSECURE_CONNECTION = MethodInfo(
         file_name="java",
         name="java_insecure_connection",
@@ -2716,6 +2724,30 @@ class MethodsEnum(Enum):
     JAVA_INSECURE_KEY = MethodInfo(
         file_name="java",
         name="java_insecure_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_KEY_EC = MethodInfo(
+        file_name="java",
+        name="java_insecure_key_ec",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_KEY_RSA = MethodInfo(
+        file_name="java",
+        name="java_insecure_key_rsa",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_KEY_SECRET = MethodInfo(
+        file_name="java",
+        name="java_insecure_key_secret",
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,

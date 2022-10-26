@@ -12,8 +12,11 @@ from symbolic_eval.f052.literal.c_sharp import (
 )
 from symbolic_eval.f052.literal.java import (
     java_insecure_cipher,
+    java_insecure_cipher_jmqi,
     java_insecure_hash,
-    java_insecure_key,
+    java_insecure_key_ec,
+    java_insecure_key_rsa,
+    java_insecure_key_secret,
 )
 from symbolic_eval.f052.literal.javascript import (
     js_insecure_cipher,
@@ -33,9 +36,12 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_DISABLED_STRONG_CRYPTO: cs_disabled_strong_crypto,
     MethodsEnum.CS_INSECURE_KEYS: cs_insecure_keys,
     MethodsEnum.CS_RSA_SECURE_MODE: cs_rsa_secure_mode,
-    MethodsEnum.JAVA_INSECURE_KEY: java_insecure_key,
+    MethodsEnum.JAVA_INSECURE_KEY_EC: java_insecure_key_ec,
+    MethodsEnum.JAVA_INSECURE_KEY_RSA: java_insecure_key_rsa,
+    MethodsEnum.JAVA_INSECURE_KEY_SECRET: java_insecure_key_secret,
     MethodsEnum.JAVA_INSECURE_HASH: java_insecure_hash,
     MethodsEnum.JAVA_INSECURE_CIPHER: java_insecure_cipher,
+    MethodsEnum.JAVA_INSECURE_CIPHER_JMQI: java_insecure_cipher_jmqi,
     MethodsEnum.JS_INSECURE_HASH: js_insecure_hash,
     MethodsEnum.JS_INSECURE_CIPHER: js_insecure_cipher,
     MethodsEnum.JS_INSECURE_KEY: js_insecure_key,

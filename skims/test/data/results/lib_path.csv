@@ -21993,6 +21993,27 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,12,3
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,"
+   1 | import com.ibm.mq.*;
+   2 | import com.ibm.mq.jmqi.JmqiUtils;
+   3 | import org.apache.log4j.Logger;
+   4 |
+   5 | class Test {
+   6 |
+   7 |  private final String cipherSuite = ""TLS_RSA_WITH_AES_128_CBC_SHA256"";
+   8 |
+   9 |  public void insecure() {
+> 10 |   JmqiUtils.toCipherSuite(cipherSuite);
+  11 |  }
+  12 |
+  13 |  public void secure() {
+  14 |   String safeSuite = ""TLS_ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256"";
+  15 |   JmqiUtils.toCipherSuite(safeSuite);
+  16 |  }
+  17 |
+  18 | }
+     ^ Col 0
+",java.java_insecure_cipher_jmqi
 F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_cipher.java,"
    1 | mport javax.net.ssl.SSLContext;
    2 | mport javax.net.ssl.SSLSession;
@@ -22682,30 +22703,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310,skims,052. Ins
   23 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/java.java,32,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
-  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
-  23 |         SSLContext.getInstance(""SSLv3"");//
-  24 |
-  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
-  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
-  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
-  28 |
-  29 |         DigestUtils.sha1Hex(""test""); //
-  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
-  31 |
-> 32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
-  33 |
-  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
-  35 |
-  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
-  37 |
-  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
-  39 |     }
-  40 |
-  41 |     public static void safe(String[] args) {
-  42 |
-     ^ Col 0
-",java.java_insecure_key
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
   24 |
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
@@ -22729,7 +22726,31 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,34,310,skims,052. I
   43 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
   44 |
      ^ Col 0
-",java.java_insecure_key
+",java.java_insecure_key_ec
+F052,lines,namespace/skims/test/data/lib_path/f052/java.java,32,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+> 32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+  40 |
+  41 |     public static void safe(String[] args) {
+  42 |
+     ^ Col 0
+",java.java_insecure_key_rsa
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
   28 |
   29 |         DigestUtils.sha1Hex(""test""); //
@@ -22753,7 +22774,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,38,310,skims,052. I
   47 |
   48 |         Cipher c = Cipher.getInstance(""AES"");
      ^ Col 0
-",java.java_insecure_key
+",java.java_insecure_key_secret
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   24 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
   25 |  c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
