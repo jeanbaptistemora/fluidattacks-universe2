@@ -34,4 +34,23 @@ const formatVulnAttribute: (state: string) => string = (
   return vulnParameters[state];
 };
 
-export { filterByState, filterByTreatment, formatVulnAttribute };
+const unformatTreatment: (field: string) => string = (
+  field: string
+): string => {
+  const translationParameters: Record<string, string> = {
+    "In progress": "IN_PROGRESS",
+    New: "NEW",
+    "Permanently accepted": "ACCEPTED_UNDEFINED",
+    Rejected: "REJECTED",
+    "Temporarily accepted": "ACCEPTED",
+  };
+
+  return translationParameters[field.replace(" (Pending approval)", "")];
+};
+
+export {
+  filterByState,
+  filterByTreatment,
+  formatVulnAttribute,
+  unformatTreatment,
+};
