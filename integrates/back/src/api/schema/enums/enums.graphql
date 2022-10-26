@@ -619,6 +619,20 @@ enum UpdateClientDescriptionTreatment {
   IN_PROGRESS
 }
 
+"Vulnerability source"
+enum VulnerabilitySource {
+  "Analyst"
+  ANALYST
+  "Customer"
+  CUSTOMER
+  "Deterministic"
+  DETERMINISTIC
+  "Escape"
+  ESCAPE
+  "Machine"
+  MACHINE
+}
+
 "Vulnerability state"
 enum VulnerabilityState {
   "Closed"

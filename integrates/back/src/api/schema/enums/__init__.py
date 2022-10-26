@@ -276,6 +276,16 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
+        "VulnerabilitySource",
+        {
+            "ANALYST": "ANALYST",
+            "CUSTOMER": "CUSTOMER",
+            "DETERMINISTIC": "DETERMINISTIC",
+            "ESCAPE": "ESCAPE",
+            "MACHINE": "MACHINE",
+        },
+    ),
+    EnumType(
         "VulnerabilityState",
         {
             "CLOSED": "CLOSED",

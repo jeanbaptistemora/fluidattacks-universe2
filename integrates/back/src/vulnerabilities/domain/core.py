@@ -10,6 +10,7 @@ from aioextensions import (
 import authz
 from custom_exceptions import (
     InvalidRemovalVulnState,
+    RequiredFieldToBeUpdate,
     VulnNotFound,
     VulnNotInFinding,
 )
@@ -1024,6 +1025,8 @@ async def update_description(
     description: VulnerabilityDescriptionToUpdate,
     stakeholder_email: str,
 ) -> None:
+    if all(attribute is None for attribute in description):
+        raise RequiredFieldToBeUpdate()
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )

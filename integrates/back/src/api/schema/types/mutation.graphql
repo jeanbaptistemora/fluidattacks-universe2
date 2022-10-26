@@ -1451,6 +1451,14 @@ type Mutation {
     vulnerabilitySpecific: String!
   ): SimplePayload!
 
+  "Updates Vulnerability description"
+  updateVulnerabilityDescription(
+    "Source of the vulnerability"
+    source: VulnerabilitySource
+    "Identifier of the Vulnerability to update"
+    vulnerabilityId: ID!
+  ): SimplePayload!
+
   "Updates data related to the treatment of a Vulnerability"
   updateVulnerabilityTreatment(
     "External Bug Tracking System URL"
