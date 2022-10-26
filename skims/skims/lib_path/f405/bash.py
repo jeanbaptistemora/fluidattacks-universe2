@@ -17,12 +17,12 @@ from typing import (
 )
 
 
-def excessive_privileges_for_others(
+def excessive_privileges_for_others(  # NOSONAR
     content: str, path: str
 ) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for index, lines in enumerate(content.splitlines(), 1):
-            if "chmod" in lines:
+            if "chmod" in lines and not lines.startswith("#"):
                 for item in lines.split(" "):
                     if re.match(r"^\d{3}$", item) and not item.endswith("0"):
                         yield index, 0

@@ -32590,16 +32590,17 @@ F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. 
      ^ Col 0
 ",bash.excessive_privileges_for_others
 F405,lines,namespace/skims/test/data/lib_path/f405/bash.sh,9,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/bash.sh,"
-  1 | # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-  2 | #
-  3 | # SPDX-License-Identifier: MPL-2.0
-  4 |
-  5 | # shellcheck shell=bash
-  6 |
-  7 | chmod 750 myfile
-  8 | cp text.txt ground.txt
-> 9 | chmod 754 myfile
-    ^ Col 0
+   1 | # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   2 | #
+   3 | # SPDX-License-Identifier: MPL-2.0
+   4 |
+   5 | # shellcheck shell=bash
+   6 |
+   7 | chmod 750 myfile
+   8 | cp text.txt ground.txt
+>  9 | chmod 754 myfile
+  10 | # chmod 754 myfile
+     ^ Col 0
 ",bash.excessive_privileges_for_others
 F405,lines,namespace/skims/test/data/lib_path/f405/test.com,15,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/test.com,"
    1 | # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>

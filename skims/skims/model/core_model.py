@@ -1045,7 +1045,7 @@ class FindingEnum(Enum):
         requirements=[75, 376, 377, 378],
     )
     F405: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F405",
         cwe=732,
         execution_queue=ExecutionQueue.cloud,
