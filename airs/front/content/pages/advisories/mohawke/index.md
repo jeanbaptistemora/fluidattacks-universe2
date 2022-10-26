@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: mohawke
 product: CandidATS 3.0.0 - SQLi via entriesPerPage
-date: 2022-10-18 18:30 COT
+date: 2022-10-25 18:30 COT
 cveid: CVE-2022-42744
 severity: 8.8
 description: CandidATS 3.0.0      -     SQLi via entriesPerPage
