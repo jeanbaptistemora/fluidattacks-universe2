@@ -2937,6 +2937,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_USES_INNERHTML = MethodInfo(
+        file_name="javascript",
+        name="js_uses_innerhtml",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_USES_CONSOLE_LOG = MethodInfo(
         file_name="javascript",
         name="js_uses_console_log",

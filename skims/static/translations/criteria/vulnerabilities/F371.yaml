@@ -4,3 +4,6 @@ lib_path.f371.is_header_content_type_missing:
   es: >-
     El encabezado de content-type o la codificación de caracteres
     no está configurado o tiene un formato incorrecto.
+lib_root.f371.js_uses_innerhtml:
+  en: Use of innerHTML method, which its known as insecure.
+  es: Uso de la función innerHTML, la cual es insegura.
