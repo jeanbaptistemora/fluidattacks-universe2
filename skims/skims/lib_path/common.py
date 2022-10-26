@@ -535,7 +535,7 @@ def _get_all_dicts_from_list(value: List[Any]) -> Iterator[Any]:
         if isinstance(elem, dict):
             yield from get_all_values_from_nested_dict(elem)
         else:
-            yield elem
+            yield str(elem)
 
 
 def get_all_values_from_nested_dict(
