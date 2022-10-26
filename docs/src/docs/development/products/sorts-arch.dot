@@ -8,6 +8,7 @@ digraph sorts {
   compound="true"
   // concentrate="true"
   rankdir="LR"
+  // ranksep="4.0"
   scale="scalexy"
 
   node[style="filled"]
@@ -27,7 +28,14 @@ digraph sorts {
         cluster_aws_s3_sorts[label="" style="invis"]
         aws_s3_sorts_features[label="/features"]
         aws_s3_sorts_training[label="/training"]
+        aws_s3_sorts_training_output[label="/training-output"]
       }
+    }
+
+    subgraph cluster_aws_sagemaker {
+      label="Sagemaker"
+
+      cluster_aws_sagemaker[label="" style="invis" width="3.0"]
     }
   }
 
@@ -84,16 +92,32 @@ digraph sorts {
     melts_cli[label="CLI"]
   }
 
+  subgraph cluster_observes {
+    label="Observes"
+    bgcolor="0.0 0.0 0.95"
+
+    subgraph cluster_observes_aws_redshift {
+      label="AWS Redshift Clusters"
+
+      observes_aws_redshift_observes[label="observes" width="3.0"]
+    }
+  }
+
   node[fillcolor="0.0 0.0 0.8"]
   end_user[label="End User"]
   developer[label="Developer"]
 
+  edge[color="0.1 1.0 1.0"]
+  cluster_aws_sagemaker -> aws_s3_sorts_training_output[label="store model results" ltail="cluster_aws_sagemaker"]
+
   edge[color="0.8 1.0 1.0"]
   gitlab_ci_schedules_sorts_extract_features -> aws_s3_sorts_features[label="upload CSV"]
   gitlab_ci_schedules_sorts_extract_features -> melts_cli[label="uses"]
-  gitlab_ci_schedules_sorts_extract_features -> gitlab_ci_schedules_sorts_merge_features[label="and then"]
   gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_features[label="download CSV"]
   gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_training[label="upload CSV"]
+  common_compute_schedules_sorts_training_and_tune -> observes_aws_redshift_observes[label="upload training stats"]
+  common_compute_schedules_sorts_training_and_tune -> cluster_aws_sagemaker[label="train many models" lhead="cluster_aws_sagemaker"]
+  common_compute_schedules_sorts_training_and_tune -> aws_s3_sorts_training_output[label="best model"]
 
   edge[color="0.0 0.0 0.0"]
   developer -> gitlab_sorts[]
