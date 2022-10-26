@@ -46,6 +46,14 @@ from urllib3.util.url import (
 import uuid
 import yaml  # type: ignore
 
+_FORMAT: str = "[%(levelname)s] %(message)s"
+logging.basicConfig(format=_FORMAT)
+
+LOGGER: logging.Logger = logging.getLogger("execute_machine")
+LOGGER.setLevel(logging.INFO)
+LOGGER.propagate = False
+
+
 PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
     {
         "name": ".csproj",
@@ -187,14 +195,14 @@ def _request_asm(
         try:
             result = response.json()
         except json.JSONDecodeError:
-            logging.error(response.text)
+            LOGGER.error(response.text)
             return result
         if response.status_code >= 400:
             if result:
                 for error in result.get("errors", []):
-                    logging.error(error)
+                    LOGGER.error(error)
             else:
-                logging.error(response.text)
+                LOGGER.error(response.text)
             response.raise_for_status()
     return result
 
@@ -233,7 +241,7 @@ def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
     if response is not None:
         result = response["data"]["group"]["roots"]
     else:
-        logging.error("Failed to fetch root info for group %s", group_name)
+        LOGGER.error("Failed to fetch root info for group %s", group_name)
 
     return result
 
@@ -345,7 +353,7 @@ def get_group_language(token: str, group_name: str) -> Optional[str]:
     if response is not None:
         result = response["data"]["group"]["language"]
     else:
-        logging.error("Failed to fetch root info for group %s", group_name)
+        LOGGER.error("Failed to fetch root info for group %s", group_name)
 
     return result
 
@@ -676,7 +684,7 @@ def start_execution(
         commit_hash=commit_hash,
     )
     if not result:
-        logging.error("Failed to start %s", job_id)
+        LOGGER.error("Failed to start %s", job_id)
     sys.exit(0)
 
 
@@ -709,7 +717,7 @@ def finish_execution(
         ),
     )
     if not result:
-        logging.error("Failed to finish %s", job_id)
+        LOGGER.error("Failed to finish %s", job_id)
     sys.exit(0)
 
 
