@@ -71,9 +71,8 @@ def eval_cipher_config(alg: str, mode: str, pad: Optional[str] = None) -> bool:
 
 def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
-        if (
-            evaluation := evaluate(method, graph, path, n_id)
-        ) and evaluation.danger:
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
             return True
     return False
 
@@ -82,9 +81,8 @@ def get_node_values(
     graph: Graph, n_id: str, method: MethodsEnum
 ) -> Iterator[str]:
     for path in get_backward_paths(graph, n_id):
-        if (
-            evaluation := evaluate(method, graph, path, n_id)
-        ) and evaluation.triggers != set():
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.triggers != set():
             yield "".join(list(evaluation.triggers))
 
 
@@ -109,7 +107,6 @@ def analyze_crypto_config(
         else:
             if eval_cipher_config(algo, mode, None):
                 return True
-
     return False
 
 
@@ -129,38 +126,22 @@ def eval_insecure_crypto(graph: Graph, obj_id: NId, algorithm: str) -> bool:
 
     if algo == "aes" and not mode_values:
         return True
-
     if not mode_values:
         return False
-
     return analyze_crypto_config(algo, mode_values, pad_values)
 
 
-def is_insecure_cipher(graph: Graph, n_id: NId) -> bool:
+def is_insecure_cipher(graph: Graph, n_id: NId, algo: str, crypt: str) -> bool:
     native_ciphers = {"createCipheriv", "createDecipheriv"}
-    crypto1 = {"DES", "RC4"}
-    crypto2 = {"AES", "RSA"}
+    arguments = g.adj_ast(graph, graph.nodes[n_id]["arguments_id"])
 
-    n_attrs = graph.nodes[n_id]
-
-    al_id = n_attrs.get("arguments_id")
-    if not al_id:
-        return False
-    call_al = g.match_ast(graph, al_id)
-
-    f_name = n_attrs["expression"]
-    algo, crypt = split_function_name(f_name)
     is_insecure = False
-    if crypt in native_ciphers and (test_node := call_al.get("__0__")):
-        is_insecure = eval_insecure_cipher(graph, test_node)
-    elif algo in crypto1 and crypt == "encrypt":
+    if crypt in native_ciphers and len(arguments) > 0:
+        is_insecure = eval_insecure_cipher(graph, arguments[0])
+    elif algo in {"DES", "RC4"}:
         is_insecure = True
-    elif (
-        algo in crypto2
-        and crypt == "encrypt"
-        and (test_node := call_al.get("__2__"))
-    ):
-        is_insecure = eval_insecure_crypto(graph, test_node, algo)
+    elif algo in {"AES", "RSA"} and len(arguments) > 2:
+        is_insecure = eval_insecure_crypto(graph, arguments[2], algo)
 
     return is_insecure
 
@@ -193,29 +174,17 @@ def eval_insecure_options(graph: Graph, algo_id: NId, options_id: NId) -> bool:
         for key in key_values:
             if eval_insecure_key(algo, key):
                 return True
-
     return False
 
 
-def is_insecure_key(graph: Graph, n_id: NId) -> bool:
-    function1 = {"createECDH"}
-    function2 = {"generateKeyPair"}
-    n_attrs = graph.nodes[n_id]
-    al_id = n_attrs.get("arguments_id")
-    if not al_id:
-        return False
-    call_al = g.match_ast(graph, al_id)
-    algo_node = call_al.get("__0__")
-    opt_node = call_al.get("__1__")
+def is_insecure_key(graph: Graph, n_id: NId, key: str) -> bool:
+    al_id = graph.nodes[n_id]["arguments_id"]
+    arguments = g.adj_ast(graph, al_id)
 
-    f_name = n_attrs["expression"]
-    _, key = split_function_name(f_name)
-
-    if key in function1 and algo_node:
-        return eval_insecure_curve(graph, algo_node)
-
-    if key in function2 and algo_node and opt_node:
-        return eval_insecure_options(graph, algo_node, opt_node)
+    if key == "createECDH" and len(arguments) > 0:
+        return eval_insecure_curve(graph, arguments[0])
+    if key == "generateKeyPair" and len(arguments) > 1:
+        return eval_insecure_options(graph, arguments[0], arguments[1])
 
     return False
 
@@ -261,6 +230,9 @@ def javascript_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_CIPHER
+    ciphers_methods = {"createCipheriv", "createDecipheriv"}
+    crypto_algos = {"DES", "RC4", "AES", "RSA"}
+    crypto_methods = {"encrypt", "decrypt"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -274,7 +246,16 @@ def javascript_insecure_cipher(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                if is_insecure_cipher(graph, n_id):
+                f_name = graph.nodes[n_id]["expression"]
+                algo, crypt = split_function_name(f_name)
+                if (
+                    (
+                        crypt in ciphers_methods
+                        or (algo in crypto_algos and crypt in crypto_methods)
+                    )
+                    and graph.nodes[n_id].get("arguments_id")
+                    and is_insecure_cipher(graph, n_id, algo, crypt)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
@@ -289,6 +270,8 @@ def javascript_insecure_key(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    danger_f = {"createECDH", "generateKeyPair"}
+
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVASCRIPT,
@@ -301,7 +284,13 @@ def javascript_insecure_key(
                 nodes=graph.nodes,
                 predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                if is_insecure_key(graph, n_id):
+                f_name = graph.nodes[n_id]["expression"]
+                _, key = split_function_name(f_name)
+                if (
+                    key in danger_f
+                    and graph.nodes[n_id].get("arguments_id")
+                    and is_insecure_key(graph, n_id, key)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
