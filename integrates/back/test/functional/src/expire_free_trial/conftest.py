@@ -64,6 +64,26 @@ async def populate() -> bool:
                     start_date="2022-10-22T15:58:31.280182",
                 ),
             ),
+            Enrollment(
+                email="uiguaran@fluidattacks.com",
+                enrolled=True,
+                trial=Trial(
+                    completed=False,
+                    extension_date="2022-11-11T15:58:31.280182",
+                    extension_days=1,
+                    start_date="2022-10-21T15:58:31.280182",
+                ),
+            ),
+            Enrollment(
+                email="abuendia@fluidattacks.com",
+                enrolled=True,
+                trial=Trial(
+                    completed=True,
+                    extension_date="",
+                    extension_days=0,
+                    start_date="2022-10-21T15:58:31.280182",
+                ),
+            ),
         ],
         "groups": [
             {
@@ -100,6 +120,48 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="janedoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="uiguaran@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup3",
+                    organization_id="a2204896-fbd0-4c55-8163-4cb3b018551c",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="uiguaran@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="abuendia@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup4",
+                    organization_id="5399f49f-6e2c-4712-af72-5ea6e34cf15d",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.MANAGED,
+                        modified_by="abuendia@fluidattacks.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -146,6 +208,42 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    country="Colombia",
+                    id="a2204896-fbd0-4c55-8163-4cb3b018551c",
+                    name="testorg3",
+                    policies=Policies(
+                        modified_by="uiguaran@fluidattacks.com",
+                        max_acceptance_days=7,
+                        modified_date="2022-10-21T15:58:31.280182",
+                        vulnerability_grace_period=5,
+                    ),
+                    state=OrganizationState(
+                        modified_by="uiguaran@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+            {
+                "organization": Organization(
+                    country="Colombia",
+                    id="5399f49f-6e2c-4712-af72-5ea6e34cf15d",
+                    name="testorg4",
+                    policies=Policies(
+                        modified_by="abuendia@fluidattacks.com",
+                        max_acceptance_days=7,
+                        modified_date="2022-10-21T15:58:31.280182",
+                        vulnerability_grace_period=5,
+                    ),
+                    state=OrganizationState(
+                        modified_by="abuendia@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
@@ -159,6 +257,18 @@ async def populate() -> bool:
                 first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
+            ),
+            Stakeholder(
+                email="uiguaran@fluidattacks.com",
+                first_name="Ursula",
+                is_registered=True,
+                last_name="Iguaran",
+            ),
+            Stakeholder(
+                email="abuendia@fluidattacks.com",
+                first_name="Amaranta",
+                is_registered=True,
+                last_name="Buendia",
             ),
         ],
     }

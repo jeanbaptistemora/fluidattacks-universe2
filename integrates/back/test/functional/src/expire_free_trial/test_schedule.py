@@ -48,6 +48,24 @@ async def test_expire_free_trial(*, populate: bool) -> None:
             "completed_after": False,
             "managed_after": GroupManaged.TRIAL,
         },
+        # Reached trial limit but was granted an extension
+        {
+            "email": "uiguaran@fluidattacks.com",
+            "group_name": "testgroup3",
+            "completed_before": False,
+            "managed_before": GroupManaged.TRIAL,
+            "completed_after": False,
+            "managed_after": GroupManaged.TRIAL,
+        },
+        # Has already completed the trial
+        {
+            "email": "abuendia@fluidattacks.com",
+            "group_name": "testgroup4",
+            "completed_before": True,
+            "managed_before": GroupManaged.MANAGED,
+            "completed_after": True,
+            "managed_after": GroupManaged.MANAGED,
+        },
     ]
 
     for case in cases:
