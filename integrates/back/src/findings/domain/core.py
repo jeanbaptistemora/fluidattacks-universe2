@@ -697,34 +697,21 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         )
 
 
-async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals # noqa: MC0001
-    *,
-    loaders: Any,
+async def vulns_properties(
+    loaders: DataLoader,
     finding_id: str,
-    closed_vulnerabilities_id: List[str],
-) -> None:
+    vulnerabilities: List[Vulnerability],
+    is_closed: bool = False,
+) -> Dict[str, Any]:
     finding: Finding = await loaders.finding.load(finding_id)
-    finding_vulns_loader = loaders.finding_vulnerabilities_all
-    finding_vulns_loader.clear(finding_id)
-    severity_score: Decimal = get_severity_score(finding.severity)
-    closed_vulnerabilities: List[Vulnerability] = [
-        vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln.id in closed_vulnerabilities_id
-    ]
-    exposure: Decimal = 4 ** (severity_score - 4)
-    group_name = finding.group_name
-    vulns_closed_props: dict[str, dict[str, dict[str, Any]]] = {}
+    vulns_props: dict[str, dict[str, dict[str, Any]]] = {}
 
-    for vuln in closed_vulnerabilities:
-        report_date = datetime_utils.get_date_from_iso_str(vuln.created_date)
-        days_open = (datetime_utils.get_now().date() - report_date).days
-        reattack_requester = (
-            vuln.unreliable_indicators.unreliable_last_reattack_requester
-        )
+    for vuln in vulnerabilities:
         repo = "Vulnerabilities"
         if vuln.root_id is not None:
-            root: Root = await loaders.root.load((group_name, vuln.root_id))
+            root: Root = await loaders.root.load(
+                (finding.group_name, vuln.root_id)
+            )
             nickname = (
                 root.state.nickname
                 if isinstance(root.state.nickname, str)
@@ -735,30 +722,68 @@ async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals
                 if isinstance(root.state, (GitRootState, str))
                 else nickname
             )
-        vuln_dict = vulns_closed_props.get(repo, {})
-        vuln_dict.update(
-            {
-                f"{vuln.where}{vuln.specific}": {
-                    "location": vuln.where,
-                    "specific": vuln.specific,
-                    "source": vuln.state.source.value,
-                    "assigned": vuln.treatment.assigned
-                    if vuln.treatment
-                    else None,
-                    "report date": report_date,
-                    "time to remediate": f"{days_open} calendar days",
-                    "reattack requester": reattack_requester,
-                    "reduction in exposure": round(exposure, 1),
-                },
-            }
-        )
-        vulns_closed_props[repo] = dict(sorted(vuln_dict.items()))
+        vuln_dict = vulns_props.get(repo, {})
+        if is_closed:
+            exposure: Decimal = 4 ** (get_severity_score(finding.severity) - 4)
+            report_date = datetime_utils.get_date_from_iso_str(
+                vuln.created_date
+            )
+            days_open = (datetime_utils.get_now().date() - report_date).days
+            reattack_requester = (
+                vuln.unreliable_indicators.unreliable_last_reattack_requester
+            )
+            vuln_dict.update(
+                {
+                    f"{vuln.where}{vuln.specific}": {
+                        "location": vuln.where,
+                        "specific": vuln.specific,
+                        "source": vuln.state.source.value,
+                        "assigned": vuln.treatment.assigned
+                        if vuln.treatment
+                        else None,
+                        "report date": report_date,
+                        "time to remediate": f"{days_open} calendar days",
+                        "reattack requester": reattack_requester,
+                        "reduction in exposure": round(exposure, 1),
+                    },
+                }
+            )
+        else:
+            vuln_dict.update(
+                {
+                    f"{vuln.where}{vuln.specific}": {
+                        "location": vuln.where,
+                        "specific": vuln.specific,
+                        "source": vuln.state.source.value,
+                    },
+                }
+            )
+        vulns_props[repo] = dict(sorted(vuln_dict.items()))
+
+    return vulns_props
+
+
+async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals # noqa: MC0001
+    *,
+    loaders: Any,
+    finding_id: str,
+    closed_vulnerabilities_id: List[str],
+) -> None:
+    finding_vulns_loader = loaders.finding_vulnerabilities_all
+    finding_vulns_loader.clear(finding_id)
+    closed_vulnerabilities: List[Vulnerability] = [
+        vuln
+        for vuln in await finding_vulns_loader.load(finding_id)
+        if vuln.id in closed_vulnerabilities_id
+    ]
 
     schedule(
         send_vulnerability_report(
             loaders=loaders,
             finding_id=finding_id,
-            vulnerabilities_properties=vulns_closed_props,
+            vulnerabilities_properties=await vulns_properties(
+                loaders, finding_id, closed_vulnerabilities, is_closed=True
+            ),
             is_closed=True,
         )
     )
