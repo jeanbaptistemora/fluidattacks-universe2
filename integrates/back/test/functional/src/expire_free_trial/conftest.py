@@ -39,13 +39,13 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_enrollment")
+@pytest.mark.resolver_test_group("expire_free_trial")
 @pytest.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
         "enrollments": [
             Enrollment(
-                email="janedoe@fluidattacks.com",
+                email="johndoe@fluidattacks.com",
                 enrolled=True,
                 trial=Trial(
                     completed=False,
@@ -98,30 +98,10 @@ async def populate() -> bool:
                 ),
             },
         ],
-        "policies": [
-            {
-                "level": "organization",
-                "subject": "johndoe@fluidattacks.com",
-                "object": "testorg",
-                "role": "user_manager",
-            },
-            {
-                "level": "group",
-                "subject": "johndoe@fluidattacks.com",
-                "object": "testgroup",
-                "role": "user_manager",
-            },
-        ],
         "stakeholders": [
             Stakeholder(
                 email="johndoe@fluidattacks.com",
                 first_name="John",
-                is_registered=True,
-                last_name="Doe",
-            ),
-            Stakeholder(
-                email="janedoe@fluidattacks.com",
-                first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
             ),

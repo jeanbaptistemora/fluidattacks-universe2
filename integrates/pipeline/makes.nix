@@ -51,6 +51,7 @@
     ["download_vulnerability_file_s3"]
     ["event"]
     ["events"]
+    ["expire_free_trial"]
     ["finding"]
     ["forces_executions_s3"]
     ["grant_stakeholder_access"]

@@ -85,6 +85,7 @@ TEST_GROUPS: set[str] = {
     "enumerate_toe_input",
     "event",
     "events",
+    "expire_free_trial",
     "finding",
     "forces_executions_s3",
     "handle_vulnerabilities_acceptance",
