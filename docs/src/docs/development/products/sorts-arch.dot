@@ -6,12 +6,13 @@ digraph sorts {
   label="Sorts Architecture"
   labelloc="t"
   compound="true"
-  // concentrate="true"
+  concentrate="true"
   rankdir="LR"
-  // ranksep="4.0"
+  ranksep="4.0"
+  nodesep="2.0"
   scale="scalexy"
 
-  node[style="filled"]
+  node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]
 
   subgraph cluster_aws {
@@ -35,7 +36,7 @@ digraph sorts {
     subgraph cluster_aws_sagemaker {
       label="Sagemaker"
 
-      cluster_aws_sagemaker[label="" style="invis" width="3.0"]
+      aws_sagemaker[label="Training Jobs"]
     }
   }
 
@@ -51,6 +52,19 @@ digraph sorts {
       common_compute_schedules_sorts_association_execute[label="/sorts/association-execute"]
       common_compute_schedules_sorts_execute[label="/sorts/execute"]
       common_compute_schedules_sorts_training_and_tune[label="/sorts/training-and-tune"]
+    }
+  }
+
+  subgraph cluster_github {
+    label="GitHub"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_github_fluidattacks {
+      label="fluidattacks"
+
+      github_fluidattacks_ai_extension_azuredevops[label="ai-extension-azuredevops"]
+      github_fluidattacks_ai_extension_docker[label="ai-extension-docker"]
     }
   }
 
@@ -85,6 +99,14 @@ digraph sorts {
     }
   }
 
+  subgraph cluster_integrates {
+    label="Integrates"
+    bgcolor="0.0 0.0 0.95"
+    node[fillcolor="0.0 0.0 0.8"]
+
+    integrates_api[label="API (app.fluidattacks.com/api)"]
+  }
+
   subgraph cluster_melts {
     label="Melts"
     bgcolor="0.0 0.0 0.95"
@@ -108,17 +130,26 @@ digraph sorts {
   developer[label="Developer"]
 
   edge[color="0.1 1.0 1.0"]
-  cluster_aws_sagemaker -> aws_s3_sorts_training_output[label="store model results" ltail="cluster_aws_sagemaker"]
+  aws_sagemaker -> aws_s3_sorts_training_output[label="store model results"]
 
   edge[color="0.8 1.0 1.0"]
+  github_fluidattacks_ai_extension_azuredevops -> aws_s3_sorts_training_output[label="copy paste"]
+  github_fluidattacks_ai_extension_docker -> aws_s3_sorts_training_output[label="copy paste"]
   gitlab_ci_schedules_sorts_extract_features -> aws_s3_sorts_features[label="upload CSV"]
   gitlab_ci_schedules_sorts_extract_features -> melts_cli[label="uses"]
   gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_features[label="download CSV"]
   gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_training[label="upload CSV"]
-  common_compute_schedules_sorts_training_and_tune -> observes_aws_redshift_observes[label="upload training stats"]
-  common_compute_schedules_sorts_training_and_tune -> cluster_aws_sagemaker[label="train many models" lhead="cluster_aws_sagemaker"]
-  common_compute_schedules_sorts_training_and_tune -> aws_s3_sorts_training_output[label="best model"]
 
   edge[color="0.0 0.0 0.0"]
+  common_compute_schedules_sorts_association_rules -> observes_aws_redshift_observes[label="put association data"]
+  common_compute_schedules_sorts_association_execute -> integrates_api[label="vulnerability type recommendations"]
+  common_compute_schedules_sorts_association_execute -> observes_aws_redshift_observes[]
+  common_compute_schedules_sorts_execute -> integrates_api[label="prioritize attack surface"]
+  common_compute_schedules_sorts_execute -> observes_aws_redshift_observes[label="get association data"]
+  common_compute_schedules_sorts_training_and_tune -> observes_aws_redshift_observes[label="upload training stats"]
+  common_compute_schedules_sorts_training_and_tune -> aws_sagemaker[label="train many models"]
+  common_compute_schedules_sorts_training_and_tune -> aws_s3_sorts_training_output[label="best model"]
   developer -> gitlab_sorts[]
+  end_user -> github_fluidattacks_ai_extension_azuredevops[]
+  end_user -> github_fluidattacks_ai_extension_docker[]
 }

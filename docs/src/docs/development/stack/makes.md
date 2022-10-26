@@ -31,7 +31,6 @@ $ m gitlab:fluidattacks/universe@trunk /forces --help
 $ m gitlab:fluidattacks/universe@trunk /melts --help
 $ m gitlab:fluidattacks/universe@trunk /reviews --help
 $ m gitlab:fluidattacks/universe@trunk /skims --help
-$ m gitlab:fluidattacks/universe@trunk /sorts --help
 ```
 
 #### Updates
