@@ -64,7 +64,7 @@ def get_duplicates(
     duplicated_vulns: Dict[int, List[Vulnerability]] = {}
     for idx, vuln in vulns_by_idx.items():
         where: str = vuln.where.split(" [", maxsplit=1)[0]
-        if (item := (where, vuln.specific)) not in unique_items:
+        if (item := (where, vuln.specific, vuln.root_id)) not in unique_items:
             unique_items.append(item)
             original_vulns.append(idx)
         else:
