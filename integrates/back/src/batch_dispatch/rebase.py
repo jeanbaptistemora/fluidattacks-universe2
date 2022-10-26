@@ -186,6 +186,7 @@ async def _rebase_vulnerability_integrates(
             VulnerabilityUrlFieldDoNotExistInToeInputs,
         ) as exception:
             local_vars.pop("loaders", None)
+            local_vars.pop("finding_vulns_data", None)
             LOGGER.error(
                 "Failed to rebase vulnerability in integrates",
                 extra=dict(extra={"exception": exception, **local_vars}),
