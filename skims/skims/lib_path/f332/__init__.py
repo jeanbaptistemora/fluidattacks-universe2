@@ -3,8 +3,12 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_path.common import (
+    EXTENSIONS_JSON,
     EXTENSIONS_YAML,
     SHIELD_BLOCKING,
+)
+from lib_path.f332.conf_files import (
+    json_check_https_argument,
 )
 from lib_path.f332.kubernetes import (
     kubernetes_insecure_port,
@@ -31,6 +35,15 @@ def run_kubernetes_insecure_port(
     )
 
 
+@SHIELD_BLOCKING
+def run_json_check_https_argument(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return json_check_https_argument(
+        content=content, path=path, template=template
+    )
+
+
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -46,6 +59,18 @@ def analyze(
             *results,
             *(
                 run_kubernetes_insecure_port(content, path, template)
+                for template in load_templates_blocking(
+                    content, fmt=file_extension
+                )
+            ),
+        )
+    elif file_extension in EXTENSIONS_JSON:
+        content = content_generator()
+
+        results = (
+            *results,
+            *(
+                run_json_check_https_argument(content, path, template)
                 for template in load_templates_blocking(
                     content, fmt=file_extension
                 )

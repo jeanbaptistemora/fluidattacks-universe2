@@ -25109,6 +25109,32 @@ F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.jav
   21 | }
      ^ Col 0
 ",java.csrf_protections_disabled
+F332,lines,namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set. in namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,"
+   1 | {
+   2 |     ""name"": ""holidays-component"",
+   3 |     ""version"": ""0.0.0"",
+   4 |     ""scripts"": {
+>  5 |         ""start"": ""env-cmd -f ./enviroments/.env react-scripts start"",
+   6 |         ""build"": ""env-cmd -f ./enviroments/.env react-scripts build"",
+   7 |         ""build:qa"": ""env-cmd -f ./enviroments/.env react-scripts build GENERATE_SOURCEMAP=false"",
+   8 |         ""build:prod"": ""env-cmd -f ./enviroments/.env GENERATE_SOURCEMAP=false react-scripts build"",
+   9 |         ""npm-login"": ""node npm-login.js""
+  10 |     }
+  11 | }
+     ^ Col 0
+",conf_files.json_check_https_argument
+F332,lines,namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set. in namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,"
+  1 | {
+  2 |     ""name"": ""holidays-component"",
+  3 |     ""version"": ""0.0.0"",
+  4 |     ""scripts"": {
+> 5 |         ""start"": ""env-cmd -f ./enviroments/.env react-scripts start"",
+  6 |         ""build"": ""env-cmd -f ./enviroments/.env react-scripts build GENERATE_SOURCEMAP=false"",
+  7 |         ""npm-login"": ""node npm-login.js""
+  8 |     }
+  9 | }
+    ^ Col 0
+",conf_files.json_check_https_argument
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | ing System;
