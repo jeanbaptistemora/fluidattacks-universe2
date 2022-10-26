@@ -36335,6 +36335,110 @@ F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Refle
   18 | }
      ^ Col 0
 ",query.query_f008
+F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+   13 |     //console.log()
+   14 |     //localStorage.setItem(""key"")
+   15 |     //eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
+   16 | }
+   17 |
+   18 | function functionBWithoutConsoleLog() {
+   19 |     var a = 13
+   20 |     var b = 31
+   21 |     var message
+   22 |     message = document.getElementById(""message"");
+>  23 |     message.innerHTML = """";
+   24 |     //console.log(a+b)
+   25 |     try {
+   26 |         if(a == """") {
+   27 |             throw ""empty"";
+   28 |         }
+   29 |         else if(isNaN(a)) {
+   30 |             throw ""not a number"";
+   31 |         }
+   32 |         else {
+   33 |             c = Number(a);
+      ^ Col 0
+",javascript.js_uses_innerhtml
+F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,42,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+   32 |         else {
+   33 |             c = Number(a);
+   34 |         }
+   35 |         if(c < 5) {
+   36 |             throw ""too low"";
+   37 |         }
+   38 |         else if(c > 10) {
+   39 |             throw ""too high"";
+   40 |         }
+   41 |         else {
+>  42 |             message.innerHTML = c;
+   43 |         }
+   44 |     }
+   45 |     catch(err) {
+   46 |         message.innerHTML = ""Input is "" + err;
+   47 |     }
+   48 |
+   49 |
+   50 |     var promise = request();
+   51 |     promise.catch(function(error) {
+   52 |         // a comment
+      ^ Col 0
+",javascript.js_uses_innerhtml
+F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,46,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+   36 |             throw ""too low"";
+   37 |         }
+   38 |         else if(c > 10) {
+   39 |             throw ""too high"";
+   40 |         }
+   41 |         else {
+   42 |             message.innerHTML = c;
+   43 |         }
+   44 |     }
+   45 |     catch(err) {
+>  46 |         message.innerHTML = ""Input is "" + err;
+   47 |     }
+   48 |
+   49 |
+   50 |     var promise = request();
+   51 |     promise.catch(function(error) {
+   52 |         // a comment
+   53 |         /* a comment */
+   54 |         /*
+   55 |             a comment
+   56 |         */
+      ^ Col 0
+",javascript.js_uses_innerhtml
+F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,57,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+   47 |     }
+   48 |
+   49 |
+   50 |     var promise = request();
+   51 |     promise.catch(function(error) {
+   52 |         // a comment
+   53 |         /* a comment */
+   54 |         /*
+   55 |             a comment
+   56 |         */
+>  57 |        message.innerHTML = ""Input is "" + err;
+   58 |     });
+   59 |
+   60 |     switch (new Date().getDay()) {
+   61 |         case 0:
+   62 |             day = ""Sunday"";
+   63 |             break;
+   64 |         case 1:
+   65 |             day = ""Monday"";
+   66 |             break;
+   67 |         case 2:
+      ^ Col 0
+",javascript.js_uses_innerhtml
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_innerhtml.js,5,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f371/js_uses_innerhtml.js","
+  1 | const main = document.getElementById('main');
+  2 |
+  3 | const externalHTML = `<img src='1' onerror='alert(""Error loading image"")'>`;
+  4 | // shows the alert
+> 5 | main.innerHTML = externalHTML;
+    ^ Col 0
+",javascript.js_uses_innerhtml
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | bda.credentials2.key       = AKIA0000000000000000
    2 | zon.aws.accesskey          = AKIA0000000000000000
