@@ -8,7 +8,7 @@
 }:
 makeNodeJsEnvironment {
   name = "integrates-front-dev-runtime";
-  nodeJsVersion = "16";
+  nodeJsVersion = "18";
   packageJson = projectPath "/integrates/front/package.json";
   packageLockJson = projectPath "/integrates/front/package-lock.json";
 }

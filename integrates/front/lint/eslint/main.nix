@@ -15,7 +15,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "integrates-front-lint-eslint";
   searchPaths = {
-    bin = [inputs.nixpkgs.nodejs-16_x];
+    bin = [inputs.nixpkgs.nodejs-18_x];
     source = [
       outputs."/common/utils/lint-typescript"
       outputs."/integrates/front/config/dev-runtime-env"
